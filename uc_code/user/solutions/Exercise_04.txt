@@ -1,0 +1,17 @@
+void Exercise_04(void)
+{
+    /* Insert code here - 7 lines */
+    if(Switch2IsPressed())
+    {
+        if(mUSBUSARTIsTxTrfReady())
+        {
+            output_buffer[0]=0x30;
+            output_buffer[1]=0x31;
+            output_buffer[2]=0x32;
+            output_buffer[3]=0x33;
+            mCDCTxRam((byte*)output_buffer,4);
+        }
+    }
+    /* End */
+	
+}//end Exercise_04

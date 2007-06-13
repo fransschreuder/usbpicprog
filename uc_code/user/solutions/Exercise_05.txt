@@ -1,0 +1,24 @@
+void Exercise_05(void)
+{
+    static word ex05_count;
+    
+    if(ex05_count == 0)
+    {
+        AcquireTemperature();               // Read temperature from sensor
+        UpdateCelsiusASCII();               // Convert to ASCII, stored in
+                                            // "tempString", See temperature.c
+
+        /* Modify the code below - 3 lines */
+        
+        if(mUSBUSARTIsTxTrfReady())
+        {
+            putsUSBUSART(tempString);
+            ex05_count = 10000;
+        }
+        
+        /* End */
+    }
+    else
+        ex05_count--;
+    
+}//end Exercise_05
