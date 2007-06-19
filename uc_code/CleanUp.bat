@@ -69,10 +69,19 @@ echo.
 
 
 echo Removing *.lst files...
-del *.wat /f /q /s
+del *.lst /f /q /s
 echo.
 
 echo Removing *.o files...
-del *.wat /f /q /s
+del *.o /f /q /s
 echo.
+
+echo Removing *.asm files...
+del *.asm /f /q /s
+echo.
+
+echo Removing *.map files...
+del *.map /f /q /s
+echo.
+
 echo Done.

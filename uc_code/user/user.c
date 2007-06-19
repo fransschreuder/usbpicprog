@@ -48,8 +48,12 @@
  *****************************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
-#include <usart.h>
+#endif
+//#include <usart.h>
 #include "system\typedefs.h"
 
 #include "system\usb\usb.h"
@@ -59,7 +63,9 @@
 
 
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 byte old_sw2,old_sw3;
 
 char input_buffer[64];
@@ -75,7 +81,9 @@ BOOL Switch3IsPressed(void);
 
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 void UserInit(void)
 {
     mInitAllLEDs();
@@ -106,8 +114,9 @@ void UserInit(void)
  *
  * Note:            None
  *****************************************************************************/
+ void Exercise_Example(void);
 void ProcessIO(void)
-{   
+{
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
