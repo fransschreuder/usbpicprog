@@ -176,7 +176,10 @@
 /** C O N S T A N T S ************************************************/
 #ifndef SDCC
 #pragma romdata
+#else
+#pragma constseg
 #endif
+
 /* Device Descriptor */
 rom USB_DEV_DSC device_dsc=
 {

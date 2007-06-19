@@ -58,13 +58,13 @@ void low_isr(void)
 }
 #pragma code
 #else
-#warning Create interrupt functions
-/*void high_isr interrupt(1)
+
+void high_isr(void) __interrupt 1
 {
 }
 
-void low_isr interrupt(0)
+void low_isr(void) __interrupt 0
 {
-} */
+}
 #endif
 /** EOF interrupt.c **********************************************************/
