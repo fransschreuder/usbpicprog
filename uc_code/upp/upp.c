@@ -1,65 +1,20 @@
 /*********************************************************************
  *
- *                Microchip USB C18 Firmware Version 1.0
- *
- *********************************************************************
- * FileName:        user.c
- * Dependencies:    See INCLUDES section below
- * Processor:       PIC18
- * Compiler:        C18 2.30.01+
- * Company:         Microchip Technology, Inc.
- *
- * Software License Agreement
- *
- * The software supplied herewith by Microchip Technology Incorporated
- * (the “Company”) for its PICmicro® Microcontroller is intended and
- * supplied to you, the Company’s customer, for use solely and
- * exclusively on Microchip PICmicro Microcontroller products. The
- * software is owned by the Company and/or its supplier, and is
- * protected under applicable copyright laws. All rights are reserved.
- * Any use in violation of the foregoing restrictions may subject the
- * user to criminal sanctions under applicable laws, as well as to
- * civil liability for the breach of the terms and conditions of this
- * license.
- *
- * THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
- * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
- * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
- * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
- * IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
- * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
- *
- * Author               Date        Comment
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Rawin Rojvanit       11/19/04    Original.
+ *                UsbPicProg v0.1
+ *                Frans Schreuder 16-06-2007
  ********************************************************************/
-
-/******************************************************************************
- * CDC RS-232 Emulation Tutorial Instructions:
- ******************************************************************************
- * Refer to Application Note AN956 for explanation of the CDC class.
- * 
- * First take a look at Exercise_Example() and study how functions are called.
- * 
- * There are five exercises, each one has a solution in the CDC\user\solutions.
- * Scroll down and look for Exercise_01,_02,_03,_04, and _05.
- * Instructions on what to do is inside each function.
- * 
- *****************************************************************************/
-
-/** I N C L U D E S **********************************************************/
 #ifdef SDCC
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
 #endif
-//#include <usart.h>
+
 #include "system\typedefs.h"
 
 #include "system\usb\usb.h"
 
 #include "io_cfg.h"             // I/O pin mapping
-#include "user\user.h"
+#include "upp\upp.h"
 
 
 /** V A R I A B L E S ********************************************************/
@@ -114,19 +69,18 @@ void UserInit(void)
  *
  * Note:            None
  *****************************************************************************/
- void Exercise_Example(void);
 void ProcessIO(void)
 {
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 
-    Exercise_Example();
+    //Exercise_Example();
 
 
 }//end ProcessIO
 
-void Exercise_Example(void)
+/*void Exercise_Example(void)
 {
     static byte start_up_state = 0;
     
@@ -162,7 +116,7 @@ void Exercise_Example(void)
     
 }//end Exercise_Example
 
-
+       */
 /******************************************************************************
  * Function:        void BlinkUSBStatus(void)
  *
@@ -261,4 +215,4 @@ BOOL Switch3IsPressed(void)
     return FALSE;                       // Was not pressed
 }//end Switch3IsPressed
 
-/** EOF user.c ***************************************************************/
+/** EOF upp.c ***************************************************************/

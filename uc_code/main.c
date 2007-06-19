@@ -46,7 +46,7 @@
 #include "io_cfg.h"                                 // Required
 
 #include "system\usb\usb_compile_time_validation.h" // Optional
-#include "user\user.h"                              // Modifiable
+#include "upp\upp.h"                              // Modifiable
 
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
