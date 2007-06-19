@@ -37,6 +37,9 @@
 #ifndef TYPEDEFS_H
 #define TYPEDEFS_H
 
+#ifdef SDCC
+#define rom code
+#endif
 typedef unsigned char   byte;           // 8-bit
 typedef unsigned int    word;           // 16-bit
 typedef unsigned long   dword;          // 32-bit

@@ -174,11 +174,12 @@
 #include "system\usb\usb.h"
 
 /** C O N S T A N T S ************************************************/
+#ifndef SDCC
 #pragma romdata
-
+#endif
 /* Device Descriptor */
 rom USB_DEV_DSC device_dsc=
-{    
+{
     sizeof(USB_DEV_DSC),    // Size of this descriptor in bytes
     DSC_DEV,                // DEVICE descriptor type
     0x0200,                 // USB Spec Release Number in BCD format
@@ -207,7 +208,7 @@ CFG01=
     0,                      // Configuration string index
     _DEFAULT,               // Attributes, see usbdefs_std_dsc.h
     50,                     // Max power consumption (2X mA)
-    
+
     /* Interface Descriptor */
     sizeof(USB_INTF_DSC),   // Size of this descriptor in bytes
     DSC_INTF,               // INTERFACE descriptor type
@@ -227,7 +228,7 @@ CFG01=
 
     /* Endpoint Descriptor */
     sizeof(USB_EP_DSC),DSC_EP,_EP02_IN,_INT,CDC_INT_EP_SIZE,0x02,
-    
+
     /* Interface Descriptor */
     sizeof(USB_INTF_DSC),   // Size of this descriptor in bytes
     DSC_INTF,               // INTERFACE descriptor type
@@ -238,7 +239,7 @@ CFG01=
     0,                      // Subclass code
     NO_PROTOCOL,            // Protocol code
     0,                      // Interface string index
-    
+
     /* Endpoint Descriptors */
     sizeof(USB_EP_DSC),DSC_EP,_EP03_OUT,_BULK,CDC_BULK_OUT_EP_SIZE,0x00,
     sizeof(USB_EP_DSC),DSC_EP,_EP03_IN,_BULK,CDC_BULK_IN_EP_SIZE,0x00
@@ -265,6 +266,7 @@ rom pFunc ClassReqHandler[1]=
     &USBCheckCDCRequest
 };
 
+#ifndef SDCC
 #pragma code
-
+#endif
 /** EOF usbdsc.c ****************************************************/

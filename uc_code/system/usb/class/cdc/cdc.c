@@ -35,14 +35,20 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"
 #include "system\usb\usb.h"
 
 #ifdef USB_USE_CDC
 
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 byte cdc_rx_len;            // total rx length
 
 byte cdc_trf_state;         // States are defined cdc.h
@@ -60,13 +66,17 @@ CONTROL_SIGNAL_BITMAP control_signal_bitmap;
  * However, it is not really being used here, therefore a dummy buffer is
  * used for conformance.
  */
+
 #define dummy_length    0x08
+
 byte dummy_encapsulated_cmd_response[dummy_length];
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 
 /** C L A S S  S P E C I F I C  R E Q ****************************************/
 /******************************************************************************
@@ -103,7 +113,7 @@ void USBCheckCDCRequest(void)
      */
     if((SetupPkt.bIntfID != CDC_COMM_INTF_ID)&&
        (SetupPkt.bIntfID != CDC_DATA_INTF_ID)) return;
-    
+
     switch(SetupPkt.bRequest)
     {
         case SEND_ENCAPSULATED_COMMAND:
@@ -293,7 +303,7 @@ byte getsUSBUSART(char *buffer, byte len)
  *                  string of data over multiple USB transactions.
  *                  See CDCTxService() for more details.
  *****************************************************************************/
-void putsUSBUSART(char *data)
+void putsUSBUSART(char *chars)
 {
     byte len;
 
@@ -331,12 +341,12 @@ void putsUSBUSART(char *data)
     {
         len++;
         if(len == 255) break;       // Break loop once max len is reached.
-    }while(*data++);
+    }while(*chars++);
     
     /*
      * Re-adjust pointer to its initial location
      */
-    data-=len;
+    chars-=len;
     
     /*
      * Second piece of information (length of data to send) is ready.
@@ -344,7 +354,7 @@ void putsUSBUSART(char *data)
      * The actual transfer process will be handled by CDCTxService(),
      * which should be called once per Main Program loop.
      */
-    mUSBUSARTTxRam((byte*)data,len);     // See cdc.h
+    mUSBUSARTTxRam((byte*)chars,len);     // See cdc.h
 }//end putsUSBUSART
 
 /******************************************************************************
@@ -374,7 +384,7 @@ void putsUSBUSART(char *data)
  *                  string of data over multiple USB transactions.
  *                  See CDCTxService() for more details.
  *****************************************************************************/
-void putrsUSBUSART(const rom char *data)
+void putrsUSBUSART(const rom char *chars)
 {
     byte len;
 
@@ -412,12 +422,12 @@ void putrsUSBUSART(const rom char *data)
     {
         len++;
         if(len == 255) break;       // Break loop once max len is reached.
-    }while(*data++);
+    }while(*chars++);
     
     /*
      * Re-adjust pointer to its initial location
      */
-    data-=len;
+    chars-=len;
     
     /*
      * Second piece of information (length of data to send) is ready.
@@ -425,7 +435,7 @@ void putrsUSBUSART(const rom char *data)
      * The actual transfer process will be handled by CDCTxService(),
      * which should be called once per Main Program loop.
      */
-    mUSBUSARTTxRom((rom byte*)data,len); // See cdc.h
+    mUSBUSARTTxRom((rom byte*)chars,len); // See cdc.h
 
 }//end putrsUSBUSART
 

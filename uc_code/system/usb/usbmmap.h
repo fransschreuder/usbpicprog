@@ -91,14 +91,14 @@ typedef union _BD_STAT
         unsigned UOWN:1;                //USB Ownership
     };
     struct{
-        unsigned BC8:1;
-        unsigned BC9:1;
+        unsigned _BC8:1;
+        unsigned _BC9:1;
         unsigned PID0:1;
         unsigned PID1:1;
         unsigned PID2:1;
         unsigned PID3:1;
         unsigned :1;
-        unsigned UOWN:1;
+        unsigned _UOWN:1;
     };
     struct{
         unsigned :2;

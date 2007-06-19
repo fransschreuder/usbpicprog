@@ -35,12 +35,18 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"
 #include "system\usb\usb.h"
-
+//#include "system\usb\usbctrltrf\usbctrltrf.h"
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 byte ctrl_trf_state;                // Control Transfer State
 byte ctrl_trf_session_owner;        // Current transfer session owner
 
@@ -54,7 +60,9 @@ void USBCtrlTrfOutHandler(void);
 void USBCtrlTrfInHandler(void);
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 /******************************************************************************
  * Function:        void USBCtrlEPService(void)
  *
@@ -86,7 +94,7 @@ void USBCtrlEPService(void)
     }
     else if(USTAT == EP00_IN)                       // EP0 IN
         USBCtrlTrfInHandler();
-    
+
 }//end USBCtrlEPService
 
 /******************************************************************************

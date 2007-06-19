@@ -153,7 +153,9 @@
 #include "system\usb\usb.h"
 
 /** U S B  G L O B A L  V A R I A B L E S ************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 byte usb_device_state;          // Device States: DETACHED, ATTACHED, ...
 USB_DEVICE_STATUS usb_stat;     // Global USB flags
 byte usb_active_cfg;            // Value of current configuration
@@ -161,7 +163,11 @@ byte usb_alt_intf[MAX_NUM_INT]; // Array to keep track of the current alternate
                                 // setting for each interface ID
 
 /** U S B  F I X E D  L O C A T I O N  V A R I A B L E S *********************/
+#ifndef SDCC
 #pragma udata usbram4=0x400     //See Linker Script,usb4:0x400-0x4FF(256-byte)
+#else
+#warning usbram not defined
+#endif
 
 /******************************************************************************
  * Section A: Buffer Descriptor Table
@@ -273,12 +279,16 @@ volatile far CTRL_TRF_DATA CtrlTrfData;
  ******************************************************************************
  *
  *****************************************************************************/
+#ifndef SDCC
 #pragma udata usbram5a=0x500    //See Linker Script,usb5:0x500-...
+#endif
 #if defined(USB_USE_CDC)
 volatile far unsigned char cdc_notice[CDC_INT_EP_SIZE];
 volatile far unsigned char cdc_data_rx[CDC_BULK_OUT_EP_SIZE];
 volatile far unsigned char cdc_data_tx[CDC_BULK_IN_EP_SIZE];
 #endif
+#ifndef SDCC
 #pragma udata
+#endif
 
 /** EOF usbmmap.c ************************************************************/

@@ -4,14 +4,18 @@
 ******************************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system/typedefs.h"
 #include "system/interrupt/interrupt.h"
 
 /** V A R I A B L E S ********************************************************/
 
 /** I N T E R R U P T  V E C T O R S *****************************************/
-
+#ifndef SDCC
 #pragma code high_vector=0x08
 void interrupt_at_high_vector(void)
 {
@@ -53,5 +57,14 @@ void low_isr(void)
 {
 }
 #pragma code
+#else
+#warning Create interrupt functions
+/*void high_isr interrupt(1)
+{
+}
 
+void low_isr interrupt(0)
+{
+} */
+#endif
 /** EOF interrupt.c **********************************************************/

@@ -47,9 +47,10 @@
 #define CTRL_TRF_RX         2
 
 /* USB PID: Token Types - See chapter 8 in the USB specification */
-#define SETUP_TOKEN         0b00001101
-#define OUT_TOKEN           0b00000001
-#define IN_TOKEN            0b00001001
+
+#define SETUP_TOKEN         0x0D
+#define OUT_TOKEN           0x01
+#define IN_TOKEN            0x09
 
 /* bmRequestType Definitions */
 #define HOST_TO_DEV         0

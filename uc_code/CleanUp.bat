@@ -67,4 +67,12 @@ echo Removing *.wat files...
 del *.wat /f /q /s
 echo.
 
+
+echo Removing *.lst files...
+del *.wat /f /q /s
+echo.
+
+echo Removing *.o files...
+del *.wat /f /q /s
+echo.
 echo Done.

@@ -35,14 +35,19 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"
 #include "system\usb\usb.h"
 #include "io_cfg.h"             // Required for USBCheckBusStatus()
 
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
-
+#endif
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
 void USBModuleEnable(void);
 void USBModuleDisable(void);
@@ -56,7 +61,9 @@ void USBStallHandler(void);
 void USBErrorHandler(void);
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 /******************************************************************************
  * Function:        void USBCheckBusStatus(void)
  *
@@ -294,6 +301,9 @@ void USBDriverService(void)
  *
  * Note:            None
  *****************************************************************************/
+#ifdef SDCC
+#define Sleep() _asm sleep _endasm
+#endif
 void USBSuspend(void)
 {
     /*
@@ -552,9 +562,9 @@ void USBProtocolResetHandler(void)
 {
     UEIR = 0;                       // Clear all USB error flags
     UIR = 0;                        // Clears all USB interrupts
-    UEIE = 0b10011111;              // Unmask all USB error interrupts
-    UIE = 0b01111011;               // Enable all interrupts except ACTVIE
-    
+    UEIE = 0x9F;              // Unmask all USB error interrupts
+    UIE = 0x7B;               // Enable all interrupts except ACTVIE
+
     UADDR = 0x00;                   // Reset to default address
     mDisableEP1to15();              // Reset all non-EP0 UEPn registers
     UEP0 = EP_CTRL|HSHK_EN;         // Init EP0 as a Ctrl EP, see usbdrv.h
@@ -564,7 +574,7 @@ void USBProtocolResetHandler(void)
 
     UCONbits.PKTDIS = 0;            // Make sure packet processing is enabled
     USBPrepareForNextSetupTrf();    // Declared in usbctrltrf.c
-    
+
     usb_stat.RemoteWakeup = 0;      // Default status flag to disable
     usb_active_cfg = 0;             // Clear active configuration
     usb_device_state = DEFAULT_STATE;
@@ -575,12 +585,13 @@ void USBProtocolResetHandler(void)
 void ClearArray(byte* startAdr,byte count)
 {
     *startAdr;
-    while(count)
+    while(count--)
     {
         _asm
         clrf POSTINC0,0
-        _endasm
-        count--;
+        _endasm ;
+
+        //count--;
     }//end while
 }//end ClearArray
 

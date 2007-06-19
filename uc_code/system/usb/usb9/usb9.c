@@ -35,13 +35,19 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"
 #include "system\usb\usb.h"
 #include "io_cfg.h"                     // Required for self_power status
 
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
 void USBStdGetDscHandler(void);
@@ -50,7 +56,9 @@ void USBStdGetStatusHandler(void);
 void USBStdFeatureReqHandler(void);
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 /******************************************************************************
  * Function:        void USBCheckStdRequest(void)
  *
@@ -68,9 +76,9 @@ void USBStdFeatureReqHandler(void);
  * Note:            None
  *****************************************************************************/
 void USBCheckStdRequest(void)
-{   
+{
     if(SetupPkt.RequestType != STANDARD) return;
-    
+
     switch(SetupPkt.bRequest)
     {
         case SET_ADR:
@@ -112,7 +120,7 @@ void USBCheckStdRequest(void)
         default:
             break;
     }//end switch
-    
+
 }//end USBCheckStdRequest
 
 /******************************************************************************
@@ -155,7 +163,7 @@ void USBStdGetDscHandler(void)
                 wCount._word = *pSrc.bRom;                  // Set data count
                 break;
         }//end switch
-        
+
         usb_stat.ctrl_trf_mem = _ROM;                       // Set memory type
     }//end if
 }//end USBStdGetDscHandler
@@ -219,7 +227,7 @@ void USBStdGetStatusHandler(void)
 {
     CtrlTrfData._byte0 = 0;                         // Initialize content
     CtrlTrfData._byte1 = 0;
-        
+
     switch(SetupPkt.Recipient)
     {
         case RCPT_DEV:
@@ -229,10 +237,10 @@ void USBStdGetStatusHandler(void)
              *         bit1: RemoteWakeup        [0] Disabled    [1] Enabled
              */
             if(self_power == 1)                     // self_power defined in io_cfg.h
-                CtrlTrfData._byte0|=0b000000001;    // Set bit0
-            
+                CtrlTrfData._byte0|=1;    // Set bit0
+
             if(usb_stat.RemoteWakeup == 1)          // usb_stat defined in usbmmap.c
-                CtrlTrfData._byte0|=0b00000010;     // Set bit1
+                CtrlTrfData._byte0|=2;     // Set bit1
             break;
         case RCPT_INTF:
             ctrl_trf_session_owner = MUID_USB9;     // No data to update

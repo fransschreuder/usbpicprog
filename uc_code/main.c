@@ -35,7 +35,12 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"                        // Required
 #include "system\usb\usb.h"                         // Required
 #include "io_cfg.h"                                 // Required
@@ -44,14 +49,16 @@
 #include "user\user.h"                              // Modifiable
 
 /** V A R I A B L E S ********************************************************/
+#ifndef SDCC
 #pragma udata
+#endif
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
 static void InitializeSystem(void);
 void USBTasks(void);
 
 /** V E C T O R  R E M A P P I N G *******************************************/
-
+#ifndef SDCC
 extern void _startup (void);        // See c018i.c in your C18 compiler dir
 #pragma code _RESET_INTERRUPT_VECTOR = 0x000800
 void _reset (void)
@@ -62,6 +69,7 @@ void _reset (void)
 
 /** D E C L A R A T I O N S **************************************************/
 #pragma code
+#endif
 /******************************************************************************
  * Function:        void main(void)
  *
