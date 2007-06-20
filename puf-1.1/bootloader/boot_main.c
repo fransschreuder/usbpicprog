@@ -35,9 +35,9 @@ void init_boot(void)
 {
     static ulong count;
 
-    ADCON1 = 0x0F;
-    CMCON  = 0x07;
-    TRISA  = 0xFE;
+    ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
+    CMCON  = 0x07;       //Comparator channels off (digital)
+    TRISA  = 0xFE;       //
     PORTA  = 0x01;
     
     count = 0x80000;
@@ -45,9 +45,9 @@ void init_boot(void)
     {
         count--;
     }
-    
+
     PORTA  = 0x00;
-    
+    #warning RA1 pin is in use
     // The RA1 pin is used to force the bootloader only mode
     if((application_data.invalid == 0) && !PORTAbits.RA1)
     { 

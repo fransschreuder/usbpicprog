@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  1
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,7 +7,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 08:40:03 2007
+               00004 ; This file generated Wed Jun 20 16:31:07 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00052         extern _UEP6bits
                00053         extern _UEP7bits
                00054         extern _UEP8bits
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  2
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -118,7 +118,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00106         extern _OSCCONbits
                00107         extern _T0CONbits
                00108         extern _STATUSbits
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  3
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -178,7 +178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00160         extern _LATC
                00161         extern _LATD
                00162         extern _LATE
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  4
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -238,7 +238,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00214         extern _TMR1H
                00215         extern _RCON
                00216         extern _WDTCON
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  5
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -298,7 +298,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00268         code
 0000           00269 _section_descriptor:
 0000 0103 0000 00270         DB      0x03, 0x01, 0x00, 0x00, 0x00, 0xff, 0x1f, 0x00, 0x03, 0x00, 0x20, 0x00
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  6
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -318,7 +318,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00278 ; access size:      0 (0x0000) bytes
                00279 
                00280 
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  7
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  7
 
 
 SYMBOL TABLE
@@ -377,7 +377,7 @@ _INTCON2bits                      00000000
 _INTCON3                          00000000
 _INTCON3bits                      00000000
 _INTCONbits                       00000000
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  8
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -437,7 +437,7 @@ _PR2                              00000000
 _PREINC0                          00000000
 _PREINC1                          00000000
 _PREINC2                          00000000
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE  9
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -497,7 +497,7 @@ _TOSL                             00000000
 _TOSU                             00000000
 _TOSUbits                         00000000
 _TRISA                            00000000
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE 10
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -557,7 +557,7 @@ _UEP8                             00000000
 _UEP8bits                         00000000
 _UEP9                             00000000
 _UEP9bits                         00000000
-gpasm-0.13.4 beta               config.asm  6-20-2007  08:40:04          PAGE 11
+gpasm-0.13.4 beta               config.asm  6-20-2007  16:31:07          PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT

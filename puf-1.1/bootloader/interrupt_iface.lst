@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  08:40:07          PAGE  1
+gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  16:31:10          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,7 +7,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 08:40:06 2007
+               00004 ; This file generated Wed Jun 20 16:31:10 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00052 ;       .line   30; interrupt_iface.c   }
 204C CFE4 FFD9 00053         MOVFF   PREINC1, FSR2L
 2050 CFE4 FFFB 00054         MOVFF   PREINC1, PCLATU
-gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  08:40:07          PAGE  2
+gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  16:31:10          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -118,7 +118,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00106 
                00107 
                00108 ; Statistics:
-gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  08:40:07          PAGE  3
+gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  16:31:10          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -130,7 +130,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00112 ; access size:      0 (0x0000) bytes
                00113 
                00114 
-gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  08:40:07          PAGE  4
+gpasm-0.13.4 beta               interrupt_iface.asm6-20-2007  16:31:10          PAGE  4
 
 
 SYMBOL TABLE

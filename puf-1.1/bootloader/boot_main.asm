@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Wed Jun 20 08:40:03 2007
+; This file generated Wed Jun 20 16:31:06 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -388,13 +388,13 @@ _init_boot:
 	MOVFF	FSR2L, POSTDEC1
 	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
-;	.line	38; boot_main.c	ADCON1 = 0x0F;
+;	.line	38; boot_main.c	ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
 	MOVLW	0x0f
 	MOVWF	_ADCON1
-;	.line	39; boot_main.c	CMCON  = 0x07;
+;	.line	39; boot_main.c	CMCON  = 0x07;       //Comparator channels off (digital)
 	MOVLW	0x07
 	MOVWF	_CMCON
-;	.line	40; boot_main.c	TRISA  = 0xFE;
+;	.line	40; boot_main.c	TRISA  = 0xFE;       //
 	MOVLW	0xfe
 	MOVWF	_TRISA
 ;	.line	41; boot_main.c	PORTA  = 0x01;
