@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  1
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:40:02          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,7 +7,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 08:33:04 2007
+               00004 ; This file generated Wed Jun 20 08:40:02 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 002E EF00 F000 00052         goto _ep0_init
 0032 EF00 F000 00053         goto _ep0_in
 0036 EF00 F000 00054         goto _ep0_setup
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  2
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:40:02          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -91,7 +91,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00079 ; access size:      0 (0x0000) bytes
                00080 
                00081 
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  3
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:40:02          PAGE  3
 
 
 SYMBOL TABLE

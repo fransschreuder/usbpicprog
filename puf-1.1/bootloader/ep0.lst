@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  1
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,7 +7,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 08:33:05 2007
+               00004 ; This file generated Wed Jun 20 08:40:04 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00052         extern _UCFGbits
                00053         extern _UEP0bits
                00054         extern _UEP1bits
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  2
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -118,7 +118,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00106         extern _SSPCON1bits
                00107         extern _SSPSTATbits
                00108         extern _T2CONbits
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  3
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -178,7 +178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00160         extern _PORTC
                00161         extern _PORTD
                00162         extern _PORTE
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  4
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -238,7 +238,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00214         extern _T2CON
                00215         extern _PR2
                00216         extern _TMR2
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  5
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -298,7 +298,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00268         extern _section_descriptor
                00269         extern _application_data
                00270         extern _boot_device_descriptor
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  6
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -358,7 +358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00322 udata_ep0_0     udata
                00323 _ep0_state      res     1
                00324 
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  7
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -418,7 +418,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0042 2A00      00376         INCF    r0x00, F
 0044 5000      00377         MOVF    r0x00, W
 0046 0A01      00378         XORLW   0x01
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  8
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -478,7 +478,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00A6 B0D8      00430         BTFSC   STATUS, 0
 00A8 EF00 F000 00431         GOTO    _00220_DS_
                00432 ;       .line   259; ep0.c      num_bytes_to_be_send = SetupBuffer.wLength;
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE  9
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -538,7 +538,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0110 6F00      00484         MOVWF   (_ep_bdt + 1), B
                00485 ;       .line   270; ep0.c      EP_OUT_BD(0).ADR = (uchar __data *)InBuffer;
 0112 0E00      00486         MOVLW   LOW(_InBuffer)
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 10
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -598,7 +598,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 016E CFE4 F000 00538         MOVFF   PREINC1, r0x02
 0172 CFE4 F000 00539         MOVFF   PREINC1, r0x01
 0176 CFE4 F000 00540         MOVFF   PREINC1, r0x00
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 11
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -658,7 +658,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 005E 0E00      00592         MOVLW   LOW(_sourceData)
 0060 6E00      00593         MOVWF   r0x00
 0062 0E80      00594         MOVLW   0x80
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 12
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -718,7 +718,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00C4 EF00 F000 00646         GOTO    _00212_DS_
 00C8           00647 _00211_DS_:
 00C8 EF00 F000 00648         GOTO    _00193_DS_
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 13
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -778,7 +778,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0122 0000      00700         BANKSEL (_ep_out + 1)
 0124 6F00      00701         MOVWF   (_ep_out + 1), B
 0126 0E00      00702         MOVLW   UPPER(_boot_ep_out)
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 14
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -838,7 +838,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0196 0009      00754         TBLRD*+ 
 0198 CFF5 F000 00755         MOVFF   TABLAT, (_ep_out + 2)
                00756 ;       .line   213; ep0.c      ep_setup = application_data.ep_setup;
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 15
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -898,7 +898,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01FC CFF4 F000 00808         MOVFF   PRODH, r0x01
 0200 0000      00809         BANKSEL _ep_init
 0202 5100      00810         MOVF    _ep_init, W, B
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 16
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -958,7 +958,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0282           00862 _00214_DS_:
 0282 0000      00863         BANKSEL _ep0_in_i_3_17
                00864 ;       .line   227; ep0.c      for(i = 15; i > 0; i--)
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 17
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1018,7 +1018,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 003A 6E00      00916         MOVWF   _UEP0
 003C CFE4 F000 00917         MOVFF   PREINC1, r0x01
 0040 CFE4 F000 00918         MOVFF   PREINC1, r0x00
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 18
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1078,7 +1078,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0060 5000      00970         MOVF    r0x00, W
 0062 0A06      00971         XORLW   0x06
 0064 E100      00972         BNZ     _00150_DS_
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 19
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1138,7 +1138,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00CA 5C00      01024         SUBWF   r0x00, W
 00CC B0D8      01025         BTFSC   STATUS, 0
 00CE EF00 F000 01026         GOTO    _00113_DS_
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 20
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1198,7 +1198,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                01078 ; ;multiply lit val:0x03 by variable r0x00 and store in r0x00
                01079 ; ;Unrolled 8 X 8 multiplication
                01080 ; ;FIXME: the function does not support result==WREG
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 21
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1258,7 +1258,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01CE CFF4 F000 01132         MOVFF   PRODH, r0x01
 01D2 0000      01133         BANKSEL _string_descriptor
 01D4 5100      01134         MOVF    _string_descriptor, W, B
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 22
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1318,7 +1318,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 024C 2200      01186         ADDWFC  r0x01, F
 024E 0E00      01187         MOVLW   0x00
 0250 2200      01188         ADDWFC  r0x02, F
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 23
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 23
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1378,7 +1378,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                01240 ;                 918 (0x0396) words
                01241 ; udata size:      25 (0x0019) bytes ( 1.40%)
                01242 ; access size:      6 (0x0006) bytes
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 24
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 24
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1386,7 +1386,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
  
                01243 
                01244 
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 25
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 25
 
 
 SYMBOL TABLE
@@ -1445,7 +1445,7 @@ _00180_DS_                        000000BE
 _00182_DS_                        00000142
 _00183_DS_                        000001BA
 _00185_DS_                        000001D0
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 26
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 26
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1505,7 +1505,7 @@ _EECON2                           00000000
 _EEDATA                           00000000
 _FSR0H                            00000000
 _FSR0Hbits                        00000000
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 27
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 27
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1565,7 +1565,7 @@ _PLUSW0                           00000000
 _PLUSW1                           00000000
 _PLUSW2                           00000000
 _PORTA                            00000000
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 28
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 28
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1625,7 +1625,7 @@ _T0CONbits                        00000000
 _T1CON                            00000000
 _T1CONbits                        00000000
 _T2CON                            00000000
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 29
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 29
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1685,7 +1685,7 @@ _UEP12bits                        00000000
 _UEP13                            00000000
 _UEP13bits                        00000000
 _UEP14                            00000000
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 30
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 30
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1745,7 +1745,7 @@ _ep0_init                         00000000
 _ep0_setup                        00000000
 _ep0_state                        00000000
 _ep0_usb_std_request              00000000
-gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:33:06          PAGE 31
+gpasm-0.13.4 beta               ep0.asm     6-20-2007  08:40:04          PAGE 31
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
