@@ -1,0 +1,1685 @@
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Wed Jun 20 08:33:08 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f2550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _string_descriptor
+               00016         global _configuration_descriptor
+               00017         global _device_descriptor
+               00018         global _init_usb
+               00019         global _reset_usb
+               00020         global _usb_sleep
+               00021         global _dispatch_usb_event
+               00022         global _fill_in_buffer
+               00023         global _ep_bdt
+               00024         global _ep_init
+               00025         global _ep_in
+               00026         global _ep_out
+               00027         global _ep_setup
+               00028         global _usb_device_state
+               00029         global _usb_active_cfg
+               00030         global _usb_active_alt_setting
+               00031 
+               00032 ;--------------------------------------------------------
+               00033 ; extern variables in this module
+               00034 ;--------------------------------------------------------
+               00035         extern __gptrget3
+               00036         extern __gptrget2
+               00037         extern __gptrput2
+               00038         extern __gptrget1
+               00039         extern __gptrput1
+               00040         extern __gptrput3
+               00041         extern _SPPDATAbits
+               00042         extern _SPPCFGbits
+               00043         extern _SPPEPSbits
+               00044         extern _SPPCONbits
+               00045         extern _UFRMLbits
+               00046         extern _UFRMHbits
+               00047         extern _UIRbits
+               00048         extern _UIEbits
+               00049         extern _UEIRbits
+               00050         extern _UEIEbits
+               00051         extern _USTATbits
+               00052         extern _UCONbits
+               00053         extern _UADDRbits
+               00054         extern _UCFGbits
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00055         extern _UEP0bits
+               00056         extern _UEP1bits
+               00057         extern _UEP2bits
+               00058         extern _UEP3bits
+               00059         extern _UEP4bits
+               00060         extern _UEP5bits
+               00061         extern _UEP6bits
+               00062         extern _UEP7bits
+               00063         extern _UEP8bits
+               00064         extern _UEP9bits
+               00065         extern _UEP10bits
+               00066         extern _UEP11bits
+               00067         extern _UEP12bits
+               00068         extern _UEP13bits
+               00069         extern _UEP14bits
+               00070         extern _UEP15bits
+               00071         extern _PORTAbits
+               00072         extern _PORTBbits
+               00073         extern _PORTCbits
+               00074         extern _PORTDbits
+               00075         extern _PORTEbits
+               00076         extern _LATAbits
+               00077         extern _LATBbits
+               00078         extern _LATCbits
+               00079         extern _LATDbits
+               00080         extern _LATEbits
+               00081         extern _TRISAbits
+               00082         extern _TRISBbits
+               00083         extern _TRISCbits
+               00084         extern _TRISDbits
+               00085         extern _TRISEbits
+               00086         extern _OSCTUNEbits
+               00087         extern _PIE1bits
+               00088         extern _PIR1bits
+               00089         extern _IPR1bits
+               00090         extern _PIE2bits
+               00091         extern _PIR2bits
+               00092         extern _IPR2bits
+               00093         extern _EECON1bits
+               00094         extern _RCSTAbits
+               00095         extern _TXSTAbits
+               00096         extern _T3CONbits
+               00097         extern _CMCONbits
+               00098         extern _CVRCONbits
+               00099         extern _ECCP1ASbits
+               00100         extern _ECCP1DELbits
+               00101         extern _BAUDCONbits
+               00102         extern _CCP2CONbits
+               00103         extern _CCP1CONbits
+               00104         extern _ADCON2bits
+               00105         extern _ADCON1bits
+               00106         extern _ADCON0bits
+               00107         extern _SSPCON2bits
+               00108         extern _SSPCON1bits
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00109         extern _SSPSTATbits
+               00110         extern _T2CONbits
+               00111         extern _T1CONbits
+               00112         extern _RCONbits
+               00113         extern _WDTCONbits
+               00114         extern _HLVDCONbits
+               00115         extern _OSCCONbits
+               00116         extern _T0CONbits
+               00117         extern _STATUSbits
+               00118         extern _FSR2Hbits
+               00119         extern _BSRbits
+               00120         extern _FSR1Hbits
+               00121         extern _FSR0Hbits
+               00122         extern _INTCON3bits
+               00123         extern _INTCON2bits
+               00124         extern _INTCONbits
+               00125         extern _TBLPTRUbits
+               00126         extern _PCLATHbits
+               00127         extern _PCLATUbits
+               00128         extern _STKPTRbits
+               00129         extern _TOSUbits
+               00130         extern _stdin
+               00131         extern _stdout
+               00132         extern _SPPDATA
+               00133         extern _SPPCFG
+               00134         extern _SPPEPS
+               00135         extern _SPPCON
+               00136         extern _UFRML
+               00137         extern _UFRMH
+               00138         extern _UIR
+               00139         extern _UIE
+               00140         extern _UEIR
+               00141         extern _UEIE
+               00142         extern _USTAT
+               00143         extern _UCON
+               00144         extern _UADDR
+               00145         extern _UCFG
+               00146         extern _UEP0
+               00147         extern _UEP1
+               00148         extern _UEP2
+               00149         extern _UEP3
+               00150         extern _UEP4
+               00151         extern _UEP5
+               00152         extern _UEP6
+               00153         extern _UEP7
+               00154         extern _UEP8
+               00155         extern _UEP9
+               00156         extern _UEP10
+               00157         extern _UEP11
+               00158         extern _UEP12
+               00159         extern _UEP13
+               00160         extern _UEP14
+               00161         extern _UEP15
+               00162         extern _PORTA
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00163         extern _PORTB
+               00164         extern _PORTC
+               00165         extern _PORTD
+               00166         extern _PORTE
+               00167         extern _LATA
+               00168         extern _LATB
+               00169         extern _LATC
+               00170         extern _LATD
+               00171         extern _LATE
+               00172         extern _TRISA
+               00173         extern _TRISB
+               00174         extern _TRISC
+               00175         extern _TRISD
+               00176         extern _TRISE
+               00177         extern _OSCTUNE
+               00178         extern _PIE1
+               00179         extern _PIR1
+               00180         extern _IPR1
+               00181         extern _PIE2
+               00182         extern _PIR2
+               00183         extern _IPR2
+               00184         extern _EECON1
+               00185         extern _EECON2
+               00186         extern _EEDATA
+               00187         extern _EEADR
+               00188         extern _RCSTA
+               00189         extern _TXSTA
+               00190         extern _TXREG
+               00191         extern _RCREG
+               00192         extern _SPBRG
+               00193         extern _SPBRGH
+               00194         extern _T3CON
+               00195         extern _TMR3L
+               00196         extern _TMR3H
+               00197         extern _CMCON
+               00198         extern _CVRCON
+               00199         extern _ECCP1AS
+               00200         extern _ECCP1DEL
+               00201         extern _BAUDCON
+               00202         extern _CCP2CON
+               00203         extern _CCPR2L
+               00204         extern _CCPR2H
+               00205         extern _CCP1CON
+               00206         extern _CCPR1L
+               00207         extern _CCPR1H
+               00208         extern _ADCON2
+               00209         extern _ADCON1
+               00210         extern _ADCON0
+               00211         extern _ADRESL
+               00212         extern _ADRESH
+               00213         extern _SSPCON2
+               00214         extern _SSPCON1
+               00215         extern _SSPSTAT
+               00216         extern _SSPADD
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00217         extern _SSPBUF
+               00218         extern _T2CON
+               00219         extern _PR2
+               00220         extern _TMR2
+               00221         extern _T1CON
+               00222         extern _TMR1L
+               00223         extern _TMR1H
+               00224         extern _RCON
+               00225         extern _WDTCON
+               00226         extern _HLVDCON
+               00227         extern _OSCCON
+               00228         extern _T0CON
+               00229         extern _TMR0L
+               00230         extern _TMR0H
+               00231         extern _STATUS
+               00232         extern _FSR2L
+               00233         extern _FSR2H
+               00234         extern _PLUSW2
+               00235         extern _PREINC2
+               00236         extern _POSTDEC2
+               00237         extern _POSTINC2
+               00238         extern _INDF2
+               00239         extern _BSR
+               00240         extern _FSR1L
+               00241         extern _FSR1H
+               00242         extern _PLUSW1
+               00243         extern _PREINC1
+               00244         extern _POSTDEC1
+               00245         extern _POSTINC1
+               00246         extern _INDF1
+               00247         extern _WREG
+               00248         extern _FSR0L
+               00249         extern _FSR0H
+               00250         extern _PLUSW0
+               00251         extern _PREINC0
+               00252         extern _POSTDEC0
+               00253         extern _POSTINC0
+               00254         extern _INDF0
+               00255         extern _INTCON3
+               00256         extern _INTCON2
+               00257         extern _INTCON
+               00258         extern _PRODL
+               00259         extern _PRODH
+               00260         extern _TABLAT
+               00261         extern _TBLPTRL
+               00262         extern _TBLPTRH
+               00263         extern _TBLPTRU
+               00264         extern _PCL
+               00265         extern _PCLATH
+               00266         extern _PCLATU
+               00267         extern _STKPTR
+               00268         extern _TOSL
+               00269         extern _TOSH
+               00270         extern _TOSU
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00271         extern __mulint
+               00272         extern _section_descriptor
+               00273         extern _boot_device_descriptor
+               00274         extern _boot_configuration_descriptor
+               00275         extern _boot_string_descriptor
+               00276         extern _str0
+               00277         extern _str1
+               00278         extern _str2
+               00279         extern _str3
+               00280         extern _boot_ep_init
+               00281         extern _boot_ep_in
+               00282         extern _boot_ep_out
+               00283         extern _boot_ep_setup
+               00284 ;--------------------------------------------------------
+               00285 ;       Equates to used internal registers
+               00286 ;--------------------------------------------------------
+  00000FD8     00287 STATUS  equ     0xfd8
+  00000FF9     00288 PCL     equ     0xff9
+  00000FFA     00289 PCLATH  equ     0xffa
+  00000FFB     00290 PCLATU  equ     0xffb
+  00000FF2     00291 INTCON  equ     0xff2
+  00000FE8     00292 WREG    equ     0xfe8
+  00000FFD     00293 TOSL    equ     0xffd
+  00000FFE     00294 TOSH    equ     0xffe
+  00000FFF     00295 TOSU    equ     0xfff
+  00000FF6     00296 TBLPTRL equ     0xff6
+  00000FE9     00297 FSR0L   equ     0xfe9
+  00000FEA     00298 FSR0H   equ     0xfea
+  00000FE1     00299 FSR1L   equ     0xfe1
+  00000FD9     00300 FSR2L   equ     0xfd9
+  00000FEF     00301 INDF0   equ     0xfef
+  00000FEE     00302 POSTINC0        equ     0xfee
+  00000FE5     00303 POSTDEC1        equ     0xfe5
+  00000FE4     00304 PREINC1 equ     0xfe4
+  00000FDB     00305 PLUSW2  equ     0xfdb
+  00000FF3     00306 PRODL   equ     0xff3
+  00000FF4     00307 PRODH   equ     0xff4
+               00308 
+               00309 
+               00310 ; Internal registers
+               00311 .registers      udata_ovr       0x0000
+               00312 r0x00   res     1
+               00313 r0x01   res     1
+               00314 r0x02   res     1
+               00315 r0x03   res     1
+               00316 r0x04   res     1
+               00317 r0x05   res     1
+               00318 r0x06   res     1
+               00319 r0x07   res     1
+               00320 r0x08   res     1
+               00321 r0x09   res     1
+               00322 r0x0a   res     1
+               00323 r0x0b   res     1
+               00324 
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00325 udata_usb_0     udata
+               00326 _device_descriptor      res     3
+               00327 
+               00328 udata_usb_1     udata
+               00329 _configuration_descriptor       res     3
+               00330 
+               00331 udata_usb_2     udata
+               00332 _string_descriptor      res     3
+               00333 
+               00334 udata_usb_3     udata
+               00335 _reset_usb_i_1_1        res     1
+               00336 
+               00337 udata_usb_4     udata
+               00338 _fill_in_buffer_byte_to_send_1_1        res     2
+               00339 
+               00340 udata_usb_5     udata
+               00341 _fill_in_buffer_dest_1_1        res     3
+               00342 
+               00343 udata_usb_6     udata
+               00344 _ep_init        res     3
+               00345 
+               00346 udata_usb_7     udata
+               00347 _ep_setup       res     3
+               00348 
+               00349 udata_usb_8     udata
+               00350 _ep_out res     3
+               00351 
+               00352 udata_usb_9     udata
+               00353 _ep_in  res     3
+               00354 
+               00355 
+               00356 ustat_usb_00    udata   0X005D
+               00357 _usb_active_alt_setting res     1
+               00358 _usb_active_cfg res     1
+               00359 _usb_device_state       res     1
+               00360 
+               00361 
+               00362 ustat_usb_01    udata   0X0400
+               00363 _ep_bdt res     128
+               00364 
+               00365 ;--------------------------------------------------------
+               00366 ; global & static initialisations
+               00367 ;--------------------------------------------------------
+               00368 ; I code from now on!
+               00369 ; ; Starting pCode block
+               00370 S_usb__fill_in_buffer   code
+0000           00371 _fill_in_buffer:
+               00372 ;       .line   187; usb.c      void fill_in_buffer(uchar EPnum,
+0000 CFD9 FFE5 00373         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00374         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00375         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00376         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00377         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00378         MOVFF   r0x03, POSTDEC1
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0018 C000 FFE5 00379         MOVFF   r0x04, POSTDEC1
+001C C000 FFE5 00380         MOVFF   r0x05, POSTDEC1
+0020 C000 FFE5 00381         MOVFF   r0x06, POSTDEC1
+0024 C000 FFE5 00382         MOVFF   r0x07, POSTDEC1
+0028 C000 FFE5 00383         MOVFF   r0x08, POSTDEC1
+002C C000 FFE5 00384         MOVFF   r0x09, POSTDEC1
+0030 C000 FFE5 00385         MOVFF   r0x0a, POSTDEC1
+0034 C000 FFE5 00386         MOVFF   r0x0b, POSTDEC1
+0038 0E02      00387         MOVLW   0x02
+003A CFDB F000 00388         MOVFF   PLUSW2, r0x00
+003E 0E03      00389         MOVLW   0x03
+0040 CFDB F000 00390         MOVFF   PLUSW2, r0x01
+0044 0E04      00391         MOVLW   0x04
+0046 CFDB F000 00392         MOVFF   PLUSW2, r0x02
+004A 0E05      00393         MOVLW   0x05
+004C CFDB F000 00394         MOVFF   PLUSW2, r0x03
+0050 0E06      00395         MOVLW   0x06
+0052 CFDB F000 00396         MOVFF   PLUSW2, r0x04
+0056 0E07      00397         MOVLW   0x07
+0058 CFDB F000 00398         MOVFF   PLUSW2, r0x05
+005C 0E08      00399         MOVLW   0x08
+005E CFDB F000 00400         MOVFF   PLUSW2, r0x06
+0062 0E09      00401         MOVLW   0x09
+0064 CFDB F000 00402         MOVFF   PLUSW2, r0x07
+0068 0E0A      00403         MOVLW   0x0a
+006A CFDB F000 00404         MOVFF   PLUSW2, r0x08
+               00405 ;       .line   196; usb.c      if(*nb_byte < buffer_size)
+006E C000 FFE9 00406         MOVFF   r0x06, FSR0L
+0072 C000 FFF3 00407         MOVFF   r0x07, PRODL
+0076 5000      00408         MOVF    r0x08, W
+0078 EC00 F000 00409         CALL    __gptrget2
+007C 6E00      00410         MOVWF   r0x09
+007E CFF3 F000 00411         MOVFF   PRODL, r0x0a
+0082 5000      00412         MOVF    r0x05, W
+0084 5C00      00413         SUBWF   r0x0a, W
+0086 E100      00414         BNZ     _00206_DS_
+0088 5000      00415         MOVF    r0x04, W
+008A 5C00      00416         SUBWF   r0x09, W
+008C           00417 _00206_DS_:
+008C B0D8      00418         BTFSC   STATUS, 0
+008E EF00 F000 00419         GOTO    _00196_DS_
+               00420 ;       .line   198; usb.c      byte_to_send = *nb_byte;
+0092 C000 F000 00421         MOVFF   r0x09, _fill_in_buffer_byte_to_send_1_1
+0096 C000 F000 00422         MOVFF   r0x0a, (_fill_in_buffer_byte_to_send_1_1 + 1)
+009A EF00 F000 00423         GOTO    _00197_DS_
+009E           00424 _00196_DS_:
+               00425 ;       .line   202; usb.c      byte_to_send = buffer_size;
+009E C000 F000 00426         MOVFF   r0x04, _fill_in_buffer_byte_to_send_1_1
+00A2 C000 F000 00427         MOVFF   r0x05, (_fill_in_buffer_byte_to_send_1_1 + 1)
+00A6           00428 _00197_DS_:
+               00429 ;       .line   205; usb.c      EP_IN_BD(EPnum).Cnt = byte_to_send;
+00A6 5000      00430         MOVF    r0x00, W
+00A8 2400      00431         ADDWF   r0x00, W
+00AA 6E00      00432         MOVWF   r0x04
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00AC 2800      00433         INCF    r0x04, W
+00AE 6E00      00434         MOVWF   r0x00
+               00435 ; ;multiply lit val:0x04 by variable r0x00 and store in r0x00
+               00436 ; ;Unrolled 8 X 8 multiplication
+               00437 ; ;FIXME: the function does not support result==WREG
+00B0 5000      00438         MOVF    r0x00, W
+00B2 0D04      00439         MULLW   0x04
+00B4 CFF3 F000 00440         MOVFF   PRODL, r0x00
+00B8 0E00      00441         MOVLW   LOW(_ep_bdt)
+00BA 2400      00442         ADDWF   r0x00, W
+00BC 6E00      00443         MOVWF   r0x04
+00BE 6A00      00444         CLRF    r0x05
+00C0 0E00      00445         MOVLW   HIGH(_ep_bdt)
+00C2 2200      00446         ADDWFC  r0x05, F
+00C4 2A00      00447         INCF    r0x04, F
+00C6 B0D8      00448         BTFSC   STATUS, 0
+00C8 2A00      00449         INCF    r0x05, F
+00CA 0000      00450         BANKSEL _fill_in_buffer_byte_to_send_1_1
+00CC 5100      00451         MOVF    _fill_in_buffer_byte_to_send_1_1, W, B
+00CE 6E00      00452         MOVWF   r0x0b
+00D0 C000 FFE9 00453         MOVFF   r0x04, FSR0L
+00D4 C000 FFEA 00454         MOVFF   r0x05, FSR0H
+00D8 C000 FFEF 00455         MOVFF   r0x0b, INDF0
+               00456 ;       .line   208; usb.c      dest = (uchar __data *) EP_IN_BD(EPnum).ADR;
+00DC 0E00      00457         MOVLW   LOW(_ep_bdt)
+00DE 2600      00458         ADDWF   r0x00, F
+00E0 0E00      00459         MOVLW   HIGH(_ep_bdt)
+00E2 6A00      00460         CLRF    r0x04
+00E4 2200      00461         ADDWFC  r0x04, F
+00E6 0E02      00462         MOVLW   0x02
+00E8 2600      00463         ADDWF   r0x00, F
+00EA B0D8      00464         BTFSC   STATUS, 0
+00EC 2A00      00465         INCF    r0x04, F
+00EE C000 FFE9 00466         MOVFF   r0x00, FSR0L
+00F2 C000 FFEA 00467         MOVFF   r0x04, FSR0H
+00F6 CFEE F000 00468         MOVFF   POSTINC0, r0x00
+00FA CFEF F000 00469         MOVFF   INDF0, r0x04
+00FE 5000      00470         MOVF    r0x04, W
+0100 0000      00471         BANKSEL (_fill_in_buffer_dest_1_1 + 1)
+0102 6F00      00472         MOVWF   (_fill_in_buffer_dest_1_1 + 1), B
+0104 5000      00473         MOVF    r0x00, W
+0106 0000      00474         BANKSEL _fill_in_buffer_dest_1_1
+0108 6F00      00475         MOVWF   _fill_in_buffer_dest_1_1, B
+010A 0E80      00476         MOVLW   0x80
+010C 0000      00477         BANKSEL (_fill_in_buffer_dest_1_1 + 2)
+010E 6F00      00478         MOVWF   (_fill_in_buffer_dest_1_1 + 2), B
+0110 0000      00479         BANKSEL _fill_in_buffer_byte_to_send_1_1
+               00480 ;       .line   211; usb.c      *nb_byte -= byte_to_send;
+0112 5100      00481         MOVF    _fill_in_buffer_byte_to_send_1_1, W, B
+0114 5E00      00482         SUBWF   r0x09, F
+0116 0000      00483         BANKSEL (_fill_in_buffer_byte_to_send_1_1 + 1)
+0118 5100      00484         MOVF    (_fill_in_buffer_byte_to_send_1_1 + 1), W, B
+011A 5A00      00485         SUBWFB  r0x0a, F
+011C C000 FFE5 00486         MOVFF   r0x09, POSTDEC1
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0120 C000 FFF4 00487         MOVFF   r0x0a, PRODH
+0124 C000 FFE9 00488         MOVFF   r0x06, FSR0L
+0128 C000 FFF3 00489         MOVFF   r0x07, PRODL
+012C 5000      00490         MOVF    r0x08, W
+012E EC00 F000 00491         CALL    __gptrput2
+0132           00492 _00198_DS_:
+0132 0000      00493         BANKSEL _fill_in_buffer_byte_to_send_1_1
+               00494 ;       .line   214; usb.c      while(byte_to_send)
+0134 5100      00495         MOVF    _fill_in_buffer_byte_to_send_1_1, W, B
+0136 0000      00496         BANKSEL (_fill_in_buffer_byte_to_send_1_1 + 1)
+0138 1100      00497         IORWF   (_fill_in_buffer_byte_to_send_1_1 + 1), W, B
+013A B4D8      00498         BTFSC   STATUS, 2
+013C EF00 F000 00499         GOTO    _00201_DS_
+               00500 ;       .line   216; usb.c      *dest = **source;
+0140 C000 F000 00501         MOVFF   _fill_in_buffer_dest_1_1, r0x00
+0144 C000 F000 00502         MOVFF   (_fill_in_buffer_dest_1_1 + 1), r0x04
+0148 C000 F000 00503         MOVFF   (_fill_in_buffer_dest_1_1 + 2), r0x05
+014C C000 FFE9 00504         MOVFF   r0x01, FSR0L
+0150 C000 FFF3 00505         MOVFF   r0x02, PRODL
+0154 5000      00506         MOVF    r0x03, W
+0156 EC00 F000 00507         CALL    __gptrget3
+015A 6E00      00508         MOVWF   r0x06
+015C CFF3 F000 00509         MOVFF   PRODL, r0x07
+0160 CFF4 F000 00510         MOVFF   PRODH, r0x08
+0164 C000 FFE9 00511         MOVFF   r0x06, FSR0L
+0168 C000 FFF3 00512         MOVFF   r0x07, PRODL
+016C 5000      00513         MOVF    r0x08, W
+016E EC00 F000 00514         CALL    __gptrget1
+0172 6E00      00515         MOVWF   r0x09
+0174 C000 FFE5 00516         MOVFF   r0x09, POSTDEC1
+0178 C000 FFE9 00517         MOVFF   r0x00, FSR0L
+017C C000 FFF3 00518         MOVFF   r0x04, PRODL
+0180 5000      00519         MOVF    r0x05, W
+0182 EC00 F000 00520         CALL    __gptrput1
+0186 0000      00521         BANKSEL _fill_in_buffer_dest_1_1
+               00522 ;       .line   217; usb.c      dest++;
+0188 2B00      00523         INCF    _fill_in_buffer_dest_1_1, F, B
+018A A0D8      00524         BTFSS   STATUS, 0
+018C D000      00525         BRA     _10195_DS_
+018E 0000      00526         BANKSEL (_fill_in_buffer_dest_1_1 + 1)
+0190 2B00      00527         INCF    (_fill_in_buffer_dest_1_1 + 1), F, B
+0192           00528 _10195_DS_:
+0192 A0D8      00529         BTFSS   STATUS, 0
+0194 D000      00530         BRA     _20196_DS_
+0196 0000      00531         BANKSEL (_fill_in_buffer_dest_1_1 + 2)
+0198 2B00      00532         INCF    (_fill_in_buffer_dest_1_1 + 2), F, B
+019A           00533 _20196_DS_:
+               00534 ;       .line   218; usb.c      (*source)++;
+019A 2A00      00535         INCF    r0x06, F
+019C B0D8      00536         BTFSC   STATUS, 0
+019E 2A00      00537         INCF    r0x07, F
+01A0 B0D8      00538         BTFSC   STATUS, 0
+01A2 2A00      00539         INCF    r0x08, F
+01A4 C000 FFE5 00540         MOVFF   r0x06, POSTDEC1
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+01A8 C000 FFF4 00541         MOVFF   r0x07, PRODH
+01AC C000 FFF6 00542         MOVFF   r0x08, TBLPTRL
+01B0 C000 FFE9 00543         MOVFF   r0x01, FSR0L
+01B4 C000 FFF3 00544         MOVFF   r0x02, PRODL
+01B8 5000      00545         MOVF    r0x03, W
+01BA EC00 F000 00546         CALL    __gptrput3
+               00547 ;       .line   219; usb.c      byte_to_send--;
+01BE 0EFF      00548         MOVLW   0xff
+01C0 0000      00549         BANKSEL _fill_in_buffer_byte_to_send_1_1
+01C2 2700      00550         ADDWF   _fill_in_buffer_byte_to_send_1_1, F, B
+01C4 B0D8      00551         BTFSC   STATUS, 0
+01C6 D000      00552         BRA     _30197_DS_
+01C8 0000      00553         BANKSEL (_fill_in_buffer_byte_to_send_1_1 + 1)
+01CA 0700      00554         DECF    (_fill_in_buffer_byte_to_send_1_1 + 1), F, B
+01CC           00555 _30197_DS_:
+01CC EF00 F000 00556         GOTO    _00198_DS_
+01D0           00557 _00201_DS_:
+01D0 CFE4 F000 00558         MOVFF   PREINC1, r0x0b
+01D4 CFE4 F000 00559         MOVFF   PREINC1, r0x0a
+01D8 CFE4 F000 00560         MOVFF   PREINC1, r0x09
+01DC CFE4 F000 00561         MOVFF   PREINC1, r0x08
+01E0 CFE4 F000 00562         MOVFF   PREINC1, r0x07
+01E4 CFE4 F000 00563         MOVFF   PREINC1, r0x06
+01E8 CFE4 F000 00564         MOVFF   PREINC1, r0x05
+01EC CFE4 F000 00565         MOVFF   PREINC1, r0x04
+01F0 CFE4 F000 00566         MOVFF   PREINC1, r0x03
+01F4 CFE4 F000 00567         MOVFF   PREINC1, r0x02
+01F8 CFE4 F000 00568         MOVFF   PREINC1, r0x01
+01FC CFE4 F000 00569         MOVFF   PREINC1, r0x00
+0200 CFE4 FFD9 00570         MOVFF   PREINC1, FSR2L
+0204 0012      00571         RETURN  
+               00572 
+               00573 ; ; Starting pCode block
+               00574 S_usb__dispatch_usb_event       code
+0000           00575 _dispatch_usb_event:
+               00576 ;       .line   117; usb.c      void dispatch_usb_event(void)
+0000 CFD9 FFE5 00577         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00578         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00579         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00580         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00581         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00582         MOVFF   r0x03, POSTDEC1
+0018 C000 FFE5 00583         MOVFF   r0x04, POSTDEC1
+               00584 ;       .line   120; usb.c      if(UIEbits.ACTVIE && UIRbits.ACTVIF)
+001C A400      00585         BTFSS   _UIEbits, 2
+001E EF00 F000 00586         GOTO    _00138_DS_
+0022 A400      00587         BTFSS   _UIRbits, 2
+0024 EF00 F000 00588         GOTO    _00138_DS_
+               00589 ;       .line   122; usb.c      UCONbits.SUSPND = 0;
+0028 9200      00590         BCF     _UCONbits, 1
+               00591 ;       .line   123; usb.c      UIEbits.ACTVIE = 0;
+002A 9400      00592         BCF     _UIEbits, 2
+               00593 ;       .line   124; usb.c      UIRbits.ACTVIF = 0;
+002C 9400      00594         BCF     _UIRbits, 2
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+002E           00595 _00138_DS_:
+               00596 ;       .line   128; usb.c      if(UIEbits.URSTIE && UIRbits.URSTIF)
+002E A000      00597         BTFSS   _UIEbits, 0
+0030 EF00 F000 00598         GOTO    _00141_DS_
+0034 A000      00599         BTFSS   _UIRbits, 0
+0036 EF00 F000 00600         GOTO    _00141_DS_
+               00601 ;       .line   130; usb.c      reset_usb();
+003A EC00 F000 00602         CALL    _reset_usb
+003E           00603 _00141_DS_:
+               00604 ;       .line   134; usb.c      if(UIEbits.IDLEIE && UIRbits.IDLEIF)
+003E A800      00605         BTFSS   _UIEbits, 4
+0040 EF00 F000 00606         GOTO    _00144_DS_
+0044 A800      00607         BTFSS   _UIRbits, 4
+0046 EF00 F000 00608         GOTO    _00144_DS_
+               00609 ;       .line   137; usb.c      UIEbits.ACTVIE = 1;
+004A 8400      00610         BSF     _UIEbits, 2
+               00611 ;       .line   138; usb.c      UIRbits.IDLEIF  = 0;
+004C 9800      00612         BCF     _UIRbits, 4
+               00613 ;       .line   139; usb.c      UCONbits.SUSPND = 1;
+004E 8200      00614         BSF     _UCONbits, 1
+0050           00615 _00144_DS_:
+               00616 ;       .line   143; usb.c      if(UIEbits.STALLIE && UIRbits.STALLIF)
+0050 AA00      00617         BTFSS   _UIEbits, 5
+0052 EF00 F000 00618         GOTO    _00149_DS_
+0056 AA00      00619         BTFSS   _UIRbits, 5
+0058 EF00 F000 00620         GOTO    _00149_DS_
+               00621 ;       .line   148; usb.c      if(UEP0bits.EPSTALL == 1)
+005C 6A00      00622         CLRF    r0x00
+005E B000      00623         BTFSC   _UEP0bits, 0
+0060 2A00      00624         INCF    r0x00, F
+0062 5000      00625         MOVF    r0x00, W
+0064 0A01      00626         XORLW   0x01
+0066 E100      00627         BNZ     _00180_DS_
+0068 EF00 F000 00628         GOTO    _00181_DS_
+006C           00629 _00180_DS_:
+006C EF00 F000 00630         GOTO    _00147_DS_
+               00631 ; ;multiply lit val:0x03 by variable _usb_active_cfg and store in r0x00
+               00632 ; ;Unrolled 8 X 8 multiplication
+               00633 ; ;FIXME: the function does not support result==WREG
+0070           00634 _00181_DS_:
+               00635 ;       .line   150; usb.c      ep_init[GET_ACTIVE_CONFIGURATION()][0]();
+0070 5000      00636         MOVF    _usb_active_cfg, W
+0072 0D03      00637         MULLW   0x03
+0074 CFF3 F000 00638         MOVFF   PRODL, r0x00
+0078 CFF4 F000 00639         MOVFF   PRODH, r0x01
+007C 0000      00640         BANKSEL _ep_init
+007E 5100      00641         MOVF    _ep_init, W, B
+0080 2600      00642         ADDWF   r0x00, F
+0082 0000      00643         BANKSEL (_ep_init + 1)
+0084 5100      00644         MOVF    (_ep_init + 1), W, B
+0086 2200      00645         ADDWFC  r0x01, F
+0088 0000      00646         BANKSEL (_ep_init + 2)
+008A 5100      00647         MOVF    (_ep_init + 2), W, B
+008C 6A00      00648         CLRF    r0x02
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+008E 2200      00649         ADDWFC  r0x02, F
+0090 C000 FFE9 00650         MOVFF   r0x00, FSR0L
+0094 C000 FFF3 00651         MOVFF   r0x01, PRODL
+0098 5000      00652         MOVF    r0x02, W
+009A EC00 F000 00653         CALL    __gptrget3
+009E 6E00      00654         MOVWF   r0x00
+00A0 CFF3 F000 00655         MOVFF   PRODL, r0x01
+00A4 CFF4 F000 00656         MOVFF   PRODH, r0x02
+00A8 C000 FFE9 00657         MOVFF   r0x00, FSR0L
+00AC C000 FFF3 00658         MOVFF   r0x01, PRODL
+00B0 5000      00659         MOVF    r0x02, W
+00B2 EC00 F000 00660         CALL    __gptrget3
+00B6 6E00      00661         MOVWF   r0x00
+00B8 CFF3 F000 00662         MOVFF   PRODL, r0x01
+00BC CFF4 F000 00663         MOVFF   PRODH, r0x02
+00C0 CFF2 FFE5 00664         MOVFF   INTCON, POSTDEC1
+00C4 9EF2      00665         BCF     INTCON, 7
+00C6 0005      00666         PUSH    
+00C8 0E00      00667         MOVLW   LOW(_00182_DS_)
+00CA 6EFD      00668         MOVWF   TOSL
+00CC 0E00      00669         MOVLW   HIGH(_00182_DS_)
+00CE 6EFE      00670         MOVWF   TOSH
+00D0 0E00      00671         MOVLW   UPPER(_00182_DS_)
+00D2 6EFF      00672         MOVWF   TOSU
+00D4 50E4      00673         MOVF    PREINC1, W
+00D6 6EF2      00674         MOVWF   INTCON
+00D8 C000 FFFB 00675         MOVFF   r0x02, PCLATU
+00DC C000 FFFA 00676         MOVFF   r0x01, PCLATH
+00E0 5000      00677         MOVF    r0x00, W
+00E2 6EF9      00678         MOVWF   PCL
+00E4           00679 _00182_DS_:
+               00680 ;       .line   151; usb.c      UEP0bits.EPSTALL = 0;
+00E4 9000      00681         BCF     _UEP0bits, 0
+00E6           00682 _00147_DS_:
+               00683 ;       .line   153; usb.c      UIRbits.STALLIF = 0;
+00E6 9A00      00684         BCF     _UIRbits, 5
+00E8           00685 _00149_DS_:
+               00686 ;       .line   159; usb.c      if((GET_DEVICE_STATE() >= DEFAULT_STATE) &&
+00E8 0E03      00687         MOVLW   0x03
+00EA 5C00      00688         SUBWF   _usb_device_state, W
+00EC A0D8      00689         BTFSS   STATUS, 0
+00EE EF00 F000 00690         GOTO    _00163_DS_
+               00691 ;       .line   160; usb.c      UIEbits.TRNIE && UIRbits.TRNIF)
+00F2 A600      00692         BTFSS   _UIEbits, 3
+00F4 EF00 F000 00693         GOTO    _00163_DS_
+00F8 A600      00694         BTFSS   _UIRbits, 3
+00FA EF00 F000 00695         GOTO    _00163_DS_
+               00696 ;       .line   163; usb.c      if(USTATbits.DIR == OUT)
+00FE B400      00697         BTFSC   _USTATbits, 2
+0100 EF00 F000 00698         GOTO    _00157_DS_
+               00699 ;       .line   165; usb.c      if(EP_OUT_BD(USTATbits.ENDP).Stat.PID == SETUP_TOKEN)
+0104 5000      00700         MOVF    _USTATbits, W
+0106 38E8      00701         SWAPF   WREG, W
+0108 44E8      00702         RLNCF   WREG, W
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+010A 0B0F      00703         ANDLW   0x0f
+010C 6E00      00704         MOVWF   r0x00
+010E 5000      00705         MOVF    r0x00, W
+0110 2400      00706         ADDWF   r0x00, W
+0112 6E00      00707         MOVWF   r0x01
+               00708 ; ;multiply lit val:0x04 by variable r0x01 and store in r0x00
+               00709 ; ;Unrolled 8 X 8 multiplication
+               00710 ; ;FIXME: the function does not support result==WREG
+0114 5000      00711         MOVF    r0x01, W
+0116 0D04      00712         MULLW   0x04
+0118 CFF3 F000 00713         MOVFF   PRODL, r0x00
+011C 0E00      00714         MOVLW   LOW(_ep_bdt)
+011E 2600      00715         ADDWF   r0x00, F
+0120 0E00      00716         MOVLW   HIGH(_ep_bdt)
+0122 6A00      00717         CLRF    r0x01
+0124 BE00      00718         BTFSC   r0x00, 7
+0126 6800      00719         SETF    r0x01
+0128 2200      00720         ADDWFC  r0x01, F
+012A C000 FFE9 00721         MOVFF   r0x00, FSR0L
+012E C000 FFEA 00722         MOVFF   r0x01, FSR0H
+0132 50EF      00723         MOVF    INDF0, W
+0134 40E8      00724         RRNCF   WREG, W
+0136 40E8      00725         RRNCF   WREG, W
+0138 0B0F      00726         ANDLW   0x0f
+013A 6E00      00727         MOVWF   r0x00
+013C 5000      00728         MOVF    r0x00, W
+013E 0A0D      00729         XORLW   0x0d
+0140 E100      00730         BNZ     _00184_DS_
+0142 EF00 F000 00731         GOTO    _00185_DS_
+0146           00732 _00184_DS_:
+0146 EF00 F000 00733         GOTO    _00152_DS_
+               00734 ; ;multiply lit val:0x03 by variable _usb_active_cfg and store in r0x00
+               00735 ; ;Unrolled 8 X 8 multiplication
+               00736 ; ;FIXME: the function does not support result==WREG
+014A           00737 _00185_DS_:
+               00738 ;       .line   168; usb.c      ep_setup[GET_ACTIVE_CONFIGURATION()][USTATbits.ENDP]();
+014A 5000      00739         MOVF    _usb_active_cfg, W
+014C 0D03      00740         MULLW   0x03
+014E CFF3 F000 00741         MOVFF   PRODL, r0x00
+0152 CFF4 F000 00742         MOVFF   PRODH, r0x01
+0156 0000      00743         BANKSEL _ep_setup
+0158 5100      00744         MOVF    _ep_setup, W, B
+015A 2600      00745         ADDWF   r0x00, F
+015C 0000      00746         BANKSEL (_ep_setup + 1)
+015E 5100      00747         MOVF    (_ep_setup + 1), W, B
+0160 2200      00748         ADDWFC  r0x01, F
+0162 0000      00749         BANKSEL (_ep_setup + 2)
+0164 5100      00750         MOVF    (_ep_setup + 2), W, B
+0166 6A00      00751         CLRF    r0x02
+0168 2200      00752         ADDWFC  r0x02, F
+016A C000 FFE9 00753         MOVFF   r0x00, FSR0L
+016E C000 FFF3 00754         MOVFF   r0x01, PRODL
+0172 5000      00755         MOVF    r0x02, W
+0174 EC00 F000 00756         CALL    __gptrget3
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0178 6E00      00757         MOVWF   r0x00
+017A CFF3 F000 00758         MOVFF   PRODL, r0x01
+017E CFF4 F000 00759         MOVFF   PRODH, r0x02
+0182 5000      00760         MOVF    _USTATbits, W
+0184 38E8      00761         SWAPF   WREG, W
+0186 44E8      00762         RLNCF   WREG, W
+0188 0B0F      00763         ANDLW   0x0f
+018A 6E00      00764         MOVWF   r0x03
+018C 6A00      00765         CLRF    r0x04
+018E 5000      00766         MOVF    r0x04, W
+0190 6EE5      00767         MOVWF   POSTDEC1
+0192 5000      00768         MOVF    r0x03, W
+0194 6EE5      00769         MOVWF   POSTDEC1
+0196 0E00      00770         MOVLW   0x00
+0198 6EE5      00771         MOVWF   POSTDEC1
+019A 0E03      00772         MOVLW   0x03
+019C 6EE5      00773         MOVWF   POSTDEC1
+019E EC00 F000 00774         CALL    __mulint
+01A2 6E00      00775         MOVWF   r0x03
+01A4 CFF3 F000 00776         MOVFF   PRODL, r0x04
+01A8 0E04      00777         MOVLW   0x04
+01AA 26E1      00778         ADDWF   FSR1L, F
+01AC 5000      00779         MOVF    r0x03, W
+01AE 2600      00780         ADDWF   r0x00, F
+01B0 5000      00781         MOVF    r0x04, W
+01B2 2200      00782         ADDWFC  r0x01, F
+01B4 6AE8      00783         CLRF    WREG
+01B6 2200      00784         ADDWFC  r0x02, F
+01B8 C000 FFE9 00785         MOVFF   r0x00, FSR0L
+01BC C000 FFF3 00786         MOVFF   r0x01, PRODL
+01C0 5000      00787         MOVF    r0x02, W
+01C2 EC00 F000 00788         CALL    __gptrget3
+01C6 6E00      00789         MOVWF   r0x00
+01C8 CFF3 F000 00790         MOVFF   PRODL, r0x01
+01CC CFF4 F000 00791         MOVFF   PRODH, r0x02
+01D0 CFF2 FFE5 00792         MOVFF   INTCON, POSTDEC1
+01D4 9EF2      00793         BCF     INTCON, 7
+01D6 0005      00794         PUSH    
+01D8 0E00      00795         MOVLW   LOW(_00186_DS_)
+01DA 6EFD      00796         MOVWF   TOSL
+01DC 0E00      00797         MOVLW   HIGH(_00186_DS_)
+01DE 6EFE      00798         MOVWF   TOSH
+01E0 0E00      00799         MOVLW   UPPER(_00186_DS_)
+01E2 6EFF      00800         MOVWF   TOSU
+01E4 50E4      00801         MOVF    PREINC1, W
+01E6 6EF2      00802         MOVWF   INTCON
+01E8 C000 FFFB 00803         MOVFF   r0x02, PCLATU
+01EC C000 FFFA 00804         MOVFF   r0x01, PCLATH
+01F0 5000      00805         MOVF    r0x00, W
+01F2 6EF9      00806         MOVWF   PCL
+01F4           00807 _00186_DS_:
+01F4 EF00 F000 00808         GOTO    _00158_DS_
+               00809 ; ;multiply lit val:0x03 by variable _usb_active_cfg and store in r0x00
+               00810 ; ;Unrolled 8 X 8 multiplication
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00811 ; ;FIXME: the function does not support result==WREG
+01F8           00812 _00152_DS_:
+               00813 ;       .line   173; usb.c      ep_out[GET_ACTIVE_CONFIGURATION()][USTATbits.ENDP]();
+01F8 5000      00814         MOVF    _usb_active_cfg, W
+01FA 0D03      00815         MULLW   0x03
+01FC CFF3 F000 00816         MOVFF   PRODL, r0x00
+0200 CFF4 F000 00817         MOVFF   PRODH, r0x01
+0204 0000      00818         BANKSEL _ep_out
+0206 5100      00819         MOVF    _ep_out, W, B
+0208 2600      00820         ADDWF   r0x00, F
+020A 0000      00821         BANKSEL (_ep_out + 1)
+020C 5100      00822         MOVF    (_ep_out + 1), W, B
+020E 2200      00823         ADDWFC  r0x01, F
+0210 0000      00824         BANKSEL (_ep_out + 2)
+0212 5100      00825         MOVF    (_ep_out + 2), W, B
+0214 6A00      00826         CLRF    r0x02
+0216 2200      00827         ADDWFC  r0x02, F
+0218 C000 FFE9 00828         MOVFF   r0x00, FSR0L
+021C C000 FFF3 00829         MOVFF   r0x01, PRODL
+0220 5000      00830         MOVF    r0x02, W
+0222 EC00 F000 00831         CALL    __gptrget3
+0226 6E00      00832         MOVWF   r0x00
+0228 CFF3 F000 00833         MOVFF   PRODL, r0x01
+022C CFF4 F000 00834         MOVFF   PRODH, r0x02
+0230 5000      00835         MOVF    _USTATbits, W
+0232 38E8      00836         SWAPF   WREG, W
+0234 44E8      00837         RLNCF   WREG, W
+0236 0B0F      00838         ANDLW   0x0f
+0238 6E00      00839         MOVWF   r0x03
+023A 6A00      00840         CLRF    r0x04
+023C 5000      00841         MOVF    r0x04, W
+023E 6EE5      00842         MOVWF   POSTDEC1
+0240 5000      00843         MOVF    r0x03, W
+0242 6EE5      00844         MOVWF   POSTDEC1
+0244 0E00      00845         MOVLW   0x00
+0246 6EE5      00846         MOVWF   POSTDEC1
+0248 0E03      00847         MOVLW   0x03
+024A 6EE5      00848         MOVWF   POSTDEC1
+024C EC00 F000 00849         CALL    __mulint
+0250 6E00      00850         MOVWF   r0x03
+0252 CFF3 F000 00851         MOVFF   PRODL, r0x04
+0256 0E04      00852         MOVLW   0x04
+0258 26E1      00853         ADDWF   FSR1L, F
+025A 5000      00854         MOVF    r0x03, W
+025C 2600      00855         ADDWF   r0x00, F
+025E 5000      00856         MOVF    r0x04, W
+0260 2200      00857         ADDWFC  r0x01, F
+0262 6AE8      00858         CLRF    WREG
+0264 2200      00859         ADDWFC  r0x02, F
+0266 C000 FFE9 00860         MOVFF   r0x00, FSR0L
+026A C000 FFF3 00861         MOVFF   r0x01, PRODL
+026E 5000      00862         MOVF    r0x02, W
+0270 EC00 F000 00863         CALL    __gptrget3
+0274 6E00      00864         MOVWF   r0x00
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0276 CFF3 F000 00865         MOVFF   PRODL, r0x01
+027A CFF4 F000 00866         MOVFF   PRODH, r0x02
+027E CFF2 FFE5 00867         MOVFF   INTCON, POSTDEC1
+0282 9EF2      00868         BCF     INTCON, 7
+0284 0005      00869         PUSH    
+0286 0E00      00870         MOVLW   LOW(_00187_DS_)
+0288 6EFD      00871         MOVWF   TOSL
+028A 0E00      00872         MOVLW   HIGH(_00187_DS_)
+028C 6EFE      00873         MOVWF   TOSH
+028E 0E00      00874         MOVLW   UPPER(_00187_DS_)
+0290 6EFF      00875         MOVWF   TOSU
+0292 50E4      00876         MOVF    PREINC1, W
+0294 6EF2      00877         MOVWF   INTCON
+0296 C000 FFFB 00878         MOVFF   r0x02, PCLATU
+029A C000 FFFA 00879         MOVFF   r0x01, PCLATH
+029E 5000      00880         MOVF    r0x00, W
+02A0 6EF9      00881         MOVWF   PCL
+02A2           00882 _00187_DS_:
+02A2 EF00 F000 00883         GOTO    _00158_DS_
+02A6           00884 _00157_DS_:
+               00885 ;       .line   176; usb.c      else if(USTATbits.DIR == IN)
+02A6 6A00      00886         CLRF    r0x00
+02A8 B400      00887         BTFSC   _USTATbits, 2
+02AA 2A00      00888         INCF    r0x00, F
+02AC 5000      00889         MOVF    r0x00, W
+02AE 0A01      00890         XORLW   0x01
+02B0 E100      00891         BNZ     _00188_DS_
+02B2 EF00 F000 00892         GOTO    _00189_DS_
+02B6           00893 _00188_DS_:
+02B6 EF00 F000 00894         GOTO    _00158_DS_
+               00895 ; ;multiply lit val:0x03 by variable _usb_active_cfg and store in r0x00
+               00896 ; ;Unrolled 8 X 8 multiplication
+               00897 ; ;FIXME: the function does not support result==WREG
+02BA           00898 _00189_DS_:
+               00899 ;       .line   179; usb.c      ep_in[GET_ACTIVE_CONFIGURATION()][USTATbits.ENDP]();
+02BA 5000      00900         MOVF    _usb_active_cfg, W
+02BC 0D03      00901         MULLW   0x03
+02BE CFF3 F000 00902         MOVFF   PRODL, r0x00
+02C2 CFF4 F000 00903         MOVFF   PRODH, r0x01
+02C6 0000      00904         BANKSEL _ep_in
+02C8 5100      00905         MOVF    _ep_in, W, B
+02CA 2600      00906         ADDWF   r0x00, F
+02CC 0000      00907         BANKSEL (_ep_in + 1)
+02CE 5100      00908         MOVF    (_ep_in + 1), W, B
+02D0 2200      00909         ADDWFC  r0x01, F
+02D2 0000      00910         BANKSEL (_ep_in + 2)
+02D4 5100      00911         MOVF    (_ep_in + 2), W, B
+02D6 6A00      00912         CLRF    r0x02
+02D8 2200      00913         ADDWFC  r0x02, F
+02DA C000 FFE9 00914         MOVFF   r0x00, FSR0L
+02DE C000 FFF3 00915         MOVFF   r0x01, PRODL
+02E2 5000      00916         MOVF    r0x02, W
+02E4 EC00 F000 00917         CALL    __gptrget3
+02E8 6E00      00918         MOVWF   r0x00
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+02EA CFF3 F000 00919         MOVFF   PRODL, r0x01
+02EE CFF4 F000 00920         MOVFF   PRODH, r0x02
+02F2 5000      00921         MOVF    _USTATbits, W
+02F4 38E8      00922         SWAPF   WREG, W
+02F6 44E8      00923         RLNCF   WREG, W
+02F8 0B0F      00924         ANDLW   0x0f
+02FA 6E00      00925         MOVWF   r0x03
+02FC 6A00      00926         CLRF    r0x04
+02FE 5000      00927         MOVF    r0x04, W
+0300 6EE5      00928         MOVWF   POSTDEC1
+0302 5000      00929         MOVF    r0x03, W
+0304 6EE5      00930         MOVWF   POSTDEC1
+0306 0E00      00931         MOVLW   0x00
+0308 6EE5      00932         MOVWF   POSTDEC1
+030A 0E03      00933         MOVLW   0x03
+030C 6EE5      00934         MOVWF   POSTDEC1
+030E EC00 F000 00935         CALL    __mulint
+0312 6E00      00936         MOVWF   r0x03
+0314 CFF3 F000 00937         MOVFF   PRODL, r0x04
+0318 0E04      00938         MOVLW   0x04
+031A 26E1      00939         ADDWF   FSR1L, F
+031C 5000      00940         MOVF    r0x03, W
+031E 2600      00941         ADDWF   r0x00, F
+0320 5000      00942         MOVF    r0x04, W
+0322 2200      00943         ADDWFC  r0x01, F
+0324 6AE8      00944         CLRF    WREG
+0326 2200      00945         ADDWFC  r0x02, F
+0328 C000 FFE9 00946         MOVFF   r0x00, FSR0L
+032C C000 FFF3 00947         MOVFF   r0x01, PRODL
+0330 5000      00948         MOVF    r0x02, W
+0332 EC00 F000 00949         CALL    __gptrget3
+0336 6E00      00950         MOVWF   r0x00
+0338 CFF3 F000 00951         MOVFF   PRODL, r0x01
+033C CFF4 F000 00952         MOVFF   PRODH, r0x02
+0340 CFF2 FFE5 00953         MOVFF   INTCON, POSTDEC1
+0344 9EF2      00954         BCF     INTCON, 7
+0346 0005      00955         PUSH    
+0348 0E00      00956         MOVLW   LOW(_00190_DS_)
+034A 6EFD      00957         MOVWF   TOSL
+034C 0E00      00958         MOVLW   HIGH(_00190_DS_)
+034E 6EFE      00959         MOVWF   TOSH
+0350 0E00      00960         MOVLW   UPPER(_00190_DS_)
+0352 6EFF      00961         MOVWF   TOSU
+0354 50E4      00962         MOVF    PREINC1, W
+0356 6EF2      00963         MOVWF   INTCON
+0358 C000 FFFB 00964         MOVFF   r0x02, PCLATU
+035C C000 FFFA 00965         MOVFF   r0x01, PCLATH
+0360 5000      00966         MOVF    r0x00, W
+0362 6EF9      00967         MOVWF   PCL
+0364           00968 _00190_DS_:
+0364           00969 _00158_DS_:
+               00970 ;       .line   183; usb.c      UIRbits.TRNIF = 0;
+0364 9600      00971         BCF     _UIRbits, 3
+0366           00972 _00163_DS_:
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0366 CFE4 F000 00973         MOVFF   PREINC1, r0x04
+036A CFE4 F000 00974         MOVFF   PREINC1, r0x03
+036E CFE4 F000 00975         MOVFF   PREINC1, r0x02
+0372 CFE4 F000 00976         MOVFF   PREINC1, r0x01
+0376 CFE4 F000 00977         MOVFF   PREINC1, r0x00
+037A CFE4 FFD9 00978         MOVFF   PREINC1, FSR2L
+037E 0012      00979         RETURN  
+               00980 
+               00981 ; ; Starting pCode block
+               00982 S_usb__usb_sleep        code
+0000           00983 _usb_sleep:
+               00984 ;       .line   100; usb.c      void usb_sleep(void)
+0000 CFD9 FFE5 00985         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00986         MOVFF   FSR1L, FSR2L
+               00987 ;       .line   104; usb.c      if(UCONbits.SUSPND)
+0008 A200      00988         BTFSS   _UCONbits, 1
+000A EF00 F000 00989         GOTO    _00132_DS_
+               00990 ;       .line   111; usb.c      PIE2bits.USBIE = 1; 
+000E 8A00      00991         BSF     _PIE2bits, 5
+0010 0003      00992         sleep 
+               00993 ;       .line   113; usb.c      PIR2bits.USBIF = 0;
+0012 9A00      00994         BCF     _PIR2bits, 5
+0014           00995 _00132_DS_:
+0014 CFE4 FFD9 00996         MOVFF   PREINC1, FSR2L
+0018 0012      00997         RETURN  
+               00998 
+               00999 ; ; Starting pCode block
+               01000 S_usb__reset_usb        code
+0000           01001 _reset_usb:
+               01002 ;       .line   65; usb.c       void reset_usb(void)
+0000 CFD9 FFE5 01003         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 01004         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 01005         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 01006         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 01007         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 01008         MOVFF   r0x03, POSTDEC1
+0018 C000 FFE5 01009         MOVFF   r0x04, POSTDEC1
+               01010 ;       .line   70; usb.c       UIR = 0;
+001C 6A00      01011         CLRF    _UIR
+               01012 ;       .line   71; usb.c       UIE = 0x7b;
+001E 0E7B      01013         MOVLW   0x7b
+0020 6E00      01014         MOVWF   _UIE
+               01015 ;       .line   72; usb.c       UEIE = 0;
+0022 6A00      01016         CLRF    _UEIE
+               01017 ;       .line   73; usb.c       UADDR = 0x00;
+0024 6A00      01018         CLRF    _UADDR
+0026           01019 _00110_DS_:
+               01020 ;       .line   75; usb.c       while(UIRbits.TRNIF)
+0026 A600      01021         BTFSS   _UIRbits, 3
+0028 EF00 F000 01022         GOTO    _00112_DS_
+               01023 ;       .line   77; usb.c       UIRbits.TRNIF = 0;
+002C 9600      01024         BCF     _UIRbits, 3
+002E EF00 F000 01025         GOTO    _00110_DS_
+0032           01026 _00112_DS_:
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               01027 ;       .line   81; usb.c       SET_DEVICE_STATE(DEFAULT_STATE);
+0032 0E03      01028         MOVLW   0x03
+0034 6E00      01029         MOVWF   _usb_device_state
+               01030 ;       .line   84; usb.c       SET_ACTIVE_CONFIGURATION(0);
+0036 6A00      01031         CLRF    _usb_active_cfg
+               01032 ;       .line   85; usb.c       SET_ACTIVE_ALTERNATE_SETTING(0);
+0038 6A00      01033         CLRF    _usb_active_alt_setting
+               01034 ;       .line   87; usb.c       UEP0  = 0; UEP1  = 0; UEP2  = 0; UEP3  = 0;
+003A 6A00      01035         CLRF    _UEP0
+003C 6A00      01036         CLRF    _UEP1
+003E 6A00      01037         CLRF    _UEP2
+0040 6A00      01038         CLRF    _UEP3
+               01039 ;       .line   88; usb.c       UEP4  = 0; UEP5  = 0; UEP6  = 0; UEP7  = 0;
+0042 6A00      01040         CLRF    _UEP4
+0044 6A00      01041         CLRF    _UEP5
+0046 6A00      01042         CLRF    _UEP6
+0048 6A00      01043         CLRF    _UEP7
+               01044 ;       .line   89; usb.c       UEP8  = 0; UEP9  = 0; UEP10 = 0; UEP11 = 0;
+004A 6A00      01045         CLRF    _UEP8
+004C 6A00      01046         CLRF    _UEP9
+004E 6A00      01047         CLRF    _UEP10
+0050 6A00      01048         CLRF    _UEP11
+               01049 ;       .line   90; usb.c       UEP12 = 0; UEP13 = 0; UEP14 = 0; UEP15 = 0;
+0052 6A00      01050         CLRF    _UEP12
+0054 6A00      01051         CLRF    _UEP13
+0056 6A00      01052         CLRF    _UEP14
+0058 6A00      01053         CLRF    _UEP15
+               01054 ;       .line   92; usb.c       UCONbits.PKTDIS = 0;
+005A 9800      01055         BCF     _UCONbits, 4
+               01056 ;       .line   94; usb.c       for(i = 0; i < 16; i++)
+005C 0E10      01057         MOVLW   0x10
+005E 0000      01058         BANKSEL _reset_usb_i_1_1
+0060 6F00      01059         MOVWF   _reset_usb_i_1_1, B
+0062           01060 _00115_DS_:
+               01061 ;       .line   96; usb.c       ep_init[0][i]();
+0062 C000 F000 01062         MOVFF   _ep_init, r0x00
+0066 C000 F000 01063         MOVFF   (_ep_init + 1), r0x01
+006A C000 F000 01064         MOVFF   (_ep_init + 2), r0x02
+006E C000 FFE9 01065         MOVFF   r0x00, FSR0L
+0072 C000 FFF3 01066         MOVFF   r0x01, PRODL
+0076 5000      01067         MOVF    r0x02, W
+0078 EC00 F000 01068         CALL    __gptrget3
+007C 6E00      01069         MOVWF   r0x00
+007E CFF3 F000 01070         MOVFF   PRODL, r0x01
+0082 CFF4 F000 01071         MOVFF   PRODH, r0x02
+0086 0000      01072         BANKSEL _reset_usb_i_1_1
+0088 0500      01073         DECF    _reset_usb_i_1_1, W, B
+008A 6E00      01074         MOVWF   r0x03
+               01075 ; ;multiply lit val:0x03 by variable r0x03 and store in r0x03
+               01076 ; ;Unrolled 8 X 8 multiplication
+               01077 ; ;FIXME: the function does not support result==WREG
+008C 5000      01078         MOVF    r0x03, W
+008E 0D03      01079         MULLW   0x03
+0090 CFF3 F000 01080         MOVFF   PRODL, r0x03
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0094 CFF4 F000 01081         MOVFF   PRODH, r0x04
+0098 5000      01082         MOVF    r0x03, W
+009A 2600      01083         ADDWF   r0x00, F
+009C 5000      01084         MOVF    r0x04, W
+009E 2200      01085         ADDWFC  r0x01, F
+00A0 6AE8      01086         CLRF    WREG
+00A2 2200      01087         ADDWFC  r0x02, F
+00A4 C000 FFE9 01088         MOVFF   r0x00, FSR0L
+00A8 C000 FFF3 01089         MOVFF   r0x01, PRODL
+00AC 5000      01090         MOVF    r0x02, W
+00AE EC00 F000 01091         CALL    __gptrget3
+00B2 6E00      01092         MOVWF   r0x00
+00B4 CFF3 F000 01093         MOVFF   PRODL, r0x01
+00B8 CFF4 F000 01094         MOVFF   PRODH, r0x02
+00BC CFF2 FFE5 01095         MOVFF   INTCON, POSTDEC1
+00C0 9EF2      01096         BCF     INTCON, 7
+00C2 0005      01097         PUSH    
+00C4 0E00      01098         MOVLW   LOW(_00122_DS_)
+00C6 6EFD      01099         MOVWF   TOSL
+00C8 0E00      01100         MOVLW   HIGH(_00122_DS_)
+00CA 6EFE      01101         MOVWF   TOSH
+00CC 0E00      01102         MOVLW   UPPER(_00122_DS_)
+00CE 6EFF      01103         MOVWF   TOSU
+00D0 50E4      01104         MOVF    PREINC1, W
+00D2 6EF2      01105         MOVWF   INTCON
+00D4 C000 FFFB 01106         MOVFF   r0x02, PCLATU
+00D8 C000 FFFA 01107         MOVFF   r0x01, PCLATH
+00DC 5000      01108         MOVF    r0x00, W
+00DE 6EF9      01109         MOVWF   PCL
+00E0           01110 _00122_DS_:
+00E0 0000      01111         BANKSEL _reset_usb_i_1_1
+00E2 0700      01112         DECF    _reset_usb_i_1_1, F, B
+00E4 0000      01113         BANKSEL _reset_usb_i_1_1
+               01114 ;       .line   94; usb.c       for(i = 0; i < 16; i++)
+00E6 5100      01115         MOVF    _reset_usb_i_1_1, W, B
+00E8 A4D8      01116         BTFSS   STATUS, 2
+00EA EF00 F000 01117         GOTO    _00115_DS_
+00EE 0E10      01118         MOVLW   0x10
+00F0 0000      01119         BANKSEL _reset_usb_i_1_1
+00F2 6F00      01120         MOVWF   _reset_usb_i_1_1, B
+00F4 CFE4 F000 01121         MOVFF   PREINC1, r0x04
+00F8 CFE4 F000 01122         MOVFF   PREINC1, r0x03
+00FC CFE4 F000 01123         MOVFF   PREINC1, r0x02
+0100 CFE4 F000 01124         MOVFF   PREINC1, r0x01
+0104 CFE4 F000 01125         MOVFF   PREINC1, r0x00
+0108 CFE4 FFD9 01126         MOVFF   PREINC1, FSR2L
+010C 0012      01127         RETURN  
+               01128 
+               01129 ; ; Starting pCode block
+               01130 S_usb__init_usb code
+0000           01131 _init_usb:
+               01132 ;       .line   48; usb.c       void init_usb(void)
+0000 CFD9 FFE5 01133         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 01134         MOVFF   FSR1L, FSR2L
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               01135 ;       .line   50; usb.c       UIE  = 0;
+0008 6A00      01136         CLRF    _UIE
+               01137 ;       .line   51; usb.c       UCFG = 0x14;
+000A 0E14      01138         MOVLW   0x14
+000C 6E00      01139         MOVWF   _UCFG
+               01140 ;       .line   52; usb.c       UCON = 0x08;
+000E 0E08      01141         MOVLW   0x08
+0010 6E00      01142         MOVWF   _UCON
+0012           01143 _00105_DS_:
+               01144 ;       .line   53; usb.c       while(UCONbits.SE0);
+0012 BA00      01145         BTFSC   _UCONbits, 5
+0014 EF00 F000 01146         GOTO    _00105_DS_
+               01147 ;       .line   54; usb.c       UIR  = 0;
+0018 6A00      01148         CLRF    _UIR
+               01149 ;       .line   55; usb.c       UIE  = 0x11;
+001A 0E11      01150         MOVLW   0x11
+001C 6E00      01151         MOVWF   _UIE
+               01152 ;       .line   58; usb.c       SET_DEVICE_STATE(POWERED_STATE);
+001E 0E02      01153         MOVLW   0x02
+0020 6E00      01154         MOVWF   _usb_device_state
+               01155 ;       .line   61; usb.c       SET_ACTIVE_CONFIGURATION(0);
+0022 6A00      01156         CLRF    _usb_active_cfg
+               01157 ;       .line   62; usb.c       SET_ACTIVE_ALTERNATE_SETTING(0);
+0024 6A00      01158         CLRF    _usb_active_alt_setting
+0026 CFE4 FFD9 01159         MOVFF   PREINC1, FSR2L
+002A 0012      01160         RETURN  
+               01161 
+               01162 
+               01163 
+               01164 ; Statistics:
+               01165 ; code size:     1754 (0x06da) bytes ( 1.34%)
+               01166 ;                 877 (0x036d) words
+               01167 ; udata size:     158 (0x009e) bytes ( 8.82%)
+               01168 ; access size:     12 (0x000c) bytes
+               01169 
+               01170 
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FSR0H                             00000FEA
+FSR0L                             00000FE9
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+INTCON                            00000FF2
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+POSTINC0                          00000FEE
+PREINC1                           00000FE4
+PRODH                             00000FF4
+PRODL                             00000FF3
+STATUS                            00000FD8
+TBLPTRL                           00000FF6
+TOSH                              00000FFE
+TOSL                              00000FFD
+TOSU                              00000FFF
+WREG                              00000FE8
+_00105_DS_                        00000012
+_00110_DS_                        00000026
+_00112_DS_                        00000032
+_00115_DS_                        00000062
+_00122_DS_                        000000E0
+_00132_DS_                        00000014
+_00138_DS_                        0000002E
+_00141_DS_                        0000003E
+_00144_DS_                        00000050
+_00147_DS_                        000000E6
+_00149_DS_                        000000E8
+_00152_DS_                        000001F8
+_00157_DS_                        000002A6
+_00158_DS_                        00000364
+_00163_DS_                        00000366
+_00180_DS_                        0000006C
+_00181_DS_                        00000070
+_00182_DS_                        000000E4
+_00184_DS_                        00000146
+_00185_DS_                        0000014A
+_00186_DS_                        000001F4
+_00187_DS_                        000002A2
+_00188_DS_                        000002B6
+_00189_DS_                        000002BA
+_00190_DS_                        00000364
+_00196_DS_                        0000009E
+_00197_DS_                        000000A6
+_00198_DS_                        00000132
+_00201_DS_                        000001D0
+_00206_DS_                        0000008C
+_10195_DS_                        00000192
+_20196_DS_                        0000019A
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_30197_DS_                        000001CC
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADCON2                           00000000
+_ADCON2bits                       00000000
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BAUDCON                          00000000
+_BAUDCONbits                      00000000
+_BSR                              00000000
+_BSRbits                          00000000
+_CCP1CON                          00000000
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_ECCP1AS                          00000000
+_ECCP1ASbits                      00000000
+_ECCP1DEL                         00000000
+_ECCP1DELbits                     00000000
+_EEADR                            00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+_FSR0H                            00000000
+_FSR0Hbits                        00000000
+_FSR0L                            00000000
+_FSR1H                            00000000
+_FSR1Hbits                        00000000
+_FSR1L                            00000000
+_FSR2H                            00000000
+_FSR2Hbits                        00000000
+_FSR2L                            00000000
+_HLVDCON                          00000000
+_HLVDCONbits                      00000000
+_INDF0                            00000000
+_INDF1                            00000000
+_INDF2                            00000000
+_INTCON                           00000000
+_INTCON2                          00000000
+_INTCON2bits                      00000000
+_INTCON3                          00000000
+_INTCON3bits                      00000000
+_INTCONbits                       00000000
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 25
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_IPR1                             00000000
+_IPR1bits                         00000000
+_IPR2                             00000000
+_IPR2bits                         00000000
+_LATA                             00000000
+_LATAbits                         00000000
+_LATB                             00000000
+_LATBbits                         00000000
+_LATC                             00000000
+_LATCbits                         00000000
+_LATD                             00000000
+_LATDbits                         00000000
+_LATE                             00000000
+_LATEbits                         00000000
+_OSCCON                           00000000
+_OSCCONbits                       00000000
+_OSCTUNE                          00000000
+_OSCTUNEbits                      00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCLATHbits                       00000000
+_PCLATU                           00000000
+_PCLATUbits                       00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PLUSW0                           00000000
+_PLUSW1                           00000000
+_PLUSW2                           00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+_POSTDEC0                         00000000
+_POSTDEC1                         00000000
+_POSTDEC2                         00000000
+_POSTINC0                         00000000
+_POSTINC1                         00000000
+_POSTINC2                         00000000
+_PR2                              00000000
+_PREINC0                          00000000
+_PREINC1                          00000000
+_PREINC2                          00000000
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 26
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_PRODH                            00000000
+_PRODL                            00000000
+_RCON                             00000000
+_RCONbits                         00000000
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_SPBRG                            00000000
+_SPBRGH                           00000000
+_SPPCFG                           00000000
+_SPPCFGbits                       00000000
+_SPPCON                           00000000
+_SPPCONbits                       00000000
+_SPPDATA                          00000000
+_SPPDATAbits                      00000000
+_SPPEPS                           00000000
+_SPPEPSbits                       00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON1                          00000000
+_SSPCON1bits                      00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_STKPTR                           00000000
+_STKPTRbits                       00000000
+_T0CON                            00000000
+_T0CONbits                        00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_T3CON                            00000000
+_T3CONbits                        00000000
+_TABLAT                           00000000
+_TBLPTRH                          00000000
+_TBLPTRL                          00000000
+_TBLPTRU                          00000000
+_TBLPTRUbits                      00000000
+_TMR0H                            00000000
+_TMR0L                            00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TMR3H                            00000000
+_TMR3L                            00000000
+_TOSH                             00000000
+_TOSL                             00000000
+_TOSU                             00000000
+_TOSUbits                         00000000
+_TRISA                            00000000
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 27
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+_TXSTAbits                        00000000
+_UADDR                            00000000
+_UADDRbits                        00000000
+_UCFG                             00000000
+_UCFGbits                         00000000
+_UCON                             00000000
+_UCONbits                         00000000
+_UEIE                             00000000
+_UEIEbits                         00000000
+_UEIR                             00000000
+_UEIRbits                         00000000
+_UEP0                             00000000
+_UEP0bits                         00000000
+_UEP1                             00000000
+_UEP10                            00000000
+_UEP10bits                        00000000
+_UEP11                            00000000
+_UEP11bits                        00000000
+_UEP12                            00000000
+_UEP12bits                        00000000
+_UEP13                            00000000
+_UEP13bits                        00000000
+_UEP14                            00000000
+_UEP14bits                        00000000
+_UEP15                            00000000
+_UEP15bits                        00000000
+_UEP1bits                         00000000
+_UEP2                             00000000
+_UEP2bits                         00000000
+_UEP3                             00000000
+_UEP3bits                         00000000
+_UEP4                             00000000
+_UEP4bits                         00000000
+_UEP5                             00000000
+_UEP5bits                         00000000
+_UEP6                             00000000
+_UEP6bits                         00000000
+_UEP7                             00000000
+_UEP7bits                         00000000
+_UEP8                             00000000
+_UEP8bits                         00000000
+_UEP9                             00000000
+_UEP9bits                         00000000
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 28
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_UFRMH                            00000000
+_UFRMHbits                        00000000
+_UFRML                            00000000
+_UFRMLbits                        00000000
+_UIE                              00000000
+_UIEbits                          00000000
+_UIR                              00000000
+_UIRbits                          00000000
+_USTAT                            00000000
+_USTATbits                        00000000
+_WDTCON                           00000000
+_WDTCONbits                       00000000
+_WREG                             00000000
+__18F2550                         00000001
+__gptrget1                        00000000
+__gptrget2                        00000000
+__gptrget3                        00000000
+__gptrput1                        00000000
+__gptrput2                        00000000
+__gptrput3                        00000000
+__mulint                          00000000
+_boot_configuration_descriptor    00000000
+_boot_device_descriptor           00000000
+_boot_ep_in                       00000000
+_boot_ep_init                     00000000
+_boot_ep_out                      00000000
+_boot_ep_setup                    00000000
+_boot_string_descriptor           00000000
+_configuration_descriptor         00000000
+_device_descriptor                00000000
+_dispatch_usb_event               00000000
+_ep_bdt                           00000400
+_ep_in                            00000000
+_ep_init                          00000000
+_ep_out                           00000000
+_ep_setup                         00000000
+_fill_in_buffer                   00000000
+_fill_in_buffer_byte_to_send_1_1  00000000
+_fill_in_buffer_dest_1_1          00000000
+_init_usb                         00000000
+_reset_usb                        00000000
+_reset_usb_i_1_1                  00000000
+_section_descriptor               00000000
+_stdin                            00000000
+_stdout                           00000000
+_str0                             00000000
+_str1                             00000000
+_str2                             00000000
+_str3                             00000000
+_string_descriptor                00000000
+_usb_active_alt_setting           0000005D
+_usb_active_cfg                   0000005E
+_usb_device_state                 0000005F
+_usb_sleep                        00000000
+gpasm-0.13.4 beta               usb.asm     6-20-2007  08:33:09          PAGE 29
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+r0x07                             00000007
+r0x08                             00000008
+r0x09                             00000009
+r0x0a                             0000000A
+r0x0b                             0000000B
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+

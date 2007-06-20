@@ -1,0 +1,15 @@
+# udev rules file for vasco
+# $Id: vasco.rules,v 1.3 2006/11/11 16:18:19 gaufille Exp $
+#
+BUS!="usb", ACTION!="add", GOTO="vasco_rules_end"
+
+# All Vasco devices
+# Comment out if you are looking for product id rules
+# and uncomment the next rule
+SYSFS{idVendor}=="a5a5", MODE="660", GROUP="vasco"
+
+# Vasco device with product ID #1
+#SYSFS{idVendor}=="a5a5", SYSFS{idProduct}=="0001", MODE="660", GROUP="vasco"
+
+
+LABEL="vasco_rules_end"

@@ -1,0 +1,326 @@
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Wed Jun 20 08:33:09 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f2550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _null_function
+               00016         global _boot_device_descriptor
+               00017         global _boot_default_cfg
+               00018         global _boot_flash_cfg
+               00019         global _boot_configuration_descriptor
+               00020         global _str0
+               00021         global _str1
+               00022         global _str2
+               00023         global _str3
+               00024         global _str4
+               00025         global _str5
+               00026         global _boot_string_descriptor
+               00027         global _boot_ep_init
+               00028         global _boot_ep_in
+               00029         global _boot_ep_out
+               00030         global _boot_ep_setup
+               00031 
+               00032 ;--------------------------------------------------------
+               00033 ; extern variables in this module
+               00034 ;--------------------------------------------------------
+               00035         extern _section_descriptor
+               00036         extern _ep0_init
+               00037         extern _ep1_init
+               00038         extern _ep2_init
+               00039         extern _ep0_in
+               00040         extern _ep2_in
+               00041         extern _ep1_out
+               00042         extern _ep0_setup
+               00043 
+               00044 ;--------------------------------------------------------
+               00045 ; global & static initialisations
+               00046 ;--------------------------------------------------------
+               00047 ; I code from now on!
+               00048 ; ; Starting pCode block
+               00049 S_usb_descriptors__null_function        code
+0000           00050 _null_function:
+0000 0012      00051         return
+               00052         
+               00053 ; ; Starting pCode block for Ival
+               00054         code
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0000           00055 _boot_device_descriptor:
+0000 0112 0200 00056         DB      0x12, 0x01, 0x00, 0x02, 0xff, 0x00, 0xff, 0x08, 0xa5, 0xa5, 0x01, 0x00
+0004 00FF 08FF
+0008 A5A5 0001
+000C 0100 0201 00057         DB      0x00, 0x01, 0x01, 0x02, 0x03, 0x02
+0010 0203
+               00058 ; ; Starting pCode block for Ival
+0012           00059 _boot_default_cfg:
+0012 0209 0012 00060         DB      0x09, 0x02, 0x12, 0x00, 0x01, 0x01, 0x04, 0xc0, 0x00, 0x09, 0x04, 0x00
+0016 0101 C004
+001A 0900 0004
+001E 0000 FFFF 00061         DB      0x00, 0x00, 0xff, 0xff, 0xff, 0x04
+0022 04FF
+               00062 ; ; Starting pCode block for Ival
+0024           00063 _boot_flash_cfg:
+0024 0209 0020 00064         DB      0x09, 0x02, 0x20, 0x00, 0x01, 0x02, 0x05, 0xc0, 0x00, 0x09, 0x04, 0x00
+0028 0201 C005
+002C 0900 0004
+0030 0200 FFFF 00065         DB      0x00, 0x02, 0xff, 0xff, 0xff, 0x05, 0x07, 0x05, 0x01, 0x02, 0x40, 0x00
+0034 05FF 0507
+0038 0201 0040
+003C 0700 8205 00066         DB      0x00, 0x07, 0x05, 0x82, 0x02, 0x40, 0x00, 0x00
+0040 4002 0000
+               00067 ; ; Starting pCode block for Ival
+0044           00068 _boot_configuration_descriptor:
+0044 0000 0000 00069         DB      LOW(_boot_default_cfg), HIGH(_boot_default_cfg), UPPER(_boot_default_cfg), LOW(_boot_flash_cfg), HIGH(_boot_flash_cfg), UPPER(_boot_flash_cfg)
+0048 0000
+               00070 ; ; Starting pCode block for Ival
+004A           00071 _str0:
+004A 0304 0409 00072         DB      0x04, 0x03, 0x09, 0x04
+               00073 ; ; Starting pCode block for Ival
+004E           00074 _str1:
+004E 031C 0056 00075         DB      0x1c, 0x03, 0x56, 0x00, 0x61, 0x00, 0x73, 0x00, 0x63, 0x00, 0x6f, 0x00
+0052 0061 0073
+0056 0063 006F
+005A 0020 0050 00076         DB      0x20, 0x00, 0x50, 0x00, 0x72, 0x00, 0x6f, 0x00, 0x6a, 0x00, 0x65, 0x00
+005E 0072 006F
+0062 006A 0065
+0066 0063 0074 00077         DB      0x63, 0x00, 0x74, 0x00
+               00078 ; ; Starting pCode block for Ival
+006A           00079 _str2:
+006A 0324 0050 00080         DB      0x24, 0x03, 0x50, 0x00, 0x65, 0x00, 0x72, 0x00, 0x69, 0x00, 0x70, 0x00
+006E 0065 0072
+0072 0069 0070
+0076 0068 0065 00081         DB      0x68, 0x00, 0x65, 0x00, 0x72, 0x00, 0x61, 0x00, 0x6c, 0x00, 0x20, 0x00
+007A 0072 0061
+007E 006C 0020
+0082 006D 006F 00082         DB      0x6d, 0x00, 0x6f, 0x00, 0x64, 0x00, 0x75, 0x00, 0x6c, 0x00, 0x65, 0x00
+0086 0064 0075
+008A 006C 0065
+               00083 ; ; Starting pCode block for Ival
+008E           00084 _str3:
+008E 0304 0031 00085         DB      0x04, 0x03, 0x31, 0x00
+               00086 ; ; Starting pCode block for Ival
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0092           00087 _str4:
+0092 0310 0044 00088         DB      0x10, 0x03, 0x44, 0x00, 0x65, 0x00, 0x66, 0x00, 0x61, 0x00, 0x75, 0x00
+0096 0065 0066
+009A 0061 0075
+009E 006C 0074 00089         DB      0x6c, 0x00, 0x74, 0x00
+               00090 ; ; Starting pCode block for Ival
+00A2           00091 _str5:
+00A2 030C 0046 00092         DB      0x0c, 0x03, 0x46, 0x00, 0x6c, 0x00, 0x61, 0x00, 0x73, 0x00, 0x68, 0x00
+00A6 006C 0061
+00AA 0073 0068
+               00093 ; ; Starting pCode block for Ival
+00AE           00094 _boot_string_descriptor:
+00AE 0000 0000 00095         DB      LOW(_str0), HIGH(_str0), UPPER(_str0), LOW(_str1), HIGH(_str1), UPPER(_str1), LOW(_str2), HIGH(_str2), UPPER(_str2), LOW(_str3), HIGH(_str3), UPPER(_str3)
+00B2 0000 0000
+00B6 0000 0000
+00BA 0000 0000 00096         DB      LOW(_str4), HIGH(_str4), UPPER(_str4), LOW(_str5), HIGH(_str5), UPPER(_str5)
+00BE 0000
+               00097 ; ; Starting pCode block for Ival
+00C0           00098 _boot_ep_init_cfg0:
+00C0 0000 0000 00099         DB      LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00C4 0000 0000
+00C8 0000 0000
+00CC 0000 0000 00100         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00D0 0000 0000
+00D4 0000 0000
+00D8 0000 0000 00101         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00DC 0000 0000
+00E0 0000 0000
+00E4 0000 0000 00102         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00E8 0000 0000
+00EC 0000 0000
+               00103 ; ; Starting pCode block for Ival
+00F0           00104 _boot_ep_init_cfg1:
+00F0 0000 0000 00105         DB      LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_init), HIGH(_ep1_init), UPPER(_ep1_init), LOW(_ep2_init), HIGH(_ep2_init), UPPER(_ep2_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00F4 0000 0000
+00F8 0000 0000
+00FC 0000 0000 00106         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0100 0000 0000
+0104 0000 0000
+0108 0000 0000 00107         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+010C 0000 0000
+0110 0000 0000
+0114 0000 0000 00108         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0118 0000 0000
+011C 0000 0000
+               00109 ; ; Starting pCode block for Ival
+0120           00110 _boot_ep_init:
+0120 0000 0000 00111         DB      LOW(_boot_ep_init_cfg0), HIGH(_boot_ep_init_cfg0), UPPER(_boot_ep_init_cfg0), LOW(_boot_ep_init_cfg0), HIGH(_boot_ep_init_cfg0), UPPER(_boot_ep_init_cfg0), LOW(_boot_ep_init_cfg1), HIGH(_boot_ep_init_cfg1), UPPER(_boot_ep_init_cfg1)
+0124 0000 0000
+0128 0000
+               00112 ; ; Starting pCode block for Ival
+012A           00113 _boot_ep_in_cfg0:
+012A 0000 0000 00114         DB      LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+012E 0000 0000
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0132 0000 0000
+0136 0000 0000 00115         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+013A 0000 0000
+013E 0000 0000
+0142 0000 0000 00116         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0146 0000 0000
+014A 0000 0000
+014E 0000 0000 00117         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0152 0000 0000
+0156 0000 0000
+               00118 ; ; Starting pCode block for Ival
+015A           00119 _boot_ep_in_cfg1:
+015A 0000 0000 00120         DB      LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_ep2_in), HIGH(_ep2_in), UPPER(_ep2_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+015E 0000 0000
+0162 0000 0000
+0166 0000 0000 00121         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+016A 0000 0000
+016E 0000 0000
+0172 0000 0000 00122         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0176 0000 0000
+017A 0000 0000
+017E 0000 0000 00123         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0182 0000 0000
+0186 0000 0000
+               00124 ; ; Starting pCode block for Ival
+018A           00125 _boot_ep_in:
+018A 0000 0000 00126         DB      LOW(_boot_ep_in_cfg0), HIGH(_boot_ep_in_cfg0), UPPER(_boot_ep_in_cfg0), LOW(_boot_ep_in_cfg0), HIGH(_boot_ep_in_cfg0), UPPER(_boot_ep_in_cfg0), LOW(_boot_ep_in_cfg1), HIGH(_boot_ep_in_cfg1), UPPER(_boot_ep_in_cfg1)
+018E 0000 0000
+0192 0000
+               00127 ; ; Starting pCode block for Ival
+0194           00128 _boot_ep_out_cfg0:
+0194 0000 0000 00129         DB      LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0198 0000 0000
+019C 0000 0000
+01A0 0000 0000 00130         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01A4 0000 0000
+01A8 0000 0000
+01AC 0000 0000 00131         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01B0 0000 0000
+01B4 0000 0000
+01B8 0000 0000 00132         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01BC 0000 0000
+01C0 0000 0000
+               00133 ; ; Starting pCode block for Ival
+01C4           00134 _boot_ep_out_cfg1:
+01C4 0000 0000 00135         DB      LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_out), HIGH(_ep1_out), UPPER(_ep1_out), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01C8 0000 0000
+01CC 0000 0000
+01D0 0000 0000 00136         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01D4 0000 0000
+01D8 0000 0000
+01DC 0000 0000 00137         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01E0 0000 0000
+01E4 0000 0000
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+01E8 0000 0000 00138         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+01EC 0000 0000
+01F0 0000 0000
+               00139 ; ; Starting pCode block for Ival
+01F4           00140 _boot_ep_out:
+01F4 0000 0000 00141         DB      LOW(_boot_ep_out_cfg0), HIGH(_boot_ep_out_cfg0), UPPER(_boot_ep_out_cfg0), LOW(_boot_ep_out_cfg0), HIGH(_boot_ep_out_cfg0), UPPER(_boot_ep_out_cfg0), LOW(_boot_ep_out_cfg1), HIGH(_boot_ep_out_cfg1), UPPER(_boot_ep_out_cfg1)
+01F8 0000 0000
+01FC 0000
+               00142 ; ; Starting pCode block for Ival
+01FE           00143 _boot_ep_setup_cfg:
+01FE 0000 0000 00144         DB      LOW(_ep0_setup), HIGH(_ep0_setup), UPPER(_ep0_setup), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0202 0000 0000
+0206 0000 0000
+020A 0000 0000 00145         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+020E 0000 0000
+0212 0000 0000
+0216 0000 0000 00146         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+021A 0000 0000
+021E 0000 0000
+0222 0000 0000 00147         DB      LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0226 0000 0000
+022A 0000 0000
+               00148 ; ; Starting pCode block for Ival
+022E           00149 _boot_ep_setup:
+022E 0000 0000 00150         DB      LOW(_boot_ep_setup_cfg), HIGH(_boot_ep_setup_cfg), UPPER(_boot_ep_setup_cfg), LOW(_boot_ep_setup_cfg), HIGH(_boot_ep_setup_cfg), UPPER(_boot_ep_setup_cfg), LOW(_boot_ep_setup_cfg), HIGH(_boot_ep_setup_cfg), UPPER(_boot_ep_setup_cfg)
+0232 0000 0000
+0236 0000
+               00151 
+               00152 
+               00153 ; Statistics:
+               00154 ; code size:      112 (0x0070) bytes ( 0.09%)
+               00155 ;                  56 (0x0038) words
+               00156 ; udata size:       0 (0x0000) bytes ( 0.00%)
+               00157 ; access size:      0 (0x0000) bytes
+               00158 
+               00159 
+gpasm-0.13.4 beta               usb_descriptors.asm6-20-2007  08:33:09          PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__18F2550                         00000001
+_boot_configuration_descriptor    00000044
+_boot_default_cfg                 00000012
+_boot_device_descriptor           00000000
+_boot_ep_in                       0000018A
+_boot_ep_in_cfg0                  0000012A
+_boot_ep_in_cfg1                  0000015A
+_boot_ep_init                     00000120
+_boot_ep_init_cfg0                000000C0
+_boot_ep_init_cfg1                000000F0
+_boot_ep_out                      000001F4
+_boot_ep_out_cfg0                 00000194
+_boot_ep_out_cfg1                 000001C4
+_boot_ep_setup                    0000022E
+_boot_ep_setup_cfg                000001FE
+_boot_flash_cfg                   00000024
+_boot_string_descriptor           000000AE
+_ep0_in                           00000000
+_ep0_init                         00000000
+_ep0_setup                        00000000
+_ep1_init                         00000000
+_ep1_out                          00000000
+_ep2_in                           00000000
+_ep2_init                         00000000
+_null_function                    00000000
+_section_descriptor               00000000
+_str0                             0000004A
+_str1                             0000004E
+_str2                             0000006A
+_str3                             0000008E
+_str4                             00000092
+_str5                             000000A2
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+

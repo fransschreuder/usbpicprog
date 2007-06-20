@@ -1,0 +1,130 @@
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Wed Jun 20 08:33:04 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f2550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _boot_goto_table
+               00016 
+               00017 ;--------------------------------------------------------
+               00018 ; global & static initialisations
+               00019 ;--------------------------------------------------------
+               00020 ; ; Starting pCode block
+               00021 S_boot_iface__boot_goto_table   code    0X00001C
+001C           00022 _boot_goto_table:
+               00023         extern _dispatch_usb_event
+               00024         extern _reset_usb
+               00025         extern _usb_sleep
+               00026         extern _fill_in_buffer
+               00027         extern _ep0_init
+               00028         extern _ep0_in
+               00029         extern _ep0_setup
+               00030         extern _ep1_init
+               00031         extern _ep1_out
+               00032         extern _ep2_init
+               00033         extern _ep2_in
+               00034         extern __mullong
+               00035         extern __mulint
+               00036         extern __gptrget1
+               00037         extern __gptrget2
+               00038         extern __gptrget3
+               00039         extern __gptrget4
+               00040         extern __gptrput1
+               00041         extern __gptrput2
+               00042         extern __gptrput3
+               00043         extern _delay10ktcy
+               00044         extern _delay1ktcy
+               00045         extern _delay10tcy
+               00046         ;--------------------------------
+001C 0010      00047         DW 0x0010 ; Boot Version in BCD format
+001E EF00 F000 00048         goto _dispatch_usb_event
+0022 EF00 F000 00049         goto _reset_usb
+0026 EF00 F000 00050         goto _usb_sleep
+002A EF00 F000 00051         goto _fill_in_buffer
+002E EF00 F000 00052         goto _ep0_init
+0032 EF00 F000 00053         goto _ep0_in
+0036 EF00 F000 00054         goto _ep0_setup
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+003A EF00 F000 00055         goto _ep1_init
+003E EF00 F000 00056         goto _ep1_out
+0042 EF00 F000 00057         goto _ep2_init
+0046 EF00 F000 00058         goto _ep2_in
+004A EF00 F000 00059         goto __mullong
+004E EF00 F000 00060         goto __mulint
+0052 EF00 F000 00061         goto __gptrget1
+0056 EF00 F000 00062         goto __gptrget2
+005A EF00 F000 00063         goto __gptrget3
+005E EF00 F000 00064         goto __gptrget4
+0062 EF00 F000 00065         goto __gptrput1
+0066 EF00 F000 00066         goto __gptrput2
+006A EF00 F000 00067         goto __gptrput3
+006E EF00 F000 00068         goto _delay10ktcy
+0072 EF00 F000 00069         goto _delay1ktcy
+0076 EF00 F000 00070         goto _delay10tcy
+               00071         
+               00072 ; I code from now on!
+               00073 
+               00074 
+               00075 ; Statistics:
+               00076 ; code size:       98 (0x0062) bytes ( 0.07%)
+               00077 ;                  49 (0x0031) words
+               00078 ; udata size:       0 (0x0000) bytes ( 0.00%)
+               00079 ; access size:      0 (0x0000) bytes
+               00080 
+               00081 
+gpasm-0.13.4 beta               boot_iface.asm6-20-2007  08:33:04          PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__18F2550                         00000001
+__gptrget1                        00000000
+__gptrget2                        00000000
+__gptrget3                        00000000
+__gptrget4                        00000000
+__gptrput1                        00000000
+__gptrput2                        00000000
+__gptrput3                        00000000
+__mulint                          00000000
+__mullong                         00000000
+_boot_goto_table                  0000001C
+_delay10ktcy                      00000000
+_delay10tcy                       00000000
+_delay1ktcy                       00000000
+_dispatch_usb_event               00000000
+_ep0_in                           00000000
+_ep0_init                         00000000
+_ep0_setup                        00000000
+_ep1_init                         00000000
+_ep1_out                          00000000
+_ep2_in                           00000000
+_ep2_init                         00000000
+_fill_in_buffer                   00000000
+_reset_usb                        00000000
+_usb_sleep                        00000000
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+
