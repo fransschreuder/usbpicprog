@@ -1,11 +1,11 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Wed Jun 20 16:31:07 2007
+; This file generated Thu Jun 21 10:40:59 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
-	list	p=18f2550
+	list	p=18f4550
 	__config 0x300000, 0xe0
 	__config 0x300001, 0x3e
 	__config 0x300002, 0xf8

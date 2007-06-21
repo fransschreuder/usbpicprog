@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  16:31:06          PAGE  1
+gpasm-0.13.4 beta               boot_iface.asm6-21-2007  10:40:58          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,11 +7,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 16:31:06 2007
+               00004 ; This file generated Thu Jun 21 10:40:57 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
-               00008         list    p=18f2550
+               00008         list    p=18f4550
                00009 
                00010         radix dec
                00011 
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 002E EF00 F000 00052         goto _ep0_init
 0032 EF00 F000 00053         goto _ep0_in
 0036 EF00 F000 00054         goto _ep0_setup
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  16:31:06          PAGE  2
+gpasm-0.13.4 beta               boot_iface.asm6-21-2007  10:40:58          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -91,13 +91,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00079 ; access size:      0 (0x0000) bytes
                00080 
                00081 
-gpasm-0.13.4 beta               boot_iface.asm6-20-2007  16:31:06          PAGE  3
+gpasm-0.13.4 beta               boot_iface.asm6-21-2007  10:40:58          PAGE  3
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-__18F2550                         00000001
+__18F4550                         00000001
 __gptrget1                        00000000
 __gptrget2                        00000000
 __gptrget3                        00000000

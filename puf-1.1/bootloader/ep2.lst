@@ -1,4 +1,4 @@
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  1
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,11 +7,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00001 ;--------------------------------------------------------
                00002 ; File Created by SDCC : free open source ANSI-C Compiler
                00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Wed Jun 20 16:31:09 2007
+               00004 ; This file generated Thu Jun 21 10:41:01 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
-               00008         list    p=18f2550
+               00008         list    p=18f4550
                00009 
                00010         radix dec
                00011 
@@ -58,7 +58,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00052         extern _UEP2bits
                00053         extern _UEP3bits
                00054         extern _UEP4bits
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  2
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -118,7 +118,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00106         extern _T1CONbits
                00107         extern _RCONbits
                00108         extern _WDTCONbits
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  3
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -178,7 +178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00160         extern _LATA
                00161         extern _LATB
                00162         extern _LATC
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  4
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -238,7 +238,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00214         extern _T1CON
                00215         extern _TMR1L
                00216         extern _TMR1H
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  5
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -298,7 +298,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00268         extern _boot_string_descriptor
                00269         extern _str0
                00270         extern _str1
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  6
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -358,7 +358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0024 0000      00322         BANKSEL (_ep2_num_bytes_to_send + 1)
 0026 1100      00323         IORWF   (_ep2_num_bytes_to_send + 1), W, B
 0028 A4D8      00324         BTFSS   STATUS, 2
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  7
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -418,7 +418,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 008A 6EE5      00376         MOVWF   POSTDEC1
 008C 5000      00377         MOVF    r0x02, W
 008E 6EE5      00378         MOVWF   POSTDEC1
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  8
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -478,7 +478,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 002A 0000      00430         BANKSEL _ep2_num_bytes_to_send
 002C 5D00      00431         SUBWF   _ep2_num_bytes_to_send, W, B
 002E           00432 _00116_DS_:
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE  9
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -538,7 +538,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0090 0E09      00484         MOVLW   0x09
 0092 26E1      00485         ADDWF   FSR1L, F
 0094 0000      00486         BANKSEL (_ep_bdt + 20)
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 10
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -592,7 +592,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00532 ; access size:      6 (0x0006) bytes
                00533 
                00534 
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 11
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 11
 
 
 SYMBOL TABLE
@@ -651,7 +651,7 @@ _FSR1Hbits                        00000000
 _FSR1L                            00000000
 _FSR2H                            00000000
 _FSR2Hbits                        00000000
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 12
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -711,7 +711,7 @@ _PORTC                            00000000
 _PORTCbits                        00000000
 _PORTD                            00000000
 _PORTDbits                        00000000
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 13
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -771,7 +771,7 @@ _TBLPTRH                          00000000
 _TBLPTRL                          00000000
 _TBLPTRU                          00000000
 _TBLPTRUbits                      00000000
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 14
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -831,7 +831,7 @@ _UEP2                             00000000
 _UEP2bits                         00000000
 _UEP3                             00000000
 _UEP3bits                         00000000
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 15
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -862,7 +862,7 @@ _USTATbits                        00000000
 _WDTCON                           00000000
 _WDTCONbits                       00000000
 _WREG                             00000000
-__18F2550                         00000001
+__18F4550                         00000001
 _boot_configuration_descriptor    00000000
 _boot_device_descriptor           00000000
 _boot_ep_in                       00000000
@@ -891,7 +891,7 @@ _str1                             00000000
 _str2                             00000000
 _str3                             00000000
 _string_descriptor                00000000
-gpasm-0.13.4 beta               ep2.asm     6-20-2007  16:31:09          PAGE 16
+gpasm-0.13.4 beta               ep2.asm     6-21-2007  10:41:01          PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
