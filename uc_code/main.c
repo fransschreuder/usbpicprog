@@ -48,6 +48,8 @@
 #include "system\usb\usb_compile_time_validation.h" // Optional
 #include "upp\upp.h"                              // Modifiable
 
+#pragma config 
+
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
 #pragma udata
