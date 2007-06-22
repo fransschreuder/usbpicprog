@@ -62,50 +62,49 @@
 #endif
 
 /** L E D ***********************************************************/
-#define mInitAllLEDs()      LATD &= 0xF0; TRISD &= 0xF0;
+#define mInitAllLEDs()      LATC &= 0xF8; TRISC &= 0xF8;
 
-#define mLED_1              LATDbits.LATD0
-#define mLED_2              LATDbits.LATD1
-#define mLED_3              LATDbits.LATD2
-#define mLED_4              LATDbits.LATD3
+#define mLED_1              LATCbits.LATC0
+#define mLED_2              LATCbits.LATC1
+#define mLED_3              LATCbits.LATC2
+
 
 #define mLED_1_On()         mLED_1 = 1;
 #define mLED_2_On()         mLED_2 = 1;
 #define mLED_3_On()         mLED_3 = 1;
-#define mLED_4_On()         mLED_4 = 1;
+
 
 #define mLED_1_Off()        mLED_1 = 0;
 #define mLED_2_Off()        mLED_2 = 0;
 #define mLED_3_Off()        mLED_3 = 0;
-#define mLED_4_Off()        mLED_4 = 0;
 
 #define mLED_1_Toggle()     mLED_1 = !mLED_1;
 #define mLED_2_Toggle()     mLED_2 = !mLED_2;
 #define mLED_3_Toggle()     mLED_3 = !mLED_3;
-#define mLED_4_Toggle()     mLED_4 = !mLED_4;
+
 
 /** S W I T C H *****************************************************/
-#define mInitAllSwitches()  TRISBbits.TRISB4=1;TRISBbits.TRISB5=1;
-#define mInitSwitch2()      TRISBbits.TRISB4=1;
-#define mInitSwitch3()      TRISBbits.TRISB5=1;
-#define sw2                 PORTBbits.RB4
-#define sw3                 PORTBbits.RB5
+#define mInitAllSwitches()  TRISBbits.TRISB6=1;
+#define mInitSwitch2()      TRISBbits.TRISB6=1;
+#define sw2                 PORTBbits.RB6
+
 
 /** P O T ***********************************************************/
-#define mInitPOT()          TRISAbits.TRISA0=1;ADCON0=0x01;ADCON2=0x3C;
+//#define mInitPOT()          TRISAbits.TRISA0=1;ADCON0=0x01;ADCON2=0x3C;
 
 /** S P I : Chip Select Lines ***************************************/
-#define tris_cs_temp_sensor TRISBbits.TRISB2    // Output
+/*#define tris_cs_temp_sensor TRISBbits.TRISB2    // Output
 #define cs_temp_sensor      LATBbits.LATB2
 
 #define tris_cs_sdmmc       TRISBbits.TRISB3    // Output
 #define cs_sdmmc            LATBbits.LATB3
-
+*/
 /** S D M M C *******************************************************/
+/*
 #define TRIS_CARD_DETECT    TRISBbits.TRISB4    // Input
 #define CARD_DETECT         PORTBbits.RB4
 
 #define TRIS_WRITE_DETECT   TRISAbits.TRISA4    // Input
 #define WRITE_DETECT        PORTAbits.RA4
-
+*/
 #endif //IO_CFG_H

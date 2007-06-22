@@ -44,7 +44,7 @@ void UserInit(void)
     mInitAllLEDs();
     mInitAllSwitches();
     old_sw2 = sw2;
-    old_sw3 = sw3;
+//    old_sw3 = sw3;
     
 
     
@@ -204,15 +204,6 @@ BOOL Switch2IsPressed(void)
     return FALSE;                       // Was not pressed
 }//end Switch2IsPressed
 
-BOOL Switch3IsPressed(void)
-{
-    if(sw3 != old_sw3)
-    {
-        old_sw3 = sw3;                  // Save new value
-        if(sw3 == 0)                    // If pressed
-            return TRUE;                // Was pressed
-    }//end if
-    return FALSE;                       // Was not pressed
-}//end Switch3IsPressed
+
 
 /** EOF upp.c ***************************************************************/
