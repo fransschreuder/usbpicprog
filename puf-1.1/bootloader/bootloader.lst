@@ -1,6 +1,6 @@
 gplink-0.13.4 alpha
 Copyright (c) 1998-2005 gputils project
-Listing File Generated: 6-22-2007  21:45:15
+Listing File Generated: 6-22-2007  21:49:06
  
  
 Address  Value    Disassembly              Source
@@ -60,7 +60,7 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; File Created by SDCC : FreeWare ANSI-C Compiler
                                            ; Version 2.6.0 #4309 (Nov 10 2006)
-                                           ; This file generated Fri Jun 22 21:45:15 2007
+                                           ; This file generated Fri Jun 22 21:49:06 2007
                                            ;--------------------------------------------------------
                                            ; PIC16 port for the Microchip 16-bit core micros
                                            ;--------------------------------------------------------
@@ -374,72 +374,74 @@ Address  Value    Disassembly              Source
 001848   ecec     call	0x13d8, 0           	CALL	_init_boot
 00184a   f009
                                            ;	.line	89; boot_main.c	init_usb();
-00184c   ecf4     call	0x19e8, 0           	CALL	_init_usb
+00184c   ecf5     call	0x19ea, 0           	CALL	_init_usb
 00184e   f00c
                                            _00119_DS_:
                                            ;	.line	93; boot_main.c	usb_sleep();
-001850   ec65     call	0x1aca, 0           	CALL	_usb_sleep
+001850   ec66     call	0x1acc, 0           	CALL	_usb_sleep
 001852   f00d
                                            ;	.line	94; boot_main.c	dispatch_usb_event();
 001854   ec3d     call	0x7a, 0             	CALL	_dispatch_usb_event
 001856   f000
-                                           ;	.line	95; boot_main.c	if((application_data.invalid == 0) &&
-001858   0e00     movlw	0                  	MOVLW	LOW(_application_data)
-00185a   6ef6     movwf	0xf6, 0            	MOVWF	TBLPTRL
-00185c   0e20     movlw	0x20               	MOVLW	HIGH(_application_data)
-00185e   6ef7     movwf	0xf7, 0            	MOVWF	TBLPTRH
-001860   0e00     movlw	0                  	MOVLW	UPPER(_application_data)
-001862   6ef8     movwf	0xf8, 0            	MOVWF	TBLPTRU
-001864   0009     tblrd	*+                 	TBLRD*+	
-001866   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
-001868   f000
-00186a   5000     movf	0, 0, 0             	MOVF	r0x00, W
-00186c   e1f1     bnz	0x1850               	BNZ	_00119_DS_
-                                           ;	.line	96; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
-00186e   0e03     movlw	0x3                	MOVLW	0x03
-001870   5c5e     subwf	0x5e, 0, 0         	SUBWF	_usb_active_cfg, W
-001872   e3ee     bnc	0x1850               	BNC	_00119_DS_
-                                           ;	.line	99; boot_main.c	LED3=0;
-001874   9482     bcf	0x82, 0x2, 0         	BCF	_PORTCbits, 2
-                                           ;	.line	100; boot_main.c	application_data.main();
-001876   0e16     movlw	0x16               	MOVLW	LOW(_application_data + 22)
-001878   6ef6     movwf	0xf6, 0            	MOVWF	TBLPTRL
-00187a   0e20     movlw	0x20               	MOVLW	HIGH(_application_data + 22)
-00187c   6ef7     movwf	0xf7, 0            	MOVWF	TBLPTRH
-00187e   0e00     movlw	0                  	MOVLW	UPPER(_application_data + 22)
-001880   6ef8     movwf	0xf8, 0            	MOVWF	TBLPTRU
-001882   0009     tblrd	*+                 	TBLRD*+	
-001884   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
-001886   f000
-001888   0009     tblrd	*+                 	TBLRD*+	
-00188a   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-00188c   f001
-00188e   0009     tblrd	*+                 	TBLRD*+	
-001890   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-001892   f002
-001894   cff2     movff	0xff2, 0xfe5       	MOVFF	INTCON, POSTDEC1
-001896   ffe5
-001898   9ef2     bcf	0xf2, 0x7, 0         	BCF	INTCON, 7
-00189a   0005     push                     	PUSH	
-00189c   0eb8     movlw	0xb8               	MOVLW	LOW(_00127_DS_)
-00189e   6efd     movwf	0xfd, 0            	MOVWF	TOSL
-0018a0   0e18     movlw	0x18               	MOVLW	HIGH(_00127_DS_)
-0018a2   6efe     movwf	0xfe, 0            	MOVWF	TOSH
-0018a4   0e00     movlw	0                  	MOVLW	UPPER(_00127_DS_)
-0018a6   6eff     movwf	0xff, 0            	MOVWF	TOSU
-0018a8   50e4     movf	0xe4, 0, 0          	MOVF	PREINC1, W
-0018aa   6ef2     movwf	0xf2, 0            	MOVWF	INTCON
-0018ac   c002     movff	0x2, 0xffb         	MOVFF	r0x02, PCLATU
-0018ae   fffb
-0018b0   c001     movff	0x1, 0xffa         	MOVFF	r0x01, PCLATH
-0018b2   fffa
-0018b4   5000     movf	0, 0, 0             	MOVF	r0x00, W
-0018b6   6ef9     movwf	0xf9, 0            	MOVWF	PCL
+                                           ;	.line	95; boot_main.c	LED3=~LED3;
+001858   8482     bsf	0x82, 0x2, 0         	BSF	_PORTCbits, 2
+                                           ;	.line	96; boot_main.c	if((application_data.invalid == 0) &&
+00185a   0e00     movlw	0                  	MOVLW	LOW(_application_data)
+00185c   6ef6     movwf	0xf6, 0            	MOVWF	TBLPTRL
+00185e   0e20     movlw	0x20               	MOVLW	HIGH(_application_data)
+001860   6ef7     movwf	0xf7, 0            	MOVWF	TBLPTRH
+001862   0e00     movlw	0                  	MOVLW	UPPER(_application_data)
+001864   6ef8     movwf	0xf8, 0            	MOVWF	TBLPTRU
+001866   0009     tblrd	*+                 	TBLRD*+	
+001868   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
+00186a   f000
+00186c   5000     movf	0, 0, 0             	MOVF	r0x00, W
+00186e   e1f0     bnz	0x1850               	BNZ	_00119_DS_
+                                           ;	.line	97; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
+001870   0e03     movlw	0x3                	MOVLW	0x03
+001872   5c5e     subwf	0x5e, 0, 0         	SUBWF	_usb_active_cfg, W
+001874   e3ed     bnc	0x1850               	BNC	_00119_DS_
+                                           ;	.line	100; boot_main.c	LED3=0;
+001876   9482     bcf	0x82, 0x2, 0         	BCF	_PORTCbits, 2
+                                           ;	.line	101; boot_main.c	application_data.main();
+001878   0e16     movlw	0x16               	MOVLW	LOW(_application_data + 22)
+00187a   6ef6     movwf	0xf6, 0            	MOVWF	TBLPTRL
+00187c   0e20     movlw	0x20               	MOVLW	HIGH(_application_data + 22)
+00187e   6ef7     movwf	0xf7, 0            	MOVWF	TBLPTRH
+001880   0e00     movlw	0                  	MOVLW	UPPER(_application_data + 22)
+001882   6ef8     movwf	0xf8, 0            	MOVWF	TBLPTRU
+001884   0009     tblrd	*+                 	TBLRD*+	
+001886   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
+001888   f000
+00188a   0009     tblrd	*+                 	TBLRD*+	
+00188c   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
+00188e   f001
+001890   0009     tblrd	*+                 	TBLRD*+	
+001892   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
+001894   f002
+001896   cff2     movff	0xff2, 0xfe5       	MOVFF	INTCON, POSTDEC1
+001898   ffe5
+00189a   9ef2     bcf	0xf2, 0x7, 0         	BCF	INTCON, 7
+00189c   0005     push                     	PUSH	
+00189e   0eba     movlw	0xba               	MOVLW	LOW(_00127_DS_)
+0018a0   6efd     movwf	0xfd, 0            	MOVWF	TOSL
+0018a2   0e18     movlw	0x18               	MOVLW	HIGH(_00127_DS_)
+0018a4   6efe     movwf	0xfe, 0            	MOVWF	TOSH
+0018a6   0e00     movlw	0                  	MOVLW	UPPER(_00127_DS_)
+0018a8   6eff     movwf	0xff, 0            	MOVWF	TOSU
+0018aa   50e4     movf	0xe4, 0, 0          	MOVF	PREINC1, W
+0018ac   6ef2     movwf	0xf2, 0            	MOVWF	INTCON
+0018ae   c002     movff	0x2, 0xffb         	MOVFF	r0x02, PCLATU
+0018b0   fffb
+0018b2   c001     movff	0x1, 0xffa         	MOVFF	r0x01, PCLATH
+0018b4   fffa
+0018b6   5000     movf	0, 0, 0             	MOVF	r0x00, W
+0018b8   6ef9     movwf	0xf9, 0            	MOVWF	PCL
                                            _00127_DS_:
-                                           ;	.line	102; boot_main.c	INTCON = 0; // Forbid interrupts
-0018b8   6af2     clrf	0xf2, 0             	CLRF	_INTCON
-0018ba   d7ca     bra	0x1850               	BRA	_00119_DS_
-0018bc   0012     return	0                 	RETURN	
+                                           ;	.line	103; boot_main.c	INTCON = 0; // Forbid interrupts
+0018ba   6af2     clrf	0xf2, 0             	CLRF	_INTCON
+0018bc   d7c9     bra	0x1850               	BRA	_00119_DS_
+0018be   0012     return	0                 	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_boot_main__init_boot	code
@@ -646,8 +648,8 @@ Address  Value    Disassembly              Source
                                            
                                            
                                            ; Statistics:
-                                           ; code size:	  404 (0x0194) bytes ( 0.31%)
-                                           ;           	  202 (0x00ca) words
+                                           ; code size:	  406 (0x0196) bytes ( 0.31%)
+                                           ;           	  203 (0x00cb) words
                                            ; udata size:	  259 (0x0103) bytes (14.45%)
                                            ; access size:	    3 (0x0003) bytes
                                            
@@ -704,21 +706,21 @@ Address  Value    Disassembly              Source
 000020   f000
 000022   ef7b     goto	0x14f6              	goto _reset_usb
 000024   f00a
-000026   ef65     goto	0x1aca              	goto _usb_sleep
+000026   ef66     goto	0x1acc              	goto _usb_sleep
 000028   f00d
 00002a   ef29     goto	0x1052              	goto _fill_in_buffer
 00002c   f008
-00002e   ef94     goto	0x1928              	goto _ep0_init
+00002e   ef95     goto	0x192a              	goto _ep0_init
 000030   f00c
 000032   efb7     goto	0x96e               	goto _ep0_in
 000034   f004
 000036   ef2c     goto	0x1258              	goto _ep0_setup
 000038   f009
-00003a   ef20     goto	0x1a40              	goto _ep1_init
+00003a   ef21     goto	0x1a42              	goto _ep1_init
 00003c   f00d
 00003e   ef0d     goto	0xc1a               	goto _ep1_out
 000040   f006
-000042   ef72     goto	0x1ae4              	goto _ep2_init
+000042   ef73     goto	0x1ae6              	goto _ep2_init
 000044   f00d
 000046   ef02     goto	0x1604              	goto _ep2_in
 000048   f00b
@@ -726,19 +728,19 @@ Address  Value    Disassembly              Source
 00004c   f007
 00004e   efd4     goto	0x17a8              	goto __mulint
 000050   f00b
-000052   ef46     goto	0x1a8c              	goto __gptrget1
+000052   ef47     goto	0x1a8e              	goto __gptrget1
 000054   f00d
-000056   ef0a     goto	0x1a14              	goto __gptrget2
+000056   ef0b     goto	0x1a16              	goto __gptrget2
 000058   f00d
-00005a   efd9     goto	0x19b2              	goto __gptrget3
+00005a   efda     goto	0x19b4              	goto __gptrget3
 00005c   f00c
-00005e   efb9     goto	0x1972              	goto __gptrget4
+00005e   efba     goto	0x1974              	goto __gptrget4
 000060   f00c
-000062   ef94     goto	0x1b28              	goto __gptrput1
+000062   ef95     goto	0x1b2a              	goto __gptrput1
 000064   f00d
-000066   ef7e     goto	0x1afc              	goto __gptrput2
+000066   ef7f     goto	0x1afe              	goto __gptrput2
 000068   f00d
-00006a   ef57     goto	0x1aae              	goto __gptrput3
+00006a   ef58     goto	0x1ab0              	goto __gptrput3
 00006c   f00d
 00006e   ef30     goto	0x660               	goto _delay10ktcy
 000070   f003
@@ -1191,7 +1193,7 @@ Address  Value    Disassembly              Source
 0010c4   c007     movff	0x7, 0xff3         	MOVFF	r0x07, PRODL
 0010c6   fff3
 0010c8   5008     movf	0x8, 0, 0           	MOVF	r0x08, W
-0010ca   ec0a     call	0x1a14, 0           	CALL	__gptrget2
+0010ca   ec0b     call	0x1a16, 0           	CALL	__gptrget2
 0010cc   f00d
 0010ce   6e09     movwf	0x9, 0             	MOVWF	r0x09
 0010d0   cff3     movff	0xff3, 0xa         	MOVFF	PRODL, r0x0a
@@ -1293,7 +1295,7 @@ Address  Value    Disassembly              Source
 00117a   c007     movff	0x7, 0xff3         	MOVFF	r0x07, PRODL
 00117c   fff3
 00117e   5008     movf	0x8, 0, 0           	MOVF	r0x08, W
-001180   ec7e     call	0x1afc, 0           	CALL	__gptrput2
+001180   ec7f     call	0x1afe, 0           	CALL	__gptrput2
 001182   f00d
                                            _00198_DS_:
 001184   0100     movlb	0                  	BANKSEL	_fill_in_buffer_byte_to_send_1_1
@@ -1316,7 +1318,7 @@ Address  Value    Disassembly              Source
 0011a2   c002     movff	0x2, 0xff3         	MOVFF	r0x02, PRODL
 0011a4   fff3
 0011a6   5003     movf	0x3, 0, 0           	MOVF	r0x03, W
-0011a8   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0011a8   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0011aa   f00c
 0011ac   6e06     movwf	0x6, 0             	MOVWF	r0x06
 0011ae   cff3     movff	0xff3, 0x7         	MOVFF	PRODL, r0x07
@@ -1328,7 +1330,7 @@ Address  Value    Disassembly              Source
 0011ba   c007     movff	0x7, 0xff3         	MOVFF	r0x07, PRODL
 0011bc   fff3
 0011be   5008     movf	0x8, 0, 0           	MOVF	r0x08, W
-0011c0   ec46     call	0x1a8c, 0           	CALL	__gptrget1
+0011c0   ec47     call	0x1a8e, 0           	CALL	__gptrget1
 0011c2   f00d
 0011c4   6e09     movwf	0x9, 0             	MOVWF	r0x09
 0011c6   c009     movff	0x9, 0xfe5         	MOVFF	r0x09, POSTDEC1
@@ -1338,7 +1340,7 @@ Address  Value    Disassembly              Source
 0011ce   c004     movff	0x4, 0xff3         	MOVFF	r0x04, PRODL
 0011d0   fff3
 0011d2   5005     movf	0x5, 0, 0           	MOVF	r0x05, W
-0011d4   ec94     call	0x1b28, 0           	CALL	__gptrput1
+0011d4   ec95     call	0x1b2a, 0           	CALL	__gptrput1
 0011d6   f00d
 0011d8   0100     movlb	0                  	BANKSEL	_fill_in_buffer_dest_1_1
                                            ;	.line	217; usb.c	dest++;
@@ -1370,7 +1372,7 @@ Address  Value    Disassembly              Source
 001206   c002     movff	0x2, 0xff3         	MOVFF	r0x02, PRODL
 001208   fff3
 00120a   5003     movf	0x3, 0, 0           	MOVF	r0x03, W
-00120c   ec57     call	0x1aae, 0           	CALL	__gptrput3
+00120c   ec58     call	0x1ab0, 0           	CALL	__gptrput3
 00120e   f00d
                                            ;	.line	219; usb.c	byte_to_send--;
 001210   0eff     movlw	0xff               	MOVLW	0xff
@@ -1514,7 +1516,7 @@ Address  Value    Disassembly              Source
 00010e   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000110   fff3
 000112   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000114   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+000114   ecda     call	0x19b4, 0           	CALL	__gptrget3
 000116   f00c
 000118   6e00     movwf	0, 0               	MOVWF	r0x00
 00011a   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1526,7 +1528,7 @@ Address  Value    Disassembly              Source
 000126   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000128   fff3
 00012a   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00012c   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+00012c   ecda     call	0x19b4, 0           	CALL	__gptrget3
 00012e   f00c
 000130   6e00     movwf	0, 0               	MOVWF	r0x00
 000132   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1641,7 +1643,7 @@ Address  Value    Disassembly              Source
 0001e8   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0001ea   fff3
 0001ec   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0001ee   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0001ee   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0001f0   f00c
 0001f2   6e00     movwf	0, 0               	MOVWF	r0x00
 0001f4   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1680,7 +1682,7 @@ Address  Value    Disassembly              Source
 000236   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000238   fff3
 00023a   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00023c   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+00023c   ecda     call	0x19b4, 0           	CALL	__gptrget3
 00023e   f00c
 000240   6e00     movwf	0, 0               	MOVWF	r0x00
 000242   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1734,7 +1736,7 @@ Address  Value    Disassembly              Source
 000296   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000298   fff3
 00029a   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00029c   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+00029c   ecda     call	0x19b4, 0           	CALL	__gptrget3
 00029e   f00c
 0002a0   6e00     movwf	0, 0               	MOVWF	r0x00
 0002a2   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1773,7 +1775,7 @@ Address  Value    Disassembly              Source
 0002e4   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0002e6   fff3
 0002e8   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0002ea   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0002ea   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0002ec   f00c
 0002ee   6e00     movwf	0, 0               	MOVWF	r0x00
 0002f0   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1840,7 +1842,7 @@ Address  Value    Disassembly              Source
 000358   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 00035a   fff3
 00035c   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00035e   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+00035e   ecda     call	0x19b4, 0           	CALL	__gptrget3
 000360   f00c
 000362   6e00     movwf	0, 0               	MOVWF	r0x00
 000364   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1879,7 +1881,7 @@ Address  Value    Disassembly              Source
 0003a6   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0003a8   fff3
 0003aa   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0003ac   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0003ac   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0003ae   f00c
 0003b0   6e00     movwf	0, 0               	MOVWF	r0x00
 0003b2   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -1927,23 +1929,23 @@ Address  Value    Disassembly              Source
                                            S_usb__usb_sleep	code
                                            _usb_sleep:
                                            ;	.line	100; usb.c	void usb_sleep(void)
-001aca   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-001acc   ffe5
-001ace   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-001ad0   ffd9
+001acc   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+001ace   ffe5
+001ad0   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+001ad2   ffd9
                                            ;	.line	104; usb.c	if(UCONbits.SUSPND)
-001ad2   a26d     btfss	0x6d, 0x1, 0       	BTFSS	_UCONbits, 1
-001ad4   ef6f     goto	0x1ade              	GOTO	_00132_DS_
-001ad6   f00d
+001ad4   a26d     btfss	0x6d, 0x1, 0       	BTFSS	_UCONbits, 1
+001ad6   ef70     goto	0x1ae0              	GOTO	_00132_DS_
+001ad8   f00d
                                            ;	.line	111; usb.c	PIE2bits.USBIE = 1; 
-001ad8   8aa0     bsf	0xa0, 0x5, 0         	BSF	_PIE2bits, 5
-001ada   0003     sleep                    	sleep 
+001ada   8aa0     bsf	0xa0, 0x5, 0         	BSF	_PIE2bits, 5
+001adc   0003     sleep                    	sleep 
                                            ;	.line	113; usb.c	PIR2bits.USBIF = 0;
-001adc   9aa1     bcf	0xa1, 0x5, 0         	BCF	_PIR2bits, 5
+001ade   9aa1     bcf	0xa1, 0x5, 0         	BCF	_PIR2bits, 5
                                            _00132_DS_:
-001ade   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001ae0   ffd9
-001ae2   0012     return	0                 	RETURN	
+001ae0   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001ae2   ffd9
+001ae4   0012     return	0                 	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_usb__reset_usb	code
@@ -2028,7 +2030,7 @@ Address  Value    Disassembly              Source
 001568   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 00156a   fff3
 00156c   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00156e   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+00156e   ecda     call	0x19b4, 0           	CALL	__gptrget3
 001570   f00c
 001572   6e00     movwf	0, 0               	MOVWF	r0x00
 001574   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -2058,7 +2060,7 @@ Address  Value    Disassembly              Source
 00159e   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0015a0   fff3
 0015a2   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0015a4   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0015a4   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0015a6   f00c
 0015a8   6e00     movwf	0, 0               	MOVWF	r0x00
 0015aa   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -2113,38 +2115,38 @@ Address  Value    Disassembly              Source
                                            S_usb__init_usb	code
                                            _init_usb:
                                            ;	.line	48; usb.c	void init_usb(void)
-0019e8   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-0019ea   ffe5
-0019ec   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-0019ee   ffd9
+0019ea   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+0019ec   ffe5
+0019ee   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+0019f0   ffd9
                                            ;	.line	50; usb.c	UIE  = 0;
-0019f0   6a69     clrf	0x69, 0             	CLRF	_UIE
+0019f2   6a69     clrf	0x69, 0             	CLRF	_UIE
                                            ;	.line	51; usb.c	UCFG = 0x14;
-0019f2   0e14     movlw	0x14               	MOVLW	0x14
-0019f4   6e6f     movwf	0x6f, 0            	MOVWF	_UCFG
+0019f4   0e14     movlw	0x14               	MOVLW	0x14
+0019f6   6e6f     movwf	0x6f, 0            	MOVWF	_UCFG
                                            ;	.line	52; usb.c	UCON = 0x08;
-0019f6   0e08     movlw	0x8                	MOVLW	0x08
-0019f8   6e6d     movwf	0x6d, 0            	MOVWF	_UCON
+0019f8   0e08     movlw	0x8                	MOVLW	0x08
+0019fa   6e6d     movwf	0x6d, 0            	MOVWF	_UCON
                                            _00105_DS_:
                                            ;	.line	53; usb.c	while(UCONbits.SE0);
-0019fa   ba6d     btfsc	0x6d, 0x5, 0       	BTFSC	_UCONbits, 5
-0019fc   effd     goto	0x19fa              	GOTO	_00105_DS_
-0019fe   f00c
+0019fc   ba6d     btfsc	0x6d, 0x5, 0       	BTFSC	_UCONbits, 5
+0019fe   effe     goto	0x19fc              	GOTO	_00105_DS_
+001a00   f00c
                                            ;	.line	54; usb.c	UIR  = 0;
-001a00   6a68     clrf	0x68, 0             	CLRF	_UIR
+001a02   6a68     clrf	0x68, 0             	CLRF	_UIR
                                            ;	.line	55; usb.c	UIE  = 0x11;
-001a02   0e11     movlw	0x11               	MOVLW	0x11
-001a04   6e69     movwf	0x69, 0            	MOVWF	_UIE
+001a04   0e11     movlw	0x11               	MOVLW	0x11
+001a06   6e69     movwf	0x69, 0            	MOVWF	_UIE
                                            ;	.line	58; usb.c	SET_DEVICE_STATE(POWERED_STATE);
-001a06   0e02     movlw	0x2                	MOVLW	0x02
-001a08   6e5f     movwf	0x5f, 0            	MOVWF	_usb_device_state
+001a08   0e02     movlw	0x2                	MOVLW	0x02
+001a0a   6e5f     movwf	0x5f, 0            	MOVWF	_usb_device_state
                                            ;	.line	61; usb.c	SET_ACTIVE_CONFIGURATION(0);
-001a0a   6a5e     clrf	0x5e, 0             	CLRF	_usb_active_cfg
+001a0c   6a5e     clrf	0x5e, 0             	CLRF	_usb_active_cfg
                                            ;	.line	62; usb.c	SET_ACTIVE_ALTERNATE_SETTING(0);
-001a0c   6a5d     clrf	0x5d, 0             	CLRF	_usb_active_alt_setting
-001a0e   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001a10   ffd9
-001a12   0012     return	0                 	RETURN	
+001a0e   6a5d     clrf	0x5d, 0             	CLRF	_usb_active_alt_setting
+001a10   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001a12   ffd9
+001a14   0012     return	0                 	RETURN	
                                            
                                            
                                            
@@ -2206,7 +2208,7 @@ Address  Value    Disassembly              Source
                                            ; ; Starting pCode block
                                            S_usb_descriptors__null_function	code
                                            _null_function:
-001b3c   0012     return	0                 	return
+001b3e   0012     return	0                 	return
                                            	
                                            ; ; Starting pCode block for Ival
                                            	code
@@ -2329,55 +2331,55 @@ Address  Value    Disassembly              Source
 0004b8   0004     clrwdt                   
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_init_cfg0:
-0004ba   1928     xorwf	0x28, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004bc   3c00     incfsz	0, 0, 0           
+0004ba   192a     xorwf	0x2a, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004bc   3e00     incfsz	0, 0x1, 0         
 0004be   001b     dw	0x1b  ;unknown opcode 
-0004c0   1b3c     xorwf	0x3c, 0x1, 0x1     
-0004c2   3c00     incfsz	0, 0, 0           
+0004c0   1b3e     xorwf	0x3e, 0x1, 0x1     
+0004c2   3e00     incfsz	0, 0x1, 0         
 0004c4   001b     dw	0x1b  ;unknown opcode 
-0004c6   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004c8   3c00     incfsz	0, 0, 0           
+0004c6   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004c8   3e00     incfsz	0, 0x1, 0         
 0004ca   001b     dw	0x1b  ;unknown opcode 
-0004cc   1b3c     xorwf	0x3c, 0x1, 0x1     
-0004ce   3c00     incfsz	0, 0, 0           
+0004cc   1b3e     xorwf	0x3e, 0x1, 0x1     
+0004ce   3e00     incfsz	0, 0x1, 0         
 0004d0   001b     dw	0x1b  ;unknown opcode 
-0004d2   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004d4   3c00     incfsz	0, 0, 0           
+0004d2   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004d4   3e00     incfsz	0, 0x1, 0         
 0004d6   001b     dw	0x1b  ;unknown opcode 
-0004d8   1b3c     xorwf	0x3c, 0x1, 0x1     
-0004da   3c00     incfsz	0, 0, 0           
+0004d8   1b3e     xorwf	0x3e, 0x1, 0x1     
+0004da   3e00     incfsz	0, 0x1, 0         
 0004dc   001b     dw	0x1b  ;unknown opcode 
-0004de   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004e0   3c00     incfsz	0, 0, 0           
+0004de   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004e0   3e00     incfsz	0, 0x1, 0         
 0004e2   001b     dw	0x1b  ;unknown opcode 
-0004e4   1b3c     xorwf	0x3c, 0x1, 0x1     
-0004e6   3c00     incfsz	0, 0, 0           
+0004e4   1b3e     xorwf	0x3e, 0x1, 0x1     
+0004e6   3e00     incfsz	0, 0x1, 0         
 0004e8   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_init_cfg1:
-0004ea   1928     xorwf	0x28, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_init), HIGH(_ep1_init), UPPER(_ep1_init), LOW(_ep2_init), HIGH(_ep2_init), UPPER(_ep2_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004ec   4000     rrncf	0, 0, 0            
+0004ea   192a     xorwf	0x2a, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_init), HIGH(_ep1_init), UPPER(_ep1_init), LOW(_ep2_init), HIGH(_ep2_init), UPPER(_ep2_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004ec   4200     rrncf	0, 0x1, 0          
 0004ee   001a     dw	0x1a  ;unknown opcode 
-0004f0   1ae4     xorwf	0xe4, 0x1, 0       
-0004f2   3c00     incfsz	0, 0, 0           
+0004f0   1ae6     xorwf	0xe6, 0x1, 0       
+0004f2   3e00     incfsz	0, 0x1, 0         
 0004f4   001b     dw	0x1b  ;unknown opcode 
-0004f6   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0004f8   3c00     incfsz	0, 0, 0           
+0004f6   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0004f8   3e00     incfsz	0, 0x1, 0         
 0004fa   001b     dw	0x1b  ;unknown opcode 
-0004fc   1b3c     xorwf	0x3c, 0x1, 0x1     
-0004fe   3c00     incfsz	0, 0, 0           
+0004fc   1b3e     xorwf	0x3e, 0x1, 0x1     
+0004fe   3e00     incfsz	0, 0x1, 0         
 000500   001b     dw	0x1b  ;unknown opcode 
-000502   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000504   3c00     incfsz	0, 0, 0           
+000502   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000504   3e00     incfsz	0, 0x1, 0         
 000506   001b     dw	0x1b  ;unknown opcode 
-000508   1b3c     xorwf	0x3c, 0x1, 0x1     
-00050a   3c00     incfsz	0, 0, 0           
+000508   1b3e     xorwf	0x3e, 0x1, 0x1     
+00050a   3e00     incfsz	0, 0x1, 0         
 00050c   001b     dw	0x1b  ;unknown opcode 
-00050e   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000510   3c00     incfsz	0, 0, 0           
+00050e   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000510   3e00     incfsz	0, 0x1, 0         
 000512   001b     dw	0x1b  ;unknown opcode 
-000514   1b3c     xorwf	0x3c, 0x1, 0x1     
-000516   3c00     incfsz	0, 0, 0           
+000514   1b3e     xorwf	0x3e, 0x1, 0x1     
+000516   3e00     incfsz	0, 0x1, 0         
 000518   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_init:
@@ -2389,54 +2391,54 @@ Address  Value    Disassembly              Source
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_in_cfg0:
 000524   096e     iorlw	0x6e               	DB	LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000526   3c00     incfsz	0, 0, 0           
+000526   3e00     incfsz	0, 0x1, 0         
 000528   001b     dw	0x1b  ;unknown opcode 
-00052a   1b3c     xorwf	0x3c, 0x1, 0x1     
-00052c   3c00     incfsz	0, 0, 0           
+00052a   1b3e     xorwf	0x3e, 0x1, 0x1     
+00052c   3e00     incfsz	0, 0x1, 0         
 00052e   001b     dw	0x1b  ;unknown opcode 
-000530   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000532   3c00     incfsz	0, 0, 0           
+000530   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000532   3e00     incfsz	0, 0x1, 0         
 000534   001b     dw	0x1b  ;unknown opcode 
-000536   1b3c     xorwf	0x3c, 0x1, 0x1     
-000538   3c00     incfsz	0, 0, 0           
+000536   1b3e     xorwf	0x3e, 0x1, 0x1     
+000538   3e00     incfsz	0, 0x1, 0         
 00053a   001b     dw	0x1b  ;unknown opcode 
-00053c   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00053e   3c00     incfsz	0, 0, 0           
+00053c   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00053e   3e00     incfsz	0, 0x1, 0         
 000540   001b     dw	0x1b  ;unknown opcode 
-000542   1b3c     xorwf	0x3c, 0x1, 0x1     
-000544   3c00     incfsz	0, 0, 0           
+000542   1b3e     xorwf	0x3e, 0x1, 0x1     
+000544   3e00     incfsz	0, 0x1, 0         
 000546   001b     dw	0x1b  ;unknown opcode 
-000548   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00054a   3c00     incfsz	0, 0, 0           
+000548   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00054a   3e00     incfsz	0, 0x1, 0         
 00054c   001b     dw	0x1b  ;unknown opcode 
-00054e   1b3c     xorwf	0x3c, 0x1, 0x1     
-000550   3c00     incfsz	0, 0, 0           
+00054e   1b3e     xorwf	0x3e, 0x1, 0x1     
+000550   3e00     incfsz	0, 0x1, 0         
 000552   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_in_cfg1:
 000554   096e     iorlw	0x6e               	DB	LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_ep2_in), HIGH(_ep2_in), UPPER(_ep2_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000556   3c00     incfsz	0, 0, 0           
+000556   3e00     incfsz	0, 0x1, 0         
 000558   001b     dw	0x1b  ;unknown opcode 
 00055a   1604     andwf	0x4, 0x1, 0        
-00055c   3c00     incfsz	0, 0, 0           
+00055c   3e00     incfsz	0, 0x1, 0         
 00055e   001b     dw	0x1b  ;unknown opcode 
-000560   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000562   3c00     incfsz	0, 0, 0           
+000560   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000562   3e00     incfsz	0, 0x1, 0         
 000564   001b     dw	0x1b  ;unknown opcode 
-000566   1b3c     xorwf	0x3c, 0x1, 0x1     
-000568   3c00     incfsz	0, 0, 0           
+000566   1b3e     xorwf	0x3e, 0x1, 0x1     
+000568   3e00     incfsz	0, 0x1, 0         
 00056a   001b     dw	0x1b  ;unknown opcode 
-00056c   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00056e   3c00     incfsz	0, 0, 0           
+00056c   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00056e   3e00     incfsz	0, 0x1, 0         
 000570   001b     dw	0x1b  ;unknown opcode 
-000572   1b3c     xorwf	0x3c, 0x1, 0x1     
-000574   3c00     incfsz	0, 0, 0           
+000572   1b3e     xorwf	0x3e, 0x1, 0x1     
+000574   3e00     incfsz	0, 0x1, 0         
 000576   001b     dw	0x1b  ;unknown opcode 
-000578   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00057a   3c00     incfsz	0, 0, 0           
+000578   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00057a   3e00     incfsz	0, 0x1, 0         
 00057c   001b     dw	0x1b  ;unknown opcode 
-00057e   1b3c     xorwf	0x3c, 0x1, 0x1     
-000580   3c00     incfsz	0, 0, 0           
+00057e   1b3e     xorwf	0x3e, 0x1, 0x1     
+000580   3e00     incfsz	0, 0x1, 0         
 000582   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_in:
@@ -2447,55 +2449,55 @@ Address  Value    Disassembly              Source
 00058c   0000     nop                      
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_out_cfg0:
-00058e   1928     xorwf	0x28, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000590   3c00     incfsz	0, 0, 0           
+00058e   192a     xorwf	0x2a, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000590   3e00     incfsz	0, 0x1, 0         
 000592   001b     dw	0x1b  ;unknown opcode 
-000594   1b3c     xorwf	0x3c, 0x1, 0x1     
-000596   3c00     incfsz	0, 0, 0           
+000594   1b3e     xorwf	0x3e, 0x1, 0x1     
+000596   3e00     incfsz	0, 0x1, 0         
 000598   001b     dw	0x1b  ;unknown opcode 
-00059a   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00059c   3c00     incfsz	0, 0, 0           
+00059a   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00059c   3e00     incfsz	0, 0x1, 0         
 00059e   001b     dw	0x1b  ;unknown opcode 
-0005a0   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005a2   3c00     incfsz	0, 0, 0           
+0005a0   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005a2   3e00     incfsz	0, 0x1, 0         
 0005a4   001b     dw	0x1b  ;unknown opcode 
-0005a6   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005a8   3c00     incfsz	0, 0, 0           
+0005a6   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005a8   3e00     incfsz	0, 0x1, 0         
 0005aa   001b     dw	0x1b  ;unknown opcode 
-0005ac   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005ae   3c00     incfsz	0, 0, 0           
+0005ac   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005ae   3e00     incfsz	0, 0x1, 0         
 0005b0   001b     dw	0x1b  ;unknown opcode 
-0005b2   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005b4   3c00     incfsz	0, 0, 0           
+0005b2   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005b4   3e00     incfsz	0, 0x1, 0         
 0005b6   001b     dw	0x1b  ;unknown opcode 
-0005b8   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005ba   3c00     incfsz	0, 0, 0           
+0005b8   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005ba   3e00     incfsz	0, 0x1, 0         
 0005bc   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_out_cfg1:
-0005be   1928     xorwf	0x28, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_out), HIGH(_ep1_out), UPPER(_ep1_out), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005be   192a     xorwf	0x2a, 0, 0x1       	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_out), HIGH(_ep1_out), UPPER(_ep1_out), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
 0005c0   1a00     xorwf	0, 0x1, 0          
 0005c2   000c     tblwt	*                  
-0005c4   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005c6   3c00     incfsz	0, 0, 0           
+0005c4   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005c6   3e00     incfsz	0, 0x1, 0         
 0005c8   001b     dw	0x1b  ;unknown opcode 
-0005ca   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005cc   3c00     incfsz	0, 0, 0           
+0005ca   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005cc   3e00     incfsz	0, 0x1, 0         
 0005ce   001b     dw	0x1b  ;unknown opcode 
-0005d0   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005d2   3c00     incfsz	0, 0, 0           
+0005d0   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005d2   3e00     incfsz	0, 0x1, 0         
 0005d4   001b     dw	0x1b  ;unknown opcode 
-0005d6   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005d8   3c00     incfsz	0, 0, 0           
+0005d6   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005d8   3e00     incfsz	0, 0x1, 0         
 0005da   001b     dw	0x1b  ;unknown opcode 
-0005dc   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005de   3c00     incfsz	0, 0, 0           
+0005dc   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005de   3e00     incfsz	0, 0x1, 0         
 0005e0   001b     dw	0x1b  ;unknown opcode 
-0005e2   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005e4   3c00     incfsz	0, 0, 0           
+0005e2   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0005e4   3e00     incfsz	0, 0x1, 0         
 0005e6   001b     dw	0x1b  ;unknown opcode 
-0005e8   1b3c     xorwf	0x3c, 0x1, 0x1     
-0005ea   3c00     incfsz	0, 0, 0           
+0005e8   1b3e     xorwf	0x3e, 0x1, 0x1     
+0005ea   3e00     incfsz	0, 0x1, 0         
 0005ec   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_out:
@@ -2507,28 +2509,28 @@ Address  Value    Disassembly              Source
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_setup_cfg:
 0005f8   1258     iorwf	0x58, 0x1, 0       	DB	LOW(_ep0_setup), HIGH(_ep0_setup), UPPER(_ep0_setup), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-0005fa   3c00     incfsz	0, 0, 0           
+0005fa   3e00     incfsz	0, 0x1, 0         
 0005fc   001b     dw	0x1b  ;unknown opcode 
-0005fe   1b3c     xorwf	0x3c, 0x1, 0x1     
-000600   3c00     incfsz	0, 0, 0           
+0005fe   1b3e     xorwf	0x3e, 0x1, 0x1     
+000600   3e00     incfsz	0, 0x1, 0         
 000602   001b     dw	0x1b  ;unknown opcode 
-000604   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000606   3c00     incfsz	0, 0, 0           
+000604   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000606   3e00     incfsz	0, 0x1, 0         
 000608   001b     dw	0x1b  ;unknown opcode 
-00060a   1b3c     xorwf	0x3c, 0x1, 0x1     
-00060c   3c00     incfsz	0, 0, 0           
+00060a   1b3e     xorwf	0x3e, 0x1, 0x1     
+00060c   3e00     incfsz	0, 0x1, 0         
 00060e   001b     dw	0x1b  ;unknown opcode 
-000610   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-000612   3c00     incfsz	0, 0, 0           
+000610   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+000612   3e00     incfsz	0, 0x1, 0         
 000614   001b     dw	0x1b  ;unknown opcode 
-000616   1b3c     xorwf	0x3c, 0x1, 0x1     
-000618   3c00     incfsz	0, 0, 0           
+000616   1b3e     xorwf	0x3e, 0x1, 0x1     
+000618   3e00     incfsz	0, 0x1, 0         
 00061a   001b     dw	0x1b  ;unknown opcode 
-00061c   1b3c     xorwf	0x3c, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
-00061e   3c00     incfsz	0, 0, 0           
+00061c   1b3e     xorwf	0x3e, 0x1, 0x1     	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00061e   3e00     incfsz	0, 0x1, 0         
 000620   001b     dw	0x1b  ;unknown opcode 
-000622   1b3c     xorwf	0x3c, 0x1, 0x1     
-000624   3c00     incfsz	0, 0, 0           
+000622   1b3e     xorwf	0x3e, 0x1, 0x1     
+000624   3e00     incfsz	0, 0x1, 0         
 000626   001b     dw	0x1b  ;unknown opcode 
                                            ; ; Starting pCode block for Ival
                                            _boot_ep_setup:
@@ -3235,7 +3237,7 @@ Address  Value    Disassembly              Source
 000a26   f005
                                            _00179_DS_:
                                            ;	.line	185; ep0.c	ep0_init();
-000a28   ec94     call	0x1928, 0           	CALL	_ep0_init
+000a28   ec95     call	0x192a, 0           	CALL	_ep0_init
 000a2a   f00c
                                            _00180_DS_:
                                            ;	.line	188; ep0.c	if(GET_DEVICE_STATE() == CONFIGURATION_PENDING_STATE)
@@ -3444,7 +3446,7 @@ Address  Value    Disassembly              Source
 000b86   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000b88   fff3
 000b8a   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000b8c   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+000b8c   ecda     call	0x19b4, 0           	CALL	__gptrget3
 000b8e   f00c
 000b90   6e00     movwf	0, 0               	MOVWF	r0x00
 000b92   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -3472,7 +3474,7 @@ Address  Value    Disassembly              Source
 000bb8   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000bba   fff3
 000bbc   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000bbe   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+000bbe   ecda     call	0x19b4, 0           	CALL	__gptrget3
 000bc0   f00c
 000bc2   6e00     movwf	0, 0               	MOVWF	r0x00
 000bc4   cff3     movff	0xff3, 0x1         	MOVFF	PRODL, r0x01
@@ -3528,49 +3530,49 @@ Address  Value    Disassembly              Source
                                            S_ep0__ep0_init	code
                                            _ep0_init:
                                            ;	.line	144; ep0.c	void ep0_init(void)
-001928   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-00192a   ffe5
-00192c   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-00192e   ffd9
-001930   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-001932   ffe5
-001934   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-001936   ffe5
-001938   0100     movlb	0                  	BANKSEL	_ep0_state
+00192a   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+00192c   ffe5
+00192e   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+001930   ffd9
+001932   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
+001934   ffe5
+001936   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
+001938   ffe5
+00193a   0100     movlb	0                  	BANKSEL	_ep0_state
                                            ;	.line	146; ep0.c	ep0_state = WAIT_SETUP;
-00193a   6ba3     clrf	0xa3, 0x1           	CLRF	_ep0_state, B
+00193c   6ba3     clrf	0xa3, 0x1           	CLRF	_ep0_state, B
                                            ;	.line	147; ep0.c	EP_OUT_BD(0).Cnt = EP0_BUFFER_SIZE;
-00193c   0e08     movlw	0x8                	MOVLW	0x08
-00193e   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 1)
-001940   6f01     movwf	0x1, 0x1           	MOVWF	(_ep_bdt + 1), B
+00193e   0e08     movlw	0x8                	MOVLW	0x08
+001940   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 1)
+001942   6f01     movwf	0x1, 0x1           	MOVWF	(_ep_bdt + 1), B
                                            ;	.line	148; ep0.c	EP_OUT_BD(0).ADR = (uchar __data *)&SetupBuffer;
-001942   0e00     movlw	0                  	MOVLW	LOW(_SetupBuffer)
-001944   6e00     movwf	0, 0               	MOVWF	r0x00
-001946   0e05     movlw	0x5                	MOVLW	HIGH(_SetupBuffer)
-001948   6e01     movwf	0x1, 0             	MOVWF	r0x01
-00194a   5000     movf	0, 0, 0             	MOVF	r0x00, W
-00194c   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 2)
-00194e   6f02     movwf	0x2, 0x1           	MOVWF	(_ep_bdt + 2), B
-001950   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-001952   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 3)
-001954   6f03     movwf	0x3, 0x1           	MOVWF	(_ep_bdt + 3), B
+001944   0e00     movlw	0                  	MOVLW	LOW(_SetupBuffer)
+001946   6e00     movwf	0, 0               	MOVWF	r0x00
+001948   0e05     movlw	0x5                	MOVLW	HIGH(_SetupBuffer)
+00194a   6e01     movwf	0x1, 0             	MOVWF	r0x01
+00194c   5000     movf	0, 0, 0             	MOVF	r0x00, W
+00194e   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 2)
+001950   6f02     movwf	0x2, 0x1           	MOVWF	(_ep_bdt + 2), B
+001952   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
+001954   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 3)
+001956   6f03     movwf	0x3, 0x1           	MOVWF	(_ep_bdt + 3), B
                                            ;	.line	149; ep0.c	EP_OUT_BD(0).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
-001956   0e88     movlw	0x88               	MOVLW	0x88
-001958   0104     movlb	0x4                	BANKSEL	_ep_bdt
-00195a   6f00     movwf	0, 0x1             	MOVWF	_ep_bdt, B
-00195c   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 4)
+001958   0e88     movlw	0x88               	MOVLW	0x88
+00195a   0104     movlb	0x4                	BANKSEL	_ep_bdt
+00195c   6f00     movwf	0, 0x1             	MOVWF	_ep_bdt, B
+00195e   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 4)
                                            ;	.line	150; ep0.c	EP_IN_BD(0).Stat.uc = BDS_UCPU;
-00195e   6b04     clrf	0x4, 0x1            	CLRF	(_ep_bdt + 4), B
+001960   6b04     clrf	0x4, 0x1            	CLRF	(_ep_bdt + 4), B
                                            ;	.line	151; ep0.c	UEP0 = EPINEN_EN | EPOUTEN_EN | EPHSHK_EN;
-001960   0e16     movlw	0x16               	MOVLW	0x16
-001962   6e70     movwf	0x70, 0            	MOVWF	_UEP0
-001964   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-001966   f001
-001968   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-00196a   f000
-00196c   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-00196e   ffd9
-001970   0012     return	0                 	RETURN	
+001962   0e16     movlw	0x16               	MOVLW	0x16
+001964   6e70     movwf	0x70, 0            	MOVWF	_UEP0
+001966   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
+001968   f001
+00196a   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
+00196c   f000
+00196e   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001970   ffd9
+001972   0012     return	0                 	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_ep0__ep0_usb_std_request	code
@@ -3756,7 +3758,7 @@ Address  Value    Disassembly              Source
 0007ea   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0007ec   fff3
 0007ee   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0007f0   ec46     call	0x1a8c, 0           	CALL	__gptrget1
+0007f0   ec47     call	0x1a8e, 0           	CALL	__gptrget1
 0007f2   f00d
 0007f4   6e00     movwf	0, 0               	MOVWF	r0x00
 0007f6   c000     movff	0, 0x98            	MOVFF	r0x00, _num_bytes_to_be_send
@@ -3796,7 +3798,7 @@ Address  Value    Disassembly              Source
 00082e   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000830   fff3
 000832   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000834   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+000834   ecda     call	0x19b4, 0           	CALL	__gptrget3
 000836   f00c
 000838   0100     movlb	0                  	BANKSEL	_sourceData
 00083a   6f90     movwf	0x90, 0x1          	MOVWF	_sourceData, B
@@ -3822,7 +3824,7 @@ Address  Value    Disassembly              Source
 000860   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000862   fff3
 000864   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000866   ec0a     call	0x1a14, 0           	CALL	__gptrget2
+000866   ec0b     call	0x1a16, 0           	CALL	__gptrget2
 000868   f00d
 00086a   0100     movlb	0                  	BANKSEL	_num_bytes_to_be_send
 00086c   6f98     movwf	0x98, 0x1          	MOVWF	_num_bytes_to_be_send, B
@@ -3861,7 +3863,7 @@ Address  Value    Disassembly              Source
 0008a2   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0008a4   fff3
 0008a6   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0008a8   ecd9     call	0x19b2, 0           	CALL	__gptrget3
+0008a8   ecda     call	0x19b4, 0           	CALL	__gptrget3
 0008aa   f00c
 0008ac   0100     movlb	0                  	BANKSEL	_sourceData
 0008ae   6f90     movwf	0x90, 0x1          	MOVWF	_sourceData, B
@@ -3881,7 +3883,7 @@ Address  Value    Disassembly              Source
 0008c8   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 0008ca   fff3
 0008cc   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0008ce   ec46     call	0x1a8c, 0           	CALL	__gptrget1
+0008ce   ec47     call	0x1a8e, 0           	CALL	__gptrget1
 0008d0   f00d
 0008d2   6e00     movwf	0, 0               	MOVWF	r0x00
 0008d4   c000     movff	0, 0x98            	MOVFF	r0x00, _num_bytes_to_be_send
@@ -3925,7 +3927,7 @@ Address  Value    Disassembly              Source
 00090e   c001     movff	0x1, 0xff3         	MOVFF	r0x01, PRODL
 000910   fff3
 000912   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-000914   ec46     call	0x1a8c, 0           	CALL	__gptrget1
+000914   ec47     call	0x1a8e, 0           	CALL	__gptrget1
 000916   f00d
 000918   6e00     movwf	0, 0               	MOVWF	r0x00
 00091a   ee05     lfsr	0, 0x502            	LFSR	0x00, (_SetupBuffer + 2)
@@ -4404,7 +4406,7 @@ Address  Value    Disassembly              Source
 000cb6   c513     movff	0x513, 0xff8       	MOVFF	(_ep1_OutBuffer + 3), _TBLPTRU
 000cb8   fff8
                                            ;	.line	56; ep1.c	erase_block();
-000cba   ec35     call	0x1a6a, 0           	CALL	_erase_block
+000cba   ec36     call	0x1a6c, 0           	CALL	_erase_block
 000cbc   f00d
                                            ;	.line	57; ep1.c	break;
 000cbe   efef     goto	0xdde               	GOTO	_00119_DS_
@@ -4424,7 +4426,7 @@ Address  Value    Disassembly              Source
 000cd0   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
 000cd2   0e14     movlw	0x14               	MOVLW	LOW(_ep1_OutBuffer + 4)
 000cd4   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-000cd6   ec5f     call	0x18be, 0           	CALL	_write_block
+000cd6   ec60     call	0x18c0, 0           	CALL	_write_block
 000cd8   f00c
 000cda   0e02     movlw	0x2                	MOVLW	0x02
 000cdc   26e1     addwf	0xe1, 0x1, 0       	ADDWF	FSR1L, F
@@ -4640,31 +4642,31 @@ Address  Value    Disassembly              Source
                                            S_ep1__ep1_init	code
                                            _ep1_init:
                                            ;	.line	35; ep1.c	void ep1_init(void)
-001a40   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-001a42   ffe5
-001a44   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-001a46   ffd9
+001a42   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+001a44   ffe5
+001a46   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+001a48   ffd9
                                            ;	.line	38; ep1.c	EP_OUT_BD(1).Cnt = EP1_BUFFER_SIZE;
-001a48   0e40     movlw	0x40               	MOVLW	0x40
-001a4a   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 9)
-001a4c   6f09     movwf	0x9, 0x1           	MOVWF	(_ep_bdt + 9), B
+001a4a   0e40     movlw	0x40               	MOVLW	0x40
+001a4c   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 9)
+001a4e   6f09     movwf	0x9, 0x1           	MOVWF	(_ep_bdt + 9), B
                                            ;	.line	39; ep1.c	EP_OUT_BD(1).ADR = (uchar __data *)&ep1_OutBuffer;
-001a4e   0e10     movlw	0x10               	MOVLW	LOW(_ep1_OutBuffer)
-001a50   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 10)
-001a52   6f0a     movwf	0xa, 0x1           	MOVWF	(_ep_bdt + 10), B
-001a54   0e05     movlw	0x5                	MOVLW	HIGH(_ep1_OutBuffer)
-001a56   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 11)
-001a58   6f0b     movwf	0xb, 0x1           	MOVWF	(_ep_bdt + 11), B
+001a50   0e10     movlw	0x10               	MOVLW	LOW(_ep1_OutBuffer)
+001a52   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 10)
+001a54   6f0a     movwf	0xa, 0x1           	MOVWF	(_ep_bdt + 10), B
+001a56   0e05     movlw	0x5                	MOVLW	HIGH(_ep1_OutBuffer)
+001a58   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 11)
+001a5a   6f0b     movwf	0xb, 0x1           	MOVWF	(_ep_bdt + 11), B
                                            ;	.line	40; ep1.c	EP_OUT_BD(1).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
-001a5a   0e88     movlw	0x88               	MOVLW	0x88
-001a5c   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 8)
-001a5e   6f08     movwf	0x8, 0x1           	MOVWF	(_ep_bdt + 8), B
+001a5c   0e88     movlw	0x88               	MOVLW	0x88
+001a5e   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 8)
+001a60   6f08     movwf	0x8, 0x1           	MOVWF	(_ep_bdt + 8), B
                                            ;	.line	41; ep1.c	UEP1 = EPHSHK_EN | EPOUTEN_EN | EPCONDIS_EN;       // Init EP1 as an OUT EP
-001a60   0e1c     movlw	0x1c               	MOVLW	0x1c
-001a62   6e71     movwf	0x71, 0            	MOVWF	_UEP1
-001a64   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001a66   ffd9
-001a68   0012     return	0                 	RETURN	
+001a62   0e1c     movlw	0x1c               	MOVLW	0x1c
+001a64   6e71     movwf	0x71, 0            	MOVWF	_UEP1
+001a66   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001a68   ffd9
+001a6a   0012     return	0                 	RETURN	
                                            
                                            
                                            
@@ -5228,20 +5230,20 @@ Address  Value    Disassembly              Source
                                            S_ep2__ep2_init	code
                                            _ep2_init:
                                            ;	.line	34; ep2.c	void ep2_init(void)
-001ae4   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-001ae6   ffe5
-001ae8   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-001aea   ffd9
+001ae6   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+001ae8   ffe5
+001aea   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+001aec   ffd9
                                            ;	.line	40; ep2.c	EP_IN_BD(2).Stat.uc = BDS_UCPU | BDS_DAT1 | BDS_DTSEN;
-001aec   0e48     movlw	0x48               	MOVLW	0x48
-001aee   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 20)
-001af0   6f14     movwf	0x14, 0x1          	MOVWF	(_ep_bdt + 20), B
+001aee   0e48     movlw	0x48               	MOVLW	0x48
+001af0   0104     movlb	0x4                	BANKSEL	(_ep_bdt + 20)
+001af2   6f14     movwf	0x14, 0x1          	MOVWF	(_ep_bdt + 20), B
                                            ;	.line	41; ep2.c	UEP2 = EPHSHK_EN | EPINEN_EN | EPCONDIS_EN;       // Init EP2 as an IN EP
-001af2   0e1a     movlw	0x1a               	MOVLW	0x1a
-001af4   6e72     movwf	0x72, 0            	MOVWF	_UEP2
-001af6   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001af8   ffd9
-001afa   0012     return	0                 	RETURN	
+001af4   0e1a     movlw	0x1a               	MOVLW	0x1a
+001af6   6e72     movwf	0x72, 0            	MOVWF	_UEP2
+001af8   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001afa   ffd9
+001afc   0012     return	0                 	RETURN	
                                            
                                            
                                            
@@ -5540,91 +5542,91 @@ Address  Value    Disassembly              Source
                                            S_flash__erase_block	code
                                            _erase_block:
                                            ;	.line	78; flash.c	void erase_block()
-001a6a   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-001a6c   ffe5
-001a6e   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-001a70   ffd9
-001a72   8ea6     bsf	0xa6, 0x7, 0         	bsf _EECON1, 7
-001a74   9ca6     bcf	0xa6, 0x6, 0         	bcf _EECON1, 6
-001a76   84a6     bsf	0xa6, 0x2, 0         	bsf _EECON1, 2
-001a78   88a6     bsf	0xa6, 0x4, 0         	bsf _EECON1, 4
-001a7a   9ef2     bcf	0xf2, 0x7, 0         	bcf _INTCON, 7
-001a7c   0e55     movlw	0x55               	movlw 0x55
-001a7e   6ea7     movwf	0xa7, 0            	movwf _EECON2
-001a80   0eaa     movlw	0xaa               	movlw 0xaa
-001a82   6ea7     movwf	0xa7, 0            	movwf _EECON2
-001a84   82a6     bsf	0xa6, 0x1, 0         	bsf _EECON1, 1
+001a6c   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+001a6e   ffe5
+001a70   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+001a72   ffd9
+001a74   8ea6     bsf	0xa6, 0x7, 0         	bsf _EECON1, 7
+001a76   9ca6     bcf	0xa6, 0x6, 0         	bcf _EECON1, 6
+001a78   84a6     bsf	0xa6, 0x2, 0         	bsf _EECON1, 2
+001a7a   88a6     bsf	0xa6, 0x4, 0         	bsf _EECON1, 4
+001a7c   9ef2     bcf	0xf2, 0x7, 0         	bcf _INTCON, 7
+001a7e   0e55     movlw	0x55               	movlw 0x55
+001a80   6ea7     movwf	0xa7, 0            	movwf _EECON2
+001a82   0eaa     movlw	0xaa               	movlw 0xaa
+001a84   6ea7     movwf	0xa7, 0            	movwf _EECON2
+001a86   82a6     bsf	0xa6, 0x1, 0         	bsf _EECON1, 1
                                            	
-001a86   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001a88   ffd9
-001a8a   0012     return	0                 	RETURN	
+001a88   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001a8a   ffd9
+001a8c   0012     return	0                 	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_flash__write_block	code
                                            _write_block:
                                            ;	.line	32; flash.c	void write_block(__data uchar *src)
-0018be   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-0018c0   ffe5
-0018c2   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-0018c4   ffd9
-0018c6   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-0018c8   ffe5
-0018ca   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-0018cc   ffe5
-0018ce   0e02     movlw	0x2                	MOVLW	0x02
-0018d0   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-0018d2   f000
-0018d4   0e03     movlw	0x3                	MOVLW	0x03
-0018d6   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
-0018d8   f001
-0018da   000a     tblrd	*-                 	tblrd*-
+0018c0   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
+0018c2   ffe5
+0018c4   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
+0018c6   ffd9
+0018c8   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
+0018ca   ffe5
+0018cc   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
+0018ce   ffe5
+0018d0   0e02     movlw	0x2                	MOVLW	0x02
+0018d2   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
+0018d4   f000
+0018d6   0e03     movlw	0x3                	MOVLW	0x03
+0018d8   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
+0018da   f001
+0018dc   000a     tblrd	*-                 	tblrd*-
                                            	
-0018dc   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
+0018de   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
                                            ;	.line	43; flash.c	for(i = 0; i < 32; i++)
-0018de   6ba9     clrf	0xa9, 0x1           	CLRF	_write_block_i_1_1, B
+0018e0   6ba9     clrf	0xa9, 0x1           	CLRF	_write_block_i_1_1, B
                                            _00105_DS_:
-0018e0   0e20     movlw	0x20               	MOVLW	0x20
-0018e2   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
-0018e4   5da9     subwf	0xa9, 0, 0x1       	SUBWF	_write_block_i_1_1, W, B
-0018e6   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
-0018e8   ef84     goto	0x1908              	GOTO	_00108_DS_
-0018ea   f00c
+0018e2   0e20     movlw	0x20               	MOVLW	0x20
+0018e4   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
+0018e6   5da9     subwf	0xa9, 0, 0x1       	SUBWF	_write_block_i_1_1, W, B
+0018e8   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
+0018ea   ef85     goto	0x190a              	GOTO	_00108_DS_
+0018ec   f00c
                                            ;	.line	45; flash.c	TABLAT = *src;
-0018ec   c000     movff	0, 0xfe9           	MOVFF	r0x00, FSR0L
-0018ee   ffe9
-0018f0   c001     movff	0x1, 0xfea         	MOVFF	r0x01, FSR0H
-0018f2   ffea
-0018f4   cfef     movff	0xfef, 0xff5       	MOVFF	INDF0, _TABLAT
-0018f6   fff5
+0018ee   c000     movff	0, 0xfe9           	MOVFF	r0x00, FSR0L
+0018f0   ffe9
+0018f2   c001     movff	0x1, 0xfea         	MOVFF	r0x01, FSR0H
+0018f4   ffea
+0018f6   cfef     movff	0xfef, 0xff5       	MOVFF	INDF0, _TABLAT
+0018f8   fff5
                                            ;	.line	47; flash.c	src++;
-0018f8   2a00     incf	0, 0x1, 0           	INCF	r0x00, F
-0018fa   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
-0018fc   2a01     incf	0x1, 0x1, 0         	INCF	r0x01, F
-0018fe   000f     tblwt	+*                 	tblwt+*
+0018fa   2a00     incf	0, 0x1, 0           	INCF	r0x00, F
+0018fc   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
+0018fe   2a01     incf	0x1, 0x1, 0         	INCF	r0x01, F
+001900   000f     tblwt	+*                 	tblwt+*
                                            	
-001900   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
+001902   0100     movlb	0                  	BANKSEL	_write_block_i_1_1
                                            ;	.line	43; flash.c	for(i = 0; i < 32; i++)
-001902   2ba9     incf	0xa9, 0x1, 0x1      	INCF	_write_block_i_1_1, F, B
-001904   ef70     goto	0x18e0              	GOTO	_00105_DS_
-001906   f00c
+001904   2ba9     incf	0xa9, 0x1, 0x1      	INCF	_write_block_i_1_1, F, B
+001906   ef71     goto	0x18e2              	GOTO	_00105_DS_
+001908   f00c
                                            _00108_DS_:
-001908   8ea6     bsf	0xa6, 0x7, 0         	bsf _EECON1, 7
-00190a   9ca6     bcf	0xa6, 0x6, 0         	bcf _EECON1, 6
-00190c   84a6     bsf	0xa6, 0x2, 0         	bsf _EECON1, 2
-00190e   9ef2     bcf	0xf2, 0x7, 0         	bcf _INTCON, 7
-001910   0e55     movlw	0x55               	movlw 0x55
-001912   6ea7     movwf	0xa7, 0            	movwf _EECON2
-001914   0eaa     movlw	0xaa               	movlw 0xaa
-001916   6ea7     movwf	0xa7, 0            	movwf _EECON2
-001918   82a6     bsf	0xa6, 0x1, 0         	bsf _EECON1, 1
+00190a   8ea6     bsf	0xa6, 0x7, 0         	bsf _EECON1, 7
+00190c   9ca6     bcf	0xa6, 0x6, 0         	bcf _EECON1, 6
+00190e   84a6     bsf	0xa6, 0x2, 0         	bsf _EECON1, 2
+001910   9ef2     bcf	0xf2, 0x7, 0         	bcf _INTCON, 7
+001912   0e55     movlw	0x55               	movlw 0x55
+001914   6ea7     movwf	0xa7, 0            	movwf _EECON2
+001916   0eaa     movlw	0xaa               	movlw 0xaa
+001918   6ea7     movwf	0xa7, 0            	movwf _EECON2
+00191a   82a6     bsf	0xa6, 0x1, 0         	bsf _EECON1, 1
                                            	
-00191a   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-00191c   f001
-00191e   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-001920   f000
-001922   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-001924   ffd9
-001926   0012     return	0                 	RETURN	
+00191c   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
+00191e   f001
+001920   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
+001922   f000
+001924   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
+001926   ffd9
+001928   0012     return	0                 	RETURN	
                                            
                                            
                                            

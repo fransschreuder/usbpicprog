@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : FreeWare ANSI-C Compiler
 ; Version 2.6.0 #4309 (Nov 10 2006)
-; This file generated Fri Jun 22 21:45:15 2007
+; This file generated Fri Jun 22 21:49:06 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -320,7 +320,9 @@ _00119_DS_:
 	CALL	_usb_sleep
 ;	.line	94; boot_main.c	dispatch_usb_event();
 	CALL	_dispatch_usb_event
-;	.line	95; boot_main.c	if((application_data.invalid == 0) &&
+;	.line	95; boot_main.c	LED3=~LED3;
+	BSF	_PORTCbits, 2
+;	.line	96; boot_main.c	if((application_data.invalid == 0) &&
 	MOVLW	LOW(_application_data)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data)
@@ -331,13 +333,13 @@ _00119_DS_:
 	MOVFF	TABLAT, r0x00
 	MOVF	r0x00, W
 	BNZ	_00119_DS_
-;	.line	96; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
+;	.line	97; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
 	MOVLW	0x03
 	SUBWF	_usb_active_cfg, W
 	BNC	_00119_DS_
-;	.line	99; boot_main.c	LED3=0;
+;	.line	100; boot_main.c	LED3=0;
 	BCF	_PORTCbits, 2
-;	.line	100; boot_main.c	application_data.main();
+;	.line	101; boot_main.c	application_data.main();
 	MOVLW	LOW(_application_data + 22)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data + 22)
@@ -366,7 +368,7 @@ _00119_DS_:
 	MOVF	r0x00, W
 	MOVWF	PCL
 _00127_DS_:
-;	.line	102; boot_main.c	INTCON = 0; // Forbid interrupts
+;	.line	103; boot_main.c	INTCON = 0; // Forbid interrupts
 	CLRF	_INTCON
 	BRA	_00119_DS_
 	RETURN	
@@ -564,8 +566,8 @@ _00110_DS_:
 
 
 ; Statistics:
-; code size:	  404 (0x0194) bytes ( 0.31%)
-;           	  202 (0x00ca) words
+; code size:	  406 (0x0196) bytes ( 0.31%)
+;           	  203 (0x00cb) words
 ; udata size:	  259 (0x0103) bytes (14.45%)
 ; access size:	    3 (0x0003) bytes
 

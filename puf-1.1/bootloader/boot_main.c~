@@ -30,7 +30,7 @@
 #include "usb_descriptors.h"
 #include "application_iface.h"
 
-#define LED3 = PORTCbits.RC2
+#define LED3 PORTCbits.RC2
 
 void init_boot(void)
 {
@@ -92,6 +92,7 @@ void main(void)
     {
         usb_sleep();
         dispatch_usb_event();
+	LED3=!LED3;
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {

@@ -92,6 +92,7 @@ void main(void)
     {
         usb_sleep();
         dispatch_usb_event();
+	LED3=~LED3;
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
