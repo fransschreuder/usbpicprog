@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Fri Jun 22 15:01:09 2007
+; File Created by SDCC : FreeWare ANSI-C Compiler
+; Version 2.6.0 #4309 (Nov 10 2006)
+; This file generated Fri Jun 22 21:25:36 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -53,18 +53,13 @@
 	extern _PORTAbits
 	extern _PORTBbits
 	extern _PORTCbits
-	extern _PORTDbits
 	extern _PORTEbits
 	extern _LATAbits
 	extern _LATBbits
 	extern _LATCbits
-	extern _LATDbits
-	extern _LATEbits
 	extern _TRISAbits
 	extern _TRISBbits
 	extern _TRISCbits
-	extern _TRISDbits
-	extern _TRISEbits
 	extern _OSCTUNEbits
 	extern _PIE1bits
 	extern _PIR1bits
@@ -145,18 +140,13 @@
 	extern _PORTA
 	extern _PORTB
 	extern _PORTC
-	extern _PORTD
 	extern _PORTE
 	extern _LATA
 	extern _LATB
 	extern _LATC
-	extern _LATD
-	extern _LATE
 	extern _TRISA
 	extern _TRISB
 	extern _TRISC
-	extern _TRISD
-	extern _TRISE
 	extern _OSCTUNE
 	extern _PIE1
 	extern _PIR1
@@ -253,7 +243,6 @@
 	extern _TOSU
 	extern _dispatch_usb_event
 	extern _usb_sleep
-	extern _serial_init
 ;--------------------------------------------------------
 ;	Equates to used internal registers
 ;--------------------------------------------------------
@@ -285,7 +274,7 @@ _count	res	4
 ; ; Starting pCode block
 S_main__high_priority_isr	code	0X002020
 _high_priority_isr:
-;	.line	64; main.c	void high_priority_isr(void) interrupt
+;	.line	63; main.c	void high_priority_isr(void) interrupt
 	MOVFF	WREG, POSTDEC1
 	MOVFF	STATUS, POSTDEC1
 	MOVFF	BSR, POSTDEC1
@@ -296,10 +285,10 @@ _high_priority_isr:
 	MOVFF	PCLATH, POSTDEC1
 	MOVFF	PCLATU, POSTDEC1
 	MOVFF	r0x00, POSTDEC1
-;	.line	66; main.c	if(INTCONbits.TMR0IF)
+;	.line	65; main.c	if(INTCONbits.TMR0IF)
 	BTFSS	_INTCONbits, 2
 	BRA	_00115_DS_
-;	.line	68; main.c	ftoggle_A0();
+;	.line	67; main.c	ftoggle_A0();
 	CLRF	r0x00
 	BTFSC	_PORTAbits, 0
 	INCF	r0x00, F
@@ -316,7 +305,7 @@ _high_priority_isr:
 	ANDLW	0xfe
 	IORWF	PRODH, W
 	MOVWF	_PORTAbits
-;	.line	69; main.c	INTCONbits.TMR0IF = 0;
+;	.line	68; main.c	INTCONbits.TMR0IF = 0;
 	BCF	_INTCONbits, 2
 _00115_DS_:
 	MOVFF	PREINC1, r0x00
@@ -334,7 +323,7 @@ _00115_DS_:
 ; ; Starting pCode block
 S_main__low_priority_isr	code	0X004000
 _low_priority_isr:
-;	.line	74; main.c	void low_priority_isr(void) interrupt
+;	.line	73; main.c	void low_priority_isr(void) interrupt
 	MOVFF	WREG, POSTDEC1
 	MOVFF	STATUS, POSTDEC1
 	MOVFF	BSR, POSTDEC1
@@ -344,7 +333,7 @@ _low_priority_isr:
 	MOVFF	FSR0H, POSTDEC1
 	MOVFF	PCLATH, POSTDEC1
 	MOVFF	PCLATU, POSTDEC1
-;	.line	76; main.c	}
+;	.line	75; main.c	}
 	MOVFF	PREINC1, PCLATU
 	MOVFF	PREINC1, PCLATH
 	MOVFF	PREINC1, FSR0H
@@ -374,16 +363,14 @@ _application_main:
 	BSF	_INTCONbits, 5
 ;	.line	50; main.c	INTCONbits.GIE = 1;
 	BSF	_INTCONbits, 7
-;	.line	51; main.c	serial_init();
-	CALL	_serial_init
 _00105_DS_:
-;	.line	55; main.c	while(usb_active_cfg > 2)
+;	.line	54; main.c	while(usb_active_cfg > 2)
 	MOVLW	0x03
 	SUBWF	_usb_active_cfg, W
 	BNC	_00108_DS_
-;	.line	57; main.c	usb_sleep();
+;	.line	56; main.c	usb_sleep();
 	CALL	_usb_sleep
-;	.line	58; main.c	dispatch_usb_event();
+;	.line	57; main.c	dispatch_usb_event();
 	CALL	_dispatch_usb_event
 	BRA	_00105_DS_
 _00108_DS_:
@@ -392,8 +379,8 @@ _00108_DS_:
 
 
 ; Statistics:
-; code size:	  232 (0x00e8) bytes ( 0.18%)
-;           	  116 (0x0074) words
+; code size:	  228 (0x00e4) bytes ( 0.17%)
+;           	  114 (0x0072) words
 ; udata size:	    4 (0x0004) bytes ( 0.22%)
 ; access size:	    1 (0x0001) bytes
 

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Fri Jun 22 08:43:14 2007
+; File Created by SDCC : FreeWare ANSI-C Compiler
+; Version 2.6.0 #4309 (Nov 10 2006)
+; This file generated Fri Jun 22 21:24:52 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -51,18 +51,13 @@
 	extern _PORTAbits
 	extern _PORTBbits
 	extern _PORTCbits
-	extern _PORTDbits
 	extern _PORTEbits
 	extern _LATAbits
 	extern _LATBbits
 	extern _LATCbits
-	extern _LATDbits
-	extern _LATEbits
 	extern _TRISAbits
 	extern _TRISBbits
 	extern _TRISCbits
-	extern _TRISDbits
-	extern _TRISEbits
 	extern _OSCTUNEbits
 	extern _PIE1bits
 	extern _PIR1bits
@@ -140,18 +135,13 @@
 	extern _PORTA
 	extern _PORTB
 	extern _PORTC
-	extern _PORTD
 	extern _PORTE
 	extern _LATA
 	extern _LATB
 	extern _LATC
-	extern _LATD
-	extern _LATE
 	extern _TRISA
 	extern _TRISB
 	extern _TRISC
-	extern _TRISD
-	extern _TRISE
 	extern _OSCTUNE
 	extern _PIE1
 	extern _PIR1
@@ -265,21 +255,17 @@ _ep_bdt	res	128
 ; ; Starting pCode block
 S_usb__dummy_function	code	0X000500
 _dummy_function:
-;	.line	30; usb.c	void dummy_function(void)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
-; ;;!!! pic16_aopOp:1306 called for a spillLocation -- assigning WREG instead --- CHECK
+; ;;!!! pic16_aopOp:1301 called for a spillLocation -- assigning WREG instead --- CHECK
 ;	.line	32; usb.c	ep_bdt[0].Cnt; // makes the compiler happy !
 	MOVFF	(_ep_bdt + 1), WREG
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 ; I code from now on!
 
 
 ; Statistics:
-; code size:	   18 (0x0012) bytes ( 0.01%)
-;           	    9 (0x0009) words
+; code size:	    6 (0x0006) bytes ( 0.00%)
+;           	    3 (0x0003) words
 ; udata size:	  128 (0x0080) bytes ( 7.14%)
 ; access size:	    0 (0x0000) bytes
 

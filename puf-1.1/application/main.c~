@@ -48,6 +48,7 @@ void application_main(void)
     T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
+    serial_init();
     init_debug();
     debug("init application\n");  
 

@@ -1,0 +1,905 @@
+gplink-0.13.4 alpha
+Copyright (c) 1998-2005 gputils project
+Listing File Generated: 6-22-2007  21:25:36
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : FreeWare ANSI-C Compiler
+                                           ; Version 2.6.0 #4309 (Nov 10 2006)
+                                           ; This file generated Fri Jun 22 21:23:43 2007
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4550
+                                           
+                                           	radix dec
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global _application_data
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern _device_descriptor
+                                           	extern _configuration_descriptor
+                                           	extern _string_descriptor
+                                           	extern _str0
+                                           	extern _str1
+                                           	extern _str2
+                                           	extern _str3
+                                           	extern _ep_init
+                                           	extern _ep_in
+                                           	extern _ep_out
+                                           	extern _ep_setup
+                                           	extern _application_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; ; Starting pCode block for absolute Ival
+                                           S_application_iface__application_data	code	0X002000
+                                           _application_data:
+002000   9800     bcf	0, 0x4, 0            	DB	0x00, LOW(_device_descriptor), HIGH(_device_descriptor), UPPER(_device_descriptor), LOW(_configuration_descriptor), HIGH(_configuration_descriptor), UPPER(_configuration_descriptor), LOW(_string_descriptor), HIGH(_string_descriptor), UPPER(_string_descriptor), LOW(_ep_init), HIGH(_ep_init)
+002002   0020     dw	0x20  ;unknown opcode 
+002004   20ee     addwfc	0xee, 0, 0        
+002006   5400     subfwb	0, 0, 0           
+002008   0021     dw	0x21  ;unknown opcode 
+00200a   21c6     addwfc	0xc6, 0, 0x1      
+00200c   3200     rrcf	0, 0x1, 0           	DB	UPPER(_ep_init), LOW(_ep_in), HIGH(_ep_in), UPPER(_ep_in), LOW(_ep_out), HIGH(_ep_out), UPPER(_ep_out), LOW(_ep_setup), HIGH(_ep_setup), UPPER(_ep_setup), LOW(_application_main), HIGH(_application_main)
+00200e   0022     dw	0x22  ;unknown opcode 
+002010   229e     addwfc	0x9e, 0x1, 0      
+002012   da00     rcall	0x2414             
+002014   0022     dw	0x22  ;unknown opcode 
+002016   22e6     addwfc	0xe6, 0x1, 0      
+002018   0000     nop                      	DB	UPPER(_application_main)
+                                           
+                                           ; I code from now on!
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	    6 (0x0006) bytes ( 0.00%)
+                                           ;           	    3 (0x0003) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    0 (0x0000) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : FreeWare ANSI-C Compiler
+                                           ; Version 2.6.0 #4309 (Nov 10 2006)
+                                           ; This file generated Fri Jun 22 21:25:36 2007
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4550
+                                           
+                                           	radix dec
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global _count
+                                           	global _application_main
+                                           	global _high_priority_isr
+                                           	global _low_priority_isr
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern _SPPDATAbits
+                                           	extern _SPPCFGbits
+                                           	extern _SPPEPSbits
+                                           	extern _SPPCONbits
+                                           	extern _UFRMLbits
+                                           	extern _UFRMHbits
+                                           	extern _UIRbits
+                                           	extern _UIEbits
+                                           	extern _UEIRbits
+                                           	extern _UEIEbits
+                                           	extern _USTATbits
+                                           	extern _UCONbits
+                                           	extern _UADDRbits
+                                           	extern _UCFGbits
+                                           	extern _UEP0bits
+                                           	extern _UEP1bits
+                                           	extern _UEP2bits
+                                           	extern _UEP3bits
+                                           	extern _UEP4bits
+                                           	extern _UEP5bits
+                                           	extern _UEP6bits
+                                           	extern _UEP7bits
+                                           	extern _UEP8bits
+                                           	extern _UEP9bits
+                                           	extern _UEP10bits
+                                           	extern _UEP11bits
+                                           	extern _UEP12bits
+                                           	extern _UEP13bits
+                                           	extern _UEP14bits
+                                           	extern _UEP15bits
+                                           	extern _PORTAbits
+                                           	extern _PORTBbits
+                                           	extern _PORTCbits
+                                           	extern _PORTEbits
+                                           	extern _LATAbits
+                                           	extern _LATBbits
+                                           	extern _LATCbits
+                                           	extern _TRISAbits
+                                           	extern _TRISBbits
+                                           	extern _TRISCbits
+                                           	extern _OSCTUNEbits
+                                           	extern _PIE1bits
+                                           	extern _PIR1bits
+                                           	extern _IPR1bits
+                                           	extern _PIE2bits
+                                           	extern _PIR2bits
+                                           	extern _IPR2bits
+                                           	extern _EECON1bits
+                                           	extern _RCSTAbits
+                                           	extern _TXSTAbits
+                                           	extern _T3CONbits
+                                           	extern _CMCONbits
+                                           	extern _CVRCONbits
+                                           	extern _ECCP1ASbits
+                                           	extern _ECCP1DELbits
+                                           	extern _BAUDCONbits
+                                           	extern _CCP2CONbits
+                                           	extern _CCP1CONbits
+                                           	extern _ADCON2bits
+                                           	extern _ADCON1bits
+                                           	extern _ADCON0bits
+                                           	extern _SSPCON2bits
+                                           	extern _SSPCON1bits
+                                           	extern _SSPSTATbits
+                                           	extern _T2CONbits
+                                           	extern _T1CONbits
+                                           	extern _RCONbits
+                                           	extern _WDTCONbits
+                                           	extern _HLVDCONbits
+                                           	extern _OSCCONbits
+                                           	extern _T0CONbits
+                                           	extern _STATUSbits
+                                           	extern _FSR2Hbits
+                                           	extern _BSRbits
+                                           	extern _FSR1Hbits
+                                           	extern _FSR0Hbits
+                                           	extern _INTCON3bits
+                                           	extern _INTCON2bits
+                                           	extern _INTCONbits
+                                           	extern _TBLPTRUbits
+                                           	extern _PCLATHbits
+                                           	extern _PCLATUbits
+                                           	extern _STKPTRbits
+                                           	extern _TOSUbits
+                                           	extern _usb_device_state
+                                           	extern _usb_active_cfg
+                                           	extern _usb_active_alt_setting
+                                           	extern _SPPDATA
+                                           	extern _SPPCFG
+                                           	extern _SPPEPS
+                                           	extern _SPPCON
+                                           	extern _UFRML
+                                           	extern _UFRMH
+                                           	extern _UIR
+                                           	extern _UIE
+                                           	extern _UEIR
+                                           	extern _UEIE
+                                           	extern _USTAT
+                                           	extern _UCON
+                                           	extern _UADDR
+                                           	extern _UCFG
+                                           	extern _UEP0
+                                           	extern _UEP1
+                                           	extern _UEP2
+                                           	extern _UEP3
+                                           	extern _UEP4
+                                           	extern _UEP5
+                                           	extern _UEP6
+                                           	extern _UEP7
+                                           	extern _UEP8
+                                           	extern _UEP9
+                                           	extern _UEP10
+                                           	extern _UEP11
+                                           	extern _UEP12
+                                           	extern _UEP13
+                                           	extern _UEP14
+                                           	extern _UEP15
+                                           	extern _PORTA
+                                           	extern _PORTB
+                                           	extern _PORTC
+                                           	extern _PORTE
+                                           	extern _LATA
+                                           	extern _LATB
+                                           	extern _LATC
+                                           	extern _TRISA
+                                           	extern _TRISB
+                                           	extern _TRISC
+                                           	extern _OSCTUNE
+                                           	extern _PIE1
+                                           	extern _PIR1
+                                           	extern _IPR1
+                                           	extern _PIE2
+                                           	extern _PIR2
+                                           	extern _IPR2
+                                           	extern _EECON1
+                                           	extern _EECON2
+                                           	extern _EEDATA
+                                           	extern _EEADR
+                                           	extern _RCSTA
+                                           	extern _TXSTA
+                                           	extern _TXREG
+                                           	extern _RCREG
+                                           	extern _SPBRG
+                                           	extern _SPBRGH
+                                           	extern _T3CON
+                                           	extern _TMR3L
+                                           	extern _TMR3H
+                                           	extern _CMCON
+                                           	extern _CVRCON
+                                           	extern _ECCP1AS
+                                           	extern _ECCP1DEL
+                                           	extern _BAUDCON
+                                           	extern _CCP2CON
+                                           	extern _CCPR2L
+                                           	extern _CCPR2H
+                                           	extern _CCP1CON
+                                           	extern _CCPR1L
+                                           	extern _CCPR1H
+                                           	extern _ADCON2
+                                           	extern _ADCON1
+                                           	extern _ADCON0
+                                           	extern _ADRESL
+                                           	extern _ADRESH
+                                           	extern _SSPCON2
+                                           	extern _SSPCON1
+                                           	extern _SSPSTAT
+                                           	extern _SSPADD
+                                           	extern _SSPBUF
+                                           	extern _T2CON
+                                           	extern _PR2
+                                           	extern _TMR2
+                                           	extern _T1CON
+                                           	extern _TMR1L
+                                           	extern _TMR1H
+                                           	extern _RCON
+                                           	extern _WDTCON
+                                           	extern _HLVDCON
+                                           	extern _OSCCON
+                                           	extern _T0CON
+                                           	extern _TMR0L
+                                           	extern _TMR0H
+                                           	extern _STATUS
+                                           	extern _FSR2L
+                                           	extern _FSR2H
+                                           	extern _PLUSW2
+                                           	extern _PREINC2
+                                           	extern _POSTDEC2
+                                           	extern _POSTINC2
+                                           	extern _INDF2
+                                           	extern _BSR
+                                           	extern _FSR1L
+                                           	extern _FSR1H
+                                           	extern _PLUSW1
+                                           	extern _PREINC1
+                                           	extern _POSTDEC1
+                                           	extern _POSTINC1
+                                           	extern _INDF1
+                                           	extern _WREG
+                                           	extern _FSR0L
+                                           	extern _FSR0H
+                                           	extern _PLUSW0
+                                           	extern _PREINC0
+                                           	extern _POSTDEC0
+                                           	extern _POSTINC0
+                                           	extern _INDF0
+                                           	extern _INTCON3
+                                           	extern _INTCON2
+                                           	extern _INTCON
+                                           	extern _PRODL
+                                           	extern _PRODH
+                                           	extern _TABLAT
+                                           	extern _TBLPTRL
+                                           	extern _TBLPTRH
+                                           	extern _TBLPTRU
+                                           	extern _PCL
+                                           	extern _PCLATH
+                                           	extern _PCLATU
+                                           	extern _STKPTR
+                                           	extern _TOSL
+                                           	extern _TOSH
+                                           	extern _TOSU
+                                           	extern _dispatch_usb_event
+                                           	extern _usb_sleep
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           PCLATH	equ	0xffa
+                                           PCLATU	equ	0xffb
+                                           WREG	equ	0xfe8
+                                           BSR	equ	0xfe0
+                                           FSR0L	equ	0xfe9
+                                           FSR0H	equ	0xfea
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           
+                                           udata_main_0	udata
+                                           _count	res	4
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; ; Starting pCode block
+                                           S_main__high_priority_isr	code	0X002020
+                                           _high_priority_isr:
+                                           ;	.line	63; main.c	void high_priority_isr(void) interrupt
+002020   cfe8     movff	0xfe8, 0xfe5       	MOVFF	WREG, POSTDEC1
+002022   ffe5
+002024   cfd8     movff	0xfd8, 0xfe5       	MOVFF	STATUS, POSTDEC1
+002026   ffe5
+002028   cfe0     movff	0xfe0, 0xfe5       	MOVFF	BSR, POSTDEC1
+00202a   ffe5
+00202c   cff3     movff	0xff3, 0xfe5       	MOVFF	PRODL, POSTDEC1
+00202e   ffe5
+002030   cff4     movff	0xff4, 0xfe5       	MOVFF	PRODH, POSTDEC1
+002032   ffe5
+002034   cfe9     movff	0xfe9, 0xfe5       	MOVFF	FSR0L, POSTDEC1
+002036   ffe5
+002038   cfea     movff	0xfea, 0xfe5       	MOVFF	FSR0H, POSTDEC1
+00203a   ffe5
+00203c   cffa     movff	0xffa, 0xfe5       	MOVFF	PCLATH, POSTDEC1
+00203e   ffe5
+002040   cffb     movff	0xffb, 0xfe5       	MOVFF	PCLATU, POSTDEC1
+002042   ffe5
+002044   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
+002046   ffe5
+                                           ;	.line	65; main.c	if(INTCONbits.TMR0IF)
+002048   a4f2     btfss	0xf2, 0x2, 0       	BTFSS	_INTCONbits, 2
+00204a   d011     bra	0x206e               	BRA	_00115_DS_
+                                           ;	.line	67; main.c	ftoggle_A0();
+00204c   6a00     clrf	0, 0                	CLRF	r0x00
+00204e   b080     btfsc	0x80, 0, 0         	BTFSC	_PORTAbits, 0
+002050   2a00     incf	0, 0x1, 0           	INCF	r0x00, F
+002052   5000     movf	0, 0, 0             	MOVF	r0x00, W
+002054   80d8     bsf	0xd8, 0, 0           	BSF	STATUS, 0
+002056   66e8     tstfsz	0xe8, 0           	TSTFSZ	WREG
+002058   90d8     bcf	0xd8, 0, 0           	BCF	STATUS, 0
+00205a   6a00     clrf	0, 0                	CLRF	r0x00
+00205c   3600     rlcf	0, 0x1, 0           	RLCF	r0x00, F
+00205e   5000     movf	0, 0, 0             	MOVF	r0x00, W
+002060   0b01     andlw	0x1                	ANDLW	0x01
+002062   6ef4     movwf	0xf4, 0            	MOVWF	PRODH
+002064   5080     movf	0x80, 0, 0          	MOVF	_PORTAbits, W
+002066   0bfe     andlw	0xfe               	ANDLW	0xfe
+002068   10f4     iorwf	0xf4, 0, 0         	IORWF	PRODH, W
+00206a   6e80     movwf	0x80, 0            	MOVWF	_PORTAbits
+                                           ;	.line	68; main.c	INTCONbits.TMR0IF = 0;
+00206c   94f2     bcf	0xf2, 0x2, 0         	BCF	_INTCONbits, 2
+                                           _00115_DS_:
+00206e   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
+002070   f000
+002072   cfe4     movff	0xfe4, 0xffb       	MOVFF	PREINC1, PCLATU
+002074   fffb
+002076   cfe4     movff	0xfe4, 0xffa       	MOVFF	PREINC1, PCLATH
+002078   fffa
+00207a   cfe4     movff	0xfe4, 0xfea       	MOVFF	PREINC1, FSR0H
+00207c   ffea
+00207e   cfe4     movff	0xfe4, 0xfe9       	MOVFF	PREINC1, FSR0L
+002080   ffe9
+002082   cfe4     movff	0xfe4, 0xff4       	MOVFF	PREINC1, PRODH
+002084   fff4
+002086   cfe4     movff	0xfe4, 0xff3       	MOVFF	PREINC1, PRODL
+002088   fff3
+00208a   cfe4     movff	0xfe4, 0xfe0       	MOVFF	PREINC1, BSR
+00208c   ffe0
+00208e   cfe4     movff	0xfe4, 0xfd8       	MOVFF	PREINC1, STATUS
+002090   ffd8
+002092   cfe4     movff	0xfe4, 0xfe8       	MOVFF	PREINC1, WREG
+002094   ffe8
+002096   0010     retfie	0                 	RETFIE	
+                                           
+                                           ; ; Starting pCode block
+                                           S_main__low_priority_isr	code	0X004000
+                                           _low_priority_isr:
+                                           ;	.line	73; main.c	void low_priority_isr(void) interrupt
+004000   cfe8     movff	0xfe8, 0xfe5       	MOVFF	WREG, POSTDEC1
+004002   ffe5
+004004   cfd8     movff	0xfd8, 0xfe5       	MOVFF	STATUS, POSTDEC1
+004006   ffe5
+004008   cfe0     movff	0xfe0, 0xfe5       	MOVFF	BSR, POSTDEC1
+00400a   ffe5
+00400c   cff3     movff	0xff3, 0xfe5       	MOVFF	PRODL, POSTDEC1
+00400e   ffe5
+004010   cff4     movff	0xff4, 0xfe5       	MOVFF	PRODH, POSTDEC1
+004012   ffe5
+004014   cfe9     movff	0xfe9, 0xfe5       	MOVFF	FSR0L, POSTDEC1
+004016   ffe5
+004018   cfea     movff	0xfea, 0xfe5       	MOVFF	FSR0H, POSTDEC1
+00401a   ffe5
+00401c   cffa     movff	0xffa, 0xfe5       	MOVFF	PCLATH, POSTDEC1
+00401e   ffe5
+004020   cffb     movff	0xffb, 0xfe5       	MOVFF	PCLATU, POSTDEC1
+004022   ffe5
+                                           ;	.line	75; main.c	}
+004024   cfe4     movff	0xfe4, 0xffb       	MOVFF	PREINC1, PCLATU
+004026   fffb
+004028   cfe4     movff	0xfe4, 0xffa       	MOVFF	PREINC1, PCLATH
+00402a   fffa
+00402c   cfe4     movff	0xfe4, 0xfea       	MOVFF	PREINC1, FSR0H
+00402e   ffea
+004030   cfe4     movff	0xfe4, 0xfe9       	MOVFF	PREINC1, FSR0L
+004032   ffe9
+004034   cfe4     movff	0xfe4, 0xff4       	MOVFF	PREINC1, PRODH
+004036   fff4
+004038   cfe4     movff	0xfe4, 0xff3       	MOVFF	PREINC1, PRODL
+00403a   fff3
+00403c   cfe4     movff	0xfe4, 0xfe0       	MOVFF	PREINC1, BSR
+00403e   ffe0
+004040   cfe4     movff	0xfe4, 0xfd8       	MOVFF	PREINC1, STATUS
+004042   ffd8
+004044   cfe4     movff	0xfe4, 0xfe8       	MOVFF	PREINC1, WREG
+004046   ffe8
+004048   0010     retfie	0                 	RETFIE	
+                                           
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_main__application_main	code
+                                           _application_main:
+                                           ;	.line	41; main.c	PORTA = 0x01;
+0022e6   0e01     movlw	0x1                	MOVLW	0x01
+0022e8   6e80     movwf	0x80, 0            	MOVWF	_PORTA
+                                           ;	.line	44; main.c	TMR0H = 0;
+0022ea   6ad7     clrf	0xd7, 0             	CLRF	_TMR0H
+                                           ;	.line	45; main.c	TMR0L = 0;
+0022ec   6ad6     clrf	0xd6, 0             	CLRF	_TMR0L
+                                           ;	.line	48; main.c	T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
+0022ee   0e86     movlw	0x86               	MOVLW	0x86
+0022f0   6ed5     movwf	0xd5, 0            	MOVWF	_T0CON
+                                           ;	.line	49; main.c	INTCONbits.TMR0IE = 1;
+0022f2   8af2     bsf	0xf2, 0x5, 0         	BSF	_INTCONbits, 5
+                                           ;	.line	50; main.c	INTCONbits.GIE = 1;
+0022f4   8ef2     bsf	0xf2, 0x7, 0         	BSF	_INTCONbits, 7
+                                           _00105_DS_:
+                                           ;	.line	54; main.c	while(usb_active_cfg > 2)
+0022f6   0e03     movlw	0x3                	MOVLW	0x03
+0022f8   5c5e     subwf	0x5e, 0, 0         	SUBWF	_usb_active_cfg, W
+0022fa   e305     bnc	0x2306               	BNC	_00108_DS_
+                                           ;	.line	56; main.c	usb_sleep();
+0022fc   ec13     call	0x26, 0             	CALL	_usb_sleep
+0022fe   f000
+                                           ;	.line	57; main.c	dispatch_usb_event();
+002300   ec0f     call	0x1e, 0             	CALL	_dispatch_usb_event
+002302   f000
+002304   d7f8     bra	0x22f6               	BRA	_00105_DS_
+                                           _00108_DS_:
+002306   0012     return	0                 	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  228 (0x00e4) bytes ( 0.17%)
+                                           ;           	  114 (0x0072) words
+                                           ; udata size:	    4 (0x0004) bytes ( 0.22%)
+                                           ; access size:	    1 (0x0001) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : FreeWare ANSI-C Compiler
+                                           ; Version 2.6.0 #4309 (Nov 10 2006)
+                                           ; This file generated Fri Jun 22 21:23:43 2007
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4550
+                                           
+                                           	radix dec
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global _null_function
+                                           	global _device_descriptor
+                                           	global _default_cfg
+                                           	global _flash_cfg
+                                           	global _application_cfg
+                                           	global _configuration_descriptor
+                                           	global _str0
+                                           	global _str1
+                                           	global _str2
+                                           	global _str3
+                                           	global _str4
+                                           	global _str5
+                                           	global _string_descriptor
+                                           	global _ep_init
+                                           	global _ep_in
+                                           	global _ep_out
+                                           	global _ep_setup
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern _usb_device_state
+                                           	extern _usb_active_cfg
+                                           	extern _usb_active_alt_setting
+                                           	extern _ep0_init
+                                           	extern _ep1_init
+                                           	extern _ep2_init
+                                           	extern _ep0_in
+                                           	extern _ep2_in
+                                           	extern _ep1_out
+                                           	extern _ep0_setup
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_usb_descriptors__null_function	code
+                                           _null_function:
+00201a   0012     return	0                 	return
+                                           	
+                                           ; ; Starting pCode block for Ival
+                                           	code
+                                           _device_descriptor:
+002098   0112     movlb	0x12               	DB	0x12, 0x01, 0x00, 0x02, 0xff, 0x00, 0xff, 0x08, 0xa5, 0xa5, 0x01, 0x00
+00209a   0200     mulwf	0, 0               
+00209c   00ff     reset                    
+00209e   08ff     sublw	0xff               
+0020a0   a5a5     btfss	0xa5, 0x2, 0x1     
+0020a2   0001     dw	0x1  ;unknown opcode  
+0020a4   0100     movlb	0                  	DB	0x00, 0x01, 0x01, 0x02, 0x03, 0x03
+0020a6   0201     mulwf	0x1, 0             
+0020a8   0303     mulwf	0x3, 0x1           
+                                           ; ; Starting pCode block for Ival
+                                           _default_cfg:
+0020aa   0209     mulwf	0x9, 0             	DB	0x09, 0x02, 0x12, 0x00, 0x01, 0x01, 0x04, 0xc0, 0x00, 0x09, 0x04, 0x00
+0020ac   0012     return	0                 
+0020ae   0101     movlb	0x1                
+0020b0   c004     movff	0x4, 0x900         
+0020b2   0900
+0020b4   0004     clrwdt                   
+0020b6   0000     nop                      	DB	0x00, 0x00, 0xff, 0xff, 0xff, 0x04
+0020b8   ffff     dw	0xffff  ;unknown opcode 
+0020ba   04ff     decf	0xff, 0, 0          
+                                           ; ; Starting pCode block for Ival
+                                           _flash_cfg:
+0020bc   0209     mulwf	0x9, 0             	DB	0x09, 0x02, 0x20, 0x00, 0x01, 0x02, 0x05, 0xc0, 0x00, 0x09, 0x04, 0x00
+0020be   0020     dw	0x20  ;unknown opcode 
+0020c0   0201     mulwf	0x1, 0             
+0020c2   c005     movff	0x5, 0x900         
+0020c4   0900
+0020c6   0004     clrwdt                   
+0020c8   0200     mulwf	0, 0               	DB	0x00, 0x02, 0xff, 0xff, 0xff, 0x05, 0x07, 0x05, 0x01, 0x02, 0x40, 0x00
+0020ca   ffff     dw	0xffff  ;unknown opcode 
+0020cc   05ff     decf	0xff, 0, 0x1        
+0020ce   0507     decf	0x7, 0, 0x1         
+0020d0   0201     mulwf	0x1, 0             
+0020d2   0040     dw	0x40  ;unknown opcode 
+0020d4   0700     decf	0, 0x1, 0x1         	DB	0x00, 0x07, 0x05, 0x82, 0x02, 0x40, 0x00, 0x00
+0020d6   8205     bsf	0x5, 0x1, 0          
+0020d8   4002     rrncf	0x2, 0, 0          
+0020da   0000     nop                      
+                                           ; ; Starting pCode block for Ival
+                                           _application_cfg:
+0020dc   0209     mulwf	0x9, 0             	DB	0x09, 0x02, 0x12, 0x00, 0x01, 0x03, 0x04, 0xc0, 0x00, 0x09, 0x04, 0x00
+0020de   0012     return	0                 
+0020e0   0301     mulwf	0x1, 0x1           
+0020e2   c004     movff	0x4, 0x900         
+0020e4   0900
+0020e6   0004     clrwdt                   
+0020e8   0000     nop                      	DB	0x00, 0x00, 0xff, 0xff, 0xff, 0x04
+0020ea   ffff     dw	0xffff  ;unknown opcode 
+0020ec   04ff     decf	0xff, 0, 0          
+                                           ; ; Starting pCode block for Ival
+                                           _configuration_descriptor:
+0020ee   20aa     addwfc	0xaa, 0, 0        	DB	LOW(_default_cfg), HIGH(_default_cfg), UPPER(_default_cfg), LOW(_flash_cfg), HIGH(_flash_cfg), UPPER(_flash_cfg), LOW(_application_cfg), HIGH(_application_cfg), UPPER(_application_cfg)
+0020f0   bc00     btfsc	0, 0x6, 0          
+0020f2   0020     dw	0x20  ;unknown opcode 
+0020f4   20dc     addwfc	0xdc, 0, 0        
+0020f6   0000     nop                      
+                                           ; ; Starting pCode block for Ival
+                                           _str0:
+0020f8   0304     mulwf	0x4, 0x1           	DB	0x04, 0x03, 0x09, 0x04
+0020fa   0409     decf	0x9, 0, 0           
+                                           ; ; Starting pCode block for Ival
+                                           _str1:
+0020fc   031c     mulwf	0x1c, 0x1          	DB	0x1c, 0x03, 0x56, 0x00, 0x61, 0x00, 0x73, 0x00, 0x63, 0x00, 0x6f, 0x00
+0020fe   0056     dw	0x56  ;unknown opcode 
+002100   0061     dw	0x61  ;unknown opcode 
+002102   0073     dw	0x73  ;unknown opcode 
+002104   0063     dw	0x63  ;unknown opcode 
+002106   006f     dw	0x6f  ;unknown opcode 
+002108   0020     dw	0x20  ;unknown opcode 	DB	0x20, 0x00, 0x50, 0x00, 0x72, 0x00, 0x6f, 0x00, 0x6a, 0x00, 0x65, 0x00
+00210a   0050     dw	0x50  ;unknown opcode 
+00210c   0072     dw	0x72  ;unknown opcode 
+00210e   006f     dw	0x6f  ;unknown opcode 
+002110   006a     dw	0x6a  ;unknown opcode 
+002112   0065     dw	0x65  ;unknown opcode 
+002114   0063     dw	0x63  ;unknown opcode 	DB	0x63, 0x00, 0x74, 0x00
+002116   0074     dw	0x74  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _str2:
+002118   031c     mulwf	0x1c, 0x1          	DB	0x1c, 0x03, 0x54, 0x00, 0x6f, 0x00, 0x67, 0x00, 0x67, 0x00, 0x6c, 0x00
+00211a   0054     dw	0x54  ;unknown opcode 
+00211c   006f     dw	0x6f  ;unknown opcode 
+00211e   0067     dw	0x67  ;unknown opcode 
+002120   0067     dw	0x67  ;unknown opcode 
+002122   006c     dw	0x6c  ;unknown opcode 
+002124   0065     dw	0x65  ;unknown opcode 	DB	0x65, 0x00, 0x20, 0x00, 0x6d, 0x00, 0x6f, 0x00, 0x64, 0x00, 0x75, 0x00
+002126   0020     dw	0x20  ;unknown opcode 
+002128   006d     dw	0x6d  ;unknown opcode 
+00212a   006f     dw	0x6f  ;unknown opcode 
+00212c   0064     dw	0x64  ;unknown opcode 
+00212e   0075     dw	0x75  ;unknown opcode 
+002130   006c     dw	0x6c  ;unknown opcode 	DB	0x6c, 0x00, 0x65, 0x00
+002132   0065     dw	0x65  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _str3:
+002134   0304     mulwf	0x4, 0x1           	DB	0x04, 0x03, 0x31, 0x00
+002136   0031     dw	0x31  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _str4:
+002138   0310     mulwf	0x10, 0x1          	DB	0x10, 0x03, 0x44, 0x00, 0x65, 0x00, 0x66, 0x00, 0x61, 0x00, 0x75, 0x00
+00213a   0044     dw	0x44  ;unknown opcode 
+00213c   0065     dw	0x65  ;unknown opcode 
+00213e   0066     dw	0x66  ;unknown opcode 
+002140   0061     dw	0x61  ;unknown opcode 
+002142   0075     dw	0x75  ;unknown opcode 
+002144   006c     dw	0x6c  ;unknown opcode 	DB	0x6c, 0x00, 0x74, 0x00
+002146   0074     dw	0x74  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _str5:
+002148   030c     mulwf	0xc, 0x1           	DB	0x0c, 0x03, 0x46, 0x00, 0x6c, 0x00, 0x61, 0x00, 0x73, 0x00, 0x68, 0x00
+00214a   0046     dw	0x46  ;unknown opcode 
+00214c   006c     dw	0x6c  ;unknown opcode 
+00214e   0061     dw	0x61  ;unknown opcode 
+002150   0073     dw	0x73  ;unknown opcode 
+002152   0068     dw	0x68  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _string_descriptor:
+002154   20f8     addwfc	0xf8, 0, 0        	DB	LOW(_str0), HIGH(_str0), UPPER(_str0), LOW(_str1), HIGH(_str1), UPPER(_str1), LOW(_str2), HIGH(_str2), UPPER(_str2), LOW(_str3), HIGH(_str3), UPPER(_str3)
+002156   fc00     dw	0xfc00  ;unknown opcode 
+002158   0020     dw	0x20  ;unknown opcode 
+00215a   2118     addwfc	0x18, 0, 0x1      
+00215c   3400     rlcf	0, 0, 0             
+00215e   0021     dw	0x21  ;unknown opcode 
+002160   2138     addwfc	0x38, 0, 0x1      	DB	LOW(_str4), HIGH(_str4), UPPER(_str4), LOW(_str5), HIGH(_str5), UPPER(_str5)
+002162   4800     infsnz	0, 0, 0           
+002164   0021     dw	0x21  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_init_cfg0:
+002166   002e     dw	0x2e  ;unknown opcode 	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002168   1a00     xorwf	0, 0x1, 0          
+00216a   0020     dw	0x20  ;unknown opcode 
+00216c   201a     addwfc	0x1a, 0, 0        
+00216e   1a00     xorwf	0, 0x1, 0          
+002170   0020     dw	0x20  ;unknown opcode 
+002172   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002174   1a00     xorwf	0, 0x1, 0          
+002176   0020     dw	0x20  ;unknown opcode 
+002178   201a     addwfc	0x1a, 0, 0        
+00217a   1a00     xorwf	0, 0x1, 0          
+00217c   0020     dw	0x20  ;unknown opcode 
+00217e   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002180   1a00     xorwf	0, 0x1, 0          
+002182   0020     dw	0x20  ;unknown opcode 
+002184   201a     addwfc	0x1a, 0, 0        
+002186   1a00     xorwf	0, 0x1, 0          
+002188   0020     dw	0x20  ;unknown opcode 
+00218a   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00218c   1a00     xorwf	0, 0x1, 0          
+00218e   0020     dw	0x20  ;unknown opcode 
+002190   201a     addwfc	0x1a, 0, 0        
+002192   1a00     xorwf	0, 0x1, 0          
+002194   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_init_cfg1:
+002196   002e     dw	0x2e  ;unknown opcode 	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_init), HIGH(_ep1_init), UPPER(_ep1_init), LOW(_ep2_init), HIGH(_ep2_init), UPPER(_ep2_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002198   3a00     swapf	0, 0x1, 0          
+00219a   0000     nop                      
+00219c   0042     dw	0x42  ;unknown opcode 
+00219e   1a00     xorwf	0, 0x1, 0          
+0021a0   0020     dw	0x20  ;unknown opcode 
+0021a2   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021a4   1a00     xorwf	0, 0x1, 0          
+0021a6   0020     dw	0x20  ;unknown opcode 
+0021a8   201a     addwfc	0x1a, 0, 0        
+0021aa   1a00     xorwf	0, 0x1, 0          
+0021ac   0020     dw	0x20  ;unknown opcode 
+0021ae   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021b0   1a00     xorwf	0, 0x1, 0          
+0021b2   0020     dw	0x20  ;unknown opcode 
+0021b4   201a     addwfc	0x1a, 0, 0        
+0021b6   1a00     xorwf	0, 0x1, 0          
+0021b8   0020     dw	0x20  ;unknown opcode 
+0021ba   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021bc   1a00     xorwf	0, 0x1, 0          
+0021be   0020     dw	0x20  ;unknown opcode 
+0021c0   201a     addwfc	0x1a, 0, 0        
+0021c2   1a00     xorwf	0, 0x1, 0          
+0021c4   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_init:
+0021c6   2166     addwfc	0x66, 0, 0x1      	DB	LOW(_ep_init_cfg0), HIGH(_ep_init_cfg0), UPPER(_ep_init_cfg0), LOW(_ep_init_cfg0), HIGH(_ep_init_cfg0), UPPER(_ep_init_cfg0), LOW(_ep_init_cfg1), HIGH(_ep_init_cfg1), UPPER(_ep_init_cfg1), LOW(_ep_init_cfg0), HIGH(_ep_init_cfg0), UPPER(_ep_init_cfg0)
+0021c8   6600     tstfsz	0, 0              
+0021ca   0021     dw	0x21  ;unknown opcode 
+0021cc   2196     addwfc	0x96, 0, 0x1      
+0021ce   6600     tstfsz	0, 0              
+0021d0   0021     dw	0x21  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_in_cfg0:
+0021d2   0032     dw	0x32  ;unknown opcode 	DB	LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021d4   1a00     xorwf	0, 0x1, 0          
+0021d6   0020     dw	0x20  ;unknown opcode 
+0021d8   201a     addwfc	0x1a, 0, 0        
+0021da   1a00     xorwf	0, 0x1, 0          
+0021dc   0020     dw	0x20  ;unknown opcode 
+0021de   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021e0   1a00     xorwf	0, 0x1, 0          
+0021e2   0020     dw	0x20  ;unknown opcode 
+0021e4   201a     addwfc	0x1a, 0, 0        
+0021e6   1a00     xorwf	0, 0x1, 0          
+0021e8   0020     dw	0x20  ;unknown opcode 
+0021ea   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021ec   1a00     xorwf	0, 0x1, 0          
+0021ee   0020     dw	0x20  ;unknown opcode 
+0021f0   201a     addwfc	0x1a, 0, 0        
+0021f2   1a00     xorwf	0, 0x1, 0          
+0021f4   0020     dw	0x20  ;unknown opcode 
+0021f6   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0021f8   1a00     xorwf	0, 0x1, 0          
+0021fa   0020     dw	0x20  ;unknown opcode 
+0021fc   201a     addwfc	0x1a, 0, 0        
+0021fe   1a00     xorwf	0, 0x1, 0          
+002200   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_in_cfg1:
+002202   0032     dw	0x32  ;unknown opcode 	DB	LOW(_ep0_in), HIGH(_ep0_in), UPPER(_ep0_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_ep2_in), HIGH(_ep2_in), UPPER(_ep2_in), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002204   1a00     xorwf	0, 0x1, 0          
+002206   0020     dw	0x20  ;unknown opcode 
+002208   0046     dw	0x46  ;unknown opcode 
+00220a   1a00     xorwf	0, 0x1, 0          
+00220c   0020     dw	0x20  ;unknown opcode 
+00220e   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002210   1a00     xorwf	0, 0x1, 0          
+002212   0020     dw	0x20  ;unknown opcode 
+002214   201a     addwfc	0x1a, 0, 0        
+002216   1a00     xorwf	0, 0x1, 0          
+002218   0020     dw	0x20  ;unknown opcode 
+00221a   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00221c   1a00     xorwf	0, 0x1, 0          
+00221e   0020     dw	0x20  ;unknown opcode 
+002220   201a     addwfc	0x1a, 0, 0        
+002222   1a00     xorwf	0, 0x1, 0          
+002224   0020     dw	0x20  ;unknown opcode 
+002226   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002228   1a00     xorwf	0, 0x1, 0          
+00222a   0020     dw	0x20  ;unknown opcode 
+00222c   201a     addwfc	0x1a, 0, 0        
+00222e   1a00     xorwf	0, 0x1, 0          
+002230   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_in:
+002232   21d2     addwfc	0xd2, 0, 0x1      	DB	LOW(_ep_in_cfg0), HIGH(_ep_in_cfg0), UPPER(_ep_in_cfg0), LOW(_ep_in_cfg0), HIGH(_ep_in_cfg0), UPPER(_ep_in_cfg0), LOW(_ep_in_cfg1), HIGH(_ep_in_cfg1), UPPER(_ep_in_cfg1), LOW(_ep_in_cfg0), HIGH(_ep_in_cfg0), UPPER(_ep_in_cfg0)
+002234   d200     bra	0x2636               
+002236   0021     dw	0x21  ;unknown opcode 
+002238   2202     addwfc	0x2, 0x1, 0       
+00223a   d200     bra	0x263c               
+00223c   0021     dw	0x21  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_out_cfg0:
+00223e   002e     dw	0x2e  ;unknown opcode 	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002240   1a00     xorwf	0, 0x1, 0          
+002242   0020     dw	0x20  ;unknown opcode 
+002244   201a     addwfc	0x1a, 0, 0        
+002246   1a00     xorwf	0, 0x1, 0          
+002248   0020     dw	0x20  ;unknown opcode 
+00224a   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00224c   1a00     xorwf	0, 0x1, 0          
+00224e   0020     dw	0x20  ;unknown opcode 
+002250   201a     addwfc	0x1a, 0, 0        
+002252   1a00     xorwf	0, 0x1, 0          
+002254   0020     dw	0x20  ;unknown opcode 
+002256   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002258   1a00     xorwf	0, 0x1, 0          
+00225a   0020     dw	0x20  ;unknown opcode 
+00225c   201a     addwfc	0x1a, 0, 0        
+00225e   1a00     xorwf	0, 0x1, 0          
+002260   0020     dw	0x20  ;unknown opcode 
+002262   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002264   1a00     xorwf	0, 0x1, 0          
+002266   0020     dw	0x20  ;unknown opcode 
+002268   201a     addwfc	0x1a, 0, 0        
+00226a   1a00     xorwf	0, 0x1, 0          
+00226c   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_out_cfg1:
+00226e   002e     dw	0x2e  ;unknown opcode 	DB	LOW(_ep0_init), HIGH(_ep0_init), UPPER(_ep0_init), LOW(_ep1_out), HIGH(_ep1_out), UPPER(_ep1_out), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002270   3e00     incfsz	0, 0x1, 0         
+002272   0000     nop                      
+002274   201a     addwfc	0x1a, 0, 0        
+002276   1a00     xorwf	0, 0x1, 0          
+002278   0020     dw	0x20  ;unknown opcode 
+00227a   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+00227c   1a00     xorwf	0, 0x1, 0          
+00227e   0020     dw	0x20  ;unknown opcode 
+002280   201a     addwfc	0x1a, 0, 0        
+002282   1a00     xorwf	0, 0x1, 0          
+002284   0020     dw	0x20  ;unknown opcode 
+002286   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002288   1a00     xorwf	0, 0x1, 0          
+00228a   0020     dw	0x20  ;unknown opcode 
+00228c   201a     addwfc	0x1a, 0, 0        
+00228e   1a00     xorwf	0, 0x1, 0          
+002290   0020     dw	0x20  ;unknown opcode 
+002292   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+002294   1a00     xorwf	0, 0x1, 0          
+002296   0020     dw	0x20  ;unknown opcode 
+002298   201a     addwfc	0x1a, 0, 0        
+00229a   1a00     xorwf	0, 0x1, 0          
+00229c   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_out:
+00229e   223e     addwfc	0x3e, 0x1, 0      	DB	LOW(_ep_out_cfg0), HIGH(_ep_out_cfg0), UPPER(_ep_out_cfg0), LOW(_ep_out_cfg0), HIGH(_ep_out_cfg0), UPPER(_ep_out_cfg0), LOW(_ep_out_cfg1), HIGH(_ep_out_cfg1), UPPER(_ep_out_cfg1), LOW(_ep_out_cfg0), HIGH(_ep_out_cfg0), UPPER(_ep_out_cfg0)
+0022a0   3e00     incfsz	0, 0x1, 0         
+0022a2   0022     dw	0x22  ;unknown opcode 
+0022a4   226e     addwfc	0x6e, 0x1, 0      
+0022a6   3e00     incfsz	0, 0x1, 0         
+0022a8   0022     dw	0x22  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_setup_cfg0:
+0022aa   0036     dw	0x36  ;unknown opcode 	DB	LOW(_ep0_setup), HIGH(_ep0_setup), UPPER(_ep0_setup), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0022ac   1a00     xorwf	0, 0x1, 0          
+0022ae   0020     dw	0x20  ;unknown opcode 
+0022b0   201a     addwfc	0x1a, 0, 0        
+0022b2   1a00     xorwf	0, 0x1, 0          
+0022b4   0020     dw	0x20  ;unknown opcode 
+0022b6   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0022b8   1a00     xorwf	0, 0x1, 0          
+0022ba   0020     dw	0x20  ;unknown opcode 
+0022bc   201a     addwfc	0x1a, 0, 0        
+0022be   1a00     xorwf	0, 0x1, 0          
+0022c0   0020     dw	0x20  ;unknown opcode 
+0022c2   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0022c4   1a00     xorwf	0, 0x1, 0          
+0022c6   0020     dw	0x20  ;unknown opcode 
+0022c8   201a     addwfc	0x1a, 0, 0        
+0022ca   1a00     xorwf	0, 0x1, 0          
+0022cc   0020     dw	0x20  ;unknown opcode 
+0022ce   201a     addwfc	0x1a, 0, 0        	DB	LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function), LOW(_null_function), HIGH(_null_function), UPPER(_null_function)
+0022d0   1a00     xorwf	0, 0x1, 0          
+0022d2   0020     dw	0x20  ;unknown opcode 
+0022d4   201a     addwfc	0x1a, 0, 0        
+0022d6   1a00     xorwf	0, 0x1, 0          
+0022d8   0020     dw	0x20  ;unknown opcode 
+                                           ; ; Starting pCode block for Ival
+                                           _ep_setup:
+0022da   22aa     addwfc	0xaa, 0x1, 0      	DB	LOW(_ep_setup_cfg0), HIGH(_ep_setup_cfg0), UPPER(_ep_setup_cfg0), LOW(_ep_setup_cfg0), HIGH(_ep_setup_cfg0), UPPER(_ep_setup_cfg0), LOW(_ep_setup_cfg0), HIGH(_ep_setup_cfg0), UPPER(_ep_setup_cfg0), LOW(_ep_setup_cfg0), HIGH(_ep_setup_cfg0), UPPER(_ep_setup_cfg0)
+0022dc   aa00     btfss	0, 0x5, 0          
+0022de   0022     dw	0x22  ;unknown opcode 
+0022e0   22aa     addwfc	0xaa, 0x1, 0      
+0022e2   aa00     btfss	0, 0x5, 0          
+0022e4   0022     dw	0x22  ;unknown opcode 
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  116 (0x0074) bytes ( 0.09%)
+                                           ;           	   58 (0x003a) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    0 (0x0000) bytes
+                                           
+                                           
+                                           	end

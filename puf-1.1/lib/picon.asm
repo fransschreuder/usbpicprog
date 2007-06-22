@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Fri Jun 22 08:42:01 2007
+; File Created by SDCC : FreeWare ANSI-C Compiler
+; Version 2.6.0 #4309 (Nov 10 2006)
+; This file generated Fri Jun 22 21:24:52 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -59,18 +59,13 @@
 	extern _PORTAbits
 	extern _PORTBbits
 	extern _PORTCbits
-	extern _PORTDbits
 	extern _PORTEbits
 	extern _LATAbits
 	extern _LATBbits
 	extern _LATCbits
-	extern _LATDbits
-	extern _LATEbits
 	extern _TRISAbits
 	extern _TRISBbits
 	extern _TRISCbits
-	extern _TRISDbits
-	extern _TRISEbits
 	extern _OSCTUNEbits
 	extern _PIE1bits
 	extern _PIR1bits
@@ -150,18 +145,13 @@
 	extern _PORTA
 	extern _PORTB
 	extern _PORTC
-	extern _PORTD
 	extern _PORTE
 	extern _LATA
 	extern _LATB
 	extern _LATC
-	extern _LATD
-	extern _LATE
 	extern _TRISA
 	extern _TRISB
 	extern _TRISC
-	extern _TRISD
-	extern _TRISE
 	extern _OSCTUNE
 	extern _PIE1
 	extern _PIR1
@@ -321,8 +311,6 @@ _tmp_bottom	res	3
 S_picon__putchar	code
 _putchar:
 ;	.line	191; picon.c	PUTCHAR(c)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
 	MOVFF	r0x01, POSTDEC1
 	MOVFF	r0x02, POSTDEC1
@@ -371,17 +359,16 @@ _putchar:
 	MOVF	r0x07, W
 	BANKSEL	(_top + 2)
 	SUBWF	(_top + 2), W, B
-	BNZ	_00177_DS_
+	BNZ	_00180_DS_
 	MOVF	r0x03, W
-	BANKSEL	(_top + 1)
+; removed redundant BANKSEL
 	SUBWF	(_top + 1), W, B
-	BNZ	_00177_DS_
+	BNZ	_00180_DS_
 	MOVF	r0x02, W
-	BANKSEL	_top
+; removed redundant BANKSEL
 	SUBWF	_top, W, B
-_00177_DS_:
-	BTFSS	STATUS, 0
-	GOTO	_00165_DS_
+_00180_DS_:
+	BNC	_00168_DS_
 ;	.line	201; picon.c	top = Picon_InBuffer;
 	MOVLW	LOW(_Picon_InBuffer)
 	MOVWF	TBLPTRL
@@ -395,35 +382,34 @@ _00177_DS_:
 	MOVFF	TABLAT, (_top + 1)
 	TBLRD*+	
 	MOVFF	TABLAT, (_top + 2)
-_00165_DS_:
+_00168_DS_:
 	BANKSEL	_top
 ;	.line	204; picon.c	if((top == bottom) && (num_bytes != 0))
 	MOVF	_top, W, B
 	BANKSEL	_bottom
 	XORWF	_bottom, W, B
-	BNZ	_00178_DS_
+	BNZ	_00181_DS_
 	BANKSEL	(_top + 1)
 	MOVF	(_top + 1), W, B
 	BANKSEL	(_bottom + 1)
 	XORWF	(_bottom + 1), W, B
-	BNZ	_00178_DS_
+	BNZ	_00181_DS_
 	BANKSEL	(_top + 2)
 	MOVF	(_top + 2), W, B
 	BANKSEL	(_bottom + 2)
 	XORWF	(_bottom + 2), W, B
-	BNZ	_00178_DS_
-	GOTO	_00179_DS_
-_00178_DS_:
-	GOTO	_00167_DS_
-_00179_DS_:
+	BZ	_00182_DS_
+_00181_DS_:
+	BRA	_00170_DS_
+_00182_DS_:
 	BANKSEL	_num_bytes
 	MOVF	_num_bytes, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00167_DS_
+	BZ	_00170_DS_
 ;	.line	208; picon.c	INTCONbits.GIE = ib;
 	MOVF	r0x01, W
-	MOVWF	r0x02
-	MOVF	r0x02, W
+; #	MOVWF	r0x02
+; #	MOVF	r0x02, W
+; ;     peep 2 - Removed redundant move
 	ANDLW	0x01
 	RRNCF	WREG, W
 	MOVWF	PRODH
@@ -432,8 +418,8 @@ _00179_DS_:
 	IORWF	PRODH, W
 	MOVWF	_INTCONbits
 ;	.line	209; picon.c	return;
-	GOTO	_00171_DS_
-_00167_DS_:
+	BRA	_00174_DS_
+_00170_DS_:
 ;	.line	212; picon.c	*top = c;
 	MOVFF	_top, r0x02
 	MOVFF	(_top + 1), r0x03
@@ -446,31 +432,28 @@ _00167_DS_:
 	BANKSEL	_top
 ;	.line	213; picon.c	top++;
 	INCF	_top, F, B
-	BTFSS	STATUS, 0
-	BRA	_10164_DS_
-	BANKSEL	(_top + 1)
+	BNC	_10167_DS_
+; removed redundant BANKSEL
 	INCF	(_top + 1), F, B
-_10164_DS_:
-	BTFSS	STATUS, 0
-	BRA	_20165_DS_
+_10167_DS_:
+	BNC	_20168_DS_
 	BANKSEL	(_top + 2)
 	INCF	(_top + 2), F, B
-_20165_DS_:
+_20168_DS_:
 	BANKSEL	_num_bytes
 ;	.line	214; picon.c	num_bytes++;
 	INCF	_num_bytes, F, B
 	BANKSEL	_send_in_progress
 ;	.line	217; picon.c	if(!send_in_progress)
 	MOVF	_send_in_progress, W, B
-	BTFSS	STATUS, 2
-	GOTO	_00170_DS_
+	BNZ	_00173_DS_
 ;	.line	219; picon.c	send_in_progress = TRUE;
 	MOVLW	0x01
-	BANKSEL	_send_in_progress
+; removed redundant BANKSEL
 	MOVWF	_send_in_progress, B
 ;	.line	220; picon.c	prepare_in();
 	CALL	_prepare_in
-_00170_DS_:
+_00173_DS_:
 ;	.line	223; picon.c	INTCONbits.GIE = ib;
 	MOVF	r0x01, W
 	ANDLW	0x01
@@ -480,7 +463,7 @@ _00170_DS_:
 	ANDLW	0x7f
 	IORWF	PRODH, W
 	MOVWF	_INTCONbits
-_00171_DS_:
+_00174_DS_:
 	MOVFF	PREINC1, r0x07
 	MOVFF	PREINC1, r0x06
 	MOVFF	PREINC1, r0x05
@@ -489,15 +472,12 @@ _00171_DS_:
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
 	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 ; ; Starting pCode block
 S_picon__picon_in	code
 _picon_in:
 ;	.line	150; picon.c	void picon_in(void)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
 	MOVFF	r0x01, POSTDEC1
 	MOVFF	r0x02, POSTDEC1
@@ -529,22 +509,20 @@ _picon_in:
 	MOVF	_bottom, W, B
 	XORWF	r0x01, W
 	BNZ	_00158_DS_
-	BANKSEL	(_bottom + 1)
+; removed redundant BANKSEL
 	MOVF	(_bottom + 1), W, B
 	XORWF	r0x02, W
 	BNZ	_00158_DS_
-	BANKSEL	(_bottom + 2)
+; removed redundant BANKSEL
 	MOVF	(_bottom + 2), W, B
 	XORWF	r0x03, W
-	BNZ	_00158_DS_
-	GOTO	_00159_DS_
+	BZ	_00159_DS_
 _00158_DS_:
-	GOTO	_00143_DS_
+	BRA	_00143_DS_
 _00159_DS_:
 	BANKSEL	_num_bytes
 	MOVF	_num_bytes, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00143_DS_
+	BZ	_00143_DS_
 ;	.line	162; picon.c	num_bytes_to_send = num_bytes;
 	MOVFF	_num_bytes, _num_bytes_to_send
 	BANKSEL	(_num_bytes_to_send + 1)
@@ -553,22 +531,19 @@ _00143_DS_:
 	BANKSEL	_num_bytes_to_send
 ;	.line	165; picon.c	if((num_bytes_to_send == 0) && last_packet_was_void)
 	MOVF	_num_bytes_to_send, W, B
-	BANKSEL	(_num_bytes_to_send + 1)
+; removed redundant BANKSEL
 	IORWF	(_num_bytes_to_send + 1), W, B
-	BTFSS	STATUS, 2
-	GOTO	_00149_DS_
+	BNZ	_00149_DS_
 	BANKSEL	_last_packet_was_void
 	MOVF	_last_packet_was_void, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00149_DS_
+	BZ	_00149_DS_
 	BANKSEL	_num_bytes
 ;	.line	168; picon.c	if(num_bytes != 0)
 	MOVF	_num_bytes, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00146_DS_
+	BZ	_00146_DS_
 ;	.line	170; picon.c	prepare_in();
 	CALL	_prepare_in
-	GOTO	_00147_DS_
+	BRA	_00147_DS_
 _00146_DS_:
 	BANKSEL	_send_in_progress
 ;	.line	178; picon.c	send_in_progress = FALSE;
@@ -576,8 +551,9 @@ _00146_DS_:
 _00147_DS_:
 ;	.line	182; picon.c	INTCONbits.GIE = ib;
 	MOVF	r0x00, W
-	MOVWF	r0x01
-	MOVF	r0x01, W
+; #	MOVWF	r0x01
+; #	MOVF	r0x01, W
+; ;     peep 2 - Removed redundant move
 	ANDLW	0x01
 	RRNCF	WREG, W
 	MOVWF	PRODH
@@ -586,7 +562,7 @@ _00147_DS_:
 	IORWF	PRODH, W
 	MOVWF	_INTCONbits
 ;	.line	183; picon.c	return;
-	GOTO	_00151_DS_
+	BRA	_00151_DS_
 _00149_DS_:
 ;	.line	186; picon.c	prepare_next_packet();
 	CALL	_prepare_next_packet
@@ -604,15 +580,12 @@ _00151_DS_:
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
 	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 ; ; Starting pCode block
 S_picon__prepare_in	code
 _prepare_in:
 ;	.line	123; picon.c	void prepare_in(void)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
 	MOVFF	r0x01, POSTDEC1
 	MOVFF	r0x02, POSTDEC1
@@ -641,12 +614,10 @@ _prepare_in:
 	BANKSEL	_bottom
 	SUBWF	_bottom, W, B
 _00137_DS_:
-	BTFSS	STATUS, 0
-	GOTO	_00130_DS_
+	BNC	_00130_DS_
 	BANKSEL	_num_bytes
 	MOVF	_num_bytes, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00130_DS_
+	BZ	_00130_DS_
 ;	.line	135; picon.c	top_send_buffer = Picon_InBuffer + picon_buffer_size;
 	MOVLW	LOW(_picon_buffer_size)
 	MOVWF	TBLPTRL
@@ -676,10 +647,7 @@ _00137_DS_:
 	MOVF	r0x02, W
 	ADDWFC	r0x04, W
 	MOVWF	r0x02
-	CLRF	WREG
-	ADDWFC	r0x05, W
-	MOVWF	r0x01
-	GOTO	_00131_DS_
+	BRA	_00131_DS_
 _00130_DS_:
 ;	.line	139; picon.c	top_send_buffer = top;
 	MOVFF	_top, r0x03
@@ -714,49 +682,44 @@ _00131_DS_:
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
 	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 ; ; Starting pCode block
 S_picon__prepare_next_packet	code
 _prepare_next_packet:
 ;	.line	85; picon.c	void prepare_next_packet(void)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
 	MOVFF	r0x01, POSTDEC1
 	MOVFF	r0x02, POSTDEC1
 	MOVFF	r0x03, POSTDEC1
 	MOVFF	r0x04, POSTDEC1
 	MOVFF	r0x05, POSTDEC1
-	MOVFF	r0x06, POSTDEC1
 ;	.line	87; picon.c	last_packet_was_void = (num_bytes_to_send < PICON_PACKET_SIZE);
 	MOVLW	0x00
 	BANKSEL	(_num_bytes_to_send + 1)
 	SUBWF	(_num_bytes_to_send + 1), W, B
 	BNZ	_00123_DS_
 	MOVLW	0x08
-	BANKSEL	_num_bytes_to_send
+; removed redundant BANKSEL
 	SUBWF	_num_bytes_to_send, W, B
 _00123_DS_:
 	BTG	STATUS, 0
 	BANKSEL	_last_packet_was_void
 	CLRF	_last_packet_was_void, B
-	BANKSEL	_last_packet_was_void
 	RLCF	_last_packet_was_void, F, B
-	BANKSEL	_last_packet_was_void
 ;	.line	90; picon.c	if(last_packet_was_void)
 	MOVF	_last_packet_was_void, W, B
-	BTFSC	STATUS, 2
-	GOTO	_00110_DS_
+	BZ	_00110_DS_
+; #	MOVF	_num_bytes_to_send, W, B
+; #	MOVWF	r0x00
+; #	MOVF	r0x00, W
+; ;     peep 9c - Removed redundant move
 	BANKSEL	_num_bytes_to_send
 ;	.line	92; picon.c	num_bytes -= num_bytes_to_send;
 	MOVF	_num_bytes_to_send, W, B
-	MOVWF	r0x00
-	MOVF	r0x00, W
 	BANKSEL	_num_bytes
 	SUBWF	_num_bytes, F, B
-	GOTO	_00111_DS_
+	BRA	_00111_DS_
 _00110_DS_:
 ;	.line	96; picon.c	num_bytes -= PICON_PACKET_SIZE;
 	MOVLW	0xf8
@@ -794,7 +757,7 @@ _00111_DS_:
 	BANKSEL	_bottom
 	MOVF	_bottom, W, B
 	MOVWF	r0x03
-	BANKSEL	(_bottom + 1)
+; removed redundant BANKSEL
 	MOVF	(_bottom + 1), W, B
 	MOVWF	r0x04
 	MOVFF	r0x01, FSR0L
@@ -817,15 +780,15 @@ _00111_DS_:
 	MOVLW	LOW(_num_bytes_to_send)
 	MOVWF	r0x04
 	MOVLW	0x80
-	MOVWF	r0x06
-	MOVF	r0x06, W
+; #	MOVWF	r0x06
+; #	MOVF	r0x06, W
+; ;     peep 2 - Removed redundant move
 	MOVWF	POSTDEC1
 	MOVF	r0x05, W
 	MOVWF	POSTDEC1
 	MOVF	r0x04, W
 	MOVWF	POSTDEC1
-	MOVLW	0x00
-	MOVWF	POSTDEC1
+	CLRF	POSTDEC1
 	MOVLW	0x08
 	MOVWF	POSTDEC1
 	MOVF	r0x03, W
@@ -873,24 +836,23 @@ _00111_DS_:
 	SUBWF	(_tmp_bottom + 2), W, B
 	BNZ	_00124_DS_
 	MOVF	r0x03, W
-	BANKSEL	(_tmp_bottom + 1)
+; removed redundant BANKSEL
 	SUBWF	(_tmp_bottom + 1), W, B
 	BNZ	_00124_DS_
 	MOVF	r0x02, W
-	BANKSEL	_tmp_bottom
+; removed redundant BANKSEL
 	SUBWF	_tmp_bottom, W, B
 _00124_DS_:
-	BTFSS	STATUS, 0
-	GOTO	_00113_DS_
+	BNC	_00113_DS_
 ;	.line	109; picon.c	tmp_bottom -= picon_buffer_size;
 	MOVF	r0x00, W
 	BANKSEL	_tmp_bottom
 	SUBWF	_tmp_bottom, F, B
 	MOVF	r0x01, W
-	BANKSEL	(_tmp_bottom + 1)
+; removed redundant BANKSEL
 	SUBWFB	(_tmp_bottom + 1), F, B
 	CLRF	WREG
-	BANKSEL	(_tmp_bottom + 2)
+; removed redundant BANKSEL
 	SUBWFB	(_tmp_bottom + 2), F, B
 _00113_DS_:
 ;	.line	113; picon.c	if(EP_IN_BD(picon_ep).Stat.DTS == 0)
@@ -906,11 +868,12 @@ _00113_DS_:
 	ADDWF	r0x00, W
 	MOVWF	r0x01
 	INCF	r0x01, W
-	MOVWF	r0x00
-; ;multiply lit val:0x04 by variable r0x00 and store in r0x00
-; ;Unrolled 8 X 8 multiplication
-; ;FIXME: the function does not support result==WREG
-	MOVF	r0x00, W
+; #	MOVWF	r0x00
+; #;;multiply lit val:0x04 by variable r0x00 and store in r0x00
+; #;;Unrolled 8 X 8 multiplication
+; #;;FIXME: the function does not support result==WREG
+; #	MOVF	r0x00, W
+; ;     peep 2 - Removed redundant move
 	MULLW	0x04
 	MOVFF	PRODL, r0x00
 	MOVLW	LOW(_ep_bdt)
@@ -926,8 +889,7 @@ _00113_DS_:
 	INCF	WREG, F
 	MOVWF	r0x01
 	MOVF	r0x01, W
-	BTFSS	STATUS, 2
-	GOTO	_00115_DS_
+	BNZ	_00115_DS_
 ;	.line	115; picon.c	EP_IN_BD(picon_ep).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
 	MOVLW	LOW(_ep_bdt)
 	ADDWF	r0x00, W
@@ -939,7 +901,7 @@ _00113_DS_:
 	MOVFF	r0x02, FSR0H
 	MOVLW	0xc8
 	MOVWF	INDF0
-	GOTO	_00117_DS_
+	BRA	_00117_DS_
 _00115_DS_:
 ;	.line	119; picon.c	EP_IN_BD(picon_ep).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
 	MOVLW	LOW(_ep_bdt)
@@ -952,22 +914,18 @@ _00115_DS_:
 	MOVLW	0x88
 	MOVWF	INDF0
 _00117_DS_:
-	MOVFF	PREINC1, r0x06
 	MOVFF	PREINC1, r0x05
 	MOVFF	PREINC1, r0x04
 	MOVFF	PREINC1, r0x03
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
 	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 ; ; Starting pCode block
 S_picon__picon_init	code
 _picon_init:
 ;	.line	64; picon.c	void picon_init(void)
-	MOVFF	FSR2L, POSTDEC1
-	MOVFF	FSR1L, FSR2L
 	MOVFF	r0x00, POSTDEC1
 	MOVFF	r0x01, POSTDEC1
 	MOVFF	r0x02, POSTDEC1
@@ -1044,14 +1002,13 @@ _picon_init:
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
 	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, FSR2L
 	RETURN	
 
 
 
 ; Statistics:
-; code size:	 1558 (0x0616) bytes ( 1.19%)
-;           	  779 (0x030b) words
+; code size:	 1356 (0x054c) bytes ( 1.03%)
+;           	  678 (0x02a6) words
 ; udata size:	   14 (0x000e) bytes ( 0.78%)
 ; access size:	    8 (0x0008) bytes
 
