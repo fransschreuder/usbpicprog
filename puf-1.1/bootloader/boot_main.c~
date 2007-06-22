@@ -87,7 +87,7 @@ void main(void)
     init_boot();
     debug("init USB\n");
     init_usb();
-
+	T1CON=0;
     while(1)
     {
         usb_sleep();

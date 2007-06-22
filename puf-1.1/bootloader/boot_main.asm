@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : FreeWare ANSI-C Compiler
 ; Version 2.6.0 #4309 (Nov 10 2006)
-; This file generated Fri Jun 22 21:55:48 2007
+; This file generated Fri Jun 22 21:57:49 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -250,7 +250,6 @@
 	extern _TOSH
 	extern _TOSU
 	extern _init_usb
-	extern _usb_sleep
 	extern _dispatch_usb_event
 	extern _section_descriptor
 	extern _boot_device_descriptor
@@ -318,8 +317,6 @@ _main:
 ;	.line	90; boot_main.c	T1CON=0;
 	CLRF	_T1CON
 _00119_DS_:
-;	.line	93; boot_main.c	usb_sleep();
-	CALL	_usb_sleep
 ;	.line	94; boot_main.c	dispatch_usb_event();
 	CALL	_dispatch_usb_event
 ;	.line	95; boot_main.c	LED3=~LED3;
@@ -568,8 +565,8 @@ _00110_DS_:
 
 
 ; Statistics:
-; code size:	  408 (0x0198) bytes ( 0.31%)
-;           	  204 (0x00cc) words
+; code size:	  404 (0x0194) bytes ( 0.31%)
+;           	  202 (0x00ca) words
 ; udata size:	  259 (0x0103) bytes (14.45%)
 ; access size:	    3 (0x0003) bytes
 

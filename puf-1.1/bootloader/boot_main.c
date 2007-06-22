@@ -90,7 +90,7 @@ void main(void)
 	T1CON=0;
     while(1)
     {
-        usb_sleep();
+        //usb_sleep();
         dispatch_usb_event();
 	LED3=~LED3;
         if((application_data.invalid == 0) &&
