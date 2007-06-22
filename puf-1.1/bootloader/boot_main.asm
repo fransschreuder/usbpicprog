@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : FreeWare ANSI-C Compiler
 ; Version 2.6.0 #4309 (Nov 10 2006)
-; This file generated Fri Jun 22 21:14:36 2007
+; This file generated Fri Jun 22 21:45:15 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -311,16 +311,16 @@ _stack_end	res	1
 ; ; Starting pCode block
 S_boot_main__main	code
 _main:
-;	.line	86; boot_main.c	init_boot();
+;	.line	87; boot_main.c	init_boot();
 	CALL	_init_boot
-;	.line	88; boot_main.c	init_usb();
+;	.line	89; boot_main.c	init_usb();
 	CALL	_init_usb
 _00119_DS_:
-;	.line	92; boot_main.c	usb_sleep();
+;	.line	93; boot_main.c	usb_sleep();
 	CALL	_usb_sleep
-;	.line	93; boot_main.c	dispatch_usb_event();
+;	.line	94; boot_main.c	dispatch_usb_event();
 	CALL	_dispatch_usb_event
-;	.line	94; boot_main.c	if((application_data.invalid == 0) &&
+;	.line	95; boot_main.c	if((application_data.invalid == 0) &&
 	MOVLW	LOW(_application_data)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data)
@@ -331,11 +331,13 @@ _00119_DS_:
 	MOVFF	TABLAT, r0x00
 	MOVF	r0x00, W
 	BNZ	_00119_DS_
-;	.line	95; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
+;	.line	96; boot_main.c	(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
 	MOVLW	0x03
 	SUBWF	_usb_active_cfg, W
 	BNC	_00119_DS_
-;	.line	98; boot_main.c	application_data.main();
+;	.line	99; boot_main.c	LED3=0;
+	BCF	_PORTCbits, 2
+;	.line	100; boot_main.c	application_data.main();
 	MOVLW	LOW(_application_data + 22)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data + 22)
@@ -364,7 +366,7 @@ _00119_DS_:
 	MOVF	r0x00, W
 	MOVWF	PCL
 _00127_DS_:
-;	.line	100; boot_main.c	INTCON = 0; // Forbid interrupts
+;	.line	102; boot_main.c	INTCON = 0; // Forbid interrupts
 	CLRF	_INTCON
 	BRA	_00119_DS_
 	RETURN	
@@ -372,32 +374,32 @@ _00127_DS_:
 ; ; Starting pCode block
 S_boot_main__init_boot	code
 _init_boot:
-;	.line	34; boot_main.c	void init_boot(void)
+;	.line	35; boot_main.c	void init_boot(void)
 	MOVFF	r0x00, POSTDEC1
-;	.line	38; boot_main.c	ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
+;	.line	39; boot_main.c	ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
 	MOVLW	0x0f
 	MOVWF	_ADCON1
-;	.line	39; boot_main.c	CMCON  = 0x07;       //Comparator channels off (digital)
+;	.line	40; boot_main.c	CMCON  = 0x07;       //Comparator channels off (digital)
 	MOVLW	0x07
 	MOVWF	_CMCON
-;	.line	40; boot_main.c	TRISA  = 0xFF;       //
+;	.line	41; boot_main.c	TRISA  = 0xFF;       //
 	SETF	_TRISA
-;	.line	41; boot_main.c	PORTA  = 0x01;
+;	.line	42; boot_main.c	PORTA  = 0x01;
 	MOVLW	0x01
 	MOVWF	_PORTA
 ; #	MOVLW	0xf8
 ; #	MOVWF	_TRISC
 ; #	MOVLW	0xf8
 ; ;     peep 5 - Removed redundant move
-;	.line	42; boot_main.c	TRISC  = 0xF8;
+;	.line	43; boot_main.c	TRISC  = 0xF8;
 	MOVLW	0xf8
-;	.line	43; boot_main.c	PORTC  = 0xF8;
+;	.line	44; boot_main.c	PORTC  = 0xF8;
 	MOVWF	_TRISC
 	MOVWF	_PORTC
-;	.line	44; boot_main.c	INTCON2bits.RBPU=0;   //enable PORTB pull-up's
+;	.line	45; boot_main.c	INTCON2bits.RBPU=0;   //enable PORTB pull-up's
 	BCF	_INTCON2bits, 7
 	BANKSEL	_init_boot_count_1_1
-;	.line	45; boot_main.c	count = 0x80000;
+;	.line	46; boot_main.c	count = 0x80000;
 	CLRF	_init_boot_count_1_1, B
 ; removed redundant BANKSEL
 	CLRF	(_init_boot_count_1_1 + 1), B
@@ -408,7 +410,7 @@ _init_boot:
 	CLRF	(_init_boot_count_1_1 + 3), B
 _00105_DS_:
 	BANKSEL	_init_boot_count_1_1
-;	.line	46; boot_main.c	while(count)
+;	.line	47; boot_main.c	while(count)
 	MOVF	_init_boot_count_1_1, W, B
 ; removed redundant BANKSEL
 	IORWF	(_init_boot_count_1_1 + 1), W, B
@@ -417,7 +419,7 @@ _00105_DS_:
 ; removed redundant BANKSEL
 	IORWF	(_init_boot_count_1_1 + 3), W, B
 	BZ	_00107_DS_
-;	.line	48; boot_main.c	count--;
+;	.line	49; boot_main.c	count--;
 	MOVLW	0xff
 ; removed redundant BANKSEL
 	ADDWF	_init_boot_count_1_1, F, B
@@ -429,9 +431,9 @@ _00105_DS_:
 	ADDWFC	(_init_boot_count_1_1 + 3), F, B
 	BRA	_00105_DS_
 _00107_DS_:
-;	.line	51; boot_main.c	PORTA  = 0x00;
+;	.line	52; boot_main.c	PORTA  = 0x00;
 	CLRF	_PORTA
-;	.line	54; boot_main.c	if((application_data.invalid == 0) && !PORTBbits.RB6)
+;	.line	55; boot_main.c	if((application_data.invalid == 0) && !PORTBbits.RB6)
 	MOVLW	LOW(_application_data)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data)
@@ -444,7 +446,7 @@ _00107_DS_:
 	BNZ	_00109_DS_
 	BTFSC	_PORTBbits, 6
 	BRA	_00109_DS_
-;	.line	58; boot_main.c	device_descriptor        = application_data.device_descriptor;
+;	.line	59; boot_main.c	device_descriptor        = application_data.device_descriptor;
 	MOVLW	LOW(_application_data + 1)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data + 1)
@@ -457,7 +459,7 @@ _00107_DS_:
 	MOVFF	TABLAT, (_device_descriptor + 1)
 	TBLRD*+	
 	MOVFF	TABLAT, (_device_descriptor + 2)
-;	.line	59; boot_main.c	configuration_descriptor = application_data.configuration_descriptor;
+;	.line	60; boot_main.c	configuration_descriptor = application_data.configuration_descriptor;
 	MOVLW	LOW(_application_data + 4)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data + 4)
@@ -470,7 +472,7 @@ _00107_DS_:
 	MOVFF	TABLAT, (_configuration_descriptor + 1)
 	TBLRD*+	
 	MOVFF	TABLAT, (_configuration_descriptor + 2)
-;	.line	60; boot_main.c	string_descriptor        = application_data.string_descriptor;
+;	.line	61; boot_main.c	string_descriptor        = application_data.string_descriptor;
 	MOVLW	LOW(_application_data + 7)
 	MOVWF	TBLPTRL
 	MOVLW	HIGH(_application_data + 7)
@@ -485,7 +487,7 @@ _00107_DS_:
 	MOVFF	TABLAT, (_string_descriptor + 2)
 	BRA	_00110_DS_
 _00109_DS_:
-;	.line	66; boot_main.c	device_descriptor        = &boot_device_descriptor;
+;	.line	67; boot_main.c	device_descriptor        = &boot_device_descriptor;
 	MOVLW	LOW(_boot_device_descriptor)
 	BANKSEL	_device_descriptor
 	MOVWF	_device_descriptor, B
@@ -495,7 +497,7 @@ _00109_DS_:
 	MOVLW	UPPER(_boot_device_descriptor)
 ; removed redundant BANKSEL
 	MOVWF	(_device_descriptor + 2), B
-;	.line	67; boot_main.c	configuration_descriptor = boot_configuration_descriptor;
+;	.line	68; boot_main.c	configuration_descriptor = boot_configuration_descriptor;
 	MOVLW	LOW(_boot_configuration_descriptor)
 	BANKSEL	_configuration_descriptor
 	MOVWF	_configuration_descriptor, B
@@ -505,7 +507,7 @@ _00109_DS_:
 	MOVLW	UPPER(_boot_configuration_descriptor)
 ; removed redundant BANKSEL
 	MOVWF	(_configuration_descriptor + 2), B
-;	.line	68; boot_main.c	string_descriptor        = boot_string_descriptor;
+;	.line	69; boot_main.c	string_descriptor        = boot_string_descriptor;
 	MOVLW	LOW(_boot_string_descriptor)
 	BANKSEL	_string_descriptor
 	MOVWF	_string_descriptor, B
@@ -516,7 +518,7 @@ _00109_DS_:
 ; removed redundant BANKSEL
 	MOVWF	(_string_descriptor + 2), B
 _00110_DS_:
-;	.line	75; boot_main.c	ep_init  = boot_ep_init;
+;	.line	76; boot_main.c	ep_init  = boot_ep_init;
 	MOVLW	LOW(_boot_ep_init)
 	BANKSEL	_ep_init
 	MOVWF	_ep_init, B
@@ -526,7 +528,7 @@ _00110_DS_:
 	MOVLW	UPPER(_boot_ep_init)
 ; removed redundant BANKSEL
 	MOVWF	(_ep_init + 2), B
-;	.line	76; boot_main.c	ep_in    = boot_ep_in;
+;	.line	77; boot_main.c	ep_in    = boot_ep_in;
 	MOVLW	LOW(_boot_ep_in)
 	BANKSEL	_ep_in
 	MOVWF	_ep_in, B
@@ -536,7 +538,7 @@ _00110_DS_:
 	MOVLW	UPPER(_boot_ep_in)
 ; removed redundant BANKSEL
 	MOVWF	(_ep_in + 2), B
-;	.line	77; boot_main.c	ep_out   = boot_ep_out;
+;	.line	78; boot_main.c	ep_out   = boot_ep_out;
 	MOVLW	LOW(_boot_ep_out)
 	BANKSEL	_ep_out
 	MOVWF	_ep_out, B
@@ -546,7 +548,7 @@ _00110_DS_:
 	MOVLW	UPPER(_boot_ep_out)
 ; removed redundant BANKSEL
 	MOVWF	(_ep_out + 2), B
-;	.line	78; boot_main.c	ep_setup = boot_ep_setup;
+;	.line	79; boot_main.c	ep_setup = boot_ep_setup;
 	MOVLW	LOW(_boot_ep_setup)
 	BANKSEL	_ep_setup
 	MOVWF	_ep_setup, B
@@ -562,8 +564,8 @@ _00110_DS_:
 
 
 ; Statistics:
-; code size:	  402 (0x0192) bytes ( 0.31%)
-;           	  201 (0x00c9) words
+; code size:	  404 (0x0194) bytes ( 0.31%)
+;           	  202 (0x00ca) words
 ; udata size:	  259 (0x0103) bytes (14.45%)
 ; access size:	    3 (0x0003) bytes
 

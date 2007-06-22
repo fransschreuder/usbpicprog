@@ -30,6 +30,7 @@
 #include "usb_descriptors.h"
 #include "application_iface.h"
 
+#define LED3 = PORTCbits.RC2
 
 void init_boot(void)
 {
@@ -37,7 +38,7 @@ void init_boot(void)
 
     ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
     CMCON  = 0x07;       //Comparator channels off (digital)
-    TRISA  = 0xFE;       //
+    TRISA  = 0xFF;       //
     PORTA  = 0x01;
     TRISC  = 0xF8;
     PORTC  = 0xF8;
@@ -95,8 +96,9 @@ void main(void)
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
             debug2("jumping at %x\n", application_data.main);
+	    LED3=0;
             application_data.main();
-
+		
             INTCON = 0; // Forbid interrupts
         }
     }

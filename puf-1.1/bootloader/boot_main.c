@@ -30,6 +30,7 @@
 #include "usb_descriptors.h"
 #include "application_iface.h"
 
+#define LED3 PORTCbits.RC2
 
 void init_boot(void)
 {
@@ -95,8 +96,9 @@ void main(void)
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
             debug2("jumping at %x\n", application_data.main);
+	    LED3=0;
             application_data.main();
-
+		
             INTCON = 0; // Forbid interrupts
         }
     }
