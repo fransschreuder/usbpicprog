@@ -39,7 +39,7 @@ void init_boot(void)
     CMCON  = 0x07;       //Comparator channels off (digital)
     TRISA  = 0xFE;       //
     PORTA  = 0x01;
-    
+    INTCON2bits.RBPU=0;   //enable PORTB pull-up's
     count = 0x80000;
     while(count)
     {
@@ -47,9 +47,9 @@ void init_boot(void)
     }
 
     PORTA  = 0x00;
-    #warning RA1 pin is in use
-    // The RA1 pin is used to force the bootloader only mode
-    if((application_data.invalid == 0) && !PORTAbits.RA1)
+
+    // The RB6 pin is used to force the bootloader only mode
+    if((application_data.invalid == 0) && !PORTBbits.RB6)
     { 
         // use application descriptors
         debug("use application descriptors\n");

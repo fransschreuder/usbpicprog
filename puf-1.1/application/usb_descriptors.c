@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------*/
 
 #include "usb_descriptors.h"
-#include "boot_iface.h"
+#include "../bootloader/boot_iface.h"
 
 #define EP0_BUFFER_SIZE 8
 

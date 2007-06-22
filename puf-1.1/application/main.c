@@ -19,10 +19,10 @@
 -------------------------------------------------------------------------*/
 
 #include <pic18fregs.h>
-#include "common_types.h"
-#include "debug.h"
-#include "boot_iface.h"
-
+#include "../bootloader/common_types.h"
+#include "../bootloader/debug.h"
+#include "../bootloader/boot_iface.h"
+#include "usb_descriptors.h"
 #define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
 
 

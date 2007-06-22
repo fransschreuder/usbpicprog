@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Thu Jun 21 10:40:58 2007
+; This file generated Thu Jun 21 16:16:16 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -400,6 +400,8 @@ _init_boot:
 ;	.line	41; boot_main.c	PORTA  = 0x01;
 	MOVLW	0x01
 	MOVWF	_PORTA
+;	.line	42; boot_main.c	INTCON2bits.RBPU=0;
+	BCF	_INTCON2bits, 7
 	BANKSEL	_init_boot_count_1_1
 ;	.line	43; boot_main.c	count = 0x80000;
 	CLRF	_init_boot_count_1_1, B
@@ -572,8 +574,8 @@ _00110_DS_:
 
 
 ; Statistics:
-; code size:	  486 (0x01e6) bytes ( 0.37%)
-;           	  243 (0x00f3) words
+; code size:	  488 (0x01e8) bytes ( 0.37%)
+;           	  244 (0x00f4) words
 ; udata size:	  259 (0x0103) bytes (14.45%)
 ; access size:	    3 (0x0003) bytes
 

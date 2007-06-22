@@ -1,30 +1,21 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Thu Jun 21 16:16:17 2007
+; This file generated Thu Jun 21 10:05:40 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
 	list	p=18f4550
-	__config 0x300000, 0xe0
-	__config 0x300001, 0x3e
-	__config 0x300002, 0xf8
-	__config 0x300003, 0xe0
-	__config 0x300005, 0xfc
-	__config 0x300006, 0x9a
-	__config 0x300008, 0xff
-	__config 0x300009, 0xff
-	__config 0x30000a, 0xfe
-	__config 0x30000b, 0x9f
-	__config 0x30000c, 0xff
-	__config 0x30000d, 0xff
 
 	radix dec
 
 ;--------------------------------------------------------
 ; public variables in this module
 ;--------------------------------------------------------
-	global _section_descriptor
+	global _count
+	global _application_main
+	global _high_priority_isr
+	global _low_priority_isr
 
 ;--------------------------------------------------------
 ; extern variables in this module
@@ -118,8 +109,9 @@
 	extern _PCLATUbits
 	extern _STKPTRbits
 	extern _TOSUbits
-	extern _ep2_num_bytes_to_send
-	extern _ep2_source_data
+	extern _usb_device_state
+	extern _usb_active_cfg
+	extern _usb_active_alt_setting
 	extern _SPPDATA
 	extern _SPPCFG
 	extern _SPPEPS
@@ -259,23 +251,148 @@
 	extern _TOSL
 	extern _TOSH
 	extern _TOSU
+	extern _dispatch_usb_event
+	extern _usb_sleep
+;--------------------------------------------------------
+;	Equates to used internal registers
+;--------------------------------------------------------
+STATUS	equ	0xfd8
+PCLATH	equ	0xffa
+PCLATU	equ	0xffb
+WREG	equ	0xfe8
+BSR	equ	0xfe0
+FSR0L	equ	0xfe9
+FSR0H	equ	0xfea
+FSR1L	equ	0xfe1
+FSR2L	equ	0xfd9
+POSTDEC1	equ	0xfe5
+PREINC1	equ	0xfe4
+PRODL	equ	0xff3
+PRODH	equ	0xff4
+
+
+; Internal registers
+.registers	udata_ovr	0x0000
+r0x00	res	1
+
+udata_main_0	udata
+_count	res	4
 
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
+; ; Starting pCode block
+S_main__high_priority_isr	code	0X002020
+_high_priority_isr:
+;	.line	62; main.c	void high_priority_isr(void) interrupt
+	MOVFF	WREG, POSTDEC1
+	MOVFF	STATUS, POSTDEC1
+	MOVFF	BSR, POSTDEC1
+	MOVFF	PRODL, POSTDEC1
+	MOVFF	PRODH, POSTDEC1
+	MOVFF	FSR0L, POSTDEC1
+	MOVFF	FSR0H, POSTDEC1
+	MOVFF	PCLATH, POSTDEC1
+	MOVFF	PCLATU, POSTDEC1
+	MOVFF	r0x00, POSTDEC1
+;	.line	64; main.c	if(INTCONbits.TMR0IF)
+	BTFSS	_INTCONbits, 2
+	BRA	_00115_DS_
+;	.line	66; main.c	ftoggle_A0();
+	CLRF	r0x00
+	BTFSC	_PORTAbits, 0
+	INCF	r0x00, F
+	MOVF	r0x00, W
+	BSF	STATUS, 0
+	TSTFSZ	WREG
+	BCF	STATUS, 0
+	CLRF	r0x00
+	RLCF	r0x00, F
+	MOVF	r0x00, W
+	ANDLW	0x01
+	MOVWF	PRODH
+	MOVF	_PORTAbits, W
+	ANDLW	0xfe
+	IORWF	PRODH, W
+	MOVWF	_PORTAbits
+;	.line	67; main.c	INTCONbits.TMR0IF = 0;
+	BCF	_INTCONbits, 2
+_00115_DS_:
+	MOVFF	PREINC1, r0x00
+	MOVFF	PREINC1, PCLATU
+	MOVFF	PREINC1, PCLATH
+	MOVFF	PREINC1, FSR0H
+	MOVFF	PREINC1, FSR0L
+	MOVFF	PREINC1, PRODH
+	MOVFF	PREINC1, PRODL
+	MOVFF	PREINC1, BSR
+	MOVFF	PREINC1, STATUS
+	MOVFF	PREINC1, WREG
+	RETFIE	
+
+; ; Starting pCode block
+S_main__low_priority_isr	code	0X004000
+_low_priority_isr:
+;	.line	72; main.c	void low_priority_isr(void) interrupt
+	MOVFF	WREG, POSTDEC1
+	MOVFF	STATUS, POSTDEC1
+	MOVFF	BSR, POSTDEC1
+	MOVFF	PRODL, POSTDEC1
+	MOVFF	PRODH, POSTDEC1
+	MOVFF	FSR0L, POSTDEC1
+	MOVFF	FSR0H, POSTDEC1
+	MOVFF	PCLATH, POSTDEC1
+	MOVFF	PCLATU, POSTDEC1
+;	.line	74; main.c	}
+	MOVFF	PREINC1, PCLATU
+	MOVFF	PREINC1, PCLATH
+	MOVFF	PREINC1, FSR0H
+	MOVFF	PREINC1, FSR0L
+	MOVFF	PREINC1, PRODH
+	MOVFF	PREINC1, PRODL
+	MOVFF	PREINC1, BSR
+	MOVFF	PREINC1, STATUS
+	MOVFF	PREINC1, WREG
+	RETFIE	
+
 ; I code from now on!
-; ; Starting pCode block for Ival
-	code
-_section_descriptor:
-	DB	0x03, 0x01, 0x00, 0x00, 0x00, 0xff, 0x1f, 0x00, 0x03, 0x00, 0x20, 0x00
-	DB	0xff, 0x7f, 0x00, 0x01, 0x00, 0x00, 0x30, 0x0d, 0x00, 0x30
+; ; Starting pCode block
+S_main__application_main	code
+_application_main:
+;	.line	39; main.c	PORTA = 0x01;
+	MOVLW	0x01
+	MOVWF	_PORTA
+;	.line	42; main.c	TMR0H = 0;
+	CLRF	_TMR0H
+;	.line	43; main.c	TMR0L = 0;
+	CLRF	_TMR0L
+;	.line	46; main.c	T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
+	MOVLW	0x86
+	MOVWF	_T0CON
+;	.line	47; main.c	INTCONbits.TMR0IE = 1;
+	BSF	_INTCONbits, 5
+;	.line	48; main.c	INTCONbits.GIE = 1;
+	BSF	_INTCONbits, 7
+_00105_DS_:
+;	.line	53; main.c	while(usb_active_cfg > 2)
+	MOVLW	0x03
+	SUBWF	_usb_active_cfg, W
+	BNC	_00108_DS_
+;	.line	55; main.c	usb_sleep();
+	CALL	_usb_sleep
+;	.line	56; main.c	dispatch_usb_event();
+	CALL	_dispatch_usb_event
+	BRA	_00105_DS_
+_00108_DS_:
+	RETURN	
+
 
 
 ; Statistics:
-; code size:	    6 (0x0006) bytes ( 0.00%)
-;           	    3 (0x0003) words
-; udata size:	    0 (0x0000) bytes ( 0.00%)
-; access size:	    0 (0x0000) bytes
+; code size:	  228 (0x00e4) bytes ( 0.17%)
+;           	  114 (0x0072) words
+; udata size:	    4 (0x0004) bytes ( 0.22%)
+; access size:	    1 (0x0001) bytes
 
 
 	end
