@@ -1,0 +1,288 @@
+gpasm-0.13.4 beta               sequencer.asm6-22-2007  08:43:07          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Fri Jun 22 08:43:06 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f4550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _rt_sequencer
+               00016 
+               00017 ;--------------------------------------------------------
+               00018 ; extern variables in this module
+               00019 ;--------------------------------------------------------
+               00020         extern _rt_base_job
+               00021         extern _rt_basex2_job
+               00022         extern _rt_basex4_job
+               00023         extern _rt_basex8_job
+               00024         extern _rt_basex16_job
+               00025         extern _rt_basex32_job
+               00026         extern _rt_basex64_job
+               00027         extern _rt_basex128_job
+               00028         extern _rt_basex256_job
+               00029         extern _rt_basex512_job
+               00030         extern _rt_basex1024_job
+               00031         extern _rt_basex2048_job
+               00032         extern _rt_basex4096_job
+               00033         extern _rt_basex8192_job
+               00034         extern _rt_basex16384_job
+               00035         extern _rt_basex32768_job
+               00036         extern _rt_basex65536_job
+               00037 ;--------------------------------------------------------
+               00038 ;       Equates to used internal registers
+               00039 ;--------------------------------------------------------
+  00000FE1     00040 FSR1L   equ     0xfe1
+  00000FD9     00041 FSR2L   equ     0xfd9
+  00000FE5     00042 POSTDEC1        equ     0xfe5
+  00000FE4     00043 PREINC1 equ     0xfe4
+  00000FDB     00044 PLUSW2  equ     0xfdb
+               00045 
+               00046 
+               00047 ; Internal registers
+               00048 .registers      udata_ovr       0x0000
+               00049 r0x00   res     1
+               00050 r0x01   res     1
+               00051 
+               00052 ;--------------------------------------------------------
+               00053 ; global & static initialisations
+               00054 ;--------------------------------------------------------
+gpasm-0.13.4 beta               sequencer.asm6-22-2007  08:43:07          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00055 ; I code from now on!
+               00056 ; ; Starting pCode block
+               00057 S_sequencer__rt_sequencer       code
+0000           00058 _rt_sequencer:
+               00059 ;       .line   27; sequencer.c void rt_sequencer(uint counter) 
+0000 CFD9 FFE5 00060         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00061         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00062         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00063         MOVFF   r0x01, POSTDEC1
+0010 0E02      00064         MOVLW   0x02
+0012 CFDB F000 00065         MOVFF   PLUSW2, r0x00
+0016 0E03      00066         MOVLW   0x03
+0018 CFDB F000 00067         MOVFF   PLUSW2, r0x01
+               00068 ;       .line   29; sequencer.c rt_base_job();
+001C EC00 F000 00069         CALL    _rt_base_job
+               00070 ;       .line   31; sequencer.c if(counter & 0x0001)
+0020 A000      00071         BTFSS   r0x00, 0
+0022 EF00 F000 00072         GOTO    _00106_DS_
+               00073 ;       .line   33; sequencer.c rt_basex2_job();
+0026 EC00 F000 00074         CALL    _rt_basex2_job
+               00075 ;       .line   34; sequencer.c return;
+002A EF00 F000 00076         GOTO    _00137_DS_
+002E           00077 _00106_DS_:
+               00078 ;       .line   36; sequencer.c if(counter & 0x0002)
+002E A200      00079         BTFSS   r0x00, 1
+0030 EF00 F000 00080         GOTO    _00108_DS_
+               00081 ;       .line   38; sequencer.c rt_basex4_job();
+0034 EC00 F000 00082         CALL    _rt_basex4_job
+               00083 ;       .line   39; sequencer.c return;
+0038 EF00 F000 00084         GOTO    _00137_DS_
+003C           00085 _00108_DS_:
+               00086 ;       .line   41; sequencer.c if(counter & 0x0004)
+003C A400      00087         BTFSS   r0x00, 2
+003E EF00 F000 00088         GOTO    _00110_DS_
+               00089 ;       .line   43; sequencer.c rt_basex8_job();
+0042 EC00 F000 00090         CALL    _rt_basex8_job
+               00091 ;       .line   44; sequencer.c return;
+0046 EF00 F000 00092         GOTO    _00137_DS_
+004A           00093 _00110_DS_:
+               00094 ;       .line   46; sequencer.c if(counter & 0x0008)
+004A A600      00095         BTFSS   r0x00, 3
+004C EF00 F000 00096         GOTO    _00112_DS_
+               00097 ;       .line   48; sequencer.c rt_basex16_job();
+0050 EC00 F000 00098         CALL    _rt_basex16_job
+               00099 ;       .line   49; sequencer.c return;
+0054 EF00 F000 00100         GOTO    _00137_DS_
+0058           00101 _00112_DS_:
+               00102 ;       .line   51; sequencer.c if(counter & 0x0010)
+0058 A800      00103         BTFSS   r0x00, 4
+005A EF00 F000 00104         GOTO    _00114_DS_
+               00105 ;       .line   53; sequencer.c rt_basex32_job();
+005E EC00 F000 00106         CALL    _rt_basex32_job
+               00107 ;       .line   54; sequencer.c return;
+0062 EF00 F000 00108         GOTO    _00137_DS_
+gpasm-0.13.4 beta               sequencer.asm6-22-2007  08:43:07          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0066           00109 _00114_DS_:
+               00110 ;       .line   56; sequencer.c if(counter & 0x0020)
+0066 AA00      00111         BTFSS   r0x00, 5
+0068 EF00 F000 00112         GOTO    _00116_DS_
+               00113 ;       .line   58; sequencer.c rt_basex64_job();
+006C EC00 F000 00114         CALL    _rt_basex64_job
+               00115 ;       .line   59; sequencer.c return;
+0070 EF00 F000 00116         GOTO    _00137_DS_
+0074           00117 _00116_DS_:
+               00118 ;       .line   61; sequencer.c if(counter & 0x0040)
+0074 AC00      00119         BTFSS   r0x00, 6
+0076 EF00 F000 00120         GOTO    _00118_DS_
+               00121 ;       .line   63; sequencer.c rt_basex128_job();
+007A EC00 F000 00122         CALL    _rt_basex128_job
+               00123 ;       .line   64; sequencer.c return;
+007E EF00 F000 00124         GOTO    _00137_DS_
+0082           00125 _00118_DS_:
+               00126 ;       .line   66; sequencer.c if(counter & 0x0080)
+0082 AE00      00127         BTFSS   r0x00, 7
+0084 EF00 F000 00128         GOTO    _00120_DS_
+               00129 ;       .line   68; sequencer.c rt_basex256_job();
+0088 EC00 F000 00130         CALL    _rt_basex256_job
+               00131 ;       .line   69; sequencer.c return;
+008C EF00 F000 00132         GOTO    _00137_DS_
+0090           00133 _00120_DS_:
+               00134 ;       .line   71; sequencer.c if(counter & 0x0100)
+0090 A000      00135         BTFSS   r0x01, 0
+0092 EF00 F000 00136         GOTO    _00122_DS_
+               00137 ;       .line   73; sequencer.c rt_basex512_job();
+0096 EC00 F000 00138         CALL    _rt_basex512_job
+               00139 ;       .line   74; sequencer.c return;
+009A EF00 F000 00140         GOTO    _00137_DS_
+009E           00141 _00122_DS_:
+               00142 ;       .line   76; sequencer.c if(counter & 0x0200)
+009E A200      00143         BTFSS   r0x01, 1
+00A0 EF00 F000 00144         GOTO    _00124_DS_
+               00145 ;       .line   78; sequencer.c rt_basex1024_job();
+00A4 EC00 F000 00146         CALL    _rt_basex1024_job
+               00147 ;       .line   79; sequencer.c return;
+00A8 EF00 F000 00148         GOTO    _00137_DS_
+00AC           00149 _00124_DS_:
+               00150 ;       .line   81; sequencer.c if(counter & 0x0400)
+00AC A400      00151         BTFSS   r0x01, 2
+00AE EF00 F000 00152         GOTO    _00126_DS_
+               00153 ;       .line   83; sequencer.c rt_basex2048_job();
+00B2 EC00 F000 00154         CALL    _rt_basex2048_job
+               00155 ;       .line   84; sequencer.c return;
+00B6 EF00 F000 00156         GOTO    _00137_DS_
+00BA           00157 _00126_DS_:
+               00158 ;       .line   86; sequencer.c if(counter & 0x0800)
+00BA A600      00159         BTFSS   r0x01, 3
+00BC EF00 F000 00160         GOTO    _00128_DS_
+               00161 ;       .line   88; sequencer.c rt_basex4096_job();
+00C0 EC00 F000 00162         CALL    _rt_basex4096_job
+gpasm-0.13.4 beta               sequencer.asm6-22-2007  08:43:07          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00163 ;       .line   89; sequencer.c return;
+00C4 EF00 F000 00164         GOTO    _00137_DS_
+00C8           00165 _00128_DS_:
+               00166 ;       .line   91; sequencer.c if(counter & 0x1000)
+00C8 A800      00167         BTFSS   r0x01, 4
+00CA EF00 F000 00168         GOTO    _00130_DS_
+               00169 ;       .line   93; sequencer.c rt_basex8192_job();
+00CE EC00 F000 00170         CALL    _rt_basex8192_job
+               00171 ;       .line   94; sequencer.c return;
+00D2 EF00 F000 00172         GOTO    _00137_DS_
+00D6           00173 _00130_DS_:
+               00174 ;       .line   96; sequencer.c if(counter & 0x2000)
+00D6 AA00      00175         BTFSS   r0x01, 5
+00D8 EF00 F000 00176         GOTO    _00132_DS_
+               00177 ;       .line   98; sequencer.c rt_basex16384_job();
+00DC EC00 F000 00178         CALL    _rt_basex16384_job
+               00179 ;       .line   99; sequencer.c return;
+00E0 EF00 F000 00180         GOTO    _00137_DS_
+00E4           00181 _00132_DS_:
+               00182 ;       .line   101; sequencer.c        if(counter & 0x4000)
+00E4 AC00      00183         BTFSS   r0x01, 6
+00E6 EF00 F000 00184         GOTO    _00134_DS_
+               00185 ;       .line   103; sequencer.c        rt_basex32768_job();
+00EA EC00 F000 00186         CALL    _rt_basex32768_job
+               00187 ;       .line   104; sequencer.c        return;
+00EE EF00 F000 00188         GOTO    _00137_DS_
+00F2           00189 _00134_DS_:
+               00190 ;       .line   106; sequencer.c        if(counter & 0x8000)
+00F2 AE00      00191         BTFSS   r0x01, 7
+00F4 EF00 F000 00192         GOTO    _00137_DS_
+               00193 ;       .line   108; sequencer.c        rt_basex65536_job();
+00F8 EC00 F000 00194         CALL    _rt_basex65536_job
+00FC           00195 _00137_DS_:
+               00196 ;       .line   109; sequencer.c        return;
+00FC CFE4 F000 00197         MOVFF   PREINC1, r0x01
+0100 CFE4 F000 00198         MOVFF   PREINC1, r0x00
+0104 CFE4 FFD9 00199         MOVFF   PREINC1, FSR2L
+0108 0012      00200         RETURN  
+               00201 
+               00202 
+               00203 
+               00204 ; Statistics:
+               00205 ; code size:      266 (0x010a) bytes ( 0.20%)
+               00206 ;                 133 (0x0085) words
+               00207 ; udata size:       0 (0x0000) bytes ( 0.00%)
+               00208 ; access size:      2 (0x0002) bytes
+               00209 
+               00210 
+gpasm-0.13.4 beta               sequencer.asm6-22-2007  08:43:07          PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+_00106_DS_                        0000002E
+_00108_DS_                        0000003C
+_00110_DS_                        0000004A
+_00112_DS_                        00000058
+_00114_DS_                        00000066
+_00116_DS_                        00000074
+_00118_DS_                        00000082
+_00120_DS_                        00000090
+_00122_DS_                        0000009E
+_00124_DS_                        000000AC
+_00126_DS_                        000000BA
+_00128_DS_                        000000C8
+_00130_DS_                        000000D6
+_00132_DS_                        000000E4
+_00134_DS_                        000000F2
+_00137_DS_                        000000FC
+__18F4550                         00000001
+_rt_base_job                      00000000
+_rt_basex1024_job                 00000000
+_rt_basex128_job                  00000000
+_rt_basex16384_job                00000000
+_rt_basex16_job                   00000000
+_rt_basex2048_job                 00000000
+_rt_basex256_job                  00000000
+_rt_basex2_job                    00000000
+_rt_basex32768_job                00000000
+_rt_basex32_job                   00000000
+_rt_basex4096_job                 00000000
+_rt_basex4_job                    00000000
+_rt_basex512_job                  00000000
+_rt_basex64_job                   00000000
+_rt_basex65536_job                00000000
+_rt_basex8192_job                 00000000
+_rt_basex8_job                    00000000
+_rt_sequencer                     00000000
+r0x00                             00000000
+r0x01                             00000001
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+

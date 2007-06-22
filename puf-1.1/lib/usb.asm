@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Fri Jun 22 15:01:09 2007
+; This file generated Fri Jun 22 08:43:14 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -12,10 +12,8 @@
 ;--------------------------------------------------------
 ; public variables in this module
 ;--------------------------------------------------------
-	global _count
-	global _application_main
-	global _high_priority_isr
-	global _low_priority_isr
+	global _ep_bdt
+	global _dummy_function
 
 ;--------------------------------------------------------
 ; extern variables in this module
@@ -109,9 +107,6 @@
 	extern _PCLATUbits
 	extern _STKPTRbits
 	extern _TOSUbits
-	extern _usb_device_state
-	extern _usb_active_cfg
-	extern _usb_active_alt_setting
 	extern _SPPDATA
 	extern _SPPCFG
 	extern _SPPEPS
@@ -251,151 +246,42 @@
 	extern _TOSL
 	extern _TOSH
 	extern _TOSU
-	extern _dispatch_usb_event
-	extern _usb_sleep
-	extern _serial_init
 ;--------------------------------------------------------
 ;	Equates to used internal registers
 ;--------------------------------------------------------
-STATUS	equ	0xfd8
-PCLATH	equ	0xffa
-PCLATU	equ	0xffb
 WREG	equ	0xfe8
-BSR	equ	0xfe0
-FSR0L	equ	0xfe9
-FSR0H	equ	0xfea
 FSR1L	equ	0xfe1
 FSR2L	equ	0xfd9
 POSTDEC1	equ	0xfe5
 PREINC1	equ	0xfe4
-PRODL	equ	0xff3
-PRODH	equ	0xff4
 
 
-; Internal registers
-.registers	udata_ovr	0x0000
-r0x00	res	1
-
-udata_main_0	udata
-_count	res	4
+ustat_usb_00	udata	0X0400
+_ep_bdt	res	128
 
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
 ; ; Starting pCode block
-S_main__high_priority_isr	code	0X002020
-_high_priority_isr:
-;	.line	64; main.c	void high_priority_isr(void) interrupt
-	MOVFF	WREG, POSTDEC1
-	MOVFF	STATUS, POSTDEC1
-	MOVFF	BSR, POSTDEC1
-	MOVFF	PRODL, POSTDEC1
-	MOVFF	PRODH, POSTDEC1
-	MOVFF	FSR0L, POSTDEC1
-	MOVFF	FSR0H, POSTDEC1
-	MOVFF	PCLATH, POSTDEC1
-	MOVFF	PCLATU, POSTDEC1
-	MOVFF	r0x00, POSTDEC1
-;	.line	66; main.c	if(INTCONbits.TMR0IF)
-	BTFSS	_INTCONbits, 2
-	BRA	_00115_DS_
-;	.line	68; main.c	ftoggle_A0();
-	CLRF	r0x00
-	BTFSC	_PORTAbits, 0
-	INCF	r0x00, F
-	MOVF	r0x00, W
-	BSF	STATUS, 0
-	TSTFSZ	WREG
-	BCF	STATUS, 0
-	CLRF	r0x00
-	RLCF	r0x00, F
-	MOVF	r0x00, W
-	ANDLW	0x01
-	MOVWF	PRODH
-	MOVF	_PORTAbits, W
-	ANDLW	0xfe
-	IORWF	PRODH, W
-	MOVWF	_PORTAbits
-;	.line	69; main.c	INTCONbits.TMR0IF = 0;
-	BCF	_INTCONbits, 2
-_00115_DS_:
-	MOVFF	PREINC1, r0x00
-	MOVFF	PREINC1, PCLATU
-	MOVFF	PREINC1, PCLATH
-	MOVFF	PREINC1, FSR0H
-	MOVFF	PREINC1, FSR0L
-	MOVFF	PREINC1, PRODH
-	MOVFF	PREINC1, PRODL
-	MOVFF	PREINC1, BSR
-	MOVFF	PREINC1, STATUS
-	MOVFF	PREINC1, WREG
-	RETFIE	
-
-; ; Starting pCode block
-S_main__low_priority_isr	code	0X004000
-_low_priority_isr:
-;	.line	74; main.c	void low_priority_isr(void) interrupt
-	MOVFF	WREG, POSTDEC1
-	MOVFF	STATUS, POSTDEC1
-	MOVFF	BSR, POSTDEC1
-	MOVFF	PRODL, POSTDEC1
-	MOVFF	PRODH, POSTDEC1
-	MOVFF	FSR0L, POSTDEC1
-	MOVFF	FSR0H, POSTDEC1
-	MOVFF	PCLATH, POSTDEC1
-	MOVFF	PCLATU, POSTDEC1
-;	.line	76; main.c	}
-	MOVFF	PREINC1, PCLATU
-	MOVFF	PREINC1, PCLATH
-	MOVFF	PREINC1, FSR0H
-	MOVFF	PREINC1, FSR0L
-	MOVFF	PREINC1, PRODH
-	MOVFF	PREINC1, PRODL
-	MOVFF	PREINC1, BSR
-	MOVFF	PREINC1, STATUS
-	MOVFF	PREINC1, WREG
-	RETFIE	
-
-; I code from now on!
-; ; Starting pCode block
-S_main__application_main	code
-_application_main:
-;	.line	41; main.c	PORTA = 0x01;
-	MOVLW	0x01
-	MOVWF	_PORTA
-;	.line	44; main.c	TMR0H = 0;
-	CLRF	_TMR0H
-;	.line	45; main.c	TMR0L = 0;
-	CLRF	_TMR0L
-;	.line	48; main.c	T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
-	MOVLW	0x86
-	MOVWF	_T0CON
-;	.line	49; main.c	INTCONbits.TMR0IE = 1;
-	BSF	_INTCONbits, 5
-;	.line	50; main.c	INTCONbits.GIE = 1;
-	BSF	_INTCONbits, 7
-;	.line	51; main.c	serial_init();
-	CALL	_serial_init
-_00105_DS_:
-;	.line	55; main.c	while(usb_active_cfg > 2)
-	MOVLW	0x03
-	SUBWF	_usb_active_cfg, W
-	BNC	_00108_DS_
-;	.line	57; main.c	usb_sleep();
-	CALL	_usb_sleep
-;	.line	58; main.c	dispatch_usb_event();
-	CALL	_dispatch_usb_event
-	BRA	_00105_DS_
-_00108_DS_:
+S_usb__dummy_function	code	0X000500
+_dummy_function:
+;	.line	30; usb.c	void dummy_function(void)
+	MOVFF	FSR2L, POSTDEC1
+	MOVFF	FSR1L, FSR2L
+; ;;!!! pic16_aopOp:1306 called for a spillLocation -- assigning WREG instead --- CHECK
+;	.line	32; usb.c	ep_bdt[0].Cnt; // makes the compiler happy !
+	MOVFF	(_ep_bdt + 1), WREG
+	MOVFF	PREINC1, FSR2L
 	RETURN	
 
+; I code from now on!
 
 
 ; Statistics:
-; code size:	  232 (0x00e8) bytes ( 0.18%)
-;           	  116 (0x0074) words
-; udata size:	    4 (0x0004) bytes ( 0.22%)
-; access size:	    1 (0x0001) bytes
+; code size:	   18 (0x0012) bytes ( 0.01%)
+;           	    9 (0x0009) words
+; udata size:	  128 (0x0080) bytes ( 7.14%)
+; access size:	    0 (0x0000) bytes
 
 
 	end

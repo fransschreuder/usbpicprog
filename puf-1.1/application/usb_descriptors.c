@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------*/
 
 #include "usb_descriptors.h"
-#include "../bootloader/boot_iface.h"
+#include "boot_iface.h"
 
 #define EP0_BUFFER_SIZE 8
 
@@ -234,7 +234,7 @@ static void (* const ep_init_cfg1 [])(void) = {
                                         null_function};// 15
 
 /*
- *  ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured) 
+ *  ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured)
  * and 1 (device configured) 
  */
 

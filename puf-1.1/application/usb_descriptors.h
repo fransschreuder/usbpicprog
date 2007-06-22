@@ -21,7 +21,7 @@
 #ifndef USB_DESCRIPTORS_H_
 #define USB_DESCRIPTORS_H_
 
-#include "../bootloader/common_types.h"
+#include "common_types.h"
 
 /* Descriptor Types */
 #define DEVICE_DESCRIPTOR        0x01

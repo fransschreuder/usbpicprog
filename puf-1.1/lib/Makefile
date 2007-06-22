@@ -15,39 +15,38 @@
 #    License along with this library; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
-#    $Id: Makefile.am,v 1.5 2006/11/25 11:25:21 gaufille Exp $
+#    $Id: Makefile.am,v 1.4 2006/11/25 11:25:21 gaufille Exp $
+#
+
+#
+# BEWARE : SDCCLIB should not be used. sdcc seems compatible only with gplib !
 #
 
 OBJEXT=o
-PIC_TYPE=PIC18F4550
-sdcc_PIC_TYPE=18f4550
-lkr_PIC_TYPE=18f4550
-TOOLSDIR=$(shell dirname `pwd`)/tools
-CC=sdcc
-ASM=gpasm
-GLNK=gplink
-LNK=sdcc
-ODYSSEY=odyssey
-CRT0=/Program Files/sdcc/lib/pic16/crt0.o
-LIBPUF=../lib/libpuf.lib
-LIBIO=/Program Files/sdcc/lib/pic16/libio18f4550.lib
-LIBC18F=/Program Files/sdcc/lib/pic16/libc18f.lib
+PIC_TYPE = PIC18F4550
+sdcc_PIC_TYPE = 18f4550
+lkr_PIC_TYPE = 18f4550
+TOOLSDIR = $(shell dirname `pwd`)/tools
+CC = sdcc
+GPLIB = gplib
+AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) -I../include
+AM_LDFLAGS = 
+ODYSSEY = odyssey
 DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
-#DEBUG=-D_DEBUG
+#DEBUG = -D_DEBUG
 
-COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -I../include -c
-LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \
-	-mpic16 -p$(sdcc_PIC_TYPE) -l$(LIBPUF) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
+COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS) -c
 
 
-bin_PROGRAMS = application.hex
-application_hex_SOURCES = usb_descriptors.h  \
-                          application_iface.c main.c \
-                          usb_descriptors.c
+noinst_PROGRAMS = libpuf.lib
+libpuf_lib_SOURCES = picon.c boot_iface.c usb.c sequencer.c 
 
-EXTRA_DIST=$(lkr_PIC_TYPE).lkr
+libpuf.lib: picon.o sequencer.o usb.o boot_iface.o
+	$(GPLIB) -c $@ $+
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
-
-application_iface.o main.o usb_descriptors.o: usb_descriptors.h 
+picon.o sequencer.o usb.o boot_iface.o: picon.c boot_iface.c usb.c sequencer.c \
+	../include/usb.h ../include/picon.h ../include/sequencer.h  \
+	../include/application_iface.h ../include/boot_iface.h
+	

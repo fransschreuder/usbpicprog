@@ -1,0 +1,594 @@
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Fri Jun 22 08:43:14 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f4550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _ep_bdt
+               00016         global _dummy_function
+               00017 
+               00018 ;--------------------------------------------------------
+               00019 ; extern variables in this module
+               00020 ;--------------------------------------------------------
+               00021         extern _SPPDATAbits
+               00022         extern _SPPCFGbits
+               00023         extern _SPPEPSbits
+               00024         extern _SPPCONbits
+               00025         extern _UFRMLbits
+               00026         extern _UFRMHbits
+               00027         extern _UIRbits
+               00028         extern _UIEbits
+               00029         extern _UEIRbits
+               00030         extern _UEIEbits
+               00031         extern _USTATbits
+               00032         extern _UCONbits
+               00033         extern _UADDRbits
+               00034         extern _UCFGbits
+               00035         extern _UEP0bits
+               00036         extern _UEP1bits
+               00037         extern _UEP2bits
+               00038         extern _UEP3bits
+               00039         extern _UEP4bits
+               00040         extern _UEP5bits
+               00041         extern _UEP6bits
+               00042         extern _UEP7bits
+               00043         extern _UEP8bits
+               00044         extern _UEP9bits
+               00045         extern _UEP10bits
+               00046         extern _UEP11bits
+               00047         extern _UEP12bits
+               00048         extern _UEP13bits
+               00049         extern _UEP14bits
+               00050         extern _UEP15bits
+               00051         extern _PORTAbits
+               00052         extern _PORTBbits
+               00053         extern _PORTCbits
+               00054         extern _PORTDbits
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00055         extern _PORTEbits
+               00056         extern _LATAbits
+               00057         extern _LATBbits
+               00058         extern _LATCbits
+               00059         extern _LATDbits
+               00060         extern _LATEbits
+               00061         extern _TRISAbits
+               00062         extern _TRISBbits
+               00063         extern _TRISCbits
+               00064         extern _TRISDbits
+               00065         extern _TRISEbits
+               00066         extern _OSCTUNEbits
+               00067         extern _PIE1bits
+               00068         extern _PIR1bits
+               00069         extern _IPR1bits
+               00070         extern _PIE2bits
+               00071         extern _PIR2bits
+               00072         extern _IPR2bits
+               00073         extern _EECON1bits
+               00074         extern _RCSTAbits
+               00075         extern _TXSTAbits
+               00076         extern _T3CONbits
+               00077         extern _CMCONbits
+               00078         extern _CVRCONbits
+               00079         extern _ECCP1ASbits
+               00080         extern _ECCP1DELbits
+               00081         extern _BAUDCONbits
+               00082         extern _CCP2CONbits
+               00083         extern _CCP1CONbits
+               00084         extern _ADCON2bits
+               00085         extern _ADCON1bits
+               00086         extern _ADCON0bits
+               00087         extern _SSPCON2bits
+               00088         extern _SSPCON1bits
+               00089         extern _SSPSTATbits
+               00090         extern _T2CONbits
+               00091         extern _T1CONbits
+               00092         extern _RCONbits
+               00093         extern _WDTCONbits
+               00094         extern _HLVDCONbits
+               00095         extern _OSCCONbits
+               00096         extern _T0CONbits
+               00097         extern _STATUSbits
+               00098         extern _FSR2Hbits
+               00099         extern _BSRbits
+               00100         extern _FSR1Hbits
+               00101         extern _FSR0Hbits
+               00102         extern _INTCON3bits
+               00103         extern _INTCON2bits
+               00104         extern _INTCONbits
+               00105         extern _TBLPTRUbits
+               00106         extern _PCLATHbits
+               00107         extern _PCLATUbits
+               00108         extern _STKPTRbits
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00109         extern _TOSUbits
+               00110         extern _SPPDATA
+               00111         extern _SPPCFG
+               00112         extern _SPPEPS
+               00113         extern _SPPCON
+               00114         extern _UFRML
+               00115         extern _UFRMH
+               00116         extern _UIR
+               00117         extern _UIE
+               00118         extern _UEIR
+               00119         extern _UEIE
+               00120         extern _USTAT
+               00121         extern _UCON
+               00122         extern _UADDR
+               00123         extern _UCFG
+               00124         extern _UEP0
+               00125         extern _UEP1
+               00126         extern _UEP2
+               00127         extern _UEP3
+               00128         extern _UEP4
+               00129         extern _UEP5
+               00130         extern _UEP6
+               00131         extern _UEP7
+               00132         extern _UEP8
+               00133         extern _UEP9
+               00134         extern _UEP10
+               00135         extern _UEP11
+               00136         extern _UEP12
+               00137         extern _UEP13
+               00138         extern _UEP14
+               00139         extern _UEP15
+               00140         extern _PORTA
+               00141         extern _PORTB
+               00142         extern _PORTC
+               00143         extern _PORTD
+               00144         extern _PORTE
+               00145         extern _LATA
+               00146         extern _LATB
+               00147         extern _LATC
+               00148         extern _LATD
+               00149         extern _LATE
+               00150         extern _TRISA
+               00151         extern _TRISB
+               00152         extern _TRISC
+               00153         extern _TRISD
+               00154         extern _TRISE
+               00155         extern _OSCTUNE
+               00156         extern _PIE1
+               00157         extern _PIR1
+               00158         extern _IPR1
+               00159         extern _PIE2
+               00160         extern _PIR2
+               00161         extern _IPR2
+               00162         extern _EECON1
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00163         extern _EECON2
+               00164         extern _EEDATA
+               00165         extern _EEADR
+               00166         extern _RCSTA
+               00167         extern _TXSTA
+               00168         extern _TXREG
+               00169         extern _RCREG
+               00170         extern _SPBRG
+               00171         extern _SPBRGH
+               00172         extern _T3CON
+               00173         extern _TMR3L
+               00174         extern _TMR3H
+               00175         extern _CMCON
+               00176         extern _CVRCON
+               00177         extern _ECCP1AS
+               00178         extern _ECCP1DEL
+               00179         extern _BAUDCON
+               00180         extern _CCP2CON
+               00181         extern _CCPR2L
+               00182         extern _CCPR2H
+               00183         extern _CCP1CON
+               00184         extern _CCPR1L
+               00185         extern _CCPR1H
+               00186         extern _ADCON2
+               00187         extern _ADCON1
+               00188         extern _ADCON0
+               00189         extern _ADRESL
+               00190         extern _ADRESH
+               00191         extern _SSPCON2
+               00192         extern _SSPCON1
+               00193         extern _SSPSTAT
+               00194         extern _SSPADD
+               00195         extern _SSPBUF
+               00196         extern _T2CON
+               00197         extern _PR2
+               00198         extern _TMR2
+               00199         extern _T1CON
+               00200         extern _TMR1L
+               00201         extern _TMR1H
+               00202         extern _RCON
+               00203         extern _WDTCON
+               00204         extern _HLVDCON
+               00205         extern _OSCCON
+               00206         extern _T0CON
+               00207         extern _TMR0L
+               00208         extern _TMR0H
+               00209         extern _STATUS
+               00210         extern _FSR2L
+               00211         extern _FSR2H
+               00212         extern _PLUSW2
+               00213         extern _PREINC2
+               00214         extern _POSTDEC2
+               00215         extern _POSTINC2
+               00216         extern _INDF2
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00217         extern _BSR
+               00218         extern _FSR1L
+               00219         extern _FSR1H
+               00220         extern _PLUSW1
+               00221         extern _PREINC1
+               00222         extern _POSTDEC1
+               00223         extern _POSTINC1
+               00224         extern _INDF1
+               00225         extern _WREG
+               00226         extern _FSR0L
+               00227         extern _FSR0H
+               00228         extern _PLUSW0
+               00229         extern _PREINC0
+               00230         extern _POSTDEC0
+               00231         extern _POSTINC0
+               00232         extern _INDF0
+               00233         extern _INTCON3
+               00234         extern _INTCON2
+               00235         extern _INTCON
+               00236         extern _PRODL
+               00237         extern _PRODH
+               00238         extern _TABLAT
+               00239         extern _TBLPTRL
+               00240         extern _TBLPTRH
+               00241         extern _TBLPTRU
+               00242         extern _PCL
+               00243         extern _PCLATH
+               00244         extern _PCLATU
+               00245         extern _STKPTR
+               00246         extern _TOSL
+               00247         extern _TOSH
+               00248         extern _TOSU
+               00249 ;--------------------------------------------------------
+               00250 ;       Equates to used internal registers
+               00251 ;--------------------------------------------------------
+  00000FE8     00252 WREG    equ     0xfe8
+  00000FE1     00253 FSR1L   equ     0xfe1
+  00000FD9     00254 FSR2L   equ     0xfd9
+  00000FE5     00255 POSTDEC1        equ     0xfe5
+  00000FE4     00256 PREINC1 equ     0xfe4
+               00257 
+               00258 
+               00259 ustat_usb_00    udata   0X0400
+               00260 _ep_bdt res     128
+               00261 
+               00262 ;--------------------------------------------------------
+               00263 ; global & static initialisations
+               00264 ;--------------------------------------------------------
+               00265 ; ; Starting pCode block
+               00266 S_usb__dummy_function   code    0X000500
+0500           00267 _dummy_function:
+               00268 ;       .line   30; usb.c       void dummy_function(void)
+0500 CFD9 FFE5 00269         MOVFF   FSR2L, POSTDEC1
+0504 CFE1 FFD9 00270         MOVFF   FSR1L, FSR2L
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00271 ; ;;!!! pic16_aopOp:1306 called for a spillLocation -- assigning WREG instead --- CHECK
+               00272 ;       .line   32; usb.c       ep_bdt[0].Cnt; // makes the compiler happy !
+0508 C000 FFE8 00273         MOVFF   (_ep_bdt + 1), WREG
+050C CFE4 FFD9 00274         MOVFF   PREINC1, FSR2L
+0510 0012      00275         RETURN  
+               00276 
+               00277 ; I code from now on!
+               00278 
+               00279 
+               00280 ; Statistics:
+               00281 ; code size:       18 (0x0012) bytes ( 0.01%)
+               00282 ;                   9 (0x0009) words
+               00283 ; udata size:     128 (0x0080) bytes ( 7.14%)
+               00284 ; access size:      0 (0x0000) bytes
+               00285 
+               00286 
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+WREG                              00000FE8
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADCON2                           00000000
+_ADCON2bits                       00000000
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BAUDCON                          00000000
+_BAUDCONbits                      00000000
+_BSR                              00000000
+_BSRbits                          00000000
+_CCP1CON                          00000000
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_ECCP1AS                          00000000
+_ECCP1ASbits                      00000000
+_ECCP1DEL                         00000000
+_ECCP1DELbits                     00000000
+_EEADR                            00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+_FSR0H                            00000000
+_FSR0Hbits                        00000000
+_FSR0L                            00000000
+_FSR1H                            00000000
+_FSR1Hbits                        00000000
+_FSR1L                            00000000
+_FSR2H                            00000000
+_FSR2Hbits                        00000000
+_FSR2L                            00000000
+_HLVDCON                          00000000
+_HLVDCONbits                      00000000
+_INDF0                            00000000
+_INDF1                            00000000
+_INDF2                            00000000
+_INTCON                           00000000
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_INTCON2                          00000000
+_INTCON2bits                      00000000
+_INTCON3                          00000000
+_INTCON3bits                      00000000
+_INTCONbits                       00000000
+_IPR1                             00000000
+_IPR1bits                         00000000
+_IPR2                             00000000
+_IPR2bits                         00000000
+_LATA                             00000000
+_LATAbits                         00000000
+_LATB                             00000000
+_LATBbits                         00000000
+_LATC                             00000000
+_LATCbits                         00000000
+_LATD                             00000000
+_LATDbits                         00000000
+_LATE                             00000000
+_LATEbits                         00000000
+_OSCCON                           00000000
+_OSCCONbits                       00000000
+_OSCTUNE                          00000000
+_OSCTUNEbits                      00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCLATHbits                       00000000
+_PCLATU                           00000000
+_PCLATUbits                       00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PLUSW0                           00000000
+_PLUSW1                           00000000
+_PLUSW2                           00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+_POSTDEC0                         00000000
+_POSTDEC1                         00000000
+_POSTDEC2                         00000000
+_POSTINC0                         00000000
+_POSTINC1                         00000000
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_POSTINC2                         00000000
+_PR2                              00000000
+_PREINC0                          00000000
+_PREINC1                          00000000
+_PREINC2                          00000000
+_PRODH                            00000000
+_PRODL                            00000000
+_RCON                             00000000
+_RCONbits                         00000000
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_SPBRG                            00000000
+_SPBRGH                           00000000
+_SPPCFG                           00000000
+_SPPCFGbits                       00000000
+_SPPCON                           00000000
+_SPPCONbits                       00000000
+_SPPDATA                          00000000
+_SPPDATAbits                      00000000
+_SPPEPS                           00000000
+_SPPEPSbits                       00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON1                          00000000
+_SSPCON1bits                      00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_STKPTR                           00000000
+_STKPTRbits                       00000000
+_T0CON                            00000000
+_T0CONbits                        00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_T3CON                            00000000
+_T3CONbits                        00000000
+_TABLAT                           00000000
+_TBLPTRH                          00000000
+_TBLPTRL                          00000000
+_TBLPTRU                          00000000
+_TBLPTRUbits                      00000000
+_TMR0H                            00000000
+_TMR0L                            00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TMR3H                            00000000
+_TMR3L                            00000000
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_TOSH                             00000000
+_TOSL                             00000000
+_TOSU                             00000000
+_TOSUbits                         00000000
+_TRISA                            00000000
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+_TXSTAbits                        00000000
+_UADDR                            00000000
+_UADDRbits                        00000000
+_UCFG                             00000000
+_UCFGbits                         00000000
+_UCON                             00000000
+_UCONbits                         00000000
+_UEIE                             00000000
+_UEIEbits                         00000000
+_UEIR                             00000000
+_UEIRbits                         00000000
+_UEP0                             00000000
+_UEP0bits                         00000000
+_UEP1                             00000000
+_UEP10                            00000000
+_UEP10bits                        00000000
+_UEP11                            00000000
+_UEP11bits                        00000000
+_UEP12                            00000000
+_UEP12bits                        00000000
+_UEP13                            00000000
+_UEP13bits                        00000000
+_UEP14                            00000000
+_UEP14bits                        00000000
+_UEP15                            00000000
+_UEP15bits                        00000000
+_UEP1bits                         00000000
+_UEP2                             00000000
+_UEP2bits                         00000000
+_UEP3                             00000000
+_UEP3bits                         00000000
+_UEP4                             00000000
+_UEP4bits                         00000000
+_UEP5                             00000000
+_UEP5bits                         00000000
+_UEP6                             00000000
+_UEP6bits                         00000000
+_UEP7                             00000000
+gpasm-0.13.4 beta               usb.asm     6-22-2007  08:43:14          PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_UEP7bits                         00000000
+_UEP8                             00000000
+_UEP8bits                         00000000
+_UEP9                             00000000
+_UEP9bits                         00000000
+_UFRMH                            00000000
+_UFRMHbits                        00000000
+_UFRML                            00000000
+_UFRMLbits                        00000000
+_UIE                              00000000
+_UIEbits                          00000000
+_UIR                              00000000
+_UIRbits                          00000000
+_USTAT                            00000000
+_USTATbits                        00000000
+_WDTCON                           00000000
+_WDTCONbits                       00000000
+_WREG                             00000000
+__18F4550                         00000001
+_dummy_function                   00000500
+_ep_bdt                           00000400
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+

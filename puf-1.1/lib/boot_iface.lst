@@ -1,0 +1,173 @@
+gpasm-0.13.4 beta               boot_iface.asm6-22-2007  08:41:39          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Fri Jun 22 08:41:39 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f4550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _usb_device_state
+               00016         global _usb_active_cfg
+               00017         global _usb_active_alt_setting
+               00018         global _boot_goto_table
+               00019 
+               00020 
+               00021 ustat_boot_iface_00     udata   0X005D
+               00022 _usb_active_alt_setting res     1
+               00023 _usb_active_cfg res     1
+               00024 _usb_device_state       res     1
+               00025 
+               00026 ;--------------------------------------------------------
+               00027 ; global & static initialisations
+               00028 ;--------------------------------------------------------
+               00029 ; ; Starting pCode block
+               00030 S_boot_iface__boot_goto_table   code    0X00001C
+001C           00031 _boot_goto_table:
+               00032         global _boot_version
+               00033         global _dispatch_usb_event
+               00034         global _reset_usb
+               00035         global _usb_sleep
+               00036         global _fill_in_buffer
+               00037         global _ep0_init
+               00038         global _ep0_in
+               00039         global _ep0_setup
+               00040         global _ep1_init
+               00041         global _ep1_out
+               00042         global _ep2_init
+               00043         global _ep2_in
+               00044         global __mullong
+               00045         global __mulint
+               00046         global __gptrget1
+               00047         global __gptrget2
+               00048         global __gptrget3
+               00049         global __gptrget4
+               00050         global __gptrput1
+               00051         global __gptrput2
+               00052         global __gptrput3
+               00053         global _delay10ktcy
+               00054         global _delay1ktcy
+gpasm-0.13.4 beta               boot_iface.asm6-22-2007  08:41:39          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00055         global _delay10tcy
+001C           00056 _boot_version:
+               00057         res 2
+001E           00058 _dispatch_usb_event:
+               00059         res 4
+0022           00060 _reset_usb:
+               00061         res 4
+0026           00062 _usb_sleep:
+               00063         res 4
+002A           00064 _fill_in_buffer:
+               00065         res 4
+002E           00066 _ep0_init:
+               00067         res 4
+0032           00068 _ep0_in:
+               00069         res 4
+0036           00070 _ep0_setup:
+               00071         res 4
+003A           00072 _ep1_init:
+               00073         res 4
+003E           00074 _ep1_out:
+               00075         res 4
+0042           00076 _ep2_init:
+               00077         res 4
+0046           00078 _ep2_in:
+               00079         res 4
+004A           00080 __mullong:
+               00081         res 4
+004E           00082 __mulint:
+               00083         res 4
+0052           00084 __gptrget1:
+               00085         res 4
+0056           00086 __gptrget2:
+               00087         res 4
+005A           00088 __gptrget3:
+               00089         res 4
+005E           00090 __gptrget4:
+               00091         res 4
+0062           00092 __gptrput1:
+               00093         res 4
+0066           00094 __gptrput2:
+               00095         res 4
+006A           00096 __gptrput3:
+               00097         res 4
+006E           00098 _delay10ktcy:
+               00099         res 4
+0072           00100 _delay1ktcy:
+               00101         res 4
+0076           00102 _delay10tcy:
+               00103         res 4
+               00104         
+               00105 ; I code from now on!
+               00106 
+               00107 
+               00108 ; Statistics:
+gpasm-0.13.4 beta               boot_iface.asm6-22-2007  08:41:39          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00109 ; code size:      146 (0x0092) bytes ( 0.11%)
+               00110 ;                  73 (0x0049) words
+               00111 ; udata size:       3 (0x0003) bytes ( 0.17%)
+               00112 ; access size:      0 (0x0000) bytes
+               00113 
+               00114 
+gpasm-0.13.4 beta               boot_iface.asm6-22-2007  08:41:39          PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__18F4550                         00000001
+__gptrget1                        00000052
+__gptrget2                        00000056
+__gptrget3                        0000005A
+__gptrget4                        0000005E
+__gptrput1                        00000062
+__gptrput2                        00000066
+__gptrput3                        0000006A
+__mulint                          0000004E
+__mullong                         0000004A
+_boot_goto_table                  0000001C
+_boot_version                     0000001C
+_delay10ktcy                      0000006E
+_delay10tcy                       00000076
+_delay1ktcy                       00000072
+_dispatch_usb_event               0000001E
+_ep0_in                           00000032
+_ep0_init                         0000002E
+_ep0_setup                        00000036
+_ep1_init                         0000003A
+_ep1_out                          0000003E
+_ep2_in                           00000046
+_ep2_init                         00000042
+_fill_in_buffer                   0000002A
+_reset_usb                        00000022
+_usb_active_alt_setting           0000005D
+_usb_active_cfg                   0000005E
+_usb_device_state                 0000005F
+_usb_sleep                        00000026
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+

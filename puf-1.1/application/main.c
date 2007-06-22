@@ -19,12 +19,12 @@
 -------------------------------------------------------------------------*/
 
 #include <pic18fregs.h>
-#include "../bootloader/common_types.h"
-#include "../bootloader/debug.h"
-#include "../bootloader/boot_iface.h"
-#include "usb_descriptors.h"
+#include "common_types.h"
+#include "debug.h"
+#include "boot_iface.h"
+//#include "usb_descriptors.h"
 #define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
-
+#include "upp.h"
 
 /******************************************************************/
 
@@ -33,7 +33,9 @@
 
 unsigned long count;
 
-void application_main(void) 
+
+
+void application_main(void)
 {
     
     PORTA = 0x01;
@@ -46,10 +48,10 @@ void application_main(void)
     T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
-
+    serial_init();
     init_debug();
     debug("init application\n");  
-    
+
     while(usb_active_cfg > 2)
     {
         usb_sleep();

@@ -1,0 +1,1522 @@
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;--------------------------------------------------------
+               00002 ; File Created by SDCC : free open source ANSI-C Compiler
+               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
+               00004 ; This file generated Fri Jun 22 08:42:01 2007
+               00005 ;--------------------------------------------------------
+               00006 ; PIC16 port for the Microchip 16-bit core micros
+               00007 ;--------------------------------------------------------
+               00008         list    p=18f4550
+               00009 
+               00010         radix dec
+               00011 
+               00012 ;--------------------------------------------------------
+               00013 ; public variables in this module
+               00014 ;--------------------------------------------------------
+               00015         global _picon_init
+               00016         global _prepare_in
+               00017         global _picon_in
+               00018         global _putchar
+               00019         global _prepare_next_packet
+               00020 
+               00021 ;--------------------------------------------------------
+               00022 ; extern variables in this module
+               00023 ;--------------------------------------------------------
+               00024         extern __gptrput1
+               00025         extern _ep_bdt
+               00026         extern _usb_device_state
+               00027         extern _usb_active_cfg
+               00028         extern _usb_active_alt_setting
+               00029         extern _SPPDATAbits
+               00030         extern _SPPCFGbits
+               00031         extern _SPPEPSbits
+               00032         extern _SPPCONbits
+               00033         extern _UFRMLbits
+               00034         extern _UFRMHbits
+               00035         extern _UIRbits
+               00036         extern _UIEbits
+               00037         extern _UEIRbits
+               00038         extern _UEIEbits
+               00039         extern _USTATbits
+               00040         extern _UCONbits
+               00041         extern _UADDRbits
+               00042         extern _UCFGbits
+               00043         extern _UEP0bits
+               00044         extern _UEP1bits
+               00045         extern _UEP2bits
+               00046         extern _UEP3bits
+               00047         extern _UEP4bits
+               00048         extern _UEP5bits
+               00049         extern _UEP6bits
+               00050         extern _UEP7bits
+               00051         extern _UEP8bits
+               00052         extern _UEP9bits
+               00053         extern _UEP10bits
+               00054         extern _UEP11bits
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00055         extern _UEP12bits
+               00056         extern _UEP13bits
+               00057         extern _UEP14bits
+               00058         extern _UEP15bits
+               00059         extern _PORTAbits
+               00060         extern _PORTBbits
+               00061         extern _PORTCbits
+               00062         extern _PORTDbits
+               00063         extern _PORTEbits
+               00064         extern _LATAbits
+               00065         extern _LATBbits
+               00066         extern _LATCbits
+               00067         extern _LATDbits
+               00068         extern _LATEbits
+               00069         extern _TRISAbits
+               00070         extern _TRISBbits
+               00071         extern _TRISCbits
+               00072         extern _TRISDbits
+               00073         extern _TRISEbits
+               00074         extern _OSCTUNEbits
+               00075         extern _PIE1bits
+               00076         extern _PIR1bits
+               00077         extern _IPR1bits
+               00078         extern _PIE2bits
+               00079         extern _PIR2bits
+               00080         extern _IPR2bits
+               00081         extern _EECON1bits
+               00082         extern _RCSTAbits
+               00083         extern _TXSTAbits
+               00084         extern _T3CONbits
+               00085         extern _CMCONbits
+               00086         extern _CVRCONbits
+               00087         extern _ECCP1ASbits
+               00088         extern _ECCP1DELbits
+               00089         extern _BAUDCONbits
+               00090         extern _CCP2CONbits
+               00091         extern _CCP1CONbits
+               00092         extern _ADCON2bits
+               00093         extern _ADCON1bits
+               00094         extern _ADCON0bits
+               00095         extern _SSPCON2bits
+               00096         extern _SSPCON1bits
+               00097         extern _SSPSTATbits
+               00098         extern _T2CONbits
+               00099         extern _T1CONbits
+               00100         extern _RCONbits
+               00101         extern _WDTCONbits
+               00102         extern _HLVDCONbits
+               00103         extern _OSCCONbits
+               00104         extern _T0CONbits
+               00105         extern _STATUSbits
+               00106         extern _FSR2Hbits
+               00107         extern _BSRbits
+               00108         extern _FSR1Hbits
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00109         extern _FSR0Hbits
+               00110         extern _INTCON3bits
+               00111         extern _INTCON2bits
+               00112         extern _INTCONbits
+               00113         extern _TBLPTRUbits
+               00114         extern _PCLATHbits
+               00115         extern _PCLATUbits
+               00116         extern _STKPTRbits
+               00117         extern _TOSUbits
+               00118         extern _stdin
+               00119         extern _stdout
+               00120         extern _SPPDATA
+               00121         extern _SPPCFG
+               00122         extern _SPPEPS
+               00123         extern _SPPCON
+               00124         extern _UFRML
+               00125         extern _UFRMH
+               00126         extern _UIR
+               00127         extern _UIE
+               00128         extern _UEIR
+               00129         extern _UEIE
+               00130         extern _USTAT
+               00131         extern _UCON
+               00132         extern _UADDR
+               00133         extern _UCFG
+               00134         extern _UEP0
+               00135         extern _UEP1
+               00136         extern _UEP2
+               00137         extern _UEP3
+               00138         extern _UEP4
+               00139         extern _UEP5
+               00140         extern _UEP6
+               00141         extern _UEP7
+               00142         extern _UEP8
+               00143         extern _UEP9
+               00144         extern _UEP10
+               00145         extern _UEP11
+               00146         extern _UEP12
+               00147         extern _UEP13
+               00148         extern _UEP14
+               00149         extern _UEP15
+               00150         extern _PORTA
+               00151         extern _PORTB
+               00152         extern _PORTC
+               00153         extern _PORTD
+               00154         extern _PORTE
+               00155         extern _LATA
+               00156         extern _LATB
+               00157         extern _LATC
+               00158         extern _LATD
+               00159         extern _LATE
+               00160         extern _TRISA
+               00161         extern _TRISB
+               00162         extern _TRISC
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00163         extern _TRISD
+               00164         extern _TRISE
+               00165         extern _OSCTUNE
+               00166         extern _PIE1
+               00167         extern _PIR1
+               00168         extern _IPR1
+               00169         extern _PIE2
+               00170         extern _PIR2
+               00171         extern _IPR2
+               00172         extern _EECON1
+               00173         extern _EECON2
+               00174         extern _EEDATA
+               00175         extern _EEADR
+               00176         extern _RCSTA
+               00177         extern _TXSTA
+               00178         extern _TXREG
+               00179         extern _RCREG
+               00180         extern _SPBRG
+               00181         extern _SPBRGH
+               00182         extern _T3CON
+               00183         extern _TMR3L
+               00184         extern _TMR3H
+               00185         extern _CMCON
+               00186         extern _CVRCON
+               00187         extern _ECCP1AS
+               00188         extern _ECCP1DEL
+               00189         extern _BAUDCON
+               00190         extern _CCP2CON
+               00191         extern _CCPR2L
+               00192         extern _CCPR2H
+               00193         extern _CCP1CON
+               00194         extern _CCPR1L
+               00195         extern _CCPR1H
+               00196         extern _ADCON2
+               00197         extern _ADCON1
+               00198         extern _ADCON0
+               00199         extern _ADRESL
+               00200         extern _ADRESH
+               00201         extern _SSPCON2
+               00202         extern _SSPCON1
+               00203         extern _SSPSTAT
+               00204         extern _SSPADD
+               00205         extern _SSPBUF
+               00206         extern _T2CON
+               00207         extern _PR2
+               00208         extern _TMR2
+               00209         extern _T1CON
+               00210         extern _TMR1L
+               00211         extern _TMR1H
+               00212         extern _RCON
+               00213         extern _WDTCON
+               00214         extern _HLVDCON
+               00215         extern _OSCCON
+               00216         extern _T0CON
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00217         extern _TMR0L
+               00218         extern _TMR0H
+               00219         extern _STATUS
+               00220         extern _FSR2L
+               00221         extern _FSR2H
+               00222         extern _PLUSW2
+               00223         extern _PREINC2
+               00224         extern _POSTDEC2
+               00225         extern _POSTINC2
+               00226         extern _INDF2
+               00227         extern _BSR
+               00228         extern _FSR1L
+               00229         extern _FSR1H
+               00230         extern _PLUSW1
+               00231         extern _PREINC1
+               00232         extern _POSTDEC1
+               00233         extern _POSTINC1
+               00234         extern _INDF1
+               00235         extern _WREG
+               00236         extern _FSR0L
+               00237         extern _FSR0H
+               00238         extern _PLUSW0
+               00239         extern _PREINC0
+               00240         extern _POSTDEC0
+               00241         extern _POSTINC0
+               00242         extern _INDF0
+               00243         extern _INTCON3
+               00244         extern _INTCON2
+               00245         extern _INTCON
+               00246         extern _PRODL
+               00247         extern _PRODH
+               00248         extern _TABLAT
+               00249         extern _TBLPTRL
+               00250         extern _TBLPTRH
+               00251         extern _TBLPTRU
+               00252         extern _PCL
+               00253         extern _PCLATH
+               00254         extern _PCLATU
+               00255         extern _STKPTR
+               00256         extern _TOSL
+               00257         extern _TOSH
+               00258         extern _TOSU
+               00259         extern _fill_in_buffer
+               00260         extern _picon_buffer_size
+               00261         extern _Picon_InBuffer
+               00262         extern _picon_ep
+               00263 ;--------------------------------------------------------
+               00264 ;       Equates to used internal registers
+               00265 ;--------------------------------------------------------
+  00000FD8     00266 STATUS  equ     0xfd8
+  00000FE8     00267 WREG    equ     0xfe8
+  00000FF6     00268 TBLPTRL equ     0xff6
+  00000FF7     00269 TBLPTRH equ     0xff7
+  00000FF8     00270 TBLPTRU equ     0xff8
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+  00000FF5     00271 TABLAT  equ     0xff5
+  00000FE9     00272 FSR0L   equ     0xfe9
+  00000FEA     00273 FSR0H   equ     0xfea
+  00000FE1     00274 FSR1L   equ     0xfe1
+  00000FD9     00275 FSR2L   equ     0xfd9
+  00000FEF     00276 INDF0   equ     0xfef
+  00000FEE     00277 POSTINC0        equ     0xfee
+  00000FE5     00278 POSTDEC1        equ     0xfe5
+  00000FE4     00279 PREINC1 equ     0xfe4
+  00000FF3     00280 PRODL   equ     0xff3
+  00000FF4     00281 PRODH   equ     0xff4
+               00282 
+               00283 
+               00284 ; Internal registers
+               00285 .registers      udata_ovr       0x0000
+               00286 r0x00   res     1
+               00287 r0x01   res     1
+               00288 r0x02   res     1
+               00289 r0x03   res     1
+               00290 r0x04   res     1
+               00291 r0x05   res     1
+               00292 r0x06   res     1
+               00293 r0x07   res     1
+               00294 
+               00295 udata_picon_0   udata
+               00296 _last_packet_was_void   res     1
+               00297 
+               00298 udata_picon_1   udata
+               00299 _num_bytes_to_send      res     2
+               00300 
+               00301 udata_picon_2   udata
+               00302 _num_bytes      res     1
+               00303 
+               00304 udata_picon_3   udata
+               00305 _send_in_progress       res     1
+               00306 
+               00307 udata_picon_4   udata
+               00308 _bottom res     3
+               00309 
+               00310 udata_picon_5   udata
+               00311 _top    res     3
+               00312 
+               00313 udata_picon_6   udata
+               00314 _tmp_bottom     res     3
+               00315 
+               00316 ;--------------------------------------------------------
+               00317 ; global & static initialisations
+               00318 ;--------------------------------------------------------
+               00319 ; I code from now on!
+               00320 ; ; Starting pCode block
+               00321 S_picon__putchar        code
+0000           00322 _putchar:
+               00323 ;       .line   191; picon.c    PUTCHAR(c)
+0000 CFD9 FFE5 00324         MOVFF   FSR2L, POSTDEC1
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0004 CFE1 FFD9 00325         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00326         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00327         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00328         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00329         MOVFF   r0x03, POSTDEC1
+0018 C000 FFE5 00330         MOVFF   r0x04, POSTDEC1
+001C C000 FFE5 00331         MOVFF   r0x05, POSTDEC1
+0020 C000 FFE5 00332         MOVFF   r0x06, POSTDEC1
+0024 C000 FFE5 00333         MOVFF   r0x07, POSTDEC1
+0028 6E00      00334         MOVWF   r0x00
+               00335 ;       .line   196; picon.c    ib = INTCONbits.GIE;
+002A 6A00      00336         CLRF    r0x01
+002C BE00      00337         BTFSC   _INTCONbits, 7
+002E 2A00      00338         INCF    r0x01, F
+               00339 ;       .line   197; picon.c    INTCONbits.GIE = 0;
+0030 9E00      00340         BCF     _INTCONbits, 7
+               00341 ;       .line   199; picon.c    if(top >= (Picon_InBuffer + picon_buffer_size))
+0032 0E00      00342         MOVLW   LOW(_picon_buffer_size)
+0034 6EF6      00343         MOVWF   TBLPTRL
+0036 0E00      00344         MOVLW   HIGH(_picon_buffer_size)
+0038 6EF7      00345         MOVWF   TBLPTRH
+003A 0E00      00346         MOVLW   UPPER(_picon_buffer_size)
+003C 6EF8      00347         MOVWF   TBLPTRU
+003E 0009      00348         TBLRD*+ 
+0040 CFF5 F000 00349         MOVFF   TABLAT, r0x02
+0044 0009      00350         TBLRD*+ 
+0046 CFF5 F000 00351         MOVFF   TABLAT, r0x03
+004A 0E00      00352         MOVLW   LOW(_Picon_InBuffer)
+004C 6EF6      00353         MOVWF   TBLPTRL
+004E 0E00      00354         MOVLW   HIGH(_Picon_InBuffer)
+0050 6EF7      00355         MOVWF   TBLPTRH
+0052 0E00      00356         MOVLW   UPPER(_Picon_InBuffer)
+0054 6EF8      00357         MOVWF   TBLPTRU
+0056 0009      00358         TBLRD*+ 
+0058 CFF5 F000 00359         MOVFF   TABLAT, r0x04
+005C 0009      00360         TBLRD*+ 
+005E CFF5 F000 00361         MOVFF   TABLAT, r0x05
+0062 0009      00362         TBLRD*+ 
+0064 CFF5 F000 00363         MOVFF   TABLAT, r0x06
+0068 5000      00364         MOVF    r0x04, W
+006A 2600      00365         ADDWF   r0x02, F
+006C 5000      00366         MOVF    r0x05, W
+006E 2200      00367         ADDWFC  r0x03, F
+0070 5000      00368         MOVF    r0x06, W
+0072 6A00      00369         CLRF    r0x07
+0074 2200      00370         ADDWFC  r0x07, F
+0076 5000      00371         MOVF    r0x07, W
+0078 0000      00372         BANKSEL (_top + 2)
+007A 5D00      00373         SUBWF   (_top + 2), W, B
+007C E100      00374         BNZ     _00177_DS_
+007E 5000      00375         MOVF    r0x03, W
+0080 0000      00376         BANKSEL (_top + 1)
+0082 5D00      00377         SUBWF   (_top + 1), W, B
+0084 E100      00378         BNZ     _00177_DS_
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0086 5000      00379         MOVF    r0x02, W
+0088 0000      00380         BANKSEL _top
+008A 5D00      00381         SUBWF   _top, W, B
+008C           00382 _00177_DS_:
+008C A0D8      00383         BTFSS   STATUS, 0
+008E EF00 F000 00384         GOTO    _00165_DS_
+               00385 ;       .line   201; picon.c    top = Picon_InBuffer;
+0092 0E00      00386         MOVLW   LOW(_Picon_InBuffer)
+0094 6EF6      00387         MOVWF   TBLPTRL
+0096 0E00      00388         MOVLW   HIGH(_Picon_InBuffer)
+0098 6EF7      00389         MOVWF   TBLPTRH
+009A 0E00      00390         MOVLW   UPPER(_Picon_InBuffer)
+009C 6EF8      00391         MOVWF   TBLPTRU
+009E 0009      00392         TBLRD*+ 
+00A0 CFF5 F000 00393         MOVFF   TABLAT, _top
+00A4 0009      00394         TBLRD*+ 
+00A6 CFF5 F000 00395         MOVFF   TABLAT, (_top + 1)
+00AA 0009      00396         TBLRD*+ 
+00AC CFF5 F000 00397         MOVFF   TABLAT, (_top + 2)
+00B0           00398 _00165_DS_:
+00B0 0000      00399         BANKSEL _top
+               00400 ;       .line   204; picon.c    if((top == bottom) && (num_bytes != 0))
+00B2 5100      00401         MOVF    _top, W, B
+00B4 0000      00402         BANKSEL _bottom
+00B6 1900      00403         XORWF   _bottom, W, B
+00B8 E100      00404         BNZ     _00178_DS_
+00BA 0000      00405         BANKSEL (_top + 1)
+00BC 5100      00406         MOVF    (_top + 1), W, B
+00BE 0000      00407         BANKSEL (_bottom + 1)
+00C0 1900      00408         XORWF   (_bottom + 1), W, B
+00C2 E100      00409         BNZ     _00178_DS_
+00C4 0000      00410         BANKSEL (_top + 2)
+00C6 5100      00411         MOVF    (_top + 2), W, B
+00C8 0000      00412         BANKSEL (_bottom + 2)
+00CA 1900      00413         XORWF   (_bottom + 2), W, B
+00CC E100      00414         BNZ     _00178_DS_
+00CE EF00 F000 00415         GOTO    _00179_DS_
+00D2           00416 _00178_DS_:
+00D2 EF00 F000 00417         GOTO    _00167_DS_
+00D6           00418 _00179_DS_:
+00D6 0000      00419         BANKSEL _num_bytes
+00D8 5100      00420         MOVF    _num_bytes, W, B
+00DA B4D8      00421         BTFSC   STATUS, 2
+00DC EF00 F000 00422         GOTO    _00167_DS_
+               00423 ;       .line   208; picon.c    INTCONbits.GIE = ib;
+00E0 5000      00424         MOVF    r0x01, W
+00E2 6E00      00425         MOVWF   r0x02
+00E4 5000      00426         MOVF    r0x02, W
+00E6 0B01      00427         ANDLW   0x01
+00E8 40E8      00428         RRNCF   WREG, W
+00EA 6EF4      00429         MOVWF   PRODH
+00EC 5000      00430         MOVF    _INTCONbits, W
+00EE 0B7F      00431         ANDLW   0x7f
+00F0 10F4      00432         IORWF   PRODH, W
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00F2 6E00      00433         MOVWF   _INTCONbits
+               00434 ;       .line   209; picon.c    return;
+00F4 EF00 F000 00435         GOTO    _00171_DS_
+00F8           00436 _00167_DS_:
+               00437 ;       .line   212; picon.c    *top = c;
+00F8 C000 F000 00438         MOVFF   _top, r0x02
+00FC C000 F000 00439         MOVFF   (_top + 1), r0x03
+0100 C000 F000 00440         MOVFF   (_top + 2), r0x04
+0104 C000 FFE5 00441         MOVFF   r0x00, POSTDEC1
+0108 C000 FFE9 00442         MOVFF   r0x02, FSR0L
+010C C000 FFF3 00443         MOVFF   r0x03, PRODL
+0110 5000      00444         MOVF    r0x04, W
+0112 EC00 F000 00445         CALL    __gptrput1
+0116 0000      00446         BANKSEL _top
+               00447 ;       .line   213; picon.c    top++;
+0118 2B00      00448         INCF    _top, F, B
+011A A0D8      00449         BTFSS   STATUS, 0
+011C D000      00450         BRA     _10164_DS_
+011E 0000      00451         BANKSEL (_top + 1)
+0120 2B00      00452         INCF    (_top + 1), F, B
+0122           00453 _10164_DS_:
+0122 A0D8      00454         BTFSS   STATUS, 0
+0124 D000      00455         BRA     _20165_DS_
+0126 0000      00456         BANKSEL (_top + 2)
+0128 2B00      00457         INCF    (_top + 2), F, B
+012A           00458 _20165_DS_:
+012A 0000      00459         BANKSEL _num_bytes
+               00460 ;       .line   214; picon.c    num_bytes++;
+012C 2B00      00461         INCF    _num_bytes, F, B
+012E 0000      00462         BANKSEL _send_in_progress
+               00463 ;       .line   217; picon.c    if(!send_in_progress)
+0130 5100      00464         MOVF    _send_in_progress, W, B
+0132 A4D8      00465         BTFSS   STATUS, 2
+0134 EF00 F000 00466         GOTO    _00170_DS_
+               00467 ;       .line   219; picon.c    send_in_progress = TRUE;
+0138 0E01      00468         MOVLW   0x01
+013A 0000      00469         BANKSEL _send_in_progress
+013C 6F00      00470         MOVWF   _send_in_progress, B
+               00471 ;       .line   220; picon.c    prepare_in();
+013E EC00 F000 00472         CALL    _prepare_in
+0142           00473 _00170_DS_:
+               00474 ;       .line   223; picon.c    INTCONbits.GIE = ib;
+0142 5000      00475         MOVF    r0x01, W
+0144 0B01      00476         ANDLW   0x01
+0146 40E8      00477         RRNCF   WREG, W
+0148 6EF4      00478         MOVWF   PRODH
+014A 5000      00479         MOVF    _INTCONbits, W
+014C 0B7F      00480         ANDLW   0x7f
+014E 10F4      00481         IORWF   PRODH, W
+0150 6E00      00482         MOVWF   _INTCONbits
+0152           00483 _00171_DS_:
+0152 CFE4 F000 00484         MOVFF   PREINC1, r0x07
+0156 CFE4 F000 00485         MOVFF   PREINC1, r0x06
+015A CFE4 F000 00486         MOVFF   PREINC1, r0x05
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+015E CFE4 F000 00487         MOVFF   PREINC1, r0x04
+0162 CFE4 F000 00488         MOVFF   PREINC1, r0x03
+0166 CFE4 F000 00489         MOVFF   PREINC1, r0x02
+016A CFE4 F000 00490         MOVFF   PREINC1, r0x01
+016E CFE4 F000 00491         MOVFF   PREINC1, r0x00
+0172 CFE4 FFD9 00492         MOVFF   PREINC1, FSR2L
+0176 0012      00493         RETURN  
+               00494 
+               00495 ; ; Starting pCode block
+               00496 S_picon__picon_in       code
+0000           00497 _picon_in:
+               00498 ;       .line   150; picon.c    void picon_in(void)
+0000 CFD9 FFE5 00499         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00500         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00501         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00502         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00503         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00504         MOVFF   r0x03, POSTDEC1
+               00505 ;       .line   155; picon.c    ib = INTCONbits.GIE;
+0018 6A00      00506         CLRF    r0x00
+001A BE00      00507         BTFSC   _INTCONbits, 7
+001C 2A00      00508         INCF    r0x00, F
+               00509 ;       .line   156; picon.c    INTCONbits.GIE = 0;
+001E 9E00      00510         BCF     _INTCONbits, 7
+               00511 ;       .line   158; picon.c    bottom = tmp_bottom; // Flush the sent chars
+0020 C000 F000 00512         MOVFF   _tmp_bottom, _bottom
+0024 C000 F000 00513         MOVFF   (_tmp_bottom + 1), (_bottom + 1)
+0028 C000 F000 00514         MOVFF   (_tmp_bottom + 2), (_bottom + 2)
+               00515 ;       .line   160; picon.c    if((bottom == Picon_InBuffer) && (num_bytes != 0))
+002C 0E00      00516         MOVLW   LOW(_Picon_InBuffer)
+002E 6EF6      00517         MOVWF   TBLPTRL
+0030 0E00      00518         MOVLW   HIGH(_Picon_InBuffer)
+0032 6EF7      00519         MOVWF   TBLPTRH
+0034 0E00      00520         MOVLW   UPPER(_Picon_InBuffer)
+0036 6EF8      00521         MOVWF   TBLPTRU
+0038 0009      00522         TBLRD*+ 
+003A CFF5 F000 00523         MOVFF   TABLAT, r0x01
+003E 0009      00524         TBLRD*+ 
+0040 CFF5 F000 00525         MOVFF   TABLAT, r0x02
+0044 0009      00526         TBLRD*+ 
+0046 CFF5 F000 00527         MOVFF   TABLAT, r0x03
+004A 0000      00528         BANKSEL _bottom
+004C 5100      00529         MOVF    _bottom, W, B
+004E 1800      00530         XORWF   r0x01, W
+0050 E100      00531         BNZ     _00158_DS_
+0052 0000      00532         BANKSEL (_bottom + 1)
+0054 5100      00533         MOVF    (_bottom + 1), W, B
+0056 1800      00534         XORWF   r0x02, W
+0058 E100      00535         BNZ     _00158_DS_
+005A 0000      00536         BANKSEL (_bottom + 2)
+005C 5100      00537         MOVF    (_bottom + 2), W, B
+005E 1800      00538         XORWF   r0x03, W
+0060 E100      00539         BNZ     _00158_DS_
+0062 EF00 F000 00540         GOTO    _00159_DS_
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0066           00541 _00158_DS_:
+0066 EF00 F000 00542         GOTO    _00143_DS_
+006A           00543 _00159_DS_:
+006A 0000      00544         BANKSEL _num_bytes
+006C 5100      00545         MOVF    _num_bytes, W, B
+006E B4D8      00546         BTFSC   STATUS, 2
+0070 EF00 F000 00547         GOTO    _00143_DS_
+               00548 ;       .line   162; picon.c    num_bytes_to_send = num_bytes;
+0074 C000 F000 00549         MOVFF   _num_bytes, _num_bytes_to_send
+0078 0000      00550         BANKSEL (_num_bytes_to_send + 1)
+007A 6B00      00551         CLRF    (_num_bytes_to_send + 1), B
+007C           00552 _00143_DS_:
+007C 0000      00553         BANKSEL _num_bytes_to_send
+               00554 ;       .line   165; picon.c    if((num_bytes_to_send == 0) && last_packet_was_void)
+007E 5100      00555         MOVF    _num_bytes_to_send, W, B
+0080 0000      00556         BANKSEL (_num_bytes_to_send + 1)
+0082 1100      00557         IORWF   (_num_bytes_to_send + 1), W, B
+0084 A4D8      00558         BTFSS   STATUS, 2
+0086 EF00 F000 00559         GOTO    _00149_DS_
+008A 0000      00560         BANKSEL _last_packet_was_void
+008C 5100      00561         MOVF    _last_packet_was_void, W, B
+008E B4D8      00562         BTFSC   STATUS, 2
+0090 EF00 F000 00563         GOTO    _00149_DS_
+0094 0000      00564         BANKSEL _num_bytes
+               00565 ;       .line   168; picon.c    if(num_bytes != 0)
+0096 5100      00566         MOVF    _num_bytes, W, B
+0098 B4D8      00567         BTFSC   STATUS, 2
+009A EF00 F000 00568         GOTO    _00146_DS_
+               00569 ;       .line   170; picon.c    prepare_in();
+009E EC00 F000 00570         CALL    _prepare_in
+00A2 EF00 F000 00571         GOTO    _00147_DS_
+00A6           00572 _00146_DS_:
+00A6 0000      00573         BANKSEL _send_in_progress
+               00574 ;       .line   178; picon.c    send_in_progress = FALSE;
+00A8 6B00      00575         CLRF    _send_in_progress, B
+00AA           00576 _00147_DS_:
+               00577 ;       .line   182; picon.c    INTCONbits.GIE = ib;
+00AA 5000      00578         MOVF    r0x00, W
+00AC 6E00      00579         MOVWF   r0x01
+00AE 5000      00580         MOVF    r0x01, W
+00B0 0B01      00581         ANDLW   0x01
+00B2 40E8      00582         RRNCF   WREG, W
+00B4 6EF4      00583         MOVWF   PRODH
+00B6 5000      00584         MOVF    _INTCONbits, W
+00B8 0B7F      00585         ANDLW   0x7f
+00BA 10F4      00586         IORWF   PRODH, W
+00BC 6E00      00587         MOVWF   _INTCONbits
+               00588 ;       .line   183; picon.c    return;
+00BE EF00 F000 00589         GOTO    _00151_DS_
+00C2           00590 _00149_DS_:
+               00591 ;       .line   186; picon.c    prepare_next_packet();
+00C2 EC00 F000 00592         CALL    _prepare_next_packet
+               00593 ;       .line   188; picon.c    INTCONbits.GIE = ib;
+00C6 5000      00594         MOVF    r0x00, W
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00C8 0B01      00595         ANDLW   0x01
+00CA 40E8      00596         RRNCF   WREG, W
+00CC 6EF4      00597         MOVWF   PRODH
+00CE 5000      00598         MOVF    _INTCONbits, W
+00D0 0B7F      00599         ANDLW   0x7f
+00D2 10F4      00600         IORWF   PRODH, W
+00D4 6E00      00601         MOVWF   _INTCONbits
+00D6           00602 _00151_DS_:
+00D6 CFE4 F000 00603         MOVFF   PREINC1, r0x03
+00DA CFE4 F000 00604         MOVFF   PREINC1, r0x02
+00DE CFE4 F000 00605         MOVFF   PREINC1, r0x01
+00E2 CFE4 F000 00606         MOVFF   PREINC1, r0x00
+00E6 CFE4 FFD9 00607         MOVFF   PREINC1, FSR2L
+00EA 0012      00608         RETURN  
+               00609 
+               00610 ; ; Starting pCode block
+               00611 S_picon__prepare_in     code
+0000           00612 _prepare_in:
+               00613 ;       .line   123; picon.c    void prepare_in(void)
+0000 CFD9 FFE5 00614         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00615         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00616         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00617         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00618         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00619         MOVFF   r0x03, POSTDEC1
+0018 C000 FFE5 00620         MOVFF   r0x04, POSTDEC1
+001C C000 FFE5 00621         MOVFF   r0x05, POSTDEC1
+               00622 ;       .line   129; picon.c    ib = INTCONbits.GIE;
+0020 6A00      00623         CLRF    r0x00
+0022 BE00      00624         BTFSC   _INTCONbits, 7
+0024 2A00      00625         INCF    r0x00, F
+               00626 ;       .line   130; picon.c    INTCONbits.GIE = 0;
+0026 9E00      00627         BCF     _INTCONbits, 7
+0028 0000      00628         BANKSEL (_top + 2)
+               00629 ;       .line   132; picon.c    if((top <= bottom) && (num_bytes > 0))
+002A 5100      00630         MOVF    (_top + 2), W, B
+002C 0000      00631         BANKSEL (_bottom + 2)
+002E 5D00      00632         SUBWF   (_bottom + 2), W, B
+0030 E100      00633         BNZ     _00137_DS_
+0032 0000      00634         BANKSEL (_top + 1)
+0034 5100      00635         MOVF    (_top + 1), W, B
+0036 0000      00636         BANKSEL (_bottom + 1)
+0038 5D00      00637         SUBWF   (_bottom + 1), W, B
+003A E100      00638         BNZ     _00137_DS_
+003C 0000      00639         BANKSEL _top
+003E 5100      00640         MOVF    _top, W, B
+0040 0000      00641         BANKSEL _bottom
+0042 5D00      00642         SUBWF   _bottom, W, B
+0044           00643 _00137_DS_:
+0044 A0D8      00644         BTFSS   STATUS, 0
+0046 EF00 F000 00645         GOTO    _00130_DS_
+004A 0000      00646         BANKSEL _num_bytes
+004C 5100      00647         MOVF    _num_bytes, W, B
+004E B4D8      00648         BTFSC   STATUS, 2
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0050 EF00 F000 00649         GOTO    _00130_DS_
+               00650 ;       .line   135; picon.c    top_send_buffer = Picon_InBuffer + picon_buffer_size;
+0054 0E00      00651         MOVLW   LOW(_picon_buffer_size)
+0056 6EF6      00652         MOVWF   TBLPTRL
+0058 0E00      00653         MOVLW   HIGH(_picon_buffer_size)
+005A 6EF7      00654         MOVWF   TBLPTRH
+005C 0E00      00655         MOVLW   UPPER(_picon_buffer_size)
+005E 6EF8      00656         MOVWF   TBLPTRU
+0060 0009      00657         TBLRD*+ 
+0062 CFF5 F000 00658         MOVFF   TABLAT, r0x01
+0066 0009      00659         TBLRD*+ 
+0068 CFF5 F000 00660         MOVFF   TABLAT, r0x02
+006C 0E00      00661         MOVLW   LOW(_Picon_InBuffer)
+006E 6EF6      00662         MOVWF   TBLPTRL
+0070 0E00      00663         MOVLW   HIGH(_Picon_InBuffer)
+0072 6EF7      00664         MOVWF   TBLPTRH
+0074 0E00      00665         MOVLW   UPPER(_Picon_InBuffer)
+0076 6EF8      00666         MOVWF   TBLPTRU
+0078 0009      00667         TBLRD*+ 
+007A CFF5 F000 00668         MOVFF   TABLAT, r0x03
+007E 0009      00669         TBLRD*+ 
+0080 CFF5 F000 00670         MOVFF   TABLAT, r0x04
+0084 0009      00671         TBLRD*+ 
+0086 CFF5 F000 00672         MOVFF   TABLAT, r0x05
+008A 5000      00673         MOVF    r0x01, W
+008C 2400      00674         ADDWF   r0x03, W
+008E 6E00      00675         MOVWF   r0x03
+0090 5000      00676         MOVF    r0x02, W
+0092 2000      00677         ADDWFC  r0x04, W
+0094 6E00      00678         MOVWF   r0x02
+0096 6AE8      00679         CLRF    WREG
+0098 2000      00680         ADDWFC  r0x05, W
+009A 6E00      00681         MOVWF   r0x01
+009C EF00 F000 00682         GOTO    _00131_DS_
+00A0           00683 _00130_DS_:
+               00684 ;       .line   139; picon.c    top_send_buffer = top;
+00A0 C000 F000 00685         MOVFF   _top, r0x03
+00A4 C000 F000 00686         MOVFF   (_top + 1), r0x02
+00A8 C000 F000 00687         MOVFF   (_top + 2), r0x01
+00AC           00688 _00131_DS_:
+00AC 0000      00689         BANKSEL _bottom
+               00690 ;       .line   143; picon.c    num_bytes_to_send = top_send_buffer - bottom;
+00AE 5100      00691         MOVF    _bottom, W, B
+00B0 5C00      00692         SUBWF   r0x03, W
+00B2 0000      00693         BANKSEL _num_bytes_to_send
+00B4 6F00      00694         MOVWF   _num_bytes_to_send, B
+00B6 0000      00695         BANKSEL (_bottom + 1)
+00B8 5100      00696         MOVF    (_bottom + 1), W, B
+00BA 5800      00697         SUBWFB  r0x02, W
+00BC 0000      00698         BANKSEL (_num_bytes_to_send + 1)
+00BE 6F00      00699         MOVWF   (_num_bytes_to_send + 1), B
+               00700 ;       .line   145; picon.c    prepare_next_packet();
+00C0 EC00 F000 00701         CALL    _prepare_next_packet
+               00702 ;       .line   147; picon.c    INTCONbits.GIE = ib;
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00C4 5000      00703         MOVF    r0x00, W
+00C6 0B01      00704         ANDLW   0x01
+00C8 40E8      00705         RRNCF   WREG, W
+00CA 6EF4      00706         MOVWF   PRODH
+00CC 5000      00707         MOVF    _INTCONbits, W
+00CE 0B7F      00708         ANDLW   0x7f
+00D0 10F4      00709         IORWF   PRODH, W
+00D2 6E00      00710         MOVWF   _INTCONbits
+00D4 CFE4 F000 00711         MOVFF   PREINC1, r0x05
+00D8 CFE4 F000 00712         MOVFF   PREINC1, r0x04
+00DC CFE4 F000 00713         MOVFF   PREINC1, r0x03
+00E0 CFE4 F000 00714         MOVFF   PREINC1, r0x02
+00E4 CFE4 F000 00715         MOVFF   PREINC1, r0x01
+00E8 CFE4 F000 00716         MOVFF   PREINC1, r0x00
+00EC CFE4 FFD9 00717         MOVFF   PREINC1, FSR2L
+00F0 0012      00718         RETURN  
+               00719 
+               00720 ; ; Starting pCode block
+               00721 S_picon__prepare_next_packet    code
+0000           00722 _prepare_next_packet:
+               00723 ;       .line   85; picon.c     void prepare_next_packet(void)
+0000 CFD9 FFE5 00724         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00725         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00726         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00727         MOVFF   r0x01, POSTDEC1
+0010 C000 FFE5 00728         MOVFF   r0x02, POSTDEC1
+0014 C000 FFE5 00729         MOVFF   r0x03, POSTDEC1
+0018 C000 FFE5 00730         MOVFF   r0x04, POSTDEC1
+001C C000 FFE5 00731         MOVFF   r0x05, POSTDEC1
+0020 C000 FFE5 00732         MOVFF   r0x06, POSTDEC1
+               00733 ;       .line   87; picon.c     last_packet_was_void = (num_bytes_to_send < PICON_PACKET_SIZE);
+0024 0E00      00734         MOVLW   0x00
+0026 0000      00735         BANKSEL (_num_bytes_to_send + 1)
+0028 5D00      00736         SUBWF   (_num_bytes_to_send + 1), W, B
+002A E100      00737         BNZ     _00123_DS_
+002C 0E08      00738         MOVLW   0x08
+002E 0000      00739         BANKSEL _num_bytes_to_send
+0030 5D00      00740         SUBWF   _num_bytes_to_send, W, B
+0032           00741 _00123_DS_:
+0032 70D8      00742         BTG     STATUS, 0
+0034 0000      00743         BANKSEL _last_packet_was_void
+0036 6B00      00744         CLRF    _last_packet_was_void, B
+0038 0000      00745         BANKSEL _last_packet_was_void
+003A 3700      00746         RLCF    _last_packet_was_void, F, B
+003C 0000      00747         BANKSEL _last_packet_was_void
+               00748 ;       .line   90; picon.c     if(last_packet_was_void)
+003E 5100      00749         MOVF    _last_packet_was_void, W, B
+0040 B4D8      00750         BTFSC   STATUS, 2
+0042 EF00 F000 00751         GOTO    _00110_DS_
+0046 0000      00752         BANKSEL _num_bytes_to_send
+               00753 ;       .line   92; picon.c     num_bytes -= num_bytes_to_send;
+0048 5100      00754         MOVF    _num_bytes_to_send, W, B
+004A 6E00      00755         MOVWF   r0x00
+004C 5000      00756         MOVF    r0x00, W
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+004E 0000      00757         BANKSEL _num_bytes
+0050 5F00      00758         SUBWF   _num_bytes, F, B
+0052 EF00 F000 00759         GOTO    _00111_DS_
+0056           00760 _00110_DS_:
+               00761 ;       .line   96; picon.c     num_bytes -= PICON_PACKET_SIZE;
+0056 0EF8      00762         MOVLW   0xf8
+0058 0000      00763         BANKSEL _num_bytes
+005A 2700      00764         ADDWF   _num_bytes, F, B
+005C           00765 _00111_DS_:
+               00766 ;       .line   100; picon.c    EP_IN_BD(picon_ep).ADR = (uchar __data *) bottom;
+005C 0E00      00767         MOVLW   LOW(_picon_ep)
+005E 6EF6      00768         MOVWF   TBLPTRL
+0060 0E00      00769         MOVLW   HIGH(_picon_ep)
+0062 6EF7      00770         MOVWF   TBLPTRH
+0064 0E00      00771         MOVLW   UPPER(_picon_ep)
+0066 6EF8      00772         MOVWF   TBLPTRU
+0068 0009      00773         TBLRD*+ 
+006A CFF5 F000 00774         MOVFF   TABLAT, r0x00
+006E 5000      00775         MOVF    r0x00, W
+0070 2400      00776         ADDWF   r0x00, W
+0072 6E00      00777         MOVWF   r0x01
+0074 2A00      00778         INCF    r0x01, F
+               00779 ; ;multiply lit val:0x04 by variable r0x01 and store in r0x01
+               00780 ; ;Unrolled 8 X 8 multiplication
+               00781 ; ;FIXME: the function does not support result==WREG
+0076 5000      00782         MOVF    r0x01, W
+0078 0D04      00783         MULLW   0x04
+007A CFF3 F000 00784         MOVFF   PRODL, r0x01
+007E 0E00      00785         MOVLW   LOW(_ep_bdt)
+0080 2600      00786         ADDWF   r0x01, F
+0082 0E00      00787         MOVLW   HIGH(_ep_bdt)
+0084 6A00      00788         CLRF    r0x02
+0086 2200      00789         ADDWFC  r0x02, F
+0088 0E02      00790         MOVLW   0x02
+008A 2600      00791         ADDWF   r0x01, F
+008C B0D8      00792         BTFSC   STATUS, 0
+008E 2A00      00793         INCF    r0x02, F
+0090 0000      00794         BANKSEL _bottom
+0092 5100      00795         MOVF    _bottom, W, B
+0094 6E00      00796         MOVWF   r0x03
+0096 0000      00797         BANKSEL (_bottom + 1)
+0098 5100      00798         MOVF    (_bottom + 1), W, B
+009A 6E00      00799         MOVWF   r0x04
+009C C000 FFE9 00800         MOVFF   r0x01, FSR0L
+00A0 C000 FFEA 00801         MOVFF   r0x02, FSR0H
+00A4 C000 FFEE 00802         MOVFF   r0x03, POSTINC0
+00A8 C000 FFEF 00803         MOVFF   r0x04, INDF0
+               00804 ;       .line   103; picon.c    tmp_bottom = bottom;
+00AC C000 F000 00805         MOVFF   _bottom, _tmp_bottom
+00B0 C000 F000 00806         MOVFF   (_bottom + 1), (_tmp_bottom + 1)
+00B4 C000 F000 00807         MOVFF   (_bottom + 2), (_tmp_bottom + 2)
+               00808 ;       .line   104; picon.c    fill_in_buffer(picon_ep, &tmp_bottom, PICON_PACKET_SIZE, &num_bytes_to_send);
+00B8 0E00      00809         MOVLW   HIGH(_tmp_bottom)
+00BA 6E00      00810         MOVWF   r0x02
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00BC 0E00      00811         MOVLW   LOW(_tmp_bottom)
+00BE 6E00      00812         MOVWF   r0x01
+00C0 0E80      00813         MOVLW   0x80
+00C2 6E00      00814         MOVWF   r0x03
+00C4 0E00      00815         MOVLW   HIGH(_num_bytes_to_send)
+00C6 6E00      00816         MOVWF   r0x05
+00C8 0E00      00817         MOVLW   LOW(_num_bytes_to_send)
+00CA 6E00      00818         MOVWF   r0x04
+00CC 0E80      00819         MOVLW   0x80
+00CE 6E00      00820         MOVWF   r0x06
+00D0 5000      00821         MOVF    r0x06, W
+00D2 6EE5      00822         MOVWF   POSTDEC1
+00D4 5000      00823         MOVF    r0x05, W
+00D6 6EE5      00824         MOVWF   POSTDEC1
+00D8 5000      00825         MOVF    r0x04, W
+00DA 6EE5      00826         MOVWF   POSTDEC1
+00DC 0E00      00827         MOVLW   0x00
+00DE 6EE5      00828         MOVWF   POSTDEC1
+00E0 0E08      00829         MOVLW   0x08
+00E2 6EE5      00830         MOVWF   POSTDEC1
+00E4 5000      00831         MOVF    r0x03, W
+00E6 6EE5      00832         MOVWF   POSTDEC1
+00E8 5000      00833         MOVF    r0x02, W
+00EA 6EE5      00834         MOVWF   POSTDEC1
+00EC 5000      00835         MOVF    r0x01, W
+00EE 6EE5      00836         MOVWF   POSTDEC1
+00F0 5000      00837         MOVF    r0x00, W
+00F2 6EE5      00838         MOVWF   POSTDEC1
+00F4 EC00 F000 00839         CALL    _fill_in_buffer
+00F8 0E09      00840         MOVLW   0x09
+00FA 26E1      00841         ADDWF   FSR1L, F
+               00842 ;       .line   106; picon.c    if(tmp_bottom >= (Picon_InBuffer + picon_buffer_size))
+00FC 0E00      00843         MOVLW   LOW(_picon_buffer_size)
+00FE 6EF6      00844         MOVWF   TBLPTRL
+0100 0E00      00845         MOVLW   HIGH(_picon_buffer_size)
+0102 6EF7      00846         MOVWF   TBLPTRH
+0104 0E00      00847         MOVLW   UPPER(_picon_buffer_size)
+0106 6EF8      00848         MOVWF   TBLPTRU
+0108 0009      00849         TBLRD*+ 
+010A CFF5 F000 00850         MOVFF   TABLAT, r0x00
+010E 0009      00851         TBLRD*+ 
+0110 CFF5 F000 00852         MOVFF   TABLAT, r0x01
+0114 0E00      00853         MOVLW   LOW(_Picon_InBuffer)
+0116 6EF6      00854         MOVWF   TBLPTRL
+0118 0E00      00855         MOVLW   HIGH(_Picon_InBuffer)
+011A 6EF7      00856         MOVWF   TBLPTRH
+011C 0E00      00857         MOVLW   UPPER(_Picon_InBuffer)
+011E 6EF8      00858         MOVWF   TBLPTRU
+0120 0009      00859         TBLRD*+ 
+0122 CFF5 F000 00860         MOVFF   TABLAT, r0x02
+0126 0009      00861         TBLRD*+ 
+0128 CFF5 F000 00862         MOVFF   TABLAT, r0x03
+012C 0009      00863         TBLRD*+ 
+012E CFF5 F000 00864         MOVFF   TABLAT, r0x04
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0132 5000      00865         MOVF    r0x00, W
+0134 2600      00866         ADDWF   r0x02, F
+0136 5000      00867         MOVF    r0x01, W
+0138 2200      00868         ADDWFC  r0x03, F
+013A 6AE8      00869         CLRF    WREG
+013C 2200      00870         ADDWFC  r0x04, F
+013E 5000      00871         MOVF    r0x04, W
+0140 0000      00872         BANKSEL (_tmp_bottom + 2)
+0142 5D00      00873         SUBWF   (_tmp_bottom + 2), W, B
+0144 E100      00874         BNZ     _00124_DS_
+0146 5000      00875         MOVF    r0x03, W
+0148 0000      00876         BANKSEL (_tmp_bottom + 1)
+014A 5D00      00877         SUBWF   (_tmp_bottom + 1), W, B
+014C E100      00878         BNZ     _00124_DS_
+014E 5000      00879         MOVF    r0x02, W
+0150 0000      00880         BANKSEL _tmp_bottom
+0152 5D00      00881         SUBWF   _tmp_bottom, W, B
+0154           00882 _00124_DS_:
+0154 A0D8      00883         BTFSS   STATUS, 0
+0156 EF00 F000 00884         GOTO    _00113_DS_
+               00885 ;       .line   109; picon.c    tmp_bottom -= picon_buffer_size;
+015A 5000      00886         MOVF    r0x00, W
+015C 0000      00887         BANKSEL _tmp_bottom
+015E 5F00      00888         SUBWF   _tmp_bottom, F, B
+0160 5000      00889         MOVF    r0x01, W
+0162 0000      00890         BANKSEL (_tmp_bottom + 1)
+0164 5B00      00891         SUBWFB  (_tmp_bottom + 1), F, B
+0166 6AE8      00892         CLRF    WREG
+0168 0000      00893         BANKSEL (_tmp_bottom + 2)
+016A 5B00      00894         SUBWFB  (_tmp_bottom + 2), F, B
+016C           00895 _00113_DS_:
+               00896 ;       .line   113; picon.c    if(EP_IN_BD(picon_ep).Stat.DTS == 0)
+016C 0E00      00897         MOVLW   LOW(_picon_ep)
+016E 6EF6      00898         MOVWF   TBLPTRL
+0170 0E00      00899         MOVLW   HIGH(_picon_ep)
+0172 6EF7      00900         MOVWF   TBLPTRH
+0174 0E00      00901         MOVLW   UPPER(_picon_ep)
+0176 6EF8      00902         MOVWF   TBLPTRU
+0178 0009      00903         TBLRD*+ 
+017A CFF5 F000 00904         MOVFF   TABLAT, r0x00
+017E 5000      00905         MOVF    r0x00, W
+0180 2400      00906         ADDWF   r0x00, W
+0182 6E00      00907         MOVWF   r0x01
+0184 2800      00908         INCF    r0x01, W
+0186 6E00      00909         MOVWF   r0x00
+               00910 ; ;multiply lit val:0x04 by variable r0x00 and store in r0x00
+               00911 ; ;Unrolled 8 X 8 multiplication
+               00912 ; ;FIXME: the function does not support result==WREG
+0188 5000      00913         MOVF    r0x00, W
+018A 0D04      00914         MULLW   0x04
+018C CFF3 F000 00915         MOVFF   PRODL, r0x00
+0190 0E00      00916         MOVLW   LOW(_ep_bdt)
+0192 2400      00917         ADDWF   r0x00, W
+0194 6E00      00918         MOVWF   r0x01
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0196 6A00      00919         CLRF    r0x02
+0198 0E00      00920         MOVLW   HIGH(_ep_bdt)
+019A 2200      00921         ADDWFC  r0x02, F
+019C 6AE8      00922         CLRF    WREG
+019E C000 FFE9 00923         MOVFF   r0x01, FSR0L
+01A2 C000 FFEA 00924         MOVFF   r0x02, FSR0H
+01A6 BCEF      00925         BTFSC   INDF0, 6
+01A8 2AE8      00926         INCF    WREG, F
+01AA 6E00      00927         MOVWF   r0x01
+01AC 5000      00928         MOVF    r0x01, W
+01AE A4D8      00929         BTFSS   STATUS, 2
+01B0 EF00 F000 00930         GOTO    _00115_DS_
+               00931 ;       .line   115; picon.c    EP_IN_BD(picon_ep).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
+01B4 0E00      00932         MOVLW   LOW(_ep_bdt)
+01B6 2400      00933         ADDWF   r0x00, W
+01B8 6E00      00934         MOVWF   r0x01
+01BA 6A00      00935         CLRF    r0x02
+01BC 0E00      00936         MOVLW   HIGH(_ep_bdt)
+01BE 2200      00937         ADDWFC  r0x02, F
+01C0 C000 FFE9 00938         MOVFF   r0x01, FSR0L
+01C4 C000 FFEA 00939         MOVFF   r0x02, FSR0H
+01C8 0EC8      00940         MOVLW   0xc8
+01CA 6EEF      00941         MOVWF   INDF0
+01CC EF00 F000 00942         GOTO    _00117_DS_
+01D0           00943 _00115_DS_:
+               00944 ;       .line   119; picon.c    EP_IN_BD(picon_ep).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
+01D0 0E00      00945         MOVLW   LOW(_ep_bdt)
+01D2 2600      00946         ADDWF   r0x00, F
+01D4 0E00      00947         MOVLW   HIGH(_ep_bdt)
+01D6 6A00      00948         CLRF    r0x01
+01D8 2200      00949         ADDWFC  r0x01, F
+01DA C000 FFE9 00950         MOVFF   r0x00, FSR0L
+01DE C000 FFEA 00951         MOVFF   r0x01, FSR0H
+01E2 0E88      00952         MOVLW   0x88
+01E4 6EEF      00953         MOVWF   INDF0
+01E6           00954 _00117_DS_:
+01E6 CFE4 F000 00955         MOVFF   PREINC1, r0x06
+01EA CFE4 F000 00956         MOVFF   PREINC1, r0x05
+01EE CFE4 F000 00957         MOVFF   PREINC1, r0x04
+01F2 CFE4 F000 00958         MOVFF   PREINC1, r0x03
+01F6 CFE4 F000 00959         MOVFF   PREINC1, r0x02
+01FA CFE4 F000 00960         MOVFF   PREINC1, r0x01
+01FE CFE4 F000 00961         MOVFF   PREINC1, r0x00
+0202 CFE4 FFD9 00962         MOVFF   PREINC1, FSR2L
+0206 0012      00963         RETURN  
+               00964 
+               00965 ; ; Starting pCode block
+               00966 S_picon__picon_init     code
+0000           00967 _picon_init:
+               00968 ;       .line   64; picon.c     void picon_init(void)
+0000 CFD9 FFE5 00969         MOVFF   FSR2L, POSTDEC1
+0004 CFE1 FFD9 00970         MOVFF   FSR1L, FSR2L
+0008 C000 FFE5 00971         MOVFF   r0x00, POSTDEC1
+000C C000 FFE5 00972         MOVFF   r0x01, POSTDEC1
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0010 C000 FFE5 00973         MOVFF   r0x02, POSTDEC1
+               00974 ;       .line   69; picon.c     bottom           = Picon_InBuffer;
+0014 0E00      00975         MOVLW   LOW(_Picon_InBuffer)
+0016 6EF6      00976         MOVWF   TBLPTRL
+0018 0E00      00977         MOVLW   HIGH(_Picon_InBuffer)
+001A 6EF7      00978         MOVWF   TBLPTRH
+001C 0E00      00979         MOVLW   UPPER(_Picon_InBuffer)
+001E 6EF8      00980         MOVWF   TBLPTRU
+0020 0009      00981         TBLRD*+ 
+0022 CFF5 F000 00982         MOVFF   TABLAT, _bottom
+0026 0009      00983         TBLRD*+ 
+0028 CFF5 F000 00984         MOVFF   TABLAT, (_bottom + 1)
+002C 0009      00985         TBLRD*+ 
+002E CFF5 F000 00986         MOVFF   TABLAT, (_bottom + 2)
+               00987 ;       .line   70; picon.c     top              = Picon_InBuffer;
+0032 0E00      00988         MOVLW   LOW(_Picon_InBuffer)
+0034 6EF6      00989         MOVWF   TBLPTRL
+0036 0E00      00990         MOVLW   HIGH(_Picon_InBuffer)
+0038 6EF7      00991         MOVWF   TBLPTRH
+003A 0E00      00992         MOVLW   UPPER(_Picon_InBuffer)
+003C 6EF8      00993         MOVWF   TBLPTRU
+003E 0009      00994         TBLRD*+ 
+0040 CFF5 F000 00995         MOVFF   TABLAT, _top
+0044 0009      00996         TBLRD*+ 
+0046 CFF5 F000 00997         MOVFF   TABLAT, (_top + 1)
+004A 0009      00998         TBLRD*+ 
+004C CFF5 F000 00999         MOVFF   TABLAT, (_top + 2)
+0050 0000      01000         BANKSEL _num_bytes
+               01001 ;       .line   71; picon.c     num_bytes        = 0;
+0052 6B00      01002         CLRF    _num_bytes, B
+0054 0000      01003         BANKSEL _send_in_progress
+               01004 ;       .line   72; picon.c     send_in_progress = FALSE;
+0056 6B00      01005         CLRF    _send_in_progress, B
+               01006 ;       .line   79; picon.c     EP_IN_BD(picon_ep).Stat.uc = BDS_UCPU | BDS_DAT1 | BDS_DTSEN;
+0058 0E00      01007         MOVLW   LOW(_picon_ep)
+005A 6EF6      01008         MOVWF   TBLPTRL
+005C 0E00      01009         MOVLW   HIGH(_picon_ep)
+005E 6EF7      01010         MOVWF   TBLPTRH
+0060 0E00      01011         MOVLW   UPPER(_picon_ep)
+0062 6EF8      01012         MOVWF   TBLPTRU
+0064 0009      01013         TBLRD*+ 
+0066 CFF5 F000 01014         MOVFF   TABLAT, r0x00
+006A 5000      01015         MOVF    r0x00, W
+006C 2400      01016         ADDWF   r0x00, W
+006E 6E00      01017         MOVWF   r0x01
+0070 2A00      01018         INCF    r0x01, F
+               01019 ; ;multiply lit val:0x04 by variable r0x01 and store in r0x01
+               01020 ; ;Unrolled 8 X 8 multiplication
+               01021 ; ;FIXME: the function does not support result==WREG
+0072 5000      01022         MOVF    r0x01, W
+0074 0D04      01023         MULLW   0x04
+0076 CFF3 F000 01024         MOVFF   PRODL, r0x01
+007A 0E00      01025         MOVLW   LOW(_ep_bdt)
+007C 2600      01026         ADDWF   r0x01, F
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+007E 0E00      01027         MOVLW   HIGH(_ep_bdt)
+0080 6A00      01028         CLRF    r0x02
+0082 2200      01029         ADDWFC  r0x02, F
+0084 C000 FFE9 01030         MOVFF   r0x01, FSR0L
+0088 C000 FFEA 01031         MOVFF   r0x02, FSR0H
+008C 0E48      01032         MOVLW   0x48
+008E 6EEF      01033         MOVWF   INDF0
+               01034 ;       .line   82; picon.c     *((&UEP0) + picon_ep) = EPHSHK_EN | EPINEN_EN | EPCONDIS_EN;
+0090 0E00      01035         MOVLW   LOW(_UEP0)
+0092 2600      01036         ADDWF   r0x00, F
+0094 0E00      01037         MOVLW   HIGH(_UEP0)
+0096 6A00      01038         CLRF    r0x01
+0098 2200      01039         ADDWFC  r0x01, F
+009A C000 FFE9 01040         MOVFF   r0x00, FSR0L
+009E C000 FFEA 01041         MOVFF   r0x01, FSR0H
+00A2 0E1A      01042         MOVLW   0x1a
+00A4 6EEF      01043         MOVWF   INDF0
+00A6 CFE4 F000 01044         MOVFF   PREINC1, r0x02
+00AA CFE4 F000 01045         MOVFF   PREINC1, r0x01
+00AE CFE4 F000 01046         MOVFF   PREINC1, r0x00
+00B2 CFE4 FFD9 01047         MOVFF   PREINC1, FSR2L
+00B6 0012      01048         RETURN  
+               01049 
+               01050 
+               01051 
+               01052 ; Statistics:
+               01053 ; code size:     1558 (0x0616) bytes ( 1.19%)
+               01054 ;                 779 (0x030b) words
+               01055 ; udata size:      14 (0x000e) bytes ( 0.78%)
+               01056 ; access size:      8 (0x0008) bytes
+               01057 
+               01058 
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FSR0H                             00000FEA
+FSR0L                             00000FE9
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+POSTDEC1                          00000FE5
+POSTINC0                          00000FEE
+PREINC1                           00000FE4
+PRODH                             00000FF4
+PRODL                             00000FF3
+STATUS                            00000FD8
+TABLAT                            00000FF5
+TBLPTRH                           00000FF7
+TBLPTRL                           00000FF6
+TBLPTRU                           00000FF8
+WREG                              00000FE8
+_00110_DS_                        00000056
+_00111_DS_                        0000005C
+_00113_DS_                        0000016C
+_00115_DS_                        000001D0
+_00117_DS_                        000001E6
+_00123_DS_                        00000032
+_00124_DS_                        00000154
+_00130_DS_                        000000A0
+_00131_DS_                        000000AC
+_00137_DS_                        00000044
+_00143_DS_                        0000007C
+_00146_DS_                        000000A6
+_00147_DS_                        000000AA
+_00149_DS_                        000000C2
+_00151_DS_                        000000D6
+_00158_DS_                        00000066
+_00159_DS_                        0000006A
+_00165_DS_                        000000B0
+_00167_DS_                        000000F8
+_00170_DS_                        00000142
+_00171_DS_                        00000152
+_00177_DS_                        0000008C
+_00178_DS_                        000000D2
+_00179_DS_                        000000D6
+_10164_DS_                        00000122
+_20165_DS_                        0000012A
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADCON2                           00000000
+_ADCON2bits                       00000000
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BAUDCON                          00000000
+_BAUDCONbits                      00000000
+_BSR                              00000000
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_BSRbits                          00000000
+_CCP1CON                          00000000
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_ECCP1AS                          00000000
+_ECCP1ASbits                      00000000
+_ECCP1DEL                         00000000
+_ECCP1DELbits                     00000000
+_EEADR                            00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+_FSR0H                            00000000
+_FSR0Hbits                        00000000
+_FSR0L                            00000000
+_FSR1H                            00000000
+_FSR1Hbits                        00000000
+_FSR1L                            00000000
+_FSR2H                            00000000
+_FSR2Hbits                        00000000
+_FSR2L                            00000000
+_HLVDCON                          00000000
+_HLVDCONbits                      00000000
+_INDF0                            00000000
+_INDF1                            00000000
+_INDF2                            00000000
+_INTCON                           00000000
+_INTCON2                          00000000
+_INTCON2bits                      00000000
+_INTCON3                          00000000
+_INTCON3bits                      00000000
+_INTCONbits                       00000000
+_IPR1                             00000000
+_IPR1bits                         00000000
+_IPR2                             00000000
+_IPR2bits                         00000000
+_LATA                             00000000
+_LATAbits                         00000000
+_LATB                             00000000
+_LATBbits                         00000000
+_LATC                             00000000
+_LATCbits                         00000000
+_LATD                             00000000
+_LATDbits                         00000000
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_LATE                             00000000
+_LATEbits                         00000000
+_OSCCON                           00000000
+_OSCCONbits                       00000000
+_OSCTUNE                          00000000
+_OSCTUNEbits                      00000000
+_PCL                              00000000
+_PCLATH                           00000000
+_PCLATHbits                       00000000
+_PCLATU                           00000000
+_PCLATUbits                       00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PLUSW0                           00000000
+_PLUSW1                           00000000
+_PLUSW2                           00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+_POSTDEC0                         00000000
+_POSTDEC1                         00000000
+_POSTDEC2                         00000000
+_POSTINC0                         00000000
+_POSTINC1                         00000000
+_POSTINC2                         00000000
+_PR2                              00000000
+_PREINC0                          00000000
+_PREINC1                          00000000
+_PREINC2                          00000000
+_PRODH                            00000000
+_PRODL                            00000000
+_Picon_InBuffer                   00000000
+_RCON                             00000000
+_RCONbits                         00000000
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_SPBRG                            00000000
+_SPBRGH                           00000000
+_SPPCFG                           00000000
+_SPPCFGbits                       00000000
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_SPPCON                           00000000
+_SPPCONbits                       00000000
+_SPPDATA                          00000000
+_SPPDATAbits                      00000000
+_SPPEPS                           00000000
+_SPPEPSbits                       00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON1                          00000000
+_SSPCON1bits                      00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_STKPTR                           00000000
+_STKPTRbits                       00000000
+_T0CON                            00000000
+_T0CONbits                        00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_T3CON                            00000000
+_T3CONbits                        00000000
+_TABLAT                           00000000
+_TBLPTRH                          00000000
+_TBLPTRL                          00000000
+_TBLPTRU                          00000000
+_TBLPTRUbits                      00000000
+_TMR0H                            00000000
+_TMR0L                            00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TMR3H                            00000000
+_TMR3L                            00000000
+_TOSH                             00000000
+_TOSL                             00000000
+_TOSU                             00000000
+_TOSUbits                         00000000
+_TRISA                            00000000
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 25
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_TXSTAbits                        00000000
+_UADDR                            00000000
+_UADDRbits                        00000000
+_UCFG                             00000000
+_UCFGbits                         00000000
+_UCON                             00000000
+_UCONbits                         00000000
+_UEIE                             00000000
+_UEIEbits                         00000000
+_UEIR                             00000000
+_UEIRbits                         00000000
+_UEP0                             00000000
+_UEP0bits                         00000000
+_UEP1                             00000000
+_UEP10                            00000000
+_UEP10bits                        00000000
+_UEP11                            00000000
+_UEP11bits                        00000000
+_UEP12                            00000000
+_UEP12bits                        00000000
+_UEP13                            00000000
+_UEP13bits                        00000000
+_UEP14                            00000000
+_UEP14bits                        00000000
+_UEP15                            00000000
+_UEP15bits                        00000000
+_UEP1bits                         00000000
+_UEP2                             00000000
+_UEP2bits                         00000000
+_UEP3                             00000000
+_UEP3bits                         00000000
+_UEP4                             00000000
+_UEP4bits                         00000000
+_UEP5                             00000000
+_UEP5bits                         00000000
+_UEP6                             00000000
+_UEP6bits                         00000000
+_UEP7                             00000000
+_UEP7bits                         00000000
+_UEP8                             00000000
+_UEP8bits                         00000000
+_UEP9                             00000000
+_UEP9bits                         00000000
+_UFRMH                            00000000
+_UFRMHbits                        00000000
+_UFRML                            00000000
+_UFRMLbits                        00000000
+_UIE                              00000000
+_UIEbits                          00000000
+_UIR                              00000000
+_UIRbits                          00000000
+_USTAT                            00000000
+_USTATbits                        00000000
+_WDTCON                           00000000
+gpasm-0.13.4 beta               picon.asm   6-22-2007  08:42:01          PAGE 26
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+_WDTCONbits                       00000000
+_WREG                             00000000
+__18F4550                         00000001
+__gptrput1                        00000000
+_bottom                           00000000
+_ep_bdt                           00000000
+_fill_in_buffer                   00000000
+_last_packet_was_void             00000000
+_num_bytes                        00000000
+_num_bytes_to_send                00000000
+_picon_buffer_size                00000000
+_picon_ep                         00000000
+_picon_in                         00000000
+_picon_init                       00000000
+_prepare_in                       00000000
+_prepare_next_packet              00000000
+_putchar                          00000000
+_send_in_progress                 00000000
+_stdin                            00000000
+_stdout                           00000000
+_tmp_bottom                       00000000
+_top                              00000000
+_usb_active_alt_setting           00000000
+_usb_active_cfg                   00000000
+_usb_device_state                 00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+r0x07                             00000007
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+
