@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : FreeWare ANSI-C Compiler
 ; Version 2.6.0 #4309 (Nov 10 2006)
-; This file generated Fri Jun 22 21:49:06 2007
+; This file generated Fri Jun 22 21:55:48 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -315,6 +315,8 @@ _main:
 	CALL	_init_boot
 ;	.line	89; boot_main.c	init_usb();
 	CALL	_init_usb
+;	.line	90; boot_main.c	T1CON=0;
+	CLRF	_T1CON
 _00119_DS_:
 ;	.line	93; boot_main.c	usb_sleep();
 	CALL	_usb_sleep
@@ -566,8 +568,8 @@ _00110_DS_:
 
 
 ; Statistics:
-; code size:	  406 (0x0196) bytes ( 0.31%)
-;           	  203 (0x00cb) words
+; code size:	  408 (0x0198) bytes ( 0.31%)
+;           	  204 (0x00cc) words
 ; udata size:	  259 (0x0103) bytes (14.45%)
 ; access size:	    3 (0x0003) bytes
 

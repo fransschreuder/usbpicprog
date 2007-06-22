@@ -1,5 +1,5 @@
 gplink-0.13.4 alpha
-Map File - Created 6-22-2007  21:49:06
+Map File - Created 6-22-2007  21:55:49
  
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -21,23 +21,23 @@ S_ep0__ep0_usb_std_request       code   0x0006b8    program   0x0002b6
             S_ep2__ep2_in       code   0x001604    program   0x0000da
     S_ep2__prepare_ep2_in       code   0x0016de    program   0x0000ca
         S_mulint___mulint       code   0x0017a8    program   0x0000a0
-        S_boot_main__main       code   0x001848    program   0x000078
-     S_flash__write_block       code   0x0018c0    program   0x00006a
-          S_ep0__ep0_init       code   0x00192a    program   0x00004a
-    S_gptrget4___gptrget4       code   0x001974    program   0x000040
-    S_gptrget3___gptrget3       code   0x0019b4    program   0x000036
-          S_usb__init_usb       code   0x0019ea    program   0x00002c
-    S_gptrget2___gptrget2       code   0x001a16    program   0x00002c
-          S_ep1__ep1_init       code   0x001a42    program   0x00002a
-     S_flash__erase_block       code   0x001a6c    program   0x000022
-    S_gptrget1___gptrget1       code   0x001a8e    program   0x000022
-    S_gptrput3___gptrput3       code   0x001ab0    program   0x00001c
-         S_usb__usb_sleep       code   0x001acc    program   0x00001a
-          S_ep2__ep2_init       code   0x001ae6    program   0x000018
-    S_gptrput2___gptrput2       code   0x001afe    program   0x000018
-         S_crt0___startup       code   0x001b16    program   0x000014
-    S_gptrput1___gptrput1       code   0x001b2a    program   0x000014
-S_usb_descriptors__null_function       code   0x001b3e    program   0x000002
+        S_boot_main__main       code   0x001848    program   0x00007a
+     S_flash__write_block       code   0x0018c2    program   0x00006a
+          S_ep0__ep0_init       code   0x00192c    program   0x00004a
+    S_gptrget4___gptrget4       code   0x001976    program   0x000040
+    S_gptrget3___gptrget3       code   0x0019b6    program   0x000036
+          S_usb__init_usb       code   0x0019ec    program   0x00002c
+    S_gptrget2___gptrget2       code   0x001a18    program   0x00002c
+          S_ep1__ep1_init       code   0x001a44    program   0x00002a
+     S_flash__erase_block       code   0x001a6e    program   0x000022
+    S_gptrget1___gptrget1       code   0x001a90    program   0x000022
+    S_gptrput3___gptrput3       code   0x001ab2    program   0x00001c
+         S_usb__usb_sleep       code   0x001ace    program   0x00001a
+          S_ep2__ep2_init       code   0x001ae8    program   0x000018
+    S_gptrput2___gptrput2       code   0x001b00    program   0x000018
+         S_crt0___startup       code   0x001b18    program   0x000014
+    S_gptrput1___gptrput1       code   0x001b2c    program   0x000014
+S_usb_descriptors__null_function       code   0x001b40    program   0x000002
 S_application_iface__application_data       code   0x002000    program   0x00001a
 S_interrupt_iface__high_priority_isr       code   0x002020    program   0x000056
 S_interrupt_iface__low_priority_isr       code   0x004000    program   0x000056
@@ -92,45 +92,45 @@ S_interrupt_iface__low_priority_isr       code   0x004000    program   0x000056
                                Start         End
                            ---------   ---------
                             0x002000    0x002019
-                            0x001848    0x0018bf
+                            0x001848    0x0018c1
                             0x0013d8    0x0014f5
                             0x00001c    0x000079
                             0x001052    0x001257
                             0x00007a    0x0003f9
-                            0x001acc    0x001ae5
+                            0x001ace    0x001ae7
                             0x0014f6    0x001603
-                            0x0019ea    0x001a15
-                            0x001b3e    0x001b3f
+                            0x0019ec    0x001a17
+                            0x001b40    0x001b41
                             0x0003fa    0x0006b7
                             0x001258    0x0013d7
                             0x00096e    0x000c19
-                            0x00192a    0x001973
+                            0x00192c    0x001975
                             0x0006b8    0x00096d
                             0x000c1a    0x000e3d
-                            0x001a42    0x001a6b
+                            0x001a44    0x001a6d
                             0x001604    0x0016dd
                             0x0016de    0x0017a7
-                            0x001ae6    0x001afd
-                            0x001a6c    0x001a8d
-                            0x0018c0    0x001929
+                            0x001ae8    0x001aff
+                            0x001a6e    0x001a8f
+                            0x0018c2    0x00192b
                             0x300000    0x30000d
                             0x002020    0x002075
                             0x000008    0x00000b
                             0x004000    0x004055
                             0x000018    0x00001b
                             00000000    0x000003
-                            0x001b16    0x001b29
+                            0x001b18    0x001b2b
                             0x000e3e    0x001051
-                            0x001b2a    0x001b3d
-                            0x001afe    0x001b15
-                            0x001ab0    0x001acb
+                            0x001b2c    0x001b3f
+                            0x001b00    0x001b17
+                            0x001ab2    0x001acd
                             0x0017a8    0x001847
-                            0x001974    0x0019b3
-                            0x001a8e    0x001aaf
-                            0x001a16    0x001a41
-                            0x0019b4    0x0019e9
+                            0x001976    0x0019b5
+                            0x001a90    0x001ab1
+                            0x001a18    0x001a43
+                            0x0019b6    0x0019eb
  
-                            3586 program addresses used
+                            3587 program addresses used
  
                               Symbols
                      Name    Address   Location    Storage File
@@ -143,8 +143,8 @@ S_interrupt_iface__low_priority_isr       code   0x004000    program   0x000056
                    _stack   0x000200       data     extern boot_main.asm
                _stack_end   0x0002fe       data     extern boot_main.asm
                     _main   0x001848    program     extern boot_main.asm
-               _00119_DS_   0x001850    program     static boot_main.asm
-               _00127_DS_   0x0018ba    program     static boot_main.asm
+               _00119_DS_   0x001852    program     static boot_main.asm
+               _00127_DS_   0x0018bc    program     static boot_main.asm
                _init_boot   0x0013d8    program     extern boot_main.asm
                _00105_DS_   0x0013fe    program     static boot_main.asm
                _00107_DS_   0x001416    program     static boot_main.asm
@@ -206,16 +206,16 @@ _fill_in_buffer_byte_to_send_1_1   0x000096       data     static usb.asm
                _00190_DS_   0x0003de    program     static usb.asm
                _00158_DS_   0x0003de    program     static usb.asm
                _00163_DS_   0x0003e0    program     static usb.asm
-               _usb_sleep   0x001acc    program     extern usb.asm
-               _00132_DS_   0x001ae0    program     static usb.asm
+               _usb_sleep   0x001ace    program     extern usb.asm
+               _00132_DS_   0x001ae2    program     static usb.asm
                _reset_usb   0x0014f6    program     extern usb.asm
                _00110_DS_   0x00151c    program     static usb.asm
                _00112_DS_   0x001528    program     static usb.asm
                _00115_DS_   0x001558    program     static usb.asm
                _00122_DS_   0x0015d6    program     static usb.asm
-                _init_usb   0x0019ea    program     extern usb.asm
-               _00105_DS_   0x0019fc    program     static usb.asm
-           _null_function   0x001b3e    program     extern usb_descriptors.asm
+                _init_usb   0x0019ec    program     extern usb.asm
+               _00105_DS_   0x0019fe    program     static usb.asm
+           _null_function   0x001b40    program     extern usb_descriptors.asm
   _boot_device_descriptor   0x0003fa    program     extern usb_descriptors.asm
         _boot_default_cfg   0x00040c    program     extern usb_descriptors.asm
           _boot_flash_cfg   0x00041e    program     extern usb_descriptors.asm
@@ -281,7 +281,7 @@ _ep0_usb_std_request_unknown_request_1_1   0x0000a5       data     static ep0.as
                _00214_DS_   0x000bf0    program     static ep0.asm
                _00192_DS_   0x000bf8    program     static ep0.asm
                _00193_DS_   0x000bfc    program     static ep0.asm
-                _ep0_init   0x00192a    program     extern ep0.asm
+                _ep0_init   0x00192c    program     extern ep0.asm
      _ep0_usb_std_request   0x0006b8    program     extern ep0.asm
                _00106_DS_   0x0006ea    program     static ep0.asm
                _00142_DS_   0x0006fa    program     static ep0.asm
@@ -331,7 +331,7 @@ _ep0_usb_std_request_unknown_request_1_1   0x0000a5       data     static ep0.as
                _00121_DS_   0x000df6    program     static ep1.asm
                _00124_DS_   0x000e00    program     static ep1.asm
                _00126_DS_   0x000e18    program     static ep1.asm
-                _ep1_init   0x001a42    program     extern ep1.asm
+                _ep1_init   0x001a44    program     extern ep1.asm
                     r0x00   00000000       data     static ep2.asm
                     r0x01   0x000001       data     static ep2.asm
                     r0x02   0x000002       data     static ep2.asm
@@ -349,24 +349,24 @@ _ep0_usb_std_request_unknown_request_1_1   0x0000a5       data     static ep0.as
                _00116_DS_   0x00170c    program     static ep2.asm
                _00110_DS_   0x001784    program     static ep2.asm
                _00112_DS_   0x00178a    program     static ep2.asm
-                _ep2_init   0x001ae6    program     extern ep2.asm
+                _ep2_init   0x001ae8    program     extern ep2.asm
                     r0x00   00000000       data     static flash.asm
                     r0x01   0x000001       data     static flash.asm
    _ep2_num_bytes_to_send   0x00009a       data     extern flash.asm
          _ep2_source_data   0x000093       data     extern flash.asm
        _write_block_i_1_1   0x0000a9       data     static flash.asm
-             _erase_block   0x001a6c    program     extern flash.asm
-             _write_block   0x0018c0    program     extern flash.asm
-               _00105_DS_   0x0018e2    program     static flash.asm
-               _00108_DS_   0x00190a    program     static flash.asm
+             _erase_block   0x001a6e    program     extern flash.asm
+             _write_block   0x0018c2    program     extern flash.asm
+               _00105_DS_   0x0018e4    program     static flash.asm
+               _00108_DS_   0x00190c    program     static flash.asm
       _section_descriptor   0x000632    program     extern config.asm
        _high_priority_isr   0x002020    program     extern interrupt_iface.asm
 ivec_0x1_high_priority_isr   0x000008    program     static interrupt_iface.asm
         _low_priority_isr   0x004000    program     extern interrupt_iface.asm
 ivec_0x2_low_priority_isr   0x000018    program     static interrupt_iface.asm
                   __entry   00000000    program     extern ../build/startup/crt0.asm
-                __startup   0x001b16    program     extern ../build/startup/crt0.asm
-               _00109_DS_   0x001b28    program     static ../build/startup/crt0.asm
+                __startup   0x001b18    program     extern ../build/startup/crt0.asm
+               _00109_DS_   0x001b2a    program     static ../build/startup/crt0.asm
               _delay10tcy   0x000648    program     extern delay10tcy.S
                 _$_000008   0x000650    program     static delay10tcy.S
             @delay10_loop   0x000652    program     static delay10tcy.S
@@ -618,15 +618,15 @@ ivec_0x2_low_priority_isr   0x000018    program     static interrupt_iface.asm
          __mullong_t1_1_1   0x000070       data     static ../../build/libsdcc/long/mullong.asm
          __mullong_t2_1_1   0x000074       data     static ../../build/libsdcc/long/mullong.asm
                 __mullong   0x000e3e    program     extern ../../build/libsdcc/long/mullong.asm
-               __gptrput1   0x001b2a    program     extern ../../build/libsdcc/gptr/gptrput1.asm
-                 _lab_01_   0x001b38    program     static ../../build/libsdcc/gptr/gptrput1.asm
-                 _lab_02_   0x001b3c    program     static ../../build/libsdcc/gptr/gptrput1.asm
-               __gptrput2   0x001afe    program     extern ../../build/libsdcc/gptr/gptrput2.asm
-                 _lab_01_   0x001b10    program     static ../../build/libsdcc/gptr/gptrput2.asm
-                 _lab_02_   0x001b14    program     static ../../build/libsdcc/gptr/gptrput2.asm
-               __gptrput3   0x001ab0    program     extern ../../build/libsdcc/gptr/gptrput3.asm
-                 _lab_01_   0x001ac6    program     static ../../build/libsdcc/gptr/gptrput3.asm
-                 _lab_02_   0x001aca    program     static ../../build/libsdcc/gptr/gptrput3.asm
+               __gptrput1   0x001b2c    program     extern ../../build/libsdcc/gptr/gptrput1.asm
+                 _lab_01_   0x001b3a    program     static ../../build/libsdcc/gptr/gptrput1.asm
+                 _lab_02_   0x001b3e    program     static ../../build/libsdcc/gptr/gptrput1.asm
+               __gptrput2   0x001b00    program     extern ../../build/libsdcc/gptr/gptrput2.asm
+                 _lab_01_   0x001b12    program     static ../../build/libsdcc/gptr/gptrput2.asm
+                 _lab_02_   0x001b16    program     static ../../build/libsdcc/gptr/gptrput2.asm
+               __gptrput3   0x001ab2    program     extern ../../build/libsdcc/gptr/gptrput3.asm
+                 _lab_01_   0x001ac8    program     static ../../build/libsdcc/gptr/gptrput3.asm
+                 _lab_02_   0x001acc    program     static ../../build/libsdcc/gptr/gptrput3.asm
                     r0x00   00000000       data     static ../../build/libsdcc/int/mulint.asm
                     r0x01   0x000001       data     static ../../build/libsdcc/int/mulint.asm
                     r0x02   0x000002       data     static ../../build/libsdcc/int/mulint.asm
@@ -635,18 +635,18 @@ ivec_0x2_low_priority_isr   0x000018    program     static interrupt_iface.asm
            __mulint_y_1_1   0x00009e       data     static ../../build/libsdcc/int/mulint.asm
            __mulint_t_1_1   0x0000a0       data     static ../../build/libsdcc/int/mulint.asm
                  __mulint   0x0017a8    program     extern ../../build/libsdcc/int/mulint.asm
-               __gptrget4   0x001974    program     extern ../../build/libsdcc/gptr/gptrget4.asm
-                 _lab_01_   0x00198c    program     static ../../build/libsdcc/gptr/gptrget4.asm
-                 _lab_02_   0x0019b2    program     static ../../build/libsdcc/gptr/gptrget4.asm
-               __gptrget1   0x001a8e    program     extern ../../build/libsdcc/gptr/gptrget1.asm
-                 _lab_01_   0x001a9a    program     static ../../build/libsdcc/gptr/gptrget1.asm
-                 _lab_02_   0x001aae    program     static ../../build/libsdcc/gptr/gptrget1.asm
-                    _end_   0x001aae    program     static ../../build/libsdcc/gptr/gptrget1.asm
-               __gptrget2   0x001a16    program     extern ../../build/libsdcc/gptr/gptrget2.asm
-                 _lab_01_   0x001a26    program     static ../../build/libsdcc/gptr/gptrget2.asm
-                 _lab_02_   0x001a40    program     static ../../build/libsdcc/gptr/gptrget2.asm
-                    _end_   0x001a40    program     static ../../build/libsdcc/gptr/gptrget2.asm
-               __gptrget3   0x0019b4    program     extern ../../build/libsdcc/gptr/gptrget3.asm
-                 _lab_01_   0x0019c8    program     static ../../build/libsdcc/gptr/gptrget3.asm
-                 _lab_02_   0x0019e8    program     static ../../build/libsdcc/gptr/gptrget3.asm
+               __gptrget4   0x001976    program     extern ../../build/libsdcc/gptr/gptrget4.asm
+                 _lab_01_   0x00198e    program     static ../../build/libsdcc/gptr/gptrget4.asm
+                 _lab_02_   0x0019b4    program     static ../../build/libsdcc/gptr/gptrget4.asm
+               __gptrget1   0x001a90    program     extern ../../build/libsdcc/gptr/gptrget1.asm
+                 _lab_01_   0x001a9c    program     static ../../build/libsdcc/gptr/gptrget1.asm
+                 _lab_02_   0x001ab0    program     static ../../build/libsdcc/gptr/gptrget1.asm
+                    _end_   0x001ab0    program     static ../../build/libsdcc/gptr/gptrget1.asm
+               __gptrget2   0x001a18    program     extern ../../build/libsdcc/gptr/gptrget2.asm
+                 _lab_01_   0x001a28    program     static ../../build/libsdcc/gptr/gptrget2.asm
+                 _lab_02_   0x001a42    program     static ../../build/libsdcc/gptr/gptrget2.asm
+                    _end_   0x001a42    program     static ../../build/libsdcc/gptr/gptrget2.asm
+               __gptrget3   0x0019b6    program     extern ../../build/libsdcc/gptr/gptrget3.asm
+                 _lab_01_   0x0019ca    program     static ../../build/libsdcc/gptr/gptrget3.asm
+                 _lab_02_   0x0019ea    program     static ../../build/libsdcc/gptr/gptrget3.asm
  
