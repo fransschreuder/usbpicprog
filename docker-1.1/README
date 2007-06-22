@@ -1,0 +1,57 @@
+PIC USB Framework Installation & Use Instructions
+*************************************************
+
+Copyright (C) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr
+
+This file is free documentation; you have unlimited permission to copy, 
+distribute and modify it.
+
+
+PUF (PIC USB Framework) is divided into 3 files :
+- puf-<release #>.tar.gz contains the bootloader and the demo device application,
+- docker-<release #>.tar.gz is the flash programmer that communicate with the bootloader through USB,
+- demo-<release #>.tar.gz is the host demo application.
+
+docker and demo depend on libusb >=0.11.
+
+PUF contains its own cross-compilation tools. A simple make
+at the root will build everything, including the cross
+tools. The bootloader is then available as bootloader/boot.hex
+and the demo device application in application/application.hex.
+Odyssey, once configured for your hardware, can then be
+used to flash the bootloader with :
+
+odyssey PIC18F4550 write boot.hex
+
+You can then program your applications using docker and the
+bootloader with :
+
+docker write <application.hex>
+
+To do so, you need either to be root, or to install the
+stuff which is in the udev folder (provided you use udev,
+of course ;-) . I prefer this solution : it is never
+good to develop as root...
+
+When your device is started, it stays in a neutral
+configuration (#1) until it receives a SET_CONFIGURATION request
+from the host. Configuration ID #2 is associated to the
+flashing function, and USB configuration ID > 2 are reserved for 
+the application. demo can be used to switch to the application with :
+
+demo -c <configuration ID>
+
+The puf-<release #>/bootloader/models folder contains 
+2 or 3 UML2 diagrams describing shortly the bootloader
+structure. These models can be edited using the UML 2.0 editor
+of the TOPCASED project (see http://gforge.enseeiht.fr/projects/topcased-mm
+and http://gforge.enseeiht.fr/projects/topcased-uml2).
+
+The device and the bootloader can be configured in the config.h
+and config.c files. USB configuration (including End Point callbacks)
+is set up in the usb_descriptor.[ch] files.
+
+Contributions, bug reports and questions are welcome on
+our  mailing list (http://gforge.enseeiht.fr/mail/?group_id=10)
+and on our trackers (http://gforge.enseeiht.fr/tracker/?group_id=10).
+

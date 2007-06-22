@@ -1,13 +1,13 @@
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  1
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
                00001 ;--------------------------------------------------------
-               00002 ; File Created by SDCC : free open source ANSI-C Compiler
-               00003 ; Version 2.7.2 #4854 (Jun 17 2007)
-               00004 ; This file generated Thu Jun 21 16:16:16 2007
+               00002 ; File Created by SDCC : FreeWare ANSI-C Compiler
+               00003 ; Version 2.6.0 #4309 (Nov 10 2006)
+               00004 ; This file generated Fri Jun 22 21:14:36 2007
                00005 ;--------------------------------------------------------
                00006 ; PIC16 port for the Microchip 16-bit core micros
                00007 ;--------------------------------------------------------
@@ -58,595 +58,583 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                00052         extern _UEP15bits
                00053         extern _PORTAbits
                00054         extern _PORTBbits
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  2
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
                00055         extern _PORTCbits
-               00056         extern _PORTDbits
-               00057         extern _PORTEbits
-               00058         extern _LATAbits
-               00059         extern _LATBbits
-               00060         extern _LATCbits
-               00061         extern _LATDbits
-               00062         extern _LATEbits
-               00063         extern _TRISAbits
-               00064         extern _TRISBbits
-               00065         extern _TRISCbits
-               00066         extern _TRISDbits
-               00067         extern _TRISEbits
-               00068         extern _OSCTUNEbits
-               00069         extern _PIE1bits
-               00070         extern _PIR1bits
-               00071         extern _IPR1bits
-               00072         extern _PIE2bits
-               00073         extern _PIR2bits
-               00074         extern _IPR2bits
-               00075         extern _EECON1bits
-               00076         extern _RCSTAbits
-               00077         extern _TXSTAbits
-               00078         extern _T3CONbits
-               00079         extern _CMCONbits
-               00080         extern _CVRCONbits
-               00081         extern _ECCP1ASbits
-               00082         extern _ECCP1DELbits
-               00083         extern _BAUDCONbits
-               00084         extern _CCP2CONbits
-               00085         extern _CCP1CONbits
-               00086         extern _ADCON2bits
-               00087         extern _ADCON1bits
-               00088         extern _ADCON0bits
-               00089         extern _SSPCON2bits
-               00090         extern _SSPCON1bits
-               00091         extern _SSPSTATbits
-               00092         extern _T2CONbits
-               00093         extern _T1CONbits
-               00094         extern _RCONbits
-               00095         extern _WDTCONbits
-               00096         extern _HLVDCONbits
-               00097         extern _OSCCONbits
-               00098         extern _T0CONbits
-               00099         extern _STATUSbits
-               00100         extern _FSR2Hbits
-               00101         extern _BSRbits
-               00102         extern _FSR1Hbits
-               00103         extern _FSR0Hbits
-               00104         extern _INTCON3bits
-               00105         extern _INTCON2bits
-               00106         extern _INTCONbits
-               00107         extern _TBLPTRUbits
-               00108         extern _PCLATHbits
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  3
+               00056         extern _PORTEbits
+               00057         extern _LATAbits
+               00058         extern _LATBbits
+               00059         extern _LATCbits
+               00060         extern _TRISAbits
+               00061         extern _TRISBbits
+               00062         extern _TRISCbits
+               00063         extern _OSCTUNEbits
+               00064         extern _PIE1bits
+               00065         extern _PIR1bits
+               00066         extern _IPR1bits
+               00067         extern _PIE2bits
+               00068         extern _PIR2bits
+               00069         extern _IPR2bits
+               00070         extern _EECON1bits
+               00071         extern _RCSTAbits
+               00072         extern _TXSTAbits
+               00073         extern _T3CONbits
+               00074         extern _CMCONbits
+               00075         extern _CVRCONbits
+               00076         extern _ECCP1ASbits
+               00077         extern _ECCP1DELbits
+               00078         extern _BAUDCONbits
+               00079         extern _CCP2CONbits
+               00080         extern _CCP1CONbits
+               00081         extern _ADCON2bits
+               00082         extern _ADCON1bits
+               00083         extern _ADCON0bits
+               00084         extern _SSPCON2bits
+               00085         extern _SSPCON1bits
+               00086         extern _SSPSTATbits
+               00087         extern _T2CONbits
+               00088         extern _T1CONbits
+               00089         extern _RCONbits
+               00090         extern _WDTCONbits
+               00091         extern _HLVDCONbits
+               00092         extern _OSCCONbits
+               00093         extern _T0CONbits
+               00094         extern _STATUSbits
+               00095         extern _FSR2Hbits
+               00096         extern _BSRbits
+               00097         extern _FSR1Hbits
+               00098         extern _FSR0Hbits
+               00099         extern _INTCON3bits
+               00100         extern _INTCON2bits
+               00101         extern _INTCONbits
+               00102         extern _TBLPTRUbits
+               00103         extern _PCLATHbits
+               00104         extern _PCLATUbits
+               00105         extern _STKPTRbits
+               00106         extern _TOSUbits
+               00107         extern _ep_bdt
+               00108         extern _usb_device_state
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-               00109         extern _PCLATUbits
-               00110         extern _STKPTRbits
-               00111         extern _TOSUbits
-               00112         extern _ep_bdt
-               00113         extern _usb_device_state
-               00114         extern _usb_active_cfg
-               00115         extern _usb_active_alt_setting
-               00116         extern _device_descriptor
-               00117         extern _configuration_descriptor
-               00118         extern _string_descriptor
-               00119         extern _ep_init
-               00120         extern _ep_in
-               00121         extern _ep_out
-               00122         extern _ep_setup
-               00123         extern _SPPDATA
-               00124         extern _SPPCFG
-               00125         extern _SPPEPS
-               00126         extern _SPPCON
-               00127         extern _UFRML
-               00128         extern _UFRMH
-               00129         extern _UIR
-               00130         extern _UIE
-               00131         extern _UEIR
-               00132         extern _UEIE
-               00133         extern _USTAT
-               00134         extern _UCON
-               00135         extern _UADDR
-               00136         extern _UCFG
-               00137         extern _UEP0
-               00138         extern _UEP1
-               00139         extern _UEP2
-               00140         extern _UEP3
-               00141         extern _UEP4
-               00142         extern _UEP5
-               00143         extern _UEP6
-               00144         extern _UEP7
-               00145         extern _UEP8
-               00146         extern _UEP9
-               00147         extern _UEP10
-               00148         extern _UEP11
-               00149         extern _UEP12
-               00150         extern _UEP13
-               00151         extern _UEP14
-               00152         extern _UEP15
-               00153         extern _PORTA
-               00154         extern _PORTB
-               00155         extern _PORTC
-               00156         extern _PORTD
-               00157         extern _PORTE
-               00158         extern _LATA
-               00159         extern _LATB
-               00160         extern _LATC
-               00161         extern _LATD
-               00162         extern _LATE
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  4
+               00109         extern _usb_active_cfg
+               00110         extern _usb_active_alt_setting
+               00111         extern _device_descriptor
+               00112         extern _configuration_descriptor
+               00113         extern _string_descriptor
+               00114         extern _ep_init
+               00115         extern _ep_in
+               00116         extern _ep_out
+               00117         extern _ep_setup
+               00118         extern _SPPDATA
+               00119         extern _SPPCFG
+               00120         extern _SPPEPS
+               00121         extern _SPPCON
+               00122         extern _UFRML
+               00123         extern _UFRMH
+               00124         extern _UIR
+               00125         extern _UIE
+               00126         extern _UEIR
+               00127         extern _UEIE
+               00128         extern _USTAT
+               00129         extern _UCON
+               00130         extern _UADDR
+               00131         extern _UCFG
+               00132         extern _UEP0
+               00133         extern _UEP1
+               00134         extern _UEP2
+               00135         extern _UEP3
+               00136         extern _UEP4
+               00137         extern _UEP5
+               00138         extern _UEP6
+               00139         extern _UEP7
+               00140         extern _UEP8
+               00141         extern _UEP9
+               00142         extern _UEP10
+               00143         extern _UEP11
+               00144         extern _UEP12
+               00145         extern _UEP13
+               00146         extern _UEP14
+               00147         extern _UEP15
+               00148         extern _PORTA
+               00149         extern _PORTB
+               00150         extern _PORTC
+               00151         extern _PORTE
+               00152         extern _LATA
+               00153         extern _LATB
+               00154         extern _LATC
+               00155         extern _TRISA
+               00156         extern _TRISB
+               00157         extern _TRISC
+               00158         extern _OSCTUNE
+               00159         extern _PIE1
+               00160         extern _PIR1
+               00161         extern _IPR1
+               00162         extern _PIE2
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-               00163         extern _TRISA
-               00164         extern _TRISB
-               00165         extern _TRISC
-               00166         extern _TRISD
-               00167         extern _TRISE
-               00168         extern _OSCTUNE
-               00169         extern _PIE1
-               00170         extern _PIR1
-               00171         extern _IPR1
-               00172         extern _PIE2
-               00173         extern _PIR2
-               00174         extern _IPR2
-               00175         extern _EECON1
-               00176         extern _EECON2
-               00177         extern _EEDATA
-               00178         extern _EEADR
-               00179         extern _RCSTA
-               00180         extern _TXSTA
-               00181         extern _TXREG
-               00182         extern _RCREG
-               00183         extern _SPBRG
-               00184         extern _SPBRGH
-               00185         extern _T3CON
-               00186         extern _TMR3L
-               00187         extern _TMR3H
-               00188         extern _CMCON
-               00189         extern _CVRCON
-               00190         extern _ECCP1AS
-               00191         extern _ECCP1DEL
-               00192         extern _BAUDCON
-               00193         extern _CCP2CON
-               00194         extern _CCPR2L
-               00195         extern _CCPR2H
-               00196         extern _CCP1CON
-               00197         extern _CCPR1L
-               00198         extern _CCPR1H
-               00199         extern _ADCON2
-               00200         extern _ADCON1
-               00201         extern _ADCON0
-               00202         extern _ADRESL
-               00203         extern _ADRESH
-               00204         extern _SSPCON2
-               00205         extern _SSPCON1
-               00206         extern _SSPSTAT
-               00207         extern _SSPADD
-               00208         extern _SSPBUF
-               00209         extern _T2CON
-               00210         extern _PR2
-               00211         extern _TMR2
-               00212         extern _T1CON
-               00213         extern _TMR1L
-               00214         extern _TMR1H
-               00215         extern _RCON
-               00216         extern _WDTCON
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  5
+               00163         extern _PIR2
+               00164         extern _IPR2
+               00165         extern _EECON1
+               00166         extern _EECON2
+               00167         extern _EEDATA
+               00168         extern _EEADR
+               00169         extern _RCSTA
+               00170         extern _TXSTA
+               00171         extern _TXREG
+               00172         extern _RCREG
+               00173         extern _SPBRG
+               00174         extern _SPBRGH
+               00175         extern _T3CON
+               00176         extern _TMR3L
+               00177         extern _TMR3H
+               00178         extern _CMCON
+               00179         extern _CVRCON
+               00180         extern _ECCP1AS
+               00181         extern _ECCP1DEL
+               00182         extern _BAUDCON
+               00183         extern _CCP2CON
+               00184         extern _CCPR2L
+               00185         extern _CCPR2H
+               00186         extern _CCP1CON
+               00187         extern _CCPR1L
+               00188         extern _CCPR1H
+               00189         extern _ADCON2
+               00190         extern _ADCON1
+               00191         extern _ADCON0
+               00192         extern _ADRESL
+               00193         extern _ADRESH
+               00194         extern _SSPCON2
+               00195         extern _SSPCON1
+               00196         extern _SSPSTAT
+               00197         extern _SSPADD
+               00198         extern _SSPBUF
+               00199         extern _T2CON
+               00200         extern _PR2
+               00201         extern _TMR2
+               00202         extern _T1CON
+               00203         extern _TMR1L
+               00204         extern _TMR1H
+               00205         extern _RCON
+               00206         extern _WDTCON
+               00207         extern _HLVDCON
+               00208         extern _OSCCON
+               00209         extern _T0CON
+               00210         extern _TMR0L
+               00211         extern _TMR0H
+               00212         extern _STATUS
+               00213         extern _FSR2L
+               00214         extern _FSR2H
+               00215         extern _PLUSW2
+               00216         extern _PREINC2
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-               00217         extern _HLVDCON
-               00218         extern _OSCCON
-               00219         extern _T0CON
-               00220         extern _TMR0L
-               00221         extern _TMR0H
-               00222         extern _STATUS
-               00223         extern _FSR2L
-               00224         extern _FSR2H
-               00225         extern _PLUSW2
-               00226         extern _PREINC2
-               00227         extern _POSTDEC2
-               00228         extern _POSTINC2
-               00229         extern _INDF2
-               00230         extern _BSR
-               00231         extern _FSR1L
-               00232         extern _FSR1H
-               00233         extern _PLUSW1
-               00234         extern _PREINC1
-               00235         extern _POSTDEC1
-               00236         extern _POSTINC1
-               00237         extern _INDF1
-               00238         extern _WREG
-               00239         extern _FSR0L
-               00240         extern _FSR0H
-               00241         extern _PLUSW0
-               00242         extern _PREINC0
-               00243         extern _POSTDEC0
-               00244         extern _POSTINC0
-               00245         extern _INDF0
-               00246         extern _INTCON3
-               00247         extern _INTCON2
-               00248         extern _INTCON
-               00249         extern _PRODL
-               00250         extern _PRODH
-               00251         extern _TABLAT
-               00252         extern _TBLPTRL
-               00253         extern _TBLPTRH
-               00254         extern _TBLPTRU
-               00255         extern _PCL
-               00256         extern _PCLATH
-               00257         extern _PCLATU
-               00258         extern _STKPTR
-               00259         extern _TOSL
-               00260         extern _TOSH
-               00261         extern _TOSU
-               00262         extern _init_usb
-               00263         extern _usb_sleep
-               00264         extern _dispatch_usb_event
-               00265         extern _section_descriptor
-               00266         extern _boot_device_descriptor
-               00267         extern _boot_configuration_descriptor
-               00268         extern _boot_string_descriptor
-               00269         extern _str0
-               00270         extern _str1
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  6
+               00217         extern _POSTDEC2
+               00218         extern _POSTINC2
+               00219         extern _INDF2
+               00220         extern _BSR
+               00221         extern _FSR1L
+               00222         extern _FSR1H
+               00223         extern _PLUSW1
+               00224         extern _PREINC1
+               00225         extern _POSTDEC1
+               00226         extern _POSTINC1
+               00227         extern _INDF1
+               00228         extern _WREG
+               00229         extern _FSR0L
+               00230         extern _FSR0H
+               00231         extern _PLUSW0
+               00232         extern _PREINC0
+               00233         extern _POSTDEC0
+               00234         extern _POSTINC0
+               00235         extern _INDF0
+               00236         extern _INTCON3
+               00237         extern _INTCON2
+               00238         extern _INTCON
+               00239         extern _PRODL
+               00240         extern _PRODH
+               00241         extern _TABLAT
+               00242         extern _TBLPTRL
+               00243         extern _TBLPTRH
+               00244         extern _TBLPTRU
+               00245         extern _PCL
+               00246         extern _PCLATH
+               00247         extern _PCLATU
+               00248         extern _STKPTR
+               00249         extern _TOSL
+               00250         extern _TOSH
+               00251         extern _TOSU
+               00252         extern _init_usb
+               00253         extern _usb_sleep
+               00254         extern _dispatch_usb_event
+               00255         extern _section_descriptor
+               00256         extern _boot_device_descriptor
+               00257         extern _boot_configuration_descriptor
+               00258         extern _boot_string_descriptor
+               00259         extern _str0
+               00260         extern _str1
+               00261         extern _str2
+               00262         extern _str3
+               00263         extern _boot_ep_init
+               00264         extern _boot_ep_in
+               00265         extern _boot_ep_out
+               00266         extern _boot_ep_setup
+               00267         extern _application_data
+               00268 ;--------------------------------------------------------
+               00269 ;       Equates to used internal registers
+               00270 ;--------------------------------------------------------
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-               00271         extern _str2
-               00272         extern _str3
-               00273         extern _boot_ep_init
-               00274         extern _boot_ep_in
-               00275         extern _boot_ep_out
-               00276         extern _boot_ep_setup
-               00277         extern _application_data
-               00278 ;--------------------------------------------------------
-               00279 ;       Equates to used internal registers
-               00280 ;--------------------------------------------------------
-  00000FD8     00281 STATUS  equ     0xfd8
-  00000FF9     00282 PCL     equ     0xff9
-  00000FFA     00283 PCLATH  equ     0xffa
-  00000FFB     00284 PCLATU  equ     0xffb
-  00000FF2     00285 INTCON  equ     0xff2
-  00000FFD     00286 TOSL    equ     0xffd
-  00000FFE     00287 TOSH    equ     0xffe
-  00000FFF     00288 TOSU    equ     0xfff
-  00000FF6     00289 TBLPTRL equ     0xff6
-  00000FF7     00290 TBLPTRH equ     0xff7
-  00000FF8     00291 TBLPTRU equ     0xff8
-  00000FF5     00292 TABLAT  equ     0xff5
-  00000FE1     00293 FSR1L   equ     0xfe1
-  00000FD9     00294 FSR2L   equ     0xfd9
-  00000FE5     00295 POSTDEC1        equ     0xfe5
-  00000FE4     00296 PREINC1 equ     0xfe4
+  00000FD8     00271 STATUS  equ     0xfd8
+  00000FF9     00272 PCL     equ     0xff9
+  00000FFA     00273 PCLATH  equ     0xffa
+  00000FFB     00274 PCLATU  equ     0xffb
+  00000FF2     00275 INTCON  equ     0xff2
+  00000FFD     00276 TOSL    equ     0xffd
+  00000FFE     00277 TOSH    equ     0xffe
+  00000FFF     00278 TOSU    equ     0xfff
+  00000FF6     00279 TBLPTRL equ     0xff6
+  00000FF7     00280 TBLPTRH equ     0xff7
+  00000FF8     00281 TBLPTRU equ     0xff8
+  00000FF5     00282 TABLAT  equ     0xff5
+  00000FE1     00283 FSR1L   equ     0xfe1
+  00000FD9     00284 FSR2L   equ     0xfd9
+  00000FE5     00285 POSTDEC1        equ     0xfe5
+  00000FE4     00286 PREINC1 equ     0xfe4
+               00287 
+               00288 
+               00289 ; Internal registers
+               00290 .registers      udata_ovr       0x0000
+               00291 r0x00   res     1
+               00292 r0x01   res     1
+               00293 r0x02   res     1
+               00294 
+               00295 udata_boot_main_0       udata
+               00296 _init_boot_count_1_1    res     4
                00297 
                00298 
-               00299 ; Internal registers
-               00300 .registers      udata_ovr       0x0000
-               00301 r0x00   res     1
-               00302 r0x01   res     1
-               00303 r0x02   res     1
-               00304 
-               00305 udata_boot_main_0       udata
-               00306 _init_boot_count_1_1    res     4
-               00307 
-               00308 
-               00309 ustat_boot_main_00      udata   0X0200
-               00310 _stack  res     254
-               00311 _stack_end      res     1
-               00312 
-               00313 ;--------------------------------------------------------
-               00314 ; interrupt vector 
-               00315 ;--------------------------------------------------------
-               00316 
-               00317 ;--------------------------------------------------------
-               00318 ; global & static initialisations
-               00319 ;--------------------------------------------------------
-               00320 ; I code from now on!
-               00321 ; ; Starting pCode block
-               00322 S_boot_main__main       code
-0000           00323 _main:
-               00324 ;       .line   84; boot_main.c init_boot();
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  7
+               00299 ustat_boot_main_00      udata   0X0200
+               00300 _stack  res     254
+               00301 _stack_end      res     1
+               00302 
+               00303 ;--------------------------------------------------------
+               00304 ; interrupt vector 
+               00305 ;--------------------------------------------------------
+               00306 
+               00307 ;--------------------------------------------------------
+               00308 ; global & static initialisations
+               00309 ;--------------------------------------------------------
+               00310 ; I code from now on!
+               00311 ; ; Starting pCode block
+               00312 S_boot_main__main       code
+0000           00313 _main:
+               00314 ;       .line   86; boot_main.c init_boot();
+0000 EC00 F000 00315         CALL    _init_boot
+               00316 ;       .line   88; boot_main.c init_usb();
+0004 EC00 F000 00317         CALL    _init_usb
+0008           00318 _00119_DS_:
+               00319 ;       .line   92; boot_main.c usb_sleep();
+0008 EC00 F000 00320         CALL    _usb_sleep
+               00321 ;       .line   93; boot_main.c dispatch_usb_event();
+000C EC00 F000 00322         CALL    _dispatch_usb_event
+               00323 ;       .line   94; boot_main.c if((application_data.invalid == 0) &&
+0010 0E00      00324         MOVLW   LOW(_application_data)
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-0000 EC00 F000 00325         CALL    _init_boot
-               00326 ;       .line   86; boot_main.c init_usb();
-0004 EC00 F000 00327         CALL    _init_usb
-0008           00328 _00119_DS_:
-               00329 ;       .line   90; boot_main.c usb_sleep();
-0008 EC00 F000 00330         CALL    _usb_sleep
-               00331 ;       .line   91; boot_main.c dispatch_usb_event();
-000C EC00 F000 00332         CALL    _dispatch_usb_event
-               00333 ;       .line   92; boot_main.c if((application_data.invalid == 0) &&
-0010 0E00      00334         MOVLW   LOW(_application_data)
-0012 6EF6      00335         MOVWF   TBLPTRL
-0014 0E00      00336         MOVLW   HIGH(_application_data)
-0016 6EF7      00337         MOVWF   TBLPTRH
-0018 0E00      00338         MOVLW   UPPER(_application_data)
-001A 6EF8      00339         MOVWF   TBLPTRU
-001C 0009      00340         TBLRD*+ 
-001E CFF5 F000 00341         MOVFF   TABLAT, r0x00
-0022 5000      00342         MOVF    r0x00, W
-0024 A4D8      00343         BTFSS   STATUS, 2
-0026 EF00 F000 00344         GOTO    _00119_DS_
-               00345 ;       .line   93; boot_main.c (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
-002A 0E03      00346         MOVLW   0x03
-002C 5C00      00347         SUBWF   _usb_active_cfg, W
-002E A0D8      00348         BTFSS   STATUS, 0
-0030 EF00 F000 00349         GOTO    _00119_DS_
-               00350 ;       .line   96; boot_main.c application_data.main();
-0034 0E00      00351         MOVLW   LOW(_application_data + 22)
-0036 6EF6      00352         MOVWF   TBLPTRL
-0038 0E00      00353         MOVLW   HIGH(_application_data + 22)
-003A 6EF7      00354         MOVWF   TBLPTRH
-003C 0E00      00355         MOVLW   UPPER(_application_data + 22)
-003E 6EF8      00356         MOVWF   TBLPTRU
-0040 0009      00357         TBLRD*+ 
-0042 CFF5 F000 00358         MOVFF   TABLAT, r0x00
-0046 0009      00359         TBLRD*+ 
-0048 CFF5 F000 00360         MOVFF   TABLAT, r0x01
-004C 0009      00361         TBLRD*+ 
-004E CFF5 F000 00362         MOVFF   TABLAT, r0x02
-0052 CFF2 FFE5 00363         MOVFF   INTCON, POSTDEC1
-0056 9EF2      00364         BCF     INTCON, 7
-0058 0005      00365         PUSH    
-005A 0E00      00366         MOVLW   LOW(_00127_DS_)
-005C 6EFD      00367         MOVWF   TOSL
-005E 0E00      00368         MOVLW   HIGH(_00127_DS_)
-0060 6EFE      00369         MOVWF   TOSH
-0062 0E00      00370         MOVLW   UPPER(_00127_DS_)
-0064 6EFF      00371         MOVWF   TOSU
-0066 50E4      00372         MOVF    PREINC1, W
-0068 6EF2      00373         MOVWF   INTCON
-006A C000 FFFB 00374         MOVFF   r0x02, PCLATU
-006E C000 FFFA 00375         MOVFF   r0x01, PCLATH
-0072 5000      00376         MOVF    r0x00, W
-0074 6EF9      00377         MOVWF   PCL
-0076           00378 _00127_DS_:
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  8
+0012 6EF6      00325         MOVWF   TBLPTRL
+0014 0E00      00326         MOVLW   HIGH(_application_data)
+0016 6EF7      00327         MOVWF   TBLPTRH
+0018 0E00      00328         MOVLW   UPPER(_application_data)
+001A 6EF8      00329         MOVWF   TBLPTRU
+001C 0009      00330         TBLRD*+ 
+001E CFF5 F000 00331         MOVFF   TABLAT, r0x00
+0022 5000      00332         MOVF    r0x00, W
+0024 E100      00333         BNZ     _00119_DS_
+               00334 ;       .line   95; boot_main.c (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
+0026 0E03      00335         MOVLW   0x03
+0028 5C00      00336         SUBWF   _usb_active_cfg, W
+002A E300      00337         BNC     _00119_DS_
+               00338 ;       .line   98; boot_main.c application_data.main();
+002C 0E00      00339         MOVLW   LOW(_application_data + 22)
+002E 6EF6      00340         MOVWF   TBLPTRL
+0030 0E00      00341         MOVLW   HIGH(_application_data + 22)
+0032 6EF7      00342         MOVWF   TBLPTRH
+0034 0E00      00343         MOVLW   UPPER(_application_data + 22)
+0036 6EF8      00344         MOVWF   TBLPTRU
+0038 0009      00345         TBLRD*+ 
+003A CFF5 F000 00346         MOVFF   TABLAT, r0x00
+003E 0009      00347         TBLRD*+ 
+0040 CFF5 F000 00348         MOVFF   TABLAT, r0x01
+0044 0009      00349         TBLRD*+ 
+0046 CFF5 F000 00350         MOVFF   TABLAT, r0x02
+004A CFF2 FFE5 00351         MOVFF   INTCON, POSTDEC1
+004E 9EF2      00352         BCF     INTCON, 7
+0050 0005      00353         PUSH    
+0052 0E00      00354         MOVLW   LOW(_00127_DS_)
+0054 6EFD      00355         MOVWF   TOSL
+0056 0E00      00356         MOVLW   HIGH(_00127_DS_)
+0058 6EFE      00357         MOVWF   TOSH
+005A 0E00      00358         MOVLW   UPPER(_00127_DS_)
+005C 6EFF      00359         MOVWF   TOSU
+005E 50E4      00360         MOVF    PREINC1, W
+0060 6EF2      00361         MOVWF   INTCON
+0062 C000 FFFB 00362         MOVFF   r0x02, PCLATU
+0066 C000 FFFA 00363         MOVFF   r0x01, PCLATH
+006A 5000      00364         MOVF    r0x00, W
+006C 6EF9      00365         MOVWF   PCL
+006E           00366 _00127_DS_:
+               00367 ;       .line   100; boot_main.c        INTCON = 0; // Forbid interrupts
+006E 6A00      00368         CLRF    _INTCON
+0070 D000      00369         BRA     _00119_DS_
+0072 0012      00370         RETURN  
+               00371 
+               00372 ; ; Starting pCode block
+               00373 S_boot_main__init_boot  code
+0000           00374 _init_boot:
+               00375 ;       .line   34; boot_main.c void init_boot(void)
+0000 C000 FFE5 00376         MOVFF   r0x00, POSTDEC1
+               00377 ;       .line   38; boot_main.c ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
+0004 0E0F      00378         MOVLW   0x0f
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-               00379 ;       .line   98; boot_main.c INTCON = 0; // Forbid interrupts
-0076 6A00      00380         CLRF    _INTCON
-0078 EF00 F000 00381         GOTO    _00119_DS_
-007C 0012      00382         RETURN  
-               00383 
-               00384 ; ; Starting pCode block
-               00385 S_boot_main__init_boot  code
-0000           00386 _init_boot:
-               00387 ;       .line   34; boot_main.c void init_boot(void)
-0000 CFD9 FFE5 00388         MOVFF   FSR2L, POSTDEC1
-0004 CFE1 FFD9 00389         MOVFF   FSR1L, FSR2L
-0008 C000 FFE5 00390         MOVFF   r0x00, POSTDEC1
-               00391 ;       .line   38; boot_main.c ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
-000C 0E0F      00392         MOVLW   0x0f
-000E 6E00      00393         MOVWF   _ADCON1
-               00394 ;       .line   39; boot_main.c CMCON  = 0x07;       //Comparator channels off (digital)
-0010 0E07      00395         MOVLW   0x07
-0012 6E00      00396         MOVWF   _CMCON
-               00397 ;       .line   40; boot_main.c TRISA  = 0xFE;       //
-0014 0EFE      00398         MOVLW   0xfe
-0016 6E00      00399         MOVWF   _TRISA
-               00400 ;       .line   41; boot_main.c PORTA  = 0x01;
-0018 0E01      00401         MOVLW   0x01
-001A 6E00      00402         MOVWF   _PORTA
-               00403 ;       .line   42; boot_main.c INTCON2bits.RBPU=0;
-001C 9E00      00404         BCF     _INTCON2bits, 7
-001E 0000      00405         BANKSEL _init_boot_count_1_1
-               00406 ;       .line   43; boot_main.c count = 0x80000;
-0020 6B00      00407         CLRF    _init_boot_count_1_1, B
-0022 0000      00408         BANKSEL (_init_boot_count_1_1 + 1)
-0024 6B00      00409         CLRF    (_init_boot_count_1_1 + 1), B
-0026 0E08      00410         MOVLW   0x08
-0028 0000      00411         BANKSEL (_init_boot_count_1_1 + 2)
-002A 6F00      00412         MOVWF   (_init_boot_count_1_1 + 2), B
-002C 0000      00413         BANKSEL (_init_boot_count_1_1 + 3)
-002E 6B00      00414         CLRF    (_init_boot_count_1_1 + 3), B
-0030           00415 _00105_DS_:
-0030 0000      00416         BANKSEL _init_boot_count_1_1
-               00417 ;       .line   44; boot_main.c while(count)
-0032 5100      00418         MOVF    _init_boot_count_1_1, W, B
-0034 0000      00419         BANKSEL (_init_boot_count_1_1 + 1)
-0036 1100      00420         IORWF   (_init_boot_count_1_1 + 1), W, B
-0038 0000      00421         BANKSEL (_init_boot_count_1_1 + 2)
-003A 1100      00422         IORWF   (_init_boot_count_1_1 + 2), W, B
-003C 0000      00423         BANKSEL (_init_boot_count_1_1 + 3)
-003E 1100      00424         IORWF   (_init_boot_count_1_1 + 3), W, B
-0040 B4D8      00425         BTFSC   STATUS, 2
-0042 EF00 F000 00426         GOTO    _00107_DS_
-               00427 ;       .line   46; boot_main.c count--;
-0046 0EFF      00428         MOVLW   0xff
-0048 0000      00429         BANKSEL _init_boot_count_1_1
-004A 2700      00430         ADDWF   _init_boot_count_1_1, F, B
-004C 0EFF      00431         MOVLW   0xff
-004E 0000      00432         BANKSEL (_init_boot_count_1_1 + 1)
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE  9
+0006 6E00      00379         MOVWF   _ADCON1
+               00380 ;       .line   39; boot_main.c CMCON  = 0x07;       //Comparator channels off (digital)
+0008 0E07      00381         MOVLW   0x07
+000A 6E00      00382         MOVWF   _CMCON
+               00383 ;       .line   40; boot_main.c TRISA  = 0xFF;       //
+000C 6800      00384         SETF    _TRISA
+               00385 ;       .line   41; boot_main.c PORTA  = 0x01;
+000E 0E01      00386         MOVLW   0x01
+0010 6E00      00387         MOVWF   _PORTA
+               00388 ; #     MOVLW   0xf8
+               00389 ; #     MOVWF   _TRISC
+               00390 ; #     MOVLW   0xf8
+               00391 ; ;     peep 5 - Removed redundant move
+               00392 ;       .line   42; boot_main.c TRISC  = 0xF8;
+0012 0EF8      00393         MOVLW   0xf8
+               00394 ;       .line   43; boot_main.c PORTC  = 0xF8;
+0014 6E00      00395         MOVWF   _TRISC
+0016 6E00      00396         MOVWF   _PORTC
+               00397 ;       .line   44; boot_main.c INTCON2bits.RBPU=0;   //enable PORTB pull-up's
+0018 9E00      00398         BCF     _INTCON2bits, 7
+001A 0000      00399         BANKSEL _init_boot_count_1_1
+               00400 ;       .line   45; boot_main.c count = 0x80000;
+001C 6B00      00401         CLRF    _init_boot_count_1_1, B
+               00402 ; removed redundant BANKSEL
+001E 6B00      00403         CLRF    (_init_boot_count_1_1 + 1), B
+0020 0E08      00404         MOVLW   0x08
+               00405 ; removed redundant BANKSEL
+0022 6F00      00406         MOVWF   (_init_boot_count_1_1 + 2), B
+               00407 ; removed redundant BANKSEL
+0024 6B00      00408         CLRF    (_init_boot_count_1_1 + 3), B
+0026           00409 _00105_DS_:
+0026 0000      00410         BANKSEL _init_boot_count_1_1
+               00411 ;       .line   46; boot_main.c while(count)
+0028 5100      00412         MOVF    _init_boot_count_1_1, W, B
+               00413 ; removed redundant BANKSEL
+002A 1100      00414         IORWF   (_init_boot_count_1_1 + 1), W, B
+               00415 ; removed redundant BANKSEL
+002C 1100      00416         IORWF   (_init_boot_count_1_1 + 2), W, B
+               00417 ; removed redundant BANKSEL
+002E 1100      00418         IORWF   (_init_boot_count_1_1 + 3), W, B
+0030 E000      00419         BZ      _00107_DS_
+               00420 ;       .line   48; boot_main.c count--;
+0032 0EFF      00421         MOVLW   0xff
+               00422 ; removed redundant BANKSEL
+0034 2700      00423         ADDWF   _init_boot_count_1_1, F, B
+               00424 ; removed redundant BANKSEL
+0036 2300      00425         ADDWFC  (_init_boot_count_1_1 + 1), F, B
+               00426 ; removed redundant BANKSEL
+0038 2300      00427         ADDWFC  (_init_boot_count_1_1 + 2), F, B
+               00428 ; removed redundant BANKSEL
+003A 2300      00429         ADDWFC  (_init_boot_count_1_1 + 3), F, B
+003C D000      00430         BRA     _00105_DS_
+003E           00431 _00107_DS_:
+               00432 ;       .line   51; boot_main.c PORTA  = 0x00;
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-0050 2300      00433         ADDWFC  (_init_boot_count_1_1 + 1), F, B
-0052 0EFF      00434         MOVLW   0xff
-0054 0000      00435         BANKSEL (_init_boot_count_1_1 + 2)
-0056 2300      00436         ADDWFC  (_init_boot_count_1_1 + 2), F, B
-0058 0EFF      00437         MOVLW   0xff
-005A 0000      00438         BANKSEL (_init_boot_count_1_1 + 3)
-005C 2300      00439         ADDWFC  (_init_boot_count_1_1 + 3), F, B
-005E EF00 F000 00440         GOTO    _00105_DS_
-0062           00441 _00107_DS_:
-               00442 ;       .line   49; boot_main.c PORTA  = 0x00;
-0062 6A00      00443         CLRF    _PORTA
-               00444 ;       .line   52; boot_main.c if((application_data.invalid == 0) && !PORTAbits.RA1)
-0064 0E00      00445         MOVLW   LOW(_application_data)
-0066 6EF6      00446         MOVWF   TBLPTRL
-0068 0E00      00447         MOVLW   HIGH(_application_data)
-006A 6EF7      00448         MOVWF   TBLPTRH
-006C 0E00      00449         MOVLW   UPPER(_application_data)
-006E 6EF8      00450         MOVWF   TBLPTRU
-0070 0009      00451         TBLRD*+ 
-0072 CFF5 F000 00452         MOVFF   TABLAT, r0x00
-0076 5000      00453         MOVF    r0x00, W
-0078 A4D8      00454         BTFSS   STATUS, 2
-007A EF00 F000 00455         GOTO    _00109_DS_
-007E B200      00456         BTFSC   _PORTAbits, 1
-0080 EF00 F000 00457         GOTO    _00109_DS_
-               00458 ;       .line   56; boot_main.c device_descriptor        = application_data.device_descriptor;
-0084 0E00      00459         MOVLW   LOW(_application_data + 1)
-0086 6EF6      00460         MOVWF   TBLPTRL
-0088 0E00      00461         MOVLW   HIGH(_application_data + 1)
-008A 6EF7      00462         MOVWF   TBLPTRH
-008C 0E00      00463         MOVLW   UPPER(_application_data + 1)
-008E 6EF8      00464         MOVWF   TBLPTRU
-0090 0009      00465         TBLRD*+ 
-0092 CFF5 F000 00466         MOVFF   TABLAT, _device_descriptor
-0096 0009      00467         TBLRD*+ 
-0098 CFF5 F000 00468         MOVFF   TABLAT, (_device_descriptor + 1)
-009C 0009      00469         TBLRD*+ 
-009E CFF5 F000 00470         MOVFF   TABLAT, (_device_descriptor + 2)
-               00471 ;       .line   57; boot_main.c configuration_descriptor = application_data.configuration_descriptor;
-00A2 0E00      00472         MOVLW   LOW(_application_data + 4)
-00A4 6EF6      00473         MOVWF   TBLPTRL
-00A6 0E00      00474         MOVLW   HIGH(_application_data + 4)
-00A8 6EF7      00475         MOVWF   TBLPTRH
-00AA 0E00      00476         MOVLW   UPPER(_application_data + 4)
-00AC 6EF8      00477         MOVWF   TBLPTRU
-00AE 0009      00478         TBLRD*+ 
-00B0 CFF5 F000 00479         MOVFF   TABLAT, _configuration_descriptor
-00B4 0009      00480         TBLRD*+ 
-00B6 CFF5 F000 00481         MOVFF   TABLAT, (_configuration_descriptor + 1)
-00BA 0009      00482         TBLRD*+ 
-00BC CFF5 F000 00483         MOVFF   TABLAT, (_configuration_descriptor + 2)
-               00484 ;       .line   58; boot_main.c string_descriptor        = application_data.string_descriptor;
-00C0 0E00      00485         MOVLW   LOW(_application_data + 7)
-00C2 6EF6      00486         MOVWF   TBLPTRL
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 10
+003E 6A00      00433         CLRF    _PORTA
+               00434 ;       .line   54; boot_main.c if((application_data.invalid == 0) && !PORTBbits.RB6)
+0040 0E00      00435         MOVLW   LOW(_application_data)
+0042 6EF6      00436         MOVWF   TBLPTRL
+0044 0E00      00437         MOVLW   HIGH(_application_data)
+0046 6EF7      00438         MOVWF   TBLPTRH
+0048 0E00      00439         MOVLW   UPPER(_application_data)
+004A 6EF8      00440         MOVWF   TBLPTRU
+004C 0009      00441         TBLRD*+ 
+004E CFF5 F000 00442         MOVFF   TABLAT, r0x00
+0052 5000      00443         MOVF    r0x00, W
+0054 E100      00444         BNZ     _00109_DS_
+0056 BC00      00445         BTFSC   _PORTBbits, 6
+0058 D000      00446         BRA     _00109_DS_
+               00447 ;       .line   58; boot_main.c device_descriptor        = application_data.device_descriptor;
+005A 0E00      00448         MOVLW   LOW(_application_data + 1)
+005C 6EF6      00449         MOVWF   TBLPTRL
+005E 0E00      00450         MOVLW   HIGH(_application_data + 1)
+0060 6EF7      00451         MOVWF   TBLPTRH
+0062 0E00      00452         MOVLW   UPPER(_application_data + 1)
+0064 6EF8      00453         MOVWF   TBLPTRU
+0066 0009      00454         TBLRD*+ 
+0068 CFF5 F000 00455         MOVFF   TABLAT, _device_descriptor
+006C 0009      00456         TBLRD*+ 
+006E CFF5 F000 00457         MOVFF   TABLAT, (_device_descriptor + 1)
+0072 0009      00458         TBLRD*+ 
+0074 CFF5 F000 00459         MOVFF   TABLAT, (_device_descriptor + 2)
+               00460 ;       .line   59; boot_main.c configuration_descriptor = application_data.configuration_descriptor;
+0078 0E00      00461         MOVLW   LOW(_application_data + 4)
+007A 6EF6      00462         MOVWF   TBLPTRL
+007C 0E00      00463         MOVLW   HIGH(_application_data + 4)
+007E 6EF7      00464         MOVWF   TBLPTRH
+0080 0E00      00465         MOVLW   UPPER(_application_data + 4)
+0082 6EF8      00466         MOVWF   TBLPTRU
+0084 0009      00467         TBLRD*+ 
+0086 CFF5 F000 00468         MOVFF   TABLAT, _configuration_descriptor
+008A 0009      00469         TBLRD*+ 
+008C CFF5 F000 00470         MOVFF   TABLAT, (_configuration_descriptor + 1)
+0090 0009      00471         TBLRD*+ 
+0092 CFF5 F000 00472         MOVFF   TABLAT, (_configuration_descriptor + 2)
+               00473 ;       .line   60; boot_main.c string_descriptor        = application_data.string_descriptor;
+0096 0E00      00474         MOVLW   LOW(_application_data + 7)
+0098 6EF6      00475         MOVWF   TBLPTRL
+009A 0E00      00476         MOVLW   HIGH(_application_data + 7)
+009C 6EF7      00477         MOVWF   TBLPTRH
+009E 0E00      00478         MOVLW   UPPER(_application_data + 7)
+00A0 6EF8      00479         MOVWF   TBLPTRU
+00A2 0009      00480         TBLRD*+ 
+00A4 CFF5 F000 00481         MOVFF   TABLAT, _string_descriptor
+00A8 0009      00482         TBLRD*+ 
+00AA CFF5 F000 00483         MOVFF   TABLAT, (_string_descriptor + 1)
+00AE 0009      00484         TBLRD*+ 
+00B0 CFF5 F000 00485         MOVFF   TABLAT, (_string_descriptor + 2)
+00B4 D000      00486         BRA     _00110_DS_
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-00C4 0E00      00487         MOVLW   HIGH(_application_data + 7)
-00C6 6EF7      00488         MOVWF   TBLPTRH
-00C8 0E00      00489         MOVLW   UPPER(_application_data + 7)
-00CA 6EF8      00490         MOVWF   TBLPTRU
-00CC 0009      00491         TBLRD*+ 
-00CE CFF5 F000 00492         MOVFF   TABLAT, _string_descriptor
-00D2 0009      00493         TBLRD*+ 
-00D4 CFF5 F000 00494         MOVFF   TABLAT, (_string_descriptor + 1)
-00D8 0009      00495         TBLRD*+ 
-00DA CFF5 F000 00496         MOVFF   TABLAT, (_string_descriptor + 2)
-00DE EF00 F000 00497         GOTO    _00110_DS_
-00E2           00498 _00109_DS_:
-               00499 ;       .line   64; boot_main.c device_descriptor        = &boot_device_descriptor;
-00E2 0E00      00500         MOVLW   LOW(_boot_device_descriptor)
-00E4 0000      00501         BANKSEL _device_descriptor
-00E6 6F00      00502         MOVWF   _device_descriptor, B
-00E8 0E00      00503         MOVLW   HIGH(_boot_device_descriptor)
-00EA 0000      00504         BANKSEL (_device_descriptor + 1)
-00EC 6F00      00505         MOVWF   (_device_descriptor + 1), B
-00EE 0E00      00506         MOVLW   UPPER(_boot_device_descriptor)
-00F0 0000      00507         BANKSEL (_device_descriptor + 2)
-00F2 6F00      00508         MOVWF   (_device_descriptor + 2), B
-               00509 ;       .line   65; boot_main.c configuration_descriptor = boot_configuration_descriptor;
-00F4 0E00      00510         MOVLW   LOW(_boot_configuration_descriptor)
-00F6 0000      00511         BANKSEL _configuration_descriptor
-00F8 6F00      00512         MOVWF   _configuration_descriptor, B
-00FA 0E00      00513         MOVLW   HIGH(_boot_configuration_descriptor)
-00FC 0000      00514         BANKSEL (_configuration_descriptor + 1)
-00FE 6F00      00515         MOVWF   (_configuration_descriptor + 1), B
-0100 0E00      00516         MOVLW   UPPER(_boot_configuration_descriptor)
-0102 0000      00517         BANKSEL (_configuration_descriptor + 2)
-0104 6F00      00518         MOVWF   (_configuration_descriptor + 2), B
-               00519 ;       .line   66; boot_main.c string_descriptor        = boot_string_descriptor;
-0106 0E00      00520         MOVLW   LOW(_boot_string_descriptor)
-0108 0000      00521         BANKSEL _string_descriptor
-010A 6F00      00522         MOVWF   _string_descriptor, B
-010C 0E00      00523         MOVLW   HIGH(_boot_string_descriptor)
-010E 0000      00524         BANKSEL (_string_descriptor + 1)
-0110 6F00      00525         MOVWF   (_string_descriptor + 1), B
-0112 0E00      00526         MOVLW   UPPER(_boot_string_descriptor)
-0114 0000      00527         BANKSEL (_string_descriptor + 2)
-0116 6F00      00528         MOVWF   (_string_descriptor + 2), B
-0118           00529 _00110_DS_:
-               00530 ;       .line   73; boot_main.c ep_init  = boot_ep_init;
-0118 0E00      00531         MOVLW   LOW(_boot_ep_init)
-011A 0000      00532         BANKSEL _ep_init
-011C 6F00      00533         MOVWF   _ep_init, B
-011E 0E00      00534         MOVLW   HIGH(_boot_ep_init)
-0120 0000      00535         BANKSEL (_ep_init + 1)
-0122 6F00      00536         MOVWF   (_ep_init + 1), B
-0124 0E00      00537         MOVLW   UPPER(_boot_ep_init)
-0126 0000      00538         BANKSEL (_ep_init + 2)
-0128 6F00      00539         MOVWF   (_ep_init + 2), B
-               00540 ;       .line   74; boot_main.c ep_in    = boot_ep_in;
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 11
+00B6           00487 _00109_DS_:
+               00488 ;       .line   66; boot_main.c device_descriptor        = &boot_device_descriptor;
+00B6 0E00      00489         MOVLW   LOW(_boot_device_descriptor)
+00B8 0000      00490         BANKSEL _device_descriptor
+00BA 6F00      00491         MOVWF   _device_descriptor, B
+00BC 0E00      00492         MOVLW   HIGH(_boot_device_descriptor)
+               00493 ; removed redundant BANKSEL
+00BE 6F00      00494         MOVWF   (_device_descriptor + 1), B
+00C0 0E00      00495         MOVLW   UPPER(_boot_device_descriptor)
+               00496 ; removed redundant BANKSEL
+00C2 6F00      00497         MOVWF   (_device_descriptor + 2), B
+               00498 ;       .line   67; boot_main.c configuration_descriptor = boot_configuration_descriptor;
+00C4 0E00      00499         MOVLW   LOW(_boot_configuration_descriptor)
+00C6 0000      00500         BANKSEL _configuration_descriptor
+00C8 6F00      00501         MOVWF   _configuration_descriptor, B
+00CA 0E00      00502         MOVLW   HIGH(_boot_configuration_descriptor)
+               00503 ; removed redundant BANKSEL
+00CC 6F00      00504         MOVWF   (_configuration_descriptor + 1), B
+00CE 0E00      00505         MOVLW   UPPER(_boot_configuration_descriptor)
+               00506 ; removed redundant BANKSEL
+00D0 6F00      00507         MOVWF   (_configuration_descriptor + 2), B
+               00508 ;       .line   68; boot_main.c string_descriptor        = boot_string_descriptor;
+00D2 0E00      00509         MOVLW   LOW(_boot_string_descriptor)
+00D4 0000      00510         BANKSEL _string_descriptor
+00D6 6F00      00511         MOVWF   _string_descriptor, B
+00D8 0E00      00512         MOVLW   HIGH(_boot_string_descriptor)
+               00513 ; removed redundant BANKSEL
+00DA 6F00      00514         MOVWF   (_string_descriptor + 1), B
+00DC 0E00      00515         MOVLW   UPPER(_boot_string_descriptor)
+               00516 ; removed redundant BANKSEL
+00DE 6F00      00517         MOVWF   (_string_descriptor + 2), B
+00E0           00518 _00110_DS_:
+               00519 ;       .line   75; boot_main.c ep_init  = boot_ep_init;
+00E0 0E00      00520         MOVLW   LOW(_boot_ep_init)
+00E2 0000      00521         BANKSEL _ep_init
+00E4 6F00      00522         MOVWF   _ep_init, B
+00E6 0E00      00523         MOVLW   HIGH(_boot_ep_init)
+               00524 ; removed redundant BANKSEL
+00E8 6F00      00525         MOVWF   (_ep_init + 1), B
+00EA 0E00      00526         MOVLW   UPPER(_boot_ep_init)
+               00527 ; removed redundant BANKSEL
+00EC 6F00      00528         MOVWF   (_ep_init + 2), B
+               00529 ;       .line   76; boot_main.c ep_in    = boot_ep_in;
+00EE 0E00      00530         MOVLW   LOW(_boot_ep_in)
+00F0 0000      00531         BANKSEL _ep_in
+00F2 6F00      00532         MOVWF   _ep_in, B
+00F4 0E00      00533         MOVLW   HIGH(_boot_ep_in)
+               00534 ; removed redundant BANKSEL
+00F6 6F00      00535         MOVWF   (_ep_in + 1), B
+00F8 0E00      00536         MOVLW   UPPER(_boot_ep_in)
+               00537 ; removed redundant BANKSEL
+00FA 6F00      00538         MOVWF   (_ep_in + 2), B
+               00539 ;       .line   77; boot_main.c ep_out   = boot_ep_out;
+00FC 0E00      00540         MOVLW   LOW(_boot_ep_out)
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-012A 0E00      00541         MOVLW   LOW(_boot_ep_in)
-012C 0000      00542         BANKSEL _ep_in
-012E 6F00      00543         MOVWF   _ep_in, B
-0130 0E00      00544         MOVLW   HIGH(_boot_ep_in)
-0132 0000      00545         BANKSEL (_ep_in + 1)
-0134 6F00      00546         MOVWF   (_ep_in + 1), B
-0136 0E00      00547         MOVLW   UPPER(_boot_ep_in)
-0138 0000      00548         BANKSEL (_ep_in + 2)
-013A 6F00      00549         MOVWF   (_ep_in + 2), B
-               00550 ;       .line   75; boot_main.c ep_out   = boot_ep_out;
-013C 0E00      00551         MOVLW   LOW(_boot_ep_out)
-013E 0000      00552         BANKSEL _ep_out
-0140 6F00      00553         MOVWF   _ep_out, B
-0142 0E00      00554         MOVLW   HIGH(_boot_ep_out)
-0144 0000      00555         BANKSEL (_ep_out + 1)
-0146 6F00      00556         MOVWF   (_ep_out + 1), B
-0148 0E00      00557         MOVLW   UPPER(_boot_ep_out)
-014A 0000      00558         BANKSEL (_ep_out + 2)
-014C 6F00      00559         MOVWF   (_ep_out + 2), B
-               00560 ;       .line   76; boot_main.c ep_setup = boot_ep_setup;
-014E 0E00      00561         MOVLW   LOW(_boot_ep_setup)
-0150 0000      00562         BANKSEL _ep_setup
-0152 6F00      00563         MOVWF   _ep_setup, B
-0154 0E00      00564         MOVLW   HIGH(_boot_ep_setup)
-0156 0000      00565         BANKSEL (_ep_setup + 1)
-0158 6F00      00566         MOVWF   (_ep_setup + 1), B
-015A 0E00      00567         MOVLW   UPPER(_boot_ep_setup)
-015C 0000      00568         BANKSEL (_ep_setup + 2)
-015E 6F00      00569         MOVWF   (_ep_setup + 2), B
-0160 CFE4 F000 00570         MOVFF   PREINC1, r0x00
-0164 CFE4 FFD9 00571         MOVFF   PREINC1, FSR2L
-0168 0012      00572         RETURN  
-               00573 
-               00574 
-               00575 
-               00576 ; Statistics:
-               00577 ; code size:      488 (0x01e8) bytes ( 0.37%)
-               00578 ;                 244 (0x00f4) words
-               00579 ; udata size:     259 (0x0103) bytes (14.45%)
-               00580 ; access size:      3 (0x0003) bytes
-               00581 
-               00582 
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 12
+00FE 0000      00541         BANKSEL _ep_out
+0100 6F00      00542         MOVWF   _ep_out, B
+0102 0E00      00543         MOVLW   HIGH(_boot_ep_out)
+               00544 ; removed redundant BANKSEL
+0104 6F00      00545         MOVWF   (_ep_out + 1), B
+0106 0E00      00546         MOVLW   UPPER(_boot_ep_out)
+               00547 ; removed redundant BANKSEL
+0108 6F00      00548         MOVWF   (_ep_out + 2), B
+               00549 ;       .line   78; boot_main.c ep_setup = boot_ep_setup;
+010A 0E00      00550         MOVLW   LOW(_boot_ep_setup)
+010C 0000      00551         BANKSEL _ep_setup
+010E 6F00      00552         MOVWF   _ep_setup, B
+0110 0E00      00553         MOVLW   HIGH(_boot_ep_setup)
+               00554 ; removed redundant BANKSEL
+0112 6F00      00555         MOVWF   (_ep_setup + 1), B
+0114 0E00      00556         MOVLW   UPPER(_boot_ep_setup)
+               00557 ; removed redundant BANKSEL
+0116 6F00      00558         MOVWF   (_ep_setup + 2), B
+0118 CFE4 F000 00559         MOVFF   PREINC1, r0x00
+011C 0012      00560         RETURN  
+               00561 
+               00562 
+               00563 
+               00564 ; Statistics:
+               00565 ; code size:      402 (0x0192) bytes ( 0.31%)
+               00566 ;                 201 (0x00c9) words
+               00567 ; udata size:     259 (0x0103) bytes (14.45%)
+               00568 ; access size:      3 (0x0003) bytes
+               00569 
+               00570 
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 12
 
 
 SYMBOL TABLE
@@ -668,12 +656,12 @@ TBLPTRU                           00000FF8
 TOSH                              00000FFE
 TOSL                              00000FFD
 TOSU                              00000FFF
-_00105_DS_                        00000030
-_00107_DS_                        00000062
-_00109_DS_                        000000E2
-_00110_DS_                        00000118
+_00105_DS_                        00000026
+_00107_DS_                        0000003E
+_00109_DS_                        000000B6
+_00110_DS_                        000000E0
 _00119_DS_                        00000008
-_00127_DS_                        00000076
+_00127_DS_                        0000006E
 _ADCON0                           00000000
 _ADCON0bits                       00000000
 _ADCON1                           00000000
@@ -705,7 +693,7 @@ _ECCP1DELbits                     00000000
 _EEADR                            00000000
 _EECON1                           00000000
 _EECON1bits                       00000000
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 13
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -743,10 +731,6 @@ _LATB                             00000000
 _LATBbits                         00000000
 _LATC                             00000000
 _LATCbits                         00000000
-_LATD                             00000000
-_LATDbits                         00000000
-_LATE                             00000000
-_LATEbits                         00000000
 _OSCCON                           00000000
 _OSCCONbits                       00000000
 _OSCTUNE                          00000000
@@ -765,22 +749,20 @@ _PIR1bits                         00000000
 _PIR2                             00000000
 _PIR2bits                         00000000
 _PLUSW0                           00000000
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 14
+_PLUSW1                           00000000
+_PLUSW2                           00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
  
-_PLUSW1                           00000000
-_PLUSW2                           00000000
-_PORTA                            00000000
-_PORTAbits                        00000000
 _PORTB                            00000000
 _PORTBbits                        00000000
 _PORTC                            00000000
 _PORTCbits                        00000000
-_PORTD                            00000000
-_PORTDbits                        00000000
 _PORTE                            00000000
 _PORTEbits                        00000000
 _POSTDEC0                         00000000
@@ -825,18 +807,18 @@ _STKPTRbits                       00000000
 _T0CON                            00000000
 _T0CONbits                        00000000
 _T1CON                            00000000
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 15
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
- 
 _T1CONbits                        00000000
 _T2CON                            00000000
 _T2CONbits                        00000000
 _T3CON                            00000000
 _T3CONbits                        00000000
 _TABLAT                           00000000
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
 _TBLPTRH                          00000000
 _TBLPTRL                          00000000
 _TBLPTRU                          00000000
@@ -858,10 +840,6 @@ _TRISB                            00000000
 _TRISBbits                        00000000
 _TRISC                            00000000
 _TRISCbits                        00000000
-_TRISD                            00000000
-_TRISDbits                        00000000
-_TRISE                            00000000
-_TRISEbits                        00000000
 _TXREG                            00000000
 _TXSTA                            00000000
 _TXSTAbits                        00000000
@@ -885,12 +863,6 @@ _UEP11bits                        00000000
 _UEP12                            00000000
 _UEP12bits                        00000000
 _UEP13                            00000000
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 16
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
- 
 _UEP13bits                        00000000
 _UEP14                            00000000
 _UEP14bits                        00000000
@@ -901,6 +873,12 @@ _UEP2                             00000000
 _UEP2bits                         00000000
 _UEP3                             00000000
 _UEP3bits                         00000000
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
 _UEP4                             00000000
 _UEP4bits                         00000000
 _UEP5                             00000000
@@ -945,12 +923,6 @@ _ep_out                           00000000
 _ep_setup                         00000000
 _init_boot                        00000000
 _init_boot_count_1_1              00000000
-gpasm-0.13.4 beta               boot_main.asm6-21-2007  16:16:16          PAGE 17
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
- 
 _init_usb                         00000000
 _main                             00000000
 _section_descriptor               00000000
@@ -961,6 +933,12 @@ _str1                             00000000
 _str2                             00000000
 _str3                             00000000
 _string_descriptor                00000000
+gpasm-0.13.4 beta               boot_main.asm6-22-2007  21:14:36          PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
 _usb_active_alt_setting           00000000
 _usb_active_cfg                   00000000
 _usb_device_state                 00000000

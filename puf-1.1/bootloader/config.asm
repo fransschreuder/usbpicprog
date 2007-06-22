@@ -1,12 +1,12 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 2.7.2 #4854 (Jun 17 2007)
-; This file generated Thu Jun 21 16:16:17 2007
+; File Created by SDCC : FreeWare ANSI-C Compiler
+; Version 2.6.0 #4309 (Nov 10 2006)
+; This file generated Fri Jun 22 21:14:36 2007
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
 	list	p=18f4550
-	__config 0x300000, 0xe0
+	__config 0x300000, 0xe1
 	__config 0x300001, 0x3e
 	__config 0x300002, 0xf8
 	__config 0x300003, 0xe0
@@ -62,18 +62,13 @@
 	extern _PORTAbits
 	extern _PORTBbits
 	extern _PORTCbits
-	extern _PORTDbits
 	extern _PORTEbits
 	extern _LATAbits
 	extern _LATBbits
 	extern _LATCbits
-	extern _LATDbits
-	extern _LATEbits
 	extern _TRISAbits
 	extern _TRISBbits
 	extern _TRISCbits
-	extern _TRISDbits
-	extern _TRISEbits
 	extern _OSCTUNEbits
 	extern _PIE1bits
 	extern _PIR1bits
@@ -153,18 +148,13 @@
 	extern _PORTA
 	extern _PORTB
 	extern _PORTC
-	extern _PORTD
 	extern _PORTE
 	extern _LATA
 	extern _LATB
 	extern _LATC
-	extern _LATD
-	extern _LATE
 	extern _TRISA
 	extern _TRISB
 	extern _TRISC
-	extern _TRISD
-	extern _TRISE
 	extern _OSCTUNE
 	extern _PIE1
 	extern _PIR1

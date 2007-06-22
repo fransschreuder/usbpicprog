@@ -1,0 +1,652 @@
+gplink-0.13.4 alpha
+Map File - Created 6-22-2007  21:14:36
+ 
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+           S_crt0___entry       code   00000000    program   0x000004
+S_interrupt_iface_ivec_0x1_high_priority_isr       code   0x000008    program   0x000004
+S_interrupt_iface_ivec_0x2_low_priority_isr       code   0x000018    program   0x000004
+S_boot_iface__boot_goto_table       code   0x00001c    program   0x00005e
+S_usb__dispatch_usb_event       code   0x00007a    program   0x000380
+                    .code       code   0x0003fa    program   0x0002be
+S_ep0__ep0_usb_std_request       code   0x0006b8    program   0x0002b6
+            S_ep0__ep0_in       code   0x00096e    program   0x0002ac
+           S_ep1__ep1_out       code   0x000c1a    program   0x000224
+      S_mullong___mullong       code   0x000e3e    program   0x000214
+    S_usb__fill_in_buffer       code   0x001052    program   0x000206
+         S_ep0__ep0_setup       code   0x001258    program   0x000180
+   S_boot_main__init_boot       code   0x0013d8    program   0x00011e
+         S_usb__reset_usb       code   0x0014f6    program   0x00010e
+            S_ep2__ep2_in       code   0x001604    program   0x0000da
+    S_ep2__prepare_ep2_in       code   0x0016de    program   0x0000ca
+        S_mulint___mulint       code   0x0017a8    program   0x0000a0
+        S_boot_main__main       code   0x001848    program   0x000074
+     S_flash__write_block       code   0x0018bc    program   0x00006a
+          S_ep0__ep0_init       code   0x001926    program   0x00004a
+    S_gptrget4___gptrget4       code   0x001970    program   0x000040
+    S_gptrget3___gptrget3       code   0x0019b0    program   0x000036
+          S_usb__init_usb       code   0x0019e6    program   0x00002c
+    S_gptrget2___gptrget2       code   0x001a12    program   0x00002c
+          S_ep1__ep1_init       code   0x001a3e    program   0x00002a
+     S_flash__erase_block       code   0x001a68    program   0x000022
+    S_gptrget1___gptrget1       code   0x001a8a    program   0x000022
+    S_gptrput3___gptrput3       code   0x001aac    program   0x00001c
+         S_usb__usb_sleep       code   0x001ac8    program   0x00001a
+          S_ep2__ep2_init       code   0x001ae2    program   0x000018
+    S_gptrput2___gptrput2       code   0x001afa    program   0x000018
+         S_crt0___startup       code   0x001b12    program   0x000014
+    S_gptrput1___gptrput1       code   0x001b26    program   0x000014
+S_usb_descriptors__null_function       code   0x001b3a    program   0x000002
+S_application_iface__application_data       code   0x002000    program   0x00001a
+S_interrupt_iface__high_priority_isr       code   0x002020    program   0x000056
+S_interrupt_iface__low_priority_isr       code   0x004000    program   0x000056
+                  .config       code   0x300000    program   0x00000e
+               .registers      udata   00000000       data   0x00000c
+             ustat_usb_00      udata   0x00005d       data   0x000003
+        udata_boot_main_0      udata   0x000060       data   0x000004
+          udata_mullong_0      udata   0x000064       data   0x000004
+          udata_mullong_1      udata   0x000068       data   0x000004
+          udata_mullong_2      udata   0x00006c       data   0x000004
+          udata_mullong_3      udata   0x000070       data   0x000004
+          udata_mullong_4      udata   0x000074       data   0x000004
+              udata_usb_0      udata   0x000078       data   0x000003
+              udata_usb_1      udata   0x00007b       data   0x000003
+              udata_usb_2      udata   0x00007e       data   0x000003
+              udata_usb_5      udata   0x000081       data   0x000003
+              udata_usb_6      udata   0x000084       data   0x000003
+              udata_usb_7      udata   0x000087       data   0x000003
+              udata_usb_8      udata   0x00008a       data   0x000003
+              udata_usb_9      udata   0x00008d       data   0x000003
+              udata_ep0_2      udata   0x000090       data   0x000003
+            udata_flash_1      udata   0x000093       data   0x000003
+              udata_usb_4      udata   0x000096       data   0x000002
+              udata_ep0_1      udata   0x000098       data   0x000002
+            udata_flash_0      udata   0x00009a       data   0x000002
+           udata_mulint_0      udata   0x00009c       data   0x000002
+           udata_mulint_1      udata   0x00009e       data   0x000002
+           udata_mulint_2      udata   0x0000a0       data   0x000002
+              udata_usb_3      udata   0x0000a2       data   0x000001
+              udata_ep0_0      udata   0x0000a3       data   0x000001
+              udata_ep0_3      udata   0x0000a4       data   0x000001
+              udata_ep0_4      udata   0x0000a5       data   0x000001
+              udata_ep0_5      udata   0x0000a6       data   0x000001
+              udata_ep1_0      udata   0x0000a7       data   0x000001
+              udata_ep2_0      udata   0x0000a8       data   0x000001
+            udata_flash_2      udata   0x0000a9       data   0x000001
+       ustat_boot_main_00      udata   0x000200       data   0x0000ff
+             ustat_usb_01      udata   0x000400       data   0x000080
+                  usb_buf      udata   0x000500       data   0x000090
+      ustat_pic18f4550_00      udata   0x000f62       data   0x000021
+      ustat_pic18f4550_01      udata   0x000f84       data   0x000001
+      ustat_pic18f4550_02      udata   0x000f89       data   0x000003
+      ustat_pic18f4550_03      udata   0x000f92       data   0x000003
+      ustat_pic18f4550_04      udata   0x000f9b       data   0x000001
+      ustat_pic18f4550_05      udata   0x000f9d       data   0x000006
+      ustat_pic18f4550_06      udata   0x000fa6       data   0x000004
+      ustat_pic18f4550_07      udata   0x000fab       data   0x00000e
+      ustat_pic18f4550_08      udata   0x000fba       data   0x00001a
+      ustat_pic18f4550_09      udata   0x000fd5       data   0x00002b
+ 
+                              Program Memory Usage
+                               Start         End
+                           ---------   ---------
+                            0x002000    0x002019
+                            0x001848    0x0018bb
+                            0x0013d8    0x0014f5
+                            0x00001c    0x000079
+                            0x001052    0x001257
+                            0x00007a    0x0003f9
+                            0x001ac8    0x001ae1
+                            0x0014f6    0x001603
+                            0x0019e6    0x001a11
+                            0x001b3a    0x001b3b
+                            0x0003fa    0x0006b7
+                            0x001258    0x0013d7
+                            0x00096e    0x000c19
+                            0x001926    0x00196f
+                            0x0006b8    0x00096d
+                            0x000c1a    0x000e3d
+                            0x001a3e    0x001a67
+                            0x001604    0x0016dd
+                            0x0016de    0x0017a7
+                            0x001ae2    0x001af9
+                            0x001a68    0x001a89
+                            0x0018bc    0x001925
+                            0x300000    0x30000d
+                            0x002020    0x002075
+                            0x000008    0x00000b
+                            0x004000    0x004055
+                            0x000018    0x00001b
+                            00000000    0x000003
+                            0x001b12    0x001b25
+                            0x000e3e    0x001051
+                            0x001b26    0x001b39
+                            0x001afa    0x001b11
+                            0x001aac    0x001ac7
+                            0x0017a8    0x001847
+                            0x001970    0x0019af
+                            0x001a8a    0x001aab
+                            0x001a12    0x001a3d
+                            0x0019b0    0x0019e5
+ 
+                            3584 program addresses used
+ 
+                              Symbols
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+        _application_data   0x002000    program     extern application_iface.asm
+                    r0x00   00000000       data     static boot_main.asm
+                    r0x01   0x000001       data     static boot_main.asm
+                    r0x02   0x000002       data     static boot_main.asm
+     _init_boot_count_1_1   0x000060       data     static boot_main.asm
+                   _stack   0x000200       data     extern boot_main.asm
+               _stack_end   0x0002fe       data     extern boot_main.asm
+                    _main   0x001848    program     extern boot_main.asm
+               _00119_DS_   0x001850    program     static boot_main.asm
+               _00127_DS_   0x0018b6    program     static boot_main.asm
+               _init_boot   0x0013d8    program     extern boot_main.asm
+               _00105_DS_   0x0013fe    program     static boot_main.asm
+               _00107_DS_   0x001416    program     static boot_main.asm
+               _00109_DS_   0x00148e    program     static boot_main.asm
+               _00110_DS_   0x0014b8    program     static boot_main.asm
+         _boot_goto_table   0x00001c    program     extern boot_iface.asm
+                    r0x00   00000000       data     static usb.asm
+                    r0x01   0x000001       data     static usb.asm
+                    r0x02   0x000002       data     static usb.asm
+                    r0x03   0x000003       data     static usb.asm
+                    r0x04   0x000004       data     static usb.asm
+                    r0x05   0x000005       data     static usb.asm
+                    r0x06   0x000006       data     static usb.asm
+                    r0x07   0x000007       data     static usb.asm
+                    r0x08   0x000008       data     static usb.asm
+                    r0x09   0x000009       data     static usb.asm
+                    r0x0a   0x00000a       data     static usb.asm
+                    r0x0b   0x00000b       data     static usb.asm
+       _device_descriptor   0x000078       data     extern usb.asm
+_configuration_descriptor   0x00007b       data     extern usb.asm
+       _string_descriptor   0x00007e       data     extern usb.asm
+         _reset_usb_i_1_1   0x0000a2       data     static usb.asm
+_fill_in_buffer_byte_to_send_1_1   0x000096       data     static usb.asm
+ _fill_in_buffer_dest_1_1   0x000081       data     static usb.asm
+                 _ep_init   0x000084       data     extern usb.asm
+                _ep_setup   0x000087       data     extern usb.asm
+                  _ep_out   0x00008a       data     extern usb.asm
+                   _ep_in   0x00008d       data     extern usb.asm
+  _usb_active_alt_setting   0x00005d       data     extern usb.asm
+          _usb_active_cfg   0x00005e       data     extern usb.asm
+        _usb_device_state   0x00005f       data     extern usb.asm
+                  _ep_bdt   0x000400       data     extern usb.asm
+          _fill_in_buffer   0x001052    program     extern usb.asm
+               _00206_DS_   0x0010de    program     static usb.asm
+               _00196_DS_   0x0010f0    program     static usb.asm
+               _00197_DS_   0x0010f8    program     static usb.asm
+               _00198_DS_   0x001184    program     static usb.asm
+               _10195_DS_   0x0011e4    program     static usb.asm
+               _20196_DS_   0x0011ec    program     static usb.asm
+               _30197_DS_   0x00121e    program     static usb.asm
+               _00201_DS_   0x001222    program     static usb.asm
+      _dispatch_usb_event   0x00007a    program     extern usb.asm
+               _00138_DS_   0x0000a8    program     static usb.asm
+               _00141_DS_   0x0000b8    program     static usb.asm
+               _00144_DS_   0x0000ca    program     static usb.asm
+               _00180_DS_   0x0000e6    program     static usb.asm
+               _00181_DS_   0x0000ea    program     static usb.asm
+               _00182_DS_   0x00015e    program     static usb.asm
+               _00147_DS_   0x000160    program     static usb.asm
+               _00149_DS_   0x000162    program     static usb.asm
+               _00184_DS_   0x0001c0    program     static usb.asm
+               _00185_DS_   0x0001c4    program     static usb.asm
+               _00186_DS_   0x00026e    program     static usb.asm
+               _00152_DS_   0x000272    program     static usb.asm
+               _00187_DS_   0x00031c    program     static usb.asm
+               _00157_DS_   0x000320    program     static usb.asm
+               _00188_DS_   0x000330    program     static usb.asm
+               _00189_DS_   0x000334    program     static usb.asm
+               _00190_DS_   0x0003de    program     static usb.asm
+               _00158_DS_   0x0003de    program     static usb.asm
+               _00163_DS_   0x0003e0    program     static usb.asm
+               _usb_sleep   0x001ac8    program     extern usb.asm
+               _00132_DS_   0x001adc    program     static usb.asm
+               _reset_usb   0x0014f6    program     extern usb.asm
+               _00110_DS_   0x00151c    program     static usb.asm
+               _00112_DS_   0x001528    program     static usb.asm
+               _00115_DS_   0x001558    program     static usb.asm
+               _00122_DS_   0x0015d6    program     static usb.asm
+                _init_usb   0x0019e6    program     extern usb.asm
+               _00105_DS_   0x0019f8    program     static usb.asm
+           _null_function   0x001b3a    program     extern usb_descriptors.asm
+  _boot_device_descriptor   0x0003fa    program     extern usb_descriptors.asm
+        _boot_default_cfg   0x00040c    program     extern usb_descriptors.asm
+          _boot_flash_cfg   0x00041e    program     extern usb_descriptors.asm
+_boot_configuration_descriptor   0x00043e    program     extern usb_descriptors.asm
+                    _str0   0x000444    program     extern usb_descriptors.asm
+                    _str1   0x000448    program     extern usb_descriptors.asm
+                    _str2   0x000464    program     extern usb_descriptors.asm
+                    _str3   0x000488    program     extern usb_descriptors.asm
+                    _str4   0x00048c    program     extern usb_descriptors.asm
+                    _str5   0x00049c    program     extern usb_descriptors.asm
+  _boot_string_descriptor   0x0004a8    program     extern usb_descriptors.asm
+       _boot_ep_init_cfg0   0x0004ba    program     static usb_descriptors.asm
+       _boot_ep_init_cfg1   0x0004ea    program     static usb_descriptors.asm
+            _boot_ep_init   0x00051a    program     extern usb_descriptors.asm
+         _boot_ep_in_cfg0   0x000524    program     static usb_descriptors.asm
+         _boot_ep_in_cfg1   0x000554    program     static usb_descriptors.asm
+              _boot_ep_in   0x000584    program     extern usb_descriptors.asm
+        _boot_ep_out_cfg0   0x00058e    program     static usb_descriptors.asm
+        _boot_ep_out_cfg1   0x0005be    program     static usb_descriptors.asm
+             _boot_ep_out   0x0005ee    program     extern usb_descriptors.asm
+       _boot_ep_setup_cfg   0x0005f8    program     static usb_descriptors.asm
+           _boot_ep_setup   0x000628    program     extern usb_descriptors.asm
+                    r0x00   00000000       data     static ep0.asm
+                    r0x01   0x000001       data     static ep0.asm
+                    r0x02   0x000002       data     static ep0.asm
+                    r0x03   0x000003       data     static ep0.asm
+                    r0x04   0x000004       data     static ep0.asm
+                    r0x05   0x000005       data     static ep0.asm
+             _SetupBuffer   0x000500       data     extern ep0.asm
+                _InBuffer   0x000508       data     extern ep0.asm
+               _ep0_state   0x0000a3       data     static ep0.asm
+    _num_bytes_to_be_send   0x000098       data     static ep0.asm
+              _sourceData   0x000090       data     static ep0.asm
+              _coming_cfg   0x0000a4       data     static ep0.asm
+_ep0_usb_std_request_unknown_request_1_1   0x0000a5       data     static ep0.asm
+           _ep0_in_i_3_17   0x0000a6       data     static ep0.asm
+               _ep0_setup   0x001258    program     extern ep0.asm
+               _00232_DS_   0x0012a6    program     static ep0.asm
+               _00233_DS_   0x0012aa    program     static ep0.asm
+               _00234_DS_   0x0012fe    program     static ep0.asm
+               _00220_DS_   0x001310    program     static ep0.asm
+               _00222_DS_   0x00135e    program     static ep0.asm
+               _00225_DS_   0x001392    program     static ep0.asm
+               _00227_DS_   0x0013ba    program     static ep0.asm
+                  _ep0_in   0x00096e    program     extern ep0.asm
+               _00207_DS_   0x000998    program     static ep0.asm
+               _00208_DS_   0x00099c    program     static ep0.asm
+               _00171_DS_   0x0009b4    program     static ep0.asm
+               _00174_DS_   0x0009b8    program     static ep0.asm
+               _00209_DS_   0x0009c4    program     static ep0.asm
+               _00210_DS_   0x0009c8    program     static ep0.asm
+               _00176_DS_   0x000a1e    program     static ep0.asm
+               _00179_DS_   0x000a28    program     static ep0.asm
+               _00180_DS_   0x000a2c    program     static ep0.asm
+               _00211_DS_   0x000a36    program     static ep0.asm
+               _00212_DS_   0x000a3a    program     static ep0.asm
+               _00182_DS_   0x000ab0    program     static ep0.asm
+               _00183_DS_   0x000b28    program     static ep0.asm
+               _00185_DS_   0x000b3e    program     static ep0.asm
+               _00189_DS_   0x000b44    program     static ep0.asm
+               _00195_DS_   0x000b56    program     static ep0.asm
+               _00196_DS_   0x000b58    program     static ep0.asm
+               _00214_DS_   0x000bf0    program     static ep0.asm
+               _00192_DS_   0x000bf8    program     static ep0.asm
+               _00193_DS_   0x000bfc    program     static ep0.asm
+                _ep0_init   0x001926    program     extern ep0.asm
+     _ep0_usb_std_request   0x0006b8    program     extern ep0.asm
+               _00106_DS_   0x0006ea    program     static ep0.asm
+               _00142_DS_   0x0006fa    program     static ep0.asm
+               _00144_DS_   0x000704    program     static ep0.asm
+               _00146_DS_   0x00070e    program     static ep0.asm
+               _00148_DS_   0x000718    program     static ep0.asm
+               _00150_DS_   0x000722    program     static ep0.asm
+               _00152_DS_   0x00072c    program     static ep0.asm
+               _00154_DS_   0x000736    program     static ep0.asm
+               _00156_DS_   0x000740    program     static ep0.asm
+               _00158_DS_   0x00074a    program     static ep0.asm
+               _00108_DS_   0x00074e    program     static ep0.asm
+               _00109_DS_   0x00076e    program     static ep0.asm
+               _00161_DS_   0x0007c2    program     static ep0.asm
+               _00110_DS_   0x0007ce    program     static ep0.asm
+               _00111_DS_   0x000802    program     static ep0.asm
+               _00112_DS_   0x000876    program     static ep0.asm
+               _00113_DS_   0x0008e0    program     static ep0.asm
+               _00117_DS_   0x0008ea    program     static ep0.asm
+               _00118_DS_   0x0008f2    program     static ep0.asm
+               _00120_DS_   0x00093c    program     static ep0.asm
+               _00124_DS_   0x000946    program     static ep0.asm
+               _00125_DS_   0x00094c    program     static ep0.asm
+               _00126_DS_   0x00095c    program     static ep0.asm
+                    r0x00   00000000       data     static ep1.asm
+                    r0x01   0x000001       data     static ep1.asm
+                    r0x02   0x000002       data     static ep1.asm
+                    r0x03   0x000003       data     static ep1.asm
+                    r0x04   0x000004       data     static ep1.asm
+                    r0x05   0x000005       data     static ep1.asm
+                    r0x06   0x000006       data     static ep1.asm
+                    r0x07   0x000007       data     static ep1.asm
+                    r0x08   0x000008       data     static ep1.asm
+                    r0x09   0x000009       data     static ep1.asm
+           _ep1_OutBuffer   0x000510       data     extern ep1.asm
+                   iTemp0   0x0000a7       data     static ep1.asm
+                 _ep1_out   0x000c1a    program     extern ep1.asm
+               _00133_DS_   0x000c96    program     static ep1.asm
+               _00109_DS_   0x000cae    program     static ep1.asm
+               _00110_DS_   0x000cc2    program     static ep1.asm
+               _00111_DS_   0x000ce2    program     static ep1.asm
+               _00112_DS_   0x000d92    program     static ep1.asm
+               _00113_DS_   0x000d96    program     static ep1.asm
+               _00117_DS_   0x000da2    program     static ep1.asm
+               _00118_DS_   0x000dc6    program     static ep1.asm
+               _00119_DS_   0x000dde    program     static ep1.asm
+               _00121_DS_   0x000df6    program     static ep1.asm
+               _00124_DS_   0x000e00    program     static ep1.asm
+               _00126_DS_   0x000e18    program     static ep1.asm
+                _ep1_init   0x001a3e    program     extern ep1.asm
+                    r0x00   00000000       data     static ep2.asm
+                    r0x01   0x000001       data     static ep2.asm
+                    r0x02   0x000002       data     static ep2.asm
+                    r0x03   0x000003       data     static ep2.asm
+                    r0x04   0x000004       data     static ep2.asm
+                    r0x05   0x000005       data     static ep2.asm
+            _ep2_InBuffer   0x000550       data     extern ep2.asm
+      _last_send_was_null   0x0000a8       data     static ep2.asm
+                  _ep2_in   0x001604    program     extern ep2.asm
+               _00122_DS_   0x001640    program     static ep2.asm
+               _00133_DS_   0x00164e    program     static ep2.asm
+               _00125_DS_   0x0016ba    program     static ep2.asm
+               _00127_DS_   0x0016c0    program     static ep2.asm
+          _prepare_ep2_in   0x0016de    program     extern ep2.asm
+               _00116_DS_   0x00170c    program     static ep2.asm
+               _00110_DS_   0x001784    program     static ep2.asm
+               _00112_DS_   0x00178a    program     static ep2.asm
+                _ep2_init   0x001ae2    program     extern ep2.asm
+                    r0x00   00000000       data     static flash.asm
+                    r0x01   0x000001       data     static flash.asm
+   _ep2_num_bytes_to_send   0x00009a       data     extern flash.asm
+         _ep2_source_data   0x000093       data     extern flash.asm
+       _write_block_i_1_1   0x0000a9       data     static flash.asm
+             _erase_block   0x001a68    program     extern flash.asm
+             _write_block   0x0018bc    program     extern flash.asm
+               _00105_DS_   0x0018de    program     static flash.asm
+               _00108_DS_   0x001906    program     static flash.asm
+      _section_descriptor   0x000632    program     extern config.asm
+       _high_priority_isr   0x002020    program     extern interrupt_iface.asm
+ivec_0x1_high_priority_isr   0x000008    program     static interrupt_iface.asm
+        _low_priority_isr   0x004000    program     extern interrupt_iface.asm
+ivec_0x2_low_priority_isr   0x000018    program     static interrupt_iface.asm
+                  __entry   00000000    program     extern ../build/startup/crt0.asm
+                __startup   0x001b12    program     extern ../build/startup/crt0.asm
+               _00109_DS_   0x001b24    program     static ../build/startup/crt0.asm
+              _delay10tcy   0x000648    program     extern delay10tcy.S
+                _$_000008   0x000650    program     static delay10tcy.S
+            @delay10_loop   0x000652    program     static delay10tcy.S
+                _$_00000a   0x000652    program     static delay10tcy.S
+                _$_00000c   0x000654    program     static delay10tcy.S
+                _$_00000e   0x000656    program     static delay10tcy.S
+             @delay10_end   0x00065e    program     static delay10tcy.S
+             _delay10ktcy   0x000660    program     extern delay10ktcy.S
+                _$_000014   0x000674    program     static delay10ktcy.S
+           @delay10k_loop   0x000676    program     static delay10ktcy.S
+                _$_000024   0x000684    program     static delay10ktcy.S
+                _$_000026   0x000686    program     static delay10ktcy.S
+            @delay10k_end   0x000690    program     static delay10ktcy.S
+              _delay1ktcy   0x000692    program     extern delay1ktcy.S
+                _$_00000e   0x0006a0    program     static delay1ktcy.S
+            @delay1k_loop   0x0006a2    program     static delay1ktcy.S
+                _$_000018   0x0006aa    program     static delay1ktcy.S
+                _$_00001a   0x0006ac    program     static delay1ktcy.S
+             @delay1k_end   0x0006b6    program     static delay1ktcy.S
+                 _SPPDATA   0x000f62       data     extern ../build/libdev/pic18f4550.asm
+             _SPPDATAbits   0x000f62       data     extern ../build/libdev/pic18f4550.asm
+                  _SPPCFG   0x000f63       data     extern ../build/libdev/pic18f4550.asm
+              _SPPCFGbits   0x000f63       data     extern ../build/libdev/pic18f4550.asm
+                  _SPPEPS   0x000f64       data     extern ../build/libdev/pic18f4550.asm
+              _SPPEPSbits   0x000f64       data     extern ../build/libdev/pic18f4550.asm
+                  _SPPCON   0x000f65       data     extern ../build/libdev/pic18f4550.asm
+              _SPPCONbits   0x000f65       data     extern ../build/libdev/pic18f4550.asm
+                   _UFRML   0x000f66       data     extern ../build/libdev/pic18f4550.asm
+               _UFRMLbits   0x000f66       data     extern ../build/libdev/pic18f4550.asm
+                   _UFRMH   0x000f67       data     extern ../build/libdev/pic18f4550.asm
+               _UFRMHbits   0x000f67       data     extern ../build/libdev/pic18f4550.asm
+                     _UIR   0x000f68       data     extern ../build/libdev/pic18f4550.asm
+                 _UIRbits   0x000f68       data     extern ../build/libdev/pic18f4550.asm
+                     _UIE   0x000f69       data     extern ../build/libdev/pic18f4550.asm
+                 _UIEbits   0x000f69       data     extern ../build/libdev/pic18f4550.asm
+                    _UEIR   0x000f6a       data     extern ../build/libdev/pic18f4550.asm
+                _UEIRbits   0x000f6a       data     extern ../build/libdev/pic18f4550.asm
+                    _UEIE   0x000f6b       data     extern ../build/libdev/pic18f4550.asm
+                _UEIEbits   0x000f6b       data     extern ../build/libdev/pic18f4550.asm
+                   _USTAT   0x000f6c       data     extern ../build/libdev/pic18f4550.asm
+               _USTATbits   0x000f6c       data     extern ../build/libdev/pic18f4550.asm
+                    _UCON   0x000f6d       data     extern ../build/libdev/pic18f4550.asm
+                _UCONbits   0x000f6d       data     extern ../build/libdev/pic18f4550.asm
+                   _UADDR   0x000f6e       data     extern ../build/libdev/pic18f4550.asm
+               _UADDRbits   0x000f6e       data     extern ../build/libdev/pic18f4550.asm
+                    _UCFG   0x000f6f       data     extern ../build/libdev/pic18f4550.asm
+                _UCFGbits   0x000f6f       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP0   0x000f70       data     extern ../build/libdev/pic18f4550.asm
+                _UEP0bits   0x000f70       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP1   0x000f71       data     extern ../build/libdev/pic18f4550.asm
+                _UEP1bits   0x000f71       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP2   0x000f72       data     extern ../build/libdev/pic18f4550.asm
+                _UEP2bits   0x000f72       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP3   0x000f73       data     extern ../build/libdev/pic18f4550.asm
+                _UEP3bits   0x000f73       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP4   0x000f74       data     extern ../build/libdev/pic18f4550.asm
+                _UEP4bits   0x000f74       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP5   0x000f75       data     extern ../build/libdev/pic18f4550.asm
+                _UEP5bits   0x000f75       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP6   0x000f76       data     extern ../build/libdev/pic18f4550.asm
+                _UEP6bits   0x000f76       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP7   0x000f77       data     extern ../build/libdev/pic18f4550.asm
+                _UEP7bits   0x000f77       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP8   0x000f78       data     extern ../build/libdev/pic18f4550.asm
+                _UEP8bits   0x000f78       data     extern ../build/libdev/pic18f4550.asm
+                    _UEP9   0x000f79       data     extern ../build/libdev/pic18f4550.asm
+                _UEP9bits   0x000f79       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP10   0x000f7a       data     extern ../build/libdev/pic18f4550.asm
+               _UEP10bits   0x000f7a       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP11   0x000f7b       data     extern ../build/libdev/pic18f4550.asm
+               _UEP11bits   0x000f7b       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP12   0x000f7c       data     extern ../build/libdev/pic18f4550.asm
+               _UEP12bits   0x000f7c       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP13   0x000f7d       data     extern ../build/libdev/pic18f4550.asm
+               _UEP13bits   0x000f7d       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP14   0x000f7e       data     extern ../build/libdev/pic18f4550.asm
+               _UEP14bits   0x000f7e       data     extern ../build/libdev/pic18f4550.asm
+                   _UEP15   0x000f7f       data     extern ../build/libdev/pic18f4550.asm
+               _UEP15bits   0x000f7f       data     extern ../build/libdev/pic18f4550.asm
+                   _PORTA   0x000f80       data     extern ../build/libdev/pic18f4550.asm
+               _PORTAbits   0x000f80       data     extern ../build/libdev/pic18f4550.asm
+                   _PORTB   0x000f81       data     extern ../build/libdev/pic18f4550.asm
+               _PORTBbits   0x000f81       data     extern ../build/libdev/pic18f4550.asm
+                   _PORTC   0x000f82       data     extern ../build/libdev/pic18f4550.asm
+               _PORTCbits   0x000f82       data     extern ../build/libdev/pic18f4550.asm
+                   _PORTE   0x000f84       data     extern ../build/libdev/pic18f4550.asm
+               _PORTEbits   0x000f84       data     extern ../build/libdev/pic18f4550.asm
+                    _LATA   0x000f89       data     extern ../build/libdev/pic18f4550.asm
+                _LATAbits   0x000f89       data     extern ../build/libdev/pic18f4550.asm
+                    _LATB   0x000f8a       data     extern ../build/libdev/pic18f4550.asm
+                _LATBbits   0x000f8a       data     extern ../build/libdev/pic18f4550.asm
+                    _LATC   0x000f8b       data     extern ../build/libdev/pic18f4550.asm
+                _LATCbits   0x000f8b       data     extern ../build/libdev/pic18f4550.asm
+                   _TRISA   0x000f92       data     extern ../build/libdev/pic18f4550.asm
+               _TRISAbits   0x000f92       data     extern ../build/libdev/pic18f4550.asm
+                   _TRISB   0x000f93       data     extern ../build/libdev/pic18f4550.asm
+               _TRISBbits   0x000f93       data     extern ../build/libdev/pic18f4550.asm
+                   _TRISC   0x000f94       data     extern ../build/libdev/pic18f4550.asm
+               _TRISCbits   0x000f94       data     extern ../build/libdev/pic18f4550.asm
+                 _OSCTUNE   0x000f9b       data     extern ../build/libdev/pic18f4550.asm
+             _OSCTUNEbits   0x000f9b       data     extern ../build/libdev/pic18f4550.asm
+                    _PIE1   0x000f9d       data     extern ../build/libdev/pic18f4550.asm
+                _PIE1bits   0x000f9d       data     extern ../build/libdev/pic18f4550.asm
+                    _PIR1   0x000f9e       data     extern ../build/libdev/pic18f4550.asm
+                _PIR1bits   0x000f9e       data     extern ../build/libdev/pic18f4550.asm
+                    _IPR1   0x000f9f       data     extern ../build/libdev/pic18f4550.asm
+                _IPR1bits   0x000f9f       data     extern ../build/libdev/pic18f4550.asm
+                    _PIE2   0x000fa0       data     extern ../build/libdev/pic18f4550.asm
+                _PIE2bits   0x000fa0       data     extern ../build/libdev/pic18f4550.asm
+                    _PIR2   0x000fa1       data     extern ../build/libdev/pic18f4550.asm
+                _PIR2bits   0x000fa1       data     extern ../build/libdev/pic18f4550.asm
+                    _IPR2   0x000fa2       data     extern ../build/libdev/pic18f4550.asm
+                _IPR2bits   0x000fa2       data     extern ../build/libdev/pic18f4550.asm
+                  _EECON1   0x000fa6       data     extern ../build/libdev/pic18f4550.asm
+              _EECON1bits   0x000fa6       data     extern ../build/libdev/pic18f4550.asm
+                  _EECON2   0x000fa7       data     extern ../build/libdev/pic18f4550.asm
+                  _EEDATA   0x000fa8       data     extern ../build/libdev/pic18f4550.asm
+                   _EEADR   0x000fa9       data     extern ../build/libdev/pic18f4550.asm
+                   _RCSTA   0x000fab       data     extern ../build/libdev/pic18f4550.asm
+               _RCSTAbits   0x000fab       data     extern ../build/libdev/pic18f4550.asm
+                   _TXSTA   0x000fac       data     extern ../build/libdev/pic18f4550.asm
+               _TXSTAbits   0x000fac       data     extern ../build/libdev/pic18f4550.asm
+                   _TXREG   0x000fad       data     extern ../build/libdev/pic18f4550.asm
+                   _RCREG   0x000fae       data     extern ../build/libdev/pic18f4550.asm
+                   _SPBRG   0x000faf       data     extern ../build/libdev/pic18f4550.asm
+                  _SPBRGH   0x000fb0       data     extern ../build/libdev/pic18f4550.asm
+                   _T3CON   0x000fb1       data     extern ../build/libdev/pic18f4550.asm
+               _T3CONbits   0x000fb1       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR3L   0x000fb2       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR3H   0x000fb3       data     extern ../build/libdev/pic18f4550.asm
+                   _CMCON   0x000fb4       data     extern ../build/libdev/pic18f4550.asm
+               _CMCONbits   0x000fb4       data     extern ../build/libdev/pic18f4550.asm
+                  _CVRCON   0x000fb5       data     extern ../build/libdev/pic18f4550.asm
+              _CVRCONbits   0x000fb5       data     extern ../build/libdev/pic18f4550.asm
+                 _ECCP1AS   0x000fb6       data     extern ../build/libdev/pic18f4550.asm
+             _ECCP1ASbits   0x000fb6       data     extern ../build/libdev/pic18f4550.asm
+                _ECCP1DEL   0x000fb7       data     extern ../build/libdev/pic18f4550.asm
+            _ECCP1DELbits   0x000fb7       data     extern ../build/libdev/pic18f4550.asm
+                 _BAUDCON   0x000fb8       data     extern ../build/libdev/pic18f4550.asm
+             _BAUDCONbits   0x000fb8       data     extern ../build/libdev/pic18f4550.asm
+                 _CCP2CON   0x000fba       data     extern ../build/libdev/pic18f4550.asm
+             _CCP2CONbits   0x000fba       data     extern ../build/libdev/pic18f4550.asm
+                  _CCPR2L   0x000fbb       data     extern ../build/libdev/pic18f4550.asm
+                  _CCPR2H   0x000fbc       data     extern ../build/libdev/pic18f4550.asm
+                 _CCP1CON   0x000fbd       data     extern ../build/libdev/pic18f4550.asm
+             _CCP1CONbits   0x000fbd       data     extern ../build/libdev/pic18f4550.asm
+                  _CCPR1L   0x000fbe       data     extern ../build/libdev/pic18f4550.asm
+                  _CCPR1H   0x000fbf       data     extern ../build/libdev/pic18f4550.asm
+                  _ADCON2   0x000fc0       data     extern ../build/libdev/pic18f4550.asm
+              _ADCON2bits   0x000fc0       data     extern ../build/libdev/pic18f4550.asm
+                  _ADCON1   0x000fc1       data     extern ../build/libdev/pic18f4550.asm
+              _ADCON1bits   0x000fc1       data     extern ../build/libdev/pic18f4550.asm
+                  _ADCON0   0x000fc2       data     extern ../build/libdev/pic18f4550.asm
+              _ADCON0bits   0x000fc2       data     extern ../build/libdev/pic18f4550.asm
+                  _ADRESL   0x000fc3       data     extern ../build/libdev/pic18f4550.asm
+                  _ADRESH   0x000fc4       data     extern ../build/libdev/pic18f4550.asm
+                 _SSPCON2   0x000fc5       data     extern ../build/libdev/pic18f4550.asm
+             _SSPCON2bits   0x000fc5       data     extern ../build/libdev/pic18f4550.asm
+                 _SSPCON1   0x000fc6       data     extern ../build/libdev/pic18f4550.asm
+             _SSPCON1bits   0x000fc6       data     extern ../build/libdev/pic18f4550.asm
+                 _SSPSTAT   0x000fc7       data     extern ../build/libdev/pic18f4550.asm
+             _SSPSTATbits   0x000fc7       data     extern ../build/libdev/pic18f4550.asm
+                  _SSPADD   0x000fc8       data     extern ../build/libdev/pic18f4550.asm
+                  _SSPBUF   0x000fc9       data     extern ../build/libdev/pic18f4550.asm
+                   _T2CON   0x000fca       data     extern ../build/libdev/pic18f4550.asm
+               _T2CONbits   0x000fca       data     extern ../build/libdev/pic18f4550.asm
+                     _PR2   0x000fcb       data     extern ../build/libdev/pic18f4550.asm
+                    _TMR2   0x000fcc       data     extern ../build/libdev/pic18f4550.asm
+                   _T1CON   0x000fcd       data     extern ../build/libdev/pic18f4550.asm
+               _T1CONbits   0x000fcd       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR1L   0x000fce       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR1H   0x000fcf       data     extern ../build/libdev/pic18f4550.asm
+                    _RCON   0x000fd0       data     extern ../build/libdev/pic18f4550.asm
+                _RCONbits   0x000fd0       data     extern ../build/libdev/pic18f4550.asm
+                  _WDTCON   0x000fd1       data     extern ../build/libdev/pic18f4550.asm
+              _WDTCONbits   0x000fd1       data     extern ../build/libdev/pic18f4550.asm
+                 _HLVDCON   0x000fd2       data     extern ../build/libdev/pic18f4550.asm
+             _HLVDCONbits   0x000fd2       data     extern ../build/libdev/pic18f4550.asm
+                  _OSCCON   0x000fd3       data     extern ../build/libdev/pic18f4550.asm
+              _OSCCONbits   0x000fd3       data     extern ../build/libdev/pic18f4550.asm
+                   _T0CON   0x000fd5       data     extern ../build/libdev/pic18f4550.asm
+               _T0CONbits   0x000fd5       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR0L   0x000fd6       data     extern ../build/libdev/pic18f4550.asm
+                   _TMR0H   0x000fd7       data     extern ../build/libdev/pic18f4550.asm
+                  _STATUS   0x000fd8       data     extern ../build/libdev/pic18f4550.asm
+              _STATUSbits   0x000fd8       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR2L   0x000fd9       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR2H   0x000fda       data     extern ../build/libdev/pic18f4550.asm
+               _FSR2Hbits   0x000fda       data     extern ../build/libdev/pic18f4550.asm
+                  _PLUSW2   0x000fdb       data     extern ../build/libdev/pic18f4550.asm
+                 _PREINC2   0x000fdc       data     extern ../build/libdev/pic18f4550.asm
+                _POSTDEC2   0x000fdd       data     extern ../build/libdev/pic18f4550.asm
+                _POSTINC2   0x000fde       data     extern ../build/libdev/pic18f4550.asm
+                   _INDF2   0x000fdf       data     extern ../build/libdev/pic18f4550.asm
+                     _BSR   0x000fe0       data     extern ../build/libdev/pic18f4550.asm
+                 _BSRbits   0x000fe0       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR1L   0x000fe1       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR1H   0x000fe2       data     extern ../build/libdev/pic18f4550.asm
+               _FSR1Hbits   0x000fe2       data     extern ../build/libdev/pic18f4550.asm
+                  _PLUSW1   0x000fe3       data     extern ../build/libdev/pic18f4550.asm
+                 _PREINC1   0x000fe4       data     extern ../build/libdev/pic18f4550.asm
+                _POSTDEC1   0x000fe5       data     extern ../build/libdev/pic18f4550.asm
+                _POSTINC1   0x000fe6       data     extern ../build/libdev/pic18f4550.asm
+                   _INDF1   0x000fe7       data     extern ../build/libdev/pic18f4550.asm
+                    _WREG   0x000fe8       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR0L   0x000fe9       data     extern ../build/libdev/pic18f4550.asm
+                   _FSR0H   0x000fea       data     extern ../build/libdev/pic18f4550.asm
+               _FSR0Hbits   0x000fea       data     extern ../build/libdev/pic18f4550.asm
+                  _PLUSW0   0x000feb       data     extern ../build/libdev/pic18f4550.asm
+                 _PREINC0   0x000fec       data     extern ../build/libdev/pic18f4550.asm
+                _POSTDEC0   0x000fed       data     extern ../build/libdev/pic18f4550.asm
+                _POSTINC0   0x000fee       data     extern ../build/libdev/pic18f4550.asm
+                   _INDF0   0x000fef       data     extern ../build/libdev/pic18f4550.asm
+                 _INTCON3   0x000ff0       data     extern ../build/libdev/pic18f4550.asm
+             _INTCON3bits   0x000ff0       data     extern ../build/libdev/pic18f4550.asm
+                 _INTCON2   0x000ff1       data     extern ../build/libdev/pic18f4550.asm
+             _INTCON2bits   0x000ff1       data     extern ../build/libdev/pic18f4550.asm
+                  _INTCON   0x000ff2       data     extern ../build/libdev/pic18f4550.asm
+              _INTCONbits   0x000ff2       data     extern ../build/libdev/pic18f4550.asm
+                   _PRODL   0x000ff3       data     extern ../build/libdev/pic18f4550.asm
+                   _PRODH   0x000ff4       data     extern ../build/libdev/pic18f4550.asm
+                  _TABLAT   0x000ff5       data     extern ../build/libdev/pic18f4550.asm
+                 _TBLPTRL   0x000ff6       data     extern ../build/libdev/pic18f4550.asm
+                 _TBLPTRH   0x000ff7       data     extern ../build/libdev/pic18f4550.asm
+                 _TBLPTRU   0x000ff8       data     extern ../build/libdev/pic18f4550.asm
+             _TBLPTRUbits   0x000ff8       data     extern ../build/libdev/pic18f4550.asm
+                     _PCL   0x000ff9       data     extern ../build/libdev/pic18f4550.asm
+                  _PCLATH   0x000ffa       data     extern ../build/libdev/pic18f4550.asm
+              _PCLATHbits   0x000ffa       data     extern ../build/libdev/pic18f4550.asm
+                  _PCLATU   0x000ffb       data     extern ../build/libdev/pic18f4550.asm
+              _PCLATUbits   0x000ffb       data     extern ../build/libdev/pic18f4550.asm
+                  _STKPTR   0x000ffc       data     extern ../build/libdev/pic18f4550.asm
+              _STKPTRbits   0x000ffc       data     extern ../build/libdev/pic18f4550.asm
+                    _TOSL   0x000ffd       data     extern ../build/libdev/pic18f4550.asm
+                    _TOSH   0x000ffe       data     extern ../build/libdev/pic18f4550.asm
+                    _TOSU   0x000fff       data     extern ../build/libdev/pic18f4550.asm
+                _TOSUbits   0x000fff       data     extern ../build/libdev/pic18f4550.asm
+                    r0x00   00000000       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x01   0x000001       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x02   0x000002       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x03   0x000003       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x04   0x000004       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x05   0x000005       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x06   0x000006       data     static ../../build/libsdcc/long/mullong.asm
+                    r0x07   0x000007       data     static ../../build/libsdcc/long/mullong.asm
+          __mullong_x_1_1   0x000064       data     static ../../build/libsdcc/long/mullong.asm
+          __mullong_y_1_1   0x000068       data     static ../../build/libsdcc/long/mullong.asm
+          __mullong_t_1_1   0x00006c       data     static ../../build/libsdcc/long/mullong.asm
+         __mullong_t1_1_1   0x000070       data     static ../../build/libsdcc/long/mullong.asm
+         __mullong_t2_1_1   0x000074       data     static ../../build/libsdcc/long/mullong.asm
+                __mullong   0x000e3e    program     extern ../../build/libsdcc/long/mullong.asm
+               __gptrput1   0x001b26    program     extern ../../build/libsdcc/gptr/gptrput1.asm
+                 _lab_01_   0x001b34    program     static ../../build/libsdcc/gptr/gptrput1.asm
+                 _lab_02_   0x001b38    program     static ../../build/libsdcc/gptr/gptrput1.asm
+               __gptrput2   0x001afa    program     extern ../../build/libsdcc/gptr/gptrput2.asm
+                 _lab_01_   0x001b0c    program     static ../../build/libsdcc/gptr/gptrput2.asm
+                 _lab_02_   0x001b10    program     static ../../build/libsdcc/gptr/gptrput2.asm
+               __gptrput3   0x001aac    program     extern ../../build/libsdcc/gptr/gptrput3.asm
+                 _lab_01_   0x001ac2    program     static ../../build/libsdcc/gptr/gptrput3.asm
+                 _lab_02_   0x001ac6    program     static ../../build/libsdcc/gptr/gptrput3.asm
+                    r0x00   00000000       data     static ../../build/libsdcc/int/mulint.asm
+                    r0x01   0x000001       data     static ../../build/libsdcc/int/mulint.asm
+                    r0x02   0x000002       data     static ../../build/libsdcc/int/mulint.asm
+                    r0x03   0x000003       data     static ../../build/libsdcc/int/mulint.asm
+           __mulint_x_1_1   0x00009c       data     static ../../build/libsdcc/int/mulint.asm
+           __mulint_y_1_1   0x00009e       data     static ../../build/libsdcc/int/mulint.asm
+           __mulint_t_1_1   0x0000a0       data     static ../../build/libsdcc/int/mulint.asm
+                 __mulint   0x0017a8    program     extern ../../build/libsdcc/int/mulint.asm
+               __gptrget4   0x001970    program     extern ../../build/libsdcc/gptr/gptrget4.asm
+                 _lab_01_   0x001988    program     static ../../build/libsdcc/gptr/gptrget4.asm
+                 _lab_02_   0x0019ae    program     static ../../build/libsdcc/gptr/gptrget4.asm
+               __gptrget1   0x001a8a    program     extern ../../build/libsdcc/gptr/gptrget1.asm
+                 _lab_01_   0x001a96    program     static ../../build/libsdcc/gptr/gptrget1.asm
+                 _lab_02_   0x001aaa    program     static ../../build/libsdcc/gptr/gptrget1.asm
+                    _end_   0x001aaa    program     static ../../build/libsdcc/gptr/gptrget1.asm
+               __gptrget2   0x001a12    program     extern ../../build/libsdcc/gptr/gptrget2.asm
+                 _lab_01_   0x001a22    program     static ../../build/libsdcc/gptr/gptrget2.asm
+                 _lab_02_   0x001a3c    program     static ../../build/libsdcc/gptr/gptrget2.asm
+                    _end_   0x001a3c    program     static ../../build/libsdcc/gptr/gptrget2.asm
+               __gptrget3   0x0019b0    program     extern ../../build/libsdcc/gptr/gptrget3.asm
+                 _lab_01_   0x0019c4    program     static ../../build/libsdcc/gptr/gptrget3.asm
+                 _lab_02_   0x0019e4    program     static ../../build/libsdcc/gptr/gptrget3.asm
+ 

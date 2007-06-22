@@ -37,7 +37,7 @@ void init_boot(void)
 
     ADCON1 = 0x0F;       //all channels of the AD-converter off (digital)
     CMCON  = 0x07;       //Comparator channels off (digital)
-    TRISA  = 0xFF;       //
+    TRISA  = 0xFE;       //
     PORTA  = 0x01;
     TRISC  = 0xF8;
     PORTC  = 0xF8;

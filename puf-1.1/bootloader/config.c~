@@ -26,7 +26,7 @@
 /* Set the PIC config words */
 code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L & 
                                   _CPUDIV__OSC1_OSC2_SRC___1__96MHZ_PLL_SRC___2__1L &
-                                  _PLLDIV_DIVIDE_BY_2__8MHZ_INPUT__1L;
+                                  _PLLDIV_NO_DIVIDE__4MHZ_INPUT__1L;
                                   
 code char at __CONFIG1H _conf1  = _IESO_OFF_1H &
                                   _FCMEN_OFF_1H &
