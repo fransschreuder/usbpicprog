@@ -1,0 +1,73 @@
+; Installation file for mchpusb driver
+; Copyright (C) 2004 by Microchip Technology, Inc.
+; All rights reserved
+
+[Version]
+Signature=$CHICAGO$
+Class=Unknown
+ClassGuid={4D36E97E-E325-11CE-BFC1-08002BE10318}
+Provider=%ONEYSOFT%
+CatalogFile=mchpusb.cat
+DriverVer=11/19/2004
+
+[Manufacturer]
+%MFGNAME%=DeviceList
+
+[DestinationDirs]
+DefaultDestDir=10,System32\Drivers
+
+[SourceDisksFiles]
+mchpusb.sys=1
+wdmstub.sys=1
+
+[SourceDisksNames]
+1=%INSTDISK%,,,
+
+[DeviceList]
+%DESCRIPTION%=DriverInstall, USB\VID_04D8&PID_FF0B
+
+;------------------------------------------------------------------------------
+;  Windows 2000/XP Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.ntx86]
+CopyFiles=DriverCopyFiles
+
+[DriverCopyFiles]
+mchpusb.sys,,,2
+
+[DriverInstall.ntx86.Services]
+AddService=MCHPUSB,2,DriverService
+
+[DriverService]
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%10%\system32\drivers\mchpusb.sys
+AddReg=TraceFlags
+
+;------------------------------------------------------------------------------
+;  Windows 98/Me Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall]
+AddReg=DriverAddReg
+CopyFiles=DriverCopyFiles,StubCopyFiles
+DriverVer=01/01/2003		; TODO replace with real info
+
+[DriverAddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,"wdmstub.sys,mchpusb.sys"
+
+[StubCopyFiles]
+wdmstub.sys,,,2
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+ONEYSOFT="Walter Oney Software"
+MFGNAME="Microchip Technology, Inc."
+INSTDISK="Microchip Technology, Inc. Installation Disc"
+DESCRIPTION="sprut-device"
