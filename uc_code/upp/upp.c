@@ -142,51 +142,45 @@ void BlinkUSBStatus(void)
     if(led_count == 0)led_count = 10000U;
     led_count--;
 
-    #define mLED_Both_Off()         {mLED_1_Off();mLED_2_Off();}
-    #define mLED_Both_On()          {mLED_1_On();mLED_2_On();}
-    #define mLED_Only_1_On()        {mLED_1_On();mLED_2_Off();}
-    #define mLED_Only_2_On()        {mLED_1_Off();mLED_2_On();}
-
     if(UCONbits.SUSPND == 1)
     {
         if(led_count==0)
         {
             mLED_1_Toggle();
-            mLED_2 = mLED_1;        // Both blink at the same time
+            mLED_2_Off();
+            mLED_3_Off();
         }//end if
     }
     else
     {
         if(usb_device_state == DETACHED_STATE)
         {
-            mLED_Both_Off();
+            Leds=~0;
         }
         else if(usb_device_state == ATTACHED_STATE)
         {
-            mLED_Both_On();
+            Leds=~1;
         }
         else if(usb_device_state == POWERED_STATE)
         {
-            mLED_Only_1_On();
+            Leds=~2;
         }
         else if(usb_device_state == DEFAULT_STATE)
         {
-            mLED_Only_2_On();
+            Leds=~3;
         }
         else if(usb_device_state == ADDRESS_STATE)
         {
-            if(led_count == 0)
-            {
-                mLED_1_Toggle();
-                mLED_2_Off();
-            }//end if
+            Leds=~4;
         }
         else if(usb_device_state == CONFIGURED_STATE)
         {
             if(led_count==0)
             {
                 mLED_1_Toggle();
-                mLED_2 = !mLED_1;       // Alternate blink                
+                mLED_2 = mLED_1;       // Blink all leds at the same time
+                mLED_3 = mLED_1;       // Blink all leds at the same time
+
             }//end if
         }//end if(...)
     }//end if(UCONbits.SUSPND...)

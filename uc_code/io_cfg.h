@@ -45,38 +45,38 @@
 #define OUTPUT_PIN          0
 
 /** U S B ***********************************************************/
-#define tris_usb_bus_sense  TRISAbits.TRISA1    // Input
+/*#define tris_usb_bus_sense  TRISAbits.TRISA1    // Input
 
 #if defined(USE_USB_BUS_SENSE_IO)
 #define usb_bus_sense       PORTAbits.RA1
 #else
 #define usb_bus_sense       1
 #endif
-
-#define tris_self_power     TRISAbits.TRISA2    // Input
+  */
+/*#define tris_self_power     TRISAbits.TRISA2    // Input
 
 #if defined(USE_SELF_POWER_SENSE_IO)
 #define self_power          PORTAbits.RA2
 #else
 #define self_power          1
-#endif
+#endif    */
 
 /** L E D ***********************************************************/
-#define mInitAllLEDs()      LATC &= 0xF8; TRISC &= 0xF8;
+#define mInitAllLEDs()      LATC |= 0x07; TRISC &= 0xF8;
 
 #define mLED_1              LATCbits.LATC0
 #define mLED_2              LATCbits.LATC1
 #define mLED_3              LATCbits.LATC2
 
 
-#define mLED_1_On()         mLED_1 = 1;
-#define mLED_2_On()         mLED_2 = 1;
-#define mLED_3_On()         mLED_3 = 1;
+#define mLED_1_On()         mLED_1 = 0;
+#define mLED_2_On()         mLED_2 = 0;
+#define mLED_3_On()         mLED_3 = 0;
 
 
-#define mLED_1_Off()        mLED_1 = 0;
-#define mLED_2_Off()        mLED_2 = 0;
-#define mLED_3_Off()        mLED_3 = 0;
+#define mLED_1_Off()        mLED_1 = 1;
+#define mLED_2_Off()        mLED_2 = 1;
+#define mLED_3_Off()        mLED_3 = 1;
 
 #define mLED_1_Toggle()     mLED_1 = !mLED_1;
 #define mLED_2_Toggle()     mLED_2 = !mLED_2;
@@ -88,6 +88,19 @@
 #define mInitSwitch2()      TRISBbits.TRISB6=1;
 #define sw2                 PORTBbits.RB6
 
+typedef union {
+	struct {
+		unsigned LEDS       	: 3;
+		unsigned           	: 1;
+		unsigned RC4       	: 1;
+		unsigned RC5       	: 1;
+		unsigned RC6       	: 1;
+		unsigned RC7       	: 1;
+	};
+} __PORTC_LEDS_t;
+extern volatile __PORTC_LEDS_t __at (0xF82) PORTCleds;
+
+#define Leds PORTCleds.LEDS
 
 /** P O T ***********************************************************/
 //#define mInitPOT()          TRISAbits.TRISA0=1;ADCON0=0x01;ADCON2=0x3C;
