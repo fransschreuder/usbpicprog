@@ -190,8 +190,8 @@ rom USB_DEV_DSC device_dsc=
     0x00,                   // Subclass code
     0x00,                   // Protocol code
     EP0_BUFF_SIZE,          // Max packet size for EP0, see usbcfg.h
-    0x04D8,                 // Vendor ID
-    0x000A,                 // Product ID: CDC RS-232 Emulation Demo
+    0x04D7,                 // Vendor ID was 04D8
+    0x000B,                 // Product ID: CDC RS-232 Emulation Demo was 000A
     0x0000,                 // Device release number in BCD format
     0x01,                   // Manufacturer string index
     0x02,                   // Product string index

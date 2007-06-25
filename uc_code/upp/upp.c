@@ -17,6 +17,7 @@
 #include "upp\upp.h"
 
 
+
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
 #pragma udata
@@ -52,6 +53,13 @@ void UserInit(void)
 
 }//end UserInit
 
+void setLeds(char n)
+{
+	mLED_1=~(n&1);
+	mLED_2=~((n&2)>>1);
+	mLED_3=~((n&4)>>2);
+}
+	
 
 /******************************************************************************
  * Function:        void ProcessIO(void)
@@ -155,23 +163,23 @@ void BlinkUSBStatus(void)
     {
         if(usb_device_state == DETACHED_STATE)
         {
-            Leds=~0;
+            setLeds(0);
         }
         else if(usb_device_state == ATTACHED_STATE)
         {
-            Leds=~1;
+            setLeds(1);
         }
         else if(usb_device_state == POWERED_STATE)
         {
-            Leds=~2;
+            setLeds(2);
         }
         else if(usb_device_state == DEFAULT_STATE)
         {
-            Leds=~3;
+            setLeds(3);
         }
         else if(usb_device_state == ADDRESS_STATE)
         {
-            Leds=~4;
+            setLeds(4);
         }
         else if(usb_device_state == CONFIGURED_STATE)
         {

@@ -88,19 +88,12 @@
 #define mInitSwitch2()      TRISBbits.TRISB6=1;
 #define sw2                 PORTBbits.RB6
 
-typedef union {
-	struct {
-		unsigned LEDS       	: 3;
-		unsigned           	: 1;
-		unsigned RC4       	: 1;
-		unsigned RC5       	: 1;
-		unsigned RC6       	: 1;
-		unsigned RC7       	: 1;
-	};
-} __PORTC_LEDS_t;
-extern volatile __PORTC_LEDS_t __at (0xF82) PORTCleds;
 
-#define Leds PORTCleds.LEDS
+
+
+//volatile struct __PORTC_LEDS_t __at (0xF82) PORTCleds;
+
+
 
 /** P O T ***********************************************************/
 //#define mInitPOT()          TRISAbits.TRISA0=1;ADCON0=0x01;ADCON2=0x3C;

@@ -42,8 +42,8 @@
 #define MODE_PP                 _PPBM0
 #define UCFG_VAL                _PUEN|_TRINT|_FS|MODE_PP
 
-#define USE_SELF_POWER_SENSE_IO
-#define USE_USB_BUS_SENSE_IO
+//#define USE_SELF_POWER_SENSE_IO
+//#define USE_USB_BUS_SENSE_IO
 
 /** D E V I C E  C L A S S  U S A G E *******************************/
 #define USB_USE_CDC

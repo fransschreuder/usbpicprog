@@ -89,17 +89,17 @@ void USBCheckBusStatus(void)
     #define USB_BUS_ATTACHED    1
     #define USB_BUS_DETACHED    0
 
-    if(usb_bus_sense == USB_BUS_ATTACHED)       // Is USB bus attached?
-    {
+    /*if(usb_bus_sense == USB_BUS_ATTACHED)       // Is USB bus attached?
+    {*/
         if(UCONbits.USBEN == 0)                 // Is the module off?
             USBModuleEnable();                  // Is off, enable it
-    }
+    /*}
     else
     {
         if(UCONbits.USBEN == 1)                 // Is the module on?
             USBModuleDisable();                 // Is on, disable it
     }//end if(usb_bus_sense...)
-    
+    */
     /*
      * After enabling the USB module, it takes some time for the voltage
      * on the D+ or D- line to rise high enough to get out of the SE0 condition.

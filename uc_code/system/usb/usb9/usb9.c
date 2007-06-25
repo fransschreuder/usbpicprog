@@ -236,7 +236,7 @@ void USBStdGetStatusHandler(void)
              * _byte0: bit0: Self-Powered Status [0] Bus-Powered [1] Self-Powered
              *         bit1: RemoteWakeup        [0] Disabled    [1] Enabled
              */
-            if(self_power == 1)                     // self_power defined in io_cfg.h
+//            if(self_power == 1)                     // self_power defined in io_cfg.h
                 CtrlTrfData._byte0|=1;    // Set bit0
 
             if(usb_stat.RemoteWakeup == 1)          // usb_stat defined in usbmmap.c
