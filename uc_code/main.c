@@ -85,6 +85,9 @@ void _reset (void)
 /** D E C L A R A T I O N S **************************************************/
 #pragma code
 #endif
+
+extern byte usb_device_state;
+
 /******************************************************************************
  * Function:        void main(void)
  *
@@ -103,6 +106,7 @@ void _reset (void)
 void main(void)
 {
     InitializeSystem();
+    usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
     while(1)
     {
         USBTasks();         // USB Tasks

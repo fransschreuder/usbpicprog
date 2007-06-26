@@ -99,7 +99,12 @@ void main(void)
 	CCP1CON = 0x00;
 	CCP2CON = 0x00;
 	INTCON2 = 0x00;
-	
+
+        if (PORTBbits.RB6)
+	{
+		_asm goto RM_RESET_VECTOR _endasm
+	}
+
     // initialize usb
     mInitializeUSBDriver();     // See usbdrv.h
     USBCheckBusStatus();        // Modified to always enable USB module
@@ -108,10 +113,7 @@ void main(void)
     LED_1 = 1;
     LED_2 = 1;
     
-    if (PORTBbits.RB6)
-	{
-		_asm goto RM_RESET_VECTOR _endasm
-	}
+
 	
 	// led 0 on 
     LED_0 = 0;
