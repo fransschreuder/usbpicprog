@@ -85,12 +85,12 @@ void ProcessIO(void)
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 
-    //Exercise_Example();
+    Exercise_Example();
 
 
 }//end ProcessIO
 
-/*void Exercise_Example(void)
+void Exercise_Example(void)
 {
     static byte start_up_state = 0;
     
@@ -126,7 +126,7 @@ void ProcessIO(void)
     
 }//end Exercise_Example
 
-       */
+
 /******************************************************************************
  * Function:        void BlinkUSBStatus(void)
  *
@@ -165,23 +165,23 @@ void BlinkUSBStatus(void)
     {
         if(usb_device_state == DETACHED_STATE)
         {
-            setLeds(0);
+            setLeds(1);
         }
         else if(usb_device_state == ATTACHED_STATE)
         {
-            setLeds(1);
+            setLeds(2);
         }
         else if(usb_device_state == POWERED_STATE)
         {
-            setLeds(2);
+            setLeds(3);
         }
         else if(usb_device_state == DEFAULT_STATE)
         {
-            setLeds(3);
+            setLeds(4);
         }
         else if(usb_device_state == ADDRESS_STATE)
         {
-            setLeds(4);
+            setLeds(5);
         }
         else if(usb_device_state == CONFIGURED_STATE)
         {

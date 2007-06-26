@@ -19,8 +19,8 @@ BD_STAT	D:\usbpicprog\uc_code\system\usb\usbmmap.h	108;"	t	line:108
 BOOL	D:\usbpicprog\uc_code\system\typedefs.h	153;"	t	line:153
 BSTALL	D:\usbpicprog\uc_code\system\usb\usbmmap.h	86;"	m	line:86	struct:_BD_STAT::<anonymous>
 BYTE	D:\usbpicprog\uc_code\system\typedefs.h	61;"	t	line:61
-BlinkUSBStatus	D:\usbpicprog\uc_code\upp\upp.c	146;"	f	line:146	signature:(void)
-BlinkUSBStatus	D:\usbpicprog\uc_code\upp\upp.c	34;"	p	line:34	file:	signature:(void)
+BlinkUSBStatus	D:\usbpicprog\uc_code\upp\upp.c	148;"	f	line:148	signature:(void)
+BlinkUSBStatus	D:\usbpicprog\uc_code\upp\upp.c	36;"	p	line:36	file:	signature:(void)
 Byte0	D:\usbpicprog\uc_code\system\typedefs.h	106;"	m	line:106	struct:_DWORD::<anonymous>
 Byte0	D:\usbpicprog\uc_code\system\typedefs.h	73;"	m	line:73	struct:_WORD::<anonymous>
 Byte1	D:\usbpicprog\uc_code\system\typedefs.h	107;"	m	line:107	struct:_DWORD::<anonymous>
@@ -78,6 +78,8 @@ DTS	D:\usbpicprog\uc_code\system\usb\usbmmap.h	90;"	m	line:90	struct:_BD_STAT::<
 DTSEN	D:\usbpicprog\uc_code\system\usb\usbmmap.h	87;"	m	line:87	struct:_BD_STAT::<anonymous>
 DWORD	D:\usbpicprog\uc_code\system\typedefs.h	120;"	t	line:120
 EP0_BUFF_SIZE	D:\usbpicprog\uc_code\autofiles\usbcfg.h	38;"	d	line:38
+Exercise_Example	D:\usbpicprog\uc_code\upp\upp.c	93;"	f	line:93	signature:(void)
+Exercise_Example	D:\usbpicprog\uc_code\upp\upp.h	14;"	p	line:14	signature:(void)
 FAIL	D:\usbpicprog\uc_code\system\typedefs.h	156;"	d	line:156
 FALSE	D:\usbpicprog\uc_code\system\typedefs.h	153;"	e	line:153	enum:_BOOL
 GET_COMM_FEATURE	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	48;"	d	line:48
@@ -87,7 +89,7 @@ HighB	D:\usbpicprog\uc_code\system\typedefs.h	79;"	m	line:79	struct:_WORD::<anon
 INCDIS	D:\usbpicprog\uc_code\system\usb\usbmmap.h	88;"	m	line:88	struct:_BD_STAT::<anonymous>
 INPUT_PIN	D:\usbpicprog\uc_code\io_cfg.h	44;"	d	line:44
 IO_CFG_H	D:\usbpicprog\uc_code\io_cfg.h	38;"	d	line:38
-InitializeSystem	D:\usbpicprog\uc_code\main.c	133;"	f	line:133	file:	signature:(void)
+InitializeSystem	D:\usbpicprog\uc_code\main.c	141;"	f	line:141	file:	signature:(void)
 InitializeSystem	D:\usbpicprog\uc_code\main.c	72;"	p	line:72	file:	signature:(void)
 KEN	D:\usbpicprog\uc_code\system\usb\usbmmap.h	89;"	m	line:89	struct:_BD_STAT::<anonymous>
 LINE_CODING	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	276;"	t	line:276
@@ -117,7 +119,7 @@ PID3	D:\usbpicprog\uc_code\system\usb\usbmmap.h	99;"	m	line:99	struct:_BD_STAT::
 POINTER	D:\usbpicprog\uc_code\system\typedefs.h	151;"	t	line:151
 POSTINC0	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	591;"	l	line:591
 POWERED_STATE	D:\usbpicprog\uc_code\system\usb\usbmmap.h	59;"	d	line:59
-ProcessIO	D:\usbpicprog\uc_code\upp\upp.c	80;"	f	line:80	signature:(void)
+ProcessIO	D:\usbpicprog\uc_code\upp\upp.c	82;"	f	line:82	signature:(void)
 ProcessIO	D:\usbpicprog\uc_code\upp\upp.h	12;"	p	line:12	signature:(void)
 RESPONSE_AVAILABLE	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	60;"	d	line:60
 RemoteWakeup	D:\usbpicprog\uc_code\system\usb\usbmmap.h	75;"	m	line:75	struct:_USB_DEVICE_STATUS::<anonymous>
@@ -130,9 +132,9 @@ SET_LINE_CODING	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	50;"	d	line:50
 SetupPkt	D:\usbpicprog\uc_code\system\usb\usbmmap.c	274;"	v	line:274
 Sleep	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	305;"	d	line:305	file:
 Stat	D:\usbpicprog\uc_code\system\usb\usbmmap.h	114;"	m	line:114	struct:_BDT::<anonymous>
-Switch2IsPressed	D:\usbpicprog\uc_code\upp\upp.c	198;"	f	line:198	signature:(void)
-Switch2IsPressed	D:\usbpicprog\uc_code\upp\upp.c	35;"	p	line:35	file:	signature:(void)
-Switch3IsPressed	D:\usbpicprog\uc_code\upp\upp.c	36;"	p	line:36	file:	signature:(void)
+Switch2IsPressed	D:\usbpicprog\uc_code\upp\upp.c	200;"	f	line:200	signature:(void)
+Switch2IsPressed	D:\usbpicprog\uc_code\upp\upp.c	37;"	p	line:37	file:	signature:(void)
+Switch3IsPressed	D:\usbpicprog\uc_code\upp\upp.c	38;"	p	line:38	file:	signature:(void)
 TRUE	D:\usbpicprog\uc_code\system\typedefs.h	153;"	e	line:153	enum:_BOOL
 TYPEDEFS_H	D:\usbpicprog\uc_code\system\typedefs.h	38;"	d	line:38
 UCFG_VAL	D:\usbpicprog\uc_code\autofiles\usbcfg.h	43;"	d	line:43
@@ -181,7 +183,7 @@ USBStdSetCfgHandler	D:\usbpicprog\uc_code\system\usb\usb9\usb9.c	188;"	f	line:18
 USBStdSetCfgHandler	D:\usbpicprog\uc_code\system\usb\usb9\usb9.c	54;"	p	line:54	file:	signature:(void)
 USBSuspend	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	307;"	f	line:307	signature:(void)
 USBSuspend	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	55;"	p	line:55	file:	signature:(void)
-USBTasks	D:\usbpicprog\uc_code\main.c	166;"	f	line:166	signature:(void)
+USBTasks	D:\usbpicprog\uc_code\main.c	174;"	f	line:174	signature:(void)
 USBTasks	D:\usbpicprog\uc_code\main.c	73;"	p	line:73	file:	signature:(void)
 USBWakeFromSuspend	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	365;"	f	line:365	signature:(void)
 USBWakeFromSuspend	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	56;"	p	line:56	file:	signature:(void)
@@ -198,7 +200,7 @@ USB_SD_Ptr	D:\usbpicprog\uc_code\autofiles\usbdsc.c	265;"	v	line:265
 USB_SOF_Handler	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	455;"	f	line:455	signature:(void)
 USB_SOF_Handler	D:\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c	59;"	p	line:59	file:	signature:(void)
 USB_USE_CDC	D:\usbpicprog\uc_code\autofiles\usbcfg.h	49;"	d	line:49
-UserInit	D:\usbpicprog\uc_code\upp\upp.c	43;"	f	line:43	signature:(void)
+UserInit	D:\usbpicprog\uc_code\upp\upp.c	45;"	f	line:45	signature:(void)
 UserInit	D:\usbpicprog\uc_code\upp\upp.h	11;"	p	line:11	signature:(void)
 V25TER	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	74;"	d	line:74
 WORD	D:\usbpicprog\uc_code\system\typedefs.h	85;"	t	line:85
@@ -243,7 +245,7 @@ _reset	D:\usbpicprog\uc_code\main.c	79;"	f	line:79	signature:(void)
 _startup	D:\usbpicprog\uc_code\main.c	77;"	p	line:77	file:	signature:(void)
 _word	D:\usbpicprog\uc_code\system\typedefs.h	136;"	m	line:136	union:_POINTER
 _word	D:\usbpicprog\uc_code\system\typedefs.h	65;"	m	line:65	union:_WORD
-ansi_clrscr	D:\usbpicprog\uc_code\upp\upp.c	31;"	v	line:31
+ansi_clrscr	D:\usbpicprog\uc_code\upp\upp.c	33;"	v	line:33
 b0	D:\usbpicprog\uc_code\system\typedefs.h	52;"	m	line:52	struct:_BYTE::<anonymous>
 b1	D:\usbpicprog\uc_code\system\typedefs.h	53;"	m	line:53	struct:_BYTE::<anonymous>
 b2	D:\usbpicprog\uc_code\system\typedefs.h	54;"	m	line:54	struct:_BYTE::<anonymous>
@@ -345,8 +347,8 @@ ep9Bo	D:\usbpicprog\uc_code\system\usb\usbmmap.c	225;"	v	line:225
 getsUSBUSART	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	249;"	f	line:249	signature:(char *buffer, byte len)
 getsUSBUSART	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	340;"	p	line:340	signature:(char *buffer, byte len)
 i	D:\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c	143;"	l	line:143
-input_buffer	D:\usbpicprog\uc_code\upp\upp.c	27;"	v	line:27
-led_count	D:\usbpicprog\uc_code\upp\upp.c	148;"	l	line:148	file:
+input_buffer	D:\usbpicprog\uc_code\upp\upp.c	29;"	v	line:29
+led_count	D:\usbpicprog\uc_code\upp\upp.c	150;"	l	line:150	file:
 len	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	308;"	l	line:308
 len	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	389;"	l	line:389
 line_coding	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	60;"	v	line:60
@@ -371,9 +373,10 @@ mLED_3_Toggle	D:\usbpicprog\uc_code\io_cfg.h	83;"	d	line:83
 mUSBUSARTIsTxTrfReady	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	129;"	d	line:129
 mUSBUSARTTxRam	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	215;"	d	line:215
 mUSBUSARTTxRom	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.h	250;"	d	line:250
-old_sw2	D:\usbpicprog\uc_code\upp\upp.c	25;"	v	line:25
-old_sw3	D:\usbpicprog\uc_code\upp\upp.c	25;"	v	line:25
-output_buffer	D:\usbpicprog\uc_code\upp\upp.c	28;"	v	line:28
+main	D:\usbpicprog\uc_code\main.c	106;"	f	line:106	signature:(void)
+old_sw2	D:\usbpicprog\uc_code\upp\upp.c	27;"	v	line:27
+old_sw3	D:\usbpicprog\uc_code\upp\upp.c	27;"	v	line:27
+output_buffer	D:\usbpicprog\uc_code\upp\upp.c	30;"	v	line:30
 pCDCDst	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	56;"	v	line:56
 pCDCSrc	D:\usbpicprog\uc_code\system\usb\class\cdc\cdc.c	55;"	v	line:55
 pDst	D:\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c	54;"	v	line:54
@@ -387,7 +390,9 @@ rom	D:\usbpicprog\uc_code\system\typedefs.h	41;"	d	line:41
 sd000	D:\usbpicprog\uc_code\autofiles\usbdsc.c	251;"	v	line:251
 sd001	D:\usbpicprog\uc_code\autofiles\usbdsc.c	254;"	v	line:254
 sd002	D:\usbpicprog\uc_code\autofiles\usbdsc.c	259;"	v	line:259
-setLeds	D:\usbpicprog\uc_code\upp\upp.c	56;"	f	line:56	signature:(char n)
+setLeds	D:\usbpicprog\uc_code\upp\upp.c	58;"	f	line:58	signature:(char n)
+setLeds	D:\usbpicprog\uc_code\upp\upp.h	13;"	p	line:13	signature:(char n)
+start_up_state	D:\usbpicprog\uc_code\upp\upp.c	95;"	l	line:95	file:
 string	D:\usbpicprog\uc_code\autofiles\usbdsc.c	251;"	m	line:251	file:
 string	D:\usbpicprog\uc_code\autofiles\usbdsc.c	254;"	m	line:254	file:
 string	D:\usbpicprog\uc_code\autofiles\usbdsc.c	259;"	m	line:259	file:
@@ -401,7 +406,7 @@ v	D:\usbpicprog\uc_code\system\typedefs.h	83;"	m	line:83	struct:_WORD::<anonymou
 wCount	D:\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c	55;"	v	line:55
 wRam	D:\usbpicprog\uc_code\system\typedefs.h	142;"	m	line:142	union:_POINTER
 wRom	D:\usbpicprog\uc_code\system\typedefs.h	146;"	m	line:146	union:_POINTER
-welcome	D:\usbpicprog\uc_code\upp\upp.c	30;"	v	line:30
+welcome	D:\usbpicprog\uc_code\upp\upp.c	32;"	v	line:32
 word	D:\usbpicprog\uc_code\system\typedefs.h	44;"	t	line:44
 word0	D:\usbpicprog\uc_code\system\typedefs.h	101;"	m	line:101	struct:_DWORD::<anonymous>
 word1	D:\usbpicprog\uc_code\system\typedefs.h	102;"	m	line:102	struct:_DWORD::<anonymous>

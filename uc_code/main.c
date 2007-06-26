@@ -105,8 +105,14 @@ extern byte usb_device_state;
  *****************************************************************************/
 void main(void)
 {
+	//setLeds(7);
+	//while(1)continue;
+	//USBProtocolResetHandler();
+	USBSuspend();
+	USB
     InitializeSystem();
-    usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
+    
+    //usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
     while(1)
     {
         USBTasks();         // USB Tasks
