@@ -11,4 +11,12 @@
 void UserInit(void);
 void ProcessIO(void);
 
+extern volatile near union {
+  struct
+  {
+    unsigned Leds:3;
+    unsigned unused:5;
+  };
+}PORTCbits;
+
 #endif //UPP_H
