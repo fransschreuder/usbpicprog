@@ -89,6 +89,23 @@ void _reset (void)
 extern byte usb_device_state;
 
 /******************************************************************************
+This function resets the usb module to bring it in the same state as after a
+power on reset (because it may have been altered by the bootloader)
+******************************************************************************/
+void usb_reset(void)
+{
+     UEP15=0;UEP14=0;UEP13=0;UEP12=0;UEP11=0;UEP10=0;UEP9=0;UEP8=0;
+     UEP7=0;UEP6=0;UEP5=0;UEP4=0;UEP3=0;UEP2=0;UEP1=0;UEP0=0;
+     UCFG=0;
+     UADDR=0;
+     UCON=0;
+     UEIE=0;
+     UEIR=0;
+     UIE=0;
+     UIR=0;
+}
+
+/******************************************************************************
  * Function:        void main(void)
  *
  * PreCondition:    None
@@ -108,8 +125,7 @@ void main(void)
 	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
-	USBSuspend();
-	USB
+    usb_reset();
     InitializeSystem();
     
     //usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
