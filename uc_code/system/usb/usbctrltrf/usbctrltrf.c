@@ -389,6 +389,14 @@ void USBCtrlTrfRxService(void)
  *****************************************************************************/
 void USBCtrlEPServiceComplete(void)
 {
+      /*
+     * PKTDIS bit is set when a Setup Transaction is received.
+     * Clear to resume packet processing.
+     * The next line has been moved to the beginning of this function according
+     * to http://ww1.microchip.com/downloads/en/DeviceDoc/80220f.pdf ch. 10
+     
+     */
+    UCONbits.PKTDIS = 0;
     if(ctrl_trf_session_owner == MUID_NULL)
     {
         /*
@@ -471,11 +479,7 @@ void USBCtrlEPServiceComplete(void)
         }//end if(SetupPkt.DataDir == DEV_TO_HOST)
     }//end if(ctrl_trf_session_owner == MUID_NULL)
     
-    /*
-     * PKTDIS bit is set when a Setup Transaction is received.
-     * Clear to resume packet processing.
-     */
-    UCONbits.PKTDIS = 0;
+
 
 }//end USBCtrlEPServiceComplete
 
