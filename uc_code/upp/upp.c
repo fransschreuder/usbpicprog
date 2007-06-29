@@ -16,9 +16,15 @@
 #include "io_cfg.h"             // I/O pin mapping
 #include "upp\upp.h"
 
+#ifndef SDCC
+#pragma udata DECLARE_OVER_PORTC=0xF82
+struct _LEDPORT{
+	unsigned Leds:3;
+	unsigned unused:5;
+}Ledport;
 
-
-
+#pragma code
+#endif
 
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
