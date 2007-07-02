@@ -42,6 +42,7 @@ rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
 void BlinkUSBStatus(void);
 BOOL Switch2IsPressed(void);
 BOOL Switch3IsPressed(void);
+void setLeds(char n);
 
 
 /** D E C L A R A T I O N S **************************************************/
@@ -53,6 +54,10 @@ void UserInit(void)
     mInitAllLEDs();
     mInitAllSwitches();
     old_sw2 = sw2;
+    Pump1tris = 0;
+
+    Pump2tris = 0;
+
 //    old_sw3 = sw3;
     
 
@@ -68,6 +73,31 @@ void setLeds(char n)
 	mLED_3=~((n&4)>>2);
 }
 	
+/******************************************************************************
+ * Function: 		void VoltagePump(void)
+ * PreCondition:	None
+ * Input:			None
+ * Output:			None
+ * Side Effects:	None
+ * Overview:		This function has to be called every .. us and will 
+ 
+******************************************************************************/
+
+void VoltagePump(void)
+{
+	static char pumpcount=0;
+    if(pumpcount == 0)
+    {
+	    pumpcount = 100;
+	    Pump1=!Pump1;
+		Pump2=!Pump1;
+	}
+    pumpcount--;
+	
+}
+	
+
+
 
 /******************************************************************************
  * Function:        void ProcessIO(void)
@@ -85,12 +115,13 @@ void setLeds(char n)
  *
  * Note:            None
  *****************************************************************************/
+
 void ProcessIO(void)
 {
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
-
+	VoltagePump();
     Exercise_Example();
 
 
@@ -102,7 +133,6 @@ void Exercise_Example(void)
     
     if(start_up_state == 0)
     {
-        if(Switch2IsPressed())
             start_up_state++;
     }
     else if(start_up_state == 1)
@@ -117,17 +147,19 @@ void Exercise_Example(void)
     {
         if(mUSBUSARTIsTxTrfReady())
         {
-            putrsUSBUSART("\rMicrochip Technology Inc., 2004\r\n");
+            putrsUSBUSART(welcome);
             start_up_state++;
         }
     }
     else if(start_up_state == 3)
     {
-        if(mUSBUSARTIsTxTrfReady())
-        {
-            putrsUSBUSART(welcome);
-            start_up_state++;
-        }
+	    if(getsUSBUSART(input_buffer,63))
+    	{
+        	if(input_buffer[0] == '1')
+            {mLED_3_Toggle();}
+            else
+            {putsUSBUSART(input_buffer);}
+    	}
     }
     
 }//end Exercise_Example
@@ -191,13 +223,8 @@ void BlinkUSBStatus(void)
         }
         else if(usb_device_state == CONFIGURED_STATE)
         {
-            if(led_count==0)
-            {
-                mLED_1_Toggle();
-                mLED_2 = mLED_1;       // Blink all leds at the same time
-                mLED_3 = mLED_1;       // Blink all leds at the same time
-
-            }//end if
+			//			setLeds(7);
+			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)
     }//end if(UCONbits.SUSPND...)
 

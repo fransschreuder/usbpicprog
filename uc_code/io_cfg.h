@@ -83,11 +83,23 @@
 #define mLED_3_Toggle()     mLED_3 = !mLED_3;
 
 
+
 /** S W I T C H *****************************************************/
 #define mInitAllSwitches()  TRISBbits.TRISB6=1;
 #define mInitSwitch2()      TRISBbits.TRISB6=1;
 #define sw2                 PORTBbits.RB6
 
+/** Programmer pins *************************************************/
+#define VPP LATBbits.LATB3;
+#define VPP_RST LATBbits.LATB5;
+#define PGD LATBbits.LATB0;
+#define PGD_READ PORTBbits.RB0;
+#define PGC LATBbits.LATB1;
+/** Voltage pump ****************************************************/
+#define Pump1 LATAbits.LATA0
+#define Pump2 LATAbits.LATA1
+#define Pump1tris TRISAbits.TRISA0
+#define Pump2tris TRISAbits.TRISA0
 
 
 
