@@ -1,5 +1,5 @@
 EESchema Schematic File Version 1
-LIBS:power,usb-b,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\usbpicprog.cache
+LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,.\usbpicprog.cache
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
@@ -520,7 +520,7 @@ L C C3
 U 1 1 466D33F6
 P 4350 6600
 F 0 "C3" H 4400 6700 50  0000 L C
-F 1 "22p" H 4400 6500 50  0000 L C
+F 1 "15p" H 4400 6500 50  0000 L C
 	1    4350 6600
 	1    0    0    -1  
 $EndComp
@@ -529,7 +529,7 @@ L C C2
 U 1 1 466D33F3
 P 3400 6600
 F 0 "C2" H 3450 6700 50  0000 L C
-F 1 "22p" H 3450 6500 50  0000 L C
+F 1 "15p" H 3450 6500 50  0000 L C
 	1    3400 6600
 	1    0    0    -1  
 $EndComp
@@ -538,7 +538,7 @@ L CRYSTAL X1
 U 1 1 466D33EC
 P 3950 6250
 F 0 "X1" H 3950 6400 60  0000 C C
-F 1 "12MHz" H 3950 6100 60  0000 C C
+F 1 "8MHz" H 3950 6100 60  0000 C C
 	1    3950 6250
 	1    0    0    -1  
 $EndComp

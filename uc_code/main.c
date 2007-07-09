@@ -170,7 +170,7 @@ static void InitializeSystem(void)
     
     mInitializeUSBDriver();         // See usbdrv.h
     
-    UserInit();                     // See user.c & .h
+    UserInit();                     // See upp.c & .h
 
 }//end InitializeSystem
 

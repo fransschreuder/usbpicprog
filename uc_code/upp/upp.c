@@ -55,15 +55,17 @@ void UserInit(void)
     mInitAllSwitches();
     old_sw2 = sw2;
     Pump1tris = 0;
-
     Pump2tris = 0;
-
-//    old_sw3 = sw3;
     
-
+	TRISVPP = 0; //output
+	TRISVPP_RST=0; //output
+	TRISPGD=0;    
+	TRISPGC=0;    
+    VPP = 1; //VPP is low (inverted)
+	VPP_RST=0; //No hard reset (inverted
+	PGD=0;		
+	PGC=0;
     
-
-
 }//end UserInit
 
 void setLeds(char n)
@@ -122,47 +124,26 @@ void ProcessIO(void)
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 	VoltagePump();
-    Exercise_Example();
-
-
+    if(getsUSBUSART(input_buffer,1))
+   	{
+       	if((input_buffer[0]&0xC0)==0x80) //last bit indicates write
+        {
+	        PGD=(input_buffer[0]&0x01);
+	        PGC=(input_buffer[0]&0x02)>>1;
+	        VPP=(input_buffer[0]&0x04)>>2;
+	        VPP_RST=(input_buffer[0]&0x08)>>3;
+	    }
+        else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
+		{
+			TRISPGD = 1; //read PGD
+			output_buffer[0]=0xC0|((char)PGD_READ);
+			output_buffer[1]=0;
+			putsUSBUSART(output_buffer);
+			TRISPGD = 0; //write PGD
+		}
+   	}
 }//end ProcessIO
 
-void Exercise_Example(void)
-{
-    static byte start_up_state = 0;
-    
-    if(start_up_state == 0)
-    {
-            start_up_state++;
-    }
-    else if(start_up_state == 1)
-    {
-        if(mUSBUSARTIsTxTrfReady())
-        {
-            putrsUSBUSART(ansi_clrscr);
-            start_up_state++;
-        }
-    }
-    else if(start_up_state == 2)
-    {
-        if(mUSBUSARTIsTxTrfReady())
-        {
-            putrsUSBUSART(welcome);
-            start_up_state++;
-        }
-    }
-    else if(start_up_state == 3)
-    {
-	    if(getsUSBUSART(input_buffer,63))
-    	{
-        	if(input_buffer[0] == '1')
-            {mLED_3_Toggle();}
-            else
-            {putsUSBUSART(input_buffer);}
-    	}
-    }
-    
-}//end Exercise_Example
 
 
 /******************************************************************************
@@ -186,6 +167,7 @@ void Exercise_Example(void)
 void BlinkUSBStatus(void)
 {
     static word led_count=0;
+    static char startup_state=0;
     
     if(led_count == 0)led_count = 10000U;
     led_count--;
@@ -227,6 +209,16 @@ void BlinkUSBStatus(void)
 			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)
     }//end if(UCONbits.SUSPND...)
+	if(mUSBUSARTIsTxTrfReady()&&startup_state==0)
+	{
+		putrsUSBUSART(ansi_clrscr);
+		startup_state++;
+	}
+    if(mUSBUSARTIsTxTrfReady()&&startup_state==1)
+    {
+	    putrsUSBUSART(welcome);
+	    startup_state++;
+	}
 
 }//end BlinkUSBStatus
 
