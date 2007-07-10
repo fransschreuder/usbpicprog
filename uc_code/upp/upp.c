@@ -120,11 +120,12 @@ void VoltagePump(void)
 
 void ProcessIO(void)
 {
+	static char counter=0;
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 	VoltagePump();
-    if(getsUSBUSART(input_buffer,1))
+    if(USBGenRead((byte*)input_buffer,1))
    	{
        	if((input_buffer[0]&0xC0)==0x80) //last bit indicates write
         {
@@ -135,12 +136,17 @@ void ProcessIO(void)
 	    }
         else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
 		{
+			
 			TRISPGD = 1; //read PGD
 			output_buffer[0]=0xC0|((char)PGD_READ);
-			output_buffer[1]=0;
-			putsUSBUSART(output_buffer);
+			counter=1;
 			TRISPGD = 0; //write PGD
 		}
+		if(counter != 0)
+        {
+            if(!mUSBGenTxIsBusy())
+                USBGenWrite((byte*)&output_buffer,counter);
+        }//end if
    	}
 }//end ProcessIO
 
@@ -209,16 +215,16 @@ void BlinkUSBStatus(void)
 			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)
     }//end if(UCONbits.SUSPND...)
-	if(mUSBUSARTIsTxTrfReady()&&startup_state==0)
+	/*if(mUSBUSARTIsTxTrfReady()&&startup_state==0)
 	{
-		putrsUSBUSART(ansi_clrscr);
-		startup_state++;
+		//putrsUSBUSART(ansi_clrscr);
+		//startup_state++;
 	}
     if(mUSBUSARTIsTxTrfReady()&&startup_state==1)
     {
-	    putrsUSBUSART(welcome);
-	    startup_state++;
-	}
+	    //putrsUSBUSART(welcome);
+	    //startup_state++;
+	}*/
 
 }//end BlinkUSBStatus
 
