@@ -15,6 +15,7 @@
 
 #include "io_cfg.h"             // I/O pin mapping
 #include "upp\upp.h"
+#include <string.h>
 
 /*#ifndef SDCC
 #pragma udata DECLARE_OVER_PORTC=0xF82
@@ -31,6 +32,8 @@ struct _LEDPORT{
 #pragma udata
 #endif
 byte old_sw2,old_sw3;
+
+DATA_PACKET dataPacket;
 
 char input_buffer[64];
 char output_buffer[64];
@@ -120,7 +123,8 @@ void VoltagePump(void)
 
 void ProcessIO(void)
 {
-	static char counter=0;
+    bit oldPGDtris;
+    static byte counter=0;
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
@@ -131,23 +135,28 @@ void ProcessIO(void)
         {
 	        PGD=(input_buffer[0]&0x01);
 	        PGC=(input_buffer[0]&0x02)>>1;
-	        VPP=(input_buffer[0]&0x04)>>2;
-	        VPP_RST=(input_buffer[0]&0x08)>>3;
+	        VPP=~((input_buffer[0]&0x04)>>2);
+	        VPP_RST=~((input_buffer[0]&0x08)>>3);
+	        TRISPGD=(input_buffer[0]&0x10)>>4;
 	    }
         else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
 		{
-			
-			TRISPGD = 1; //read PGD
-			output_buffer[0]=0xC0|((char)PGD_READ);
+			if(TRISPGD)
+			{
+				output_buffer[0]=0xC0|((char)PGD_READ);
+			}
+			else
+			{
+				output_buffer[0]=0xC0|((char)PGD);
+			}
 			counter=1;
-			TRISPGD = 0; //write PGD
 		}
-		if(counter != 0)
-        {
-            if(!mUSBGenTxIsBusy())
-                USBGenWrite((byte*)&output_buffer,counter);
-        }//end if
    	}
+    if(counter != 0)
+    {
+       if(!mUSBGenTxIsBusy())
+	       USBGenWrite((byte*)&output_buffer,counter);
+    }//end if
 }//end ProcessIO
 
 
@@ -215,17 +224,18 @@ void BlinkUSBStatus(void)
 			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)
     }//end if(UCONbits.SUSPND...)
-	/*if(mUSBUSARTIsTxTrfReady()&&startup_state==0)
+	if(!mUSBGenTxIsBusy()&&startup_state==0)
 	{
-		//putrsUSBUSART(ansi_clrscr);
-		//startup_state++;
+		strcpypgm2ram(output_buffer,ansi_clrscr);
+		USBGenWrite(output_buffer,strlen(output_buffer));
+		startup_state++;
 	}
-    if(mUSBUSARTIsTxTrfReady()&&startup_state==1)
-    {
-	    //putrsUSBUSART(welcome);
-	    //startup_state++;
-	}*/
-
+	if(!mUSBGenTxIsBusy()&&startup_state==1)
+	{
+		strcpypgm2ram(output_buffer,welcome);
+		USBGenWrite(output_buffer,strlen(output_buffer));
+		startup_state++;
+	}	
 }//end BlinkUSBStatus
 
 BOOL Switch2IsPressed(void)
