@@ -33,10 +33,10 @@ struct _LEDPORT{
 #endif
 byte old_sw2,old_sw3;
 
-DATA_PACKET dataPacket;
+//DATA_PACKET dataPacket;
 
-char input_buffer[64];
-char output_buffer[64];
+byte input_buffer[64];
+byte output_buffer[64];
 
 rom char welcome[]={"UsbPicProg - Open Source USB PIC programmer\r\n\r\n"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
@@ -123,7 +123,7 @@ void VoltagePump(void)
 
 void ProcessIO(void)
 {
-    bit oldPGDtris;
+    char oldPGDtris;
     static byte counter=0;
     BlinkUSBStatus();
     // User Application USB tasks
@@ -182,7 +182,7 @@ void ProcessIO(void)
 void BlinkUSBStatus(void)
 {
     static word led_count=0;
-    static char startup_state=0;
+    static char startup_state=0xFF;
     
     if(led_count == 0)led_count = 10000U;
     led_count--;
@@ -220,6 +220,7 @@ void BlinkUSBStatus(void)
         }
         else if(usb_device_state == CONFIGURED_STATE)
         {
+	        startup_state=0;
 			//			setLeds(7);
 			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)

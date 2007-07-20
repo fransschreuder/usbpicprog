@@ -100,7 +100,7 @@ void main(void)
 	CCP2CON = 0x00;
 	INTCON2 = 0x00;
 
-        if (PORTBbits.RB6)
+        if (1  || PORTBbits.RB6)
 	{
 		_asm goto RM_RESET_VECTOR _endasm
 	}
