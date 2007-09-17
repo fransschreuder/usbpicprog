@@ -48,7 +48,7 @@
 #include "system\usb\usb_compile_time_validation.h" // Optional
 #include "upp\upp.h"                              // Modifiable
 
-/*#pragma config PLLDIV = 5, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
+#pragma config PLLDIV = 2, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
 #pragma config PWRT = ON
 #pragma config BOR = OFF
 #pragma config VREGEN = ON 	// USB Voltage Regulator Enable: ein
@@ -57,11 +57,11 @@
 //#pragma config MCLRE = OFF 	// MCLR Disabled    RE3 enabled
 #pragma config PBADEN = OFF // PORTB<4:0> pins are configured as digital I/O on Reset
 #pragma config LVP = OFF 	// Low Voltage ICSP: aus
-#pragma config CPB = ON		// boot block code protection: on
-#pragma config WRTB = ON	// boot block write protection: on
+#pragma config CPB = OFF	//ON	// boot block code protection: on
+#pragma config WRTB = OFF	//ON// boot block write protection: on
 #pragma config CCP2MX = OFF
 #pragma config STVREN = OFF
-*/
+
 
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
@@ -137,7 +137,7 @@ void main(void)
 	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
-    usb_reset();
+    //usb_reset();
     InitializeSystem();
     
     //usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again

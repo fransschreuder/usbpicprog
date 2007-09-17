@@ -189,6 +189,7 @@ void BlinkUSBStatus(void)
 
     if(UCONbits.SUSPND == 1)
     {
+	    USBWakeFromSuspend();
         if(led_count==0)
         {
             mLED_1_Toggle();

@@ -241,7 +241,7 @@ void USBDriverService(void)
     /*
      * Task C: Service other USB interrupts
      */
-    if(UIRbits.IDLEIF && UIEbits.IDLEIE)    USBSuspend();
+   // if(UIRbits.IDLEIF && UIEbits.IDLEIE)    USBSuspend();
     if(UIRbits.SOFIF && UIEbits.SOFIE)      USB_SOF_Handler();
     if(UIRbits.STALLIF && UIEbits.STALLIE)  USBStallHandler();
     if(UIRbits.UERRIF && UIEbits.UERRIE)    USBErrorHandler();
