@@ -57,7 +57,7 @@ Now the code works with Win32. Tested on Windows XP SP2.
 
 /* PICkit USB values */ /* From Microchip firmware */
 const static int vendorID=0x04d8; // Microchip, Inc
-const static int productID=0x000c; // PICDEM FS USB demo app
+const static int productID=0x000E; // PICDEM FS USB demo app
 const static int configuration=1; /*  Configuration 1*/
 const static int interface=0;	/* Interface 0 */
 
