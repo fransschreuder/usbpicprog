@@ -1,0 +1,114 @@
+* fix cname generation for BSSEC/BSSIZ SSSEC/SSSIZ
+* 12F609 has no html page (?)
+
+NEXT RELEASES:
+* optimize ICD programming/reading: only program/read what's necessary!!
+* fix progress bar for tiny bootloader
+* check templates are compiling:
+   - config & sdcc: cnames sometimes different
+* add "test device compatibility" / "merge" / "checksum" commands to "piklab-hex"
+
+- if CTRL+D in konsole: should restart it...
+- add stopwatch feature for gpsim
+- likeback: grep in project
+- missing template generators
+- alternate method to direct-program "Vdd first" chips (needed ?)
+- fix 16FXXX icd2 debugging: init + reset + ...
+- for 18F1230/1330 16F88X: Vdd-F graphs not available yet...
+- 18F1330-ICD ?
+- set breakpoint in disassembly listing, close, reopen: not displayed...
+- pickit2 protocol for firmware 2.01
+- Boost: indicate it must be run with NT4 inside toolchain config
+- icd2: how to read PORTB from 16F7X7
+- support CC8E
+- support for other bootloaders (?)
+- add serial terminal
+- config generator: add missing devices for gpasm/sdcc (18F) + picc + ...
+- device power toggle action: problem while running/debugging... (?)
+- should be able to read/verify/blankcheck while debugging: restart debug: ask ?
+- checksum:
+   correct: 10F 12C/F 16C 16F 18C
+   partially protected wrong: 18F1220/1320/2220/4220/2331/2431/4431(?) 18F242/248/252/258(?)
+   protected wrong: 14000(?) 16C52/54/54A/54B/54C/55/56/56A/57/57C/58A/58B(XOR4)
+                    16F873A/874A(?) 16F57/59(?)
+                    16C61/62/64/65/71/73/74(XNOR7)
+                    17C42/42A/43/44/752/756/762/766(XNOR8)
+   all wrong: 16C712/715(?) 16C84(?) dsPICs
+   datasheet wrong (?): 18F4331
+- PICkit2: now supports 16F886/887
+- missing registers for some old or new devices
+- add option to skip verification step
+- PIC30: disassembly listing not working
+- GPSIM: add clock speed config
+- PICC: no need to compile and assemble in two steps for c files
+- PICC: test debugging (from C or ASM files)
+- icd2: support more than one breakpoint for 18F
+- advanced breakpoints (register, ...)
+- escaping in string register entry
+- "read all" registers is slow (gui refresh for each read)
+- add PC and goto PC in breakpoint list view (?)
+- mix different compiler and assembler in a project... (subproject ?)
+
+TODO:
+- look into xwisp2/avrdude
+- check MPLAB for new devices...
+- check endianness: it should be alright since we reading from hex file and outputing strings (?)
+- speed-up Pickit1/2 by not programming mask words and by programming 4/n words when possible...
+- add log settings: log file / timestamp
+- add "random/set_range/..." actions to each range in hex editor
+- more filters in device selector
+- undo/redo + better selection in hex editor
+- library project
+- allow saving hex to other formats
+- add promate2 / icd1 support
+- .lib/.o view
+- support dsPIC direct programming
+- add option to not autoload firmware (?)
+- support for MPASM/MPLINK (mpasm freezes my version of wine...)
+- error/warning filter for C30/PICC/JAL/C18
+- syntax highlighting for JAL: highlight assembler blocks
+- better syntax highlighting for Boost Basic
+- "make" action to build only modified files: need to find "includes" in source file for dependencies
+- renaming of source files
+- PICC Lite windows executable crashes with wine
+- support dsPICC: demo windows only and not working with wine
+- support direct programming for 16F88X
+- support C2C, C2C++, P2C: exception in wine...
+- support Proton Basic compiler
+
+Bugs:
+- shouldn't we always use the IHX32 format for devices 18 and up ???
+- Vdd-frequency graphs ignore different osc/modes...
+- gpasm also return 0 on failure (incompatible arguments) as if it is a success...
+- COFF disassembly highlighting does not properly highlight multiline comments for C
+
+Devices (XML files):
+- check list of devices against MPLAB for missing devices and discrepencies.
+- config bits: check config bits from MPLAB
+- vdd/freq: not sure I understand the Vdd range in 30F datasheets
+- sometimes "vpp" depends on "vdd"...
+- revision names...
+- 16F630-ICD has lower Vdd requirements for read/write
+- 12F6XX-16F6XX-ICD have lower Vdd requirements for bulk erase
+
+- 16C433: config bits datasheet do not agree with progsheet (used progsheet)
+- 16CR54/16C557: status ?
+- 16HV540: discrepency between datasheet and progsheet for CP bits
+- 18F2585/4585/2680/4680: data sheet is wrong for block description (boot block size is variable)
+
+- unknown devices (from gpasm) : 18F2681/F4681/F64J15/F84J15
+- 16CR57A ?
+- nr: PS501 PS810 PS700
+- new devices:
+    18F2423/2523/4423/4523
+    18F24J10/F25J10/F44J10/F45J10
+       65J10/F65J15/F66J10/F66J15/F67J10
+       85J10/F85J15/F86J10/F86J15/F87J10
+    30F1010/2020/2023
+- future devices:
+    12F519
+    18F23K20/24K20/25K20/26K20
+    18F43K20/44K20/45K20/46K20
+    18F63J11/63J90/64J11/64J90/65J11/65J90
+       83J11/83J90/84J11/84J90/85J11/85J90
+

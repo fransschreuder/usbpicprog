@@ -1,0 +1,10 @@
+*.o
+*.hex.asm
+*.map
+*.lst
+*.cod
+*.cof
+test_project.hex
+test_stand_alone.hex
+test_project.asm
+blinker.hex

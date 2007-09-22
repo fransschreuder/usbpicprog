@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="piklab" version="41">
+
+<MenuBar>
+  <Menu name="file" noMerge="1"><text>&amp;File</text>
+    <Action name="file_new"/>
+    <Action name="file_new_hex"/>
+    <DefineGroup name="new_merge"/>
+    <Separator/>
+    <Action name="file_open"/>
+    <Action name="file_open_recent"/>
+    <DefineGroup name="open_merge"/>
+    <Separator/>
+    <DefineGroup name="save_merge"/>
+    <Action name="file_save_all"/>
+    <Separator/>
+    <Action name="file_revert_all"/>
+    <DefineGroup name="revert_merge"/>
+    <Separator/>
+    <DefineGroup name="print_merge"/>
+    <Merge/>
+    <Action name="file_close"/>
+    <Action name="file_close_all"/>
+    <Action name="file_closeother"/>
+    <DefineGroup name="close_merge"/>
+    <Separator/>
+    <Action name="file_quit"/>
+  </Menu>
+  <Menu name="edit"><text>&amp;Edit</text>
+    <DefineGroup name="edit_undo_merge"/>
+    <Separator/>
+    <DefineGroup name="edit_paste_merge"/>
+    <Separator/>
+    <DefineGroup name="edit_select_merge"/>
+    <Separator/>
+    <DefineGroup name="edit_find_merge"/>
+    <DefineGroup name="kdev_edit_find_merge"/>
+    <Separator/>
+    <DefineGroup name="edit_astyle"/>
+    <Separator/>
+    <Merge/>
+  </Menu>
+  <Menu name="view"><text>&amp;View</text>
+    <Action name="view_split_view" />
+    <Action name="view_remove_view" />
+    <DefineGroup name="history_operations"/>
+    <Action name="history_back"/>
+    <Action name="history_forward"/>
+    <Action name="file_switchto"/>
+    <Action name="raise_editor"/>
+    <Separator/>
+    <DefineGroup name="error_operations"/>
+    <Separator/>
+    <Action name="view_tool_views" />
+    <Action name="view_switch_source"/>
+    <Merge/>
+    <Separator/>
+    <DefineGroup name="view_operations"/>
+  </Menu>
+  <Merge/>
+  <Menu name="project"><text>&amp;Project</text>
+    <Action name="project_new" />
+    <Action name="project_open" />
+    <Action name="project_open_recent" />
+    <Separator/>
+    <Action name="project_options" />
+    <Separator/>
+    <Action name="project_add_source_file" />
+    <Action name="project_add_object_file" />
+    <Action name="project_add_current_file" />
+    <Separator/>
+    <Action name="project_close" />
+  </Menu>
+  <Menu name="build"><text>Bu&amp;ild</text>
+    <Action name="build_compile_file" />
+    <Action name="build_build_project" />
+    <Action name="build_clean" />
+    <Separator/>
+    <Action name="build_stop" />
+  </Menu>
+  <Menu name="prog"><text>Pr&amp;ogrammer</text>
+    <Action name="prog_connect" />
+    <Action name="prog_power" />
+    <Action name="prog_disconnect" />
+    <Separator />
+    <Action name="prog_program" />
+    <Action name="prog_verify" />
+    <Action name="prog_read" />
+    <Action name="prog_erase" />
+    <Action name="prog_blank_check" />
+    <Separator />
+    <Action name="prog_run" />
+    <Action name="prog_stop" />
+    <Action name="prog_restart" />
+    <Separator />
+    <Action  name="prog_advanced" />
+  </Menu>
+  <Menu name="debug"><text>&amp;Debugger</text>
+    <Action name="debug_run" />
+    <Action name="debug_halt" />
+    <Action name="debug_next" />
+    <Action name="debug_step_in" />
+    <Action name="debug_step_out" />
+    <Separator />
+    <Action name="debug_reset" />
+    <Separator />
+    <action name="debug_show_pc" />
+    <action name="debug_clear_breakpoints" />
+  </Menu>
+  <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="tools_pikloops" />
+    <Action name="tools_device_information" />
+    <Action name="tools_config_generator" />
+    <DefineGroup name="tools_project_operations"/>
+    <Separator/>
+    <DefineGroup name="tools_operations"/>
+    <Separator/>
+    <DefineGroup name="tools_file_operations"/>
+    <Separator/>
+    <DefineGroup name="tools_language_operations"/>
+    <Merge/>
+  </Menu>
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Action name="options_configure_toolchains" append="configure_merge" />
+  </Menu>
+  <Menu name="help" noMerge="1"><text>&amp;Help</text>
+    <Action name="help_contents"/>
+    <Action name="help_whats_this"/>
+    <Separator/>
+    <Action name="help_report_bug_piklab"/>
+    <Separator/>
+    <MergeLocal name="about_merge"/>
+    <Action name="help_about_app"/>
+    <Action name="help_about_kde"/>
+  </Menu>
+</MenuBar>
+
+<ToolBar name="projectToolBar" hidden="true"><text>Project Toolbar</text>
+  <Action name="project_new" />
+  <Action name="project_open_source" />
+  <Separator />
+  <Action name="project_options" />
+  <Action name="project_close" />
+  <Separator />
+  <Action name="project_add_current_file" />
+</ToolBar>
+
+<ToolBar name="buildToolBar"><text>Build Toolbar</text>
+  <Action name="build_build_project" />
+  <Action name="build_clean" />
+  <Action name="build_stop" />
+</ToolBar>
+
+<ToolBar name="progToolBar"><text>Programmer Toolbar</text>
+  <Action name="prog_connect" />
+  <Action name="prog_power" />
+  <Action name="prog_disconnect" />
+  <Separator />
+  <Action name="prog_program" />
+  <Action name="prog_verify" />
+  <Action name="prog_read" />
+  <Action name="prog_erase" />
+  <Action name="prog_blank_check" />
+  <Separator />
+  <Action name="prog_run" />
+  <Action name="prog_stop" />
+  <Action name="prog_restart" />
+</ToolBar>
+
+<ToolBar name="debugToolBar"><text>Debugger Toolbar</text>
+  <Action name="debug_run" />
+  <Action name="debug_halt" />
+  <Action name="debug_next" />
+  <Action name="debug_step_in" />
+  <Action name="debug_step_out" />
+  <Separator />
+  <Action name="debug_reset" />
+</ToolBar>
+
+<Menu name="text_editor_context_menu">
+  <Action name="edit_undo" />
+  <Action name="edit_redo" />
+  <Separator />
+  <Action name="edit_cut" />
+  <Action name="edit_copy" />
+  <Action name="edit_paste" />
+  <Separator />
+  <Action name="edit_select_all" />
+  <Action name="edit_deselect" />
+  <Separator />
+  <Action name="enable_breakpoint" />
+  <Action name="toggle_breakpoint" />
+  <Action name="clear_breakpoints" />
+</Menu>
+
+<Menu name="breakpoint_context_menu">
+  <Action name="enable_breakpoint" />
+  <Action name="toggle_breakpoint" />
+  <Action name="clear_breakpoints" />
+</Menu>
+
+</kpartgui>

@@ -1,0 +1,21 @@
+Source: piklab
+Section: devel
+Priority: optional
+Maintainer: Stefan von Halenbach <vonHalenbach@users.sf.net>
+Build-Depends: debhelper (>= 4.0.0), autotools-dev, kdelibs, kdelibs4-dev, libqt3-mt, libqt3-mt-dev, libreadline5, libreadline5-dev
+Standards-Version: 3.6.2
+
+Package: piklab
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: gputils, sdcc (>= 2.5.0), sdcc-libraries, libusb, libusb-dev
+Description: IDE for PIC-microcontroller development
+ A program to build software for microcontrollers from 
+ Microchip in assembler and C language. With external programmer
+ like most selfmade direct programmers or one of the professional 
+ programmers like PICkit1, PICkit2, ICD2 and PicStart+ is it 
+ possible to read, write, check and delete the flash memory of 
+ many PIC-microcontrollers. 
+ .
+ Homepage: http://piklab.sourceforge.net/
+ .

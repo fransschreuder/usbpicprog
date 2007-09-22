@@ -1,0 +1,52 @@
+<!-- ************************************************************************* -->
+<!-- * Copyright (C) 2006 Nicolas Hadacek <hadacek@kde.org>                  * -->
+<!-- *                                                                       * -->
+<!-- * This program is free software; you can redistribute it and/or modify  * -->
+<!-- * it under the terms of the GNU General Public License as published by  * -->
+<!-- * the Free Software Foundation; either version 2 of the License, or     * -->
+<!-- * (at your option) any later version.                                   * -->
+<!-- *************************************************************************/-->
+<!DOCTYPE piklab>
+
+<type name="pickit1">
+  <device name="10F200" family="Baseline" entry="O" support_type="tested" />
+  <device name="10F202" family="Baseline" entry="O" support_type="tested" />
+  <device name="10F204" family="Baseline" entry="O" support_type="tested" />
+  <device name="10F206" family="Baseline" entry="O" support_type="tested" />
+  <device name="10F220" family="Baseline" entry="O" />
+  <device name="10F222" family="Baseline" entry="O" />
+  <device name="12F508" family="Baseline" entry="O" support_type="tested" />
+  <device name="12F509" family="Baseline" entry="O" support_type="tested" />
+  <device name="12F510" family="Baseline" entry="O" support_type="tested" />
+  <device name="16F505" family="Baseline" entry="O" />
+  <device name="16F506" family="Baseline" entry="O" />
+  <device name="16F54"  family="Baseline" entry="O" />
+  <device name="16F57"  family="Baseline" entry="O" />
+  <device name="16F59"  family="Baseline" entry="O" />
+
+  <device name="12F629" family="P16F"  entry="P" regen="true" support_type="tested" />
+  <device name="12F635" family="P16F"  entry="P" support_type="tested" />
+  <device name="12F675" family="P16F"  entry="P" regen="true" support_type="tested" />
+  <device name="12F683" family="P16F"  entry="P" support_type="tested" />
+  <device name="16F627A" family="P16F" entry="P" />
+  <device name="16F628A" family="P16F" entry="P" />
+  <device name="16F630"  family="P16F" entry="P" regen="true" support_type="tested" />
+  <device name="16F636"  family="P16F" entry="P" support_type="tested" />
+  <device name="16F639"  family="P16F" entry="P" support_type="tested" />
+  <device name="16F648A" family="P16F" entry="P" />
+  <device name="16F676"  family="P16F" entry="P" regen="true" support_type="tested" />
+  <device name="16F684"  family="P16F" entry="P" support_type="tested" />
+  <device name="16F685"  family="P16F" entry="P" />
+  <device name="16F687"  family="P16F" entry="P" />
+  <device name="16F688"  family="P16F" entry="P" support_type="tested" />
+  <device name="16F689"  family="P16F" entry="P" />
+  <device name="16F690"  family="P16F" entry="P" />
+  <device name="16F716"  family="P16F716" entry="O" />
+  <device name="16F785"  family="P16F" entry="P" />
+  <device name="16F877A" family="P16F" entry="O" />
+  <device name="16F913"  family="P16F" entry="O" />
+  <device name="16F914"  family="P16F" entry="O" />
+  <device name="16F916"  family="P16F" entry="O" />
+  <device name="16F917"  family="P16F" entry="O" />
+  <device name="16F946"  family="P16F" entry="O" />
+</type>

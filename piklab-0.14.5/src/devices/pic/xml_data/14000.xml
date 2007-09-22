@@ -1,0 +1,91 @@
+<!DOCTYPE piklab_device>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="14000" document="010116" status="IP" memory_technology="EPROM" architecture="16X" >
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="4"  vdd_min="2.7" vdd_max="6"   />
+    <frequency start="4" end="20" vdd_min="4.5" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"      min="12.75" max="13.25" nominal="13" />
+  <voltages name="vdd_prog" min="4.75"  max="5.25"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="program"     start="0x0000" end="0x0FBF" />
+  <memory name="calibration" start="0x0FC0" end="0x0FFF" cal_opmask="0x0000" cal_opcode="0x0000" />
+  <memory name="user_ids"    start="0x2000" end="0x2003" rmask="0x007F"      />
+  <memory name="config"      start="0x2007" end="0x2007" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0x3FFF" bvalue="0x3FBD" pmask="0x0042" >
+    <mask name="FOSC"  value="0x0001" >
+      <value value="0x0000" name="HS"    cname="_FOSC_HS" />
+      <value value="0x0001" name="INTRC" cname="_FOSC_RC" />
+    </mask>
+    <mask name="WDT"   value="0x0004" >
+      <value value="0x0000" name="Off" cname="_WDT_OFF" />
+      <value value="0x0004" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="PWRTE" value="0x0008" >
+      <value value="0x0000" name="On"  cname="_PWRTE_ON"  />
+      <value value="0x0008" name="Off" cname="_PWRTE_OFF" />
+    </mask>
+    <mask name="TRIM" value="0x0042" >
+      <value value="0x0000" name="00" />
+      <value value="0x0002" name="01" />
+      <value value="0x0040" name="10" />
+      <value value="0x0042" name="11" />
+    </mask>
+    <mask name="CP"    value="0x1E30" >
+      <value value="0x0000"  name="All" cname="_CPP_ON _CPU_ON"   />
+      <value value="0x1E30"  name="Off" cname="_CPP_OFF _CPU_OFF" />
+      <value value="default" name="invalid" />
+    </mask>
+    <mask name="CPC"   value="0x2080" >
+      <value value="0x0000"  name="All" cname="_CPC_ON"  />
+      <value value="0x2080"  name="Off" cname="_CPC_OFF" />
+      <value value="default" name="invalid" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic" nb_pins="28" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+    <pin index="21" name="" />
+    <pin index="22" name="" />
+    <pin index="23" name="" />
+    <pin index="24" name="" />
+    <pin index="25" name="" />
+    <pin index="26" name="" />
+    <pin index="27" name="" />
+    <pin index="28" name="" />
+  </package>
+
+</device>

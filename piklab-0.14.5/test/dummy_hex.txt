@@ -1,0 +1,32 @@
+* 10F200:
+   code:    [000-0FE] 123 456 789 FFF...FFF 012
+   cal:     [0FF-0FF] 345
+   user id: [100-103] 1 2 3 4
+   config:  [1FF] FE3 (invalid config !!)
+
+* 12C508A:
+   code:    [000-1FE] 123 456 FFF...FFF 123
+   cal:     [1FF-1FF] 345
+   user id: [200-203] 1 2 3 4
+   config:  [0FFF]    FE9
+
+* 16F877:
+   code:    [0000-1FFF] 1234 3456 3FFF...3FFF 3456 0123
+   user id: [2000-2003] 12 34 56 78
+   config:  [2007]      0E02
+   eeprom:  [0000-00FF] FF FF...FF (0x0080) 12 34 FF..FF 56 78
+
+* 17C42A:
+   code:    [000000-0007FF] 1234 5678 FFFF...FFFF 1234 5678
+   config:  [00FE00]        FFE2
+
+* 18F452:
+    code:    [000000-007FFF] 1234 5678 90FF FF...FF 1234
+    user id: [200000-200007] 1 2 3 4 5 6 7 8
+    config:  [300000-30000D] 22 08 0F 01 85 0F C0 0F E0 0F 40
+    eeprom:  [000000-0000FF] 12 34 FF...FF 56 78
+
+* 30F2010:
+    code:   [000000-001FFF] 123456 789012 FF...FF 987654 321098
+    config: [F80000-F8000D] C10F 003F 83A3 0005 C003  (0005 is invalid !!)
+    eeprom: [7FFC00-7FFFFF] 1234 5678 FFF...FFF 0987 6543

@@ -1,0 +1,5978 @@
+# translation of hu.po to hungarian
+# translation of hu.po to
+# Translation of Piklab to german
+# since version 0.13.0
+# Stefan von Halenbach  2007
+#
+# biglacko <biglacko@startolj.hu>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: hu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-17 09:40+0200\n"
+"PO-Revision-Date: 2007-03-08 19:27+0100\n"
+"Last-Translator: biglacko <biglacko@startolj.hu>\n"
+"Language-Team: hungarian <hu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:802
+msgid ""
+"\n"
+"%1:\n"
+msgstr ""
+"\n"
+"%1:\n"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:946
+msgid ""
+"\n"
+"Arguments:\n"
+msgstr ""
+"\n"
+"Paraméterek:\n"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:885
+msgid ""
+"\n"
+"Options:\n"
+msgstr ""
+"\n"
+"Beállítások:\n"
+
+#: devices/pic/pic/pic_prog.cpp:70
+msgid "  %1 = %2 V: error in voltage level."
+msgstr "  %1 = %2 V: Feszültségszint hiba."
+
+#: progs/icd2/base/icd2_debug_specific.cpp:57
+msgid "  According to ICD2 manual, instruction at address 0x0 should be \"nop\"."
+msgstr " Az ICD2 kézikönyv szerint, ezen a címen 0x0 ennek az utasításnak kell lennie: \"nop\"."
+
+#: devices/pic/pic/pic_prog.cpp:348
+msgid "  Band gap bits have been preserved."
+msgstr "  A Band gap bitek foglaltak."
+
+#: devices/pic/pic/pic_prog.cpp:585
+#, fuzzy
+msgid "  Blank check successful"
+msgstr "  Üresség-teszt kész"
+
+#: progs/icd2/base/icd2_debug.cpp:317
+msgid "  Debug executive version: %1"
+msgstr "  Hibakereső verzió"
+
+#: devices/pic/pic/pic_prog.cpp:581
+msgid "  EPROM device: blanck checking first..."
+msgstr " EPROM : üresség ellenőrzés először..."
+
+#: devices/pic/pic/pic_prog.cpp:615 devices/pic/pic/pic_prog.cpp:672
+msgid "  Erasing device"
+msgstr " Eszköz törlés"
+
+#: progs/icd2/base/icd2_prog.cpp:109
+msgid "  Firmware succesfully uploaded."
+msgstr " Firmware feltöltés kész."
+
+#: progs/icd2/base/icd2_prog.cpp:81
+msgid "  Incorrect firmware loaded."
+msgstr " Helytelen Firmware betöltve."
+
+#: devices/pic/pic/pic_prog.cpp:321
+msgid "  Osccal backup has been preserved."
+msgstr "  Osccal visszatöltés lefoglalva"
+
+#: devices/pic/pic/pic_prog.cpp:316
+msgid "  Osccal backup is unchanged."
+msgstr "  Osccal nem változott"
+
+#: devices/pic/pic/pic_prog.cpp:307
+msgid "  Osccal has been preserved."
+msgstr "  Osccal lefoglalva"
+
+#: devices/pic/pic/pic_prog.cpp:302
+msgid "  Osccal is unchanged."
+msgstr "  Osccal nem változott"
+
+#: progs/icd2/base/icd2_debug_specific.cpp:75
+#: progs/icd2/base/icd2_debug_specific.cpp:82
+#: progs/icd2/base/icd2_debug_specific.cpp:165
+#: progs/icd2/base/icd2_debug_specific.cpp:240
+msgid "  PC is not at address %1 (%2)"
+msgstr " PC nem ezen a címen %1 (%2)"
+
+#: devices/pic/pic/pic_prog.cpp:463
+msgid "  Part of device memory is protected (in %1) and cannot be verified."
+msgstr " A memória lezárva (in %1) Nem tudom ellenőrizni."
+
+#: devices/pic/pic/pic_prog.cpp:467
+msgid "  Read memory: %1"
+msgstr " Memória olvasás: %1"
+
+#: devices/pic/pic/pic_prog.cpp:295
+msgid "  Replace invalid osccal with backup value."
+msgstr "  Rossz az osccal visszatöltött értéke"
+
+#: progs/base/generic_prog.cpp:99
+msgid "  Set target self powered: %1"
+msgstr "  Az eszköz saját maga adja a tápot: %1"
+
+#: devices/pic/pic/pic_prog.cpp:238
+msgid "  Unknown or incorrect device (Read id is %1)."
+msgstr " Ismeretlen vagy nem megfelelő eszköz (kiolvasott ID %1)."
+
+#: progs/pickit2/base/pickit2_prog.cpp:51
+msgid "  Uploading PICkit2 firmware..."
+msgstr " PICkit2 Firmware feltöltés..."
+
+#: progs/icd2/base/icd2_debug.cpp:249
+msgid "  Verify debug executive"
+msgstr "  A debug fájl ellenőrzése"
+
+#: devices/pic/pic/pic_prog.cpp:460
+msgid "  Verify memory: %1"
+msgstr " Memória ellenőrzés: %1"
+
+#: progs/icd2/base/icd2_debug.cpp:246
+msgid "  Write debug executive"
+msgstr "  Debug program letöltése"
+
+#: devices/pic/pic/pic_prog.cpp:522 devices/pic/pic/pic_prog.cpp:641
+#: devices/pic/pic/pic_prog.cpp:652
+msgid "  Write memory: %1"
+msgstr " Memória írás: %1"
+
+#: devices/pic/base/pic.cpp:95 devices/pic/base/pic.cpp:101
+msgid " (%2 bits)"
+msgstr " (%2 Bitek)"
+
+#: libgui/project_manager.cpp:112 libgui/project_manager.cpp:181
+msgid " (default)"
+msgstr " (Alapérték)"
+
+#: devices/gui/register_view.cpp:72
+msgid " (input)"
+msgstr "(Bemenet)"
+
+#: devices/pic/base/pic.cpp:102
+msgid " (not programmable)"
+msgstr "(Nem programozható)"
+
+#: devices/gui/register_view.cpp:68
+msgid " (output)"
+msgstr "(Kimenet)"
+
+#: devices/pic/gui/pic_memory_editor.cpp:257
+msgid " - not programmed by default"
+msgstr "- nem programozható standard"
+
+#: devices/pic/gui/pic_memory_editor.cpp:256
+msgid " - read mask: %1"
+msgstr " - Maszk olvasás: %1"
+
+#: piklab-prog/cmdline.cpp:472 piklab-prog/cmdline.cpp:478
+#: piklab-prog/cmdline.cpp:483
+msgid " <default>"
+msgstr " <Standard>"
+
+#: libgui/project_manager.cpp:697
+msgid " Already Loaded"
+msgstr " Már beolvasva"
+
+#: piklab-prog/cmdline.cpp:119
+msgid " no port detected"
+msgstr " Nem tudom azonosítani a portot"
+
+#: piklab-prog/cmdline.cpp:115
+#, fuzzy
+msgid " support disabled"
+msgstr " Nem tudom azonosítani a portot"
+
+#: tools/base/toolchain_config_widget.cpp:142
+msgid "\"%1\" found"
+msgstr "\"%1\" létező"
+
+#: tools/base/toolchain_config_widget.cpp:204
+msgid "\"%1\" not found"
+msgstr "\"%1\" nem létező"
+
+#: tools/base/toolchain_config_widget.cpp:143
+msgid "\"%1\" not recognized"
+msgstr "\"%1\" nem elfogadott"
+
+#: progs/gpsim/gpsim.cpp:68
+msgid "\"gpsim\" unexpectedly exited"
+msgstr "\"gpsim\" váratlanul kilépett"
+
+#: devices/pic/base/pic.cpp:218
+msgid "%1 (proc. %2; rev. %3.%4)"
+msgstr "%1 (proc. %2; rev. %3.%4)"
+
+#: devices/pic/base/pic.cpp:210
+msgid "%1 (rev. %2)"
+msgstr "%1 (rev. %2)"
+
+#: devices/pic/base/pic.cpp:213
+#, fuzzy
+msgid "%1 (rev. %2.%3)"
+msgstr "%1 (rev. %2)"
+
+#: progs/gui/hardware_config_widget.cpp:175
+msgid "%1 <custom>"
+msgstr "%1 <custom>"
+
+#: piklab-prog/cli_interactive.cpp:320
+msgid "%1 = %2"
+msgstr "%1 = %2"
+
+#: progs/gui/hardware_config_widget.cpp:55
+msgid "%1 at %2:"
+msgstr "%1 től %2:"
+
+#: devices/mem24/base/mem24.cpp:22 devices/pic/base/pic.cpp:100
+msgid "%1 bytes"
+msgstr "%1 bájtok"
+
+#: devices/pic/base/pic_config.cpp:289
+msgid "%1 for block %2"
+msgstr "%1 blokkoknak %2"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:883
+msgid "%1 options"
+msgstr "%1 opciók"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:647
+msgid "%1 was written by somebody who wants to remain anonymous."
+msgstr "%1 ."
+
+#: devices/pic/base/pic.cpp:94
+msgid "%1 words"
+msgstr "%1 words"
+
+#: devices/pic/gui/pic_memory_editor.cpp:258
+msgid "%1-bit words - mask: %2"
+msgstr "%1-bit words - mask: %2"
+
+#: devices/pic/pic/pic_prog.cpp:426
+msgid "%1: Erasing this range only is not supported with this programmer. This will erase the whole chip and restore the other memory ranges."
+msgstr " %1: A szakasz törlése nem támogatott ennél a programozónál. Töröld az egész chipet és tedd máshova"
+
+#: libgui/toplevel.cpp:347
+msgid "&Advanced..."
+msgstr "&További..."
+
+#: devices/gui/memory_editor.cpp:282 libgui/toplevel.cpp:339
+msgid "&Blank Check"
+msgstr "&Üresség-teszt"
+
+#: libgui/toplevel.cpp:315
+msgid "&Build Project"
+msgstr "&Build Projekt"
+
+#: devices/gui/memory_editor.cpp:275
+msgid "&Clear"
+msgstr "&Törlés"
+
+#: libgui/toplevel.cpp:317
+msgid "&Compile File"
+msgstr "&A fájl lefordítása"
+
+#: libgui/toplevel.cpp:373
+msgid "&Config Generator..."
+msgstr "&Konfiguráció generátor"
+
+#: libgui/likeback.cpp:97
+msgid "&Configure Email Address..."
+msgstr "&e-mail beállítás..."
+
+#: libgui/toplevel.cpp:325
+msgid "&Connect"
+msgstr "&Kapcsolódás"
+
+#. i18n: file ./data/app_data/piklabui.rc line 99
+#: rc.cpp:30
+#, no-c-format
+msgid "&Debugger"
+msgstr "&Hibakereső"
+
+#: libgui/toplevel.cpp:371
+msgid "&Device Information..."
+msgstr "&Eszköz információk..."
+
+#: libgui/toplevel.cpp:329
+msgid "&Disconnect"
+msgstr "&Szétkapcsolás"
+
+#: devices/gui/memory_editor.cpp:281 libgui/toplevel.cpp:337
+msgid "&Erase"
+msgstr "&Törlés"
+
+#: libgui/toplevel.cpp:353
+msgid "&Interrupt"
+msgstr "&Megszakítás"
+
+#: libgui/toplevel.cpp:254
+msgid "&New Source File..."
+msgstr "&Új forrásfájl..."
+
+#: libgui/toplevel.cpp:369
+msgid "&Pikloops..."
+msgstr "&Pikloops..."
+
+#: devices/gui/memory_editor.cpp:278 libgui/toplevel.cpp:331
+msgid "&Program"
+msgstr "&Programozás"
+
+#. i18n: file ./data/app_data/piklabui.rc line 62
+#: rc.cpp:21
+#, no-c-format
+msgid "&Project"
+msgstr "&Projekt"
+
+#: devices/gui/memory_editor.cpp:280 libgui/toplevel.cpp:335
+msgid "&Read"
+msgstr "&Olvasás"
+
+#: libgui/toplevel.cpp:288
+msgid "&Reset Layout"
+msgstr ""
+
+#: libgui/toplevel.cpp:341 libgui/toplevel.cpp:351
+msgid "&Run"
+msgstr "&Start"
+
+#: libgui/device_gui.cpp:75
+msgid "&Select"
+msgstr "&Választás"
+
+#: libgui/toplevel.cpp:355
+msgid "&Step"
+msgstr "&Lépés"
+
+#: libgui/toplevel.cpp:343
+msgid "&Stop"
+msgstr "&Állj"
+
+#: libgui/toplevel.cpp:375
+msgid "&Template Generator..."
+msgstr "Alapfájl generátor"
+
+#: devices/gui/memory_editor.cpp:279 libgui/toplevel.cpp:333
+msgid "&Verify"
+msgstr "&Összehasonlítás"
+
+#: devices/gui/memory_editor.cpp:276
+msgid "&Zero"
+msgstr "&Nulla"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:545
+msgid "'%1' missing."
+msgstr "'%1' hiányzik."
+
+#: devices/pic/gui/pic_memory_editor.cpp:368
+msgid "(backup)"
+msgstr "(visszaállítás)"
+
+#: tools/list/compile.cpp:371 tools/list/compile.cpp:406
+#: tools/list/compile.cpp:431
+msgid "*** Aborted ***"
+msgstr "*** Kilépett ***"
+
+#: tools/list/compile.cpp:301
+#, fuzzy
+msgid "*** Error ***"
+msgstr "*** Hiba ***"
+
+#: tools/list/compile.cpp:298
+msgid "*** Exited with status: %1 ***"
+msgstr "*** Kilépési hely: %1 ***"
+
+#: tools/list/compile.cpp:487
+msgid "*** Success ***"
+msgstr "*** Kész ***"
+
+#: tools/list/compile.cpp:308
+msgid "*** Timeout ***"
+msgstr "*** Idő lejárt ***"
+
+#: libcli/cli_log.cpp:62
+#, fuzzy
+msgid "*no*"
+msgstr "Nem"
+
+#: libcli/cli_log.cpp:62
+msgid "*yes*"
+msgstr "*igen*"
+
+#: progs/base/generic_prog.cpp:27
+msgid "---"
+msgstr "---"
+
+#: devices/pic/base/pic_config.cpp:68
+msgid "00"
+msgstr "00"
+
+#: devices/pic/base/pic_config.cpp:68
+msgid "01"
+msgstr "01"
+
+#: devices/pic/base/pic_config.cpp:69
+msgid "10"
+msgstr "10"
+
+#: tools/jal/jal_generator.cpp:22
+msgid "10MHz crystal"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:69
+msgid "11"
+msgstr "11"
+
+#: devices/pic/base/pic_config.cpp:210
+msgid "12-bit external bus"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:211
+msgid "16-bit external bus"
+msgstr ""
+
+#: devices/pic/base/pic.cpp:35
+#, fuzzy
+msgid "17C Family"
+msgstr "17X család"
+
+#: devices/pic/base/pic.cpp:36
+#, fuzzy
+msgid "18C Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic.cpp:37
+#, fuzzy
+msgid "18F Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic.cpp:38
+#, fuzzy
+msgid "18J Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic_config.cpp:212
+msgid "20-bit external bus"
+msgstr ""
+
+#: devices/mem24/gui/mem24_group_ui.h:21
+#, fuzzy
+msgid "24 EEPROM"
+msgstr "Data EEPROM"
+
+#: devices/pic/base/pic.cpp:39
+#, fuzzy
+msgid "24F Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic.cpp:40
+#, fuzzy
+msgid "24H Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic.cpp:41
+#, fuzzy
+msgid "30F Family"
+msgstr "18X család"
+
+#: devices/pic/base/pic_config.cpp:201
+msgid "4 MHz"
+msgstr "4 MHz"
+
+#: devices/pic/base/pic_config.cpp:200
+msgid "8 MHz"
+msgstr "8 MHz"
+
+#: libgui/device_gui.cpp:121
+msgid "<Memory Type>"
+msgstr "<Memória típus>"
+
+#: libgui/device_gui.cpp:99
+msgid "<Programmer>"
+msgstr "<Programozó>"
+
+#: libgui/device_gui.cpp:111
+msgid "<Toolchain>"
+msgstr "<Fordítóprogram>"
+
+#: tools/cc5x/cc5x.cpp:61
+msgid "<a href=\"http://www.bknd.com/cc5x/index.shtml\">CC5X</a> is a C compiler distributed by B Knudsen Data."
+msgstr ""
+
+#: tools/mpc/mpc.cpp:56
+msgid "<a href=\"http://www.bytecraft.com/mpccaps.html\">MPC Compiler</a> is a C compiler distributed by Byte Craft."
+msgstr ""
+
+#: tools/ccsc/ccsc.cpp:94
+msgid "<a href=\"http://www.ccsinfo.com/content.php?page=compilers\">CCS Compiler</a> is a C compiler distributed by CCS."
+msgstr ""
+
+#: tools/picc/picc.cpp:121
+msgid "<a href=\"http://www.htsoft.com\">PICC 18</a> is a C compiler distributed by HTSoft."
+msgstr ""
+
+#: tools/picc/picc.cpp:94
+msgid "<a href=\"http://www.htsoft.com\">PICC-Lite</a> is a freeware C compiler distributed by HTSoft."
+msgstr ""
+
+#: tools/picc/picc.cpp:108
+msgid "<a href=\"http://www.htsoft.com\">PICC</a> is a C compiler distributed by HTSoft."
+msgstr ""
+
+#: tools/boost/boostbasic.cpp:22
+msgid "<a href=\"http://www.sourceboost.com/Products/BoostBasic/Overview.html\">BoostBasic Compiler</a> is a Basic compiler distributed by SourceBoost Technologies."
+msgstr ""
+
+#: tools/boost/boostc.cpp:22
+msgid "<a href=\"http://www.sourceboost.com/Products/BoostC/Overview.html\">BoostC Compiler</a> is a C compiler distributed by SourceBoost Technologies."
+msgstr ""
+
+#: tools/boost/boostcpp.cpp:23
+msgid "<a href=\"http://www.sourceboost.com/Products/BoostCpp/Overview.html\">BoostC++ Compiler</a> is a C compiler distributed by SourceBoost Technologies."
+msgstr ""
+
+#: devices/list/device_list.cpp:16
+msgid "<auto>"
+msgstr "<auto>"
+
+#: tools/base/toolchain_config_widget.cpp:269
+msgid "<b>Device string #%1:</b><br>%2<br>"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:268
+msgid "<b>Device string:</b><br>%1<br>"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:241
+msgid "<b>Version string:</b><br>%1<br></qt>"
+msgstr ""
+
+#: libgui/hex_editor.cpp:101
+#, fuzzy
+msgid "<b>Warning:</b> hex file seems to be incompatible with the selected device %1:<br>%2"
+msgstr "<b>Figyelem:</b> a Hex fájl nem kompatibilis a választott eszközzel %1:<br>%2"
+
+#: libgui/project_manager.cpp:171
+msgid "<default>"
+msgstr "<alapértelmezett>"
+
+#: devices/pic/gui/pic_config_word_editor.cpp:180
+msgid "<invalid>"
+msgstr ""
+
+#: libgui/project_manager.cpp:68
+msgid "<no project>"
+msgstr "<nincs project>"
+
+#: devices/pic/base/pic.cpp:115
+msgid "<none>"
+msgstr "<nincs>"
+
+#: piklab-prog/cmdline.cpp:457 piklab-prog/cmdline.cpp:461
+#: piklab-prog/cmdline.cpp:467 piklab-prog/cmdline.cpp:476
+#: piklab-prog/cmdline.cpp:487 piklab-prog/cmdline.cpp:491
+msgid "<not set>"
+msgstr "<nem beállított>"
+
+#: libgui/likeback.cpp:657
+msgid "<p>Error while trying to send the report.</p><p>Please retry later.</p>"
+msgstr "<p>Hiba a report küldésénél.</p><p>Próbáld később.</p>"
+
+#: libgui/likeback.cpp:659
+msgid "<p>Your comment has been sent successfully. It will help improve the application.</p><p>Thanks for your time.</p>"
+msgstr "<p>A megjegyzésed elküldve, köszönöm"
+
+#: tools/c18/c18.cpp:92
+msgid "<qt><a href=\"http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1406&dDocName=en010014&part=SW006011\">C18</a> is a C compiler distributed by Microchip.</qt>"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:266
+msgid "<qt><b>Command #%1 for devices detection:</b><br>%2<br>"
+msgstr "<qt><b>Parancs #%1 eszköz azonosítás:</b><br>%2<br>"
+
+#: tools/base/toolchain_config_widget.cpp:265
+msgid "<qt><b>Command for devices detection:</b><br>%1<br>"
+msgstr "<qt><b>Eszköz azonosítás:</b><br>%2<br>"
+
+#: tools/base/toolchain_config_widget.cpp:240
+msgid "<qt><b>Command for executable detection:</b><br>%1<br>"
+msgstr "<qt><b>Command for executable detection:</b><br>%1<br>"
+
+#: libgui/toplevel.cpp:972
+#, fuzzy
+msgid "<qt>It is not possible to start a debugging session with an hex file not generated with the current project.</qt>"
+msgstr "<qt>Nem lehetséges a hibakeresés elíndítása, mer a hex fájl nem ebben a projektben lett generálva. Csukd be ezt a projektet először.</qt>"
+
+#: libgui/port_selector.cpp:70
+msgid "<qt>Piklab has been compiled without support for USB port.</qt>"
+msgstr "<qt>Piklab lefordítva USB port támogatás nélkül.</qt>"
+
+#: libgui/port_selector.cpp:67
+#, fuzzy
+msgid "<qt>Piklab has been compiled without support for parallel port.</qt>"
+msgstr "<qt>Piklab lefordítva LPT port támogatás nélkül.</qt>"
+
+#: libgui/toplevel.cpp:950
+#, fuzzy
+msgid "<qt>The project hex file may not be up-to-date since some project files have been modified. Continue anyway ?</qt>"
+msgstr "<qt>A project hex fájl régebbi mint a programfájl. Folytassam ?</qt>"
+
+#: tools/base/tool_config_widget.cpp:112
+msgid "<qt>This values will be placed after the linked objects.</qt>"
+msgstr ""
+
+#: libgui/port_selector.cpp:63
+msgid "<qt>Your computer might not have any parallel port or the /dev/parportX device has not been created.<br>Use \"mknod /dev/parport0 c 99 0\" to create it<br>and \"chmod a+rw /dev/parport0\" to make it RW enabled.</qt>"
+msgstr ""
+
+#: libgui/port_selector.cpp:60
+msgid "<qt>Your computer might not have any serial port.</qt>"
+msgstr ""
+
+#: devices/pic/gui/pic_register_view.cpp:47
+msgid "Access Bank (high)"
+msgstr ""
+
+#: devices/pic/gui/pic_register_view.cpp:47
+msgid "Access Bank (low)"
+msgstr ""
+
+#: progs/direct/base/direct_mem24.cpp:168
+msgid "Acknowledge bit incorrect"
+msgstr "Acknowledge Bit hibás"
+
+#: devices/pic/base/pic_config.cpp:102 devices/pic/base/pic_config.cpp:105
+msgid "Active high"
+msgstr "Aktív magas szint"
+
+#: devices/pic/base/pic_config.cpp:103 devices/pic/base/pic_config.cpp:106
+msgid "Active low"
+msgstr "Aktiv alacsony szint"
+
+#: libgui/project_manager.cpp:366 libgui/toplevel.cpp:311
+msgid "Add Current File"
+msgstr "Ezen fájl hozzáadása"
+
+#: libgui/project_manager.cpp:490
+msgid "Add File to Project"
+msgstr "Add a fájlt a projekthez"
+
+#: libgui/project_manager.cpp:393
+msgid "Add File..."
+msgstr "Fájl hozzáadás..."
+
+#: libgui/project_manager.cpp:365 libgui/project_manager.cpp:388
+#: libgui/toplevel.cpp:309
+msgid "Add Object File..."
+msgstr "Object Fájl hozzáadás..."
+
+#: libgui/project_manager.cpp:364 libgui/toplevel.cpp:307
+msgid "Add Source File..."
+msgstr "Forrásfájl hozzáadás..."
+
+#: libgui/project_wizard.cpp:152
+msgid "Add Source Files"
+msgstr "Forrásfájlok hozzáadás..."
+
+#: libgui/project_wizard.cpp:155
+msgid "Add existing files."
+msgstr "Létező fájl hozzáadás"
+
+#: libgui/new_dialogs.cpp:66
+msgid "Add to project"
+msgstr "Hozzáadás a Projekthez"
+
+#: libgui/breakpoint_view.cpp:49
+msgid "Address"
+msgstr "Cím"
+
+#: devices/pic/base/pic_config.cpp:123
+msgid "Address bus width (in bits)"
+msgstr "Cím busz (in bits)"
+
+#: progs/gui/prog_group_ui.cpp:50
+msgid "Advanced Dialog"
+msgstr "Kiterjesztett dialógus"
+
+#: devices/pic/base/pic_config.cpp:373
+msgid "All"
+msgstr "Mind"
+
+#: libgui/toplevel.cpp:636
+msgid "All Files"
+msgstr "Összes fájl"
+
+#: common/common/purl_base.cpp:116
+msgid "All Object Files"
+msgstr "Minden Obj fájl"
+
+#: common/common/purl_base.cpp:104
+msgid "All Source Files"
+msgstr "Minden forrásfájl"
+
+#: piklab-prog/cli_interactive.cpp:207
+msgid "All breakpoints removed"
+msgstr "Összes töréspont eltávolítása"
+
+#: common/global/log.cpp:28
+msgid "All debug messages"
+msgstr "Minden hibakereső üzenet"
+
+#: tools/gputils/gputils_config.cpp:17 tools/c18/c18_config.cpp:16
+msgid "All messages"
+msgstr "Minden üzenet"
+
+#: devices/pic/pic/pic_prog.cpp:152
+msgid "All or part of code memory is protected so cannot be preserved. Continue anyway?"
+msgstr "Minden memória írásvédett. Folytassam?"
+
+#: devices/pic/pic/pic_prog.cpp:159
+#, fuzzy
+msgid "All or part of data EEPROM is protected so cannot be preserved. Continue anyway?"
+msgstr "Az eeprom írásvédett. Folytassam?"
+
+#: devices/pic/base/pic_config.cpp:258
+msgid "Allow multiple reconfigurations"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:257
+msgid "Allow only one reconfiguration"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:259
+#, fuzzy
+msgid "Alternate I2C Pins"
+msgstr "Alternatívák"
+
+#: devices/base/device_group.cpp:242
+msgid "Alternatives"
+msgstr "Alternatívák"
+
+#: devices/pic/base/pic_config.cpp:99
+msgid "Analog"
+msgstr ""
+
+#: libgui/likeback.cpp:135
+msgid "Are you sure you do not want to participate anymore in the application enhancing program?"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:260
+msgid "Argument file type not recognized."
+msgstr "Az argument fájl típusa nem elfogadható"
+
+#: piklab-prog/cli_interactive.cpp:211
+msgid "Argument should be breakpoint index"
+msgstr "Argument should be breakpoint index"
+
+#: piklab-prog/cli_interactive.cpp:201
+msgid "Arguments not recognized"
+msgstr "A paraméter nem elfogadott"
+
+#: tools/base/tool_config_widget.cpp:42
+msgid "Arguments:"
+msgstr "Paraméterek:"
+
+#: progs/direct/base/direct_prog_config.cpp:56
+msgid "Asix Piccolo"
+msgstr "Asix Piccolo"
+
+#: progs/direct/base/direct_prog_config.cpp:58
+msgid "Asix Piccolo Grande"
+msgstr "Asix Piccolo Grande"
+
+#: tools/base/generic_tool.cpp:24 common/common/purl_base.cpp:20
+#: common/common/purl_base.cpp:24
+msgid "Assembler"
+msgstr "Assembler"
+
+#: common/common/purl_base.cpp:32
+#, fuzzy
+msgid "Assembler File"
+msgstr "Assembler"
+
+#: common/common/purl_base.cpp:33
+#, fuzzy
+msgid "Assembler File for PIC30"
+msgstr "ASM-Fájl PIC30"
+
+#: common/common/purl_base.cpp:34
+#, fuzzy
+msgid "Assembler File for PICC"
+msgstr "ASM-Fájl PICC"
+
+#: tools/base/generic_tool.cpp:24
+#, fuzzy
+msgid "Assembler:"
+msgstr "Assembler"
+
+#: devices/base/generic_memory.cpp:34
+msgid "At least one value (at address %1) is defined outside memory ranges."
+msgstr "Egy érték (a %1 címen) kívül esik a memórián."
+
+#: devices/mem24/mem24/mem24_memory.cpp:87 devices/pic/pic/pic_memory.cpp:464
+msgid "At least one word (at offset %1) is larger (%2) than the corresponding mask (%3)."
+msgstr "Legalább egy szó ( %1)nagyobb (%2) mint a maszk (%3)."
+
+#: common/global/about.cpp:31
+msgid "Author and maintainer."
+msgstr "Alkotó és karbantartó."
+
+#: common/global/about.cpp:34
+msgid "Author of gputils"
+msgstr "A gputils alkotója"
+
+#: common/global/about.cpp:35
+msgid "Author of likeback"
+msgstr "A likeback alkotója"
+
+#: tools/base/tool_config_widget.cpp:24
+msgid "Automatic"
+msgstr "Automatikus"
+
+#: progs/icd2/base/icd2.cpp:347
+msgid "Bad checksum for read block: %1 (%2 expected)."
+msgstr "Rossz checksum az olvasott blokban: %1 (%2 )."
+
+#: progs/icd2/base/icd2.cpp:228
+msgid "Bad checksum for received string"
+msgstr "Rossz checksum a vett szövegben"
+
+#: devices/pic/base/pic_config.cpp:62
+msgid "Bandgap voltage calibration"
+msgstr "Bandgap feszültség kalibrálás"
+
+#: devices/pic/gui/pic_group_ui.cpp:68 devices/pic/gui/pic_group_ui.cpp:76
+#: devices/pic/gui/pic_register_view.cpp:61
+msgid "Bank %1"
+msgstr "Bank %1"
+
+#: devices/pic/gui/pic_register_view.cpp:54
+msgid "Bank %1 (high)"
+msgstr "Bank %1 (high)"
+
+#: devices/pic/gui/pic_register_view.cpp:54
+msgid "Bank %1 (low)"
+msgstr "Bank %1 (low)"
+
+#: devices/pic/base/pic.cpp:33
+msgid "Baseline Family"
+msgstr "Alapkonfigurációs család"
+
+#: common/common/purl_base.cpp:28
+msgid "Basic Compiler"
+msgstr "Basic Fordító"
+
+#: common/common/purl_base.cpp:40
+msgid "Basic Source File"
+msgstr "Basic forrásfájl"
+
+#: tools/base/generic_tool.cpp:26
+#, fuzzy
+msgid "Bin to Hex"
+msgstr "Bin-ből Hex-be"
+
+#: tools/base/generic_tool.cpp:26
+msgid "Bin to Hex:"
+msgstr "Bin-ből Hex-be:"
+
+#: common/common/number.cpp:20
+msgid "Binary"
+msgstr "Bináris"
+
+#: progs/base/generic_prog.cpp:35
+msgid "Blank Checking..."
+msgstr "Ürességteszt..."
+
+#: libgui/prog_config_widget.cpp:44
+msgid "Blank check after erase."
+msgstr "Ürességteszt a törlés után."
+
+#: piklab-prog/cmdline.cpp:48
+msgid "Blank check device memory."
+msgstr "Ürességteszt a memóriában."
+
+#: progs/base/generic_prog.cpp:292
+#, fuzzy
+msgid "Blank checking done."
+msgstr "Ürességteszt kész"
+
+#: progs/base/generic_prog.cpp:395
+#, fuzzy
+msgid "Blank checking successful."
+msgstr "Ürességteszt kész"
+
+#: progs/base/generic_prog.cpp:290 progs/base/generic_prog.cpp:393
+msgid "Blank checking..."
+msgstr "Ürességteszt..."
+
+#: piklab-prog/cmdline.cpp:363
+msgid "Blank-checking device memory not supported for specified programmer."
+msgstr "Ürességteszt nem lehetséges ezzel a programozóval."
+
+#: devices/pic/base/pic_protection.cpp:363
+#, fuzzy
+msgid "Block #%1"
+msgstr "Blokk %1"
+
+#: tools/boost/boostbasic.h:51
+msgid "BoostBasic Compiler for PIC16"
+msgstr "BoostBasic Compiler PIC16-hoz"
+
+#: tools/boost/boostbasic.h:62
+msgid "BoostBasic Compiler for PIC18"
+msgstr "BoostBasic Compiler PIC18-hoz"
+
+#: tools/boost/boostc.h:51
+msgid "BoostC Compiler for PIC16"
+msgstr "BoostC Compiler PIC16-hoz"
+
+#: tools/boost/boostc.h:62
+msgid "BoostC Compiler for PIC18"
+msgstr "BoostC Compiler PIC18-hoz"
+
+#: tools/boost/boostcpp.h:51
+msgid "BoostC++ Compiler for PIC16"
+msgstr "BoostC++ Compiler PIC16-hoz"
+
+#: tools/boost/boostcpp.h:62
+msgid "BoostC++ Compiler for PIC18"
+msgstr "BoostC++ Compiler PIC18-hoz"
+
+#: devices/pic/base/pic_protection.cpp:354
+msgid "Boot Block"
+msgstr "Boot Block"
+
+#: devices/pic/base/pic_protection.cpp:353
+#, fuzzy
+msgid "Boot Segment"
+msgstr "Túl kevés paraméter."
+
+#: devices/pic/base/pic_config.cpp:119
+msgid "Boot block size"
+msgstr "Boot Block Méret"
+
+#: devices/pic/base/pic_config.cpp:17
+msgid "Boot code-protection"
+msgstr "Boot kód lezárva"
+
+#: devices/pic/base/pic_config.cpp:221
+#, fuzzy
+msgid "Boot segment EEPROM size"
+msgstr "Boot Block Méret"
+
+#: devices/pic/base/pic_config.cpp:222
+msgid "Boot segment RAM size"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:218
+msgid "Boot segment security"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:217
+#, fuzzy
+msgid "Boot segment size"
+msgstr "Boot Block Méret"
+
+#: devices/pic/base/pic_config.cpp:216
+#, fuzzy
+msgid "Boot segment write-protection"
+msgstr "Boot írásvédett"
+
+#: devices/pic/base/pic_config.cpp:25
+msgid "Boot table read-protection"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:21
+msgid "Boot write-protection"
+msgstr "Boot írásvédett"
+
+#: progs/bootloader/base/bootloader_tbl.cpp:88
+msgid "Bootloader identified device as: %1"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_picdem.cpp:86
+msgid "Bootloader version %1 detected"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_pickit2.cpp:28
+msgid "Bootloader version %1 detected."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:176
+msgid "Breakpoint already set at %1"
+msgstr "Töréspont már beállítva itt %1"
+
+#: piklab-prog/cli_interactive.cpp:216
+msgid "Breakpoint at %1 removed"
+msgstr "Töréspont törölve %1 "
+
+#: libgui/gui_debug_manager.cpp:116
+msgid "Breakpoint at non-code line cannot be activated."
+msgstr "A töréspont nincs a forráskód sorában, nem tudom aktiválni"
+
+#: progs/manager/debug_manager.cpp:136
+msgid "Breakpoint at non-code line."
+msgstr "Töréspont nincs a kódsorban"
+
+#: progs/manager/debug_manager.cpp:141
+msgid "Breakpoint corresponds to several addresses. Using the first one."
+msgstr "Breakpoint corresponds to several addresses. Using the first one."
+
+#: piklab-prog/cli_interactive.cpp:212
+msgid "Breakpoint index too large"
+msgstr "Töréspont indexe túl nagy"
+
+#: piklab-prog/cli_interactive.cpp:180
+msgid "Breakpoint set at %1"
+msgstr "Töréspont beállítva ide %1"
+
+#: libgui/toplevel.cpp:218
+msgid "Breakpoints"
+msgstr "Töréspontok"
+
+#: piklab-prog/cli_interactive.cpp:187
+msgid "Breakpoints:"
+msgstr "Töréspontok:"
+
+#: devices/pic/base/pic_config.cpp:70
+msgid "Brown-out detect"
+msgstr "Brown-out detect"
+
+#: devices/pic/base/pic_config.cpp:83
+msgid "Brown-out reset software"
+msgstr "Szoftveres Brown-out reset"
+
+#: devices/pic/base/pic_config.cpp:78
+msgid "Brown-out reset voltage"
+msgstr "Brown-out reset feszültség"
+
+#. i18n: file ./data/app_data/piklabui.rc line 75
+#: rc.cpp:24
+#, no-c-format
+msgid "Bu&ild"
+msgstr "Bu&ild"
+
+#: libgui/project_manager.cpp:361
+msgid "Build Project"
+msgstr "Projekt lefordítása"
+
+#. i18n: file ./data/app_data/piklabui.rc line 149
+#: rc.cpp:45
+#, no-c-format
+msgid "Build Toolbar"
+msgstr ""
+
+#: tools/list/compile.cpp:346
+msgid "Building project..."
+msgstr "Fordítom a projektet"
+
+#: common/common/purl_base.cpp:25
+msgid "C Compiler"
+msgstr "C Compiler"
+
+#: common/common/purl_base.cpp:38
+msgid "C Header File"
+msgstr "C Header File"
+
+#: common/common/purl_base.cpp:36
+msgid "C Source File"
+msgstr "C Source File"
+
+#: libgui/toplevel.cpp:264
+msgid "C&lose All"
+msgstr "Ö&sszeset bezár"
+
+#: common/common/purl_base.cpp:27
+msgid "C++ Compiler"
+msgstr "C++ Compiler"
+
+#: common/common/purl_base.cpp:37
+msgid "C++ Source File"
+msgstr "C++ Source File"
+
+#: tools/c18/c18.h:42
+msgid "C18 Compiler"
+msgstr "C18 Compiler"
+
+#: tools/cc5x/cc5x.h:33
+#, fuzzy
+msgid "CC5X Compiler"
+msgstr "CCS Compiler"
+
+#: devices/pic/base/pic_config.cpp:82
+msgid "CCP1 multiplex"
+msgstr "CCP1 multiplex"
+
+#: devices/pic/base/pic_config.cpp:81
+msgid "CCP2 multiplex"
+msgstr "CCP2 multiplex"
+
+#: tools/ccsc/ccsc.h:36
+msgid "CCS Compiler"
+msgstr "CCS Compiler"
+
+#: common/common/purl_base.cpp:53
+msgid "COD File"
+msgstr "COD File"
+
+#: common/common/purl_base.cpp:54
+msgid "COFF File"
+msgstr "COFF File"
+
+#: coff/base/coff.cpp:26
+msgid "COFF file is truncated (offset: %1  nbBytes: %2  size:%3)."
+msgstr "COFF fájl megcsonkítva (offset: %1  nbBytes: %2  size:%3)."
+
+#: piklab-prog/cli_interactive.cpp:59
+msgid "COFF file to be used for debugging."
+msgstr "Hex fájl a programozáshoz."
+
+#: coff/base/coff.cpp:368
+msgid "COFF format not supported: magic number is %1."
+msgstr "COFF formátum nem alkalmazható:varázsszám %1"
+
+#: devices/pic/base/pic_config.cpp:193
+msgid "CPU system clock (divided by)"
+msgstr "Processzor frekvencia (osztva)"
+
+#: progs/bootloader/base/bootloader_tbl.cpp:148
+msgid "CRC error from bootloader: retrying..."
+msgstr ""
+
+#: devices/base/hex_buffer.cpp:156
+msgid "CRC mismatch (line %1)."
+msgstr "Rossz CRC (%1 sorban)."
+
+#: devices/pic/base/pic.cpp:19 progs/gui/prog_group_ui.cpp:92
+msgid "Calibration"
+msgstr "Kalibrálás"
+
+#: devices/pic/base/pic.cpp:26
+msgid "Calibration Backup"
+msgstr "Kalibrálás visszatöltése"
+
+#: devices/pic/base/pic_config.cpp:16
+msgid "Calibration code-protection"
+msgstr "Kalibrálás kódvédett"
+
+#: progs/pickit2/base/pickit_prog.cpp:45
+msgid "Calibration firmware file seems incompatible with selected device %1."
+msgstr "Kalibrálás firmware fájl úgytűnik nem kompatibilis a választott eszközzel %1"
+
+#: devices/pic/base/pic.cpp:233
+msgid "Calibration word at address %1 is blank."
+msgstr "Kalibrációs word %1 címen"
+
+#: devices/pic/base/pic.cpp:239
+msgid "Calibration word is not a compatible opcode (%2)."
+msgstr "Kalibrációs word nem kompatibilis műveleti kód"
+
+#: devices/pic/pic/pic_prog.cpp:368
+msgid "Cannot erase ROM or EPROM device."
+msgstr "Nem tudom törölni a ROM-ot vagy az EPROMOT"
+
+#: devices/pic/pic/pic_prog.cpp:405
+msgid "Cannot erase protected code memory. Consider erasing the whole chip."
+msgstr "Nem tudom törölni a lezárt kódmemóriát. Figyelem törölni kell az egész chip-et"
+
+#: devices/pic/pic/pic_prog.cpp:409
+#, fuzzy
+msgid "Cannot erase protected data EEPROM. Consider erasing the whole chip."
+msgstr "Nem tudom törölni a lezárt eepromot. Figyelem törölni kell az egész chip-et"
+
+#: devices/pic/pic/pic_prog.cpp:423
+msgid "Cannot erase specified range because of programmer limitations."
+msgstr ""
+
+#: libgui/project_manager.cpp:594
+msgid "Cannot open without device specified."
+msgstr "Nem tudom megnyitni eszközbeállítás  nélkül"
+
+#: devices/pic/pic/pic_prog.cpp:483
+msgid "Cannot read ROMless device."
+msgstr "Nem tudok olvasni ROM nélküli eszközből"
+
+#: progs/pickit2/base/pickit2.cpp:114
+msgid "Cannot read voltages with this firmware version."
+msgstr "Nem tudok feszültséget olvasni ezzel a firmware verzióval."
+
+#: piklab-prog/cmdline.cpp:297
+msgid "Cannot specify range without specifying device."
+msgstr "Nem tudom beállítani a méretet eszközbeállítás nélkül."
+
+#: progs/manager/debug_manager.cpp:336
+msgid "Cannot start debugging session without input file (%1)."
+msgstr "Nem tudom indítani a hibakeresőt bemeneti fájl nélkül(%1)."
+
+#: progs/manager/debug_manager.cpp:321
+msgid "Cannot start debugging session without input file (not specified)."
+msgstr "Nem tudom indítani a hibakeresőt bemeneti fájl nélkül(nem beállított)."
+
+#: libgui/gui_prog_manager.cpp:33
+#, fuzzy
+msgid "Cannot start debugging without a COFF file. Please compile the project."
+msgstr "Nem tudom indítani a hibakeresőt coff fájl nélkül. Fordítsd le a projektet."
+
+#: devices/pic/pic/pic_prog.cpp:561
+msgid "Cannot write ROM or ROMless device."
+msgstr "Nem tudom írni a ROM-ot vagy a ROM nélküli eszközt."
+
+#: piklab-hex/main.cpp:22
+#, fuzzy
+msgid "Check hex file for correctness."
+msgstr "Nézd meg a HEX fájl helyességét."
+
+#: progs/direct/base/direct.cpp:40
+msgid "Check this box to change DATA buffer direction."
+msgstr "Ellenőrizd a DATA buffer címét"
+
+#: progs/direct/base/direct.cpp:25 progs/direct/base/direct.cpp:28
+#: progs/direct/base/direct.cpp:31 progs/direct/base/direct.cpp:34
+msgid "Check this box to turn voltage on/off for this pin."
+msgstr ""
+
+#: progs/direct/gui/direct_config_widget.cpp:26
+msgid "Check this option if your hardware uses negative logic for this pin."
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:96
+msgid "Checksum Mask:"
+msgstr "Checksum Mask:"
+
+#: piklab-prog/cmdline.cpp:368 libgui/hex_editor.cpp:189
+msgid "Checksum: %1"
+msgstr "Checksum: %1"
+
+#: libgui/toplevel.cpp:319
+msgid "Clean"
+msgstr "Tisztítás"
+
+#: libgui/project_manager.cpp:362
+msgid "Clean Project"
+msgstr "Projekt Tisztítás"
+
+#: piklab-hex/main.cpp:24
+msgid "Clean hex file and fix errors (wrong CRC, truncated line, truncated file)."
+msgstr ""
+
+#: libgui/toplevel.cpp:365
+msgid "Clear All Breakpoints"
+msgstr "Összes töréspont eltávolítása"
+
+#: piklab-prog/cli_interactive.cpp:46
+msgid "Clear a breakpoint \"clear 0\", \"clear e 0x04\", or clear all breakpoints \"clear all\"."
+msgstr "Töréspont eltávolítása \"clear 0\", \"clear e 0x04\",vagy az összes töréspont eltávolítása \"clear all\"."
+
+#: devices/pic/gui/pic_register_view.cpp:265
+msgid "Clear all watching"
+msgstr "Minden figyelés eltávolítása"
+
+#: progs/direct/base/direct.cpp:29
+msgid "Clock"
+msgstr "Clock"
+
+#: progs/direct/gui/direct_config_widget.cpp:67
+msgid "Clock delay"
+msgstr "Clock delay"
+
+#: devices/pic/base/pic_config.cpp:251
+#, fuzzy
+msgid "Clock output"
+msgstr "(Kimenet)"
+
+#: devices/pic/base/pic_config.cpp:130
+msgid "Clock switching mode"
+msgstr ""
+
+#: libgui/editor_manager.cpp:383 libgui/toplevel.cpp:266
+msgid "Close All Others"
+msgstr "Összes egyéb bezárása"
+
+#: libgui/toplevel.cpp:305
+msgid "Close Project"
+msgstr "Projekt bezárása"
+
+#: progs/gui/hardware_config_widget.cpp:97
+msgid "Closing will discard changes you have made. Close anyway?"
+msgstr "Closing will discard changes you have made. Close anyway?"
+
+#: devices/pic/base/pic_config.cpp:14
+msgid "Code code-protection"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_pickit2.cpp:45
+#: progs/bootloader/base/bootloader_tbl.cpp:162
+#: progs/bootloader/base/bootloader_picdem.cpp:103
+msgid "Code is present in bootloader reserved area (at address %1). It will be ignored."
+msgstr ""
+
+#: devices/pic/base/pic.cpp:18
+msgid "Code memory"
+msgstr "Kód memoria"
+
+#: devices/pic/base/pic_config.cpp:90
+msgid "Code protected microcontroller"
+msgstr "Kódvédett microkontroller"
+
+#: devices/pic/gui/pic_memory_editor.cpp:77
+#, fuzzy
+msgid "Code protection"
+msgstr "Code write-protection"
+
+#: devices/pic/base/pic_config.cpp:19
+msgid "Code write-protection"
+msgstr "Code write-protection"
+
+#: tools/pic30/pic30.cpp:21
+msgid "Coff"
+msgstr "Coff"
+
+#: piklab-prog/cmdline.cpp:501
+msgid "Command-line programmer/debugger."
+msgstr "Parancssori programozó/hibakereső."
+
+#: piklab-hex/main.cpp:163
+#, fuzzy
+msgid "Command-line utility to manipulate hex files."
+msgstr "Parancssori HEX fájl szerkesztő."
+
+#: libgui/likeback.cpp:659
+msgid "Comment Sent"
+msgstr "Megjegyzés elküldve"
+
+#: devices/base/generic_device.cpp:36
+msgid "Commercial"
+msgstr "Kereskedelmi"
+
+#: piklab-hex/main.cpp:25
+#, fuzzy
+msgid "Compare two hex files."
+msgstr "2 hex fájl összehasonlítása."
+
+#: libgui/toplevel.cpp:206
+msgid "Compile Log"
+msgstr "Fordító kimenete"
+
+#: tools/base/generic_tool.cpp:23 common/common/purl_base.cpp:20
+msgid "Compiler"
+msgstr "Fordító"
+
+#: tools/base/generic_tool.cpp:23
+#, fuzzy
+msgid "Compiler:"
+msgstr "Fordító"
+
+#: tools/list/compile.cpp:324
+msgid "Compiling file..."
+msgstr "Fordítom a fájlt..."
+
+#: libgui/config_gen.cpp:157
+msgid "Config Generator"
+msgstr "Konfiguráció Generátor"
+
+#: devices/pic/gui/pic_config_word_editor.cpp:49
+msgid "Config Word Details"
+msgstr ""
+
+#: common/port/usb_port.cpp:245
+msgid "Configuration %1 not present: using %2"
+msgstr "Konfiguráció %1 nem létezik: ezt használom %2"
+
+#: devices/pic/base/pic.cpp:22
+msgid "Configuration Bits"
+msgstr "Konfigurációs Bitek"
+
+#: tools/base/tool_group.cpp:34
+msgid "Configuration bits: adapt to your setup and needs"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:22
+msgid "Configuration write-protection"
+msgstr ""
+
+#: tools/base/tool_config_widget.cpp:35
+msgid "Configuration:"
+msgstr "Konfiguráció:"
+
+#: libgui/toplevel.cpp:95
+msgid "Configure Compilation..."
+msgstr "Összeállítás szerkesztése"
+
+#: libgui/config_center.cpp:122
+msgid "Configure Piklab"
+msgstr "Piklab beállítása"
+
+#: libgui/toplevel.cpp:94
+msgid "Configure Toolchain..."
+msgstr "Fordítóprogramok beállítása..."
+
+#: libgui/config_center.cpp:151
+msgid "Configure Toolchains"
+msgstr "Fordítóprogramok beállítása"
+
+#: libgui/toplevel.cpp:379
+msgid "Configure Toolchains..."
+msgstr "Fordítóprogramok beállítása..."
+
+#: libgui/toplevel.cpp:405
+msgid "Configure email..."
+msgstr "Email beállítása..."
+
+#: libgui/project_manager.cpp:355 libgui/toplevel.cpp:75
+#: libgui/likeback.cpp:89
+msgid "Configure..."
+msgstr "Configure..."
+
+#: piklab-prog/cmdline.cpp:34
+msgid "Connect programmer."
+msgstr "Csatlakozás a programozóhoz."
+
+#: progs/gui/hardware_config_widget.cpp:66
+msgid "Connected"
+msgstr "Csatlakozva"
+
+#: progs/base/generic_prog.cpp:106
+#, fuzzy
+msgid "Connected."
+msgstr "Csatlakozva"
+
+#: progs/base/generic_prog.cpp:80
+msgid "Connecting %1 on %2 with device %3..."
+msgstr "Csatlakozás %1 a %2  %3 eszközzel"
+
+#: progs/base/generic_prog.cpp:74
+msgid "Connecting %1 with device %2..."
+msgstr "Csatlakozás %1   %3 eszközzel"
+
+#: progs/base/generic_prog.cpp:36
+msgid "Connecting..."
+msgstr "Csatlakozás..."
+
+#: libgui/prog_config_widget.cpp:132
+msgid "Connection: Error"
+msgstr "Csatlakozási hiba"
+
+#: libgui/prog_config_widget.cpp:132
+msgid "Connection: Ok"
+msgstr "Csatlakozás: Ok"
+
+#: tools/pic30/pic30_generator.cpp:51
+msgid "Constants in program space"
+msgstr "Constants in program space"
+
+#: devices/pic/pic/pic_prog.cpp:245 progs/pickit2v2/base/pickit2v2_prog.cpp:70
+msgid "Continue with the specified device name: \"%1\"..."
+msgstr "Folytatom a megadott eszközzel: \"%1\"..."
+
+#: progs/direct/gui/direct_config_widget.cpp:80
+msgid "Continuously send 0xA55A on \"Data out\" pin."
+msgstr "Folyamatos 0xA55A küldés  \"Data out\" lábra"
+
+#: libgui/config_gen.cpp:67
+msgid "Copy to clipboard"
+msgstr "Másolás vágólapra"
+
+#: libgui/project_manager.cpp:494
+msgid "Copying file to project directory failed."
+msgstr "Fájl másolása a projekt könyvtárba sikertelen."
+
+#: common/port/usb_port.cpp:262
+msgid "Could not claim USB interface %1"
+msgstr "Nem elérhető az USB illesztő %1"
+
+#: common/port/parallel.cpp:171
+msgid "Could not claim device \"%1\": check it is read/write enabled"
+msgstr "Nem elérhető az eszköz  \"%1\": nézd meg az olvasás/írás engedélyezve van-e."
+
+#: progs/gui/prog_group_ui.cpp:121
+msgid "Could not connect programmer."
+msgstr "Nem tudok csatlakozni a programozóhoz."
+
+#: progs/psp/base/psp_serial.cpp:39
+msgid "Could not contact Picstart+"
+msgstr "Nem tudok csatlakozni a Picstart+ -hoz"
+
+#: common/gui/purl_ext.cpp:38
+msgid "Could not copy file"
+msgstr "Nem tudok másolni a fájlt"
+
+#: common/gui/purl_ext.cpp:134
+msgid "Could not create directory"
+msgstr "Nem tudok könyvtárat létrehozni"
+
+#: common/gui/purl_ext.cpp:62
+msgid "Could not create file"
+msgstr "Nem tudom létrehozni a fájlt"
+
+#: common/gui/pfile_ext.cpp:31
+msgid "Could not create temporary file."
+msgstr "Nem tudom létrehozni a temp fájlt."
+
+#: common/gui/purl_ext.cpp:89
+msgid "Could not delete file."
+msgstr "Nem tudom törölni a fájlt."
+
+#: progs/gpsim/gui/gpsim_group_ui.cpp:35
+msgid "Could not detect \"gpsim\" version"
+msgstr "Nem tudom azonosítani a  \"gpsim\" verzióját"
+
+#: progs/direct/base/direct_mem24.cpp:51
+msgid "Could not detect EEPROM"
+msgstr "Nem tudom azonosítani az eeprom-ot"
+
+#: progs/bootloader/base/bootloader_pickit2.cpp:25
+#, fuzzy
+msgid "Could not detect device in bootloader mode."
+msgstr "Nem tudom megnyitni az eszközt \"%1\" írásra olvasásra"
+
+#: progs/manager/prog_manager.cpp:68 libgui/device_gui.cpp:244
+msgid "Could not detect supported devices for \"%1\". Please check installation."
+msgstr "Nem tudom azonosítani az eszközt  \"%1\". Fel van telepítve?"
+
+#: libgui/config_gen.cpp:143
+msgid "Could not detect supported devices for selected toolchain. Please check installation."
+msgstr "Nem tudom azonosítani a fordító által támogatott eszközöket. Ellenőrizd a telepítést."
+
+#: libgui/device_gui.cpp:249
+msgid "Could not detect supported devices for toolchain \"%1\". Please check installation."
+msgstr "Nem tudom azonosítani a fordító által támogatott eszközöket \"%1\". Ellenőrizd a telepítést."
+
+#: libgui/console.cpp:30
+msgid "Could not find \"konsolepart\"; please install kdebase."
+msgstr "Nem találom a  \"konsolepart\"; telepítsd a kdebase csomagot"
+
+#: common/port/usb_port.cpp:214
+msgid "Could not find USB device (vendor=%1 product=%2)."
+msgstr "Nem találom az USB eszközt (vendor=%1 product=%2)."
+
+#: progs/icd2/base/icd2_debug.cpp:157
+msgid "Could not find debug executive file \"%1\"."
+msgstr "Nem találom a hibakereső futtató fájlt  \"%1\"."
+
+#: piklab-prog/cli_prog_manager.cpp:28
+#, fuzzy
+msgid "Could not find device \"%1\" as serial or parallel port. Will try to open as serial port."
+msgstr "Nem tudom megnyitni az eszközt \"%1\" a soros vagy párhuzamos porton. Nézd meg, hogy létezik vegy állítsd be a jogosultságokat."
+
+#: tools/mpc/mpc_compile.cpp:43 tools/ccsc/ccsc_compile.cpp:99
+msgid "Could not find error file (%1)."
+msgstr "Nem találom a hibalista fájlt (%1)."
+
+#: libgui/project_manager.cpp:484
+msgid "Could not find file."
+msgstr "A fájl nem található."
+
+#: progs/icd2/base/icd2_prog.cpp:89
+msgid "Could not find firmware file \"%1\" in directory \"%2\"."
+msgstr "nem találom a firmware fájlt \"%1\" ebben a könyvtárban \"%2\"."
+
+#: common/port/serial.cpp:329
+msgid "Could not flush device"
+msgstr ""
+
+#: common/port/serial.cpp:165
+msgid "Could not get file descriptor parameters"
+msgstr "Nem tudom beolvasni a fájl paramétereit"
+
+#: piklab-prog/cmdline.cpp:169
+#, fuzzy
+msgid "Could not load hex file: %1."
+msgstr "Nem tudom beolvasni a HEX fájlt (%1)."
+
+#: common/port/serial.cpp:198
+msgid "Could not modify file descriptor flags"
+msgstr ""
+
+#: coff/base/coff.cpp:70
+msgid "Could not open COFF file."
+msgstr "nem tudom megnyitni a coff fájlt."
+
+#: common/port/parallel.cpp:167 common/port/parallel.cpp:177
+msgid "Could not open device \"%1\""
+msgstr "Nem tudom megnyitni az eszközt \"%1\""
+
+#: common/port/serial.cpp:190
+msgid "Could not open device \"%1\" read-write"
+msgstr "Nem tudom megnyitni az eszközt \"%1\" írásra olvasásra"
+
+#: common/gui/pfile_ext.cpp:81 libcli/cli_pfile.cpp:58
+msgid "Could not open file for reading."
+msgstr "Nem tudom olvasni a fájlt."
+
+#: libcli/cli_pfile.cpp:34
+msgid "Could not open file for writing."
+msgstr "Nem tudom írni a fájlt.."
+
+#: piklab-prog/cli_interactive.cpp:328
+msgid "Could not open filename \"%1\""
+msgstr "Nem tudom megnyitni a fájlt \"%1\""
+
+#: progs/icd2/base/icd2_prog.cpp:98 progs/icd2/base/icd2_debug.cpp:163
+#: progs/pickit2/base/pickit_prog.cpp:34 progs/base/generic_prog.cpp:261
+msgid "Could not open firmware file \"%1\"."
+msgstr "Nem tudom megnyitni a  firmware fájlt \"%1\"."
+
+#: libgui/project_manager.cpp:702
+msgid "Could not open project file."
+msgstr "Nem tudom megnyitni a projekt fájlt."
+
+#: common/gui/pfile_ext.cpp:86
+msgid "Could not open temporary file."
+msgstr "Nem tudom megnyitni a tempfájlt."
+
+#: progs/pickit2/base/pickit_prog.cpp:41
+msgid "Could not read calibration firmware file \"%1\" (%2)."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:169
+msgid "Could not read debug executive file \"%1\": %2."
+msgstr "Nem tudom megnyitni a debug executive fájlt \"%1\": %2."
+
+#: progs/pickit2/base/pickit2_prog.cpp:44
+msgid "Could not read firmware hex file \"%1\" (%2)."
+msgstr "Nem tudom olvasni a  firmware fájlt\"%1\": %2."
+
+#: progs/icd2/base/icd_prog.cpp:22
+msgid "Could not read firmware hex file \"%1\": %2."
+msgstr "Nem tudom olvasni a  firmware fájlt \"%1\": %2."
+
+#: progs/gpsim/gpsim.cpp:127
+msgid "Could not recognize gpsim version"
+msgstr "Nem tudom azonosítani a gpsim verziót"
+
+#: devices/pic/pic/pic_prog.cpp:342
+msgid "Could not restore band gap bits because programmer does not support writing config bits."
+msgstr ""
+
+#: libgui/toplevel.cpp:521
+msgid "Could not run \"pikloops\""
+msgstr "Nem tudom futtatni a \"pikloops\" programot"
+
+#: progs/gui/hardware_config_widget.cpp:72
+msgid "Could not save configuration: hardware name is empty."
+msgstr "Nem tudom menteni a konfigurációt: az eszköz neve üres."
+
+#: common/gui/pfile_ext.cpp:69
+msgid "Could not save file."
+msgstr "Nem tudom menteni a fájlt."
+
+#: libgui/project_manager.cpp:422
+msgid "Could not save project file \"%1\"."
+msgstr "Nem tudom menteni a projekt fájlt."
+
+#: common/port/serial.cpp:180
+msgid "Could not set file descriptor parameters"
+msgstr ""
+
+#: progs/gpsim/gui/gpsim_group_ui.cpp:34
+msgid "Could not start \"gpsim\""
+msgstr "Nem tudom indítani \"gpsim\""
+
+#: common/gui/pfile_ext.cpp:110
+msgid "Could not write to temporary file."
+msgstr "Nem tudom írni a temp fájlt."
+
+#: libgui/new_dialogs.cpp:61
+msgid "Create New File"
+msgstr "Új fájl létrehozása"
+
+#: libgui/project_wizard.cpp:153
+msgid "Create template source file."
+msgstr "Sablon forrásfájl létrehozása."
+
+#: devices/pic/base/pic_config.cpp:40
+msgid "Crystal/resonator"
+msgstr "Crystal/resonator"
+
+#: devices/pic/base/pic_config.cpp:41
+#, fuzzy
+msgid "Crystal/resonator, PLL enabled"
+msgstr "Crystal/resonator"
+
+#: tools/base/tool_config_widget.cpp:24
+msgid "Custom"
+msgstr "Custom"
+
+#: tools/base/tool_config_widget.cpp:108
+msgid "Custom libraries:"
+msgstr "Custom libraries:"
+
+#: tools/base/tool_config_widget.cpp:98
+msgid "Custom options:"
+msgstr "Custom options:"
+
+#: devices/pic/pic/pic_prog.cpp:565
+msgid "DEBUG configuration bit is on. Are you sure you want to continue programming the chip?"
+msgstr "A DEBUG konfigurációs bit bekapcsolva. Biztosan folytatni akarod a chip programozását?"
+
+#: devices/base/generic_device.cpp:58
+msgid "DFN-S"
+msgstr "DFN-S"
+
+#: devices/pic/base/pic.cpp:23
+msgid "Data EEPROM"
+msgstr "Data EEPROM"
+
+#: progs/direct/base/direct.cpp:35
+msgid "Data In"
+msgstr "Data In"
+
+#: progs/direct/base/direct.cpp:32
+msgid "Data Out"
+msgstr "Data Out"
+
+#: progs/direct/base/direct.cpp:38
+msgid "Data R/W"
+msgstr "Data R/W"
+
+#: devices/pic/base/pic_config.cpp:15
+msgid "Data code-protection"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:20
+msgid "Data write-protection"
+msgstr ""
+
+#: progs/icd2/gui/icd2_group_ui.cpp:28
+msgid "Debug Executive"
+msgstr "Debug Executive"
+
+#: devices/pic/base/pic.cpp:24
+msgid "Debug Vector"
+msgstr "Debug Vector"
+
+#. i18n: file ./data/app_data/piklabui.rc line 171
+#: rc.cpp:51
+#, no-c-format
+msgid "Debugger Toolbar"
+msgstr "Hibakereső Toolbar"
+
+#: piklab-prog/cmdline.cpp:329 piklab-prog/cmdline.cpp:334
+msgid "Debugging is not supported for specified programmer."
+msgstr "A hibakeresést nem támogatja ez a programozó."
+
+#: progs/icd2/base/icd2_debug.cpp:277
+msgid "Debugging test successful"
+msgstr "Hibakereső teszt sikeres"
+
+#: common/common/number.cpp:18
+msgid "Decimal"
+msgstr "Decimális"
+
+#: devices/pic/base/pic_config.cpp:120
+msgid "Dedicated in-circuit port"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:205
+msgid "Default system clock select"
+msgstr ""
+
+#: libgui/project_editor.cpp:27
+msgid "Description"
+msgstr "Leírás"
+
+#: piklab-hex/main.cpp:82
+msgid "Destination file already exists."
+msgstr "A célfájl már létezik."
+
+#: tools/base/toolchain_config_widget.cpp:68
+#: tools/base/toolchain_config_widget.cpp:78
+msgid "Details"
+msgstr "Details"
+
+#: devices/pic/gui/pic_config_word_editor.cpp:114
+msgid "Details..."
+msgstr "Details..."
+
+#: tools/base/toolchain_config_widget.cpp:165
+msgid "Detected (%1)"
+msgstr "Talált (%1)"
+
+#: progs/icd2/base/icd2_debug_specific.cpp:237
+msgid "Detected custom ICD2"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:109
+msgid "Detected ports supported by \"%1\":"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:110
+msgid "Detected ports:"
+msgstr "Talált portok"
+
+#: tools/base/toolchain_config_widget.cpp:205
+msgid "Detecting \"%1\"..."
+msgstr "Keresem \"%1\"..."
+
+#: tools/base/toolchain_config_widget.cpp:221
+msgid "Detecting ..."
+msgstr "Keresem ..."
+
+#: libgui/project_manager.cpp:39 libgui/editor_manager.cpp:460
+#: libgui/device_gui.cpp:149 libgui/project_editor.cpp:37
+msgid "Device"
+msgstr "Eszköz"
+
+#: devices/pic/base/pic.cpp:21
+msgid "Device ID"
+msgstr "Eszköz ID"
+
+#: libgui/toplevel.cpp:327
+msgid "Device Power"
+msgstr "Eszköz táplálás"
+
+#: tools/base/toolchain_config_widget.cpp:74
+msgid "Device detection:"
+msgstr "Eszköz keresés:"
+
+#: libgui/device_editor.cpp:66
+msgid "Device guessed from file: %1"
+msgstr "Eszköz feltételezve a fájlban: %1"
+
+#: progs/bootloader/base/bootloader_picdem.cpp:129
+msgid "Device memory does not match hex file (at address 0x%2: reading 0x%3 and expecting 0x%4)."
+msgstr ""
+
+#: devices/pic/pic/pic_prog_specific.cpp:104
+msgid "Device memory does not match hex file (in %1 at address %2: reading %3 and expecting %4)."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:256
+msgid "Device memory doesn't match debug executive (at address %1: reading %2 and expecting %3)."
+msgstr ""
+
+#: devices/mem24/mem24/mem24_prog.cpp:40
+msgid "Device memory doesn't match hex file (at address %1: reading %2 and expecting %3)."
+msgstr ""
+
+#: devices/mem24/mem24/mem24_prog.cpp:38
+msgid "Device memory is not blank (at address %1: reading %2 and expecting %3)."
+msgstr ""
+
+#: devices/pic/pic/pic_prog_specific.cpp:101
+msgid "Device memory is not blank (in %1 at address %2: reading %3 and expecting %4)."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:213
+msgid "Device not autodetectable: continuing with the specified device name \"%1\"..."
+msgstr "Az eszköz nem azonosítható autómatikusan, folytatom a kiválasztott névvel"
+
+#: devices/pic/pic/pic_prog.cpp:87
+msgid "Device not in programming"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:153
+msgid "Device not specified."
+msgstr "Az eszköz nem meghatározott."
+
+#: libgui/config_gen.cpp:144
+msgid "Device not supported by the selected toolchain."
+msgstr "Az eszköz nem támogatott a kiválasztott fordítóban."
+
+#: libgui/config_gen.cpp:33 libgui/config_center.cpp:77
+#: libgui/project_wizard.cpp:129
+msgid "Device:"
+msgstr "Eszköz:"
+
+#: coff/base/coff.cpp:464
+msgid "Different processor name: %1"
+msgstr "Eltérő processzor név: %1"
+
+#: devices/pic/base/pic_config.cpp:98
+msgid "Digital"
+msgstr "Digitális"
+
+#: devices/pic/base/pic_config.cpp:250
+#, fuzzy
+msgid "Digital I/O"
+msgstr "Digitális"
+
+#: progs/direct/base/direct_prog.h:59
+msgid "Direct Programmer"
+msgstr "Közvetlen programozó"
+
+#: common/global/about.cpp:39
+msgid "Direct programming for 16F676/630."
+msgstr "Közvetlen programozás 16F676/630."
+
+#: common/global/about.cpp:41
+msgid "Direct programming for 16F73/74/76/77."
+msgstr "Közvetlen programozás 16F73/74/76/77."
+
+#: common/global/about.cpp:45
+msgid "Direct programming for 24C EEPROM is inspired from his program \"prog84\"."
+msgstr "Közvetlen programozás 24C EEPROM a \"prog84\" program alapján."
+
+#: common/global/about.cpp:38
+msgid "Direct programming for PIC18F devices."
+msgstr "PIC18F Közvetlen programozása "
+
+#: common/global/about.cpp:44
+msgid "Direct programming for dsPICs is inspired from his program \"dspicprg\"."
+msgstr "dsPIC Közvetlen programozása a \"dspicprg\" program alapján."
+
+#: libgui/project_wizard.cpp:185
+msgid "Directory does not exists. Create it?"
+msgstr "A könyvtár nem létezik. Csináljak újat?"
+
+#: libgui/project_wizard.cpp:180
+msgid "Directory is empty."
+msgstr "A könyvtár üres."
+
+#: libgui/project_wizard.cpp:125
+msgid "Directory:"
+msgstr "Könyvtár:"
+
+#: libgui/breakpoint_view.cpp:27
+msgid "Disable breakpoint"
+msgstr "Töréspont tiltása"
+
+#: devices/pic/base/pic_config.cpp:85 devices/pic/base/pic_config.cpp:185
+#: devices/pic/base/pic_config.cpp:209 devices/pic/base/pic_config.cpp:374
+#: devices/pic/base/pic_config.cpp:378
+msgid "Disabled"
+msgstr "Tiltva"
+
+#: devices/pic/base/pic_config.cpp:30
+msgid "Disabled (connected to Vdd)"
+msgstr "Disabled (connected to Vdd)"
+
+#: progs/icd2/base/icd2_debug.cpp:217
+msgid "Disabling code program protection for debugging"
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:225
+msgid "Disabling code read protection for debugging"
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:221
+msgid "Disabling code write protection for debugging"
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:213
+msgid "Disabling watchdog timer for debugging"
+msgstr ""
+
+#: libgui/object_view.cpp:99
+msgid "Disassembling content of hex file editor."
+msgstr ""
+
+#: libgui/object_view.cpp:86
+msgid "Disassembling hex file: %1"
+msgstr ""
+
+#: libgui/project_manager.cpp:554
+msgid "Disassembly"
+msgstr "Disassembly"
+
+#: libgui/project_manager.cpp:104
+msgid "Disassembly Listing"
+msgstr "Disassembly Listing"
+
+#: libgui/object_view.cpp:80
+msgid "Disassembly not supported for the selected device."
+msgstr "Disassembly not supported for the selected device."
+
+#: libgui/object_view.cpp:75
+msgid "Disassembly not supported for the selected toolchain."
+msgstr "Disassembly not supported for the selected toolchain."
+
+#: piklab-prog/cli_interactive.cpp:41
+msgid "Disconnect programmer."
+msgstr "Disconnect programmer."
+
+#: progs/manager/prog_manager.cpp:147
+msgid "Disconnecting..."
+msgstr "Disconnecting..."
+
+#: libcli/cli_main.cpp:40
+msgid "Display all debug messages."
+msgstr "Display all debug messages."
+
+#: libcli/cli_main.cpp:38
+msgid "Display debug messages."
+msgstr "Display debug messages."
+
+#: libcli/cli_main.cpp:39
+msgid "Display extra debug messages."
+msgstr "Display extra debug messages."
+
+#: piklab-prog/cli_interactive.cpp:36
+msgid "Display help."
+msgstr "Display help."
+
+#: libcli/cli_main.cpp:41
+#, fuzzy
+msgid "Display low level debug messages."
+msgstr "Display all debug messages."
+
+#: piklab-prog/cli_interactive.cpp:32
+msgid "Display the list of available properties."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:35
+msgid "Display the list of memory ranges."
+msgstr "Display the list of memory ranges."
+
+#: piklab-prog/cli_interactive.cpp:33
+msgid "Display the list of registers."
+msgstr "Display the list of registers."
+
+#: piklab-prog/cli_interactive.cpp:34
+msgid "Display the list of variables."
+msgstr "Display the list of variables."
+
+#: libgui/likeback.cpp:136
+msgid "Do not Help Anymore"
+msgstr ""
+
+#: libgui/project_wizard.cpp:156
+msgid "Do not add files now."
+msgstr "Do not add files now."
+
+#: libgui/likeback.cpp:603
+msgid "Do not ask for features: your wishes will be ignored."
+msgstr ""
+
+#: libcli/cli_main.cpp:42
+msgid "Do not display messages."
+msgstr "Do not display messages."
+
+#: progs/gui/hardware_config_widget.cpp:195
+msgid "Do you want to delete custom hardware \"%1\"?"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:636
+msgid "Do you want to overwrite the device calibration with %1?"
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:81
+msgid "Do you want to overwrite this custom hardware \"%1\"?"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:124
+msgid "ECCP mux"
+msgstr "ECCP mux"
+
+#: devices/mem24/gui/mem24_memory_editor.cpp:41
+#, fuzzy
+msgid "EEPROM Memory"
+msgstr "Eeprom Memory"
+
+#: progs/direct/base/direct_mem24.cpp:54
+#, fuzzy
+msgid "EEPROM detected"
+msgstr "Eeprom detected"
+
+#: progs/direct/base/direct_prog_config.cpp:69
+msgid "EL Cheapo classic"
+msgstr "EL Cheapo classic"
+
+#: progs/direct/base/direct_prog_config.cpp:38
+msgid "EPIC+"
+msgstr "EPIC+"
+
+#: devices/base/generic_device.cpp:28
+msgid "EPROM (OTP)"
+msgstr "EPROM (OTP)"
+
+#: libgui/likeback.cpp:176
+msgid "Each time you have a great or frustrating experience, please click the appropriate hand below the window title-bar, briefly describe what you like or dislike and click Send."
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:41
+msgid "Edit and test hardware"
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:126
+msgid "Edit/Test..."
+msgstr ""
+
+#: tools/pic30/pic30.cpp:22
+msgid "Elf"
+msgstr "Elf"
+
+#: common/common/purl_base.cpp:49
+msgid "Elf File"
+msgstr "Elf File"
+
+#: libgui/breakpoint_view.cpp:27
+msgid "Enable breakpoint"
+msgstr "Enable breakpoint"
+
+#: devices/pic/base/pic_config.cpp:377
+msgid "Enabled"
+msgstr "Enabled"
+
+#: devices/pic/base/pic_config.cpp:71
+msgid "Enabled in run - Disabled in sleep"
+msgstr "Enabled in run - Disabled in sleep"
+
+#: devices/base/generic_device.cpp:20
+msgid "End Of Life"
+msgstr "End Of Life"
+
+#: tools/pic30/pic30_generator.cpp:104
+msgid "End of all code sections"
+msgstr "End of all code sections"
+
+#: piklab-prog/cli_interactive.cpp:354
+msgid "End of command file reached."
+msgstr "End of command file reached."
+
+#: common/nokde/nokde_kcmdlineargs.cpp:861
+msgid "End of options"
+msgstr "End of options"
+
+#: piklab-hex/main.cpp:110
+msgid "End:"
+msgstr ""
+
+#: devices/base/generic_device.cpp:26
+msgid "Enhanced Flash"
+msgstr "Enhanced Flash"
+
+#: piklab-prog/cmdline.cpp:46
+msgid "Erase device memory."
+msgstr "Erase device memory."
+
+#: progs/psp/base/psp.cpp:342
+msgid "Erase failed"
+msgstr "Erase failed"
+
+#: progs/icd1/base/icd1.cpp:157
+msgid "Erase failed (returned value is %1)"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:358
+msgid "Erasing device memory not supported for specified programmer."
+msgstr ""
+
+#: progs/base/generic_prog.cpp:287
+msgid "Erasing done"
+msgstr "Erasing done"
+
+#: progs/base/generic_prog.cpp:34 progs/base/generic_prog.cpp:285
+msgid "Erasing..."
+msgstr "Erasing..."
+
+#: common/port/serial.cpp:300
+msgid "Error checking for data in output buffer"
+msgstr ""
+
+#: common/port/serial.cpp:475
+msgid "Error clearing up break"
+msgstr ""
+
+#: libgui/project_wizard.cpp:187
+msgid "Error creating directory."
+msgstr "Error creating directory."
+
+#: common/port/usb_port.cpp:220 common/port/usb_port.cpp:234
+msgid "Error opening USB device."
+msgstr "Error opening USB device."
+
+#: progs/direct/base/direct_16.cpp:107
+msgid "Error programming %1 at %2."
+msgstr ""
+
+#: coff/base/coff.cpp:75
+#, fuzzy
+msgid "Error reading COFF file."
+msgstr "Error(s) reading hex file."
+
+#: common/port/parallel.cpp:229
+msgid "Error reading bit on pin %1"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:237
+msgid "Error reading driven state of IO bit: %1"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:224 progs/gpsim/gpsim_debug.cpp:230
+msgid "Error reading driving state of IO bit: %1"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:128
+msgid "Error reading register \"%1\""
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:106
+msgid "Error reading register \"W\""
+msgstr ""
+
+#: common/port/serial.cpp:409
+msgid "Error reading serial pin %1"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:206
+msgid "Error reading state of IO bit: %1"
+msgstr ""
+
+#: common/port/serial.cpp:261 common/port/serial.cpp:274
+msgid "Error receiving data"
+msgstr ""
+
+#: common/port/usb_port.cpp:396
+msgid "Error receiving data (ep=%1 res=%2)"
+msgstr ""
+
+#: common/port/usb_port.cpp:227
+msgid "Error resetting USB device."
+msgstr "Error resetting USB device."
+
+#: progs/gpsim/gpsim.cpp:94
+msgid "Error send a signal to the subprocess"
+msgstr ""
+
+#: common/port/usb_port.cpp:297
+msgid "Error sending control message to USB port."
+msgstr ""
+
+#: common/port/serial.cpp:229
+msgid "Error sending data"
+msgstr ""
+
+#: common/port/usb_port.cpp:362
+msgid "Error sending data (ep=%1 res=%2)"
+msgstr ""
+
+#: common/port/usb_port.cpp:249
+msgid "Error setting USB configuration %1."
+msgstr ""
+
+#: common/port/serial.cpp:367
+msgid "Error setting bit %1 of serial port to %2"
+msgstr ""
+
+#: common/port/parallel.cpp:209
+msgid "Error setting pin %1 to %2"
+msgstr ""
+
+#: common/port/serial.cpp:466
+msgid "Error setting up break"
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:149
+msgid "Error uploading firmware."
+msgstr ""
+
+#: common/port/serial.cpp:311
+msgid "Error while draining"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:353
+msgid "Error while writing file \"%1\" (%2)."
+msgstr ""
+
+#: libgui/hex_editor.cpp:150
+msgid "Error while writing file \"%1\"."
+msgstr ""
+
+#: libgui/hex_editor.cpp:133
+#, fuzzy
+msgid "Error(s) reading hex file."
+msgstr "Error(s) reading hex file."
+
+#: tools/gputils/gputils_config.cpp:17 tools/c18/c18_config.cpp:16
+msgid "Errors only"
+msgstr "Errors only"
+
+#: devices/pic/base/pic_config.cpp:204
+msgid "Ethernet LED enable"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:104
+msgid "Even PWM output polarity"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:48
+msgid "Executable Type:"
+msgstr ""
+
+#: tools/base/generic_tool.cpp:36
+msgid "Executable directory"
+msgstr ""
+
+#: devices/base/generic_device.cpp:38
+msgid "Extended"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:118
+msgid "Extended instruction set"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:87
+msgid "Extended microcontroller"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:29
+msgid "External"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:34
+msgid "External RC oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:36 devices/pic/base/pic_config.cpp:153
+#: devices/pic/base/pic_config.cpp:179
+msgid "External RC oscillator (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:35 devices/pic/base/pic_config.cpp:152
+#: devices/pic/base/pic_config.cpp:178
+msgid "External RC oscillator with CLKOUT"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:213
+#, fuzzy
+msgid "External address bus shift"
+msgstr "External resistor"
+
+#: devices/pic/base/pic_config.cpp:122
+msgid "External bus data wait"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:96
+msgid "External bus data width (in bits)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:43 devices/pic/base/pic_config.cpp:247
+msgid "External clock"
+msgstr "External clock"
+
+#: devices/pic/base/pic_config.cpp:45 devices/pic/base/pic_config.cpp:147
+#: devices/pic/base/pic_config.cpp:168
+msgid "External clock (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:47
+msgid "External clock (no CLKOUT), PLL enabled"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:150 devices/pic/base/pic_config.cpp:171
+msgid "External clock with 16x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:148 devices/pic/base/pic_config.cpp:169
+msgid "External clock with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:49
+msgid "External clock with 4x PLL (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:48
+msgid "External clock with 4x PLL and with CLKOUT"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:149 devices/pic/base/pic_config.cpp:170
+msgid "External clock with 8x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:44 devices/pic/base/pic_config.cpp:146
+#: devices/pic/base/pic_config.cpp:167
+msgid "External clock with CLKOUT"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:46
+msgid "External clock with CLKOUT, PLL enabled"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:50
+msgid "External clock with software controlled 4x PLL (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:208
+#, fuzzy
+msgid "External memory bus"
+msgstr "External resistor"
+
+#: devices/pic/base/pic_config.cpp:51
+msgid "External resistor"
+msgstr "External resistor"
+
+#: devices/pic/base/pic_config.cpp:53
+msgid "External resistor (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:52
+msgid "External resistor with CLKOUT"
+msgstr ""
+
+#: common/global/log.cpp:26
+msgid "Extra debug messages"
+msgstr "Extra debug messages"
+
+#: devices/base/device_group.cpp:299
+msgid "F (MHz)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:114
+msgid "FLTA mux"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:206
+msgid "FOSC1:FOSC0"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:26
+msgid "Fail"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:73
+msgid "Fail-safe clock monitor"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:220
+msgid "Failed"
+msgstr ""
+
+#: libgui/project_manager.cpp:674
+msgid "Failed to create new project file"
+msgstr "Failed to create new project file"
+
+#: tools/list/compile.cpp:512
+msgid "Failed to execute command: check toolchain configuration"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:39
+msgid "Failed to halt target: kill process."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:76
+msgid "Failed to halt target: try a reset."
+msgstr ""
+
+#: progs/base/generic_debug.cpp:46
+msgid "Failed to initialize device for debugging."
+msgstr ""
+
+#: progs/icd1/base/icd1.cpp:34 progs/icd2/base/icd2_serial.cpp:43
+msgid "Failed to set port mode to '%1'."
+msgstr ""
+
+#: progs/psp/base/psp.cpp:227
+msgid "Failed to set range"
+msgstr ""
+
+#: progs/gpsim/gpsim.cpp:58
+msgid "Failed to start \"gpsim\""
+msgstr ""
+
+#: progs/icd2/base/icd_prog.cpp:30 progs/pickit2/base/pickit2_prog.cpp:54
+msgid "Failed to upload firmware."
+msgstr "Failed to upload firmware."
+
+#: libgui/device_gui.cpp:62
+msgid "Family Tree"
+msgstr "Family Tree"
+
+#: devices/pic/base/pic_config.cpp:236
+#, fuzzy
+msgid "Fast RC oscillator"
+msgstr "Oscillator"
+
+#: common/gui/purl_gui.cpp:43
+msgid "File \"%1\" already exists. Overwrite ?"
+msgstr ""
+
+#: libgui/editor_manager.cpp:109
+msgid "File \"%1\" already loaded. Reload?"
+msgstr ""
+
+#: libgui/project_manager.cpp:489
+msgid "File \"%1\" is not inside the project directory."
+msgstr ""
+
+#: libgui/device_editor.cpp:74 libgui/editor.cpp:80
+msgid "File %1 not saved."
+msgstr ""
+
+#: libgui/new_dialogs.cpp:63
+msgid "File Name:"
+msgstr "File Name:"
+
+#: libgui/hex_editor.cpp:142
+msgid "File URL: \"%1\"."
+msgstr "File URL: \"%1\"."
+
+#: coff/base/text_coff.cpp:121
+msgid "File could not be read"
+msgstr ""
+
+#: libgui/project_manager.cpp:500
+msgid "File is already in the project."
+msgstr "File is already in the project."
+
+#: libgui/project.cpp:41
+msgid "File is not of correct type."
+msgstr "File is not of correct type."
+
+#: common/global/pfile.cpp:38
+msgid "File not open."
+msgstr "File not open."
+
+#: tools/list/compile.cpp:405 tools/list/compile.cpp:430
+#: common/gui/pfile_ext.cpp:32 common/gui/pfile_ext.cpp:87
+#: common/gui/pfile_ext.cpp:111 libgui/project_manager.cpp:484
+#: libgui/project_manager.cpp:500 libcli/cli_pfile.cpp:35
+#: libcli/cli_pfile.cpp:59
+msgid "File: %1"
+msgstr "File: %1"
+
+#: libgui/project_manager.cpp:494
+msgid "File: %1\n"
+msgstr "File: %1\n"
+
+#: libgui/project_wizard.cpp:82
+msgid "Filename"
+msgstr "Filename"
+
+#: libgui/device_gui.cpp:94
+msgid "Filters:"
+msgstr "Filters:"
+
+#: progs/gui/prog_group_ui.cpp:64
+msgid "Firmware"
+msgstr "Firmware"
+
+#: progs/base/generic_prog.cpp:128
+msgid "Firmware directory is not configured or does not exist."
+msgstr "Firmware directory is not configured or does not exist."
+
+#: progs/icd2/base/icd2_debug.cpp:144
+msgid "Firmware directory not configured."
+msgstr "Firmware könyvtár nincs beállítva."
+
+#: piklab-prog/cli_interactive.cpp:56
+msgid "Firmware directory."
+msgstr "Firmware könyvtár."
+
+#: progs/gui/prog_config_widget.cpp:25
+msgid "Firmware directory:"
+msgstr "Firmware könyvtár:"
+
+#: progs/icd2/base/icd_prog.cpp:26
+#, fuzzy
+msgid "Firmware hex file seems incompatible with device 16F876 inside ICD."
+msgstr "Hex file seems incompatible with device: %1"
+
+#: progs/pickit2/base/pickit2_prog.cpp:48
+#, fuzzy
+msgid "Firmware hex file seems incompatible with device 18F2550 inside PICkit2."
+msgstr "Hex file seems incompatible with device: %1"
+
+#: progs/pickit2/base/pickit2.cpp:52
+msgid "Firmware memory does not match hex file (at address 0x%2: reading 0x%3 and expecting 0x%4)."
+msgstr ""
+
+#: progs/icd2/base/icd2_prog.cpp:106
+msgid "Firmware still incorrect after uploading."
+msgstr "Firmware still incorrect after uploading."
+
+#: progs/pickit2/base/pickit2_prog.cpp:57
+msgid "Firmware succesfully uploaded."
+msgstr "Firmware succesfully uploaded."
+
+#: progs/gui/prog_group_ui.cpp:148
+msgid "Firmware uploaded successfully."
+msgstr "Firmware uploaded successfully."
+
+#: progs/base/generic_prog.cpp:138
+msgid "Firmware version is %1"
+msgstr "Firmware verzió %1"
+
+#: piklab-hex/main.cpp:62
+msgid "First hex file: "
+msgstr ""
+
+#: libgui/device_gui.cpp:62
+msgid "Flat List"
+msgstr ""
+
+#: libgui/watch_view.cpp:50 libgui/watch_view.cpp:55
+msgid "Format"
+msgstr "Format"
+
+#: piklab-hex/main.cpp:92
+msgid "Format:"
+msgstr "Format:"
+
+#: libgui/toplevel.cpp:275
+msgid "Forward"
+msgstr "Forward"
+
+#: progs/gpsim/gui/gpsim_group_ui.cpp:36
+msgid "Found version \"%1\""
+msgstr ""
+
+#: devices/base/generic_device.cpp:18
+msgid "Future Product"
+msgstr ""
+
+#: devices/pic/gui/pic_group_ui.cpp:62 devices/pic/gui/pic_group_ui.cpp:78
+msgid "GPRs"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.h:76
+msgid "GPSim"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:250
+msgid "GPSim (4MHz)"
+msgstr ""
+
+#: tools/gputils/gputils.h:34
+msgid "GPUtils"
+msgstr ""
+
+#: tools/gputils/gputils.cpp:36
+msgid "GPUtils can be downloaded from <a href=\"http://gputils.sourceforge.net\">this page</a>.<br>A binary package for Mandriva is available <a href=\"href=http://sourceforge.net/project/showfiles.php?group_id=138852&package_id=181224\">here</a>."
+msgstr ""
+
+#: libgui/config_center.h:33
+msgid "General"
+msgstr "General"
+
+#: libgui/config_center.h:34
+msgid "General Configuration"
+msgstr "General Configuration"
+
+#: piklab-prog/cli_interactive.cpp:259
+msgid "General Purpose Registers:"
+msgstr "General Purpose Registers:"
+
+#: devices/pic/base/pic_protection.cpp:361
+#, fuzzy
+msgid "General Segment"
+msgstr "General"
+
+#: devices/pic/base/pic_config.cpp:186
+msgid "General code segment read-protection"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:187
+msgid "General code segment write-protection"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:231
+msgid "General segment security"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:230
+#, fuzzy
+msgid "General segment write-protection"
+msgstr "Code write-protection"
+
+#: libgui/project_manager.cpp:41
+msgid "Generated"
+msgstr "Generated"
+
+#: libgui/config_gen.cpp:124
+msgid "Generation is not supported yet for the selected toolchain or device."
+msgstr "Generation is not supported yet for the selected toolchain or device."
+
+#: libgui/config_gen.cpp:138
+msgid "Generation is only partially supported for this device."
+msgstr "Generation is only partially supported for this device."
+
+#: common/nokde/nokde_kcmdlineargs.cpp:841
+msgid "Generic options"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:40
+msgid "Get property value: \"get <property>\" or \"<property>\"."
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:45
+msgid "Global declarations"
+msgstr ""
+
+#: devices/pic/gui/pic_memory_editor.cpp:44
+msgid "Go to end"
+msgstr "Go to end"
+
+#: devices/pic/gui/pic_memory_editor.cpp:41
+msgid "Go to start"
+msgstr "Go to start"
+
+#: piklab/main.cpp:24
+msgid "Graphical development environment for applications based on PIC and dsPIC microcontrollers."
+msgstr "Grafikus környezet PIC és dsPIC mikrokontrolleres áramkörök fejlesztéséhez."
+
+#: progs/direct/base/direct_prog_config.cpp:73
+msgid "HOODMICRO"
+msgstr "HOODMICRO"
+
+#: devices/pic/base/pic_config.cpp:245
+msgid "HS crystal oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:163
+msgid "HS/2 Crystal with 16x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:161
+msgid "HS/2 Crystal with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:162
+msgid "HS/2 Crystal with 8x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:166
+msgid "HS/3 Crystal with 16x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:164
+msgid "HS/3 Crystal with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:165
+msgid "HS/3 Crystal with 8x PLL"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:244
+msgid "Halting..."
+msgstr "Halting..."
+
+#: tools/base/toolchain_config_widget.cpp:210
+msgid "Hardcoded (%1)"
+msgstr ""
+
+#: devices/pic/base/pic.cpp:25
+msgid "Hardware Stack"
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:50
+msgid "Hardware name:"
+msgstr ""
+
+#: tools/base/generic_tool.cpp:37
+msgid "Header directory"
+msgstr "Header directory"
+
+#: libgui/project_manager.cpp:39
+msgid "Headers"
+msgstr "Headers"
+
+#: tools/list/tools_config_widget.cpp:22
+msgid "Help Dialog"
+msgstr "Help Dialog"
+
+#: libgui/likeback.cpp:184
+msgid "Help Improve the Application"
+msgstr ""
+
+#: libgui/toplevel.cpp:621
+msgid "Hex"
+msgstr "Hex"
+
+#: common/common/purl_base.cpp:48 libgui/project_manager.cpp:103
+#, fuzzy
+msgid "Hex File"
+msgstr "Elf File"
+
+#: piklab-hex/main.cpp:117
+msgid "Hex file cannot be fixed because the format was not recognized or is inconsistent."
+msgstr ""
+
+#: piklab-hex/main.cpp:125
+#, fuzzy
+msgid "Hex file cleaned and fixed."
+msgstr "Hex file cleaned and fixed."
+
+#: piklab-hex/main.cpp:124
+#, fuzzy
+msgid "Hex file cleaned."
+msgstr "Hex file cleaned."
+
+#: tools/base/tool_config_widget.cpp:119
+msgid "Hex file format:"
+msgstr "Hex file format:"
+
+#: piklab-hex/main.cpp:89 piklab-hex/main.cpp:113
+msgid "Hex file is valid."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:171
+#, fuzzy
+msgid "Hex file seems incompatible with device: %1"
+msgstr "Hex file seems incompatible with device: %1"
+
+#: piklab-prog/cli_interactive.cpp:58
+#, fuzzy
+msgid "Hex file to be used for programming."
+msgstr "Hex file to be used for programming."
+
+#: piklab-prog/cmdline.cpp:208
+#, fuzzy
+msgid "Hex filename for programming."
+msgstr "Hex filename for programming."
+
+#: piklab-prog/cmdline.cpp:157
+#, fuzzy
+msgid "Hex filename not specified."
+msgstr "Hex filename not specified."
+
+#: piklab-hex/main.cpp:38
+#, fuzzy
+msgid "Hex filename(s)."
+msgstr "Hex filename(s)."
+
+#: piklab-prog/cli_interactive.cpp:54
+#, fuzzy
+msgid "Hex output file format."
+msgstr "Hex output file format."
+
+#: common/common/number.cpp:19
+msgid "Hexadecimal"
+msgstr "Hexadecimal"
+
+#: progs/base/generic_prog.cpp:25
+msgid "High"
+msgstr "High"
+
+#: devices/pic/gui/pic_memory_editor.cpp:77
+#: devices/pic/base/pic_config.cpp:219 devices/pic/base/pic_config.cpp:226
+#: devices/pic/base/pic_config.cpp:233
+#, fuzzy
+msgid "High Security"
+msgstr "Highest"
+
+#: devices/pic/base/pic_config.cpp:141 devices/pic/base/pic_config.cpp:156
+msgid "High speed crystal"
+msgstr "High speed crystal"
+
+#: devices/pic/base/pic_config.cpp:54
+msgid "High speed crystal/resonator"
+msgstr "High speed crystal/resonator"
+
+#: devices/pic/base/pic_config.cpp:56
+msgid "High speed crystal/resonator with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:57
+msgid "High speed crystal/resonator with software controlled 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:55
+#, fuzzy
+msgid "High speed crystal/resonator, PLL enabled"
+msgstr "High speed crystal/resonator"
+
+#: devices/pic/base/pic_config.cpp:66
+msgid "Highest"
+msgstr "Highest"
+
+#: libgui/likeback.cpp:74
+msgid "I Do not Like..."
+msgstr ""
+
+#: libgui/likeback.cpp:81
+msgid "I Found a Bug..."
+msgstr ""
+
+#: libgui/likeback.cpp:67
+msgid "I Like..."
+msgstr ""
+
+#: libgui/toplevel.cpp:397 libgui/likeback.cpp:537
+msgid "I do not like..."
+msgstr ""
+
+#: libgui/toplevel.cpp:401 libgui/likeback.cpp:544
+msgid "I found a bug..."
+msgstr ""
+
+#: libgui/toplevel.cpp:393 libgui/likeback.cpp:530
+msgid "I like..."
+msgstr ""
+
+#: devices/pic/gui/pic_group_ui.cpp:53 devices/pic/gui/pic_group_ui.cpp:60
+msgid "I/Os"
+msgstr "I/Os"
+
+#: devices/pic/base/pic_config.cpp:189
+msgid "ICD communication channel"
+msgstr ""
+
+#: progs/icd1/base/icd1_prog.h:44
+msgid "ICD1 Programmer"
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.h:76
+msgid "ICD2 Debugger"
+msgstr ""
+
+#: progs/icd2/base/icd2_prog.h:76
+msgid "ICD2 Programmer"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:207
+msgid "INTRC"
+msgstr ""
+
+#: devices/pic/base/pic.cpp:116
+msgid "IO Ports"
+msgstr "IO Ports"
+
+#: libgui/likeback.cpp:179
+msgid "Icons description:"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_tbl.cpp:84
+msgid "Id returned by bootloader corresponds to other devices: %1 (%2 read and %3 expected)."
+msgstr ""
+
+#: progs/icd2/gui/icd2_group_ui.cpp:20
+msgid "Id:"
+msgstr ""
+
+#: devices/base/generic_device.cpp:17
+msgid "In Production"
+msgstr "In Production"
+
+#: devices/pic/pic/pic_prog_specific.cpp:19
+msgid "In Programming"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:76
+msgid "In-circuit debugger"
+msgstr ""
+
+#: common/common/purl_base.cpp:35
+msgid "Include File"
+msgstr ""
+
+#: tools/base/tool_config_widget.h:55
+msgid "Include directories:"
+msgstr ""
+
+#: libgui/project_manager.cpp:41
+msgid "Included"
+msgstr ""
+
+#: progs/psp/base/psp_serial.cpp:58
+msgid "Incorrect ack: expecting %1, received %2"
+msgstr ""
+
+#: coff/base/coff.cpp:506
+msgid "Incorrect magic number for archive COFF file."
+msgstr ""
+
+#: progs/psp/base/psp_serial.cpp:66
+msgid "Incorrect received data end: expecting 00, received %1"
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:61
+msgid "Index:"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:57
+msgid "Indicates that device is self-powered."
+msgstr ""
+
+#: devices/base/generic_device.cpp:37
+msgid "Industrial"
+msgstr ""
+
+#: devices/base/device_group.cpp:245
+msgid "Information Page"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:235
+msgid "Initial oscillator source"
+msgstr ""
+
+#: libcli/cli_main.cpp:54
+msgid "Interactive mode"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:266
+msgid "Interactive mode: type help for help"
+msgstr ""
+
+#: common/port/usb_port.cpp:258
+msgid "Interface %1 not present: using %2"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:67
+msgid "Internal Trim"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:135
+msgid "Internal fast RC"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:176
+msgid "Internal fast RC oscillator (no PLL)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:174
+msgid "Internal fast RC oscillator with 16x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:172
+msgid "Internal fast RC oscillator with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:151 devices/pic/base/pic_config.cpp:173
+msgid "Internal fast RC oscillator with 8x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:237
+msgid "Internal fast RC oscillator with PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:242
+msgid "Internal fast RC oscillator with postscaler"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:136
+msgid "Internal low-power RC"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:177
+msgid "Internal low-power RC oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:37
+msgid "Internal oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:39
+msgid "Internal oscillator (no CLKOUT)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:199
+msgid "Internal oscillator speed"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:38
+msgid "Internal oscillator with CLKOUT"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:59
+msgid "Internal oscillator, HS used by USB"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:58
+msgid "Internal oscillator, XT used by USB"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:74
+msgid "Internal-external switchover"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:328
+msgid "Invalid begin or end character for read block."
+msgstr ""
+
+#: progs/psp/base/psp.cpp:185
+msgid "Invalid firmware version"
+msgstr ""
+
+#: progs/direct/gui/direct_config_widget.cpp:47
+msgid "Inverted"
+msgstr "Inverted"
+
+#: progs/icd2/base/icd2_prog.cpp:38
+msgid "It is not recommended to power dsPICs from ICD. Continue anyway?"
+msgstr "It is not recommended to power dsPICs from ICD. Continue anyway?"
+
+#: libgui/likeback.cpp:395
+msgid "It will only be used to contact you back if more information is needed about your comments, how to reproduce the bugs you report, send bug corrections for you to test..."
+msgstr ""
+
+#: tools/jal/jal.h:32
+msgid "JAL"
+msgstr "JAL"
+
+#: common/common/purl_base.cpp:26
+msgid "JAL Compiler"
+msgstr "JAL Compiler"
+
+#: common/common/purl_base.cpp:39
+msgid "JAL File"
+msgstr "JAL Datei"
+
+#: tools/jalv2/jalv2.h:32
+msgid "JAL V2"
+msgstr "JAL V2"
+
+#: tools/jalv2/jalv2.cpp:31
+msgid "JAL V2 can be downloaded from <a href=\"http://www.casadeyork.com/jalv2\">this page</a>."
+msgstr ""
+
+#: tools/jal/jal.cpp:31
+msgid "JAL can be downloaded from <a href=\"http://jal.sourceforge.net\">this page</a>."
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:40
+msgid "JDM classic"
+msgstr "JDM classic"
+
+#: progs/direct/base/direct_prog_config.cpp:42
+msgid "JDM classic (delay 10)"
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:44
+msgid "JDM classic (delay 20)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:255
+msgid "JTAG Port Enabled"
+msgstr ""
+
+#: libgui/toplevel.cpp:224
+msgid "Konsole"
+msgstr ""
+
+#: common/global/about.cpp:33
+msgid "LPLAB author (original microchip programmer support)."
+msgstr ""
+
+#: tools/base/generic_tool.cpp:39
+msgid "Library Directory"
+msgstr ""
+
+#: common/common/purl_base.cpp:43
+msgid "Library File"
+msgstr ""
+
+#: libgui/text_editor.cpp:161
+msgid "Line: %1  Col: %2"
+msgstr ""
+
+#: tools/base/generic_tool.cpp:25
+msgid "Linker"
+msgstr "Linker"
+
+#: common/common/purl_base.cpp:45 libgui/project_manager.cpp:39
+#: libgui/project_manager.cpp:331
+msgid "Linker Script"
+msgstr "Linker Script"
+
+#: tools/base/generic_tool.cpp:38
+msgid "Linker Script Directory"
+msgstr "Linker Script Könyvtár"
+
+#: common/common/purl_base.cpp:46
+#, fuzzy
+msgid "Linker Script for PIC30"
+msgstr "Linker Script"
+
+#: tools/base/generic_tool.cpp:25
+#, fuzzy
+msgid "Linker:"
+msgstr "Linker"
+
+#: libgui/project_manager.cpp:105
+msgid "List"
+msgstr "Lista"
+
+#: common/common/purl_base.cpp:51
+msgid "List File"
+msgstr ""
+
+#: libgui/breakpoint_view.cpp:48
+msgid "Location"
+msgstr ""
+
+#: libgui/new_dialogs.cpp:32
+msgid "Location:"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:24
+msgid "Low"
+msgstr ""
+
+#: devices/base/generic_device.cpp:43
+msgid "Low Power"
+msgstr ""
+
+#: devices/base/generic_device.cpp:44
+msgid "Low Voltage"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:241
+msgid "Low power RC oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:42
+msgid "Low power crystal"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:110
+msgid "Low power in sleep mode"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:80
+msgid "Low voltage programming"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:175
+msgid "Low-power 32 kHz oscillator (TMR1 oscillator)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:117
+msgid "Low-power timer1 oscillator"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:140 devices/pic/base/pic_config.cpp:155
+msgid "Low-power/low-frequency crystal"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:63
+msgid "Lowest"
+msgstr ""
+
+#: progs/direct/base/direct.cpp:23
+msgid "MCLR (Vpp)"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:52
+msgid "MCLR Vdd"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:52
+msgid "MCLR Vpp"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:51
+msgid "MCLR ground"
+msgstr ""
+
+#: devices/base/generic_device.cpp:61
+msgid "MLF"
+msgstr ""
+
+#: tools/mpc/mpc.h:32
+msgid "MPC Compiler"
+msgstr "MPC Compiler"
+
+#: devices/base/generic_device.cpp:57
+msgid "MQFP"
+msgstr ""
+
+#: devices/base/generic_device.cpp:52
+msgid "MSOP"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:216
+msgid "Malformed string received \"%1\""
+msgstr ""
+
+#: common/common/purl_base.cpp:52
+msgid "Map File"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:198
+msgid "Master clear pull-up resistor"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:28
+msgid "Master clear reset"
+msgstr ""
+
+#: devices/base/generic_device.cpp:22
+msgid "Mature"
+msgstr ""
+
+#: common/global/log.cpp:27
+msgid "Max debug messages"
+msgstr "Max debug messages"
+
+#: libgui/project_manager.cpp:106
+msgid "Memory Map"
+msgstr ""
+
+#: devices/mem24/base/mem24.cpp:23
+msgid "Memory Size"
+msgstr "Memory Size"
+
+#: devices/pic/base/pic.cpp:91
+msgid "Memory Type"
+msgstr "Memory Type"
+
+#: progs/icd2/base/icd2_debug.cpp:239
+msgid "Memory area for debug executive was not empty. Overwrite it and continue anyway..."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:77
+msgid "Memory parity error"
+msgstr "Memory parity error"
+
+#: piklab-prog/cmdline.cpp:301
+msgid "Memory range not present on this device."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:305
+msgid "Memory range not recognized."
+msgstr "Memory range not recognized."
+
+#: piklab-prog/cmdline.cpp:58
+msgid "Memory range to operate on."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:306
+msgid "Memory ranges are not supported for the specified device."
+msgstr "Memory ranges are not supported for the specified device."
+
+#: piklab-prog/cmdline.cpp:143
+msgid "Memory ranges for PIC/dsPIC devices:"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:88
+msgid "Microcontroller"
+msgstr "Microcontroller"
+
+#: devices/pic/base/pic_config.cpp:89
+msgid "Microprocessor"
+msgstr "Microprocessor"
+
+#: devices/pic/base/pic_config.cpp:91
+msgid "Microprocessor with boot block"
+msgstr "Microprocessor with boot block"
+
+#: devices/pic/base/pic_config.cpp:65
+msgid "Mid/High"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:64
+msgid "Mid/Low"
+msgstr ""
+
+#: devices/pic/base/pic.cpp:34
+msgid "Midrange Family"
+msgstr ""
+
+#: devices/pic/base/pic_register.cpp:76
+msgid "Mirror of %1"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:220
+msgid "Missing or incorrect device (Read id is %1)."
+msgstr "Nemlétező vagy nem megfelelő eszköz ( id  %1)."
+
+#: progs/icd2/base/icd2.cpp:51
+msgid "Module Vpp"
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:71
+msgid "Monty-Robot programmer"
+msgstr ""
+
+#: common/gui/editlistbox.cpp:147
+msgid "Move &Down"
+msgstr ""
+
+#: common/gui/editlistbox.cpp:142
+msgid "Move &Up"
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:67
+msgid "Myke's EL Cheapo"
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:56 libgui/project_wizard.cpp:120
+msgid "Name:"
+msgstr "Név:"
+
+#: libgui/project_manager.cpp:392
+msgid "New File..."
+msgstr "New File..."
+
+#: libgui/project_manager.cpp:347 libgui/toplevel.cpp:295
+msgid "New Project..."
+msgstr "New Project..."
+
+#: libgui/project_wizard.cpp:162
+msgid "New Project: Add Files"
+msgstr "New Project: Add Files"
+
+#: libgui/project_wizard.cpp:117
+msgid "New Project: Basic Settings"
+msgstr "New Project: Basic Settings"
+
+#: libgui/project_wizard.cpp:150
+msgid "New Project: Source Files"
+msgstr "Új projektfájl"
+
+#: libgui/project_manager.cpp:363
+msgid "New Source File..."
+msgstr "Új forrásfájl..."
+
+#: libgui/toplevel.cpp:255
+#, fuzzy
+msgid "New hex File..."
+msgstr "New File..."
+
+#: progs/bootloader/base/bootloader_tbl.cpp:179
+msgid "No \"goto\" instruction in the first four instructions."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:269
+#, fuzzy
+msgid "No COFF file specified"
+msgstr "Hex filename not specified."
+
+#: piklab-prog/cli_interactive.cpp:186
+msgid "No breakpoint set"
+msgstr "No breakpoint set"
+
+#: libcli/cli_main.cpp:27
+msgid "No command specified"
+msgstr ""
+
+#: common/global/log.cpp:29
+msgid "No debug message"
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:98
+msgid "No device selected"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:251 piklab-prog/cli_interactive.cpp:267
+msgid "No device specified"
+msgstr ""
+
+#: common/nokde/nokde_kaboutdata.cpp:430
+msgid ""
+"No licensing terms for this program have been specified.\n"
+"Please check the documentation or the source for any\n"
+"licensing terms.\n"
+msgstr ""
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:39
+msgid "No of Retries:"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:252 piklab-prog/cli_interactive.cpp:270
+msgid "No register"
+msgstr "No register"
+
+#: devices/pic/gui/pic_group_ui.cpp:84 piklab-prog/cli_interactive.cpp:274
+msgid "No variable"
+msgstr "No variable"
+
+#: piklab-hex/main.cpp:106
+msgid "No. of Words:"
+msgstr ""
+
+#: libgui/breakpoint_view.cpp:64
+msgid "Non-code breakpoint"
+msgstr ""
+
+#: devices/base/generic_device.cpp:42
+msgid "Normal"
+msgstr "Normal"
+
+#: common/global/log.cpp:25
+msgid "Normal debug messages"
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:66
+msgid "Not Connected"
+msgstr "Not Connected"
+
+#: devices/base/generic_device.cpp:19
+msgid "Not Recommended for New Design"
+msgstr "Not Recommended for New Design"
+
+#: libgui/likeback.cpp:598
+msgid "Note that to improve this application, it's important to tell us the things you like as much as the things you dislike."
+msgstr ""
+
+#: common/port/usb_port.cpp:404
+msgid "Nothing received: retrying..."
+msgstr "Nothing received: retrying..."
+
+#: common/port/usb_port.cpp:366
+msgid "Nothing sent: retrying..."
+msgstr "Nothing sent: retrying..."
+
+#: piklab-prog/cli_interactive.cpp:173 piklab-prog/cli_interactive.cpp:306
+msgid "Number format not recognized"
+msgstr "Number format not recognized"
+
+#: devices/pic/base/pic_config.cpp:249
+msgid "OSC2 pin function"
+msgstr ""
+
+#: common/common/purl_base.cpp:42
+msgid "Object File"
+msgstr "Object File"
+
+#: libgui/project_manager.cpp:40 libgui/project_manager.cpp:387
+msgid "Objects"
+msgstr "Objects"
+
+#: common/common/number.cpp:21
+msgid "Octal"
+msgstr "Octal"
+
+#: devices/pic/base/pic_config.cpp:101
+msgid "Odd PWM output polarity"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_picdem.cpp:88
+msgid "Only bootloader version 1.x is supported"
+msgstr ""
+
+#: progs/bootloader/base/bootloader_pickit2.cpp:30
+msgid "Only bootloader version 2.x is supported."
+msgstr ""
+
+#: progs/bootloader/base/bootloader_tbl.cpp:314
+msgid "Only code and EEPROM will be erased."
+msgstr ""
+
+#: progs/bootloader/base/bootloader_tbl.cpp:315
+msgid "Only code will be erased."
+msgstr ""
+
+#: libgui/likeback.cpp:594
+msgid "Only english language is accepted."
+msgstr ""
+
+#: progs/bootloader/base/bootloader_tbl.cpp:176
+msgid "Only the first word of the \"goto\" instruction is into the first four instructions."
+msgstr ""
+
+#: libgui/prog_config_widget.cpp:41
+msgid "Only verify programmed words in code memory (faster)."
+msgstr ""
+
+#: progs/pickit2/gui/pickit2_group_ui.cpp:32
+msgid "Open Calibration Firmware"
+msgstr "Open Calibration Firmware"
+
+#: libgui/toplevel.cpp:637
+msgid "Open File"
+msgstr "Open File"
+
+#: progs/gui/prog_group_ui.cpp:143
+msgid "Open Firmware"
+msgstr "Open Firmware"
+
+#: libgui/project_manager.cpp:348 libgui/toplevel.cpp:297
+msgid "Open Project..."
+msgstr "Open Project..."
+
+#: libgui/toplevel.cpp:299
+msgid "Open Recent Project"
+msgstr "Open Recent Project"
+
+#: common/global/log.cpp:61
+msgid "Operation aborted by user."
+msgstr "Operation aborted by user."
+
+#: piklab/main.cpp:18
+msgid "Optional filenames to be opened upon startup."
+msgstr ""
+
+#: coff/base/coff.cpp:384
+msgid "Optional header format not supported: magic number is %1"
+msgstr ""
+
+#: coff/base/coff.cpp:387
+msgid "Optional header not parsed: magic number is %1"
+msgstr ""
+
+#: coff/base/coff.cpp:441
+msgid "Optionnal header size is not %1: %2"
+msgstr ""
+
+#: libgui/project_manager.cpp:360
+msgid "Options..."
+msgstr "Beállítások..."
+
+#: common/global/about.cpp:32
+msgid "Original author of PiKdev."
+msgstr "Original author of PiKdev."
+
+#: common/global/about.cpp:37
+msgid "Original code for direct programming."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:312
+msgid "Osccal backup cannot be read by selected programmer"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:275
+msgid "Osccal backup cannot be read by the selected programmer"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:264
+msgid "Osccal cannot be read by the selected programmer"
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:176
+msgid "Osccal regeneration is not available with the selected programmer."
+msgstr ""
+
+#: progs/pickit2/gui/pickit2_group_ui.cpp:27
+msgid "Osccal regeneration not available for the selected device."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:33
+msgid "Oscillator"
+msgstr "Oscillator"
+
+#: devices/pic/base/pic_config.cpp:154
+msgid "Oscillator mode"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:134
+msgid "Oscillator source"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:94
+msgid "Oscillator system clock switch"
+msgstr ""
+
+#: tools/pic30/pic30_config.cpp:19
+msgid "Output Object Type:"
+msgstr "Output Object Type:"
+
+#: piklab-prog/cmdline.cpp:174
+#, fuzzy
+msgid "Output hex filename already exists."
+msgstr "Output hex filename already exists."
+
+#: libgui/log_view.cpp:91
+msgid "Output in console"
+msgstr "Output in console"
+
+#: libcli/cli_main.cpp:48
+msgid "Overwrite files and answer \"yes\" to questions."
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:32
+msgid "P16PRO40 7407"
+msgstr "P16PRO40 7407"
+
+#: progs/direct/base/direct_prog_config.cpp:30
+msgid "P16PRO40 classic"
+msgstr "P16PRO40 classic"
+
+#: progs/direct/base/direct_prog_config.cpp:36
+msgid "P16PRO40-VPP40 7407"
+msgstr "P16PRO40-VPP40 7407"
+
+#: progs/direct/base/direct_prog_config.cpp:34
+msgid "P16PRO40-VPP40 classic"
+msgstr "P16PRO40-VPP40 classic"
+
+#: devices/base/generic_device.cpp:48
+msgid "PDIP"
+msgstr "PDIP"
+
+#: devices/pic/pic/pic_group.h:25
+msgid "PIC"
+msgstr "PIC"
+
+#: progs/direct/base/direct_prog_config.cpp:46
+msgid "PIC Elmer"
+msgstr "PIC Elmer"
+
+#: tools/pic30/pic30.h:41
+msgid "PIC30 Toolchain"
+msgstr ""
+
+#: tools/picc/picc.h:83
+msgid "PICC Compiler"
+msgstr "PICC Compiler"
+
+#: tools/picc/picc.h:71
+msgid "PICC Lite Compiler"
+msgstr "PICC Lite Compiler"
+
+#: tools/picc/picc.h:95
+msgid "PICC-18 Compiler"
+msgstr "PICC-18 Compiler"
+
+#: progs/pickit1/base/pickit1_prog.h:36
+msgid "PICkit1"
+msgstr "PICkit1"
+
+#: progs/pickit2/base/pickit2_prog.h:39
+#, fuzzy
+msgid "PICkit2 Firmware 1.x"
+msgstr " PICkit2 Firmware feltöltés..."
+
+#: progs/pickit2v2/base/pickit2v2_prog.h:41
+#, fuzzy
+msgid "PICkit2 Firmware 2.x"
+msgstr " PICkit2 Firmware feltöltés..."
+
+#: devices/base/generic_device.cpp:60
+msgid "PLCC"
+msgstr "PLCC"
+
+#: devices/pic/base/pic_config.cpp:195
+msgid "PLL clock (divided by)"
+msgstr "PLL clock (divided by)"
+
+#: devices/pic/base/pic_config.cpp:97
+msgid "PORTB A/D"
+msgstr "PORTB A/D"
+
+#: devices/pic/base/pic_config.cpp:125
+msgid "PWM multiplexed onto RE6 and RE3"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:127
+msgid "PWM multiplexed onto RE6 and RE5"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:126
+msgid "PWM multiplexed onto RH7 and RH4"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:128
+msgid "PWM multiplexed onto RH7 and RH6"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:107
+msgid "PWM output pin reset state"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:115
+msgid "PWM4 mux"
+msgstr "PWM4 mux"
+
+#: devices/base/device_group.cpp:255
+msgid "Packaging"
+msgstr "Packaging"
+
+#: libgui/port_selector.cpp:21
+msgid "Parallel"
+msgstr "Parallel"
+
+#: common/port/port.cpp:62
+msgid "Parallel Port"
+msgstr "Parallel Port"
+
+#: coff/base/coff.cpp:67
+msgid "Parsing COFF file: %1"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:23
+msgid "Pass"
+msgstr "Pass"
+
+#: libcli/cli_main.cpp:36
+msgid "Perform the requested command."
+msgstr "Perform the requested command."
+
+#: devices/pic/base/pic_config.cpp:256
+#, fuzzy
+msgid "Peripheral Pin Select Configuration"
+msgstr "General Configuration"
+
+#: progs/bootloader/bootloader_data/bootloader_data.cpp:14
+#, fuzzy
+msgid "Picdem Bootloader"
+msgstr "Bootloader"
+
+#: progs/bootloader/bootloader_data/bootloader_data.cpp:13
+#, fuzzy
+msgid "Pickit2 Bootloader"
+msgstr "Bootloader"
+
+#: progs/psp/base/psp_prog.h:38
+msgid "Picstart Plus"
+msgstr "Picstart Plus"
+
+#: common/common/purl_base.cpp:57
+msgid "Pikdev Project File"
+msgstr "Pikdev Project File"
+
+#: piklab/main.cpp:24
+msgid "Piklab"
+msgstr "Piklab"
+
+#: piklab-hex/main.cpp:163
+#, fuzzy
+msgid "Piklab Hex Utility"
+msgstr "Piklab Programmer Utility"
+
+#: piklab-prog/cmdline.cpp:501
+msgid "Piklab Programmer Utility"
+msgstr "Piklab Programmer Utility"
+
+#: progs/direct/gui/direct_config_widget.cpp:33
+msgid "Pin assignment"
+msgstr "Pin assignment"
+
+#: libgui/likeback.cpp:545
+msgid "Please briefly describe the bug you encountered."
+msgstr ""
+
+#: libgui/likeback.cpp:538
+msgid "Please briefly describe what you do not like."
+msgstr ""
+
+#: libgui/likeback.cpp:531
+msgid "Please briefly describe what you like."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:389
+msgid "Please check installation of selected software debugger."
+msgstr ""
+
+#: devices/pic/gui/pic_group_ui.cpp:92
+msgid "Please compile the current project"
+msgstr ""
+
+#: libgui/likeback.cpp:394
+msgid "Please provide your email address."
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:654
+msgid "Please use %1 to report bugs, do not mail the authors directly.\n"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:652
+msgid "Please use http://bugs.kde.org to report bugs, do not mail the authors directly.\n"
+msgstr ""
+
+#: libgui/prog_config_widget.cpp:160
+msgid "Port Selection"
+msgstr "Port Selection"
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:22
+#, fuzzy
+msgid "Port Speed:"
+msgstr "Port Selection"
+
+#: progs/direct/base/direct.cpp:26
+msgid "Power (Vdd)"
+msgstr "Power (Vdd)"
+
+#: libgui/prog_config_widget.cpp:32
+msgid "Power down target after programming."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:184
+msgid "Power-on reset timer value (ms)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:31
+msgid "Power-up timer"
+msgstr ""
+
+#. i18n: file ./data/app_data/piklabui.rc line 82
+#: rc.cpp:27
+#, no-c-format
+msgid "Pr&ogrammer"
+msgstr "Pr&ogrammer"
+
+#: tools/base/generic_tool.cpp:27
+msgid "Preprocessor"
+msgstr "Preprocessor"
+
+#: tools/base/generic_tool.cpp:27
+#, fuzzy
+msgid "Preprocessor:"
+msgstr "Preprocessor"
+
+#: libgui/prog_config_widget.cpp:47
+msgid "Preserve data EEPROM when programming."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:137
+msgid "Primary"
+msgstr "Elsődleges"
+
+#: devices/pic/base/pic_config.cpp:238
+#, fuzzy
+msgid "Primary oscillator"
+msgstr "Oscillator"
+
+#: devices/pic/base/pic_config.cpp:139 devices/pic/base/pic_config.cpp:243
+msgid "Primary oscillator mode"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:239
+msgid "Primary oscillator with PLL"
+msgstr ""
+
+#: progs/icd2/base/icd2_usb.cpp:79
+msgid "Problem connecting ICD2: please try again after unplug-replug."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:86
+msgid "Processor mode"
+msgstr "Processor mode"
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:127
+#, fuzzy
+msgid "Program EEPROM (if supported)"
+msgstr "Data EEPROM"
+
+#: devices/pic/base/pic.cpp:27
+msgid "Program Executive"
+msgstr ""
+
+#: libgui/toplevel.cpp:212
+msgid "Program Log"
+msgstr ""
+
+#: libgui/prog_config_widget.cpp:38
+msgid "Program all memory even if not needed (slower)."
+msgstr "Program all memory even if not needed (slower)."
+
+#: libgui/config_center.cpp:34
+msgid "Program device after successful build."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:40
+msgid "Program device memory: \"program <hexfilename>\"."
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:56
+msgid "Programmer"
+msgstr "Programmer"
+
+#: libgui/prog_config_widget.h:32 libgui/prog_config_widget.h:33
+msgid "Programmer Options"
+msgstr "Programmer Options"
+
+#: libgui/prog_config_widget.h:51 libgui/prog_config_widget.h:52
+msgid "Programmer Selection"
+msgstr "Programmer Selection"
+
+#. i18n: file ./data/app_data/piklabui.rc line 155
+#: rc.cpp:48
+#, no-c-format
+msgid "Programmer Toolbar"
+msgstr "Programmer Toolbar"
+
+#: devices/pic/pic/pic_prog_specific.cpp:15
+msgid "Programmer Vpp"
+msgstr "Programmer Vpp"
+
+#: libgui/prog_config_widget.cpp:87
+msgid "Programmer in use:"
+msgstr "Programmer in use:"
+
+#: piklab-prog/cmdline.cpp:317
+msgid "Programmer is already disconnected."
+msgstr "Programmer is already disconnected."
+
+#: piklab-prog/cmdline.cpp:321
+msgid "Programmer is already running."
+msgstr "Programmer is already running."
+
+#: piklab-prog/cmdline.cpp:325
+msgid "Programmer is already stopped."
+msgstr "Programmer is already stopped."
+
+#: progs/base/generic_prog.cpp:136
+msgid "Programmer is in bootload mode."
+msgstr "Programmer is in bootload mode."
+
+#: piklab-prog/cmdline.cpp:154
+msgid "Programmer not specified."
+msgstr "Programmer not specified."
+
+#: piklab-prog/cli_interactive.cpp:55
+msgid "Programmer port (\"usb\" or device such as \"/dev/ttyS0\")"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:52
+msgid "Programmer to use."
+msgstr ""
+
+#: tools/list/device_info.cpp:35
+#, fuzzy
+msgid "Programmers"
+msgstr "Programmer"
+
+#: devices/pic/pic/pic_prog.cpp:668
+msgid "Programming calibration data needs a chip erase. Continue anyway?"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:696
+msgid "Programming calibration successful"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:684 devices/pic/pic/pic_prog.cpp:694
+msgid "Programming calibration..."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:274
+msgid "Programming device for debugging test..."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:279 progs/base/generic_prog.cpp:340
+msgid "Programming device memory..."
+msgstr ""
+
+#: libgui/toplevel.cpp:893
+msgid "Programming in progress. Cannot be aborted."
+msgstr ""
+
+#: progs/icd2/base/icd2_debug.cpp:281
+msgid "Programming successful"
+msgstr "Programozás kész"
+
+#: progs/base/generic_prog.cpp:342
+#, fuzzy
+msgid "Programming successful."
+msgstr "Programozás kész"
+
+#: progs/base/generic_prog.cpp:32
+msgid "Programming..."
+msgstr "Programming..."
+
+#: libgui/project_manager.cpp:359
+msgid "Project"
+msgstr "Project"
+
+#: libgui/project_wizard.cpp:191
+msgid "Project \"%1\"already exists. Overwrite it?"
+msgstr ""
+
+#: common/common/purl_base.cpp:50
+msgid "Project File"
+msgstr "Project File"
+
+#: common/common/purl_base.cpp:126
+msgid "Project Files"
+msgstr "Project Files"
+
+#: libgui/toplevel.cpp:189
+msgid "Project Manager"
+msgstr "Project Manager"
+
+#: libgui/project_editor.cpp:21
+msgid "Project Options"
+msgstr "Project Options"
+
+#: libgui/toplevel.cpp:303
+msgid "Project Options..."
+msgstr "Project Options..."
+
+#. i18n: file ./data/app_data/piklabui.rc line 139
+#: rc.cpp:42
+#, no-c-format
+msgid "Project Toolbar"
+msgstr "Project Toolbar"
+
+#: libgui/project_manager.cpp:697
+msgid "Project already loaded. Reload?"
+msgstr "Projekt már betöltve. Újra?"
+
+#: libgui/project.cpp:176
+msgid "Project file %1 does not exist."
+msgstr "Projektfájl %1nem létezik."
+
+#: libgui/project_wizard.cpp:175
+msgid "Project name is empty."
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:61
+msgid "Propic2 Vpp-1"
+msgstr "Propic2 Vpp-1"
+
+#: progs/direct/base/direct_prog_config.cpp:63
+msgid "Propic2 Vpp-2"
+msgstr "Propic2 Vpp-2"
+
+#: progs/direct/base/direct_prog_config.cpp:65
+msgid "Propic2 Vpp-3"
+msgstr "Propic2 Vpp-3"
+
+#: devices/pic/gui/pic_config_word_editor.cpp:91
+msgid "Protected Mask:"
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:590
+msgid "Protecting code memory or data EEPROM on OTP devices is disabled as a security..."
+msgstr ""
+
+#: devices/base/generic_device.cpp:59
+msgid "QFN"
+msgstr "QFN"
+
+#: piklab-prog/cli_interactive.cpp:37
+msgid "Quit."
+msgstr "Kilépés."
+
+#: libgui/toplevel.cpp:361
+msgid "R&eset"
+msgstr "R&eset"
+
+#: libgui/toplevel.cpp:345
+msgid "R&estart"
+msgstr ""
+
+#: libgui/text_editor.cpp:162
+msgid "R/O"
+msgstr ""
+
+#: devices/base/generic_device.cpp:29
+msgid "ROM"
+msgstr "ROM"
+
+#: devices/base/generic_device.cpp:30
+msgid "ROM-less"
+msgstr "ROM-less"
+
+#: coff/base/coff.cpp:472
+msgid "Ram width is not %1: %2"
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:76
+msgid "Raw Blank Value:"
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:66
+msgid "Raw Value:"
+msgstr ""
+
+#: devices/gui/memory_editor.cpp:277
+msgid "Re&load"
+msgstr "Ú&jraolvasás"
+
+#: progs/manager/debug_manager.cpp:266
+msgid "Reached breakpoint."
+msgstr "Reached breakpoint."
+
+#: devices/pic/gui/pic_register_view.cpp:83 progs/gui/prog_group_ui.cpp:34
+#: progs/gui/prog_group_ui.cpp:45 libgui/toplevel.cpp:987
+msgid "Read"
+msgstr "Read"
+
+#: devices/pic/gui/pic_register_view.cpp:262
+msgid "Read All"
+msgstr "Mindet olvasd"
+
+#: libgui/hex_editor.cpp:39
+msgid "Read Only Mode"
+msgstr "Csak olvasható"
+
+#: piklab-prog/cmdline.cpp:44
+msgid "Read device memory: \"read <hexfilename>\"."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:236 progs/pickit2v2/base/pickit2v2_prog.cpp:62
+msgid "Read id does not match the specified device name \"%1\"."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:234 progs/pickit2v2/base/pickit2v2_prog.cpp:60
+msgid "Read id: %1"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:44
+msgid "Read or set a register or variable: \"x PORTB\" or \"x W 0x1A\"."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:351
+msgid "Read string is different than expected: %1 (%2)"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:338 piklab-prog/cmdline.cpp:343
+#: piklab-prog/cmdline.cpp:348
+msgid "Reading device memory not supported for specified programmer."
+msgstr ""
+
+#: progs/base/generic_prog.cpp:320
+msgid "Reading device memory..."
+msgstr "Olvasom az eszköz memóriáját..."
+
+#: progs/base/generic_prog.cpp:323
+#, fuzzy
+msgid "Reading done."
+msgstr "Olvasás kész"
+
+#: progs/base/generic_prog.cpp:31 progs/base/generic_prog.cpp:33
+msgid "Reading..."
+msgstr "Olvasom..."
+
+#: progs/base/generic_debug.cpp:49
+msgid "Ready to start debugging."
+msgstr "Kész vagyok a hibakeresésre."
+
+#: progs/icd2/base/icd2.cpp:208
+msgid "Received length too short."
+msgstr "A visszaadott hossz túl kevés."
+
+#: progs/icd2/base/icd2.cpp:212
+msgid "Received string too short."
+msgstr "A visszaadott szöveg túl rövid."
+
+#: progs/bootloader/base/bootloader_tbl.cpp:106
+msgid "Received unexpected character ('%1' received; 'K' expected)."
+msgstr ""
+
+#: progs/bootloader/base/bootloader_tbl.cpp:103
+msgid "Received unexpected character ('%1' received; 'K' or 'N' expected)."
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:36
+msgid "Regenerate..."
+msgstr "Újragenerálás..."
+
+#: libgui/project_manager.cpp:133 libgui/editor_manager.cpp:471
+#: libgui/watch_view.cpp:40
+msgid "Registers"
+msgstr "regiszterek"
+
+#: devices/pic/gui/pic_register_view.cpp:273
+msgid "Registers information not available."
+msgstr ""
+
+#: coff/base/coff.cpp:197
+msgid "Relocation address beyong section size: %1/%2"
+msgstr ""
+
+#: coff/base/coff.cpp:200
+msgid "Relocation has unknown symbol: %1"
+msgstr ""
+
+#: common/gui/editlistbox.cpp:131
+msgid "Remove All"
+msgstr "Minden elmozgatás"
+
+#: libgui/project_manager.cpp:382
+msgid "Remove From Project"
+msgstr "Törlés a projektből"
+
+#: libgui/breakpoint_view.cpp:24
+msgid "Remove breakpoint"
+msgstr "Töréspont eltávolítás"
+
+#: tools/list/compile.cpp:30
+msgid "Replaced by \"xxx\" when \"wine\" is used."
+msgstr ""
+
+#: tools/list/compile.cpp:31
+msgid "Replaced by \"xxx\" when the device name is specified."
+msgstr ""
+
+#: tools/list/compile.cpp:29
+msgid "Replaced by \"xxx\" when there is a custom linker script."
+msgstr ""
+
+#: tools/list/compile.cpp:47
+msgid "Replaced by a separation into two arguments."
+msgstr ""
+
+#: tools/list/compile.cpp:36
+msgid "Replaced by the COFF filename."
+msgstr ""
+
+#: tools/list/compile.cpp:41
+msgid "Replaced by the device family name (when needed)."
+msgstr ""
+
+#: tools/list/compile.cpp:40
+msgid "Replaced by the device name."
+msgstr ""
+
+#: tools/list/compile.cpp:45
+msgid "Replaced by the linker script basename."
+msgstr ""
+
+#: tools/list/compile.cpp:46
+msgid "Replaced by the linker script filename."
+msgstr ""
+
+#: tools/list/compile.cpp:44
+msgid "Replaced by the linker script path."
+msgstr ""
+
+#: tools/list/compile.cpp:39
+msgid "Replaced by the list filename."
+msgstr ""
+
+#: tools/list/compile.cpp:33
+msgid "Replaced by the list of additionnal libraries."
+msgstr ""
+
+#: tools/list/compile.cpp:32
+msgid "Replaced by the list of additionnal objects."
+msgstr ""
+
+#: tools/list/compile.cpp:37
+msgid "Replaced by the map filename."
+msgstr ""
+
+#: tools/list/compile.cpp:43
+msgid "Replaced by the object file name."
+msgstr ""
+
+#: tools/list/compile.cpp:34
+msgid "Replaced by the output filename."
+msgstr ""
+
+#: tools/list/compile.cpp:35
+msgid "Replaced by the project name."
+msgstr ""
+
+#: tools/list/compile.cpp:42
+msgid "Replaced by the relative input filepath(s)."
+msgstr ""
+
+#: tools/list/compile.cpp:28
+msgid "Replaced by the source directory."
+msgstr ""
+
+#: tools/list/compile.cpp:38
+msgid "Replaced by the symbol filename."
+msgstr ""
+
+#: libgui/toplevel.cpp:384
+msgid "Report Bug..."
+msgstr ""
+
+#: libgui/likeback.cpp:182
+msgid "Report a bug."
+msgstr ""
+
+#: libgui/device_gui.cpp:131
+#, fuzzy
+msgid "Reset Filters"
+msgstr "Válassz fájlt"
+
+#: devices/pic/pic/pic_prog_specific.cpp:23
+msgid "Reset Held"
+msgstr "Reset Held"
+
+#: devices/pic/pic/pic_prog_specific.cpp:23
+msgid "Reset Released"
+msgstr "Reset Released"
+
+#: devices/pic/base/pic_config.cpp:188
+msgid "Reset into clip on emulation mode"
+msgstr ""
+
+#: progs/manager/prog_manager.cpp:179
+msgid "Reset."
+msgstr "Reset."
+
+#: progs/manager/prog_manager.cpp:183
+msgid "Restart..."
+msgstr "Restart..."
+
+#: progs/icd1/gui/icd1_group_ui.cpp:20
+msgid "Result:"
+msgstr "Eredmény:"
+
+#: piklab-prog/cmdline.cpp:50
+msgid "Return checksum: \"checksum <hexfilename>\"."
+msgstr ""
+
+#: piklab-hex/main.cpp:23
+msgid "Return information about hex file."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:55
+msgid "Return the list of detected ports."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:59
+msgid "Return the list of memory ranges."
+msgstr ""
+
+#: libcli/cli_main.cpp:37
+msgid "Return the list of recognized commands."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:53
+msgid "Return the list of supported devices."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:54
+#, fuzzy
+msgid "Return the list of supported hex file formats."
+msgstr "Támogatott HEX-formátum:"
+
+#: piklab-prog/cli_interactive.cpp:52
+msgid "Return the list of supported programmers."
+msgstr ""
+
+#: coff/base/coff.cpp:469
+msgid "Rom width is not %1: %2"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:36
+msgid "Run device (release reset)."
+msgstr "Reseteld az eszközt."
+
+#: progs/base/generic_prog.cpp:237
+msgid "Run..."
+msgstr "Start..."
+
+#: devices/pic/pic/pic_prog_specific.cpp:19
+msgid "Running"
+msgstr "Fut"
+
+#: progs/base/generic_prog.cpp:235 progs/manager/debug_manager.cpp:228
+msgid "Running..."
+msgstr "Fut..."
+
+#: devices/pic/base/pic_config.cpp:72
+msgid "SBODEN controls BOD function"
+msgstr ""
+
+#: devices/base/generic_device.cpp:49 devices/base/generic_device.cpp:50
+msgid "SDIP"
+msgstr "SDIP"
+
+#: devices/pic/gui/pic_group_ui.cpp:45 devices/pic/gui/pic_group_ui.cpp:51
+msgid "SFRs"
+msgstr "SFRs"
+
+#: devices/base/generic_device.cpp:55
+msgid "SOIC"
+msgstr "SOIC"
+
+#: devices/base/generic_device.cpp:51
+msgid "SOT-23"
+msgstr "SOT-23"
+
+#: devices/base/generic_device.cpp:53
+msgid "SSOP"
+msgstr "SSOP"
+
+#: devices/pic/base/pic_config.cpp:116
+msgid "SSP I/O mux (SCK/SLC, SDA/SDI, SD0)"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:60
+msgid "Same as \"device\"."
+msgstr ""
+
+#: libgui/toplevel.cpp:261
+msgid "Save All"
+msgstr "Összes mentése"
+
+#: libgui/editor.cpp:53
+msgid "Save File"
+msgstr "Fájl mentés"
+
+#: libgui/log_view.cpp:137
+msgid "Save log to file"
+msgstr ""
+
+#: piklab-hex/main.cpp:74
+#, fuzzy
+msgid "Second hex file: "
+msgstr "második hex fájl"
+
+#: devices/pic/base/pic_config.cpp:240
+msgid "Secondary oscillator (LP)"
+msgstr ""
+
+#: devices/pic/base/pic_protection.cpp:360
+msgid "Secure Segment"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:228
+#, fuzzy
+msgid "Secure segment EEPROM size"
+msgstr "Boot Block Méret"
+
+#: devices/pic/base/pic_config.cpp:229
+msgid "Secure segment RAM size"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:225
+msgid "Secure segment security"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:224
+msgid "Secure segment size"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:223
+#, fuzzy
+msgid "Secure segment write-protection"
+msgstr "Code write-protection"
+
+#: libgui/port_selector.cpp:87
+msgid "See Piklab homepage for help."
+msgstr ""
+
+#: libgui/project_manager.cpp:399
+msgid "Select Device..."
+msgstr "Válassz eszközt..."
+
+#: common/gui/purl_gui.cpp:118
+msgid "Select Directory"
+msgstr "Válassz könyvtárat"
+
+#: common/gui/purl_gui.cpp:147
+msgid "Select File"
+msgstr "Válassz fájlt"
+
+#: libgui/project_wizard.cpp:89
+msgid "Select Files"
+msgstr "Válassz fájlt"
+
+#: libgui/project_manager.cpp:336
+msgid "Select Linker Script"
+msgstr "Válassz Linker Scriptet"
+
+#: libgui/project_manager.cpp:475
+msgid "Select Object File"
+msgstr "Válassz object fájlt"
+
+#: libgui/project_manager.cpp:509
+msgid "Select Project file"
+msgstr "Válassz projektfájlt"
+
+#: libgui/project_manager.cpp:466
+msgid "Select Source File"
+msgstr "Válassz forrásfájlt"
+
+#: libgui/device_gui.cpp:72
+msgid "Select a device"
+msgstr "Válassz eszközt"
+
+#: progs/gui/prog_group_ui.cpp:85
+msgid "Self-test"
+msgstr "Önteszt"
+
+#: progs/icd2/base/icd2_prog.cpp:56 progs/pickit2v2/base/pickit2v2_prog.cpp:89
+msgid "Self-test failed (%1). Do you want to continue anyway?"
+msgstr "Önteszt hibás (%1).Folytassam?"
+
+#: progs/icd1/base/icd1.cpp:109
+msgid "Self-test failed (returned value is %1)"
+msgstr "Önteszt hibás (visszatérési érték: %1)"
+
+#: progs/icd1/base/icd1_prog.cpp:29
+msgid "Self-test failed. Do you want to continue anyway?"
+msgstr "Önteszt hibás. Folytassam?"
+
+#: progs/icd2/base/icd2_prog.cpp:55 progs/pickit2v2/base/pickit2v2_prog.cpp:88
+msgid "Self-test failed: %1"
+msgstr "Önteszt hibás: (%1)"
+
+#: libgui/likeback.cpp:582
+msgid "Send"
+msgstr "Send"
+
+#: progs/direct/gui/direct_config_widget.cpp:77
+#: progs/direct/gui/direct_config_widget.cpp:97
+msgid "Send 0xA55A"
+msgstr "Send 0xA55A"
+
+#: libgui/likeback.cpp:609
+msgid "Send a Comment"
+msgstr ""
+
+#: libgui/likeback.cpp:181
+msgid "Send a comment about what you don't like."
+msgstr ""
+
+#: libgui/likeback.cpp:180
+msgid "Send a comment about what you like."
+msgstr ""
+
+#: libgui/port_selector.cpp:21
+msgid "Serial"
+msgstr "Soros"
+
+#: devices/mem24/mem24/mem24_group.h:25
+msgid "Serial Memory 24"
+msgstr ""
+
+#: common/port/port.cpp:61
+msgid "Serial Port"
+msgstr "Soros port"
+
+#: libgui/project_manager.cpp:332
+msgid "Set Custom..."
+msgstr "Set Custom..."
+
+#: libgui/project_manager.cpp:333
+msgid "Set Default"
+msgstr "Set Default"
+
+#: libgui/likeback.cpp:393
+msgid "Set Email Address"
+msgstr ""
+
+#: libgui/config_center.cpp:43
+msgid "Set User Ids to unprotected checksum (if User Ids are empty)."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:45
+msgid "Set a breakpoint \"break e 0x04\" or list all breakpoints \"break\"."
+msgstr ""
+
+#: libgui/breakpoint_view.cpp:24
+msgid "Set breakpoint"
+msgstr "Töréspont beállítás"
+
+#: piklab-prog/cli_interactive.cpp:38
+msgid "Set property value: \"set <property> <value>\" or \"<property> <value>\"."
+msgstr ""
+
+#: devices/pic/gui/pic_memory_editor.cpp:320
+#: devices/pic/gui/pic_memory_editor.cpp:333
+msgid "Set to unprotected checksum"
+msgstr ""
+
+#: progs/base/generic_debug.cpp:44
+msgid "Setting up debugging session."
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:850
+msgid "Show %1 specific options"
+msgstr "Show %1 specific options"
+
+#: libgui/toplevel.cpp:363
+msgid "Show Program Counter"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:857
+msgid "Show all options"
+msgstr "Minden beállítást mutass"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:858
+msgid "Show author information"
+msgstr "Mutass a készítőről infót "
+
+#: common/nokde/nokde_kcmdlineargs.cpp:842
+msgid "Show help about options"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:860
+msgid "Show license information"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:859
+msgid "Show version information"
+msgstr ""
+
+#: tools/sdcc/sdcc.h:42
+msgid "Small Device C Compiler"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:183
+msgid "Software"
+msgstr ""
+
+#: progs/direct/gui/direct_config_widget.cpp:27
+msgid ""
+"Some programming cards need low clock rate:\n"
+"adding delay to clock pulses might help."
+msgstr ""
+
+#: tools/base/generic_tool.cpp:40
+msgid "Source Directory"
+msgstr ""
+
+#: libgui/project_manager.cpp:40 libgui/project_manager.cpp:391
+msgid "Sources"
+msgstr "Forrás"
+
+#: piklab-prog/cli_interactive.cpp:256
+msgid "Special Function Registers:"
+msgstr "Special Function Registers:"
+
+#: libgui/prog_config_widget.cpp:108
+msgid "Specific"
+msgstr "Speciális"
+
+#: devices/pic/base/pic_config.cpp:95
+msgid "Stack full/underflow reset"
+msgstr ""
+
+#: libgui/project_manager.cpp:69 libgui/project_manager.cpp:354
+#: libgui/config_center.h:52
+msgid "Standalone File"
+msgstr ""
+
+#: libgui/config_center.h:53
+msgid "Standalone File Compilation"
+msgstr "Standalone File Compilation"
+
+#: devices/base/generic_device.cpp:27
+msgid "Standard Flash"
+msgstr "Standard Flash"
+
+#: devices/pic/base/pic_config.cpp:220 devices/pic/base/pic_config.cpp:227
+#: devices/pic/base/pic_config.cpp:234
+#, fuzzy
+msgid "Standard Security"
+msgstr "Alapművelet"
+
+#: devices/pic/base/pic_config.cpp:109
+msgid "Standard operation"
+msgstr "Alapművelet"
+
+#: piklab-prog/cli_interactive.cpp:42
+msgid "Start or restart debugging session."
+msgstr ""
+
+#: piklab-hex/main.cpp:109
+msgid "Start:"
+msgstr "Start:"
+
+#: piklab-prog/cli_prog_manager.cpp:53
+#, fuzzy
+msgid "Starting debug session without COFF file (no source file information)."
+msgstr "Nem tudom indítani a hibakeresőt bemeneti fájl nélkül(nem beállított)."
+
+#: piklab-prog/cli_prog_manager.cpp:54
+msgid "Starting debugging session with device memory in an unknown state. You may want to reprogram the device."
+msgstr ""
+
+#: devices/base/device_group.cpp:234 libgui/breakpoint_view.cpp:47
+msgid "Status"
+msgstr "Státusz"
+
+#: progs/gpsim/gui/gpsim_group_ui.cpp:21
+msgid "Status:"
+msgstr "Státusz:"
+
+#: piklab-prog/cli_interactive.cpp:43
+msgid "Step one instruction."
+msgstr ""
+
+#: devices/pic/gui/pic_register_view.cpp:224
+msgid "Stop Watching"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:38
+msgid "Stop device (hold reset)."
+msgstr ""
+
+#: progs/manager/prog_manager.cpp:166
+msgid "Stop."
+msgstr "Állj"
+
+#: devices/pic/pic/pic_prog_specific.cpp:19
+msgid "Stopped"
+msgstr "megállt"
+
+#: common/common/number.cpp:22
+msgid "String"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:85
+msgid "Subroutine to initialize W registers to 0x0000"
+msgstr ""
+
+#: common/global/about.cpp:40
+msgid "Support for direct programmers with bidirectionnal buffers."
+msgstr ""
+
+#: devices/base/device_group.cpp:36
+msgid "Supported"
+msgstr "Támogatott"
+
+#: libcli/cli_main.cpp:99
+msgid "Supported commands:"
+msgstr "Támogatott parancsok:"
+
+#: piklab-prog/cmdline.cpp:97
+msgid "Supported devices for \"%1\":"
+msgstr "Támogatott eszközök: \"%1\":"
+
+#: piklab-prog/cmdline.cpp:94
+msgid "Supported devices:"
+msgstr "Támogatott eszközök:"
+
+#: piklab-prog/cmdline.cpp:76
+msgid "Supported hex file formats:"
+msgstr "Támogatott HEX-formátum:"
+
+#: piklab-prog/cmdline.cpp:84
+msgid "Supported programmers:"
+msgstr "Támogatott programozók:"
+
+#: libgui/toplevel.cpp:279
+msgid "Switch Header/Implementation"
+msgstr ""
+
+#: libgui/editor_manager.cpp:37
+msgid "Switch to editor"
+msgstr ""
+
+#: libgui/toplevel.cpp:277
+msgid "Switch to..."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:131
+msgid "Switching off, monitor off"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:132
+msgid "Switching on, monitor off"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:133
+msgid "Switching on, monitor on"
+msgstr ""
+
+#: coff/base/coff.cpp:171
+msgid "Symbol without needed auxilliary symbol (type=%1)"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:111
+msgid "T1OSO/T1CKI on RA6"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:112
+msgid "T1OSO/T1CKI on RB2"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:113
+msgid "TMR0/T5CKI external clock mux"
+msgstr ""
+
+#: devices/base/generic_device.cpp:56
+msgid "TQFP"
+msgstr "TQFP"
+
+#: devices/base/generic_device.cpp:54
+msgid "TSSOP"
+msgstr "TSSOP"
+
+#: devices/pic/base/pic_config.cpp:24
+msgid "Table read-protection"
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:28
+msgid "Tait 7405/7406"
+msgstr "Tait 7405/7406"
+
+#: progs/direct/base/direct_prog_config.cpp:26
+msgid "Tait classic"
+msgstr "Tait classic"
+
+#: devices/pic/pic/pic_prog_specific.cpp:15 progs/icd2/base/icd2.cpp:51
+msgid "Target Vdd"
+msgstr ""
+
+#: devices/pic/pic/pic_prog_specific.cpp:15
+msgid "Target Vpp"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:53
+msgid "Target device."
+msgstr ""
+
+#: libgui/prog_config_widget.cpp:35
+msgid "Target is self-powered (when possible)."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:248
+#, fuzzy
+msgid "Temperature protection"
+msgstr "Hőmérséklet határ: "
+
+#: devices/base/device_group.cpp:295
+msgid "Temperature range: "
+msgstr "Hőmérséklet határ: "
+
+#: libgui/config_gen.cpp:191
+msgid "Template Generator"
+msgstr ""
+
+#: tools/base/tool_group.cpp:30
+msgid "Template source file generated by piklab"
+msgstr ""
+
+#: libgui/project_wizard.cpp:230
+msgid "Template source file generation not implemented yet for this toolchain..."
+msgstr ""
+
+#: libgui/project_wizard.cpp:236
+msgid "Template source file generation only partially implemented"
+msgstr ""
+
+#: common/global/about.cpp:43
+msgid "Test of PICkit2 and ICD2 programmer."
+msgstr "PICkit2 és ICD2 Programozó teszt."
+
+#: tools/pic30/pic30.cpp:88
+msgid "The <a href=\"http://microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1406&dDocName=en010065&part=SW006012\">PIC30 ToolChain</a> is distributed by Microchip under the GNU Public License.<br>Sources and packages can be downloaded from <a href=\"http://sourceforge.net/project/showfiles.php?group_id=138852&package_id=181225\">this page</a>."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:30
+msgid "The CLOCK pin is used to synchronize serial data of the DATA IN and DATA OUT pins."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:36
+msgid "The DATA IN pin is used to receive data from the programmed device."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:33
+msgid "The DATA OUT pin is used to send data to the programmed device."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:39
+msgid ""
+"The DATA RW pin selects the direction of data buffer.\n"
+"Must be set to GND if your programmer does not use bi-directionnal buffer."
+msgstr ""
+
+#: libgui/toplevel.cpp:522
+msgid ""
+"The Pikloops utility (http://pikloops.tripod.com) is not installed in your system:\n"
+" You can download pikloops from http://piklab.sourceforge.net"
+msgstr ""
+
+#: tools/sdcc/sdcc.cpp:53
+msgid "The Small Devices C Compiler can be downloaded from <a href=\"http://sdcc.sourceforge.net\">this page</a>.<br>A binary package for Mandriva is available <a href=\"http://sourceforge.net/project/showfiles.php?group_id=138852&package_id=181223\">here</a>."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:27
+msgid ""
+"The VDD pin is used to apply 5V to the programmed device.\n"
+"Must be set to GND if your programmer doesn't control the VDD line."
+msgstr ""
+
+#: progs/direct/base/direct.cpp:24
+msgid "The VPP pin is used to select the high voltage programming mode."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:633
+msgid "The calibration word %1 is not valid."
+msgstr ""
+
+#: progs/manager/prog_manager.cpp:69
+msgid "The current programmer \"%1\" does not support device \"%2\"."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:620
+msgid "The device cannot be erased first by the selected programmer so programming may fail..."
+msgstr ""
+
+#: libgui/gui_prog_manager.cpp:37
+msgid "The device memory is in an unknown state. You may want to reprogram the device. Continue anyway?"
+msgstr ""
+
+#: libgui/likeback.cpp:396
+msgid "The email address is optional. If you do not provide any, your comments will be sent anonymously. Just click OK in that case."
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:1313
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:142
+msgid ""
+"The firmware version (%1) is higher than the version tested with piklab (%2).\n"
+"You may experience problems."
+msgstr ""
+
+#: progs/base/generic_prog.cpp:156
+msgid ""
+"The firmware version (%1) is lower than the recommended version (%2).\n"
+"It is recommended to upgrade the firmware."
+msgstr ""
+
+#: progs/base/generic_prog.cpp:149
+msgid ""
+"The firmware version (%1) is lower than the version tested with piklab (%2).\n"
+"You may experience problems."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:182
+msgid "The first argument should be \"e\""
+msgstr ""
+
+#: piklab-hex/main.cpp:139
+msgid "The first hex file is a subset of the second one."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:307
+msgid "The given value is too large (max: %1)"
+msgstr ""
+
+#: progs/gui/hardware_config_widget.cpp:76
+msgid "The hardware name is already used for a standard hardware."
+msgstr ""
+
+#: progs/manager/debug_manager.cpp:107
+msgid "The number of active breakpoints is higher than the maximum for the current debugger (%1): disabling the last breakpoint."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:605
+msgid "The range cannot be erased first by the selected programmer so programming may fail..."
+msgstr ""
+
+#: piklab-hex/main.cpp:140
+msgid "The second hex file is a subset of the first one."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:391
+msgid "The selected device \"%1\" is not supported by the specified programmer."
+msgstr ""
+
+#: libgui/register_view.cpp:45
+msgid "The selected device has no register."
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:101
+msgid "The selected device is not supported by this programmer."
+msgstr ""
+
+#: libgui/gui_prog_manager.cpp:28
+msgid "The selected operation will stop the debugging session. Continue?"
+msgstr ""
+
+#: progs/base/generic_prog.cpp:301
+msgid "The selected programmer cannot read device memory."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:473
+msgid "The selected programmer cannot read memory range: operation skipped."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:445 devices/pic/pic/pic_prog.cpp:514
+msgid "The selected programmer cannot read the specified memory range."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:355
+msgid "The selected programmer does not support erasing the whole device."
+msgstr ""
+
+#: tools/list/compile.cpp:429
+msgid "The selected toolchain (%1) cannot assemble file. It only supports files with extensions: %2"
+msgstr ""
+
+#: tools/list/compile.cpp:404
+msgid "The selected toolchain (%1) cannot compile file. It only supports files with extensions: %2"
+msgstr ""
+
+#: tools/base/tool_group.cpp:183
+msgid "The selected toolchain (%1) does not support device %2. Continue anyway?"
+msgstr "A választott fordítóprogram (%1) nem támogatja az eszközt %2. Folytassam?"
+
+#: libgui/project_wizard.cpp:203
+msgid "The selected toolchain can only compile a single source file and you have selected %1 source files. Continue anyway? "
+msgstr ""
+
+#: tools/list/compile.cpp:361
+msgid "The selected toolchain only supports single-file project."
+msgstr ""
+
+#: libgui/device_editor.cpp:64
+msgid "The target device is not configured and cannot be guessed from source file. The source file either cannot be found or does not contain any processor directive."
+msgstr ""
+
+#: piklab-hex/main.cpp:141
+msgid "The two hex files are different at address %1."
+msgstr ""
+
+#: piklab-hex/main.cpp:138
+msgid "The two hex files have the same content."
+msgstr ""
+
+#: tools/base/tool_group.cpp:181
+msgid "There were errors detecting supported devices for the selected toolchain (%1). Please check the toolchain configuration. Continue anyway?"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:219
+msgid "This command needs a commands filename"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:231
+#, fuzzy
+msgid "This command needs an hex filename"
+msgstr "Ez a parancs hex fájlnevet kér"
+
+#: piklab-prog/cli_interactive.cpp:233
+msgid "This command takes no argument"
+msgstr "Ez a parancs nem kér paramétert"
+
+#: piklab-prog/cli_interactive.cpp:140
+msgid "This command takes no or one argument"
+msgstr "Ez a parancs nem vagy egy paramétert kér"
+
+#: piklab-prog/cli_interactive.cpp:200
+msgid "This command takes no or two argument"
+msgstr "Ez a parancs nem vagy két paramétert kér"
+
+#: piklab-prog/cli_interactive.cpp:154 piklab-prog/cli_interactive.cpp:158
+#: piklab-prog/cli_interactive.cpp:204
+msgid "This command takes one argument"
+msgstr "Ez a parancs egy paramétert kér"
+
+#: piklab-prog/cli_interactive.cpp:165
+msgid "This command takes one or two argument"
+msgstr "Ez a parancs egy vagy két paramétert kér"
+
+#: piklab-prog/cli_interactive.cpp:150
+msgid "This command takes two arguments"
+msgstr "Ez a parancs két paramétert kér"
+
+#: progs/gui/prog_group_ui.cpp:100
+msgid "This device has no calibration information."
+msgstr ""
+
+#: libgui/likeback.cpp:174
+msgid "This is a quick feedback system for %1."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:600
+msgid "This memory range is programming protected."
+msgstr "Ez a memóriarész írásvédett."
+
+#: progs/direct/base/direct.cpp:37
+msgid ""
+"This pin is driven by the programmed device.\n"
+"Without device, it must follow the \"Data out\" pin (when powered on)."
+msgstr ""
+
+#: common/nokde/nokde_kaboutdata.cpp:437
+msgid "This program is distributed under the terms of the %1."
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:242
+msgid "This tool cannot be automatically detected."
+msgstr ""
+
+#: libgui/config_gen.cpp:131
+msgid "This toolchain does not need explicit config bits."
+msgstr ""
+
+#: progs/pickit2/base/pickit_prog.cpp:48
+msgid "This will overwrite the device code memory. Continue anyway?"
+msgstr ""
+
+#: tools/base/toolchain_config_widget.cpp:136
+#: tools/base/toolchain_config_widget.cpp:153
+msgid "Timeout"
+msgstr "Időtullépés."
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:32
+#, fuzzy
+msgid "Timeout (ms):"
+msgstr "Időtullépés."
+
+#: common/port/serial.cpp:280
+msgid "Timeout receiving data (%1/%2 bytes received)."
+msgstr ""
+
+#: common/port/serial.cpp:306
+msgid "Timeout sending data (%1 bytes left)."
+msgstr ""
+
+#: common/port/serial.cpp:235
+msgid "Timeout sending data (%1/%2 bytes sent)."
+msgstr ""
+
+#: progs/icd1/base/icd1_serial.cpp:50
+msgid "Timeout synchronizing."
+msgstr ""
+
+#: progs/gpsim/gpsim.cpp:72
+msgid "Timeout waiting for \"gpsim\""
+msgstr ""
+
+#: common/port/serial.cpp:265
+msgid "Timeout waiting for data."
+msgstr ""
+
+#: progs/direct/base/direct_mem24.cpp:125
+msgid "Timeout writing at address %1"
+msgstr ""
+
+#: common/port/usb_port.cpp:397
+msgid "Timeout: only some data received (%1/%2 bytes)."
+msgstr ""
+
+#: common/port/usb_port.cpp:363
+msgid "Timeout: only some data sent (%1/%2 bytes)."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:138
+msgid "Timer1"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:95
+msgid "Timer1 interrupt service routine"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:108
+msgid "Timer1 oscillator mode"
+msgstr ""
+
+#: progs/bootloader/bootloader_data/bootloader_data.cpp:12
+#, fuzzy
+msgid "Tiny Bootloader"
+msgstr "Bootloader"
+
+#: libgui/likeback.cpp:175
+msgid "To help us improve it, your comments are important."
+msgstr ""
+
+#: progs/manager/prog_manager.cpp:139
+msgid "Toggle Device Power..."
+msgstr ""
+
+#: piklab-hex/main.cpp:52
+msgid "Too few arguments."
+msgstr "Túl kevés paraméter."
+
+#: piklab-prog/cli_interactive.cpp:229 piklab-prog/cli_interactive.cpp:232
+msgid "Too many arguments"
+msgstr "Túl sok paraméter."
+
+#: piklab-hex/main.cpp:53 piklab-prog/cmdline.cpp:254
+msgid "Too many arguments."
+msgstr "Túl sok paraméter."
+
+#: progs/bootloader/base/bootloader_tbl.cpp:144
+#, fuzzy
+msgid "Too many failures: bailing out."
+msgstr "Túl sok paraméter."
+
+#: libgui/config_gen.cpp:48
+msgid "Tool Type:"
+msgstr ""
+
+#: libgui/toplevel.cpp:285
+msgid "Tool Views"
+msgstr ""
+
+#: tools/list/tools_config_widget.cpp:41 libgui/config_gen.cpp:40
+#: libgui/project_wizard.cpp:134
+msgid "Toolchain:"
+msgstr ""
+
+#: tools/list/device_info.cpp:28
+msgid "Tools"
+msgstr ""
+
+#: libgui/likeback.cpp:657
+msgid "Transfer Error"
+msgstr "Átviteli hiba"
+
+#: libgui/port_selector.cpp:21
+msgid "USB"
+msgstr "USB"
+
+#: common/port/port.cpp:63
+msgid "USB Port"
+msgstr "USB Port"
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:92
+#, fuzzy
+msgid "USB Product Id:"
+msgstr "USB Port"
+
+#: progs/bootloader/gui/bootloader_config_widget.cpp:86
+msgid "USB Vendor Id:"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:191
+msgid "USB clock (PLL divided by)"
+msgstr ""
+
+#: common/port/usb_port.cpp:269
+#, fuzzy
+msgid "USB support disabled"
+msgstr " Nem tudom azonosítani a portot"
+
+#: common/global/about.cpp:42
+msgid "USB support for ICD2 programmer."
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:121
+msgid "USB voltage regulator"
+msgstr "USB feszültség-stabilizátor"
+
+#: devices/pic/base/pic_config.cpp:79
+msgid "Undefined"
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:169
+msgid "Unexpected answer ($7F00) from ICD2 (%1)."
+msgstr ""
+
+#: progs/icd2/base/icd2.cpp:176
+msgid "Unexpected answer (08) from ICD2 (%1)."
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:674
+msgid "Unexpected argument '%1'."
+msgstr ""
+
+#: devices/base/hex_buffer.cpp:154
+msgid "Unexpected end-of-file."
+msgstr ""
+
+#: devices/base/hex_buffer.cpp:155
+msgid "Unexpected end-of-line (line %1)."
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:57
+msgid "Unitialized variables in X-space"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:61
+msgid "Unitialized variables in Y-space"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:65
+msgid "Unitialized variables in near data memory"
+msgstr ""
+
+#: tools/base/generic_tool.cpp:31
+msgid "Unix"
+msgstr "Unix"
+
+#: tools/base/toolchain_config_widget.cpp:195
+#: devices/base/generic_device.cpp:21
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: common/common/purl_base.cpp:56
+msgid "Unknown File"
+msgstr "Ismeretlen fájl"
+
+#: libcli/cli_main.cpp:29
+msgid "Unknown command: %1"
+msgstr "Ismeretlen utasítás %1 ."
+
+#: progs/pickit2v2/base/pickit2v2_prog.cpp:31
+#, fuzzy
+msgid "Unknown device"
+msgstr "Ismeretlen eszköz."
+
+#: piklab-prog/cmdline.cpp:418
+msgid "Unknown device \"%1\"."
+msgstr ""
+
+#: devices/pic/pic/pic_prog.cpp:239
+msgid "Unknown device."
+msgstr "Ismeretlen eszköz."
+
+#: piklab-prog/cmdline.cpp:433
+#, fuzzy
+msgid "Unknown hex file format \"%1\"."
+msgstr "Hex file format:"
+
+#: progs/bootloader/base/bootloader_tbl.cpp:83
+msgid "Unknown id returned by bootloader (%1 read and %2 expected)."
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:521
+#: common/nokde/nokde_kcmdlineargs.cpp:537
+msgid "Unknown option '%1'."
+msgstr ""
+
+#: coff/base/coff.cpp:463
+msgid "Unknown processor type: %1"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:408
+msgid "Unknown programmer \"%1\"."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:451 piklab-prog/cmdline.cpp:493
+msgid "Unknown property \"%1\""
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:315
+msgid "Unknown register or variable name"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:220
+msgid "Unknown state for IO bit: %1 (%2)"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:371
+msgid "Unprotected checksum: %1"
+msgstr ""
+
+#: devices/base/hex_buffer.cpp:153
+msgid "Unrecognized format (line %1)."
+msgstr "nem értelmezhető formátum  (%1 sorban)."
+
+#: piklab-prog/cli_interactive.cpp:39
+msgid "Unset property value: \"unset <property>\"."
+msgstr ""
+
+#: devices/base/device_group.cpp:36
+msgid "Unsupported"
+msgstr "Ismeretlen"
+
+#: libgui/config_center.cpp:154
+msgid "Update"
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:52
+msgid "Upload firmware to programmer: \"upload_firmware <hexfilename>\"."
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:67
+msgid "Upload..."
+msgstr ""
+
+#: piklab-prog/cmdline.cpp:377
+#, fuzzy
+msgid "Uploading firmware is not supported for the specified programmer."
+msgstr "A hibakeresést nem támogatja ez a programozó."
+
+#: common/nokde/nokde_kcmdlineargs.cpp:838
+msgid "Usage: %1 %2\n"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:783
+msgid "Use --help to get a list of available command line options."
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:81
+msgid "Used Mask:"
+msgstr ""
+
+#: devices/pic/base/pic.cpp:20
+msgid "User IDs"
+msgstr ""
+
+#: piklab-prog/cli_prog_manager.cpp:21
+msgid "Using port from configuration file."
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:71
+msgid "Value:"
+msgstr "Érték:"
+
+#: devices/pic/gui/pic_group_ui.cpp:80 devices/pic/gui/pic_group_ui.cpp:96
+msgid "Variables"
+msgstr "Változók"
+
+#: tools/gputils/gputils_generator.cpp:44
+#: tools/gputils/gputils_generator.cpp:117
+msgid "Variables declaration"
+msgstr "Változó értékadás"
+
+#: devices/base/device_group.cpp:299
+msgid "Vdd (V)"
+msgstr "Vdd (V)"
+
+#: progs/pickit2v2/base/pickit2v2_prog.cpp:86
+msgid "Vdd voltage level error; "
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:48
+msgid "Velleman K8048"
+msgstr "Velleman K8048"
+
+#: piklab-prog/cmdline.cpp:42
+msgid "Verify device memory: \"verify <hexfilename>\"."
+msgstr "Összehasonlítás: \"verify <hexfilename>\"."
+
+#: progs/base/generic_prog.cpp:376
+#, fuzzy
+msgid "Verifying successful."
+msgstr "Összehasonlítás kész"
+
+#: progs/base/generic_prog.cpp:374
+msgid "Verifying..."
+msgstr "Összehasonlítás..."
+
+#: libgui/project_editor.cpp:32
+msgid "Version"
+msgstr "Verzió"
+
+#: progs/icd2/gui/icd2_group_ui.cpp:30 progs/gui/prog_group_ui.cpp:68
+msgid "Version:"
+msgstr "Verzió:"
+
+#: libgui/project_manager.cpp:40
+msgid "Views"
+msgstr ""
+
+#: progs/gui/prog_group_ui.cpp:79
+msgid "Voltages"
+msgstr "Feszültségek"
+
+#: progs/pickit2v2/base/pickit2v2_prog.cpp:85
+msgid "Vpp voltage level error; "
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:84
+msgid "WDT post-scaler"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:75
+msgid "Wake-up reset"
+msgstr ""
+
+#: tools/gputils/gputils_config.cpp:17 tools/c18/c18_config.cpp:16
+msgid "Warning and errors"
+msgstr "Figyelmeztetés és hibák"
+
+#: tools/gputils/gputils_config.cpp:33 tools/c18/c18_config.cpp:27
+msgid "Warning level:"
+msgstr "Figyelmeztetési szint:"
+
+#: devices/pic/gui/pic_register_view.cpp:85
+#: devices/pic/gui/pic_register_view.cpp:224
+msgid "Watch"
+msgstr "Figyelt"
+
+#: devices/pic/gui/pic_group_ui.cpp:43
+msgid "Watch Register"
+msgstr " Figyelt Regiszter"
+
+#: libgui/toplevel.cpp:195
+#, fuzzy
+msgid "Watch View"
+msgstr "Watchdog timer"
+
+#: devices/pic/base/pic_config.cpp:182
+msgid "Watchdog"
+msgstr "Watchdog"
+
+#: devices/pic/base/pic_config.cpp:27
+msgid "Watchdog timer"
+msgstr "Watchdog timer"
+
+#: devices/pic/base/pic_config.cpp:254
+#, fuzzy
+msgid "Watchdog timer postscaler"
+msgstr "Watchdog timer"
+
+#: devices/pic/base/pic_config.cpp:253
+#, fuzzy
+msgid "Watchdog timer prescaler"
+msgstr "Watchdog timer"
+
+#: devices/pic/base/pic_config.cpp:180
+msgid "Watchdog timer prescaler A"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:181
+msgid "Watchdog timer prescaler B"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:100 devices/pic/base/pic_config.cpp:252
+msgid "Watchdog timer window"
+msgstr ""
+
+#: libgui/likeback.cpp:95
+msgid "What's &This?"
+msgstr "Mi ez &itt?"
+
+#: tools/base/generic_tool.cpp:32
+msgid "Windows"
+msgstr ""
+
+#: devices/pic/gui/pic_config_word_editor.cpp:86
+msgid "Write Mask:"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:47
+msgid "Write and read raw commands to port from given file."
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:180
+msgid "Writing PC is not supported by gpsim"
+msgstr ""
+
+#: progs/gpsim/gpsim_debug.cpp:160
+msgid "Writing registers is not supported by this version of gpsim"
+msgstr ""
+
+#: progs/psp/base/psp.cpp:174
+msgid "Wrong programmer connected"
+msgstr "Rossz programozó lett csatlakoztatva"
+
+#: progs/icd2/base/icd2.cpp:220
+msgid "Wrong return value (\"%1\"; was expecting \"%2\")"
+msgstr "Rossz visszatérési érték (\"%1\"; ezt vártam \"%2\")"
+
+#: devices/pic/base/pic_config.cpp:142 devices/pic/base/pic_config.cpp:157
+msgid "XT Crystal"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:145 devices/pic/base/pic_config.cpp:160
+msgid "XT Crystal with 16x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:143 devices/pic/base/pic_config.cpp:158
+msgid "XT Crystal with 4x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:144 devices/pic/base/pic_config.cpp:159
+msgid "XT Crystal with 8x PLL"
+msgstr ""
+
+#: devices/pic/base/pic_config.cpp:246
+msgid "XT crystal oscillator"
+msgstr ""
+
+#: libgui/likeback.cpp:397
+msgid "You can change or remove your email address whenever you want. For that, use the little arrow icon at the top-right corner of a window."
+msgstr ""
+
+#: progs/direct/base/direct_prog_config.cpp:38
+msgid "You must disconnect 7407 pin 2"
+msgstr ""
+
+#: progs/icd2/gui/icd2_group_ui.cpp:52
+msgid "You need to initiate debugging to read the debug executive version."
+msgstr ""
+
+#: libgui/toplevel.cpp:616
+msgid "You need to specify a device to create a new hex file."
+msgstr ""
+
+#: progs/manager/prog_manager.cpp:63
+msgid "You need to specify the device for programming."
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:224
+msgid "You need to specify the range"
+msgstr ""
+
+#: piklab-prog/cli_interactive.cpp:300
+msgid "You need to start the debugging session first (with \"start\")."
+msgstr ""
+
+#: libgui/likeback.cpp:398
+msgid "Your email address (keep empty to post comments anonymously):"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:818
+msgid "[%1-options]"
+msgstr ""
+
+#: common/nokde/nokde_kcmdlineargs.cpp:811
+msgid "[options] "
+msgstr "[beállítás]"
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "biglacko at startolj d0t hu"
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Nagy László(biglackó)"
+
+#: tools/pic30/pic30_generator.cpp:63
+msgid "allocating 2 bytes"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:59 tools/pic30/pic30_generator.cpp:67
+msgid "allocating 4 bytes"
+msgstr ""
+
+#: tools/gputils/gputils_config.cpp:39 tools/base/tool_config_widget.cpp:125
+msgid "as in LIST directive"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:77
+msgid "call _wreg_init subroutine"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:99
+msgid "clear Timer1 interrupt flag status bit"
+msgstr "clear Timer1 interrupt flag status bit"
+
+#: tools/pic30/pic30_generator.cpp:48
+msgid "declare Timer1 ISR"
+msgstr "Timer1 ISR az megszakítás lesz"
+
+#: devices/gui/register_view.cpp:71
+msgid "driven high"
+msgstr ""
+
+#: devices/gui/register_view.cpp:71
+msgid "driven low"
+msgstr ""
+
+#: devices/gui/register_view.cpp:67
+msgid "driving high"
+msgstr ""
+
+#: devices/gui/register_view.cpp:67
+msgid "driving low"
+msgstr ""
+
+#: tools/list/compile.cpp:288
+msgid "error: "
+msgstr "Hiba"
+
+#: tools/pic30/pic30_generator.cpp:97
+msgid "example of context saving (push W4 and W5)"
+msgstr "szeretem a szőke nőket"
+
+#: tools/gputils/gputils_generator.cpp:69
+#: tools/gputils/gputils_generator.cpp:124
+msgid "example variable"
+msgstr "példa változó"
+
+#: tools/gputils/gputils_generator.cpp:135
+msgid "go to start of high priority interrupt code"
+msgstr "menj a magas megszakítás start kódra"
+
+#: tools/gputils/gputils_generator.cpp:81
+msgid "go to start of interrupt code"
+msgstr "menj a megszakítás start kódra"
+
+#: tools/gputils/gputils_generator.cpp:77
+#: tools/gputils/gputils_generator.cpp:131
+msgid "go to start of main code"
+msgstr "menj a start kódra"
+
+#: tools/gputils/gputils_generator.cpp:148
+msgid "high priority interrupt service routine"
+msgstr "magas prioritásu megszakítási rutin"
+
+#: tools/gputils/gputils_generator.cpp:133
+#, fuzzy
+msgid "high priority interrupt vector"
+msgstr "Linker Script Verzeichnis"
+
+#: progs/direct/base/direct_prog_config.cpp:73
+msgid "htpp://k9spud.com/hoodmicro"
+msgstr "htpp://k9spud.com/hoodmicro"
+
+#: tools/gputils/gputils_generator.cpp:76
+msgid "initialize PCLATH"
+msgstr "PCLATH induló érték"
+
+#: tools/pic30/pic30_generator.cpp:73
+msgid "initialize stack pointer"
+msgstr "stack mutató beállítása"
+
+#: tools/pic30/pic30_generator.cpp:74
+msgid "initialize stack pointer limit register"
+msgstr "stack mutató méretkorlát regiszter beállítása"
+
+#: tools/boost/boost_generator.cpp:52 tools/boost/boost_generator.cpp:76
+#: tools/jal/jal_generator.cpp:31 tools/gputils/gputils_generator.cpp:37
+#: tools/sdcc/sdcc_generator.cpp:75 tools/pic30/pic30_generator.cpp:79
+msgid "insert code"
+msgstr "ide a kódot"
+
+#: tools/gputils/gputils_generator.cpp:150
+msgid "insert high priority interrupt code"
+msgstr "magas prioritásu megszakítási kód helye"
+
+#: tools/boost/boost_generator.cpp:47 tools/gputils/gputils_generator.cpp:95
+#: tools/sdcc/sdcc_generator.cpp:63 tools/pic30/pic30_generator.cpp:98
+msgid "insert interrupt code"
+msgstr "megszakítási kód helye"
+
+#: tools/gputils/gputils_generator.cpp:142
+msgid "insert low priority interrupt code"
+msgstr "alacsony prioritásu megszakítási kód helye"
+
+#: tools/gputils/gputils_generator.cpp:107
+#: tools/gputils/gputils_generator.cpp:154
+msgid "insert main code"
+msgstr "Fő kód helye"
+
+#: tools/boost/boost_generator.cpp:45 tools/sdcc/sdcc_generator.cpp:62
+msgid "interrupt service routine"
+msgstr "megszakítás beállító rutin"
+
+#: tools/gputils/gputils_generator.cpp:79
+msgid "interrupt vector"
+msgstr "megszakítás vektor"
+
+#: tools/jal/jal_generator.cpp:23
+msgid "jal standard library"
+msgstr ""
+
+#: tools/pic30/pic30_generator.cpp:47
+msgid "label for code start"
+msgstr "start cimkéje"
+
+#: tools/gputils/gputils_generator.cpp:75
+msgid "load upper byte of 'start' label"
+msgstr "felső bájt betöltés a start cimkénél"
+
+#: tools/boost/boost_generator.cpp:77 tools/jal/jal_generator.cpp:32
+#: tools/gputils/gputils_generator.cpp:38
+#: tools/gputils/gputils_generator.cpp:108
+#: tools/gputils/gputils_generator.cpp:155 tools/pic30/pic30_generator.cpp:82
+msgid "loop forever"
+msgstr "örökké körbe"
+
+#: tools/gputils/gputils_generator.cpp:137
+msgid "low priority interrupt vector"
+msgstr "alacsony prioritásu megszakítás vektor"
+
+#: tools/jal/jal_generator.cpp:30
+#, fuzzy
+msgid "main code"
+msgstr "Fő kód helye"
+
+#: tools/boost/boost_generator.cpp:50 tools/boost/boost_generator.cpp:74
+#, fuzzy
+msgid "main program"
+msgstr "&Programozás"
+
+#: tools/list/compile.cpp:289
+msgid "message: "
+msgstr "üzenet"
+
+#: tools/gputils/gputils_generator.cpp:74
+#: tools/gputils/gputils_generator.cpp:129
+#: tools/gputils/gputils_generator.cpp:130
+#, fuzzy
+msgid "needed for ICD2 debugging"
+msgstr "szükséges az ICD2 hibakereséshez."
+
+#: tools/pic30/pic30_generator.cpp:76
+msgid "nop after SPLIM initialization"
+msgstr "nop a SPLIM inicializáció után"
+
+#: devices/pic/base/pic_config.cpp:192 devices/pic/base/pic_config.cpp:194
+#: devices/pic/base/pic_config.cpp:196
+msgid "not divided"
+msgstr "nem osztott"
+
+#: devices/pic/gui/pic_memory_editor.cpp:114
+#: devices/pic/gui/pic_memory_editor.cpp:121
+#, fuzzy
+msgid "not present"
+msgstr "<nem beállított>"
+
+#: progs/direct/base/direct_prog_config.cpp:69
+msgid "not tested"
+msgstr "Nem tesztelt"
+
+#: progs/direct/gui/direct_config_widget.cpp:52
+msgid "on"
+msgstr "be"
+
+#: tools/gputils/gputils_generator.cpp:91
+msgid "only required if using more than first page"
+msgstr ""
+
+#: tools/gputils/gputils_generator.cpp:34
+#: tools/gputils/gputils_generator.cpp:83
+msgid "relocatable code"
+msgstr ""
+
+#: common/nokde/nokde_kaboutdata.cpp:374
+msgid "replace this with information about your translation team"
+msgstr ""
+
+#: tools/gputils/gputils_generator.cpp:72
+#: tools/gputils/gputils_generator.cpp:127
+msgid "reset vector"
+msgstr "reset vector"
+
+#: tools/gputils/gputils_generator.cpp:97
+#: tools/gputils/gputils_generator.cpp:100
+#: tools/gputils/gputils_generator.cpp:143
+msgid "restore context"
+msgstr "környezet visszatöltése"
+
+#: tools/pic30/pic30_generator.cpp:100
+msgid "restore context from stack"
+msgstr "környezet visszatöltése a stack-be"
+
+#: tools/gputils/gputils_generator.cpp:86
+#: tools/gputils/gputils_generator.cpp:139
+msgid "save context"
+msgstr "környezet mentés"
+
+#: common/nokde/nokde_kcmdlineargs.cpp:644
+msgid "the 2nd argument is a list of name+address, one on each line"
+msgstr "a 2. argumentum név+cím lista, minden sorban egy"
+
+#: devices/gui/register_view.cpp:66 devices/gui/register_view.cpp:70
+msgid "unknown state"
+msgstr "Ismeretlen helyzet"
+
+#: tools/gputils/gputils_generator.cpp:50
+#: tools/gputils/gputils_generator.cpp:51
+#: tools/gputils/gputils_generator.cpp:54
+#: tools/gputils/gputils_generator.cpp:62
+msgid "variables used for context saving"
+msgstr "környezeti változó mentése"
+
+#: tools/gputils/gputils_generator.cpp:118
+msgid "variables used for context saving (for low-priority interrupts only)"
+msgstr "környezeti változó mentése (csak alacsony prioritásu megszakításhoz)"
+
+#: tools/list/compile.cpp:287
+msgid "warning: "
+msgstr "Figyelem"
+
+#~ msgid " not available"
+#~ msgstr " Nem elérhető"
+
+#, fuzzy
+#~ msgid "Code-protected"
+#~ msgstr "Code Protected"
+
+#~ msgid "dsPICs Family"
+#~ msgstr "dsPICs család"
+
+#~ msgid "(%1 pins)"
+#~ msgstr "(%1 lábak)"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
+
+#~ msgid "Supported Programmers"
+#~ msgstr "Támogatott programozók"
+
+#~ msgid "Supported Tools"
+#~ msgstr "Támogatott szerszámok"
+
+#, fuzzy
+#~ msgid "%1 (rev. %3.%4)"
+#~ msgstr "%1 (rev. %2)"
+
+#~ msgid "Debugger/Emulator"
+#~ msgstr "Debugger/Emulator"
+
+#, fuzzy
+#~ msgid "Ram Boot block size"
+#~ msgstr "Boot Block Méret"
+
+#, fuzzy
+#~ msgid "Bootloader"
+#~ msgstr "Bootloader"
+
+#, fuzzy
+#~ msgid "Bootloader:"
+#~ msgstr "Bootloader"
+
+#~ msgid "PICkit2"
+#~ msgstr "PICkit2"
+
+#~ msgid "Devices"
+#~ msgstr "Eszközök"
+
+#~ msgid "Header"
+#~ msgstr "Header"
+
+#~ msgid "Object"
+#~ msgstr "Object"
+
+#~ msgid "Source"
+#~ msgstr "Forrás"

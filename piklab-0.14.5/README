@@ -1,0 +1,18 @@
+PIKLAB : A development environment for applications based on PIC microcontrollers
+---------------------------------------------------------------------------------
+(c) 2005-2007 Nicolas Hadacek <hadacek@kde.org>
+(c) 2002-2005 Alain Gibaud
+(c) 2003-2004 Stephen Landamore
+
+Piklab is a graphic development environment for PIC microcontrollers
+using the GNU PIC utilities (gputils). It supports some Microchip programmers
+and direct programmers.
+
+There is also a command-line programmer "piklab-prog".
+
+BEWARE: this is beta software. BUGS are likely!!!
+IMPORTANT: see http://piklab.sourceforge.net for support and notes.
+
+--------------------------------------------------------------------------------
+FEEDBACK is greatly appreciated (go to http://piklab.sourceforge.net or
+send me an email at hadacek@kde.org): report bugs, programming success,...

@@ -145,11 +145,13 @@ void ProcessIO(void)
 		{
 			if(TRISPGD)
 			{
-				output_buffer[0]=0xC0|((char)PGD_READ);
+				if (PGD_READ)output_buffer[0]=0xC1;
+				else output_buffer[0]=0xC0;
 			}
 			else
 			{
-				output_buffer[0]=0xC0|((char)PGD);
+				if (PGD)output_buffer[0]=0xC1;
+				else output_buffer[0]=0xC0;
 			}
 			counter=1;
 			setLeds(input_buffer[0]&0x07);
@@ -229,7 +231,7 @@ void BlinkUSBStatus(void)
 			//Do nothing with the leds, just leave it to the rest of the program!
         }//end if(...)
     }//end if(UCONbits.SUSPND...)
-	if(!mUSBGenTxIsBusy()&&startup_state==0)
+	/*if(!mUSBGenTxIsBusy()&&startup_state==0)
 	{
 		strcpypgm2ram(output_buffer,ansi_clrscr);
 		USBGenWrite(output_buffer,strlen(output_buffer));
@@ -240,7 +242,7 @@ void BlinkUSBStatus(void)
 		strcpypgm2ram(output_buffer,welcome);
 		USBGenWrite(output_buffer,strlen(output_buffer));
 		startup_state++;
-	}	
+	}*/	
 }//end BlinkUSBStatus
 
 BOOL Switch2IsPressed(void)

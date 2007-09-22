@@ -1,0 +1,96 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH PIKLAB SECTION "April 11, 2007"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH PIKLAB-HEX \- Tool to check INHEX-files.
+.SH SYNOPSIS
+.B piklab-hex [options] [command] [file].hex
+.RI
+
+.SH DESCRIPTION
+
+This manual page documents briefly the
+.B piklab-hex command.
+
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBPiklab-hex\fP is a command line tool to check files, if they are valid Hex-files which comply with the INHEX-Standard defined by Intel corporation.
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-h, \-\-help
+	Show summary of options.
+.TP
+.B \-v, \-\-version
+	Show version of program.
+.TP
+.B \-\-author
+	Show author information
+.TP
+.B \-\-license
+	Show license information
+.TP
+.B \-c [command]
+	Option to issue a command.
+.TP
+.SH COMMANDS
+.TP
+.B check		Check file, if it is a valid intel-hex-file.
+.TP
+.B info			Return information about hex file.
+.TP
+.B fix			Clean hex file and fix errors (wrong CRC, truncated line, truncated file).
+.TP
+.B compare		Compare two hex files.
+.TP
+.br
+.sp 3
+.SH SEE ALSO
+.BR piklab (1),
+.BR piklab-prog (1),
+.br
+.SH AUTHORS
+piklab was written by Nicolas Hadacek and many others, including:
+    * Alain Gibaud: author of Pikdev; main infrastructure; IDE interface; direct programmers; gputils integration.
+    * Keith Baker: direct programmer support for 16F7X devices.
+    * Xiaofan Chen: numerous tests of PICkit1/2 and ICD2 programmers.
+    * Craig Franklin: author of gputils (disassembler and coff parser).
+    * Manwlis Giannos: direct programmer support for PIC18FXX2/FXX8 devices.
+    * Stephen Landamore: author of LPLAB (microchip command-line programmer).
+    * Brian C. Lane: original code for direct programming.
+    * Sébastion Laoût: author of Likeback.
+    * Nestor A. Marchesini: tests of PicStart+ programmer.
+    * Lorenz Mösenlechner and Matthias Kranz: USB support for ICD2 programmer.
+    * Mirko Panciri: direct programmers with bidirectionnal buffers.
+    * Sean A. Walberg: direct programmer support for 16F676/630 devices.
+
+.B Translations:
+    * Michele Petrecca: Italian translation.
+    * Alain Portal: French translation.
+    * Stefan von Halenbach: German translation.
+    * Nagy Lázló: Hungarian translation.
+.sp 3
+.SH COPYRIGHT
+	This  is  free  software.   You  may  redistribute  copies  of  it  under  the  terms   of   the   GNU   General   Public   License
+       	<http://www.gnu.org/licenses/gpl.html>.  There is NO WARRANTY, to the extent permitted by law.
+
+.PP
+This manual page was written by Stefan <vonHalenbach@users.sf.net>,
+for the Debian project (but may be used by others).

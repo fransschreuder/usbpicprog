@@ -1,0 +1,13 @@
+AUTOMAKE_OPTIONS = foreign 1.5
+
+EXTRA_DIST = README COPYING Changelog
+
+MAINTAINERCLEANFILES = configure.files subdirs
+
+dist-hook:
+	cd $(top_distdir) && perl $(top_srcdir)/admin/am_edit -padmin
+
+distclean-local:
+	rm -rf autom4te.cache
+	rm -f svn-commit.*
+SUBDIRS=$(TOPSUBDIRS)

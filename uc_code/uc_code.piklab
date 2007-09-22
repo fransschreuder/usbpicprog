@@ -36,6 +36,10 @@
       <item>system/usb/usbdefs/usbdefs_std_dsc.h</item>
       <item>system/usb/class/generic/usbgen.h</item>
       <item>system/usb/usbdefs/usbdefs_ep0_buff.h</item>
+      <item>system/usb/usbmmap.c</item>
+      <item>autofiles/usbcfg.h</item>
+      <item>system/interrupt/interrupt.c</item>
+      <item>main.c</item>
     </opened_files>
   </general>
 </piklab>

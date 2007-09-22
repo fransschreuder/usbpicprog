@@ -1,0 +1,99 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH PIKLAB SECTION "April 11, 2007"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH PIKLAB 
+\- IDE for PIC-microcontroller development.
+.TP
+.SH SYNOPSIS
+
+.B piklab [Qt-options] [KDE-options] [file]
+
+.br
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBPiklab\fP is an integrated development environment for applications based on Microchip PIC and dsPIC microcontrollers
+similar to the MPLAB environment. It integrates with several compiler and assembler toolchains (like gputils, sdcc, c18) and with the
+simulator gpsim. It supports the most common programmers (serial, parallel, ICD2, Pickit2, PicStart+) and debuggers (ICD2).
+
+.TP
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-h, \-\-help
+Show summary of options.
+.TP
+.B \-v, \-\-version
+Show version of program.
+.TP
+.B \-\-help-qt
+	Show Qt specific options
+.TP
+.B \-\-help-kde
+	Show KDE specific options
+.TP
+.B \-\-help-all
+	Show all options
+.TP
+.B \-\-author
+	Show author information
+.TP
+.B \-\-license
+	Show license information
+.TP
+.B \-\-
+	End of options
+.TP
+.br
+.sp 3
+.SH SEE ALSO
+.BR piklab-prog (1),
+.BR piklab-hex (1),
+.BR gputils (1),
+.BR sdcc (1).
+.br
+.SH AUTHORS
+piklab was written by Nicolas Hadacek and many others, including:
+
+    * Alain Gibaud: author of Pikdev; main infrastructure; IDE interface; direct programmers; gputils integration.
+    * Keith Baker: direct programmer support for 16F7X devices.
+    * Xiaofan Chen: numerous tests of PICkit1/2 and ICD2 programmers.
+    * Craig Franklin: author of gputils (disassembler and coff parser).
+    * Manwlis Giannos: direct programmer support for PIC18FXX2/FXX8 devices.
+    * Stephen Landamore: author of LPLAB (microchip command-line programmer).
+    * Brian C. Lane: original code for direct programming.
+    * Sébastion Laoût: author of Likeback.
+    * Nestor A. Marchesini: tests of PicStart+ programmer.
+    * Lorenz Mösenlechner and Matthias Kranz: USB support for ICD2 programmer.
+    * Mirko Panciri: direct programmers with bidirectionnal buffers.
+    * Sean A. Walberg: direct programmer support for 16F676/630 devices.
+
+.B Translations:
+    * Michele Petrecca: Italian translation.
+    * Alain Portal: French translation.
+    * Stefan von Halenbach: German translation.
+    * Nagy Lázló: Hungarian translation.
+.sp 3
+.SH COPYRIGHT
+	This  is  free  software.   You  may  redistribute  copies  of  it  under  the  terms   of   the   GNU   General   Public   License
+       	<http://www.gnu.org/licenses/gpl.html>.  There is NO WARRANTY, to the extent permitted by law.
+
+.PP
+This manual page was written by Stefan <vonHalenbach@users.sf.net>,
+for the Debian project (but may be used by others).

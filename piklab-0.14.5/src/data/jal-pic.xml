@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="XPicJal" version="0.1" kateversion="2.0" section="Sources"
+    extensions="*.jal" mimetype="text/x-PicJal">
+
+  <highlighting>
+
+    <list name="directives">
+      <item> function </item>
+      <item> procedure </item>
+      <item> var </item>
+      <item> at </item>
+      <item> const </item>
+      <item> volatile </item>
+      <item> return </item>
+      <item> asm </item>
+      <item> assembler </item>
+    </list>
+
+    <list name="conditionnal">
+      <item> if </item>
+      <item> then </item>
+      <item> else </item>
+      <item> elsif </item>
+      <item> forever </item>
+      <item> end </item>
+      <item> while </item>
+      <item> loop </item>
+      <item> for </item>
+    </list>
+
+    <list name="instructions">
+      <item> bit </item>
+      <item> byte </item>
+    </list>
+
+    <contexts>
+
+      <context name="normal" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Proprocessor" context="#stay" String="include.*"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="pragma.*"/>
+        <keyword attribute="Directives" context="#stay" String="directives"/>
+        <keyword attribute="Instructions" context="#stay" String="instructions"/>
+        <keyword attribute="SFRS" context="#stay" String="sfrs"/>
+        <keyword attribute="Conditionnal" context="#stay" String="conditionnal"/>
+        <HlCHex attribute="Based Numbers" context="#stay"/>
+        <RegExpr attribute="Based Numbers" context="#stay" String="(0x_[0-9A-F]+)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="(0b_[_0-1]+)" insensitive="TRUE" />
+        <Int attribute="Non Based Numbers" context="#stay" />
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="string" char="&quot;"/>
+        <DetectChar attribute="Comment" context="comment" char="--" />
+        <RegExpr attribute="Symbol" context="#stay" String="[-/*%+=&gt;&lt;&amp;|^!~]"/>
+        <RegExpr attribute="Symbol" context="#stay" String="(on|off|high|low|false|true)"/>
+      </context>
+
+      <context name="string" attribute="String" lineEndContext="#pop">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+
+      <context name="comment" attribute="Comment" lineEndContext="#pop">
+        <RegExpr attribute="Instructions" context="#stay"
+           String="(FIXME|TODO|fixme|todo|INPUT|OUTPUT|PARAMETERS|AUTHOR|EMAIL)" />
+        <RegExpr attribute="ModuleMarks" context="#stay" beginRegion="moduleASM"
+           String="(&lt;[+]+[A-Za-z_#]+[A-Za-z0-9_#.]*&gt;)"  />
+        <RegExpr attribute="ModuleMarks" context="#stay"  endRegion="moduleASM"
+           String="(&lt;[-]+&gt;)"  />
+        <RegExpr attribute="ModuleMarks" context="#stay"
+           String="(&lt;[=]+[- 0-9]+&gt;)"  />
+        <RegExpr attribute="ModuleMarks" context="#stay"
+           String="(&lt;[?]+[A-Za-z_#]+[A-Za-z0-9_#]*&gt;)"  />
+      </context>
+
+    </contexts>
+
+    <itemDatas>
+      <itemData name="Normal Text"       defStyleNum="dsNormal"/>
+      <itemData name="Directives"        defStyleNum="dsOthers"/>
+      <itemData name="Preprocessor"      defStyleNum="dsNormal" color="#00FF00" selColor="#00FF00" bold="0" italic="0"/>
+      <itemData name="Conditionnal"      defStyleNum="dsNormal" color="#D819D8" selColor="#D819D8" bold="0" italic="0"/>
+      <itemData name="Instructions"      defStyleNum="dsNormal"  color="#0060FF" selColor="#8293CE" bold="1" italic="0"/>
+      <itemData name="SFRS"              defStyleNum="dsNormal" color="#2A8A19" selcolor="#000000" bold="1" italic="0"/>
+      <itemData name="ModuleMarks"       defStyleNum="dsNormal"   color="#FF20FF" selColor="#8293CE" bold="1" italic="0"/>
+      <itemData name="Non Based Numbers" defStyleNum="dsBaseN"/>
+      <itemData name="Char"              defStyleNum="dsChar"/>
+      <itemData name="String"            defStyleNum="dsString"/>
+      <itemData name="Comment"           defStyleNum="dsNormal" color="#FF3118" selColor="#FF3118" bold="0" italic="1" />
+      <itemData name="Symbol"            defStyleNum="dsNormal" color="#FF0000" selColor="#083194" bold="0" italic="0" />
+      <itemData name="Prep. Lib"         defStyleNum="dsOthers"/>
+      <itemData name="Based Numbers"     defStyleNum="dsBaseN" />
+    </itemDatas>
+
+  </highlighting>
+
+  <general>
+    <comments>
+      <comment name="singleLine" start="--" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+
+</language>
