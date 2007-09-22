@@ -70,7 +70,7 @@ const static int interface=0;	/* Interface 0 */
 const static int endpoint_in=0x81; /* endpoint 0x81 address for IN */
 const static int endpoint_out=1; /* endpoint 1 address for OUT */
 
-const static int timeout=2000; /* timeout in ms */
+const static int timeout=20000; /* timeout in ms */
 
 /* PICDEM FS USB max packet size is 64-bytes */
 const static int reqLen=64;
@@ -86,19 +86,19 @@ void bad(const char *why) {
 /** Send this binary string command. */
 static void send_usb(struct usb_dev_handle * d, int len, const char * src)
 {
-   int r = usb_bulk_write(d, endpoint_out, (char *)src, len, timeout);
+   int r = usb_interrupt_write(d, endpoint_out, (char *)src, len, timeout);
 //   if( r != reqLen )
-   if( r < 0 )
+   /*if( r < 0 )
    {
 	  perror("usb PICDEM FS USB write"); bad("USB write failed"); 
-   }
+   }*/
 }
 
 /** Read this many bytes from this device */
 static void recv_usb(struct usb_dev_handle * d, int len, byte * dest)
 {
 //   int i;
-   int r = usb_bulk_read(d, endpoint_in, dest, len, timeout);
+   int r = usb_interrupt_read(d, endpoint_in, dest, len, timeout);
    if( r != len )
    {
 	  perror("usb PICDEM FS USB read"); bad("USB read failed"); 
@@ -189,16 +189,15 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
   struct usb_device * device;
   struct usb_bus * bus;
 
-#ifndef WIN32  
+/*#ifndef WIN32  
   if( geteuid()!=0 )
 	 bad("This program must be run as root, or made setuid root");
-#endif  
+#endif */ 
 #ifdef USB_DEBUG
   usb_debug=4; 
 #endif
 
-  printf("Locating Microchip(tm) PICDEM(tm) FS USB Demo Board (vendor 0x%04x/product 0x%04x)\n", vendorID, productID);
-  /* (libusb setup code stolen from John Fremlin's cool "usb-robot") */
+   /* (libusb setup code stolen from John Fremlin's cool "usb-robot") */
 
   // added the two debug lines  
   usb_set_debug(255);
@@ -237,7 +236,7 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
 				 bad("Claim failed-- the USB PICDEM FS USB is in use by another driver.\n");
 			  }
 			  printf("Communication established.\n");
-			  picdem_fs_usb_read_version(d);
+			  //picdem_fs_usb_read_version(d);
 			  return d;
 		   }
 		   else 
@@ -251,26 +250,24 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
   return NULL;
 }
 
-/* Change by Xiaofan */
-/* Please also refer to README */
-void show_usage(void)
-{
-  printf("fsusb_demo: Software for PICDEM Full Speed USB demo board\n");
-  printf("fsusb_demo --ledon n, n=3 or 4: ON LED D3 or D4\n");
-  printf("fsusb_demo --ledff n, n=3 or 4: Off LED D3 or D4\n");
-  printf("fsusb_demo --readtemp: read out temperature\n");
-  printf("fsusb_demo --readpot: read out poti value\n");
-  printf("fsusb_demo --reset: to reset the PICDEM FS USB demo board\n");
-}
+
 
 int main(int argc, char ** argv) 
 {
-   struct usb_dev_handle * picdem_fs_usb = usb_picdem_fs_usb_open();
-   if(argc < 2 || argc > 3) {
-    show_usage();
-    exit(1);
-  } 
-  if(argc == 3){
+   struct usb_dev_handle * picdem_fs_usb;
+   
+   byte outbuffer[reqLen],inbuffer[reqLen];
+   outbuffer[0]=0xC3;
+   picdem_fs_usb = usb_picdem_fs_usb_open();
+   /*usb_claim_interface(picdem_fs_usb, 0);
+usb_clear_halt(picdem_fs_usb, endpoint_out);
+usb_resetep(picdem_fs_usb, endpoint_out);*/
+if (argc==2)
+outbuffer[0]=0xC0|atoi(argv[1]);
+   send_usb(picdem_fs_usb, 1, outbuffer);
+   recv_usb(picdem_fs_usb, 1, inbuffer);
+   printf("Received byte: 0x%X\n",inbuffer[0]);
+/*   if(argc == 3){
 	  if( 0 == strcmp(argv[1],"--ledon") )
 	  {
 		 picdem_fs_usb_led(picdem_fs_usb, atoi(argv[2]), 1);
@@ -294,7 +291,7 @@ int main(int argc, char ** argv)
 	  {
 		 picdem_fs_usb_reset(picdem_fs_usb);
 	  }
-	}
+	}*/
    usb_close(picdem_fs_usb);
    return 0;
 }

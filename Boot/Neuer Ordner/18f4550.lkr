@@ -6,7 +6,7 @@ LIBPATH .
 
 FILES c018i.o
 FILES clib.lib
-FILES p18f4550.lib
+FILES p18f2550.lib
 
 CODEPAGE   NAME=vectors    START=0x0            END=0x29           PROTECTED
 CODEPAGE   NAME=page       START=0x2A           END=0x7FFF

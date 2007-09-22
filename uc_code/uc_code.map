@@ -1,5 +1,5 @@
 MPLINK 4.03, Linker
-Linker Map File - Created Tue Sep 18 16:15:52 2007
+Linker Map File - Created Sat Sep 22 01:37:50 2007
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -12,39 +12,39 @@ Linker Map File - Created Tue Sep 18 16:15:52 2007
     _LOW_INTERRUPT_VECTOR       code   0x000818    program   0x000002
                    .cinit    romdata   0x00082a    program   0x00000e
              .code_usb9.o       code   0x000838    program   0x000278
-              .code_upp.o       code   0x000ab0    program   0x00026a
-       .code_usbctrltrf.o       code   0x000d1a    program   0x000258
-           .code_usbdrv.o       code   0x000f72    program   0x00016e
-           .code_usbgen.o       code   0x0010e0    program   0x00010c
-        .romdata_usbdsc.o    romdata   0x0011ec    program   0x0000b8
-               _cinit_scn       code   0x0012a4    program   0x00009e
-             .code_main.o       code   0x001342    program   0x000060
-                   STRING       code   0x0013a2    program   0x00004e
-           .romdata_upp.o    romdata   0x0013f0    program   0x000035
-    .idata_usbctrltrf.o_i    romdata   0x001425    program   0x000000
-          .romdata_usb9.o    romdata   0x001425    program   0x000000
-          .idata_usb9.o_i    romdata   0x001425    program   0x000000
-    .romdata_usbctrltrf.o    romdata   0x001425    program   0x000000
-        .idata_usbdrv.o_i    romdata   0x001425    program   0x000000
-        .romdata_usbgen.o    romdata   0x001425    program   0x000000
-        .idata_usbgen.o_i    romdata   0x001425    program   0x000000
-       .romdata_usbmmap.o    romdata   0x001425    program   0x000000
-       .idata_usbmmap.o_i    romdata   0x001425    program   0x000000
-        .romdata_usbdrv.o    romdata   0x001425    program   0x000000
-             .stringtable    romdata   0x001425    program   0x000000
-         .idata_c018i.o_i    romdata   0x001425    program   0x000000
-     .romdata_interrupt.o    romdata   0x001425    program   0x000000
-         .romdata_c018i.o    romdata   0x001425    program   0x000000
-     .idata_interrupt.o_i    romdata   0x001425    program   0x000000
-        .idata_usbdsc.o_i    romdata   0x001425    program   0x000000
-          .idata_main.o_i    romdata   0x001425    program   0x000000
-          .romdata_main.o    romdata   0x001425    program   0x000000
-            .code_c018i.o       code   0x001426    program   0x000000
-           .code_usbdsc.o       code   0x001426    program   0x000000
-          .code_usbmmap.o       code   0x001426    program   0x000000
-        .code_interrupt.o       code   0x001426    program   0x00002a
-             _startup_scn       code   0x001450    program   0x000018
-           .idata_upp.o_i    romdata   0x001468    program   0x000005
+              .code_upp.o       code   0x000ab0    program   0x000276
+       .code_usbctrltrf.o       code   0x000d26    program   0x000258
+           .code_usbdrv.o       code   0x000f7e    program   0x00016e
+           .code_usbgen.o       code   0x0010ec    program   0x00010c
+        .romdata_usbdsc.o    romdata   0x0011f8    program   0x0000ae
+               _cinit_scn       code   0x0012a6    program   0x00009e
+             .code_main.o       code   0x001344    program   0x000060
+                   STRING       code   0x0013a4    program   0x00004e
+           .romdata_upp.o    romdata   0x0013f2    program   0x000035
+    .idata_usbctrltrf.o_i    romdata   0x001427    program   0x000000
+          .romdata_usb9.o    romdata   0x001427    program   0x000000
+          .idata_usb9.o_i    romdata   0x001427    program   0x000000
+    .romdata_usbctrltrf.o    romdata   0x001427    program   0x000000
+        .idata_usbdrv.o_i    romdata   0x001427    program   0x000000
+        .romdata_usbgen.o    romdata   0x001427    program   0x000000
+        .idata_usbgen.o_i    romdata   0x001427    program   0x000000
+       .romdata_usbmmap.o    romdata   0x001427    program   0x000000
+       .idata_usbmmap.o_i    romdata   0x001427    program   0x000000
+        .romdata_usbdrv.o    romdata   0x001427    program   0x000000
+             .stringtable    romdata   0x001427    program   0x000000
+         .idata_c018i.o_i    romdata   0x001427    program   0x000000
+     .romdata_interrupt.o    romdata   0x001427    program   0x000000
+         .romdata_c018i.o    romdata   0x001427    program   0x000000
+     .idata_interrupt.o_i    romdata   0x001427    program   0x000000
+        .idata_usbdsc.o_i    romdata   0x001427    program   0x000000
+          .idata_main.o_i    romdata   0x001427    program   0x000000
+          .romdata_main.o    romdata   0x001427    program   0x000000
+            .code_c018i.o       code   0x001428    program   0x000000
+           .code_usbdsc.o       code   0x001428    program   0x000000
+          .code_usbmmap.o       code   0x001428    program   0x000000
+        .code_interrupt.o       code   0x001428    program   0x00002a
+             _startup_scn       code   0x001452    program   0x000018
+           .idata_upp.o_i    romdata   0x00146a    program   0x000005
     .config_300000_main.o    romdata   0x300000    program   0x000001
     .config_300001_main.o    romdata   0x300001    program   0x000001
     .config_300002_main.o    romdata   0x300002    program   0x000001
@@ -90,66 +90,66 @@ Linker Map File - Created Tue Sep 18 16:15:52 2007
                             0x000800    0x000805      
                             0x000808    0x000809      
                             0x000818    0x000819      
-                            0x00082a    0x001424      
-                            0x001426    0x00146c      
+                            0x00082a    0x001426      
+                            0x001428    0x00146e      
                             0x300000    0x300003      
                             0x300005    0x300006      
                             0x300009    0x300009      
                             0x30000b    0x30000b      
-            3174 out of 33048 program addresses used, program memory utilization is 9%
+            3176 out of 33048 program addresses used, program memory utilization is 9%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-           BlinkUSBStatus   0x000c16    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-               ClearArray   0x0010b6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-         InitializeSystem   0x00137c    program     static Z:\home\frans\usbpicprog\uc_code\main.c
+           BlinkUSBStatus   0x000c22    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+               ClearArray   0x0010c2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+         InitializeSystem   0x00137e    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                 ProcessIO   0x000b42    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-         Switch2IsPressed   0x000cb2    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-        USBCheckBusStatus   0x000f72    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+         Switch2IsPressed   0x000cbe    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+        USBCheckBusStatus   0x000f7e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
        USBCheckStdRequest   0x000838    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-         USBCtrlEPService   0x000d1a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
- USBCtrlEPServiceComplete   0x000e9c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfInHandler   0x000d8c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-     USBCtrlTrfOutHandler   0x000d6e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfRxService   0x000e48    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-   USBCtrlTrfSetupHandler   0x000d50    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfTxService   0x000dc2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-         USBDriverService   0x000faa    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBErrorHandler   0x00106e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-             USBGenInitEP   0x0010e0    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-               USBGenRead   0x00116a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-              USBGenWrite   0x00110a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-         USBModuleDisable   0x000f9c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBModuleEnable   0x000f8e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-USBPrepareForNextSetupTrf   0x000f0e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-  USBProtocolResetHandler   0x001072    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBRemoteWakeup   0x001038    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-            USBSoftDetach   0x000fa6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBStallHandler   0x001060    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+         USBCtrlEPService   0x000d26    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+ USBCtrlEPServiceComplete   0x000ea8    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfInHandler   0x000d98    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+     USBCtrlTrfOutHandler   0x000d7a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfRxService   0x000e54    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+   USBCtrlTrfSetupHandler   0x000d5c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfTxService   0x000dce    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+         USBDriverService   0x000fb6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBErrorHandler   0x00107a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+             USBGenInitEP   0x0010ec    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+               USBGenRead   0x001176    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+              USBGenWrite   0x001116    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+         USBModuleDisable   0x000fa8    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBModuleEnable   0x000f9a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+USBPrepareForNextSetupTrf   0x000f1a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+  USBProtocolResetHandler   0x00107e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBRemoteWakeup   0x001044    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+            USBSoftDetach   0x000fb2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBStallHandler   0x00106c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
   USBStdFeatureReqHandler   0x0009da    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
       USBStdGetDscHandler   0x0008d6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
    USBStdGetStatusHandler   0x00097a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
       USBStdSetCfgHandler   0x000944    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-               USBSuspend   0x001028    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-                 USBTasks   0x001394    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-       USBWakeFromSuspend   0x001030    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-               USB_CD_Ptr   0x00129a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-               USB_SD_Ptr   0x00129e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-          USB_SOF_Handler   0x00105c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+               USBSuspend   0x001034    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+                 USBTasks   0x001396    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+       USBWakeFromSuspend   0x00103c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+               USB_CD_Ptr   0x00129c    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+               USB_SD_Ptr   0x0012a0    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+          USB_SOF_Handler   0x001068    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
                  UserInit   0x000ab0    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
               VoltagePump   0x000b26    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
        ___return_lbl00000   0x00000c    program     static                          
        ___return_lbl00000   0x000804    program     static                          
        ___return_lbl00000   0x000004    program     static                          
        ___return_lbl00001   0x00001c    program     static                          
-       ___return_lbl00001   0x001466    program     static                          
-       ___return_lbl00002   0x001340    program     static                          
-       ___return_lbl00039   0x0010d8    program     static                          
-        ___while_lbl00040   0x0010ca    program     static                          
-        ___while_lbl00041   0x0010d8    program     static                          
+       ___return_lbl00001   0x001468    program     static                          
+       ___return_lbl00002   0x001342    program     static                          
+       ___return_lbl00039   0x0010e4    program     static                          
+        ___while_lbl00040   0x0010d6    program     static                          
+        ___while_lbl00041   0x0010e4    program     static                          
                __config_0   0x300000    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_1   0x300001    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_2   0x300002    program     static Z:\home\frans\usbpicprog\uc_code\main.c
@@ -158,57 +158,57 @@ USBPrepareForNextSetupTrf   0x000f0e    program     extern Z:\home\frans\usbpicp
                __config_5   0x300006    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_6   0x300009    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_7   0x30000b    program     static Z:\home\frans\usbpicprog\uc_code\main.c
-                   __pa_0   0x000f1e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_0   0x000f2a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_0   0x000a3c    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                   __pa_0   0x0011d4    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-                   __pa_0   0x001442    program     static Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                   __pa_0   0x000cd0    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_1   0x000d02    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_1   0x000f2e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_0   0x0011e0    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+                   __pa_0   0x001444    program     static Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                   __pa_0   0x000cdc    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_1   0x000d0e    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_1   0x000f3a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_1   0x000a54    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                   __pa_2   0x000d10    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_2   0x000f3e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_2   0x000d1c    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_2   0x000f4a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_2   0x000a66    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                   __pa_3   0x000f4c    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_3   0x000f58    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_3   0x000a78    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
                    __pa_4   0x000a88    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                   __pa_4   0x000f5a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_4   0x000f66    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_5   0x000a96    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                   __pa_5   0x000f62    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_5   0x000f6e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
                    __pa_6   0x000aa0    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
                    __pa_7   0x000aa8    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usb9\usb9.c
-                _do_cinit   0x0012a4    program     extern C:\MCC18\src\traditional\startup\c018i.c
+                _do_cinit   0x0012a6    program     extern C:\MCC18\src\traditional\startup\c018i.c
                    _entry   0x000000    program     extern C:\MCC18\src\traditional\startup\c018i.c
                 _high_ISR   0x000808    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
                  _low_ISR   0x000818    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
                    _reset   0x000800    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-                 _startup   0x001450    program     extern C:\MCC18\src\traditional\startup\c018i.c
-              ansi_clrscr   0x001420    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                    cfg01   0x0011fe    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                copy_loop   0x001316    program     static                          
-            copy_one_byte   0x00131c    program     static                          
-               device_dsc   0x0011ec    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                     done   0x001340    program     static                          
-             done_copying   0x00132a    program     static                          
-                 high_isr   0x001426    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                 _startup   0x001452    program     extern C:\MCC18\src\traditional\startup\c018i.c
+              ansi_clrscr   0x001422    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                    cfg01   0x00120a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                copy_loop   0x001318    program     static                          
+            copy_one_byte   0x00131e    program     static                          
+               device_dsc   0x0011f8    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                     done   0x001342    program     static                          
+             done_copying   0x00132c    program     static                          
+                 high_isr   0x001428    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
  interrupt_at_high_vector   0x000008    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
   interrupt_at_low_vector   0x000018    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                     jEnd   0x0013d2    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                     jEnd   0x0013ee    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                    jLoop   0x0013c8    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                    jLoop   0x0013e4    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                     loop   0x001460    program     static                          
-                  low_isr   0x00142a    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                     main   0x001372    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-                    sd000   0x00121e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    sd001   0x001222    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    sd002   0x001256    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                     jEnd   0x0013d4    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                     jEnd   0x0013f0    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                    jLoop   0x0013ca    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                    jLoop   0x0013e6    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                     loop   0x001462    program     static                          
+                  low_isr   0x00142c    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                     main   0x001374    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+                    sd000   0x00122a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    sd001   0x00122e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    sd002   0x001258    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
                   setLeds   0x000adc    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-            strcpypgm2ram   0x0013a2    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                   strlen   0x0013d4    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                     test   0x0012be    program     static                          
-                usb_reset   0x001342    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-                  welcome   0x0013f0    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+            strcpypgm2ram   0x0013a4    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                   strlen   0x0013d6    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                     test   0x0012c0    program     static                          
+                usb_reset   0x001344    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+                  welcome   0x0013f2    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
                    ADCON0   0x000fc2       data     extern C:\MCC18\SRC\TRADIT~1\PROC\p18f2550.asm
                ADCON0bits   0x000fc2       data     extern C:\MCC18\SRC\TRADIT~1\PROC\p18f2550.asm
                    ADCON1   0x000fc1       data     extern C:\MCC18\SRC\TRADIT~1\PROC\p18f2550.asm
@@ -506,77 +506,77 @@ USBPrepareForNextSetupTrf   0x000f0e    program     extern Z:\home\frans\usbpicp
                   setLeds   0x000adc    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
               VoltagePump   0x000b26    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
                 ProcessIO   0x000b42    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-           BlinkUSBStatus   0x000c16    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-         Switch2IsPressed   0x000cb2    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_0   0x000cd0    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_1   0x000d02    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                   __pa_2   0x000d10    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-         USBCtrlEPService   0x000d1a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-   USBCtrlTrfSetupHandler   0x000d50    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-     USBCtrlTrfOutHandler   0x000d6e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfInHandler   0x000d8c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfTxService   0x000dc2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-      USBCtrlTrfRxService   0x000e48    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
- USBCtrlEPServiceComplete   0x000e9c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-USBPrepareForNextSetupTrf   0x000f0e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_0   0x000f1e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_1   0x000f2e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_2   0x000f3e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_3   0x000f4c    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_4   0x000f5a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-                   __pa_5   0x000f62    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
-        USBCheckBusStatus   0x000f72    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBModuleEnable   0x000f8e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-         USBModuleDisable   0x000f9c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-            USBSoftDetach   0x000fa6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-         USBDriverService   0x000faa    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-               USBSuspend   0x001028    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-       USBWakeFromSuspend   0x001030    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBRemoteWakeup   0x001038    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USB_SOF_Handler   0x00105c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBStallHandler   0x001060    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-          USBErrorHandler   0x00106e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-  USBProtocolResetHandler   0x001072    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-               ClearArray   0x0010b6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
-        ___while_lbl00040   0x0010ca    program     static                          
-       ___return_lbl00039   0x0010d8    program     static                          
-        ___while_lbl00041   0x0010d8    program     static                          
-             USBGenInitEP   0x0010e0    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-              USBGenWrite   0x00110a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-               USBGenRead   0x00116a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-                   __pa_0   0x0011d4    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
-               device_dsc   0x0011ec    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    cfg01   0x0011fe    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    sd000   0x00121e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    sd001   0x001222    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                    sd002   0x001256    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-               USB_CD_Ptr   0x00129a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-               USB_SD_Ptr   0x00129e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
-                _do_cinit   0x0012a4    program     extern C:\MCC18\src\traditional\startup\c018i.c
-                     test   0x0012be    program     static                          
-                copy_loop   0x001316    program     static                          
-            copy_one_byte   0x00131c    program     static                          
-             done_copying   0x00132a    program     static                          
-       ___return_lbl00002   0x001340    program     static                          
-                     done   0x001340    program     static                          
-                usb_reset   0x001342    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-                     main   0x001372    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-         InitializeSystem   0x00137c    program     static Z:\home\frans\usbpicprog\uc_code\main.c
-                 USBTasks   0x001394    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
-            strcpypgm2ram   0x0013a2    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                    jLoop   0x0013c8    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                     jEnd   0x0013d2    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
-                   strlen   0x0013d4    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                    jLoop   0x0013e4    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                     jEnd   0x0013ee    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
-                  welcome   0x0013f0    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-              ansi_clrscr   0x001420    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
-                 high_isr   0x001426    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                  low_isr   0x00142a    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                   __pa_0   0x001442    program     static Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
-                 _startup   0x001450    program     extern C:\MCC18\src\traditional\startup\c018i.c
-                     loop   0x001460    program     static                          
-       ___return_lbl00001   0x001466    program     static                          
+           BlinkUSBStatus   0x000c22    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+         Switch2IsPressed   0x000cbe    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_0   0x000cdc    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_1   0x000d0e    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                   __pa_2   0x000d1c    program     static Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+         USBCtrlEPService   0x000d26    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+   USBCtrlTrfSetupHandler   0x000d5c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+     USBCtrlTrfOutHandler   0x000d7a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfInHandler   0x000d98    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfTxService   0x000dce    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+      USBCtrlTrfRxService   0x000e54    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+ USBCtrlEPServiceComplete   0x000ea8    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+USBPrepareForNextSetupTrf   0x000f1a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_0   0x000f2a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_1   0x000f3a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_2   0x000f4a    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_3   0x000f58    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_4   0x000f66    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+                   __pa_5   0x000f6e    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\usbctrltrf\usbctrltrf.c
+        USBCheckBusStatus   0x000f7e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBModuleEnable   0x000f9a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+         USBModuleDisable   0x000fa8    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+            USBSoftDetach   0x000fb2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+         USBDriverService   0x000fb6    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+               USBSuspend   0x001034    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+       USBWakeFromSuspend   0x00103c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBRemoteWakeup   0x001044    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USB_SOF_Handler   0x001068    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBStallHandler   0x00106c    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+          USBErrorHandler   0x00107a    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+  USBProtocolResetHandler   0x00107e    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+               ClearArray   0x0010c2    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\usbdrv\usbdrv.c
+        ___while_lbl00040   0x0010d6    program     static                          
+       ___return_lbl00039   0x0010e4    program     static                          
+        ___while_lbl00041   0x0010e4    program     static                          
+             USBGenInitEP   0x0010ec    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+              USBGenWrite   0x001116    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+               USBGenRead   0x001176    program     extern Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+                   __pa_0   0x0011e0    program     static Z:\home\frans\usbpicprog\uc_code\system\usb\class\generic\usbgen.c
+               device_dsc   0x0011f8    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    cfg01   0x00120a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    sd000   0x00122a    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    sd001   0x00122e    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                    sd002   0x001258    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+               USB_CD_Ptr   0x00129c    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+               USB_SD_Ptr   0x0012a0    program     extern Z:\home\frans\usbpicprog\uc_code\autofiles\usbdsc.c
+                _do_cinit   0x0012a6    program     extern C:\MCC18\src\traditional\startup\c018i.c
+                     test   0x0012c0    program     static                          
+                copy_loop   0x001318    program     static                          
+            copy_one_byte   0x00131e    program     static                          
+             done_copying   0x00132c    program     static                          
+       ___return_lbl00002   0x001342    program     static                          
+                     done   0x001342    program     static                          
+                usb_reset   0x001344    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+                     main   0x001374    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+         InitializeSystem   0x00137e    program     static Z:\home\frans\usbpicprog\uc_code\main.c
+                 USBTasks   0x001396    program     extern Z:\home\frans\usbpicprog\uc_code\main.c
+            strcpypgm2ram   0x0013a4    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                    jLoop   0x0013ca    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                     jEnd   0x0013d4    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\scpyp2r.asm
+                   strlen   0x0013d6    program     extern C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                    jLoop   0x0013e6    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                     jEnd   0x0013f0    program     static C:\MCC18\SRC\TRADIT~1\STDCLIB\strlen.asm
+                  welcome   0x0013f2    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+              ansi_clrscr   0x001422    program     extern Z:\home\frans\usbpicprog\uc_code\upp\upp.c
+                 high_isr   0x001428    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                  low_isr   0x00142c    program     extern Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                   __pa_0   0x001444    program     static Z:\home\frans\usbpicprog\uc_code\system\interrupt\interrupt.c
+                 _startup   0x001452    program     extern C:\MCC18\src\traditional\startup\c018i.c
+                     loop   0x001462    program     static                          
+       ___return_lbl00001   0x001468    program     static                          
                __config_0   0x300000    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_1   0x300001    program     static Z:\home\frans\usbpicprog\uc_code\main.c
                __config_2   0x300002    program     static Z:\home\frans\usbpicprog\uc_code\main.c

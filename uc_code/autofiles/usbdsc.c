@@ -186,7 +186,7 @@ rom USB_DEV_DSC device_dsc=
     0x00,                   // Subclass code
     0x00,                   // Protocol code
     EP0_BUFF_SIZE,          // Max packet size for EP0, see usbcfg.h
-    0x04D8,                 // Vendor ID
+    0x04d8,                 // Vendor ID
     0x000E,                 // Product ID: PICDEM FS USB (DEMO Mode)
     0x0000,                 // Device release number in BCD format
     0x01,                   // Manufacturer string index
@@ -227,10 +227,10 @@ CFG01=
 rom struct{byte bLength;byte bDscType;word string[1];}sd000={
 sizeof(sd000),DSC_STR,0x0409};
 
-rom struct{byte bLength;byte bDscType;word string[25];}sd001={
+rom struct{byte bLength;byte bDscType;word string[20];}sd001={
 sizeof(sd001),DSC_STR,
-'M','i','c','r','o','c','h','i','p',' ',
-'T','e','c','h','n','o','l','o','g','y',' ','I','n','c','.'};
+'u','s','b','p','i','c','p','r','o','g',
+'.','s','f','.','n','e','t',' ',' ',' '};
 
 rom struct{byte bLength;byte bDscType;word string[33];}sd002={
 sizeof(sd002),DSC_STR,

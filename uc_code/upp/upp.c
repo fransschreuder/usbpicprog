@@ -129,7 +129,8 @@ void ProcessIO(void)
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 	VoltagePump();
-    if(USBGenRead((byte*)input_buffer,1))
+   
+    if(USBGenRead((byte*)input_buffer,1)>0)
    	{
        	if((input_buffer[0]&0xC0)==0x80) //last bit indicates write
         {
@@ -138,6 +139,7 @@ void ProcessIO(void)
 	        VPP=~((input_buffer[0]&0x04)>>2);
 	        VPP_RST=~((input_buffer[0]&0x08)>>3);
 	        TRISPGD=(input_buffer[0]&0x10)>>4;
+		
 	    }
         else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
 		{
@@ -150,6 +152,7 @@ void ProcessIO(void)
 				output_buffer[0]=0xC0|((char)PGD);
 			}
 			counter=1;
+			setLeds(input_buffer[0]&0x07);
 		}
    	}
     if(counter != 0)
