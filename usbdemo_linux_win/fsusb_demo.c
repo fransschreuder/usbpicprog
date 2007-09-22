@@ -43,7 +43,7 @@ Now the code works with Win32. Tested on Windows XP SP2.
 #include <stdio.h>
 #include <string.h>
 
-#define READ_VERSION     0x00
+/*#define READ_VERSION     0x00
 #define READ_VERSION_LEN 0x02
 
 #define ID_BOARD         0x31
@@ -54,7 +54,7 @@ Now the code works with Win32. Tested on Windows XP SP2.
 #define RD_TEMP_LOGGING  0x36
 #define RD_POT           0x37
 #define RESET            0xFF
-
+*/
 /* PICkit USB values */ /* From Microchip firmware */
 const static int vendorID=0x04d8; // Microchip, Inc
 const static int productID=0x000E; // PICDEM FS USB demo app
@@ -105,7 +105,7 @@ static void recv_usb(struct usb_dev_handle * d, int len, byte * dest)
    }
 }
 
-void picdem_fs_usb_read_version(struct usb_dev_handle * d)
+/*void picdem_fs_usb_read_version(struct usb_dev_handle * d)
 {
    byte answer[reqLen];
    byte question[reqLen];
@@ -119,8 +119,8 @@ void picdem_fs_usb_read_version(struct usb_dev_handle * d)
    printf("Onboard firmware version is %d.%d\n",
 		  (int)answer[3],(int)answer[2]);
 }
-
-void picdem_fs_usb_led(struct usb_dev_handle * d, int lednum, int onoff)
+*/
+/*void picdem_fs_usb_led(struct usb_dev_handle * d, int lednum, int onoff)
 {
    if( lednum < 3 || lednum > 4 )
 	  return;
@@ -133,7 +133,8 @@ void picdem_fs_usb_led(struct usb_dev_handle * d, int lednum, int onoff)
    recv_usb(d, 1, answer);
    printf("LED #%i is now %s\n", lednum, (onoff==0) ? "off" : "on");
 }
-
+*/
+/*
 void picdem_fs_usb_readtemp(struct usb_dev_handle * d)
 {
    byte answer[reqLen];
@@ -145,12 +146,12 @@ void picdem_fs_usb_readtemp(struct usb_dev_handle * d)
    recv_usb(d, 3, answer);
    rawval = answer[1] + (answer[2]<<8);
    
-   /* improved temperature conversion by Bill Freeman */
+   // improved temperature conversion by Bill Freeman 
    if( rawval & (1 << 15) )
          rawval -= 1 << 16;
 			 
-/*   if( (rawval>>15) & 0x01 )
-	  rawval = (~rawval) + 1; */
+//   if( (rawval>>15) & 0x01 )
+//	  rawval = (~rawval) + 1; 
    rawtemp = (rawval)>>3;
    degCtemp = rawtemp * 0.0625;
    printf("Temperature now is %f degC (raw: %i, rawval: %i)\n", degCtemp, rawtemp, rawval);
@@ -176,8 +177,7 @@ void picdem_fs_usb_reset(struct usb_dev_handle * d)
    send_usb(d, 1, question);
 //   recv_usb(d, 3, answer);
    printf("Board resetted\n");
-}
-
+}/*
 /* debugging: enable debugging error messages in libusb */
 extern int usb_debug;
 
@@ -263,35 +263,16 @@ int main(int argc, char ** argv)
 usb_clear_halt(picdem_fs_usb, endpoint_out);
 usb_resetep(picdem_fs_usb, endpoint_out);*/
 if (argc==2)
-outbuffer[0]=0xC0|atoi(argv[1]);
+   
+   outbuffer[0]=0x80|atoi(argv[1]);
    send_usb(picdem_fs_usb, 1, outbuffer);
+   outbuffer[0]=0xC0|atoi(argv[1]);
+   send_usb(picdem_fs_usb, 1, outbuffer);
+
    recv_usb(picdem_fs_usb, 1, inbuffer);
    printf("Received byte: 0x%X\n",inbuffer[0]);
-/*   if(argc == 3){
-	  if( 0 == strcmp(argv[1],"--ledon") )
-	  {
-		 picdem_fs_usb_led(picdem_fs_usb, atoi(argv[2]), 1);
-	  }
-	  else if( 0 == strcmp(argv[1],"--ledoff") )
-	  {
-		 picdem_fs_usb_led(picdem_fs_usb, atoi(argv[2]), 0);	 
-	  }
-	 }
-   
-   if( argc == 2 ){
-	  if(  0 == strcmp(argv[1],"--readtemp") )
-	  {
-		 picdem_fs_usb_readtemp(picdem_fs_usb);
-	  }
-	  else if(  0 == strcmp(argv[1],"--readpot") )
-	  {
-		 picdem_fs_usb_readpot(picdem_fs_usb);
-	  }
-	  else if(  0 == strcmp(argv[1],"--reset") )
-	  {
-		 picdem_fs_usb_reset(picdem_fs_usb);
-	  }
-	}*/
+
+
    usb_close(picdem_fs_usb);
    return 0;
 }
