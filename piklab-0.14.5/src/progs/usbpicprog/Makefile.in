@@ -20,7 +20,7 @@ VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
-top_builddir = ../..
+top_builddir = ../../..
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = @INSTALL@
 install_sh_DATA = $(install_sh) -c -m 644
@@ -37,7 +37,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-subdir = src/progs
+subdir = src/progs/direct
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
@@ -324,9 +324,9 @@ x_libraries = @x_libraries@
 xdg_appsdir = @xdg_appsdir@
 xdg_directorydir = @xdg_directorydir@
 xdg_menudir = @xdg_menudir@
-SUBDIRS = base gui direct usbpicprog icd2 icd1 pickit2 pickit1 psp gpsim list bootloader \
-	manager pickit2v2
-
+INCLUDES = -I$(top_srcdir)/src $(all_includes)
+METASOURCES = AUTO
+SUBDIRS = xml base gui
 #>- all: all-recursive
 #>+ 1
 all: docs-am  all-recursive
@@ -341,9 +341,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/direct/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/progs/Makefile
+#>- 	  $(AUTOMAKE) --gnu  src/progs/direct/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -353,10 +353,10 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/direct/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/progs/Makefile
-	cd $(top_srcdir) && perl admin/am_edit src/progs/Makefile.in
+	  $(AUTOMAKE) --gnu  src/progs/direct/Makefile
+	cd $(top_srcdir) && perl admin/am_edit src/progs/direct/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -659,7 +659,7 @@ uninstall-info: uninstall-info-recursive
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in progs.pro Makefile.am 
+KDE_DIST=direct.pro Makefile.in Makefile.am 
 
 #>+ 2
 docs-am:
@@ -674,10 +674,10 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/direct/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/progs/Makefile
-	cd $(top_srcdir) && perl admin/am_edit src/progs/Makefile.in
+	  $(AUTOMAKE) --gnu  src/progs/direct/Makefile
+	cd $(top_srcdir) && perl admin/am_edit src/progs/direct/Makefile.in
 
 
 #>+ 21
