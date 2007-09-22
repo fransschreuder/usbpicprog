@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  2/7/2007-23:14:57
+EESchema-DOCLIB  Version 2.0  22/9/2007-16:29:33
 #
 $CMP C
 D Condensateur non polarise
@@ -21,6 +21,11 @@ $ENDCMP
 $CMP R
 D Resistance
 K R DEV
+$ENDCMP
+#
+$CMP USB_CONN
+D USB CONNECTOR
+K USB
 $ENDCMP
 #
 $CMP ZENER

@@ -30,5 +30,12 @@
       <item>upp/upp.h</item>
     </files>
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
+    <opened_files>
+      <item>upp/upp.c</item>
+      <item>system/usb/class/generic/usbgen.c</item>
+      <item>system/usb/usbdefs/usbdefs_std_dsc.h</item>
+      <item>system/usb/class/generic/usbgen.h</item>
+      <item>system/usb/usbdefs/usbdefs_ep0_buff.h</item>
+    </opened_files>
   </general>
 </piklab>

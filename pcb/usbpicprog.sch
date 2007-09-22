@@ -1,11 +1,11 @@
 EESchema Schematic File Version 1
-LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,.\usbpicprog.cache
+LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,./usbpicprog.cache
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "UsbPicProg"
-Date "11 jun 2007"
+Date "22 sep 2007"
 Rev "0.1"
 Comp "UsbPicProg"
 Comment1 ""
@@ -13,6 +13,16 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L C C11
+U 1 1 46F5402C
+P 4500 5800
+F 0 "C11" H 4550 5900 50  0000 L C
+F 1 "100n" H 4550 5700 50  0000 L C
+F 2 "0603" H 4650 6000 60  0000 C C
+	1    4500 5800
+	1    0    0    -1  
+$EndComp
 Text Label 7500 5100 0    60   ~
 D+
 Text Label 7500 5000 0    60   ~
@@ -627,15 +637,6 @@ P 950 1750
 F 0 "#PWR023" H 950 1750 30  0001 C C
 F 1 "VSS" H 950 1680 30  0000 C C
 	1    950  1750
-	1    0    0    -1  
-$EndComp
-$Comp
-L CAPAPOL C11
-U 1 1 466D32E5
-P 4500 5800
-F 0 "C11" H 4550 5900 50  0000 L C
-F 1 "47u" H 4550 5700 50  0000 L C
-	1    4500 5800
 	1    0    0    -1  
 $EndComp
 $Comp
