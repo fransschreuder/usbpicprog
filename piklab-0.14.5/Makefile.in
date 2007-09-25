@@ -126,6 +126,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -242,18 +243,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -272,14 +271,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -312,16 +315,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -820,8 +826,30 @@ distclean-local:
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+clean-bcheck: 
+	rm -f *.bchecktest.cc *.bchecktest.cc.class a.out
+
+bcheck: bcheck-recursive
+
+bcheck-am:
+	@for i in ; do \
+	    if test $(srcdir)/$$i -nt $$i.bchecktest.cc; then \
+	        echo "int main() {return 0;}" > $$i.bchecktest.cc ; \
+	        echo "#include \"$$i\"" >> $$i.bchecktest.cc ; \
+	        echo "$$i"; \
+	        if ! $(CXX) $(DEFS) -I. -I$(srcdir) -I$(top_builddir) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(KDE_CXXFLAGS)  --dump-class-hierarchy -c $$i.bchecktest.cc; then \
+	            rm -f $$i.bchecktest.cc; exit 1; \
+	        fi ; \
+	        echo "" >> $$i.bchecktest.cc.class; \
+	        perl $(top_srcdir)/admin/bcheck.pl $$i.bchecktest.cc.class || { rm -f $$i.bchecktest.cc; exit 1; }; \
+	        rm -f a.out; \
+	    fi ; \
+	done
+
+
+
 #>+ 2
-KDE_DIST=piklab-prog-qt3.spec lib.pro subdirs Makefile.in configure.files app.pro config.h.in piklab-prog-qt4.spec all.pro configure.in piklab-prog.pro Makefile.cvs aclocal.m4 Doxyfile piklab.spec piklab.xpm piklab.kdevelop configure.in.in configure Makefile.am acinclude.m4 Makefile.am.in qt_config.h 
+KDE_DIST=lib.pro app.pro piklab.prj.bak configure.files piklab.pws aclocal.m4 piklab.spec Doxyfile configure.in.in piklab.kdevelop Makefile.am.in stamp-h.in piklab-prog-qt3.spec subdirs Makefile.in piklab-prog-qt4.spec config.h.in all.pro piklab.prj configure.in piklab-prog.pro Makefile.cvs piklab.xpm acinclude.m4 configure Makefile.am qt_config.h 
 
 #>+ 2
 docs-am:

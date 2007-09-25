@@ -15,13 +15,13 @@
 #include "usbpicprog_mem24.h"
 //#include "usbpicprog_30.h"
 
-QString Usbpicprog::DGroup::statusLabel() const
+QString Usbpicprog::UGroup::statusLabel() const
 {
   ::Programmer::GroupConfig config(*this);
   return label() + " (" + i18n(Port::DATA[config.portType()].label) + ")";
 }
 
-void Usbpicprog::DGroup::initSupported()
+void Usbpicprog::UGroup::initSupported()
 {
   Group::initSupported();
   //  const QMap<QString, ::Group::DeviceData> &pics = Device::lister().group("pic")->devices();
@@ -36,13 +36,13 @@ void Usbpicprog::DGroup::initSupported()
   for (pit=mem24s.begin(); pit!=mem24s.end(); ++pit) addDevice(pit.data());
 }
 
-::Programmer::Base *Usbpicprog::DGroup::createBase(const Device::Data *data) const
+::Programmer::Base *Usbpicprog::UGroup::createBase(const Device::Data *data) const
 {
   if ( data->group().name()=="pic" ) return new PicBase(*this, static_cast<const Pic::Data *>(data));
   return new Mem24Base(*this, static_cast<const Mem24::Data *>(data));
 }
 
-::Programmer::Hardware *Usbpicprog::DGroup::createHardware(::Programmer::Base &base, const Port::Description &pd) const
+::Programmer::Hardware *Usbpicprog::UGroup::createHardware(::Programmer::Base &base, const Port::Description &pd) const
 {
   Config config;
   QString current = config.currentHardware(pd.type);
@@ -53,7 +53,7 @@ void Usbpicprog::DGroup::initSupported()
   return new ParallelHardware(base, pd.device, data);
 }
 
-::Programmer::DeviceSpecific *Usbpicprog::DGroup::createDeviceSpecific(::Programmer::Base &base) const
+::Programmer::DeviceSpecific *Usbpicprog::UGroup::createDeviceSpecific(::Programmer::Base &base) const
 {
   if ( base.device()->group().name()=="pic" ) {
     //    if ( static_cast<const Pic::Data *>(base.device())->architecture()==Pic::Arch_30X ) return new Pic30(base);

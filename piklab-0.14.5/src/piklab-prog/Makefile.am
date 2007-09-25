@@ -10,6 +10,7 @@ OBJ = $(top_builddir)/src/progs/list/libproglistnoui.la \
 	$(top_builddir)/src/progs/pickit2v2/base/libpickit2v2.la $(top_builddir)/src/progs/pickit2/base/libpickit2.la \
 	$(top_builddir)/src/progs/icd1/base/libicd1.la $(top_builddir)/src/progs/icd2/base/libicd2.la \
 	$(top_builddir)/src/progs/icd2/icd2_data/libicd2data.la $(top_builddir)/src/progs/direct/base/libdirectprog.la \
+	$(top_builddir)/src/progs/icd2/icd2_data/libicd2data.la $(top_builddir)/src/progs/usbpicprog/base/libusbpicprogprog.la \
 	$(top_builddir)/src/progs/manager/libprogmanager.la $(top_builddir)/src/progs/base/libprogbase.la \
 	$(top_builddir)/src/coff/base/libcoff.la $(top_builddir)/src/common/port/libport.la \
 	$(top_builddir)/src/libcli/libcli.la $(top_builddir)/src/common/global/libglobal.la \

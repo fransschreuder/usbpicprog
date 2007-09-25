@@ -126,6 +126,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -242,18 +243,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -272,14 +271,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -312,16 +315,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -370,9 +376,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/deps.mak $(am__configure
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -382,9 +388,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/deps.mak $(am__configure
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile
+	  $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/devices/mem24/xml_data/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -634,7 +640,7 @@ mem24_data.cpp: ../xml/mem24_xml_to_data $(noinst_DATA)
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=24AA04.xml 24LCS21A.xml 24LC128.xml 24AA1025.xml 24AA164.xml 24LC32A.xml 24AA16.xml deps.mak 24LC21A.xml 24LC1025.xml 24LC512.xml 24AA128.xml 24LC08B.xml 24LC64.xml 24AA025.xml 24AA512.xml 24LC02B.xml 24LC256.xml 24LC00.xml 24AA02.xml 24LC014.xml 24LC65.xml Makefile.in 24AA01.xml 24AA024.xml 24LC16B.xml 24AA08.xml 24LC024.xml 24AA00.xml 24AA256.xml 24AA65.xml 24AA64.xml xml_data.pro 24FC128.xml 24LC515.xml 24FC256.xml 24C00.xml 24AA32A.xml 24C02C.xml 24AA515.xml 24LC01B.xml 24C65.xml 24LC04B.xml 24FC1025.xml 24C01C.xml 24FC515.xml Makefile.am 24FC512.xml 24AA014.xml 24LC025.xml 24LC22A.xml 
+KDE_DIST=24AA04.xml 24LCS21A.xml 24LC128.xml 24AA164.xml 24AA1025.xml 24LC32A.xml 24AA16.xml deps.mak 24LC21A.xml 24LC1025.xml 24LC512.xml 24AA128.xml 24LC08B.xml 24AA025.xml 24LC64.xml 24LC02B.xml 24AA512.xml 24LC256.xml 24LC00.xml 24AA02.xml 24LC014.xml 24LC65.xml Makefile.in 24AA01.xml 24AA08.xml 24LC16B.xml 24AA024.xml 24LC024.xml 24AA00.xml 24AA65.xml 24AA256.xml 24AA64.xml 24FC128.xml xml_data.pro 24FC256.xml 24LC515.xml 24C00.xml 24C02C.xml 24AA32A.xml 24AA515.xml 24LC01B.xml 24C65.xml 24LC04B.xml 24FC1025.xml 24C01C.xml 24FC515.xml 24FC512.xml 24AA014.xml 24LC025.xml Makefile.am 24LC22A.xml 
 
 #>+ 2
 docs-am:
@@ -649,9 +655,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/devices/mem24/xml_data/Makefile
+	  $(AUTOMAKE) --foreign  src/devices/mem24/xml_data/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/devices/mem24/xml_data/Makefile.in
 
 

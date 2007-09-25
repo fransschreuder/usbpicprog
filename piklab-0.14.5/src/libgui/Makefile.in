@@ -69,7 +69,7 @@ libgui_la_nofinal_OBJECTS = editor.lo device_gui.lo toplevel.lo \
 	prog_config_widget.lo text_editor.lo log_view.lo \
 	gui_prog_manager.lo gui_debug_manager.lo breakpoint_view.lo \
 	likeback.lo main_global.lo console.lo project_wizard.lo\
-project_wizard.moc.lo likeback.moc.lo project_manager.moc.lo device_gui.moc.lo editor_manager.moc.lo device_editor.moc.lo register_view.moc.lo editor.moc.lo hex_editor.moc.lo prog_config_widget.moc.lo object_view.moc.lo gui_prog_manager.moc.lo gui_debug_manager.moc.lo port_selector.moc.lo breakpoint_view.moc.lo watch_view.moc.lo log_view.moc.lo console.moc.lo text_editor.moc.lo project_editor.moc.lo config_center.moc.lo toplevel.moc.lo config_gen.moc.lo new_dialogs.moc.lo 
+project_wizard.moc.lo likeback.moc.lo project_manager.moc.lo device_gui.moc.lo editor_manager.moc.lo device_editor.moc.lo register_view.moc.lo prog_config_widget.moc.lo hex_editor.moc.lo editor.moc.lo object_view.moc.lo gui_prog_manager.moc.lo port_selector.moc.lo gui_debug_manager.moc.lo watch_view.moc.lo breakpoint_view.moc.lo log_view.moc.lo console.moc.lo text_editor.moc.lo project_editor.moc.lo config_gen.moc.lo config_center.moc.lo toplevel.moc.lo new_dialogs.moc.lo 
 @KDE_USE_FINAL_FALSE@libgui_la_OBJECTS = $(libgui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libgui_la_OBJECTS = $(libgui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -141,6 +141,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -257,18 +258,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -287,14 +286,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -327,16 +330,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -382,9 +388,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/libgui/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/libgui/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/libgui/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/libgui/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -394,9 +400,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/libgui/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/libgui/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/libgui/Makefile
+	  $(AUTOMAKE) --foreign  src/libgui/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/libgui/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -717,11 +723,11 @@ register_view.moc.cpp: $(srcdir)/register_view.h
 mocs: register_view.moc.cpp
 
 #>+ 3
-editor.moc.cpp: $(srcdir)/editor.h
-	$(MOC) $(srcdir)/editor.h -o editor.moc.cpp
+prog_config_widget.moc.cpp: $(srcdir)/prog_config_widget.h
+	$(MOC) $(srcdir)/prog_config_widget.h -o prog_config_widget.moc.cpp
 
 #>+ 2
-mocs: editor.moc.cpp
+mocs: prog_config_widget.moc.cpp
 
 #>+ 3
 hex_editor.moc.cpp: $(srcdir)/hex_editor.h
@@ -731,11 +737,11 @@ hex_editor.moc.cpp: $(srcdir)/hex_editor.h
 mocs: hex_editor.moc.cpp
 
 #>+ 3
-prog_config_widget.moc.cpp: $(srcdir)/prog_config_widget.h
-	$(MOC) $(srcdir)/prog_config_widget.h -o prog_config_widget.moc.cpp
+editor.moc.cpp: $(srcdir)/editor.h
+	$(MOC) $(srcdir)/editor.h -o editor.moc.cpp
 
 #>+ 2
-mocs: prog_config_widget.moc.cpp
+mocs: editor.moc.cpp
 
 #>+ 3
 object_view.moc.cpp: $(srcdir)/object_view.h
@@ -752,13 +758,6 @@ gui_prog_manager.moc.cpp: $(srcdir)/gui_prog_manager.h
 mocs: gui_prog_manager.moc.cpp
 
 #>+ 3
-gui_debug_manager.moc.cpp: $(srcdir)/gui_debug_manager.h
-	$(MOC) $(srcdir)/gui_debug_manager.h -o gui_debug_manager.moc.cpp
-
-#>+ 2
-mocs: gui_debug_manager.moc.cpp
-
-#>+ 3
 port_selector.moc.cpp: $(srcdir)/port_selector.h
 	$(MOC) $(srcdir)/port_selector.h -o port_selector.moc.cpp
 
@@ -766,11 +765,11 @@ port_selector.moc.cpp: $(srcdir)/port_selector.h
 mocs: port_selector.moc.cpp
 
 #>+ 3
-breakpoint_view.moc.cpp: $(srcdir)/breakpoint_view.h
-	$(MOC) $(srcdir)/breakpoint_view.h -o breakpoint_view.moc.cpp
+gui_debug_manager.moc.cpp: $(srcdir)/gui_debug_manager.h
+	$(MOC) $(srcdir)/gui_debug_manager.h -o gui_debug_manager.moc.cpp
 
 #>+ 2
-mocs: breakpoint_view.moc.cpp
+mocs: gui_debug_manager.moc.cpp
 
 #>+ 3
 watch_view.moc.cpp: $(srcdir)/watch_view.h
@@ -778,6 +777,13 @@ watch_view.moc.cpp: $(srcdir)/watch_view.h
 
 #>+ 2
 mocs: watch_view.moc.cpp
+
+#>+ 3
+breakpoint_view.moc.cpp: $(srcdir)/breakpoint_view.h
+	$(MOC) $(srcdir)/breakpoint_view.h -o breakpoint_view.moc.cpp
+
+#>+ 2
+mocs: breakpoint_view.moc.cpp
 
 #>+ 3
 log_view.moc.cpp: $(srcdir)/log_view.h
@@ -808,6 +814,13 @@ project_editor.moc.cpp: $(srcdir)/project_editor.h
 mocs: project_editor.moc.cpp
 
 #>+ 3
+config_gen.moc.cpp: $(srcdir)/config_gen.h
+	$(MOC) $(srcdir)/config_gen.h -o config_gen.moc.cpp
+
+#>+ 2
+mocs: config_gen.moc.cpp
+
+#>+ 3
 config_center.moc.cpp: $(srcdir)/config_center.h
 	$(MOC) $(srcdir)/config_center.h -o config_center.moc.cpp
 
@@ -822,13 +835,6 @@ toplevel.moc.cpp: $(srcdir)/toplevel.h
 mocs: toplevel.moc.cpp
 
 #>+ 3
-config_gen.moc.cpp: $(srcdir)/config_gen.h
-	$(MOC) $(srcdir)/config_gen.h -o config_gen.moc.cpp
-
-#>+ 2
-mocs: config_gen.moc.cpp
-
-#>+ 3
 new_dialogs.moc.cpp: $(srcdir)/new_dialogs.h
 	$(MOC) $(srcdir)/new_dialogs.h -o new_dialogs.moc.cpp
 
@@ -837,7 +843,7 @@ mocs: new_dialogs.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  project_wizard.moc.cpp likeback.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp editor.moc.cpp hex_editor.moc.cpp prog_config_widget.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp gui_debug_manager.moc.cpp port_selector.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_center.moc.cpp toplevel.moc.cpp config_gen.moc.cpp new_dialogs.moc.cpp
+	-rm -f  project_wizard.moc.cpp likeback.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp prog_config_widget.moc.cpp hex_editor.moc.cpp editor.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp port_selector.moc.cpp gui_debug_manager.moc.cpp watch_view.moc.cpp breakpoint_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_gen.moc.cpp config_center.moc.cpp toplevel.moc.cpp new_dialogs.moc.cpp
 
 #>+ 2
 KDE_DIST=hex_editor.h device_gui.h new_dialogs.h project_editor.h Makefile.in register_view.h port_selector.h prog_config_widget.h console.h text_editor.h config_gen.h editor.h device_editor.h toplevel.h project_wizard.h editor_manager.h config_center.h gui_debug_manager.h likeback.h watch_view.h log_view.h breakpoint_view.h project_manager.h gui_prog_manager.h main_global.h object_view.h project.h global_config.h Makefile.am 
@@ -855,9 +861,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/libgui/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/libgui/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/libgui/Makefile
+	  $(AUTOMAKE) --foreign  src/libgui/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/libgui/Makefile.in
 
 
@@ -884,11 +890,11 @@ bcheck-am:
 
 
 #>+ 11
-libgui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/editor.cpp $(srcdir)/device_gui.cpp $(srcdir)/toplevel.cpp $(srcdir)/port_selector.cpp $(srcdir)/object_view.cpp $(srcdir)/config_gen.cpp $(srcdir)/register_view.cpp $(srcdir)/device_editor.cpp $(srcdir)/watch_view.cpp $(srcdir)/project.cpp $(srcdir)/project_editor.cpp $(srcdir)/project_manager.cpp $(srcdir)/hex_editor.cpp $(srcdir)/global_config.cpp $(srcdir)/config_center.cpp $(srcdir)/editor_manager.cpp $(srcdir)/new_dialogs.cpp $(srcdir)/prog_config_widget.cpp $(srcdir)/text_editor.cpp $(srcdir)/log_view.cpp $(srcdir)/gui_prog_manager.cpp $(srcdir)/gui_debug_manager.cpp $(srcdir)/breakpoint_view.cpp $(srcdir)/likeback.cpp $(srcdir)/main_global.cpp $(srcdir)/console.cpp $(srcdir)/project_wizard.cpp likeback.moc.cpp project_wizard.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp prog_config_widget.moc.cpp editor.moc.cpp hex_editor.moc.cpp gui_prog_manager.moc.cpp object_view.moc.cpp port_selector.moc.cpp gui_debug_manager.moc.cpp watch_view.moc.cpp breakpoint_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_gen.moc.cpp toplevel.moc.cpp config_center.moc.cpp new_dialogs.moc.cpp 
+libgui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/editor.cpp $(srcdir)/device_gui.cpp $(srcdir)/toplevel.cpp $(srcdir)/port_selector.cpp $(srcdir)/object_view.cpp $(srcdir)/config_gen.cpp $(srcdir)/register_view.cpp $(srcdir)/device_editor.cpp $(srcdir)/watch_view.cpp $(srcdir)/project.cpp $(srcdir)/project_editor.cpp $(srcdir)/project_manager.cpp $(srcdir)/hex_editor.cpp $(srcdir)/global_config.cpp $(srcdir)/config_center.cpp $(srcdir)/editor_manager.cpp $(srcdir)/new_dialogs.cpp $(srcdir)/prog_config_widget.cpp $(srcdir)/text_editor.cpp $(srcdir)/log_view.cpp $(srcdir)/gui_prog_manager.cpp $(srcdir)/gui_debug_manager.cpp $(srcdir)/breakpoint_view.cpp $(srcdir)/likeback.cpp $(srcdir)/main_global.cpp $(srcdir)/console.cpp $(srcdir)/project_wizard.cpp $(srcdir)/likeback.moc.cpp $(srcdir)/project_wizard.moc.cpp $(srcdir)/project_manager.moc.cpp $(srcdir)/device_gui.moc.cpp $(srcdir)/editor_manager.moc.cpp $(srcdir)/device_editor.moc.cpp $(srcdir)/register_view.moc.cpp $(srcdir)/editor.moc.cpp $(srcdir)/prog_config_widget.moc.cpp $(srcdir)/hex_editor.moc.cpp $(srcdir)/gui_prog_manager.moc.cpp $(srcdir)/object_view.moc.cpp $(srcdir)/gui_debug_manager.moc.cpp $(srcdir)/port_selector.moc.cpp $(srcdir)/breakpoint_view.moc.cpp $(srcdir)/watch_view.moc.cpp $(srcdir)/log_view.moc.cpp $(srcdir)/console.moc.cpp $(srcdir)/text_editor.moc.cpp $(srcdir)/project_editor.moc.cpp $(srcdir)/toplevel.moc.cpp $(srcdir)/config_center.moc.cpp $(srcdir)/config_gen.moc.cpp $(srcdir)/new_dialogs.moc.cpp 
 	@echo 'creating libgui_la.all_cpp.cpp ...'; \
 	rm -f libgui_la.all_cpp.files libgui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libgui_la.all_cpp.final; \
-	for file in editor.cpp device_gui.cpp toplevel.cpp port_selector.cpp object_view.cpp config_gen.cpp register_view.cpp device_editor.cpp watch_view.cpp project.cpp project_editor.cpp project_manager.cpp hex_editor.cpp global_config.cpp config_center.cpp editor_manager.cpp new_dialogs.cpp prog_config_widget.cpp text_editor.cpp log_view.cpp gui_prog_manager.cpp gui_debug_manager.cpp breakpoint_view.cpp likeback.cpp main_global.cpp console.cpp project_wizard.cpp likeback.moc.cpp project_wizard.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp prog_config_widget.moc.cpp editor.moc.cpp hex_editor.moc.cpp gui_prog_manager.moc.cpp object_view.moc.cpp port_selector.moc.cpp gui_debug_manager.moc.cpp watch_view.moc.cpp breakpoint_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_gen.moc.cpp toplevel.moc.cpp config_center.moc.cpp new_dialogs.moc.cpp ; do \
+	for file in editor.cpp device_gui.cpp toplevel.cpp port_selector.cpp object_view.cpp config_gen.cpp register_view.cpp device_editor.cpp watch_view.cpp project.cpp project_editor.cpp project_manager.cpp hex_editor.cpp global_config.cpp config_center.cpp editor_manager.cpp new_dialogs.cpp prog_config_widget.cpp text_editor.cpp log_view.cpp gui_prog_manager.cpp gui_debug_manager.cpp breakpoint_view.cpp likeback.cpp main_global.cpp console.cpp project_wizard.cpp likeback.moc.cpp project_wizard.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp editor.moc.cpp prog_config_widget.moc.cpp hex_editor.moc.cpp gui_prog_manager.moc.cpp object_view.moc.cpp gui_debug_manager.moc.cpp port_selector.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp toplevel.moc.cpp config_center.moc.cpp config_gen.moc.cpp new_dialogs.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libgui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libgui_la.all_cpp.final; \
 	done; \

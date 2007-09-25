@@ -60,7 +60,7 @@ libicd2_la_final_OBJECTS = libicd2_la.all_cpp.lo
 libicd2_la_nofinal_OBJECTS = microchip.lo icd2.lo icd2_prog.lo \
 	icd2_serial.lo icd2_usb.lo icd2_usb_firmware.lo icd2_data.lo \
 	icd2_debug.lo icd.lo icd_prog.lo icd2_debug_specific.lo\
-icd2_debug.moc.lo icd2_prog.moc.lo icd_prog.moc.lo 
+icd2_prog.moc.lo icd2_debug.moc.lo icd_prog.moc.lo 
 @KDE_USE_FINAL_FALSE@libicd2_la_OBJECTS = $(libicd2_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libicd2_la_OBJECTS = $(libicd2_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -133,6 +133,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -249,18 +250,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -279,14 +278,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -319,16 +322,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -373,9 +379,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -385,9 +391,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile
+	  $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/progs/icd2/base/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -646,18 +652,18 @@ icd2_data.cpp: ../xml/xml_icd2_parser icd2.xml
 .NOEXPORT:
 
 #>+ 3
-icd2_debug.moc.cpp: $(srcdir)/icd2_debug.h
-	$(MOC) $(srcdir)/icd2_debug.h -o icd2_debug.moc.cpp
-
-#>+ 2
-mocs: icd2_debug.moc.cpp
-
-#>+ 3
 icd2_prog.moc.cpp: $(srcdir)/icd2_prog.h
 	$(MOC) $(srcdir)/icd2_prog.h -o icd2_prog.moc.cpp
 
 #>+ 2
 mocs: icd2_prog.moc.cpp
+
+#>+ 3
+icd2_debug.moc.cpp: $(srcdir)/icd2_debug.h
+	$(MOC) $(srcdir)/icd2_debug.h -o icd2_debug.moc.cpp
+
+#>+ 2
+mocs: icd2_debug.moc.cpp
 
 #>+ 3
 icd_prog.moc.cpp: $(srcdir)/icd_prog.h
@@ -668,7 +674,7 @@ mocs: icd_prog.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  icd2_debug.moc.cpp icd2_prog.moc.cpp icd_prog.moc.cpp
+	-rm -f  icd2_prog.moc.cpp icd2_debug.moc.cpp icd_prog.moc.cpp
 
 #>+ 2
 KDE_DIST=icd2_debug.h base.pro Makefile.in icd2_prog.h microchip.h icd2.h icd.h promate2.xml icd2_usb.h icd2.xml icd_prog.h icd2_data.h icd2_debug_specific.h icd2_serial.h Makefile.am 
@@ -686,9 +692,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/progs/icd2/base/Makefile
+	  $(AUTOMAKE) --foreign  src/progs/icd2/base/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/progs/icd2/base/Makefile.in
 
 
@@ -715,11 +721,11 @@ bcheck-am:
 
 
 #>+ 11
-libicd2_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/microchip.cpp $(srcdir)/icd2.cpp $(srcdir)/icd2_prog.cpp $(srcdir)/icd2_serial.cpp $(srcdir)/icd2_usb.cpp $(srcdir)/icd2_usb_firmware.cpp icd2_data.cpp $(srcdir)/icd2_debug.cpp $(srcdir)/icd.cpp $(srcdir)/icd_prog.cpp $(srcdir)/icd2_debug_specific.cpp icd2_prog.moc.cpp icd2_debug.moc.cpp icd_prog.moc.cpp 
+libicd2_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/microchip.cpp $(srcdir)/icd2.cpp $(srcdir)/icd2_prog.cpp $(srcdir)/icd2_serial.cpp $(srcdir)/icd2_usb.cpp $(srcdir)/icd2_usb_firmware.cpp $(srcdir)/icd2_data.cpp $(srcdir)/icd2_debug.cpp $(srcdir)/icd.cpp $(srcdir)/icd_prog.cpp $(srcdir)/icd2_debug_specific.cpp $(srcdir)/icd2_debug.moc.cpp $(srcdir)/icd2_prog.moc.cpp $(srcdir)/icd_prog.moc.cpp 
 	@echo 'creating libicd2_la.all_cpp.cpp ...'; \
 	rm -f libicd2_la.all_cpp.files libicd2_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libicd2_la.all_cpp.final; \
-	for file in microchip.cpp icd2.cpp icd2_prog.cpp icd2_serial.cpp icd2_usb.cpp icd2_usb_firmware.cpp icd2_data.cpp icd2_debug.cpp icd.cpp icd_prog.cpp icd2_debug_specific.cpp icd2_prog.moc.cpp icd2_debug.moc.cpp icd_prog.moc.cpp ; do \
+	for file in microchip.cpp icd2.cpp icd2_prog.cpp icd2_serial.cpp icd2_usb.cpp icd2_usb_firmware.cpp icd2_data.cpp icd2_debug.cpp icd.cpp icd_prog.cpp icd2_debug_specific.cpp icd2_debug.moc.cpp icd2_prog.moc.cpp icd_prog.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libicd2_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libicd2_la.all_cpp.final; \
 	done; \

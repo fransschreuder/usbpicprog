@@ -149,6 +149,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -265,18 +266,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -295,14 +294,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -335,16 +338,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -389,9 +395,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/data/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/data/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/data/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/data/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -401,9 +407,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/data/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/data/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/data/Makefile
+	  $(AUTOMAKE) --foreign  src/data/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/data/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -782,118 +788,118 @@ asm-pic.xml coff-pic.xml: syntax_xml_generator
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=hi22-action-piklab_erasechip.png hi22-action-piklab_compile.png hi16-action-piklab_burnchip.png hi22-action-piklab_decompile.png hi22-action-piklab_breakpoint_invalid.png hi22-action-piklab_createproject.png hi16-action-piklab_find_next.png hi22-action-piklab_addfile.png hi22-action-piklab_blankcheck.png hi16-action-piklab_openproject.png hi22-action-piklab_program_counter_disabled.png hi22-action-piklab_debug_stepout.png hi32-action-piklab_config_disassembler.png hi22-action-piklab_debug_stepover.png hi16-action-piklab_chip.png hi16-action-piklab_createproject.png hi16-action-piklab_find_previous.png hi22-action-piklab_closeproject.png hi16-action-piklab_erasechip.png hi16-action-piklab_editproject.png hi16-action-piklab_blankcheck.png hi22-action-piklab_readchip.png Makefile.in hi22-action-piklab_run.png hi22-action-piklab_burnchip.png hi22-action-piklab_find_previous.png hi22-action-piklab_stop.png hi16-action-piklab_decompile.png hi22-action-piklab_debughalt.png hi22-action-piklab_addcurrentfile.png hi22-action-piklab_breakpoint_active.png hi22-action-piklab_debug_stepin.png hi16-action-piklab_closeproject.png hi22-action-piklab_program_counter.png hi22-action-piklab_breakpoint_reached.png hi22-action-piklab_restart.png hi16-action-piklab_verifychip.png hi22-action-piklab_breakpoint_disabled.png hi22-action-piklab_power.png hi22-action-piklab_openproject.png hi16-action-piklab_addcurrentfile.png hi22-action-piklab_editproject.png hi16-action-piklab_readchip.png hi22-action-piklab_chip.png hi22-action-piklab_verifychip.png hi16-action-piklab_compile.png hi22-action-piklab_debug_step.png coff-c-pic.xml hi16-action-piklab_addfile.png jal-pic.xml Makefile.am hi22-action-piklab_find_next.png hi32-action-piklab_config_programmer.png hi32-action-piklab_config_assembler.png 
+KDE_DIST=hi22-action-piklab_erasechip.png hi22-action-piklab_compile.png hi16-action-piklab_burnchip.png hi22-action-piklab_decompile.png hi22-action-piklab_breakpoint_invalid.png hi16-action-piklab_find_next.png hi22-action-piklab_createproject.png hi22-action-piklab_addfile.png hi22-action-piklab_blankcheck.png hi22-action-piklab_program_counter_disabled.png hi16-action-piklab_openproject.png hi22-action-piklab_debug_stepout.png hi32-action-piklab_config_disassembler.png hi22-action-piklab_debug_stepover.png hi16-action-piklab_chip.png hi16-action-piklab_createproject.png hi16-action-piklab_find_previous.png syntax_xml_generator hi22-action-piklab_closeproject.png hi16-action-piklab_erasechip.png hi16-action-piklab_editproject.png hi16-action-piklab_blankcheck.png hi22-action-piklab_readchip.png Makefile.in hi22-action-piklab_find_previous.png hi22-action-piklab_run.png hi22-action-piklab_burnchip.png hi22-action-piklab_stop.png hi22-action-piklab_debughalt.png hi16-action-piklab_decompile.png hi22-action-piklab_addcurrentfile.png hi22-action-piklab_breakpoint_active.png hi22-action-piklab_program_counter.png hi16-action-piklab_closeproject.png hi22-action-piklab_debug_stepin.png hi22-action-piklab_breakpoint_reached.png hi22-action-piklab_restart.png hi16-action-piklab_verifychip.png hi22-action-piklab_breakpoint_disabled.png hi22-action-piklab_openproject.png hi22-action-piklab_power.png hi16-action-piklab_readchip.png hi22-action-piklab_editproject.png hi16-action-piklab_addcurrentfile.png hi22-action-piklab_chip.png hi22-action-piklab_verifychip.png hi22-action-piklab_debug_step.png hi16-action-piklab_compile.png coff-c-pic.xml hi16-action-piklab_addfile.png jal-pic.xml Makefile.am hi22-action-piklab_find_next.png hi32-action-piklab_config_programmer.png hi32-action-piklab_config_assembler.png 
 
 #>+ 2
 docs-am:
 
 #>+ 107
 install-kde-icons:
-	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/16x16/actions
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_addcurrentfile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addcurrentfile.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_createproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_createproject.png
-	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/32x32/actions
-	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_assembler.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_assembler.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_closeproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_closeproject.png
 	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/22x22/actions
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debughalt.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debughalt.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_decompile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_decompile.png
-	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_disassembler.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_disassembler.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_run.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_run.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_erasechip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_erasechip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_program_counter.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepout.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepout.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_burnchip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_burnchip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_editproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_editproject.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_find_previous.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_previous.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_burnchip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_burnchip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_readchip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_readchip.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_find_next.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_next.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_readchip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_readchip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_chip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_chip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_blankcheck.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_blankcheck.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_disabled.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_disabled.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_chip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_chip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_compile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_compile.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_addfile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addfile.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_blankcheck.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_blankcheck.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_openproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_openproject.png
 	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_createproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_createproject.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_program_counter_disabled.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter_disabled.png
-	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_programmer.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_programmer.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_erasechip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_erasechip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_invalid.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_invalid.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_decompile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_decompile.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepin.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepin.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_verifychip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_verifychip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_reached.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_reached.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_verifychip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_verifychip.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepover.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepover.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_find_next.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_next.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_find_previous.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_previous.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_editproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_editproject.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_step.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_step.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_restart.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_restart.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_stop.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_stop.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_active.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_active.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_addcurrentfile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addcurrentfile.png
+	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/16x16/actions
 	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_openproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_openproject.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_addfile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addfile.png
-	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_compile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_compile.png
-	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_closeproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_closeproject.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_createproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_createproject.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_erasechip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_erasechip.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_editproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_editproject.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_program_counter_disabled.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter_disabled.png
 	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_power.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_power.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_decompile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_decompile.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_addfile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addfile.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_addcurrentfile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addcurrentfile.png
+	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/32x32/actions
+	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_programmer.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_programmer.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_burnchip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_burnchip.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_verifychip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_verifychip.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_burnchip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_burnchip.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_blankcheck.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_blankcheck.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_erasechip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_erasechip.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_editproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_editproject.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_compile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_compile.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_decompile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_decompile.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_chip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_chip.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepin.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepin.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_closeproject.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_closeproject.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_closeproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_closeproject.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_reached.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_reached.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_program_counter.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_chip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_chip.png
+	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_assembler.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_assembler.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debughalt.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debughalt.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_openproject.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_openproject.png
+	$(INSTALL_DATA) $(srcdir)/hi32-action-piklab_config_disassembler.png $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_disassembler.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepover.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepover.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_find_previous.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_previous.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_active.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_active.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_run.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_run.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_find_previous.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_previous.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_readchip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_readchip.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_find_next.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_next.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_invalid.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_invalid.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_find_next.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_next.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_compile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_compile.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_addcurrentfile.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addcurrentfile.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_step.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_step.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_addfile.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addfile.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_breakpoint_disabled.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_disabled.png
+	$(INSTALL_DATA) $(srcdir)/hi16-action-piklab_verifychip.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_verifychip.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_debug_stepout.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepout.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_readchip.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_readchip.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_stop.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_stop.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_restart.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_restart.png
+	$(INSTALL_DATA) $(srcdir)/hi22-action-piklab_blankcheck.png $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_blankcheck.png
 
 uninstall-kde-icons:
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addcurrentfile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_createproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_assembler.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_closeproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debughalt.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_decompile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_disassembler.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_run.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_erasechip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepout.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_burnchip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_editproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_previous.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_burnchip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_readchip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_next.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_readchip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_chip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_blankcheck.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_disabled.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_chip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_compile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addfile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_blankcheck.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_openproject.png
 	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_createproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter_disabled.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_programmer.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_erasechip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_invalid.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_decompile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepin.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_verifychip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_reached.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_verifychip.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepover.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_next.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_previous.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_editproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_step.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_restart.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_stop.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_active.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addcurrentfile.png
 	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_openproject.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addfile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_compile.png
-	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_closeproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_createproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_erasechip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_editproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter_disabled.png
 	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_power.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_decompile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addfile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addcurrentfile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_programmer.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_burnchip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_verifychip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_burnchip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_blankcheck.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_erasechip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_editproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_compile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_decompile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_chip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepin.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_closeproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_closeproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_reached.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_program_counter.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_chip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_assembler.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debughalt.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_openproject.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/32x32/actions/piklab_config_disassembler.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepover.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_previous.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_active.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_run.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_previous.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_readchip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_find_next.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_invalid.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_find_next.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_compile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_addcurrentfile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_step.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_addfile.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_breakpoint_disabled.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/piklab_verifychip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_debug_stepout.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_readchip.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_stop.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_restart.png
+	-rm -f $(DESTDIR)$(piklabdir)/hicolor/22x22/actions/piklab_blankcheck.png
 
 #>+ 15
 force-reedit:
@@ -905,9 +911,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/data/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/data/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/data/Makefile
+	  $(AUTOMAKE) --foreign  src/data/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/data/Makefile.in
 
 

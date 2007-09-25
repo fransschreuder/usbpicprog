@@ -129,6 +129,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -245,18 +246,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -275,14 +274,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -315,16 +318,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -366,9 +372,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/common/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/common/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/common/common/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/common/common/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -378,9 +384,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/common/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/common/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/common/common/Makefile
+	  $(AUTOMAKE) --foreign  src/common/common/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/common/common/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -649,7 +655,7 @@ clean-metasources:
 	-rm -f  synchronous.moc.cpp storage.moc.cpp
 
 #>+ 2
-KDE_DIST=misc.h Makefile.in qflags.h group.h storage.h common.pro number.h purl_base.h Makefile.am streamer.h synchronous.h 
+KDE_DIST=qflags.h group.h storage.h common.pro number.h purl_base.h misc.h Makefile.in Makefile.am streamer.h synchronous.h 
 
 #>+ 2
 docs-am:
@@ -664,9 +670,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/common/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/common/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/common/common/Makefile
+	  $(AUTOMAKE) --foreign  src/common/common/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/common/common/Makefile.in
 
 
@@ -693,7 +699,7 @@ bcheck-am:
 
 
 #>+ 11
-libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/synchronous.cpp synchronous.moc.cpp storage.moc.cpp 
+libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/synchronous.cpp $(srcdir)/synchronous.moc.cpp $(srcdir)/storage.moc.cpp 
 	@echo 'creating libcommon_la.all_cpp.cpp ...'; \
 	rm -f libcommon_la.all_cpp.files libcommon_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommon_la.all_cpp.final; \

@@ -59,7 +59,7 @@ libcommonui_la_final_OBJECTS = libcommonui_la.all_cpp.lo
 libcommonui_la_nofinal_OBJECTS = misc_gui.lo list_view.lo purl_gui.lo \
 	purl_ext.lo pfile_ext.lo number_gui.lo editlistbox.lo \
 	container.lo dialog.lo\
-list_view.moc.lo dialog.moc.lo number_gui.moc.lo editlistbox.moc.lo purl_gui.moc.lo misc_gui.moc.lo container.moc.lo 
+number_gui.moc.lo dialog.moc.lo list_view.moc.lo editlistbox.moc.lo purl_gui.moc.lo misc_gui.moc.lo container.moc.lo 
 @KDE_USE_FINAL_FALSE@libcommonui_la_OBJECTS = $(libcommonui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libcommonui_la_OBJECTS = $(libcommonui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -131,6 +131,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -247,18 +248,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -277,14 +276,18 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
 doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
 doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -317,16 +320,19 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 man_SUBDIR_included_FALSE = @man_SUBDIR_included_FALSE@
 man_SUBDIR_included_TRUE = @man_SUBDIR_included_TRUE@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
 po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -368,9 +374,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 #>- 	      exit 1;; \
 #>- 	  esac; \
 #>- 	done; \
-#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/gui/Makefile'; \
+#>- 	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/gui/Makefile'; \
 #>- 	cd $(top_srcdir) && \
-#>- 	  $(AUTOMAKE) --gnu  src/common/gui/Makefile
+#>- 	  $(AUTOMAKE) --foreign  src/common/gui/Makefile
 #>+ 12
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -380,9 +386,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/gui/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/gui/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/common/gui/Makefile
+	  $(AUTOMAKE) --foreign  src/common/gui/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/common/gui/Makefile.in
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
@@ -636,11 +642,11 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 #>+ 3
-list_view.moc.cpp: $(srcdir)/list_view.h
-	$(MOC) $(srcdir)/list_view.h -o list_view.moc.cpp
+number_gui.moc.cpp: $(srcdir)/number_gui.h
+	$(MOC) $(srcdir)/number_gui.h -o number_gui.moc.cpp
 
 #>+ 2
-mocs: list_view.moc.cpp
+mocs: number_gui.moc.cpp
 
 #>+ 3
 dialog.moc.cpp: $(srcdir)/dialog.h
@@ -650,11 +656,11 @@ dialog.moc.cpp: $(srcdir)/dialog.h
 mocs: dialog.moc.cpp
 
 #>+ 3
-number_gui.moc.cpp: $(srcdir)/number_gui.h
-	$(MOC) $(srcdir)/number_gui.h -o number_gui.moc.cpp
+list_view.moc.cpp: $(srcdir)/list_view.h
+	$(MOC) $(srcdir)/list_view.h -o list_view.moc.cpp
 
 #>+ 2
-mocs: number_gui.moc.cpp
+mocs: list_view.moc.cpp
 
 #>+ 3
 editlistbox.moc.cpp: $(srcdir)/editlistbox.h
@@ -686,10 +692,10 @@ mocs: container.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  list_view.moc.cpp dialog.moc.cpp number_gui.moc.cpp editlistbox.moc.cpp purl_gui.moc.cpp misc_gui.moc.cpp container.moc.cpp
+	-rm -f  number_gui.moc.cpp dialog.moc.cpp list_view.moc.cpp editlistbox.moc.cpp purl_gui.moc.cpp misc_gui.moc.cpp container.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in list_view.h dialog.h editlistbox.h misc_gui.h Makefile.am container.h purl_gui.h number_gui.h 
+KDE_DIST=dialog.h list_view.h editlistbox.h misc_gui.h container.h purl_gui.h Makefile.in Makefile.am number_gui.h 
 
 #>+ 2
 docs-am:
@@ -704,9 +710,9 @@ force-reedit:
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/common/gui/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  src/common/gui/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  src/common/gui/Makefile
+	  $(AUTOMAKE) --foreign  src/common/gui/Makefile
 	cd $(top_srcdir) && perl admin/am_edit src/common/gui/Makefile.in
 
 
@@ -733,11 +739,11 @@ bcheck-am:
 
 
 #>+ 11
-libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp editlistbox.moc.cpp number_gui.moc.cpp dialog.moc.cpp list_view.moc.cpp misc_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp 
+libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp $(srcdir)/editlistbox.moc.cpp $(srcdir)/list_view.moc.cpp $(srcdir)/dialog.moc.cpp $(srcdir)/number_gui.moc.cpp $(srcdir)/misc_gui.moc.cpp $(srcdir)/purl_gui.moc.cpp $(srcdir)/container.moc.cpp 
 	@echo 'creating libcommonui_la.all_cpp.cpp ...'; \
 	rm -f libcommonui_la.all_cpp.files libcommonui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommonui_la.all_cpp.final; \
-	for file in misc_gui.cpp list_view.cpp purl_gui.cpp purl_ext.cpp pfile_ext.cpp number_gui.cpp editlistbox.cpp container.cpp dialog.cpp editlistbox.moc.cpp number_gui.moc.cpp dialog.moc.cpp list_view.moc.cpp misc_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp ; do \
+	for file in misc_gui.cpp list_view.cpp purl_gui.cpp purl_ext.cpp pfile_ext.cpp number_gui.cpp editlistbox.cpp container.cpp dialog.cpp editlistbox.moc.cpp list_view.moc.cpp dialog.moc.cpp number_gui.moc.cpp misc_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libcommonui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libcommonui_la.all_cpp.final; \
 	done; \

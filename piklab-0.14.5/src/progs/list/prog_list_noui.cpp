@@ -9,6 +9,7 @@
 #include "prog_list.h"
 
 #include "progs/direct/base/direct_prog.h"
+#include "progs/usbpicprog/base/usbpicprog_prog.h"
 #include "progs/icd2/base/icd2_prog.h"
 #include "progs/icd2/base/icd2_debug.h"
 #include "progs/icd1/base/icd1_prog.h"
@@ -22,6 +23,7 @@
 Programmer::Lister::Lister()
 {
   addGroup(new Direct::DGroup, 0);
+//  addGroup(new Usbpicprog::UGroup, 0);
   addGroup(new Icd2::ProgrammerGroup, 0);
   addGroup(new Icd2::DebuggerGroup, 0);
   addGroup(new Icd1::Group, 0);

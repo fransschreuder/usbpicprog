@@ -16,6 +16,7 @@ OBJS = $(top_builddir)/src/libgui/libgui.la $(top_builddir)/src/tools/list/libto
 	$(top_builddir)/src/progs/pickit2/gui/libpickit2ui.la $(top_builddir)/src/progs/pickit1/gui/libpickit1ui.la \
 	$(top_builddir)/src/progs/icd1/gui/libicd1ui.la $(top_builddir)/src/progs/icd2/gui/libicd2ui.la \
 	$(top_builddir)/src/progs/direct/gui/libdirectui.la $(top_builddir)/src/progs/gui/libprogui.la \
+	$(top_builddir)/src/progs/usbpicprog/gui/libusbpicprogui.la $(top_builddir)/src/progs/gui/libprogui.la \
 	$(top_builddir)/src/progs/bootloader/base/libbootloader.la \
 	$(top_builddir)/src/progs/bootloader/bootloader_data/libbootloaderdata.la \
 	$(top_builddir)/src/progs/gpsim/libgpsim.la $(top_builddir)/src/progs/psp/base/libpsp.la \

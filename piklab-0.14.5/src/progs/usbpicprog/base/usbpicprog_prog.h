@@ -52,7 +52,7 @@ protected:
   virtual ::Programmer::DeviceSpecific *createDeviceSpecific(::Programmer::Base &base) const;
 };
 
-class DGroup : public Group
+class UGroup : public Group
 {
 public:
   virtual QString name() const { return "usbpicprog"; }
