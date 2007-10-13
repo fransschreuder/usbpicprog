@@ -1,0 +1,27 @@
+1. HEX FILES (10F200 12C508A 16F877 17C42A 18F452 30F2010):
+  - for each devices with hex file from "dummy_hex_32" directory:
+    * load with correct device type: display should be as described in "dummy_hex.txt"
+    * save with same hex format: check the file is the same
+    * optionnally: load with incorrect device type: should not crash (may warn about incorrect memory ranges)
+
+2. STANDALONE ASM FILES:
+  - load "test_asm_standalone.asm" and compile
+
+3. PROJECT:
+  - load project "test_project" and compile
+  - save/create new: #### TODO
+
+3. GUI + COMMAND-LINE PROGRAMMING (serial + USB ICD2 with 16F871 and 18F452):
+  - for each available devices with hex file from "test_hex_32" directory:
+      * connect: check correct ids are detected
+      * blank: should be ok
+      * blank_check: should be ok
+      * load hex file
+      * verify: should fail
+      * program: should be ok
+      * verify: should be ok (should warn if some blocks are protected)
+      * blank_check: should fail
+      * release reset: should run program
+      * hold reset: should stop program
+      * read: should be ok
+      * verify: should be ok

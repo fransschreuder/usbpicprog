@@ -1,0 +1,8 @@
+
+COMPILATION:
+ - "make -f Makefile.cvs" (usually not needed for distributed tarballs)
+ - "./configure --enable-debug=full" (check ./configure --help for other options)
+ - "make"
+
+INSTALLATION:
+ - "make install" (as root)

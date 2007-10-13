@@ -1,0 +1,13 @@
+include 16c84_10
+
+include jdelay
+include hd447804
+
+
+HD44780_clear
+
+HD44780_write( 72  ) -- H
+HD44780_write( 97  ) -- a
+HD44780_write( 108 ) -- l
+HD44780_write( 108 ) -- l
+HD44780_write( 111 ) -- o

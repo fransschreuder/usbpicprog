@@ -1,0 +1,4 @@
+dnl put here things which have to be done after all usual autoconf macros
+dnl have been run, but before the Makefiles are created
+
+CXXFLAGS="$CXXFLAGS $KDE_DEFAULT_CXXFLAGS"

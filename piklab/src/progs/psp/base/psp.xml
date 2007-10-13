@@ -1,0 +1,183 @@
+<!-- ************************************************************************* -->
+<!-- * Copyright (C) 2005-2006 Nicolas Hadacek <hadacek@kde.org>             * -->
+<!-- *                                                                       * -->
+<!-- * This program is free software; you can redistribute it and/or modify  * -->
+<!-- * it under the terms of the GNU General Public License as published by  * -->
+<!-- * the Free Software Foundation; either version 2 of the License, or     * -->
+<!-- * (at your option) any later version.                                   * -->
+<!-- *************************************************************************/-->
+<!DOCTYPE piklab>
+
+<type name="psp">
+  <device name="10F200" family="generic" algorithm="29" overprogram="1" tries="1" />
+  <device name="10F202" family="generic" algorithm="29" overprogram="1" tries="1" />
+  <device name="10F204" family="generic" algorithm="29" overprogram="1" tries="1" />
+  <device name="10F206" family="generic" algorithm="29" overprogram="1" tries="1" />
+  <device name="12C508" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12C508A" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12F508" family="generic" algorithm="28" overprogram="1" tries="1" />
+  <device name="12C509" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12C509A" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12F509" family="generic" algorithm="28" overprogram="1" tries="1" />
+  <device name="12C671" family="generic" algorithm="9" overprogram="3" tries="25" />
+  <device name="12C672" family="generic" algorithm="9" overprogram="3" tries="25" />
+  <device name="12CE518" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12CE519" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12CE673" family="generic" algorithm="9" overprogram="3" tries="25" />
+  <device name="12CE674" family="generic" algorithm="9" overprogram="3" tries="25" />
+  <device name="12CR509A" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="12F629" family="generic" algorithm="15" overprogram="1" tries="1" support_type="tested" />
+  <device name="12F675" family="generic" algorithm="15" overprogram="1" tries="1" support_type="tested" />
+  <device name="12F683" family="generic" algorithm="15" overprogram="1" tries="1" support_type="tested" />
+  <device name="14000" family="generic" algorithm="1" overprogram="3" tries="25" />
+  <device name="16C505" family="generic" algorithm="10" overprogram="11" tries="8" />
+  <device name="16C52" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C54" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C54A" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C54B" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C54C" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C55" family="generic" algorithm="6" overprogram="11" tries="8" />
+  <device name="16C554" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C558" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C55A" family="generic" algorithm="6" overprogram="11" tries="8" />
+  <device name="16C56" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C56A" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C57" family="generic" algorithm="6" overprogram="11" tries="8" />
+  <device name="16C57C" family="generic" algorithm="6" overprogram="11" tries="8" />
+  <device name="16C58A" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C58B" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16C61" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C62" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C620" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C620A" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C621" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C621A" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C622" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C622A" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C62A" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C62B" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C63" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C63A" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C64" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C642" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C64A" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C65" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C65A" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C65B" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C66" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C662" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C67" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C71" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C710" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C711" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C712" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C715" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C716" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16C717" family="generic" algorithm="12" overprogram="3" tries="25" />
+  <device name="16C72" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C72A" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C73" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C73A" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C73B" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C74" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C745" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C74A" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C74B" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C76" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16C765" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C77" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C770" family="generic" algorithm="8" overprogram="3" tries="25" />
+  <device name="16C771" family="generic" algorithm="8" overprogram="3" tries="25" />
+  <device name="16C773" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C774" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C781" family="generic" algorithm="8" overprogram="3" tries="25" />
+  <device name="16C782" family="generic" algorithm="8" overprogram="3" tries="25" />
+  <device name="16C84" family="generic" algorithm="2" overprogram="3" tries="1" />
+  <device name="16C923" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C924" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C925" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16C926" family="generic" algorithm="4" overprogram="3" tries="25" />
+  <device name="16CE623" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16CE624" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16CE625" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16CR620A" family="generic" algorithm="2" overprogram="3" tries="25" />
+  <device name="16CR72" family="generic" algorithm="3" overprogram="3" tries="25" />
+  <device name="16F54" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="16F57" family="generic" algorithm="6" overprogram="11" tries="8" />
+  <device name="16F627" family="generic" algorithm="12" overprogram="0" tries="1" support_type="tested" />
+  <device name="16F627A" family="generic" algorithm="19" overprogram="0" tries="1" /> <!-- picp has algo=12 ?? -->
+  <device name="16F628" family="generic" algorithm="12" overprogram="0" tries="1" support_type="tested" />
+  <device name="16F628A" family="generic" algorithm="19" overprogram="0" tries="1" />
+  <device name="16F630" family="generic" algorithm="15" overprogram="0" tries="1" />
+  <device name="16F648A" family="generic" algorithm="19" overprogram="1" tries="1" />
+  <device name="16F676" family="generic" algorithm="15" overprogram="0" tries="1" />
+  <device name="16F684" family="generic" algorithm="21" overprogram="0" tries="1" />
+  <device name="16F688" family="generic" algorithm="21" overprogram="0" tries="1" />
+  <device name="16F716" family="generic" algorithm="22" overprogram="0" tries="1" />
+  <device name="16F72" family="generic" algorithm="13" overprogram="0" tries="1" />
+  <device name="16F73" family="generic" algorithm="13" overprogram="0" tries="1" />
+  <device name="16F737" family="generic" algorithm="23" overprogram="3" tries="1" />
+  <device name="16F74" family="generic" algorithm="13" overprogram="0" tries="1" />
+  <device name="16F747" family="generic" algorithm="23" overprogram="3" tries="1" />
+  <device name="16F76" family="generic" algorithm="13" overprogram="0" tries="1" />
+  <device name="16F767" family="generic" algorithm="23" overprogram="3" tries="1" />
+  <device name="16F77" family="generic" algorithm="13" overprogram="0" tries="1" />
+  <device name="16F777" family="generic" algorithm="23" overprogram="3" tries="1" />
+  <device name="16F818" family="generic" algorithm="16" overprogram="0" tries="1" />
+  <device name="16F819" family="generic" algorithm="16" overprogram="0" tries="1" />
+  <device name="16F83" family="generic" algorithm="2" overprogram="3" tries="1" />
+  <device name="16F84" family="generic" algorithm="2" overprogram="3" tries="1" />
+  <device name="16F84A" family="generic" algorithm="2" overprogram="0" tries="1" />
+  <device name="16F87" family="generic" algorithm="20" overprogram="0" tries="1" />
+  <device name="16F870" family="generic" algorithm="3" overprogram="0" tries="1" />
+  <device name="16F871" family="generic" algorithm="4" overprogram="0" tries="1" />
+  <device name="16F872" family="generic" algorithm="3" overprogram="0" tries="1" />
+  <device name="16F873" family="generic" algorithm="4" overprogram="0" tries="1" support_type="tested" />
+  <device name="16F873A" family="generic" algorithm="17" overprogram="0" tries="1" />
+  <device name="16F874" family="generic" algorithm="4" overprogram="0" tries="1" />
+  <device name="16F874A" family="generic" algorithm="17" overprogram="0" tries="1" />
+  <device name="16F876" family="generic" algorithm="4" overprogram="0" tries="1" />
+  <device name="16F876A" family="generic" algorithm="17" overprogram="0" tries="1" />
+  <device name="16F877" family="generic" algorithm="4" overprogram="0" tries="1" />
+  <device name="16F877A" family="generic" algorithm="17" overprogram="0" tries="1" />
+  <device name="16F88" family="generic" algorithm="20" overprogram="0" tries="1" />
+  <device name="16HV540" family="generic" algorithm="5" overprogram="11" tries="8" />
+  <device name="17C42" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C42A" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C43" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C44" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C752" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C756" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C756A" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C762" family="generic" algorithm="7" overprogram="3" tries="25" />
+  <device name="17C766" family="generic" algorithm="7" overprogram="3" tries="25" />
+<!--
+  <device name="18C242" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18C252" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18C442" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18C452" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18C658" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18C858" family="generic" algorithm="11" overprogram="3" tries="25" />
+  <device name="18F1220" family="generic" algorithm="18" overprogram="1" tries="1" />
+  <device name="18F1320" family="generic" algorithm="18" overprogram="1" tries="1" />
+  <device name="18F2220" family="generic" algorithm="24" overprogram="1" tries="1" />
+  <device name="18F2320" family="generic" algorithm="24" overprogram="1" tries="1" />
+  <device name="18F242" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F248" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F252" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F258" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F4220" family="generic" algorithm="24" overprogram="1" tries="1" />
+  <device name="18F4320" family="generic" algorithm="24" overprogram="1" tries="1" />
+  <device name="18F442" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F4431" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F448" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F452" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F4550" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F458" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F6620" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F6520" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F6720" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F8620" family="generic" algorithm="14" overprogram="3" tries="25" />
+  <device name="18F8720" family="generic" algorithm="14" overprogram="3" tries="25" />
+-->
+</type>

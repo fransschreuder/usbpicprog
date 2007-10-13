@@ -1,0 +1,162 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH PIKLAB SECTION "April 11, 2007"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH PIKLAB-PROG \- Commandline program for PIC-microcontroller programming.
+.SH SYNOPSIS
+.B piklab-prog [Qt-options] [KDE-options] [options] [file]
+.RI
+
+.br
+.SH DESCRIPTION
+This manual page documents briefly the
+.B piklab-prog command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBPiklab-prog\fP is a command line tool, which can be used to program microcontrollers with program and data, stored in a HEX-file to a connected programmer. It supports the most common serial, parallel and usb programmers, like  ICD2, Pickit2, PicStart+) and debuggers (ICD2).
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-h, \-\-help
+	Show summary of options.
+.TP
+.B \-v, \-\-version
+	Show version of program.
+.TP
+.B \-\-help-qt
+	Show Qt specific options
+.TP
+.B \-\-help-kde
+	Show KDE specific options
+.TP
+.B \-\-help-all
+	Show all options
+.TP
+.B \-\-author
+	Show author information
+.TP
+.B \-\-license
+	Show license information
+.TP
+.B \-\-
+	End of options
+.br
+.B Options:
+.B \-c, \-\-command <name>
+	Perform the requested command.
+.TP
+.B \-\-command-list
+	Return the list of recognized commands.
+.TP
+.B \-\-debug
+	Display debug messages.
+.TP
+.B \-\-extra-debug
+	Display extra debug messages.
+.TP
+.B \-\-max-debug
+	Display all debug messages.
+.TP
+.B \-\-quiet
+	Do not display messages.
+.TP
+.B \-f, \-\-force
+	Overwrite files and answer "yes" to questions.
+.TP
+.B \-i, \-\-cli
+	Interactive mode
+.TP
+.B \-r, \-\-range <name>
+	Memory range to operate on.
+.TP
+.B \-\-range-list
+	Return the list of memory ranges.
+.TP
+.B \-p, \-\-programmer <name>
+	Programmer to use.
+.TP
+.B \-\-programmer-list
+	Return the list of supported programmers.
+.TP
+.B \-d, \-\-device <name>
+	Target device.
+.TP
+.B \-\-device-list
+	Return the list of supported devices.
+.TP
+.B \-f, \-\-format <name>
+	HEX output file format.
+.TP
+.B \-\-format-list
+	Return the list of supported HEX file formats.
+.TP
+.B \-t, \-\-port <name>
+	Programmer port ("usb" or device such as "/dev/ttyS0")
+.TP
+.B \-\-port-list
+	Return the list of detected ports.
+.TP
+.B \-\-firmware-dir <dir>
+	Firmware directory.
+.TP
+.B \-\-target-self-powered
+	Indicates that device is self-powered.
+.br
+.SH Arguments:
+.B file  <HEX-filename for programming>.
+.br
+.sp 2
+.SH SEE ALSO
+.BR piklab-prog (1),
+.BR piklab-hex (1),
+.BR gputils (1),
+.BR sdcc (1).
+.br
+.SH AUTHORS
+piklab was written by Nicolas Hadacek and many others, including:
+
+    * Alain Gibaud: author of Pikdev; main infrastructure; IDE interface; direct programmers; gputils integration.
+
+    * Keith Baker: direct programmer support for 16F7X devices.
+    * Xiaofan Chen: numerous tests of PICkit1/2 and ICD2 programmers.
+    * Craig Franklin: author of gputils (disassembler and coff parser).
+    * Manwlis Giannos: direct programmer support for PIC18FXX2/FXX8 devices.
+    * Stephen Landamore: author of LPLAB (microchip command-line programmer).
+    * Brian C. Lane: original code for direct programming.
+    * Sébastion Laoût: author of Likeback.
+    * Nestor A. Marchesini: tests of PicStart+ programmer.
+    * Lorenz Mösenlechner and Matthias Kranz: USB support for ICD2 programmer.
+    * Mirko Panciri: direct programmers with bidirectionnal buffers.
+    * Sean A. Walberg: direct programmer support for 16F676/630 devices.
+
+.B Translations:
+    * Michele Petrecca: Italian translation.
+    * Alain Portal: French translation.
+    * Stefan von Halenbach: German translation.
+    * Nagy Lázló: Hungarian translation.
+.sp 2
+.SH COPYRIGHT
+	This  is  free  software.   You  may  redistribute  copies  of  it  under  the  terms   of   the   GNU   General   Public   License
+       	<http://www.gnu.org/licenses/gpl.html>.  There is NO WARRANTY, to the extent permitted by law.
+
+.PP
+This manual page was written by Stefan <vonHalenbach@users.sf.net>,
+for the Debian project (but may be used by others).

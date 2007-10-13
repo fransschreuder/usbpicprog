@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- simple types definition -->
+  <xs:simpleType name="hex">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0x[0-9A-F]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hex4">
+    <xs:restriction base="hex">
+      <xs:length value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="empty">
+    <xs:restriction base="xs:string">
+      <xs:length value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="word">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z]+[A-Za-z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EOL"/>
+      <xs:enumeration value="NR"/>
+      <xs:enumeration value="IP"/>
+      <xs:enumeration value="Future"/>
+      <xs:enumeration value="?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="memory_technology">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EE"/>
+      <xs:enumeration value="EEE"/>
+      <xs:enumeration value="EPROM"/>
+      <xs:enumeration value="ROM"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="architecture">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="10X"/>
+      <xs:enumeration value="16X"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="document_type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+"/>
+      <xs:pattern value="[?]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errata_type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+[a-z0-9]*"/>
+      <xs:pattern value="er[a-z0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="erratas_type">
+    <xs:list itemType="errata_type"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="checksum_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XOR4"/>
+      <xs:enumeration value="XNOR7"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="frequency_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="commercial"/>
+      <xs:enumeration value="industrial"/>
+      <xs:enumeration value="extended"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="frequency_special">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="low power"/>
+      <xs:enumeration value="low voltage"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="frequency_value">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="voltage_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="vpp"/>
+      <xs:enumeration value="vdd_prog"/>
+      <xs:enumeration value="vdd_prog_write"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="voltage_value">
+    <xs:restriction base="xs:float">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="memory_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="program"/>
+      <xs:enumeration value="eeprom"/>
+      <xs:enumeration value="calibration"/>
+      <xs:enumeration value="calibration_backup"/>
+      <xs:enumeration value="user_ids"/>
+      <xs:enumeration value="config"/>
+      <xs:enumeration value="device_id"/>
+      <xs:enumeration value="debug_vector"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hexfile_offset_unknown">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="hexfile_offset">
+    <xs:union memberTypes="hex hexfile_offset_unknown"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="value_default_value">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="default"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="value_value">
+    <xs:union memberTypes="hex value_default_value"/>
+  </xs:simpleType>
+  <xs:simpleType name="cname">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="_[_0-9A-Za-z]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cnames">
+    <xs:list itemType="cname"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="pin_name">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z][A-Z0-9-+]*(/[A-Z][A-Z0-9-+]*)*"/>
+      <xs:pattern value="N/C"/>
+      <xs:pattern value=""/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="pin_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dfns"/>
+      <xs:enumeration value="mlf"/>
+      <xs:enumeration value="mqfp"/>
+      <xs:enumeration value="msop"/>
+      <xs:enumeration value="pdip"/>
+      <xs:enumeration value="plcc"/>
+      <xs:enumeration value="qfn"/>
+      <xs:enumeration value="sdip"/>
+      <xs:enumeration value="soic"/>
+      <xs:enumeration value="sot23"/>
+      <xs:enumeration value="spdip"/>
+      <xs:enumeration value="ssop"/>
+      <xs:enumeration value="tqfp"/>
+      <xs:enumeration value="tssop"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="pin_types">
+    <xs:list itemType="pin_type"/>
+  </xs:simpleType>
+
+<!-- complex types definition -->
+  <xs:complexType name="DocumentsType">
+    <xs:attribute name="webpage"       type="document_type" use="required"/>
+    <xs:attribute name="datasheet"     type="document_type" use="required"/>
+    <xs:attribute name="progsheet"     type="document_type" use="required"/>
+    <xs:attribute name="erratas"       type="erratas_type"  use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ChecksumType">
+    <xs:attribute name="protected"       type="xs:string" />
+    <xs:attribute name="type"            type="checksum_type" />
+    <xs:attribute name="constant"        type="hex4" />
+    <xs:attribute name="block_protected" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="bbsize"          type="xs:positiveInteger"/>
+    <xs:attribute name="mprotected"      type="word"/>
+    <xs:attribute name="bchecksum"       type="hex4" use="required"/>
+    <xs:attribute name="cchecksum"       type="hex4" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="ChecksumsType">
+    <xs:sequence>
+      <xs:element name="checksum" type="ChecksumType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FrequencyType">
+    <xs:attribute name="start"       type="frequency_value" use="required"/>
+    <xs:attribute name="end"         type="frequency_value" use="required"/>
+    <xs:attribute name="vdd_min"     type="voltage_value"   use="required"/>
+    <xs:attribute name="vdd_min_end" type="voltage_value"                 />
+    <xs:attribute name="vdd_max"     type="voltage_value"   use="required"/>
+    <xs:attribute name="special"     type="xs:string"                     />
+    <xs:attribute name="osc"         type="xs:string"                     />
+  </xs:complexType>
+  <xs:complexType name="FrequencyRangeType">
+    <xs:sequence>
+      <xs:element name="frequency" type="FrequencyType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name"    type="frequency_type"    use="required"/>
+    <xs:attribute name="special" type="frequency_special"               />
+  </xs:complexType>
+
+  <xs:complexType name="VoltagesType">
+    <xs:attribute name="name"    type="voltage_type"  use="required"/>
+    <xs:attribute name="min"     type="voltage_value" use="required"/>
+    <xs:attribute name="max"     type="voltage_value" use="required"/>
+    <xs:attribute name="nominal" type="voltage_value" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="MemoryType">
+    <xs:attribute name="name"           type="memory_type"   use="required"/>
+    <xs:attribute name="start"          type="hex"           use="required"/>
+    <xs:attribute name="end"            type="hex"           use="required"/>
+    <xs:attribute name="cal_opmask"     type="hex"                         />
+    <xs:attribute name="cal_opcode"     type="hex"                         />
+    <xs:attribute name="rmask"          type="hex"                         />
+    <xs:attribute name="hexfile_offset" type="hexfile_offset"              />
+  </xs:complexType>
+
+  <xs:complexType name="ValueType">
+    <xs:attribute name="name"    type="xs:string"   use="required"/>
+    <xs:attribute name="value"   type="value_value" use="required"/>
+    <xs:attribute name="cname"   type="cnames"                    />
+    <xs:attribute name="ecnames" type="cnames"                    />
+  </xs:complexType>
+  <xs:complexType name="MaskType">
+    <xs:sequence>
+      <xs:element name="value" type="ValueType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name"   type="word" use="required"/>
+    <xs:attribute name="value"  type="hex"  use="required"/>
+  </xs:complexType>
+  <xs:complexType name="ConfigType">
+    <xs:sequence>
+      <xs:element name="mask" type="MaskType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name"    type="xs:string" use="required"/>
+    <xs:attribute name="offset"  type="hex"       use="required"/>
+    <xs:attribute name="wmask"   type="hex"       use="required"/>
+    <xs:attribute name="bvalue"  type="hex"       use="required"/>
+    <xs:attribute name="cmask"   type="hex"                     />
+    <xs:attribute name="pmask"   type="hex"                     />
+    <xs:attribute name="icnames" type="cnames"                  />
+  </xs:complexType>
+
+  <xs:complexType name="PinType">
+    <xs:attribute name="index" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="name"  type="pin_name"                         />
+  </xs:complexType>
+  <xs:complexType name="PackageType">
+    <xs:sequence>
+      <xs:element name="pin" type="PinType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="types"    type="pin_types"          use="required"/>
+    <xs:attribute name="nb_pins"  type="xs:positiveInteger" use="required"/>
+  </xs:complexType>
+
+<!-- document -->
+  <xs:complexType name="deviceType">
+    <xs:sequence>
+      <xs:element name="documents"       type="DocumentsType"      minOccurs="0"        />
+      <xs:element name="checksums"       type="ChecksumsType"      minOccurs="0"        />
+      <xs:element name="frequency_range" type="FrequencyRangeType" maxOccurs="unbounded"/>
+      <xs:element name="voltages"        type="VoltagesType"       maxOccurs="unbounded"/>
+      <xs:element name="memory"          type="MemoryType"         maxOccurs="unbounded"/>
+      <xs:element name="config"          type="ConfigType"         maxOccurs="unbounded"/>
+      <xs:element name="package"         type="PackageType"        maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name"              type="xs:string"         use="required"/>
+    <xs:attribute name="alternative"       type="xs:string"                       />
+    <xs:attribute name="document"          type="document_type"                   />
+    <xs:attribute name="status"            type="status"            use="required"/>
+    <xs:attribute name="memory_technology" type="memory_technology" use="required"/>
+    <xs:attribute name="architecture"      type="architecture"      use="required"/>
+    <xs:attribute name="pc"                type="xs:positiveInteger"              />
+    <xs:attribute name="id"                type="hex4"                            />
+  </xs:complexType>
+
+  <xs:element name="device" type="deviceType"/>
+
+</xs:schema>

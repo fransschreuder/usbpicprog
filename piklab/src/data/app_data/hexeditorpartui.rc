@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="HexEditorPart" version="1">
+
+<MenuBar>
+  <Menu name="file" noMerge="1"><text>&amp;File</text>
+    <Action name="file_save" group="save_merge" />
+    <Action name="file_save_as" group="save_merge" />
+    <Action name="file_reload" group="revert_merge" />
+  </Menu>
+
+  <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
+    <Action name="tools_toggle_write_lock" group="tools_operations" />
+  </Menu>
+</MenuBar>
+
+<ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
+  <Action name="file_save" group="file_operations" />
+  <Action name="file_save_as" group="file_operations" />
+</ToolBar>
+</kpartgui>

@@ -1,0 +1,392 @@
+0.15.0 (13 october 2007)
+ * add 12F519 18F2423/4423/2523/4523 30F1010/2020/2023
+       18F24J10/25J10/44J10/45J10 65J10/65J15/66J10/66J15/67J10 85J10/85J15/86J10/86J15/87J10
+       18F63J11/64J11/65J11 83J11/84J11/85J11 63J90/64J90/65J90 83J90/84J90/85J90
+ * add check for device compatibility and file creation commands to piklab-hex
+ * move checksum command from piklab-prog to piklab-hex
+ * fix checksum computations for some devices
+ * fix configuration bits for some devices
+ * fix config and template source generation for some devices
+ * add option to piklab-prog to set hardware type for direct programmers
+ * better support for PIC30 toolchain [report by Brian Neltner]
+ * fix adding objects from outside project directory
+ * fix crash while programming 12F510 [report by Scott Dattalo]
+ * add option to disable eeprom programming
+ * fix programming with picdem bootloader [thanks to Xiaofan Chen]
+ * fix supported devices for pickit2 bootloader [reported by Xiaofan Chen]
+ * add menu item to call "kfind" inside project directory
+ * add status filter in device chooser dialog
+ * add option to automatically recompile before programming when the
+   project is modified [proposed by pryyanek]
+ * add icd2 support for 18F2450/4450/2423/4423/2523/4523 16F616/631
+
+0.14.5 (16 August 2007)
+ * better error reporting if USB not compiled in
+ * fix USB support when compiling with qt only [report by Martin Goldack]
+
+0.14.4 (5 August 2007)
+ * fix bug where osccal would be lost and piklab would crash when programming
+   devices without osccal backup [report by Ed Spremolla]
+ * fix "likeback" not showing
+ * add display in hex editor when configuration bits are invalid
+ * fix CodeGuard configuration bits and hex editor
+
+0.14.3 (26 July 2007)
+ * add support for 24H devices
+ * updated register definitions to MPLAB 7.41
+ * added 18F66J60 family [contribution by Alan Page]
+ * added 12F609/HV609 16F610/HV610 16F882
+ * add configuration for tiny bootloader (retries, port speed, delay)
+ * add configuration for picdem bootloader (USB ids)
+ * fix tinybootloader for 16F88 [patch by Balaji Ramani]
+ * fix direct programming of 16F87XA (again)
+ * fix programming of 18F2410/2420/4410/4420 [report by Yuri Shnol]
+ * fix problem with tab history [reported by agalliazzo]
+ * fix crash in hex editor due to protected config bits (12F675, ...)
+ * Spanish translation by Felipe Caminos
+ * Czech translation by Milan Horák
+ * try to open unrecognized devices as serial port
+   instead of just failing in piklab-prog [reported by Jan Berkel]
+ * fix crash using upload_firmware in piklab-prog [report by John McCullough]
+ * more resilient hex file parser [reported by Stefan Vonhalenbach]
+
+0.14.2b (14 June 2007)
+ * support for USB ICD2 under Windows [fix by Minh Nguyen]
+
+0.14.2 (9 April 2007)
+ * device id and eeprom fixes for some 18F devices
+ * fix debugging of 18F2455 family [report by Florian Brabetz]
+ * add parallel port support for FreeBSD (with ppbus)
+ * add support for Pickit2 and Picdem fsusb bootloaders (untested + no data eeprom operations)
+ * fix device memory reading [broken in 0.14.1, report by Xiaofan Chen]
+ * fix direct programming of 16F87XA [report by Jorus Cbaoth]
+ * do not open empty editor when file does not exit
+ * no "add file to project" in new file dialog when there is no project
+ * also include code for absent source files in disassembly listing (fix debugging with sdcc + 18F devices)
+ * fix output hex filename for CCSC projects [report by krengersi and Bill Sack]
+ * fix CCSC options for version 3 (only detected for linux executables)
+
+0.14.1 (11 March 2007)
+ * fix alignment problem with icd2 (for some 18F devices)
+ * fix some i18n inconsistency [thanks to Alain Portal]
+ * fix crash with config/template generator [report by Alain Portal]
+ * fix adding files in same directory with project wizard
+ * fix output hex filename for CC5X projects [report by philter_777]
+ * fix inverted "read-only" toggle for hex editor
+ * fix saving in editors (freeze with hex editor and display for text files)
+ * support for Tiny Bootloader
+
+0.14.0 (4 March 2007)
+ * merge in kate gui for source editor (many more menu items available)
+ * add console tool [idea by Rajesh Sankaran]
+ * new project wizard
+ * template source file generator
+ * fix gui problems with fast comment system
+ * fix crash when compiling assembler file with sdcc [report by Stefan von Halenbach]
+ * fix support for linux version of CCSC [report by Alan Page and Rajesh Sankaran]
+ * fix configuration dialog for PIC30 toolchain
+ * add support for MPC and CCX5 compilers
+ * add possibility to use custom device name for serial and parallel port
+ * allow read/write/erase of individual memory range with command-line utility
+ * speed-up programming and fix timeouts for pickit2 [patch from Mark Stanley]
+ * add pickit2 support for 16F87X
+ * fix freeze for connecting gpsim with an empty project [report by Florian Brabetz]
+ * fix crash when showing PC while debugging [report by Florian Brabetz]
+ * add "--force" option for command-line programmer (answer "yes" to question and overwrite files)
+ * new command-line utility for manipulating hex files (check, info, fix, and compare)
+ * add Hungarian translation [thanks to Nagy Lázló]
+
+0.13.3 (8 February 2007)
+ * fix compilation for OpenSuse and Fedora 5 [report by Xiaofan Chen and Alain Portal]
+ * fix support for CCSC
+ * fixlet for asm highlighting
+ * possibility to add several source files at once [idea by Gyula Kampfner]
+ * fix tool views (new user layout; fix "show all" menu item; add "reset layout" menu item)
+ * fix toolchain config dialog: update/reset buttons work better
+ * add serial USB devices under Slackware [thanks to Mark Stanley]
+
+0.13.2 (31 January 2007)
+ * better support for CCSC (windows and linux executables) [thanks to Mark Stanley]
+ * german translation by Stephan von Halenbach
+ * fix 16F7X7 debugging
+ * fix Picstart+ support [thanks to Mark Stanley]
+ * fix debug executive name for some 18F devices [thanks to mkgrajek]
+ * fix register view for 18F devices
+ * add icd2 support for 16F946
+ * fix spurious errors with gpsim
+ * show warning when config generation is incomplete
+
+0.13.1 (27 January 2007)
+ * proper fix for debug vector write/read for 18F devices with icd2 [thanks to Martin Forster]
+ * fix 16F877 debugging [thanks to Martin Forster]
+ * fix for ICD2 programming (verifying would fail when the code is at a large offset) [reported by Luke Cole]
+ * fix compilation with KDE 3.3
+ * use toggle menu items for tool views [idea by Christoph Schäfer]
+ * fix view unsplitting [reported by Christoph Schäfer]
+ * rows of 16 bytes for eeprom hex view [idea by Gyula Kampfner]
+ * allow includes and better messages parsing for jalv2
+
+0.13.0 (19 January 2007)
+ * more flexible interface (by using dockable windows)
+ * better editor navigation
+ * fix bug in register watch
+ * debugging from a standalone file is now possible
+ * read/write 24C eeproms with direct programmers
+ * add support for 18F1230/1330, 18F2682/4682/2685/4685 (direct programmers + ICD2)
+ * add direct programming support for 18F2439/4439/2539/4539,
+   18F6310/6410/8310/8410, 18F6390/6490/8390/8490
+ * "as-we-read" verify
+ * more robust usb detection (hopefully)
+ * more flexible compilation configuration
+ * add support for CCS, JALV2, BoostC, BoostC++, and BoostBasic compilers
+ * support for GPSim 0.22
+ * less CPU usage and errors when verifying with serial ICD2 [fix from Steve Moskovchenko]
+ * extend even more the erase timeout for serial ICD2 [report by Ramiro del Corro]
+
+0.12.2 (16 October 2006)
+ * fix register view while not debugging
+ * fix compilation for Slackware
+
+0.12.1 (5 October 2006)
+ * fixes for Qt4
+ * fix crash in advanced dialog
+ * add French translation [thanks to Alain Portal]
+ * fix for sdcc and custom or debugging linker scripts
+ * only use icd2 linker script with icd2 debugger
+
+0.12.0 (1 October 2006)
+ * pinout schematic for some devices
+ * add LikeBack for fast feedback
+ * icd2 debugging for 18F devices (tested with 18F452)
+ * more robust icd2 programming (fix timeout for long erase) [bug reported by lonely_soul]
+ * fixed register view for 18F devices
+ * add detailed I/O and combined registers into watch view
+ * add register write to watch view
+ * save/restore watched registers per project
+ * fix some problems with gpsim debugging
+ * fixed "--target-self-powered" option for command-line programmer
+ * add register read/write and breakpoints to command-line programmer
+ * fixed launching of pikloops [bug reported by chcarver]
+ * fixed 30F devices detection [bug reported by Yuri Ovcharenko]
+ * fixed for custom libraries and custom script for PIC30 [bug reported by Yuri Ovcharenko]
+ * fixed config generator for some 30F devices [bug reported by Yuri Ovcharenko]
+ * fixed some issues with PICC integration [bugs reported by gduprey]
+ * fixed integration of SDCC 2.6.0 [bugs reported by ambro]
+ * much faster parsing and correct disassembly listing for coff files generated by picc
+ * speed-up interface
+ * fixed select all/find in editor [bug reported by gduprey]
+
+0.11.3 (7 September 2006)
+ * fix crashes due to dependence on libkio for piklab-prog
+
+0.11.2 (6 September 2006)
+ * fix compilation by detecting libncurses under Suse
+ * fix custom direct programmer configuration not appearing in dialog
+ * fix duplicated message boxes
+ * fix "command-list" option for command-line programmer
+ * fix crash in register view for 18F devices
+ * fix device information view
+
+0.11.1 (23 August 2006)
+ * fix crashes with command-line programmer
+ * fix debugging for custom-made ICD2 [thanks to Nagy László]
+
+0.11.0 (19 August 2006)
+ * support for the Picstart+ programmer [many thanks to Nestor A. Marchesini for testing]
+ * add support for gpsim (mid-range devices only)
+ * speed-up coff file parsing at end of compilation with picc compilers
+ * correctly highlight C lines in disassembly listing
+ * fix register view to work correctly in debugging
+ * fix watch view: changed status of registers was not correctly updated
+ * add variable names in register and watch views
+ * improved breakpoints management: fix interaction with program counter
+   display, invalid and reached indicators, breakpoints can be disabled,
+   and listing tab.
+ * add action to switch between header and implementation
+ * add "port", "firmware-dir", and "target-self-powered" options to command-line programmer
+ * command-line programmer can be compiled without kdelibs (Qt3 or Qt4)
+ * command-line programmer for Windows (Qt4): works for serial ICD2 and serial "direct" programmers
+ * interactive mode for command-line programmer with debugging support
+
+0.10.0 (7 July 2006)
+ * add support for JAL compiler + editor syntax highlighting
+ * source files can be reordered by drag and drop in project manager
+ * add disassembly listing for PICC compilers
+ * add support for C18 compiler
+ * add support for C30 with Wine and with coff format
+ * add support for custom linker script in project (GPUtils/SDCC and C18)
+ * display file full path as tooltip in project manager
+ * speed-up serial ICD1/2 programming [help by Steve Moskovchenko]
+ * fix alignment bug in ICD2 programming [reported by Steve Moskovchenko]
+ * fix "verify only programmed" option for ICD2 programming
+ * improved breakpoints management (updated in all editors, persistent if editors are closed)
+ * ICD2 debugging supported with PICC compilers
+ * fix bug in register watching
+ * fix slow update on keystroke in editor [reported by zoiks]
+ * some fixes and enhancements in asm and disassembly highlighting
+
+0.9.0 (29 May 2006)
+ * add calibration information and debug executive version to advanced dialog
+ * add osccal regeneration for PICkit1 and PICkit2 (12F629/675/630/676)
+ * fix PICkit2 firmware upload
+ * support for new PICkit2 firmware
+ * fix programming of 18F devices with PICkit2
+ * initial support of ICD1 (not tested at all)
+ * fix bug in parallel direct programming [thanks to kein0r]
+ * fix checksum computation for some devices
+ * add devices 12F615 16F616/16F631/677 18F2450/4450
+ * faster loading, smaller executable, and smaller memory footprint
+ * fix crash opening config generator with auto device
+ * add native coff parser (remove reliance on gpvo) + fix disassembly highlighting
+ * add native disassembler (remove reliance on gpdasm) + now includes user ids and eeprom data
+ * support development version of sdcc and gputils
+
+0.8.0 (6 May 2006)
+ * add support for 16F716, 16HV785, and 16F87/88 with PICkit2
+ * add action button for memory ranges (read/program/verify/erase/clear/zero/reload)
+ * add option to preserve data eeprom and to blank check after erase
+ * icd2 debugging: fix STATUS/FSR/PCL/PCLATH read/write + add WREG/PC/STATUS/bank in status bar
+ * icd2 debugging: disable watchdog timer
+ * several fixes for hex editor
+ * add checksum computation (with command-line too)
+ * add option to set user id to unprotected checksum
+ * add read-only/read-write toggle to editors
+ * only display first and last banks for 18C/F chips (too slow otherwise...)
+ * fix dsPICS programming with ICD2 [thanks to Laurent Pinchard]
+ * fix calibration programming for baseline devices
+ * add option to run tools with wine
+ * add "advanced" dialog to programmers (firmware version + voltages)
+ * add manual firmware uploading for ICD2 (with command-line too)
+
+0.7.0 (23 April 2006)
+ * fix "program calibration" to write second word when present
+ * speed-up direct programming for some devices
+ * fix direct programming of 18F devices
+ * fix direct programmers on parallel port [thanks to Andrea Fadda]
+ * add direct programming for all remaining 16F and 18F devices
+   but 18FXX39-X310-X410-X390-X490
+ * option to only verify programmed words for direct programming
+ * add support for 16F946 and 18F devices with pickit2
+ * add support for Pickit1 programmer (baseline and midrange devices)
+ * add 16C84, 16CR73/74/76/77 devices
+ * add configuration generator for dsPICs and PIC30 toolchain
+ * add "power device" toolbar/menu entry
+ * fix some issues with libusb
+ * read/write/watch registers while debugging
+
+0.6.1 (22 March 2006)
+ * warn when hex file cannot be saved [reported by freddy]
+ * tweak desktop file
+ * add mimetype for project file
+ * fix lost calibration word for some 12F and 16F parts [reported by Xiaofan Chen]
+ * fix crash when creating new hex file with "auto" device
+
+0.6.0 (14 March 2006)
+ * save dialog sizes and splitter positions
+ * config generator (baseline, midrange and some 18F devices)
+ * support for pic30 toolchain
+ * support for PICC-Lite, PICC and PICC-18
+ * configurable executable paths
+ * save opened files per project
+ * fix crash with "auto" device [reported by y2kmi]
+ * add 16F7X7 support for direct programmers
+ * warn if firmware version is not the one tested
+ * fix osccal read/write with pickit2 [reported by Xiaofan Chen]
+ * fix alignment bug in 18F programming [reported by Xiaofan Chen]
+ * add device view to project manager
+ * add register view to project manager
+
+0.5.2 (1 March 2006)
+ * partial fix for aligment bug in 18F programming [reported by Xiaofan Chen]
+ * fix broken hex file save
+
+0.5.1 (28 February 2006)
+ * fix crash at startup [reported by Ed Bennett]
+
+0.5.0 (24 February 2006)
+ * new project file format (xml)
+ * several fixes in user interface
+ * breapoints for ICD2 debugging of 16F parts
+ * support for Small Device C Compiler (sdcc)
+ * group config options for standalone file inside its own section
+ * fix compilation for gcc>4.0.1
+ * add devices 16F506, 16F946, and 30F6010A/6011A/6012A/6013A/6014A/6015
+ * add 10F2XX, 12F5XX, 14000, all 12C and 16C parts support for direct programmers
+ * add 12F510, 16F59/627/628/685/687/689/690/7X/785/84A/91X,
+   18F24XX/25XX/44XX/45XX/6310/6390/8310/8390/6627/8627/6722/8722,
+   30F2011/2012/3011/3014/5011/5013 to icd2 programmer
+ * fix configuration blank check for several 18F devices
+
+0.4.2 (18 February 2006)
+ * if self-test failed, ask user if he wants to continue (ICD2)
+ * add support for 12F510, 16F54-57-59 and 16F7X7 for PICkit2
+ * fix osccal and user ids read/write for some baseline chips with PICkit2 (12F508...)
+ * fix osccal read/write for some mid-range chips with PICkit2 (12F675...)
+ * fix osccal read/write for 12F675 with direct programmer
+ * fix compilation issue
+
+0.4.1 (14 February 2006)
+ * linker now generates coff files by default (fix disassembly listing)
+ * warn when device not supported by gputils
+ * correctly display bang gap bits
+
+0.4.0 (12 February 2006)
+ * option to only program memory than need to be programmed (speed-up)
+ * several fixes for editors
+ * disassembly listing
+ * warn if DEBUG configuration bit is on when not debugging
+ * add included files in project listview
+ * support for PICkit2 (baseline and midrange devices)
+ * option to program after successful build
+ * option to power off target after programming
+ * basic ICD2 debugging (start/interrupt/step)
+ * fix for calibration words and band gap bits
+
+0.3.2 (27 January 2006)
+ * fix for 16F81X/F87/F88 and 16F87XA direct programming bug
+ * fix compilation (gcc 3.4)
+ * command-line programmer should now work without any running X server
+
+0.3.1 (22 January 2006)
+ * fix freeze if serial cable disconnected from ICD2
+
+0.3.0 (21 January 2006)
+ * protected areas are excluded from verification
+ * display code memory blocks in hex editor
+ * display protected areas in hex editor
+ * better configuration center
+ * make compilation framework more flexible
+ * show linker script in project listview
+ * stand alone files now act as pseudo-projects
+ * direct programmers now use global device data
+ * JDM-type serial programmer works
+ * fix and simplify direct programmer configuration widget
+ * incorporate some fixes from pikdev 0.8.2
+ * fix crash and bugs with ICD2 [reported by Xiaofan Chen]
+ * fix detection of libusb [reported by Xiaofan Chen]
+ * fix some FreeBSD compilation issues [help by Xiaofan Chen]
+ * make serial and usb operations more reliable
+
+0.2.0 (11 December 2005)
+ * command line programmer
+ * use XML files for device data (hex editor is now independent from
+   selected programmer).
+ * enhanced device chooser: sorts devices by family;
+   information page (with link to device page on Microchip website and status).
+ * "connect" and "hold_reset" programmer action
+ * incorporate some fixes from pikdev 0.8.1
+ * enhanced hex editor: disable wheel scrolling on config comboboxes;
+   fix memory display focus; add navigation keys; check compatibility with
+   device type.
+ * upload firmware for icd2
+ * icd2 over USB
+
+0.1.0 (22 June 2005)
+ * convert config and new project windows to KDialogBase
+ * add ICD2 programmer infrastructure (from "lplab")
+ * reorganize in subprojects
+ * clean-up and factor code
+ * convert programmer window in hex editor
+ * lots of GUI fixes
+
+This changelog is relative to pikdev 0.7.2

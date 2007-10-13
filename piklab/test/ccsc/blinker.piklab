@@ -1,0 +1,33 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F877</device>
+    <files>
+      <item>test.c</item>
+    </files>
+    <tool>ccsc</tool>
+    <description/>
+    <version>0.1</version>
+    <opened_files>
+      <item>test.c</item>
+    </opened_files>
+  </general>
+  <compiler>
+    <has_custom_arguments>false</has_custom_arguments>
+    <custom_options/>
+    <custom_arguments>
+      <item>+STDERR</item>
+      <item>-P</item>
+      <item>+LSlst</item>
+      <item>+OWhex</item>
+      <item>-J</item>
+      <item>-A</item>
+      <item>+F%FAMILY</item>
+      <item>-ICD</item>
+      <item>%I</item>
+    </custom_arguments>
+    <includes>
+      <item>$(SRCPATH)</item>
+    </includes>
+  </compiler>
+</piklab>
