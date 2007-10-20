@@ -21,15 +21,16 @@
 #endif
 #include "common/common/misc.h"
 
+QStringList *Port::UPP::_list = 0;
 
 Port::UPP::UPP(const QString &device, Log::Base &base)
-  : Base(base), _device(device), _fd(INVALID_HANDLE)
+  : Base(base), _device(device)
 {}
 
 
 /* PICkit USB values */ /* From Microchip firmware */
 const static int vendorID=0x04d8; // Microchip, Inc
-const static int productID=0x000E; // PICDEM FS USB demo app
+const static int productID=0x000E; // Usbpicprog Device Descriptor
 const static int configuration=1; /*  Configuration 1*/
 const static int interface=0;	/* Interface 0 */
 
@@ -44,7 +45,7 @@ const static int endpoint_out=1; /* endpoint 1 address for OUT */
 
 const static int timeout=20000; /* timeout in ms */
 
-/* PICDEM FS USB max packet size is 64-bytes */
+/* max packet size is 64-bytes */
 const static int reqLen=64;
 typedef unsigned char byte;
 
@@ -53,7 +54,123 @@ void bad(const char *why) {
 	exit(17);
 }
 
+QStringList Port::UPP::deviceList()
+{
+  QStringList list;
+  list.append(QString("Usbpicprog"));
+
+  return list;
+}
+
+const  QStringList &Port::UPP::probedDeviceList()
+{
+  if ( _list==0 ) {
+    QStringList all = deviceList();
+    _list = new QStringList;
+    for (uint i=0; i<uint(all.count()); i++)
+      if( probe(all[i]) & (In | Out) ) _list->append(all[i]);
+  }
+  return *_list;
+}
+
+Port::IODirs Port::UPP::probe(const QString &device)
+{
+	//TODO probe for usbpicprog
+	return (In | Out);
+}
+
+bool Port::UPP::doBreak(uint duration)
+{
+
+  msleep(duration);
+
+  return 0;
+}
+
+
+bool Port::UPP::setPinOn(uint pin, bool on, LogicType type)
+{
+  if ( type==NegativeLogic ) on = !on;
+  Q_ASSERT( pin<Nb_Pins );
+  Q_ASSERT( PIN_DATA[pin].dir==Out );
+  if ( !internalSetPinOn(Pin(pin), on) ) {
+    setSystemError(i18n("Error setting bit %1 of serial port to %2").arg(PIN_DATA[pin].label).arg(on));
+    return false;
+  }
+  return true;
+}
+
+bool Port::UPP::readPin(uint pin, LogicType type, bool &value)
+{
+
+  Q_ASSERT( pin<Nb_Pins );
+  Q_ASSERT( PIN_DATA[pin].dir==In );
+  if ( !internalReadPin(Pin(pin), type, value) ) {
+    setSystemError(i18n("Error reading serial pin %1").arg(PIN_DATA[pin].label));
+    return false;
+  }
+  return true;
+}
+
+QValueVector<Port::PinData> Port::UPP::pinData(IODir dir) const
+{
+  QValueVector<PinData> v;
+  for (uint i=0; i<Nb_Pins; i++) {
+    if ( PIN_DATA[i].dir!=dir ) continue;
+    PinData pd = { i, PIN_DATA[i].label };
+    v.append(pd);
+  }
+  return v;
+}
+
+
+bool Port::UPP::isGroundPin(uint pin) const
+{
+  return ( PIN_DATA[pin].label=="GND" );
+}
+
+Port::IODir Port::UPP::ioDir(uint pin) const
+{
+  return PIN_DATA[pin].dir;
+}
+
+const Port::UPP::UPinData Port::UPP::PIN_DATA[Nb_Pins] = {
+  { Out,  "VPP" }, { Out,  "VPP_Reset" }, { Out, "DATA_OUT"  }, { In, "DATA_IN" },
+  { Out,   "CLOCK" }, { NoIO, "GND" }
+};
+
 /****************** Internal I/O Commands *****************/
+
+bool Port::UPP::internalOpen()
+{
+ return 0;
+}
+void Port::UPP::internalClose()
+{}
+
+bool Port::UPP::internalSend(const char *data, uint size, uint timeout)
+{
+ return 0;
+}
+
+bool Port::UPP::internalReceive(uint size, char *data, uint timeout)
+{
+ return 0;
+}
+
+void Port::UPP::setSystemError(const QString &message)
+{}
+
+bool Port::UPP::internalSetPinOn(Pin pin, bool on)
+{
+ return 0;
+}
+
+bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
+{
+ return 0;
+}
+
 
 /** Send this binary string command. */
 void Port::UPP::send_usb(struct usb_dev_handle * d, int len, const char * src)
@@ -62,18 +179,18 @@ void Port::UPP::send_usb(struct usb_dev_handle * d, int len, const char * src)
 //   if( r != reqLen )
    /*if( r < 0 )
    {
-	  perror("usb PICDEM FS USB write"); bad("USB write failed"); 
+	  perror("usb write"); bad("USB write failed"); 
    }*/
 }
 
 /** Read this many bytes from this device */
-void Port::UPP::recv_usb(struct usb_dev_handle * d, int len, const char * dest)
+void Port::UPP::recv_usb(struct usb_dev_handle * d, int len, char * dest)
 {
 //   int i;
    int r = usb_interrupt_read(d, endpoint_in, dest, len, timeout);
    if( r != len )
    {
-	  perror("usb PICDEM FS USB read"); bad("USB read failed"); 
+	  perror("usb read"); bad("USB read failed"); 
    }
 }
 
@@ -83,7 +200,7 @@ extern int usb_debug;
 /* Find the first USB device with this vendor and product.
    Exits on errors, like if the device couldn't be found.
 */
-struct usb_dev_handle *usb_picdem_fs_usb_open(void)
+struct usb_dev_handle *Port::UPP::upp_open(void)
 {
   struct usb_device * device;
   struct usb_bus * bus;
@@ -118,25 +235,25 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
 		if( device->descriptor.idVendor == vendorID &&
 			device->descriptor.idProduct == productID )
 		{
-		   struct usb_dev_handle *d;
-		   printf("Found USB PICDEM FS USB Demo Board as device '%s' on USB bus %s\n",
+		   
+		   printf("Found USB Usbpicprog as device '%s' on USB bus %s\n",
 				   device->filename,
 				   device->bus->dirname);
-		   d = usb_open(device);
-		   if( d )
+		   _handle = usb_open(device);
+		   if( _handle )
 		   { /* This is our device-- claim it */
 //			  byte retData[reqLen];
-			  if( usb_set_configuration(d, configuration) ) 
+			  if( usb_set_configuration(_handle, configuration) ) 
 			  {
 				 bad("Error setting USB configuration.\n");
 			  }
-			  if( usb_claim_interface(d, interface) ) 
+			  if( usb_claim_interface(_handle, interface) ) 
 			  {
-				 bad("Claim failed-- the USB PICDEM FS USB is in use by another driver.\n");
+				 bad("Claim failed-- the Usbpicprog is in use by another driver.\n");
 			  }
 			  printf("Communication established.\n");
 			  //picdem_fs_usb_read_version(d);
-			  return d;
+			  return _handle;
 		   }
 		   else 
 			  bad("Open failed for USB device");
@@ -144,7 +261,7 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
 		/* else some other vendor's device-- keep looking... */
 	 }
   }
-  bad("Could not find USB PICDEM FS USB Demo Board--\n"
+  bad("Could not find Usbpicprog--\n"
       "you might try lsusb to see if it's actually there.");
   return NULL;
 }
@@ -153,26 +270,26 @@ struct usb_dev_handle *usb_picdem_fs_usb_open(void)
 
 /*int main(int argc, char ** argv) 
 {
-   struct usb_dev_handle * picdem_fs_usb;
+   struct usb_dev_handle * usbpicprog;
    int i;
    byte outbuffer[reqLen],inbuffer[reqLen];
    outbuffer[0]=0xC3;
-   picdem_fs_usb = usb_picdem_fs_usb_open();
-   //usb_claim_interface(picdem_fs_usb, 0);
-   //usb_clear_halt(picdem_fs_usb, endpoint_out);
-   //usb_resetep(picdem_fs_usb, endpoint_out);
+   usbpicprog = usbpicprog_open();
+   //usb_claim_interface(usbpicprog, 0);
+   //usb_clear_halt(usbpicprog, endpoint_out);
+   //usb_resetep(usbpicprog, endpoint_out);
 if (argc==2)
    
    outbuffer[0]=0x80|atoi(argv[1]);
-   send_usb(picdem_fs_usb, 1, outbuffer);
+   send_usb(usbpicprog, 1, outbuffer);
    outbuffer[0]=0xC0|atoi(argv[1]);
-   send_usb(picdem_fs_usb, 1, outbuffer);
+   send_usb(usbpicprog, 1, outbuffer);
 
-   recv_usb(picdem_fs_usb, 1, inbuffer);
+   recv_usb(ucbpicprog, 1, inbuffer);
    //for (i=0;i<reqLen;i++)
 	   printf("Received byte#%i: 0x%X\n",0,inbuffer[0]);
  
 
-   usb_close(picdem_fs_usb);
+   usb_close(usbpicprog);
    return 0;
 }*/

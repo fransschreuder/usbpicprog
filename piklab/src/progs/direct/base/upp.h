@@ -32,10 +32,10 @@
 #include <qdatetime.h>
 #include "common/port/port_base.h"
 
-/*struct usb_dev_handle;
+struct usb_dev_handle;
 struct usb_device;
 struct usb_bus;
-*/
+
 namespace Port
 {
 
@@ -61,22 +61,22 @@ public:
   //                   EnableReceiver = 4, IgnoreControlLines = 8 };
   //Q_DECLARE_FLAGS(ControlFlags, ControlFlag)
   //bool setMode(InputFlags inputFlags, ControlFlags controlFlags, Speed speed, uint readTimeout); // in ms
-  bool drain(uint timeout);
-  bool flush(uint timeout);
+  //bool drain(uint timeout);
+  //bool flush(uint timeout);
   bool doBreak(uint duration); // in ms
   //bool setHardwareFlowControl(bool on);
 
-  enum Pin { VPP=0, VPP_Reset, DATA, CLOCK, Nb_Pins };
-  struct SPinData {
+  enum Pin { VPP=0, VPP_Reset, DATA_OUT, DATA_IN, CLOCK, GND, Nb_Pins };
+  struct UPinData {
     IODir dir;
     const char *label;
   };
-  static const SPinData PIN_DATA[Nb_Pins];
+  static const UPinData PIN_DATA[Nb_Pins];
   virtual bool setPinOn(uint pin, bool on, LogicType type);
   virtual bool readPin(uint pin, LogicType type, bool &value);
   virtual QValueVector<PinData> pinData(IODir dir) const;
-  //virtual bool isGroundPin(uint pin) const;
-  //virtual uint groundPin() const { return SG; }
+  virtual bool isGroundPin(uint pin) const;
+  virtual uint groundPin() const { return GND; }
   virtual IODir ioDir(uint pin) const;
 
 
@@ -84,22 +84,8 @@ public:
 private:
 
   QString    _device;
- // Properties _properties;
-#if defined(Q_OS_UNIX)
-  typedef int Handle;
-  typedef termios Parameters;
-#elif defined(Q_OS_WIN)
-  typedef HANDLE Handle;
-  struct Parameters {
-    DCB             dcb;
-    COMMTIMEOUTS    comtmo;
-  };
-#endif
-  Handle  _fd;
-  Parameters _oldParameters;
+  usb_dev_handle *_handle;
 
-  bool setParameters(const Parameters &parameters);
-  bool getParameters(Parameters &parameters);
   virtual bool internalOpen();
   virtual void internalClose();
   virtual bool internalSend(const char *data, uint size, uint timeout);
@@ -107,13 +93,13 @@ private:
   virtual void setSystemError(const QString &message);
   bool internalSetPinOn(Pin pin, bool on);
   bool internalReadPin(Pin pin, LogicType type, bool &value);
-  static const Handle INVALID_HANDLE;
-  static Handle openHandle(const QString &device, IODirs dirs);
-  static void closeHandle(Handle handle);
+//  static Handle openHandle(const QString &device, IODirs dirs);
+//  static void closeHandle(Handle handle);
   static QStringList *_list;
   static QStringList deviceList();
   void send_usb(struct usb_dev_handle * d, int len, const char * src);
-  void recv_usb(struct usb_dev_handle * d, int len, const char * dest);
+  void recv_usb(struct usb_dev_handle * d, int len,  char * dest);
+  struct usb_dev_handle *upp_open(void);
   //static void setHardwareFlowControl(Parameters &parameters, bool o
 };
 

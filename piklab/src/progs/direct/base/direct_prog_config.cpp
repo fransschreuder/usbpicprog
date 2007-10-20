@@ -22,6 +22,8 @@ struct ConstStandardHardwareData
   ConstHardwareData data;
 };
 
+
+
 const ConstStandardHardwareData STANDARD_HARDWARE_DATA[] = {
   { { "Tait classic",           I18N_NOOP("Tait classic"),           0 },
     { Port::ParallelType, { {  -5, -4,  3,  2, 10, 25 },  0 } } },
@@ -70,10 +72,10 @@ const ConstStandardHardwareData STANDARD_HARDWARE_DATA[] = {
     { Port::ParallelType, { {  16, 25,  1, 17,-13, 25 },  0 } } },
   { { "Monty-Robot programmer", I18N_NOOP("Monty-Robot programmer"), 0 },
     { Port::ParallelType, { {  -5,  4,  2,  3, 10, 25 },  0 } } },
-  { { "HOODMICRO",              I18N_NOOP("HOODMICRO"),              I18N_NOOP("htpp://k9spud.com/hoodmicro") },
+  { { "HOODMICRO",              I18N_NOOP("HOODMICRO"),              I18N_NOOP("http://k9spud.com/hoodmicro") },
     { Port::SerialType,   { {   4,  5,  7,  3,  8,  5 },  0 } } },
-  { { "Propic2 Vpp-1",          I18N_NOOP("UsbPicProg"),          I18N_NOOP("htpp://usbpicprog.sourceforge.net") },
-    { Port::USBType, { {  -5, -4,  3,  2, 10, 25 },  0 } } },
+  { { "Usbpicprog",              I18N_NOOP("Usbpicprog"),              I18N_NOOP("http://usbpicprog.sourceforge.net") },
+    { Port::USBType,   { {   4,  5,  7,  3,  8,  5 },  0 } } },
 
   { { 0, 0, 0 },
     { Port::SerialType,   { {   0,  0,  0,  0,  0,  0 },  0 } } }

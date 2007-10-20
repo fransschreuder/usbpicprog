@@ -71,12 +71,8 @@ cmdline.o cmdline.o: cmdline.cpp cmdline.h \
   ../../src/common/common/key_enum.h /usr/share/qt3/include/qdatastream.h \
   ../../src/common/global/log.h ../../src/devices/base/hex_buffer.h \
   ../../src/common/global/global.h ../../src/common/common/bitvalue.h \
-  /usr/include/readline/readline.h /usr/include/readline/rlstdc.h \
-  /usr/include/readline/rltypedefs.h /usr/include/readline/keymaps.h \
-  /usr/include/readline/chardefs.h /usr/include/readline/tilde.h \
-  /usr/include/readline/history.h /usr/include/time.h \
-  /usr/include/bits/time.h /usr/include/signal.h \
-  /usr/include/bits/sigset.h /usr/include/bits/signum.h \
+  /usr/include/signal.h /usr/include/bits/sigset.h \
+  /usr/include/bits/signum.h /usr/include/time.h \
   /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
   /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
   /usr/include/sys/ucontext.h /usr/include/bits/pthreadtypes.h \
@@ -392,29 +388,13 @@ cli_interactive.h:
 
 ../../src/common/common/bitvalue.h:
 
-/usr/include/readline/readline.h:
-
-/usr/include/readline/rlstdc.h:
-
-/usr/include/readline/rltypedefs.h:
-
-/usr/include/readline/keymaps.h:
-
-/usr/include/readline/chardefs.h:
-
-/usr/include/readline/tilde.h:
-
-/usr/include/readline/history.h:
-
-/usr/include/time.h:
-
-/usr/include/bits/time.h:
-
 /usr/include/signal.h:
 
 /usr/include/bits/sigset.h:
 
 /usr/include/bits/signum.h:
+
+/usr/include/time.h:
 
 /usr/include/bits/siginfo.h:
 

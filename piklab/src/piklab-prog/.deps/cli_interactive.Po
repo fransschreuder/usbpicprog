@@ -60,12 +60,8 @@ cli_interactive.o cli_interactive.o: cli_interactive.cpp \
   /usr/include/endian.h /usr/include/bits/endian.h \
   ../../src/common/global/global.h ../../src/common/common/misc.h \
   /usr/share/qt3/include/qstringlist.h /usr/share/qt3/include/qmap.h \
-  /usr/include/readline/readline.h /usr/include/readline/rlstdc.h \
-  /usr/include/readline/rltypedefs.h /usr/include/readline/keymaps.h \
-  /usr/include/readline/chardefs.h /usr/include/readline/tilde.h \
-  /usr/include/readline/history.h /usr/include/time.h \
-  /usr/include/bits/time.h /usr/include/signal.h \
-  /usr/include/bits/sigset.h /usr/include/bits/signum.h \
+  /usr/include/signal.h /usr/include/bits/sigset.h \
+  /usr/include/bits/signum.h /usr/include/time.h \
   /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
   /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
   /usr/include/sys/ucontext.h /usr/include/bits/pthreadtypes.h \
@@ -73,11 +69,11 @@ cli_interactive.o cli_interactive.o: cli_interactive.cpp \
   /usr/include/stdlib.h /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
   /usr/include/sys/select.h /usr/include/bits/select.h \
-  /usr/include/sys/sysmacros.h /usr/include/alloca.h \
-  ../../src/progs/base/generic_prog.h ../../src/common/global/log.h \
-  ../../src/common/global/pfile.h /usr/share/qt3/include/qtextstream.h \
-  ../../src/common/global/purl.h ../../src/common/global/global.h \
-  /usr/share/qt3/include/qhttp.h \
+  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
+  /usr/include/alloca.h ../../src/progs/base/generic_prog.h \
+  ../../src/common/global/log.h ../../src/common/global/pfile.h \
+  /usr/share/qt3/include/qtextstream.h ../../src/common/global/purl.h \
+  ../../src/common/global/global.h /usr/share/qt3/include/qhttp.h \
   /usr/share/qt3/include/qnetworkprotocol.h \
   /usr/share/qt3/include/qurlinfo.h /usr/share/qt3/include/qdatetime.h \
   /usr/share/qt3/include/qdict.h ../../src/common/common/purl_base.h \
@@ -358,29 +354,13 @@ cli_interactive.h:
 
 /usr/share/qt3/include/qmap.h:
 
-/usr/include/readline/readline.h:
-
-/usr/include/readline/rlstdc.h:
-
-/usr/include/readline/rltypedefs.h:
-
-/usr/include/readline/keymaps.h:
-
-/usr/include/readline/chardefs.h:
-
-/usr/include/readline/tilde.h:
-
-/usr/include/readline/history.h:
-
-/usr/include/time.h:
-
-/usr/include/bits/time.h:
-
 /usr/include/signal.h:
 
 /usr/include/bits/sigset.h:
 
 /usr/include/bits/signum.h:
+
+/usr/include/time.h:
 
 /usr/include/bits/siginfo.h:
 
@@ -409,6 +389,8 @@ cli_interactive.h:
 /usr/include/sys/select.h:
 
 /usr/include/bits/select.h:
+
+/usr/include/bits/time.h:
 
 /usr/include/sys/sysmacros.h:
 
