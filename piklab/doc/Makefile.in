@@ -492,7 +492,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in index.docbook Makefile.am 
+KDE_DIST=index.docbook Makefile.in Makefile.am index.cache.bz2 
 
 #>+ 24
 index.cache.bz2: $(srcdir)/index.docbook $(KDE_XSL_STYLESHEET) index.docbook 

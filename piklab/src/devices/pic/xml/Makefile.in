@@ -618,7 +618,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=xml.pro Makefile.in Makefile.am 
+KDE_DIST=xml.pro Makefile.in pic_xml_to_data Makefile.am 
 
 #>+ 2
 docs-am:

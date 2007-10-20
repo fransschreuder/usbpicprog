@@ -651,7 +651,7 @@ clean-metasources:
 	-rm -f  synchronous.moc.cpp storage.moc.cpp
 
 #>+ 2
-KDE_DIST=misc.h Makefile.in qflags.h group.h bitvalue.h key_enum.h storage.h common.pro number.h purl_base.h Makefile.am streamer.h synchronous.h 
+KDE_DIST=qflags.h group.h storage.h common.pro number.h purl_base.h misc.h Makefile.in bitvalue.h key_enum.h Makefile.am streamer.h synchronous.h 
 
 #>+ 2
 docs-am:
@@ -695,7 +695,7 @@ bcheck-am:
 
 
 #>+ 11
-libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/bitvalue.cpp $(srcdir)/synchronous.cpp synchronous.moc.cpp storage.moc.cpp 
+libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/bitvalue.cpp $(srcdir)/synchronous.cpp $(srcdir)/synchronous.moc.cpp $(srcdir)/storage.moc.cpp 
 	@echo 'creating libcommon_la.all_cpp.cpp ...'; \
 	rm -f libcommon_la.all_cpp.files libcommon_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommon_la.all_cpp.final; \

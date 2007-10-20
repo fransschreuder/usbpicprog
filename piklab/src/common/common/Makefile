@@ -93,15 +93,15 @@ CTAGS = ctags
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 1
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/frans/piklab/admin/missing --run tar
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar
 AR = ar
 ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/frans/piklab/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/piklab/admin/missing --run automake-1.10
-AWK = mawk
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute
@@ -129,7 +129,7 @@ EXEEXT =
 F77 = 
 FFLAGS = 
 FRAMEWORK_COREAUDIO = 
-GMSGFMT = /usr/bin/msgfmt
+GMSGFMT = :
 GREP = /bin/grep
 HAVE_GCC_VISIBILITY = 0
 INSTALL = /usr/bin/install -c -p
@@ -209,13 +209,13 @@ LIB_XEXT = -lXext
 LIB_XRENDER = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/frans/piklab/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
 MCOPIDL = /usr/bin/mcopidl
 MEINPROC = /usr/bin/meinproc
 MKDIR_P = /bin/mkdir -p
 MOC = /usr/share/qt3/bin/moc
-MSGFMT = /usr/bin/msgfmt
+MSGFMT = :
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
 OBJEXT = o
@@ -244,7 +244,7 @@ USE_RTTI =
 USE_THREADS = 
 VERSION = 0.15.0
 WOVERLOADED_VIRTUAL = 
-XGETTEXT = /usr/bin/xgettext
+XGETTEXT = :
 XMKMF = 
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
@@ -252,10 +252,10 @@ X_INCLUDES = -I.
 X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
-abs_builddir = /home/frans/piklab/src/common/common
-abs_srcdir = /home/frans/piklab/src/common/common
-abs_top_builddir = /home/frans/piklab
-abs_top_srcdir = /home/frans/piklab
+abs_builddir = /home/frans/usbpicprog/piklab/src/common/common
+abs_srcdir = /home/frans/usbpicprog/piklab/src/common/common
+abs_top_builddir = /home/frans/usbpicprog/piklab
+abs_top_srcdir = /home/frans/usbpicprog/piklab
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_F77 = 
@@ -286,7 +286,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/frans/piklab/admin/install-sh
+install_sh = $(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
@@ -651,7 +651,7 @@ clean-metasources:
 	-rm -f  synchronous.moc.cpp storage.moc.cpp
 
 #>+ 2
-KDE_DIST=misc.h Makefile.in qflags.h group.h bitvalue.h key_enum.h storage.h common.pro number.h purl_base.h Makefile.am streamer.h synchronous.h 
+KDE_DIST=qflags.h group.h storage.h common.pro number.h purl_base.h misc.h Makefile.in bitvalue.h key_enum.h Makefile.am streamer.h synchronous.h 
 
 #>+ 2
 docs-am:
@@ -695,7 +695,7 @@ bcheck-am:
 
 
 #>+ 11
-libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/bitvalue.cpp $(srcdir)/synchronous.cpp synchronous.moc.cpp storage.moc.cpp 
+libcommon_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc.cpp $(srcdir)/group.cpp $(srcdir)/storage.cpp $(srcdir)/purl_base.cpp $(srcdir)/number.cpp $(srcdir)/bitvalue.cpp $(srcdir)/synchronous.cpp $(srcdir)/synchronous.moc.cpp $(srcdir)/storage.moc.cpp 
 	@echo 'creating libcommon_la.all_cpp.cpp ...'; \
 	rm -f libcommon_la.all_cpp.files libcommon_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommon_la.all_cpp.final; \

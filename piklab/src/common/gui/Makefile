@@ -95,15 +95,15 @@ CTAGS = ctags
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 1
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/frans/piklab/admin/missing --run tar
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar
 AR = ar
 ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/frans/piklab/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/piklab/admin/missing --run automake-1.10
-AWK = mawk
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute
@@ -131,7 +131,7 @@ EXEEXT =
 F77 = 
 FFLAGS = 
 FRAMEWORK_COREAUDIO = 
-GMSGFMT = /usr/bin/msgfmt
+GMSGFMT = :
 GREP = /bin/grep
 HAVE_GCC_VISIBILITY = 0
 INSTALL = /usr/bin/install -c -p
@@ -211,13 +211,13 @@ LIB_XEXT = -lXext
 LIB_XRENDER = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/frans/piklab/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
 MCOPIDL = /usr/bin/mcopidl
 MEINPROC = /usr/bin/meinproc
 MKDIR_P = /bin/mkdir -p
 MOC = /usr/share/qt3/bin/moc
-MSGFMT = /usr/bin/msgfmt
+MSGFMT = :
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
 OBJEXT = o
@@ -246,7 +246,7 @@ USE_RTTI =
 USE_THREADS = 
 VERSION = 0.15.0
 WOVERLOADED_VIRTUAL = 
-XGETTEXT = /usr/bin/xgettext
+XGETTEXT = :
 XMKMF = 
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
@@ -254,10 +254,10 @@ X_INCLUDES = -I.
 X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
-abs_builddir = /home/frans/piklab/src/common/gui
-abs_srcdir = /home/frans/piklab/src/common/gui
-abs_top_builddir = /home/frans/piklab
-abs_top_srcdir = /home/frans/piklab
+abs_builddir = /home/frans/usbpicprog/piklab/src/common/gui
+abs_srcdir = /home/frans/usbpicprog/piklab/src/common/gui
+abs_top_builddir = /home/frans/usbpicprog/piklab
+abs_top_srcdir = /home/frans/usbpicprog/piklab
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_F77 = 
@@ -288,7 +288,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/frans/piklab/admin/install-sh
+install_sh = $(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
@@ -706,7 +706,7 @@ clean-metasources:
 	-rm -f  list_view.moc.cpp editlistbox.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in list_view.h dialog.h hexword_gui.h editlistbox.h key_gui.h misc_gui.h Makefile.am container.h number_gui.h purl_gui.h 
+KDE_DIST=list_view.h dialog.h hexword_gui.h editlistbox.h key_gui.h misc_gui.h container.h purl_gui.h Makefile.in Makefile.am number_gui.h 
 
 #>+ 2
 docs-am:
@@ -750,7 +750,7 @@ bcheck-am:
 
 
 #>+ 11
-libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp 
+libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp $(srcdir)/editlistbox.moc.cpp $(srcdir)/list_view.moc.cpp $(srcdir)/hexword_gui.moc.cpp $(srcdir)/purl_gui.moc.cpp $(srcdir)/container.moc.cpp $(srcdir)/dialog.moc.cpp $(srcdir)/number_gui.moc.cpp $(srcdir)/key_gui.moc.cpp $(srcdir)/misc_gui.moc.cpp 
 	@echo 'creating libcommonui_la.all_cpp.cpp ...'; \
 	rm -f libcommonui_la.all_cpp.files libcommonui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommonui_la.all_cpp.final; \

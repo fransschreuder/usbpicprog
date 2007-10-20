@@ -44,7 +44,7 @@
 #define HAVE_PPDEV 1
 
 /* Define if libreadline header is present. */
-#define HAVE_READLINE 1
+/* #undef HAVE_READLINE */
 
 /* Define if you have res_init */
 #define HAVE_RES_INIT 1

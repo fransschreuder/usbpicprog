@@ -636,7 +636,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=usb_port.h serial.h Makefile.in parallel.h port.pro port.h Makefile.am 
+KDE_DIST=usb_port.h serial.h parallel.h Makefile.in port.pro port.h Makefile.am 
 
 #>+ 2
 docs-am:

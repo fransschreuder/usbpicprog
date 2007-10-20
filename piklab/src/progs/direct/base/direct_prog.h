@@ -61,7 +61,7 @@ public:
   virtual QString statusLabel() const;
   virtual ::Programmer::Properties properties() const { return ::Programmer::Programmer | ::Programmer::CanReadMemory | ::Programmer::HasConnectedState; }
   virtual ::Programmer::TargetPowerMode targetPowerMode() const { return ::Programmer::TargetExternallyPowered; }
-  virtual bool isPortSupported(Port::Type type) const { return ( type==Port::SerialType || type==Port::ParallelType ); }
+  virtual bool isPortSupported(Port::Type type) const { return ( type==Port::SerialType || type==Port::ParallelType || type==Port::USBType ); }
 
 protected:
   virtual void initSupported();

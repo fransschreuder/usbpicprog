@@ -707,7 +707,7 @@ bcheck-am:
 
 
 #>+ 11
-libdeviceui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/hex_word_editor.cpp $(srcdir)/memory_editor.cpp $(srcdir)/register_view.cpp $(srcdir)/hex_view.cpp $(srcdir)/device_group_ui.cpp register_view.moc.cpp hex_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp 
+libdeviceui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/hex_word_editor.cpp $(srcdir)/memory_editor.cpp $(srcdir)/register_view.cpp $(srcdir)/hex_view.cpp $(srcdir)/device_group_ui.cpp $(srcdir)/register_view.moc.cpp $(srcdir)/hex_view.moc.cpp $(srcdir)/memory_editor.moc.cpp $(srcdir)/hex_word_editor.moc.cpp 
 	@echo 'creating libdeviceui_la.all_cpp.cpp ...'; \
 	rm -f libdeviceui_la.all_cpp.files libdeviceui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libdeviceui_la.all_cpp.final; \

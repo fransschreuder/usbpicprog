@@ -50,14 +50,14 @@ libdirectprog_la_LIBADD =
 am_libdirectprog_la_OBJECTS = direct_pic.lo direct_baseline.lo \
 	direct_16.lo direct_16F.lo direct_18.lo direct_18F.lo \
 	direct_prog.lo direct_prog_config.lo direct_data.lo \
-	direct_mem24.lo direct.lo
+	direct_mem24.lo direct.lo upp.lo
 #>- libdirectprog_la_OBJECTS = $(am_libdirectprog_la_OBJECTS)
 #>+ 8
 libdirectprog_la_final_OBJECTS = libdirectprog_la.all_cpp.lo 
 libdirectprog_la_nofinal_OBJECTS = direct_pic.lo direct_baseline.lo \
 	direct_16.lo direct_16F.lo direct_18.lo direct_18F.lo \
 	direct_prog.lo direct_prog_config.lo direct_data.lo \
-	direct_mem24.lo direct.lo\
+	direct_mem24.lo direct.lo upp.lo\
 direct_prog.moc.lo 
 @KDE_USE_FINAL_FALSE@libdirectprog_la_OBJECTS = $(libdirectprog_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libdirectprog_la_OBJECTS = $(libdirectprog_la_final_OBJECTS)
@@ -343,7 +343,7 @@ INCLUDES = -I$(top_srcdir)/src $(all_includes)
 noinst_LTLIBRARIES = libdirectprog.la
 libdirectprog_la_SOURCES = direct_pic.cpp direct_baseline.cpp direct_16.cpp \
 	direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp \
-	direct_data.cpp direct_mem24.cpp direct.cpp
+	direct_data.cpp direct_mem24.cpp direct.cpp upp.cpp
 
 libdirectprog_la_DEPENDENCIES = direct_data.cpp
 noinst_DATA = direct.xml
@@ -425,6 +425,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct_pic.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct_prog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direct_prog_config.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upp.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -653,7 +654,7 @@ clean-metasources:
 	-rm -f  direct_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=direct_30.h direct_16.h base.pro Makefile.in direct_mem24.h direct_baseline.h direct_18.h direct.xml direct_pic.h direct_18F.h direct_prog.h direct_30.cpp direct_data.h direct.h direct_16F.h direct_prog_config.h Makefile.am 
+KDE_DIST=direct_30.h direct_16.h base.pro Makefile.in direct_mem24.h upp.h direct.loT direct_baseline.h direct_18.h direct.xml direct_pic.h direct_18F.h direct_prog.h direct_30.cpp direct_data.h direct.h direct_16F.h direct_prog_config.h Makefile.am 
 
 #>+ 2
 docs-am:
@@ -697,11 +698,11 @@ bcheck-am:
 
 
 #>+ 11
-libdirectprog_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/direct_pic.cpp $(srcdir)/direct_baseline.cpp $(srcdir)/direct_16.cpp $(srcdir)/direct_16F.cpp $(srcdir)/direct_18.cpp $(srcdir)/direct_18F.cpp $(srcdir)/direct_prog.cpp $(srcdir)/direct_prog_config.cpp direct_data.cpp $(srcdir)/direct_mem24.cpp $(srcdir)/direct.cpp direct_prog.moc.cpp 
+libdirectprog_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/direct_pic.cpp $(srcdir)/direct_baseline.cpp $(srcdir)/direct_16.cpp $(srcdir)/direct_16F.cpp $(srcdir)/direct_18.cpp $(srcdir)/direct_18F.cpp $(srcdir)/direct_prog.cpp $(srcdir)/direct_prog_config.cpp $(srcdir)/direct_data.cpp $(srcdir)/direct_mem24.cpp $(srcdir)/direct.cpp $(srcdir)/upp.cpp $(srcdir)/direct_prog.moc.cpp 
 	@echo 'creating libdirectprog_la.all_cpp.cpp ...'; \
 	rm -f libdirectprog_la.all_cpp.files libdirectprog_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libdirectprog_la.all_cpp.final; \
-	for file in direct_pic.cpp direct_baseline.cpp direct_16.cpp direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp direct_data.cpp direct_mem24.cpp direct.cpp direct_prog.moc.cpp ; do \
+	for file in direct_pic.cpp direct_baseline.cpp direct_16.cpp direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp direct_data.cpp direct_mem24.cpp direct.cpp upp.cpp direct_prog.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libdirectprog_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libdirectprog_la.all_cpp.final; \
 	done; \

@@ -686,7 +686,7 @@ bcheck-am:
 
 
 #>+ 11
-libdevicebase_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/generic_device.cpp $(srcdir)/hex_buffer.cpp $(srcdir)/generic_memory.cpp $(srcdir)/register.cpp $(srcdir)/device_group.cpp register.moc.cpp 
+libdevicebase_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/generic_device.cpp $(srcdir)/hex_buffer.cpp $(srcdir)/generic_memory.cpp $(srcdir)/register.cpp $(srcdir)/device_group.cpp $(srcdir)/register.moc.cpp 
 	@echo 'creating libdevicebase_la.all_cpp.cpp ...'; \
 	rm -f libdevicebase_la.all_cpp.files libdevicebase_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libdevicebase_la.all_cpp.final; \

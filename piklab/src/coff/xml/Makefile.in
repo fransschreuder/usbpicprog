@@ -620,7 +620,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in xml.pro Makefile.am 
+KDE_DIST=xml_coff_parser xml.pro Makefile.in Makefile.am 
 
 #>+ 2
 docs-am:

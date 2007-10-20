@@ -85,15 +85,15 @@ DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/frans/piklab/admin/missing --run tar
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar
 AR = ar
 ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/frans/piklab/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/piklab/admin/missing --run automake-1.10
-AWK = mawk
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute
@@ -121,7 +121,7 @@ EXEEXT =
 F77 = 
 FFLAGS = 
 FRAMEWORK_COREAUDIO = 
-GMSGFMT = /usr/bin/msgfmt
+GMSGFMT = :
 GREP = /bin/grep
 HAVE_GCC_VISIBILITY = 0
 INSTALL = /usr/bin/install -c -p
@@ -201,13 +201,13 @@ LIB_XEXT = -lXext
 LIB_XRENDER = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/frans/piklab/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
 MCOPIDL = /usr/bin/mcopidl
 MEINPROC = /usr/bin/meinproc
 MKDIR_P = /bin/mkdir -p
 MOC = /usr/share/qt3/bin/moc
-MSGFMT = /usr/bin/msgfmt
+MSGFMT = :
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
 OBJEXT = o
@@ -236,7 +236,7 @@ USE_RTTI =
 USE_THREADS = 
 VERSION = 0.15.0
 WOVERLOADED_VIRTUAL = 
-XGETTEXT = /usr/bin/xgettext
+XGETTEXT = :
 XMKMF = 
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
@@ -244,10 +244,10 @@ X_INCLUDES = -I.
 X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
-abs_builddir = /home/frans/piklab
-abs_srcdir = /home/frans/piklab
-abs_top_builddir = /home/frans/piklab
-abs_top_srcdir = /home/frans/piklab
+abs_builddir = /home/frans/usbpicprog/piklab
+abs_srcdir = /home/frans/usbpicprog/piklab
+abs_top_builddir = /home/frans/usbpicprog/piklab
+abs_top_srcdir = /home/frans/usbpicprog/piklab
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_F77 = 
@@ -278,7 +278,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/frans/piklab/admin/install-sh
+install_sh = $(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
@@ -818,7 +818,7 @@ distclean-local:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=piklab-prog-qt3.spec lib.pro subdirs Makefile.in piklab.kdevelop.pcs app.pro configure.files piklab-prog-qt4.spec config.h.in all.pro piklab.kdevses configure.in piklab-prog.pro configure.in.mid Makefile.cvs aclocal.m4 piklab.spec Doxyfile piklab.xpm piklab.kdevelop configure.in.in configure Makefile.am acinclude.m4 Makefile.am.in qt_config.h 
+KDE_DIST=lib.pro app.pro configure.files piklab.kdevses aclocal.m4 piklab.spec Doxyfile piklab.kdevelop configure.in.in Makefile.am.in stamp-h.in piklab-prog-qt3.spec subdirs Makefile.in piklab.kdevelop.pcs config.h.in piklab-prog-qt4.spec all.pro piklab-prog.pro configure.in configure.in.mid Makefile.cvs piklab.xpm configure Makefile.am acinclude.m4 qt_config.h 
 
 #>+ 2
 docs-am:

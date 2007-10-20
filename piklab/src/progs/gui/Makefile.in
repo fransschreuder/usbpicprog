@@ -706,7 +706,7 @@ bcheck-am:
 
 
 #>+ 11
-libprogui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/config_widget.cpp $(srcdir)/prog_config_widget.cpp $(srcdir)/prog_group_ui.cpp $(srcdir)/hardware_config_widget.cpp config_widget.moc.cpp prog_config_widget.moc.cpp prog_group_ui.moc.cpp hardware_config_widget.moc.cpp 
+libprogui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/config_widget.cpp $(srcdir)/prog_config_widget.cpp $(srcdir)/prog_group_ui.cpp $(srcdir)/hardware_config_widget.cpp $(srcdir)/config_widget.moc.cpp $(srcdir)/prog_config_widget.moc.cpp $(srcdir)/prog_group_ui.moc.cpp $(srcdir)/hardware_config_widget.moc.cpp 
 	@echo 'creating libprogui_la.all_cpp.cpp ...'; \
 	rm -f libprogui_la.all_cpp.files libprogui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libprogui_la.all_cpp.final; \

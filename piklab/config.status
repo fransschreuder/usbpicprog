@@ -341,7 +341,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/frans/piklab'
+ac_pwd='/home/frans/usbpicprog/piklab'
 srcdir='.'
 INSTALL='/usr/bin/install -c -p'
 MKDIR_P='/bin/mkdir -p'
@@ -675,19 +675,19 @@ s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|piklab,g
 s,@VERSION@,|#_!!_#|0.15.0,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10,g
 s,@AUTOCONF@,|#_!!_#|$(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/frans/piklab/admin/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/frans/piklab/admin/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /home/frans/piklab/admin/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /home/frans/piklab/admin/install-sh,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh,g
 s,@STRIP@,|#_!!_#|strip,g
 s,@INSTALL_STRIP_PROGRAM@,|#_!!_#|$(install_sh) -c -s,g
 s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
-s,@AWK@,|#_!!_#|mawk,g
+s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /home/frans/piklab/admin/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
 s,@KDECONFIG@,|#_!!_#|/usr/bin/kde-config,g
@@ -751,9 +751,9 @@ s,@ac_ct_F77@,|#_!!_#|,g
 s,@LIBTOOL@,|#_!!_#|$(SHELL) $(top_builddir)/libtool --silent,g
 s,@KDE_PLUGIN@,|#_!!_#|-avoid-version -module -no-undefined $(KDE_NO_UNDEFINED) $(KDE_RPATH) $(KDE_MT_LDFLAGS),g
 s,@KDE_CHECK_PLUGIN@,|#_!!_#|$(KDE_PLUGIN) -rpath $(libdir),g
-s,@MSGFMT@,|#_!!_#|/usr/bin/msgfmt,g
-s,@GMSGFMT@,|#_!!_#|/usr/bin/msgfmt,g
-s,@XGETTEXT@,|#_!!_#|/usr/bin/xgettext,g
+s,@MSGFMT@,|#_!!_#|:,g
+s,@GMSGFMT@,|#_!!_#|:,g
+s,@XGETTEXT@,|#_!!_#|:,g
 s,@LIBUTIL@,|#_!!_#|-lutil,g
 s,@LIBCOMPAT@,|#_!!_#|,g
 s,@LIBCRYPT@,|#_!!_#|-lcrypt,g
@@ -1190,7 +1190,6 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_PPDEV\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_USB_H\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_USB\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*LIBUSB_VERSION\)[	 (].*,\1define\2 "0.1.12" ,
-s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_READLINE\)[	 (].*,\1define\2 1 ,
 s/ $//
 s,^[	 #]*u.*,/* & */,
 CEOF

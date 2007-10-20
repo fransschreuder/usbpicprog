@@ -55,7 +55,8 @@ void Direct::DGroup::initSupported()
   Q_ASSERT( hdata->portType==hd.port.type );
   ::Programmer::Hardware *hardware = 0;
   if ( hd.port.type==Port::SerialType ) hardware = new SerialHardware(base, hd.port.device, *hdata);
-  else hardware = new ParallelHardware(base, hd.port.device, *hdata);
+  else if ( hd.port.type==Port::ParallelType ) hardware = new ParallelHardware(base, hd.port.device, *hdata);
+  else hardware = new UsbHardware(base, hd.port.device, *hdata);
   delete hdata;
   return hardware;
 }

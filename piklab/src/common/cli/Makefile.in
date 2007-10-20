@@ -642,7 +642,7 @@ clean-metasources:
 	-rm -f  cli_main.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in cli_global.h cli.pro cli_main.h cli_log.h Makefile.am 
+KDE_DIST=cli_main.h cli_log.h Makefile.in cli_global.h cli.pro Makefile.am 
 
 #>+ 2
 docs-am:
@@ -686,7 +686,7 @@ bcheck-am:
 
 
 #>+ 11
-libcli_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cli_purl.cpp $(srcdir)/cli_pfile.cpp $(srcdir)/cli_global.cpp $(srcdir)/cli_log.cpp $(srcdir)/cli_main.cpp cli_main.moc.cpp 
+libcli_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cli_purl.cpp $(srcdir)/cli_pfile.cpp $(srcdir)/cli_global.cpp $(srcdir)/cli_log.cpp $(srcdir)/cli_main.cpp $(srcdir)/cli_main.moc.cpp 
 	@echo 'creating libcli_la.all_cpp.cpp ...'; \
 	rm -f libcli_la.all_cpp.files libcli_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcli_la.all_cpp.final; \

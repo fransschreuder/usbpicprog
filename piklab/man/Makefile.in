@@ -541,7 +541,7 @@ uninstall-man: uninstall-man1
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in piklab-prog.1 piklab.1x Makefile.am piklab-hex.1 
+KDE_DIST=piklab.1x piklab-hex.1 Makefile.in piklab-prog.1 Makefile.am 
 
 #>+ 2
 docs-am:

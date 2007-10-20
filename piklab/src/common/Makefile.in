@@ -654,7 +654,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in common.pro Makefile.am 
+KDE_DIST=common.pro Makefile.in Makefile.am 
 
 #>+ 2
 docs-am:

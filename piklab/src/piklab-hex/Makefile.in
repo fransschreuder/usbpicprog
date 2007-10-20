@@ -668,7 +668,7 @@ clean-metasources:
 	-rm -f  main.moc.cpp
 
 #>+ 2
-KDE_DIST=main.h Makefile.in piklab-hex.pro Makefile.am 
+KDE_DIST=main.h Makefile.in piklab-hex.pro piklab-hex Makefile.am 
 
 #>+ 2
 docs-am:
@@ -712,7 +712,7 @@ bcheck-am:
 
 
 #>+ 11
-piklab_hex.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/main.cpp main.moc.cpp 
+piklab_hex.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/main.cpp $(srcdir)/main.moc.cpp 
 	@echo 'creating piklab_hex.all_cpp.cpp ...'; \
 	rm -f piklab_hex.all_cpp.files piklab_hex.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> piklab_hex.all_cpp.final; \

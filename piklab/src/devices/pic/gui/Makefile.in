@@ -726,7 +726,7 @@ bcheck-am:
 
 
 #>+ 11
-libpicui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/pic_config_editor.cpp $(srcdir)/pic_config_word_editor.cpp $(srcdir)/pic_hex_view.cpp $(srcdir)/pic_memory_editor.cpp $(srcdir)/pic_register_view.cpp $(srcdir)/pic_group_ui.cpp $(srcdir)/pic_prog_group_ui.cpp pic_register_view.moc.cpp pic_config_editor.moc.cpp pic_prog_group_ui.moc.cpp pic_memory_editor.moc.cpp pic_config_word_editor.moc.cpp pic_hex_view.moc.cpp 
+libpicui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/pic_config_editor.cpp $(srcdir)/pic_config_word_editor.cpp $(srcdir)/pic_hex_view.cpp $(srcdir)/pic_memory_editor.cpp $(srcdir)/pic_register_view.cpp $(srcdir)/pic_group_ui.cpp $(srcdir)/pic_prog_group_ui.cpp $(srcdir)/pic_register_view.moc.cpp $(srcdir)/pic_config_editor.moc.cpp $(srcdir)/pic_prog_group_ui.moc.cpp $(srcdir)/pic_memory_editor.moc.cpp $(srcdir)/pic_config_word_editor.moc.cpp $(srcdir)/pic_hex_view.moc.cpp 
 	@echo 'creating libpicui_la.all_cpp.cpp ...'; \
 	rm -f libpicui_la.all_cpp.files libpicui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libpicui_la.all_cpp.final; \

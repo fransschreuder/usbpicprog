@@ -490,7 +490,7 @@ all-local:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in Makefile.am svn_revision.sh 
+KDE_DIST=svn_revision.sh Makefile.in svn_revision.h Makefile.am 
 
 #>+ 2
 docs-am:

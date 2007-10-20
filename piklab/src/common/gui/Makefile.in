@@ -706,7 +706,7 @@ clean-metasources:
 	-rm -f  list_view.moc.cpp editlistbox.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in list_view.h dialog.h hexword_gui.h editlistbox.h key_gui.h misc_gui.h Makefile.am container.h number_gui.h purl_gui.h 
+KDE_DIST=list_view.h dialog.h hexword_gui.h editlistbox.h key_gui.h misc_gui.h container.h purl_gui.h Makefile.in Makefile.am number_gui.h 
 
 #>+ 2
 docs-am:
@@ -750,7 +750,7 @@ bcheck-am:
 
 
 #>+ 11
-libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp 
+libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/misc_gui.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/purl_gui.cpp $(srcdir)/purl_ext.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/number_gui.cpp $(srcdir)/editlistbox.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp $(srcdir)/editlistbox.moc.cpp $(srcdir)/list_view.moc.cpp $(srcdir)/hexword_gui.moc.cpp $(srcdir)/purl_gui.moc.cpp $(srcdir)/container.moc.cpp $(srcdir)/dialog.moc.cpp $(srcdir)/number_gui.moc.cpp $(srcdir)/key_gui.moc.cpp $(srcdir)/misc_gui.moc.cpp 
 	@echo 'creating libcommonui_la.all_cpp.cpp ...'; \
 	rm -f libcommonui_la.all_cpp.files libcommonui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommonui_la.all_cpp.final; \

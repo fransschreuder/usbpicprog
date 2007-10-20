@@ -689,7 +689,7 @@ bcheck-am:
 
 
 #>+ 11
-libprogbase_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/generic_prog.cpp $(srcdir)/prog_specific.cpp $(srcdir)/prog_config.cpp $(srcdir)/prog_group.cpp $(srcdir)/generic_debug.cpp $(srcdir)/hardware_config.cpp generic_prog.moc.cpp 
+libprogbase_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/generic_prog.cpp $(srcdir)/prog_specific.cpp $(srcdir)/prog_config.cpp $(srcdir)/prog_group.cpp $(srcdir)/generic_debug.cpp $(srcdir)/hardware_config.cpp $(srcdir)/generic_prog.moc.cpp 
 	@echo 'creating libprogbase_la.all_cpp.cpp ...'; \
 	rm -f libprogbase_la.all_cpp.files libprogbase_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libprogbase_la.all_cpp.final; \

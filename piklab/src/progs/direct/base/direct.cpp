@@ -9,13 +9,15 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 #include "direct.h"
-
+#include "upp.h"
 #include <iostream>
 
 #include "common/port/parallel.h"
 #include "common/port/serial.h"
 #include "progs/base/generic_prog.h"
 #include "direct_prog_config.h"
+#include "common/port/usb_port.h"
+
 
 using namespace std;
 
@@ -157,6 +159,10 @@ Direct::SerialHardware::SerialHardware(::Programmer::Base &base, const QString &
 
 Direct::ParallelHardware::ParallelHardware(::Programmer::Base &base, const QString &portDevice, const HardwareData &data)
   : Hardware(base, new Port::Parallel(portDevice, base), data)
+{}
+
+Direct::UsbHardware::UsbHardware(::Programmer::Base &base, const QString &portDevice, const HardwareData &data)
+  : Hardware(base, new Port::UPP(portDevice, base), data)
 {}
 
 /*

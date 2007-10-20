@@ -639,7 +639,7 @@ coff_data.cpp: ../xml/xml_coff_parser coff.xml
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=base.pro gpopcode.h coff.xml Makefile.in disassembler.h text_coff.h coff.h Makefile.am coff_data.h 
+KDE_DIST=gpopcode.h text_coff.h coff.h base.pro coff.xml Makefile.in disassembler.h Makefile.am coff_data.h 
 
 #>+ 2
 docs-am:
@@ -683,7 +683,7 @@ bcheck-am:
 
 
 #>+ 11
-libcoff_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/coff.cpp $(srcdir)/gpdis.cpp $(srcdir)/gpopcode.cpp $(srcdir)/disassembler.cpp coff_data.cpp $(srcdir)/text_coff.cpp 
+libcoff_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/coff.cpp $(srcdir)/gpdis.cpp $(srcdir)/gpopcode.cpp $(srcdir)/disassembler.cpp $(srcdir)/coff_data.cpp $(srcdir)/text_coff.cpp 
 	@echo 'creating libcoff_la.all_cpp.cpp ...'; \
 	rm -f libcoff_la.all_cpp.files libcoff_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcoff_la.all_cpp.final; \

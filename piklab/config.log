@@ -14,7 +14,7 @@ hostname = asus-laptop
 uname -m = x86_64
 uname -r = 2.6.22-14-generic
 uname -s = Linux
-uname -v = #1 SMP Wed Oct 10 05:28:36 GMT 2007
+uname -v = #1 SMP Sun Oct 14 21:45:15 GMT 2007
 
 /usr/bin/uname -p = unknown
 /bin/uname -X     = unknown
@@ -55,10 +55,8 @@ configure:2449: result: yes
 configure:2464: checking for a thread-safe mkdir -p
 configure:2503: result: /bin/mkdir -p
 configure:2516: checking for gawk
-configure:2546: result: no
-configure:2516: checking for mawk
-configure:2532: found /usr/bin/mawk
-configure:2543: result: mawk
+configure:2532: found /usr/bin/gawk
+configure:2543: result: gawk
 configure:2554: checking whether make sets $(MAKE)
 configure:2575: result: yes
 configure:2781: checking for kde-config
@@ -488,7 +486,7 @@ configure:11939: checking whether stripping libraries is possible
 configure:11944: result: yes
 configure:12067: checking for shl_load
 configure:12123: gcc -o conftest -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute   conftest.c  >&5
-/tmp/ccg89WpQ.o: In function `main':
+/tmp/cc0lunsS.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `shl_load'
 collect2: ld returned 1 exit status
 configure:12129: $? = 1
@@ -598,7 +596,7 @@ configure: failed program was:
 configure:12210: result: no
 configure:12215: checking for dlopen
 configure:12271: gcc -o conftest -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute   conftest.c  >&5
-/tmp/cc8HeGTm.o: In function `main':
+/tmp/ccg8ZDXn.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `dlopen'
 collect2: ld returned 1 exit status
 configure:12277: $? = 1
@@ -733,11 +731,12 @@ configure:16249: result: yes
 configure:16254: checking whether a statically linked program can dlopen itself
 configure:16347: result: yes
 configure:22644: checking for msgfmt
-configure:22671: result: /usr/bin/msgfmt
+configure:22671: result: msgfmt
 configure:22680: checking for gmsgfmt
-configure:22711: result: /usr/bin/msgfmt
+configure:22711: result: msgfmt
+configure:22721: result: found msgfmt program is not GNU msgfmt; ignore it
 configure:22731: checking for xgettext
-configure:22758: result: /usr/bin/xgettext
+configure:22758: result: :
 configure:22877: checking if C++ programs can be compiled
 configure:22911: g++ -c -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -O2 -Wformat-security -Wmissing-format-attribute -Wno-non-virtual-dtor  -fno-check-new -fno-common  conftest.cpp >&5
 configure:22917: $? = 0
@@ -1588,7 +1587,7 @@ configure:28471: checking for crt_externs.h
 configure:28479: result: no
 configure:28492: checking for _NSGetEnviron
 configure:28548: gcc -o conftest -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute   conftest.c  >&5
-/tmp/ccMQqnmH.o: In function `main':
+/tmp/ccsE304i.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `_NSGetEnviron'
 collect2: ld returned 1 exit status
 configure:28554: $? = 1
@@ -2012,22 +2011,148 @@ configure:33657: $? = 0
 configure:33675: result: yes
 configure:33765: checking readline/readline.h usability
 configure:33782: gcc -c -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute  -DQT_THREAD_SUPPORT  -D_REENTRANT conftest.c >&5
-configure:33788: $? = 0
-configure:33802: result: yes
+conftest.c:81:31: error: readline/readline.h: No such file or directory
+configure:33788: $? = 1
+configure: failed program was:
+| /* confdefs.h.  */
+| #define PACKAGE_NAME ""
+| #define PACKAGE_TARNAME ""
+| #define PACKAGE_VERSION ""
+| #define PACKAGE_STRING ""
+| #define PACKAGE_BUGREPORT ""
+| #define PACKAGE "piklab"
+| #define VERSION "0.15.0"
+| #define KDELIBSUFF ""
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_DLFCN_H 1
+| #define HAVE_SGI_STL 1
+| #define HAVE_CRYPT 1
+| #define kde_socklen_t socklen_t
+| #define ksize_t socklen_t
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_SYS_BITYPES_H 1
+| #define HAVE_RES_INIT 1
+| #define HAVE_RES_INIT 1
+| #define HAVE_RES_INIT_PROTO 1
+| #define SIZEOF_INT 4
+| #define SIZEOF_SHORT 2
+| #define SIZEOF_LONG 8
+| #define SIZEOF_CHAR_P 8
+| #define SIZEOF_SIZE_T 8
+| #define SIZEOF_UNSIGNED_LONG 8
+| #define HAVE_VSNPRINTF 1
+| #define HAVE_SNPRINTF 1
+| #define HAVE_LIBZ 1
+| #define HAVE_LIBPNG 1
+| #define HAVE_LIBJPEG 1
+| #define HAVE_LIBPTHREAD 1
+| #define HAVE_PPDEV 1
+| #define HAVE_USB_H 1
+| #define HAVE_USB 1
+| #define LIBUSB_VERSION "0.1.12"
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| #ifdef HAVE_SYS_TYPES_H
+| # include <sys/types.h>
+| #endif
+| #ifdef HAVE_SYS_STAT_H
+| # include <sys/stat.h>
+| #endif
+| #ifdef STDC_HEADERS
+| # include <stdlib.h>
+| # include <stddef.h>
+| #else
+| # ifdef HAVE_STDLIB_H
+| #  include <stdlib.h>
+| # endif
+| #endif
+| #ifdef HAVE_STRING_H
+| # if !defined STDC_HEADERS && defined HAVE_MEMORY_H
+| #  include <memory.h>
+| # endif
+| # include <string.h>
+| #endif
+| #ifdef HAVE_STRINGS_H
+| # include <strings.h>
+| #endif
+| #ifdef HAVE_INTTYPES_H
+| # include <inttypes.h>
+| #endif
+| #ifdef HAVE_STDINT_H
+| # include <stdint.h>
+| #endif
+| #ifdef HAVE_UNISTD_H
+| # include <unistd.h>
+| #endif
+| #include <readline/readline.h>
+configure:33802: result: no
 configure:33806: checking readline/readline.h presence
 configure:33821: gcc -E  -DQT_THREAD_SUPPORT  -D_REENTRANT conftest.c
-configure:33827: $? = 0
-configure:33841: result: yes
+conftest.c:48:31: error: readline/readline.h: No such file or directory
+configure:33827: $? = 1
+configure: failed program was:
+| /* confdefs.h.  */
+| #define PACKAGE_NAME ""
+| #define PACKAGE_TARNAME ""
+| #define PACKAGE_VERSION ""
+| #define PACKAGE_STRING ""
+| #define PACKAGE_BUGREPORT ""
+| #define PACKAGE "piklab"
+| #define VERSION "0.15.0"
+| #define KDELIBSUFF ""
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_DLFCN_H 1
+| #define HAVE_SGI_STL 1
+| #define HAVE_CRYPT 1
+| #define kde_socklen_t socklen_t
+| #define ksize_t socklen_t
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_SYS_BITYPES_H 1
+| #define HAVE_RES_INIT 1
+| #define HAVE_RES_INIT 1
+| #define HAVE_RES_INIT_PROTO 1
+| #define SIZEOF_INT 4
+| #define SIZEOF_SHORT 2
+| #define SIZEOF_LONG 8
+| #define SIZEOF_CHAR_P 8
+| #define SIZEOF_SIZE_T 8
+| #define SIZEOF_UNSIGNED_LONG 8
+| #define HAVE_VSNPRINTF 1
+| #define HAVE_SNPRINTF 1
+| #define HAVE_LIBZ 1
+| #define HAVE_LIBPNG 1
+| #define HAVE_LIBJPEG 1
+| #define HAVE_LIBPTHREAD 1
+| #define HAVE_PPDEV 1
+| #define HAVE_USB_H 1
+| #define HAVE_USB 1
+| #define LIBUSB_VERSION "0.1.12"
+| /* end confdefs.h.  */
+| #include <readline/readline.h>
+configure:33841: result: no
 configure:33869: checking for readline/readline.h
-configure:33876: result: yes
-configure:33892: checking for rl_initialize
-configure:33922: gcc -o conftest -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute  -DQT_THREAD_SUPPORT  -D_REENTRANT  conftest.c  -lhistory -lreadline -lcurses >&5
-configure:33928: $? = 0
-configure:33935: result: yes
-configure:33937: checking for using_history
-configure:33967: gcc -o conftest -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute  -DQT_THREAD_SUPPORT  -D_REENTRANT  conftest.c  -lhistory -lreadline -lcurses >&5
-configure:33973: $? = 0
-configure:33981: result: yes
+configure:33876: result: no
+configure:33883: WARNING: readline/readline.h not found
 configure:34039: checking if doc should be compiled
 configure:34051: result: yes
 configure:34039: checking if man should be compiled
@@ -2179,7 +2304,8 @@ config.status:949: creating src/tools/sdcc/Makefile
 config.status:949: creating src/tools/sdcc/gui/Makefile
 config.status:949: creating src/xml_to_data/Makefile
 config.status:949: creating config.h
-config.status:1249: executing depfiles commands
+config.status:1202: config.h is unchanged
+config.status:1248: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -2242,7 +2368,7 @@ ac_cv_header_crt_externs_h=no
 ac_cv_header_dlfcn_h=yes
 ac_cv_header_inttypes_h=yes
 ac_cv_header_memory_h=yes
-ac_cv_header_readline_readline_h=yes
+ac_cv_header_readline_readline_h=no
 ac_cv_header_stdc=yes
 ac_cv_header_stdint_h=yes
 ac_cv_header_stdlib_h=yes
@@ -2273,13 +2399,13 @@ ac_cv_lib_util_main=yes
 ac_cv_lib_z=-lz
 ac_cv_objext=o
 ac_cv_path_EGREP='/bin/grep -E'
-ac_cv_path_GMSGFMT=/usr/bin/msgfmt
+ac_cv_path_GMSGFMT=msgfmt
 ac_cv_path_GREP=/bin/grep
-ac_cv_path_MSGFMT=/usr/bin/msgfmt
-ac_cv_path_XGETTEXT=/usr/bin/xgettext
+ac_cv_path_MSGFMT=msgfmt
+ac_cv_path_XGETTEXT=:
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_path_mkdir=/bin/mkdir
-ac_cv_prog_AWK=mawk
+ac_cv_prog_AWK=gawk
 ac_cv_prog_CPP='gcc -E'
 ac_cv_prog_CXXCPP='g++ -E'
 ac_cv_prog_LIBUSBCONFIG=yes
@@ -2382,18 +2508,18 @@ lt_lt_cv_sys_global_symbol_to_cdecl='"sed -n -e '\''s/^. .* \\(.*\\)\$/extern in
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10'
+ACLOCAL='${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /home/frans/piklab/admin/missing --run tar'
+AMTAR='${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar'
 AR='ar'
 ARTSCCONFIG='/usr/bin/artsc-config'
 AUTOCONF='$(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure'
 AUTODIRS=''
-AUTOHEADER='${SHELL} /home/frans/piklab/admin/missing --run autoheader'
-AUTOMAKE='${SHELL} /home/frans/piklab/admin/missing --run automake-1.10'
-AWK='mawk'
+AUTOHEADER='${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader'
+AUTOMAKE='${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10'
+AWK='gawk'
 BSD_FALSE=''
 BSD_TRUE='#'
 CC='gcc'
@@ -2423,7 +2549,7 @@ EXEEXT=''
 F77=''
 FFLAGS=''
 FRAMEWORK_COREAUDIO=''
-GMSGFMT='/usr/bin/msgfmt'
+GMSGFMT=':'
 GREP='/bin/grep'
 HAVE_GCC_VISIBILITY='0'
 INSTALL_DATA='${INSTALL} -m 644'
@@ -2504,12 +2630,12 @@ LINUX_FALSE='#'
 LINUX_TRUE=''
 LN_S='ln -s'
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /home/frans/piklab/admin/missing --run makeinfo'
+MAKEINFO='${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo'
 MAKEKDEWIDGETS=''
 MCOPIDL='/usr/bin/mcopidl'
 MEINPROC='/usr/bin/meinproc'
 MOC='/usr/share/qt3/bin/moc'
-MSGFMT='/usr/bin/msgfmt'
+MSGFMT=':'
 NOOPT_CFLAGS='-O0'
 NOOPT_CXXFLAGS='-O0'
 NULL_FALSE=''
@@ -2540,7 +2666,7 @@ USE_RTTI=''
 USE_THREADS=''
 VERSION='0.15.0'
 WOVERLOADED_VIRTUAL=''
-XGETTEXT='/usr/bin/xgettext'
+XGETTEXT=':'
 XMKMF=''
 XMLLINT='/usr/bin/xmllint'
 X_EXTRA_LIBS=''
@@ -2588,7 +2714,7 @@ include_x11_FALSE='#'
 include_x11_TRUE=''
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='$(SHELL) /home/frans/piklab/admin/install-sh'
+install_sh='$(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh'
 kde_appsdir='${datadir}/applnk'
 kde_bindir='${exec_prefix}/bin'
 kde_confdir='${datadir}/config'
@@ -2696,42 +2822,5 @@ xdg_menudir='${sysconfdir}/xdg/menus'
 #define HAVE_USB_H 1
 #define HAVE_USB 1
 #define LIBUSB_VERSION "0.1.12"
-#define HAVE_READLINE 1
 
 configure: exit 0
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by config.status, which was
-generated by GNU Autoconf 2.61.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status src/devices/pic/xml_data/Makefile depfiles
-
-on asus-laptop
-
-config.status:949: creating src/devices/pic/xml_data/Makefile
-config.status:1249: executing depfiles commands
-
-## ---------------------- ##
-## Running config.status. ##
-## ---------------------- ##
-
-This file was extended by config.status, which was
-generated by GNU Autoconf 2.61.  Invocation command line was
-
-  CONFIG_FILES    = 
-  CONFIG_HEADERS  = 
-  CONFIG_LINKS    = 
-  CONFIG_COMMANDS = 
-  $ ./config.status src/devices/mem24/xml_data/Makefile depfiles
-
-on asus-laptop
-
-config.status:949: creating src/devices/mem24/xml_data/Makefile
-config.status:1249: executing depfiles commands

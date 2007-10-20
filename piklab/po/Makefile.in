@@ -498,7 +498,7 @@ uninstall-am:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in piklab.pot hu.po de.po es.po fr.po it.po Makefile.am cs.po merge.sh 
+KDE_DIST=de.po fr.gmo fr.po cs.po cs.gmo Makefile.in it.gmo hu.po de.gmo es.po es.gmo it.po hu.gmo Makefile.am merge.sh 
 
 #>+ 19
 hu.gmo: hu.po

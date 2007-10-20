@@ -778,7 +778,7 @@ clean-metasources:
 	-rm -f  purl.moc.cpp log.moc.cpp process.moc.cpp
 
 #>+ 2
-KDE_DIST=generic_config.h Makefile.in about.h log.h purl.h process.h global.h pfile.h Makefile.am global.pro 
+KDE_DIST=generic_config.h global.h Makefile.in about.h log.h purl.h process.h pfile.h Makefile.am global.pro 
 
 #>+ 2
 docs-am:
@@ -822,7 +822,7 @@ bcheck-am:
 
 
 #>+ 11
-libglobal_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/about.cpp $(srcdir)/log.cpp $(srcdir)/generic_config.cpp $(srcdir)/process.cpp $(srcdir)/purl.cpp $(srcdir)/pfile.cpp purl.moc.cpp log.moc.cpp process.moc.cpp 
+libglobal_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/about.cpp $(srcdir)/log.cpp $(srcdir)/generic_config.cpp $(srcdir)/process.cpp $(srcdir)/purl.cpp $(srcdir)/pfile.cpp $(srcdir)/purl.moc.cpp $(srcdir)/log.moc.cpp $(srcdir)/process.moc.cpp 
 	@echo 'creating libglobal_la.all_cpp.cpp ...'; \
 	rm -f libglobal_la.all_cpp.files libglobal_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libglobal_la.all_cpp.final; \

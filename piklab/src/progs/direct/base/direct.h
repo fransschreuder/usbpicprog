@@ -82,6 +82,12 @@ public:
   ParallelHardware(::Programmer::Base &base, const QString &portDevice, const HardwareData &data);
 };
 
+class UsbHardware : public Hardware
+{
+public:
+  UsbHardware(::Programmer::Base &base, const QString &portDevice, const HardwareData &data);
+};
+
 } // namespace
 
 #endif

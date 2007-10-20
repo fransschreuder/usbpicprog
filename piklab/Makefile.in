@@ -818,7 +818,7 @@ distclean-local:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=piklab-prog-qt3.spec lib.pro subdirs Makefile.in piklab.kdevelop.pcs app.pro configure.files piklab-prog-qt4.spec config.h.in all.pro piklab.kdevses configure.in piklab-prog.pro configure.in.mid Makefile.cvs aclocal.m4 piklab.spec Doxyfile piklab.xpm piklab.kdevelop configure.in.in configure Makefile.am acinclude.m4 Makefile.am.in qt_config.h 
+KDE_DIST=lib.pro app.pro configure.files piklab.kdevses aclocal.m4 piklab.spec Doxyfile piklab.kdevelop configure.in.in Makefile.am.in stamp-h.in piklab-prog-qt3.spec subdirs Makefile.in piklab.kdevelop.pcs config.h.in piklab-prog-qt4.spec all.pro piklab-prog.pro configure.in configure.in.mid Makefile.cvs piklab.xpm configure Makefile.am acinclude.m4 qt_config.h 
 
 #>+ 2
 docs-am:

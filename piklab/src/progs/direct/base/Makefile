@@ -50,14 +50,14 @@ libdirectprog_la_LIBADD =
 am_libdirectprog_la_OBJECTS = direct_pic.lo direct_baseline.lo \
 	direct_16.lo direct_16F.lo direct_18.lo direct_18F.lo \
 	direct_prog.lo direct_prog_config.lo direct_data.lo \
-	direct_mem24.lo direct.lo
+	direct_mem24.lo direct.lo upp.lo
 #>- libdirectprog_la_OBJECTS = $(am_libdirectprog_la_OBJECTS)
 #>+ 8
 libdirectprog_la_final_OBJECTS = libdirectprog_la.all_cpp.lo 
 libdirectprog_la_nofinal_OBJECTS = direct_pic.lo direct_baseline.lo \
 	direct_16.lo direct_16F.lo direct_18.lo direct_18F.lo \
 	direct_prog.lo direct_prog_config.lo direct_data.lo \
-	direct_mem24.lo direct.lo\
+	direct_mem24.lo direct.lo upp.lo\
 direct_prog.moc.lo 
 libdirectprog_la_OBJECTS = $(libdirectprog_la_nofinal_OBJECTS)
 #libdirectprog_la_OBJECTS = $(libdirectprog_la_final_OBJECTS)
@@ -92,15 +92,15 @@ CTAGS = ctags
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 1
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/frans/piklab/admin/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/frans/piklab/admin/missing --run tar
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run tar
 AR = ar
 ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/frans/piklab/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/piklab/admin/missing --run automake-1.10
-AWK = mawk
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run automake-1.10
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -std=iso9899:1990 -W -Wall -Wchar-subscripts -Wshadow -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -O2   -Wformat-security -Wmissing-format-attribute
@@ -128,7 +128,7 @@ EXEEXT =
 F77 = 
 FFLAGS = 
 FRAMEWORK_COREAUDIO = 
-GMSGFMT = /usr/bin/msgfmt
+GMSGFMT = :
 GREP = /bin/grep
 HAVE_GCC_VISIBILITY = 0
 INSTALL = /usr/bin/install -c -p
@@ -208,13 +208,13 @@ LIB_XEXT = -lXext
 LIB_XRENDER = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/frans/piklab/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
 MCOPIDL = /usr/bin/mcopidl
 MEINPROC = /usr/bin/meinproc
 MKDIR_P = /bin/mkdir -p
 MOC = /usr/share/qt3/bin/moc
-MSGFMT = /usr/bin/msgfmt
+MSGFMT = :
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
 OBJEXT = o
@@ -243,7 +243,7 @@ USE_RTTI =
 USE_THREADS = 
 VERSION = 0.15.0
 WOVERLOADED_VIRTUAL = 
-XGETTEXT = /usr/bin/xgettext
+XGETTEXT = :
 XMKMF = 
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
@@ -251,10 +251,10 @@ X_INCLUDES = -I.
 X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
-abs_builddir = /home/frans/piklab/src/progs/direct/base
-abs_srcdir = /home/frans/piklab/src/progs/direct/base
-abs_top_builddir = /home/frans/piklab
-abs_top_srcdir = /home/frans/piklab
+abs_builddir = /home/frans/usbpicprog/piklab/src/progs/direct/base
+abs_srcdir = /home/frans/usbpicprog/piklab/src/progs/direct/base
+abs_top_builddir = /home/frans/usbpicprog/piklab
+abs_top_srcdir = /home/frans/usbpicprog/piklab
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_F77 = 
@@ -285,7 +285,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/frans/piklab/admin/install-sh
+install_sh = $(SHELL) /home/frans/usbpicprog/piklab/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
@@ -343,7 +343,7 @@ INCLUDES = -I$(top_srcdir)/src $(all_includes)
 noinst_LTLIBRARIES = libdirectprog.la
 libdirectprog_la_SOURCES = direct_pic.cpp direct_baseline.cpp direct_16.cpp \
 	direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp \
-	direct_data.cpp direct_mem24.cpp direct.cpp
+	direct_data.cpp direct_mem24.cpp direct.cpp upp.cpp
 
 libdirectprog_la_DEPENDENCIES = direct_data.cpp
 noinst_DATA = direct.xml
@@ -425,6 +425,7 @@ include ./$(DEPDIR)/direct_mem24.Plo
 include ./$(DEPDIR)/direct_pic.Plo
 include ./$(DEPDIR)/direct_prog.Plo
 include ./$(DEPDIR)/direct_prog_config.Plo
+include ./$(DEPDIR)/upp.Plo
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -653,7 +654,7 @@ clean-metasources:
 	-rm -f  direct_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=direct_30.h direct_16.h base.pro Makefile.in direct_mem24.h direct_baseline.h direct_18.h direct.xml direct_pic.h direct_18F.h direct_prog.h direct_30.cpp direct_data.h direct.h direct_16F.h direct_prog_config.h Makefile.am 
+KDE_DIST=direct_30.h direct_16.h base.pro Makefile.in direct_mem24.h upp.h direct.loT direct_baseline.h direct_18.h direct.xml direct_pic.h direct_18F.h direct_prog.h direct_30.cpp direct_data.h direct.h direct_16F.h direct_prog_config.h Makefile.am 
 
 #>+ 2
 docs-am:
@@ -697,11 +698,11 @@ bcheck-am:
 
 
 #>+ 11
-libdirectprog_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/direct_pic.cpp $(srcdir)/direct_baseline.cpp $(srcdir)/direct_16.cpp $(srcdir)/direct_16F.cpp $(srcdir)/direct_18.cpp $(srcdir)/direct_18F.cpp $(srcdir)/direct_prog.cpp $(srcdir)/direct_prog_config.cpp direct_data.cpp $(srcdir)/direct_mem24.cpp $(srcdir)/direct.cpp direct_prog.moc.cpp 
+libdirectprog_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/direct_pic.cpp $(srcdir)/direct_baseline.cpp $(srcdir)/direct_16.cpp $(srcdir)/direct_16F.cpp $(srcdir)/direct_18.cpp $(srcdir)/direct_18F.cpp $(srcdir)/direct_prog.cpp $(srcdir)/direct_prog_config.cpp $(srcdir)/direct_data.cpp $(srcdir)/direct_mem24.cpp $(srcdir)/direct.cpp $(srcdir)/upp.cpp $(srcdir)/direct_prog.moc.cpp 
 	@echo 'creating libdirectprog_la.all_cpp.cpp ...'; \
 	rm -f libdirectprog_la.all_cpp.files libdirectprog_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libdirectprog_la.all_cpp.final; \
-	for file in direct_pic.cpp direct_baseline.cpp direct_16.cpp direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp direct_data.cpp direct_mem24.cpp direct.cpp direct_prog.moc.cpp ; do \
+	for file in direct_pic.cpp direct_baseline.cpp direct_16.cpp direct_16F.cpp direct_18.cpp direct_18F.cpp direct_prog.cpp direct_prog_config.cpp direct_data.cpp direct_mem24.cpp direct.cpp upp.cpp direct_prog.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libdirectprog_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libdirectprog_la.all_cpp.final; \
 	done; \

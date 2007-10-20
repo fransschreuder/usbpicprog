@@ -691,7 +691,7 @@ bcheck-am:
 
 
 #>+ 11
-libmem24ui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/mem24_hex_view.cpp $(srcdir)/mem24_memory_editor.cpp $(srcdir)/mem24_group_ui.cpp mem24_hex_view.moc.cpp mem24_memory_editor.moc.cpp 
+libmem24ui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/mem24_hex_view.cpp $(srcdir)/mem24_memory_editor.cpp $(srcdir)/mem24_group_ui.cpp $(srcdir)/mem24_hex_view.moc.cpp $(srcdir)/mem24_memory_editor.moc.cpp 
 	@echo 'creating libmem24ui_la.all_cpp.cpp ...'; \
 	rm -f libmem24ui_la.all_cpp.files libmem24ui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libmem24ui_la.all_cpp.final; \
