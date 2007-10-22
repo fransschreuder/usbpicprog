@@ -194,7 +194,8 @@ bool Direct::HConfigWidget::set(const Port::Description &pd, const ::Hardware::D
   delete _hardware;
   const HardwareData &hdata = static_cast<const HardwareData &>(data);
   if ( pd.type==Port::SerialType ) _hardware = new SerialHardware(_base, pd.device, hdata);
-  else _hardware = new ParallelHardware(_base, pd.device, hdata);
+  else if ( pd.type==Port::ParallelType ) _hardware = new ParallelHardware(_base, pd.device, hdata);
+  else _hardware = new UsbHardware(_base, pd.device, hdata);
   bool ok = _hardware->connectHardware();
   if ( !_edit) _hardware->disconnectHardware();
   else _connected = ok;

@@ -24,34 +24,45 @@
 QStringList *Port::UPP::_list = 0;
 
 Port::UPP::UPP(const QString &device, Log::Base &base)
-  : Base(base), _device(device)
-{}
+  : Base(base), _device(0), _vendorId(vendorId), _productId(productId),
+    _config(configuration), _interface(0), _handle(0)
+{
+  initialize();
+}
 
+bool Port::UPP::_initialized = false;
 
-/* PICkit USB values */ /* From Microchip firmware */
-const static int vendorID=0x04d8; // Microchip, Inc
-const static int productID=0x000E; // Usbpicprog Device Descriptor
-const static int configuration=1; /*  Configuration 1*/
-const static int interface=0;	/* Interface 0 */
+void Port::UPP::initialize()
+{
+  if (_initialized) return;
+  _initialized = true;
+#ifdef HAVE_USB
+  usb_init();
+  VersionData vd = VersionData::fromString(LIBUSB_VERSION);
+  QString s = QString("libusb %1").arg(vd.pretty());
+  if ( vd<VersionData(0, 1, 8) ) qWarning("%s: may be too old (you need at least version 0.1.8)", s.latin1());
+#endif
+}
 
-/* change by Xiaofan */
-/* libusb-win32 requires the correct endpoint address
-   including the direction bits. This is the most important
-   differece between libusb-win32 and libusb.
-*/  
-//const static int endpoint=1; /* first endpoint for everything */
-const static int endpoint_in=0x1; /* endpoint 0x81 address for IN */
-const static int endpoint_out=1; /* endpoint 1 address for OUT */
-
-const static int timeout=20000; /* timeout in ms */
+usb_bus *Port::UPP::getBusses()
+{
+  initialize();
+#ifdef HAVE_USB
+  // refresh libusb structures
+  usb_find_busses();
+  usb_find_devices();
+  return usb_get_busses();
+#else
+  return 0;
+#endif
+}
 
 /* max packet size is 64-bytes */
-const static int reqLen=64;
-typedef unsigned char byte;
 
-void bad(const char *why) {
-	fprintf(stderr,"Fatal error> %s\n",why);
-	exit(17);
+
+
+void Port::UPP::bad(const char *why) {
+	setSystemError(i18n("Fatal error %s").arg(why));
 }
 
 QStringList Port::UPP::deviceList()
@@ -84,6 +95,23 @@ bool Port::UPP::doBreak(uint duration)
 
   msleep(duration);
 
+  return 0;
+}
+
+
+struct usb_device *Port::UPP::findDevice(uint vendorId, uint productId)
+{
+#ifdef HAVE_USB
+  for (usb_bus *bus=getBusses(); bus; bus=bus->next) {
+    for (struct usb_device *dev=bus->devices; dev; dev=dev->next) {
+      if ( dev->descriptor.idVendor==vendorId && dev->descriptor.idProduct==productId )
+        return dev;
+    }
+  }
+#else
+  Q_UNUSED(vendorId); Q_UNUSED(productId);
+  qDebug("USB support disabled");
+#endif
   return 0;
 }
 
@@ -136,160 +164,156 @@ Port::IODir Port::UPP::ioDir(uint pin) const
 
 const Port::UPP::UPinData Port::UPP::PIN_DATA[Nb_Pins] = {
   { Out,  "VPP" }, { Out,  "VPP_Reset" }, { Out, "DATA_OUT"  }, { In, "DATA_IN" },
-  { Out,   "CLOCK" }, { NoIO, "GND" }
+  { Out,   "CLOCK" }, { NoIO, "GND" }, { Out, "VDD" }, { Out, "DIR" }
 };
 
 /****************** Internal I/O Commands *****************/
 
+
+
 bool Port::UPP::internalOpen()
 {
- return 0;
+#ifdef HAVE_USB
+  _device = findDevice(vendorId, productId);
+  if ( _device==0 ) {
+    log(Log::Error, i18n("Could not find Usbpicprog device (vendor=%1 product=%2).")
+             .arg(toLabel(Number::Hex, _vendorId, 4)).arg(toLabel(Number::Hex, _productId, 4)));
+    return false;
+  }
+  _handle = usb_open(_device);
+  if ( _handle==0 ) {
+    setSystemError(i18n("Error opening Usbpicprog device."));
+    return false;
+  }
+// windows: usb_reset takes about 7-10 seconds to re-enumerate the device...
+// BSD : not implemented in libusb...
+#  if !defined(Q_OS_BSD4) && !defined(Q_OS_WIN)
+  if ( usb_reset(_handle)<0 ) {
+    setSystemError(i18n("Error resetting Usbpicprog device."));
+    return false;
+  }
+#  endif
+  usb_close(_handle);
+  _handle = usb_open(_device);
+  if ( _handle==0 ) {
+    setSystemError(i18n("Error opening Usbpicprog device."));
+    return false;
+  }
+  tryToDetachDriver();
+  uint i = 0;
+  for (; i<_device->descriptor.bNumConfigurations; i++)
+    if ( _config==_device->config[i].bConfigurationValue ) break;
+  if ( i==_device->descriptor.bNumConfigurations ) {
+    uint old = _config;
+    i = 0;
+    _config = _device->config[i].bConfigurationValue;
+    log(Log::Warning, i18n("Configuration %1 not present: using %2").arg(old).arg(_config));
+  }
+  const usb_config_descriptor &configd = _device->config[i];
+  if ( usb_set_configuration(_handle, _config)<0 ) {
+    setSystemError(i18n("Error setting USB configuration %1.").arg(_config));
+    return false;
+  }
+  for (i=0; i<configd.bNumInterfaces; i++)
+    if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
+  if ( i==configd.bNumInterfaces ) {
+    uint old = _interface;
+    i = 0;
+    _interface = configd.interface[i].altsetting[0].bInterfaceNumber;
+    log(Log::Warning, i18n("Interface %1 not present: using %2").arg(old).arg(_interface));
+  }
+  //_private->_interface = &(configd.interface[i].altsetting[0]);
+  if ( usb_claim_interface(_handle, _interface)<0 ) {
+    setSystemError(i18n("Could not claim USB interface %1").arg(_interface));
+    return false;
+  }
+  //log(Log::MaxDebug, QString("alternate setting is %1").arg(_private->_interface->bAlternateSetting));
+  log(Log::MaxDebug, QString("USB bcdDevice: %1").arg(toHexLabel(_device->descriptor.bcdDevice, 4)));
+  return true;
+#else
+  log(Log::Error, i18n("USB support disabled"));
+  return false;
+#endif
 }
+
+void Port::UPP::tryToDetachDriver()
+{
+  // try to detach an already existing driver... (linux only)
+#if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
+  log(Log::ExtraDebug, "find if there is already an installed driver");
+  char dname[256] = "";
+  if ( usb_get_driver_np(_handle, _interface, dname, 255)<0 ) return;
+  log(Log::NormalDebug, QString("  a driver \"%1\" is already installed...").arg(dname));
+#  if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
+  usb_detach_kernel_driver_np(_handle, _interface);
+  log(Log::NormalDebug, "  try to detach it...");
+  if ( usb_get_driver_np(_handle, _interface, dname, 255)<0 ) return;
+  log(Log::NormalDebug, "  failed to detach it");
+#  endif
+#endif
+}
+
 void Port::UPP::internalClose()
-{}
-
-bool Port::UPP::internalSend(const char *data, uint size, uint timeout)
 {
- return 0;
+  if ( _handle==0 ) return;
+#ifdef HAVE_USB
+  usb_release_interface(_handle, _interface);
+  usb_close(_handle);
+  //_private->_interface = 0;
+#endif
+  _device = 0;
+  _handle = 0;
 }
 
-bool Port::UPP::internalReceive(uint size, char *data, uint timeout)
+bool Port::UPP::internalSend(const unsigned char *data, uint size, uint timeout)
 {
- return 0;
+ int r = usb_interrupt_write(_handle, endpoint_out, (char *)data, size, timeout);
+ if (r!=(int)size)return false;
+ return true;
+}
+
+bool Port::UPP::internalReceive(uint size, unsigned char *data, uint timeout)
+{
+   int r = usb_interrupt_read(_handle, endpoint_in, (char*)data, size, timeout);
+   if( r != (int)size )return false;
+ return true;
 }
 
 void Port::UPP::setSystemError(const QString &message)
-{}
+{
+#if defined(Q_OS_UNIX)
+  log(Log::Error, message + QString(" (errno=%1)").arg(strerror(errno)));
+#elif defined(Q_OS_WIN)
+  LPVOID lpMsgBuf;
+  FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&lpMsgBuf, 0, NULL);
+  log(Log::Error, message + QString(" (last error=%1 %2)").arg(GetLastError()).arg((const char *)(LPCTSTR)lpMsgBuf));
+  LocalFree(lpMsgBuf);
+#endif
+}
 
 bool Port::UPP::internalSetPinOn(Pin pin, bool on)
 {
- return 0;
+    unsigned char buffer[reqLen];
+    if(on)buffer[0]=(unsigned char)(0x80|pin);
+    else buffer[0]=(unsigned char)0x80;
+    //printf("Send 0x%X to Usbpicprog\n",(int)buffer[0]);
+    return internalSend(buffer,1,timeout);
 }
 
 bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
 {
- return 0;
+   unsigned char buffer[reqLen];
+   bool retval_s,retval_r;
+   buffer[0]=(unsigned char)(0xC0|pin);
+   retval_s=internalSend(buffer,1,timeout);
+   
+   retval_r=internalReceive(1, buffer,timeout); 
+   if (buffer[0]==(unsigned char)0xc1) value=1;
+   else value=0;
+   //printf("Read value from Usbicprog: 0x%X ,%i\n",buffer[0],value);
+   return retval_s&retval_r;
 }
-
-
-/** Send this binary string command. */
-void Port::UPP::send_usb(struct usb_dev_handle * d, int len, const char * src)
-{
-   int r = usb_interrupt_write(d, endpoint_out, (char *)src, len, timeout);
-//   if( r != reqLen )
-   /*if( r < 0 )
-   {
-	  perror("usb write"); bad("USB write failed"); 
-   }*/
-}
-
-/** Read this many bytes from this device */
-void Port::UPP::recv_usb(struct usb_dev_handle * d, int len, char * dest)
-{
-//   int i;
-   int r = usb_interrupt_read(d, endpoint_in, dest, len, timeout);
-   if( r != len )
-   {
-	  perror("usb read"); bad("USB read failed"); 
-   }
-}
-
 
 extern int usb_debug;
 
-/* Find the first USB device with this vendor and product.
-   Exits on errors, like if the device couldn't be found.
-*/
-struct usb_dev_handle *Port::UPP::upp_open(void)
-{
-  struct usb_device * device;
-  struct usb_bus * bus;
 
-/*#ifndef WIN32  
-  if( geteuid()!=0 )
-	 bad("This program must be run as root, or made setuid root");
-#endif */ 
-#ifdef USB_DEBUG
-  usb_debug=4; 
-#endif
-
-   /* (libusb setup code stolen from John Fremlin's cool "usb-robot") */
-
-  // added the two debug lines  
-  usb_set_debug(255);
-  printf("setting USB debug on by adding usb_set_debug(255) \n");
-  //End of added codes
-
-  usb_init();
-  usb_find_busses();
-  usb_find_devices();
-
-/* change by Xiaofan */  
-/* libusb-win32: not using global variable like usb_busses*/
-/*  for (bus=usb_busses;bus!=NULL;bus=bus->next) */  
-  for (bus=usb_get_busses();bus!=NULL;bus=bus->next) 
-  {
-	 struct usb_device * usb_devices = bus->devices;
-	 for( device=usb_devices; device!=NULL; device=device->next )
-	 {
-		if( device->descriptor.idVendor == vendorID &&
-			device->descriptor.idProduct == productID )
-		{
-		   
-		   printf("Found USB Usbpicprog as device '%s' on USB bus %s\n",
-				   device->filename,
-				   device->bus->dirname);
-		   _handle = usb_open(device);
-		   if( _handle )
-		   { /* This is our device-- claim it */
-//			  byte retData[reqLen];
-			  if( usb_set_configuration(_handle, configuration) ) 
-			  {
-				 bad("Error setting USB configuration.\n");
-			  }
-			  if( usb_claim_interface(_handle, interface) ) 
-			  {
-				 bad("Claim failed-- the Usbpicprog is in use by another driver.\n");
-			  }
-			  printf("Communication established.\n");
-			  //picdem_fs_usb_read_version(d);
-			  return _handle;
-		   }
-		   else 
-			  bad("Open failed for USB device");
-		}
-		/* else some other vendor's device-- keep looking... */
-	 }
-  }
-  bad("Could not find Usbpicprog--\n"
-      "you might try lsusb to see if it's actually there.");
-  return NULL;
-}
-
-
-
-/*int main(int argc, char ** argv) 
-{
-   struct usb_dev_handle * usbpicprog;
-   int i;
-   byte outbuffer[reqLen],inbuffer[reqLen];
-   outbuffer[0]=0xC3;
-   usbpicprog = usbpicprog_open();
-   //usb_claim_interface(usbpicprog, 0);
-   //usb_clear_halt(usbpicprog, endpoint_out);
-   //usb_resetep(usbpicprog, endpoint_out);
-if (argc==2)
-   
-   outbuffer[0]=0x80|atoi(argv[1]);
-   send_usb(usbpicprog, 1, outbuffer);
-   outbuffer[0]=0xC0|atoi(argv[1]);
-   send_usb(usbpicprog, 1, outbuffer);
-
-   recv_usb(ucbpicprog, 1, inbuffer);
-   //for (i=0;i<reqLen;i++)
-	   printf("Received byte#%i: 0x%X\n",0,inbuffer[0]);
- 
-
-   usb_close(usbpicprog);
-   return 0;
-}*/

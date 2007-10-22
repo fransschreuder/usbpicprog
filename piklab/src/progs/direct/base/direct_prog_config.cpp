@@ -75,7 +75,7 @@ const ConstStandardHardwareData STANDARD_HARDWARE_DATA[] = {
   { { "HOODMICRO",              I18N_NOOP("HOODMICRO"),              I18N_NOOP("http://k9spud.com/hoodmicro") },
     { Port::SerialType,   { {   4,  5,  7,  3,  8,  5 },  0 } } },
   { { "Usbpicprog",              I18N_NOOP("Usbpicprog"),              I18N_NOOP("http://usbpicprog.sourceforge.net") },
-    { Port::USBType,   { {   4,  5,  7,  3,  8,  5 },  0 } } },
+    { Port::USBType,   { {   1,  7,  5,  3,  4,  8 },  0 } } },
 
   { { 0, 0, 0 },
     { Port::SerialType,   { {   0,  0,  0,  0,  0,  0 },  0 } } }
