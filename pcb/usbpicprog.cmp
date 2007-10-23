@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2007-07-02) date = 22/9/2007-16:22:06
+Cmp-Mod V01 Created by Cvpcb (2007-05-25) date = 23/10/2007-13:21:00
 
 BeginCmp
 TimeStamp = 466D32C2;
@@ -81,28 +81,28 @@ BeginCmp
 TimeStamp = 466D15FB;
 Reference = D1;
 ValeurCmp = 1n4148;
-IdModule  = SM0805;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
 TimeStamp = 466D15FE;
 Reference = D2;
 ValeurCmp = 1n4148;
-IdModule  = SM0805;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
 TimeStamp = 466D1601;
 Reference = D3;
 ValeurCmp = 1n4148;
-IdModule  = SM0805;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
 TimeStamp = 466D1864;
 Reference = D4;
 ValeurCmp = 1n4148;
-IdModule  = SM0805;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
@@ -130,7 +130,14 @@ BeginCmp
 TimeStamp = 466D1803;
 Reference = D8;
 ValeurCmp = 12V;
-IdModule  = SM0805;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = 471DF3F8;
+Reference = D9;
+ValeurCmp = 1n4148;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
@@ -165,6 +172,13 @@ BeginCmp
 TimeStamp = 466D58A1;
 Reference = Q2;
 ValeurCmp = BS170;
+IdModule  = SOT23GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = 471DF338;
+Reference = Q3;
+ValeurCmp = FET_P;
 IdModule  = SOT23GDS;
 EndCmp
 
