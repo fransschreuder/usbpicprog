@@ -1,38 +1,44 @@
+/***************************************************************************
+ * Copyright (C) 2007 Frans Schreuder <usbpicprog.sf.net>                  *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ ***************************************************************************/
 #include "upp.h"
-#include <usb.h> /* libusb header */
+//#include <usb.h> // libusb header
 #include <stdio.h>
 #include <string.h>
 
 
 #include "common/global/global.h"
-#if defined(HAVE_PPDEV)
-#  include <linux/ppdev.h>
-#  include <linux/parport.h>
-#  include <fcntl.h>
-#  include <sys/ioctl.h>
-#  include <unistd.h> // needed on some system
-#  include <errno.h>
-#elif defined(HAVE_PPBUS)
-#  include <machine/cpufunc.h>
-#  include <dev/ppbus/ppi.h>
-#  include <dev/ppbus/ppbconf.h>
-#  include <fcntl.h>
-#  include <errno.h>
-#endif
+//#if defined(HAVE_PPDEV)
+//#  include <linux/ppdev.h>
+//#  include <linux/parport.h>
+//#  include <fcntl.h>
+//#  include <sys/ioctl.h>
+//#  include <unistd.h> // needed on some system
+//#  include <errno.h>
+//#elif defined(HAVE_PPBUS)
+//#  include <machine/cpufunc.h>
+//#  include <dev/ppbus/ppi.h>
+//#  include <dev/ppbus/ppbconf.h>
+//#  include <fcntl.h>
+//#  include <errno.h>
+//#endif
 #include "common/common/misc.h"
+#include "common/common/port/usb_port.h"
 
-QStringList *Port::UPP::_list = 0;
+//QStringList *Port::UPP::_list = 0;
 
-Port::UPP::UPP(const QString &device, Log::Base &base)
-  : Base(base), _device(0), _vendorId(vendorId), _productId(productId),
-    _config(configuration), _interface(0), _handle(0)
+Port::UPP::UPP(const QString &device, Log::Base &base):USB(&device, &base)
 {
-  initialize();
+  init( vendorId, productId, configuration, interface);
 }
 
-bool Port::UPP::_initialized = false;
+//bool Port::UPP::_initialized = false;
 
-void Port::UPP::initialize()
+/*void Port::UPP::initialize()
 {
   if (_initialized) return;
   _initialized = true;
@@ -42,9 +48,9 @@ void Port::UPP::initialize()
   QString s = QString("libusb %1").arg(vd.pretty());
   if ( vd<VersionData(0, 1, 8) ) qWarning("%s: may be too old (you need at least version 0.1.8)", s.latin1());
 #endif
-}
+}      */
 
-usb_bus *Port::UPP::getBusses()
+/*usb_bus *Port::UPP::getBusses()
 {
   initialize();
 #ifdef HAVE_USB
@@ -56,24 +62,24 @@ usb_bus *Port::UPP::getBusses()
   return 0;
 #endif
 }
-
+  */
 /* max packet size is 64-bytes */
 
 
 
-void Port::UPP::bad(const char *why) {
+/*void Port::UPP::bad(const char *why) {
 	setSystemError(i18n("Fatal error %s").arg(why));
-}
+}*/
 
-QStringList Port::UPP::deviceList()
+/*QStringList Port::UPP::deviceList()
 {
   QStringList list;
   list.append(QString("Usbpicprog"));
 
   return list;
-}
+} */
 
-const  QStringList &Port::UPP::probedDeviceList()
+/*const  QStringList &Port::UPP::probedDeviceList()
 {
   if ( _list==0 ) {
     QStringList all = deviceList();
@@ -82,7 +88,7 @@ const  QStringList &Port::UPP::probedDeviceList()
       if( probe(all[i]) & (In | Out) ) _list->append(all[i]);
   }
   return *_list;
-}
+} */
 
 Port::IODirs Port::UPP::probe(const QString &device)
 {
@@ -90,16 +96,16 @@ Port::IODirs Port::UPP::probe(const QString &device)
 	return (In | Out);
 }
 
-bool Port::UPP::doBreak(uint duration)
+/*bool Port::UPP::doBreak(uint duration)
 {
 
   msleep(duration);
 
   return 0;
-}
+} */
 
 
-struct usb_device *Port::UPP::findDevice(uint vendorId, uint productId)
+/*struct usb_device *Port::UPP::findDevice(uint vendorId, uint productId)
 {
 #ifdef HAVE_USB
   for (usb_bus *bus=getBusses(); bus; bus=bus->next) {
@@ -113,7 +119,7 @@ struct usb_device *Port::UPP::findDevice(uint vendorId, uint productId)
   qDebug("USB support disabled");
 #endif
   return 0;
-}
+} */
 
 
 bool Port::UPP::setPinOn(uint pin, bool on, LogicType type)
@@ -171,7 +177,7 @@ const Port::UPP::UPinData Port::UPP::PIN_DATA[Nb_Pins] = {
 
 
 
-bool Port::UPP::internalOpen()
+/*bool Port::UPP::internalOpen()
 {
 #ifdef HAVE_USB
   _device = findDevice(vendorId, productId);
@@ -290,30 +296,33 @@ void Port::UPP::setSystemError(const QString &message)
   LocalFree(lpMsgBuf);
 #endif
 }
-
+  */
 bool Port::UPP::internalSetPinOn(Pin pin, bool on)
 {
     unsigned char buffer[reqLen];
-    if(on)buffer[0]=(unsigned char)(0x80|pin);
-    else buffer[0]=(unsigned char)0x80;
+    if(pin>15)return 0; //Error, does not fit in the 4 bits that describe the pin
+    if(on)buffer[0]=(unsigned char)(0x90|pin);
+    else buffer[0]=(unsigned char)(0x80|pin);
     //printf("Send 0x%X to Usbpicprog\n",(int)buffer[0]);
-    return internalSend(buffer,1,timeout);
+    return write(endpoint_out,buffer,1);
+//    return internalSend(buffer,1,timeout);
 }
 
 bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
 {
    unsigned char buffer[reqLen];
    bool retval_s,retval_r;
+   if(pin>15)return 0; //Error, does not fit in the 4 bits that describe the pin
    buffer[0]=(unsigned char)(0xC0|pin);
-   retval_s=internalSend(buffer,1,timeout);
-   
-   retval_r=internalReceive(1, buffer,timeout); 
-   if (buffer[0]==(unsigned char)0xc1) value=1;
+   retval_s=write(endpoint_out,buffer,1);
+
+   retval_r=read(endpoint_in, buffer,1, NULL);
+   if (buffer[0]==(unsigned char)(0xD0|pin) value=1;
    else value=0;
    //printf("Read value from Usbicprog: 0x%X ,%i\n",buffer[0],value);
    return retval_s&retval_r;
 }
 
-extern int usb_debug;
+//extern int usb_debug;
 
 
