@@ -64,6 +64,7 @@ void UserInit(void)
 	TRISVPP_RST=0; //output
 	TRISPGD=0;    
 	TRISPGC=0;    
+	TRISVDD=0;
     VPP = 1; //VPP is low (inverted)
 	VPP_RST=0; //No hard reset (inverted
 	PGD=0;		
@@ -124,6 +125,7 @@ void VoltagePump(void)
 void ProcessIO(void)
 {
     char oldPGDtris;
+    char PIN;
     static byte counter=0;
     BlinkUSBStatus();
     // User Application USB tasks
@@ -134,11 +136,50 @@ void ProcessIO(void)
    	{
        	if((input_buffer[0]&0xC0)==0x80) //last bit indicates write
         {
-	        PGD=(input_buffer[0]&0x01);
-	        PGC=(input_buffer[0]&0x02)>>1;
-	        VPP=~((input_buffer[0]&0x04)>>2);
-	        VPP_RST=~((input_buffer[0]&0x08)>>3);
-	        TRISPGD=(input_buffer[0]&0x10)>>4;
+		PIN=(input_buffer[0]&0x0F);
+		switch(PIN)
+		{
+			case 1: //~VPP
+				if((input_buffer[0]&0x10)==0x10)VPP=0;
+				else VPP=1;
+				setLeds(1);
+				break;
+			case 2: //~VPP_RST
+				if((input_buffer[0]&0x10)==0x10)VPP_RST=0;
+				else VPP_RST=1;
+				setLeds(2);
+				break;			
+			case 3: //PGD_OUT
+				if((input_buffer[0]&0x10)==0x10)PGD=1;
+				else PGD=0;
+				setLeds(3);
+				break;	
+			case 4: //PGD_IN
+				setLeds(4);
+				break;
+			case 5: //PGC
+				if((input_buffer[0]&0x10)==0x10)PGC=1;
+				else PGC=0;
+				setLeds(5);
+				break;
+			case 6: //GND
+				setLeds(6);
+				break;
+			case 7: //VDD
+				if((input_buffer[0]&0x10)==0x10)VDD=0;
+				else VDD=1;
+				setLeds(7);
+				break;
+			case 8: //TRIS
+				if((input_buffer[0]&0x10)==0x10)TRISPGD=1;
+				else TRISPGD=0;
+				setLeds(0);
+				break;		
+			default:
+				break;
+				
+		}
+		
 		
 	    }
         else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
@@ -154,7 +195,7 @@ void ProcessIO(void)
 				else output_buffer[0]=0xC0;
 			}
 			counter=1;
-			setLeds(input_buffer[0]&0x07);
+			
 		}
    	}
     if(counter != 0)

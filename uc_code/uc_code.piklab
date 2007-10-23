@@ -31,6 +31,8 @@
     </files>
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
     <opened_files>
+      <item>upp/upp.h</item>
+      <item>io_cfg.h</item>
       <item>upp/upp.c</item>
     </opened_files>
   </general>

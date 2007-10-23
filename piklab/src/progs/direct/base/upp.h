@@ -52,7 +52,7 @@ public:
        //static struct usb_device *findDevice(uint vendorId, uint productId);
        virtual ~UPP() { }
        //static const QStringList &probedDeviceList();
-       static IODirs probe(const QString &device);
+       //static IODirs probe(const QString &device);
        //static bool isAvailable() { return true; }
 
        //enum InputFlag { NoInputFlag = 0, IgnoreBreak = 1, IgnoreParity = 2 };
