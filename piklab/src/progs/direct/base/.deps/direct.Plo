@@ -111,25 +111,26 @@ direct.lo .libs/direct.o: direct.cpp direct.h \
   ../../../../src/devices/base/generic_device.h \
   ../../../../src/common/common/group.h \
   ../../../../src/common/common/streamer.h upp.h \
-  ../../../../src/common/global/global.h /usr/include/termios.h \
-  /usr/include/bits/termios.h /usr/include/sys/ttydefaults.h \
-  /usr/include/fcntl.h /usr/include/bits/fcntl.h /usr/include/sys/types.h \
-  /usr/include/time.h /usr/include/sys/select.h \
-  /usr/include/bits/select.h /usr/include/bits/sigset.h \
-  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
-  /usr/include/bits/pthreadtypes.h /usr/include/bits/uio.h \
-  /usr/include/sys/stat.h /usr/include/bits/stat.h \
-  /usr/include/sys/time.h /usr/include/sys/ioctl.h \
-  /usr/include/bits/ioctls.h /usr/include/asm/ioctls.h \
-  /usr/include/asm-x86_64/ioctls.h /usr/include/asm/ioctl.h \
-  /usr/include/asm-x86_64/ioctl.h /usr/include/asm-generic/ioctl.h \
-  /usr/include/bits/ioctl-types.h /usr/include/errno.h \
+  ../../../../src/common/global/global.h /usr/include/fcntl.h \
+  /usr/include/bits/fcntl.h /usr/include/sys/types.h /usr/include/time.h \
+  /usr/include/sys/select.h /usr/include/bits/select.h \
+  /usr/include/bits/sigset.h /usr/include/bits/time.h \
+  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+  /usr/include/bits/uio.h /usr/include/sys/stat.h \
+  /usr/include/bits/stat.h /usr/include/sys/time.h \
+  /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \
+  /usr/include/asm/ioctls.h /usr/include/asm-x86_64/ioctls.h \
+  /usr/include/asm/ioctl.h /usr/include/asm-x86_64/ioctl.h \
+  /usr/include/asm-generic/ioctl.h /usr/include/bits/ioctl-types.h \
+  /usr/include/sys/ttydefaults.h /usr/include/errno.h \
   /usr/include/bits/errno.h /usr/include/linux/errno.h \
   /usr/include/asm/errno.h /usr/include/asm-x86_64/errno.h \
   /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
   /usr/include/unistd.h /usr/include/bits/posix_opt.h \
   /usr/include/bits/environments.h /usr/include/bits/confname.h \
   /usr/include/getopt.h /usr/share/qt3/include/qdatetime.h \
+  ../../../../src/common/port/port_base.h \
+  ../../../../src/common/port/usb_port.h \
   ../../../../src/common/port/port_base.h /usr/include/c++/4.1.3/iostream \
   /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++config.h \
   /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/os_defines.h \
@@ -201,11 +202,9 @@ direct.lo .libs/direct.o: direct.cpp direct.h \
   /usr/include/c++/4.1.3/typeinfo /usr/include/c++/4.1.3/istream \
   /usr/include/c++/4.1.3/bits/istream.tcc \
   ../../../../src/common/port/parallel.h \
-  ../../../../src/common/port/port_base.h \
-  ../../../../src/common/port/serial.h \
-  ../../../../src/progs/base/generic_prog.h direct_prog_config.h \
-  ../../../../src/progs/base/hardware_config.h \
-  ../../../../src/common/port/usb_port.h
+  ../../../../src/common/port/serial.h /usr/include/termios.h \
+  /usr/include/bits/termios.h ../../../../src/progs/base/generic_prog.h \
+  direct_prog_config.h ../../../../src/progs/base/hardware_config.h
 
 direct.h:
 
@@ -537,12 +536,6 @@ upp.h:
 
 ../../../../src/common/global/global.h:
 
-/usr/include/termios.h:
-
-/usr/include/bits/termios.h:
-
-/usr/include/sys/ttydefaults.h:
-
 /usr/include/fcntl.h:
 
 /usr/include/bits/fcntl.h:
@@ -587,6 +580,8 @@ upp.h:
 
 /usr/include/bits/ioctl-types.h:
 
+/usr/include/sys/ttydefaults.h:
+
 /usr/include/errno.h:
 
 /usr/include/bits/errno.h:
@@ -612,6 +607,10 @@ upp.h:
 /usr/include/getopt.h:
 
 /usr/share/qt3/include/qdatetime.h:
+
+../../../../src/common/port/port_base.h:
+
+../../../../src/common/port/usb_port.h:
 
 ../../../../src/common/port/port_base.h:
 
@@ -799,14 +798,14 @@ upp.h:
 
 ../../../../src/common/port/parallel.h:
 
-../../../../src/common/port/port_base.h:
-
 ../../../../src/common/port/serial.h:
+
+/usr/include/termios.h:
+
+/usr/include/bits/termios.h:
 
 ../../../../src/progs/base/generic_prog.h:
 
 direct_prog_config.h:
 
 ../../../../src/progs/base/hardware_config.h:
-
-../../../../src/common/port/usb_port.h:

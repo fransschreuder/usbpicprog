@@ -162,7 +162,7 @@ Direct::ParallelHardware::ParallelHardware(::Programmer::Base &base, const QStri
 {}
 
 Direct::UsbHardware::UsbHardware(::Programmer::Base &base, const QString &portDevice, const HardwareData &data)
-  : Hardware(base, new Port::UPP(portDevice, base), data)
+  : Hardware(base, new Port::UPP( base), data)
 {}
 
 /*

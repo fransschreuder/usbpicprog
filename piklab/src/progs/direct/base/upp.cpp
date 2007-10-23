@@ -27,11 +27,11 @@
 //#  include <errno.h>
 //#endif
 #include "common/common/misc.h"
-#include "common/common/port/usb_port.h"
+#include "common/port/usb_port.h"
 
 //QStringList *Port::UPP::_list = 0;
 
-Port::UPP::UPP(const QString &device, Log::Base &base):USB(&device, &base)
+Port::UPP::UPP(Log::Base &base):USB( base)
 {
   init( vendorId, productId, configuration, interface);
 }
@@ -283,7 +283,7 @@ bool Port::UPP::internalReceive(uint size, unsigned char *data, uint timeout)
    int r = usb_interrupt_read(_handle, endpoint_in, (char*)data, size, timeout);
    if( r != (int)size )return false;
  return true;
-}
+}*/
 
 void Port::UPP::setSystemError(const QString &message)
 {
@@ -296,7 +296,7 @@ void Port::UPP::setSystemError(const QString &message)
   LocalFree(lpMsgBuf);
 #endif
 }
-  */
+  
 bool Port::UPP::internalSetPinOn(Pin pin, bool on)
 {
     unsigned char buffer[reqLen];
@@ -304,7 +304,7 @@ bool Port::UPP::internalSetPinOn(Pin pin, bool on)
     if(on)buffer[0]=(unsigned char)(0x90|pin);
     else buffer[0]=(unsigned char)(0x80|pin);
     //printf("Send 0x%X to Usbpicprog\n",(int)buffer[0]);
-    return write(endpoint_out,buffer,1);
+    return write(endpoint_out,(const char*)buffer,1);
 //    return internalSend(buffer,1,timeout);
 }
 
@@ -314,10 +314,10 @@ bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
    bool retval_s,retval_r;
    if(pin>15)return 0; //Error, does not fit in the 4 bits that describe the pin
    buffer[0]=(unsigned char)(0xC0|pin);
-   retval_s=write(endpoint_out,buffer,1);
+   retval_s=write(endpoint_out,(const char*)buffer,1);
 
-   retval_r=read(endpoint_in, buffer,1, NULL);
-   if (buffer[0]==(unsigned char)(0xD0|pin) value=1;
+   retval_r=read(endpoint_in, ( char*)buffer,1, NULL);
+   if (buffer[0]==(unsigned char)(0xD0|pin)) value=1;
    else value=0;
    //printf("Read value from Usbicprog: 0x%X ,%i\n",buffer[0],value);
    return retval_s&retval_r;

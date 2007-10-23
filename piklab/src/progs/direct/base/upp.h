@@ -46,7 +46,7 @@ public:
        /* enum Property { NoProperty = 0, NeedDrain = 1, NeedFlush = 2, NeedBreak = 4,
                   Blocking = 8 };
        Q_DECLARE_FLAGS(Properties, Property)*/
-       UPP(const QString &device, Log::Base &base);
+       UPP( Log::Base &base);
 
        //virtual Description description() const { return Description(USBType, QString::null); }
        //static struct usb_device *findDevice(uint vendorId, uint productId);
@@ -107,7 +107,7 @@ private:
   //virtual void internalClose();
   //virtual bool internalSend(const unsigned char *data, uint size, uint timeout);
   //virtual bool internalReceive(uint size, unsigned char *data, uint timeout);
-  //virtual void setSystemError(const QString &message);
+  virtual void setSystemError(const QString &message);
 //  static Handle openHandle(const QString &device, IODirs dirs);
 //  static void closeHandle(Handle handle);
   //static QStringList *_list;
