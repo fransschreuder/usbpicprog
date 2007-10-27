@@ -94,7 +94,7 @@ void VoltagePump(void)
 	static char pumpcount=0;
     if(pumpcount == 0)
     {
-	    pumpcount = 100;
+	    pumpcount = 2;
 	    Pump1=!Pump1;
 		Pump2=!Pump1;
 	}
