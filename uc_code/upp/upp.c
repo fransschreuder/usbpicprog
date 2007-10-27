@@ -69,8 +69,20 @@ void UserInit(void)
 	VPP_RST=0; //No hard reset (inverted
 	PGD=0;		
 	PGC=0;
-    
+	INTCON2bits.RBPU=1; //disable Portb pullup resistors
+    timer1Init();
 }//end UserInit
+
+void timer1Init(void)
+{
+	INTCON=0xC0; //global and periferal interrupts enabled
+	PIE1bits.TMR1IE=1;//enable timer1 interrupt
+	PIR1bits.TMR1IF=0;//clear interrupt flag
+	IPR1bits.TMR1IP=1;//high priority interrupt
+	TMR1H=TMR1H_PRESET;
+	TMR1L=TMR1L_PRESET;
+	T1CON=0x01; //timer1 on, prescaler 1;1, internal clock
+}
 
 void setLeds(char n)
 {
@@ -89,19 +101,20 @@ void setLeds(char n)
  
 ******************************************************************************/
 
-void VoltagePump(void)
+/*void VoltagePump(void)
 {
 	static char pumpcount=0;
     if(pumpcount == 0)
     {
 	    pumpcount = 2;
 	    Pump1=!Pump1;
-		Pump2=!Pump1;
+	    Pump2=!Pump1;
+	    //Pump3=Pump1;
 	}
     pumpcount--;
 	
 }
-	
+*/	
 
 
 
@@ -130,7 +143,7 @@ void ProcessIO(void)
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
-	VoltagePump();
+	//VoltagePump();
    
     if(USBGenRead((byte*)input_buffer,1)>0)
    	{
@@ -171,31 +184,43 @@ void ProcessIO(void)
 				//setLeds(6);
 				break;
 			case 7: //TRIS
-				if((input_buffer[0]&0x10)==0x10)TRISPGD=0;
-				else TRISPGD=1;
+				if((input_buffer[0]&0x10)==0x10)
+				{ 
+					TRISPGD=0;
+					setLeds(0x00);
+				}
+				  
+				else 
+				{
+					TRISPGD=1;
+					setLeds(0x01);
+				}
+				
 				//setLeds(7);
 				break;		
 			default:
 				break;
 				
 		}
-		setLeds(input_buffer[0]&0x07);
+		//setLeds(input_buffer[0]&0x07);
 		
 	    }
         else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
 		{
+			oldPGDtris=TRISPGD;
+			TRISPGD=1; //set PGD to input
 			if(TRISPGD)
 			{
-				if (PGD_READ)output_buffer[0]=0xC1;
-				else output_buffer[0]=0xC0;
+				if (PGD_READ)output_buffer[0]=0xD3;
+				else output_buffer[0]=0xC3;
 			}
 			else
 			{
-				if (PGD)output_buffer[0]=0xC1;
-				else output_buffer[0]=0xC0;
+				if (PGD)output_buffer[0]=0xD3;
+				else output_buffer[0]=0xC3;
 			}
 			counter=1;
-			
+			TRISPGD=oldPGDtris;
 		}
    	}
     if(counter != 0)
@@ -235,7 +260,7 @@ void BlinkUSBStatus(void)
 
     if(UCONbits.SUSPND == 1)
     {
-	    USBWakeFromSuspend();
+	    //USBWakeFromSuspend();
         if(led_count==0)
         {
             mLED_1_Toggle();

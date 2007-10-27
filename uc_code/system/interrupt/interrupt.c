@@ -7,7 +7,7 @@
 #include <p18cxxx.h>
 #include "system/typedefs.h"
 #include "system/interrupt/interrupt.h"
-
+#include "io_cfg.h"
 /** V A R I A B L E S ********************************************************/
 
 /** I N T E R R U P T  V E C T O R S *****************************************/
@@ -38,6 +38,14 @@ void interrupt_at_low_vector(void)
 #pragma interrupt high_isr
 void high_isr(void)
 {
+	if(PIR1bits.TMR1IF)
+	{	
+		Pump1=!Pump1;
+		Pump2=!Pump1;
+		TMR1H=TMR1H_PRESET;
+		TMR1L=TMR1L_PRESET;
+		PIR1bits.TMR1IF=0;
+	}
 }
 
 /******************************************************************************

@@ -33,8 +33,10 @@
     <opened_files>
       <item>upp/upp.h</item>
       <item>io_cfg.h</item>
-      <item>upp/upp.c</item>
       <item>main.c</item>
+      <item>system/interrupt/interrupt.c</item>
+      <item>upp/upp.c</item>
+      <item>system/interrupt/interrupt.h</item>
     </opened_files>
   </general>
 </piklab>

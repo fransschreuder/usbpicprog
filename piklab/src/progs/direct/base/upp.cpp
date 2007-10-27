@@ -16,13 +16,19 @@
 
 Port::UPP::UPP(Log::Base &base):USB( base)
 {
-  init( vendorId, productId, configuration, interface);  //initiates the constants for usbpicprog in class USB
+  init( vendorId, productId, configuration, interface);
 }
 
 
-/*
-public function to set or clear a pin, which has been specified in PIN_DATA
-*/
+
+/*Port::IODirs Port::UPP::probe(const QString &device)
+{
+	//TODO probe for usbpicprog
+	return (In | Out);
+}*/
+
+
+
 bool Port::UPP::setPinOn(uint pin, bool on, LogicType type)
 {
   if ( type==NegativeLogic ) on = !on;
@@ -35,9 +41,6 @@ bool Port::UPP::setPinOn(uint pin, bool on, LogicType type)
   return true;
 }
 
-/*
-public function to read the state of a pin which has been specified in PIN_DATA
-*/
 bool Port::UPP::readPin(uint pin, LogicType type, bool &value)
 {
 
@@ -50,9 +53,6 @@ bool Port::UPP::readPin(uint pin, LogicType type, bool &value)
   return true;
 }
 
-/*
-Returns a vector with the pins and their i/o state (direction)
-*/
 QValueVector<Port::PinData> Port::UPP::pinData(IODir dir) const
 {
   QValueVector<PinData> v;
@@ -64,25 +64,17 @@ QValueVector<Port::PinData> Port::UPP::pinData(IODir dir) const
   return v;
 }
 
-/*
-determine wether a pin is ground or not
-*/
+
 bool Port::UPP::isGroundPin(uint pin) const
 {
   return ( PIN_DATA[pin].label=="GND" );
 }
 
-/*
-returns the i/o state of a pin
-*/
 Port::IODir Port::UPP::ioDir(uint pin) const
 {
   return PIN_DATA[pin].dir;
 }
 
-/*
-Array with the valid pins of Usbpicprog
-*/
 const Port::UPP::UPinData Port::UPP::PIN_DATA[Nb_Pins] = {
   { Out,  "VPP" }, { Out,  "VPP_Reset" }, { Out, "DATA_OUT"  }, { In, "DATA_IN" },
   { Out,   "CLOCK" }, { NoIO, "GND" }, { Out, "VDD" }, { Out, "DIR" }
@@ -90,9 +82,7 @@ const Port::UPP::UPinData Port::UPP::PIN_DATA[Nb_Pins] = {
 
 /****************** Internal I/O Commands *****************/
 
-/*
-appends an error to the log
-*/
+
 void Port::UPP::setSystemError(const QString &message)
 {
 #if defined(Q_OS_UNIX)
@@ -104,11 +94,7 @@ void Port::UPP::setSystemError(const QString &message)
   LocalFree(lpMsgBuf);
 #endif
 }
-
-
-/*
-internal function to set or clear a pin, should only be called by setPinOn
-*/  
+  
 bool Port::UPP::internalSetPinOn(Pin pin, bool on)
 {
     unsigned char buffer[reqLen];
@@ -120,9 +106,6 @@ bool Port::UPP::internalSetPinOn(Pin pin, bool on)
 //    return internalSend(buffer,1,timeout);
 }
 
-/*
-internal function to read a pin, should only be called by readPin
-*/
 bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
 {
    unsigned char buffer[reqLen];
@@ -132,12 +115,21 @@ bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
    retval_s=write(endpoint_out,(const char*)buffer,1);
 
    retval_r=read(endpoint_in, ( char*)buffer,1, NULL);
-   if (buffer[0]==(unsigned char)(0xD0|pin)) value=1;
-   else value=0;
+   
+   if (buffer[0]==(unsigned char)(0xD0|pin)) 
+   {
+   	printf("read char: 0x%x, translated as 1\n",buffer[0]);
+	value=1;
+   }
+   else 
+   {
+	printf("read char: 0x%x, translated as 0\n",buffer[0]);
+	value=0;
+   }
    //printf("Read value from Usbicprog: 0x%X ,%i\n",buffer[0],value);
    return retval_s&retval_r;
 }
 
-
+//extern int usb_debug;
 
 

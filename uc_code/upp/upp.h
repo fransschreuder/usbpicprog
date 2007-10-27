@@ -9,6 +9,7 @@
 
 /** P U B L I C  P R O T O T Y P E S *****************************************/
 void UserInit(void);
+void timer1Init(void);
 void ProcessIO(void);
 void setLeds(char n);
 void Exercise_Example(void);
