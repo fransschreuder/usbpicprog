@@ -25,7 +25,7 @@
       <item>usbdsc.c</item>
       <item>usbdsc.h</item>
     </files>
-    <custom_linker_script>/home/frans/usbpicprog/Boot/Neuer Ordner/18f4550.lkr</custom_linker_script>
+    <custom_linker_script>18f4550.lkr</custom_linker_script>
     <opened_files>
       <item>boot.h</item>
       <item>main.c</item>
