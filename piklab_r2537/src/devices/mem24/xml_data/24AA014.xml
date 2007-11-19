@@ -1,0 +1,33 @@
+<!DOCTYPE piklab_device>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24AA014" document="010772" status="IP" memory_technology="FLASH" >
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"   end="0.1" vdd_min="1.8" vdd_max="5.5" />
+    <frequency start="0.1" end="0.4" vdd_min="2.5" vdd_max="5.5" />
+  </frequency_range>
+
+<!--* Memory ***************************************************************-->
+  <memory size="0x80" nb_blocks="1" page_size="16" />
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic tssop msop dfns" nb_pins="8" >
+    <pin index="1" name="A0"  />
+    <pin index="2" name="A1"  />
+    <pin index="3" name="A2"  />
+    <pin index="4" name="VSS" />
+    <pin index="5" name="SDA" />
+    <pin index="6" name="SCL" />
+    <pin index="7" name="WP"  />
+    <pin index="8" name="VCC" />
+  </package>
+
+</device>

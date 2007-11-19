@@ -1,0 +1,25 @@
+<!-- ************************************************************************* -->
+<!-- * Copyright (C) 2005-2006 Nicolas Hadacek <hadacek@kde.org>             * -->
+<!-- *                                                                       * -->
+<!-- * This program is free software; you can redistribute it and/or modify  * -->
+<!-- * it under the terms of the GNU General Public License as published by  * -->
+<!-- * the Free Software Foundation; either version 2 of the License, or     * -->
+<!-- * (at your option) any later version.                                   * -->
+<!-- *************************************************************************/-->
+<!DOCTYPE piklab>
+
+<type name="icd1">
+  <device name="16F870" family="0x02" />
+  <device name="16F871" family="0x02" />
+  <device name="16F872" family="0x02" />
+  <device name="16F873" family="0x01" />
+  <device name="16F874" family="0x01" />
+  <device name="16F876" family="0x00" />
+  <device name="16F877" family="0x00" />
+
+  <!-- not sure about these: only with newer firmware -->
+  <device name="16F873A" family="0x01" />
+  <device name="16F874A" family="0x01" />
+  <device name="16F876A" family="0x00" />
+  <device name="16F877A" family="0x00" />
+</type>

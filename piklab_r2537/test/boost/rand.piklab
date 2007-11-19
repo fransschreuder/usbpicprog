@@ -1,0 +1,41 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F873</device>
+    <files>
+      <item>randtest.c</item>
+    </files>
+    <description/>
+    <version>0.1</version>
+    <tool>boostc16</tool>
+    <opened_files>
+      <item>randtest.c</item>
+    </opened_files>
+  </general>
+  <compiler>
+    <has_custom_arguments>false</has_custom_arguments>
+    <custom_options/>
+    <custom_arguments>
+      <item>-t %DEVICE</item>
+      <item>-i</item>
+      <item>-I$(SRCPATH)</item>
+      <item>%I</item>
+    </custom_arguments>
+    <includes>
+      <item>$(SRCPATH)</item>
+    </includes>
+  </compiler>
+  <linker>
+    <has_custom_arguments>false</has_custom_arguments>
+    <custom_options>rand.pic16.lib</custom_options>
+    <custom_arguments>
+      <item>-t %DEVICE</item>
+      <item>-p</item>
+      <item>rand</item>
+      <item>-ld</item>
+      <item>/home/nicolas/wine/Program Files/SourceBoost/Lib</item>
+      <item>rand.pic16.lib</item>
+      <item>%OBJS</item>
+    </custom_arguments>
+  </linker>
+</piklab>

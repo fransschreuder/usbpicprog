@@ -1,0 +1,342 @@
+<!-- ************************************************************************* -->
+<!-- * Copyright (C) 2006 Nicolas Hadacek <hadacek@kde.org>                  * -->
+<!-- *                                                                       * -->
+<!-- * This program is free software; you can redistribute it and/or modify  * -->
+<!-- * it under the terms of the GNU General Public License as published by  * -->
+<!-- * the Free Software Foundation; either version 2 of the License, or     * -->
+<!-- * (at your option) any later version.                                   * -->
+<!-- *************************************************************************/-->
+<!DOCTYPE piklab>
+
+<type name="coff">
+  <device name="10f200" id="0xf200" />
+  <device name="10f202" id="0xf202" />
+  <device name="10f204" id="0xf204" />
+  <device name="10f206" id="0xf206" />
+  <device name="10f220" id="0xf220" />
+  <device name="10f222" id="0xf222" />
+  <device name="12c508" id="0x2508" />
+  <device name="12c508a" id="0x508a" />
+  <device name="12c509" id="0x2509" />
+  <device name="12c509a" id="0x509a" />
+  <device name="12c671" id="0x2671" />
+  <device name="12c672" id="0x2672" />
+  <device name="12ce518" id="0x2518" />
+  <device name="12ce519" id="0x2519" />
+  <device name="12ce673" id="0x2673" />
+  <device name="12ce674" id="0x2674" />
+  <device name="12cr509a" id="0xd09a" />
+  <device name="12f508" id="0x2508" />
+  <device name="12f509" id="0x2509" />
+  <device name="12f510" id="0x2510" />
+  <device name="12f629" id="0x2629" />
+  <device name="12f635" id="0x2635" />
+  <device name="12f675" id="0x2675" />
+  <device name="12f683" id="0x2683" />
+  <device name="14000" id="0x4000" />
+<!--  <device name="16c5x" id="0x658a" /> -->
+<!--  <device name="16cxx" id="0x6c77" /> -->
+  <device name="16c432" id="0x6432" />
+  <device name="16c433" id="0x6433" />
+  <device name="16c505" id="0x2505" />
+  <device name="16c52" id="0x6c52" />
+  <device name="16c54" id="0x6c54" />
+  <device name="16c54a" id="0x654a" />
+  <device name="16c54b" id="0x654b" />
+  <device name="16c54c" id="0x654c" />
+  <device name="16c55" id="0x6c55" />
+  <device name="16c55a" id="0x655a" />
+  <device name="16c554" id="0x6554" />
+  <device name="16c557" id="0x6557" />
+  <device name="16c558" id="0x6558" />
+  <device name="16c56" id="0x6c56" />
+  <device name="16c56a" id="0x656a" />
+  <device name="16c57" id="0x6c57" />
+  <device name="16c57c" id="0x657c" />
+  <device name="16c58a" id="0x658a" />
+  <device name="16c58b" id="0x658b" />
+  <device name="16c61" id="0x6c61" />
+  <device name="16c62" id="0x6c62" />
+  <device name="16c62a" id="0x662a" />
+  <device name="16c62b" id="0x662b" />
+  <device name="16c620" id="0x6620" />
+  <device name="16c620a" id="0x620a" />
+  <device name="16c621" id="0x6621" />
+  <device name="16c621a" id="0x621a" />
+  <device name="16c622" id="0x6622" />
+  <device name="16c622a" id="0x622a" />
+  <device name="16c63" id="0x6c63" />
+  <device name="16c63a" id="0x663a" />
+  <device name="16c64" id="0x6c64" />
+  <device name="16c64a" id="0x664a" />
+  <device name="16c642" id="0x6642" />
+  <device name="16c65" id="0x6c65" />
+  <device name="16c65a" id="0x665a" />
+  <device name="16c65b" id="0x665b" />
+  <device name="16c66" id="0x6c66" />
+  <device name="16c662" id="0x6662" />
+  <device name="16c67" id="0x6c67" />
+  <device name="16c71" id="0x6c71" />
+  <device name="16c710" id="0x6710" />
+  <device name="16c711" id="0x6711" />
+  <device name="16c712" id="0x6712" />
+  <device name="16c715" id="0x6715" />
+  <device name="16c716" id="0x6716" />
+  <device name="16c717" id="0x6717" />
+  <device name="16c72" id="0x6c72" />
+  <device name="16c72a" id="0x672a" />
+  <device name="16c73" id="0x673a" />
+  <device name="16c73a" id="0x673a" />
+  <device name="16c73b" id="0x673b" />
+  <device name="16c74" id="0x6c74" />
+  <device name="16c745" id="0x6745" />
+<!--  <device name="16c747" id="0x6747" /> -->
+  <device name="16c74a" id="0x674a" />
+  <device name="16c74b" id="0x674b" />
+  <device name="16c76" id="0x6c76" />
+  <device name="16c765" id="0x6765" />
+  <device name="16c77" id="0x6c77" />
+  <device name="16c770" id="0x6770" />
+  <device name="16c771" id="0x6771" />
+  <device name="16c773" id="0x6773" />
+  <device name="16c774" id="0x6774" />
+  <device name="16c781" id="0x6781" />
+  <device name="16c782" id="0x6782" />
+  <device name="16c84" id="0x6c84" />
+  <device name="16c923" id="0x6923" />
+  <device name="16c924" id="0x6924" />
+  <device name="16c925" id="0x6925" />
+  <device name="16c926" id="0x6926" />
+  <device name="16ce623" id="0x6623" />
+  <device name="16ce624" id="0x6624" />
+  <device name="16ce625" id="0x6625" />
+<!--  <device name="16cr54" id="0xdc54" /> -->
+  <device name="16cr54a" id="0xd54a" />
+  <device name="16cr54b" id="0xd54b" />
+  <device name="16cr54c" id="0xdc54" />
+  <device name="16cr56a" id="0xd56a" />
+<!--  <device name="16cr57a" id="0xd57a" /> -->
+  <device name="16cr57b" id="0xd57b" />
+  <device name="16cr57c" id="0xd57c" />
+  <device name="16cr58a" id="0xd58a" />
+  <device name="16cr58b" id="0xd58b" />
+  <device name="16cr62" id="0xdc62" />
+  <device name="16cr620a" id="0xd20a" />
+  <device name="16cr63" id="0x6d63" />
+  <device name="16cr64" id="0xdc64" />
+  <device name="16cr65" id="0x6d65" />
+  <device name="16cr72" id="0x6d72" />
+  <device name="16cr83" id="0xdc83" />
+  <device name="16cr84" id="0xdc84" />
+  <device name="16f505" id="0x654f" />
+  <device name="16f54" id="0x654f" />
+  <device name="16f57" id="0x657f" />
+  <device name="16f59" id="0x659f" />
+  <device name="16f610" id="0x6610" />
+  <device name="16f627" id="0x6627" />
+  <device name="16f627a" id="0x627a" />
+  <device name="16f628" id="0x6628" />
+  <device name="16f628a" id="0x628a" />
+  <device name="16f630" id="0x6630" />
+  <device name="16f636" id="0x6636" />
+  <device name="16f639" id="0x6639" />
+  <device name="16f648a" id="0x648a" />
+  <device name="16f676" id="0x6676" />
+  <device name="16f684" id="0x6684" />
+  <device name="16f685" id="0x6685" />
+  <device name="16f687" id="0x6687" />
+  <device name="16f688" id="0x6688" />
+  <device name="16f689" id="0x6689" />
+  <device name="16f690" id="0x6690" />
+  <device name="16f716" id="0x716f" />
+  <device name="16f72" id="0x672f" />
+  <device name="16f73" id="0x673f" />
+  <device name="16f737" id="0x737f" />
+  <device name="16f74" id="0x674f" />
+  <device name="16f747" id="0x6747" />
+  <device name="16f76" id="0x676f" />
+  <device name="16f767" id="0x767f" />
+  <device name="16f77" id="0x677f" />
+  <device name="16f777" id="0x777f" />
+  <device name="16f785" id="0x785f" />
+  <device name="16f818" id="0x818f" />
+  <device name="16f819" id="0x819f" />
+  <device name="16f83" id="0x6c83" />
+  <device name="16f84" id="0x6f84" />
+  <device name="16f84a" id="0x684a" />
+  <device name="16f87" id="0x687f" />
+  <device name="16f870" id="0x870f" />
+  <device name="16f871" id="0x871f" />
+  <device name="16f872" id="0x872f" />
+  <device name="16f873" id="0x873f" />
+  <device name="16f873a" id="0x873a" />
+  <device name="16f874" id="0x874f" />
+  <device name="16f874a" id="0x874a" />
+  <device name="16f876" id="0x876f" />
+  <device name="16f876a" id="0x876a" />
+  <device name="16f877" id="0x877f" />
+  <device name="16f877a" id="0x877a" />
+  <device name="16f88" id="0x688f" />
+  <device name="16f882" id="0x882f" />
+  <device name="16f883" id="0x883f" />
+  <device name="16f884" id="0x884f" />
+  <device name="16f886" id="0x886f" />
+  <device name="16f887" id="0x887f" />
+  <device name="16f913" id="0x913f" />
+  <device name="16f914" id="0x914f" />
+  <device name="16f916" id="0x916f" />
+  <device name="16f917" id="0x917f" />
+  <device name="16hv540" id="0x6540" />
+<!--  <device name="17cxx" id="0x7756" /> -->
+  <device name="17c42" id="0x7c42" />
+  <device name="17c42a" id="0x742a" />
+  <device name="17c43" id="0x7c43" />
+  <device name="17c44" id="0x7c44" />
+  <device name="17c752" id="0x7752" />
+  <device name="17c756" id="0x7756" />
+  <device name="17c756a" id="0x756a" />
+  <device name="17c762" id="0x7762" />
+  <device name="17c766" id="0x7766" />
+  <device name="17cr42" id="0xe42a" />
+  <device name="17cr43" id="0xec43" />
+
+  <device name="18c242" id="0x8242" />
+  <device name="18c252" id="0x8252" />
+  <device name="18c442" id="0x8442" />
+  <device name="18c452" id="0x8452" />
+  <device name="18c601" id="0x8601" />
+  <device name="18c658" id="0x8658" />
+  <device name="18c801" id="0x8801" />
+  <device name="18c858" id="0x8858" />
+  <device name="18f1220" id="0xa122" />
+  <device name="18f1230" id="0xa123 0x1230" />
+<!--  <device name="18f1231" id="0x1231" /> -->
+  <device name="18f1320" id="0xa132" />
+  <device name="18f1330" id="0xa133 0x1330" />
+<!--  <device name="18f1331" id="0x1331" /> -->
+  <device name="18f2220" id="0xa222" />
+  <device name="18f2221" id="0x2221" />
+  <device name="18f2320" id="0xa232" />
+  <device name="18f2321" id="0x2321" />
+  <device name="18f2331" id="0x2331" />
+  <device name="18f2410" id="0x2410" />
+  <device name="18f242"  id="0x242f" />
+  <device name="18f2420" id="0x2420" />
+  <device name="18f2431" id="0x2431" />
+  <device name="18f2439" id="0x2439" />
+  <device name="18f2450" id="0x2450" />
+  <device name="18f2455" id="0x2455" />
+  <device name="18f248"  id="0x8248" />
+  <device name="18f2480" id="0x2480" />
+  <device name="18f24J10" id="0xD410" />
+  <device name="18f2510" id="0x2510" />
+  <device name="18f2515" id="0x2515" />
+  <device name="18f252"  id="0x252f" />
+  <device name="18f2520" id="0x2520" />
+  <device name="18f2525" id="0x2525" />
+  <device name="18f2539" id="0x2539" />
+  <device name="18f2550" id="0x2550" />
+  <device name="18f258"  id="0x8258" />
+  <device name="18f2580" id="0x2580" />
+  <device name="18f2585" id="0x2585" />
+  <device name="18f25J10" id="0xD510" />
+  <device name="18f2610" id="0x2610 0xa261" />
+  <device name="18f2620" id="0x2620 0xa262" />
+  <device name="18f2680" id="0x2680" />
+<!--  <device name="18f2681" id="0x2681" /> -->
+  <device name="18f2682" id="0x2682" />
+  <device name="18f2685" id="0x2685" />
+  <device name="18f4220" id="0xa422" />
+  <device name="18f4221" id="0x4221" />
+  <device name="18f4320" id="0xa432" />
+  <device name="18f4321" id="0x4321" />
+  <device name="18f4331" id="0x4331" />
+  <device name="18f4410" id="0x4410" />
+  <device name="18f442"  id="0x442f" />
+  <device name="18f4420" id="0x4420" />
+  <device name="18f4431" id="0x4431" />
+  <device name="18f4439" id="0x4439" />
+  <device name="18f4450" id="0x4450" />
+  <device name="18f4455" id="0x4455" />
+  <device name="18f448"  id="0x8448" />
+  <device name="18f4480" id="0x4480" />
+  <device name="18f44J10" id="0xE410" />
+  <device name="18f4510" id="0x4510" />
+  <device name="18f4515" id="0x4515" />
+  <device name="18f452"  id="0x452f" />
+  <device name="18f4520" id="0x4520" />
+  <device name="18f4525" id="0x4525" />
+  <device name="18f4539" id="0x4539" />
+  <device name="18f4550" id="0x4550" />
+  <device name="18f458"  id="0x8458" />
+  <device name="18f4580" id="0x4580" />
+  <device name="18f4585" id="0x4585" />
+  <device name="18f45J10" id="0xE510" />
+  <device name="18f4610" id="0xa461 0x4610" />
+  <device name="18f4620" id="0xa462 0x4620" />
+  <device name="18f4680" id="0x4680" />
+<!--  <device name="18f4681" id="0x4681" /> -->
+  <device name="18f4682" id="0x4682" />
+  <device name="18f4685" id="0x4685" />
+  <device name="18f6310" id="0xa631 0x6310" />
+  <device name="18f6390" id="0xa639 0x6390" />
+  <device name="18f6410" id="0xa641 0x6410" />
+  <device name="18f6490" id="0xa649 0x6490" />
+<!--  <device name="18f64j15" id="0xb415" /> -->
+  <device name="18f6520" id="0xa652" />
+  <device name="18f6525" id="0x6525" />
+  <device name="18f6527" id="0x6527" />
+  <device name="18f6585" id="0x6585" />
+  <device name="18f65j10" id="0xb510" />
+  <device name="18f65j15" id="0xb515" />
+  <device name="18f6620" id="0xa662" />
+  <device name="18f6621" id="0xa621" />
+  <device name="18f6622" id="0xf622" />
+  <device name="18f6627" id="0xa627 0x6627" />
+  <device name="18f6680" id="0x6680" />
+  <device name="18f66j10" id="0xb610" />
+  <device name="18f66j15" id="0xb615" />
+  <device name="18f66j60" id="0xb660" />
+  <device name="18f66j65" id="0xb665" />
+  <device name="18f6720" id="0xa672" />
+  <device name="18f6722" id="0x6722" />
+  <device name="18f67j10" id="0xb710" />
+  <device name="18f67j60" id="0xb760" />
+  <device name="18f8310" id="0x8310" />
+  <device name="18f8390" id="0x8390" />
+  <device name="18f8410" id="0x8410" />
+  <device name="18f8490" id="0x8490" />
+<!--  <device name="18f84j15" id="0xc415" /> -->
+  <device name="18f8520" id="0xa852" />
+  <device name="18f8525" id="0x8525" />
+  <device name="18f8527" id="0x8527" />
+  <device name="18f8585" id="0x8585" />
+  <device name="18f85j10" id="0xc510" />
+  <device name="18f85j15" id="0xc515" />
+  <device name="18f8620" id="0xa862" />
+  <device name="18f8621" id="0x8621" />
+  <device name="18f8622" id="0x8622" />
+  <device name="18f8627" id="0x8627" />
+  <device name="18f8680" id="0x8680" />
+  <device name="18f86j10" id="0xc610" />
+  <device name="18f86j15" id="0xc615" />
+  <device name="18f86j60" id="0xc660" />
+  <device name="18f86j65" id="0xc665" />
+  <device name="18f8720" id="0xa872" />
+  <device name="18f8722" id="0x8721" />
+  <device name="18f87j10" id="0xc710" />
+  <device name="18f87j60" id="0xc760" />
+  <device name="18f96j60" id="0xd660" />
+  <device name="18f96j65" id="0xd665" />
+  <device name="18f97j60" id="0xd760" />
+<!--
+  <device name="rf509af" id="0x6509" />
+  <device name="rf509ag" id="0x7509" />
+  <device name="rf675f" id="0x3675" />
+  <device name="rf675h" id="0x4675" />
+  <device name="rf675k" id="0x5675" />
+  <device name="sx18" id="0x0018" />
+  <device name="sx20" id="0x0020" />
+  <device name="sx28" id="0x0028" />
+-->
+</type>

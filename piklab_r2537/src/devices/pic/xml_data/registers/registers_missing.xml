@@ -1,0 +1,59 @@
+<!-- ************************************************************************* -->
+<!-- * Copyright (C) 2006 Nicolas Hadacek <hadacek@kde.org>                  * -->
+<!-- *                                                                       * -->
+<!-- * This program is free software; you can redistribute it and/or modify  * -->
+<!-- * it under the terms of the GNU General Public License as published by  * -->
+<!-- * the Free Software Foundation; either version 2 of the License, or     * -->
+<!-- * (at your option) any later version.                                   * -->
+<!-- *************************************************************************/-->
+<!DOCTYPE piklab>
+<registers>
+  <device name="16C52"   same_as="16C54" />
+  <device name="16C54A"  same_as="16C54" />
+  <device name="16C54B"  same_as="16C54" />
+  <device name="16CR54B" same_as="16C54" />
+  <device name="16CR57B" same_as="16C57" />
+  <device name="16CR58A" same_as="16C58A" />
+  <device nb_banks="2" name="16C61" >
+    <mirror>
+      <range end="0x0000" start="0x0000" />
+      <range end="0x0080" start="0x0080" />
+    </mirror>
+    <mirror>
+      <range end="0x0004" start="0x0002" />
+      <range end="0x0084" start="0x0082" />
+    </mirror>
+    <mirror>
+      <range end="0x000B" start="0x000A" />
+      <range end="0x008B" start="0x008A" />
+    </mirror>
+    <unused end="0x0009" start="0x0007" />
+    <unused end="0x007F" start="0x0030" />
+    <unused end="0x0089" start="0x0087" />
+    <unused end="0x00FF" start="0x00B0" />
+    <sfr address="0x0000" access="00000000" name="INDF" mclr="00000000" por="00000000" />
+    <sfr address="0x0001" access="33333333" name="TMR0" mclr="33333333" por="00000000" />
+    <sfr address="0x0002" access="33333333" name="PCL" mclr="11111111" por="11111111" />
+    <sfr address="0x0003" access="11311333" name="STATUS" mclr="11144333" por="11122000" />
+    <sfr address="0x0004" access="33333333" name="FSR" mclr="33333333" por="00000000" />
+    <sfr address="0x0005" access="00033333" name="PORTA" mclr="00033333" por="00000000" />
+    <sfr address="0x0006" access="33333333" name="PORTB" mclr="33333333" por="00000000" />
+    <sfr address="0x000A" access="00033333" name="PCLATH" mclr="00011111" por="00011111" />
+    <sfr address="0x000B" access="33333333" name="INTCON" mclr="11111113" por="11111110" />
+    <sfr address="0x0081" access="33333333" name="OPTION_REG" mclr="22222222" por="22222222" />
+    <sfr address="0x0085" access="00033333" name="TRISA" mclr="00022222" por="00022222" />
+    <sfr address="0x0086" access="33333333" name="TRISB" mclr="22222222" por="22222222" />
+  </device>
+  <device name="16C62"  same_as="16C62A" />
+  <device name="16C64"  same_as="16C64A" />
+  <device name="16C65"  same_as="16C65A" />
+  <device name="16C73"  same_as="16C73A" />
+  <device name="16CR73" same_as="16F73"  />
+  <device name="16C74"  same_as="16C74A" />
+  <device name="16CR74" same_as="16F74"  />
+  <device name="16CR76" same_as="16F76"  />
+  <device name="16CR77" same_as="16F77"  />
+  <device name="16C84"  same_as="16CR84" />
+  <device name="12HV615"  same_as="12F615" />
+  <device name="16HV615"  same_as="16F615" />
+</registers>

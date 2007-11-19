@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!ENTITY % imageobjectco.module "INCLUDE">
+  <!ENTITY piklab "<application>Piklab</application>">
+  <!ENTITY kappname "&piklab;">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+<title>The &piklab; Handbook</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Nicolas</firstname>
+<surname>Hadacek</surname>
+</personname>
+<email>hadacek@kde.org</email>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2005</year>
+<holder>Nicolas Hadacek</holder>
+</copyright>
+<!--<legalnotice>&FDLNotice;</legalnotice>-->
+
+<date>2006-05-29</date>
+<releaseinfo>0.1</releaseinfo>
+
+<abstract>
+<para>
+&piklab; is an integrated development environment for applications based on Microchip PIC and
+dsPIC microcontrollers similar to the MPLAB environment. Support for several compiler and
+assembler toolchains is integrated. The ICD2 debugger, the PICkit1 and PICkit2 programmers,
+and most direct programmers are supported. A command-line programmer "piklab-prog" is also available.
+</para>
+
+<para>
+Check <ulink
+url="http://piklab.sourceforge.net">&piklab;</ulink> website for up-to-date information and help.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+</keywordset>
+
+</bookinfo>
+
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+-->

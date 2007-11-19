@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="16CR54" document="" status="?" memory_technology="ROM" architecture="10X"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Operating characteristics ********************************************-->
+
+  <voltages name="vpp"      min="12.5" max="13.5" nominal="13" />
+  <voltages name="vdd_prog" min="4.75" max="5.25" nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="program"  start="0x000" end="0x1FF" />
+  <memory name="user_ids" start="0x200" end="0x203" rmask="0x00F" />
+  <memory name="config"   start="0xFFF" end="0xFFF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0xFFC" bvalue="0x00C" cmask="0x008" >
+    <mask name="FOSC" value="0x003" >
+      <value value="0x000" name="LP"           cname="_LP_OSC" />
+      <value value="0x001" name="XT"           cname="_XT_OSC" />
+      <value value="0x002" name="HS"           cname="_HS_OSC" />
+      <value value="0x003" name="EXTRC_CLKOUT" cname="_RC_OSC" />
+    </mask>
+    <mask name="WDT"  value="0x004" >
+      <value value="0x000" name="Off" cname="_WDT_OFF" />
+      <value value="0x004" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="CP"   value="0x008" >
+      <value value="0x000" name="All" cname="_CP_ON"  />
+      <value value="0x008" name="Off" cname="_CP_OFF" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic" nb_pins="18" >
+    <pin index="1"  name="RA2"         />
+    <pin index="2"  name="RA3"         />
+    <pin index="3"  name="T0CKI"       />
+    <pin index="4"  name="MCLR/VPP"    />
+    <pin index="5"  name="VSS"         />
+    <pin index="6"  name="RB0"         />
+    <pin index="7"  name="RB1"         />
+    <pin index="8"  name="RB2"         />
+    <pin index="9"  name="RB3"         />
+    <pin index="10" name="RB4"         />
+    <pin index="11" name="RB5"         />
+    <pin index="12" name="RB6"         />
+    <pin index="13" name="RB7"         />
+    <pin index="14" name="VDD"         />
+    <pin index="15" name="OSC2/CLKOUT" />
+    <pin index="16" name="OSC1/CLKIN"  />
+    <pin index="17" name="RA0"         />
+    <pin index="18" name="RA1"         />
+  </package>
+
+  <package types="ssop"      nb_pins="20" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+  </package>
+
+</device>

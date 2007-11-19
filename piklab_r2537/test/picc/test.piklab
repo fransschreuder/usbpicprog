@@ -1,0 +1,28 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F877</device>
+    <files>
+      <item>test.c</item>
+    </files>
+    <description/>
+    <version>0.1</version>
+    <tool>picclite</tool>
+    <opened_files>
+      <item>test.c</item>
+    </opened_files>
+  </general>
+  <compiler>
+    <includes>$(SRCPATH)</includes>
+    <custom_options/>
+  </compiler>
+  <assembler>
+    <includes>$(SRCPATH)</includes>
+    <custom_options/>
+    <warning_level>0</warning_level>
+  </assembler>
+  <linker>
+    <custom_options/>
+    <format>inhx32</format>
+  </linker>
+</piklab>

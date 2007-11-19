@@ -1,0 +1,122 @@
+#MIN_CONFIG(3)
+
+AM_INIT_AUTOMAKE(piklab, 0.15.2)
+
+dnl CXXFLAGS="$NOOPT_CXXFLAGS" dnl __kdevelop[noopt]__
+dnl CFLAGS="$NOOPT_CFLAGS" dnl __kdevelop[noopt]__
+dnl CXXFLAGS="$CXXFLAGS $USE_EXCEPTIONS" dnl __kdevelop[exc]__
+
+dnl KDE_NEED_FLEX dnl __kdevelop__
+dnl AC_PROG_YACC dnl __kdevelop__
+
+# --------------------------------------------------------------------------
+# check os
+case "${host_os}" in
+       *linux* ) OSDIR=linux ;;
+       *bsd*   ) OSDIR=bsd   LDFLAGS="$LDFLAGS $LIBPTHREAD";;
+       *       ) OSDIR=null  ;;
+esac
+AM_CONDITIONAL(BSD, test x$OSDIR = xbsd)
+AM_CONDITIONAL(LINUX, test x$OSDIR = xlinux)
+AM_CONDITIONAL(NULL, test x$OSDIR = xnull)
+AC_C_BIGENDIAN
+
+# --------------------------------------------------------------------------
+# check for parport header (linux)
+AC_CACHE_CHECK([for parport header/ppdev.h], ac_cv_c_ppdev,
+ AC_TRY_COMPILE(
+   [#include <linux/ppdev.h>],
+   [ioctl (1,PPCLAIM,0)],
+   [ac_cv_c_ppdev="yes"],
+   [ac_cv_c_ppdev="no"])
+ )
+if test "$ac_cv_c_ppdev" = "yes"
+then
+   AC_DEFINE(HAVE_PPDEV, 1, [Define if we can use ppdev for parallel port access])
+fi
+
+# check for ppbus header (FreeBSD)
+AC_CACHE_CHECK([for ppbus header/ppi.h], ac_cv_c_ppbus,
+ AC_TRY_COMPILE(
+   [#include <dev/ppbus/ppi.h>],
+   [ioctl (1,PPIGCTRL,0)],
+   [ac_cv_c_ppbus="yes"],
+   [ac_cv_c_ppbus="no"])
+ )
+if test "$ac_cv_c_ppbus" = "yes"
+then
+   AC_DEFINE(HAVE_PPBUS, 1, [Define if we can use ppbus for parallel port access])
+fi
+
+# ----------------------------------------------------------------------------
+# check for libusb
+have_libusb=no
+AC_ARG_ENABLE(libusb, AC_HELP_STRING([--disable-libusb],[do not use libusb]),
+              [ try_libusb="${enableval}" ], [ try_libusb=yes ] )
+if test "x$try_libusb" != xno ; then
+  AC_CHECK_PROG([LIBUSBCONFIG], [libusb-config], [yes])
+  if test "$LIBUSBCONFIG" = "yes" ; then
+    LIBUSB_CFLAGS="$LIBUSB_CFLAGS `libusb-config --cflags`"
+    LIBUSB_LIBS="$LIBUSB_LIBS `libusb-config --libs`"
+    LIBUSB_VERSION="`libusb-config --version`"
+  else
+    AC_MSG_WARN([libusb-config not found.])
+  fi
+  saved_CPPFLAGS="$CPPFLAGS"
+  saved_LIBS="$LIBS"
+  CPPFLAGS="$CPPFLAGS $LIBUSB_CFLAGS"
+  LIBS="$LDFLAGS $LIBUSB_LIBS"
+  AC_CHECK_HEADERS(usb.h, [],
+    [ AC_MSG_ERROR([usb.h not found, use ./configure LIBUSB_CFLAGS=...]) ])
+  AC_MSG_CHECKING([for usb_init])
+  AC_TRY_LINK_FUNC(usb_init, [ AC_MSG_RESULT([yes]) ],
+    [ AC_MSG_ERROR([libusb not found, use ./configure LIBUSB_LIBS=...]) ])
+  CPPFLAGS="$saved_CPPFLAGS"
+  LIBS="$saved_LIBS"
+  have_libusb=yes
+fi
+AC_SUBST(LIBUSB_CFLAGS)
+AC_SUBST(LIBUSB_LIBS)
+if test "$have_libusb" = "yes"
+then
+  AC_DEFINE(HAVE_USB, 1, [Define if libusb is available])
+  AC_DEFINE_UNQUOTED(LIBUSB_VERSION, "$LIBUSB_VERSION", [libusb version])
+fi
+
+# ----------------------------------------------------------------------------
+# check which libcurses
+CPPFLAGS="$CPPFLAGS -L/usr/lib"
+AC_CHECK_LIB(curses, main, CURSESLIB="-lcurses",
+  [AC_CHECK_LIB(ncurses, main, CURSESLIB="-lncurses")]
+)
+
+# ----------------------------------------------------------------------------
+# check for readline
+have_libreadline=no
+AC_ARG_ENABLE(libreadline, AC_HELP_STRING([--disable-libreadline],[do not use libreadline]),
+              [ try_libreadline="${enableval}" ], [ try_libreadline=yes ] )
+if test "x$try_libreadline" != xno ; then
+  LIBREADLINE_LIBS="-lhistory -lreadline $CURSESLIB"
+  AC_CHECK_HEADER(readline/readline.h, HAVE_READLINE=true, [ AC_MSG_WARN([readline/readline.h not found]) ])
+  if test x${HAVE_READLINE} = xtrue ; then
+    saved_CPPFLAGS="$CPPFLAGS"
+    saved_LIBS="$LIBS"
+    LIBS="$LDFLAGS $LIBREADLINE_LIBS"
+    AC_MSG_CHECKING([for rl_initialize])
+    AC_TRY_LINK_FUNC(rl_initialize, [
+      AC_MSG_RESULT([yes])
+      AC_MSG_CHECKING([for using_history])
+      AC_TRY_LINK_FUNC(using_history, [
+        have_libreadline=yes
+        AC_MSG_RESULT([yes])
+      ], [ AC_MSG_ERROR([libhistory not found]) ])
+    ], [ AC_MSG_ERROR([libreadline not found]) ])
+    CPPFLAGS="$saved_CPPFLAGS"
+    LIBS="$saved_LIBS"
+  fi
+fi
+AC_SUBST(LIBREADLINE_LIBS)
+if test "$have_libreadline" = "yes"
+then
+  AC_DEFINE(HAVE_READLINE, 1, [Define if libreadline header is present.])
+fi
