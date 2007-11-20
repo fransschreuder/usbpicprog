@@ -35,7 +35,11 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#ifdef SDCC
+#include <pic18f2550.h>
+#else
 #include <p18cxxx.h>
+#endif
 #include "system\typedefs.h"
 #include "system\usb\usb.h"
 #include "io_cfg.h"             // Required for USBCheckBusStatus()
