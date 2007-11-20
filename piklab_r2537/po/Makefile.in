@@ -312,8 +312,8 @@ xdg_directorydir = @xdg_directorydir@
 xdg_menudir = @xdg_menudir@
 #>- POFILES = AUTO
 #>+ 2
-POFILES = de.po cs.po es.po fr.po hu.po it.po
-GMOFILES = de.gmo cs.gmo es.gmo fr.gmo hu.gmo it.gmo
+POFILES = hu.po cs.po es.po it.po de.po fr.po
+GMOFILES = hu.gmo cs.gmo es.gmo it.gmo de.gmo fr.gmo
 #>- all: all-am
 #>+ 1
 all: all-nls docs-am  all-am
@@ -505,36 +505,37 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in piklab.pot hu.po de.po es.po it.po fr.po Makefile.am cs.po merge.sh 
+KDE_DIST=cs.gmo Makefile.in piklab.pot it.gmo hu.po de.gmo de.po es.po fr.gmo es.gmo it.po fr.po hu.gmo Makefile.am cs.po merge.sh 
 
 #>+ 19
-de.gmo: de.po
-	rm -f de.gmo; $(GMSGFMT) -o de.gmo $(srcdir)/de.po
-	test ! -f de.gmo || touch de.gmo
+hu.gmo: hu.po
+	rm -f hu.gmo; $(GMSGFMT) -o hu.gmo $(srcdir)/hu.po
+	test ! -f hu.gmo || touch hu.gmo
 cs.gmo: cs.po
 	rm -f cs.gmo; $(GMSGFMT) -o cs.gmo $(srcdir)/cs.po
 	test ! -f cs.gmo || touch cs.gmo
 es.gmo: es.po
 	rm -f es.gmo; $(GMSGFMT) -o es.gmo $(srcdir)/es.po
 	test ! -f es.gmo || touch es.gmo
-fr.gmo: fr.po
-	rm -f fr.gmo; $(GMSGFMT) -o fr.gmo $(srcdir)/fr.po
-	test ! -f fr.gmo || touch fr.gmo
-hu.gmo: hu.po
-	rm -f hu.gmo; $(GMSGFMT) -o hu.gmo $(srcdir)/hu.po
-	test ! -f hu.gmo || touch hu.gmo
 it.gmo: it.po
 	rm -f it.gmo; $(GMSGFMT) -o it.gmo $(srcdir)/it.po
 	test ! -f it.gmo || touch it.gmo
+de.gmo: de.po
+	rm -f de.gmo; $(GMSGFMT) -o de.gmo $(srcdir)/de.po
+	test ! -f de.gmo || touch de.gmo
+fr.gmo: fr.po
+	rm -f fr.gmo; $(GMSGFMT) -o fr.gmo $(srcdir)/fr.po
+	test ! -f fr.gmo || touch fr.gmo
 
 #>+ 3
 clean-nls:
-	-rm -f  de.gmo cs.gmo es.gmo fr.gmo hu.gmo it.gmo
+	-rm -f  hu.gmo cs.gmo es.gmo it.gmo de.gmo fr.gmo
 
 #>+ 10
 install-nls:
-	@for base in de cs es fr hu it ; do \
+	@for base in hu cs es it de fr ; do \
 	  echo $(INSTALL_DATA) $$base.gmo $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES/$(PACKAGE).mo ;\
 	  $(mkinstalldirs) $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES ; \
 	  if test -f $$base.gmo; then $(INSTALL_DATA) $$base.gmo $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES/$(PACKAGE).mo ;\
@@ -545,12 +546,12 @@ install-nls:
 
 #>+ 8
 uninstall-nls:
-	rm -f $(DESTDIR)$(kde_locale)/de/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/hu/LC_MESSAGES/$(PACKAGE).mo
 	rm -f $(DESTDIR)$(kde_locale)/cs/LC_MESSAGES/$(PACKAGE).mo
 	rm -f $(DESTDIR)$(kde_locale)/es/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/fr/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/hu/LC_MESSAGES/$(PACKAGE).mo
 	rm -f $(DESTDIR)$(kde_locale)/it/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/de/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/fr/LC_MESSAGES/$(PACKAGE).mo
 
 #>+ 2
 all-nls: $(GMOFILES)

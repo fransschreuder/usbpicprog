@@ -625,8 +625,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=xml_to_data.h Makefile.in device_xml_to_data.h xml_to_data.pro prog_xml_to_data.h Makefile.am 
+KDE_DIST=device_xml_to_data.h Makefile.in prog_xml_to_data.h xml_to_data.pro xml_to_data.h Makefile.am 
 
 #>+ 2
 docs-am:

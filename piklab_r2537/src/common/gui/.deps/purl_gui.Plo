@@ -1,156 +1,162 @@
 purl_gui.lo .libs/purl_gui.o: purl_gui.cpp purl_gui.h \
-  /usr/lib/qt3/include/qvgroupbox.h /usr/lib/qt3/include/qgroupbox.h \
-  /usr/lib/qt3/include/qframe.h /usr/lib/qt3/include/qwidget.h \
-  /usr/lib/qt3/include/qwindowdefs.h /usr/lib/qt3/include/qobjectdefs.h \
-  /usr/lib/qt3/include/qglobal.h /usr/lib/qt3/include/qconfig.h \
-  /usr/lib/qt3/include/qmodules.h /usr/lib/qt3/include/qfeatures.h \
-  /usr/lib/qt3/include/qstring.h /usr/lib/qt3/include/qcstring.h \
-  /usr/lib/qt3/include/qmemarray.h /usr/lib/qt3/include/qgarray.h \
-  /usr/lib/qt3/include/qshared.h /usr/lib/qt3/include/qwinexport.h \
-  /usr/include/string.h /usr/include/features.h /usr/include/sys/cdefs.h \
-  /usr/include/gnu/stubs.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stddef.h \
+  /usr/share/qt3/include/qvgroupbox.h /usr/share/qt3/include/qgroupbox.h \
+  /usr/share/qt3/include/qframe.h /usr/share/qt3/include/qwidget.h \
+  /usr/share/qt3/include/qwindowdefs.h \
+  /usr/share/qt3/include/qobjectdefs.h /usr/share/qt3/include/qglobal.h \
+  /usr/share/qt3/include/qconfig.h /usr/share/qt3/include/qmodules.h \
+  /usr/share/qt3/include/qfeatures.h /usr/share/qt3/include/qstring.h \
+  /usr/share/qt3/include/qcstring.h /usr/share/qt3/include/qmemarray.h \
+  /usr/share/qt3/include/qgarray.h /usr/share/qt3/include/qshared.h \
+  /usr/share/qt3/include/qwinexport.h /usr/include/string.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stddef.h \
   /usr/include/xlocale.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/limits.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/syslimits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/syslimits.h \
   /usr/include/limits.h /usr/include/bits/posix1_lim.h \
   /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
   /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
-  /usr/include/bits/stdio_lim.h /usr/lib/qt3/include/qnamespace.h \
-  /usr/lib/qt3/include/qobject.h /usr/lib/qt3/include/qevent.h \
-  /usr/lib/qt3/include/qregion.h /usr/lib/qt3/include/qrect.h \
-  /usr/lib/qt3/include/qsize.h /usr/lib/qt3/include/qpoint.h \
-  /usr/lib/qt3/include/qmime.h /usr/lib/qt3/include/qmap.h \
-  /usr/lib/qt3/include/qdatastream.h /usr/lib/qt3/include/qiodevice.h \
-  /usr/lib/qt3/include/qpair.h /usr/lib/qt3/include/qvaluelist.h \
-  /usr/lib/qt3/include/qtl.h /usr/lib/qt3/include/qtextstream.h \
+  /usr/include/bits/stdio_lim.h /usr/share/qt3/include/qnamespace.h \
+  /usr/share/qt3/include/qobject.h /usr/share/qt3/include/qevent.h \
+  /usr/share/qt3/include/qregion.h /usr/share/qt3/include/qrect.h \
+  /usr/share/qt3/include/qsize.h /usr/share/qt3/include/qpoint.h \
+  /usr/share/qt3/include/qmime.h /usr/share/qt3/include/qmap.h \
+  /usr/share/qt3/include/qdatastream.h /usr/share/qt3/include/qiodevice.h \
+  /usr/share/qt3/include/qpair.h /usr/share/qt3/include/qvaluelist.h \
+  /usr/share/qt3/include/qtl.h /usr/share/qt3/include/qtextstream.h \
   /usr/include/stdio.h /usr/include/bits/types.h \
-  /usr/include/bits/wordsize.h /usr/include/bits/typesizes.h \
-  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/bits/wchar.h /usr/include/gconv.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stdarg.h \
+  /usr/include/bits/typesizes.h /usr/include/libio.h \
+  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+  /usr/include/gconv.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stdarg.h \
   /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
-  /usr/lib/qt3/include/qpaintdevice.h /usr/lib/qt3/include/qpalette.h \
-  /usr/lib/qt3/include/qcolor.h /usr/lib/qt3/include/qstringlist.h \
-  /usr/lib/qt3/include/qstrlist.h /usr/lib/qt3/include/qptrlist.h \
-  /usr/lib/qt3/include/qglist.h /usr/lib/qt3/include/qptrcollection.h \
-  /usr/lib/qt3/include/qbrush.h /usr/lib/qt3/include/qfont.h \
-  /usr/lib/qt3/include/qfontmetrics.h /usr/lib/qt3/include/qfontinfo.h \
-  /usr/lib/qt3/include/qsizepolicy.h /opt/kde3/include/klineedit.h \
-  /usr/lib/qt3/include/qlineedit.h /opt/kde3/include/kcompletion.h \
-  /usr/lib/qt3/include/qmap.h /usr/lib/qt3/include/qptrlist.h \
-  /usr/lib/qt3/include/qobject.h /usr/lib/qt3/include/qstring.h \
-  /usr/lib/qt3/include/qstringlist.h /usr/lib/qt3/include/qguardedptr.h \
-  /opt/kde3/include/kdelibs_export.h /opt/kde3/include/kdemacros.h \
-  /usr/lib/qt3/include/qglobal.h /opt/kde3/include/kglobalsettings.h \
-  /usr/lib/qt3/include/qcolor.h /usr/lib/qt3/include/qfont.h \
-  /opt/kde3/include/ksortablevaluelist.h /usr/lib/qt3/include/qpair.h \
-  /usr/lib/qt3/include/qvaluelist.h /opt/kde3/include/kshortcut.h \
-  /usr/lib/qt3/include/qkeysequence.h /opt/kde3/include/klocale.h \
-  /opt/kde3/include/kdelibs_export.h /opt/kde3/include/kurllabel.h \
-  /usr/lib/qt3/include/qlabel.h ../../../src/common/global/purl.h \
-  ../../../src/common/global/global.h /usr/lib/qt3/include/qapplication.h \
-  /usr/lib/qt3/include/qdesktopwidget.h /usr/lib/qt3/include/qasciidict.h \
-  /usr/lib/qt3/include/qgdict.h /usr/lib/qt3/include/qtranslator.h \
-  /usr/lib/qt3/include/qvaluevector.h /usr/lib/qt3/include/qmemarray.h \
-  ../../../src/common/common/qflags.h /usr/lib/qt3/include/qurl.h \
-  ../../../config.h /opt/kde3/include/kapplication.h \
-  /opt/kde3/include/kdeversion.h /usr/lib/qt3/include/qpixmap.h \
-  /opt/kde3/include/kinstance.h /opt/kde3/include/kaboutdata.h \
-  /usr/lib/qt3/include/qimage.h /usr/lib/qt3/include/qpixmap.h \
-  /opt/kde3/include/kcmdlineargs.h /opt/kde3/include/kurl.h \
-  /opt/kde3/include/ktempfile.h /usr/include/errno.h \
-  /usr/include/bits/errno.h /usr/include/linux/errno.h \
-  /usr/include/asm/errno.h /usr/include/asm-x86_64/errno.h \
-  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
-  /opt/kde3/include/kconfigbackend.h /opt/kde3/include/kconfigdata.h \
-  /opt/kde3/include/kconfigbase.h /usr/lib/qt3/include/qdatetime.h \
-  /usr/lib/qt3/include/qstrlist.h /usr/lib/qt3/include/qvariant.h \
-  /opt/kde3/include/klockfile.h /opt/kde3/include/ksharedptr.h \
-  /usr/lib/qt3/include/qhttp.h /usr/lib/qt3/include/qnetworkprotocol.h \
-  /usr/lib/qt3/include/qurlinfo.h /usr/lib/qt3/include/qdatetime.h \
-  /usr/lib/qt3/include/qdict.h ../../../src/common/global/log.h \
+  /usr/share/qt3/include/qpaintdevice.h /usr/share/qt3/include/qpalette.h \
+  /usr/share/qt3/include/qcolor.h /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qstrlist.h /usr/share/qt3/include/qptrlist.h \
+  /usr/share/qt3/include/qglist.h /usr/share/qt3/include/qptrcollection.h \
+  /usr/share/qt3/include/qbrush.h /usr/share/qt3/include/qfont.h \
+  /usr/share/qt3/include/qfontmetrics.h \
+  /usr/share/qt3/include/qfontinfo.h /usr/share/qt3/include/qsizepolicy.h \
+  /usr/include/kde/klineedit.h /usr/share/qt3/include/qlineedit.h \
+  /usr/include/kde/kcompletion.h /usr/share/qt3/include/qmap.h \
+  /usr/share/qt3/include/qptrlist.h /usr/share/qt3/include/qobject.h \
+  /usr/share/qt3/include/qstring.h /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qguardedptr.h /usr/include/kde/kdelibs_export.h \
+  /usr/include/kde/kdemacros.h /usr/share/qt3/include/qglobal.h \
+  /usr/include/kde/kglobalsettings.h /usr/share/qt3/include/qcolor.h \
+  /usr/share/qt3/include/qfont.h /usr/include/kde/ksortablevaluelist.h \
+  /usr/share/qt3/include/qpair.h /usr/share/qt3/include/qvaluelist.h \
+  /usr/include/kde/kshortcut.h /usr/share/qt3/include/qkeysequence.h \
+  /usr/include/kde/klocale.h /usr/include/kde/kdelibs_export.h \
+  /usr/include/kde/kurllabel.h /usr/share/qt3/include/qlabel.h \
+  ../../../src/common/global/purl.h ../../../src/common/global/global.h \
+  /usr/share/qt3/include/qapplication.h \
+  /usr/share/qt3/include/qdesktopwidget.h \
+  /usr/share/qt3/include/qasciidict.h /usr/share/qt3/include/qgdict.h \
+  /usr/share/qt3/include/qtranslator.h \
+  /usr/share/qt3/include/qvaluevector.h \
+  /usr/share/qt3/include/qmemarray.h ../../../src/common/common/qflags.h \
+  /usr/share/qt3/include/qurl.h ../../../config.h \
+  /usr/include/kde/kapplication.h /usr/include/kde/kdeversion.h \
+  /usr/share/qt3/include/qpixmap.h /usr/include/kde/kinstance.h \
+  /usr/include/kde/kaboutdata.h /usr/share/qt3/include/qimage.h \
+  /usr/share/qt3/include/qpixmap.h /usr/include/kde/kcmdlineargs.h \
+  /usr/include/kde/kurl.h /usr/include/kde/ktempfile.h \
+  /usr/include/errno.h /usr/include/bits/errno.h \
+  /usr/include/linux/errno.h /usr/include/asm/errno.h \
+  /usr/include/asm-x86_64/errno.h /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h /usr/include/kde/kconfigbackend.h \
+  /usr/include/kde/kconfigdata.h /usr/include/kde/kconfigbase.h \
+  /usr/share/qt3/include/qdatetime.h /usr/share/qt3/include/qstrlist.h \
+  /usr/share/qt3/include/qvariant.h /usr/include/kde/klockfile.h \
+  /usr/include/kde/ksharedptr.h /usr/share/qt3/include/qhttp.h \
+  /usr/share/qt3/include/qnetworkprotocol.h \
+  /usr/share/qt3/include/qurlinfo.h /usr/share/qt3/include/qdatetime.h \
+  /usr/share/qt3/include/qdict.h ../../../src/common/global/log.h \
   ../../../src/common/common/key_enum.h \
-  /usr/lib/qt3/include/qdatastream.h ../../../src/common/common/misc.h \
+  /usr/share/qt3/include/qdatastream.h ../../../src/common/common/misc.h \
   ../../../src/common/common/purl_base.h \
   ../../../src/common/global/global.h \
   ../../../src/common/common/key_enum.h editlistbox.h \
-  /usr/lib/qt3/include/qlayout.h /opt/kde3/include/kpushbutton.h \
-  /usr/lib/qt3/include/qpoint.h /usr/lib/qt3/include/qpushbutton.h \
-  /usr/lib/qt3/include/qbutton.h /usr/lib/qt3/include/qkeysequence.h \
-  /usr/lib/qt3/include/qiconset.h /opt/kde3/include/kguiitem.h \
-  /usr/lib/qt3/include/qiconset.h /opt/kde3/include/kicontheme.h \
-  /opt/kde3/include/kglobal.h /opt/kde3/include/kstdguiitem.h \
-  /opt/kde3/include/klistview.h /usr/lib/qt3/include/qlistview.h \
-  /usr/lib/qt3/include/qscrollview.h /usr/lib/qt3/include/qscrollbar.h \
-  /usr/lib/qt3/include/qrangecontrol.h \
-  ../../../src/common/common/qflags.h /opt/kde3/include/kiconloader.h \
-  /usr/lib/qt3/include/qmovie.h /opt/kde3/include/krun.h \
+  /usr/share/qt3/include/qlayout.h /usr/include/kde/kpushbutton.h \
+  /usr/share/qt3/include/qpoint.h /usr/share/qt3/include/qpushbutton.h \
+  /usr/share/qt3/include/qbutton.h /usr/share/qt3/include/qkeysequence.h \
+  /usr/share/qt3/include/qiconset.h /usr/include/kde/kguiitem.h \
+  /usr/share/qt3/include/qiconset.h /usr/include/kde/kicontheme.h \
+  /usr/include/kde/kglobal.h /usr/include/kde/kstdguiitem.h \
+  /usr/include/kde/klistview.h /usr/share/qt3/include/qlistview.h \
+  /usr/share/qt3/include/qscrollview.h \
+  /usr/share/qt3/include/qscrollbar.h \
+  /usr/share/qt3/include/qrangecontrol.h \
+  ../../../src/common/common/qflags.h /usr/include/kde/kiconloader.h \
+  /usr/share/qt3/include/qmovie.h /usr/include/kde/krun.h \
   /usr/include/sys/stat.h /usr/include/time.h /usr/include/bits/stat.h \
   /usr/include/sys/types.h /usr/include/endian.h \
   /usr/include/bits/endian.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
   /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
-  /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
-  /usr/lib/qt3/include/qtimer.h /opt/kde3/include/kstartupinfo.h \
-  /usr/lib/qt3/include/qcstring.h /opt/kde3/include/kfiledialog.h \
-  /opt/kde3/include/kdialogbase.h /opt/kde3/include/kdialog.h \
-  /usr/lib/qt3/include/qdialog.h /opt/kde3/include/kjanuswidget.h \
-  /usr/lib/qt3/include/qsplitter.h /opt/kde3/include/klistbox.h \
-  /usr/lib/qt3/include/qlistbox.h /opt/kde3/include/kfile.h \
-  /usr/lib/qt3/include/qdir.h /usr/lib/qt3/include/qfileinfo.h \
-  /usr/lib/qt3/include/qfile.h /opt/kde3/include/kmimetype.h \
-  /opt/kde3/include/ksycocatype.h /opt/kde3/include/kservicetype.h \
-  /opt/kde3/include/ksycocaentry.h /opt/kde3/include/ksycocatype.h \
-  /opt/kde3/include/kservice.h /usr/lib/qt3/include/qshared.h \
-  /opt/kde3/include/ksimpleconfig.h /opt/kde3/include/kconfig.h \
-  /opt/kde3/include/kconfigbase.h /opt/kde3/include/klockfile.h \
-  /opt/kde3/include/kio/jobclasses.h /opt/kde3/include/kio/global.h \
-  /opt/kde3/include/kdirselectdialog.h misc_gui.h \
-  /usr/lib/qt3/include/qvalidator.h /usr/lib/qt3/include/qregexp.h \
-  /usr/lib/qt3/include/qcombobox.h /usr/lib/qt3/include/qwidgetstack.h \
-  /usr/lib/qt3/include/qintdict.h /usr/lib/qt3/include/qptrdict.h \
-  /opt/kde3/include/ktabwidget.h /usr/lib/qt3/include/qtabwidget.h \
-  /opt/kde3/include/ktabbar.h /usr/lib/qt3/include/qtabbar.h \
+  /usr/include/bits/pthreadtypes.h /usr/share/qt3/include/qtimer.h \
+  /usr/include/kde/kstartupinfo.h /usr/share/qt3/include/qcstring.h \
+  /usr/include/kde/kfiledialog.h /usr/include/kde/kdialogbase.h \
+  /usr/include/kde/kdialog.h /usr/share/qt3/include/qdialog.h \
+  /usr/include/kde/kjanuswidget.h /usr/share/qt3/include/qsplitter.h \
+  /usr/include/kde/klistbox.h /usr/share/qt3/include/qlistbox.h \
+  /usr/include/kde/kfile.h /usr/share/qt3/include/qdir.h \
+  /usr/share/qt3/include/qfileinfo.h /usr/share/qt3/include/qfile.h \
+  /usr/include/kde/kmimetype.h /usr/include/kde/ksycocatype.h \
+  /usr/include/kde/kservicetype.h /usr/include/kde/ksycocaentry.h \
+  /usr/include/kde/ksycocatype.h /usr/include/kde/kservice.h \
+  /usr/share/qt3/include/qshared.h /usr/include/kde/ksimpleconfig.h \
+  /usr/include/kde/kconfig.h /usr/include/kde/kconfigbase.h \
+  /usr/include/kde/klockfile.h /usr/include/kde/kio/jobclasses.h \
+  /usr/include/kde/kio/global.h /usr/include/kde/kdirselectdialog.h \
+  misc_gui.h /usr/share/qt3/include/qvalidator.h \
+  /usr/share/qt3/include/qregexp.h /usr/share/qt3/include/qcombobox.h \
+  /usr/share/qt3/include/qwidgetstack.h /usr/share/qt3/include/qintdict.h \
+  /usr/share/qt3/include/qptrdict.h /usr/include/kde/ktabwidget.h \
+  /usr/share/qt3/include/qtabwidget.h /usr/include/kde/ktabbar.h \
+  /usr/share/qt3/include/qtabbar.h \
   ../../../src/common/global/generic_config.h \
-  /usr/lib/qt3/include/qsize.h ../../../src/common/global/global.h \
+  /usr/share/qt3/include/qsize.h ../../../src/common/global/global.h \
   ../../../src/common/common/misc.h ../../../src/common/global/log.h \
   ../../../src/common/common/number.h /usr/include/ctype.h \
   ../../../src/common/common/key_enum.h
 
 purl_gui.h:
 
-/usr/lib/qt3/include/qvgroupbox.h:
+/usr/share/qt3/include/qvgroupbox.h:
 
-/usr/lib/qt3/include/qgroupbox.h:
+/usr/share/qt3/include/qgroupbox.h:
 
-/usr/lib/qt3/include/qframe.h:
+/usr/share/qt3/include/qframe.h:
 
-/usr/lib/qt3/include/qwidget.h:
+/usr/share/qt3/include/qwidget.h:
 
-/usr/lib/qt3/include/qwindowdefs.h:
+/usr/share/qt3/include/qwindowdefs.h:
 
-/usr/lib/qt3/include/qobjectdefs.h:
+/usr/share/qt3/include/qobjectdefs.h:
 
-/usr/lib/qt3/include/qglobal.h:
+/usr/share/qt3/include/qglobal.h:
 
-/usr/lib/qt3/include/qconfig.h:
+/usr/share/qt3/include/qconfig.h:
 
-/usr/lib/qt3/include/qmodules.h:
+/usr/share/qt3/include/qmodules.h:
 
-/usr/lib/qt3/include/qfeatures.h:
+/usr/share/qt3/include/qfeatures.h:
 
-/usr/lib/qt3/include/qstring.h:
+/usr/share/qt3/include/qstring.h:
 
-/usr/lib/qt3/include/qcstring.h:
+/usr/share/qt3/include/qcstring.h:
 
-/usr/lib/qt3/include/qmemarray.h:
+/usr/share/qt3/include/qmemarray.h:
 
-/usr/lib/qt3/include/qgarray.h:
+/usr/share/qt3/include/qgarray.h:
 
-/usr/lib/qt3/include/qshared.h:
+/usr/share/qt3/include/qshared.h:
 
-/usr/lib/qt3/include/qwinexport.h:
+/usr/share/qt3/include/qwinexport.h:
 
 /usr/include/string.h:
 
@@ -158,15 +164,19 @@ purl_gui.h:
 
 /usr/include/sys/cdefs.h:
 
+/usr/include/bits/wordsize.h:
+
 /usr/include/gnu/stubs.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stddef.h:
+/usr/include/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stddef.h:
 
 /usr/include/xlocale.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/limits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/limits.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/syslimits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/syslimits.h:
 
 /usr/include/limits.h:
 
@@ -182,41 +192,39 @@ purl_gui.h:
 
 /usr/include/bits/stdio_lim.h:
 
-/usr/lib/qt3/include/qnamespace.h:
+/usr/share/qt3/include/qnamespace.h:
 
-/usr/lib/qt3/include/qobject.h:
+/usr/share/qt3/include/qobject.h:
 
-/usr/lib/qt3/include/qevent.h:
+/usr/share/qt3/include/qevent.h:
 
-/usr/lib/qt3/include/qregion.h:
+/usr/share/qt3/include/qregion.h:
 
-/usr/lib/qt3/include/qrect.h:
+/usr/share/qt3/include/qrect.h:
 
-/usr/lib/qt3/include/qsize.h:
+/usr/share/qt3/include/qsize.h:
 
-/usr/lib/qt3/include/qpoint.h:
+/usr/share/qt3/include/qpoint.h:
 
-/usr/lib/qt3/include/qmime.h:
+/usr/share/qt3/include/qmime.h:
 
-/usr/lib/qt3/include/qmap.h:
+/usr/share/qt3/include/qmap.h:
 
-/usr/lib/qt3/include/qdatastream.h:
+/usr/share/qt3/include/qdatastream.h:
 
-/usr/lib/qt3/include/qiodevice.h:
+/usr/share/qt3/include/qiodevice.h:
 
-/usr/lib/qt3/include/qpair.h:
+/usr/share/qt3/include/qpair.h:
 
-/usr/lib/qt3/include/qvaluelist.h:
+/usr/share/qt3/include/qvaluelist.h:
 
-/usr/lib/qt3/include/qtl.h:
+/usr/share/qt3/include/qtl.h:
 
-/usr/lib/qt3/include/qtextstream.h:
+/usr/share/qt3/include/qtextstream.h:
 
 /usr/include/stdio.h:
 
 /usr/include/bits/types.h:
-
-/usr/include/bits/wordsize.h:
 
 /usr/include/bits/typesizes.h:
 
@@ -230,129 +238,129 @@ purl_gui.h:
 
 /usr/include/gconv.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stdarg.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stdarg.h:
 
 /usr/include/bits/sys_errlist.h:
 
 /usr/include/bits/stdio.h:
 
-/usr/lib/qt3/include/qpaintdevice.h:
+/usr/share/qt3/include/qpaintdevice.h:
 
-/usr/lib/qt3/include/qpalette.h:
+/usr/share/qt3/include/qpalette.h:
 
-/usr/lib/qt3/include/qcolor.h:
+/usr/share/qt3/include/qcolor.h:
 
-/usr/lib/qt3/include/qstringlist.h:
+/usr/share/qt3/include/qstringlist.h:
 
-/usr/lib/qt3/include/qstrlist.h:
+/usr/share/qt3/include/qstrlist.h:
 
-/usr/lib/qt3/include/qptrlist.h:
+/usr/share/qt3/include/qptrlist.h:
 
-/usr/lib/qt3/include/qglist.h:
+/usr/share/qt3/include/qglist.h:
 
-/usr/lib/qt3/include/qptrcollection.h:
+/usr/share/qt3/include/qptrcollection.h:
 
-/usr/lib/qt3/include/qbrush.h:
+/usr/share/qt3/include/qbrush.h:
 
-/usr/lib/qt3/include/qfont.h:
+/usr/share/qt3/include/qfont.h:
 
-/usr/lib/qt3/include/qfontmetrics.h:
+/usr/share/qt3/include/qfontmetrics.h:
 
-/usr/lib/qt3/include/qfontinfo.h:
+/usr/share/qt3/include/qfontinfo.h:
 
-/usr/lib/qt3/include/qsizepolicy.h:
+/usr/share/qt3/include/qsizepolicy.h:
 
-/opt/kde3/include/klineedit.h:
+/usr/include/kde/klineedit.h:
 
-/usr/lib/qt3/include/qlineedit.h:
+/usr/share/qt3/include/qlineedit.h:
 
-/opt/kde3/include/kcompletion.h:
+/usr/include/kde/kcompletion.h:
 
-/usr/lib/qt3/include/qmap.h:
+/usr/share/qt3/include/qmap.h:
 
-/usr/lib/qt3/include/qptrlist.h:
+/usr/share/qt3/include/qptrlist.h:
 
-/usr/lib/qt3/include/qobject.h:
+/usr/share/qt3/include/qobject.h:
 
-/usr/lib/qt3/include/qstring.h:
+/usr/share/qt3/include/qstring.h:
 
-/usr/lib/qt3/include/qstringlist.h:
+/usr/share/qt3/include/qstringlist.h:
 
-/usr/lib/qt3/include/qguardedptr.h:
+/usr/share/qt3/include/qguardedptr.h:
 
-/opt/kde3/include/kdelibs_export.h:
+/usr/include/kde/kdelibs_export.h:
 
-/opt/kde3/include/kdemacros.h:
+/usr/include/kde/kdemacros.h:
 
-/usr/lib/qt3/include/qglobal.h:
+/usr/share/qt3/include/qglobal.h:
 
-/opt/kde3/include/kglobalsettings.h:
+/usr/include/kde/kglobalsettings.h:
 
-/usr/lib/qt3/include/qcolor.h:
+/usr/share/qt3/include/qcolor.h:
 
-/usr/lib/qt3/include/qfont.h:
+/usr/share/qt3/include/qfont.h:
 
-/opt/kde3/include/ksortablevaluelist.h:
+/usr/include/kde/ksortablevaluelist.h:
 
-/usr/lib/qt3/include/qpair.h:
+/usr/share/qt3/include/qpair.h:
 
-/usr/lib/qt3/include/qvaluelist.h:
+/usr/share/qt3/include/qvaluelist.h:
 
-/opt/kde3/include/kshortcut.h:
+/usr/include/kde/kshortcut.h:
 
-/usr/lib/qt3/include/qkeysequence.h:
+/usr/share/qt3/include/qkeysequence.h:
 
-/opt/kde3/include/klocale.h:
+/usr/include/kde/klocale.h:
 
-/opt/kde3/include/kdelibs_export.h:
+/usr/include/kde/kdelibs_export.h:
 
-/opt/kde3/include/kurllabel.h:
+/usr/include/kde/kurllabel.h:
 
-/usr/lib/qt3/include/qlabel.h:
+/usr/share/qt3/include/qlabel.h:
 
 ../../../src/common/global/purl.h:
 
 ../../../src/common/global/global.h:
 
-/usr/lib/qt3/include/qapplication.h:
+/usr/share/qt3/include/qapplication.h:
 
-/usr/lib/qt3/include/qdesktopwidget.h:
+/usr/share/qt3/include/qdesktopwidget.h:
 
-/usr/lib/qt3/include/qasciidict.h:
+/usr/share/qt3/include/qasciidict.h:
 
-/usr/lib/qt3/include/qgdict.h:
+/usr/share/qt3/include/qgdict.h:
 
-/usr/lib/qt3/include/qtranslator.h:
+/usr/share/qt3/include/qtranslator.h:
 
-/usr/lib/qt3/include/qvaluevector.h:
+/usr/share/qt3/include/qvaluevector.h:
 
-/usr/lib/qt3/include/qmemarray.h:
+/usr/share/qt3/include/qmemarray.h:
 
 ../../../src/common/common/qflags.h:
 
-/usr/lib/qt3/include/qurl.h:
+/usr/share/qt3/include/qurl.h:
 
 ../../../config.h:
 
-/opt/kde3/include/kapplication.h:
+/usr/include/kde/kapplication.h:
 
-/opt/kde3/include/kdeversion.h:
+/usr/include/kde/kdeversion.h:
 
-/usr/lib/qt3/include/qpixmap.h:
+/usr/share/qt3/include/qpixmap.h:
 
-/opt/kde3/include/kinstance.h:
+/usr/include/kde/kinstance.h:
 
-/opt/kde3/include/kaboutdata.h:
+/usr/include/kde/kaboutdata.h:
 
-/usr/lib/qt3/include/qimage.h:
+/usr/share/qt3/include/qimage.h:
 
-/usr/lib/qt3/include/qpixmap.h:
+/usr/share/qt3/include/qpixmap.h:
 
-/opt/kde3/include/kcmdlineargs.h:
+/usr/include/kde/kcmdlineargs.h:
 
-/opt/kde3/include/kurl.h:
+/usr/include/kde/kurl.h:
 
-/opt/kde3/include/ktempfile.h:
+/usr/include/kde/ktempfile.h:
 
 /usr/include/errno.h:
 
@@ -368,37 +376,37 @@ purl_gui.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-/opt/kde3/include/kconfigbackend.h:
+/usr/include/kde/kconfigbackend.h:
 
-/opt/kde3/include/kconfigdata.h:
+/usr/include/kde/kconfigdata.h:
 
-/opt/kde3/include/kconfigbase.h:
+/usr/include/kde/kconfigbase.h:
 
-/usr/lib/qt3/include/qdatetime.h:
+/usr/share/qt3/include/qdatetime.h:
 
-/usr/lib/qt3/include/qstrlist.h:
+/usr/share/qt3/include/qstrlist.h:
 
-/usr/lib/qt3/include/qvariant.h:
+/usr/share/qt3/include/qvariant.h:
 
-/opt/kde3/include/klockfile.h:
+/usr/include/kde/klockfile.h:
 
-/opt/kde3/include/ksharedptr.h:
+/usr/include/kde/ksharedptr.h:
 
-/usr/lib/qt3/include/qhttp.h:
+/usr/share/qt3/include/qhttp.h:
 
-/usr/lib/qt3/include/qnetworkprotocol.h:
+/usr/share/qt3/include/qnetworkprotocol.h:
 
-/usr/lib/qt3/include/qurlinfo.h:
+/usr/share/qt3/include/qurlinfo.h:
 
-/usr/lib/qt3/include/qdatetime.h:
+/usr/share/qt3/include/qdatetime.h:
 
-/usr/lib/qt3/include/qdict.h:
+/usr/share/qt3/include/qdict.h:
 
 ../../../src/common/global/log.h:
 
 ../../../src/common/common/key_enum.h:
 
-/usr/lib/qt3/include/qdatastream.h:
+/usr/share/qt3/include/qdatastream.h:
 
 ../../../src/common/common/misc.h:
 
@@ -410,47 +418,47 @@ purl_gui.h:
 
 editlistbox.h:
 
-/usr/lib/qt3/include/qlayout.h:
+/usr/share/qt3/include/qlayout.h:
 
-/opt/kde3/include/kpushbutton.h:
+/usr/include/kde/kpushbutton.h:
 
-/usr/lib/qt3/include/qpoint.h:
+/usr/share/qt3/include/qpoint.h:
 
-/usr/lib/qt3/include/qpushbutton.h:
+/usr/share/qt3/include/qpushbutton.h:
 
-/usr/lib/qt3/include/qbutton.h:
+/usr/share/qt3/include/qbutton.h:
 
-/usr/lib/qt3/include/qkeysequence.h:
+/usr/share/qt3/include/qkeysequence.h:
 
-/usr/lib/qt3/include/qiconset.h:
+/usr/share/qt3/include/qiconset.h:
 
-/opt/kde3/include/kguiitem.h:
+/usr/include/kde/kguiitem.h:
 
-/usr/lib/qt3/include/qiconset.h:
+/usr/share/qt3/include/qiconset.h:
 
-/opt/kde3/include/kicontheme.h:
+/usr/include/kde/kicontheme.h:
 
-/opt/kde3/include/kglobal.h:
+/usr/include/kde/kglobal.h:
 
-/opt/kde3/include/kstdguiitem.h:
+/usr/include/kde/kstdguiitem.h:
 
-/opt/kde3/include/klistview.h:
+/usr/include/kde/klistview.h:
 
-/usr/lib/qt3/include/qlistview.h:
+/usr/share/qt3/include/qlistview.h:
 
-/usr/lib/qt3/include/qscrollview.h:
+/usr/share/qt3/include/qscrollview.h:
 
-/usr/lib/qt3/include/qscrollbar.h:
+/usr/share/qt3/include/qscrollbar.h:
 
-/usr/lib/qt3/include/qrangecontrol.h:
+/usr/share/qt3/include/qrangecontrol.h:
 
 ../../../src/common/common/qflags.h:
 
-/opt/kde3/include/kiconloader.h:
+/usr/include/kde/kiconloader.h:
 
-/usr/lib/qt3/include/qmovie.h:
+/usr/share/qt3/include/qmovie.h:
 
-/opt/kde3/include/krun.h:
+/usr/include/kde/krun.h:
 
 /usr/include/sys/stat.h:
 
@@ -476,91 +484,89 @@ editlistbox.h:
 
 /usr/include/bits/pthreadtypes.h:
 
-/usr/include/bits/sched.h:
+/usr/share/qt3/include/qtimer.h:
 
-/usr/lib/qt3/include/qtimer.h:
+/usr/include/kde/kstartupinfo.h:
 
-/opt/kde3/include/kstartupinfo.h:
+/usr/share/qt3/include/qcstring.h:
 
-/usr/lib/qt3/include/qcstring.h:
+/usr/include/kde/kfiledialog.h:
 
-/opt/kde3/include/kfiledialog.h:
+/usr/include/kde/kdialogbase.h:
 
-/opt/kde3/include/kdialogbase.h:
+/usr/include/kde/kdialog.h:
 
-/opt/kde3/include/kdialog.h:
+/usr/share/qt3/include/qdialog.h:
 
-/usr/lib/qt3/include/qdialog.h:
+/usr/include/kde/kjanuswidget.h:
 
-/opt/kde3/include/kjanuswidget.h:
+/usr/share/qt3/include/qsplitter.h:
 
-/usr/lib/qt3/include/qsplitter.h:
+/usr/include/kde/klistbox.h:
 
-/opt/kde3/include/klistbox.h:
+/usr/share/qt3/include/qlistbox.h:
 
-/usr/lib/qt3/include/qlistbox.h:
+/usr/include/kde/kfile.h:
 
-/opt/kde3/include/kfile.h:
+/usr/share/qt3/include/qdir.h:
 
-/usr/lib/qt3/include/qdir.h:
+/usr/share/qt3/include/qfileinfo.h:
 
-/usr/lib/qt3/include/qfileinfo.h:
+/usr/share/qt3/include/qfile.h:
 
-/usr/lib/qt3/include/qfile.h:
+/usr/include/kde/kmimetype.h:
 
-/opt/kde3/include/kmimetype.h:
+/usr/include/kde/ksycocatype.h:
 
-/opt/kde3/include/ksycocatype.h:
+/usr/include/kde/kservicetype.h:
 
-/opt/kde3/include/kservicetype.h:
+/usr/include/kde/ksycocaentry.h:
 
-/opt/kde3/include/ksycocaentry.h:
+/usr/include/kde/ksycocatype.h:
 
-/opt/kde3/include/ksycocatype.h:
+/usr/include/kde/kservice.h:
 
-/opt/kde3/include/kservice.h:
+/usr/share/qt3/include/qshared.h:
 
-/usr/lib/qt3/include/qshared.h:
+/usr/include/kde/ksimpleconfig.h:
 
-/opt/kde3/include/ksimpleconfig.h:
+/usr/include/kde/kconfig.h:
 
-/opt/kde3/include/kconfig.h:
+/usr/include/kde/kconfigbase.h:
 
-/opt/kde3/include/kconfigbase.h:
+/usr/include/kde/klockfile.h:
 
-/opt/kde3/include/klockfile.h:
+/usr/include/kde/kio/jobclasses.h:
 
-/opt/kde3/include/kio/jobclasses.h:
+/usr/include/kde/kio/global.h:
 
-/opt/kde3/include/kio/global.h:
-
-/opt/kde3/include/kdirselectdialog.h:
+/usr/include/kde/kdirselectdialog.h:
 
 misc_gui.h:
 
-/usr/lib/qt3/include/qvalidator.h:
+/usr/share/qt3/include/qvalidator.h:
 
-/usr/lib/qt3/include/qregexp.h:
+/usr/share/qt3/include/qregexp.h:
 
-/usr/lib/qt3/include/qcombobox.h:
+/usr/share/qt3/include/qcombobox.h:
 
-/usr/lib/qt3/include/qwidgetstack.h:
+/usr/share/qt3/include/qwidgetstack.h:
 
-/usr/lib/qt3/include/qintdict.h:
+/usr/share/qt3/include/qintdict.h:
 
-/usr/lib/qt3/include/qptrdict.h:
+/usr/share/qt3/include/qptrdict.h:
 
-/opt/kde3/include/ktabwidget.h:
+/usr/include/kde/ktabwidget.h:
 
-/usr/lib/qt3/include/qtabwidget.h:
+/usr/share/qt3/include/qtabwidget.h:
 
-/opt/kde3/include/ktabbar.h:
+/usr/include/kde/ktabbar.h:
 
-/usr/lib/qt3/include/qtabbar.h:
+/usr/share/qt3/include/qtabbar.h:
 
 ../../../src/common/global/generic_config.h:
 
-/usr/lib/qt3/include/qsize.h:
+/usr/share/qt3/include/qsize.h:
 
 ../../../src/common/global/global.h:
 

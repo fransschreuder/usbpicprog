@@ -57,7 +57,7 @@ am_libtoolui_la_OBJECTS = tool_group_ui.lo toolchain_config_widget.lo \
 libtoolui_la_final_OBJECTS = libtoolui_la.all_cpp.lo 
 libtoolui_la_nofinal_OBJECTS = tool_group_ui.lo toolchain_config_widget.lo \
 	tool_config_widget.lo toolchain_config_center.lo\
-toolchain_config_widget.moc.lo tool_config_widget.moc.lo toolchain_config_center.moc.lo 
+toolchain_config_widget.moc.lo toolchain_config_center.moc.lo tool_config_widget.moc.lo 
 @KDE_USE_FINAL_FALSE@libtoolui_la_OBJECTS = $(libtoolui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libtoolui_la_OBJECTS = $(libtoolui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -628,19 +628,13 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 toolchain_config_widget.moc.cpp: $(srcdir)/toolchain_config_widget.h
 	$(MOC) $(srcdir)/toolchain_config_widget.h -o toolchain_config_widget.moc.cpp
 
 #>+ 2
 mocs: toolchain_config_widget.moc.cpp
-
-#>+ 3
-tool_config_widget.moc.cpp: $(srcdir)/tool_config_widget.h
-	$(MOC) $(srcdir)/tool_config_widget.h -o tool_config_widget.moc.cpp
-
-#>+ 2
-mocs: tool_config_widget.moc.cpp
 
 #>+ 3
 toolchain_config_center.moc.cpp: $(srcdir)/toolchain_config_center.h
@@ -650,11 +644,18 @@ toolchain_config_center.moc.cpp: $(srcdir)/toolchain_config_center.h
 mocs: toolchain_config_center.moc.cpp
 
 #>+ 3
-clean-metasources:
-	-rm -f  toolchain_config_widget.moc.cpp tool_config_widget.moc.cpp toolchain_config_center.moc.cpp
+tool_config_widget.moc.cpp: $(srcdir)/tool_config_widget.h
+	$(MOC) $(srcdir)/tool_config_widget.h -o tool_config_widget.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in tool_config_widget.h toolchain_config_center.h tool_group_ui.h toolchain_config_widget.h Makefile.am 
+mocs: tool_config_widget.moc.cpp
+
+#>+ 3
+clean-metasources:
+	-rm -f  toolchain_config_widget.moc.cpp toolchain_config_center.moc.cpp tool_config_widget.moc.cpp
+
+#>+ 2
+KDE_DIST=tool_group_ui.h tool_config_widget.h Makefile.in toolchain_config_center.h Makefile.am toolchain_config_widget.h 
 
 #>+ 2
 docs-am:
@@ -698,11 +699,11 @@ bcheck-am:
 
 
 #>+ 11
-libtoolui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/tool_group_ui.cpp $(srcdir)/toolchain_config_widget.cpp $(srcdir)/tool_config_widget.cpp $(srcdir)/toolchain_config_center.cpp toolchain_config_widget.moc.cpp toolchain_config_center.moc.cpp tool_config_widget.moc.cpp 
+libtoolui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/tool_group_ui.cpp $(srcdir)/toolchain_config_widget.cpp $(srcdir)/tool_config_widget.cpp $(srcdir)/toolchain_config_center.cpp toolchain_config_widget.moc.cpp tool_config_widget.moc.cpp toolchain_config_center.moc.cpp 
 	@echo 'creating libtoolui_la.all_cpp.cpp ...'; \
 	rm -f libtoolui_la.all_cpp.files libtoolui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libtoolui_la.all_cpp.final; \
-	for file in tool_group_ui.cpp toolchain_config_widget.cpp tool_config_widget.cpp toolchain_config_center.cpp toolchain_config_widget.moc.cpp toolchain_config_center.moc.cpp tool_config_widget.moc.cpp ; do \
+	for file in tool_group_ui.cpp toolchain_config_widget.cpp tool_config_widget.cpp toolchain_config_center.cpp toolchain_config_widget.moc.cpp tool_config_widget.moc.cpp toolchain_config_center.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libtoolui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libtoolui_la.all_cpp.final; \
 	done; \

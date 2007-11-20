@@ -12,8 +12,8 @@
  * Software License Agreement
  *
  * The software supplied herewith by Microchip Technology Incorporated
- * (the “Company”) for its PICmicro® Microcontroller is intended and
- * supplied to you, the Company’s customer, for use solely and
+ * (the ï¿½Companyï¿½) for its PICmicroï¿½ Microcontroller is intended and
+ * supplied to you, the Companyï¿½s customer, for use solely and
  * exclusively on Microchip PICmicro Microcontroller products. The
  * software is owned by the Company and/or its supplier, and is
  * protected under applicable copyright laws. All rights are reserved.
@@ -22,7 +22,7 @@
  * civil liability for the breach of the terms and conditions of this
  * license.
  *
- * THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
+ * THIS SOFTWARE IS PROVIDED IN AN ï¿½AS ISï¿½ CONDITION. NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
  * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
  * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
@@ -38,7 +38,7 @@
 #define USBMMAP_H
 
 /** I N C L U D E S **********************************************************/
-#include "system\typedefs.h"
+#include "system/typedefs.h"
 
 /** D E F I N I T I O N S ****************************************************/
 
@@ -91,14 +91,23 @@ typedef union _BD_STAT
         unsigned UOWN:1;                //USB Ownership
     };
     struct{
+#ifndef SDCC
         unsigned BC8:1;
         unsigned BC9:1;
+#else
+	unsigned :1;
+	unsigned :1;
+#endif
         unsigned PID0:1;
         unsigned PID1:1;
         unsigned PID2:1;
         unsigned PID3:1;
         unsigned :1;
+#ifndef SDCC
         unsigned UOWN:1;
+#else
+	unsigned :1;
+#endif
     };
     struct{
         unsigned :2;

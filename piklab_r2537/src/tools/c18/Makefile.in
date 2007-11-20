@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 c18_compile.moc.cpp: $(srcdir)/c18_compile.h
 	$(MOC) $(srcdir)/c18_compile.h -o c18_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  c18_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=c18_config.h Makefile.in c18.h c18_compile.h Makefile.am 
+KDE_DIST=Makefile.in c18_compile.h c18_config.h Makefile.am c18.h 
 
 #>+ 2
 docs-am:

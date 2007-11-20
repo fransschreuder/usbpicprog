@@ -631,6 +631,7 @@ psp_data.cpp: ../xml/xml_psp_parser psp.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 psp_prog.moc.cpp: $(srcdir)/psp_prog.h
 	$(MOC) $(srcdir)/psp_prog.h -o psp_prog.moc.cpp
@@ -643,7 +644,7 @@ clean-metasources:
 	-rm -f  psp_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=base.pro Makefile.in psp.xml psp_prog.h psp_data.h psp.h psp_serial.h Makefile.am 
+KDE_DIST=base.pro Makefile.in psp.h psp_data.h Makefile.am psp_serial.h psp_prog.h psp.xml 
 
 #>+ 2
 docs-am:

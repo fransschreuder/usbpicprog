@@ -59,7 +59,7 @@ libprogui_la_final_OBJECTS = libprogui_la.all_cpp.lo
 libprogui_la_nofinal_OBJECTS = prog_config_widget.lo prog_group_ui.lo \
 	hardware_config_widget.lo prog_config_center.lo \
 	port_selector.lo debug_config_center.lo\
-prog_config_center.moc.lo prog_config_widget.moc.lo prog_group_ui.moc.lo port_selector.moc.lo hardware_config_widget.moc.lo 
+prog_config_center.moc.lo prog_config_widget.moc.lo port_selector.moc.lo prog_group_ui.moc.lo hardware_config_widget.moc.lo 
 @KDE_USE_FINAL_FALSE@libprogui_la_OBJECTS = $(libprogui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libprogui_la_OBJECTS = $(libprogui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -632,6 +632,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 prog_config_center.moc.cpp: $(srcdir)/prog_config_center.h
 	$(MOC) $(srcdir)/prog_config_center.h -o prog_config_center.moc.cpp
@@ -647,18 +648,18 @@ prog_config_widget.moc.cpp: $(srcdir)/prog_config_widget.h
 mocs: prog_config_widget.moc.cpp
 
 #>+ 3
-prog_group_ui.moc.cpp: $(srcdir)/prog_group_ui.h
-	$(MOC) $(srcdir)/prog_group_ui.h -o prog_group_ui.moc.cpp
-
-#>+ 2
-mocs: prog_group_ui.moc.cpp
-
-#>+ 3
 port_selector.moc.cpp: $(srcdir)/port_selector.h
 	$(MOC) $(srcdir)/port_selector.h -o port_selector.moc.cpp
 
 #>+ 2
 mocs: port_selector.moc.cpp
+
+#>+ 3
+prog_group_ui.moc.cpp: $(srcdir)/prog_group_ui.h
+	$(MOC) $(srcdir)/prog_group_ui.h -o prog_group_ui.moc.cpp
+
+#>+ 2
+mocs: prog_group_ui.moc.cpp
 
 #>+ 3
 hardware_config_widget.moc.cpp: $(srcdir)/hardware_config_widget.h
@@ -669,10 +670,10 @@ mocs: hardware_config_widget.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  prog_config_center.moc.cpp prog_config_widget.moc.cpp prog_group_ui.moc.cpp port_selector.moc.cpp hardware_config_widget.moc.cpp
+	-rm -f  prog_config_center.moc.cpp prog_config_widget.moc.cpp port_selector.moc.cpp prog_group_ui.moc.cpp hardware_config_widget.moc.cpp
 
 #>+ 2
-KDE_DIST=debug_config_center.h Makefile.in port_selector.h prog_config_widget.h hardware_config_widget.h prog_group_ui.h prog_config_center.h Makefile.am 
+KDE_DIST=prog_config_widget.h debug_config_center.h Makefile.in prog_config_center.h port_selector.h Makefile.am hardware_config_widget.h prog_group_ui.h 
 
 #>+ 2
 docs-am:
@@ -716,11 +717,11 @@ bcheck-am:
 
 
 #>+ 11
-libprogui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/prog_config_widget.cpp $(srcdir)/prog_group_ui.cpp $(srcdir)/hardware_config_widget.cpp $(srcdir)/prog_config_center.cpp $(srcdir)/port_selector.cpp $(srcdir)/debug_config_center.cpp prog_config_widget.moc.cpp prog_config_center.moc.cpp port_selector.moc.cpp prog_group_ui.moc.cpp hardware_config_widget.moc.cpp 
+libprogui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/prog_config_widget.cpp $(srcdir)/prog_group_ui.cpp $(srcdir)/hardware_config_widget.cpp $(srcdir)/prog_config_center.cpp $(srcdir)/port_selector.cpp $(srcdir)/debug_config_center.cpp prog_config_widget.moc.cpp prog_config_center.moc.cpp prog_group_ui.moc.cpp port_selector.moc.cpp hardware_config_widget.moc.cpp 
 	@echo 'creating libprogui_la.all_cpp.cpp ...'; \
 	rm -f libprogui_la.all_cpp.files libprogui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libprogui_la.all_cpp.final; \
-	for file in prog_config_widget.cpp prog_group_ui.cpp hardware_config_widget.cpp prog_config_center.cpp port_selector.cpp debug_config_center.cpp prog_config_widget.moc.cpp prog_config_center.moc.cpp port_selector.moc.cpp prog_group_ui.moc.cpp hardware_config_widget.moc.cpp ; do \
+	for file in prog_config_widget.cpp prog_group_ui.cpp hardware_config_widget.cpp prog_config_center.cpp port_selector.cpp debug_config_center.cpp prog_config_widget.moc.cpp prog_config_center.moc.cpp prog_group_ui.moc.cpp port_selector.moc.cpp hardware_config_widget.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libprogui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libprogui_la.all_cpp.final; \
 	done; \

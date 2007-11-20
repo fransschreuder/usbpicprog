@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 direct_config_widget.moc.cpp: $(srcdir)/direct_config_widget.h
 	$(MOC) $(srcdir)/direct_config_widget.h -o direct_config_widget.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  direct_config_widget.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in direct_config_widget.h Makefile.am 
+KDE_DIST=direct_config_widget.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

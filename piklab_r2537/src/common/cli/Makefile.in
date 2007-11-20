@@ -629,6 +629,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 cli_main.moc.cpp: $(srcdir)/cli_main.h
 	$(MOC) $(srcdir)/cli_main.h -o cli_main.moc.cpp
@@ -641,7 +642,7 @@ clean-metasources:
 	-rm -f  cli_main.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in cli_global.h cli.pro cli_main.h cli_log.h Makefile.am 
+KDE_DIST=cli_main.h Makefile.in cli_log.h cli_global.h Makefile.am cli.pro 
 
 #>+ 2
 docs-am:

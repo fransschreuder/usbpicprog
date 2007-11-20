@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 cc5x_compile.moc.cpp: $(srcdir)/cc5x_compile.h
 	$(MOC) $(srcdir)/cc5x_compile.h -o cc5x_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  cc5x_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in cc5x.h cc5x_compile.h cc5x_config.h Makefile.am 
+KDE_DIST=cc5x_compile.h Makefile.in cc5x.h cc5x_config.h Makefile.am 
 
 #>+ 2
 docs-am:

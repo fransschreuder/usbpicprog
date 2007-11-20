@@ -747,6 +747,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 gputils_compile.moc.cpp: $(srcdir)/gputils_compile.h
 	$(MOC) $(srcdir)/gputils_compile.h -o gputils_compile.moc.cpp
@@ -759,7 +760,7 @@ clean-metasources:
 	-rm -f  gputils_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in gputils.h gputils_config.h gputils_compile.h gputils_generator.h Makefile.am 
+KDE_DIST=gputils_config.h gputils_compile.h Makefile.in gputils_generator.h Makefile.am gputils.h 
 
 #>+ 2
 docs-am:

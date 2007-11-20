@@ -747,6 +747,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 sdcc_compile.moc.cpp: $(srcdir)/sdcc_compile.h
 	$(MOC) $(srcdir)/sdcc_compile.h -o sdcc_compile.moc.cpp
@@ -759,7 +760,7 @@ clean-metasources:
 	-rm -f  sdcc_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=sdcc_config.h Makefile.in sdcc.h sdcc_compile.h sdcc_generator.h Makefile.am 
+KDE_DIST=sdcc_generator.h Makefile.in sdcc.h Makefile.am sdcc_compile.h sdcc_config.h 
 
 #>+ 2
 docs-am:

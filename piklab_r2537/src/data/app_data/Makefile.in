@@ -572,28 +572,29 @@ uninstall-am: uninstall-kde-icons  uninstall-info-am uninstall-mimeDATA uninstal
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=piklab.desktop hi32-app-piklab.png piklabui.rc hexeditorpartui.rc Makefile.in x-piklab.desktop hi64-app-piklab.png hi32-mime-piklab_project.png hi16-app-piklab.png Makefile.am 
+KDE_DIST=x-piklab.desktop hi64-app-piklab.png hexeditorpartui.rc Makefile.in hi16-app-piklab.png piklab.desktop hi32-mime-piklab_project.png Makefile.am hi32-app-piklab.png piklabui.rc 
 
 #>+ 2
 docs-am:
 
 #>+ 16
 install-kde-icons:
+	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes
+	$(INSTALL_DATA) $(srcdir)/hi32-mime-piklab_project.png $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes/piklab_project.png
+	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps
+	$(INSTALL_DATA) $(srcdir)/hi64-app-piklab.png $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/piklab.png
 	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps
 	$(INSTALL_DATA) $(srcdir)/hi32-app-piklab.png $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/piklab.png
 	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps
 	$(INSTALL_DATA) $(srcdir)/hi16-app-piklab.png $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/piklab.png
-	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps
-	$(INSTALL_DATA) $(srcdir)/hi64-app-piklab.png $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/piklab.png
-	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes
-	$(INSTALL_DATA) $(srcdir)/hi32-mime-piklab_project.png $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes/piklab_project.png
 
 uninstall-kde-icons:
+	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes/piklab_project.png
+	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/piklab.png
 	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/piklab.png
 	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/piklab.png
-	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/piklab.png
-	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/32x32/mimetypes/piklab_project.png
 
 #>+ 15
 force-reedit:

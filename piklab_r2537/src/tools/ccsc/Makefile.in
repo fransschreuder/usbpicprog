@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 ccsc_compile.moc.cpp: $(srcdir)/ccsc_compile.h
 	$(MOC) $(srcdir)/ccsc_compile.h -o ccsc_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  ccsc_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in ccsc_config.h ccsc_compile.h ccsc.h Makefile.am 
+KDE_DIST=ccsc_config.h Makefile.am Makefile.in ccsc.h ccsc_compile.h 
 
 #>+ 2
 docs-am:

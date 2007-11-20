@@ -632,6 +632,7 @@ picdem_bootloader_data.cpp: ../xml/xml_picdem_bootloader_parser picdem_bootloade
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 picdem_bootloader_prog.moc.cpp: $(srcdir)/picdem_bootloader_prog.h
 	$(MOC) $(srcdir)/picdem_bootloader_prog.h -o picdem_bootloader_prog.moc.cpp
@@ -644,7 +645,7 @@ clean-metasources:
 	-rm -f  picdem_bootloader_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=base.pro Makefile.in picdem_bootloader_data.h picdem_bootloader.xml picdem_bootloader_prog.h picdem_bootloader.h Makefile.am 
+KDE_DIST=picdem_bootloader_data.h picdem_bootloader.h base.pro Makefile.am picdem_bootloader.xml Makefile.in picdem_bootloader_prog.h 
 
 #>+ 2
 docs-am:

@@ -747,6 +747,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 pic30_compile.moc.cpp: $(srcdir)/pic30_compile.h
 	$(MOC) $(srcdir)/pic30_compile.h -o pic30_compile.moc.cpp
@@ -759,7 +760,7 @@ clean-metasources:
 	-rm -f  pic30_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in pic30.h pic30_config.h pic30_generator.h pic30_compile.h Makefile.am 
+KDE_DIST=pic30_generator.h pic30.h pic30_compile.h Makefile.in Makefile.am pic30_config.h 
 
 #>+ 2
 docs-am:

@@ -642,8 +642,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in gpprocessor.h xml.pro Makefile.am 
+KDE_DIST=gpprocessor.h xml.pro Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

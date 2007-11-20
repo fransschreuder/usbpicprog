@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 mpc_ui.moc.cpp: $(srcdir)/mpc_ui.h
 	$(MOC) $(srcdir)/mpc_ui.h -o mpc_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  mpc_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in mpc_ui.h Makefile.am 
+KDE_DIST=mpc_ui.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

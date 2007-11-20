@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 gpsim_group_ui.moc.cpp: $(srcdir)/gpsim_group_ui.h
 	$(MOC) $(srcdir)/gpsim_group_ui.h -o gpsim_group_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  gpsim_group_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in gpsim_group_ui.h Makefile.am 
+KDE_DIST=Makefile.am gpsim_group_ui.h Makefile.in 
 
 #>+ 2
 docs-am:

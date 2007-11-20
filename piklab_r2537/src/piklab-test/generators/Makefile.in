@@ -680,8 +680,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in gputils_config_generator_check.h gputils_template_generator_check.h sdcc_config_generator_check.h Makefile.am 
+KDE_DIST=sdcc_config_generator_check.h gputils_template_generator_check.h Makefile.am Makefile.in gputils_config_generator_check.h 
 
 #>+ 2
 docs-am:

@@ -170,11 +170,13 @@
  ********************************************************************/
  
 /** I N C L U D E S *************************************************/
-#include "system\typedefs.h"
-#include "system\usb\usb.h"
+#include "system/typedefs.h"
+#include "system/usb/usb.h"
 
 /** C O N S T A N T S ************************************************/
+#ifndef SDCC
 #pragma romdata
+#endif
 
 /* Device Descriptor */
 rom USB_DEV_DSC device_dsc=
@@ -196,7 +198,11 @@ rom USB_DEV_DSC device_dsc=
 };
 
 /* Configuration 1 Descriptor */
+#ifndef SDCC
 CFG01=
+#else
+cfg01 CFG01=
+#endif
 {
     /* Configuration Descriptor */
     sizeof(USB_CFG_DSC),    // Size of this descriptor in bytes
@@ -224,24 +230,50 @@ CFG01=
     sizeof(USB_EP_DSC),DSC_EP,_EP01_IN,_INT,USBGEN_EP_SIZE,32
 };
 
+
+#ifndef SDCC
 rom struct{byte bLength;byte bDscType;word string[1];}sd000={
 sizeof(sd000),DSC_STR,0x0409};
+#else
+struct{byte bLength;byte bDscType;word string[1];}sd000={
+	sizeof(sd000),DSC_STR,0x0409};
 
+#endif
+
+#ifndef SDCC
 rom struct{byte bLength;byte bDscType;word string[20];}sd001={
 sizeof(sd001),DSC_STR,
 'u','s','b','p','i','c','p','r','o','g',
 '.','s','f','.','n','e','t',' ',' ',' '};
+#else
+struct{byte bLength;byte bDscType;word string[20];}sd001={
+	sizeof(sd001),DSC_STR,
+	       'u','s','b','p','i','c','p','r','o','g',
+	'.','s','f','.','n','e','t',' ',' ',' '};
+#endif
 
+#ifndef SDCC
 rom struct{byte bLength;byte bDscType;word string[33];}sd002={
 sizeof(sd002),DSC_STR,
 'P','I','C','D','E','M',' ','F','S',' ','U','S','B',' ',
 'D','e','m','o',' ','B','o','a','r','d',' ','(','C',')',
 ' ','2','0','0','4'};
-
+#else
+struct{byte bLength;byte bDscType;word string[33];}sd002={
+	sizeof(sd002),DSC_STR,
+	       'P','I','C','D','E','M',' ','F','S',' ','U','S','B',' ',
+	'D','e','m','o',' ','B','o','a','r','d',' ','(','C',')',
+ ' ','2','0','0','4'};
+#endif
+#ifndef SDCC
 rom const unsigned char *rom USB_CD_Ptr[]={&cfg01,&cfg01};
+#else
+rom const unsigned char *rom USB_CD_Ptr[]={&CFG01,&CFG01};
+#endif
 rom const unsigned char *rom USB_SD_Ptr[]={&sd000,&sd001,&sd002};
 
-
+#ifndef SDCC
 #pragma code
+#endif
 
 /** EOF usbdsc.c ****************************************************/

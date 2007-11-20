@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 icd1_group_ui.moc.cpp: $(srcdir)/icd1_group_ui.h
 	$(MOC) $(srcdir)/icd1_group_ui.h -o icd1_group_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  icd1_group_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in icd1_group_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in icd1_group_ui.h 
 
 #>+ 2
 docs-am:

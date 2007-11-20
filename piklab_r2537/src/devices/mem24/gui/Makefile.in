@@ -627,6 +627,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 mem24_hex_view.moc.cpp: $(srcdir)/mem24_hex_view.h
 	$(MOC) $(srcdir)/mem24_hex_view.h -o mem24_hex_view.moc.cpp
@@ -646,7 +647,7 @@ clean-metasources:
 	-rm -f  mem24_hex_view.moc.cpp mem24_memory_editor.moc.cpp
 
 #>+ 2
-KDE_DIST=mem24_group_ui.h mem24_memory_editor.h Makefile.in mem24_hex_view.h Makefile.am 
+KDE_DIST=mem24_group_ui.h Makefile.in mem24_memory_editor.h Makefile.am mem24_hex_view.h 
 
 #>+ 2
 docs-am:

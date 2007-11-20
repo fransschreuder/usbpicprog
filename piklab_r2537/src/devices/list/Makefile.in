@@ -636,8 +636,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in list.pro device_list.h Makefile.am 
+KDE_DIST=device_list.h Makefile.am Makefile.in list.pro 
 
 #>+ 2
 docs-am:

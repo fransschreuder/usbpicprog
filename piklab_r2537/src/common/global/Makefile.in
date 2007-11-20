@@ -751,6 +751,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 progress_monitor.moc.cpp: $(srcdir)/progress_monitor.h
 	$(MOC) $(srcdir)/progress_monitor.h -o progress_monitor.moc.cpp
@@ -777,7 +778,7 @@ clean-metasources:
 	-rm -f  progress_monitor.moc.cpp purl.moc.cpp process.moc.cpp
 
 #>+ 2
-KDE_DIST=generic_config.h Makefile.in about.h log.h purl.h process.h global.h pfile.h xml_data_file.h Makefile.am global.pro progress_monitor.h 
+KDE_DIST=generic_config.h Makefile.in about.h log.h purl.h process.h global.h xml_data_file.h pfile.h Makefile.am global.pro progress_monitor.h 
 
 #>+ 2
 docs-am:

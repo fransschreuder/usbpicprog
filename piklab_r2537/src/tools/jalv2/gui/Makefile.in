@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 jalv2_ui.moc.cpp: $(srcdir)/jalv2_ui.h
 	$(MOC) $(srcdir)/jalv2_ui.h -o jalv2_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  jalv2_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in jalv2_ui.h Makefile.am 
+KDE_DIST=jalv2_ui.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

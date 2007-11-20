@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 c18_ui.moc.cpp: $(srcdir)/c18_ui.h
 	$(MOC) $(srcdir)/c18_ui.h -o c18_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  c18_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in c18_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in c18_ui.h 
 
 #>+ 2
 docs-am:

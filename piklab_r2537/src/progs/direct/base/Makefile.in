@@ -648,6 +648,7 @@ direct_data.cpp: ../xml/xml_direct_parser direct.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 direct_prog.moc.cpp: $(srcdir)/direct_prog.h
 	$(MOC) $(srcdir)/direct_prog.h -o direct_prog.moc.cpp
@@ -660,7 +661,7 @@ clean-metasources:
 	-rm -f  direct_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=direct_30.h direct_16.h base.pro Makefile.in direct_mem24.h upp.h direct_baseline.h direct_18.h direct.xml direct_pic.h direct_prog.h direct_18F.h direct_30.cpp direct_data.h direct.h direct_16F.h direct_prog_config.h Makefile.am 
+KDE_DIST=direct_16.h direct_18.h direct.xml direct_16F.h direct_data.h base.pro Makefile.in direct_pic.h direct_mem24.h direct_30.cpp direct_18F.h direct_prog.h upp.h direct.h direct_30.h direct_baseline.h direct_prog_config.h Makefile.am 
 
 #>+ 2
 docs-am:

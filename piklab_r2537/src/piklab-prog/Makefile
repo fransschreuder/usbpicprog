@@ -59,7 +59,7 @@ am_piklab_prog_OBJECTS = cmdline.$(OBJEXT) cli_prog_manager.$(OBJEXT) \
 piklab_prog_final_OBJECTS = piklab_prog.all_cpp.o 
 piklab_prog_nofinal_OBJECTS = cmdline.$(OBJEXT) cli_prog_manager.$(OBJEXT) \
 	cli_debug_manager.$(OBJEXT) cli_interactive.$(OBJEXT)\
-cli_debug_manager.moc.o cmdline.moc.o cli_interactive.moc.o cli_prog_manager.moc.o 
+cli_debug_manager.moc.o cmdline.moc.o cli_prog_manager.moc.o cli_interactive.moc.o 
 piklab_prog_OBJECTS = $(piklab_prog_nofinal_OBJECTS)
 #piklab_prog_OBJECTS = $(piklab_prog_final_OBJECTS)
 am__DEPENDENCIES_1 =  \
@@ -123,16 +123,16 @@ CTAGS = ctags
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 1
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run tar
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run tar
 AR = ar
-ARTSCCONFIG = /opt/kde3/bin/artsc-config
+ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run automake-1.9
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run automake-1.9
 AWK = gawk
 BSD_FALSE = 
 BSD_TRUE = #
@@ -147,8 +147,8 @@ CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -O2 -Wformat-security -Wmissing-format-attribute -Wno-non-virtual-dtor -fno-exceptions -fno-check-new -fno-common -DQT_CLEAN_NAMESPACE -DQT_NO_ASCII_CAST -DQT_NO_STL -DQT_NO_COMPAT -DQT_NO_TRANSLATION
 CYGPATH_W = echo
-DCOPIDL = /opt/kde3/bin/dcopidl
-DCOPIDL2CPP = /opt/kde3/bin/dcopidl2cpp
+DCOPIDL = /usr/bin/dcopidl
+DCOPIDL2CPP = /usr/bin/dcopidl2cpp
 DCOPIDLNG = 
 DCOP_DEPENDENCIES = $(DCOPIDL)
 DEFS = -DHAVE_CONFIG_H
@@ -160,8 +160,8 @@ ECHO_T =
 EGREP = grep -E
 ENABLE_PERMISSIVE_FLAG = -fpermissive
 EXEEXT = 
-F77 = g77
-FFLAGS = -g
+F77 = 
+FFLAGS = 
 FRAMEWORK_COREAUDIO = 
 GMSGFMT = /usr/bin/msgfmt
 HAVE_GCC_VISIBILITY = 0
@@ -171,11 +171,11 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 KCFG_DEPENDENCIES = 
 KCONFIG_COMPILER = 
-KDECONFIG = /opt/kde3/bin/kde-config
+KDECONFIG = /usr/bin/kde-config
 KDE_CHECK_PLUGIN = $(KDE_PLUGIN) -rpath $(libdir)
 KDE_EXTRA_RPATH = 
-KDE_INCLUDES = -I/opt/kde3/include
-KDE_LDFLAGS = -L/opt/kde3/lib64
+KDE_INCLUDES = -I/usr/include/kde
+KDE_LDFLAGS = -L/usr/lib
 KDE_MT_LDFLAGS = 
 KDE_MT_LIBS = -lpthread
 KDE_NO_UNDEFINED = -Wl,--no-undefined -Wl,--allow-shlib-undefined
@@ -189,7 +189,7 @@ KDE_USE_FPIE = -fPIE
 KDE_USE_NMCHECK_FALSE = 
 KDE_USE_NMCHECK_TRUE = #
 KDE_USE_PIE = -pie
-KDE_XSL_STYLESHEET = /opt/kde3/share/apps/ksgmltools2/customization/kde-chunk.xsl
+KDE_XSL_STYLESHEET = /usr/share/apps/ksgmltools2/customization/kde-chunk.xsl
 LDFLAGS = 
 LDFLAGS_AS_NEEDED = 
 LDFLAGS_NEW_DTAGS = 
@@ -200,7 +200,7 @@ LIBJPEG = -ljpeg
 LIBOBJS = 
 LIBPNG = -lpng -lz -lm
 LIBPTHREAD = -lpthread
-LIBREADLINE_LIBS = -lhistory -lreadline 
+LIBREADLINE_LIBS = -lhistory -lreadline -lcurses
 LIBRESOLV = -lresolv
 LIBS = 
 LIBSM = -lSM -lICE
@@ -209,7 +209,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool --silent
 LIBUCB = 
 LIBUSBCONFIG = yes
 LIBUSB_CFLAGS =  
-LIBUSB_LIBS =  -L/usr/lib64 -lusb -lresmgr
+LIBUSB_LIBS =  -L/usr/lib -lusb
 LIBUTIL = -lutil
 LIBZ = -lz
 LIB_KAB = -lkab
@@ -243,11 +243,11 @@ LINUX_FALSE = #
 LINUX_TRUE = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
-MCOPIDL = /opt/kde3/bin/mcopidl
-MEINPROC = /opt/kde3/bin/meinproc
-MOC = /usr/lib/qt3/bin/moc
+MCOPIDL = /usr/bin/mcopidl
+MEINPROC = /usr/bin/meinproc
+MOC = /usr/share/qt3/bin/moc
 MSGFMT = /usr/bin/msgfmt
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
@@ -263,14 +263,14 @@ PACKAGE_VERSION =
 PATH_SEPARATOR = :
 PERL = /usr/bin/perl
 QTE_NORTTI = 
-QT_INCLUDES = -I/usr/lib/qt3/include
-QT_LDFLAGS = -L/usr/lib/qt3/lib64
+QT_INCLUDES = -I/usr/share/qt3/include
+QT_LDFLAGS = -L/usr/share/qt3/lib
 RANLIB = ranlib
 SET_MAKE = 
-SHELL = /bin/sh
+SHELL = /bin/bash
 STRIP = strip
 TOPSUBDIRS =  doc man po src
-UIC = /usr/lib/qt3/bin/uic -L $(kde_widgetdir) -nounload
+UIC = /usr/share/qt3/bin/uic -L $(kde_widgetdir) -nounload
 UIC_TR = tr2i18n
 USER_INCLUDES = 
 USER_LDFLAGS = 
@@ -282,18 +282,18 @@ WOVERLOADED_VIRTUAL =
 XGETTEXT = /usr/bin/xgettext
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
-X_INCLUDES = -I/usr/X11R6/include
-X_LDFLAGS = -L/usr/X11R6/lib64
+X_INCLUDES = -I.
+X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
-ac_ct_F77 = g77
+ac_ct_F77 = 
 ac_ct_RANLIB = ranlib
 ac_ct_STRIP = strip
-all_includes = -I/opt/kde3/include -I/usr/lib/qt3/include -I/usr/X11R6/include 
-all_libraries = -L/opt/kde3/lib64 -L/usr/lib/qt3/lib64 -L/usr/X11R6/lib64   
+all_includes = -I/usr/include/kde -I/usr/share/qt3/include -I. 
+all_libraries = -L/usr/share/qt3/lib -L/usr/lib   
 am__fastdepCC_FALSE = #
 am__fastdepCC_TRUE = 
 am__fastdepCXX_FALSE = #
@@ -324,18 +324,18 @@ include_x11_FALSE = #
 include_x11_TRUE = 
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/schreuder/upp/usbpicprog/piklab_r2537/admin/install-sh
+install_sh = /home/frans/usbpicprog/piklab_r2537/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
 kde_datadir = ${datadir}/apps
 kde_htmldir = ${datadir}/doc/HTML
 kde_icondir = ${datadir}/icons
-kde_includes = /opt/kde3/include
+kde_includes = /usr/include/kde
 kde_kcfgdir = ${datadir}/config.kcfg
-kde_libraries = /opt/kde3/lib64
-kde_libs_htmldir = /opt/kde3/share/doc/HTML
-kde_libs_prefix = /opt/kde3
+kde_libraries = /usr/lib
+kde_libs_htmldir = /usr/share/doc/kde/HTML
+kde_libs_prefix = /usr
 kde_locale = ${datadir}/locale
 kde_mimedir = ${datadir}/mimelnk
 kde_moduledir = ${libdir}/kde3
@@ -346,9 +346,9 @@ kde_sounddir = ${datadir}/sounds
 kde_styledir = ${libdir}/kde3/plugins/styles
 kde_templatesdir = ${datadir}/templates
 kde_wallpaperdir = ${datadir}/wallpapers
-kde_widgetdir = /opt/kde3/lib64/kde3/plugins/designer
+kde_widgetdir = /usr/lib/kde3/plugins/designer
 kdeinitdir = $(kde_moduledir)
-libdir = ${exec_prefix}/lib64
+libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
 man_SUBDIR_included_FALSE = #
@@ -358,10 +358,10 @@ mkdir_p = mkdir -p --
 oldincludedir = /usr/include
 po_SUBDIR_included_FALSE = #
 po_SUBDIR_included_TRUE = 
-prefix = /home/schreuder/upp/piklab-bin
+prefix = /usr
 program_transform_name = s,x,x,
-qt_includes = /usr/lib/qt3/include
-qt_libraries = /usr/lib/qt3/lib64
+qt_includes = /usr/share/qt3/include
+qt_libraries = /usr/share/qt3/lib
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 src_SUBDIR_included_FALSE = #
@@ -374,8 +374,8 @@ target_os = linux-gnu
 target_vendor = unknown
 unsermake_enable_pch_FALSE = 
 unsermake_enable_pch_TRUE = #
-x_includes = /usr/X11R6/include
-x_libraries = /usr/X11R6/lib64
+x_includes = .
+x_libraries = /usr/lib
 xdg_appsdir = ${datadir}/applications/kde
 xdg_directorydir = ${datadir}/desktop-directories
 xdg_menudir = ${sysconfdir}/xdg/menus
@@ -707,6 +707,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 cli_debug_manager.moc.cpp: $(srcdir)/cli_debug_manager.h
 	$(MOC) $(srcdir)/cli_debug_manager.h -o cli_debug_manager.moc.cpp
@@ -722,13 +723,6 @@ cmdline.moc.cpp: $(srcdir)/cmdline.h
 mocs: cmdline.moc.cpp
 
 #>+ 3
-cli_interactive.moc.cpp: $(srcdir)/cli_interactive.h
-	$(MOC) $(srcdir)/cli_interactive.h -o cli_interactive.moc.cpp
-
-#>+ 2
-mocs: cli_interactive.moc.cpp
-
-#>+ 3
 cli_prog_manager.moc.cpp: $(srcdir)/cli_prog_manager.h
 	$(MOC) $(srcdir)/cli_prog_manager.h -o cli_prog_manager.moc.cpp
 
@@ -736,11 +730,18 @@ cli_prog_manager.moc.cpp: $(srcdir)/cli_prog_manager.h
 mocs: cli_prog_manager.moc.cpp
 
 #>+ 3
-clean-metasources:
-	-rm -f  cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp
+cli_interactive.moc.cpp: $(srcdir)/cli_interactive.h
+	$(MOC) $(srcdir)/cli_interactive.h -o cli_interactive.moc.cpp
 
 #>+ 2
-KDE_DIST=cli_interactive.h Makefile.in cli_prog_manager.h cli_debug_manager.h cmdline.h piklab-prog.pro cli_purl.cpp Makefile.am 
+mocs: cli_interactive.moc.cpp
+
+#>+ 3
+clean-metasources:
+	-rm -f  cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp
+
+#>+ 2
+KDE_DIST=cli_interactive.h piklab-prog.pro cmdline.h Makefile.in cli_purl.cpp Makefile.am cli_debug_manager.h cli_prog_manager.h 
 
 #>+ 2
 docs-am:
@@ -784,11 +785,11 @@ bcheck-am:
 
 
 #>+ 11
-piklab_prog.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdline.cpp $(srcdir)/cli_prog_manager.cpp $(srcdir)/cli_debug_manager.cpp $(srcdir)/cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp 
+piklab_prog.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdline.cpp $(srcdir)/cli_prog_manager.cpp $(srcdir)/cli_debug_manager.cpp $(srcdir)/cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp 
 	@echo 'creating piklab_prog.all_cpp.cpp ...'; \
 	rm -f piklab_prog.all_cpp.files piklab_prog.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> piklab_prog.all_cpp.final; \
-	for file in cmdline.cpp cli_prog_manager.cpp cli_debug_manager.cpp cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp ; do \
+	for file in cmdline.cpp cli_prog_manager.cpp cli_debug_manager.cpp cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> piklab_prog.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> piklab_prog.all_cpp.final; \
 	done; \

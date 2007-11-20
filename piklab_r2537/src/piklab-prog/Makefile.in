@@ -59,7 +59,7 @@ am_piklab_prog_OBJECTS = cmdline.$(OBJEXT) cli_prog_manager.$(OBJEXT) \
 piklab_prog_final_OBJECTS = piklab_prog.all_cpp.o 
 piklab_prog_nofinal_OBJECTS = cmdline.$(OBJEXT) cli_prog_manager.$(OBJEXT) \
 	cli_debug_manager.$(OBJEXT) cli_interactive.$(OBJEXT)\
-cli_debug_manager.moc.o cmdline.moc.o cli_interactive.moc.o cli_prog_manager.moc.o 
+cli_debug_manager.moc.o cmdline.moc.o cli_prog_manager.moc.o cli_interactive.moc.o 
 @KDE_USE_FINAL_FALSE@piklab_prog_OBJECTS = $(piklab_prog_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@piklab_prog_OBJECTS = $(piklab_prog_final_OBJECTS)
 am__DEPENDENCIES_1 =  \
@@ -707,6 +707,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 cli_debug_manager.moc.cpp: $(srcdir)/cli_debug_manager.h
 	$(MOC) $(srcdir)/cli_debug_manager.h -o cli_debug_manager.moc.cpp
@@ -722,13 +723,6 @@ cmdline.moc.cpp: $(srcdir)/cmdline.h
 mocs: cmdline.moc.cpp
 
 #>+ 3
-cli_interactive.moc.cpp: $(srcdir)/cli_interactive.h
-	$(MOC) $(srcdir)/cli_interactive.h -o cli_interactive.moc.cpp
-
-#>+ 2
-mocs: cli_interactive.moc.cpp
-
-#>+ 3
 cli_prog_manager.moc.cpp: $(srcdir)/cli_prog_manager.h
 	$(MOC) $(srcdir)/cli_prog_manager.h -o cli_prog_manager.moc.cpp
 
@@ -736,11 +730,18 @@ cli_prog_manager.moc.cpp: $(srcdir)/cli_prog_manager.h
 mocs: cli_prog_manager.moc.cpp
 
 #>+ 3
-clean-metasources:
-	-rm -f  cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp
+cli_interactive.moc.cpp: $(srcdir)/cli_interactive.h
+	$(MOC) $(srcdir)/cli_interactive.h -o cli_interactive.moc.cpp
 
 #>+ 2
-KDE_DIST=cli_interactive.h Makefile.in cli_prog_manager.h cli_debug_manager.h cmdline.h piklab-prog.pro cli_purl.cpp Makefile.am 
+mocs: cli_interactive.moc.cpp
+
+#>+ 3
+clean-metasources:
+	-rm -f  cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp
+
+#>+ 2
+KDE_DIST=cli_interactive.h piklab-prog.pro cmdline.h Makefile.in cli_purl.cpp Makefile.am cli_debug_manager.h cli_prog_manager.h 
 
 #>+ 2
 docs-am:
@@ -784,11 +785,11 @@ bcheck-am:
 
 
 #>+ 11
-piklab_prog.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdline.cpp $(srcdir)/cli_prog_manager.cpp $(srcdir)/cli_debug_manager.cpp $(srcdir)/cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp 
+piklab_prog.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/cmdline.cpp $(srcdir)/cli_prog_manager.cpp $(srcdir)/cli_debug_manager.cpp $(srcdir)/cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp 
 	@echo 'creating piklab_prog.all_cpp.cpp ...'; \
 	rm -f piklab_prog.all_cpp.files piklab_prog.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> piklab_prog.all_cpp.final; \
-	for file in cmdline.cpp cli_prog_manager.cpp cli_debug_manager.cpp cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_prog_manager.moc.cpp cli_interactive.moc.cpp ; do \
+	for file in cmdline.cpp cli_prog_manager.cpp cli_debug_manager.cpp cli_interactive.cpp cli_debug_manager.moc.cpp cmdline.moc.cpp cli_interactive.moc.cpp cli_prog_manager.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> piklab_prog.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> piklab_prog.all_cpp.final; \
 	done; \

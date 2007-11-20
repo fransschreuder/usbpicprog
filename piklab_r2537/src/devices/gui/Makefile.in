@@ -57,7 +57,7 @@ am_libdeviceui_la_OBJECTS = hex_word_editor.lo memory_editor.lo \
 libdeviceui_la_final_OBJECTS = libdeviceui_la.all_cpp.lo 
 libdeviceui_la_nofinal_OBJECTS = hex_word_editor.lo memory_editor.lo \
 	register_view.lo hex_view.lo device_group_ui.lo\
-register_view.moc.lo hex_view.moc.lo memory_editor.moc.lo hex_word_editor.moc.lo 
+hex_view.moc.lo register_view.moc.lo memory_editor.moc.lo hex_word_editor.moc.lo 
 @KDE_USE_FINAL_FALSE@libdeviceui_la_OBJECTS = $(libdeviceui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libdeviceui_la_OBJECTS = $(libdeviceui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -629,12 +629,6 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
-#>+ 3
-register_view.moc.cpp: $(srcdir)/register_view.h
-	$(MOC) $(srcdir)/register_view.h -o register_view.moc.cpp
-
-#>+ 2
-mocs: register_view.moc.cpp
 
 #>+ 3
 hex_view.moc.cpp: $(srcdir)/hex_view.h
@@ -642,6 +636,13 @@ hex_view.moc.cpp: $(srcdir)/hex_view.h
 
 #>+ 2
 mocs: hex_view.moc.cpp
+
+#>+ 3
+register_view.moc.cpp: $(srcdir)/register_view.h
+	$(MOC) $(srcdir)/register_view.h -o register_view.moc.cpp
+
+#>+ 2
+mocs: register_view.moc.cpp
 
 #>+ 3
 memory_editor.moc.cpp: $(srcdir)/memory_editor.h
@@ -659,10 +660,10 @@ mocs: hex_word_editor.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  register_view.moc.cpp hex_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp
+	-rm -f  hex_view.moc.cpp register_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp
 
 #>+ 2
-KDE_DIST=hex_view.h device_group_ui.h hex_word_editor.h Makefile.in register_view.h memory_editor.h Makefile.am 
+KDE_DIST=register_view.h hex_word_editor.h memory_editor.h Makefile.in Makefile.am hex_view.h device_group_ui.h 
 
 #>+ 2
 docs-am:
@@ -706,11 +707,11 @@ bcheck-am:
 
 
 #>+ 11
-libdeviceui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/hex_word_editor.cpp $(srcdir)/memory_editor.cpp $(srcdir)/register_view.cpp $(srcdir)/hex_view.cpp $(srcdir)/device_group_ui.cpp hex_view.moc.cpp register_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp 
+libdeviceui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/hex_word_editor.cpp $(srcdir)/memory_editor.cpp $(srcdir)/register_view.cpp $(srcdir)/hex_view.cpp $(srcdir)/device_group_ui.cpp register_view.moc.cpp hex_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp 
 	@echo 'creating libdeviceui_la.all_cpp.cpp ...'; \
 	rm -f libdeviceui_la.all_cpp.files libdeviceui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libdeviceui_la.all_cpp.final; \
-	for file in hex_word_editor.cpp memory_editor.cpp register_view.cpp hex_view.cpp device_group_ui.cpp hex_view.moc.cpp register_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp ; do \
+	for file in hex_word_editor.cpp memory_editor.cpp register_view.cpp hex_view.cpp device_group_ui.cpp register_view.moc.cpp hex_view.moc.cpp memory_editor.moc.cpp hex_word_editor.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libdeviceui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libdeviceui_la.all_cpp.final; \
 	done; \

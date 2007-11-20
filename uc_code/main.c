@@ -41,12 +41,12 @@
 #else
 #include <p18cxxx.h>
 #endif
-#include "system\typedefs.h"                        // Required
-#include "system\usb\usb.h"                         // Required
+#include "system/typedefs.h"                        // Required
+#include "system/usb/usb.h"                         // Required
 #include "io_cfg.h"                                 // Required
 
-#include "system\usb\usb_compile_time_validation.h" // Optional
-#include "upp\upp.h"                              // Modifiable
+#include "system/usb/usb_compile_time_validation.h" // Optional
+#include "upp/upp.h"                              // Modifiable
 
 #ifndef SDCC
 #pragma config PLLDIV = 2, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
@@ -130,7 +130,9 @@ void usb_reset(void)
 }
 
 /** D E C L A R A T I O N S **************************************************/
+#ifndef SDCC
 #pragma code
+#endif
 /******************************************************************************
  * Function:        void main(void)
  *

@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 picc_compile.moc.cpp: $(srcdir)/picc_compile.h
 	$(MOC) $(srcdir)/picc_compile.h -o picc_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  picc_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=picc_compile.h Makefile.in picc_config.h picc.h Makefile.am 
+KDE_DIST=picc_config.h Makefile.in picc.h Makefile.am picc_compile.h 
 
 #>+ 2
 docs-am:

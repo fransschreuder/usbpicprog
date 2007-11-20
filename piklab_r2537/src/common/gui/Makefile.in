@@ -61,7 +61,7 @@ libcommonui_la_nofinal_OBJECTS = config_widget.lo container.lo dialog.lo \
 	editlistbox.lo hexword_gui.lo key_gui.lo list_view.lo \
 	misc_gui.lo number_gui.lo pfile_ext.lo purl_ext.lo purl_gui.lo \
 	list_container.lo\
-list_view.moc.lo editlistbox.moc.lo hexword_gui.moc.lo purl_gui.moc.lo container.moc.lo dialog.moc.lo config_widget.moc.lo number_gui.moc.lo key_gui.moc.lo misc_gui.moc.lo list_container.moc.lo 
+list_view.moc.lo editlistbox.moc.lo hexword_gui.moc.lo purl_gui.moc.lo container.moc.lo number_gui.moc.lo dialog.moc.lo config_widget.moc.lo key_gui.moc.lo misc_gui.moc.lo list_container.moc.lo 
 @KDE_USE_FINAL_FALSE@libcommonui_la_OBJECTS = $(libcommonui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libcommonui_la_OBJECTS = $(libcommonui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -642,6 +642,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 list_view.moc.cpp: $(srcdir)/list_view.h
 	$(MOC) $(srcdir)/list_view.h -o list_view.moc.cpp
@@ -678,6 +679,13 @@ container.moc.cpp: $(srcdir)/container.h
 mocs: container.moc.cpp
 
 #>+ 3
+number_gui.moc.cpp: $(srcdir)/number_gui.h
+	$(MOC) $(srcdir)/number_gui.h -o number_gui.moc.cpp
+
+#>+ 2
+mocs: number_gui.moc.cpp
+
+#>+ 3
 dialog.moc.cpp: $(srcdir)/dialog.h
 	$(MOC) $(srcdir)/dialog.h -o dialog.moc.cpp
 
@@ -690,13 +698,6 @@ config_widget.moc.cpp: $(srcdir)/config_widget.h
 
 #>+ 2
 mocs: config_widget.moc.cpp
-
-#>+ 3
-number_gui.moc.cpp: $(srcdir)/number_gui.h
-	$(MOC) $(srcdir)/number_gui.h -o number_gui.moc.cpp
-
-#>+ 2
-mocs: number_gui.moc.cpp
 
 #>+ 3
 key_gui.moc.cpp: $(srcdir)/key_gui.h
@@ -721,10 +722,10 @@ mocs: list_container.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  list_view.moc.cpp editlistbox.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp config_widget.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp
+	-rm -f  list_view.moc.cpp editlistbox.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp number_gui.moc.cpp dialog.moc.cpp config_widget.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp
 
 #>+ 2
-KDE_DIST=list_container.h Makefile.in list_view.h dialog.h hexword_gui.h editlistbox.h pfile_ext.h key_gui.h config_widget.h misc_gui.h container.h Makefile.am purl_gui.h number_gui.h 
+KDE_DIST=list_container.h Makefile.in list_view.h dialog.h hexword_gui.h editlistbox.h pfile_ext.h key_gui.h config_widget.h misc_gui.h Makefile.am container.h number_gui.h purl_gui.h 
 
 #>+ 2
 docs-am:
@@ -768,11 +769,11 @@ bcheck-am:
 
 
 #>+ 11
-libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/config_widget.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp $(srcdir)/editlistbox.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/misc_gui.cpp $(srcdir)/number_gui.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/purl_ext.cpp $(srcdir)/purl_gui.cpp $(srcdir)/list_container.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp config_widget.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp 
+libcommonui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/config_widget.cpp $(srcdir)/container.cpp $(srcdir)/dialog.cpp $(srcdir)/editlistbox.cpp $(srcdir)/hexword_gui.cpp $(srcdir)/key_gui.cpp $(srcdir)/list_view.cpp $(srcdir)/misc_gui.cpp $(srcdir)/number_gui.cpp $(srcdir)/pfile_ext.cpp $(srcdir)/purl_ext.cpp $(srcdir)/purl_gui.cpp $(srcdir)/list_container.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp number_gui.moc.cpp dialog.moc.cpp config_widget.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp 
 	@echo 'creating libcommonui_la.all_cpp.cpp ...'; \
 	rm -f libcommonui_la.all_cpp.files libcommonui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libcommonui_la.all_cpp.final; \
-	for file in config_widget.cpp container.cpp dialog.cpp editlistbox.cpp hexword_gui.cpp key_gui.cpp list_view.cpp misc_gui.cpp number_gui.cpp pfile_ext.cpp purl_ext.cpp purl_gui.cpp list_container.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp dialog.moc.cpp config_widget.moc.cpp number_gui.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp ; do \
+	for file in config_widget.cpp container.cpp dialog.cpp editlistbox.cpp hexword_gui.cpp key_gui.cpp list_view.cpp misc_gui.cpp number_gui.cpp pfile_ext.cpp purl_ext.cpp purl_gui.cpp list_container.cpp editlistbox.moc.cpp list_view.moc.cpp hexword_gui.moc.cpp purl_gui.moc.cpp container.moc.cpp number_gui.moc.cpp dialog.moc.cpp config_widget.moc.cpp key_gui.moc.cpp misc_gui.moc.cpp list_container.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libcommonui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libcommonui_la.all_cpp.final; \
 	done; \

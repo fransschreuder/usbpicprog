@@ -623,8 +623,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=pic_prog_specific.h pic_debug.h Makefile.in prog.pro pic_prog.h Makefile.am 
+KDE_DIST=prog.pro Makefile.in pic_prog_specific.h pic_prog.h Makefile.am pic_debug.h 
 
 #>+ 2
 docs-am:

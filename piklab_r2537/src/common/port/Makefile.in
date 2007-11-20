@@ -628,8 +628,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=usb_port.h serial.h parallel.h Makefile.in port.pro port_base.h port.h Makefile.am 
+KDE_DIST=usb_port.h port_base.h serial.h Makefile.in parallel.h port.h Makefile.am port.pro 
 
 #>+ 2
 docs-am:

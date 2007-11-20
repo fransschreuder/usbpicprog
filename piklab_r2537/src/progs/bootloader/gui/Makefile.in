@@ -617,8 +617,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in bootloader_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in bootloader_ui.h 
 
 #>+ 2
 docs-am:

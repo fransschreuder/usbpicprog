@@ -630,6 +630,7 @@ pickit1_data.cpp: ../xml/xml_pickit1_parser pickit1.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 pickit1_prog.moc.cpp: $(srcdir)/pickit1_prog.h
 	$(MOC) $(srcdir)/pickit1_prog.h -o pickit1_prog.moc.cpp
@@ -642,7 +643,7 @@ clean-metasources:
 	-rm -f  pickit1_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=pickit1.h base.pro Makefile.in pickit1.xml pickit1_data.h pickit1_prog.h Makefile.am 
+KDE_DIST=base.pro pickit1_prog.h Makefile.in pickit1.xml pickit1.h Makefile.am pickit1_data.h 
 
 #>+ 2
 docs-am:

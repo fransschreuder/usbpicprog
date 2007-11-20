@@ -633,6 +633,7 @@ icd1_data.cpp: ../xml/xml_icd1_parser icd1.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 icd1_prog.moc.cpp: $(srcdir)/icd1_prog.h
 	$(MOC) $(srcdir)/icd1_prog.h -o icd1_prog.moc.cpp
@@ -645,7 +646,7 @@ clean-metasources:
 	-rm -f  icd1_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=icd1.h icd1.xml base.pro Makefile.in icd1_prog.h icd1_data.h icd1_serial.h Makefile.am 
+KDE_DIST=icd1.h icd1.xml base.pro Makefile.in icd1_data.h icd1_prog.h icd1_serial.h Makefile.am 
 
 #>+ 2
 docs-am:

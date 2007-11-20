@@ -772,8 +772,9 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in Makefile.am 
+KDE_DIST=Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

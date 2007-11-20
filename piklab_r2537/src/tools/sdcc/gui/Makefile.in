@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 sdcc_ui.moc.cpp: $(srcdir)/sdcc_ui.h
 	$(MOC) $(srcdir)/sdcc_ui.h -o sdcc_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  sdcc_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=sdcc_ui.h Makefile.in Makefile.am 
+KDE_DIST=Makefile.am Makefile.in sdcc_ui.h 
 
 #>+ 2
 docs-am:

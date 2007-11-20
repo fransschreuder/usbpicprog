@@ -12,8 +12,8 @@
  * Software License Agreement
  *
  * The software supplied herewith by Microchip Technology Incorporated
- * (the “Company”) for its PICmicro® Microcontroller is intended and
- * supplied to you, the Company’s customer, for use solely and
+ * (the ï¿½Companyï¿½) for its PICmicroï¿½ Microcontroller is intended and
+ * supplied to you, the Companyï¿½s customer, for use solely and
  * exclusively on Microchip PICmicro Microcontroller products. The
  * software is owned by the Company and/or its supplier, and is
  * protected under applicable copyright laws. All rights are reserved.
@@ -22,7 +22,7 @@
  * civil liability for the breach of the terms and conditions of this
  * license.
  *
- * THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
+ * THIS SOFTWARE IS PROVIDED IN AN ï¿½AS ISï¿½ CONDITION. NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
  * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
  * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
@@ -40,23 +40,34 @@
 #define USBDSC_H
 
 /** I N C L U D E S *************************************************/
-#include "system\typedefs.h"
-#include "autofiles\usbcfg.h"
+#include "system/typedefs.h"
+#include "autofiles/usbcfg.h"
 
-#include "system\usb\usb.h"
+#include "system/usb/usb.h"
 
 /** D E F I N I T I O N S *******************************************/
-
+#ifndef SDCC
 #define CFG01 rom struct                            \
 {   USB_CFG_DSC             cd01;                   \
     USB_INTF_DSC            i00a00;                 \
     USB_EP_DSC              ep01o_i00a00;           \
     USB_EP_DSC              ep01i_i00a00;           \
 } cfg01
-
+#else
+typedef  struct CFG01 
+{   USB_CFG_DSC             cd01;                   
+    USB_INTF_DSC            i00a00;                 
+    USB_EP_DSC              ep01o_i00a00;           
+    USB_EP_DSC              ep01i_i00a00;           
+    USB_INTF_DSC            i01a00;                 
+    USB_EP_DSC              ep02i_i01a00;           
+} cfg01;
+#endif
 /** E X T E R N S ***************************************************/
 extern rom USB_DEV_DSC device_dsc;
+#ifndef SDCC
 extern CFG01;
+#endif
 extern rom const unsigned char *rom USB_CD_Ptr[];
 extern rom const unsigned char *rom USB_SD_Ptr[];
 

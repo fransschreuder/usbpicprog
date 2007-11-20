@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 pic30_ui.moc.cpp: $(srcdir)/pic30_ui.h
 	$(MOC) $(srcdir)/pic30_ui.h -o pic30_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  pic30_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in pic30_ui.h Makefile.am 
+KDE_DIST=pic30_ui.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

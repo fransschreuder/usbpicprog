@@ -59,7 +59,7 @@ libpicui_la_final_OBJECTS = libpicui_la.all_cpp.lo
 libpicui_la_nofinal_OBJECTS = pic_config_editor.lo \
 	pic_config_word_editor.lo pic_hex_view.lo pic_memory_editor.lo \
 	pic_register_view.lo pic_group_ui.lo pic_prog_group_ui.lo\
-pic_register_view.moc.lo pic_prog_group_ui.moc.lo pic_config_editor.moc.lo pic_memory_editor.moc.lo pic_config_word_editor.moc.lo pic_hex_view.moc.lo 
+pic_register_view.moc.lo pic_prog_group_ui.moc.lo pic_config_editor.moc.lo pic_memory_editor.moc.lo pic_hex_view.moc.lo pic_config_word_editor.moc.lo 
 @KDE_USE_FINAL_FALSE@libpicui_la_OBJECTS = $(libpicui_la_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@libpicui_la_OBJECTS = $(libpicui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -634,6 +634,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 pic_register_view.moc.cpp: $(srcdir)/pic_register_view.h
 	$(MOC) $(srcdir)/pic_register_view.h -o pic_register_view.moc.cpp
@@ -663,13 +664,6 @@ pic_memory_editor.moc.cpp: $(srcdir)/pic_memory_editor.h
 mocs: pic_memory_editor.moc.cpp
 
 #>+ 3
-pic_config_word_editor.moc.cpp: $(srcdir)/pic_config_word_editor.h
-	$(MOC) $(srcdir)/pic_config_word_editor.h -o pic_config_word_editor.moc.cpp
-
-#>+ 2
-mocs: pic_config_word_editor.moc.cpp
-
-#>+ 3
 pic_hex_view.moc.cpp: $(srcdir)/pic_hex_view.h
 	$(MOC) $(srcdir)/pic_hex_view.h -o pic_hex_view.moc.cpp
 
@@ -677,11 +671,18 @@ pic_hex_view.moc.cpp: $(srcdir)/pic_hex_view.h
 mocs: pic_hex_view.moc.cpp
 
 #>+ 3
-clean-metasources:
-	-rm -f  pic_register_view.moc.cpp pic_prog_group_ui.moc.cpp pic_config_editor.moc.cpp pic_memory_editor.moc.cpp pic_config_word_editor.moc.cpp pic_hex_view.moc.cpp
+pic_config_word_editor.moc.cpp: $(srcdir)/pic_config_word_editor.h
+	$(MOC) $(srcdir)/pic_config_word_editor.h -o pic_config_word_editor.moc.cpp
 
 #>+ 2
-KDE_DIST=pic_config_word_editor.h pic_memory_editor.h pic_prog_group_ui.h pic_register_view.h pic_hex_view.h pic_config_editor.h Makefile.in pic_group_ui.h Makefile.am 
+mocs: pic_config_word_editor.moc.cpp
+
+#>+ 3
+clean-metasources:
+	-rm -f  pic_register_view.moc.cpp pic_prog_group_ui.moc.cpp pic_config_editor.moc.cpp pic_memory_editor.moc.cpp pic_hex_view.moc.cpp pic_config_word_editor.moc.cpp
+
+#>+ 2
+KDE_DIST=pic_register_view.h pic_config_editor.h pic_memory_editor.h pic_config_word_editor.h Makefile.in pic_group_ui.h Makefile.am pic_hex_view.h pic_prog_group_ui.h 
 
 #>+ 2
 docs-am:
@@ -725,11 +726,11 @@ bcheck-am:
 
 
 #>+ 11
-libpicui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/pic_config_editor.cpp $(srcdir)/pic_config_word_editor.cpp $(srcdir)/pic_hex_view.cpp $(srcdir)/pic_memory_editor.cpp $(srcdir)/pic_register_view.cpp $(srcdir)/pic_group_ui.cpp $(srcdir)/pic_prog_group_ui.cpp pic_register_view.moc.cpp pic_config_editor.moc.cpp pic_prog_group_ui.moc.cpp pic_memory_editor.moc.cpp pic_hex_view.moc.cpp pic_config_word_editor.moc.cpp 
+libpicui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/pic_config_editor.cpp $(srcdir)/pic_config_word_editor.cpp $(srcdir)/pic_hex_view.cpp $(srcdir)/pic_memory_editor.cpp $(srcdir)/pic_register_view.cpp $(srcdir)/pic_group_ui.cpp $(srcdir)/pic_prog_group_ui.cpp pic_register_view.moc.cpp pic_config_editor.moc.cpp pic_prog_group_ui.moc.cpp pic_memory_editor.moc.cpp pic_config_word_editor.moc.cpp pic_hex_view.moc.cpp 
 	@echo 'creating libpicui_la.all_cpp.cpp ...'; \
 	rm -f libpicui_la.all_cpp.files libpicui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libpicui_la.all_cpp.final; \
-	for file in pic_config_editor.cpp pic_config_word_editor.cpp pic_hex_view.cpp pic_memory_editor.cpp pic_register_view.cpp pic_group_ui.cpp pic_prog_group_ui.cpp pic_register_view.moc.cpp pic_config_editor.moc.cpp pic_prog_group_ui.moc.cpp pic_memory_editor.moc.cpp pic_hex_view.moc.cpp pic_config_word_editor.moc.cpp ; do \
+	for file in pic_config_editor.cpp pic_config_word_editor.cpp pic_hex_view.cpp pic_memory_editor.cpp pic_register_view.cpp pic_group_ui.cpp pic_prog_group_ui.cpp pic_register_view.moc.cpp pic_config_editor.moc.cpp pic_prog_group_ui.moc.cpp pic_memory_editor.moc.cpp pic_config_word_editor.moc.cpp pic_hex_view.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libpicui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libpicui_la.all_cpp.final; \
 	done; \

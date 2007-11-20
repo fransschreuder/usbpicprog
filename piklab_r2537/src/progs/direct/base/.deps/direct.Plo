@@ -1,88 +1,96 @@
 direct.lo .libs/direct.o: direct.cpp direct.h \
   ../../../../src/devices/pic/prog/pic_prog.h \
   ../../../../src/devices/pic/prog/pic_prog_specific.h \
-  ../../../../src/progs/base/prog_specific.h /usr/lib/qt3/include/qfile.h \
-  /usr/lib/qt3/include/qiodevice.h /usr/lib/qt3/include/qglobal.h \
-  /usr/lib/qt3/include/qconfig.h /usr/lib/qt3/include/qmodules.h \
-  /usr/lib/qt3/include/qfeatures.h /usr/lib/qt3/include/qcstring.h \
-  /usr/lib/qt3/include/qmemarray.h /usr/lib/qt3/include/qgarray.h \
-  /usr/lib/qt3/include/qshared.h /usr/lib/qt3/include/qwinexport.h \
-  /usr/include/string.h /usr/include/features.h /usr/include/sys/cdefs.h \
-  /usr/include/gnu/stubs.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stddef.h \
-  /usr/include/xlocale.h /usr/lib/qt3/include/qstring.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/limits.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/syslimits.h \
+  ../../../../src/progs/base/prog_specific.h \
+  /usr/share/qt3/include/qfile.h /usr/share/qt3/include/qiodevice.h \
+  /usr/share/qt3/include/qglobal.h /usr/share/qt3/include/qconfig.h \
+  /usr/share/qt3/include/qmodules.h /usr/share/qt3/include/qfeatures.h \
+  /usr/share/qt3/include/qcstring.h /usr/share/qt3/include/qmemarray.h \
+  /usr/share/qt3/include/qgarray.h /usr/share/qt3/include/qshared.h \
+  /usr/share/qt3/include/qwinexport.h /usr/include/string.h \
+  /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stddef.h \
+  /usr/include/xlocale.h /usr/share/qt3/include/qstring.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/syslimits.h \
   /usr/include/limits.h /usr/include/bits/posix1_lim.h \
   /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
   /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
   /usr/include/bits/stdio_lim.h /usr/include/stdio.h \
-  /usr/include/bits/types.h /usr/include/bits/wordsize.h \
-  /usr/include/bits/typesizes.h /usr/include/libio.h \
-  /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
-  /usr/include/gconv.h \
-  /usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stdarg.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+  /usr/include/bits/wchar.h /usr/include/gconv.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stdarg.h \
   /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
-  ../../../../src/common/global/log.h /usr/lib/qt3/include/qstringlist.h \
-  /usr/lib/qt3/include/qvaluelist.h /usr/lib/qt3/include/qtl.h \
-  /usr/lib/qt3/include/qtextstream.h /usr/lib/qt3/include/qdatastream.h \
-  /usr/lib/qt3/include/qstrlist.h /usr/lib/qt3/include/qptrlist.h \
-  /usr/lib/qt3/include/qglist.h /usr/lib/qt3/include/qptrcollection.h \
+  ../../../../src/common/global/log.h \
+  /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qvaluelist.h /usr/share/qt3/include/qtl.h \
+  /usr/share/qt3/include/qtextstream.h \
+  /usr/share/qt3/include/qdatastream.h /usr/share/qt3/include/qstrlist.h \
+  /usr/share/qt3/include/qptrlist.h /usr/share/qt3/include/qglist.h \
+  /usr/share/qt3/include/qptrcollection.h \
   ../../../../src/common/common/key_enum.h \
-  /usr/lib/qt3/include/qdatastream.h ../../../../src/common/common/misc.h \
-  /usr/lib/qt3/include/qstring.h ../../../../src/common/port/port_base.h \
+  /usr/share/qt3/include/qdatastream.h \
+  ../../../../src/common/common/misc.h /usr/share/qt3/include/qstring.h \
+  ../../../../src/common/port/port_base.h \
   ../../../../src/common/port/port.h \
-  ../../../../src/common/global/global.h /usr/lib/qt3/include/qglobal.h \
-  /usr/lib/qt3/include/qapplication.h \
-  /usr/lib/qt3/include/qdesktopwidget.h /usr/lib/qt3/include/qwidget.h \
-  /usr/lib/qt3/include/qwindowdefs.h /usr/lib/qt3/include/qobjectdefs.h \
-  /usr/lib/qt3/include/qnamespace.h /usr/lib/qt3/include/qobject.h \
-  /usr/lib/qt3/include/qevent.h /usr/lib/qt3/include/qregion.h \
-  /usr/lib/qt3/include/qrect.h /usr/lib/qt3/include/qsize.h \
-  /usr/lib/qt3/include/qpoint.h /usr/lib/qt3/include/qmime.h \
-  /usr/lib/qt3/include/qmap.h /usr/lib/qt3/include/qpair.h \
-  /usr/lib/qt3/include/qpaintdevice.h /usr/lib/qt3/include/qpalette.h \
-  /usr/lib/qt3/include/qcolor.h /usr/lib/qt3/include/qstringlist.h \
-  /usr/lib/qt3/include/qbrush.h /usr/lib/qt3/include/qfont.h \
-  /usr/lib/qt3/include/qfontmetrics.h /usr/lib/qt3/include/qfontinfo.h \
-  /usr/lib/qt3/include/qsizepolicy.h /usr/lib/qt3/include/qasciidict.h \
-  /usr/lib/qt3/include/qgdict.h /usr/lib/qt3/include/qtranslator.h \
-  /usr/lib/qt3/include/qvaluelist.h /usr/lib/qt3/include/qvaluevector.h \
-  /usr/lib/qt3/include/qmemarray.h ../../../../src/common/common/qflags.h \
-  /usr/lib/qt3/include/qurl.h /usr/lib/qt3/include/qguardedptr.h \
-  ../../../../config.h /opt/kde3/include/kapplication.h \
-  /opt/kde3/include/kdeversion.h /opt/kde3/include/kdelibs_export.h \
-  /opt/kde3/include/kdemacros.h /usr/lib/qt3/include/qpixmap.h \
-  /opt/kde3/include/kinstance.h /opt/kde3/include/klocale.h \
-  /opt/kde3/include/kdelibs_export.h /opt/kde3/include/kaboutdata.h \
-  /usr/lib/qt3/include/qimage.h /usr/lib/qt3/include/qpixmap.h \
-  /opt/kde3/include/kcmdlineargs.h /opt/kde3/include/kurl.h \
-  /usr/lib/qt3/include/qptrlist.h /opt/kde3/include/ktempfile.h \
-  /usr/include/errno.h /usr/include/bits/errno.h \
-  /usr/include/linux/errno.h /usr/include/asm/errno.h \
-  /usr/include/asm-x86_64/errno.h /usr/include/asm-generic/errno.h \
-  /usr/include/asm-generic/errno-base.h \
-  /opt/kde3/include/kconfigbackend.h /opt/kde3/include/kconfigdata.h \
-  /usr/lib/qt3/include/qmap.h /opt/kde3/include/kconfigbase.h \
-  /usr/lib/qt3/include/qobject.h /usr/lib/qt3/include/qcolor.h \
-  /usr/lib/qt3/include/qfont.h /usr/lib/qt3/include/qdatetime.h \
-  /usr/lib/qt3/include/qstrlist.h /usr/lib/qt3/include/qvariant.h \
-  /opt/kde3/include/klockfile.h /opt/kde3/include/ksharedptr.h \
+  ../../../../src/common/global/global.h /usr/share/qt3/include/qglobal.h \
+  /usr/share/qt3/include/qapplication.h \
+  /usr/share/qt3/include/qdesktopwidget.h \
+  /usr/share/qt3/include/qwidget.h /usr/share/qt3/include/qwindowdefs.h \
+  /usr/share/qt3/include/qobjectdefs.h \
+  /usr/share/qt3/include/qnamespace.h /usr/share/qt3/include/qobject.h \
+  /usr/share/qt3/include/qevent.h /usr/share/qt3/include/qregion.h \
+  /usr/share/qt3/include/qrect.h /usr/share/qt3/include/qsize.h \
+  /usr/share/qt3/include/qpoint.h /usr/share/qt3/include/qmime.h \
+  /usr/share/qt3/include/qmap.h /usr/share/qt3/include/qpair.h \
+  /usr/share/qt3/include/qpaintdevice.h /usr/share/qt3/include/qpalette.h \
+  /usr/share/qt3/include/qcolor.h /usr/share/qt3/include/qstringlist.h \
+  /usr/share/qt3/include/qbrush.h /usr/share/qt3/include/qfont.h \
+  /usr/share/qt3/include/qfontmetrics.h \
+  /usr/share/qt3/include/qfontinfo.h /usr/share/qt3/include/qsizepolicy.h \
+  /usr/share/qt3/include/qasciidict.h /usr/share/qt3/include/qgdict.h \
+  /usr/share/qt3/include/qtranslator.h \
+  /usr/share/qt3/include/qvaluelist.h \
+  /usr/share/qt3/include/qvaluevector.h \
+  /usr/share/qt3/include/qmemarray.h \
+  ../../../../src/common/common/qflags.h /usr/share/qt3/include/qurl.h \
+  /usr/share/qt3/include/qguardedptr.h ../../../../config.h \
+  /usr/include/kde/kapplication.h /usr/include/kde/kdeversion.h \
+  /usr/include/kde/kdelibs_export.h /usr/include/kde/kdemacros.h \
+  /usr/share/qt3/include/qpixmap.h /usr/include/kde/kinstance.h \
+  /usr/include/kde/klocale.h /usr/include/kde/kdelibs_export.h \
+  /usr/include/kde/kaboutdata.h /usr/share/qt3/include/qimage.h \
+  /usr/share/qt3/include/qpixmap.h /usr/include/kde/kcmdlineargs.h \
+  /usr/include/kde/kurl.h /usr/share/qt3/include/qptrlist.h \
+  /usr/include/kde/ktempfile.h /usr/include/errno.h \
+  /usr/include/bits/errno.h /usr/include/linux/errno.h \
+  /usr/include/asm/errno.h /usr/include/asm-x86_64/errno.h \
+  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+  /usr/include/kde/kconfigbackend.h /usr/include/kde/kconfigdata.h \
+  /usr/share/qt3/include/qmap.h /usr/include/kde/kconfigbase.h \
+  /usr/share/qt3/include/qobject.h /usr/share/qt3/include/qcolor.h \
+  /usr/share/qt3/include/qfont.h /usr/share/qt3/include/qdatetime.h \
+  /usr/share/qt3/include/qstrlist.h /usr/share/qt3/include/qvariant.h \
+  /usr/include/kde/klockfile.h /usr/include/kde/ksharedptr.h \
   ../../../../src/common/common/key_enum.h \
   ../../../../src/common/global/log.h \
   ../../../../src/common/global/progress_monitor.h \
   ../../../../src/common/global/global.h \
   ../../../../src/progs/base/hardware_config.h \
   ../../../../src/common/global/generic_config.h \
-  /usr/lib/qt3/include/qsize.h ../../../../src/common/common/misc.h \
+  /usr/share/qt3/include/qsize.h ../../../../src/common/common/misc.h \
   ../../../../src/common/port/port.h \
   ../../../../src/progs/base/generic_prog.h \
   ../../../../src/common/global/pfile.h \
-  /usr/lib/qt3/include/qtextstream.h ../../../../src/common/global/purl.h \
-  ../../../../src/common/global/global.h /usr/lib/qt3/include/qhttp.h \
-  /usr/lib/qt3/include/qnetworkprotocol.h /usr/lib/qt3/include/qurlinfo.h \
-  /usr/lib/qt3/include/qdatetime.h /usr/lib/qt3/include/qdict.h \
-  ../../../../src/common/global/log.h \
+  /usr/share/qt3/include/qtextstream.h \
+  ../../../../src/common/global/purl.h \
+  ../../../../src/common/global/global.h /usr/share/qt3/include/qhttp.h \
+  /usr/share/qt3/include/qnetworkprotocol.h \
+  /usr/share/qt3/include/qurlinfo.h /usr/share/qt3/include/qdatetime.h \
+  /usr/share/qt3/include/qdict.h ../../../../src/common/global/log.h \
   ../../../../src/common/common/purl_base.h \
   ../../../../src/common/global/global.h \
   ../../../../src/common/common/key_enum.h \
@@ -118,82 +126,83 @@ direct.lo .libs/direct.o: direct.cpp direct.h \
   ../../../../src/devices/base/generic_device.h \
   ../../../../src/common/common/group.h \
   ../../../../src/common/common/streamer.h \
-  ../../../../src/common/common/number.h /usr/include/c++/4.0.2/iostream \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++config.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/os_defines.h \
-  /usr/include/c++/4.0.2/ostream /usr/include/c++/4.0.2/ios \
-  /usr/include/c++/4.0.2/iosfwd \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++locale.h \
-  /usr/include/c++/4.0.2/cstring /usr/include/c++/4.0.2/cstddef \
-  /usr/include/c++/4.0.2/cstdio /usr/include/c++/4.0.2/clocale \
+  ../../../../src/common/common/number.h /usr/include/c++/4.1.3/iostream \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++config.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/os_defines.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/cpu_defines.h \
+  /usr/include/c++/4.1.3/ostream /usr/include/c++/4.1.3/ios \
+  /usr/include/c++/4.1.3/iosfwd \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++locale.h \
+  /usr/include/c++/4.1.3/cstring /usr/include/c++/4.1.3/cstddef \
+  /usr/include/c++/4.1.3/cstdio /usr/include/c++/4.1.3/clocale \
   /usr/include/locale.h /usr/include/bits/locale.h \
   /usr/include/langinfo.h /usr/include/nl_types.h /usr/include/iconv.h \
   /usr/include/libintl.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++io.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/gthr.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/gthr-default.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++io.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/gthr.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/gthr-default.h \
   /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h \
   /usr/include/bits/sched.h /usr/include/bits/time.h \
   /usr/include/signal.h /usr/include/bits/sigset.h \
-  /usr/include/bits/pthreadtypes.h /usr/include/bits/initspin.h \
-  /usr/include/bits/sigthread.h /usr/include/unistd.h \
-  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
-  /usr/include/bits/confname.h /usr/include/getopt.h \
-  /usr/include/c++/4.0.2/cctype /usr/include/c++/4.0.2/bits/stringfwd.h \
-  /usr/include/c++/4.0.2/bits/postypes.h /usr/include/c++/4.0.2/cwchar \
-  /usr/include/c++/4.0.2/ctime /usr/include/stdint.h \
-  /usr/include/c++/4.0.2/bits/functexcept.h \
-  /usr/include/c++/4.0.2/exception_defines.h \
-  /usr/include/c++/4.0.2/exception \
-  /usr/include/c++/4.0.2/bits/char_traits.h \
-  /usr/include/c++/4.0.2/bits/stl_algobase.h \
-  /usr/include/c++/4.0.2/climits /usr/include/c++/4.0.2/cstdlib \
+  /usr/include/bits/pthreadtypes.h /usr/include/bits/setjmp.h \
+  /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+  /usr/include/bits/environments.h /usr/include/bits/confname.h \
+  /usr/include/getopt.h /usr/include/c++/4.1.3/cctype \
+  /usr/include/c++/4.1.3/bits/stringfwd.h \
+  /usr/include/c++/4.1.3/bits/postypes.h /usr/include/c++/4.1.3/cwchar \
+  /usr/include/c++/4.1.3/ctime /usr/include/stdint.h \
+  /usr/include/c++/4.1.3/bits/functexcept.h \
+  /usr/include/c++/4.1.3/exception_defines.h \
+  /usr/include/c++/4.1.3/exception \
+  /usr/include/c++/4.1.3/bits/char_traits.h \
+  /usr/include/c++/4.1.3/bits/stl_algobase.h \
+  /usr/include/c++/4.1.3/climits /usr/include/c++/4.1.3/cstdlib \
   /usr/include/stdlib.h /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
   /usr/include/sys/select.h /usr/include/bits/select.h \
   /usr/include/sys/sysmacros.h /usr/include/alloca.h \
-  /usr/include/c++/4.0.2/bits/stl_pair.h \
-  /usr/include/c++/4.0.2/bits/cpp_type_traits.h \
-  /usr/include/c++/4.0.2/bits/stl_iterator_base_types.h \
-  /usr/include/c++/4.0.2/bits/stl_iterator_base_funcs.h \
-  /usr/include/c++/4.0.2/bits/concept_check.h \
-  /usr/include/c++/4.0.2/bits/stl_iterator.h \
-  /usr/include/c++/4.0.2/debug/debug.h /usr/include/c++/4.0.2/cassert \
-  /usr/include/assert.h /usr/include/c++/4.0.2/bits/localefwd.h \
-  /usr/include/c++/4.0.2/bits/ios_base.h \
-  /usr/include/c++/4.0.2/bits/atomicity.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/atomic_word.h \
-  /usr/include/c++/4.0.2/bits/locale_classes.h \
-  /usr/include/c++/4.0.2/string /usr/include/c++/4.0.2/memory \
-  /usr/include/c++/4.0.2/bits/allocator.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++allocator.h \
-  /usr/include/c++/4.0.2/ext/new_allocator.h /usr/include/c++/4.0.2/new \
-  /usr/include/c++/4.0.2/bits/stl_construct.h \
-  /usr/include/c++/4.0.2/bits/stl_uninitialized.h \
-  /usr/include/c++/4.0.2/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/4.0.2/limits \
-  /usr/include/c++/4.0.2/bits/stl_function.h \
-  /usr/include/c++/4.0.2/bits/basic_string.h \
-  /usr/include/c++/4.0.2/algorithm /usr/include/c++/4.0.2/bits/stl_algo.h \
-  /usr/include/c++/4.0.2/bits/stl_heap.h \
-  /usr/include/c++/4.0.2/bits/stl_tempbuf.h \
-  /usr/include/c++/4.0.2/bits/basic_string.tcc \
-  /usr/include/c++/4.0.2/streambuf \
-  /usr/include/c++/4.0.2/bits/streambuf.tcc \
-  /usr/include/c++/4.0.2/bits/basic_ios.h \
-  /usr/include/c++/4.0.2/bits/streambuf_iterator.h \
-  /usr/include/c++/4.0.2/bits/locale_facets.h \
-  /usr/include/c++/4.0.2/cwctype /usr/include/wctype.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/ctype_base.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/ctype_inline.h \
-  /usr/include/c++/4.0.2/bits/codecvt.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/time_members.h \
-  /usr/include/c++/4.0.2/x86_64-suse-linux/bits/messages_members.h \
-  /usr/include/c++/4.0.2/bits/basic_ios.tcc \
-  /usr/include/c++/4.0.2/bits/ostream.tcc /usr/include/c++/4.0.2/locale \
-  /usr/include/c++/4.0.2/bits/locale_facets.tcc \
-  /usr/include/c++/4.0.2/typeinfo /usr/include/c++/4.0.2/istream \
-  /usr/include/c++/4.0.2/bits/istream.tcc \
+  /usr/include/c++/4.1.3/bits/stl_pair.h \
+  /usr/include/c++/4.1.3/bits/cpp_type_traits.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator_base_types.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/4.1.3/bits/concept_check.h \
+  /usr/include/c++/4.1.3/bits/stl_iterator.h \
+  /usr/include/c++/4.1.3/debug/debug.h \
+  /usr/include/c++/4.1.3/bits/localefwd.h \
+  /usr/include/c++/4.1.3/bits/ios_base.h \
+  /usr/include/c++/4.1.3/bits/atomicity.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/4.1.3/bits/locale_classes.h \
+  /usr/include/c++/4.1.3/string /usr/include/c++/4.1.3/memory \
+  /usr/include/c++/4.1.3/bits/allocator.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++allocator.h \
+  /usr/include/c++/4.1.3/ext/new_allocator.h /usr/include/c++/4.1.3/new \
+  /usr/include/c++/4.1.3/bits/stl_construct.h \
+  /usr/include/c++/4.1.3/bits/stl_uninitialized.h \
+  /usr/include/c++/4.1.3/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/4.1.3/limits \
+  /usr/include/c++/4.1.3/bits/stl_function.h \
+  /usr/include/c++/4.1.3/bits/basic_string.h \
+  /usr/include/c++/4.1.3/algorithm /usr/include/c++/4.1.3/bits/stl_algo.h \
+  /usr/include/c++/4.1.3/bits/stl_heap.h \
+  /usr/include/c++/4.1.3/bits/stl_tempbuf.h \
+  /usr/include/c++/4.1.3/bits/basic_string.tcc \
+  /usr/include/c++/4.1.3/streambuf \
+  /usr/include/c++/4.1.3/bits/streambuf.tcc \
+  /usr/include/c++/4.1.3/bits/basic_ios.h \
+  /usr/include/c++/4.1.3/bits/streambuf_iterator.h \
+  /usr/include/c++/4.1.3/bits/locale_facets.h \
+  /usr/include/c++/4.1.3/cwctype /usr/include/wctype.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/ctype_base.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/ctype_inline.h \
+  /usr/include/c++/4.1.3/bits/codecvt.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/time_members.h \
+  /usr/include/c++/4.1.3/x86_64-linux-gnu/bits/messages_members.h \
+  /usr/include/c++/4.1.3/bits/basic_ios.tcc \
+  /usr/include/c++/4.1.3/bits/ostream.tcc /usr/include/c++/4.1.3/locale \
+  /usr/include/c++/4.1.3/bits/locale_facets.tcc \
+  /usr/include/c++/4.1.3/typeinfo /usr/include/c++/4.1.3/istream \
+  /usr/include/c++/4.1.3/bits/istream.tcc \
   ../../../../src/common/port/parallel.h \
   ../../../../src/common/port/port_base.h \
   ../../../../src/common/port/serial.h /usr/include/termios.h \
@@ -202,11 +211,12 @@ direct.lo .libs/direct.o: direct.cpp direct.h \
   ../../../../src/progs/base/hardware_config.h \
   ../../../../src/common/port/usb_port.h upp.h \
   ../../../../src/common/global/global.h /usr/include/fcntl.h \
-  /usr/include/bits/fcntl.h /usr/include/sys/stat.h \
-  /usr/include/bits/stat.h /usr/include/sys/time.h \
-  /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \
-  /usr/include/asm/ioctls.h /usr/include/asm-x86_64/ioctls.h \
-  /usr/include/asm/ioctl.h /usr/include/asm-x86_64/ioctl.h \
+  /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
+  /usr/include/sys/stat.h /usr/include/bits/stat.h \
+  /usr/include/sys/time.h /usr/include/sys/ioctl.h \
+  /usr/include/bits/ioctls.h /usr/include/asm/ioctls.h \
+  /usr/include/asm-x86_64/ioctls.h /usr/include/asm/ioctl.h \
+  /usr/include/asm-x86_64/ioctl.h /usr/include/asm-generic/ioctl.h \
   /usr/include/bits/ioctl-types.h ../../../../src/common/port/port_base.h
 
 direct.h:
@@ -217,27 +227,27 @@ direct.h:
 
 ../../../../src/progs/base/prog_specific.h:
 
-/usr/lib/qt3/include/qfile.h:
+/usr/share/qt3/include/qfile.h:
 
-/usr/lib/qt3/include/qiodevice.h:
+/usr/share/qt3/include/qiodevice.h:
 
-/usr/lib/qt3/include/qglobal.h:
+/usr/share/qt3/include/qglobal.h:
 
-/usr/lib/qt3/include/qconfig.h:
+/usr/share/qt3/include/qconfig.h:
 
-/usr/lib/qt3/include/qmodules.h:
+/usr/share/qt3/include/qmodules.h:
 
-/usr/lib/qt3/include/qfeatures.h:
+/usr/share/qt3/include/qfeatures.h:
 
-/usr/lib/qt3/include/qcstring.h:
+/usr/share/qt3/include/qcstring.h:
 
-/usr/lib/qt3/include/qmemarray.h:
+/usr/share/qt3/include/qmemarray.h:
 
-/usr/lib/qt3/include/qgarray.h:
+/usr/share/qt3/include/qgarray.h:
 
-/usr/lib/qt3/include/qshared.h:
+/usr/share/qt3/include/qshared.h:
 
-/usr/lib/qt3/include/qwinexport.h:
+/usr/share/qt3/include/qwinexport.h:
 
 /usr/include/string.h:
 
@@ -245,17 +255,21 @@ direct.h:
 
 /usr/include/sys/cdefs.h:
 
+/usr/include/bits/wordsize.h:
+
 /usr/include/gnu/stubs.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stddef.h:
+/usr/include/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stddef.h:
 
 /usr/include/xlocale.h:
 
-/usr/lib/qt3/include/qstring.h:
+/usr/share/qt3/include/qstring.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/limits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/limits.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/syslimits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/syslimits.h:
 
 /usr/include/limits.h:
 
@@ -275,8 +289,6 @@ direct.h:
 
 /usr/include/bits/types.h:
 
-/usr/include/bits/wordsize.h:
-
 /usr/include/bits/typesizes.h:
 
 /usr/include/libio.h:
@@ -289,7 +301,7 @@ direct.h:
 
 /usr/include/gconv.h:
 
-/usr/lib64/gcc/x86_64-suse-linux/4.0.2/include/stdarg.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.1.3/include/stdarg.h:
 
 /usr/include/bits/sys_errlist.h:
 
@@ -297,31 +309,31 @@ direct.h:
 
 ../../../../src/common/global/log.h:
 
-/usr/lib/qt3/include/qstringlist.h:
+/usr/share/qt3/include/qstringlist.h:
 
-/usr/lib/qt3/include/qvaluelist.h:
+/usr/share/qt3/include/qvaluelist.h:
 
-/usr/lib/qt3/include/qtl.h:
+/usr/share/qt3/include/qtl.h:
 
-/usr/lib/qt3/include/qtextstream.h:
+/usr/share/qt3/include/qtextstream.h:
 
-/usr/lib/qt3/include/qdatastream.h:
+/usr/share/qt3/include/qdatastream.h:
 
-/usr/lib/qt3/include/qstrlist.h:
+/usr/share/qt3/include/qstrlist.h:
 
-/usr/lib/qt3/include/qptrlist.h:
+/usr/share/qt3/include/qptrlist.h:
 
-/usr/lib/qt3/include/qglist.h:
+/usr/share/qt3/include/qglist.h:
 
-/usr/lib/qt3/include/qptrcollection.h:
+/usr/share/qt3/include/qptrcollection.h:
 
 ../../../../src/common/common/key_enum.h:
 
-/usr/lib/qt3/include/qdatastream.h:
+/usr/share/qt3/include/qdatastream.h:
 
 ../../../../src/common/common/misc.h:
 
-/usr/lib/qt3/include/qstring.h:
+/usr/share/qt3/include/qstring.h:
 
 ../../../../src/common/port/port_base.h:
 
@@ -329,105 +341,105 @@ direct.h:
 
 ../../../../src/common/global/global.h:
 
-/usr/lib/qt3/include/qglobal.h:
+/usr/share/qt3/include/qglobal.h:
 
-/usr/lib/qt3/include/qapplication.h:
+/usr/share/qt3/include/qapplication.h:
 
-/usr/lib/qt3/include/qdesktopwidget.h:
+/usr/share/qt3/include/qdesktopwidget.h:
 
-/usr/lib/qt3/include/qwidget.h:
+/usr/share/qt3/include/qwidget.h:
 
-/usr/lib/qt3/include/qwindowdefs.h:
+/usr/share/qt3/include/qwindowdefs.h:
 
-/usr/lib/qt3/include/qobjectdefs.h:
+/usr/share/qt3/include/qobjectdefs.h:
 
-/usr/lib/qt3/include/qnamespace.h:
+/usr/share/qt3/include/qnamespace.h:
 
-/usr/lib/qt3/include/qobject.h:
+/usr/share/qt3/include/qobject.h:
 
-/usr/lib/qt3/include/qevent.h:
+/usr/share/qt3/include/qevent.h:
 
-/usr/lib/qt3/include/qregion.h:
+/usr/share/qt3/include/qregion.h:
 
-/usr/lib/qt3/include/qrect.h:
+/usr/share/qt3/include/qrect.h:
 
-/usr/lib/qt3/include/qsize.h:
+/usr/share/qt3/include/qsize.h:
 
-/usr/lib/qt3/include/qpoint.h:
+/usr/share/qt3/include/qpoint.h:
 
-/usr/lib/qt3/include/qmime.h:
+/usr/share/qt3/include/qmime.h:
 
-/usr/lib/qt3/include/qmap.h:
+/usr/share/qt3/include/qmap.h:
 
-/usr/lib/qt3/include/qpair.h:
+/usr/share/qt3/include/qpair.h:
 
-/usr/lib/qt3/include/qpaintdevice.h:
+/usr/share/qt3/include/qpaintdevice.h:
 
-/usr/lib/qt3/include/qpalette.h:
+/usr/share/qt3/include/qpalette.h:
 
-/usr/lib/qt3/include/qcolor.h:
+/usr/share/qt3/include/qcolor.h:
 
-/usr/lib/qt3/include/qstringlist.h:
+/usr/share/qt3/include/qstringlist.h:
 
-/usr/lib/qt3/include/qbrush.h:
+/usr/share/qt3/include/qbrush.h:
 
-/usr/lib/qt3/include/qfont.h:
+/usr/share/qt3/include/qfont.h:
 
-/usr/lib/qt3/include/qfontmetrics.h:
+/usr/share/qt3/include/qfontmetrics.h:
 
-/usr/lib/qt3/include/qfontinfo.h:
+/usr/share/qt3/include/qfontinfo.h:
 
-/usr/lib/qt3/include/qsizepolicy.h:
+/usr/share/qt3/include/qsizepolicy.h:
 
-/usr/lib/qt3/include/qasciidict.h:
+/usr/share/qt3/include/qasciidict.h:
 
-/usr/lib/qt3/include/qgdict.h:
+/usr/share/qt3/include/qgdict.h:
 
-/usr/lib/qt3/include/qtranslator.h:
+/usr/share/qt3/include/qtranslator.h:
 
-/usr/lib/qt3/include/qvaluelist.h:
+/usr/share/qt3/include/qvaluelist.h:
 
-/usr/lib/qt3/include/qvaluevector.h:
+/usr/share/qt3/include/qvaluevector.h:
 
-/usr/lib/qt3/include/qmemarray.h:
+/usr/share/qt3/include/qmemarray.h:
 
 ../../../../src/common/common/qflags.h:
 
-/usr/lib/qt3/include/qurl.h:
+/usr/share/qt3/include/qurl.h:
 
-/usr/lib/qt3/include/qguardedptr.h:
+/usr/share/qt3/include/qguardedptr.h:
 
 ../../../../config.h:
 
-/opt/kde3/include/kapplication.h:
+/usr/include/kde/kapplication.h:
 
-/opt/kde3/include/kdeversion.h:
+/usr/include/kde/kdeversion.h:
 
-/opt/kde3/include/kdelibs_export.h:
+/usr/include/kde/kdelibs_export.h:
 
-/opt/kde3/include/kdemacros.h:
+/usr/include/kde/kdemacros.h:
 
-/usr/lib/qt3/include/qpixmap.h:
+/usr/share/qt3/include/qpixmap.h:
 
-/opt/kde3/include/kinstance.h:
+/usr/include/kde/kinstance.h:
 
-/opt/kde3/include/klocale.h:
+/usr/include/kde/klocale.h:
 
-/opt/kde3/include/kdelibs_export.h:
+/usr/include/kde/kdelibs_export.h:
 
-/opt/kde3/include/kaboutdata.h:
+/usr/include/kde/kaboutdata.h:
 
-/usr/lib/qt3/include/qimage.h:
+/usr/share/qt3/include/qimage.h:
 
-/usr/lib/qt3/include/qpixmap.h:
+/usr/share/qt3/include/qpixmap.h:
 
-/opt/kde3/include/kcmdlineargs.h:
+/usr/include/kde/kcmdlineargs.h:
 
-/opt/kde3/include/kurl.h:
+/usr/include/kde/kurl.h:
 
-/usr/lib/qt3/include/qptrlist.h:
+/usr/share/qt3/include/qptrlist.h:
 
-/opt/kde3/include/ktempfile.h:
+/usr/include/kde/ktempfile.h:
 
 /usr/include/errno.h:
 
@@ -443,29 +455,29 @@ direct.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-/opt/kde3/include/kconfigbackend.h:
+/usr/include/kde/kconfigbackend.h:
 
-/opt/kde3/include/kconfigdata.h:
+/usr/include/kde/kconfigdata.h:
 
-/usr/lib/qt3/include/qmap.h:
+/usr/share/qt3/include/qmap.h:
 
-/opt/kde3/include/kconfigbase.h:
+/usr/include/kde/kconfigbase.h:
 
-/usr/lib/qt3/include/qobject.h:
+/usr/share/qt3/include/qobject.h:
 
-/usr/lib/qt3/include/qcolor.h:
+/usr/share/qt3/include/qcolor.h:
 
-/usr/lib/qt3/include/qfont.h:
+/usr/share/qt3/include/qfont.h:
 
-/usr/lib/qt3/include/qdatetime.h:
+/usr/share/qt3/include/qdatetime.h:
 
-/usr/lib/qt3/include/qstrlist.h:
+/usr/share/qt3/include/qstrlist.h:
 
-/usr/lib/qt3/include/qvariant.h:
+/usr/share/qt3/include/qvariant.h:
 
-/opt/kde3/include/klockfile.h:
+/usr/include/kde/klockfile.h:
 
-/opt/kde3/include/ksharedptr.h:
+/usr/include/kde/ksharedptr.h:
 
 ../../../../src/common/common/key_enum.h:
 
@@ -479,7 +491,7 @@ direct.h:
 
 ../../../../src/common/global/generic_config.h:
 
-/usr/lib/qt3/include/qsize.h:
+/usr/share/qt3/include/qsize.h:
 
 ../../../../src/common/common/misc.h:
 
@@ -489,21 +501,21 @@ direct.h:
 
 ../../../../src/common/global/pfile.h:
 
-/usr/lib/qt3/include/qtextstream.h:
+/usr/share/qt3/include/qtextstream.h:
 
 ../../../../src/common/global/purl.h:
 
 ../../../../src/common/global/global.h:
 
-/usr/lib/qt3/include/qhttp.h:
+/usr/share/qt3/include/qhttp.h:
 
-/usr/lib/qt3/include/qnetworkprotocol.h:
+/usr/share/qt3/include/qnetworkprotocol.h:
 
-/usr/lib/qt3/include/qurlinfo.h:
+/usr/share/qt3/include/qurlinfo.h:
 
-/usr/lib/qt3/include/qdatetime.h:
+/usr/share/qt3/include/qdatetime.h:
 
-/usr/lib/qt3/include/qdict.h:
+/usr/share/qt3/include/qdict.h:
 
 ../../../../src/common/global/log.h:
 
@@ -583,27 +595,29 @@ direct.h:
 
 ../../../../src/common/common/number.h:
 
-/usr/include/c++/4.0.2/iostream:
+/usr/include/c++/4.1.3/iostream:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++config.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++config.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/os_defines.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/os_defines.h:
 
-/usr/include/c++/4.0.2/ostream:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/cpu_defines.h:
 
-/usr/include/c++/4.0.2/ios:
+/usr/include/c++/4.1.3/ostream:
 
-/usr/include/c++/4.0.2/iosfwd:
+/usr/include/c++/4.1.3/ios:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++locale.h:
+/usr/include/c++/4.1.3/iosfwd:
 
-/usr/include/c++/4.0.2/cstring:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++locale.h:
 
-/usr/include/c++/4.0.2/cstddef:
+/usr/include/c++/4.1.3/cstring:
 
-/usr/include/c++/4.0.2/cstdio:
+/usr/include/c++/4.1.3/cstddef:
 
-/usr/include/c++/4.0.2/clocale:
+/usr/include/c++/4.1.3/cstdio:
+
+/usr/include/c++/4.1.3/clocale:
 
 /usr/include/locale.h:
 
@@ -617,11 +631,11 @@ direct.h:
 
 /usr/include/libintl.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++io.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++io.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/gthr.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/gthr.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/gthr-default.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/gthr-default.h:
 
 /usr/include/pthread.h:
 
@@ -639,9 +653,7 @@ direct.h:
 
 /usr/include/bits/pthreadtypes.h:
 
-/usr/include/bits/initspin.h:
-
-/usr/include/bits/sigthread.h:
+/usr/include/bits/setjmp.h:
 
 /usr/include/unistd.h:
 
@@ -653,31 +665,31 @@ direct.h:
 
 /usr/include/getopt.h:
 
-/usr/include/c++/4.0.2/cctype:
+/usr/include/c++/4.1.3/cctype:
 
-/usr/include/c++/4.0.2/bits/stringfwd.h:
+/usr/include/c++/4.1.3/bits/stringfwd.h:
 
-/usr/include/c++/4.0.2/bits/postypes.h:
+/usr/include/c++/4.1.3/bits/postypes.h:
 
-/usr/include/c++/4.0.2/cwchar:
+/usr/include/c++/4.1.3/cwchar:
 
-/usr/include/c++/4.0.2/ctime:
+/usr/include/c++/4.1.3/ctime:
 
 /usr/include/stdint.h:
 
-/usr/include/c++/4.0.2/bits/functexcept.h:
+/usr/include/c++/4.1.3/bits/functexcept.h:
 
-/usr/include/c++/4.0.2/exception_defines.h:
+/usr/include/c++/4.1.3/exception_defines.h:
 
-/usr/include/c++/4.0.2/exception:
+/usr/include/c++/4.1.3/exception:
 
-/usr/include/c++/4.0.2/bits/char_traits.h:
+/usr/include/c++/4.1.3/bits/char_traits.h:
 
-/usr/include/c++/4.0.2/bits/stl_algobase.h:
+/usr/include/c++/4.1.3/bits/stl_algobase.h:
 
-/usr/include/c++/4.0.2/climits:
+/usr/include/c++/4.1.3/climits:
 
-/usr/include/c++/4.0.2/cstdlib:
+/usr/include/c++/4.1.3/cstdlib:
 
 /usr/include/stdlib.h:
 
@@ -695,105 +707,101 @@ direct.h:
 
 /usr/include/alloca.h:
 
-/usr/include/c++/4.0.2/bits/stl_pair.h:
+/usr/include/c++/4.1.3/bits/stl_pair.h:
 
-/usr/include/c++/4.0.2/bits/cpp_type_traits.h:
+/usr/include/c++/4.1.3/bits/cpp_type_traits.h:
 
-/usr/include/c++/4.0.2/bits/stl_iterator_base_types.h:
+/usr/include/c++/4.1.3/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/4.0.2/bits/stl_iterator_base_funcs.h:
+/usr/include/c++/4.1.3/bits/stl_iterator_base_funcs.h:
 
-/usr/include/c++/4.0.2/bits/concept_check.h:
+/usr/include/c++/4.1.3/bits/concept_check.h:
 
-/usr/include/c++/4.0.2/bits/stl_iterator.h:
+/usr/include/c++/4.1.3/bits/stl_iterator.h:
 
-/usr/include/c++/4.0.2/debug/debug.h:
+/usr/include/c++/4.1.3/debug/debug.h:
 
-/usr/include/c++/4.0.2/cassert:
+/usr/include/c++/4.1.3/bits/localefwd.h:
 
-/usr/include/assert.h:
+/usr/include/c++/4.1.3/bits/ios_base.h:
 
-/usr/include/c++/4.0.2/bits/localefwd.h:
+/usr/include/c++/4.1.3/bits/atomicity.h:
 
-/usr/include/c++/4.0.2/bits/ios_base.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/atomic_word.h:
 
-/usr/include/c++/4.0.2/bits/atomicity.h:
+/usr/include/c++/4.1.3/bits/locale_classes.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/atomic_word.h:
+/usr/include/c++/4.1.3/string:
 
-/usr/include/c++/4.0.2/bits/locale_classes.h:
+/usr/include/c++/4.1.3/memory:
 
-/usr/include/c++/4.0.2/string:
+/usr/include/c++/4.1.3/bits/allocator.h:
 
-/usr/include/c++/4.0.2/memory:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/c++allocator.h:
 
-/usr/include/c++/4.0.2/bits/allocator.h:
+/usr/include/c++/4.1.3/ext/new_allocator.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/c++allocator.h:
+/usr/include/c++/4.1.3/new:
 
-/usr/include/c++/4.0.2/ext/new_allocator.h:
+/usr/include/c++/4.1.3/bits/stl_construct.h:
 
-/usr/include/c++/4.0.2/new:
+/usr/include/c++/4.1.3/bits/stl_uninitialized.h:
 
-/usr/include/c++/4.0.2/bits/stl_construct.h:
+/usr/include/c++/4.1.3/bits/stl_raw_storage_iter.h:
 
-/usr/include/c++/4.0.2/bits/stl_uninitialized.h:
+/usr/include/c++/4.1.3/limits:
 
-/usr/include/c++/4.0.2/bits/stl_raw_storage_iter.h:
+/usr/include/c++/4.1.3/bits/stl_function.h:
 
-/usr/include/c++/4.0.2/limits:
+/usr/include/c++/4.1.3/bits/basic_string.h:
 
-/usr/include/c++/4.0.2/bits/stl_function.h:
+/usr/include/c++/4.1.3/algorithm:
 
-/usr/include/c++/4.0.2/bits/basic_string.h:
+/usr/include/c++/4.1.3/bits/stl_algo.h:
 
-/usr/include/c++/4.0.2/algorithm:
+/usr/include/c++/4.1.3/bits/stl_heap.h:
 
-/usr/include/c++/4.0.2/bits/stl_algo.h:
+/usr/include/c++/4.1.3/bits/stl_tempbuf.h:
 
-/usr/include/c++/4.0.2/bits/stl_heap.h:
+/usr/include/c++/4.1.3/bits/basic_string.tcc:
 
-/usr/include/c++/4.0.2/bits/stl_tempbuf.h:
+/usr/include/c++/4.1.3/streambuf:
 
-/usr/include/c++/4.0.2/bits/basic_string.tcc:
+/usr/include/c++/4.1.3/bits/streambuf.tcc:
 
-/usr/include/c++/4.0.2/streambuf:
+/usr/include/c++/4.1.3/bits/basic_ios.h:
 
-/usr/include/c++/4.0.2/bits/streambuf.tcc:
+/usr/include/c++/4.1.3/bits/streambuf_iterator.h:
 
-/usr/include/c++/4.0.2/bits/basic_ios.h:
+/usr/include/c++/4.1.3/bits/locale_facets.h:
 
-/usr/include/c++/4.0.2/bits/streambuf_iterator.h:
-
-/usr/include/c++/4.0.2/bits/locale_facets.h:
-
-/usr/include/c++/4.0.2/cwctype:
+/usr/include/c++/4.1.3/cwctype:
 
 /usr/include/wctype.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/ctype_base.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/ctype_base.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/ctype_inline.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/ctype_inline.h:
 
-/usr/include/c++/4.0.2/bits/codecvt.h:
+/usr/include/c++/4.1.3/bits/codecvt.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/time_members.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/time_members.h:
 
-/usr/include/c++/4.0.2/x86_64-suse-linux/bits/messages_members.h:
+/usr/include/c++/4.1.3/x86_64-linux-gnu/bits/messages_members.h:
 
-/usr/include/c++/4.0.2/bits/basic_ios.tcc:
+/usr/include/c++/4.1.3/bits/basic_ios.tcc:
 
-/usr/include/c++/4.0.2/bits/ostream.tcc:
+/usr/include/c++/4.1.3/bits/ostream.tcc:
 
-/usr/include/c++/4.0.2/locale:
+/usr/include/c++/4.1.3/locale:
 
-/usr/include/c++/4.0.2/bits/locale_facets.tcc:
+/usr/include/c++/4.1.3/bits/locale_facets.tcc:
 
-/usr/include/c++/4.0.2/typeinfo:
+/usr/include/c++/4.1.3/typeinfo:
 
-/usr/include/c++/4.0.2/istream:
+/usr/include/c++/4.1.3/istream:
 
-/usr/include/c++/4.0.2/bits/istream.tcc:
+/usr/include/c++/4.1.3/bits/istream.tcc:
 
 ../../../../src/common/port/parallel.h:
 
@@ -823,6 +831,8 @@ upp.h:
 
 /usr/include/bits/fcntl.h:
 
+/usr/include/bits/uio.h:
+
 /usr/include/sys/stat.h:
 
 /usr/include/bits/stat.h:
@@ -840,6 +850,8 @@ upp.h:
 /usr/include/asm/ioctl.h:
 
 /usr/include/asm-x86_64/ioctl.h:
+
+/usr/include/asm-generic/ioctl.h:
 
 /usr/include/bits/ioctl-types.h:
 

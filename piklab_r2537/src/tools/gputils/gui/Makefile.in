@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 gputils_ui.moc.cpp: $(srcdir)/gputils_ui.h
 	$(MOC) $(srcdir)/gputils_ui.h -o gputils_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  gputils_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in gputils_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in gputils_ui.h 
 
 #>+ 2
 docs-am:

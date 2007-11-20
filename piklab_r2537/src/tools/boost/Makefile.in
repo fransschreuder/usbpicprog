@@ -750,6 +750,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 boostc_compile.moc.cpp: $(srcdir)/boostc_compile.h
 	$(MOC) $(srcdir)/boostc_compile.h -o boostc_compile.moc.cpp
@@ -762,7 +763,7 @@ clean-metasources:
 	-rm -f  boostc_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=boost_config.h Makefile.in boostc.h boostc_compile.h boostcpp.h boost_generator.h boost.h boostbasic.h Makefile.am 
+KDE_DIST=Makefile.in boost.h boostc_compile.h boostcpp.h boost_generator.h boostbasic.h boost_config.h boostc.h Makefile.am 
 
 #>+ 2
 docs-am:

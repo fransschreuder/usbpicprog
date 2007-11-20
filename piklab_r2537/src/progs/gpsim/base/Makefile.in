@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 gpsim_debug.moc.cpp: $(srcdir)/gpsim_debug.h
 	$(MOC) $(srcdir)/gpsim_debug.h -o gpsim_debug.moc.cpp
@@ -641,7 +642,7 @@ clean-metasources:
 	-rm -f  gpsim_debug.moc.cpp gpsim.moc.cpp
 
 #>+ 2
-KDE_DIST=gpsim.h base.pro Makefile.in gpsim_debug.h Makefile.am 
+KDE_DIST=gpsim_debug.h base.pro gpsim.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

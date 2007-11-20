@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 cc5x_ui.moc.cpp: $(srcdir)/cc5x_ui.h
 	$(MOC) $(srcdir)/cc5x_ui.h -o cc5x_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  cc5x_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=cc5x_ui.h Makefile.in Makefile.am 
+KDE_DIST=Makefile.am Makefile.in cc5x_ui.h 
 
 #>+ 2
 docs-am:

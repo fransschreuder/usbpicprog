@@ -104,10 +104,10 @@
 #define HAVE_VSNPRINTF 1
 
 /* Suffix for lib directories */
-#define KDELIBSUFF "64"
+#define KDELIBSUFF ""
 
 /* libusb version */
-#define LIBUSB_VERSION "0.1.10a"
+#define LIBUSB_VERSION "0.1.12"
 
 /* Name of package */
 #define PACKAGE "piklab"

@@ -745,6 +745,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 jal_compile.moc.cpp: $(srcdir)/jal_compile.h
 	$(MOC) $(srcdir)/jal_compile.h -o jal_compile.moc.cpp
@@ -757,7 +758,7 @@ clean-metasources:
 	-rm -f  jal_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=jal_compile.h Makefile.in jal_generator.h jal_config.h jal.h Makefile.am 
+KDE_DIST=jal_config.h Makefile.in jal.h Makefile.am jal_compile.h jal_generator.h 
 
 #>+ 2
 docs-am:

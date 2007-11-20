@@ -633,6 +633,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 generic_prog.moc.cpp: $(srcdir)/generic_prog.h
 	$(MOC) $(srcdir)/generic_prog.h -o generic_prog.moc.cpp
@@ -645,7 +646,7 @@ clean-metasources:
 	-rm -f  generic_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=prog_group.h base.pro Makefile.in hardware_config.h generic_debug.h generic_prog.h debug_config.h prog_config.h prog_specific.h Makefile.am 
+KDE_DIST=prog_config.h prog_group.h base.pro Makefile.in hardware_config.h generic_prog.h prog_specific.h debug_config.h generic_debug.h Makefile.am 
 
 #>+ 2
 docs-am:

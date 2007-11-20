@@ -617,8 +617,9 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=base.pro Makefile.in mem24.h Makefile.am 
+KDE_DIST=mem24.h base.pro Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

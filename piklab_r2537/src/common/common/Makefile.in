@@ -632,6 +632,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 synchronous.moc.cpp: $(srcdir)/synchronous.h
 	$(MOC) $(srcdir)/synchronous.h -o synchronous.moc.cpp
@@ -651,7 +652,7 @@ clean-metasources:
 	-rm -f  synchronous.moc.cpp storage.moc.cpp
 
 #>+ 2
-KDE_DIST=misc.h lister.h Makefile.in qflags.h group.h bitvalue.h key_enum.h storage.h range.h common.pro number.h version_data.h purl_base.h Makefile.am streamer.h synchronous.h 
+KDE_DIST=misc.h lister.h Makefile.in qflags.h group.h bitvalue.h key_enum.h range.h storage.h common.pro version_data.h number.h purl_base.h Makefile.am streamer.h synchronous.h 
 
 #>+ 2
 docs-am:

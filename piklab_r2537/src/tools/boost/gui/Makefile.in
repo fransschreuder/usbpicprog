@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 boost_ui.moc.cpp: $(srcdir)/boost_ui.h
 	$(MOC) $(srcdir)/boost_ui.h -o boost_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  boost_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in boost_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in boost_ui.h 
 
 #>+ 2
 docs-am:

@@ -2,7 +2,7 @@
 <piklab>
   <general>
     <device>18F2550</device>
-    <tool>c18</tool>
+    <tool>sdcc</tool>
     <files>
       <item>io_cfg.h</item>
       <item>main.c</item>
@@ -30,6 +30,8 @@
       <item>upp/upp.h</item>
     </files>
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
+    <description></description>
+    <version>0.1</version>
     <opened_files>
       <item>upp/upp.h</item>
       <item>io_cfg.h</item>
@@ -37,6 +39,58 @@
       <item>system/interrupt/interrupt.c</item>
       <item>upp/upp.c</item>
       <item>system/interrupt/interrupt.h</item>
+      <item>system/typedefs.h</item>
+      <item>system/usb/usb_compile_time_validation.h</item>
+      <item>system/usb/usb.h</item>
+      <item>system/usb/usbdefs/usbdefs_std_dsc.h</item>
+      <item>autofiles/usbdsc.h</item>
+      <item>system/usb/usbdefs/usbdefs_ep0_buff.h</item>
+      <item>system/usb/usbmmap.h</item>
+      <item>system/usb/usbdrv/usbdrv.h</item>
+      <item>system/usb/usbctrltrf/usbctrltrf.h</item>
+      <item>system/usb/usb9/usb9.h</item>
+      <item>system/usb/class/generic/usbgen.h</item>
+      <item>autofiles/usbdsc.c</item>
+      <item>/usr/share/sdcc/include/pic16/pic18f2455.h</item>
     </opened_files>
   </general>
+  <compiler>
+    <has_custom_arguments>false</has_custom_arguments>
+    <custom_options></custom_options>
+    <custom_arguments>
+      <item>-m%FAMILY</item>
+      <item>-%DEVICE</item>
+      <item>-V</item>
+      <item>--debug</item>
+      <item>-I$(SRCPATH)</item>
+      <item>-c</item>
+      <item>%I</item>
+    </custom_arguments>
+    <includes>
+      <item>$(SRCPATH)</item>
+    </includes>
+    <warning_level>0</warning_level>
+  </compiler>
+  <linker>
+    <has_custom_arguments>false</has_custom_arguments>
+    <includes>
+      <item>$(SRCPATH)</item>
+    </includes>
+    <custom_options></custom_options>
+    <format>inhx32</format>
+    <custom_arguments>
+      <item>-m%FAMILY</item>
+      <item>-%DEVICE</item>
+      <item>-V</item>
+      <item>--debug</item>
+      <item>-Wl-c</item>
+      <item>-Wl-m</item>
+      <item>$LKR(-Wl-s%LKR)</item>
+      <item>-I$(SRCPATH)</item>
+      <item>-o%O</item>
+      <item>%OBJS</item>
+      <item>%LIBS</item>
+    </custom_arguments>
+    <custom_libraries></custom_libraries>
+  </linker>
 </piklab>

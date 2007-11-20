@@ -69,7 +69,7 @@ libgui_la_nofinal_OBJECTS = editor.lo device_gui.lo toplevel.lo \
 	gui_prog_manager.lo gui_debug_manager.lo breakpoint_view.lo \
 	likeback.lo main_global.lo console.lo project_wizard.lo \
 	toplevel_ui.lo project_manager_ui.lo\
-toplevel_ui.moc.lo project_wizard.moc.lo likeback.moc.lo project_manager.moc.lo device_gui.moc.lo project_manager_ui.moc.lo editor_manager.moc.lo device_editor.moc.lo register_view.moc.lo hex_editor.moc.lo editor.moc.lo gui_prog_manager.moc.lo object_view.moc.lo gui_debug_manager.moc.lo watch_view.moc.lo breakpoint_view.moc.lo log_view.moc.lo console.moc.lo text_editor.moc.lo project_editor.moc.lo toplevel.moc.lo config_gen.moc.lo config_center.moc.lo new_dialogs.moc.lo 
+likeback.moc.lo project_wizard.moc.lo toplevel_ui.moc.lo project_manager.moc.lo device_gui.moc.lo project_manager_ui.moc.lo editor_manager.moc.lo register_view.moc.lo device_editor.moc.lo hex_editor.moc.lo editor.moc.lo gui_prog_manager.moc.lo object_view.moc.lo gui_debug_manager.moc.lo watch_view.moc.lo breakpoint_view.moc.lo log_view.moc.lo console.moc.lo text_editor.moc.lo project_editor.moc.lo config_center.moc.lo toplevel.moc.lo config_gen.moc.lo new_dialogs.moc.lo 
 libgui_la_OBJECTS = $(libgui_la_nofinal_OBJECTS)
 #libgui_la_OBJECTS = $(libgui_la_final_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -100,16 +100,16 @@ CTAGS = ctags
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 #>+ 1
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run tar
+AMTAR = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run tar
 AR = ar
-ARTSCCONFIG = /opt/kde3/bin/artsc-config
+ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run automake-1.9
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run automake-1.9
 AWK = gawk
 BSD_FALSE = 
 BSD_TRUE = #
@@ -124,8 +124,8 @@ CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -Wno-long-long -Wundef -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -Wchar-subscripts -Wall -W -Wpointer-arith -O2 -Wformat-security -Wmissing-format-attribute -Wno-non-virtual-dtor -fno-exceptions -fno-check-new -fno-common -DQT_CLEAN_NAMESPACE -DQT_NO_ASCII_CAST -DQT_NO_STL -DQT_NO_COMPAT -DQT_NO_TRANSLATION
 CYGPATH_W = echo
-DCOPIDL = /opt/kde3/bin/dcopidl
-DCOPIDL2CPP = /opt/kde3/bin/dcopidl2cpp
+DCOPIDL = /usr/bin/dcopidl
+DCOPIDL2CPP = /usr/bin/dcopidl2cpp
 DCOPIDLNG = 
 DCOP_DEPENDENCIES = $(DCOPIDL)
 DEFS = -DHAVE_CONFIG_H
@@ -137,8 +137,8 @@ ECHO_T =
 EGREP = grep -E
 ENABLE_PERMISSIVE_FLAG = -fpermissive
 EXEEXT = 
-F77 = g77
-FFLAGS = -g
+F77 = 
+FFLAGS = 
 FRAMEWORK_COREAUDIO = 
 GMSGFMT = /usr/bin/msgfmt
 HAVE_GCC_VISIBILITY = 0
@@ -148,11 +148,11 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 KCFG_DEPENDENCIES = 
 KCONFIG_COMPILER = 
-KDECONFIG = /opt/kde3/bin/kde-config
+KDECONFIG = /usr/bin/kde-config
 KDE_CHECK_PLUGIN = $(KDE_PLUGIN) -rpath $(libdir)
 KDE_EXTRA_RPATH = 
-KDE_INCLUDES = -I/opt/kde3/include
-KDE_LDFLAGS = -L/opt/kde3/lib64
+KDE_INCLUDES = -I/usr/include/kde
+KDE_LDFLAGS = -L/usr/lib
 KDE_MT_LDFLAGS = 
 KDE_MT_LIBS = -lpthread
 KDE_NO_UNDEFINED = -Wl,--no-undefined -Wl,--allow-shlib-undefined
@@ -166,7 +166,7 @@ KDE_USE_FPIE = -fPIE
 KDE_USE_NMCHECK_FALSE = 
 KDE_USE_NMCHECK_TRUE = #
 KDE_USE_PIE = -pie
-KDE_XSL_STYLESHEET = /opt/kde3/share/apps/ksgmltools2/customization/kde-chunk.xsl
+KDE_XSL_STYLESHEET = /usr/share/apps/ksgmltools2/customization/kde-chunk.xsl
 LDFLAGS = 
 LDFLAGS_AS_NEEDED = 
 LDFLAGS_NEW_DTAGS = 
@@ -177,7 +177,7 @@ LIBJPEG = -ljpeg
 LIBOBJS = 
 LIBPNG = -lpng -lz -lm
 LIBPTHREAD = -lpthread
-LIBREADLINE_LIBS = -lhistory -lreadline 
+LIBREADLINE_LIBS = -lhistory -lreadline -lcurses
 LIBRESOLV = -lresolv
 LIBS = 
 LIBSM = -lSM -lICE
@@ -186,7 +186,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool --silent
 LIBUCB = 
 LIBUSBCONFIG = yes
 LIBUSB_CFLAGS =  
-LIBUSB_LIBS =  -L/usr/lib64 -lusb -lresmgr
+LIBUSB_LIBS =  -L/usr/lib -lusb
 LIBUTIL = -lutil
 LIBZ = -lz
 LIB_KAB = -lkab
@@ -220,11 +220,11 @@ LINUX_FALSE = #
 LINUX_TRUE = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/schreuder/upp/usbpicprog/piklab_r2537/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
-MCOPIDL = /opt/kde3/bin/mcopidl
-MEINPROC = /opt/kde3/bin/meinproc
-MOC = /usr/lib/qt3/bin/moc
+MCOPIDL = /usr/bin/mcopidl
+MEINPROC = /usr/bin/meinproc
+MOC = /usr/share/qt3/bin/moc
 MSGFMT = /usr/bin/msgfmt
 NOOPT_CFLAGS = -O0
 NOOPT_CXXFLAGS = -O0
@@ -240,14 +240,14 @@ PACKAGE_VERSION =
 PATH_SEPARATOR = :
 PERL = /usr/bin/perl
 QTE_NORTTI = 
-QT_INCLUDES = -I/usr/lib/qt3/include
-QT_LDFLAGS = -L/usr/lib/qt3/lib64
+QT_INCLUDES = -I/usr/share/qt3/include
+QT_LDFLAGS = -L/usr/share/qt3/lib
 RANLIB = ranlib
 SET_MAKE = 
-SHELL = /bin/sh
+SHELL = /bin/bash
 STRIP = strip
 TOPSUBDIRS =  doc man po src
-UIC = /usr/lib/qt3/bin/uic -L $(kde_widgetdir) -nounload
+UIC = /usr/share/qt3/bin/uic -L $(kde_widgetdir) -nounload
 UIC_TR = tr2i18n
 USER_INCLUDES = 
 USER_LDFLAGS = 
@@ -259,18 +259,18 @@ WOVERLOADED_VIRTUAL =
 XGETTEXT = /usr/bin/xgettext
 XMLLINT = /usr/bin/xmllint
 X_EXTRA_LIBS = 
-X_INCLUDES = -I/usr/X11R6/include
-X_LDFLAGS = -L/usr/X11R6/lib64
+X_INCLUDES = -I.
+X_LDFLAGS = -L/usr/lib
 X_PRE_LIBS = 
 X_RPATH = -R $(x_libraries)
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
-ac_ct_F77 = g77
+ac_ct_F77 = 
 ac_ct_RANLIB = ranlib
 ac_ct_STRIP = strip
-all_includes = -I/opt/kde3/include -I/usr/lib/qt3/include -I/usr/X11R6/include 
-all_libraries = -L/opt/kde3/lib64 -L/usr/lib/qt3/lib64 -L/usr/X11R6/lib64   
+all_includes = -I/usr/include/kde -I/usr/share/qt3/include -I. 
+all_libraries = -L/usr/share/qt3/lib -L/usr/lib   
 am__fastdepCC_FALSE = #
 am__fastdepCC_TRUE = 
 am__fastdepCXX_FALSE = #
@@ -301,18 +301,18 @@ include_x11_FALSE = #
 include_x11_TRUE = 
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/schreuder/upp/usbpicprog/piklab_r2537/admin/install-sh
+install_sh = /home/frans/usbpicprog/piklab_r2537/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
 kde_datadir = ${datadir}/apps
 kde_htmldir = ${datadir}/doc/HTML
 kde_icondir = ${datadir}/icons
-kde_includes = /opt/kde3/include
+kde_includes = /usr/include/kde
 kde_kcfgdir = ${datadir}/config.kcfg
-kde_libraries = /opt/kde3/lib64
-kde_libs_htmldir = /opt/kde3/share/doc/HTML
-kde_libs_prefix = /opt/kde3
+kde_libraries = /usr/lib
+kde_libs_htmldir = /usr/share/doc/kde/HTML
+kde_libs_prefix = /usr
 kde_locale = ${datadir}/locale
 kde_mimedir = ${datadir}/mimelnk
 kde_moduledir = ${libdir}/kde3
@@ -323,9 +323,9 @@ kde_sounddir = ${datadir}/sounds
 kde_styledir = ${libdir}/kde3/plugins/styles
 kde_templatesdir = ${datadir}/templates
 kde_wallpaperdir = ${datadir}/wallpapers
-kde_widgetdir = /opt/kde3/lib64/kde3/plugins/designer
+kde_widgetdir = /usr/lib/kde3/plugins/designer
 kdeinitdir = $(kde_moduledir)
-libdir = ${exec_prefix}/lib64
+libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
 man_SUBDIR_included_FALSE = #
@@ -335,10 +335,10 @@ mkdir_p = mkdir -p --
 oldincludedir = /usr/include
 po_SUBDIR_included_FALSE = #
 po_SUBDIR_included_TRUE = 
-prefix = /home/schreuder/upp/piklab-bin
+prefix = /usr
 program_transform_name = s,x,x,
-qt_includes = /usr/lib/qt3/include
-qt_libraries = /usr/lib/qt3/lib64
+qt_includes = /usr/share/qt3/include
+qt_libraries = /usr/share/qt3/lib
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 src_SUBDIR_included_FALSE = #
@@ -351,8 +351,8 @@ target_os = linux-gnu
 target_vendor = unknown
 unsermake_enable_pch_FALSE = 
 unsermake_enable_pch_TRUE = #
-x_includes = /usr/X11R6/include
-x_libraries = /usr/X11R6/lib64
+x_includes = .
+x_libraries = /usr/lib
 xdg_appsdir = ${datadir}/applications/kde
 xdg_directorydir = ${datadir}/desktop-directories
 xdg_menudir = ${sysconfdir}/xdg/menus
@@ -667,12 +667,13 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
-toplevel_ui.moc.cpp: $(srcdir)/toplevel_ui.h
-	$(MOC) $(srcdir)/toplevel_ui.h -o toplevel_ui.moc.cpp
+likeback.moc.cpp: $(srcdir)/likeback.h
+	$(MOC) $(srcdir)/likeback.h -o likeback.moc.cpp
 
 #>+ 2
-mocs: toplevel_ui.moc.cpp
+mocs: likeback.moc.cpp
 
 #>+ 3
 project_wizard.moc.cpp: $(srcdir)/project_wizard.h
@@ -682,11 +683,11 @@ project_wizard.moc.cpp: $(srcdir)/project_wizard.h
 mocs: project_wizard.moc.cpp
 
 #>+ 3
-likeback.moc.cpp: $(srcdir)/likeback.h
-	$(MOC) $(srcdir)/likeback.h -o likeback.moc.cpp
+toplevel_ui.moc.cpp: $(srcdir)/toplevel_ui.h
+	$(MOC) $(srcdir)/toplevel_ui.h -o toplevel_ui.moc.cpp
 
 #>+ 2
-mocs: likeback.moc.cpp
+mocs: toplevel_ui.moc.cpp
 
 #>+ 3
 project_manager.moc.cpp: $(srcdir)/project_manager.h
@@ -717,18 +718,18 @@ editor_manager.moc.cpp: $(srcdir)/editor_manager.h
 mocs: editor_manager.moc.cpp
 
 #>+ 3
-device_editor.moc.cpp: $(srcdir)/device_editor.h
-	$(MOC) $(srcdir)/device_editor.h -o device_editor.moc.cpp
-
-#>+ 2
-mocs: device_editor.moc.cpp
-
-#>+ 3
 register_view.moc.cpp: $(srcdir)/register_view.h
 	$(MOC) $(srcdir)/register_view.h -o register_view.moc.cpp
 
 #>+ 2
 mocs: register_view.moc.cpp
+
+#>+ 3
+device_editor.moc.cpp: $(srcdir)/device_editor.h
+	$(MOC) $(srcdir)/device_editor.h -o device_editor.moc.cpp
+
+#>+ 2
+mocs: device_editor.moc.cpp
 
 #>+ 3
 hex_editor.moc.cpp: $(srcdir)/hex_editor.h
@@ -808,6 +809,13 @@ project_editor.moc.cpp: $(srcdir)/project_editor.h
 mocs: project_editor.moc.cpp
 
 #>+ 3
+config_center.moc.cpp: $(srcdir)/config_center.h
+	$(MOC) $(srcdir)/config_center.h -o config_center.moc.cpp
+
+#>+ 2
+mocs: config_center.moc.cpp
+
+#>+ 3
 toplevel.moc.cpp: $(srcdir)/toplevel.h
 	$(MOC) $(srcdir)/toplevel.h -o toplevel.moc.cpp
 
@@ -822,13 +830,6 @@ config_gen.moc.cpp: $(srcdir)/config_gen.h
 mocs: config_gen.moc.cpp
 
 #>+ 3
-config_center.moc.cpp: $(srcdir)/config_center.h
-	$(MOC) $(srcdir)/config_center.h -o config_center.moc.cpp
-
-#>+ 2
-mocs: config_center.moc.cpp
-
-#>+ 3
 new_dialogs.moc.cpp: $(srcdir)/new_dialogs.h
 	$(MOC) $(srcdir)/new_dialogs.h -o new_dialogs.moc.cpp
 
@@ -837,10 +838,10 @@ mocs: new_dialogs.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  toplevel_ui.moc.cpp project_wizard.moc.cpp likeback.moc.cpp project_manager.moc.cpp device_gui.moc.cpp project_manager_ui.moc.cpp editor_manager.moc.cpp device_editor.moc.cpp register_view.moc.cpp hex_editor.moc.cpp editor.moc.cpp gui_prog_manager.moc.cpp object_view.moc.cpp gui_debug_manager.moc.cpp watch_view.moc.cpp breakpoint_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp toplevel.moc.cpp config_gen.moc.cpp config_center.moc.cpp new_dialogs.moc.cpp
+	-rm -f  likeback.moc.cpp project_wizard.moc.cpp toplevel_ui.moc.cpp project_manager.moc.cpp device_gui.moc.cpp project_manager_ui.moc.cpp editor_manager.moc.cpp register_view.moc.cpp device_editor.moc.cpp hex_editor.moc.cpp editor.moc.cpp gui_prog_manager.moc.cpp object_view.moc.cpp gui_debug_manager.moc.cpp watch_view.moc.cpp breakpoint_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_center.moc.cpp toplevel.moc.cpp config_gen.moc.cpp new_dialogs.moc.cpp
 
 #>+ 2
-KDE_DIST=hex_editor.h device_gui.h toplevel_ui.h new_dialogs.h project_editor.h Makefile.in register_view.h text_editor.h console.h config_gen.h editor.h device_editor.h toplevel.h project_wizard.h editor_manager.h config_center.h gui_debug_manager.h likeback.h watch_view.h log_view.h breakpoint_view.h project_manager.h gui_prog_manager.h main_global.h object_view.h project.h global_config.h project_manager_ui.h Makefile.am 
+KDE_DIST=gui_prog_manager.h text_editor.h console.h gui_debug_manager.h new_dialogs.h main_global.h editor.h likeback.h project_editor.h toplevel.h project_wizard.h object_view.h device_editor.h project.h Makefile.in hex_editor.h global_config.h device_gui.h editor_manager.h watch_view.h register_view.h log_view.h project_manager_ui.h toplevel_ui.h config_gen.h breakpoint_view.h config_center.h Makefile.am project_manager.h 
 
 #>+ 2
 docs-am:
@@ -884,11 +885,11 @@ bcheck-am:
 
 
 #>+ 11
-libgui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/editor.cpp $(srcdir)/device_gui.cpp $(srcdir)/toplevel.cpp $(srcdir)/object_view.cpp $(srcdir)/config_gen.cpp $(srcdir)/register_view.cpp $(srcdir)/device_editor.cpp $(srcdir)/watch_view.cpp $(srcdir)/project.cpp $(srcdir)/project_editor.cpp $(srcdir)/project_manager.cpp $(srcdir)/hex_editor.cpp $(srcdir)/global_config.cpp $(srcdir)/config_center.cpp $(srcdir)/editor_manager.cpp $(srcdir)/new_dialogs.cpp $(srcdir)/text_editor.cpp $(srcdir)/log_view.cpp $(srcdir)/gui_prog_manager.cpp $(srcdir)/gui_debug_manager.cpp $(srcdir)/breakpoint_view.cpp $(srcdir)/likeback.cpp $(srcdir)/main_global.cpp $(srcdir)/console.cpp $(srcdir)/project_wizard.cpp $(srcdir)/toplevel_ui.cpp $(srcdir)/project_manager_ui.cpp likeback.moc.cpp project_wizard.moc.cpp toplevel_ui.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp project_manager_ui.moc.cpp device_editor.moc.cpp register_view.moc.cpp editor.moc.cpp hex_editor.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp gui_debug_manager.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_center.moc.cpp config_gen.moc.cpp toplevel.moc.cpp new_dialogs.moc.cpp 
+libgui_la.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/editor.cpp $(srcdir)/device_gui.cpp $(srcdir)/toplevel.cpp $(srcdir)/object_view.cpp $(srcdir)/config_gen.cpp $(srcdir)/register_view.cpp $(srcdir)/device_editor.cpp $(srcdir)/watch_view.cpp $(srcdir)/project.cpp $(srcdir)/project_editor.cpp $(srcdir)/project_manager.cpp $(srcdir)/hex_editor.cpp $(srcdir)/global_config.cpp $(srcdir)/config_center.cpp $(srcdir)/editor_manager.cpp $(srcdir)/new_dialogs.cpp $(srcdir)/text_editor.cpp $(srcdir)/log_view.cpp $(srcdir)/gui_prog_manager.cpp $(srcdir)/gui_debug_manager.cpp $(srcdir)/breakpoint_view.cpp $(srcdir)/likeback.cpp $(srcdir)/main_global.cpp $(srcdir)/console.cpp $(srcdir)/project_wizard.cpp $(srcdir)/toplevel_ui.cpp $(srcdir)/project_manager_ui.cpp toplevel_ui.moc.cpp project_wizard.moc.cpp likeback.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp project_manager_ui.moc.cpp register_view.moc.cpp device_editor.moc.cpp editor.moc.cpp hex_editor.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp gui_debug_manager.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_gen.moc.cpp toplevel.moc.cpp config_center.moc.cpp new_dialogs.moc.cpp 
 	@echo 'creating libgui_la.all_cpp.cpp ...'; \
 	rm -f libgui_la.all_cpp.files libgui_la.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> libgui_la.all_cpp.final; \
-	for file in editor.cpp device_gui.cpp toplevel.cpp object_view.cpp config_gen.cpp register_view.cpp device_editor.cpp watch_view.cpp project.cpp project_editor.cpp project_manager.cpp hex_editor.cpp global_config.cpp config_center.cpp editor_manager.cpp new_dialogs.cpp text_editor.cpp log_view.cpp gui_prog_manager.cpp gui_debug_manager.cpp breakpoint_view.cpp likeback.cpp main_global.cpp console.cpp project_wizard.cpp toplevel_ui.cpp project_manager_ui.cpp likeback.moc.cpp project_wizard.moc.cpp toplevel_ui.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp project_manager_ui.moc.cpp device_editor.moc.cpp register_view.moc.cpp editor.moc.cpp hex_editor.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp gui_debug_manager.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_center.moc.cpp config_gen.moc.cpp toplevel.moc.cpp new_dialogs.moc.cpp ; do \
+	for file in editor.cpp device_gui.cpp toplevel.cpp object_view.cpp config_gen.cpp register_view.cpp device_editor.cpp watch_view.cpp project.cpp project_editor.cpp project_manager.cpp hex_editor.cpp global_config.cpp config_center.cpp editor_manager.cpp new_dialogs.cpp text_editor.cpp log_view.cpp gui_prog_manager.cpp gui_debug_manager.cpp breakpoint_view.cpp likeback.cpp main_global.cpp console.cpp project_wizard.cpp toplevel_ui.cpp project_manager_ui.cpp toplevel_ui.moc.cpp project_wizard.moc.cpp likeback.moc.cpp project_manager.moc.cpp device_gui.moc.cpp editor_manager.moc.cpp project_manager_ui.moc.cpp register_view.moc.cpp device_editor.moc.cpp editor.moc.cpp hex_editor.moc.cpp object_view.moc.cpp gui_prog_manager.moc.cpp gui_debug_manager.moc.cpp breakpoint_view.moc.cpp watch_view.moc.cpp log_view.moc.cpp console.moc.cpp text_editor.moc.cpp project_editor.moc.cpp config_gen.moc.cpp toplevel.moc.cpp config_center.moc.cpp new_dialogs.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> libgui_la.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> libgui_la.all_cpp.final; \
 	done; \

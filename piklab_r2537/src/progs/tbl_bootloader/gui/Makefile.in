@@ -621,6 +621,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 tbl_bootloader_ui.moc.cpp: $(srcdir)/tbl_bootloader_ui.h
 	$(MOC) $(srcdir)/tbl_bootloader_ui.h -o tbl_bootloader_ui.moc.cpp
@@ -633,7 +634,7 @@ clean-metasources:
 	-rm -f  tbl_bootloader_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in tbl_bootloader_ui.h Makefile.am 
+KDE_DIST=tbl_bootloader_ui.h Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

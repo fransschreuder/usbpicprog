@@ -497,8 +497,9 @@ uninstall-am: uninstall-kde-icons  uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=hi16-action-likeback_bug.png cr16-action-likeback_dislike.png Makefile.in cr16-action-likeback_like.png Makefile.am 
+KDE_DIST=hi16-action-likeback_bug.png cr16-action-likeback_dislike.png Makefile.am cr16-action-likeback_like.png Makefile.in 
 
 #>+ 2
 docs-am:
@@ -507,14 +508,14 @@ docs-am:
 install-kde-icons:
 	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions
 	$(INSTALL_DATA) $(srcdir)/cr16-action-likeback_dislike.png $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_dislike.png
-	$(INSTALL_DATA) $(srcdir)/cr16-action-likeback_like.png $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_like.png
 	$(mkinstalldirs) $(DESTDIR)$(piklabdir)/hicolor/16x16/actions
 	$(INSTALL_DATA) $(srcdir)/hi16-action-likeback_bug.png $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/likeback_bug.png
+	$(INSTALL_DATA) $(srcdir)/cr16-action-likeback_like.png $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_like.png
 
 uninstall-kde-icons:
 	-rm -f $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_dislike.png
-	-rm -f $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_like.png
 	-rm -f $(DESTDIR)$(piklabdir)/hicolor/16x16/actions/likeback_bug.png
+	-rm -f $(DESTDIR)$(piklabdir)/crystalsvg/16x16/actions/likeback_like.png
 
 #>+ 15
 force-reedit:

@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 mpc_compile.moc.cpp: $(srcdir)/mpc_compile.h
 	$(MOC) $(srcdir)/mpc_compile.h -o mpc_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  mpc_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in mpc_config.h mpc.h mpc_compile.h Makefile.am 
+KDE_DIST=mpc.h Makefile.in Makefile.am mpc_config.h mpc_compile.h 
 
 #>+ 2
 docs-am:

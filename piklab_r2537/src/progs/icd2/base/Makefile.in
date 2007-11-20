@@ -645,6 +645,7 @@ icd2_data.cpp: ../xml/xml_icd2_parser icd2.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 icd2_prog.moc.cpp: $(srcdir)/icd2_prog.h
 	$(MOC) $(srcdir)/icd2_prog.h -o icd2_prog.moc.cpp
@@ -671,7 +672,7 @@ clean-metasources:
 	-rm -f  icd2_prog.moc.cpp icd2_debug.moc.cpp icd_prog.moc.cpp
 
 #>+ 2
-KDE_DIST=icd2_debug.h base.pro Makefile.in icd2_prog.h microchip.h icd2.h icd.h promate2.xml icd2_usb.h icd2.xml icd_prog.h icd2_data.h icd2_debug_specific.h icd2_serial.h Makefile.am 
+KDE_DIST=icd2_debug_specific.h base.pro Makefile.in icd2_prog.h icd2.xml microchip.h icd.h promate2.xml icd2_serial.h icd2_usb.h icd2_data.h icd2_debug.h icd_prog.h Makefile.am icd2.h 
 
 #>+ 2
 docs-am:

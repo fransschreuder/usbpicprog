@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 picdem_bootloader_ui.moc.cpp: $(srcdir)/picdem_bootloader_ui.h
 	$(MOC) $(srcdir)/picdem_bootloader_ui.h -o picdem_bootloader_ui.moc.cpp
@@ -634,7 +635,7 @@ clean-metasources:
 	-rm -f  picdem_bootloader_ui.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in picdem_bootloader_ui.h Makefile.am 
+KDE_DIST=Makefile.am Makefile.in picdem_bootloader_ui.h 
 
 #>+ 2
 docs-am:

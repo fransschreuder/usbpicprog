@@ -665,8 +665,9 @@ messages:
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=Makefile.in src.pro Makefile.am 
+KDE_DIST=Makefile.am Makefile.in src.pro 
 
 #>+ 2
 docs-am:

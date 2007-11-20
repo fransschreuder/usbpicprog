@@ -642,6 +642,7 @@ coff_data.cpp: ../xml/xml_coff_parser coff.xml
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
 KDE_DIST=base.pro gpopcode.h coff.xml Makefile.in coff_object.h disassembler.h text_coff.h coff.h Makefile.am coff_data.h coff_archive.h cdb_parser.h 
 

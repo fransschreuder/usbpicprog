@@ -38,7 +38,7 @@
 #define IO_CFG_H
 
 /** I N C L U D E S *************************************************/
-#include "autofiles\usbcfg.h"
+#include "autofiles/usbcfg.h"
 
 /** T R I S *********************************************************/
 #define INPUT_PIN           1

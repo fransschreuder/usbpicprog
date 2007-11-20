@@ -742,6 +742,7 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 jalv2_compile.moc.cpp: $(srcdir)/jalv2_compile.h
 	$(MOC) $(srcdir)/jalv2_compile.h -o jalv2_compile.moc.cpp
@@ -754,7 +755,7 @@ clean-metasources:
 	-rm -f  jalv2_compile.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in jalv2.h jalv2_config.h jalv2_compile.h Makefile.am 
+KDE_DIST=Makefile.in jalv2.h jalv2_config.h Makefile.am jalv2_compile.h 
 
 #>+ 2
 docs-am:

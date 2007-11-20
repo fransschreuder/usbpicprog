@@ -625,6 +625,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 breakpoint.moc.cpp: $(srcdir)/breakpoint.h
 	$(MOC) $(srcdir)/breakpoint.h -o breakpoint.moc.cpp
@@ -651,7 +652,7 @@ clean-metasources:
 	-rm -f  breakpoint.moc.cpp prog_manager.moc.cpp debug_manager.moc.cpp
 
 #>+ 2
-KDE_DIST=prog_manager.h Makefile.in manager.pro debug_manager.h breakpoint.h Makefile.am 
+KDE_DIST=prog_manager.h Makefile.in manager.pro Makefile.am breakpoint.h debug_manager.h 
 
 #>+ 2
 docs-am:

@@ -632,6 +632,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 tools_config_widget.moc.cpp: $(srcdir)/tools_config_widget.h
 	$(MOC) $(srcdir)/tools_config_widget.h -o tools_config_widget.moc.cpp
@@ -658,7 +659,7 @@ clean-metasources:
 	-rm -f  tools_config_widget.moc.cpp compile_manager.moc.cpp compile_process.moc.cpp
 
 #>+ 2
-KDE_DIST=Makefile.in compile_manager.h tool_list.h device_info.h compile_config.h tools_config_widget.h compile_process.h Makefile.am 
+KDE_DIST=tool_list.h compile_manager.h device_info.h tools_config_widget.h compile_process.h compile_config.h Makefile.in Makefile.am 
 
 #>+ 2
 docs-am:

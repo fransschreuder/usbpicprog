@@ -665,6 +665,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 3
 main.moc.cpp: $(srcdir)/main.h
 	$(MOC) $(srcdir)/main.h -o main.moc.cpp
@@ -677,7 +678,7 @@ clean-metasources:
 	-rm -f  main.moc.cpp
 
 #>+ 2
-KDE_DIST=main.h Makefile.in piklab-hex.pro Makefile.am 
+KDE_DIST=Makefile.am Makefile.in main.h piklab-hex.pro 
 
 #>+ 2
 docs-am:

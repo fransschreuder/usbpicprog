@@ -658,8 +658,9 @@ uninstall-info: uninstall-info-recursive
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 2
-KDE_DIST=direct.pro Makefile.in Makefile.am 
+KDE_DIST=direct.pro Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:

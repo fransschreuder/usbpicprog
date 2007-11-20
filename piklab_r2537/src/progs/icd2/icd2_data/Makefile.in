@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+
 #>+ 8
 libicd2data.la.closure: $(libicd2data_la_OBJECTS) $(libicd2data_la_DEPENDENCIES)
 	@echo "int main() {return 0;}" > libicd2data_la_closure.cpp
@@ -632,7 +633,7 @@ libicd2data.la.closure: $(libicd2data_la_OBJECTS) $(libicd2data_la_DEPENDENCIES)
 
 
 #>+ 2
-KDE_DIST=Makefile.in icd2_data.pro Makefile.am 
+KDE_DIST=icd2_data.pro Makefile.am Makefile.in 
 
 #>+ 3
 clean-closures:
