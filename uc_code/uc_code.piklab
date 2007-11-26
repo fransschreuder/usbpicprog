@@ -30,7 +30,7 @@
       <item>upp/upp.h</item>
     </files>
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
-    <description></description>
+    <description/>
     <version>0.1</version>
     <opened_files>
       <item>upp/upp.h</item>
@@ -50,13 +50,11 @@
       <item>system/usb/usbctrltrf/usbctrltrf.h</item>
       <item>system/usb/usb9/usb9.h</item>
       <item>system/usb/class/generic/usbgen.h</item>
-      <item>autofiles/usbdsc.c</item>
-      <item>/usr/share/sdcc/include/pic16/pic18f2455.h</item>
     </opened_files>
   </general>
   <compiler>
     <has_custom_arguments>false</has_custom_arguments>
-    <custom_options></custom_options>
+    <custom_options/>
     <custom_arguments>
       <item>-m%FAMILY</item>
       <item>-%DEVICE</item>
@@ -76,7 +74,7 @@
     <includes>
       <item>$(SRCPATH)</item>
     </includes>
-    <custom_options></custom_options>
+    <custom_options/>
     <format>inhx32</format>
     <custom_arguments>
       <item>-m%FAMILY</item>
@@ -91,6 +89,6 @@
       <item>%OBJS</item>
       <item>%LIBS</item>
     </custom_arguments>
-    <custom_libraries></custom_libraries>
+    <custom_libraries/>
   </linker>
 </piklab>
