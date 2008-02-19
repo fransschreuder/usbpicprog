@@ -2,7 +2,7 @@
 <piklab>
   <general>
     <device>18F2550</device>
-    <tool>sdcc</tool>
+    <tool>c18</tool>
     <files>
       <item>io_cfg.h</item>
       <item>main.c</item>
@@ -50,6 +50,7 @@
       <item>system/usb/usbctrltrf/usbctrltrf.h</item>
       <item>system/usb/usb9/usb9.h</item>
       <item>system/usb/class/generic/usbgen.h</item>
+      <item>uc_code.hex</item>
     </opened_files>
   </general>
   <compiler>
