@@ -1,0 +1,124 @@
+<ui version="4.0" >
+ <class>Programmateur</class>
+ <widget class="QMainWindow" name="Programmateur" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>863</width>
+    <height>585</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QPushButton" name="quitButton" >
+    <property name="geometry" >
+     <rect>
+      <x>700</x>
+      <y>450</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openButton" >
+    <property name="geometry" >
+     <rect>
+      <x>700</x>
+      <y>0</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Open</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="programButton" >
+    <property name="geometry" >
+     <rect>
+      <x>700</x>
+      <y>70</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Program</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>451</width>
+      <height>471</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label1" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>671</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Please open a file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="checkHex" >
+    <property name="geometry" >
+     <rect>
+      <x>705</x>
+      <y>150</y>
+      <width>131</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Check Hex File</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>863</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen" />
+    <addaction name="actionQuit" />
+   </widget>
+   <addaction name="menuFile" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="actionOpen" >
+   <property name="text" >
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionQuit" >
+   <property name="text" >
+    <string>Quit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
