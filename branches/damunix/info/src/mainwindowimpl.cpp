@@ -26,9 +26,8 @@ void MainWindowImpl::open(void)
 	label1->setText(path);
 	
 	QFile file(path);
-	qDebug ()<<"Ouverture du fichier  "<<path<<"taille du fichier "<<file.size();
-	
-	//ouverture du fichier
+		
+	//opening the file
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		qFatal ("Can't Open/Read the file");
 	while (!file.atEnd())
