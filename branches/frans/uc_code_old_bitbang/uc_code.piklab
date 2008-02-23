@@ -28,20 +28,29 @@
       <item>system/usb/usb.h</item>
       <item>system/usb/usbmmap.h</item>
       <item>upp/upp.h</item>
-      <item>upp/prog.h</item>
-      <item>upp/prog.c</item>
     </files>
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
     <description/>
     <version>0.1</version>
     <opened_files>
-      <item>upp/prog.h</item>
-      <item>upp/upp.c</item>
-      <item>upp/prog.c</item>
-      <item>system/interrupt/interrupt.h</item>
-      <item>system/interrupt/interrupt.c</item>
-      <item>main.c</item>
+      <item>upp/upp.h</item>
       <item>io_cfg.h</item>
+      <item>main.c</item>
+      <item>system/interrupt/interrupt.c</item>
+      <item>upp/upp.c</item>
+      <item>system/interrupt/interrupt.h</item>
+      <item>system/typedefs.h</item>
+      <item>system/usb/usb_compile_time_validation.h</item>
+      <item>system/usb/usb.h</item>
+      <item>system/usb/usbdefs/usbdefs_std_dsc.h</item>
+      <item>autofiles/usbdsc.h</item>
+      <item>system/usb/usbdefs/usbdefs_ep0_buff.h</item>
+      <item>system/usb/usbmmap.h</item>
+      <item>system/usb/usbdrv/usbdrv.h</item>
+      <item>system/usb/usbctrltrf/usbctrltrf.h</item>
+      <item>system/usb/usb9/usb9.h</item>
+      <item>system/usb/class/generic/usbgen.h</item>
+      <item>uc_code.hex</item>
     </opened_files>
   </general>
   <compiler>

@@ -15,7 +15,7 @@
 #include "system/interrupt/interrupt.h"
 #include "io_cfg.h"
 /** V A R I A B L E S ********************************************************/
-long tick=0;
+
 /** I N T E R R U P T  V E C T O R S *****************************************/
 #ifndef SDCC
 #pragma code high_vector=0x08
@@ -50,7 +50,6 @@ void high_isr(void) interrupt 2
 {
 	if(PIR1bits.TMR1IF)
 	{
-		tick++;
 		Pump1=!Pump1;
 		Pump2=!Pump1;
 		TMR1H=TMR1H_PRESET;

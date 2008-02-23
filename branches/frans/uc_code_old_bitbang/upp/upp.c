@@ -16,7 +16,6 @@
 #include "io_cfg.h"             // I/O pin mapping
 #include "upp\upp.h"
 #include <string.h>
-#include "prog.h"
 
 /*#ifndef SDCC
 #pragma udata DECLARE_OVER_PORTC=0xF82
