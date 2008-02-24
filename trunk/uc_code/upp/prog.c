@@ -15,6 +15,8 @@
 
 ERASESTATE erasestate=ERASEIDLE;
 PROGSTATE progstate=PROGIDLE;
+DATASTATE datastate=DATAIDLE;
+
 long lasttick=0;
 extern long tick;
 
@@ -126,11 +128,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,(unsigned int)(0x0E|((address>>16)&0x3F))); //MOVLW Addr [21:16]
+					pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
 					pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E|((address>>8)&0xFF))); //MOVLW Addr [15:8]
+					pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
 					pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E|((address)&0xFF))); //MOVLW Addr [7:0]
+					pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
 					pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
 					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
 					{
@@ -187,12 +189,75 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 	}
 }
 
+void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
+{
+	char i;
+	char blockcounter;
+	unsigned int receiveddata;
+	switch(datastate)
+	{
+		case DATASTART:
+			VDD=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 100 ns;
+			VPP=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 2 us;
+
+			datastate=DATA;
+			break;
+		case DATA:
+			switch(pictype)
+			{
+				case PIC18:
+					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+					{
+						pic18_send(0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW EEAddr
+						pic18_send(0x00,0x6EA9); //MOVWF EEADR
+						pic18_send(0x00,(unsigned int)(0x0E00| (((address+ (int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
+						pic18_send(0x00,0x6EAA); //MOVWF EEADRH
+						pic18_send(0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
+						pic18_send(0x00,0x6eA8); //MOVWF EEDATA
+						pic18_send(0x00,0x84A6); //BSF EECON1, WREN
+						pic18_send(0x00,0x82A6); //BSF EECON1, WR
+						i=0;
+						do
+						{
+							pic18_send(0x00,0x50A6); //movf EECON1, W, 0
+							pic18_send(0x00,0x6EF5); //movwf TABLAT
+							pic18_send(0x00,0x0000); //nop
+							receiveddata=pic18_read(0x02); //Shift TABLAT register out
+						}while((receiveddata&0x0002)&&(i++<255)); //poll for WR bit to clear
+						PGC=0;	//hold PGC low for P10 (100us)
+						for(i=0;i<100;i++)continue;
+						pic18_send(0x00,0x94A6); //BCF EECON1, WREN
+					}
+					break;
+				default:
+					break;
+			}
+			datastate=DATASTOP;
+		case DATASTOP:
+			VPP=1; //low, (inverted)
+			Nop();
+			VDD=1; //low, (inverted)
+			if((tick-lasttick)>P10)
+				datastate=DATASUCCESS;
+			break;
+		case DATAIDLE:
+			break;
+		case DATASUCCESS:
+			break;
+		default:
+			progstate=DATAIDLE;
+			break;
+	}	
+}
+
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
-void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
-{
-}
+
 char verify_program(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
@@ -205,7 +270,10 @@ char verify_data(PICTYPE pictype,char address, char* data, char blocksize)
 void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
-
+unsigned int pic18_read(char command)
+{
+	return 0;
+}
 void pic18_send(char command, unsigned int payload)
 {
 	char i;
