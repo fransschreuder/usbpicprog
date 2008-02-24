@@ -13,9 +13,15 @@
 #include "prog.h"
 #include "system\interrupt\interrupt.h"
 
-static ERASESTATE erasestate=ERASEIDLE;
-static long lasttick=0;
+ERASESTATE erasestate=ERASEIDLE;
+PROGSTATE progstate=PROGIDLE;
+long lasttick=0;
 extern long tick;
+
+/**
+This function has to be called as many times until erasestate==ERASESUCCESS
+*/
+
 void bulk_erase(PICTYPE pictype)
 {
 	char i;
@@ -72,6 +78,10 @@ void bulk_erase(PICTYPE pictype)
 			if((tick-lasttick)>P10)
 				erasestate=ERASESUCCESS;
 			break;
+		case ERASEIDLE:
+			break;
+		case ERASESUCCESS:
+			break;
 		default:
 			erasestate=ERASEIDLE;
 			break;
@@ -80,6 +90,121 @@ void bulk_erase(PICTYPE pictype)
 	}
 }
 
+
+
+/**
+This function has to be called as many times until progstate==PROGNEXTBLOCK
+or when lastblock=1:
+call as many times until progstate==PROGSUCCESS
+*/
+void program_memory(PICTYPE pictype,unsigned long address, char* data,char blocksize,char lastblock)
+{
+	char i;
+	char blockcounter;
+	switch(progstate)
+	{
+		case PROGSTART:
+			VDD=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 100 ns;
+			VPP=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 2 us;
+
+			progstate=PROG1;
+			break;
+		case PROG1:
+			switch(pictype)
+			{
+				case PIC18:
+					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					break;
+				default:
+					break;
+			}
+			progstate=PROG2;
+		case PROG2:
+			switch(pictype)
+			{
+				case PIC18:
+					pic18_send(0x00,(unsigned int)(0x0E|((address>>16)&0x3F))); //MOVLW Addr [21:16]
+					pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
+					pic18_send(0x00,(unsigned int)(0x0E|((address>>8)&0xFF))); //MOVLW Addr [15:8]
+					pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
+					pic18_send(0x00,(unsigned int)(0x0E|((address)&0xFF))); //MOVLW Addr [7:0]
+					pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+					{
+
+						//write 2 bytes and post increment by 2
+						//				MSB				LSB
+						pic18_send(0x0D,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+					}
+					//write last 2 bytes of the block and start programming
+					pic18_send(0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+					pic18_send(0x00, 0x0000); //nop, hold PGC high for time P9 and low for P10
+					break;
+				default:
+					break;
+			}
+			lasttick=tick;
+			PGC=1;	//hold PGC high for P9
+			progstate=PROG2;
+			break;
+		case PROG3:
+			if((tick-lasttick)>P9)
+			{
+				progstate=PROG3;
+				PGC=0;	//hold PGC low for time P10
+				lasttick=tick;
+			}
+			break;
+		case PROG4:
+			if((tick-lasttick)>P10)
+			{
+				if(lastblock==0)progstate=PROGNEXTBLOCK;
+				else progstate=PROGSTOP;
+			}
+		case PROGNEXTBLOCK:		
+			/**
+			the higher level program has to check for this state and load the next block
+			then make progstate PROG2 to continue the next block
+			**/
+			break;
+		case PROGSTOP:
+			VPP=1; //low, (inverted)
+			Nop();
+			VDD=1; //low, (inverted)
+			if((tick-lasttick)>P10)
+				progstate=PROGSUCCESS;
+			break;
+		case PROGIDLE:
+			break;
+		case PROGSUCCESS:
+			break;
+		default:
+			progstate=PROGIDLE;
+			break;
+	}
+}
+
+void program_ids(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+char verify_program(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+char verify_ids(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+char verify_data(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
 
 void pic18_send(char command, unsigned int payload)
 {
@@ -115,27 +240,4 @@ void pic18_send(char command, unsigned int payload)
 	}
 	Nop();
 	
-}
-
-void program_memory(PICTYPE pictype,char address, char length, char* data)
-{
-}
-
-void program_ids(PICTYPE pictype,char address, char length, char* data)
-{
-}
-void program_data_ee(PICTYPE pictype,char address, char length, char* data)
-{
-}
-char verify_program(PICTYPE pictype,char address, char length, char* data)
-{
-}
-char verify_ids(PICTYPE pictype,char address, char length, char* data)
-{
-}
-char verify_data(PICTYPE pictype,char address, char length, char* data)
-{
-}
-void program_config_bits(PICTYPE pictype,char address, char length, char* data)
-{
 }
