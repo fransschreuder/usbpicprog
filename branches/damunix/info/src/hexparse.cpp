@@ -16,33 +16,52 @@ bool hexParse::check(QString txt)
 	QStringList text=txt.split("\n");
 	qDebug()<<"size ::"<<text.size();
 	
+	
 	foreach (line,text)
 	{
 		//lines biggin with :
 		if (line[0]!=QChar(':'))
 			return false;
-			
-		//get number of bytes
-		QString part1(line[1]);
-		part1.append(line[2]);
-		qDebug()<<"val ="<<part1;
-		QByteArray nbBytes(part1.toAscii());
-		bool ok;
-		qDebug()<<"nombre d'octets ::"<<nbBytes.toInt(&ok,16);
 		
-		//get address 
-		QString addrS=line.left(7).right(4);
-		int addr= (addrS).toInt(&ok,16);
-		qDebug()<<"adresse a écrire "<<addrS << " ce qui donne "<<addr;
-		
-		//get data
-		QString data=line.right(2+(nbBytes.toInt(&ok,16))*2).left((nbBytes.toInt(&ok,16))*2);
-		qDebug()<<"octets : "<<line.right(2+(nbBytes.toInt(&ok,16))*2)<<"puis "<<line.right(2+(nbBytes.toInt(&ok,16))*2).left((nbBytes.toInt(&ok,16))*2);
-		qDebug()<<" valeur en decimal"<<data.toInt(&ok,16);
 		// get checksum
 		QString check=line.right(2);
-		qDebug()<<"Checksum : "<< check.toInt(&ok,16)<<" (0x"<<check<<") je trouve "<<qChecksum(data.toAscii(),data.size());
+		//qDebug()<<"Checksum : "<< check.toInt(&ok,16)<<" (0x"<<check<<") je trouve "<<qChecksum(data.toAscii(),data.size());
 	}
 }
 
+int hexParse::getSize(QString txt)
+{
+	//get number of bytes
+	bool ok;
+	QString part1(txt[1]);
+	part1.append(txt[2]);
+
+	QByteArray nbBytes(part1.toAscii());
+	return nbBytes.toInt(&ok,16);
+}
+
+QString hexParse::getAddress(QString txt)
+{
+	//get address
+	bool ok; 
+	QString addrS=txt.left(7).right(4);
+	int addr= (addrS).toInt(&ok,16);
+	return addrS;
+}
+
+int hexParse::blockType(QString txt)
+{
+	//block mark => 00 normal,01 end of file, 04 extended adress
+	bool ok;
+	return txt.left(9).right(2).toInt(&ok,10);
+	
+}
+
+QString  hexParse::getData(QString txt)
+{
+	//get data
+	int nbBytes=getSize(txt);
+	QString data=txt.right(2+(nbBytes*2)).left(nbBytes*2);
+	return data;
+}
 //
