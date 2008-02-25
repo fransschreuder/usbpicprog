@@ -39,7 +39,10 @@ blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
 void program_memory(PICTYPE pictype,unsigned long address, char* data,char blocksize,char lastblock);
+/**
+for program_ids, program_memory can be used in stead with address 0x200000 and blocksize=8
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
+**/
 void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize);
 char verify_program(PICTYPE pictype,char address, char* data, char blocksize);
 char verify_ids(PICTYPE pictype,char address, char* data, char blocksize);

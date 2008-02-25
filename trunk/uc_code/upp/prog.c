@@ -253,10 +253,16 @@ void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 			break;
 	}	
 }
-
+/**
+use program_memory in stead with address=0x200000 and blocksize=8
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
+**/
+void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize)
+{
+}
+
 
 char verify_program(PICTYPE pictype,char address, char* data, char blocksize)
 {
@@ -265,9 +271,6 @@ char verify_ids(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
 char verify_data(PICTYPE pictype,char address, char* data, char blocksize)
-{
-}
-void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
 unsigned int pic18_read(char command)
