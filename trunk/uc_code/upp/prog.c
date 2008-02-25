@@ -16,11 +16,13 @@
 ERASESTATE erasestate=ERASEIDLE;
 PROGSTATE progstate=PROGIDLE;
 DATASTATE datastate=DATAIDLE;
+CONFIGSTATE configstate=CONFIGIDLE;
 
 long lasttick=0;
 extern long tick;
 
 /**
+before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
 */
 
@@ -95,6 +97,7 @@ void bulk_erase(PICTYPE pictype)
 
 
 /**
+before calling this function, progstate must be PROGSTART
 This function has to be called as many times until progstate==PROGNEXTBLOCK
 or when lastblock=1:
 call as many times until progstate==PROGSUCCESS
@@ -155,7 +158,7 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 		case PROG3:
 			if((tick-lasttick)>P9)
 			{
-				progstate=PROG3;
+				progstate=PROG4;
 				PGC=0;	//hold PGC low for time P10
 				lasttick=tick;
 			}
@@ -164,7 +167,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			if((tick-lasttick)>P10)
 			{
 				if(lastblock==0)progstate=PROGNEXTBLOCK;
-				else progstate=PROGSTOP;
+				else 
+				{	
+					progstate=PROGSTOP;
+					lasttick=tick;
+				}
 			}
 		case PROGNEXTBLOCK:		
 			/**
@@ -189,6 +196,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 	}
 }
 
+
+/**
+before calling this function, datastate must be DATASTART
+call as many times until progstate==PROGSUCCESS
+ */
 void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 {
 	char i;
@@ -229,7 +241,7 @@ void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 							receiveddata=pic18_read(0x02); //Shift TABLAT register out
 						}while((receiveddata&0x0002)&&(i++<255)); //poll for WR bit to clear
 						PGC=0;	//hold PGC low for P10 (100us)
-						for(i=0;i<100;i++)continue;
+						for(i=0;i<200;i++)continue;
 						pic18_send(0x00,0x94A6); //BCF EECON1, WREN
 					}
 					break;
@@ -237,6 +249,7 @@ void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 					break;
 			}
 			datastate=DATASTOP;
+			lasttick=tick;
 		case DATASTOP:
 			VPP=1; //low, (inverted)
 			Nop();
@@ -259,18 +272,110 @@ void program_ids(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
 **/
-void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize)
+
+/**
+program_config_bits writes 2 configuration bytes each time (*data has to be 2 bytes big)
+the address will be 0x300000 + the id location
+before calling this function, make configstate CONFIGSTART
+keep calling this function until configstate==CONFIGSUCCESS
+**/
+void program_config_bits(PICTYPE pictype,char address, char* data)
 {
+	char i;
+	static char blockcounter;
+	switch(configstate)
+	{
+		case CONFIGSTART:
+			blockcounter=0;
+			VDD=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 100 ns;
+			VPP=0; //high, (inverted)
+			for(i=0;i<10;i++)continue; //wait at least 2 us;
+
+			configstate=CONFIG1;
+			break;
+		case CONFIG1:
+			switch(pictype)
+			{
+				case PIC18:
+					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					break;
+				default:
+					break;
+			}
+			progstate=CONFIG2;
+		case CONFIG2:
+			switch(pictype)
+			{
+				case PIC18:
+					pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
+					pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
+					pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
+					pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
+					pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
+					pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+					//LSB first
+					pic18_send(0x0F,(unsigned int)*(data)); 
+					pic18_send(0x00,0x0000); //nop
+					break;
+				default:
+					break;
+			}
+			lasttick=tick;
+			PGC=1;	//hold PGC high for P9
+			configstate=CONFIG2;
+			break;
+		case CONFIG3:
+			if((tick-lasttick)>P9)
+			{
+				configstate=CONFIG4;
+				PGC=0;	//hold PGC low for time P10
+				for(i=0;i<200;i++)continue; //delay P10=100us
+			}
+			break;
+		case CONFIG4:
+			pic18_send(0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
+			pic18_send(0x00, 0x6EF6); //movwf TBLPTRL
+			pic18_send(0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
+			pic18_send(0x00, 0x0000); //nop
+			lasttick=tick;
+			PGC=1;	//hold PGC high for P9
+			configstate=CONFIG5;
+		case CONFIG5:
+			if((tick-lasttick)>P9)
+			{
+				configstate=CONFIGSTOP;
+				PGC=0;	//hold PGC low for time P10
+				for(i=0;i<200;i++)continue; //delay P10=100us
+				lasttick=tick;
+			}
+			break;
+		case CONFIGSTOP:
+			VPP=1; //low, (inverted)
+			Nop();
+			VDD=1; //low, (inverted)
+			if((tick-lasttick)>P10)
+				progstate=CONFIGSUCCESS;
+			break;
+		case CONFIGIDLE:
+			break;
+		case CONFIGSUCCESS:
+			break;
+		default:
+			progstate=CONFIGIDLE;
+			break;
+	}
 }
 
 
-char verify_program(PICTYPE pictype,char address, char* data, char blocksize)
+void read_program(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
-char verify_ids(PICTYPE pictype,char address, char* data, char blocksize)
+void read_ids(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
-char verify_data(PICTYPE pictype,char address, char* data, char blocksize)
+void read_data(PICTYPE pictype,char address, char* data, char blocksize)
 {
 }
 unsigned int pic18_read(char command)

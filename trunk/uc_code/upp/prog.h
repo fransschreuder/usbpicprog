@@ -19,10 +19,12 @@ typedef enum _PICTYPE{PIC12=0,PIC16,PIC18,dsPIC}PICTYPE;
 typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERASESUCCESS}ERASESTATE;
 typedef enum _PROGSTATE{PROGIDLE=0, PROGSTART, PROG1, PROG2, PROG3, PROG4, PROGNEXTBLOCK, PROGSTOP, PROGSUCCESS}PROGSTATE;
 typedef enum _DATASTATE{DATAIDLE=0, DATASTART, DATA, DATASTOP, DATASUCCESS}DATASTATE;
+typedef enum _CONFIGSTATE{CONFIGIDLE=0, CONFIGSTART, CONFIG1, CONFIG2, CONFIG3, CONFIG4, CONFIG5, CONFIGSTOP, CONFIGSUCCESS}CONFIGSTATE;
 
 extern ERASESTATE erasestate;
 extern PROGSTATE progstate;
 extern DATASTATE datastate;
+extern CONFIGSTATE configstate;
 
 /**
 This function has to be called as many times until erasestate==ERASESUCCESS
@@ -44,10 +46,11 @@ for program_ids, program_memory can be used in stead with address 0x200000 and b
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
 **/
 void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize);
-char verify_program(PICTYPE pictype,char address, char* data, char blocksize);
-char verify_ids(PICTYPE pictype,char address, char* data, char blocksize);
-char verify_data(PICTYPE pictype,char address, char* data, char blocksize);
-void program_config_bits(PICTYPE pictype,char address, char* data, char blocksize);
+void read_program(PICTYPE pictype,char address, char* data, char blocksize);
+void read_ids(PICTYPE pictype,char address, char* data, char blocksize);
+void read_data(PICTYPE pictype,char address, char* data, char blocksize);
+void read_config_bits(PICTYPE pictype, char address, char* data);
+void program_config_bits(PICTYPE pictype,char address, char* data);
 unsigned int pic18_read(char command);
 void pic18_send(char command, unsigned int payload);
 //delay times according to programming specification:
