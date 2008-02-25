@@ -495,6 +495,10 @@ char pic18_read(char command)
 	return result;
 }
 
+
+/**
+Writes a 4-bit command + 16 bit payload to a pic18 device
+**/
 void pic18_send(char command, unsigned int payload)
 {
 	char i;
