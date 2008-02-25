@@ -45,13 +45,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 for program_ids, program_memory can be used in stead with address 0x200000 and blocksize=8
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
 **/
-void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize);
-void read_program(PICTYPE pictype,char address, char* data, char blocksize);
-void read_ids(PICTYPE pictype,char address, char* data, char blocksize);
-void read_data(PICTYPE pictype,char address, char* data, char blocksize);
-void read_config_bits(PICTYPE pictype, char address, char* data);
-void program_config_bits(PICTYPE pictype,char address, char* data);
-unsigned int pic18_read(char command);
+void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksize);
+void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize);
+void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize);
+void program_config_bits(PICTYPE pictype,unsigned long address, char* data);
+char pic18_read(char command);
 void pic18_send(char command, unsigned int payload);
 //delay times according to programming specification:
 #define P9 1

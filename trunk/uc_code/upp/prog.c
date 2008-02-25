@@ -201,11 +201,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
+void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
 {
 	char i;
 	char blockcounter;
-	unsigned int receiveddata;
+	char receiveddata;
 	switch(datastate)
 	{
 		case DATASTART:
@@ -226,7 +226,7 @@ void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 					{
 						pic18_send(0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW EEAddr
 						pic18_send(0x00,0x6EA9); //MOVWF EEADR
-						pic18_send(0x00,(unsigned int)(0x0E00| (((address+ (int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
+						pic18_send(0x00,(unsigned int)(0x0E00| (((address+ (unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
 						pic18_send(0x00,0x6EAA); //MOVWF EEADRH
 						pic18_send(0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
 						pic18_send(0x00,0x6eA8); //MOVWF EEDATA
@@ -239,7 +239,7 @@ void program_data_ee(PICTYPE pictype,char address, char* data, char blocksize)
 							pic18_send(0x00,0x6EF5); //movwf TABLAT
 							pic18_send(0x00,0x0000); //nop
 							receiveddata=pic18_read(0x02); //Shift TABLAT register out
-						}while((receiveddata&0x0002)&&(i++<255)); //poll for WR bit to clear
+						}while((receiveddata&0x02)&&(i++<255)); //poll for WR bit to clear
 						PGC=0;	//hold PGC low for P10 (100us)
 						for(i=0;i<200;i++)continue;
 						pic18_send(0x00,0x94A6); //BCF EECON1, WREN
@@ -279,7 +279,7 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
 **/
-void program_config_bits(PICTYPE pictype,char address, char* data)
+void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 {
 	char i;
 	static char blockcounter;
@@ -368,20 +368,133 @@ void program_config_bits(PICTYPE pictype,char address, char* data)
 	}
 }
 
+/**
+This function has to be called only once per block
+read_program will read program memory, id's and configuration bits
+**/
+void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize)
+{
+	char i;
+	char blockcounter=0;
+	VDD=0; //high, (inverted)
+	for(i=0;i<10;i++)continue; //wait at least 100 ns;
+	VPP=0; //high, (inverted)
+	for(i=0;i<10;i++)continue; //wait at least 2 us;
+	switch(pictype)
+	{
+		case PIC18:
+			pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
+			pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
+			pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
+			pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
+			pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
+			pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+				*(data+blockcounter)=pic18_read(0x09);
+			break;
+		default:
+			break;
+	}
+	VPP=1; //low, (inverted)
+	Nop();
+	VDD=1; //low, (inverted)
+	Nop();
+	
+}
 
-void read_program(PICTYPE pictype,char address, char* data, char blocksize)
+
+/**
+This function reads a block of data from the data eeprom of size blocksize into *data
+call this function only once.
+**/
+void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
 {
+	
+	char i;
+	char blockcounter=0;
+	VDD=0; //high, (inverted)
+	for(i=0;i<10;i++)continue; //wait at least 100 ns;
+	VPP=0; //high, (inverted)
+	for(i=0;i<10;i++)continue; //wait at least 2 us;
+	switch(pictype)
+	{
+		case PIC18:
+			pic18_send(0x00,0x9EA6); //BCF EECON1, EEPGD
+			pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+			{
+				pic18_send(0x00,(unsigned int)(0x0E00|(((address+blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
+				pic18_send(0x00,0x6EA9); //MOVWF EEADR
+				pic18_send(0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
+				pic18_send(0x00,0x6EAA); //MOVWF TBLPTRU
+				pic18_send(0x00,0x80A6); //BSF EECON1, RD
+				pic18_send(0x00,0x50A6); //MOVF EEDATA, W, 0
+				pic18_send(0x00,0x6EF5); //MOVWF TABLAT
+				pic18_send(0x00,0x0000); //Nop
+				*(data+blockcounter)=pic18_read(0x02);
+			}
+			break;
+		default:
+			break;
+	}
+	VPP=1; //low, (inverted)
+	Nop();
+	VDD=1; //low, (inverted)
+	Nop();
 }
-void read_ids(PICTYPE pictype,char address, char* data, char blocksize)
+
+
+/**
+reads 8 bits from a pic18 device with a given 4 bits command
+**/
+char pic18_read(char command)
 {
+	char i;
+	char result;
+	TRISPGD=0;
+	TRISPGC=0;
+	PGC=0;
+	PGD=0;
+	for(i=0;i<4;i++)
+	{
+		
+		PGC=1;
+		Nop();
+		if(command&(1<<i))PGD=1;
+		else PGD=0;
+		Nop();
+		PGC=0;
+		Nop();
+	}
+	Nop();	//wait at least 40ns	
+	for(i=0;i<8;i++)
+	{
+		
+		PGC=1;
+		Nop();
+		PGD=0;
+		Nop();
+		PGC=0;
+		Nop();
+	}
+	TRISPGD=1; //PGD = input
+	Nop();
+	result=0;
+	for(i=0;i<8;i++)
+	{
+		
+		PGC=1;
+		Nop();
+		result|=((char)PGD_READ)<<i;
+		Nop();
+		PGC=0;
+		Nop();
+	}
+	TRISPGD=0; //PGD = output
+	Nop();
+	return result;
 }
-void read_data(PICTYPE pictype,char address, char* data, char blocksize)
-{
-}
-unsigned int pic18_read(char command)
-{
-	return 0;
-}
+
 void pic18_send(char command, unsigned int payload)
 {
 	char i;
@@ -389,7 +502,7 @@ void pic18_send(char command, unsigned int payload)
 	TRISPGC=0;
 	PGC=0;
 	PGD=0;
-	for(i=0;i<3;i++)
+	for(i=0;i<4;i++)
 	{
 		
 		PGC=1;
@@ -402,7 +515,7 @@ void pic18_send(char command, unsigned int payload)
 		
 	}
 	Nop();	//wait at least 40ns
-	for(i=0;i<15;i++)
+	for(i=0;i<16;i++)
 	{
 		
 		PGC=1;
