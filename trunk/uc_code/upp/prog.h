@@ -34,7 +34,7 @@ void bulk_erase(PICTYPE pictype);
 
 /**
 before calling this function, progstate must be PROGSTART
-This function has to be called as many times until progstate==PROGNEXTBLOCK
+This function has to be called as many times until progstate==PROGNEXTBLOCK, then load next block and make progstate PROG2 to continue programming
 or when lastblock=1:
 call as many times until progstate==PROGSUCCESS
 address points to the first byte of the block

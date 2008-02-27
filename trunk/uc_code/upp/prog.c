@@ -98,10 +98,14 @@ void bulk_erase(PICTYPE pictype)
 
 /**
 before calling this function, progstate must be PROGSTART
-This function has to be called as many times until progstate==PROGNEXTBLOCK
+This function has to be called as many times until progstate==PROGNEXTBLOCK, then load next block and make progstate PROG2 to continue programming
 or when lastblock=1:
 call as many times until progstate==PROGSUCCESS
-*/
+address points to the first byte of the block
+data contains the data MSB0, LSB0, MSB1, LSB1, etc...
+blocksize is the block syze in BYTES
+lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
+ */
 void program_memory(PICTYPE pictype,unsigned long address, char* data,char blocksize,char lastblock)
 {
 	char i;

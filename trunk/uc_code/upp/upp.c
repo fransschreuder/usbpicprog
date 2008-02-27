@@ -18,26 +18,14 @@
 #include <string.h>
 #include "prog.h"
 
-/*#ifndef SDCC
-#pragma udata DECLARE_OVER_PORTC=0xF82
-struct _LEDPORT{
-	unsigned Leds:3;
-	unsigned unused:5;
-}Ledport;
-
-#pragma code
-#endif
-*/
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
 #pragma udata
 #endif
 byte old_sw2,old_sw3;
 
-//DATA_PACKET dataPacket;
-
-byte input_buffer[64];
-byte output_buffer[64];
+byte input_buffer[128];
+byte output_buffer[128];
 
 rom char welcome[]={"UsbPicProg - Open Source USB PIC programmer\r\n\r\n"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
@@ -60,7 +48,7 @@ void UserInit(void)
     old_sw2 = sw2;
     Pump1tris = 0;
     Pump2tris = 0;
-    
+
 	TRISVPP = 0; //output
 	TRISVPP_RST=0; //output
 	TRISPGD=0;    
@@ -135,95 +123,60 @@ void setLeds(char n)
  *
  * Note:            None
  *****************************************************************************/
+extern ERASESTATE erasestate;
+extern PROGSTATE progstate;
+extern DATASTATE datastate;
+extern CONFIGSTATE configstate;
 
 void ProcessIO(void)
 {
     char oldPGDtris;
     char PIN;
     static byte counter=0;
+
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
-	//VoltagePump();
-   
+
     if(USBGenRead((byte*)input_buffer,1)>0)
-   	{
-       	if((input_buffer[0]&0xC0)==0x80) //last bit indicates write
+    {
+       	if((input_buffer[0])=='t') //last bit indicates write "toto"
         {
-		PIN=(input_buffer[0]&0x0F);
-		switch(PIN)
-		{
-			case 0: //~VPP
-				if((input_buffer[0]&0x10)==0x10)VPP=0;
-				else VPP=1;
-				//setLeds(0);
-				break;
-			case 1: //~VPP_RST
-				if((input_buffer[0]&0x10)==0x10)VPP_RST=0;
-				else VPP_RST=1;
-				//setLeds(1);
-				break;			
-			case 2: //PGD_OUT
-				if((input_buffer[0]&0x10)==0x10)PGD=1;
-				else PGD=0;
-				//setLeds(2);
-				break;	
-			case 3: //PGD_IN
-				//setLeds(3);
-				break;
-			case 4: //PGC
-				if((input_buffer[0]&0x10)==0x10)PGC=1;
-				else PGC=0;
-				//setLeds(4);
-				break;
-			case 5: //GND
-				//setLeds(5);
-				break;
-			case 6: //VDD
-				if((input_buffer[0]&0x10)==0x10)VDD=0;
-				else VDD=1;
-				//setLeds(6);
-				break;
-			case 7: //TRIS
-				if((input_buffer[0]&0x10)==0x10)
-				{ 
-					TRISPGD=0;
-					setLeds(0x00);
-				}
-				  
-				else 
-				{
-					TRISPGD=1;
-					setLeds(0x01);
-				}
-				
-				//setLeds(7);
-				break;		
-			default:
-				break;
-				
-		}
-		//setLeds(input_buffer[0]&0x07);
-		
-	    }
-        else if ((input_buffer[0]&0xC0)==0xC0) //last two bits indicate read of PGD
-		{
-			oldPGDtris=TRISPGD;
-			TRISPGD=1; //set PGD to input
-			if(TRISPGD)
-			{
-				if (PGD_READ)output_buffer[0]=0xD3;
-				else output_buffer[0]=0xC3;
-			}
-			else
-			{
-				if (PGD)output_buffer[0]=0xD3;
-				else output_buffer[0]=0xC3;
-			}
-			counter=1;
-			TRISPGD=oldPGDtris;
-		}
-   	}
+            erasestate=ERASESTART;
+            setLeds(0x03);
+    	}
+
+    }
+    
+    
+    if(erasestate!=ERASEIDLE)
+    {
+        if(erasestate==ERASESUCCESS)
+        {
+            erasestate=ERASEIDLE;
+            setLeds(0x00);
+        }
+        else
+        {
+            bulk_erase(PICT18);
+        }
+    }
+    if(progestate!=PROGIDLE)
+    {
+        if(progstate==PROGSUCCESS)
+        {
+            progstate=PROGIDLE;
+            setLeds(0x00);
+        }
+        else if(progstate==PROGNEXTBLOCK)
+        {
+          //load next block and make it PROG2
+        }
+        else
+        {
+            program_memory(PIC18,0, input_buffer,32,1);
+        }
+    }
     if(counter != 0)
     {
        if(!mUSBGenTxIsBusy())
