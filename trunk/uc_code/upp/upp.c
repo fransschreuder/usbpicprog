@@ -24,8 +24,8 @@
 #endif
 byte old_sw2,old_sw3;
 
-byte input_buffer[128];
-byte output_buffer[128];
+byte input_buffer[68];
+byte output_buffer[68];
 
 rom char welcome[]={"UsbPicProg - Open Source USB PIC programmer\r\n\r\n"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
@@ -158,10 +158,10 @@ void ProcessIO(void)
         }
         else
         {
-            bulk_erase(PICT18);
+            bulk_erase(PIC18);
         }
     }
-    if(progestate!=PROGIDLE)
+    if(progstate!=PROGIDLE)
     {
         if(progstate==PROGSUCCESS)
         {
@@ -174,7 +174,7 @@ void ProcessIO(void)
         }
         else
         {
-            program_memory(PIC18,0, input_buffer,32,1);
+            program_memory(PIC18,0, (char*)input_buffer,32,1);
         }
     }
     if(counter != 0)
