@@ -13,6 +13,7 @@ public:
 private:
 	QString txt;
 	programmer * _prog;
+	
 private slots:
 	void open(void);
 	void quit(void);
@@ -20,6 +21,7 @@ private slots:
 	void program(void);
 	void connectProgrammer(void);
 	void eraseDevice (void);
+	void getId(void);
 };
 #endif
 

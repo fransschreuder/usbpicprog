@@ -15,12 +15,25 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(programButton,SIGNAL(clicked()),this,SLOT(program()));
 	connect(connectButton,SIGNAL(clicked()),this,SLOT(connectProgrammer()));
 	connect(eraseButton,SIGNAL(clicked()),this,SLOT(eraseDevice()));
+	connect(deviceIdButton,SIGNAL(clicked()),this,SLOT(getId()));
 }
 
 void MainWindowImpl::connectProgrammer(void)
 {
 	_prog = new programmer();
-	programButton->setEnabled(true);
+	if (_prog->connected())
+	{
+		programButton->setEnabled(true);
+		deviceIdButton->setEnabled(true);
+		eraseButton->setEnabled(true);
+	}
+	
+}
+
+void MainWindowImpl::getId(void)
+{
+	char id[2];
+	_prog->getId(id,2);
 }
 
 void MainWindowImpl::eraseDevice(void)

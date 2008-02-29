@@ -40,6 +40,42 @@ programmer::programmer(  )
 		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: Device not found !!!"));
 }
 
+
+void programmer::getId(char * msg,int size)
+{
+	char id=0x20;
+	if (_handle !=NULL)
+	{
+		int nBytes = usb_interrupt_write(_handle,1,(char*)&id,1,5000);
+		if (nBytes < 0 )
+		{
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+			return ;
+		}
+			
+			
+		nBytes = usb_interrupt_read(_handle,1,(char*)msg,size,5000);
+		if (nBytes < 0 )
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+		else
+		{
+			
+			QMessageBox::warning(NULL,QString("USB Receive"),QString ("message in the terminal"));
+			qDebug("Message : %d %d", (int)msg[0],(int)msg[1]);
+		}
+	}
+	
+}
+
+bool programmer::connected(void) 
+{
+		if (_handle == NULL)
+			return 0;
+		else
+			return 1;
+}
+
+
 void programmer::write(const char * msg,int size)
 {
 	if (_handle != NULL)

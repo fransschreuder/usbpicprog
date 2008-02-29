@@ -13,6 +13,8 @@ Q_OBJECT
 public:
 	programmer();
 	void write(const char* msg,int size);
+	void getId(char * msg,int size);
+	bool connected(void);
 private :
 	usb_dev_handle	*_handle;
 };
