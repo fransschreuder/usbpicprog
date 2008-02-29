@@ -1,0 +1,11 @@
+void Exercise_03(void)
+{
+    /* Insert code here - 3 lines */
+    if(getsUSBUSART(input_buffer,1))
+    {
+        if(input_buffer[0] == '1')
+            mLED_4_Toggle();
+    }
+    /* End */
+    
+}//end Exercise_03
