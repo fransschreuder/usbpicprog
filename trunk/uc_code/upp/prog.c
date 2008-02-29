@@ -32,35 +32,24 @@ void bulk_erase(PICTYPE pictype)
 	switch(erasestate)
 	{
 		case ERASESTART:
-			VDD=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 100 ns;
-			VPP=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 2 us;
-
+                        set_vdd_vpp(1);
 			erasestate=ERASE1;
 			break;
 		case ERASE1:
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,0x0E3C); //MOVLW 3Ch
-					pic18_send(0x00,0x6eF8); //TBLPTRU
-					pic18_send(0x00,0x0E00); //MOVLW 00h
-					pic18_send(0x00,0x6eF7); //TBLPTRH
-					pic18_send(0x00,0x0E05); //MOVLW 05h
-					pic18_send(0x00,0x6eF6); //TBLPTRL
-					pic18_send(0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
-					pic18_send(0x00,0x0E3C); //MOVLW 3Ch
-					pic18_send(0x00,0x6eF8); //TBLPTRU
-					pic18_send(0x00,0x0E00); //MOVLW 00h
-					pic18_send(0x00,0x6eF7); //TBLPTRH
-					pic18_send(0x00,0x0E04); //MOVLW 04h
-					pic18_send(0x00,0x6EF6); //TBLPTRL
-					pic18_send(0x0C,0x8FF8); //TBLPTRU
-					pic18_send(0x00,0x0000); //NOP
+//					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+//					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+//					pic_send(4,0x00,0x88A6); //BSF EECON1, WREN
+					set_address(pictype, 0x3C0005);
+					pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
+					set_address(pictype, 0x3C0004);
+					pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
+					pic_send(4,0x00,0x0000); //NOP
 					lasttick=tick;
-					pic18_send(0x00,0x0000); //hold PGD low until erase completes
-					
+					pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+
 					break;
 				default:
 					break;
@@ -76,9 +65,7 @@ void bulk_erase(PICTYPE pictype)
 			}
 			break;
 		case ERASESTOP:
-			VPP=1; //low, (inverted)
-			Nop();
-			VDD=1; //low, (inverted)
+			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
 				erasestate=ERASESUCCESS;
 			break;
@@ -113,10 +100,7 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 	switch(progstate)
 	{
 		case PROGSTART:
-			VDD=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 100 ns;
-			VPP=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 2 us;
+			set_vdd_vpp(1);
 
 			progstate=PROG1;
 			break;
@@ -124,8 +108,8 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
-					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					break;
 				default:
 					break;
@@ -135,22 +119,17 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
-					pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
-					pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
-					pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+					set_address(pictype, address);
 					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
 					{
 
 						//write 2 bytes and post increment by 2
 						//				MSB				LSB
-						pic18_send(0x0D,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+						pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter)));
 					}
 					//write last 2 bytes of the block and start programming
-					pic18_send(0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
-					pic18_send(0x00, 0x0000); //nop, hold PGC high for time P9 and low for P10
+					pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+					pic_send(4,0x00, 0x0000); //nop, hold PGC high for time P9 and low for P10
 					break;
 				default:
 					break;
@@ -184,9 +163,7 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			**/
 			break;
 		case PROGSTOP:
-			VPP=1; //low, (inverted)
-			Nop();
-			VDD=1; //low, (inverted)
+			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
 				progstate=PROGSUCCESS;
 			break;
@@ -213,10 +190,7 @@ void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksi
 	switch(datastate)
 	{
 		case DATASTART:
-			VDD=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 100 ns;
-			VPP=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 2 us;
+			set_vdd_vpp(1);
 
 			datastate=DATA;
 			break;
@@ -224,29 +198,29 @@ void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksi
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
-					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 					{
-						pic18_send(0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW EEAddr
-						pic18_send(0x00,0x6EA9); //MOVWF EEADR
-						pic18_send(0x00,(unsigned int)(0x0E00| (((address+ (unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
-						pic18_send(0x00,0x6EAA); //MOVWF EEADRH
-						pic18_send(0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
-						pic18_send(0x00,0x6eA8); //MOVWF EEDATA
-						pic18_send(0x00,0x84A6); //BSF EECON1, WREN
-						pic18_send(0x00,0x82A6); //BSF EECON1, WR
+						pic_send(4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW EEAddr
+						pic_send(4,0x00,0x6EA9); //MOVWF EEADR
+						pic_send(4,0x00,(unsigned int)(0x0E00| (((address+ (unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
+						pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
+						pic_send(4,0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
+						pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
+						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
+						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 						i=0;
 						do
 						{
-							pic18_send(0x00,0x50A6); //movf EECON1, W, 0
-							pic18_send(0x00,0x6EF5); //movwf TABLAT
-							pic18_send(0x00,0x0000); //nop
+							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
+							pic_send(4,0x00,0x6EF5); //movwf TABLAT
+							pic_send(4,0x00,0x0000); //nop
 							receiveddata=pic18_read(0x02); //Shift TABLAT register out
 						}while((receiveddata&0x02)&&(i++<255)); //poll for WR bit to clear
 						PGC=0;	//hold PGC low for P10 (100us)
 						for(i=0;i<200;i++)continue;
-						pic18_send(0x00,0x94A6); //BCF EECON1, WREN
+						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 					}
 					break;
 				default:
@@ -255,9 +229,7 @@ void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksi
 			datastate=DATASTOP;
 			lasttick=tick;
 		case DATASTOP:
-			VPP=1; //low, (inverted)
-			Nop();
-			VDD=1; //low, (inverted)
+			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
 				datastate=DATASUCCESS;
 			break;
@@ -291,10 +263,7 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 	{
 		case CONFIGSTART:
 			blockcounter=0;
-			VDD=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 100 ns;
-			VPP=0; //high, (inverted)
-			for(i=0;i<10;i++)continue; //wait at least 2 us;
+			set_vdd_vpp(1);
 
 			configstate=CONFIG1;
 			break;
@@ -302,8 +271,8 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,0x8EA6); //BSF EECON1, EEPGD
-					pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					break;
 				default:
 					break;
@@ -313,15 +282,10 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 			switch(pictype)
 			{
 				case PIC18:
-					pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
-					pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
-					pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
-					pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
-					pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+					set_address(pictype, address);
 					//LSB first
-					pic18_send(0x0F,(unsigned int)*(data)); 
-					pic18_send(0x00,0x0000); //nop
+					pic_send(4,0x0F,(unsigned int)*(data)); 
+					pic_send(4,0x00,0x0000); //nop
 					break;
 				default:
 					break;
@@ -339,10 +303,10 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 			}
 			break;
 		case CONFIG4:
-			pic18_send(0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
-			pic18_send(0x00, 0x6EF6); //movwf TBLPTRL
-			pic18_send(0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
-			pic18_send(0x00, 0x0000); //nop
+			pic_send(4,0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
+			pic_send(4,0x00, 0x6EF6); //movwf TBLPTRL
+			pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
+			pic_send(4,0x00, 0x0000); //nop
 			lasttick=tick;
 			PGC=1;	//hold PGC high for P9
 			configstate=CONFIG5;
@@ -356,9 +320,7 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 			}
 			break;
 		case CONFIGSTOP:
-			VPP=1; //low, (inverted)
-			Nop();
-			VDD=1; //low, (inverted)
+			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
 				progstate=CONFIGSUCCESS;
 			break;
@@ -380,30 +342,19 @@ void read_program(PICTYPE pictype,unsigned long address, char* data, char blocks
 {
 	char i;
 	char blockcounter=0;
-	VDD=0; //high, (inverted)
-	for(i=0;i<10;i++)continue; //wait at least 100 ns;
-	VPP=0; //high, (inverted)
-	for(i=0;i<10;i++)continue; //wait at least 2 us;
+	set_vdd_vpp(1);
 	switch(pictype)
 	{
 		case PIC18:
-			pic18_send(0x00,(unsigned int)(0x0E00|((address>>16)&0x3F))); //MOVLW Addr [21:16]
-			pic18_send(0x00,0x6EF8); //MOVWF TBLPTRU
-			pic18_send(0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
-			pic18_send(0x00,0x6EF7); //MOVWF TBLPTRU
-			pic18_send(0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
-			pic18_send(0x00,0x6EF6); //MOVWF TBLPTRU
+                        set_address(pictype, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
-				*(data+blockcounter)=pic18_read(0x09);
+				*(data+blockcounter)=pic_read(4,0x09);
 			break;
 		default:
 			break;
 	}
-	VPP=1; //low, (inverted)
-	Nop();
-	VDD=1; //low, (inverted)
-	Nop();
-	
+	set_vdd_vpp(0);
+
 }
 
 
@@ -416,42 +367,36 @@ void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
 	
 	char i;
 	char blockcounter=0;
-	VDD=0; //high, (inverted)
-	for(i=0;i<10;i++)continue; //wait at least 100 ns;
-	VPP=0; //high, (inverted)
-	for(i=0;i<10;i++)continue; //wait at least 2 us;
+	set_vdd_vpp(1);
 	switch(pictype)
 	{
 		case PIC18:
-			pic18_send(0x00,0x9EA6); //BCF EECON1, EEPGD
-			pic18_send(0x00,0x9CA6); //BCF EECON1, CFGS
+			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				pic18_send(0x00,(unsigned int)(0x0E00|(((address+blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
-				pic18_send(0x00,0x6EA9); //MOVWF EEADR
-				pic18_send(0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
-				pic18_send(0x00,0x6EAA); //MOVWF TBLPTRU
-				pic18_send(0x00,0x80A6); //BSF EECON1, RD
-				pic18_send(0x00,0x50A6); //MOVF EEDATA, W, 0
-				pic18_send(0x00,0x6EF5); //MOVWF TABLAT
-				pic18_send(0x00,0x0000); //Nop
-				*(data+blockcounter)=pic18_read(0x02);
+				pic_send(4,0x00,(unsigned int)(0x0E00|(((address+blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
+				pic_send(4,0x00,0x6EA9); //MOVWF EEADR
+				pic_send(4,4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
+				pic_send(4,0x00,0x6EAA); //MOVWF TBLPTRU
+				pic_send(4,0x00,0x80A6); //BSF EECON1, RD
+				pic_send(4,0x00,0x50A6); //MOVF EEDATA, W, 0
+				pic_send(4,0x00,0x6EF5); //MOVWF TABLAT
+				pic_send(4,0x00,0x0000); //Nop
+				*(data+blockcounter)=pic_read(4,0x02);
 			}
 			break;
 		default:
 			break;
 	}
-	VPP=1; //low, (inverted)
-	Nop();
-	VDD=1; //low, (inverted)
-	Nop();
+	set_vdd_vpp(0);
 }
 
 
 /**
-reads 8 bits from a pic18 device with a given 4 bits command
+reads 8 bits from a pic device with a given cmd_size bits command
 **/
-char pic18_read(char command)
+char pic_read(char cmd_size, char command)
 {
 	char i;
 	char result;
@@ -459,82 +404,118 @@ char pic18_read(char command)
 	TRISPGC=0;
 	PGC=0;
 	PGD=0;
-	for(i=0;i<4;i++)
+	for(i=0;i<cmd_size;i++)
 	{
 		
 		PGC=1;
-		Nop();
+		Nop();Nop();Nop();
 		if(command&(1<<i))PGD=1;
 		else PGD=0;
-		Nop();
+		Nop();Nop();Nop();
 		PGC=0;
-		Nop();
+		Nop();Nop();Nop();
 	}
-	Nop();	//wait at least 40ns	
+	for(i=0;i<10;i++)continue;	//wait at least 1us	
 	for(i=0;i<8;i++)
 	{
 		
 		PGC=1;
-		Nop();
+		Nop(); Nop();Nop();
 		PGD=0;
-		Nop();
+		Nop();Nop();Nop();
 		PGC=0;
-		Nop();
+		Nop();Nop();Nop();
 	}
 	TRISPGD=1; //PGD = input
-	Nop();
+	Nop(); Nop();Nop();
 	result=0;
 	for(i=0;i<8;i++)
 	{
 		
 		PGC=1;
-		Nop();
+		Nop();Nop();Nop();
 		result|=((char)PGD_READ)<<i;
-		Nop();
+		Nop();Nop();Nop();
 		PGC=0;
-		Nop();
+		Nop();Nop();Nop();
 	}
 	TRISPGD=0; //PGD = output
-	Nop();
+	Nop();Nop();Nop();
 	return result;
 }
 
+void set_vdd_vpp(char level)
+{
+    if(level==1)
+    {
+        VDD=0; //high, (inverted)
+        for(i=0;i<100;i++)continue; //wait at least 100 ns;
+        VPP=0; //high, (inverted)
+        for(i=0;i<100;i++)continue; //wait at least 2 us;
+    }
+    else
+    {
+        VPP=1; //low, (inverted)
+        for(i=0;i<100;i++)continue; //wait at least 100 ns;
+	VDD=1; //low, (inverted)
+	for(i=0;i<100;i++)continue; //wait at least 2 us;
+    }
+}
+
+void set_address(PICTYPE pictype, unsigned long address)
+{
+	switch(pictype)
+	{
+		case PIC18:
+			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>16)&0xFF))); //MOVLW Addr [23:16]
+			pic_send(4,0x00,0x6EF8); //MOVWF TBLPTRU
+			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
+			pic_send(4,0x00,0x6EF7); //MOVWF TBLPTRU
+			pic_send(4,0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
+			pic_send(4,0x00,0x6EF6); //MOVWF TBLPTRU
+			break;
+		case PIC16:
+                     pic_send(6,0x00
+		default:
+			break;
+	}
+}
 
 /**
-Writes a 4-bit command + 16 bit payload to a pic18 device
+Writes a n-bit command + 16 bit payload to a pic device
 **/
-void pic18_send(char command, unsigned int payload)
+void pic_send(char cmd_size, char command, unsigned int payload)
 {
 	char i;
 	TRISPGD=0;
 	TRISPGC=0;
 	PGC=0;
 	PGD=0;
-	for(i=0;i<4;i++)
+	for(i=0;i<cmd_size;i++)
 	{
-		
+
 		PGC=1;
-		Nop();
+		Nop(); Nop();Nop();
 		if(command&(1<<i))PGD=1;
 		else PGD=0;
-		Nop();
+		Nop();Nop();Nop();
 		PGC=0;
-		Nop();
-		
+		Nop();Nop();Nop();
+
 	}
-	Nop();	//wait at least 40ns
+	for(i=0;i<10;i++)continue;	//wait at least 1 us
 	for(i=0;i<16;i++)
 	{
-		
+
 		PGC=1;
-		Nop();
+		Nop();Nop();Nop();
 		if(payload&(1<<i))PGD=1;
 		else PGD=0;
-		Nop();
+		Nop();Nop();Nop();
 		PGC=0;
-		Nop();
-		
+		Nop();Nop();Nop();
+
 	}
-	Nop();
+	Nop();Nop();Nop();
 	
 }

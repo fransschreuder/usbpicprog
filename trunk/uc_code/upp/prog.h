@@ -75,15 +75,27 @@ call this function only once.
  **/
 void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize);
 
-/**
-reads 8 bits from a pic18 device with a given 4 bits command
- **/
-char pic18_read(char command);
 
 /**
-Writes a 4-bit command + 16 bit payload to a pic18 device
+Sets or clears the VDD and VPP voltages
+**/
+void set_vdd_vpp(char level);
+
+/**
+sets the address pointer to a certain address location
+**/
+void set_address(PICTYPE pictype, unsigned long address);
+
+
+/**
+reads 8 bits from a pic device with a given cmd_size bits command
  **/
-void pic18_send(char command, unsigned int payload);
+char pic_read(char cmd_size,char command);
+
+/**
+Writes a cmd_size bit command + 16 bit payload to a pic18 device
+ **/
+void pic_send(char cmd_size,char command, unsigned int payload);
 //delay times according to programming specification:
 #define P9 1
 #define P10 1
