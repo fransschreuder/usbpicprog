@@ -490,27 +490,27 @@ char pic_read(char cmd_size, char command)
 	{
 		
 		PGC=1;
-		Nop(); Nop();Nop();
+		clock_delay();
 		PGD=0;
-		Nop();Nop();Nop();
+		clock_delay();
 		PGC=0;
-		Nop();Nop();Nop();
+		clock_delay();
 	}
 	TRISPGD=1; //PGD = input
-	Nop(); Nop();Nop();
+	for(i=0;i<40;i++);
 	result=0;
 	for(i=0;i<8;i++)
 	{
 		
 		PGC=1;
-		Nop();Nop();Nop();
+		clock_delay();
 		result|=((char)PGD_READ)<<i;
-		Nop();Nop();Nop();
+		clock_delay();
 		PGC=0;
-		Nop();Nop();Nop();
+		clock_delay();
 	}
 	TRISPGD=0; //PGD = output
-	Nop();Nop();Nop();
+	clock_delay();
 	return result;
 }
 
@@ -557,7 +557,7 @@ void set_address(PICTYPE pictype, unsigned long address)
 void clock_delay()
 {
 	char i;
-	for(i=0;i<3;i++)continue;
+	for(i=0;i<10;i++)continue;
 }
 
 /**
@@ -575,14 +575,15 @@ void pic_send_n_bits(char cmd_size, char command)
 
 		PGC=1;
 		clock_delay();
-		if(command&(1<<i))PGD=1;
+		if(command&1)PGD=1;
 		else PGD=0;
+		command>>=1;
 		clock_delay();
 		PGC=0;
 		clock_delay();
 
 	}
-	for(i=0;i<10;i++)continue;	//wait at least 1 us
+	for(i=0;i<40;i++)continue;	//wait at least 1 us
 }
 
 
@@ -598,8 +599,9 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 
 		PGC=1;
 		clock_delay();
-		if(payload&(1<<i))PGD=1;
+		if(payload&1)PGD=1;
 		else PGD=0;
+		payload>>=1;
 		clock_delay();
 		PGC=0;
 		clock_delay();
