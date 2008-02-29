@@ -86,7 +86,7 @@ sets the address pointer to a certain address location
 **/
 void set_address(PICTYPE pictype, unsigned long address);
 
-
+void clock_delay(void);
 /**
 reads 8 bits from a pic device with a given cmd_size bits command
  **/
@@ -102,7 +102,7 @@ Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/
 void pic_send(char cmd_size,char command, unsigned int payload);
 //delay times according to programming specification:
-#define P9 1
-#define P10 1
-#define P11 5
-#define P11A 4
+#define P9 10
+#define P10 10
+#define P11 100
+#define P11A 5

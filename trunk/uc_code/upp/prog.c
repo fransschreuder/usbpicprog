@@ -218,7 +218,7 @@ void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksi
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 							pic_send(4,0x00,0x6EF5); //movwf TABLAT
 							pic_send(4,0x00,0x0000); //nop
-							receiveddata=pic18_read(0x02); //Shift TABLAT register out
+							receiveddata=pic_read(4,0x02); //Shift TABLAT register out
 						}while((receiveddata&0x02)&&(i++<255)); //poll for WR bit to clear
 						PGC=0;	//hold PGC low for P10 (100us)
 						for(i=0;i<200;i++)continue;
@@ -379,7 +379,7 @@ void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
 			{
 				pic_send(4,0x00,(unsigned int)(0x0E00|(((address+blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
 				pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-				pic_send(4,4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
+				pic_send(4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
 				pic_send(4,0x00,0x6EAA); //MOVWF TBLPTRU
 				pic_send(4,0x00,0x80A6); //BSF EECON1, RD
 				pic_send(4,0x00,0x50A6); //MOVF EEDATA, W, 0
@@ -434,19 +434,21 @@ char pic_read(char cmd_size, char command)
 
 void set_vdd_vpp(char level)
 {
+    unsigned int i;
     if(level==1)
     {
         VDD=0; //high, (inverted)
-        for(i=0;i<100;i++)continue; //wait at least 100 ns;
+        lasttick=tick;
+	while((tick-lasttick)>100)continue;
         VPP=0; //high, (inverted)
-        for(i=0;i<100;i++)continue; //wait at least 2 us;
+	while((tick-lasttick)>100)continue;
     }
     else
     {
         VPP=1; //low, (inverted)
-        for(i=0;i<100;i++)continue; //wait at least 100 ns;
+	while((tick-lasttick)>100)continue;
 	VDD=1; //low, (inverted)
-	for(i=0;i<100;i++)continue; //wait at least 2 us;
+	while((tick-lasttick)>100)continue;
     }
 }
 
@@ -469,6 +471,13 @@ void set_address(PICTYPE pictype, unsigned long address)
 	}
 }
 
+
+void clock_delay()
+{
+	char i;
+	for(i=0;i<100;i++)continue;
+}
+
 /**
 Writes a n-bit command
 **/
@@ -483,12 +492,12 @@ void pic_send_n_bits(char cmd_size, char command)
 	{
 
 		PGC=1;
-		Nop(); Nop();Nop();
+		clock_delay();
 		if(command&(1<<i))PGD=1;
 		else PGD=0;
-		Nop();Nop();Nop();
+		clock_delay();
 		PGC=0;
-		Nop();Nop();Nop();
+		clock_delay();
 
 	}
 	for(i=0;i<10;i++)continue;	//wait at least 1 us
@@ -506,14 +515,14 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 	{
 
 		PGC=1;
-		Nop();Nop();Nop();
+		clock_delay();
 		if(payload&(1<<i))PGD=1;
 		else PGD=0;
-		Nop();Nop();Nop();
+		clock_delay();
 		PGC=0;
-		Nop();Nop();Nop();
+		clock_delay();
 
 	}
-	Nop();Nop();Nop();
+	clock_delay();
 	
 }
