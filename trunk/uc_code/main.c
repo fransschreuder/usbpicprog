@@ -96,13 +96,23 @@ void _reset (void)
 }
 #pragma code
 
+//#ifdef bootloader
 #pragma code _HIGH_INTERRUPT_VECTOR = 0x000808
+//#else
+//#pragma code _HIGH_INTERRUPT_VECTOR = 0x000008
+//#endif
 void _high_ISR (void)
 {
 	_asm goto high_isr _endasm
 }
 
+
+//#ifdef bootloader
 #pragma code _LOW_INTERRUPT_VECTOR = 0x000818
+//#else
+//#pragma code _LOW_INTERRUPT_VECTOR = 0x000018
+//#endif
+
 void _low_ISR (void)
 {
 	_asm goto low_isr _endasm

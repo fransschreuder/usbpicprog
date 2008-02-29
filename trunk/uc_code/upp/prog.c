@@ -14,6 +14,7 @@
 #include "system\interrupt\interrupt.h"
 
 ERASESTATE erasestate=ERASEIDLE;
+PERASESTATE perasestate=PERASEIDLE;
 PROGSTATE progstate=PROGIDLE;
 DATASTATE datastate=DATAIDLE;
 CONFIGSTATE configstate=CONFIGIDLE;
@@ -83,7 +84,88 @@ void bulk_erase(PICTYPE pictype)
 	}
 }
 
+/**
+before calling this function, erasestate has to be ERASESTART
+This function has to be called as many times until erasestate==ERASESUCCESS
+ */
 
+
+static unsigned long paddress;
+void program_erase(PICTYPE pictype)
+{
+	char i;
+	
+	
+	switch(perasestate)
+	{
+		case PERASESTART:
+			set_vdd_vpp(1);
+			perasestate=PERASE1;
+			paddress=0;
+			break;
+		case PERASE1:
+			switch(pictype)
+			{
+				case PIC18:
+	
+					pic_send(4,0,0x8EA6);//	BSF EECON1, EEPGD
+					pic_send(4,0,0x9CA6);//	BCF EECON1, CFGS
+					pic_send(4,0,0x84A6);//	BSF EECON1, WREN
+					//Step 2: Point to first row in code memory.
+					set_address(pictype, paddress);
+					pic_send(4,0,0x88A6);//	BSF EECON1, FREE
+					pic_send(4,0,0x82A6);//	BSF EECON1, WR
+					pic_send(4,0,0x0000);//	NOP hold PGC high for time P9 and low for time P10.
+			
+					PGC=1;
+					break;   
+                                case PIC16:
+                                        pic_send_n_bits(6,0x1F); //send 11111x to erase device
+				default:
+					break;
+			}
+			
+			perasestate=PERASE2;
+			break;
+		case PERASE2:
+			if((tick-lasttick)>P9)
+			{
+				PGC=0;
+				perasestate=PERASE3;
+				lasttick=tick;
+			}
+			break;
+		case PERASE3:
+			if((tick-lasttick)>P10)
+			{
+				paddress+=64;
+				if(paddress>0x7FFF)
+				{
+					lasttick=tick;
+					perasestate=PERASESTOP;
+				}
+				else
+				{
+					perasestate=PERASE1;
+				}
+			}
+			break;
+		case PERASESTOP:
+			set_vdd_vpp(0);
+			if((tick-lasttick)>P10)
+				perasestate=PERASESUCCESS;
+			break;
+		case PERASEIDLE:
+			break;
+		case PERASESUCCESS:
+			break;
+		default:
+			perasestate=PERASEIDLE;
+			break;
+			
+			
+	}
+}
 
 /**
 before calling this function, progstate must be PROGSTART
@@ -475,7 +557,7 @@ void set_address(PICTYPE pictype, unsigned long address)
 void clock_delay()
 {
 	char i;
-	for(i=0;i<100;i++)continue;
+	for(i=0;i<3;i++)continue;
 }
 
 /**

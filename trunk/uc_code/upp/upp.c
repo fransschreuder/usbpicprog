@@ -124,6 +124,7 @@ void setLeds(char n)
  * Note:            None
  *****************************************************************************/
 extern ERASESTATE erasestate;
+extern PERASESTATE perasestate;
 extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
@@ -142,23 +143,31 @@ void ProcessIO(void)
     {
        	if((input_buffer[0])=='t') //last bit indicates write "toto"
         {
-            erasestate=ERASESTART;
+            perasestate=PERASESTART;
             setLeds(0x03);
     	}
+	if((input_buffer[0])=='r') //command for reading the device id
+	{
+		perasestate=PERASEIDLE;
+		read_program(PIC18,0x3FFFFE,(char*)output_buffer,2);  //devid is at location 3ffffe
+		counter=2;
+	}
 
     }
     
     
-    if(erasestate!=ERASEIDLE)
+    if(perasestate!=PERASEIDLE)
     {
-        if(erasestate==ERASESUCCESS)
+        if(perasestate==PERASESUCCESS)
         {
-            erasestate=ERASEIDLE;
+            perasestate=PERASEIDLE;
             setLeds(0x00);
         }
         else
         {
-            bulk_erase(PIC18);
+	    
+            program_erase(PIC18);
+	    setLeds((char)perasestate);
         }
     }
     if(progstate!=PROGIDLE)

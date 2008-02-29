@@ -17,11 +17,13 @@ close VDD and MCLR
 **/
 typedef enum _PICTYPE{PIC12=0,PIC16,PIC18,dsPIC}PICTYPE;
 typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERASESUCCESS}ERASESTATE;
+typedef enum _PERASESTATE{PERASEIDLE=0, PERASESTART, PERASE1, PERASE2, PERASE3, PERASESTOP, PERASESUCCESS}PERASESTATE;
 typedef enum _PROGSTATE{PROGIDLE=0, PROGSTART, PROG1, PROG2, PROG3, PROG4, PROGNEXTBLOCK, PROGSTOP, PROGSUCCESS}PROGSTATE;
 typedef enum _DATASTATE{DATAIDLE=0, DATASTART, DATA, DATASTOP, DATASUCCESS}DATASTATE;
 typedef enum _CONFIGSTATE{CONFIGIDLE=0, CONFIGSTART, CONFIG1, CONFIG2, CONFIG3, CONFIG4, CONFIG5, CONFIGSTOP, CONFIGSUCCESS}CONFIGSTATE;
 
 extern ERASESTATE erasestate;
+extern PERASESTATE perasestate;
 extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
@@ -31,6 +33,7 @@ before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
  */
 void bulk_erase(PICTYPE pictype);
+void program_erase(PICTYPE pictype);
 
 /**
 before calling this function, progstate must be PROGSTART
@@ -102,7 +105,7 @@ Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/
 void pic_send(char cmd_size,char command, unsigned int payload);
 //delay times according to programming specification:
-#define P9 10
-#define P10 10
-#define P11 100
+#define P9 2
+#define P10 1
+#define P11 10
 #define P11A 5
