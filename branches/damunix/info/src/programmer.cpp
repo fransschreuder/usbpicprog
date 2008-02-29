@@ -40,20 +40,18 @@ programmer::programmer(  )
 		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: Device not found !!!"));
 }
 
-void programmer::write(QString msg)
+void programmer::write(const char * msg,int size)
 {
-	
 	if (_handle != NULL)
 	{
-		qDebug ("Device Found!!");
-		char  bytes[]="toto";
+		//qDebug ("Device Found!!");
 		//bzero(bytes,sizeof(bytes));
 		//int nBytes = usb_control_msg(handle,USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,1,0,0,bytes,sizeof(bytes),5000);
-		int nBytes = usb_interrupt_write(_handle,1,bytes,sizeof(bytes),5000);
+		int nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
 		if (nBytes < 0 )
 			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
 	}
 	else 
-		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: Device not found !!!"));
+		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: You are not connect!!!"));
 }
 //

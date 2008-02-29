@@ -14,6 +14,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(checkHex,SIGNAL(clicked()),this,SLOT(check()));
 	connect(programButton,SIGNAL(clicked()),this,SLOT(program()));
 	connect(connectButton,SIGNAL(clicked()),this,SLOT(connectProgrammer()));
+	connect(eraseButton,SIGNAL(clicked()),this,SLOT(eraseDevice()));
 }
 
 void MainWindowImpl::connectProgrammer(void)
@@ -22,10 +23,19 @@ void MainWindowImpl::connectProgrammer(void)
 	programButton->setEnabled(true);
 }
 
+void MainWindowImpl::eraseDevice(void)
+{
+	unsigned char msg=0x10;
+	_prog->write((char*)&msg,1);
+}
+
+
 void MainWindowImpl::program(void)
 {
-	_prog->write("toto");
+	QString toto="toto";
+	_prog->write(toto.toAscii(),toto.size());
 }
+
 void MainWindowImpl::check(void)
 {
 	//get each line of the document

@@ -141,7 +141,7 @@ void ProcessIO(void)
 
     if(USBGenRead((byte*)input_buffer,1)>0)
     {
-       	if((input_buffer[0])=='t') //last bit indicates write "toto"
+       	if((input_buffer[0])==0x10) //last bit indicates write "toto"
         {
             perasestate=PERASESTART;
             setLeds(0x03);

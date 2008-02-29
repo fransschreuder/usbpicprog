@@ -12,7 +12,7 @@ class programmer  :public QObject
 Q_OBJECT
 public:
 	programmer();
-	void write(QString msg);
+	void write(const char* msg,int size);
 private :
 	usb_dev_handle	*_handle;
 };

@@ -19,6 +19,7 @@ private slots:
 	void check(void);
 	void program(void);
 	void connectProgrammer(void);
+	void eraseDevice (void);
 };
 #endif
 
