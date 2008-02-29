@@ -50,7 +50,9 @@ void bulk_erase(PICTYPE pictype)
 					lasttick=tick;
 					pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 
-					break;
+					break;   
+                                case PIC16:
+                                        pic_send_n_bits(6,0x1F); //send 11111x to erase device
 				default:
 					break;
 			}
@@ -400,22 +402,8 @@ char pic_read(char cmd_size, char command)
 {
 	char i;
 	char result;
-	TRISPGD=0;
-	TRISPGC=0;
-	PGC=0;
-	PGD=0;
-	for(i=0;i<cmd_size;i++)
-	{
-		
-		PGC=1;
-		Nop();Nop();Nop();
-		if(command&(1<<i))PGD=1;
-		else PGD=0;
-		Nop();Nop();Nop();
-		PGC=0;
-		Nop();Nop();Nop();
-	}
-	for(i=0;i<10;i++)continue;	//wait at least 1us	
+	pic_send_n_bits(cmd_size,command);
+	for(i=0;i<10;i++)continue;	//wait at least 1us
 	for(i=0;i<8;i++)
 	{
 		
@@ -475,16 +463,16 @@ void set_address(PICTYPE pictype, unsigned long address)
 			pic_send(4,0x00,0x6EF6); //MOVWF TBLPTRU
 			break;
 		case PIC16:
-                     pic_send(6,0x00
+                     pic_send(6,0x02,((unsigned int)address)<<1);
 		default:
 			break;
 	}
 }
 
 /**
-Writes a n-bit command + 16 bit payload to a pic device
+Writes a n-bit command
 **/
-void pic_send(char cmd_size, char command, unsigned int payload)
+void pic_send_n_bits(char cmd_size, char command)
 {
 	char i;
 	TRISPGD=0;
@@ -504,6 +492,16 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 
 	}
 	for(i=0;i<10;i++)continue;	//wait at least 1 us
+}
+
+
+/**
+Writes a n-bit command + 16 bit payload to a pic device
+**/
+void pic_send(char cmd_size, char command, unsigned int payload)
+{
+	char i;
+	pic_send_n_bits(cmd_size,command);
 	for(i=0;i<16;i++)
 	{
 

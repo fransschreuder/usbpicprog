@@ -93,6 +93,11 @@ reads 8 bits from a pic device with a given cmd_size bits command
 char pic_read(char cmd_size,char command);
 
 /**
+Writes a n-bit command
+**/
+void pic_send_n_bits(char cmd_size, char command);
+
+/**
 Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/
 void pic_send(char cmd_size,char command, unsigned int payload);
