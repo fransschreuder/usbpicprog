@@ -141,12 +141,12 @@ void ProcessIO(void)
 
     if(USBGenRead((byte*)input_buffer,1)>0)
     {
-       	if((input_buffer[0])==0x10) //last bit indicates write "toto"
+       	if((input_buffer[0])=='t') //last bit indicates write "toto"
         {
             perasestate=PERASESTART;
             setLeds(0x03);
     	}
-	if((input_buffer[0])=='r') //command for reading the device id
+	if((input_buffer[0])==0x20) //command for reading the device id
 	{
 		perasestate=PERASEIDLE;
 		read_program(PIC18,0x3FFFFE,(char*)output_buffer,2);  //devid is at location 3ffffe
@@ -190,6 +190,7 @@ void ProcessIO(void)
     {
        if(!mUSBGenTxIsBusy())
 	       USBGenWrite((byte*)&output_buffer,counter);
+       counter=0;
     }//end if
 }//end ProcessIO
 

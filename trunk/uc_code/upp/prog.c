@@ -485,7 +485,7 @@ char pic_read(char cmd_size, char command)
 	char i;
 	char result;
 	pic_send_n_bits(cmd_size,command);
-	for(i=0;i<10;i++)continue;	//wait at least 1us
+	for(i=0;i<40;i++)continue;	//wait at least 1us
 	for(i=0;i<8;i++)
 	{
 		
@@ -497,7 +497,7 @@ char pic_read(char cmd_size, char command)
 		clock_delay();
 	}
 	TRISPGD=1; //PGD = input
-	for(i=0;i<40;i++);
+	for(i=0;i<40;i++)continue;
 	result=0;
 	for(i=0;i<8;i++)
 	{
