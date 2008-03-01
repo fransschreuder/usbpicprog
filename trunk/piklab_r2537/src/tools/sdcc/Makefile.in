@@ -748,6 +748,7 @@ uninstall-info: uninstall-info-recursive
 .NOEXPORT:
 
 
+
 #>+ 3
 sdcc_compile.moc.cpp: $(srcdir)/sdcc_compile.h
 	$(MOC) $(srcdir)/sdcc_compile.h -o sdcc_compile.moc.cpp

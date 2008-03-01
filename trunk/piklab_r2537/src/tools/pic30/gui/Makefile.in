@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 pic30_ui.moc.cpp: $(srcdir)/pic30_ui.h
 	$(MOC) $(srcdir)/pic30_ui.h -o pic30_ui.moc.cpp

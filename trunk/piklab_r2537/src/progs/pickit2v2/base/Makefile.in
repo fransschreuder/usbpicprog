@@ -626,6 +626,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 pickit2v2_prog.moc.cpp: $(srcdir)/pickit2v2_prog.h
 	$(MOC) $(srcdir)/pickit2v2_prog.h -o pickit2v2_prog.moc.cpp

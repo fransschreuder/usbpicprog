@@ -743,6 +743,7 @@ uninstall-info: uninstall-info-recursive
 .NOEXPORT:
 
 
+
 #>+ 3
 mpc_compile.moc.cpp: $(srcdir)/mpc_compile.h
 	$(MOC) $(srcdir)/mpc_compile.h -o mpc_compile.moc.cpp

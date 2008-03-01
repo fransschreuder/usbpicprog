@@ -623,6 +623,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 8
 libicd2data.la.closure: $(libicd2data_la_OBJECTS) $(libicd2data_la_DEPENDENCIES)
 	@echo "int main() {return 0;}" > libicd2data_la_closure.cpp

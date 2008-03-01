@@ -624,6 +624,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 2
 KDE_DIST=prog.pro Makefile.in pic_prog_specific.h pic_prog.h Makefile.am pic_debug.h 
 

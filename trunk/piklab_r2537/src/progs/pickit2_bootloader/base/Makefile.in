@@ -634,6 +634,7 @@ pickit2_bootloader_data.cpp: ../xml/xml_pickit2_bootloader_parser pickit2_bootlo
 .NOEXPORT:
 
 
+
 #>+ 3
 pickit2_bootloader_prog.moc.cpp: $(srcdir)/pickit2_bootloader_prog.h
 	$(MOC) $(srcdir)/pickit2_bootloader_prog.h -o pickit2_bootloader_prog.moc.cpp

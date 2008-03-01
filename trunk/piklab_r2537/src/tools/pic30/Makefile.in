@@ -748,6 +748,7 @@ uninstall-info: uninstall-info-recursive
 .NOEXPORT:
 
 
+
 #>+ 3
 pic30_compile.moc.cpp: $(srcdir)/pic30_compile.h
 	$(MOC) $(srcdir)/pic30_compile.h -o pic30_compile.moc.cpp

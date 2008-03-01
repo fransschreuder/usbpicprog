@@ -637,6 +637,7 @@ pickit2_data.cpp: ../xml/xml_pickit2_parser pickit2.xml
 .NOEXPORT:
 
 
+
 #>+ 3
 pickit2_prog.moc.cpp: $(srcdir)/pickit2_prog.h
 	$(MOC) $(srcdir)/pickit2_prog.h -o pickit2_prog.moc.cpp

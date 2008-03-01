@@ -634,6 +634,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 generic_prog.moc.cpp: $(srcdir)/generic_prog.h
 	$(MOC) $(srcdir)/generic_prog.h -o generic_prog.moc.cpp

@@ -627,12 +627,12 @@ s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CYGPATH_W@,echo,;t t
 s,@PACKAGE@,piklab,;t t
 s,@VERSION@,0.15.2,;t t
-s,@ACLOCAL@,${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9,;t t
+s,@ACLOCAL@,${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run aclocal-1.9,;t t
 s,@AUTOCONF@,$(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure,;t t
-s,@AUTOMAKE@,${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run automake-1.9,;t t
-s,@AUTOHEADER@,${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run makeinfo,;t t
-s,@install_sh@,/home/frans/usbpicprog/piklab_r2537/admin/install-sh,;t t
+s,@AUTOMAKE@,${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run automake-1.9,;t t
+s,@AUTOHEADER@,${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run makeinfo,;t t
+s,@install_sh@,/home/frans/usbpicprog/trunk/piklab_r2537/admin/install-sh,;t t
 s,@STRIP@,strip,;t t
 s,@ac_ct_STRIP@,strip,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
@@ -640,7 +640,7 @@ s,@mkdir_p@,mkdir -p --,;t t
 s,@AWK@,gawk,;t t
 s,@SET_MAKE@,,;t t
 s,@am__leading_dot@,.,;t t
-s,@AMTAR@,${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run tar,;t t
+s,@AMTAR@,${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run tar,;t t
 s,@am__tar@,${AMTAR} chof - "$$tardir",;t t
 s,@am__untar@,${AMTAR} xf -,;t t
 s,@KDECONFIG@,/usr/bin/kde-config,;t t

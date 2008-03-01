@@ -632,6 +632,7 @@ psp_data.cpp: ../xml/xml_psp_parser psp.xml
 .NOEXPORT:
 
 
+
 #>+ 3
 psp_prog.moc.cpp: $(srcdir)/psp_prog.h
 	$(MOC) $(srcdir)/psp_prog.h -o psp_prog.moc.cpp

@@ -630,6 +630,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 hex_view.moc.cpp: $(srcdir)/hex_view.h
 	$(MOC) $(srcdir)/hex_view.h -o hex_view.moc.cpp

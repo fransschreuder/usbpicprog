@@ -497,6 +497,7 @@ all-local:
 .NOEXPORT:
 
 
+
 #>+ 2
 KDE_DIST=svn_revision.h Makefile.am Makefile.in svn_revision.sh 
 

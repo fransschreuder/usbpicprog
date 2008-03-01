@@ -633,6 +633,7 @@ tbl_bootloader_data.cpp: ../xml/xml_tbl_bootloader_parser tbl_bootloader.xml
 .NOEXPORT:
 
 
+
 #>+ 3
 tbl_bootloader_prog.moc.cpp: $(srcdir)/tbl_bootloader_prog.h
 	$(MOC) $(srcdir)/tbl_bootloader_prog.h -o tbl_bootloader_prog.moc.cpp

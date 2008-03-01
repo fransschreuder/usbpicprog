@@ -633,6 +633,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 prog_config_center.moc.cpp: $(srcdir)/prog_config_center.h
 	$(MOC) $(srcdir)/prog_config_center.h -o prog_config_center.moc.cpp

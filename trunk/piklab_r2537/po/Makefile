@@ -54,16 +54,16 @@ DIST_SOURCES =
 #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
 #>+ 1
 DISTFILES = $(GMOFILES) $(POFILES) $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
-ACLOCAL = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run tar
+AMTAR = ${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run tar
 AR = ar
 ARTSCCONFIG = /usr/bin/artsc-config
 AUTOCONF = $(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch configure
 AUTODIRS = 
-AUTOHEADER = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run automake-1.9
+AUTOHEADER = ${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run automake-1.9
 AWK = gawk
 BSD_FALSE = 
 BSD_TRUE = #
@@ -174,7 +174,7 @@ LINUX_FALSE = #
 LINUX_TRUE = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/frans/usbpicprog/piklab_r2537/admin/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/frans/usbpicprog/trunk/piklab_r2537/admin/missing --run makeinfo
 MAKEKDEWIDGETS = 
 MCOPIDL = /usr/bin/mcopidl
 MEINPROC = /usr/bin/meinproc
@@ -255,7 +255,7 @@ include_x11_FALSE = #
 include_x11_TRUE = 
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/frans/usbpicprog/piklab_r2537/admin/install-sh
+install_sh = /home/frans/usbpicprog/trunk/piklab_r2537/admin/install-sh
 kde_appsdir = ${datadir}/applnk
 kde_bindir = ${exec_prefix}/bin
 kde_confdir = ${datadir}/config
@@ -504,6 +504,7 @@ uninstall-am: uninstall-info-am
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
+
 
 
 #>+ 2

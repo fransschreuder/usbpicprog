@@ -635,6 +635,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 pic_register_view.moc.cpp: $(srcdir)/pic_register_view.h
 	$(MOC) $(srcdir)/pic_register_view.h -o pic_register_view.moc.cpp

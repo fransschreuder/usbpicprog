@@ -708,6 +708,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 cli_debug_manager.moc.cpp: $(srcdir)/cli_debug_manager.h
 	$(MOC) $(srcdir)/cli_debug_manager.h -o cli_debug_manager.moc.cpp

@@ -633,6 +633,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 tools_config_widget.moc.cpp: $(srcdir)/tools_config_widget.h
 	$(MOC) $(srcdir)/tools_config_widget.h -o tools_config_widget.moc.cpp

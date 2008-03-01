@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 cc5x_ui.moc.cpp: $(srcdir)/cc5x_ui.h
 	$(MOC) $(srcdir)/cc5x_ui.h -o cc5x_ui.moc.cpp

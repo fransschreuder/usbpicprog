@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 direct_config_widget.moc.cpp: $(srcdir)/direct_config_widget.h
 	$(MOC) $(srcdir)/direct_config_widget.h -o direct_config_widget.moc.cpp

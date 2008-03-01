@@ -343,18 +343,19 @@ bool Port::USB::write(uint ep, const char *data, uint size)
   IODir dir = endpointDir(ep);
   EndpointMode mode = endpointMode(ep);
   log(Log::DebugLevel::LowLevel, QString("write to endpoint %1 (%2 - %3) %4 chars: \"%5\"")
-                          .arg(toHexLabel(ep, 2)).arg(ENDPOINT_MODE_NAMES[mode]).arg(IO_DIR_NAMES[dir]).arg(size).arg(toPrintable(data, size, PrintEscapeAll)));
+                         .arg(toHexLabel(ep, 2)).arg(ENDPOINT_MODE_NAMES[mode]).arg(IO_DIR_NAMES[dir]).arg(size).arg(toPrintable(data, size, PrintEscapeAll)));
   Q_ASSERT( dir==Out );
   QTime time;
   time.start();
   int todo = size;
   for (;;) {
     int res = 0;
-    //qDebug("write ep=%i todo=%i/%i", ep, todo, size);
-    if ( mode==Interrupt ) res = usb_interrupt_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
+    qDebug("write ep=%i todo=%i/%i", ep, todo, size);
+    if ( mode==Interrupt ) 
+	res = usb_interrupt_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
     else res = usb_bulk_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
-    //qDebug("res: %i", res);
-    if ( res==todo ) break;
+    qDebug("res: %i", res);
+    if ( res>=todo ) break;
     if ( uint(time.elapsed())>3000 ) { // 3 s
       if ( res<0 ) setSystemError(i18n("Error sending data (ep=%1 res=%2)").arg(toHexLabel(ep, 2)).arg(res));
       else log(Log::LineType::Error, i18n("Timeout: only some data sent (%1/%2 bytes).").arg(size-todo).arg(size));
@@ -384,10 +385,11 @@ bool Port::USB::read(uint ep, char *data, uint size, bool *poll)
   int todo = size;
   for (;;) {
     int res = 0;
-    //qDebug("read ep=%i size=%i", ep, todo);
-    if ( mode==Interrupt ) res = usb_interrupt_read(_handle, ep, data + size - todo, todo, timeout(todo));
+    qDebug("read ep=%i size=%i", ep, todo);
+    if ( mode==Interrupt ) 
+	res = usb_interrupt_read(_handle, ep, data + size - todo, todo, timeout(todo));
     else res = usb_bulk_read(_handle, ep, data + size - todo, todo, timeout(todo));
-    //qDebug("res: %i", res);
+    qDebug("res: %i", res);
     if ( res==todo ) break;
     if ( uint(time.elapsed())>3000 ) { // 3 s: seems to help icd2 in some case (?)
       if ( res<0 ) setSystemError(i18n("Error receiving data (ep=%1 res=%2)").arg(toHexLabel(ep, 2)).arg(res));

@@ -209,16 +209,16 @@ void ProcessIO(void)
 		{
 			oldPGDtris=TRISPGD;
 			TRISPGD=1; //set PGD to input
-			if(TRISPGD)
-			{
+			//if(TRISPGD)
+			//{
 				if (PGD_READ)output_buffer[0]=0xD3;
 				else output_buffer[0]=0xC3;
-			}
-			else
+			//}
+			/*else
 			{
 				if (PGD)output_buffer[0]=0xD3;
 				else output_buffer[0]=0xC3;
-			}
+			}*/
 			counter=1;
 			TRISPGD=oldPGDtris;
 		}
@@ -226,7 +226,8 @@ void ProcessIO(void)
     if(counter != 0)
     {
        if(!mUSBGenTxIsBusy())
-	       USBGenWrite((byte*)&output_buffer,counter);
+	       USBGenWrite((byte*)output_buffer,counter);
+       counter=0;
     }//end if
 }//end ProcessIO
 

@@ -118,12 +118,12 @@ bool Port::UPP::internalReadPin(Pin pin, LogicType type, bool &value)
    
    if (buffer[0]==(unsigned char)(0xD0|pin)) 
    {
-   	printf("read char: 0x%x, translated as 1\n",buffer[0]);
+   	//printf("read char: 0x%x, translated as 1\n",buffer[0]);
 	value=1;
    }
    else 
    {
-	printf("read char: 0x%x, translated as 0\n",buffer[0]);
+	//printf("read char: 0x%x, translated as 0\n",buffer[0]);
 	value=0;
    }
    //printf("Read value from Usbicprog: 0x%X ,%i\n",buffer[0],value);

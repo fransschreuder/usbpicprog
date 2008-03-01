@@ -573,6 +573,7 @@ uninstall-am: uninstall-kde-icons  uninstall-info-am uninstall-mimeDATA uninstal
 .NOEXPORT:
 
 
+
 #>+ 2
 KDE_DIST=x-piklab.desktop hi64-app-piklab.png hexeditorpartui.rc Makefile.in hi16-app-piklab.png piklab.desktop hi32-mime-piklab_project.png Makefile.am hi32-app-piklab.png piklabui.rc 
 

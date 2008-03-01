@@ -506,6 +506,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 2
 KDE_DIST=cs.gmo Makefile.in piklab.pot it.gmo hu.po de.gmo de.po es.po fr.gmo es.gmo it.po fr.po hu.gmo Makefile.am cs.po merge.sh 
 

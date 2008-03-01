@@ -657,6 +657,7 @@ uninstall-info: uninstall-info-recursive
 .NOEXPORT:
 
 
+
 #>+ 2
 KDE_DIST=coff.pro Makefile.am Makefile.in 
 

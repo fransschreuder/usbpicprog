@@ -668,6 +668,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 main.moc.cpp: $(srcdir)/main.h
 	$(MOC) $(srcdir)/main.h -o main.moc.cpp

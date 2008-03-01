@@ -628,6 +628,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 mem24_hex_view.moc.cpp: $(srcdir)/mem24_hex_view.h
 	$(MOC) $(srcdir)/mem24_hex_view.h -o mem24_hex_view.moc.cpp

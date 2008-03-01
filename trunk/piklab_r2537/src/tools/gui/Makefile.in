@@ -629,6 +629,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 toolchain_config_widget.moc.cpp: $(srcdir)/toolchain_config_widget.h
 	$(MOC) $(srcdir)/toolchain_config_widget.h -o toolchain_config_widget.moc.cpp

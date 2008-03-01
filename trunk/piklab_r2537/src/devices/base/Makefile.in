@@ -630,6 +630,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 register.moc.cpp: $(srcdir)/register.h
 	$(MOC) $(srcdir)/register.h -o register.moc.cpp

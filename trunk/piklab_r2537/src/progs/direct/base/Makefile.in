@@ -649,6 +649,7 @@ direct_data.cpp: ../xml/xml_direct_parser direct.xml
 .NOEXPORT:
 
 
+
 #>+ 3
 direct_prog.moc.cpp: $(srcdir)/direct_prog.h
 	$(MOC) $(srcdir)/direct_prog.h -o direct_prog.moc.cpp

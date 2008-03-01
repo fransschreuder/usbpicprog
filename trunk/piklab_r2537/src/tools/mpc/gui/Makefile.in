@@ -622,6 +622,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 
+
 #>+ 3
 mpc_ui.moc.cpp: $(srcdir)/mpc_ui.h
 	$(MOC) $(srcdir)/mpc_ui.h -o mpc_ui.moc.cpp
