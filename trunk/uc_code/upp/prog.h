@@ -70,7 +70,7 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data);
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
  **/
-void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize);
+void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize, char lastblock);
 
 /**
 This function reads a block of data from the data eeprom of size blocksize into *data

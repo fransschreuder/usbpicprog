@@ -205,14 +205,18 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 				case PIC18:
 					set_address(pictype, address);
 					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+					
 					{
 
 						//write 2 bytes and post increment by 2
 						//				MSB				LSB
-						pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter)));
+						pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|
+								((unsigned int)*(data+1+blockcounter)));
+					//	pic_send(4,0x0D,0xAA55);
 					}
 					//write last 2 bytes of the block and start programming
 					pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+					//pic_send(4, 0x0F,0x55AA);
 					pic_send(4,0x00, 0x0000); //nop, hold PGC high for time P9 and low for P10
 					break;
 				default:
@@ -220,7 +224,7 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 			}
 			lasttick=tick;
 			PGC=1;	//hold PGC high for P9
-			progstate=PROG2;
+			progstate=PROG3;
 			break;
 		case PROG3:
 			if((tick-lasttick)>P9)
@@ -422,11 +426,11 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
 **/
-void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize)
+void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize, char lastblock)
 {
 	char i;
 	char blockcounter=0;
-	set_vdd_vpp(1);
+	if(lastblock&1)set_vdd_vpp(1);
 	switch(pictype)
 	{
 		case PIC18:
@@ -437,7 +441,7 @@ void read_program(PICTYPE pictype,unsigned long address, char* data, char blocks
 		default:
 			break;
 	}
-	set_vdd_vpp(0);
+	if(lastblock&2)set_vdd_vpp(0);
 
 }
 
@@ -485,7 +489,7 @@ char pic_read(char cmd_size, char command)
 	char i;
 	char result;
 	pic_send_n_bits(cmd_size,command);
-	for(i=0;i<40;i++)continue;	//wait at least 1us
+	for(i=0;i<80;i++)continue;	//wait at least 1us
 	for(i=0;i<8;i++)
 	{
 		
@@ -566,7 +570,7 @@ void set_address(PICTYPE pictype, unsigned long address)
 void clock_delay()
 {
 	char i;
-	for(i=0;i<3;i++)continue;
+	for(i=0;i<2;i++)continue;
 }
 
 /**

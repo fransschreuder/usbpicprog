@@ -129,31 +129,61 @@ extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
 
+unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
+unsigned int input_buffer_offset=0;
 void ProcessIO(void)
 {
     char oldPGDtris;
     char PIN;
     static byte counter=0;
+    int nBytes;
+    unsigned long address;
 
     BlinkUSBStatus();
     // User Application USB tasks
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
 
-    if(USBGenRead((byte*)input_buffer,1)>0)
-    {
-       	if((input_buffer[0])==0x10) //last bit indicates write "toto"
-        {
-            erasestate=ERASESTART;
-            setLeds(0x07);
-    	}
-	if((input_buffer[0])==0x20) //command for reading the device id
+    
+	nBytes=USBGenRead((byte*)input_buffer,64);
+	if(nBytes>0)
 	{
-		perasestate=PERASEIDLE;
-		read_program(PIC18,0x3FFFFE,(char*)output_buffer,2);  //devid is at location 3ffffe
-		counter=2;
+		if((input_buffer[0])==0x10) 
+		{
+		erasestate=ERASESTART;
+		setLeds(0x07);
+		}
+		if((input_buffer[0])==0x20) 
+		{
+			read_program(PIC18,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
+			counter=2;
+		}
+		if((input_buffer[0])==0x30) 
+		{
+			count_number_of_blocks=0;
+			progstate=PROGSTART;
+			setLeds(0x07);
+		}
+		if((input_buffer[0])==0x40) 
+		{
+			/*if(nBytes<5)
+			{
+				input_buffer_offset=nBytes;
+				output_buffer[0]=nBytes;
+				counter=32;
+			}
+			else
+			{*/
+			//	input_buffer_offset=0;
+				address=((unsigned long)input_buffer[2])<<16|
+						((unsigned long)input_buffer[3])<<8|
+						((unsigned long)input_buffer[4]);
+				
+				read_program(PIC18,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
+				counter=input_buffer[1];
+			//}
+		}
+	
 	}
-
-    }
     
     
     if(erasestate!=ERASEIDLE)
@@ -180,10 +210,13 @@ void ProcessIO(void)
         else if(progstate==PROGNEXTBLOCK)
         {
           //load next block and make it PROG2
+		count_number_of_blocks++;
+		progstate=PROG2;
         }
         else
         {
-            program_memory(PIC18,0, (char*)input_buffer,32,1);
+		if(count_number_of_blocks<511)program_memory(PIC18,0, (char*)(input_buffer+6),32,0); 
+		else program_memory(PIC18,0, (char*)(input_buffer+6),32,1); //last block
         }
     }
     if(counter != 0)

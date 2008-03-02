@@ -66,6 +66,45 @@ void programmer::getId(char * msg,int size)
 	
 }
 
+int programmer::read_code(char * msg,int address,int size,int lastblock)
+{
+	char id=0x40;
+	char sendstr[10];
+	if (_handle !=NULL)
+	{
+		sendstr[0]=id;
+		sendstr[1]=(char)size;
+		sendstr[2]=(char)((address>>16)&0xFF);
+		sendstr[3]=(char)((address>>8)&0xFF);
+		sendstr[4]=(char)(address&0xFF);
+		sendstr[5]=(char)lastblock;
+		
+		
+	    
+		int nBytes = usb_interrupt_write(_handle,1,sendstr,6,5000);
+		if (nBytes < 0 )
+		{
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+			return nBytes;
+		}
+			
+		nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+		if (nBytes < 0 )
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+		else
+		{
+			
+			//QMessageBox::warning(NULL,QString("USB Receive"),QString ("message in the terminal"));
+			//qDebug("Message : %2X %2X, %i bytes", (int)msg[0]&0xFF,(int)msg[1]&0xFF, nBytes);
+		}
+		return nBytes;
+	}
+	
+	
+}
+
+
+
 bool programmer::connected(void) 
 {
 		if (_handle == NULL)

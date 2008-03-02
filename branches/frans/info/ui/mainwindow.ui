@@ -46,13 +46,29 @@
     <property name="geometry" >
      <rect>
       <x>860</x>
-      <y>450</y>
+      <y>440</y>
       <width>141</width>
       <height>61</height>
      </rect>
     </property>
     <property name="text" >
      <string>Program</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="readprogramButton" >
+    <property name="enabled" >
+     <bool>false</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>860</x>
+      <y>510</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Read Program</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit" >
@@ -156,7 +172,7 @@
      <x>0</x>
      <y>0</y>
      <width>1026</width>
-     <height>27</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
