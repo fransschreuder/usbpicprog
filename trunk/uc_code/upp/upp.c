@@ -141,10 +141,10 @@ void ProcessIO(void)
 
     if(USBGenRead((byte*)input_buffer,1)>0)
     {
-       	if((input_buffer[0])=='t') //last bit indicates write "toto"
+       	if((input_buffer[0])==0x10) //last bit indicates write "toto"
         {
-            perasestate=PERASESTART;
-            setLeds(0x03);
+            erasestate=ERASESTART;
+            setLeds(0x07);
     	}
 	if((input_buffer[0])==0x20) //command for reading the device id
 	{
@@ -156,18 +156,18 @@ void ProcessIO(void)
     }
     
     
-    if(perasestate!=PERASEIDLE)
+    if(erasestate!=ERASEIDLE)
     {
-        if(perasestate==PERASESUCCESS)
+        if(erasestate==ERASESUCCESS)
         {
-            perasestate=PERASEIDLE;
+            erasestate=ERASEIDLE;
             setLeds(0x00);
         }
         else
         {
 	    
-            program_erase(PIC18);
-	    setLeds((char)perasestate);
+            bulk_erase(PIC18);
+	    setLeds((char)erasestate);
         }
     }
     if(progstate!=PROGIDLE)

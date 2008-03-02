@@ -521,16 +521,25 @@ void set_vdd_vpp(char level)
     {
         VDD=0; //high, (inverted)
         lasttick=tick;
-	while((tick-lasttick)>100)continue;
+	setLeds(1);
+	while((tick-lasttick)<20)continue;
         VPP=0; //high, (inverted)
-	while((tick-lasttick)>100)continue;
+	setLeds(2);
+	lasttick=tick;
+	while((tick-lasttick)<20)continue;
+	setLeds(3);
     }
     else
     {
         VPP=1; //low, (inverted)
-	while((tick-lasttick)>100)continue;
+	setLeds(4);
+	lasttick=tick;
+	while((tick-lasttick)<20)continue;
+	setLeds(5);
 	VDD=1; //low, (inverted)
-	while((tick-lasttick)>100)continue;
+	lasttick=tick;
+	while((tick-lasttick)<20)continue;
+	setLeds(0);
     }
 }
 
@@ -557,7 +566,7 @@ void set_address(PICTYPE pictype, unsigned long address)
 void clock_delay()
 {
 	char i;
-	for(i=0;i<10;i++)continue;
+	for(i=0;i<3;i++)continue;
 }
 
 /**
