@@ -49,11 +49,11 @@ void MainWindowImpl::readProgram(void)
 	char id[256],text[256];
 	int nBytes;
 	//_prog->getId(id,64);
-	for(int address=0x0;address<0x7FFF;address+=32)
+	for(int address=0x0;address<0x7FF;address+=32)
 	{
 		
 		if(address==0x0)nBytes=_prog->read_code(id,address,32,1);
-		else if(address==0x7FFF-31)nBytes=_prog->read_code(id,address,32,2);
+		else if(address==0x7FF-31)nBytes=_prog->read_code(id,address,32,2);
 		else nBytes=_prog->read_code(id,address,64,0);
 		for(int i=0;i<nBytes;i+=16)
 		{
