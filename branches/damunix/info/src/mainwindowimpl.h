@@ -11,7 +11,7 @@ Q_OBJECT
 public:
 	MainWindowImpl( QWidget * parent = 0, Qt::WFlags f = 0 );
 private:
-	QString txt;
+	QStringList _txt;
 	programmer * _prog;
 	
 private slots:

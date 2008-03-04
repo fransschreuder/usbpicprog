@@ -45,17 +45,49 @@ void MainWindowImpl::eraseDevice(void)
 
 void MainWindowImpl::program(void)
 {
-	QString toto="toto";
-	_prog->write(toto.toAscii(),toto.size());
+	QString var;
+	QString tmp;
+	unsigned int addr;
+	bool start=0;
+	bool ok;
+	//QStringList txt=textEdit->toPlainText().split("\n");
+
+	foreach ( QString line,_txt)
+	{
+		qDebug()<<"reading ";
+		//if we have all data (the next would be an Extended Addr)
+		if ((start==1) && (hexParse::blockType(line)==04))
+		{
+			qDebug ("End of data found");
+			return;
+		}
+		// the data start at 0x0200
+		if (hexParse::getAddress(line)=="0200")
+		{
+			qDebug("Gogogogo");
+			start=1;
+		}
+		
+		if (start==1)
+		{
+			addr=hexParse::getAddress(line).toUInt();
+			var=0x30;
+			var.append(addr);
+			var.append(hexParse::getData(line));
+			qDebug()<<"writing "<<var<< "size  "<<var.size();
+			_prog->write(var.toAscii(),var.size());
+		}
+		
+	}
 }
 
 void MainWindowImpl::check(void)
 {
 	//get each line of the document
-	QStringList txt=textEdit->toPlainText().split("\n");
+
 	QString newText("TYPE	ADDRESS		DATA\n");
 	
-	foreach ( QString line,txt)
+	foreach ( QString line,_txt)
 	{
 		
 			
@@ -81,6 +113,7 @@ void MainWindowImpl::check(void)
 void MainWindowImpl::open(void)
 {
 	QString path;
+	QString txt;
 	path=QFileDialog::getOpenFileName(this,"Choose a File",".",tr("Hex File (*.hex)"));
 	label1->setText(path);
 	
@@ -94,7 +127,7 @@ void MainWindowImpl::open(void)
 		txt.append(file.readLine());
 	}
 	textEdit->append(txt);
-
+	_txt=textEdit->toPlainText().split("\n");
 }
 void MainWindowImpl::quit(void)
 {
