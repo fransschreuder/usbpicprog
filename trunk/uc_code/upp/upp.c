@@ -129,7 +129,7 @@ extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
 
-unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
+//unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
 void ProcessIO(void)
 {
@@ -159,7 +159,7 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x30) 
 		{
-			count_number_of_blocks=0;
+		//	count_number_of_blocks=0;
 			progstate=PROGSTART;
 			setLeds(0x07);
 		}
@@ -210,13 +210,12 @@ void ProcessIO(void)
         else if(progstate==PROGNEXTBLOCK)
         {
           //load next block and make it PROG2
-		count_number_of_blocks++;
+		//count_number_of_blocks++;
 		progstate=PROG2;
         }
         else
         {
-		if(count_number_of_blocks<511)program_memory(PIC18,0, (char*)(input_buffer+6),32,0); 
-		else program_memory(PIC18,0, (char*)(input_buffer+6),32,1); //last block
+		program_memory(PIC18,0, (char*)(input_buffer+6),32,input_buffer[5]); 
         }
     }
     if(counter != 0)

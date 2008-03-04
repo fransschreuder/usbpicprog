@@ -205,7 +205,6 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 				case PIC18:
 					set_address(pictype, address);
 					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
-					
 					{
 
 						//write 2 bytes and post increment by 2
@@ -569,8 +568,9 @@ void set_address(PICTYPE pictype, unsigned long address)
 
 void clock_delay()
 {
-	char i;
-	for(i=0;i<2;i++)continue;
+	//char i;
+	//for(i=0;i<2;i++)continue;
+	Nop(); //would that be enough for all pic's?
 }
 
 /**
