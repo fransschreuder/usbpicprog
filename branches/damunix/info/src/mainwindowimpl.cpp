@@ -72,7 +72,7 @@ void MainWindowImpl::program(void)
 		{
 			addr=hexParse::getAddress(line).toUInt();
 			var=0x30;
-			var.append(addr);
+			var.append((addr));
 			var.append(hexParse::getData(line));
 			qDebug()<<"writing "<<var<< "size  "<<var.size();
 			_prog->write(var.toAscii(),var.size());

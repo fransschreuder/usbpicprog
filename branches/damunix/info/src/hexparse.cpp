@@ -44,9 +44,9 @@ QString hexParse::getAddress(QString txt)
 {
 	//get address
 	bool ok; 
-	QString addrS=txt.left(7).right(4);
+	QString addrS=txt.left(6).right(3);
 	int addr= (addrS).toInt(&ok,16);
-	return addrS;
+	return (addrS);
 }
 
 int hexParse::blockType(QString txt)
