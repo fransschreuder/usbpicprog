@@ -61,8 +61,8 @@ void MainWindowImpl::program(void)
 			qDebug ("End of data found");
 			return;
 		}
-		// the data start at 0x0200
-		if (hexParse::getAddress(line)=="0200")
+		// the data start at 0x020
+		if (hexParse::getAddress(line)=="020")
 		{
 			qDebug("Gogogogo");
 			start=1;

@@ -78,12 +78,18 @@ bool programmer::connected(void)
 
 void programmer::write(const char * msg,int size)
 {
+	unsigned char tab[255];
+	if (size>255)
+		qDebug ("ERROR while trying to write to the usbpicprog board : size > 255");
 	if (_handle != NULL)
 	{
+		//converting char to int value
+		for (int i=0;i<size;i++)
+			tab[i]=((unsigned char)msg[i])-48;
 		//qDebug ("Device Found!!");
 		//bzero(bytes,sizeof(bytes));
 		//int nBytes = usb_control_msg(handle,USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,1,0,0,bytes,sizeof(bytes),5000);
-		int nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
+		int nBytes = usb_interrupt_write(_handle,1,(char*)tab,size,5000);
 		if (nBytes < 0 )
 			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
 	}
