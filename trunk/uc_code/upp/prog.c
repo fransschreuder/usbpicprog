@@ -285,7 +285,7 @@ void program_memory(PICTYPE pictype, PICVARIANT picvariant, unsigned long addres
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize)
+void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
 {
 	char i;
 	char blockcounter;
@@ -301,7 +301,7 @@ void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, 
 			switch(pictype)
 			{
 				case PIC18:
-					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+					pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 					{
@@ -314,23 +314,31 @@ void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, 
 						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 						i=0;
-						do
+						lasttick=tick;
+						/*do
 						{
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 							pic_send(4,0x00,0x6EF5); //movwf TABLAT
 							pic_send(4,0x00,0x0000); //nop
 							receiveddata=pic_read(4,0x02); //Shift TABLAT register out
-						}while((receiveddata&0x02)&&(i++<255)); //poll for WR bit to clear
+						}while((receiveddata&0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+						*/
+						while(((tick-lasttick)<P11A))continue;
+						setLeds(4);
+						lasttick=tick;
 						PGC=0;	//hold PGC low for P10 (100us)
-						for(i=0;i<200;i++)continue;
+						while(((tick-lasttick)<P10))continue;
 						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
+						setLeds(7);
 					}
 					break;
 				default:
 					break;
 			}
 			datastate=DATASTOP;
+			setLeds(5);
 			lasttick=tick;
+			break;
 		case DATASTOP:
 			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
@@ -465,12 +473,12 @@ void read_program(PICTYPE pictype, PICVARIANT picvariant, unsigned long address,
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
 **/
-void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize)
+void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
 {
 	
 	char i;
 	char blockcounter=0;
-	set_vdd_vpp(1);
+	if(lastblock&1)	set_vdd_vpp(1);
 	switch(pictype)
 	{
 		case PIC18:
@@ -492,7 +500,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 		default:
 			break;
 	}
-	set_vdd_vpp(0);
+	if(lastblock&2)set_vdd_vpp(0);
 }
 
 

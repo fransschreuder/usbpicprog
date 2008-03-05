@@ -57,7 +57,7 @@ void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize);
+void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
 
 /**
 program_config_bits writes 2 configuration bytes each time (*data has to be 2 bytes big)
@@ -77,7 +77,7 @@ void read_program(PICTYPE pictype, PICVARIANT picvariant, unsigned long address,
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
  **/
-void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize);
+void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
 
 
 /**

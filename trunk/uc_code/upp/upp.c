@@ -138,6 +138,7 @@ void ProcessIO(void)
     static byte counter=0;
     int nBytes;
     unsigned long address;
+    unsigned int intaddress;
 
     BlinkUSBStatus();
     // User Application USB tasks
@@ -182,6 +183,23 @@ void ProcessIO(void)
 				counter=input_buffer[1];
 			//}
 		}
+		if((input_buffer[0])==0x50) 
+		{
+		//	count_number_of_blocks=0;
+			datastate=DATASTART;
+			setLeds(0x07);
+		}
+		if((input_buffer[0])==0x60) 
+		{
+
+			intaddress=((unsigned int)input_buffer[2])<<8|
+					((unsigned int)input_buffer[3]);
+					
+				
+			read_data(PIC18,P18F2XXX,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
+			counter=input_buffer[1];
+
+		}
 	
 	}
     
@@ -217,6 +235,18 @@ void ProcessIO(void)
         {
 		program_memory(PIC18,P18F2XXX,0, (char*)(input_buffer+6),32,input_buffer[5]); 
         }
+    }
+    if(datastate!=DATAIDLE)
+    {
+	    if(datastate==DATASUCCESS)
+	    {
+		    datastate=DATAIDLE;
+		    setLeds(0x00);
+	    }
+	    else
+	    {
+		    program_data(PIC18,P18F2XXX,0, (char*)(input_buffer+5),32,input_buffer[4]); 
+	    }
     }
     if(counter != 0)
     {
