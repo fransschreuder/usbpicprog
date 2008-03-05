@@ -45,13 +45,13 @@ void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 //					pic_send(4,0x00,0x88A6); //BSF EECON1, WREN
                                         switch(picvariant)
                                         {
-                                               case 18F2XXX:           //also valid for 18F4XXX
+                                               case P18F2XXX:           //also valid for 18F4XXX
                                                     set_address(pictype, 0x3C0005);
                                                     pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
 					            set_address(pictype, 0x3C0004);
 					            pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
 					            break;
-                                               case 18FXX2:            //also valid for 18FXX8
+                                               case P18FXX2:            //also valid for 18FXX8
                                                     set_address(pictype, 0x3C0004);
                                                     pic_send(4,0x0C,0x0080);
                                                     break;

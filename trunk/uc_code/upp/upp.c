@@ -154,7 +154,7 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x20) 
 		{
-			read_program(PIC18,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
+			read_program(PIC18,P18F2XXX,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) 
@@ -178,7 +178,7 @@ void ProcessIO(void)
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_program(PIC18,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
+				read_program(PIC18,P18F2XXX,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
 				counter=input_buffer[1];
 			//}
 		}
@@ -196,7 +196,7 @@ void ProcessIO(void)
         else
         {
 	    
-            bulk_erase(PIC18);
+            bulk_erase(PIC18,P18F2XXX);
 	    setLeds((char)erasestate);
         }
     }
@@ -215,7 +215,7 @@ void ProcessIO(void)
         }
         else
         {
-		program_memory(PIC18,0, (char*)(input_buffer+6),32,input_buffer[5]); 
+		program_memory(PIC18,P18F2XXX,0, (char*)(input_buffer+6),32,input_buffer[5]); 
         }
     }
     if(counter != 0)

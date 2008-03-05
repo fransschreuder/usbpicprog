@@ -12,8 +12,8 @@
  * Software License Agreement
  *
  * The software supplied herewith by Microchip Technology Incorporated
- * (the “Company”) for its PICmicro® Microcontroller is intended and
- * supplied to you, the Company’s customer, for use solely and
+ * (the ï¿½Companyï¿½) for its PICmicroï¿½ Microcontroller is intended and
+ * supplied to you, the Companyï¿½s customer, for use solely and
  * exclusively on Microchip PICmicro Microcontroller products. The
  * software is owned by the Company and/or its supplier, and is
  * protected under applicable copyright laws. All rights are reserved.
@@ -22,7 +22,7 @@
  * civil liability for the breach of the terms and conditions of this
  * license.
  *
- * THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
+ * THIS SOFTWARE IS PROVIDED IN AN ï¿½AS ISï¿½ CONDITION. NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
  * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
  * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
@@ -35,7 +35,7 @@
 #define USBCFG_H
 
 /** D E F I N I T I O N S *******************************************/
-#define EP0_BUFF_SIZE           64   // 8, 16, 32, or 64, was 8 by default
+#define EP0_BUFF_SIZE           8   // 8, 16, 32, or 64, was 8 by default
 #define MAX_NUM_INT             1   // For tracking Alternate Setting
 
 /* Parameter definitions are defined in usbdrv.h */
