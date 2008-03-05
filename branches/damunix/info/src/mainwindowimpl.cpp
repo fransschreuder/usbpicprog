@@ -16,6 +16,8 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(connectButton,SIGNAL(clicked()),this,SLOT(connectProgrammer()));
 	connect(eraseButton,SIGNAL(clicked()),this,SLOT(eraseDevice()));
 	connect(deviceIdButton,SIGNAL(clicked()),this,SLOT(getId()));
+	
+	
 }
 
 void MainWindowImpl::connectProgrammer(void)
