@@ -24,8 +24,8 @@
 #endif
 byte old_sw2,old_sw3;
 
-byte input_buffer[68];
-byte output_buffer[68];
+byte input_buffer[USBGEN_EP_SIZE];
+byte output_buffer[USBGEN_EP_SIZE];
 
 rom char welcome[]={"UsbPicProg - Open Source USB PIC programmer\r\n\r\n"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command

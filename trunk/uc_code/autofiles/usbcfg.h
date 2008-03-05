@@ -35,7 +35,7 @@
 #define USBCFG_H
 
 /** D E F I N I T I O N S *******************************************/
-#define EP0_BUFF_SIZE           8   // 8, 16, 32, or 64
+#define EP0_BUFF_SIZE           64   // 8, 16, 32, or 64, was 8 by default
 #define MAX_NUM_INT             1   // For tracking Alternate Setting
 
 /* Parameter definitions are defined in usbdrv.h */
@@ -67,7 +67,7 @@
 #define USBGEN_UEP              UEP1
 #define USBGEN_BD_OUT           ep1Bo
 #define USBGEN_BD_IN            ep1Bi
-#define USBGEN_EP_SIZE          64
+#define USBGEN_EP_SIZE          70
 
 #define MAX_EP_NUMBER           2           // UEP2
 
