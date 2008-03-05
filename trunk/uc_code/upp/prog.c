@@ -216,7 +216,11 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 					//write last 2 bytes of the block and start programming
 					pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
 					//pic_send(4, 0x0F,0x55AA);
-					pic_send(4,0x00, 0x0000); //nop, hold PGC high for time P9 and low for P10
+					/*
+					PGC => 1 0 1 0 1 0 1 (then stay high for P9)
+					       b0  b1  b2
+					*/
+                                        pic_send_n_bits(3, 0);
 					break;
 				default:
 					break;
