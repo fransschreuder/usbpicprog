@@ -23,6 +23,11 @@ private slots:
 	void eraseDevice (void);
 	void getId(void);
 	void readProgram(void);
+	void writeData(void);
+	void readData(void);
+	void writeConfig(void);
+	void readConfig(void);
+
 };
 #endif
 

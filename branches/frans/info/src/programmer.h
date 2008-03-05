@@ -15,6 +15,7 @@ public:
 	void write(const char* msg,int size);
 	void getId(char * msg,int size);
 	int read_code(char * msg,int address,int size,int lastblock);
+	int read_data(char * msg,int address,int size,int lastblock);
 	bool connected(void);
 
 private :

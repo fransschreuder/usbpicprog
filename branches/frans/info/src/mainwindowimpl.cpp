@@ -20,6 +20,11 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(eraseButton,SIGNAL(clicked()),this,SLOT(eraseDevice()));
 	connect(deviceIdButton,SIGNAL(clicked()),this,SLOT(getId()));
 	connect(readprogramButton,SIGNAL(clicked()),this,SLOT(readProgram()));
+	connect(dataButton,SIGNAL(clicked()),this,SLOT(writeData()));
+	connect(rDataButton,SIGNAL(clicked()),this,SLOT(readData()));
+	connect(configButton,SIGNAL(clicked()),this,SLOT(writeConfig()));
+	connect(rConfigButton,SIGNAL(clicked()),this,SLOT(readConfig()));
+	
 }
 
 void MainWindowImpl::connectProgrammer(void)
@@ -31,6 +36,10 @@ void MainWindowImpl::connectProgrammer(void)
 		readprogramButton->setEnabled(true);
 		deviceIdButton->setEnabled(true);
 		eraseButton->setEnabled(true);
+		dataButton->setEnabled(true);
+		rDataButton->setEnabled(true);
+		configButton->setEnabled(true);
+		rConfigButton->setEnabled(true);
 	}
 	
 }
@@ -49,12 +58,12 @@ void MainWindowImpl::readProgram(void)
 	char id[256],text[256];
 	int nBytes;
 	//_prog->getId(id,64);
-	for(int address=0x0;address<0x7FF;address+=32)
+	for(int address=0x0;address<0x7FFF;address+=32)
 	{
 		
 		if(address==0x0)nBytes=_prog->read_code(id,address,32,1);
-		else if(address==0x7FF-31)nBytes=_prog->read_code(id,address,32,2);
-		else nBytes=_prog->read_code(id,address,64,0);
+		else if(address==0x7FFF-31)nBytes=_prog->read_code(id,address,32,2);
+		else nBytes=_prog->read_code(id,address,32,0);
 		for(int i=0;i<nBytes;i+=16)
 		{
 			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X ",
@@ -89,6 +98,53 @@ void MainWindowImpl::program(void)
 	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,38);
 }
+
+void MainWindowImpl::writeData(void)
+{
+	unsigned char prgrm[100];
+	prgrm[0]=0x50;
+	prgrm[1]=32;
+	prgrm[2]=0; prgrm[3]=0; //address 0
+	prgrm[4]=1; //last block
+	for(int i=0;i<32;i++)prgrm[i+5]=(unsigned char)i+2;
+	_prog->write((const char*)prgrm,38);
+}
+
+void MainWindowImpl::readData(void)
+{
+		char id[256],text[256];
+	int nBytes;
+	//_prog->getId(id,64);
+	//for(int address=0x0;address<0x7FFF;address+=32)
+	//{
+		
+		//if(address==0x0)nBytes=_prog->read_code(id,address,32,1);
+		//else if(address==0x7FFF-31)nBytes=_prog->read_code(id,address,32,2);
+		int address=0;
+		nBytes=_prog->read_data(id,address,32,3);
+		for(int i=0;i<nBytes;i+=16)
+		{
+			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X ",
+				id[i+1]&0xFF,id[i]&0xFF,id[i+3]&0xFF,id[i+2]&0xFF,
+				id[i+5]&0xFF,id[i+4]&0xFF,id[i+7]&0xFF,id[i+6]&0xFF,
+				id[i+9]&0xFF,id[i+8]&0xFF,id[i+11]&0xFF,id[i+10]&0xFF,
+				id[i+13]&0xFF,id[i+12]&0xFF,id[i+15]&0xFF,id[i+14]&0xFF);
+			textEdit->append(text);
+		}
+	//}
+	
+}
+
+void MainWindowImpl::writeConfig(void)
+{
+	
+}
+
+void MainWindowImpl::readConfig(void)
+{
+	
+}
+
 
 void MainWindowImpl::check(void)
 {
