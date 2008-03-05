@@ -124,7 +124,7 @@ void setLeds(char n)
  * Note:            None
  *****************************************************************************/
 extern ERASESTATE erasestate;
-extern PERASESTATE perasestate;
+//extern PERASESTATE perasestate;
 extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;

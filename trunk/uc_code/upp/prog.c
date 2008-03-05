@@ -14,7 +14,7 @@
 #include "system\interrupt\interrupt.h"
 
 ERASESTATE erasestate=ERASEIDLE;
-PERASESTATE perasestate=PERASEIDLE;
+//PERASESTATE perasestate=PERASEIDLE;
 PROGSTATE progstate=PROGIDLE;
 DATASTATE datastate=DATAIDLE;
 CONFIGSTATE configstate=CONFIGIDLE;
@@ -27,7 +27,7 @@ before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
 */
 
-void bulk_erase(PICTYPE pictype)
+void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
 	char i;
 	switch(erasestate)
@@ -43,10 +43,22 @@ void bulk_erase(PICTYPE pictype)
 //					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 //					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 //					pic_send(4,0x00,0x88A6); //BSF EECON1, WREN
-					set_address(pictype, 0x3C0005);
-					pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
-					set_address(pictype, 0x3C0004);
-					pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
+                                        switch(picvariant)
+                                        {
+                                               case 18F2XXX:           //also valid for 18F4XXX
+                                                    set_address(pictype, 0x3C0005);
+                                                    pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
+					            set_address(pictype, 0x3C0004);
+					            pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
+					            break;
+                                               case 18FXX2:            //also valid for 18FXX8
+                                                    set_address(pictype, 0x3C0004);
+                                                    pic_send(4,0x0C,0x0080);
+                                                    break;
+                                               default:
+                                                    break;
+
+                                        }
 					pic_send(4,0x00,0x0000); //NOP
 					lasttick=tick;
 					pic_send(4,0x00,0x0000); //hold PGD low until erase completes
@@ -90,7 +102,7 @@ This function has to be called as many times until erasestate==ERASESUCCESS
  */
 
 
-static unsigned long paddress;
+/*static unsigned long paddress;
 void program_erase(PICTYPE pictype)
 {
 	char i;
@@ -165,7 +177,7 @@ void program_erase(PICTYPE pictype)
 			
 			
 	}
-}
+}       */
 
 /**
 before calling this function, progstate must be PROGSTART
@@ -177,7 +189,7 @@ data contains the data MSB0, LSB0, MSB1, LSB1, etc...
 blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
-void program_memory(PICTYPE pictype,unsigned long address, char* data,char blocksize,char lastblock)
+void program_memory(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock)
 {
 	char i;
 	char blockcounter;
@@ -273,7 +285,7 @@ void program_memory(PICTYPE pictype,unsigned long address, char* data,char block
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-void program_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
+void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize)
 {
 	char i;
 	char blockcounter;
@@ -346,7 +358,7 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
 **/
-void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
+void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data)
 {
 	char i;
 	static char blockcounter;
@@ -429,7 +441,7 @@ void program_config_bits(PICTYPE pictype,unsigned long address, char* data)
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
 **/
-void read_program(PICTYPE pictype,unsigned long address, char* data, char blocksize, char lastblock)
+void read_program(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
 {
 	char i;
 	char blockcounter=0;
@@ -453,7 +465,7 @@ void read_program(PICTYPE pictype,unsigned long address, char* data, char blocks
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
 **/
-void read_data(PICTYPE pictype,unsigned int address, char* data, char blocksize)
+void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize)
 {
 	
 	char i;
