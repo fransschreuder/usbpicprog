@@ -89,7 +89,13 @@ sets the address pointer to a certain address location
 **/
 void set_address(PICTYPE pictype, unsigned long address);
 
-void clock_delay(void);
+/**
+Would one Nop() cylce be enough delay for all PIC's?
+It works for PIC18F2550
+**/
+#define clock_delay() Nop()
+//void clock_delay(void);
+
 /**
 reads 8 bits from a pic device with a given cmd_size bits command
  **/

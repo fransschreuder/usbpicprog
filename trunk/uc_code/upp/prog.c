@@ -570,12 +570,13 @@ void set_address(PICTYPE pictype, unsigned long address)
 }
 
 
-void clock_delay()
+/*void clock_delay()
 {
 	//char i;
 	//for(i=0;i<2;i++)continue;
 	Nop(); //would that be enough for all pic's?
-}
+}*/
+
 
 /**
 Writes a n-bit command
