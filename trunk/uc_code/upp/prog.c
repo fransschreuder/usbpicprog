@@ -487,12 +487,12 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				pic_send(4,0x00,(unsigned int)(0x0E00|(((address+blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
+				pic_send(4,0x00,(unsigned int)(0x0E00|(((address+(unsigned int)blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
 				pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-				pic_send(4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW Addr [7:0]
+				pic_send(4,0x00,(unsigned int)(0x0E00|((address+(unsigned int)blockcounter)&0xFF))); //MOVLW Addr [7:0]
 				pic_send(4,0x00,0x6EAA); //MOVWF TBLPTRU
 				pic_send(4,0x00,0x80A6); //BSF EECON1, RD
-				pic_send(4,0x00,0x50A6); //MOVF EEDATA, W, 0
+				pic_send(4,0x00,0x50A8); //MOVF EEDATA, W, 0
 				pic_send(4,0x00,0x6EF5); //MOVWF TABLAT
 				pic_send(4,0x00,0x0000); //Nop
 				*(data+blockcounter)=pic_read(4,0x02);
