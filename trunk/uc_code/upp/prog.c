@@ -505,42 +505,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 }
 
 
-/**
-reads 8 bits from a pic device with a given cmd_size bits command
-**/
-char pic_read(char cmd_size, char command)
-{
-	char i;
-	char result;
-	pic_send_n_bits(cmd_size,command);
-	for(i=0;i<80;i++)continue;	//wait at least 1us
-	for(i=0;i<8;i++)
-	{
-		
-		PGC=1;
-		clock_delay();
-		PGD=0;
-		clock_delay();
-		PGC=0;
-		clock_delay();
-	}
-	TRISPGD=1; //PGD = input
-	for(i=0;i<40;i++)continue;
-	result=0;
-	for(i=0;i<8;i++)
-	{
-		
-		PGC=1;
-		clock_delay();
-		result|=((char)PGD_READ)<<i;
-		clock_delay();
-		PGC=0;
-		clock_delay();
-	}
-	TRISPGD=0; //PGD = output
-	clock_delay();
-	return result;
-}
+
 
 void set_vdd_vpp(char level)
 {
@@ -613,16 +578,16 @@ void pic_send_n_bits(char cmd_size, char command)
 	{
 
 		PGC=1;
-		clock_delay();
+		//clock_delay();
 		if(command&1)PGD=1;
 		else PGD=0;
-		command>>=1;
+		//command>>=1;
 		clock_delay();
 		PGC=0;
-		clock_delay();
+		//clock_delay();
 
 	}
-	for(i=0;i<40;i++)continue;	//wait at least 1 us
+	for(i=0;i<40;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
 }
 
 
@@ -637,15 +602,52 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 	{
 
 		PGC=1;
-		clock_delay();
+		//clock_delay();
 		if(payload&1)PGD=1;
 		else PGD=0;
 		payload>>=1;
-		clock_delay();
+		//clock_delay();
 		PGC=0;
-		clock_delay();
+		//clock_delay();
 
 	}
 	clock_delay();
 	
+}
+
+/**
+reads 8 bits from a pic device with a given cmd_size bits command
+**/
+char pic_read(char cmd_size, char command)
+{
+	char i;
+	char result;
+	pic_send_n_bits(cmd_size,command);
+//	for(i=0;i<80;i++)continue;	//wait at least 1us
+	for(i=0;i<8;i++)
+	{
+
+		PGC=1;
+		//clock_delay();
+		PGD=0;
+		//clock_delay();
+		PGC=0;
+		//clock_delay();
+	}
+	TRISPGD=1; //PGD = input
+	//for(i=0;i<10;i++)continue;
+	result=0;
+	for(i=0;i<8;i++)
+	{
+
+		PGC=1;
+		//clock_delay();
+		result|=((char)PGD_READ)<<i;
+		//clock_delay();
+		PGC=0;
+		//clock_delay();
+	}
+	TRISPGD=0; //PGD = output
+	//clock_delay();
+	return result;
 }
