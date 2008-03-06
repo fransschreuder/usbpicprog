@@ -161,7 +161,14 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x30) 
 		{
 		//	count_number_of_blocks=0;
-			progstate=PROGSTART;
+		        if(progstate==PROGIDLE)
+		        {
+                             progstate=PROGSTART;
+                        }
+                        if(progstate==PROGNEXTBLOCK)
+                        {
+                             progstate=PROG2;
+                        }
 			setLeds(0x07);
 		}
 		if((input_buffer[0])==0x40) 
@@ -185,7 +192,6 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x50) 
 		{
-		//	count_number_of_blocks=0;
 			datastate=DATASTART;
 			setLeds(0x07);
 		}
@@ -200,7 +206,12 @@ void ProcessIO(void)
 			counter=input_buffer[1];
 
 		}
-	
+		if((input_buffer[0])==0x70)
+		{
+                        if(configstate==CONFIGIDLE)configstate=CONFIGSTART;
+                        if(configstate==CONFIGNEXTBLOCK)configstate=CONFIG;
+			setLeds(0x07);
+		}
 	}
     
     
@@ -210,6 +221,8 @@ void ProcessIO(void)
         {
             erasestate=ERASEIDLE;
             setLeds(0x00);
+            output_buffer[0]=1;
+            counter=1;
         }
         else
         {
@@ -224,12 +237,13 @@ void ProcessIO(void)
         {
             progstate=PROGIDLE;
             setLeds(0x00);
+            output_buffer[0]=1;
         }
         else if(progstate==PROGNEXTBLOCK)
         {
           //load next block and make it PROG2
-		//count_number_of_blocks++;
-		progstate=PROG2;
+            output_buffer[0]=2;
+            counter=1;
         }
         else
         {
@@ -242,10 +256,34 @@ void ProcessIO(void)
 	    {
 		    datastate=DATAIDLE;
 		    setLeds(0x00);
+		    output_buffer[0]=1;
+		    counter=1;
 	    }
 	    else
 	    {
 		    program_data(PIC18,P18F2XXX,0, (char*)(input_buffer+5),32,input_buffer[4]); 
+	    }
+    }
+    if(configstate!=CONFIGIDLE)
+    {
+	    if(configstate==CONFIGSUCCESS)
+	    {
+		    configstate=CONFIGIDLE;
+		    setLeds(0x00);
+		    output_buffer[0]=1;
+		    counter=1;
+	    }
+	    else if (configstate==CONFIGNEXTBLOCK)
+	    {
+                    output_buffer[0]=2;
+                    counter=1;
+            }
+	    else
+	    {
+                    address=((unsigned long)input_buffer[2])<<16|
+						((unsigned long)input_buffer[3])<<8|
+						((unsigned long)input_buffer[4]);
+		    program_config_bits(PIC18, P18F2XXX, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 	    }
     }
     if(counter != 0)

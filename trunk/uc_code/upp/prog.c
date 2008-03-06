@@ -254,7 +254,7 @@ void program_memory(PICTYPE pictype, PICVARIANT picvariant, unsigned long addres
 			{
 				if(lastblock==0)progstate=PROGNEXTBLOCK;
 				else 
-				{	
+				{
 					progstate=PROGSTOP;
 					lasttick=tick;
 				}
@@ -367,7 +367,7 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
 **/
-void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data)
+void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
 {
 	char i;
 	static char blockcounter;
@@ -379,58 +379,53 @@ void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long a
 
 			configstate=CONFIG1;
 			break;
-		case CONFIG1:
+		case CONFIG:
 			switch(pictype)
 			{
 				case PIC18:
 					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-					break;
-				default:
-					break;
-			}
-			progstate=CONFIG2;
-		case CONFIG2:
-			switch(pictype)
-			{
-				case PIC18:
-					set_address(pictype, address);
-					//LSB first
-					pic_send(4,0x0F,(unsigned int)*(data)); 
-					pic_send(4,0x00,0x0000); //nop
-					break;
-				default:
-					break;
-			}
-			lasttick=tick;
-			PGC=1;	//hold PGC high for P9
-			configstate=CONFIG2;
-			break;
-		case CONFIG3:
-			if((tick-lasttick)>P9)
-			{
-				configstate=CONFIG4;
-				PGC=0;	//hold PGC low for time P10
-				for(i=0;i<200;i++)continue; //delay P10=100us
-			}
-			break;
-		case CONFIG4:
-			pic_send(4,0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
-			pic_send(4,0x00, 0x6EF6); //movwf TBLPTRL
-			pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
-			pic_send(4,0x00, 0x0000); //nop
-			lasttick=tick;
-			PGC=1;	//hold PGC high for P9
-			configstate=CONFIG5;
-		case CONFIG5:
-			if((tick-lasttick)>P9)
-			{
-				configstate=CONFIGSTOP;
-				PGC=0;	//hold PGC low for time P10
-				for(i=0;i<200;i++)continue; //delay P10=100us
-				lasttick=tick;
+
+
+                                 //start for loop
+                                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+                                        {
+					     set_address(pictype, address);
+          				     //LSB first
+					     pic_send(4,0x0F,(unsigned int)*(data));
+                                             pic_send_n_bits(3, 0);
+                                             lasttick=tick;
+			                     PGC=1;	//hold PGC high for P9
+			                     while((tick-lasttick)<P9)continue;
+                                             lasttick=tick;
+                                             PGC=0;	//hold PGC low for time P10
+                                             while((tick-lasttick)<P10)continue;
+                                             pic_send(4,0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
+	         		             pic_send(4,0x00, 0x6EF6); //movwf TBLPTRL
+		         	             pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
+                                             pic_send_n_bits(3, 0);
+			                     lasttick=tick;
+                   			     PGC=1;	//hold PGC high for P9
+		                 	     while((tick-lasttick)<P9)
+		                 	     lasttick=tick;
+                                             PGC=0;	//hold PGC low for time P10
+                                             while((tick-lasttick)<P10)continue;
+
+                                        }
+                                        if(lastblock==0)configstate=CONFIGNEXTBLOCK;
+				        else
+				        {
+                                             configstate=CONFIGSTOP;
+                                             lasttick=tick;
+                                        }
+                                        break;
+                                 default:
+                                        break;
 			}
 			break;
+		case CONFIGNEXTBLOCK:
+                                 //
+		        break;
 		case CONFIGSTOP:
 			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)

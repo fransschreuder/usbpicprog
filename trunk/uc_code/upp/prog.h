@@ -21,7 +21,7 @@ typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERA
 //typedef enum _PERASESTATE{PERASEIDLE=0, PERASESTART, PERASE1, PERASE2, PERASE3, PERASESTOP, PERASESUCCESS}PERASESTATE;
 typedef enum _PROGSTATE{PROGIDLE=0, PROGSTART, PROG1, PROG2, PROG3, PROG4, PROGNEXTBLOCK, PROGSTOP, PROGSUCCESS}PROGSTATE;
 typedef enum _DATASTATE{DATAIDLE=0, DATASTART, DATA, DATASTOP, DATASUCCESS}DATASTATE;
-typedef enum _CONFIGSTATE{CONFIGIDLE=0, CONFIGSTART, CONFIG1, CONFIG2, CONFIG3, CONFIG4, CONFIG5, CONFIGSTOP, CONFIGSUCCESS}CONFIGSTATE;
+typedef enum _CONFIGSTATE{CONFIGIDLE=0, CONFIGSTART, CONFIG, CONFIGNEXTBLOCK, CONFIGSTOP, CONFIGSUCCESS}CONFIGSTATE;
 
 extern ERASESTATE erasestate;
 //extern PERASESTATE perasestate;
@@ -65,7 +65,7 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
  **/
-void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data);
+void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock);
 
 /**
 This function has to be called only once per block
