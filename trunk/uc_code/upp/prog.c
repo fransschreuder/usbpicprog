@@ -305,14 +305,15 @@ void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, 
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 					{
-						pic_send(4,0x00,(unsigned int)(0x0E00|((address+blockcounter)&0xFF))); //MOVLW EEAddr
+						pic_send(4,0x00,(unsigned int)(0x0E00|  ((address+(unsigned int)blockcounter)    &0xFF))); //MOVLW EEAddr
 						pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-						pic_send(4,0x00,(unsigned int)(0x0E00| (((address+ (unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
+						pic_send(4,0x00,(unsigned int)(0x0E00| (((address+(unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
 						pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
 						pic_send(4,0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
 						pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
 						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
+						pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
 						i=0;
 						lasttick=tick;
 						/*do
