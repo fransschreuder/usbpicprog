@@ -3,6 +3,7 @@
  *                UsbPicProg v0.1
  *                Frans Schreuder 23-02-2008
  ********************************************************************/
+#include "upp.h" 
 #ifdef SDCC
 #include <pic18f2550.h>
 #else
@@ -376,8 +377,7 @@ void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long a
 		case CONFIGSTART:
 			blockcounter=0;
 			set_vdd_vpp(1);
-
-			configstate=CONFIG1;
+			configstate=CONFIG;
 			break;
 		case CONFIG:
 			switch(pictype)
@@ -385,47 +385,49 @@ void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long a
 				case PIC18:
 					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-
-
+					address=0x300000;
+					setLeds(1);
                                  //start for loop
                                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
                                         {
-					     set_address(pictype, address);
-          				     //LSB first
-					     pic_send(4,0x0F,(unsigned int)*(data));
-                                             pic_send_n_bits(3, 0);
-                                             lasttick=tick;
-			                     PGC=1;	//hold PGC high for P9
-			                     while((tick-lasttick)<P9)continue;
-                                             lasttick=tick;
-                                             PGC=0;	//hold PGC low for time P10
-                                             while((tick-lasttick)<P10)continue;
-                                             pic_send(4,0x00, 0x0E00|((unsigned int)(address&0xFF)+1)); //movlw 0x01 + address
-	         		             pic_send(4,0x00, 0x6EF6); //movwf TBLPTRL
-		         	             pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
-                                             pic_send_n_bits(3, 0);
-			                     lasttick=tick;
-                   			     PGC=1;	//hold PGC high for P9
-		                 	     while((tick-lasttick)<P9)
-		                 	     lasttick=tick;
-                                             PGC=0;	//hold PGC low for time P10
-                                             while((tick-lasttick)<P10)continue;
-
-                                        }
-                                        if(lastblock==0)configstate=CONFIGNEXTBLOCK;
-				        else
-				        {
-                                             configstate=CONFIGSTOP;
-                                             lasttick=tick;
-                                        }
-                                        break;
-                                 default:
-                                        break;
+						set_address(pictype, address+(int)blockcounter);
+          					//LSB first
+						pic_send(4,0x0F,(unsigned int)*(data));
+						pic_send_n_bits(3, 0);
+						lasttick=tick;
+						PGC=1;	//hold PGC high for P9
+						while((tick-lasttick)<P9)continue;
+						setLeds(2);
+						lasttick=tick;
+						PGC=0;	//hold PGC low for time P10
+						while((tick-lasttick)<P10)continue;
+						setLeds(3);
+						set_address(pictype, address+(int)blockcounter+1);
+						pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
+						pic_send_n_bits(3, 0);
+						lasttick=tick;
+						PGC=1;	//hold PGC high for P9
+						while((tick-lasttick)<P9)
+						setLeds(4);
+						lasttick=tick;
+						PGC=0;	//hold PGC low for time P10
+						while((tick-lasttick)<P10)continue;
+						setLeds(5);
+					}
+/*					if(lastblock==0)configstate=CONFIGNEXTBLOCK;
+					else
+					{*/
+						setLeds(4);
+						configstate=CONFIGSTOP;
+						lasttick=tick;
+					//}
+					break;
+				default:
+					break;
 			}
 			break;
 		case CONFIGNEXTBLOCK:
-                                 //
-		        break;
+			break;
 		case CONFIGSTOP:
 			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
@@ -573,13 +575,13 @@ void pic_send_n_bits(char cmd_size, char command)
 	{
 
 		PGC=1;
-		//clock_delay();
+		clock_delay();
 		if(command&1)PGD=1;
 		else PGD=0;
-		//command>>=1;
+		command>>=1;
 		clock_delay();
 		PGC=0;
-		//clock_delay();
+		clock_delay();
 
 	}
 	for(i=0;i<40;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
@@ -597,13 +599,13 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 	{
 
 		PGC=1;
-		//clock_delay();
+		clock_delay();
 		if(payload&1)PGD=1;
 		else PGD=0;
 		payload>>=1;
-		//clock_delay();
+		clock_delay();
 		PGC=0;
-		//clock_delay();
+		clock_delay();
 
 	}
 	clock_delay();
@@ -623,26 +625,26 @@ char pic_read(char cmd_size, char command)
 	{
 
 		PGC=1;
-		//clock_delay();
+		clock_delay();
 		PGD=0;
-		//clock_delay();
+		clock_delay();
 		PGC=0;
-		//clock_delay();
+		clock_delay();
 	}
 	TRISPGD=1; //PGD = input
-	//for(i=0;i<10;i++)continue;
+	for(i=0;i<10;i++)continue;
 	result=0;
 	for(i=0;i<8;i++)
 	{
 
 		PGC=1;
-		//clock_delay();
+		clock_delay();
 		result|=((char)PGD_READ)<<i;
-		//clock_delay();
+		clock_delay();
 		PGC=0;
-		//clock_delay();
+		clock_delay();
 	}
 	TRISPGD=0; //PGD = output
-	//clock_delay();
+	clock_delay();
 	return result;
 }

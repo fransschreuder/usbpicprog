@@ -208,8 +208,8 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x70)
 		{
-                        if(configstate==CONFIGIDLE)configstate=CONFIGSTART;
-                        if(configstate==CONFIGNEXTBLOCK)configstate=CONFIG;
+                        configstate=CONFIGSTART;
+                        //if(configstate==CONFIGNEXTBLOCK)configstate=CONFIG;
 			setLeds(0x07);
 		}
 	}
@@ -273,11 +273,11 @@ void ProcessIO(void)
 		    output_buffer[0]=1;
 		    counter=1;
 	    }
-	    else if (configstate==CONFIGNEXTBLOCK)
+	    /*else if (configstate==CONFIGNEXTBLOCK)
 	    {
                     output_buffer[0]=2;
                     counter=1;
-            }
+            }*/
 	    else
 	    {
                     address=((unsigned long)input_buffer[2])<<16|
