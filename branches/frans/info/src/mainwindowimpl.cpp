@@ -147,21 +147,20 @@ void MainWindowImpl::writeConfig(void)
 }
 
 void MainWindowImpl::readConfig(void)
-{char id[256],text[256];
+{
+  char id[256],text[256];
 	int nBytes;
-	//_prog->getId(id,64);
-	//for(int address=0x0;address<0x3FF;address+=32)
-	//{
+
 		int address=0x300000;
 		
-		nBytes=_prog->read_code(id,address,32,3);
+		nBytes=_prog->read_code(id,address,13,3);
 		//for(int i=0;i<nBytes;i+=16)
 		//{
 			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X ",
 				id[1]&0xFF,id[0]&0xFF,id[3]&0xFF,id[2]&0xFF,
 				id[5]&0xFF,id[4]&0xFF,id[7]&0xFF,id[6]&0xFF,
 				id[9]&0xFF,id[8]&0xFF,id[11]&0xFF,id[10]&0xFF,
-				id[12]&0xFF);
+				id[13]&0xFF,id[12]&0xFF);
 			textEdit->append(text);
 		//}
 	//}
