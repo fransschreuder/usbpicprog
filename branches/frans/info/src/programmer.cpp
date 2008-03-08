@@ -165,4 +165,33 @@ void programmer::write(const char * msg,int size)
 }
 
 
+const char * programmer::readResponse(void)
+{
+	
+	char msg[64];
+	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+		if (nBytes < 0 )
+		{
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+			return NULL;
+		}
+			
+	else
+	{
+		switch(msg[0])
+		{
+			case 1:
+				return "Received: 1, Ok";
+				break;
+			case 2:
+				return "Received: 2, asked for next block";
+				break;
+			default:
+				return "Received unexpected response";
+				break;	
+		}
+			
+	}
+}
+
 //

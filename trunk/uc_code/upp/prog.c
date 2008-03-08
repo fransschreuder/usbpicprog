@@ -81,9 +81,12 @@ void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			}
 			break;
 		case ERASESTOP:
-			set_vdd_vpp(0);
+			
 			if((tick-lasttick)>P10)
+			{
+				set_vdd_vpp(0);
 				erasestate=ERASESUCCESS;
+			}
 			break;
 		case ERASEIDLE:
 			break;
@@ -267,9 +270,11 @@ void program_memory(PICTYPE pictype, PICVARIANT picvariant, unsigned long addres
 			**/
 			break;
 		case PROGSTOP:
-			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
+			{
 				progstate=PROGSUCCESS;
+				set_vdd_vpp(0);
+			}
 			break;
 		case PROGIDLE:
 			break;
@@ -288,13 +293,12 @@ call as many times until progstate==PROGSUCCESS
  */
 void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
 {
-	char i;
 	char blockcounter;
 	char receiveddata;
 	switch(datastate)
 	{
 		case DATASTART:
-			set_vdd_vpp(1);
+			if(lastblock&1)set_vdd_vpp(1);
 
 			datastate=DATA;
 			break;
@@ -306,55 +310,55 @@ void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, 
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 					{
-						pic_send(4,0x00,(unsigned int)(0x0E00|  ((address+(unsigned int)blockcounter)    &0xFF))); //MOVLW EEAddr
+						
+						pic_send(4,0x00,(0x0E00|( address+(unsigned int)blockcounter)    &0xFF)); //MOVLW Addr [7:0]
 						pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-						pic_send(4,0x00,(unsigned int)(0x0E00| (((address+(unsigned int)blockcounter)>>8)&0xFF))); //MOVLW EEAddrH
+						pic_send(4,0x00,(0x0E00|((address+(unsigned int)blockcounter)>>8)&0xFF)); //MOVLW Addr [15:8]
 						pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
-						pic_send(4,0x00,0x0E00|(unsigned int)*(data+blockcounter)); //MOVLW data
+						pic_send(4,0x00,0x0E00|(unsigned int)data[blockcounter]); //MOVLW data
 						pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
 						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
-						pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-						i=0;
+						//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
 						lasttick=tick;
-						/*do
+						do
 						{
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 							pic_send(4,0x00,0x6EF5); //movwf TABLAT
 							pic_send(4,0x00,0x0000); //nop
 							receiveddata=pic_read(4,0x02); //Shift TABLAT register out
-						}while((receiveddata&0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
-						*/
-						while(((tick-lasttick)<P11A))continue;
-						setLeds(4);
+						}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+						
+						//while(((tick-lasttick)<P11A))continue;
 						lasttick=tick;
 						PGC=0;	//hold PGC low for P10 (100us)
 						while(((tick-lasttick)<P10))continue;
 						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
-						setLeds(7);
 					}
 					break;
 				default:
 					break;
 			}
 			datastate=DATASTOP;
-			setLeds(5);
 			lasttick=tick;
 			break;
 		case DATASTOP:
-			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
+			{
 				datastate=DATASUCCESS;
+				if(lastblock&2)set_vdd_vpp(0);
+			}
 			break;
 		case DATAIDLE:
 			break;
 		case DATASUCCESS:
 			break;
 		default:
-			progstate=DATAIDLE;
+			datastate=DATAIDLE;
 			break;
 	}	
 }
+
 /**
 use program_memory in stead with address=0x200000 and blocksize=8
 void program_ids(PICTYPE pictype,char address, char* data, char blocksize)
@@ -476,7 +480,8 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 	
 	char i;
 	char blockcounter=0;
-	if(lastblock&1)	set_vdd_vpp(1);
+	//if(lastblock&1)	
+		set_vdd_vpp(1);
 	switch(pictype)
 	{
 		case PIC18:
@@ -484,10 +489,10 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				pic_send(4,0x00,(unsigned int)(0x0E00|(((address+(unsigned int)blockcounter)>>8)&0xFF))); //MOVLW Addr [15:8]
+				pic_send(4,0x00,(0x0E00|( address+(unsigned int)blockcounter)    &0xFF)); //MOVLW Addr [7:0]
 				pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-				pic_send(4,0x00,(unsigned int)(0x0E00|((address+(unsigned int)blockcounter)&0xFF))); //MOVLW Addr [7:0]
-				pic_send(4,0x00,0x6EAA); //MOVWF TBLPTRU
+				pic_send(4,0x00,(0x0E00|((address+(unsigned int)blockcounter)>>8)&0xFF)); //MOVLW Addr [15:8]
+				pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
 				pic_send(4,0x00,0x80A6); //BSF EECON1, RD
 				pic_send(4,0x00,0x50A8); //MOVF EEDATA, W, 0
 				pic_send(4,0x00,0x6EF5); //MOVWF TABLAT
@@ -498,7 +503,8 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 		default:
 			break;
 	}
-	if(lastblock&2)set_vdd_vpp(0);
+	//if(lastblock&2)
+	set_vdd_vpp(0);
 }
 
 

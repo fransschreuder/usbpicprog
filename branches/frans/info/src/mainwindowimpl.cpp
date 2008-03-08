@@ -80,10 +80,12 @@ void MainWindowImpl::readProgram(void)
 
 void MainWindowImpl::eraseDevice(void)
 {
-	unsigned char msg=0x10;
+	unsigned char msg[64];
+	msg[0]=0x10;
 	
-	_prog->write((char*)&msg,1);
-
+	_prog->write((char*)msg,1);
+	
+	textEdit->append(_prog->readResponse());
 
 }
 
@@ -97,17 +99,20 @@ void MainWindowImpl::program(void)
 	prgrm[5]=1; //last block
 	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,38);
+	textEdit->append(_prog->readResponse());
 }
 
 void MainWindowImpl::writeData(void)
 {
 	unsigned char prgrm[100];
+	unsigned char datasize=16;
 	prgrm[0]=0x50;
-	prgrm[1]=32;
+	prgrm[1]=datasize;
 	prgrm[2]=0; prgrm[3]=0; //address 0
-	prgrm[4]=1; //last block
-	for(int i=0;i<32;i++)prgrm[i+5]=(unsigned char)i+2;
-	_prog->write((const char*)prgrm,38);
+	prgrm[4]=3; //first and last block
+	for(int i=0;i<datasize;i++)prgrm[i+5]=(unsigned char)i+2;
+	_prog->write((const char*)prgrm,datasize+5);
+	textEdit->append(_prog->readResponse());
 }
 
 void MainWindowImpl::readData(void)
@@ -144,6 +149,7 @@ void MainWindowImpl::writeConfig(void)
 	prgrm[5]=1; //last block
 	for(int i=0;i<13;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,19);
+	textEdit->append(_prog->readResponse());
 }
 
 void MainWindowImpl::readConfig(void)

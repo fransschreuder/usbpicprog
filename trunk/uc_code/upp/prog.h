@@ -59,6 +59,7 @@ call as many times until progstate==PROGSUCCESS
  */
 void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
 
+
 /**
 program_config_bits writes 2 configuration bytes each time (*data has to be 2 bytes big)
 the address will be 0x300000 + the id location

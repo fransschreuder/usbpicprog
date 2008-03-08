@@ -131,6 +131,7 @@ extern CONFIGSTATE configstate;
 
 //unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
+char sentNextBlockRequest=0;
 void ProcessIO(void)
 {
     char oldPGDtris;
@@ -151,7 +152,7 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x10) 
 		{
 		erasestate=ERASESTART;
-		setLeds(0x07);
+		//setLeds(0x07);
 		}
 		if((input_buffer[0])==0x20) 
 		{
@@ -168,8 +169,9 @@ void ProcessIO(void)
                         if(progstate==PROGNEXTBLOCK)
                         {
                              progstate=PROG2;
+			     sentNextBlockRequest=0;
                         }
-			setLeds(0x07);
+			//setLeds(0x07);
 		}
 		if((input_buffer[0])==0x40) 
 		{
@@ -193,7 +195,7 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x50) 
 		{
 			datastate=DATASTART;
-			setLeds(0x07);
+			//setLeds(0x07);
 		}
 		if((input_buffer[0])==0x60) 
 		{
@@ -210,7 +212,7 @@ void ProcessIO(void)
 		{
                         configstate=CONFIGSTART;
                         //if(configstate==CONFIGNEXTBLOCK)configstate=CONFIG;
-			setLeds(0x07);
+			//setLeds(0x07);
 		}
 	}
     
@@ -220,7 +222,7 @@ void ProcessIO(void)
         if(erasestate==ERASESUCCESS)
         {
             erasestate=ERASEIDLE;
-            setLeds(0x00);
+            //setLeds(0x00);
             output_buffer[0]=1;
             counter=1;
         }
@@ -228,7 +230,7 @@ void ProcessIO(void)
         {
 	    
             bulk_erase(PIC18,P18F2XXX);
-	    setLeds((char)erasestate);
+	    //setLeds((char)erasestate);
         }
     }
     if(progstate!=PROGIDLE)
@@ -236,18 +238,20 @@ void ProcessIO(void)
         if(progstate==PROGSUCCESS)
         {
             progstate=PROGIDLE;
-            setLeds(0x00);
+            //setLeds(0x00);
             output_buffer[0]=1;
+	    counter=1;
         }
-        else if(progstate==PROGNEXTBLOCK)
+	else if((progstate==PROGNEXTBLOCK)&&(sentNextBlockRequest==0))
         {
           //load next block and make it PROG2
+	    sentNextBlockRequest=1;
             output_buffer[0]=2;
             counter=1;
         }
         else
         {
-		program_memory(PIC18,P18F2XXX,0, (char*)(input_buffer+6),32,input_buffer[5]); 
+		program_memory(PIC18,P18F2XXX,0, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
         }
     }
     if(datastate!=DATAIDLE)
@@ -255,13 +259,16 @@ void ProcessIO(void)
 	    if(datastate==DATASUCCESS)
 	    {
 		    datastate=DATAIDLE;
-		    setLeds(0x00);
+		    //setLeds(0x00);
 		    output_buffer[0]=1;
 		    counter=1;
 	    }
 	    else
 	    {
-		    program_data(PIC18,P18F2XXX,0, (char*)(input_buffer+5),32,input_buffer[4]); 
+		    intaddress=((unsigned int)input_buffer[2])<<8|
+				    ((unsigned int)input_buffer[3]);
+	
+		    program_data(PIC18,P18F2XXX,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
 	    }
     }
     if(configstate!=CONFIGIDLE)
@@ -269,7 +276,7 @@ void ProcessIO(void)
 	    if(configstate==CONFIGSUCCESS)
 	    {
 		    configstate=CONFIGIDLE;
-		    setLeds(0x00);
+		    //setLeds(0x00);
 		    output_buffer[0]=1;
 		    counter=1;
 	    }

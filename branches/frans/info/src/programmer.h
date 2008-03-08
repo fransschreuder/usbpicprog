@@ -17,7 +17,7 @@ public:
 	int read_code(char * msg,int address,int size,int lastblock);
 	int read_data(char * msg,int address,int size,int lastblock);
 	bool connected(void);
-
+	const char* readResponse(void);
 private :
 	usb_dev_handle	*_handle;
 };
