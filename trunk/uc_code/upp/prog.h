@@ -46,7 +46,7 @@ data contains the data MSB0, LSB0, MSB1, LSB1, etc...
 blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
-void program_memory(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock);
+void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock);
 
 /**
 for program_ids, program_memory can be used in stead with address 0x200000 and blocksize=8
@@ -57,7 +57,7 @@ void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-void program_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
+void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
 
 
 /**
@@ -66,13 +66,13 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
  **/
-void program_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock);
+void write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock);
 
 /**
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
  **/
-void read_program(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock);
+void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock);
 
 /**
 This function reads a block of data from the data eeprom of size blocksize into *data

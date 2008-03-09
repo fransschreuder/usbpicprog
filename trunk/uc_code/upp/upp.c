@@ -156,7 +156,7 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x20) 
 		{
-			read_program(PIC18,P18F2XXX,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
+			read_code(PIC18,P18F2XXX,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) 
@@ -188,7 +188,7 @@ void ProcessIO(void)
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_program(PIC18,P18F2XXX,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
+				read_code(PIC18,P18F2XXX,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
 				counter=input_buffer[1];
 			//}
 		}
@@ -251,7 +251,7 @@ void ProcessIO(void)
         }
         else
         {
-		program_memory(PIC18,P18F2XXX,0, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+		write_code(PIC18,P18F2XXX,0, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
         }
     }
     if(datastate!=DATAIDLE)
@@ -268,7 +268,7 @@ void ProcessIO(void)
 		    intaddress=((unsigned int)input_buffer[2])<<8|
 				    ((unsigned int)input_buffer[3]);
 	
-		    program_data(PIC18,P18F2XXX,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
+		    write_data(PIC18,P18F2XXX,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
 	    }
     }
     if(configstate!=CONFIGIDLE)
@@ -290,7 +290,7 @@ void ProcessIO(void)
                     address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
-		    program_config_bits(PIC18, P18F2XXX, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+		    write_config_bits(PIC18, P18F2XXX, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 	    }
     }
     if(counter != 0)
