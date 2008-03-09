@@ -108,6 +108,12 @@ Writes a n-bit command
 **/
 void pic_send_n_bits(char cmd_size, char command);
 
+
+/**
+Writes 16 bits to the PIC
+**/
+void pic_send_word(unsigned int payload);
+
 /**
 Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/

@@ -47,7 +47,6 @@ void MainWindowImpl::connectProgrammer(void)
 void MainWindowImpl::getId(void)
 {
 	char id[256],text[256];
-	int nBytes;
 	_prog->getId(id,64);
 	sprintf(text,"%2X %2X", id[0]&0xFF, id[1]&0xFF);
 	textEdit->append(text);
@@ -96,6 +95,15 @@ void MainWindowImpl::writeCode(void)
 	prgrm[0]=0x30;
 	prgrm[1]=32;
 	prgrm[2]=0; prgrm[3]=0; prgrm[4]=0; //address 0
+	prgrm[5]=0; //not last block
+	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
+	_prog->write((const char*)prgrm,38);
+	textEdit->append(_prog->readResponse());
+	
+
+	prgrm[0]=0x30;
+	prgrm[1]=32;
+	prgrm[2]=0; prgrm[3]=0; prgrm[4]=32; //address 32
 	prgrm[5]=1; //last block
 	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,38);
@@ -109,8 +117,16 @@ void MainWindowImpl::writeData(void)
 	prgrm[0]=0x50;
 	prgrm[1]=datasize;
 	prgrm[2]=0; prgrm[3]=0; //address 0
-	prgrm[4]=3; //first and last block
+	prgrm[4]=1; //first block
 	for(int i=0;i<datasize;i++)prgrm[i+5]=(unsigned char)i+2;
+	_prog->write((const char*)prgrm,datasize+5);
+	textEdit->append(_prog->readResponse());
+	
+	prgrm[0]=0x50;
+	prgrm[1]=datasize;
+	prgrm[2]=0; prgrm[3]=datasize; //address 0
+	prgrm[4]=2; //last block
+	for(int i=0;i<datasize;i++)prgrm[i+5]=(unsigned char)(i+2+datasize);
 	_prog->write((const char*)prgrm,datasize+5);
 	textEdit->append(_prog->readResponse());
 }
@@ -136,18 +152,30 @@ void MainWindowImpl::readData(void)
 				id[i+13]&0xFF,id[i+12]&0xFF,id[i+15]&0xFF,id[i+14]&0xFF);
 			textEdit->append(text);
 		}
+		address=32;
+		nBytes=_prog->read_data(id,address,32,3);
+		for(int i=0;i<nBytes;i+=16)
+		{
+			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X ",
+				id[i+1]&0xFF,id[i]&0xFF,id[i+3]&0xFF,id[i+2]&0xFF,
+				id[i+5]&0xFF,id[i+4]&0xFF,id[i+7]&0xFF,id[i+6]&0xFF,
+				id[i+9]&0xFF,id[i+8]&0xFF,id[i+11]&0xFF,id[i+10]&0xFF,
+				id[i+13]&0xFF,id[i+12]&0xFF,id[i+15]&0xFF,id[i+14]&0xFF);
+			textEdit->append(text);
+		}
 	//}
 	
 }
 
 void MainWindowImpl::writeConfig(void)
 {
-	unsigned char prgrm[100];
+	unsigned char prgrm[100]="\x00\x00\x00\x00\x00\x00\x3F\xCF\x3F\x1F\x00\x87\xE5\x00\x0F\xC0\x0F\xE0\x0F\x40";
+	
 	prgrm[0]=0x70;
 	prgrm[1]=13;
 	prgrm[2]=0x30; prgrm[3]=0; prgrm[4]=0; //address 0
 	prgrm[5]=1; //last block
-	for(int i=0;i<13;i++)prgrm[i+6]=(unsigned char)i;
+	
 	_prog->write((const char*)prgrm,19);
 	textEdit->append(_prog->readResponse());
 }
@@ -159,14 +187,14 @@ void MainWindowImpl::readConfig(void)
 
 		int address=0x300000;
 		
-		nBytes=_prog->read_code(id,address,13,3);
+		nBytes=_prog->read_code(id,address,14,3);
 		//for(int i=0;i<nBytes;i+=16)
 		//{
-			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X ",
-				id[1]&0xFF,id[0]&0xFF,id[3]&0xFF,id[2]&0xFF,
-				id[5]&0xFF,id[4]&0xFF,id[7]&0xFF,id[6]&0xFF,
-				id[9]&0xFF,id[8]&0xFF,id[11]&0xFF,id[10]&0xFF,
-				id[13]&0xFF,id[12]&0xFF);
+			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X ",
+				id[0]&0xFF,id[1]&0xFF,id[2]&0xFF,id[3]&0xFF,
+				id[4]&0xFF,id[5]&0xFF,id[6]&0xFF,id[7]&0xFF,
+				id[8]&0xFF,id[9]&0xFF,id[10]&0xFF,id[11]&0xFF,
+				id[12]&0xFF,id[13]&0xFF);
 			textEdit->append(text);
 		//}
 	//}

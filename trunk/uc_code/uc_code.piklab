@@ -34,14 +34,8 @@
     <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
     <description/>
     <version>0.1</version>
-    <opened_files>
-      <item>upp/prog.h</item>
-      <item>upp/upp.c</item>
-      <item>upp/prog.c</item>
-      <item>autofiles/usbcfg.h</item>
-    </opened_files>
     <watched_registers>
-      <item>245 2 </item>
+      <item>282 2 </item>
     </watched_registers>
   </general>
   <compiler>
@@ -83,4 +77,5 @@
     </custom_arguments>
     <custom_libraries/>
   </linker>
+  <editors/>
 </piklab>

@@ -128,7 +128,7 @@ extern ERASESTATE erasestate;
 extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
-
+extern unsigned long tick, lasttick;
 //unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
 char sentNextBlockRequest=0;
@@ -166,7 +166,7 @@ void ProcessIO(void)
 		        {
                              progstate=PROGSTART;
                         }
-                        if(progstate==PROGNEXTBLOCK)
+			if((progstate==PROGNEXTBLOCK)&&(sentNextBlockRequest==1))
                         {
                              progstate=PROG2;
 			     sentNextBlockRequest=0;
@@ -251,11 +251,15 @@ void ProcessIO(void)
         }
         else
         {
-		write_code(PIC18,P18F2XXX,0, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+		address=((unsigned long)input_buffer[2])<<16|
+				((unsigned long)input_buffer[3])<<8|
+				((unsigned long)input_buffer[4]);
+		write_code(PIC18,P18F2XXX,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
         }
     }
     if(datastate!=DATAIDLE)
     {
+
 	    if(datastate==DATASUCCESS)
 	    {
 		    datastate=DATAIDLE;

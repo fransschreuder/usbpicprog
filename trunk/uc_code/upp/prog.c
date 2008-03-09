@@ -256,6 +256,7 @@ void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 		case PROG4:
 			if((tick-lasttick)>P10)
 			{
+				pic_send_word(0x0000);
 				if(lastblock==0)progstate=PROGNEXTBLOCK;
 				else 
 				{
@@ -289,7 +290,7 @@ void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 
 /**
 before calling this function, datastate must be DATASTART
-call as many times until progstate==PROGSUCCESS
+call as many times until datastate==DATASUCCESS
  */
 void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
 {
@@ -321,17 +322,17 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 						//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
 						lasttick=tick;
-						do
+						/*do
 						{
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 							pic_send(4,0x00,0x6EF5); //movwf TABLAT
 							pic_send(4,0x00,0x0000); //nop
 							receiveddata=pic_read(4,0x02); //Shift TABLAT register out
 						}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
-						
-						//while(((tick-lasttick)<P11A))continue;
+						*/
+						while(((tick-lasttick)<P11A))continue;
 						lasttick=tick;
-						PGC=0;	//hold PGC low for P10 (100us)
+						//PGC=0;	//hold PGC low for P10 (100us)
 						while(((tick-lasttick)<P10))continue;
 						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 					}
@@ -390,41 +391,36 @@ void write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 					address=0x300000;
-					setLeds(1);
                                  //start for loop
                                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
                                         {
-						set_address(pictype, address+(int)blockcounter);
+						set_address(pictype, address+((unsigned int)blockcounter));
           					//LSB first
-						pic_send(4,0x0F,(unsigned int)*(data));
+						pic_send(4,0x0F,((unsigned int)*(data))&0x00FF);
 						pic_send_n_bits(3, 0);
 						lasttick=tick;
 						PGC=1;	//hold PGC high for P9
 						while((tick-lasttick)<P9)continue;
-						setLeds(2);
 						lasttick=tick;
 						PGC=0;	//hold PGC low for time P10
 						while((tick-lasttick)<P10)continue;
-						setLeds(3);
-						set_address(pictype, address+(int)blockcounter+1);
-						pic_send(4,0x0F, ((unsigned int)*(data+1))<<8); //load MSB and start programming
+						pic_send_word(0x0000); //last part of the nop
+						set_address(pictype, address+((unsigned int)blockcounter)+1);
+						pic_send(4,0x0F, (((unsigned int)*(data+1))<<8)&0xFF00); //load MSB and start programming
 						pic_send_n_bits(3, 0);
 						lasttick=tick;
 						PGC=1;	//hold PGC high for P9
-						while((tick-lasttick)<P9)
-						setLeds(4);
+						while((tick-lasttick)<P9)continue;
 						lasttick=tick;
 						PGC=0;	//hold PGC low for time P10
 						while((tick-lasttick)<P10)continue;
-						setLeds(5);
+						pic_send_word(0x0000); //last part of the nop
 					}
-/*					if(lastblock==0)configstate=CONFIGNEXTBLOCK;
-					else
-					{*/
-						setLeds(4);
-						configstate=CONFIGSTOP;
-						lasttick=tick;
-					//}
+
+					setLeds(4);
+					configstate=CONFIGSTOP;
+					lasttick=tick;
+
 					break;
 				default:
 					break;
@@ -433,16 +429,18 @@ void write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 		case CONFIGNEXTBLOCK:
 			break;
 		case CONFIGSTOP:
-			set_vdd_vpp(0);
 			if((tick-lasttick)>P10)
-				progstate=CONFIGSUCCESS;
+			{
+				set_vdd_vpp(0);
+				configstate=CONFIGSUCCESS;
+			}
 			break;
 		case CONFIGIDLE:
 			break;
 		case CONFIGSUCCESS:
 			break;
 		default:
-			progstate=CONFIGIDLE;
+			configstate=CONFIGIDLE;
 			break;
 	}
 }
@@ -593,14 +591,9 @@ void pic_send_n_bits(char cmd_size, char command)
 	for(i=0;i<40;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
 }
 
-
-/**
-Writes a n-bit command + 16 bit payload to a pic device
-**/
-void pic_send(char cmd_size, char command, unsigned int payload)
+void pic_send_word(unsigned int payload)
 {
 	char i;
-	pic_send_n_bits(cmd_size,command);
 	for(i=0;i<16;i++)
 	{
 
@@ -615,6 +608,16 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 
 	}
 	clock_delay();
+}
+
+/**
+Writes a n-bit command + 16 bit payload to a pic device
+**/
+void pic_send(char cmd_size, char command, unsigned int payload)
+{
+	char i;
+	pic_send_n_bits(cmd_size,command);
+	pic_send_word(payload);
 	
 }
 
