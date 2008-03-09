@@ -15,11 +15,11 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(quitButton, SIGNAL(clicked()),this,SLOT(quit()));
 	connect(openButton,SIGNAL(clicked()),this,SLOT(open()));
 	connect(checkHex,SIGNAL(clicked()),this,SLOT(check()));
-	connect(programButton,SIGNAL(clicked()),this,SLOT(program()));
+	connect(programButton,SIGNAL(clicked()),this,SLOT(writeCode()));
 	connect(connectButton,SIGNAL(clicked()),this,SLOT(connectProgrammer()));
 	connect(eraseButton,SIGNAL(clicked()),this,SLOT(eraseDevice()));
 	connect(deviceIdButton,SIGNAL(clicked()),this,SLOT(getId()));
-	connect(readprogramButton,SIGNAL(clicked()),this,SLOT(readProgram()));
+	connect(readprogramButton,SIGNAL(clicked()),this,SLOT(readCode()));
 	connect(dataButton,SIGNAL(clicked()),this,SLOT(writeData()));
 	connect(rDataButton,SIGNAL(clicked()),this,SLOT(readData()));
 	connect(configButton,SIGNAL(clicked()),this,SLOT(writeConfig()));
@@ -53,7 +53,7 @@ void MainWindowImpl::getId(void)
 	textEdit->append(text);
 }
 
-void MainWindowImpl::readProgram(void)
+void MainWindowImpl::readCode(void)
 {
 	char id[256],text[256];
 	int nBytes;
@@ -90,7 +90,7 @@ void MainWindowImpl::eraseDevice(void)
 }
 
 
-void MainWindowImpl::program(void)
+void MainWindowImpl::writeCode(void)
 {
 	unsigned char prgrm[100];
 	prgrm[0]=0x30;
@@ -105,7 +105,7 @@ void MainWindowImpl::program(void)
 void MainWindowImpl::writeData(void)
 {
 	unsigned char prgrm[100];
-	unsigned char datasize=16;
+	unsigned char datasize=32;
 	prgrm[0]=0x50;
 	prgrm[1]=datasize;
 	prgrm[2]=0; prgrm[3]=0; //address 0

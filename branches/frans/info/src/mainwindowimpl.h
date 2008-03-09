@@ -18,11 +18,11 @@ private slots:
 	void open(void);
 	void quit(void);
 	void check(void);
-	void program(void);
+	void writeCode(void);
 	void connectProgrammer(void);
 	void eraseDevice (void);
 	void getId(void);
-	void readProgram(void);
+	void readCode(void);
 	void writeData(void);
 	void readData(void);
 	void writeConfig(void);
