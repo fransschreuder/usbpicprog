@@ -27,6 +27,7 @@ private slots:
 	void readData(void);
 	void writeConfig(void);
 	void readConfig(void);
+	void getVersion(void);
 
 };
 #endif

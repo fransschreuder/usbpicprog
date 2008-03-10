@@ -537,6 +537,10 @@ void set_vdd_vpp(char level)
     }
 }
 
+void set_pictype(char* data)
+{
+}
+
 void set_address(PICTYPE pictype, unsigned long address)
 {
 	switch(pictype)

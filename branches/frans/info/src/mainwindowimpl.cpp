@@ -24,6 +24,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(rDataButton,SIGNAL(clicked()),this,SLOT(readData()));
 	connect(configButton,SIGNAL(clicked()),this,SLOT(writeConfig()));
 	connect(rConfigButton,SIGNAL(clicked()),this,SLOT(readConfig()));
+	connect(versionButton,SIGNAL(clicked()),this,SLOT(getVersion()));
 	
 }
 
@@ -40,6 +41,7 @@ void MainWindowImpl::connectProgrammer(void)
 		rDataButton->setEnabled(true);
 		configButton->setEnabled(true);
 		rConfigButton->setEnabled(true);
+		versionButton->setEnabled(true);
 	}
 	
 }
@@ -248,6 +250,15 @@ void MainWindowImpl::open(void)
 	}
 	textEdit->append(txt);
 
+}
+
+void MainWindowImpl::getVersion(void)
+{
+	char msg[100];
+	_prog->write("\x90",1);
+		
+	textEdit->append(_prog->readString());
+	
 }
 void MainWindowImpl::quit(void)
 {

@@ -82,6 +82,10 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 
 
 /**
+set the type of PIC to be programmed
+**/
+void set_pictype(char* data);
+/**
 Sets or clears the VDD and VPP voltages
 **/
 void set_vdd_vpp(char level);

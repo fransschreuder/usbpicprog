@@ -163,7 +163,18 @@ void programmer::write(const char * msg,int size)
 	else 
 		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: You are not connect!!!"));
 }
-
+const char * programmer::readString(void)
+{
+	char msg[100];
+	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+		if (nBytes < 0 )
+		{
+			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
+			return NULL;
+		}
+			
+	return msg;
+}
 
 const char * programmer::readResponse(void)
 {
