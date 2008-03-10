@@ -3,7 +3,7 @@
  *                Microchip USB C18 Firmware Version 1.0
  *
  *********************************************************************
- * FileName:        usb_compile_time_validation.h
+ * FileName:        usb.h
  * Dependencies:    See INCLUDES section below
  * Processor:       PIC18
  * Compiler:        C18 2.30.01+
@@ -12,8 +12,8 @@
  * Software License Agreement
  *
  * The software supplied herewith by Microchip Technology Incorporated
- * (the “Company”) for its PICmicro® Microcontroller is intended and
- * supplied to you, the Company’s customer, for use solely and
+ * (the ï¿½Companyï¿½) for its PICmicroï¿½ Microcontroller is intended and
+ * supplied to you, the Companyï¿½s customer, for use solely and
  * exclusively on Microchip PICmicro Microcontroller products. The
  * software is owned by the Company and/or its supplier, and is
  * protected under applicable copyright laws. All rights are reserved.
@@ -22,7 +22,7 @@
  * civil liability for the breach of the terms and conditions of this
  * license.
  *
- * THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
+ * THIS SOFTWARE IS PROVIDED IN AN ï¿½AS ISï¿½ CONDITION. NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
  * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
  * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
@@ -31,21 +31,30 @@
  *
  * Author               Date        Comment
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Rawin Rojvanit       7/10/04     Original.
+ * Rawin Rojvanit       11/19/04    Original.
  ********************************************************************/
+#ifndef USB_H
+#define USB_H
 
-#ifndef USB_COMPILE_TIME_VALIDATION_H
-#define USB_COMPILE_TIME_VALIDATION_H
+/*
+ * usb.h provides a centralize way to include all files
+ * required by Microchip USB Firmware.
+ *
+ * The order of inclusion is important.
+ * Dependency conflicts are resolved by the correct ordering.
+ */
 
-/** I N C L U D E S *************************************************/
-#include "sys\typedefs.h"
-#include "sys\usb.h"
+#include "usbcfg.h"
+#include "usbdefs_std_dsc.h"
+#include "usbdsc.h"
 
-/** U S B  V A L I D A T I O N **************************************/
+#include "boot.h"
 
-#if (EP0_BUFF_SIZE != 8) && (EP0_BUFF_SIZE != 16) && \\
-    (EP0_BUFF_SIZE != 32) && (EP0_BUFF_SIZE != 64)
-#error(Invalid buffer size for endpoint 0,check "usb\usbcfg.h")
-#endif
+#include "usbdefs_ep0_buff.h"
+#include "usbmmap.h"
 
-#endif //USB_COMPILE_TIME_VALIDATION_H
+#include "usbdrv.h"
+#include "usbctrltrf.h"
+#include "usb9.h"
+
+#endif //USB_H

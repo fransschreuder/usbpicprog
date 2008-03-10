@@ -36,11 +36,11 @@
 
 /** I N C L U D E S **********************************************************/
 #include <p18cxxx.h>
-#include "sys\typedefs.h"                        // Required
-#include "sys\usb.h"                         // Required
+#include "typedefs.h"                        // Required
+#include "usb.h"                         // Required
 #include "io_cfg.h"                                 // Required
 
-#include "sys\usb_compile_time_validation.h" // Optional
+#include "usb_compile_time_validation.h" // Optional
 
 /** V A R I A B L E S ********************************************************/
 #pragma udata
