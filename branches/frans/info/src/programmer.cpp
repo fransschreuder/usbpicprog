@@ -7,8 +7,8 @@ programmer::programmer(  )
 {
 	struct usb_bus *bus;
 	struct usb_device *dev;
-	static int		didUsbInit=0;
-	char svend[128],sprod[128];
+	//static int		didUsbInit=0;
+	//char svend[128],sprod[128];
 	usb_init();
 	
 	usb_find_busses();
@@ -135,7 +135,7 @@ int programmer::read_data(char * msg,int address,int size,int lastblock)
 		}
 		return nBytes;
 	}
-	
+	return -1;
 	
 }
 
@@ -163,17 +163,17 @@ void programmer::write(const char * msg,int size)
 	else 
 		QMessageBox::warning(NULL,QString("Error"),QString("Error ::: You are not connect!!!"));
 }
-const char * programmer::readString(void)
+
+int programmer::readString(char* msg)
 {
-	char msg[100];
 	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{
 			QMessageBox::warning(NULL,QString("USB Error"),QString(usb_strerror()));
-			return NULL;
+		
 		}
-			
-	return msg;
+		return nBytes;
+		
 }
 
 const char * programmer::readResponse(void)

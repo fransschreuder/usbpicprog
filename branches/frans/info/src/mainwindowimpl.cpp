@@ -256,8 +256,8 @@ void MainWindowImpl::getVersion(void)
 {
 	char msg[100];
 	_prog->write("\x90",1);
-		
-	textEdit->append(_prog->readString());
+	_prog->readString(msg);	
+	textEdit->append(QString(msg));
 	
 }
 void MainWindowImpl::quit(void)
