@@ -618,6 +618,7 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 	char i;
 	pic_send_n_bits(cmd_size,command);
 	pic_send_word(payload);
+	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
 	
 }
 
@@ -654,6 +655,7 @@ char pic_read(char cmd_size, char command)
 		clock_delay();
 	}
 	TRISPGD=0; //PGD = output
+	PGD=0;
 	clock_delay();
 	return result;
 }
