@@ -16,7 +16,7 @@ close VDD and MCLR
 
 **/
 typedef enum _PICTYPE{PIC10=0,PIC12,PIC16,PIC18,dsPIC}PICTYPE;
-typedef enum _PICVARIANT{P18F2XXX,P18FXX2}PICVARIANT;
+typedef enum _PICVARIANT{P18F2XXX,P18FXX2,P16F87XA,P16F62XA}PICVARIANT;
 typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERASESUCCESS}ERASESTATE;
 //typedef enum _PERASESTATE{PERASEIDLE=0, PERASESTART, PERASE1, PERASE2, PERASE3, PERASESTOP, PERASESUCCESS}PERASESTATE;
 typedef enum _PROGSTATE{PROGIDLE=0, PROGSTART, PROG1, PROG2, PROG3, PROG4, PROGNEXTBLOCK, PROGSTOP, PROGSUCCESS}PROGSTATE;
@@ -84,11 +84,11 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 /**
 set the type of PIC to be programmed
 **/
-void set_pictype(char* data);
+void set_pictype(unsigned char* data);
 /**
 Sets or clears the VDD and VPP voltages
 **/
-void set_vdd_vpp(char level);
+void set_vdd_vpp(PICTYPE pictype, char level);
 
 /**
 sets the address pointer to a certain address location
@@ -122,8 +122,12 @@ void pic_send_word(unsigned int payload);
 Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/
 void pic_send(char cmd_size,char command, unsigned int payload);
-//delay times according to programming specification:
+//delay times according to programming specification for PIC18F:
 #define P9 2
 #define P10 1
 #define P11 10
 #define P11A 5
+//delay times according to programming specification for PIC16F:
+#define Tera 6
+#define Tprog 4
+#define Tdprog 6

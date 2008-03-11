@@ -220,7 +220,7 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x90)
 		{
-			strcpypgm2ram(output_buffer,upp_version);
+			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 			counter=18;
 		}
 		
