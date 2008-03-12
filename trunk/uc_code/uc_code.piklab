@@ -30,8 +30,10 @@
       <item>upp/upp.h</item>
       <item>upp/prog.h</item>
       <item>upp/prog.c</item>
+      <item>upp/prog_lolvl.h</item>
+      <item>upp/prog_lolvl.c</item>
     </files>
-    <custom_linker_script>/home/frans/usbpicprog/uc_code/rm18f4550.lkr</custom_linker_script>
+    <custom_linker_script>rm18f4550.lkr</custom_linker_script>
     <description/>
     <version>0.1</version>
   </general>

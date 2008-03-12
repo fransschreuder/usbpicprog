@@ -1,3 +1,10 @@
+
+
+
+
+
+
+#include "prog.h"
 /**
 Sets or clears the VDD and VPP voltages
 **/
@@ -28,7 +35,7 @@ void pic_send_n_bits(char cmd_size, char command);
 /**
 Write 14 bit word with a start and a stop bit (16F devices)
 **/
-void pic_send_word_14_bits(unsigned int payload)
+void pic_send_word_14_bits(unsigned int payload);
 
 /**
 Writes 16 bits to the PIC (18F devices)

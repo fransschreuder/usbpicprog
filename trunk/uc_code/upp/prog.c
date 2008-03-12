@@ -78,7 +78,7 @@ void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 								pic_send_n_bits(6,0x06);
 							pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
 							pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
-							DelayMs(Tera) //wait Tera for erase to complete
+							DelayMs(Tera); //wait Tera for erase to complete
 							PGD=0;
 							set_vdd_vpp(pictype,0);
 							break;
@@ -327,7 +327,7 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 						//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-						/*lasttick=tick;
+						lasttick=tick;
 						do
 						{
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
@@ -335,9 +335,9 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 							pic_send(4,0x00,0x0000); //nop
 							receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
 						}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
-						*/
-						DelayMs(P11A);
-						lasttick=tick;
+						
+						//DelayMs(P11A);
+						//lasttick=tick;
 						//PGC=0;	//hold PGC low for P10 (100us)
 						DelayMs(P10);
 						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
@@ -534,23 +534,6 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 
 
 
-void set_pictype(unsigned char* data)
-{
-	switch(data[0])
-	{
-		case 0:	pictype=PIC16;	break;
-		case 1:	pictype=PIC18;	break;
-		default:pictype=PIC18;	break;
-	}
-	switch(data[1])
-	{
-		case 0:	picvariant=P18F2XXX;break;
-		case 1:	picvariant=P18FXX2; break;
-		case 2:	picvariant=P16F87XA;break;
-		case 3:	picvariant=P16F62XA;break;
-		default: picvariant=P18F2XXX;break;
-	}	
-}
 
 
 

@@ -29,6 +29,7 @@ extern PROGSTATE progstate;
 extern DATASTATE datastate;
 extern CONFIGSTATE configstate;
 
+
 /**
 before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
@@ -81,10 +82,7 @@ call this function only once.
 void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock);
 
 
-/**
-set the type of PIC to be programmed
-**/
-void set_pictype(unsigned char* data);
+
 
 //delay times according to programming specification for PIC18F:
 #define P9 2

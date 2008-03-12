@@ -321,6 +321,25 @@ void ProcessIO(void)
 }//end ProcessIO
 
 
+void set_pictype(unsigned char* data)
+{
+	switch(data[0])
+	{
+		case 0:	pictype=PIC16;	break;
+		case 1:	pictype=PIC18;	break;
+		default:pictype=PIC18;	break;
+	}
+	switch(data[1])
+	{
+		case 0:	picvariant=P18F2XXX;break;
+		case 1:	picvariant=P18FXX2; break;
+		case 2:	picvariant=P16F87XA;break;
+		case 3:	picvariant=P16F62XA;break;
+		default: picvariant=P18F2XXX;break;
+	}	
+}
+
+
 
 /******************************************************************************
  * Function:        void BlinkUSBStatus(void)
