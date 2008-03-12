@@ -4,16 +4,15 @@
  *                Frans Schreuder 12-03-2008
  ********************************************************************/
  
- #include "upp.h"
+#include "prog_lolvl.h"
 #ifdef SDCC
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
 #endif
 #include "system\typedefs.h"
-#include "io_cfg.h"             // I/O pin mapping
-#include "prog.h"
 #include "system\interrupt\interrupt.h"
+#include "io_cfg.h"             // I/O pin mapping
 
 extern long tick;
 extern long lasttick;
@@ -123,16 +122,56 @@ void pic_send_word(unsigned int payload)
 	clock_delay();
 }
 
+void pic_send_word_14_bits(unsigned int payload)
+{
+	char i;
+	PGC=1;
+	clock_delay();
+	PGD=0;
+	clock_delay();
+	PGC=0;
+	clock_delay();
+	for(i=0;i<14;i++)
+	{
+
+		PGC=1;
+		clock_delay();
+		if(payload&1)PGD=1;
+		else PGD=0;
+		payload>>=1;
+		clock_delay();
+		PGC=0;
+		clock_delay();
+
+	}
+	PGC=1;
+	clock_delay();
+	PGD=0;
+	clock_delay();
+	PGC=0;
+	clock_delay();
+	clock_delay();
+}
+
 /**
-Writes a n-bit command + 16 bit payload to a pic device
+Writes a n-bit command + 16 bit payload to a pic18 device
 **/
 void pic_send(char cmd_size, char command, unsigned int payload)
 {
-	char i;
 	pic_send_n_bits(cmd_size,command);
 	pic_send_word(payload);
 	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
 	
+}
+
+/**
+Writes a n-bit command + 14 bit payload to a pic16 device
+**/
+void pic_send_14_bits(char cmd_size,char command, unsigned int payload)
+{
+	pic_send_n_bits(cmd_size,command);
+	pic_send_word_14_bits(payload);
+	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
 }
 
 /**

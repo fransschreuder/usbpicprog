@@ -25,11 +25,21 @@ Writes a n-bit command
 **/
 void pic_send_n_bits(char cmd_size, char command);
 
+/**
+Write 14 bit word with a start and a stop bit (16F devices)
+**/
+void pic_send_word_14_bits(unsigned int payload)
 
 /**
-Writes 16 bits to the PIC
+Writes 16 bits to the PIC (18F devices)
 **/
 void pic_send_word(unsigned int payload);
+
+/**
+Writes a cmd_size bit command + 14 bit payload to a pic16 device
+ **/
+void pic_send_14_bits(char cmd_size,char command, unsigned int payload);
+
 
 /**
 Writes a cmd_size bit command + 16 bit payload to a pic18 device

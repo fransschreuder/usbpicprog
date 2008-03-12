@@ -13,6 +13,7 @@
 #include "io_cfg.h"             // I/O pin mapping
 #include "prog.h"
 #include "system\interrupt\interrupt.h"
+#include "prog_lolvl.h"
 
 ERASESTATE erasestate=ERASEIDLE;
 //PERASESTATE perasestate=PERASEIDLE;
@@ -75,22 +76,21 @@ void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 							//why does this stupid PIC not have the set_address command???
 							for(i=0;i<0x2000;i++)
 								pic_send_n_bits(6,0x06);
-							pic_send(6,0x02,0x7FFE); //load data for program memory 0x3FFF << 1
+							pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
 							pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
-							lasttick=tick;
-							while((tick-lasttick)<Tera)continue; //wait Tera for erase to complete
+							DelayMs(Tera) //wait Tera for erase to complete
 							PGD=0;
 							set_vdd_vpp(pictype,0);
 							break;
 						default:
 							break;
-                                        
+
 					}
 					break;
 				default:
 					break;
 			}
-			
+
 			erasestate=ERASE2;
 			break;
 		case ERASE2:
@@ -107,22 +107,21 @@ void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 					switch(picvariant)
 					{
 						case P16F87XA:
-							
+
 							break;
 						case P16F62XA:
 							set_vdd_vpp(pictype,1);
 							pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
-							lasttick=tick;
-							while((tick-lasttick)<Tera)continue; //wait Tera for erase to complete
+							DelayMs(Tera);
 							PGD=0;
 							erasestate=ERASESTOP;
 							lasttick=tick;
 							break;
 						default:
 							break;
-                                        
+
 					}
-					break; 
+					break;
 			}
 			break;
 		case ERASESTOP:
@@ -225,13 +224,12 @@ void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 							for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 							{
 								//load data
-								pic_send(6,0x02,(((unsigned int)data[blockcounter])<<9)|   //MSB
-										(((unsigned int)data[blockcounter+1])<<1));//LSB
+								pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
+										(((unsigned int)data[blockcounter+1])));//LSB
 								//begin programming command
 								pic_send_n_bits(6,0x08);
 								//wait Tprog
-								lasttick=tick;
-								while((tick-lasttick)<Tprog)continue;
+								DelayMs(Tprog);
 								//read data from program memory (to verify) not yet impl...
 								//increment address
 								pic_send_n_bits(6,0x06);
@@ -329,8 +327,8 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
 						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 						//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-						lasttick=tick;
-						/*do
+						/*lasttick=tick;
+						do
 						{
 							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 							pic_send(4,0x00,0x6EF5); //movwf TABLAT
@@ -338,10 +336,10 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 							receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
 						}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
 						*/
-						while(((tick-lasttick)<P11A))continue;
+						DelayMs(P11A);
 						lasttick=tick;
 						//PGC=0;	//hold PGC low for P10 (100us)
-						while(((tick-lasttick)<P10))continue;
+						DelayMs(P10);
 						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 					}
 					break;
@@ -352,12 +350,11 @@ void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 							for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 							{
 								//load data
-								pic_send(6,0x03,((unsigned int)data[blockcounter])<<1);//LSB
+								pic_send_14_bits(6,0x03,((unsigned int)data[blockcounter]));//LSB only
 								//begin programming command
 								pic_send_n_bits(6,0x08);
 								//wait Tprog
-								lasttick=tick;
-								while((tick-lasttick)<Tdprog)continue;
+								DelayMs(Tdprog);
 								//read data from data memory (to verify) not yet impl...
 								//increment address
 								pic_send_n_bits(6,0x06);
@@ -429,22 +426,18 @@ void write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
           					//LSB first
 						pic_send(4,0x0F,((unsigned int)*(data))&0x00FF);
 						pic_send_n_bits(3, 0);
-						lasttick=tick;
 						PGC=1;	//hold PGC high for P9
-						while((tick-lasttick)<P9)continue;
-						lasttick=tick;
+						DelayMs(P9);
 						PGC=0;	//hold PGC low for time P10
-						while((tick-lasttick)<P10)continue;
+						DelayMs(P10);
 						pic_send_word(0x0000); //last part of the nop
 						set_address(pictype, address+((unsigned int)blockcounter)+1);
 						pic_send(4,0x0F, (((unsigned int)*(data+1))<<8)&0xFF00); //load MSB and start programming
 						pic_send_n_bits(3, 0);
-						lasttick=tick;
 						PGC=1;	//hold PGC high for P9
-						while((tick-lasttick)<P9)continue;
-						lasttick=tick;
+						DelayMs(P9);
 						PGC=0;	//hold PGC low for time P10
-						while((tick-lasttick)<P10)continue;
+						DelayMs(P10);
 						pic_send_word(0x0000); //last part of the nop
 					}
 
@@ -509,7 +502,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 	
 	char i;
 	char blockcounter=0;
-	//if(lastblock&1)	
+	//if(lastblock&1)
 	set_vdd_vpp(pictype,1);	
 	switch(pictype)
 	{
@@ -543,6 +536,20 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 
 void set_pictype(unsigned char* data)
 {
+	switch(data[0])
+	{
+		case 0:	pictype=PIC16;	break;
+		case 1:	pictype=PIC18;	break;
+		default:pictype=PIC18;	break;
+	}
+	switch(data[1])
+	{
+		case 0:	picvariant=P18F2XXX;break;
+		case 1:	picvariant=P18FXX2; break;
+		case 2:	picvariant=P16F87XA;break;
+		case 3:	picvariant=P16F62XA;break;
+		default: picvariant=P18F2XXX;break;
+	}	
 }
 
 

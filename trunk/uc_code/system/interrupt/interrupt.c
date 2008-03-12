@@ -79,4 +79,10 @@ void low_isr(void) interrupt 1
 }
 #pragma code
 
+
+void DelayMs(unsigned long cnt)
+{
+	lasttick=tick;
+	while((tick-lasttick)<cnt)continue;
+}
 /** EOF interrupt.c **********************************************************/
