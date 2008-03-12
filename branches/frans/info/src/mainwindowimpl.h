@@ -28,6 +28,7 @@ private slots:
 	void writeConfig(void);
 	void readConfig(void);
 	void getVersion(void);
+	void changePicType(int index);
 
 };
 #endif

@@ -91,5 +91,5 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 #define P11A 5
 //delay times according to programming specification for PIC16F:
 #define Tera 6
-#define Tprog 4
+#define Tprog 8
 #define Tdprog 6

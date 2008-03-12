@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <iostream>
 #include "hexparse.h"
+#include <string.h>
+#include <stdio.h>
 
 
 //
@@ -25,6 +27,8 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f)
 	connect(configButton,SIGNAL(clicked()),this,SLOT(writeConfig()));
 	connect(rConfigButton,SIGNAL(clicked()),this,SLOT(readConfig()));
 	connect(versionButton,SIGNAL(clicked()),this,SLOT(getVersion()));
+	connect(typeCombo,SIGNAL(activated(int)),this,SLOT(changePicType(int)));
+	
 	
 }
 
@@ -265,5 +269,36 @@ void MainWindowImpl::quit(void)
 	QCoreApplication::quit();
 	
 	
+}
+
+void MainWindowImpl::changePicType(int index)
+{
+	char txt[100];
+	sprintf(txt,"%i",index);
+	textEdit->append(QString(txt));
+	txt[0]=0x80;
+	switch(index)
+	{
+		case 0:
+		txt[1]=1;
+		txt[2]=0;
+		break;
+		case 1:
+		txt[1]=1;
+		txt[2]=1;
+		break;
+		case 2:
+		txt[1]=0;
+		txt[2]=2;
+		break;
+		case 3:
+		txt[1]=0;
+		txt[2]=3;
+		break;
+		default:
+		break;
+		
+	}
+	_prog->write(txt,3);
 }
 //

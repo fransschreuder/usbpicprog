@@ -134,8 +134,7 @@ int programmer::read_data(char * msg,int address,int size,int lastblock)
 			//qDebug("Message : %2X %2X, %i bytes", (int)msg[0]&0xFF,(int)msg[1]&0xFF, nBytes);
 		}
 		return nBytes;
-	}
-	return -1;
+	}	return -1;
 	
 }
 

@@ -253,6 +253,11 @@
       <string>PIC16F876A</string>
      </property>
     </item>
+    <item>
+     <property name="text" >
+      <string>PIC16F628A</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="versionButton" >
     <property name="enabled" >
