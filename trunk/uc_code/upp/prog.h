@@ -17,8 +17,8 @@ close VDD and MCLR
 **/
 typedef enum _PICTYPE{PIC10=0,PIC12,PIC16,PIC18,dsPIC}PICTYPE;
 typedef enum _PICVARIANT{P18F2XXX,P18FXX2,P16F87XA,P16F62XA}PICVARIANT;
+
 typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERASESUCCESS}ERASESTATE;
-//typedef enum _PERASESTATE{PERASEIDLE=0, PERASESTART, PERASE1, PERASE2, PERASE3, PERASESTOP, PERASESUCCESS}PERASESTATE;
 typedef enum _PROGSTATE{PROGIDLE=0, PROGSTART, PROG1, PROG2, PROG3, PROG4, PROGNEXTBLOCK, PROGSTOP, PROGSUCCESS}PROGSTATE;
 typedef enum _DATASTATE{DATAIDLE=0, DATASTART, DATA, DATASTOP, DATASUCCESS}DATASTATE;
 typedef enum _CONFIGSTATE{CONFIGIDLE=0, CONFIGSTART, CONFIG, CONFIGNEXTBLOCK, CONFIGSTOP, CONFIGSUCCESS}CONFIGSTATE;
@@ -85,43 +85,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 set the type of PIC to be programmed
 **/
 void set_pictype(unsigned char* data);
-/**
-Sets or clears the VDD and VPP voltages
-**/
-void set_vdd_vpp(PICTYPE pictype, char level);
 
-/**
-sets the address pointer to a certain address location
-**/
-void set_address(PICTYPE pictype, unsigned long address);
-
-/**
-Would one Nop() cylce be enough delay for all PIC's?
-It works for PIC18F2550
-**/
-#define clock_delay() Nop()
-//void clock_delay(void);
-
-/**
-reads 8 bits from a pic device with a given cmd_size bits command
- **/
-char pic_read(char cmd_size,char command);
-
-/**
-Writes a n-bit command
-**/
-void pic_send_n_bits(char cmd_size, char command);
-
-
-/**
-Writes 16 bits to the PIC
-**/
-void pic_send_word(unsigned int payload);
-
-/**
-Writes a cmd_size bit command + 16 bit payload to a pic18 device
- **/
-void pic_send(char cmd_size,char command, unsigned int payload);
 //delay times according to programming specification for PIC18F:
 #define P9 2
 #define P10 1

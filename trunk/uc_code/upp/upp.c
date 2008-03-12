@@ -37,6 +37,7 @@ BOOL Switch3IsPressed(void);
 void setLeds(char n);
 
 
+
 /** D E C L A R A T I O N S **************************************************/
 #ifndef SDCC
 #pragma code
@@ -132,6 +133,9 @@ extern unsigned long tick, lasttick;
 //unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
 char sentNextBlockRequest=0;
+PICTYPE pictype=PIC18;
+PICVARIANT picvariant=P18F2XXX;
+
 void ProcessIO(void)
 {
     char oldPGDtris;
@@ -156,7 +160,7 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x20) 
 		{
-			read_code(PIC18,P18F2XXX,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
+			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) 
@@ -188,7 +192,7 @@ void ProcessIO(void)
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_code(PIC18,P18F2XXX,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
+				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
 				counter=input_buffer[1];
 			//}
 		}
@@ -204,7 +208,7 @@ void ProcessIO(void)
 					((unsigned int)input_buffer[3]);
 					
 				
-			read_data(PIC18,P18F2XXX,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
+			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
 			counter=input_buffer[1];
 
 		}
@@ -239,7 +243,7 @@ void ProcessIO(void)
         else
         {
 	    
-            bulk_erase(PIC18,P18F2XXX);
+            bulk_erase(pictype,picvariant);
 	    //setLeds((char)erasestate);
         }
     }
@@ -264,11 +268,12 @@ void ProcessIO(void)
 		address=((unsigned long)input_buffer[2])<<16|
 				((unsigned long)input_buffer[3])<<8|
 				((unsigned long)input_buffer[4]);
-		write_code(PIC18,P18F2XXX,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+		write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
         }
     }
     if(datastate!=DATAIDLE)
     {
+
 
 	    if(datastate==DATASUCCESS)
 	    {
@@ -282,7 +287,7 @@ void ProcessIO(void)
 		    intaddress=((unsigned int)input_buffer[2])<<8|
 				    ((unsigned int)input_buffer[3]);
 	
-		    write_data(PIC18,P18F2XXX,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
+		    write_data(pictype,picvariant,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
 	    }
     }
     if(configstate!=CONFIGIDLE)
@@ -304,7 +309,7 @@ void ProcessIO(void)
                     address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
-		    write_config_bits(PIC18, P18F2XXX, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+		    write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 	    }
     }
     if(counter != 0)
