@@ -17,6 +17,7 @@
 
 /** E X T E R N S ************************************************************/
 extern long tick;
+extern long lasttick;
 /** P R O T O T Y P E S ******************************************************/
 void low_isr(void);
 void high_isr(void);
