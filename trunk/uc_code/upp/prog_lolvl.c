@@ -13,6 +13,7 @@
 #include "system\typedefs.h"
 #include "system\interrupt\interrupt.h"
 #include "prog.h"
+#include "upp.h" 
 #include "io_cfg.h"             // I/O pin mapping
 
 extern long tick;

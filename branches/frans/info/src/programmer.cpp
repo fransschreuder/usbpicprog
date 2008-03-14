@@ -99,8 +99,6 @@ int programmer::read_code(char * msg,int address,int size,int lastblock)
 		}
 		return nBytes;
 	}
-	
-	
 }
 
 int programmer::read_data(char * msg,int address,int size,int lastblock)
@@ -195,6 +193,9 @@ const char * programmer::readResponse(void)
 				break;
 			case 2:
 				return "Received: 2, asked for next block";
+				break;
+			case 3:
+				return "Error, PIC not supported for this action";
 				break;
 			default:
 				return "Received unexpected response";

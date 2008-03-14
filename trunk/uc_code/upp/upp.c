@@ -124,11 +124,7 @@ void setLeds(char n)
  *
  * Note:            None
  *****************************************************************************/
-extern ERASESTATE erasestate;
-//extern PERASESTATE perasestate;
-extern PROGSTATE progstate;
-extern DATASTATE datastate;
-extern CONFIGSTATE configstate;
+
 extern unsigned long tick, lasttick;
 //unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
@@ -155,7 +151,8 @@ void ProcessIO(void)
 	{
 		if((input_buffer[0])==0x10) 
 		{
-		erasestate=ERASESTART;
+		output_buffer[0]=bulk_erase(pictype,picvariant);
+		counter=1;
 		//setLeds(0x07);
 		}
 		if((input_buffer[0])==0x20) 
@@ -165,58 +162,43 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x30) 
 		{
-		//	count_number_of_blocks=0;
-		        if(progstate==PROGIDLE)
-		        {
-                             progstate=PROGSTART;
-                        }
-			if((progstate==PROGNEXTBLOCK)&&(sentNextBlockRequest==1))
-                        {
-                             progstate=PROG2;
-			     sentNextBlockRequest=0;
-                        }
-			//setLeds(0x07);
+			address=((unsigned long)input_buffer[2])<<16|
+					((unsigned long)input_buffer[3])<<8|
+					((unsigned long)input_buffer[4]);
+			output_buffer[0]=write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			counter=1;
 		}
 		if((input_buffer[0])==0x40) 
 		{
-			/*if(nBytes<5)
-			{
-				input_buffer_offset=nBytes;
-				output_buffer[0]=nBytes;
-				counter=32;
-			}
-			else
-			{*/
-			//	input_buffer_offset=0;
 				address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);  //devid is at location 3ffffe
+				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);
 				counter=input_buffer[1];
-			//}
 		}
 		if((input_buffer[0])==0x50) 
 		{
-			datastate=DATASTART;
-			//setLeds(0x07);
+			intaddress=((unsigned int)input_buffer[2])<<8|
+					((unsigned int)input_buffer[3]);
+	
+			output_buffer[0]=write_data(pictype,picvariant,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
+			counter=1;
 		}
 		if((input_buffer[0])==0x60) 
 		{
-
 			intaddress=((unsigned int)input_buffer[2])<<8|
 					((unsigned int)input_buffer[3]);
-					
-				
 			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
 			counter=input_buffer[1];
-
 		}
 		if((input_buffer[0])==0x70)
 		{
-                        configstate=CONFIGSTART;
-                        //if(configstate==CONFIGNEXTBLOCK)configstate=CONFIG;
-			//setLeds(0x07);
+			address=((unsigned long)input_buffer[2])<<16|
+					((unsigned long)input_buffer[3])<<8|
+					((unsigned long)input_buffer[4]);
+			output_buffer[0]=write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			counter=1;
 		}
 		if((input_buffer[0])==0x80)
 		{
@@ -229,89 +211,6 @@ void ProcessIO(void)
 		}
 		
 	}
-    
-    
-    if(erasestate!=ERASEIDLE)
-    {
-        if(erasestate==ERASESUCCESS)
-        {
-            erasestate=ERASEIDLE;
-            //setLeds(0x00);
-            output_buffer[0]=1;
-            counter=1;
-        }
-        else
-        {
-	    
-            bulk_erase(pictype,picvariant);
-	    //setLeds((char)erasestate);
-        }
-    }
-    if(progstate!=PROGIDLE)
-    {
-        if(progstate==PROGSUCCESS)
-        {
-            progstate=PROGIDLE;
-            //setLeds(0x00);
-            output_buffer[0]=1;
-	    counter=1;
-        }
-	else if((progstate==PROGNEXTBLOCK)&&(sentNextBlockRequest==0))
-        {
-          //load next block and make it PROG2
-	    sentNextBlockRequest=1;
-            output_buffer[0]=2;
-            counter=1;
-        }
-        else
-        {
-		address=((unsigned long)input_buffer[2])<<16|
-				((unsigned long)input_buffer[3])<<8|
-				((unsigned long)input_buffer[4]);
-		write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
-        }
-    }
-    if(datastate!=DATAIDLE)
-    {
-
-
-	    if(datastate==DATASUCCESS)
-	    {
-		    datastate=DATAIDLE;
-		    //setLeds(0x00);
-		    output_buffer[0]=1;
-		    counter=1;
-	    }
-	    else
-	    {
-		    intaddress=((unsigned int)input_buffer[2])<<8|
-				    ((unsigned int)input_buffer[3]);
-	
-		    write_data(pictype,picvariant,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
-	    }
-    }
-    if(configstate!=CONFIGIDLE)
-    {
-	    if(configstate==CONFIGSUCCESS)
-	    {
-		    configstate=CONFIGIDLE;
-		    //setLeds(0x00);
-		    output_buffer[0]=1;
-		    counter=1;
-	    }
-	    /*else if (configstate==CONFIGNEXTBLOCK)
-	    {
-                    output_buffer[0]=2;
-                    counter=1;
-            }*/
-	    else
-	    {
-                    address=((unsigned long)input_buffer[2])<<16|
-						((unsigned long)input_buffer[3])<<8|
-						((unsigned long)input_buffer[4]);
-		    write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
-	    }
-    }
     if(counter != 0)
     {
        if(!mUSBGenTxIsBusy())

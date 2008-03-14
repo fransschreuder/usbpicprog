@@ -15,12 +15,6 @@
 #include "system\interrupt\interrupt.h"
 #include "prog_lolvl.h"
 
-ERASESTATE erasestate=ERASEIDLE;
-//PERASESTATE perasestate=PERASEIDLE;
-PROGSTATE progstate=PROGIDLE;
-DATASTATE datastate=DATAIDLE;
-CONFIGSTATE configstate=CONFIGIDLE;
-
 extern long lasttick;
 extern long tick;
 
@@ -29,119 +23,58 @@ before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
 */
 
-void bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
+char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
-	unsigned int i;
-	switch(erasestate)
+	unsigned int i;	
+	switch(picvariant)
 	{
-		case ERASESTART:
-                        set_vdd_vpp(pictype,1);
-			erasestate=ERASE1;
+		case P18F2XXX:           //also valid for 18F4XXX
+			set_vdd_vpp(pictype,1);
+			set_address(pictype, 0x3C0005);
+			pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
+			set_address(pictype, 0x3C0004);
+			pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			set_vdd_vpp(pictype,0);
 			break;
-		case ERASE1:
-			switch(pictype)
-			{
-				case PIC18:
-//					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
-//					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-//					pic_send(4,0x00,0x88A6); //BSF EECON1, WREN
-                                        switch(picvariant)
-                                        {
-                                               case P18F2XXX:           //also valid for 18F4XXX
-                                                    set_address(pictype, 0x3C0005);
-                                                    pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
-					            set_address(pictype, 0x3C0004);
-					            pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
-					            break;
-                                               case P18FXX2:            //also valid for 18FXX8
-                                                    set_address(pictype, 0x3C0004);
-                                                    pic_send(4,0x0C,0x0080);
-                                                    break;
-                                               default:
-                                                    break;
-
-                                        }
-					pic_send(4,0x00,0x0000); //NOP
-					lasttick=tick;
-					pic_send(4,0x00,0x0000); //hold PGD low until erase completes
-
-					break;   
-                                case PIC16:
-					switch(picvariant)
-					{
-						case P16F87XA:
-							pic_send_n_bits(6,0x1F); //send 11111x to erase device
-							break;
-						case P16F62XA:
-							//why does this stupid PIC not have the set_address command???
-							for(i=0;i<0x2000;i++)
-								pic_send_n_bits(6,0x06);
-							pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
-							pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
-							DelayMs(Tera); //wait Tera for erase to complete
-							PGD=0;
-							set_vdd_vpp(pictype,0);
-							break;
-						default:
-							break;
-
-					}
-					break;
-				default:
-					break;
-			}
-
-			erasestate=ERASE2;
+		case P18FXX2:            //also valid for 18FXX8
+			set_vdd_vpp(pictype,1);
+			set_address(pictype, 0x3C0004);
+			pic_send(4,0x0C,0x0080);
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			set_vdd_vpp(pictype,0);
 			break;
-		case ERASE2:
-			switch(pictype)
-			{
-				case PIC18:
-					if((tick-lasttick)>P11)
-					{
-						erasestate=ERASESTOP;
-						lasttick=tick;
-					}
-					break;
-				case PIC16:
-					switch(picvariant)
-					{
-						case P16F87XA:
-
-							break;
-						case P16F62XA:
-							set_vdd_vpp(pictype,1);
-							pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
-							DelayMs(Tera);
-							PGD=0;
-							erasestate=ERASESTOP;
-							lasttick=tick;
-							break;
-						default:
-							break;
-
-					}
-					break;
-			}
+		case P16F87XA:
+			set_vdd_vpp(pictype,1);
+			pic_send_n_bits(6,0x1F); //send 11111x to erase device
+			set_vdd_vpp(pictype,0);
 			break;
-		case ERASESTOP:
-			
-			if((tick-lasttick)>P10)
-			{
-				set_vdd_vpp(pictype,0);
-				erasestate=ERASESUCCESS;
-			}
-			break;
-		case ERASEIDLE:
-			break;
-		case ERASESUCCESS:
+		case P16F62XA:
+			set_vdd_vpp(pictype,1);
+			//why does this stupid PIC not have the set_address command???
+			for(i=0;i<0x2000;i++)
+				pic_send_n_bits(6,0x06); //increase the adress until 0x2000
+			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
+			pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
+			DelayMs(Tera); //wait Tera for erase to complete
+			PGD=0;
+			set_vdd_vpp(pictype,1);
+			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
+			DelayMs(Tera);
+			PGD=0;
+			set_vdd_vpp(pictype,0);
 			break;
 		default:
-			erasestate=ERASEIDLE;
+			return 3;
 			break;
-			
-			
 	}
+	return 1; //1 means "OK" 		
 }
 
 
@@ -159,137 +92,61 @@ data contains the data MSB0, LSB0, MSB1, LSB1, etc...
 blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
-void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock)
+char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock)
 {
 	char i;
 	char blockcounter;
-	switch(progstate)
+	switch(picvariant)
 	{
-		case PROGSTART:
-			set_vdd_vpp(pictype,1);
+		case P18F2XXX:
+			if(lastblock&1)set_vdd_vpp(pictype,1);
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			set_address(pictype, address);
+			for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+			{
 
-			progstate=PROG1;
-			break;
-		case PROG1:
-			switch(pictype)
-			{
-				case PIC18:
-					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
-					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-					break;
-				case PIC16:
-					switch(picvariant)
-					{
-						case P16F62XA:
-							//do nothing, go to state PROG2
-							break;
-						default:
-							break;
-					}
-					break;
-				default:
-					break;
+				//write 2 bytes and post increment by 2
+				//				MSB				LSB
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|
+						((unsigned int)*(data+1+blockcounter)));
+			//	pic_send(4,0x0D,0xAA55);
 			}
-			progstate=PROG2;
-		case PROG2:
-			switch(pictype)
+			//write last 2 bytes of the block and start programming
+			pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+			pic_send_n_bits(3, 0);
+			lasttick=tick;
+			PGC=1;	//hold PGC high for P9 and low for P10
+			DelayMs(P9);
+			PGC=0;
+			DelayMs(P10);
+			pic_send_word(0x0000);
+			if(lastblock&2)set_vdd_vpp(pictype,0);
+			break;
+		case P16F62XA:
+			if(lastblock&2)set_vdd_vpp(pictype,0);	
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
-				case PIC18:
-					set_address(pictype, address);
-					for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
-					{
-
-						//write 2 bytes and post increment by 2
-						//				MSB				LSB
-						pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|
-								((unsigned int)*(data+1+blockcounter)));
-					//	pic_send(4,0x0D,0xAA55);
-					}
-					//write last 2 bytes of the block and start programming
-					pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
-					//pic_send(4, 0x0F,0x55AA);
-					/*
-					PGC => 1 0 1 0 1 0 1 (then stay high for P9)
-					       b0  b1  b2
-					*/
-                                        pic_send_n_bits(3, 0);
-					lasttick=tick;
-					PGC=1;	//hold PGC high for P9
-					progstate=PROG3;
-					break;
-				case PIC16:
-					switch(picvariant)
-					{
-						case P16F62XA:
-							for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
-							{
-								//load data
-								pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
-										(((unsigned int)data[blockcounter+1])));//LSB
-								//begin programming command
-								pic_send_n_bits(6,0x08);
-								//wait Tprog
-								DelayMs(Tprog);
-								//read data from program memory (to verify) not yet impl...
-								//increment address
-								pic_send_n_bits(6,0x06);
-								
-							}
-							if(lastblock==0)progstate=PROGNEXTBLOCK;
-							else 
-							{
-								progstate=PROGSTOP;
-								lasttick=tick;
-							}
-							break;
-						default:
-							break;
-					}
-					break;
-				default:
-					break;
+				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
+						(((unsigned int)data[blockcounter+1])));//LSB
+				pic_send_n_bits(6,0x08);
+				DelayMs(Tprog);
+				//read data from program memory (to verify) not yet impl...
+				pic_send_n_bits(6,0x06);
 			}
-			
-			break;
-		case PROG3:
-			if((tick-lasttick)>P9)
-			{
-				progstate=PROG4;
-				PGC=0;	//hold PGC low for time P10
-				lasttick=tick;
-			}
-			break;
-		case PROG4:
-			if((tick-lasttick)>P10)
-			{
-				pic_send_word(0x0000);
-				if(lastblock==0)progstate=PROGNEXTBLOCK;
-				else 
-				{
-					progstate=PROGSTOP;
-					lasttick=tick;
-				}
-			}
-		case PROGNEXTBLOCK:		
-			/**
-			the higher level program has to check for this state and load the next block
-			then make progstate PROG2 to continue the next block
-			**/
-			break;
-		case PROGSTOP:
-			if((tick-lasttick)>P10)
-			{
-				progstate=PROGSUCCESS;
-				set_vdd_vpp(pictype,0);
-			}
-			break;
-		case PROGIDLE:
-			break;
-		case PROGSUCCESS:
+			if(lastblock&2)set_vdd_vpp(pictype,0);		
 			break;
 		default:
-			progstate=PROGIDLE;
+			return 3;
 			break;
+	}
+	if(lastblock&2)
+	{
+		return 2;	//ask for next block
+	}
+	else
+	{
+		return 1;	//ok
 	}
 }
 
@@ -298,94 +155,74 @@ void write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 before calling this function, datastate must be DATASTART
 call as many times until datastate==DATASUCCESS
  */
-void write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
+char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
 {
 	char blockcounter;
 	char receiveddata;
-	switch(datastate)
+	switch(picvariant)
 	{
-		case DATASTART:
+		case P18F2XXX:
 			if(lastblock&1)set_vdd_vpp(pictype,1);
-
-			datastate=DATA;
-			break;
-		case DATA:
-			switch(pictype)
+			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				case PIC18:
-					pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
-					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-					for(blockcounter=0;blockcounter<blocksize;blockcounter++)
-					{
-						
-						pic_send(4,0x00,(0x0E00|( address+(unsigned int)blockcounter)    &0xFF)); //MOVLW Addr [7:0]
-						pic_send(4,0x00,0x6EA9); //MOVWF EEADR
-						pic_send(4,0x00,(0x0E00|((address+(unsigned int)blockcounter)>>8)&0xFF)); //MOVLW Addr [15:8]
-						pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
-						pic_send(4,0x00,0x0E00|(unsigned int)data[blockcounter]); //MOVLW data
-						pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
-						pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
-						pic_send(4,0x00,0x82A6); //BSF EECON1, WR
-						//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-						lasttick=tick;
-						do
-						{
-							pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
-							pic_send(4,0x00,0x6EF5); //movwf TABLAT
-							pic_send(4,0x00,0x0000); //nop
-							receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
-						}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
-						
-						//DelayMs(P11A);
-						//lasttick=tick;
-						//PGC=0;	//hold PGC low for P10 (100us)
-						DelayMs(P10);
-						pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
-					}
-					break;
-				case PIC16:
-					switch(picvariant)
-					{
-						case P16F62XA:
-							for(blockcounter=0;blockcounter<blocksize;blockcounter++)
-							{
-								//load data
-								pic_send_14_bits(6,0x03,((unsigned int)data[blockcounter]));//LSB only
-								//begin programming command
-								pic_send_n_bits(6,0x08);
-								//wait Tprog
-								DelayMs(Tdprog);
-								//read data from data memory (to verify) not yet impl...
-								//increment address
-								pic_send_n_bits(6,0x06);
-								
-							}
-							break;
-						default:
-							break;
-					}
-					break;
-				default:
-					break;
+				
+				pic_send(4,0x00,(0x0E00|( address+(unsigned int)blockcounter)    &0xFF)); //MOVLW Addr [7:0]
+				pic_send(4,0x00,0x6EA9); //MOVWF EEADR
+				pic_send(4,0x00,(0x0E00|((address+(unsigned int)blockcounter)>>8)&0xFF)); //MOVLW Addr [15:8]
+				pic_send(4,0x00,0x6EAA); //MOVWF EEADRH
+				pic_send(4,0x00,0x0E00|(unsigned int)data[blockcounter]); //MOVLW data
+				pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
+				pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
+				pic_send(4,0x00,0x82A6); //BSF EECON1, WR
+				//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
+				lasttick=tick;
+				do
+				{
+					pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
+					pic_send(4,0x00,0x6EF5); //movwf TABLAT
+					pic_send(4,0x00,0x0000); //nop
+					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
+				}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+				
+				//DelayMs(P11A);
+				//lasttick=tick;
+				//PGC=0;	//hold PGC low for P10 (100us)
+				DelayMs(P10);
+				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
-			datastate=DATASTOP;
-			lasttick=tick;
+			if(lastblock&2)set_vdd_vpp(pictype,0);
 			break;
-		case DATASTOP:
-			if((tick-lasttick)>P10)
+		case P16F62XA:
+			if(lastblock&1)set_vdd_vpp(pictype,1);
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				datastate=DATASUCCESS;
-				if(lastblock&2)set_vdd_vpp(pictype,0);
+				//load data
+				pic_send_14_bits(6,0x03,((unsigned int)data[blockcounter]));//LSB only
+				//begin programming command
+				pic_send_n_bits(6,0x08);
+				//wait Tprog
+				DelayMs(Tdprog);
+				//read data from data memory (to verify) not yet impl...
+				//increment address
+				pic_send_n_bits(6,0x06);
+				
 			}
-			break;
-		case DATAIDLE:
-			break;
-		case DATASUCCESS:
-			break;
+			if(lastblock&2)set_vdd_vpp(pictype,0);
+			break;	
 		default:
-			datastate=DATAIDLE;
+			return 3;
 			break;
-	}	
+	}
+	if(lastblock&2)
+	{
+		return 2;	//ask for next block
+	}
+	else
+	{
+		return 1;	//ok
+	}
 }
 
 /**
@@ -401,71 +238,54 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
 **/
-void write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
+char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
 {
 	char i;
 	static char blockcounter;
-	switch(configstate)
+	switch(picvariant)
 	{
-		case CONFIGSTART:
-			blockcounter=0;
-			set_vdd_vpp(pictype,1);
-			configstate=CONFIG;
-			break;
-		case CONFIG:
-			switch(pictype)
+		case P18F2XXX:
+			if(lastblock&1)set_vdd_vpp(pictype,1);
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			address=0x300000;
+			//start for loop
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
-				case PIC18:
-					pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
-					pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-					address=0x300000;
-                                 //start for loop
-                                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
-                                        {
-						set_address(pictype, address+((unsigned int)blockcounter));
-          					//LSB first
-						pic_send(4,0x0F,((unsigned int)*(data))&0x00FF);
-						pic_send_n_bits(3, 0);
-						PGC=1;	//hold PGC high for P9
-						DelayMs(P9);
-						PGC=0;	//hold PGC low for time P10
-						DelayMs(P10);
-						pic_send_word(0x0000); //last part of the nop
-						set_address(pictype, address+((unsigned int)blockcounter)+1);
-						pic_send(4,0x0F, (((unsigned int)*(data+1))<<8)&0xFF00); //load MSB and start programming
-						pic_send_n_bits(3, 0);
-						PGC=1;	//hold PGC high for P9
-						DelayMs(P9);
-						PGC=0;	//hold PGC low for time P10
-						DelayMs(P10);
-						pic_send_word(0x0000); //last part of the nop
-					}
-
-					setLeds(4);
-					configstate=CONFIGSTOP;
-					lasttick=tick;
-
-					break;
-				default:
-					break;
+				set_address(pictype, address+((unsigned int)blockcounter));
+				//LSB first
+				pic_send(4,0x0F,((unsigned int)*(data))&0x00FF);
+				pic_send_n_bits(3, 0);
+				PGC=1;	//hold PGC high for P9
+				DelayMs(P9);
+				PGC=0;	//hold PGC low for time P10
+				DelayMs(P10);
+				pic_send_word(0x0000); //last part of the nop
+				set_address(pictype, address+((unsigned int)blockcounter)+1);
+				pic_send(4,0x0F, (((unsigned int)*(data+1))<<8)&0xFF00); //load MSB and start programming
+				pic_send_n_bits(3, 0);
+				PGC=1;	//hold PGC high for P9
+				DelayMs(P9);
+				PGC=0;	//hold PGC low for time P10
+				DelayMs(P10);
+				pic_send_word(0x0000); //last part of the nop
 			}
-			break;
-		case CONFIGNEXTBLOCK:
-			break;
-		case CONFIGSTOP:
-			if((tick-lasttick)>P10)
-			{
-				set_vdd_vpp(pictype,0);
-				configstate=CONFIGSUCCESS;
-			}
-			break;
-		case CONFIGIDLE:
-			break;
-		case CONFIGSUCCESS:
+			if(lastblock&2)set_vdd_vpp(pictype,0);
+			setLeds(4);
+
+
 			break;
 		default:
-			configstate=CONFIGIDLE;
+			return 3;
 			break;
+	}
+	if(lastblock&2)
+	{
+		return 2;	//ask for next block
+	}
+	else
+	{
+		return 1;	//ok
 	}
 }
 
@@ -478,14 +298,17 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, ch
 	char i;
 	char blockcounter=0;
 	if(lastblock&1)set_vdd_vpp(pictype,1);
-	switch(pictype)
+	switch(picvariant)
 	{
-		case PIC18:
+		case P18F2XXX:
                         set_address(pictype, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
 		default:
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+				*(data+blockcounter)=0;
+			break;
 			break;
 	}
 	if(lastblock&2)set_vdd_vpp(pictype,0);
@@ -503,10 +326,10 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 	char i;
 	char blockcounter=0;
 	//if(lastblock&1)
-	set_vdd_vpp(pictype,1);	
-	switch(pictype)
+	set_vdd_vpp(pictype,1);
+	switch(picvariant)
 	{
-		case PIC18:
+		case P18F2XXX:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -523,6 +346,8 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 			}
 			break;
 		default:
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+				*(data+blockcounter)=0;
 			break;
 	}
 	//if(lastblock&2)

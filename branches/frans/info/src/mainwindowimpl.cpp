@@ -101,7 +101,7 @@ void MainWindowImpl::writeCode(void)
 	prgrm[0]=0x30;
 	prgrm[1]=32;
 	prgrm[2]=0; prgrm[3]=0; prgrm[4]=0; //address 0
-	prgrm[5]=0; //not last block
+	prgrm[5]=1; //first block
 	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,38);
 	textEdit->append(_prog->readResponse());
@@ -110,7 +110,7 @@ void MainWindowImpl::writeCode(void)
 	prgrm[0]=0x30;
 	prgrm[1]=32;
 	prgrm[2]=0; prgrm[3]=0; prgrm[4]=32; //address 32
-	prgrm[5]=1; //last block
+	prgrm[5]=2; //last block
 	for(int i=0;i<32;i++)prgrm[i+6]=(unsigned char)i;
 	_prog->write((const char*)prgrm,38);
 	textEdit->append(_prog->readResponse());
@@ -180,7 +180,7 @@ void MainWindowImpl::writeConfig(void)
 	prgrm[0]=0x70;
 	prgrm[1]=13;
 	prgrm[2]=0x30; prgrm[3]=0; prgrm[4]=0; //address 0
-	prgrm[5]=1; //last block
+	prgrm[5]=3; //first and last block
 	
 	_prog->write((const char*)prgrm,19);
 	textEdit->append(_prog->readResponse());
