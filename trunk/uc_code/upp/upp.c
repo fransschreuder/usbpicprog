@@ -234,6 +234,7 @@ void set_pictype(unsigned char* data)
 		case 1:	picvariant=P18FXX2; break;
 		case 2:	picvariant=P16F87XA;break;
 		case 3:	picvariant=P16F62XA;break;
+		case 4: picvariant=P16F62X;break;
 		default: picvariant=P18F2XXX;break;
 	}	
 }

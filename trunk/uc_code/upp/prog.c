@@ -64,8 +64,28 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
 			DelayMs(Tera); //wait Tera for erase to complete
 			PGD=0;
+			set_vdd_vpp(pictype,0);
 			set_vdd_vpp(pictype,1);
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
+			DelayMs(Tera);
+			PGD=0;
+			set_vdd_vpp(pictype,0);
+			break;
+		case P16F62X:
+			set_vdd_vpp(pictype,1);
+			//why does this stupid PIC not have the set_address command???
+			for(i=0;i<0x2000;i++)
+				pic_send_n_bits(6,0x06); //increase the adress until 0x2000
+			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
+			pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
+			pic_send_n_bits(6,0x08); //perform begin erase / program cycle
+			DelayMs(Tera); //wait Tera for erase to complete
+			PGD=0;
+			set_vdd_vpp(pictype,0);
+			set_vdd_vpp(pictype,1);
+			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
+			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
+			pic_send_n_bits(6,0x08); //perform begin erase / program cycle
 			DelayMs(Tera);
 			PGD=0;
 			set_vdd_vpp(pictype,0);

@@ -295,6 +295,10 @@ void MainWindowImpl::changePicType(int index)
 		txt[1]=0;
 		txt[2]=3;
 		break;
+		case 4:
+		txt[1]=0;
+		txt[2]=4;
+		break;
 		default:
 		break;
 		
