@@ -48,7 +48,9 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			DelayMs(P11);
 			break;
 		case P16F87XA:
+			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			pic_send_n_bits(6,0x1F); //send 11111x to erase device
+			DelayMs(Tprog);
 			break;
 		case P16F62XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -141,6 +143,21 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
+		case P16F87XA:
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=16) //8 words of data = 16 bytes
+			{
+				for(i=0;i<16;i+=2)
+				{
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i])<<8)|   //MSB
+						(((unsigned int)data[blockcounter+i+1])));//LSB
+                                        if(i<14)pic_send_n_bits(6,0x06);	//increment address
+				}
+				pic_send_n_bits(6,0x08);    //begin programming
+				DelayMs(1);
+				pic_send_n_bits(5,0x17);    //end programming
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
 		case P16F62XA:      //same as P16F62X
 		case P16F62X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
@@ -209,7 +226,8 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
 			break;
-		case P16F62XA:              //same as P16F62X
+		case P16F87XA:		//same as P16F62X?
+		case P16F62XA:          //same as P16F62X
 		case P16F62X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
@@ -227,7 +245,7 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 			break;
 		default:
 			set_vdd_vpp(pictype,0);
-			return 3;
+			return 3;     //unknown pic type
 			break;
 	}
 	if(lastblock&2)
@@ -287,6 +305,30 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				pic_send_word(0x0000); //last part of the nop
 			}
 			break;
+		case P16F87XA:
+			if(lastblock&1)
+			{
+				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+				for(i=0;i<((char)address);i++)pic_send_n_bits(6,0x06);   //increment address until ADDRESS is reached
+			}
+                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				//load data for config memory
+				if(((((char)address)+blockcounter)<4)||((((char))address+blockcounter)==7))
+				{
+					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
+							(((unsigned int)data[blockcounter+1])));//LSB
+
+				}
+				if(((((char)address)+blockcounter)==4)||((((char)address)+blockcounter)==7))
+				{
+	                                pic_send_n_bits(6,0x08);    //begin programming
+					DelayMs(Tprog);
+				}
+				//read data from program memory (to verify) not yet impl...
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
 		case P16F62XA: //same as P16F62X
 		case P16F62X:
 			if(lastblock&1)
@@ -297,7 +339,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if((((char)address+blockcounter)<4)||(((char)address+blockcounter)>6))
+				if(((((char)address)+blockcounter)<4)||((((char)address)+blockcounter)==7))
 				{
 					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
 							(((unsigned int)data[blockcounter+1])));//LSB
@@ -341,8 +383,8 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, ch
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
-
-		case P16F62XA:
+		case P16F87XA:	//same as P16F62X
+		case P16F62XA:  //same as P16F62X
 		case P16F62X:
 			if(address>0x2000) //read configuration memory
 			{
@@ -416,7 +458,8 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
 			}
 			break;
-		case P16F62XA:
+		case P16F87XA:	//same as P16F62X
+		case P16F62XA:  //same as P16F62X
 		case P16F62X:
 			if(lastblock&1)
 			{
