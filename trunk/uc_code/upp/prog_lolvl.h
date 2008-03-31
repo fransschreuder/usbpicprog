@@ -1,6 +1,7 @@
 
 
-
+#ifndef PROG_LOLVL_H
+#define PROG_LOLVL_H
 
 
 
@@ -57,3 +58,5 @@ void pic_send_14_bits(char cmd_size,char command, unsigned int payload);
 Writes a cmd_size bit command + 16 bit payload to a pic18 device
  **/
 void pic_send(char cmd_size,char command, unsigned int payload);
+
+#endif //PROG_LOLVL_H

@@ -1,5 +1,7 @@
+#ifndef PROG_H
+#define PROG_H
 /**
-Low level programming routines for PIC16 and PIC18 
+Low level programming routines for PIC16 and PIC18
 
 Programming flow:
 Init VDD and VPP
@@ -93,3 +95,4 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 #define Tera 6
 #define Tprog 8
 #define Tdprog 6
+#endif //PROG_H
