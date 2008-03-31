@@ -176,6 +176,40 @@ void pic_send_14_bits(char cmd_size,char command, unsigned int payload)
 	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
 }
 
+unsigned int pic_read_14_bits(char cmd_size, char command)
+{
+	char i;
+	unsigned int result;
+	pic_send_n_bits(cmd_size,command);
+//	for(i=0;i<80;i++)continue;	//wait at least 1us
+	TRISPGD=1; //PGD = input
+	for(i=0;i<10;i++)continue;
+	result=0;
+	PGC=1;
+	clock_delay();
+	PGC=0;
+	clock_delay();
+	for(i=0;i<14;i++)
+	{
+
+		PGC=1;
+		clock_delay();
+		result|=((unsigned int)PGD_READ)<<i;
+		clock_delay();
+		PGC=0;
+		clock_delay();
+	}
+	PGC=1;
+	clock_delay();
+	PGC=0;
+	clock_delay();
+	TRISPGD=0; //PGD = output
+	PGD=0;
+	clock_delay();
+	return result;
+}
+
+
 /**
 reads 8 bits from a pic device with a given cmd_size bits command
 **/

@@ -28,6 +28,11 @@ reads 8 bits from a pic device with a given cmd_size bits command (only the 2nd 
 char pic_read_byte2(char cmd_size,char command);
 
 /**
+reads 14 bits from a pic16 device (0 payload 0)
+**/
+unsigned int pic_read_14_bits(char cmd_size, char command);
+
+/**
 Writes a n-bit command
 **/
 void pic_send_n_bits(char cmd_size, char command);
