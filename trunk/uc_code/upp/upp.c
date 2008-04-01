@@ -229,7 +229,7 @@ void set_pictype(unsigned char* data)
 	{
 		case 0:	pictype=PIC16;	break;
 		case 1:	pictype=PIC18;	break;
-		default:pictype=PIC18;	break;
+		default:pictype=PIC16;	break;
 	}
 	switch(data[1])
 	{
@@ -238,6 +238,8 @@ void set_pictype(unsigned char* data)
 		case 2:	picvariant=P16F87XA;break;
 		case 3:	picvariant=P16F62XA;break;
 		case 4: picvariant=P16F62X;break;
+		case 5: picvariant=P12F629;break;
+		case 6: picvariant=P12F6XX;break;
 		default: picvariant=P18F2XXX;break;
 	}	
 }

@@ -95,14 +95,14 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			/*set_vdd_vpp(pictype,0);
 			///erase code memory
 			set_vdd_vpp(pictype,1);*/
-			pic_send_14_bits(6,0x02,0x3FFF);//1. Execute a Load Data for Program Memory with the data word set to all ‘1’s (0x3FFF).
+			pic_send_14_bits(6,0x02,0x3FFF);//1. Execute a Load Data for Program Memory with the data word set to all ï¿½1ï¿½s (0x3FFF).
 			pic_send_n_bits(6,0x09);//2. Execute a Bulk Erase Program Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
 			/*set_vdd_vpp(pictype,0);
 			///erase data memory
 			set_vdd_vpp(pictype,1);*/
-			pic_send_14_bits(6,0x03,0x3FFF);//1. Execute a Load Data for Data Memory with the	data word set to all ‘1’s (0x3FFF).
+			pic_send_14_bits(6,0x03,0x3FFF);//1. Execute a Load Data for Data Memory with the	data word set to all ï¿½1ï¿½s (0x3FFF).
 			pic_send_n_bits(6,0x0B);//2. Execute a Bulk Erase Data Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
@@ -135,7 +135,7 @@ lastblock is 1 if this block is the last block to program, otherwise lastblock i
  */
 char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock)
 {
-	char i;
+	unsigned int i;
 	char blockcounter;
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
@@ -199,7 +199,8 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 			}
 			if((lastblock&2)&&((address+blocksize)<0x3FF)) //restore osccal register
 			{
-				for(i=0;i<(0x3FF-(address+blocksize))pic_send_n_bits(6,0x06);	//increment address
+				for(i=0;i<(0x3FF-(address+blocksize));i++)
+								pic_send_n_bits(6,0x06);	//increment address
 				pic_send_14_bits(6,0x02,osccal);
 				pic_send_n_bits(6,0x18);    //begin programming, externally timed
 				DelayMs(2);
@@ -363,7 +364,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if(((((char)address)+blockcounter)<4)||((((char))address+blockcounter)==7))
+				if(((((char)address)+blockcounter)<4)||(((char)address+blockcounter)==7))
 				{
 					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
 							(((unsigned int)data[blockcounter+1])));//LSB
