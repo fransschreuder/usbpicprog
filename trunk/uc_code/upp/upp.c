@@ -157,7 +157,10 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x20) 
 		{
-			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 3ffffe
+			if(pictype==PIC18)
+			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
+			else
+			read_code(pictype,picvariant,0x2006,(char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) 

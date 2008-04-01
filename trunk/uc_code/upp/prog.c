@@ -22,6 +22,7 @@ extern long tick;
 before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
 */
+unsigned int osccal,bandgap; //for P12F629 devices...
 
 char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
@@ -52,14 +53,31 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			pic_send_n_bits(6,0x1F); //send 11111x to erase device
 			DelayMs(Tprog);
 			break;
+		case P12F6XX:
+			return 3;
+			break;
+		case P12F629:
+			for(i=0;i<0x3FF;i++)pic_send_n_bits(6,0x06);//set PC to 3FF
+			osccal=pic_read_14_bits(6,0x04);
+			pic_send_14_bits(6,0x00,0x0000);//set PC to 0x2000
+                        for(i=0;i<7;i++)pic_send_n_bits(6,0x06);//2. Execute Increment Address command 7 times to advance PC to 0x2007.
+			bandgap=pic_read_14_bits(6,0x04)&0x3000;
+			//a) Read and store OSCCAL and BG bits.
+			pic_send_14_bits(6,0x00,0x0000);//b) Execute Load Configuration (000000).
+			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
+			DelayMs(Tera);//d) Wait TERA.
+			pic_send_n_bits(6,0x0B);//e) Execute Bulk Erase Data Memory (001011).
+			DelayMs(Tera);//f) Wait TERA.
+			//h) Restore OSCCAL and BG bits.*/
+			break;
 		case P16F62XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
 			pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
 			DelayMs(Tera); //wait Tera for erase to complete
-			PGD=0;
+			/*PGD=0;
 			set_vdd_vpp(pictype,0);
-			set_vdd_vpp(pictype,1);
+			set_vdd_vpp(pictype,1);    */
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
 			DelayMs(Tera);
 			PGD=0;
@@ -74,16 +92,16 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			DelayMs(Tera+Tprog); //6. Wait Tera + Tprog.
 			pic_send_n_bits(6,0x01);//3. Execute Bulk Erase Setup 1 command.
 			pic_send_n_bits(6,0x07);//4. Execute Bulk Erase Setup 2 command.
-			set_vdd_vpp(pictype,0);
+			/*set_vdd_vpp(pictype,0);
 			///erase code memory
-			set_vdd_vpp(pictype,1);
+			set_vdd_vpp(pictype,1);*/
 			pic_send_14_bits(6,0x02,0x3FFF);//1. Execute a Load Data for Program Memory with the data word set to all ‘1’s (0x3FFF).
 			pic_send_n_bits(6,0x09);//2. Execute a Bulk Erase Program Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
-			set_vdd_vpp(pictype,0);
+			/*set_vdd_vpp(pictype,0);
 			///erase data memory
-			set_vdd_vpp(pictype,1);
+			set_vdd_vpp(pictype,1);*/
 			pic_send_14_bits(6,0x03,0x3FFF);//1. Execute a Load Data for Data Memory with the	data word set to all ‘1’s (0x3FFF).
 			pic_send_n_bits(6,0x0B);//2. Execute a Bulk Erase Data Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
@@ -158,6 +176,35 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P12F629:
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				if((address+blockcounter)<0x3FF) //do not program
+				{
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
+							(((unsigned int)data[blockcounter+1])));//LSB
+					pic_send_n_bits(6,0x18);    //begin programming, externally timed
+					DelayMs(2);
+					pic_send_n_bits(6,0x0A); 	//end programming
+					//read data from program memory (to verify) not yet impl...
+					pic_send_n_bits(6,0x06);	//increment address
+				}
+				else     //if the osccall address is called, restore the osccal value instead.
+				{
+					pic_send_14_bits(6,0x02,osccal);
+					pic_send_n_bits(6,0x18);    //begin programming, externally timed
+					DelayMs(2);
+					pic_send_n_bits(6,0x0A); 	//end programming
+				}
+			}
+			if((lastblock&2)&&((address+blocksize)<0x3FF)) //restore osccal register
+			{
+				for(i=0;i<(0x3FF-(address+blocksize))pic_send_n_bits(6,0x06);	//increment address
+				pic_send_14_bits(6,0x02,osccal);
+				pic_send_n_bits(6,0x18);    //begin programming, externally timed
+				DelayMs(2);
+				pic_send_n_bits(6,0x0A); 	//end programming
+			}
 		case P16F62XA:      //same as P16F62X
 		case P16F62X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
@@ -226,6 +273,7 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
 			break;
+		case P12F629:		//same as P16F62X
 		case P16F87XA:		//same as P16F62X?
 		case P16F62XA:          //same as P16F62X
 		case P16F62X:
@@ -276,6 +324,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 {
 	char i;
 	static char blockcounter;
+	unsigned int payload;
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
@@ -323,6 +372,34 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				if(((((char)address)+blockcounter)==4)||((((char)address)+blockcounter)==7))
 				{
 	                                pic_send_n_bits(6,0x08);    //begin programming
+					DelayMs(Tprog);
+				}
+				//read data from program memory (to verify) not yet impl...
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
+		case P12F629:
+			if(lastblock&1)
+			{
+				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+				for(i=0;i<((char)address);i++)pic_send_n_bits(6,0x06);   //increment address until ADDRESS is reached
+			}
+                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				//load data for config memory
+				if(((((char)address)+blockcounter)<4))
+				{
+					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
+							(((unsigned int)data[blockcounter+1])));//LSB
+					pic_send_n_bits(6,0x08);    //begin programming
+					DelayMs(Tprog);
+				}
+				if(((((char)address)+blockcounter)==7))      //restore bandgap bits
+				{
+					payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter])<<8)|   //MSB
+							(((unsigned int)data[blockcounter+1]))));
+					pic_send_14_bits(6,0x00,payload);
+					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
 				//read data from program memory (to verify) not yet impl...
@@ -383,6 +460,7 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, ch
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
+		case P12F629:	//same as P16F62X
 		case P16F87XA:	//same as P16F62X
 		case P16F62XA:  //same as P16F62X
 		case P16F62X:
@@ -458,6 +536,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, cha
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
 			}
 			break;
+		case P12F629:	//same as P16F62X			
 		case P16F87XA:	//same as P16F62X
 		case P16F62XA:  //same as P16F62X
 		case P16F62X:
