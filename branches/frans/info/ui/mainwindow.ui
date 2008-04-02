@@ -263,6 +263,11 @@
       <string>PIC16F628</string>
      </property>
     </item>
+    <item>
+     <property name="text" >
+      <string>PIC12F629</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="versionButton" >
     <property name="enabled" >
@@ -287,7 +292,7 @@
      <x>0</x>
      <y>0</y>
      <width>1026</width>
-     <height>29</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >

@@ -27,6 +27,7 @@ unsigned int osccal,bandgap; //for P12F629 devices...
 char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
 	unsigned int i;
+	char temp_data[64];
 	set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
@@ -83,7 +84,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			PGD=0;
 			break;
 		case P16F62X:
-			///Remove code protection
+			/*///Remove code protection
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			for(i=0;i<7;i++)pic_send_n_bits(6,0x06);//2. Execute Increment Address command 7 times to advance PC to 0x2007.
 			pic_send_n_bits(6,0x01);//3. Execute Bulk Erase Setup 1 command.
@@ -92,21 +93,37 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			DelayMs(Tera+Tprog); //6. Wait Tera + Tprog.
 			pic_send_n_bits(6,0x01);//3. Execute Bulk Erase Setup 1 command.
 			pic_send_n_bits(6,0x07);//4. Execute Bulk Erase Setup 2 command.
-			/*set_vdd_vpp(pictype,0);
+			set_vdd_vpp(pictype,0);
 			///erase code memory
-			set_vdd_vpp(pictype,1);*/
+			set_vdd_vpp(pictype,1);
 			pic_send_14_bits(6,0x02,0x3FFF);//1. Execute a Load Data for Program Memory with the data word set to all �1�s (0x3FFF).
 			pic_send_n_bits(6,0x09);//2. Execute a Bulk Erase Program Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
-			/*set_vdd_vpp(pictype,0);
+			set_vdd_vpp(pictype,0);
 			///erase data memory
-			set_vdd_vpp(pictype,1);*/
+			set_vdd_vpp(pictype,1);
 			pic_send_14_bits(6,0x03,0x3FFF);//1. Execute a Load Data for Data Memory with the	data word set to all �1�s (0x3FFF).
 			pic_send_n_bits(6,0x0B);//2. Execute a Bulk Erase Data Memory command.
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
+			PGD=0;*/
+			for(i=0;i<64;i+=2) //fill buffer with 0x3FFF
+			{
+				temp_data[i]=0x3F;
+				temp_data[i+1]=0xFF;
+			}
+			for(i=0;i<0x7FF;i+=64)
+				write_code(pictype, picvariant, i, temp_data,64,0);
 			PGD=0;
+			set_vdd_vpp(pictype,0);
+			write_config_bits(pictype, picvariant, 0x2000, temp_data, 16, 3);
+			for(i=0;i<64;i++) //fill buffer with 0xFF
+			{
+				temp_data[i]=0xFF;
+			}
+			write_data(pictype, picvariant, 0, temp_data, 64, 1);
+			write_data(pictype, picvariant, 0, temp_data, 64, 2);
 			break;
 		default:
 			PGD=0;
@@ -226,11 +243,11 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 	if(lastblock&2)
 	{
 		set_vdd_vpp(pictype,0);
-		return 2;	//ask for next block
+		return 1;	//ok
 	}
 	else
 	{
-		return 1;	//ok
+		return 2;	//ask for next block
 	}
 }
 
@@ -300,11 +317,11 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, ch
 	if(lastblock&2)
 	{
 		set_vdd_vpp(pictype,0);
-		return 2;	//ask for next block
+		return 1;	//ok
 	}
 	else
 	{
-		return 1;	//ok
+		return 2;	//ask for next block
 	}
 }
 
@@ -419,7 +436,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				//load data for config memory
 				if(((((char)address)+blockcounter)<4)||((((char)address)+blockcounter)==7))
 				{
-					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
 							(((unsigned int)data[blockcounter+1])));//LSB
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
@@ -436,11 +453,11 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 	if(lastblock&2)
 	{
 		set_vdd_vpp(pictype,0);
-		return 2;	//ask for next block
+		return 1;	//ok
 	}
 	else
 	{
-		return 1;	//ok
+		return 2;	//ask for next block
 	}
 }
 
@@ -465,7 +482,7 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, ch
 		case P16F87XA:	//same as P16F62X
 		case P16F62XA:  //same as P16F62X
 		case P16F62X:
-			if(address>0x2000) //read configuration memory
+			if(address>=0x2000) //read configuration memory
 			{
 	                        pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 	                        if(lastblock&1)

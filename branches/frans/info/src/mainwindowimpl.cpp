@@ -90,7 +90,7 @@ void MainWindowImpl::eraseDevice(void)
 	
 	_prog->write((char*)msg,1);
 	
-	textEdit->append(_prog->readResponse());
+	//textEdit->append(_prog->readResponse());
 
 }
 
@@ -175,11 +175,14 @@ void MainWindowImpl::readData(void)
 
 void MainWindowImpl::writeConfig(void)
 {
+	/*
 	unsigned char prgrm[100]="\x00\x00\x00\x00\x00\x00\x3F\xCF\x3F\x1F\x00\x87\xE5\x00\x0F\xC0\x0F\xE0\x0F\x40";
-	
+	*/
+	unsigned char prgrm[100]="\x00\x00\x00\x00\x00\x00\x3F\xFF\x22\x33\x00\x11\x22\x33\x00\x00\x00\x00\x00\x00\x3F\xAA";
 	prgrm[0]=0x70;
-	prgrm[1]=13;
-	prgrm[2]=0x30; prgrm[3]=0; prgrm[4]=0; //address 0
+	//prgrm[1]=13;
+	prgrm[1]=2;
+	prgrm[2]=0x00; prgrm[3]=0x20; prgrm[4]=0x07; //address 0
 	prgrm[5]=3; //first and last block
 	
 	_prog->write((const char*)prgrm,19);
@@ -191,16 +194,14 @@ void MainWindowImpl::readConfig(void)
   char id[256],text[256];
 	int nBytes;
 
-		int address=0x300000;
-		
-		nBytes=_prog->read_code(id,address,14,3);
+		int address=0x2000;
+		int configsize=16; //bytes
+		nBytes=_prog->read_code(id,address,configsize,3);
 		//for(int i=0;i<nBytes;i+=16)
 		//{
-			sprintf(text,"%2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X %2X%2X ",
-				id[0]&0xFF,id[1]&0xFF,id[2]&0xFF,id[3]&0xFF,
-				id[4]&0xFF,id[5]&0xFF,id[6]&0xFF,id[7]&0xFF,
-				id[8]&0xFF,id[9]&0xFF,id[10]&0xFF,id[11]&0xFF,
-				id[12]&0xFF,id[13]&0xFF);
+			for(int i=0;i<configsize;i++)
+				sprintf(text+(i*2),"%02X",id[i]&0xFF);
+			
 			textEdit->append(text);
 		//}
 	//}
@@ -299,6 +300,9 @@ void MainWindowImpl::changePicType(int index)
 		txt[1]=0;
 		txt[2]=4;
 		break;
+		case 5:
+		txt[1]=0;
+		txt[2]=5;
 		default:
 		break;
 		
