@@ -26,8 +26,7 @@
 using namespace std;
 
 
-namespace ReadHexFile
-{
+
 	 ReadHexFile::ReadHexFile(char* filename)
 	{
 		int extAddress=0;
@@ -72,14 +71,22 @@ namespace ReadHexFile
 			switch(recordType)
 			{
 				case DATA:
-					/**TODO
-					read data / code memory
-					*/
+					if((extAddress)==0x300000)
+					   {
+						   if(configMemory.size()<address+lineData.size())
+						   {
+							   configMemory.resize(address+lineData.size());
+						   }
+						   for(int i=0;i<lineData.size();i++)
+						   	configMemory[address+i]=lineData[i];
+						   
+					   }
 					break;
 				case EXTADDR:
-					/**TODO
-					read extended address
-					*/
+					extAddress=(lineData[0]<<24)|(lineData[1]<<16);
+					cout<<"Extended address: "<<lineData[0]<<
+					" " <<lineData[1]<<" " <<extAddress<<endl;
+					printf("Extaddress: %00000008X",extAddress);
 					break;
 				case ENDOFFILE:
 					break;
@@ -91,14 +98,11 @@ namespace ReadHexFile
 				
 			}
 		}while(recordType!=ENDOFFILE);
-		/*for(int i=3;i<tempS.size();i+=2)
-		{
-			sscanf(&test.c_str()[i],"%02X",&testint);
-			printf("%02X ",testint);
-	}*/
-		
-		
 		fp.close();
+		cout<<endl<<endl;
+		for(int i=0;i<configMemory.size();i++)
+			printf("%02X",configMemory[i]);
+		cout<<endl;
 		return;
 	}
 	
@@ -121,5 +125,5 @@ namespace ReadHexFile
 		return (check==checkSum);
 	}
 	
-}
+
 

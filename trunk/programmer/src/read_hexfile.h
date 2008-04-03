@@ -31,6 +31,7 @@ typedef enum _RecordType{
 }RecordType;
 
 using namespace std;
+
 class ReadHexFile
 {
 	public:
@@ -44,4 +45,5 @@ class ReadHexFile
 		bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
 	
 };
+
 #endif //READHEXFILE_H
