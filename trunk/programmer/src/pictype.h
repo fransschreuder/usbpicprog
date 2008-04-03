@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Frans Schreuder   *
- *   usbpicprog.sourceforge.net   *
+ *   Copyright (C) 2008 by Frans Schreuder                                 *
+ *   usbpicprog.sourceforge.net                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,35 +17,32 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef PICTYPE_H
+#define PICTYPE_H
+typedef struct 
+PIC{
+	string Name;
+	int CodeSize;
+	int ConfigAddress;
+	int DataAddress; //in hex file
+	int DataSize;
+	int ConfigSize;
+}Pic;
+typedef struct pictype{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PicType;
 
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <iostream>
-#include <cstdlib>
-#include "read_hexfile.h"
-#include "pictype.h"
-
-
-using namespace std;
-
-
-int main(int argc, char *argv[])
+class PicType
 {
-  	ReadHexFile *readHexFile;
-	PicType *picType;
-	if(1)//argc>=3)
-	{
-		picType=new PicType("P12F629");
-		readHexFile=new ReadHexFile("uc_code.hex");
-	}
-	else
-	{
-		cerr<<"\nUsage:\nusbpicprog <Hexfile> <Pictype>\n"<<endl;
-		return EXIT_FAILURE;
-	}
-
-	return EXIT_SUCCESS;
-}
+	public:
+		PicType(string picType);
+		string getName(void);
+		int getCodeSize(void);
+		int getConfigAddress(void);
+		int getConfigSize(void);
+		int getDataAddress(void);
+		int getDataSize(void);
+	private:
+		
+		
+	
+};
+#endif  //PICTYPE_H
