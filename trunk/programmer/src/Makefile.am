@@ -1,5 +1,5 @@
 bin_PROGRAMS = programmer
-programmer_SOURCES = programmer.cpp read_hexfile.cpp \
+programmer_SOURCES = main.cpp read_hexfile.cpp \
 	pictype.cpp
 
 # set the include path found by configure
