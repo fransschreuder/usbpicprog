@@ -1,9 +1,9 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="7" >
+ <DocsAndViews NumberOfDocuments="9" >
   <Doc0 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/programmer.cpp" >
-   <View0 line="98" Type="Source" />
+   <View0 line="0" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/read_hexfile.cpp" >
    <View0 line="127" Type="Source" />
@@ -15,14 +15,20 @@
    <View0 line="1" Type="Source" />
   </Doc3>
   <Doc4 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/pictype.cpp" >
-   <View0 line="56" Type="Source" />
+   <View0 line="36" Type="Source" />
   </Doc4>
   <Doc5 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/pictype.h" >
-   <View0 line="49" Type="Source" />
+   <View0 line="37" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/piklab_r2537/src/progs/direct/base/direct_prog_config.cpp" >
-   <View0 line="0" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/piklab_r2537/src/devices/pic/xml_data/18F2221.xml" >
+   <View0 line="32" Type="Source" />
   </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/uc_code/upp/prog.c" >
+   <View0 line="0" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/uc_code/upp/upp.c" >
+   <View0 line="0" Type="Source" />
+  </Doc8>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

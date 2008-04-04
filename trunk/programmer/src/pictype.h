@@ -35,6 +35,8 @@ PIC{
 	int DataSize;
 	int ConfigSize;
 	PicFamily picFamily;
+	int UserId;
+	int UserIdMask;
 }Pic;
 
 
