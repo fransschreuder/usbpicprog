@@ -22,36 +22,58 @@
 #include <fstream>
 #include <cstdlib>
 
-PicType::PicType(string picType)
+
+
+PicType::PicType(string picTypeStr)
 {
-	switch (picType)
-		case "P12F629"
-			cout<<"P12F629"<<endl;
-			break;
-		default:
-			break;
+	const Pic picTypes[]={
+		{
+			"P12F629",	//Name
+			0x3FF,		//CodeSize
+			0x2000,		//ConfigAddress
+			0x2100,		//DataAddress in hex file
+			0x80,		//Datasize
+			0x0F,		//ConfigSize
+			P12F629		//PicFamily
+		}
+		,
+		{
+			"P12F675",	//Name
+			0x3FF,		//CodeSize
+			0x2000,		//ConfigAddress
+			0x2100,		//DataAddress in hex file
+			0x80,		//Datasize
+			0x0F,		//ConfigSize
+			P12F629		//PicFamily
+		}
+		,
+		{
+			"P18F2550",	//Name
+			0x3FFF,		//CodeSize
+			0x300000,	//ConfigAddress
+			0x200000,	//DataAddress in hex file
+			0x100,		//Datasize
+			0x0F,		//ConfigSize
+			P18F2XXX	//PicFamily
+		}
+	};
+	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
+	for(int i=0;i<numberOfSupportedDevices;i++)
+	{
+		if(picTypeStr.compare(picTypes[i].Name)==0)
+		{
+			currentPic=picTypes[i];
+		}
+	}
+	if(currentPic.Name.compare("")==0)
+	{
+		
+		cerr<<"Not Found: "<<picTypeStr<<endl;
+	}
+	
 }
 
-string PicType::getName(void)
+Pic PicType::getCurrentPic(void)
 {
-}
-
-int PicType::getCodeSize(void)
-{
-}
-
-int PicType::getConfigAddress(void)
-{
-}
-
-int PicType::getConfigSize(void)
-{
-}
-
-int PicType::getDataAddress(void)
-{
-}
-
-int PicType::getDataSize(void)
-{
+	return currentPic;
 }

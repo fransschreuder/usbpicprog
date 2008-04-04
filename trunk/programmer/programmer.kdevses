@@ -1,25 +1,28 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="6" >
+ <DocsAndViews NumberOfDocuments="7" >
   <Doc0 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/programmer.cpp" >
-   <View0 line="34" Type="Source" />
+   <View0 line="98" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/read_hexfile.cpp" >
-   <View0 line="80" Type="Source" />
+   <View0 line="127" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/read_hexfile.h" >
-   <View0 line="43" Type="Source" />
+   <View0 line="39" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/branches/frans/info/src/hexparse.cpp" >
-   <View0 line="26" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/debug/src/uc_code.hex" >
+   <View0 line="1" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/branches/frans/info/src/mainwindowimpl.cpp" >
-   <View0 line="221" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/pictype.cpp" >
+   <View0 line="56" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/debug/src/uc_code.hex" >
-   <View0 line="0" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/programmer/src/pictype.h" >
+   <View0 line="49" Type="Source" />
   </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///dop133_0/home/schreuder/upp/usbpicprog/trunk/piklab_r2537/src/progs/direct/base/direct_prog_config.cpp" >
+   <View0 line="0" Type="Source" />
+  </Doc6>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

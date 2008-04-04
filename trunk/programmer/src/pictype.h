@@ -19,6 +19,13 @@
  ***************************************************************************/
 #ifndef PICTYPE_H
 #define PICTYPE_H
+#include <string>
+#include <vector>
+
+using namespace std;
+
+typedef enum _PicFamily{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PicFamily;
+
 typedef struct 
 PIC{
 	string Name;
@@ -27,21 +34,20 @@ PIC{
 	int DataAddress; //in hex file
 	int DataSize;
 	int ConfigSize;
+	PicFamily picFamily;
 }Pic;
-typedef struct pictype{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PicType;
+
+
+
+
 
 class PicType
 {
 	public:
 		PicType(string picType);
-		string getName(void);
-		int getCodeSize(void);
-		int getConfigAddress(void);
-		int getConfigSize(void);
-		int getDataAddress(void);
-		int getDataSize(void);
+		Pic getCurrentPic(void);
 	private:
-		
+		Pic currentPic;
 		
 	
 };

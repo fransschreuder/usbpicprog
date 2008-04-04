@@ -26,7 +26,7 @@
 
 using namespace std;
 
-ReadHexFile::ReadHexFile(char* filename)
+ReadHexFile::ReadHexFile(PicType* picType,char* filename)
 {
 	int extAddress=0;
 	int address;
@@ -70,22 +70,50 @@ ReadHexFile::ReadHexFile(char* filename)
 		switch(recordType)
 		{
 			case DATA:
-				if((extAddress)==0x300000)
+				/**
+				Is The address within the Config Memory range?
+				 */
+				if(((extAddress+address)>=(picType->getCurrentPic().ConfigAddress))&&
+				((extAddress+address)<(picType->getCurrentPic().ConfigAddress+picType->getCurrentPic().ConfigSize)))
 				   {
-					   if(configMemory.size()<address+lineData.size())
+					   if(configMemory.size()<(picType->getCurrentPic().ConfigSize))
 					   {
-						   configMemory.resize(address+lineData.size());
+						   int newSize =(extAddress+address+lineData.size())-(picType->getCurrentPic().ConfigAddress);
+						   if(configMemory.size()<newSize)configMemory.resize(newSize);
 					   }
 					   for(int i=0;i<lineData.size();i++)
-						configMemory[address+i]=lineData[i];
-					   
+					   configMemory[extAddress+address+i-picType->getCurrentPic().ConfigAddress]=lineData[i];
+				   }
+				/**
+				Is The address within the Code Memory range?
+				*/
+				if((extAddress+address)<(picType->getCurrentPic().CodeSize))
+				   {
+					   if(codeMemory.size()<(picType->getCurrentPic().CodeSize))
+					   {
+						   int newSize =(extAddress+address+lineData.size());
+						   if(codeMemory.size()<newSize)codeMemory.resize(newSize);
+					   }
+					   for(int i=0;i<lineData.size();i++)
+						   codeMemory[extAddress+address+i]=lineData[i];
+				   }
+				/**
+				Is The address within the Eeprom Data range?
+				*/
+				if(((extAddress+address)>=(picType->getCurrentPic().DataAddress))&&
+								    ((extAddress+address)<(picType->getCurrentPic().DataAddress+picType->getCurrentPic().DataSize)))
+				   {
+					   if(dataMemory.size()<(picType->getCurrentPic().DataSize))
+					   {
+						   int newSize =(extAddress+address+lineData.size())-(picType->getCurrentPic().DataAddress);
+						   if(dataMemory.size()<newSize)dataMemory.resize(newSize);
+					   }
+					   for(int i=0;i<lineData.size();i++)
+						   dataMemory[extAddress+address+i-picType->getCurrentPic().DataAddress]=lineData[i];
 				   }
 				break;
 			case EXTADDR:
 				extAddress=(lineData[0]<<24)|(lineData[1]<<16);
-				cout<<"Extended address: "<<lineData[0]<<
-				" " <<lineData[1]<<" " <<extAddress<<endl;
-				printf("Extaddress: %00000008X",extAddress);
 				break;
 			case ENDOFFILE:
 				break;
@@ -98,10 +126,6 @@ ReadHexFile::ReadHexFile(char* filename)
 		}
 	}while(recordType!=ENDOFFILE);
 	fp.close();
-	cout<<endl<<endl;
-	for(int i=0;i<configMemory.size();i++)
-		printf("%02X",configMemory[i]);
-	cout<<endl;
 	return;
 }
 
@@ -124,5 +148,19 @@ bool ReadHexFile::calcCheckSum(int byteCount,int address, RecordType recordType,
 	return (check==checkSum);
 }
 	
+vector<int> ReadHexFile::getCodeMemory(void)
+{
+	return codeMemory;
+}
+
+vector<int> ReadHexFile::getDataMemory(void)
+{
+	return dataMemory;
+}
+
+vector<int> ReadHexFile::getConfigMemory(void)
+{
+	return configMemory;
+}
 
 

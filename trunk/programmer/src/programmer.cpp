@@ -31,15 +31,79 @@
 
 using namespace std;
 
+void printHexFile(PicType *picType, ReadHexFile *readHexFile)
+{
+	int lineSize;
+	cout<<"Config Memory"<<endl;
+	for(int i=0;i<readHexFile->getConfigMemory().size();i+=16)
+	{
+		printf("%00000008X::",i+picType->getCurrentPic().ConfigAddress);
+		if(i+16<readHexFile->getConfigMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getConfigMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			printf("%02X",readHexFile->getConfigMemory()[i+j]);
+		}
+		cout<<endl;	
+	}
+	cout<<"Code Memory"<<endl;
+	for(int i=0;i<readHexFile->getCodeMemory().size();i+=16)
+	{
+		printf("%00000008X::",i);
+		if(i+16<readHexFile->getCodeMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getCodeMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			printf("%02X",readHexFile->getCodeMemory()[i+j]);
+		}
+		cout<<endl;	
+	}
+	cout<<"Data Memory"<<endl;
+	for(int i=0;i<readHexFile->getDataMemory().size();i+=16)
+	{
+		printf("%00000008X::",i);
+		if(i+16<readHexFile->getDataMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getDataMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			printf("%02X",readHexFile->getDataMemory()[i+j]);
+		}
+		cout<<endl;	
+	}
+}
+
 
 int main(int argc, char *argv[])
 {
+	
   	ReadHexFile *readHexFile;
 	PicType *picType;
-	if(1)//argc>=3)
+	if(argc>=3)
 	{
-		picType=new PicType("P12F629");
-		readHexFile=new ReadHexFile("uc_code.hex");
+		
+		picType=new PicType(argv[2]);
+		cout<<picType->getCurrentPic().Name<<endl;
+		readHexFile=new ReadHexFile(picType,argv[1]);
+		printHexFile(picType,readHexFile);
+		
 	}
 	else
 	{

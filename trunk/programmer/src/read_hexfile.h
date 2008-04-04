@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <string>
+#include "pictype.h"
 
 typedef enum _RecordType{
 			DATA=0,// data record, contains data and 16-bit address. 
@@ -35,15 +36,16 @@ using namespace std;
 class ReadHexFile
 {
 	public:
-		ReadHexFile(char* filename);
+		ReadHexFile(PicType* picType,char* filename);
+		vector<int> getCodeMemory(void);
+		vector<int> getDataMemory(void);
+		vector<int> getConfigMemory(void);
 		
 	private:
 		vector<int> codeMemory;
 		vector<int> dataMemory;
 		vector<int> configMemory;
-		vector<int> userId;
 		bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
-	
 };
 
 #endif //READHEXFILE_H
