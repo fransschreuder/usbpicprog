@@ -27,7 +27,7 @@ byte old_sw2,old_sw3;
 byte input_buffer[USBGEN_EP_SIZE];
 byte output_buffer[USBGEN_EP_SIZE];
 
-rom char upp_version[]={"UsbPicProg v0.1\r\n"};
+rom char upp_version[]={"usbpicprog 0.1\r\n"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
