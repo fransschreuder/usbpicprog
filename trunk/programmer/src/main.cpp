@@ -28,8 +28,11 @@
 #include "read_hexfile.h"
 #include "pictype.h"
 
+#include "upp_gui.h"
+#include "gtkmm.h"
 
 using namespace std;
+using namespace Gtk;
 
 void printHexFile(PicType *picType, ReadHexFile *readHexFile)
 {
@@ -94,22 +97,29 @@ void printHexFile(PicType *picType, ReadHexFile *readHexFile)
 int main(int argc, char *argv[])
 {
 	
-  	ReadHexFile *readHexFile;
-	PicType *picType;
-	if(argc>=3)
+	
+	if(argc==3)
 	{
-		
+		PicType *picType;
+		ReadHexFile *readHexFile;
 		picType=new PicType(argv[2]);
 		cout<<picType->getCurrentPic().Name<<endl;
 		readHexFile=new ReadHexFile(picType,argv[1]);
 		printHexFile(picType,readHexFile);
 		
 	}
-	else
+	else if(argc>1)
 	{
-		cerr<<"\nUsage:\nusbpicprog <Hexfile> <Pictype>\n"<<endl;
+		cerr<<"\nUsage:\nusbpicprog <Hexfile> <Pictype> \n Or no arguments for GUI"<<endl;
 		return EXIT_FAILURE;
 	}
-
+	else
+	{
+		Main kit(argc, argv);
+		UppGui uppGui;
+		
+		Main::run(uppGui);
+		
+	}
 	return EXIT_SUCCESS;
 }

@@ -3,3 +3,4 @@
 AUTOMAKE_OPTIONS = foreign 1.4
 
 SUBDIRS = src
+INCLUDES = -I /opt/gnome/include/gtk-2.0/
