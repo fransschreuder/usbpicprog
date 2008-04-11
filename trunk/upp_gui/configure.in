@@ -1,0 +1,25 @@
+# generated 2008/4/11 17:29:11 CEST by frans@ubuntu.(none)
+# using glademm V2.6.0
+
+AC_PREREQ(2.50)
+AC_INIT(usbpicprog, 0.0,[frans@ubuntu.(none)])
+AM_INIT_AUTOMAKE
+AC_CONFIG_HEADERS(config.h)
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+AC_PROG_CPP
+AC_PROG_CXX
+AC_PROG_CXXCPP
+AM_PROG_LIBTOOL
+
+AC_LANG_CPLUSPLUS
+
+PKG_CHECK_MODULES(GTKMM,[gtkmm-2.4 >= 2.12.0],,
+	[PKG_CHECK_MODULES(GTKMM,[gtkmm-2.0 >= 2.0.0])])
+AC_SUBST(GTKMM_CFLAGS)
+AC_SUBST(GTKMM_LIBS)
+
+AC_OUTPUT(Makefile src/Makefile )

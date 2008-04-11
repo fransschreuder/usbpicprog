@@ -1,0 +1,21 @@
+# generated 2008/4/11 17:29:11 CEST by frans@ubuntu.(none)
+# using glademm V2.6.0
+#
+# newer (non customized) versions of this file go to Makefile.am_new
+bin_PROGRAMS = usbpicprog
+
+usbpicprog_SOURCES = \
+	usbpicprog.cc\
+	uppMainWindow_glade.cc \
+	uppMainWindow.cc \
+	pictype.cpp \
+	read_hexfile.cpp
+
+noinst_HEADERS = \
+	uppMainWindow_glade.hh \
+	uppMainWindow.hh \
+	read_hexfile.h
+
+AM_CXXFLAGS = @GTKMM_CFLAGS@ 
+
+usbpicprog_LDADD = @LIBS@ @GTKMM_LIBS@ 
