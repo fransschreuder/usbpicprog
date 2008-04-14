@@ -12,11 +12,21 @@
 #ifndef _UPPMAINWINDOW_HH
 #  include "uppMainWindow_glade.hh"
 #  define _UPPMAINWINDOW_HH
+
+#include "read_hexfile.h"
+#include "pictype.h"
+
+#include <gtkmm.h>
+using namespace Gtk;
+
 class uppMainWindow : public uppMainWindow_glade
 {  
+	public:
+		uppMainWindow();
+		
         
-        void on_new1_activate();
-        void on_open1_activate();
+        void on_new_activate();
+        void on_open_activate();
         void on_reload_activate();
         void on_save_activate();
         void on_save_as_activate();
@@ -26,9 +36,15 @@ class uppMainWindow : public uppMainWindow_glade
         void on_read_activate();
         void on_verify_activate();
         void on_about_activate();
-        void on_newButton_activate();
-        void on_openButton_activate();
-        void on_reloadButton_activate();
-        void on_saveButton_activate();
+        void on_newButton_clicked();
+        void on_openButton_clicked();
+        void on_reloadButton_clicked();
+        void on_saveButton_clicked();
+		void on_saveAsButton_clicked();
+	private:
+		Glib::RefPtr<TextBuffer> hexBuffer;
+		PicType *picType;
+		ReadHexFile *readHexFile;
+
 };
 #endif

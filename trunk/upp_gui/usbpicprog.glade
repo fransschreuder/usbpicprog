@@ -43,32 +43,32 @@
 		<widget class="GtkMenu" id="menuFile_menu">
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="new1">
+		    <widget class="GtkImageMenuItem" id="newMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-new</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_new1_activate" last_modification_time="Thu, 10 Apr 2008 08:51:20 GMT"/>
+		      <signal name="activate" handler="on_new_activate" last_modification_time="Fri, 11 Apr 2008 18:19:54 GMT"/>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="open1">
+		    <widget class="GtkImageMenuItem" id="openMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-open</property>
 		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_open1_activate" last_modification_time="Thu, 10 Apr 2008 08:51:20 GMT"/>
+		      <signal name="activate" handler="on_open_activate" last_modification_time="Fri, 11 Apr 2008 18:19:54 GMT"/>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="reload">
+		    <widget class="GtkImageMenuItem" id="reloadMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Reload</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_reload_activate" last_modification_time="Thu, 10 Apr 2008 09:27:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image3">
+			<widget class="GtkImage" id="image9">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-refresh</property>
 			  <property name="icon_size">1</property>
@@ -82,7 +82,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="save">
+		    <widget class="GtkImageMenuItem" id="saveMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-save</property>
 		      <property name="use_stock">True</property>
@@ -91,7 +91,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="save_as">
+		    <widget class="GtkImageMenuItem" id="save_asMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-save-as</property>
 		      <property name="use_stock">True</property>
@@ -106,7 +106,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="quit">
+		    <widget class="GtkImageMenuItem" id="quitMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label">gtk-quit</property>
 		      <property name="use_stock">True</property>
@@ -128,7 +128,7 @@
 		<widget class="GtkMenu" id="menuActions_menu">
 
 		  <child>
-		    <widget class="GtkMenuItem" id="program">
+		    <widget class="GtkMenuItem" id="programMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Program</property>
 		      <property name="use_underline">True</property>
@@ -137,7 +137,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="bulkerase">
+		    <widget class="GtkMenuItem" id="bulkeraseMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">Bulk _Erase</property>
 		      <property name="use_underline">True</property>
@@ -146,7 +146,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="read">
+		    <widget class="GtkMenuItem" id="readMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Read</property>
 		      <property name="use_underline">True</property>
@@ -155,7 +155,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="verify">
+		    <widget class="GtkMenuItem" id="verifyMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Verify</property>
 		      <property name="use_underline">True</property>
@@ -185,7 +185,7 @@
 		<widget class="GtkMenu" id="menuHelp_menu">
 
 		  <child>
-		    <widget class="GtkMenuItem" id="about">
+		    <widget class="GtkMenuItem" id="aboutMenuItem">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_About</property>
 		      <property name="use_underline">True</property>
@@ -225,7 +225,7 @@
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
-		  <signal name="activate" handler="on_newButton_activate" last_modification_time="Thu, 10 Apr 2008 09:34:15 GMT"/>
+		  <signal name="clicked" handler="on_newButton_clicked" last_modification_time="Fri, 11 Apr 2008 18:15:53 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image4">
@@ -260,7 +260,7 @@
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
-		  <signal name="activate" handler="on_openButton_activate" last_modification_time="Thu, 10 Apr 2008 09:41:30 GMT"/>
+		  <signal name="clicked" handler="on_openButton_clicked" last_modification_time="Fri, 11 Apr 2008 18:16:25 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image5">
@@ -295,7 +295,7 @@
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
-		  <signal name="activate" handler="on_reloadButton_activate" last_modification_time="Thu, 10 Apr 2008 09:42:04 GMT"/>
+		  <signal name="clicked" handler="on_reloadButton_clicked" last_modification_time="Fri, 11 Apr 2008 18:16:43 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image6">
@@ -330,7 +330,7 @@
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
-		  <signal name="activate" handler="on_saveButton_activate" last_modification_time="Thu, 10 Apr 2008 09:42:11 GMT"/>
+		  <signal name="clicked" handler="on_saveButton_clicked" last_modification_time="Fri, 11 Apr 2008 18:17:02 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image7">
@@ -365,6 +365,7 @@
 		  <property name="can_focus">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_saveAsButton_clicked" last_modification_time="Fri, 11 Apr 2008 18:17:19 GMT"/>
 
 		  <child>
 		    <widget class="GtkImage" id="image8">

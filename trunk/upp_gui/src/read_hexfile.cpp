@@ -26,7 +26,7 @@
 
 using namespace std;
 
-ReadHexFile::ReadHexFile(PicType* picType,char* filename)
+ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
 	int extAddress=0;
 	int address;
