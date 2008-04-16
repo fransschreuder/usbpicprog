@@ -96,10 +96,15 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 int Hardware::readId(void)
 {
 	char msg[64];
-	char id=0x20;
+	
+	msg[0]=CMD_READ_ID;
+	int nBytes;
 	if (_handle !=NULL)
 	{
-		if(writeString((char*)&id)<0)return 0;
+		if(writeString(msg,1)<0)
+		{
+			return 0;
+		}
 		nBytes = readString(msg);
 			
 		if (nBytes < 0 )
@@ -119,27 +124,25 @@ int Hardware::readId(void)
 
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
-	char id=0x40;
-	char sendstr[10];
+	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		sendstr[0]=id;
-		sendstr[1]=(char)size;
-		sendstr[2]=(char)((address>>16)&0xFF);
-		sendstr[3]=(char)((address>>8)&0xFF);
-		sendstr[4]=(char)(address&0xFF);
-		sendstr[5]=(char)lastblock;
+		uppPackage.fields.cmd=CMD_READ_CODE;
+		uppPackage.fields.size=size;
+		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
+		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(char)(address&0xFF);
+		uppPackage.fields.blocktype=(char)lastblock;
 		
 		
 	    
-		int nBytes = usb_interrupt_write(_handle,1,sendstr,6,5000);
+		int nBytes = writeString(uppPackage.data,6);
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
 			return nBytes;
 		}
 			
-		nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+		nBytes = readString(msg);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -149,33 +152,56 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 
 int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
-	char id=0x60;
-	char sendstr[10];
+	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		sendstr[0]=id;
-		sendstr[1]=(char)size;
-		sendstr[2]=(char)((address>>8)&0xFF);
-		sendstr[3]=(char)(address&0xFF);
-		sendstr[4]=(char)lastblock;
-		
-		
-	    
-		int nBytes = usb_interrupt_write(_handle,1,sendstr,6,5000);
+		uppPackage.fields.cmd=CMD_READ_DATA;
+		uppPackage.fields.size=size;
+		uppPackage.fields.addrU=0;
+		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(char)(address&0xFF);
+		uppPackage.fields.blocktype=(char)lastblock;
+		int nBytes = writeString(uppPackage.data,6);
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
 			return nBytes;
 		}
 			
-		nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+		nBytes = readString(msg);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
-	}	return -1;
+	}
+	else return -1;
 	
 }
 
+/*
+int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
+{
+	UppPackage uppPackage;
+	if (_handle !=NULL)
+	{
+		uppPackage.fields.cmd=CMD_READ_DATA;
+		uppPackage.fields.size=size;
+		uppPackage.fields.addrU=0;
+		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(char)(address&0xFF);
+		uppPackage.fields.blocktype=(char)lastblock;
+		int nBytes = writeString(uppPackage.data,6);
+		if (nBytes < 0 )
+		{
+			return nBytes;
+		}
+			
+		nBytes = readString(msg);
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
+		return nBytes;
+	}
+	else return -1;
+	
+}*/
 
 bool Hardware::connected(void) 
 {
@@ -186,19 +212,19 @@ bool Hardware::connected(void)
 }
 
 
-void Hardware::writeString(const char * msg,int size)
+int Hardware::writeString(const char * msg,int size)
 {
+	int nBytes;
 	if (_handle != NULL)
 	{
-		//qDebug ("Device Found!!");
-		//bzero(bytes,sizeof(bytes));
-		//int nBytes = usb_control_msg(handle,USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,1,0,0,bytes,sizeof(bytes),5000);
-		int nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
+		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
 		if (nBytes < 0 )
 			cerr<<"Usb Error while writing to device"<<endl;
+		
 	}
 	else 
 		cerr<<"Error: Not connected"<<endl;
+	return nBytes;
 }
 
 int Hardware::readString(char* msg)

@@ -27,6 +27,37 @@
 #include "read_hexfile.h"
 #include "pictype.h"
 //
+
+#define CMD_ERASE 0x10
+#define CMD_READ_ID 0x20
+#define CMD_WRITE_CODE 0x30
+#define CMD_READ_CODE 0x40
+#define CMD_WRITE_DATA 0x50
+#define CMD_READ_DATA 0x60
+#define CMD_WRITE_CONFIG 0x70
+#define CMD_SET_PICTYPE 0x80
+#define CMD_FIRMWARE_VERSION 0x90
+
+#define BLOCKTYPE_MIDDLE 0
+#define BLOCKTYPE_FIRST 1
+#define BLOCKTYPE_LAST 2
+#define BLOCKTYPE_FIRST_LAST 3
+
+typedef union _UppPackage
+{
+	struct _fields
+	{
+		unsigned cmd:8;
+		unsigned size:8;
+		unsigned addrU:8;
+		unsigned addrH:8;
+		unsigned addrL:8;
+		unsigned blocktype:8;
+		char dataField[32];
+	}fields;
+	char data[37];
+}UppPackage;
+
 class Hardware
 {
 public:
@@ -45,7 +76,7 @@ private :
 	bool connected(void);
 	const char* readResponse(void);
 	int readString(char* msg);
-	void writeString(const char* msg,int size);
+	int writeString(const char* msg,int size);
 	int readId(void);
 	int readCodeBlock(char * msg,int address,int size,int lastblock);
 	int readDataBlock(char * msg,int address,int size,int lastblock);
