@@ -17,43 +17,39 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-
-#ifndef _UPPMAINWINDOW_HH
-#  include "uppMainWindow_glade.hh"
-#  define _UPPMAINWINDOW_HH
-
+ 
+ #ifndef HARDWARE_H
+#define HARDWARE_H
+#include <usb.h>
+//
+#define VENDOR 0x04D8
+#define PRODUCT 0x000E
 #include "read_hexfile.h"
 #include "pictype.h"
+//
+class Hardware
+{
+public:
+	Hardware();
+	~Hardware();
 
-#include <gtkmm.h>
-using namespace Gtk;
+	int readCode(ReadHexFile *hexData,PicType *picType);
+	int writeCode(ReadHexFile *hexData,PicType *picType);
+	int readData(ReadHexFile *hexData,PicType *picType);
+	int writeData(ReadHexFile *hexData,PicType *picType);
+	int readConfig(ReadHexFile *hexData,PicType *picType);
+	int writeConfig(ReadHexFile *hexData,PicType *picType);
+	
 
-class uppMainWindow : public uppMainWindow_glade
-{  
-	public:
-		uppMainWindow();
-		
-        
-        void on_new_activate();
-        void on_open_activate();
-        void on_reload_activate();
-        void on_save_activate();
-        void on_save_as_activate();
-        void on_quit_activate();
-        void on_program_activate();
-        void on_bulkerase_activate();
-        void on_read_activate();
-        void on_verify_activate();
-        void on_about_activate();
-        void on_newButton_clicked();
-        void on_openButton_clicked();
-        void on_reloadButton_clicked();
-        void on_saveButton_clicked();
-		void on_saveAsButton_clicked();
-	private:
-		Glib::RefPtr<TextBuffer> hexBuffer;
-		PicType *picType;
-		ReadHexFile *readHexFile;
-
+private :
+	bool connected(void);
+	const char* readResponse(void);
+	int readString(char* msg);
+	void writeString(const char* msg,int size);
+	int readId(void);
+	int readCodeBlock(char * msg,int address,int size,int lastblock);
+	int readDataBlock(char * msg,int address,int size,int lastblock);
+	usb_dev_handle	*_handle;
+	
 };
-#endif
+#endif //HARDWARE_H

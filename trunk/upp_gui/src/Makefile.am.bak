@@ -9,13 +9,17 @@ usbpicprog_SOURCES = \
 	uppMainWindow_glade.cc \
 	uppMainWindow.cc \
 	pictype.cpp \
-	read_hexfile.cpp
+	read_hexfile.cpp \
+	hardware.cpp
 
 noinst_HEADERS = \
 	uppMainWindow_glade.hh \
 	uppMainWindow.hh \
-	read_hexfile.h
+	read_hexfile.h \
+	pictype.h \
+	hardware.h
 
 AM_CXXFLAGS = @GTKMM_CFLAGS@ 
 
-usbpicprog_LDADD = @LIBS@ @GTKMM_LIBS@ 
+usbpicprog_LDADD = @LIBS@ @GTKMM_LIBS@ \
+	-llibusb

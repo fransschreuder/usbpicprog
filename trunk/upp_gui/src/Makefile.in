@@ -53,7 +53,7 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_usbpicprog_OBJECTS = usbpicprog.$(OBJEXT) \
 	uppMainWindow_glade.$(OBJEXT) uppMainWindow.$(OBJEXT) \
-	pictype.$(OBJEXT) read_hexfile.$(OBJEXT)
+	pictype.$(OBJEXT) read_hexfile.$(OBJEXT) hardware.$(OBJEXT)
 usbpicprog_OBJECTS = $(am_usbpicprog_OBJECTS)
 usbpicprog_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -183,16 +183,20 @@ usbpicprog_SOURCES = \
 	uppMainWindow_glade.cc \
 	uppMainWindow.cc \
 	pictype.cpp \
-	read_hexfile.cpp
+	read_hexfile.cpp \
+	hardware.cpp
 
 noinst_HEADERS = \
 	uppMainWindow_glade.hh \
 	uppMainWindow.hh \
 	read_hexfile.h \
-	pictype.h
+	pictype.h \
+	hardware.h
 
 AM_CXXFLAGS = @GTKMM_CFLAGS@ 
-usbpicprog_LDADD = @LIBS@ @GTKMM_LIBS@ 
+usbpicprog_LDADD = @LIBS@ @GTKMM_LIBS@ \
+	-lusb
+
 all: all-am
 
 .SUFFIXES:
@@ -264,6 +268,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hardware.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pictype.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/read_hexfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uppMainWindow.Po@am__quote@
