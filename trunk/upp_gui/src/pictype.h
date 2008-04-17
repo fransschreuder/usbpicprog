@@ -47,9 +47,12 @@ class PicType
 {
 	public:
 		PicType(string picType);
+		PicType(int devId);
 		Pic getCurrentPic(void);
+		vector<string> getPicNames(void);
 	private:
 		Pic currentPic;
+		vector<string> picNames;
 		
 	
 };

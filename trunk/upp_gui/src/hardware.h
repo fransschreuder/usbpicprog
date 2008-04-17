@@ -43,6 +43,10 @@
 #define BLOCKTYPE_LAST 2
 #define BLOCKTYPE_FIRST_LAST 3
 
+#define BLOCKSIZE_DATA 32
+#define BLOCKSIZE_CONFIG 8
+#define BLOCKSIZE_CODE 32
+
 typedef union _UppPackage
 {
 	struct _fields
@@ -63,23 +67,26 @@ class Hardware
 public:
 	Hardware();
 	~Hardware();
-
+	int bulkErase(void);
 	int readCode(ReadHexFile *hexData,PicType *picType);
 	int writeCode(ReadHexFile *hexData,PicType *picType);
 	int readData(ReadHexFile *hexData,PicType *picType);
 	int writeData(ReadHexFile *hexData,PicType *picType);
 	int readConfig(ReadHexFile *hexData,PicType *picType);
 	int writeConfig(ReadHexFile *hexData,PicType *picType);
-	
-
-private :
+	int autoDetectDevice(void);
 	bool connected(void);
+	
+private :
 	const char* readResponse(void);
 	int readString(char* msg);
 	int writeString(const char* msg,int size);
 	int readId(void);
 	int readCodeBlock(char * msg,int address,int size,int lastblock);
+	int writeCodeBlock(char * msg,int address,int size,int lastblock);
+	int writeConfigBlock(char * msg,int address,int size,int lastblock);
 	int readDataBlock(char * msg,int address,int size,int lastblock);
+	int writeDataBlock(char * msg,int address,int size,int lastblock);
 	usb_dev_handle	*_handle;
 	
 };

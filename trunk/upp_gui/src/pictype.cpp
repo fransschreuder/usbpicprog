@@ -23,7 +23,18 @@
 #include <cstdlib>
 
 
-
+const Pic defaultPic=
+{
+	"P18F2550",	//Name
+	0x8000,		//CodeSize
+	0x300000,	//ConfigAddress
+	0xF00000,	//DataAddress in hex file
+	0x100,		//Datasize
+	0x0F,		//ConfigSize
+	P18F2XXX,	//PicFamily
+	0x1240,		//UserId
+	0xFFE0		//UserIdMask
+};
 
 const Pic picTypes[]={
 {
@@ -830,6 +841,8 @@ const Pic picTypes[]={
 }
 };
 
+
+
 PicType::PicType(string picTypeStr)
 {
 	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
@@ -843,10 +856,42 @@ PicType::PicType(string picTypeStr)
 	if(currentPic.Name.compare("")==0)
 	{
 		cerr<<"Not Found: "<<picTypeStr<<endl;
+		currentPic=defaultPic;
+		cerr<<"Setting the PIC to default: "<<currentPic.Name<<endl;
 	}
+	picNames.resize(sizeof(picTypes)/sizeof(Pic));
+	for(int i=0;i<picNames.size();i++)
+			picNames[i]=picTypes[i].Name;
+}
+
+PicType::PicType(int devId)
+{
+	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
+	for(int i=0;i<numberOfSupportedDevices;i++)
+	{
+		if((devId&picTypes[i].DevIdMask)==(picTypes[i].DevId))
+		{
+			currentPic=picTypes[i];
+		}
+	}
+	if(currentPic.Name.compare("")==0)
+	{
+		cerr<<"Not Found: "<<hex<<devId<<endl;
+		currentPic=defaultPic;
+		cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
+	}
+	picNames.resize(sizeof(picTypes)/sizeof(Pic));
+	for(int i=0;i<picNames.size();i++)
+			picNames[i]=picTypes[i].Name;
 }
 
 Pic PicType::getCurrentPic(void)
 {
 	return currentPic;
+}
+
+vector<string> PicType::getPicNames(void)
+{
+
+	return picNames;			
 }

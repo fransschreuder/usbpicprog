@@ -24,6 +24,7 @@
 
 #include "read_hexfile.h"
 #include "pictype.h"
+#include "hardware.h"
 
 #include <gtkmm.h>
 using namespace Gtk;
@@ -33,7 +34,7 @@ class uppMainWindow : public uppMainWindow_glade
 	public:
 		uppMainWindow();
 		
-        
+        void on_combo_changed();
         void on_new_activate();
         void on_open_activate();
         void on_reload_activate();
@@ -51,9 +52,26 @@ class uppMainWindow : public uppMainWindow_glade
         void on_saveButton_clicked();
 		void on_saveAsButton_clicked();
 	private:
+		void printHexFile();
+		void hexBufferAppend(string line);
 		Glib::RefPtr<TextBuffer> hexBuffer;
+		  
+		//Columns for the picTypeCombo
+		class PicTypeColumns : public Gtk::TreeModel::ColumnRecord
+		{
+		public:
+			PicTypeColumns(){ add(colName); }
+			
+			Gtk::TreeModelColumn<Glib::ustring> colName;
+		};
+
+		PicTypeColumns picTypeColumns;		  
+		Glib::RefPtr<Gtk::ListStore> picTypeComboStore;
+		
+		
 		PicType *picType;
 		ReadHexFile *readHexFile;
+		Hardware *hardware;
 
 };
 #endif

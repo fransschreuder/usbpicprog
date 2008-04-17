@@ -20,6 +20,8 @@
 
 #include "hardware.h"
 #include <iostream>
+#include <string.h>
+
 using namespace std;
 
 Hardware::Hardware(  ) 
@@ -67,30 +69,221 @@ Hardware::~Hardware()
 
 int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	vector<int> mem;
+	mem.resize(picType->getCurrentPic().CodeSize);
+	char dataBlock[BLOCKSIZE_CODE];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_CODE)
+	{
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes+=readCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
+		for(int i=0;i<BLOCKSIZE_CODE;i++)
+		{
+			if(picType->getCurrentPic().CodeSize>(blockcounter+i))
+			{
+				mem[blockcounter+i]=dataBlock[i];
+			}
+			else
+			{
+				cerr<<"Trying to read memory outside Code area"<<endl;
+				return -1;
+			}
+		}
+			
+		
+	}
+	hexData->putCodeMemory(mem);
+	return nBytes;
 }
 
 int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	char dataBlock[BLOCKSIZE_CODE];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
+	{
+		for(int i=0;i<BLOCKSIZE_CODE;i++)
+		{
+			if(hexData->getCodeMemory().size()>(blockcounter+i))
+			{
+				dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
+			}
+			else
+			{
+				dataBlock[i]=0;
+			}
+		}
+			
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
+	}
+	return nBytes;
 }
 
 int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	vector<int> mem;
+	mem.resize(picType->getCurrentPic().DataSize);
+	char dataBlock[BLOCKSIZE_DATA];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
+	{
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes+=readDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+		for(int i=0;i<BLOCKSIZE_DATA;i++)
+		{
+			if(picType->getCurrentPic().DataSize>(blockcounter+i))
+			{
+				mem[blockcounter+i]=dataBlock[i];
+			}
+			else
+			{
+				cerr<<"Trying to read memory outside Data area"<<endl;
+				return -1;
+			}
+		}
+			
+		
+	}
+	hexData->putDataMemory(mem);
+	return nBytes;
+
 }
 
 int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	char dataBlock[BLOCKSIZE_DATA];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
+	{
+		for(int i=0;i<BLOCKSIZE_DATA;i++)
+		{
+			if(hexData->getDataMemory().size()>(blockcounter+i))
+			{
+				dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
+			}
+			else
+			{
+				dataBlock[i]=0;
+			}
+		}
+			
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+	}
+	return nBytes;
 }
 
 int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	vector<int> mem;
+	mem.resize(picType->getCurrentPic().ConfigSize);
+	char dataBlock[BLOCKSIZE_CONFIG];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
+	{
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+		{
+			if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
+			{
+				mem[blockcounter+i]=dataBlock[i];
+			}
+			else
+			{
+				cerr<<"Trying to read memory outside Config area"<<endl;
+				return -1;
+			}
+		}
+			
+		
+	}
+	hexData->putConfigMemory(mem);
+	return nBytes;
 }
 
 int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 {
+	int nBytes;
+	nBytes=0;
+	char dataBlock[BLOCKSIZE_CONFIG];
+	int blocktype;
+	for(int blockcounter=0;blockcounter<hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
+	{
+		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+		{
+			if(hexData->getConfigMemory().size()>(blockcounter+i))
+			{
+				dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
+			}
+			else
+			{
+				dataBlock[i]=0;
+			}
+		}
+			
+		blocktype=BLOCKTYPE_MIDDLE;
+		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if((hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+	}
+	return nBytes;
 }
 
 
+int Hardware::autoDetectDevice(void)
+{
+	return readId();
+	
+}
 
+int Hardware::bulkErase(void)
+{
+	char msg[64];
+	
+	msg[0]=CMD_ERASE;
+	int nBytes;
+	if (_handle !=NULL)
+	{
+		if(writeString(msg,1)<0)
+		{
+			return 0;
+		}
+		nBytes = readString(msg);
+			
+		if (nBytes < 0 )
+		{
+			cerr<<"Usb Error"<<endl;
+			return nBytes;
+		}
+		else
+		{
+			return (int)msg[0];
+		}
+	}
+	
+}
 
 
 int Hardware::readId(void)
@@ -150,6 +343,64 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 	else return -1;
 }
 
+int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
+{
+	char resp_msg[10];
+	UppPackage uppPackage;
+	if (_handle !=NULL)
+	{
+		uppPackage.fields.cmd=CMD_WRITE_CODE;
+		uppPackage.fields.size=size;
+		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
+		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(char)(address&0xFF);
+		uppPackage.fields.blocktype=(char)lastblock;
+		strncpy(uppPackage.fields.dataField,msg,size);
+		int nBytes = writeString(uppPackage.data,size+6);
+		if (nBytes < 0 )
+		{
+			return nBytes;
+		}
+			
+		nBytes = readString(resp_msg);
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
+		return (int)resp_msg[0];
+	}
+	else return -1;
+	
+}
+
+int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
+{
+	char resp_msg[10];
+	UppPackage uppPackage;
+	if (_handle !=NULL)
+	{
+		uppPackage.fields.cmd=CMD_WRITE_CONFIG;
+		uppPackage.fields.size=size;
+		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
+		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(char)(address&0xFF);
+		uppPackage.fields.blocktype=(char)lastblock;
+		strncpy(uppPackage.fields.dataField,msg,size);
+		int nBytes = writeString(uppPackage.data,size+6);
+		if (nBytes < 0 )
+		{
+			return nBytes;
+		}
+			
+		nBytes = readString(resp_msg);
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
+		return (int)resp_msg[0];
+	}
+	else return -1;
+	
+}
+
+
+
 int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
 	UppPackage uppPackage;
@@ -176,32 +427,33 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 	
 }
 
-/*
+
 int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 {
+	char resp_msg[10];
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		uppPackage.fields.cmd=CMD_READ_DATA;
+		uppPackage.fields.cmd=CMD_WRITE_DATA;
 		uppPackage.fields.size=size;
 		uppPackage.fields.addrU=0;
 		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
 		uppPackage.fields.addrL=(char)(address&0xFF);
 		uppPackage.fields.blocktype=(char)lastblock;
-		int nBytes = writeString(uppPackage.data,6);
+		strncpy(uppPackage.fields.dataField,msg,size);
+		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
 		{
 			return nBytes;
 		}
 			
-		nBytes = readString(msg);
+		nBytes = readString(resp_msg);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
-		return nBytes;
+		return (int)resp_msg[0];
 	}
-	else return -1;
-	
-}*/
+	else return -1;	
+}
 
 bool Hardware::connected(void) 
 {

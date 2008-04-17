@@ -31,6 +31,7 @@
 #include <cstdlib>
 #include "read_hexfile.h"
 #include "pictype.h"
+#include "hardware.h"
 
 using namespace std;
 

@@ -1,9 +1,6 @@
-#include "programmer.h"
-#include <QMessageBox>
-//
-#define VENDOR_ID 0x10
-#define TARGET_ID 0x10 
-programmer::programmer(  ) 
+#include "hardware.h"
+
+Hardware::Hardware(  ) 
 {
 	struct usb_bus *bus;
 	struct usb_device *dev;

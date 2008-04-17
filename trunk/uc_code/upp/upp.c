@@ -149,13 +149,13 @@ void ProcessIO(void)
 	nBytes=USBGenRead((byte*)input_buffer,64);
 	if(nBytes>0)
 	{
-		if((input_buffer[0])==0x10) 
+		if((input_buffer[0])==CMD_ERASE) 
 		{
 		output_buffer[0]=bulk_erase(pictype,picvariant);
 		counter=1;
 		//setLeds(0x07);
 		}
-		if((input_buffer[0])==0x20) 
+		if((input_buffer[0])==CMD_READ_ID) 
 		{
 			if(pictype==PIC18)
 			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
@@ -163,7 +163,7 @@ void ProcessIO(void)
 			read_code(pictype,picvariant,0x2006,(char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
 		}
-		if((input_buffer[0])==0x30) 
+		if((input_buffer[0])==CMD_WRITE_CODE) 
 		{
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
@@ -171,7 +171,7 @@ void ProcessIO(void)
 			output_buffer[0]=write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
-		if((input_buffer[0])==0x40) 
+		if((input_buffer[0])==CMD_READ_CODE) 
 		{
 				address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
@@ -180,22 +180,22 @@ void ProcessIO(void)
 				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);
 				counter=input_buffer[1];
 		}
-		if((input_buffer[0])==0x50) 
+		if((input_buffer[0])==CMD_WRITE_DATA) 
 		{
-			intaddress=((unsigned int)input_buffer[2])<<8|
-					((unsigned int)input_buffer[3]);
+			intaddress=((unsigned int)input_buffer[3])<<8|
+					((unsigned int)input_buffer[4]);
 	
 			output_buffer[0]=write_data(pictype,picvariant,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
 			counter=1;
 		}
-		if((input_buffer[0])==0x60) 
+		if((input_buffer[0])=CMD_READ_DATA) 
 		{
-			intaddress=((unsigned int)input_buffer[2])<<8|
-					((unsigned int)input_buffer[3]);
+			intaddress=((unsigned int)input_buffer[3])<<8|
+					((unsigned int)input_buffer[4]);
 			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
 			counter=input_buffer[1];
 		}
-		if((input_buffer[0])==0x70)
+		if((input_buffer[0])==CMD_WRITE_CONFIG)
 		{
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
@@ -203,11 +203,11 @@ void ProcessIO(void)
 			output_buffer[0]=write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
-		if((input_buffer[0])==0x80)
+		if((input_buffer[0])==CMD_SET_PICTYPE)
 		{
 			set_pictype(input_buffer+1);
 		}
-		if((input_buffer[0])==0x90)
+		if((input_buffer[0])==CMD_FIRMWARE_VERSION)
 		{
 			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 			counter=18;

@@ -23,10 +23,17 @@
 #include "read_hexfile.h"
 #include "pictype.h"
 #include <vector>
+#include <string.h>
+
 
 using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
+{
+	open(picType,filename);
+}
+
+void ReadHexFile::open(PicType* picType,const char* filename)
 {
 	int extAddress=0;
 	int address;
@@ -36,6 +43,9 @@ ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 	RecordType recordType;
 	ifstream fp (filename);
 	vector<int> lineData;
+	configMemory.resize(0);
+	dataMemory.resize(0);
+	codeMemory.resize(0);
 	if(fp==NULL) 
 	{
 		cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
@@ -44,7 +54,7 @@ ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 	do
 	{
 		fp>>tempStr;
-		
+		strcpy(filenameToSave,filename);
 		
 		sscanf(tempStr.c_str(),":%02X",&byteCount);
 		
@@ -127,6 +137,50 @@ ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 	}while(recordType!=ENDOFFILE);
 	fp.close();
 	return;
+}
+
+void ReadHexFile::reload(PicType* picType)
+{
+	open(picType,filenameToSave);
+}
+
+ReadHexFile::ReadHexFile()
+{
+	codeMemory.resize(0);
+	dataMemory.resize(0);
+	configMemory.resize(0);
+}
+
+ReadHexFile::~ReadHexFile()
+{
+	
+}
+
+void ReadHexFile::saveAs(PicType* picType,const char* filename)
+{
+	
+	cerr<<"Save file not implemented yet"<<endl;
+	
+}
+
+void ReadHexFile::save(PicType* picType)
+{
+	saveAs(picType,filenameToSave);
+}
+
+void ReadHexFile::putCodeMemory(vector<int> mem)
+{
+	codeMemory=mem;
+}
+
+void ReadHexFile::putDataMemory(vector<int> mem)
+{
+	dataMemory=mem;
+}
+
+void ReadHexFile::putConfigMemory(vector<int> mem)
+{
+	configMemory=mem;
 }
 
 bool ReadHexFile::calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum)

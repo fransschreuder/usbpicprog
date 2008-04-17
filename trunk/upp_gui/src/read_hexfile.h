@@ -37,11 +37,21 @@ class ReadHexFile
 {
 	public:
 		ReadHexFile(PicType* picType,const char* filename);
+		ReadHexFile();
+		~ReadHexFile();
+		void open(PicType* picType, const char* filename);
+		void reload(PicType* picType);
+		void saveAs(PicType* picType,const char* filename);
+	    void save(PicType* picType);
+		void putCodeMemory(vector<int> mem);
+		void putDataMemory(vector<int> mem);
+		void putConfigMemory(vector<int> mem);
 		vector<int> getCodeMemory(void);
 		vector<int> getDataMemory(void);
 		vector<int> getConfigMemory(void);
 		
 	private:
+		char filenameToSave[512];
 		vector<int> codeMemory;
 		vector<int> dataMemory;
 		vector<int> configMemory;
