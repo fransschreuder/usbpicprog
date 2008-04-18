@@ -33,7 +33,9 @@ class uppMainWindow : public uppMainWindow_glade
 {  
 	public:
 		uppMainWindow();
-		
+		void on_detect_device();
+		void on_connect_hardware();
+		void on_disconnect_hardware();
         void on_combo_changed();
         void on_new_activate();
         void on_open_activate();

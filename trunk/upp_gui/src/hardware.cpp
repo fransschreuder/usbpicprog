@@ -121,7 +121,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 		}
 			
 		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 		if((hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 	}
@@ -139,7 +139,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 	for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
 	{
 		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 		if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=readDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
 		for(int i=0;i<BLOCKSIZE_DATA;i++)
@@ -183,7 +183,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 		}
 			
 		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 		if((hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
 	}
@@ -201,7 +201,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 	for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
 	{
 		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 		if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
@@ -244,7 +244,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 		}
 			
 		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 		if((hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 	}
@@ -308,7 +308,37 @@ int Hardware::readId(void)
 		else
 		{
 			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
-			return ((((int)msg[0])&0xFF)<<8)|(((int)msg[1])&0xFF);
+			return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
+			
+		}
+	}
+	
+}
+
+int Hardware::setPicType(PicType* picType)
+{
+	char msg[64];
+	
+	msg[0]=CMD_SET_PICTYPE;
+	msg[1]=picType->getCurrentPic().picFamily;
+	int nBytes;
+	if (_handle !=NULL)
+	{
+		if(writeString(msg,2)<0)
+		{
+			return 0;
+		}
+		nBytes = readString(msg);
+			
+		if (nBytes < 0 )
+		{
+			cerr<<"Usb Error"<<endl;
+			return 0;
+		}
+		else
+		{
+			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
+			return (int)msg[0];
 			
 		}
 	}
@@ -469,6 +499,8 @@ int Hardware::writeString(const char * msg,int size)
 	int nBytes;
 	if (_handle != NULL)
 	{
+		for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
+		cout<<endl;
 		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
 		if (nBytes < 0 )
 			cerr<<"Usb Error while writing to device"<<endl;

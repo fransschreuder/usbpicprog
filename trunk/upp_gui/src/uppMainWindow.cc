@@ -106,16 +106,9 @@ uppMainWindow::uppMainWindow()
     picTypeCombo->set_model(picTypeComboStore);
 	
 	
-	hardware=new Hardware();
-	if(hardware->connected())
-		statusBar->push("Usbpicprog found");
-	else
-		statusBar->push("Usbpicprog not found");
+	on_connect_hardware();
 	readHexFile=new ReadHexFile();
-	
-	picType=new PicType(hardware->autoDetectDevice());
-	
-	
+
 	for(int i=0;i<picType->getPicNames().size();i++)
 	{
 		picTypeComboRow = *(picTypeComboStore->append());
@@ -123,16 +116,21 @@ uppMainWindow::uppMainWindow()
 		
 	}
 	picTypeCombo->pack_start(picTypeColumns.colName);
+	on_detect_device();
+	cout<<"Detected: "<<picType->getCurrentPic().Name<<endl;
+
+		
+}
+
+void uppMainWindow::on_detect_device()
+{
+	picType=new PicType(hardware->autoDetectDevice());
+	hardware->setPicType(picType);
 	for(int i=0;i<picType->getPicNames().size();i++)
 	{
 		if(picType->getCurrentPic().Name.compare(picType->getPicNames()[i])==0)
 			picTypeCombo->set_active(i);
 	}
-	
-	picTypeCombo->signal_changed().connect( sigc::mem_fun(*this, &uppMainWindow::on_combo_changed) );
-	cout<<"Detected: "<<picType->getCurrentPic().Name<<endl;
-
-		
 }
 
 void uppMainWindow::on_combo_changed()
@@ -146,6 +144,7 @@ void uppMainWindow::on_combo_changed()
       
      	Glib::ustring name = row[picTypeColumns.colName];
 		picType=new PicType(name);
+		hardware->setPicType(picType);
       cout << "Name=" << picType->getCurrentPic().Name << std::endl;
     }
   }
@@ -153,6 +152,30 @@ void uppMainWindow::on_combo_changed()
     std::cout << "invalid iter" << std::endl;
 }
 
+void uppMainWindow::on_connect_hardware()
+{
+	hardware=new Hardware();
+	if(hardware->connected())
+		statusBar->push("Usbpicprog found");
+	else
+		statusBar->push("Usbpicprog not found");
+	on_detect_device();
+}
+
+void uppMainWindow::on_disconnect_hardware()
+{
+	if(hardware->connected())
+	   {
+		   delete hardware;
+		   statusBar->push("Disconnected usbpicprog");
+		   
+	   }
+	   else
+	   {
+		   statusBar->push("Already disconnected");
+	   }
+	
+}
 
 void uppMainWindow::on_new_activate()
 {
@@ -274,7 +297,11 @@ void uppMainWindow::on_quit_activate()
 }
 
 void uppMainWindow::on_program_activate()
-{  
+{ 
+	hardware->writeCode(readHexFile,picType);
+	hardware->writeData(readHexFile,picType);
+	hardware->writeConfig(readHexFile,picType);
+	
 }
 
 void uppMainWindow::on_bulkerase_activate()

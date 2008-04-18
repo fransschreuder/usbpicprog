@@ -68,6 +68,7 @@ public:
 	Hardware();
 	~Hardware();
 	int bulkErase(void);
+	int setPicType(PicType* picType);
 	int readCode(ReadHexFile *hexData,PicType *picType);
 	int writeCode(ReadHexFile *hexData,PicType *picType);
 	int readData(ReadHexFile *hexData,PicType *picType);
