@@ -17,6 +17,10 @@
 #include <wx/sizer.h>
 #include <wx/menu.h>
 #include <wx/statusbr.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/bmpbuttn.h>
 #include <wx/button.h>
 #include <wx/combobox.h>
 #include <wx/toolbar.h>
@@ -39,12 +43,17 @@ class UppMainWindow : public wxFrame
 		wxMenu* uppMenuActions;
 		wxStatusBar* m_statusBar1;
 		wxToolBar* m_toolBar1;
-		wxButton* uppButtonNew;
+		wxBitmapButton* newButton;
+		wxBitmapButton* openButton;
+		wxBitmapButton* refreshButton;
+		wxBitmapButton* newButton3;
+		wxBitmapButton* newButton4;
+		wxBitmapButton* newButton5;
+		wxBitmapButton* newButton6;
+		wxBitmapButton* newButton7;
+		wxBitmapButton* newButton8;
+		wxBitmapButton* newButton9;
 		wxComboBox* m_comboBox1;
-		
-		// Virtual event handlers, overide them in your derived class
-		virtual void on_tool1_clicked( wxCommandEvent& event ){ event.Skip(); }
-		
 	
 	public:
 		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
