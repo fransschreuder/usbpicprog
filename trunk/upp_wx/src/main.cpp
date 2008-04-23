@@ -19,11 +19,11 @@ IMPLEMENT_APP(UsbPicProg)
 
 bool UsbPicProg::OnInit()
 {
-  UppMainWindowCallBack *frame = new UppMainWindowCallBack((wxFrame *)NULL, 10000, wxT("usbpicprog v0.1"),
+  UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, wxT("usbpicprog v0.1"),
                                wxPoint(50, 50), wxSize(800, 600));
 	
 	
-  frame->Show(TRUE);
+  uppMainWindow->Show(TRUE);
 	
   return TRUE;
 }
