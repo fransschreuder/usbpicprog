@@ -23,6 +23,7 @@
 #include <wx/combobox.h>
 #include <wx/toolbar.h>
 #include <wx/frame.h>
+#include <wx/artprov.h>
 
 ///////////////////////////////////////////////////////////////////////////
 

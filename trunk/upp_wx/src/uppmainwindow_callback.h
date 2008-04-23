@@ -13,5 +13,7 @@ class UppMainWindowCallBack: public UppMainWindow
 	public:
 		 
 		UppMainWindowCallBack(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL  ) ;
-		void on_tool1_clicked(wxCommandEvent& event);
+		void on_open(wxCommandEvent& event);
+		void on_program(wxCommandEvent& event);
+		void on_help(wxCommandEvent& event);
 };
