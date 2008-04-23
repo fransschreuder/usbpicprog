@@ -1,4 +1,5 @@
 #include "main.h"
+#include <wx/wx.h>
 using namespace std;
 IMPLEMENT_APP(UsbPicProg)
 
@@ -38,7 +39,15 @@ void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
    
-	if(parser.GetParamCount()==0)
+	if(!parser.Found(wxT("h"))&
+	   !parser.Found(wxT("p"))&
+	   !parser.Found(wxT("s"))&
+	   !parser.Found(wxT("w"))&
+	   !parser.Found(wxT("r"))&
+	   !parser.Found(wxT("v"))&
+	   !parser.Found(wxT("e"))&
+	   !parser.Found(wxT("b"))&
+	   !parser.Found(wxT("f")))
 	{
 		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, wxT("usbpicprog v0.1"),
 									   wxPoint(50, 50), wxSize(800, 600));
@@ -53,12 +62,31 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		cout<<"command line passed"<<endl;
 		// to get at your unnamed parameters use
 		//wxArrayString files;
-		for (int i = 0; i < parser.GetParamCount(); i++)
-		{
-				cout<<parser.GetParam(i)<<endl;
-		}
-		if(parser.Found(wxT("P")))picType=new PicType(string(parser.GetParam(0)));
+		wxString picTypeStr;
+		if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
 		else picType=new PicType(0);
+		
+		if(parser.Found(wxT("w")))
+		{
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+		}
+		if(parser.Found(wxT("r")))
+		{
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+		}
+		if(parser.Found(wxT("v")))
+		{
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+		}
+		if(parser.Found(wxT("e")))
+		{
+		
+		}
+		if(parser.Found(wxT("b")))
+		{
+		
+		}
+		
 	 
 		// and other command line parameters
 	 

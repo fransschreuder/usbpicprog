@@ -44,7 +44,7 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 	{ wxCMD_LINE_SWITCH, wxT("v"), wxT("verify"),  wxT("verify the device") },
 	{ wxCMD_LINE_SWITCH, wxT("e"), wxT("erase"),  wxT("bulk erase the device") },
 	{ wxCMD_LINE_SWITCH, wxT("b"), wxT("blankcheck"),  wxT("blankcheck the device") },
-	{ wxCMD_LINE_PARAM, wxT("h"), wxT("hexfile"),  wxT("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
+	{ wxCMD_LINE_PARAM, wxT("f"), wxT("file"),  wxT("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
  
      { wxCMD_LINE_NONE }
 };
