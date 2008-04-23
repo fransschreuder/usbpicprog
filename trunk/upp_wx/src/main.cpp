@@ -68,15 +68,15 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		
 		if(parser.Found(wxT("w")))
 		{
-			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 		}
 		if(parser.Found(wxT("r")))
 		{
-			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 		}
 		if(parser.Found(wxT("v")))
 		{
-			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;Close();}
+			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 		}
 		if(parser.Found(wxT("e")))
 		{

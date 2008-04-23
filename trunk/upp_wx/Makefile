@@ -81,13 +81,13 @@ DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run aclocal-1.10
+ACLOCAL = ${SHELL} /home/frans/upp_wx/missing --run aclocal-1.10
 ALL_LINGUAS = 
-AMTAR = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run tar
+AMTAR = ${SHELL} /home/frans/upp_wx/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run automake-1.10
+AUTOCONF = ${SHELL} /home/frans/upp_wx/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/frans/upp_wx/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/frans/upp_wx/missing --run automake-1.10
 AWK = gawk
 CATALOGS = 
 CATOBJEXT = .gmo
@@ -152,8 +152,8 @@ LIBS =
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LN_S = ln -s
 LTLIBOBJS = 
-MAINT = #
-MAKEINFO = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run makeinfo
+MAINT = 
+MAKEINFO = ${SHELL} /home/frans/upp_wx/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 MKINSTALLDIRS = ./mkinstalldirs
 MSGFMT = /usr/bin/msgfmt
@@ -184,10 +184,10 @@ WX_CPPFLAGS = -I/usr/lib/wx/include/gtk2-unicode-release-2.8 -I/usr/include/wx-2
 WX_CXXFLAGS = -I/usr/lib/wx/include/gtk2-unicode-release-2.8 -I/usr/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__ -pthread
 WX_LIBS = -pthread   -lwx_gtk2u_aui-2.8 -lwx_gtk2u_xrc-2.8 -lwx_gtk2u_qa-2.8 -lwx_gtk2u_html-2.8 -lwx_gtk2u_adv-2.8 -lwx_gtk2u_core-2.8 -lwx_baseu_xml-2.8 -lwx_baseu_net-2.8 -lwx_baseu-2.8 
 XGETTEXT = /usr/bin/xgettext
-abs_builddir = /home/frans/usbpicprog/trunk/upp_wx
-abs_srcdir = /home/frans/usbpicprog/trunk/upp_wx
-abs_top_builddir = /home/frans/usbpicprog/trunk/upp_wx
-abs_top_srcdir = /home/frans/usbpicprog/trunk/upp_wx
+abs_builddir = /home/frans/upp_wx
+abs_srcdir = /home/frans/upp_wx
+abs_top_builddir = /home/frans/upp_wx
+abs_top_srcdir = /home/frans/upp_wx
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_F77 = 
@@ -216,7 +216,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/frans/usbpicprog/trunk/upp_wx/install-sh
+install_sh = $(SHELL) /home/frans/upp_wx/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -252,7 +252,7 @@ all: config.h
 .SUFFIXES:
 am--refresh:
 	@:
-$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -279,9 +279,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck
 
-$(top_srcdir)/configure: # $(am__configure_deps)
+$(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(srcdir) && $(AUTOCONF)
-$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
+$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.h: stamp-h1
@@ -293,7 +293,7 @@ config.h: stamp-h1
 stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
 	cd $(top_builddir) && $(SHELL) ./config.status config.h
-$(srcdir)/config.h.in: # $(am__configure_deps) 
+$(srcdir)/config.h.in:  $(am__configure_deps) 
 	cd $(top_srcdir) && $(AUTOHEADER)
 	rm -f stamp-h1
 	touch $@
