@@ -59,6 +59,8 @@ class UppMainWindow : public wxFrame
 		virtual void on_erase( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_blankcheck( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_autodetect( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_connect( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_disconnect( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_combo_changed( wxCommandEvent& event ){ event.Skip(); }

@@ -2,7 +2,7 @@
 // C++ code generated with wxFormBuilder (version Apr 16 2008)
 // http://www.wxformbuilder.org/
 //
-// PLEASE DO "NOT" EDIT THIS FILE!
+// PLEASE DO "NOT" EDIT THIS FILE! ---> Haha, I edited it anyway :P
 ///////////////////////////////////////////////////////////////////////////
 
 #include "uppmainwindow.h"
@@ -14,6 +14,8 @@
 #define wxID_ERASE 1000004
 #define wxID_BLANKCHECK 1000005
 #define wxID_AUTODETECT 1000006
+#define wxID_CONNECT 1000007
+#define wxID_DISCONNECT 1000008
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -84,6 +86,15 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( wxT("Autodetect") ) , wxEmptyString, wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuAutoDetect );
 	
+	wxMenuItem* uppMenuConnect;
+	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect") ) , wxEmptyString, wxITEM_NORMAL );
+	uppMenuActions->Append( uppMenuConnect );
+	
+	wxMenuItem* uppMenuDisConnect;
+	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( wxT("Disconnect") ) , wxEmptyString, wxITEM_NORMAL );
+	uppMenuActions->Append( uppMenuDisConnect );
+	
+	
 	uppMenuBar->Append( uppMenuActions, wxT("Actions") );
 	
 	uppMenuHelp = new wxMenu();
@@ -112,8 +123,9 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1->AddTool( wxID_VERIFY, wxT("verify"), wxICON( verify ), wxNullBitmap, wxITEM_NORMAL, wxT("verify"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_ERASE, wxT("erase"), wxICON( erase ), wxNullBitmap, wxITEM_NORMAL, wxT("erase"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_BLANKCHECK, wxT("blankcheck"), wxICON( blankcheck ), wxNullBitmap, wxITEM_NORMAL, wxT("blankcheck"), wxEmptyString );
+	
 	m_toolBar1->AddSeparator();
-	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxDefaultSize, 0, NULL, 0 ); 
+	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,24), 0, NULL, 0 ); 
 	m_toolBar1->AddControl( m_comboBox1 );
 	m_toolBar1->Realize();
 	
@@ -131,18 +143,11 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( uppMenuErase->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
 	this->Connect( uppMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
 	this->Connect( uppMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+	this->Connect( uppMenuConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+	this->Connect( uppMenuDisConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 	this->Connect( uppMenuItemHelp->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
-	//this->Connect( wxID_NEW, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_new ) );
-	//this->Connect( wxID_OPEN, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_open ) );
-	//this->Connect( wxID_REFRESH, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_refresh ) );
-	//this->Connect( wxID_SAVE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_save ) );
-	//this->Connect( wxID_SAVE_AS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
-	//this->Connect( wxID_PROGRAM, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_program ) );
-	//this->Connect( wxID_READ, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_read ) );
-	//this->Connect( wxID_VERIFY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-	//this->Connect( wxID_ERASE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-	//this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
+	
 	m_comboBox1->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
 }
 
@@ -161,17 +166,9 @@ UppMainWindow::~UppMainWindow()
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_new ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_save ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_refresh ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_save ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_program ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_read ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
 	m_comboBox1->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
 }
