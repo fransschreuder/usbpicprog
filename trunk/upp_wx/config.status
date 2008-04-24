@@ -341,7 +341,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/frans/upp_wx'
+ac_pwd='/home/frans/usbpicprog/trunk/upp_wx'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -548,19 +548,19 @@ s,@am__isrc@,|#_!!_#|,g
 s,@CYGPATH_W@,|#_!!_#|echo,g
 s,@PACKAGE@,|#_!!_#|usbpicprog,g
 s,@VERSION@,|#_!!_#|0.1,g
-s,@ACLOCAL@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run aclocal-1.10,g
-s,@AUTOCONF@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run autoconf,g
-s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run automake-1.10,g
-s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run autoheader,g
-s,@MAKEINFO@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run makeinfo,g
-s,@install_sh@,|#_!!_#|$(SHELL) /home/frans/upp_wx/install-sh,g
+s,@ACLOCAL@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run aclocal-1.10,g
+s,@AUTOCONF@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run autoconf,g
+s,@AUTOMAKE@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run automake-1.10,g
+s,@AUTOHEADER@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run autoheader,g
+s,@MAKEINFO@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run makeinfo,g
+s,@install_sh@,|#_!!_#|$(SHELL) /home/frans/usbpicprog/trunk/upp_wx/install-sh,g
 s,@STRIP@,|#_!!_#|strip,g
 s,@INSTALL_STRIP_PROGRAM@,|#_!!_#|$(install_sh) -c -s,g
 s,@mkdir_p@,|#_!!_#|/bin/mkdir -p,g
-s,@AWK@,|#_!!_#|gawk,g
+s,@AWK@,|#_!!_#|mawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
-s,@AMTAR@,|#_!!_#|${SHELL} /home/frans/upp_wx/missing --run tar,g
+s,@AMTAR@,|#_!!_#|${SHELL} /home/frans/usbpicprog/trunk/upp_wx/missing --run tar,g
 s,@am__tar@,|#_!!_#|${AMTAR} chof - "$$tardir",g
 s,@am__untar@,|#_!!_#|${AMTAR} xf -,g
 s,@MAINTAINER_MODE_TRUE@,|#_!!_#|,g
@@ -585,9 +585,9 @@ s,@am__fastdepCC_FALSE@,|#_!!_#|#,g
 s,@CPP@,|#_!!_#|gcc -E,g
 s,@GREP@,|#_!!_#|/bin/grep,g
 s,@EGREP@,|#_!!_#|/bin/grep -E,g
-s,@WX_CPPFLAGS@,|#_!!_#|-I/usr/lib/wx/include/gtk2-unicode-release-2.8 -I/usr/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__,g
-s,@WX_CXXFLAGS@,|#_!!_#|-I/usr/lib/wx/include/gtk2-unicode-release-2.8 -I/usr/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__ -pthread,g
-s,@WX_LIBS@,|#_!!_#|-pthread   -lwx_gtk2u_aui-2.8 -lwx_gtk2u_xrc-2.8 -lwx_gtk2u_qa-2.8 -lwx_gtk2u_html-2.8 -lwx_gtk2u_adv-2.8 -lwx_gtk2u_core-2.8 -lwx_baseu_xml-2.8 -lwx_baseu_net-2.8 -lwx_baseu-2.8 ,g
+s,@WX_CPPFLAGS@,|#_!!_#|-I/usr/local/lib/wx/include/gtk2-ansi-release-2.8 -I/usr/local/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__,g
+s,@WX_CXXFLAGS@,|#_!!_#|-I/usr/local/lib/wx/include/gtk2-ansi-release-2.8 -I/usr/local/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__ -pthread,g
+s,@WX_LIBS@,|#_!!_#|-L/usr/local/lib -pthread   -lwx_gtk2_richtext-2.8 -lwx_gtk2_aui-2.8 -lwx_gtk2_xrc-2.8 -lwx_gtk2_qa-2.8 -lwx_gtk2_html-2.8 -lwx_gtk2_adv-2.8 -lwx_gtk2_core-2.8 -lwx_base_xml-2.8 -lwx_base_net-2.8 -lwx_base-2.8 ,g
 s,@CXX@,|#_!!_#|g++,g
 s,@CXXFLAGS@,|#_!!_#|-g -O2,g
 s,@ac_ct_CXX@,|#_!!_#|g++,g
@@ -595,16 +595,16 @@ s,@CXXDEPMODE@,|#_!!_#|depmode=gcc3,g
 s,@am__fastdepCXX_TRUE@,|#_!!_#|,g
 s,@am__fastdepCXX_FALSE@,|#_!!_#|#,g
 s,@GETTEXT_PACKAGE@,|#_!!_#|usbpicprog,g
-s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@build_cpu@,|#_!!_#|x86_64,g
-s,@build_vendor@,|#_!!_#|unknown,g
+s,@build@,|#_!!_#|i686-pc-linux-gnu,g
+s,@build_cpu@,|#_!!_#|i686,g
+s,@build_vendor@,|#_!!_#|pc,g
 s,@build_os@,|#_!!_#|linux-gnu,g
-s,@host@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@host_cpu@,|#_!!_#|x86_64,g
+s,@host@,|#_!!_#|i686-pc-linux-gnu,g
+s,@host_cpu@,|#_!!_#|i686,g
 CEOF
 cat >"$tmp/subs-2.sed" <<\CEOF
 /@[a-zA-Z_][a-zA-Z_0-9]*@/!b end
-s,@host_vendor@,|#_!!_#|unknown,g
+s,@host_vendor@,|#_!!_#|pc,g
 s,@host_os@,|#_!!_#|linux-gnu,g
 s,@USE_NLS@,|#_!!_#|yes,g
 s,@MSGFMT@,|#_!!_#|/usr/bin/msgfmt,g
@@ -657,7 +657,7 @@ s,@FFLAGS@,|#_!!_#|,g
 s,@ac_ct_F77@,|#_!!_#|,g
 s,@LIBTOOL@,|#_!!_#|$(SHELL) $(top_builddir)/libtool,g
 s,@PKG_CONFIG@,|#_!!_#|/usr/bin/pkg-config,g
-s,@USBPICPROG_CFLAGS@,|#_!!_#|-DPNG_NO_MMX_CODE -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libglade-2.0 -I/usr/include/libxml2  ,g
+s,@USBPICPROG_CFLAGS@,|#_!!_#|-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libglade-2.0 -I/usr/include/libxml2  ,g
 s,@USBPICPROG_LIBS@,|#_!!_#|-lglade-2.0 -lgtk-x11-2.0 -lxml2 -lgdk-x11-2.0 -latk-1.0 -lgdk_pixbuf-2.0 -lm -lpangocairo-1.0 -lfontconfig -lXext -lXrender -lXinerama -lXi -lXrandr -lXcursor -lXcomposite -lXdamage -lpango-1.0 -lcairo -lX11 -lXfixes -lgobject-2.0 -lgmodule-2.0 -ldl -lglib-2.0  ,g
 s,@LIBOBJS@,|#_!!_#|,g
 s,@LTLIBOBJS@,|#_!!_#|,g

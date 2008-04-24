@@ -1,133 +1,243 @@
 #include "uppmainwindow_callback.h"
 #include "uppmainwindow.h"
 
-void UppMainWindowCallBack::on_new(wxCommandEvent& event)
-{
-	event.Skip();
-	m_comboBox1->Append(wxT("New"));
-	cout<<"New"<<endl;
-}
 
-void UppMainWindowCallBack::on_open(wxCommandEvent& event)
-{
-	event.Skip();
-	m_comboBox1->Append(wxT("Open"));
-	cout<<"Open"<<endl;
-}
 
-void UppMainWindowCallBack::on_refresh(wxCommandEvent& event)
-{
-	event.Skip();
-	m_comboBox1->Append(wxT("Refresh"));
-	cout<<"Refresh"<<endl;
-}
 
-void UppMainWindowCallBack::on_save(wxCommandEvent& event)
+void UppMainWindowCallBack::printHexFile()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Save"));
-	cout<<"Save"<<endl;
-}
-
-void UppMainWindowCallBack::on_save_as(wxCommandEvent& event)
-{
-	event.Skip();
-	m_comboBox1->Append(wxT("Save as"));
-	cout<<"Save as"<<endl;
-}
-
-void UppMainWindowCallBack::on_exit(wxCommandEvent& event)
-{
-	event.Skip();
+	int lineSize;
+	char txt[256];
+	uppHexEdit->Clear();
+	uppHexEdit->Freeze();
 	
-	m_comboBox1->Append(wxT("exit"));
-	cout<<"exit"<<endl;
+	uppHexEdit->AppendText(wxT("Code Memory\n"));
+	for(int i=0;i<readHexFile->getCodeMemory().size();i+=16)
+	{
+		sprintf(txt,"%00000008X::",i);
+		uppHexEdit->AppendText(wxT(txt));
+		if(i+16<readHexFile->getCodeMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getCodeMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			sprintf(txt,"%02X",readHexFile->getCodeMemory()[i+j]);
+			uppHexEdit->AppendText(wxT(txt));
+		}
+		uppHexEdit->AppendText(wxT("\n"));	
+	}
+	uppHexEdit->AppendText(wxT("\nConfig Memory\n"));
+	for(int i=0;i<readHexFile->getConfigMemory().size();i+=16)
+	{
+		sprintf(txt,"%00000008X::",i+picType->getCurrentPic().ConfigAddress);
+		uppHexEdit->AppendText(wxT(txt));
+		if(i+16<readHexFile->getConfigMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getConfigMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			sprintf(txt,"%02X",readHexFile->getConfigMemory()[i+j]);
+			uppHexEdit->AppendText(wxT(txt));
+		}
+		uppHexEdit->AppendText(wxT("\n"));
+	}
+	uppHexEdit->AppendText(wxT("\nData Memory\n"));
+	for(int i=0;i<readHexFile->getDataMemory().size();i+=16)
+	{
+		sprintf(txt,"%00000008X::",i);
+		uppHexEdit->AppendText(wxT(txt));
+		if(i+16<readHexFile->getDataMemory().size())
+		{
+			lineSize=16;
+		}
+		else
+		{
+			lineSize=readHexFile->getDataMemory().size()-i;
+		}
+		for(int j=0;j<lineSize;j++)
+		{
+			sprintf(txt,"%02X",readHexFile->getDataMemory()[i+j]);
+			uppHexEdit->AppendText(wxT(txt));
+		}
+		uppHexEdit->AppendText(wxT("\n"));
+	}
+	
+    uppHexEdit->Thaw();
+}
+
+
+void UppMainWindowCallBack::upp_new()
+{
+	uppHexEdit->Clear();
+	delete readHexFile;
+	readHexFile=new ReadHexFile();
+	fileOpened=false;
+}
+
+void UppMainWindowCallBack::upp_open()
+{
+	wxFileDialog* openFileDialog =
+		new wxFileDialog( this, _("Open hexfile"), "", "", FILETYPES,
+		                  wxOPEN, wxDefaultPosition);
+ 
+	if ( openFileDialog->ShowModal() == wxID_OK )
+	{
+		upp_open_file(openFileDialog->GetPath());
+	}
+}
+
+
+void UppMainWindowCallBack::upp_open_file(wxString path)
+{
+	
+ 	readHexFile->open(picType,path.mb_str(wxConvUTF8));
+	printHexFile();
+	fileOpened=true;
+}
+
+
+void UppMainWindowCallBack::upp_refresh()
+{
+	readHexFile->reload(picType);
+	printHexFile();
+}
+
+void UppMainWindowCallBack::upp_save()
+{
+	if(fileOpened)readHexFile->save(picType);
+	else upp_save_as();
+}
+
+void UppMainWindowCallBack::upp_save_as()
+{
+	wxFileDialog* openFileDialog =
+		new wxFileDialog( this, _("Save hexfile"), "", "", FILETYPES,
+		                  wxSAVE, wxDefaultPosition);
+ 
+	if ( openFileDialog->ShowModal() == wxID_OK )
+	{
+		readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8));
+	}
+	
+	
+}
+
+void UppMainWindowCallBack::upp_exit()
+{
 	Close();
 }
 
-
-void UppMainWindowCallBack::on_program(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_program()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Program"));
-	cout<<"Program"<<endl;
+	hardware->writeCode(readHexFile,picType);
+	hardware->writeData(readHexFile,picType);
+	hardware->writeConfig(readHexFile,picType);
 }
 
-void UppMainWindowCallBack::on_read(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_read()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Read"));
-	cout<<"Read"<<endl;
+	hardware->readCode(readHexFile,picType);
+	hardware->readData(readHexFile,picType);
+	hardware->readConfig(readHexFile,picType);
+	printHexFile();
+	
 }
 
-void UppMainWindowCallBack::on_verify(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_verify()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Verify"));
-	cout<<"Verify"<<endl;
+	cout<<"Not implemented yet"<<endl;
 }
 
-void UppMainWindowCallBack::on_erase(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_erase()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Erase"));
-	cout<<"Program"<<endl;
+	hardware->bulkErase();
 }
 
-void UppMainWindowCallBack::on_blankcheck(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_blankcheck()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Blankcheck"));
-	cout<<"Blankcheck"<<endl;
+	cout<<"Not implemented yet"<<endl;
 }
 
-void UppMainWindowCallBack::on_autodetect(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_autodetect()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Autodetect"));
-	cout<<"Autodetect"<<endl;
+	picType=new PicType(hardware->autoDetectDevice());
+	hardware->setPicType(picType);
+	m_comboBox1->SetValue(picType->getCurrentPic().Name);
 }
 
-void UppMainWindowCallBack::on_connect(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_connect()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Connect"));
-	cout<<"Connect"<<endl;
+	hardware=new Hardware();
+	if(hardware->connected())
+		
+		SetStatusText(wxT("Usbpicprog found"));
+	else
+		SetStatusText(wxT("Usbpicprog not found"));
+	upp_autodetect();
 }
 
-void UppMainWindowCallBack::on_disconnect(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_disconnect()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Disconnect"));
-	cout<<"Disconnect"<<endl;
+	if(hardware->connected())
+	   {
+		   delete hardware;
+		   SetStatusText(wxT("Disconnected usbpicprog"));
+		   
+	   }
+	   else
+	   {
+		   SetStatusText(wxT("Already disconnected"));
+	   }
 }
 
-void UppMainWindowCallBack::on_help(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_help()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Help"));
-	cout<<"Help"<<endl;
+	wxLaunchDefaultBrowser(wxT("http://usbpicprog.sourceforge.net/"));
 }
 
-void UppMainWindowCallBack::on_about(wxCommandEvent& event)
+void UppMainWindowCallBack::upp_about()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("About"));
-	cout<<"About"<<endl;
+	wxAboutDialogInfo aboutInfo;
+	aboutInfo.SetName(wxT("Usbpicprog"));
+	aboutInfo.SetVersion(wxT("0.1"));
+	aboutInfo.SetDescription(wxT("An open source USB pic programmer"));
+	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.sourceforge.net/"));
+	wxAboutBox(aboutInfo);
 }
 
-void UppMainWindowCallBack::on_combo_changed(wxCommandEvent& event)
+
+void UppMainWindowCallBack::upp_combo_changed()
 {
-	event.Skip();
-	m_comboBox1->Append(wxT("Combo changed"));
-	cout<<"Combo changed"<<endl;
+
+	
+		picType=new PicType(string(m_comboBox1->GetValue().mb_str(wxConvUTF8)));
+		hardware->setPicType(picType);
+      	cout << "Name=" << picType->getCurrentPic().Name << std::endl;
+    	upp_new();
 }
+
 
 
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
-	//m_comboBox1->SetSize (wxSize(100, 24));
-	m_comboBox1->Append(wxT("P12F629"));
-	m_comboBox1->Append(wxT("P18F2550"));
-	m_comboBox1->Append(wxT("P18F4620"));
+	upp_connect();
+	readHexFile=new ReadHexFile();
+	for(int i=0;i<picType->getPicNames().size();i++)
+	{
+		m_comboBox1->Append(wxT(picType->getPicNames()[i]));
+		
+	}
+	upp_autodetect();
+	cout<<"Detected: "<<picType->getCurrentPic().Name<<endl;
+	fileOpened=false;
 }

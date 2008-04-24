@@ -2,6 +2,8 @@
 #  include <config.h>
 #endif
 #include <wx/wx.h>
+#include <wx/aboutdlg.h>
+#include <wx/utils.h>
 #include <iostream>
 using namespace std;
 
@@ -10,6 +12,10 @@ using namespace std;
 #include "pictype.h"
 #include "read_hexfile.h"
 
+static const wxChar *FILETYPES = _T(
+			"Hex files|*.hex|"
+			"All files|*.*"
+			);
 
 class UppMainWindowCallBack: public UppMainWindow
 {
@@ -17,26 +23,46 @@ class UppMainWindowCallBack: public UppMainWindow
 	public:
 		 
 		UppMainWindowCallBack(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL  ) ;
-		
-		void on_new( wxCommandEvent& event );
-		void on_open( wxCommandEvent& event );
-		void on_refresh( wxCommandEvent& event );
-		void on_save( wxCommandEvent& event );
-		void on_save_as( wxCommandEvent& event );
-		void on_exit( wxCommandEvent& event );
-		void on_program( wxCommandEvent& event );
-		void on_read( wxCommandEvent& event );
-		void on_verify( wxCommandEvent& event );
-		void on_erase( wxCommandEvent& event );
-		void on_blankcheck( wxCommandEvent& event );
-		void on_autodetect( wxCommandEvent& event );
-		void on_connect( wxCommandEvent& event );
-		void on_disconnect( wxCommandEvent& event );
-		void on_help( wxCommandEvent& event );
-		void on_about( wxCommandEvent& event );
-		void on_combo_changed( wxCommandEvent& event );
+		void printHexFile();
+		void on_new( wxCommandEvent& event ){upp_new();event.Skip();}
+		void on_open( wxCommandEvent& event ){upp_open();event.Skip();};
+		void on_refresh( wxCommandEvent& event ){upp_refresh();event.Skip();};
+		void on_save( wxCommandEvent& event ){upp_save();event.Skip();};
+		void on_save_as( wxCommandEvent& event ){upp_save_as();event.Skip();};
+		void on_exit( wxCommandEvent& event ){upp_exit();event.Skip();};
+		void on_program( wxCommandEvent& event ){upp_program();event.Skip();};
+		void on_read( wxCommandEvent& event ){upp_read();event.Skip();};
+		void on_verify( wxCommandEvent& event ){upp_verify();event.Skip();};
+		void on_erase( wxCommandEvent& event ){upp_erase();event.Skip();};
+		void on_blankcheck( wxCommandEvent& event ){upp_blankcheck();event.Skip();};
+		void on_autodetect( wxCommandEvent& event ){upp_autodetect();event.Skip();};
+		void on_connect( wxCommandEvent& event ){upp_connect();event.Skip();};
+		void on_disconnect( wxCommandEvent& event ){upp_disconnect();event.Skip();};
+		void on_help( wxCommandEvent& event ){upp_help();event.Skip();};
+		void on_about( wxCommandEvent& event ){upp_about();event.Skip();};
+		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed();event.Skip();};
+		void upp_open_file(wxString path);
 	private:
+		void upp_new();
+		void upp_open();
+		void upp_refresh();
+		void upp_save();
+		void upp_save_as();
+		void upp_exit();
+		void upp_program();
+		void upp_read();
+		void upp_verify();
+		void upp_erase();
+		void upp_blankcheck();
+		void upp_autodetect();
+		void upp_connect();
+		void upp_disconnect();
+		void upp_help();
+		void upp_about();
+		void upp_combo_changed();
 		ReadHexFile* readHexFile;
 		PicType* picType;
 		Hardware* hardware;
+		bool fileOpened;
+		
 };

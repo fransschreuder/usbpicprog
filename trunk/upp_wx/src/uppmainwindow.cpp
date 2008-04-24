@@ -8,25 +8,30 @@
 #include "uppmainwindow.h"
 #include "include_icons.h"
 
-#define wxID_PROGRAM 1000001
-#define wxID_READ 1000002
-#define wxID_VERIFY 1000003
-#define wxID_ERASE 1000004
-#define wxID_BLANKCHECK 1000005
-#define wxID_AUTODETECT 1000006
-#define wxID_CONNECT 1000007
-#define wxID_DISCONNECT 1000008
+enum{
+wxID_PROGRAM=wxID_HIGHEST+1,
+wxID_READ,
+wxID_VERIFY,
+wxID_ERASE,
+wxID_BLANKCHECK,
+wxID_AUTODETECT,
+wxID_CONNECT ,
+wxID_DISCONNECT 
+};
 
 ///////////////////////////////////////////////////////////////////////////
 
 UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	SetIcon(wxICON( usbpicprog ));
 	
 	wxBoxSizer* bSizer;
 	bSizer = new wxBoxSizer( wxVERTICAL );
 	
 	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
+	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
+	//uppHexEdit->SetDefaultStyle(wxTextAttr()::SetFont());
 	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
 	
 	this->SetSizer( bSizer );

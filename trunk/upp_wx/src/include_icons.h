@@ -5,6 +5,7 @@
 #include "../icons/erase.xpm"
 #include "../icons/read.xpm"
 #include "../icons/verify.xpm"
+#include "../icons/usbpicprog.xpm"
 
 #if defined(__WXGTK__) || defined(__WXMOTIF__)
 #include "../icons/refresh.xpm"
