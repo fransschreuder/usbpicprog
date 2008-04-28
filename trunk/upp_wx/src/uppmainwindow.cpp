@@ -24,7 +24,7 @@ wxID_DISCONNECT
 UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	SetIcon(wxICON( usbpicprog ));
+	SetIcon(wxIcon( usbpicprog_xpm ));
 	
 	wxBoxSizer* bSizer;
 	bSizer = new wxBoxSizer( wxVERTICAL );
@@ -32,7 +32,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
 	//uppHexEdit->SetDefaultStyle(wxTextAttr()::SetFont());
-	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND, 5 );
+	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND );
 	
 	this->SetSizer( bSizer );
 	this->Layout();
@@ -119,15 +119,15 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1 = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY ); 
 	m_toolBar1->AddTool( wxID_NEW, wxT("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("new"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_OPEN, wxT("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("open"), wxEmptyString );
-	m_toolBar1->AddTool( wxID_REFRESH, wxT("refresh"), wxICON(refresh), wxNullBitmap, wxITEM_NORMAL, wxT("refresh"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_REFRESH, wxT("refresh"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, wxT("refresh"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_SAVE, wxT("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("save"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_SAVE_AS, wxT("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("save as"), wxEmptyString );
 	m_toolBar1->AddSeparator();
-	m_toolBar1->AddTool( wxID_PROGRAM, wxT("program"), wxICON( program ), wxNullBitmap, wxITEM_NORMAL, wxT("program"), wxEmptyString );
-	m_toolBar1->AddTool( wxID_READ, wxT("read"), wxICON( read ), wxNullBitmap, wxITEM_NORMAL, wxT("read"), wxEmptyString );
-	m_toolBar1->AddTool( wxID_VERIFY, wxT("verify"), wxICON( verify ), wxNullBitmap, wxITEM_NORMAL, wxT("verify"), wxEmptyString );
-	m_toolBar1->AddTool( wxID_ERASE, wxT("erase"), wxICON( erase ), wxNullBitmap, wxITEM_NORMAL, wxT("erase"), wxEmptyString );
-	m_toolBar1->AddTool( wxID_BLANKCHECK, wxT("blankcheck"), wxICON( blankcheck ), wxNullBitmap, wxITEM_NORMAL, wxT("blankcheck"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_PROGRAM, wxT("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("program"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_READ, wxT("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("read"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_VERIFY, wxT("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("verify"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_ERASE, wxT("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("erase"), wxEmptyString );
+	m_toolBar1->AddTool( wxID_BLANKCHECK, wxT("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("blankcheck"), wxEmptyString );
 	
 	m_toolBar1->AddSeparator();
 	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,24), 0, NULL, 0 ); 
