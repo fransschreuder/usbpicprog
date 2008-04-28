@@ -10,7 +10,7 @@
 #include "../icons/read.xpm"
 #include "../icons/verify.xpm"
 #include "../icons/usbpicprog.xpm"
-#elif
+#else
 #include "../icons/win/refresh.xpm"
 #include "../icons/win/blankcheck.xpm"
 #include "../icons/win/program.xpm"
