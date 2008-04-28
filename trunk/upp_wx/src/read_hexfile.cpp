@@ -33,7 +33,7 @@ ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 	open(picType,filename);
 }
 
-void ReadHexFile::open(PicType* picType,const char* filename)
+int ReadHexFile::open(PicType* picType,const char* filename)
 {
 	int extAddress=0;
 	int address;
@@ -49,7 +49,7 @@ void ReadHexFile::open(PicType* picType,const char* filename)
 	if(fp==NULL) 
 	{
 		cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
-		return;
+		return -1;
 	}
 	do
 	{
@@ -61,7 +61,7 @@ void ReadHexFile::open(PicType* picType,const char* filename)
 		if((((byteCount+5)*2)+1)!=tempStr.size())
 		{
 			cerr<<"Failure in hex file... Exiting"<<endl;
-			return;
+			return -1;
 		}
 		
 		sscanf(tempStr.c_str()+3,"%04X",&address);
@@ -75,7 +75,7 @@ void ReadHexFile::open(PicType* picType,const char* filename)
 		if(!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
 		{
 			cerr<<"Error in checksum... Exiting"<<endl;
-			return;
+			return -1;
 		}
 		switch(recordType)
 		{
@@ -129,19 +129,19 @@ void ReadHexFile::open(PicType* picType,const char* filename)
 				break;
 			default:
 				cerr<<"unknown record type: "<<recordType<<endl;
-				return;
+				return -1;
 				break;
 				
 			
 		}
 	}while(recordType!=ENDOFFILE);
 	fp.close();
-	return;
+	return 0;
 }
 
-void ReadHexFile::reload(PicType* picType)
+int ReadHexFile::reload(PicType* picType)
 {
-	open(picType,filenameToSave);
+	return open(picType,filenameToSave);
 }
 
 ReadHexFile::ReadHexFile()
@@ -153,19 +153,115 @@ ReadHexFile::ReadHexFile()
 
 ReadHexFile::~ReadHexFile()
 {
+}
+
+int ReadHexFile::saveAs(PicType* picType,const char* filename)
+{
+	ofstream fp (filename);
+	int lineSize;
+	vector<int> lineData;
+	char txt[256];
+	int address;
+
+	if(fp==NULL)
+	{
+		cerr<<"Could not open Hex file for writing... Exiting\n\n"<<endl;
+		return -1;
+	}
+	if(codeMemory.size()>0)
+	{
+    	lineData.resize(2);
+        //Put address 0x0000 in lineData
+        lineData[0]=0x00;
+        lineData[1]=0x00;
+        makeLine(0,EXTADDR,lineData,txt);
+    	fp<<txt<<endl;
+    	for(int i=0;i<codeMemory.size();i+=16)
+    	{
+    		if(i+16<codeMemory.size())
+    		{
+    			lineSize=16;
+    		}
+    		else
+    		{
+    			lineSize=codeMemory.size()-i;
+    		}
+    		lineData.resize(lineSize);
+    		for(int j=0;j<lineSize;j++)
+    		{
+    			lineData[j]=codeMemory[i+j];
+    		}
+    		makeLine(i,DATA,lineData,txt);
+    		fp<<txt<<endl;
+    		
+    	}
+    }
+	if(dataMemory.size()>0)
+	{
+    	lineData.resize(2);
+        //Put address DataAddress in lineData
+        address=picType->getCurrentPic().DataAddress;
+        lineData[0]=(address>>24)&0xFF;
+        lineData[1]=(address>>16)&0xFF;
+        makeLine(0,EXTADDR,lineData,txt);
+    	fp<<txt<<endl;
+    	for(int i=0;i<dataMemory.size();i+=16)
+    	{
+    		if(i+16<dataMemory.size())
+    		{
+    			lineSize=16;
+    		}
+    		else
+    		{
+    			lineSize=dataMemory.size()-i;
+    		}
+    		lineData.resize(lineSize);
+    		for(int j=0;j<lineSize;j++)
+    		{
+    			lineData[j]=dataMemory[i+j];
+    		}
+    		makeLine(i+(address&0xFFFF),DATA,lineData,txt);
+    		fp<<txt<<endl;
+    	}
+    }
+    if(configMemory.size()>0)
+	{
+    	lineData.resize(2);
+        //Put address DataAddress in lineData
+        address=picType->getCurrentPic().ConfigAddress;
+        lineData[0]=(address>>24)&0xFF;
+        lineData[1]=(address>>16)&0xFF;
+        makeLine(0,EXTADDR,lineData,txt);
+    	fp<<txt<<endl;
+    	for(int i=0;i<configMemory.size();i+=16)
+    	{
+    		if(i+16<configMemory.size())
+    		{
+    			lineSize=16;
+    		}
+    		else
+    		{
+    			lineSize=configMemory.size()-i;
+    		}
+    		lineData.resize(lineSize);
+    		for(int j=0;j<lineSize;j++)
+    		{
+    			lineData[j]=configMemory[i+j];
+    		}
+    		makeLine(i+(address&0xFFFF),DATA,lineData,txt);
+    		fp<<txt<<endl;
+    	}
+    }
+    lineData.resize(0);
+    makeLine(0,ENDOFFILE,lineData,txt);
+    fp<<txt<<endl;
+	return 0;
 	
 }
 
-void ReadHexFile::saveAs(PicType* picType,const char* filename)
+int ReadHexFile::save(PicType* picType)
 {
-	
-	cerr<<"Save file not implemented yet"<<endl;
-	
-}
-
-void ReadHexFile::save(PicType* picType)
-{
-	saveAs(picType,filenameToSave);
+	return saveAs(picType,filenameToSave);
 }
 
 void ReadHexFile::putCodeMemory(vector<int> mem)
@@ -200,6 +296,28 @@ bool ReadHexFile::calcCheckSum(int byteCount,int address, RecordType recordType,
 	
 	if(check!=checkSum)printf("%2X %2X\n",check,checkSum);
 	return (check==checkSum);
+}
+
+void ReadHexFile::makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line)
+{
+    int check=0;
+    int byteCount=lineData.size();
+	check+=byteCount;
+	check+=(address>>8)&0xFF;
+	check+=(address)&0xFF;
+	check+=recordType;
+    sprintf(output_line,":%02X%04X%02X",byteCount,address,recordType);
+	for(int i=0;i<lineData.size();i++)
+	{
+        sprintf(output_line+9+(i*2),"%02X",lineData[i]);
+        check+=(lineData[i]&0xFF);
+	}
+
+	check=(0x100-check)&0xFF;
+
+    sprintf(output_line+9+(lineData.size()*2),"%02X",check);
+    
+
 }
 	
 vector<int> ReadHexFile::getCodeMemory(void)

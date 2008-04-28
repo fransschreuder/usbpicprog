@@ -52,14 +52,11 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, wxT("usbpicprog v0.1"),
 									   wxPoint(50, 50), wxSize(800, 600));
 		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}	
-			
-		cout<<"no command line passed"<<endl;
 		uppMainWindow->Show(TRUE);
 	}
 	else
 	{
 		silent_mode = parser.Found(wxT("s"));
-		cout<<"command line passed"<<endl;
 		// to get at your unnamed parameters use
 		//wxArrayString files;
 		wxString picTypeStr;

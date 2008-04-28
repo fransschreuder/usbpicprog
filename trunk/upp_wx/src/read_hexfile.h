@@ -39,10 +39,10 @@ class ReadHexFile
 		ReadHexFile(PicType* picType,const char* filename);
 		ReadHexFile();
 		~ReadHexFile();
-		void open(PicType* picType, const char* filename);
-		void reload(PicType* picType);
-		void saveAs(PicType* picType,const char* filename);
-	    void save(PicType* picType);
+		int open(PicType* picType, const char* filename);
+		int reload(PicType* picType);
+		int saveAs(PicType* picType,const char* filename);
+	    int save(PicType* picType);
 		void putCodeMemory(vector<int> mem);
 		void putDataMemory(vector<int> mem);
 		void putConfigMemory(vector<int> mem);
@@ -56,6 +56,7 @@ class ReadHexFile
 		vector<int> dataMemory;
 		vector<int> configMemory;
 		bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
+		void makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line);
 };
 
 #endif //READHEXFILE_H

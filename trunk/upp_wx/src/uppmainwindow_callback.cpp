@@ -100,7 +100,7 @@ void UppMainWindowCallBack::upp_open()
 void UppMainWindowCallBack::upp_open_file(wxString path)
 {
 	
- 	readHexFile->open(picType,path.mb_str(wxConvUTF8));
+ 	if(readHexFile->open(picType,path.mb_str(wxConvUTF8))<0)SetStatusText(wxT("Unable to open file"));
 	printHexFile();
 	fileOpened=true;
 }
@@ -108,13 +108,16 @@ void UppMainWindowCallBack::upp_open_file(wxString path)
 
 void UppMainWindowCallBack::upp_refresh()
 {
-	readHexFile->reload(picType);
+	if(readHexFile->reload(picType)<0)SetStatusText(wxT("Unable to open file"));
 	printHexFile();
 }
 
 void UppMainWindowCallBack::upp_save()
 {
-	if(fileOpened)readHexFile->save(picType);
+	if(fileOpened)
+    {
+        if(readHexFile->save(picType)<0)SetStatusText(wxT("Unable to save file"));
+    }
 	else upp_save_as();
 }
 
@@ -126,7 +129,8 @@ void UppMainWindowCallBack::upp_save_as()
  
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
-		readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8));
+		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+            SetStatusText(wxT("Unable to save file"));
 	}
 	
 	
