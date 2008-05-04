@@ -15,7 +15,7 @@ void UppMainWindowCallBack::printHexFile()
 	for(int i=0;i<readHexFile->getCodeMemory().size();i+=16)
 	{
 		sprintf(txt,"%00000008X::",i);
-		uppHexEdit->AppendText(wxT(txt));
+		uppHexEdit->AppendText(wxString::FromAscii(txt));
 		if(i+16<readHexFile->getCodeMemory().size())
 		{
 			lineSize=16;
@@ -27,7 +27,7 @@ void UppMainWindowCallBack::printHexFile()
 		for(int j=0;j<lineSize;j++)
 		{
 			sprintf(txt,"%02X",readHexFile->getCodeMemory()[i+j]);
-			uppHexEdit->AppendText(wxT(txt));
+			uppHexEdit->AppendText(wxString::FromAscii(txt));
 		}
 		uppHexEdit->AppendText(wxT("\n"));	
 	}
@@ -35,7 +35,7 @@ void UppMainWindowCallBack::printHexFile()
 	for(int i=0;i<readHexFile->getConfigMemory().size();i+=16)
 	{
 		sprintf(txt,"%00000008X::",i+picType->getCurrentPic().ConfigAddress);
-		uppHexEdit->AppendText(wxT(txt));
+		uppHexEdit->AppendText(wxString::FromAscii(txt));
 		if(i+16<readHexFile->getConfigMemory().size())
 		{
 			lineSize=16;
@@ -47,7 +47,7 @@ void UppMainWindowCallBack::printHexFile()
 		for(int j=0;j<lineSize;j++)
 		{
 			sprintf(txt,"%02X",readHexFile->getConfigMemory()[i+j]);
-			uppHexEdit->AppendText(wxT(txt));
+			uppHexEdit->AppendText(wxString::FromAscii(txt));
 		}
 		uppHexEdit->AppendText(wxT("\n"));
 	}
@@ -55,7 +55,7 @@ void UppMainWindowCallBack::printHexFile()
 	for(int i=0;i<readHexFile->getDataMemory().size();i+=16)
 	{
 		sprintf(txt,"%00000008X::",i);
-		uppHexEdit->AppendText(wxT(txt));
+		uppHexEdit->AppendText(wxString::FromAscii(txt));
 		if(i+16<readHexFile->getDataMemory().size())
 		{
 			lineSize=16;
@@ -67,7 +67,7 @@ void UppMainWindowCallBack::printHexFile()
 		for(int j=0;j<lineSize;j++)
 		{
 			sprintf(txt,"%02X",readHexFile->getDataMemory()[i+j]);
-			uppHexEdit->AppendText(wxT(txt));
+			uppHexEdit->AppendText(wxString::FromAscii(txt));
 		}
 		uppHexEdit->AppendText(wxT("\n"));
 	}
@@ -87,7 +87,7 @@ void UppMainWindowCallBack::upp_new()
 void UppMainWindowCallBack::upp_open()
 {
 	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, _("Open hexfile"), "", "", FILETYPES,
+		new wxFileDialog( this, wxT("Open hexfile"), wxT(""), wxT(""), FILETYPES,
 		                  wxOPEN, wxDefaultPosition);
  
 	if ( openFileDialog->ShowModal() == wxID_OK )
@@ -124,7 +124,7 @@ void UppMainWindowCallBack::upp_save()
 void UppMainWindowCallBack::upp_save_as()
 {
 	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, _("Save hexfile"), "", "", FILETYPES,
+		new wxFileDialog( this, wxT("Save hexfile"), wxT(""), wxT(""), FILETYPES,
 		                  wxSAVE, wxDefaultPosition);
  
 	if ( openFileDialog->ShowModal() == wxID_OK )
@@ -176,7 +176,8 @@ void UppMainWindowCallBack::upp_autodetect()
 {
 	picType=new PicType(hardware->autoDetectDevice());
 	hardware->setPicType(picType);
-	m_comboBox1->SetValue(picType->getCurrentPic().Name);
+	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
+	
 }
 
 void UppMainWindowCallBack::upp_connect()
@@ -238,7 +239,7 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 	readHexFile=new ReadHexFile();
 	for(int i=0;i<picType->getPicNames().size();i++)
 	{
-		m_comboBox1->Append(wxT(picType->getPicNames()[i]));
+		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
 		
 	}
 	upp_autodetect();
