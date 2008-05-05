@@ -57,37 +57,61 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	else
 	{
 		silent_mode = parser.Found(wxT("s"));
-		// to get at your unnamed parameters use
-		//wxArrayString files;
 		wxString picTypeStr;
+		hardware=new Hardware();
+		if(hardware->connected())
+			cout<<"Usbpicprog found"<<endl;
+		else
+			cout<<"Usbpicprog not found"<<endl;
 		if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
-		else picType=new PicType(0);
+		else 
+		{
+			picType=new PicType(hardware->autoDetectDevice());
+			hardware->setPicType(picType);
+			cout<<picType->getCurrentPic().Name<<endl;
+		}
 		
 		if(parser.Found(wxT("w")))
 		{
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
+			else
+			{
+				readHexFile=new ReadHexFile();
+				if(readHexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to open file"<<endl;
+				hardware->writeCode(readHexFile,picType);
+				hardware->writeData(readHexFile,picType);
+				hardware->writeConfig(readHexFile,picType);
+			}
 		}
 		if(parser.Found(wxT("r")))
 		{
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
+			else
+			{
+				readHexFile=new ReadHexFile();
+				hardware->readCode(readHexFile,picType);
+				hardware->readData(readHexFile,picType);
+				hardware->readConfig(readHexFile,picType);
+				if(readHexFile->saveAs(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to save file"<<endl;
+				
+			}
 		}
 		if(parser.Found(wxT("v")))
 		{
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
+			else
+			{
+				cout<<"Verify not implemented yet!!!"<<endl;
+			}
 		}
 		if(parser.Found(wxT("e")))
 		{
-		
+			hardware->bulkErase();
 		}
 		if(parser.Found(wxT("b")))
 		{
-		
+			cout<<"Blankcheck not implemented yet"<<endl;
 		}
-		
-	 
-		// and other command line parameters
-	 
-		// then do what you need with them.
 	}
     return true;
 }
