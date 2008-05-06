@@ -112,6 +112,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		{
 			cout<<"Blankcheck not implemented yet"<<endl;
 		}
+		exit(0);
 	}
     return true;
 }
