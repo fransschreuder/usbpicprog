@@ -57,7 +57,16 @@ AM_PROG_LIBTOOL
 
 
 
-PKG_CHECK_MODULES(USBPICPROG, [gtk+-2.0 libglade-2.0    ])
+PKG_CHECK_MODULES(USBPICPROG, [gtk+-2.0 libglade-2.0    ])       
+PKG_CHECK_MODULES(LIBUSB, [libusb], [
+	        LIBUSB_MSG=yes
+	        AC_DEFINE(HAVE_LIBUSB, 1, [Have libusb libraries and header files])
+	        ], [
+	        LIBUSB_MSG=no
+	        ])
+
+AC_SUBST(LIBUSB_CFLAGS)
+AC_SUBST(LIBUSB_LIBS)
 AC_SUBST(USBPICPROG_CFLAGS)
 AC_SUBST(USBPICPROG_LIBS)
 

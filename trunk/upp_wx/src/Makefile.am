@@ -6,7 +6,8 @@ INCLUDES = \
 	$(WX_CXXFLAGS) \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" $(USBPICPROG_CFLAGS)
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" $(USBPICPROG_CFLAGS)\
+	$(LIBUSB_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall \
@@ -37,7 +38,7 @@ usbpicprog_LDFLAGS =
 usbpicprog_LDADD = \
 	$(USBPICPROG_LIBS) \
 	$(WX_LIBS) \
-	-lusb
+	$(LIBUSB_LIBS)
 
 
 
