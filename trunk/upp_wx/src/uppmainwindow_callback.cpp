@@ -1,77 +1,23 @@
 #include "uppmainwindow_callback.h"
 #include "uppmainwindow.h"
+#include "svn_revision.h"
 
+
+static const wxChar *FILETYPES = _T(
+			"Hex files|*.hex|"
+			"All files|*.*"
+			);
 
 
 
 void UppMainWindowCallBack::printHexFile()
 {
-	int lineSize;
-	char txt[256];
+    string output;
 	uppHexEdit->Clear();
 	uppHexEdit->Freeze();
 	
-	uppHexEdit->AppendText(wxT("Code Memory\n"));
-	for(int i=0;i<readHexFile->getCodeMemory().size();i+=16)
-	{
-		sprintf(txt,"%00000008X::",i);
-		uppHexEdit->AppendText(wxString::FromAscii(txt));
-		if(i+16<readHexFile->getCodeMemory().size())
-		{
-			lineSize=16;
-		}
-		else
-		{
-			lineSize=readHexFile->getCodeMemory().size()-i;
-		}
-		for(int j=0;j<lineSize;j++)
-		{
-			sprintf(txt,"%02X",readHexFile->getCodeMemory()[i+j]);
-			uppHexEdit->AppendText(wxString::FromAscii(txt));
-		}
-		uppHexEdit->AppendText(wxT("\n"));	
-	}
-	uppHexEdit->AppendText(wxT("\nConfig Memory\n"));
-	for(int i=0;i<readHexFile->getConfigMemory().size();i+=16)
-	{
-		sprintf(txt,"%00000008X::",i+picType->getCurrentPic().ConfigAddress);
-		uppHexEdit->AppendText(wxString::FromAscii(txt));
-		if(i+16<readHexFile->getConfigMemory().size())
-		{
-			lineSize=16;
-		}
-		else
-		{
-			lineSize=readHexFile->getConfigMemory().size()-i;
-		}
-		for(int j=0;j<lineSize;j++)
-		{
-			sprintf(txt,"%02X",readHexFile->getConfigMemory()[i+j]);
-			uppHexEdit->AppendText(wxString::FromAscii(txt));
-		}
-		uppHexEdit->AppendText(wxT("\n"));
-	}
-	uppHexEdit->AppendText(wxT("\nData Memory\n"));
-	for(int i=0;i<readHexFile->getDataMemory().size();i+=16)
-	{
-		sprintf(txt,"%00000008X::",i);
-		uppHexEdit->AppendText(wxString::FromAscii(txt));
-		if(i+16<readHexFile->getDataMemory().size())
-		{
-			lineSize=16;
-		}
-		else
-		{
-			lineSize=readHexFile->getDataMemory().size()-i;
-		}
-		for(int j=0;j<lineSize;j++)
-		{
-			sprintf(txt,"%02X",readHexFile->getDataMemory()[i+j]);
-			uppHexEdit->AppendText(wxString::FromAscii(txt));
-		}
-		uppHexEdit->AppendText(wxT("\n"));
-	}
-	
+	readHexFile->print(&output,picType);
+	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
     uppHexEdit->Thaw();
 }
 
@@ -100,23 +46,38 @@ void UppMainWindowCallBack::upp_open()
 void UppMainWindowCallBack::upp_open_file(wxString path)
 {
 	
- 	if(readHexFile->open(picType,path.mb_str(wxConvUTF8))<0)SetStatusText(wxT("Unable to open file"));
-	printHexFile();
-	fileOpened=true;
+ 	if(readHexFile->open(picType,path.mb_str(wxConvUTF8))<0)
+    {
+        SetStatusText(wxT("Unable to open file"));
+        wxMessageDialog(this, wxT("Unable to open file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+    }
+ 	else
+ 	{
+    	printHexFile();
+    	fileOpened=true;
+    }
 }
 
 
 void UppMainWindowCallBack::upp_refresh()
 {
-	if(readHexFile->reload(picType)<0)SetStatusText(wxT("Unable to open file"));
-	printHexFile();
+	if(readHexFile->reload(picType)<0)
+    {
+        SetStatusText(wxT("Unable to open file"));
+        wxMessageDialog(this, wxT("Unable to open file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+    }
+	else printHexFile();
 }
 
 void UppMainWindowCallBack::upp_save()
 {
 	if(fileOpened)
     {
-        if(readHexFile->save(picType)<0)SetStatusText(wxT("Unable to save file"));
+        if(readHexFile->save(picType)<0)
+        {
+            SetStatusText(wxT("Unable to save file"));
+            wxMessageDialog(this, wxT("Unable to save file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        }
     }
 	else upp_save_as();
 }
@@ -126,14 +87,14 @@ void UppMainWindowCallBack::upp_save_as()
 	wxFileDialog* openFileDialog =
 		new wxFileDialog( this, wxT("Save hexfile"), wxT(""), wxT(""), FILETYPES,
 		                  wxSAVE, wxDefaultPosition);
- 
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+		{
             SetStatusText(wxT("Unable to save file"));
+            wxMessageDialog(this, wxT("Unable to save file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        }
 	}
-	
-	
 }
 
 void UppMainWindowCallBack::upp_exit()
@@ -154,12 +115,12 @@ void UppMainWindowCallBack::upp_read()
 	hardware->readData(readHexFile,picType);
 	hardware->readConfig(readHexFile,picType);
 	printHexFile();
-	
 }
 
 void UppMainWindowCallBack::upp_verify()
 {
-	cout<<"Not implemented yet"<<endl;
+	SetStatusText(wxT("Verify not implemented yet"));
+           
 }
 
 void UppMainWindowCallBack::upp_erase()
@@ -169,26 +130,36 @@ void UppMainWindowCallBack::upp_erase()
 
 void UppMainWindowCallBack::upp_blankcheck()
 {
-	cout<<"Not implemented yet"<<endl;
+	SetStatusText(wxT("Blankcheck not implemented yet"));
 }
 
-void UppMainWindowCallBack::upp_autodetect()
+bool UppMainWindowCallBack::upp_autodetect()
 {
-	picType=new PicType(hardware->autoDetectDevice());
+    int devId=hardware->autoDetectDevice();
+	picType=new PicType(devId);
 	hardware->setPicType(picType);
 	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
-	
+	if(devId!=0)SetStatusText(wxString(wxT("Detected: ")).Append(wxString::FromAscii(picType->getCurrentPic().Name.c_str())));
+	else SetStatusText(wxT("No pic detected!"));
+	return (devId!=0);
 }
 
-void UppMainWindowCallBack::upp_connect()
+bool UppMainWindowCallBack::upp_connect()
 {
 	hardware=new Hardware();
 	if(hardware->connected())
-		
-		SetStatusText(wxT("Usbpicprog found"));
+	{
+		upp_autodetect();
+    }
 	else
+	{
+     	picType=new PicType(0);
+    	hardware->setPicType(picType);
+	    m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 		SetStatusText(wxT("Usbpicprog not found"));
-	upp_autodetect();
+    }
+    return hardware->connected();
+
 }
 
 void UppMainWindowCallBack::upp_disconnect()
@@ -197,7 +168,6 @@ void UppMainWindowCallBack::upp_disconnect()
 	   {
 		   delete hardware;
 		   SetStatusText(wxT("Disconnected usbpicprog"));
-		   
 	   }
 	   else
 	   {
@@ -214,7 +184,11 @@ void UppMainWindowCallBack::upp_about()
 {
 	wxAboutDialogInfo aboutInfo;
 	aboutInfo.SetName(wxT("Usbpicprog"));
-	aboutInfo.SetVersion(wxT("0.1"));
+	#ifndef UPP_VERSION
+	aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+	#else
+	aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
+	#endif
 	aboutInfo.SetDescription(wxT("An open source USB pic programmer"));
 	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.sourceforge.net/"));
 	wxAboutBox(aboutInfo);
@@ -223,11 +197,8 @@ void UppMainWindowCallBack::upp_about()
 
 void UppMainWindowCallBack::upp_combo_changed()
 {
-
-	
 		picType=new PicType(string(m_comboBox1->GetValue().mb_str(wxConvUTF8)));
 		hardware->setPicType(picType);
-      	cout << "Name=" << picType->getCurrentPic().Name << std::endl;
     	upp_new();
 }
 
@@ -237,12 +208,12 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 {
 	upp_connect();
 	readHexFile=new ReadHexFile();
-	for(int i=0;i<picType->getPicNames().size();i++)
+	for(int i=0;i<(signed)picType->getPicNames().size();i++)
 	{
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
 		
 	}
-	upp_autodetect();
-	cout<<"Detected: "<<picType->getCurrentPic().Name<<endl;
+
+	
 	fileOpened=false;
 }

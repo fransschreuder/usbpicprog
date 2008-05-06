@@ -13,10 +13,7 @@ using namespace std;
 #include "pictype.h"
 #include "read_hexfile.h"
 
-static const wxChar *FILETYPES = _T(
-			"Hex files|*.hex|"
-			"All files|*.*"
-			);
+
 
 class UppMainWindowCallBack: public UppMainWindow
 {
@@ -55,8 +52,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		void upp_verify();
 		void upp_erase();
 		void upp_blankcheck();
-		void upp_autodetect();
-		void upp_connect();
+		bool upp_autodetect();
+		bool upp_connect();
 		void upp_disconnect();
 		void upp_help();
 		void upp_about();

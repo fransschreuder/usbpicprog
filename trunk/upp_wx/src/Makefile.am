@@ -39,6 +39,9 @@ usbpicprog_LDADD = \
 	$(USBPICPROG_LIBS) \
 	$(WX_LIBS) \
 	$(LIBUSB_LIBS)
+	
+all-local:
+ 	sh svn_revision.sh
 
 
 

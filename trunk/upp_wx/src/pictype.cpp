@@ -860,7 +860,7 @@ PicType::PicType(string picTypeStr)
 		cerr<<"Setting the PIC to default: "<<currentPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
-	for(int i=0;i<picNames.size();i++)
+	for(int i=0;i<(signed)picNames.size();i++)
 			picNames[i]=picTypes[i].Name;
 }
 
@@ -881,7 +881,7 @@ PicType::PicType(int devId)
 		cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
-	for(int i=0;i<picNames.size();i++)
+	for(int i=0;i<(signed)picNames.size();i++)
 			picNames[i]=picTypes[i].Name;
 }
 

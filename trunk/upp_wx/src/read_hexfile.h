@@ -43,12 +43,13 @@ class ReadHexFile
 		int reload(PicType* picType);
 		int saveAs(PicType* picType,const char* filename);
 	    int save(PicType* picType);
-		void putCodeMemory(vector<int> mem);
-		void putDataMemory(vector<int> mem);
-		void putConfigMemory(vector<int> mem);
-		vector<int> getCodeMemory(void);
-		vector<int> getDataMemory(void);
-		vector<int> getConfigMemory(void);
+		void putCodeMemory(vector<int> &mem);
+		void putDataMemory(vector<int> &mem);
+		void putConfigMemory(vector<int> &mem);
+		vector<int> &getCodeMemory(void);
+		vector<int> &getDataMemory(void);
+		vector<int> &getConfigMemory(void);
+		void print(string* output,PicType* picType);
 		
 	private:
 		char filenameToSave[512];
@@ -57,6 +58,7 @@ class ReadHexFile
 		vector<int> configMemory;
 		bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
 		void makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line);
+		void trimData(PicType* picType);
 };
 
 #endif //READHEXFILE_H

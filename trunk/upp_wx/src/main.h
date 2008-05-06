@@ -7,7 +7,7 @@
 #include <wx/cmdline.h>
 #include <wx/wx.h>
 #include <iostream>
-
+#include <cstdlib>
 
 #include "uppmainwindow_callback.h"
 #include "hardware.h"

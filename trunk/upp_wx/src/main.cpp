@@ -1,7 +1,12 @@
 #include "main.h"
 #include <wx/wx.h>
+#include "svn_revision.h"
 using namespace std;
 IMPLEMENT_APP(UsbPicProg)
+
+#ifdef WIN32
+#include <windows.h>
+#endif
 
 bool UsbPicProg::OnInit()
 {
@@ -23,10 +28,7 @@ int UsbPicProg::OnExit()
  
 int UsbPicProg::OnRun()
 {
-    int exitcode = wxApp::OnRun();
-    //wxTheClipboard->Flush();
-    if (exitcode!=0)
-        return exitcode;
+    return wxApp::OnRun();
 }
  
 void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
@@ -38,7 +40,19 @@ void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
  
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-   
+    #ifdef WIN32
+    if( AttachConsole((DWORD)-1) )
+    {
+      freopen( "CON", "w", stdout );
+      freopen( "CON", "w", stderr );
+    }
+    #endif
+    #ifndef UPP_VERSION
+	wxString versionString=wxString(wxT("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
+	#else
+	wxString versionString=wxString(wxT("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
+	#endif
+    string output;
 	if(!parser.Found(wxT("h"))&
 	   !parser.Found(wxT("p"))&
 	   !parser.Found(wxT("s"))&
@@ -49,7 +63,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	   !parser.Found(wxT("b"))&
 	   !parser.Found(wxT("f")))
 	{
-		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, wxT("usbpicprog v0.1"),
+		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
 									   wxPoint(50, 50), wxSize(800, 600));
 		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}	
 		uppMainWindow->Show(TRUE);
@@ -66,7 +80,8 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
 		else 
 		{
-			picType=new PicType(hardware->autoDetectDevice());
+			int devId=hardware->autoDetectDevice();
+	        picType=new PicType(devId);
 			hardware->setPicType(picType);
 			cout<<picType->getCurrentPic().Name<<endl;
 		}
@@ -78,6 +93,11 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			{
 				readHexFile=new ReadHexFile();
 				if(readHexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to open file"<<endl;
+				if(!silent_mode)
+				{
+                    readHexFile->print(&output,picType);
+                    cout<<output<<endl;
+                }
 				hardware->writeCode(readHexFile,picType);
 				hardware->writeData(readHexFile,picType);
 				hardware->writeConfig(readHexFile,picType);
@@ -93,7 +113,11 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 				hardware->readData(readHexFile,picType);
 				hardware->readConfig(readHexFile,picType);
 				if(readHexFile->saveAs(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to save file"<<endl;
-				
+				if(!silent_mode)
+				{
+                    readHexFile->print(&output,picType);
+                    cout<<output<<endl;
+                }
 			}
 		}
 		if(parser.Found(wxT("v")))

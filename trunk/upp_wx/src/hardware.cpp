@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "hardware.h"
-
+#include "svn_revision.h"
 using namespace std;
 
 Hardware::Hardware(  ) 
@@ -104,11 +104,11 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 	nBytes=0;
 	char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
+	for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
 	{
 		for(int i=0;i<BLOCKSIZE_CODE;i++)
 		{
-			if(hexData->getCodeMemory().size()>(blockcounter+i))
+			if((signed)hexData->getCodeMemory().size()>(blockcounter+i))
 			{
 				dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
 			}
@@ -120,7 +120,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			
 		blocktype=BLOCKTYPE_MIDDLE;
 		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if((hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 	}
 	return nBytes;
@@ -166,11 +166,11 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 	nBytes=0;
 	char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
+	for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
 	{
 		for(int i=0;i<BLOCKSIZE_DATA;i++)
 		{
-			if(hexData->getDataMemory().size()>(blockcounter+i))
+			if((signed)hexData->getDataMemory().size()>(blockcounter+i))
 			{
 				dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
 			}
@@ -182,7 +182,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 			
 		blocktype=BLOCKTYPE_MIDDLE;
 		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if((hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
 	}
 	return nBytes;
@@ -227,11 +227,11 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 	nBytes=0;
 	char dataBlock[BLOCKSIZE_CONFIG];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
+	for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
 	{
 		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 		{
-			if(hexData->getConfigMemory().size()>(blockcounter+i))
+			if((signed)hexData->getConfigMemory().size()>(blockcounter+i))
 			{
 				dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
 			}
@@ -243,7 +243,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 			
 		blocktype=BLOCKTYPE_MIDDLE;
 		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if((hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+		if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 		nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 	}
 	return nBytes;
@@ -261,7 +261,7 @@ int Hardware::bulkErase(void)
 	char msg[64];
 	
 	msg[0]=CMD_ERASE;
-	int nBytes;
+	int nBytes=0;
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,1)<0)
@@ -280,7 +280,7 @@ int Hardware::bulkErase(void)
 			return (int)msg[0];
 		}
 	}
-	
+	return nBytes;
 }
 
 
@@ -289,7 +289,7 @@ int Hardware::readId(void)
 	char msg[64];
 	
 	msg[0]=CMD_READ_ID;
-	int nBytes;
+	int nBytes=0;
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,1)<0)
@@ -310,7 +310,7 @@ int Hardware::readId(void)
 			
 		}
 	}
-	
+	return nBytes;
 }
 
 int Hardware::setPicType(PicType* picType)
@@ -319,7 +319,7 @@ int Hardware::setPicType(PicType* picType)
 	
 	msg[0]=CMD_SET_PICTYPE;
 	msg[1]=picType->getCurrentPic().picFamily;
-	int nBytes;
+	int nBytes=0;
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,2)<0)
@@ -340,7 +340,7 @@ int Hardware::setPicType(PicType* picType)
 			
 		}
 	}
-	
+	return nBytes;
 }
 
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
@@ -494,7 +494,7 @@ bool Hardware::connected(void)
 
 int Hardware::writeString(const char * msg,int size)
 {
-	int nBytes;
+	int nBytes=0;
 	if (_handle != NULL)
 	{
 		for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
