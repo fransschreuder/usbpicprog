@@ -214,6 +214,6 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 		
 	}
 
-	
+	uppProgressBar->SetValue(50);
 	fileOpened=false;
 }

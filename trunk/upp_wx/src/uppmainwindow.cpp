@@ -19,10 +19,12 @@ wxID_CONNECT ,
 wxID_DISCONNECT 
 };
 
+
 ///////////////////////////////////////////////////////////////////////////
 
 UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
+    
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	SetIcon(wxIcon( usbpicprog_xpm ));
 	
@@ -116,6 +118,10 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->SetMenuBar( uppMenuBar );
 
 	m_statusBar1 = this->CreateStatusBar( 2, wxST_SIZEGRIP, wxID_ANY );
+	wxRect rect;
+	m_statusBar1->GetFieldRect(1, rect);
+	uppProgressBar = new wxGauge(m_statusBar1, wxID_ANY, 100, rect.GetPosition(), rect.GetSize(), wxGA_HORIZONTAL, wxDefaultValidator, wxT("Progress"));
+
 	m_toolBar1 = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY ); 
 	m_toolBar1->AddTool( wxID_NEW, wxT("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("new"), wxEmptyString );
 	m_toolBar1->AddTool( wxID_OPEN, wxT("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("open"), wxEmptyString );
@@ -155,6 +161,10 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	m_comboBox1->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
 }
+
+BEGIN_EVENT_TABLE(UppMainWindow, wxFrame)
+ EVT_SIZE(UppMainWindow::OnSize)
+END_EVENT_TABLE()
 
 UppMainWindow::~UppMainWindow()
 {

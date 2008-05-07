@@ -4,7 +4,8 @@
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
-
+#include <iostream>
+using namespace std;
 #ifndef __uppmainwindow__
 #define __uppmainwindow__
 
@@ -24,6 +25,7 @@
 #include <wx/toolbar.h>
 #include <wx/frame.h>
 #include <wx/artprov.h>
+#include <wx/gauge.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -34,9 +36,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 class UppMainWindow : public wxFrame 
 {
-	private:
 	
 	protected:
+        
 		wxTextCtrl* uppHexEdit;
 		wxMenuBar* uppMenuBar;
 		wxMenu* uppMenuFile;
@@ -45,6 +47,7 @@ class UppMainWindow : public wxFrame
 		wxStatusBar* m_statusBar1;
 		wxToolBar* m_toolBar1;
 		wxComboBox* m_comboBox1;
+		wxGauge* uppProgressBar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void on_new( wxCommandEvent& event ){ event.Skip(); }
@@ -65,10 +68,25 @@ class UppMainWindow : public wxFrame
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_combo_changed( wxCommandEvent& event ){ event.Skip(); }
 		
+		
 	
 	public:
 		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~UppMainWindow();
+	private:
+        void OnSize(wxSizeEvent& event)
+        {
+            wxRect rect;
+            if(IsShown())
+            {
+        	    m_statusBar1->GetFieldRect(1, rect);
+                uppProgressBar->SetPosition(rect.GetPosition());
+            	uppProgressBar->SetSize(rect.GetSize());
+            }
+            event.Skip();
+
+        }
+    	DECLARE_EVENT_TABLE()
 	
 };
 
