@@ -27,7 +27,7 @@ unsigned int osccal,bandgap; //for P12F629 devices...
 char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
 	unsigned int i;
-	char temp_data[64];
+	//char temp_data[64];
 	set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
@@ -108,6 +108,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
 			PGD=0;*/
+			/*
 			for(i=0;i<64;i+=2) //fill buffer with 0x3FFF
 			{
 				temp_data[i]=0x3F;
@@ -123,7 +124,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 				temp_data[i]=0xFF;
 			}
 			write_data(pictype, picvariant, 0, temp_data, 64, 1);
-			write_data(pictype, picvariant, 0, temp_data, 64, 2);
+			write_data(pictype, picvariant, 0, temp_data, 64, 2);*/
 			break;
 		default:
 			PGD=0;
