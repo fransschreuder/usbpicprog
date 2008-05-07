@@ -182,7 +182,6 @@ void UppMainWindowCallBack::upp_help()
 
 void UppMainWindowCallBack::upp_about()
 {
-#ifdef HAVE_WXABOUTBOX
 	wxAboutDialogInfo aboutInfo;
 	aboutInfo.SetName(wxT("Usbpicprog"));
 	#ifndef UPP_VERSION
@@ -193,7 +192,6 @@ void UppMainWindowCallBack::upp_about()
 	aboutInfo.SetDescription(wxT("An open source USB pic programmer"));
 	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.sourceforge.net/"));
 	wxAboutBox(aboutInfo);
-#endif
 }
 
 
