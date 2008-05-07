@@ -41,6 +41,7 @@ AC_SUBST(WX_LIBS)
 AC_PROG_CPP
 AC_PROG_CXX
 
+AC_CHECK_FUNCS(wxAboutBox)
 
 dnl ***************************************************************************
 dnl Internatinalization

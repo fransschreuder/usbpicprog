@@ -2,7 +2,9 @@
 #  include <config.h>
 #endif
 #include <wx/wx.h>
+#ifdef HAVE_WXABOUTBOX
 #include <wx/aboutdlg.h>
+#endif
 #include <wx/utils.h>
 #include <iostream>
 
