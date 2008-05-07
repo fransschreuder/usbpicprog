@@ -1,6 +1,6 @@
 #include "uppmainwindow_callback.h"
 #include "uppmainwindow.h"
-#include "svn_revision.h"
+#include "../svn_revision.h"
 
 
 static const wxChar *FILETYPES = _T(

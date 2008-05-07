@@ -1,6 +1,6 @@
 #include "main.h"
 #include <wx/wx.h>
-#include "svn_revision.h"
+#include "../svn_revision.h"
 using namespace std;
 IMPLEMENT_APP(UsbPicProg)
 

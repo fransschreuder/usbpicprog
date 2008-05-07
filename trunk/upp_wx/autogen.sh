@@ -144,6 +144,7 @@ do
       automake --add-missing --gnu $am_opt
       echo "Running autoconf ..."
       autoconf
+      sh svn_revision.sh
     )
   fi
 done
