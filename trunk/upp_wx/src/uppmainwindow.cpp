@@ -130,7 +130,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1->AddTool( wxID_BLANKCHECK, wxT("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("blankcheck"), wxEmptyString );
 	
 	m_toolBar1->AddSeparator();
-	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,24), 0, NULL, 0 ); 
+	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
 	m_toolBar1->AddControl( m_comboBox1 );
 	m_toolBar1->Realize();
 	

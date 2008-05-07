@@ -41,7 +41,7 @@ usbpicprog_LDADD = \
 	$(LIBUSB_LIBS)
 	
 all-local:
- 	sh svn_revision.sh
+	sh svn_revision.sh
 
 
 
