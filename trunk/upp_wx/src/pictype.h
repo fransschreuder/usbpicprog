@@ -44,12 +44,20 @@ PIC{
 class PicType
 {
 	public:
+/*Constructor to select a pic by string, usage:
+ Pictype* picType=new PicType("P18F2550"); */        
 		PicType(string picType);
+ /*Constructor to select a pic by devId, usage:
+ Pictype* picType=new PicType(0x1240); */		
 		PicType(int devId);
+/*Returns the pic that has been selected*/		
 		Pic getCurrentPic(void);
+/*Returns an array (vector) of strings containing all names of supported PICs*/		
 		vector<string> getPicNames(void);
 	private:
+/*contains information about the currently selected pic*/
 		Pic currentPic;
+/*Contains the names of all supported PICs (initialized in constructor)*/		
 		vector<string> picNames;
 		
 	

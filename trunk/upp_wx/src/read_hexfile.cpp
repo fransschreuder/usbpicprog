@@ -30,7 +30,15 @@ using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
+	codeMemory.resize(0);
+	dataMemory.resize(0);
+	configMemory.resize(0);
+	if((picType==NULL)||filename==NULL) return; //you need to call open later then
 	open(picType,filename);
+}
+
+ReadHexFile::~ReadHexFile()
+{
 }
 
 int ReadHexFile::open(PicType* picType,const char* filename)
@@ -160,17 +168,6 @@ void ReadHexFile::trimData(PicType* picType)
 int ReadHexFile::reload(PicType* picType)
 {
 	return open(picType,filenameToSave);
-}
-
-ReadHexFile::ReadHexFile()
-{
-	codeMemory.resize(0);
-	dataMemory.resize(0);
-	configMemory.resize(0);
-}
-
-ReadHexFile::~ReadHexFile()
-{
 }
 
 int ReadHexFile::saveAs(PicType* picType,const char* filename)

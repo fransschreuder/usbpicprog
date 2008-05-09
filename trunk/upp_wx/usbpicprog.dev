@@ -1,7 +1,7 @@
 [Project]
 FileName=usbpicprog.dev
 Name=usbpicprog
-UnitCount=15
+UnitCount=13
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -110,18 +110,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit11]
-FileName=src\upp_commandline.cpp
-CompileCpp=1
-Folder=usbpicprog
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit12]
-FileName=src\upp_commandline.h
+FileName=src\uppmainwindow.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -131,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=src\uppmainwindow.cpp
+FileName=src\uppmainwindow_callback.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -233,4 +223,14 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
 compilerType=1
+
+[Unit11]
+FileName=src\uppmainwindow.cpp
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 

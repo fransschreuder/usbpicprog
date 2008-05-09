@@ -29,7 +29,6 @@
 #include "pictype.h"
 
 //
-
 #define CMD_ERASE 0x10
 #define CMD_READ_ID 0x20
 #define CMD_WRITE_CODE 0x30
@@ -50,17 +49,17 @@
 #define BLOCKSIZE_CODE 32
 
 
-
+/*Upp package is the data header which is sent to usbpicprog*/
 typedef union _UppPackage
 {
 	struct _fields
 	{
-		unsigned cmd:8;
-		unsigned size:8;
-		unsigned addrU:8;
+		unsigned cmd:8;   //one of the CMD_ defines above
+		unsigned size:8;  //size of the datafield
+		unsigned addrU:8; //the address is devided in 3 bytes, Upper, High and Low
 		unsigned addrH:8;
 		unsigned addrL:8;
-		unsigned blocktype:8;
+		unsigned blocktype:8; //The blocktype can be middle, first or last (or first|last)
 		char dataField[32];
 	}fields;
 	char data[37];
@@ -69,32 +68,59 @@ typedef union _UppPackage
 class Hardware
 {
 public:
+/*The class Hardware connects to usbpicprog using libusb. The void* CB points
+ to the parent UppMainWindowCallBack which is used for updating the progress
+ bar. If initiated with no argument, progress is not updated*/
 	Hardware(void* CB=NULL);
 	~Hardware();
-	int bulkErase(void);
+/*give the hardware the command to switch to a certain pic algorithm*/	
 	int setPicType(PicType* picType);
+/*Erase all the contents (code, data and config) of the pic*/
+	int bulkErase(void);	
+/*Read the code memory from the pic (starting from address 0 into *hexData*/	
 	int readCode(ReadHexFile *hexData,PicType *picType);
+/* Write the code memory area of the pic with the data in *hexData */	
 	int writeCode(ReadHexFile *hexData,PicType *picType);
+/* read the Eeprom Data area of the pic into *hexData->dataMemory */	
 	int readData(ReadHexFile *hexData,PicType *picType);
+/*write the Eeprom data from *hexData->dataMemory into the pic*/	
 	int writeData(ReadHexFile *hexData,PicType *picType);
+/* Read the configuration words (and user ID's for PIC16 dev's) */	
 	int readConfig(ReadHexFile *hexData,PicType *picType);
-	int writeConfig(ReadHexFile *hexData,PicType *picType);
+/*Writes the configuration words (and user ID's for PIC16 dev's)*/	
+	int writeConfig(ReadHexFile *hexData,PicType *picType);	
+/*This function does nothing but reading the devid from the PIC, call it the following way:
+	 Hardware* hardware=new Hardware();
+	 int devId=hardware->autoDetectDevice();
+	 PicType* picType=new PicType(devId);
+	 hardware->setPicType(picType); */	
 	int autoDetectDevice(void);
-	bool connected(void);
-	
+/*check if usbpicprog is successfully connected to the usb bus and initialized*/	
+	bool connected(void);	
 private :
+/*read a string of data from usbpicprog (through interrupt_read)*/
 	int readString(char* msg);
+/*Send a string of data to usbpicprog (through interrupt write)*/	
 	int writeString(const char* msg,int size);
+/*Private function called by autoDetectDevice */	
 	int readId(void);
+/*private function to read one block of code memory*/	
 	int readCodeBlock(char * msg,int address,int size,int lastblock);
+/*private function to write one block of code memory*/	
 	int writeCodeBlock(char * msg,int address,int size,int lastblock);
+/*private function to write one block of config memory*/	
 	int writeConfigBlock(char * msg,int address,int size,int lastblock);
+/*private function to read one block of data memory*/	
 	int readDataBlock(char * msg,int address,int size,int lastblock);
+/*private function to write one block of data memory*/	
 	int writeDataBlock(char * msg,int address,int size,int lastblock);
-	usb_dev_handle	*_handle;
+/*When Hardware is constructed, ptCallBack is initiated by a pointer
+ to UppMainWindowCallBack, this function calls the callback function
+ to update the progress bar*/	
 	void statusCallBack(int value);
+/*Device handle containing information about Usbpicprog while connected*/	
+	usb_dev_handle	*_handle;	
+/*Pointer to the class UppMainWindowCallBack in order to call back the statusbar*/	
 	void* ptCallBack;
-	
-	
 };
 #endif //HARDWARE_H

@@ -39,19 +39,32 @@
 class UsbPicProg : public wxApp
 {
   public:
+/*This is the wxWidgets initialization function, but we only use it to call
+ *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/        
     virtual bool OnInit();
+/*Called by WxWidgets to clean up some stuff when the program exits*/    
 	virtual int OnExit();
+/*The "main" loop start here, but wxApp::OnRun calls OnInit and OnInitCmdLine*/	
     virtual int OnRun();
+/*Initialization function if command line is being used*/    
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
+/*After command line is being processed, this function is being called
+by wxWidgets, even if no arguments are given. This is the actual function
+in which the real application initializes.*/    
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
  
 private:
-    bool silent_mode;
+/*silent_mode is true if -s switch is passed in command line*/
+    bool silent_mode;   
+/*class to read, write, print and store the hex file*/
 	ReadHexFile* readHexFile;
+/*class which contains data about supported PIC types and detection by devId*/	
 	PicType* picType;
+/*class to open the usb port and communicate with usbpicprog*/	
 	Hardware* hardware;
 };
 
+/*This is some wxWidgets specific line...*/
 DECLARE_APP(UsbPicProg)
 
 

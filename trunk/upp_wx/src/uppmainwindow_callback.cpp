@@ -9,6 +9,22 @@ static const wxChar *FILETYPES = _T(
 			"All files|*.*"
 			);
 
+/*Do the basic initialization of the main window*/
+UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
+{
+	upp_connect();
+	readHexFile=new ReadHexFile();
+	for(int i=0;i<(signed)picType->getPicNames().size();i++)
+	{
+		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
+
+	}
+
+	uppProgressBar->SetValue(100);
+	printHexFile();
+	fileOpened=false;
+}
+
 /*Update the progress bar*/
 void UppMainWindowCallBack::updateProgress(int value)
 {
@@ -19,9 +35,8 @@ void UppMainWindowCallBack::updateProgress(int value)
 void UppMainWindowCallBack::printHexFile()
 {
     string output;
-	uppHexEdit->Clear();
 	uppHexEdit->Freeze();
-	
+	uppHexEdit->Clear();	
 	readHexFile->print(&output,picType);
 	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
     uppHexEdit->Thaw();
@@ -34,6 +49,7 @@ void UppMainWindowCallBack::upp_new()
 	delete readHexFile;
 	readHexFile=new ReadHexFile();
 	fileOpened=false;
+	printHexFile();
 }
 
 /*Open a hexfile using a file dialog*/
@@ -60,14 +76,22 @@ void UppMainWindowCallBack::upp_open_file(wxString path)
     }
  	else
  	{
-    	printHexFile();
     	fileOpened=true;
+/*Now you would ask: why twice? well, I have no idea but sometimes the 
+first time doesn't completely put everything in the text area in Windows...*/    	
+   	   	printHexFile(); 
+   	   	printHexFile();
     }
 }
 
 /*re-open the hexfile*/
 void UppMainWindowCallBack::upp_refresh()
 {
+    if(!fileOpened)
+    {
+        SetStatusText(wxT("No file to refresh"));
+        return;
+    }
 	if(readHexFile->reload(picType)<0)
     {
         SetStatusText(wxT("Unable to open file"));
@@ -222,18 +246,5 @@ void UppMainWindowCallBack::upp_combo_changed()
 }
 
 
-/*Do the basic initialization of the main window*/
-UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
-{
-	upp_connect();
-	readHexFile=new ReadHexFile();
-	for(int i=0;i<(signed)picType->getPicNames().size();i++)
-	{
-		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
-		
-	}
 
-	uppProgressBar->SetValue(100);
-	
-	fileOpened=false;
-}
+

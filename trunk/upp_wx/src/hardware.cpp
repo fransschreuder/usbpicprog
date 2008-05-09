@@ -53,18 +53,6 @@ Hardware::Hardware(void* CB)
 	
 }
 
-/*When Hardware is constructed, ptCallBack is initiated by a pointer
- to UppMainWindowCallBack, this function calls the callback function
- to update the progress bar*/
-void Hardware::statusCallBack(int value)
-{
-	if(ptCallBack!=NULL)
-	{
-		UppMainWindowCallBack* CB=(UppMainWindowCallBack*)ptCallBack;
-		CB->updateProgress(value);
-	}
-}
-
 Hardware::~Hardware()
 {
 	if(_handle!=NULL)
@@ -72,9 +60,69 @@ Hardware::~Hardware()
 		usb_close(_handle);
 		_handle=NULL;
 	}
-	delete ptCallBack;
 }
 
+/*give the hardware the command to switch to a certain pic algorithm*/
+int Hardware::setPicType(PicType* picType)
+{
+	char msg[64];
+	statusCallBack (0);
+	msg[0]=CMD_SET_PICTYPE;
+	msg[1]=picType->getCurrentPic().picFamily;
+	int nBytes=-1;
+	if (_handle !=NULL)
+	{
+		if(writeString(msg,2)<0)
+		{
+			return 0;
+		}
+		nBytes = readString(msg);
+
+		if (nBytes < 0 )
+		{
+			//cerr<<"Usb Error"<<endl;
+			return nBytes;
+		}
+		else
+		{
+			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
+			return (int)msg[0];
+			statusCallBack (100);
+
+		}
+	}
+	return nBytes;
+}
+
+/*Erase all the contents (code, data and config) of the pic*/
+int Hardware::bulkErase(void)
+{
+	char msg[64];
+
+	msg[0]=CMD_ERASE;
+	int nBytes=-1;
+	statusCallBack (0);
+	if (_handle !=NULL)
+	{
+		if(writeString(msg,1)<0)
+		{
+			return 0;
+		}
+		nBytes = readString(msg);
+
+		if (nBytes < 0 )
+		{
+			//cerr<<"Usb Error"<<endl;
+			return nBytes;
+		}
+		else
+		{
+			return (int)msg[0];
+			statusCallBack (100);
+		}
+	}
+	return nBytes;
+}
 
 /*Read the code memory from the pic (starting from address 0 into *hexData*/
 int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
@@ -305,34 +353,43 @@ int Hardware::autoDetectDevice(void)
 	return readId();
 }
 
-
-/*Erase all the contents (code, data and config) of the pic*/
-int Hardware::bulkErase(void)
+/*check if usbpicprog is successfully connected to the usb bus and initialized*/
+bool Hardware::connected(void)
 {
-	char msg[64];
-	
-	msg[0]=CMD_ERASE;
-	int nBytes=-1;
-	statusCallBack (0);
-	if (_handle !=NULL)
-	{
-		if(writeString(msg,1)<0)
-		{
+		if (_handle == NULL)
 			return 0;
-		}
-		nBytes = readString(msg);
-			
+		else
+			return 1;
+}
+
+/*read a string of data from usbpicprog (through interrupt_read)*/
+int Hardware::readString(char* msg)
+{
+	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{
-			//cerr<<"Usb Error"<<endl;
-			return nBytes;
+			return -1;//cerr<<"Usb Error"<<endl;
+
 		}
-		else
-		{
-			return (int)msg[0];
-			statusCallBack (100);
-		}
+		return nBytes;
+
+}
+
+/*Send a string of data to usbpicprog (through interrupt write)*/
+int Hardware::writeString(const char * msg,int size)
+{
+	int nBytes=0;
+	if (_handle != NULL)
+	{
+		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
+		//cout<<endl;
+		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
+		//if (nBytes < 0 )
+		//	cerr<<"Usb Error while writing to device"<<endl;
+
 	}
+	else
+		return -1;//cerr<<"Error: Not connected"<<endl;
 	return nBytes;
 }
 
@@ -365,37 +422,7 @@ int Hardware::readId(void)
 	return nBytes;
 }
 
-/*give the hardware the command to switch to a certain pic algorithm*/
-int Hardware::setPicType(PicType* picType)
-{
-	char msg[64];
-	statusCallBack (0);
-	msg[0]=CMD_SET_PICTYPE;
-	msg[1]=picType->getCurrentPic().picFamily;
-	int nBytes=-1;
-	if (_handle !=NULL)
-	{
-		if(writeString(msg,2)<0)
-		{
-			return 0;
-		}
-		nBytes = readString(msg);
-			
-		if (nBytes < 0 )
-		{
-			//cerr<<"Usb Error"<<endl;
-			return nBytes;
-		}
-		else
-		{
-			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
-			return (int)msg[0];
-			statusCallBack (100);
-			
-		}
-	}
-	return nBytes;
-}
+
 
 /*private function to read one block of code memory*/
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
@@ -540,43 +567,16 @@ int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 	else return -1;	
 }
 
-/*check if usbpicprog is successfully connected to the usb bus and initialized*/
-bool Hardware::connected(void) 
+/*When Hardware is constructed, ptCallBack is initiated by a pointer
+ to UppMainWindowCallBack, this function calls the callback function
+ to update the progress bar*/
+void Hardware::statusCallBack(int value)
 {
-		if (_handle == NULL)
-			return 0;
-		else
-			return 1;
-}
-
-/*Send a string of data to usbpicprog (through interrupt write)*/
-int Hardware::writeString(const char * msg,int size)
-{
-	int nBytes=0;
-	if (_handle != NULL)
+	if(ptCallBack!=NULL)
 	{
-		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
-		//cout<<endl;
-		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
-		//if (nBytes < 0 )
-		//	cerr<<"Usb Error while writing to device"<<endl;
-		
+		UppMainWindowCallBack* CB=(UppMainWindowCallBack*)ptCallBack;
+		CB->updateProgress(value);
 	}
-	else 
-		return -1;//cerr<<"Error: Not connected"<<endl;
-	return nBytes;
 }
 
-/*read a string of data from usbpicprog (through interrupt_read)*/
-int Hardware::readString(char* msg)
-{
-	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
-		if (nBytes < 0 )
-		{
-			return -1;//cerr<<"Usb Error"<<endl;
-		
-		}
-		return nBytes;
-		
-}
 

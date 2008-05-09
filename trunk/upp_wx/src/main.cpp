@@ -49,13 +49,16 @@ int UsbPicProg::OnRun()
     return wxApp::OnRun();
 }
  
-
+/*Initialization function if command line is being used*/
 void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 {
     parser.SetDesc (g_cmdLineDesc);
     parser.SetSwitchChars (wxT("-"));
 }
  
+/*After command line is being processed, this function is being called
+by wxWidgets, even if no arguments are given. This is the actual function
+in which the real application initializes.*/
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
 

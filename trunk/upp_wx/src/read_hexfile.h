@@ -36,8 +36,7 @@ using namespace std;
 class ReadHexFile
 {
 	public:
-		ReadHexFile(PicType* picType,const char* filename);
-		ReadHexFile();
+		ReadHexFile(PicType* picType=NULL,const char* filename=NULL);
 		~ReadHexFile();
 		int open(PicType* picType, const char* filename);
 		int reload(PicType* picType);
