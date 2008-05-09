@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
  
- #ifndef HARDWARE_H
+#ifndef HARDWARE_H
 #define HARDWARE_H
 #include <usb.h>
 #include <iostream>
@@ -27,6 +27,7 @@
 #define PRODUCT 0x000E
 #include "read_hexfile.h"
 #include "pictype.h"
+
 //
 
 #define CMD_ERASE 0x10
@@ -48,6 +49,8 @@
 #define BLOCKSIZE_CONFIG 8
 #define BLOCKSIZE_CODE 32
 
+
+
 typedef union _UppPackage
 {
 	struct _fields
@@ -66,7 +69,7 @@ typedef union _UppPackage
 class Hardware
 {
 public:
-	Hardware();
+	Hardware(void* CB=NULL);
 	~Hardware();
 	int bulkErase(void);
 	int setPicType(PicType* picType);
@@ -80,7 +83,6 @@ public:
 	bool connected(void);
 	
 private :
-	const char* readResponse(void);
 	int readString(char* msg);
 	int writeString(const char* msg,int size);
 	int readId(void);
@@ -90,6 +92,9 @@ private :
 	int readDataBlock(char * msg,int address,int size,int lastblock);
 	int writeDataBlock(char * msg,int address,int size,int lastblock);
 	usb_dev_handle	*_handle;
+	void statusCallBack(int value);
+	void* ptCallBack;
+	
 	
 };
 #endif //HARDWARE_H

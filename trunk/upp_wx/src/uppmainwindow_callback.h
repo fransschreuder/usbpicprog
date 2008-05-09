@@ -1,3 +1,5 @@
+#ifndef UPPMAINWINDOW_CALLBACK_H
+#define UPPMAINWINDOW_CALLBACK_H
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -17,10 +19,11 @@ using namespace std;
 
 class UppMainWindowCallBack: public UppMainWindow
 {
-	
 	public:
 		 
 		UppMainWindowCallBack(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL  ) ;
+		
+		void updateProgress(int value);
 		void printHexFile();
 		void on_new( wxCommandEvent& event ){upp_new();event.Skip();}
 		void on_open( wxCommandEvent& event ){upp_open();event.Skip();};
@@ -64,3 +67,4 @@ class UppMainWindowCallBack: public UppMainWindow
 		bool fileOpened;
 		
 };
+#endif

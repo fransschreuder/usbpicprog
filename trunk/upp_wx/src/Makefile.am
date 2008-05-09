@@ -28,8 +28,6 @@ usbpicprog_SOURCES = \
 	read_hexfile.cpp \
 	read_hexfile.h \
 	main.h \
-	upp_commandline.h \
-	upp_commandline.cpp \
 	uppmainwindow_callback.h \
 	uppmainwindow.h
 

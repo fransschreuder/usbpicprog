@@ -22,7 +22,7 @@
 #include <fstream>
 #include <cstdlib>
 
-
+/*if no pic is selected, or something goes wrong in detection, this PIC is selected*/
 const Pic defaultPic=
 {
 	"P18F2550",	//Name
@@ -36,6 +36,7 @@ const Pic defaultPic=
 	0xFFE0		//UserIdMask
 };
 
+/*All the properties of supported PIC devices...*/
 const Pic picTypes[]={
 {
 	"P12F629",	//Name
@@ -842,7 +843,8 @@ const Pic picTypes[]={
 };
 
 
-
+/*Constructor to select a pic by string, usage:
+ Pictype* picType=new PicType("P18F2550"); */
 PicType::PicType(string picTypeStr)
 {
 	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
@@ -855,15 +857,17 @@ PicType::PicType(string picTypeStr)
 	}
 	if(currentPic.Name.compare("")==0)
 	{
-		cerr<<"Not Found: "<<picTypeStr<<endl;
+		//cerr<<"Not Found: "<<picTypeStr<<endl;
 		currentPic=defaultPic;
-		cerr<<"Setting the PIC to default: "<<currentPic.Name<<endl;
+		//cerr<<"Setting the PIC to default: "<<currentPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
 	for(int i=0;i<(signed)picNames.size();i++)
 			picNames[i]=picTypes[i].Name;
 }
 
+/*Constructor to select a pic by devId, usage:
+ Pictype* picType=new PicType(0x1240); */
 PicType::PicType(int devId)
 {
 	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
@@ -876,14 +880,15 @@ PicType::PicType(int devId)
 	}
 	if(currentPic.Name.compare("")==0)
 	{
-		cerr<<"Not Found: "<<hex<<devId<<endl;
+		//cerr<<"Not Found: "<<hex<<devId<<endl;
 		currentPic=defaultPic;
-		cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
+		//cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
 	for(int i=0;i<(signed)picNames.size();i++)
 			picNames[i]=picTypes[i].Name;
 }
+
 
 Pic PicType::getCurrentPic(void)
 {

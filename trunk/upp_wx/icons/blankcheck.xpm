@@ -1,5 +1,5 @@
 /* XPM */
-static char * blankcheck_xpm[] = {
+const char * blankcheck_xpm[] = {
 "24 24 166 2",
 "  	c None",
 ". 	c #78726E",

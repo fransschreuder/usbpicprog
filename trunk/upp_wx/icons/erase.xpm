@@ -1,5 +1,5 @@
 /* XPM */
-static char * erase_xpm[] = {
+const char * erase_xpm[] = {
 "24 24 209 2",
 "  	c None",
 ". 	c #78726E",

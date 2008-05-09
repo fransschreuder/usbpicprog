@@ -19,16 +19,19 @@
  ***************************************************************************/
 
 #include "hardware.h"
-#include "svn_revision.h"
+#include "uppmainwindow_callback.h"
+
 using namespace std;
 
-Hardware::Hardware(  ) 
+/*The class Hardware connects to usbpicprog using libusb. The void* CB points 
+ to the parent UppMainWindowCallBack which is used for updating the progress
+ bar. If initiated with no argument, progress is not updated*/
+Hardware::Hardware(void* CB) 
 {
 	struct usb_bus *bus;
 	struct usb_device *dev;
-
 	usb_init();
-	
+	ptCallBack=CB;
 	usb_find_busses();
 	usb_find_devices();
 	
@@ -38,23 +41,29 @@ Hardware::Hardware(  )
 		{
 			
 			_handle = usb_open(dev);
-			if (!_handle)
-			{
-				cerr<<"Warning !! cannot open device"<<endl;
-				continue;
-			}
+			if (!_handle)continue; //failed to open this device, choose the next one
 			if ((dev->descriptor.idVendor == VENDOR) && (dev->descriptor.idProduct == PRODUCT) )
-				break;
+				break; //found usbpicprog, exit the for loop
 			usb_close(_handle);
 			_handle=NULL;
 		}
-			if(_handle!=NULL)
+			if(_handle!=NULL)	//successfully initialized? don't try any other buses
 				break;
 	}
-	if (!_handle)
-		cerr<<"Warning !! Device not found"<<endl;
+	
 }
 
+/*When Hardware is constructed, ptCallBack is initiated by a pointer
+ to UppMainWindowCallBack, this function calls the callback function
+ to update the progress bar*/
+void Hardware::statusCallBack(int value)
+{
+	if(ptCallBack!=NULL)
+	{
+		UppMainWindowCallBack* CB=(UppMainWindowCallBack*)ptCallBack;
+		CB->updateProgress(value);
+	}
+}
 
 Hardware::~Hardware()
 {
@@ -63,205 +72,248 @@ Hardware::~Hardware()
 		usb_close(_handle);
 		_handle=NULL;
 	}
+	delete ptCallBack;
 }
 
+
+/*Read the code memory from the pic (starting from address 0 into *hexData*/
 int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().CodeSize);
 	char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_CODE)
+	statusCallBack (0);
+	if (_handle !=NULL)
 	{
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
-		if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes+=readCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
-		for(int i=0;i<BLOCKSIZE_CODE;i++)
+		for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_CODE)
 		{
-			if(picType->getCurrentPic().CodeSize>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().CodeSize));
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes+=readCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
+			for(int i=0;i<BLOCKSIZE_CODE;i++)
 			{
-				mem[blockcounter+i]=dataBlock[i];
+				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
+				{
+					mem[blockcounter+i]=dataBlock[i];
+				}
+				else
+				{
+					//cerr<<"Trying to read memory outside Code area"<<endl;
+					return -1;
+				}
 			}
-			else
-			{
-				cerr<<"Trying to read memory outside Code area"<<endl;
-				return -1;
-			}
-		}
+				
 			
-		
+		}
+		hexData->putCodeMemory(mem);
 	}
-	hexData->putCodeMemory(mem);
 	return nBytes;
 }
 
+/* Write the code memory area of the pic with the data in *hexData */
 int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
+	if (_handle !=NULL)
 	{
-		for(int i=0;i<BLOCKSIZE_CODE;i++)
+		for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
 		{
-			if((signed)hexData->getCodeMemory().size()>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)hexData->getCodeMemory().size()));
+			for(int i=0;i<BLOCKSIZE_CODE;i++)
 			{
-				dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
+				if((signed)hexData->getCodeMemory().size()>(blockcounter+i))
+				{
+					dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
+				}
+				else
+				{
+					dataBlock[i]=0;
+				}
 			}
-			else
-			{
-				dataBlock[i]=0;
-			}
+				
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 		}
-			
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 	}
 	return nBytes;
 }
 
+/* read the Eeprom Data area of the pic into *hexData->dataMemory */
 int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().DataSize);
 	char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
+	statusCallBack (0);
+	if (_handle !=NULL)
 	{
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes+=readDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
-		for(int i=0;i<BLOCKSIZE_DATA;i++)
+		for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
 		{
-			if(picType->getCurrentPic().DataSize>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().DataSize));
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+			if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes+=readDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+			for(int i=0;i<BLOCKSIZE_DATA;i++)
 			{
-				mem[blockcounter+i]=dataBlock[i];
-			}
-			else
-			{
-				cerr<<"Trying to read memory outside Data area"<<endl;
-				return -1;
+				if(picType->getCurrentPic().DataSize>(blockcounter+i))
+				{
+					mem[blockcounter+i]=dataBlock[i];
+				}
+				else
+				{
+					//cerr<<"Trying to read memory outside Data area"<<endl;
+					return -1;
+				}
 			}
 		}
-			
-		
+		hexData->putDataMemory(mem);
 	}
-	hexData->putDataMemory(mem);
 	return nBytes;
 
 }
 
+
+/*write the Eeprom data from *hexData->dataMemory into the pic*/
 int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
+	statusCallBack (0);
+	if (_handle !=NULL)
 	{
-		for(int i=0;i<BLOCKSIZE_DATA;i++)
+		for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
 		{
-			if((signed)hexData->getDataMemory().size()>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)hexData->getDataMemory().size()));
+			for(int i=0;i<BLOCKSIZE_DATA;i++)
 			{
-				dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
+				if((signed)hexData->getDataMemory().size()>(blockcounter+i))
+				{
+					dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
+				}
+				else
+				{
+					dataBlock[i]=0;
+				}
 			}
-			else
-			{
-				dataBlock[i]=0;
-			}
+				
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+			if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
 		}
-			
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
 	}
 	return nBytes;
 }
 
+/* Read the configuration words (and user ID's for PIC16 dev's) */
 int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().ConfigSize);
 	char dataBlock[BLOCKSIZE_CONFIG];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
+	statusCallBack (0);
+	if (_handle !=NULL)
 	{
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
-		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+		for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
 		{
-			if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().ConfigSize));
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+			if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
-				mem[blockcounter+i]=dataBlock[i];
-			}
-			else
-			{
-				cerr<<"Trying to read memory outside Config area"<<endl;
-				return -1;
-			}
+				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
+				{
+					mem[blockcounter+i]=dataBlock[i];
+				}
+				else
+				{
+					//cerr<<"Trying to read memory outside Config area"<<endl;
+					return -1;
+				}
+			}	
 		}
-			
-		
+		hexData->putConfigMemory(mem);
 	}
-	hexData->putConfigMemory(mem);
 	return nBytes;
 }
 
+/*Writes the configuration words (and user ID's for PIC16 dev's)*/
 int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=0;
+	nBytes=-1;
 	char dataBlock[BLOCKSIZE_CONFIG];
 	int blocktype;
-	for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
+	statusCallBack (0);
+	if (_handle !=NULL)
 	{
-		for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+		for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
 		{
-			if((signed)hexData->getConfigMemory().size()>(blockcounter+i))
+			statusCallBack ((blockcounter*100)/((signed)hexData->getConfigMemory().size()));
+			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
-				dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
+				if((signed)hexData->getConfigMemory().size()>(blockcounter+i))
+				{
+					dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
+				}
+				else
+				{
+					dataBlock[i]=0;
+				}
 			}
-			else
-			{
-				dataBlock[i]=0;
-			}
+				
+			blocktype=BLOCKTYPE_MIDDLE;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+			if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 		}
-			
-		blocktype=BLOCKTYPE_MIDDLE;
-		if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-		if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-		nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 	}
 	return nBytes;
 }
 
-
+/*This function does nothing but reading the devid from the PIC, call it the following way:
+ 
+	 Hardware* hardware=new Hardware();
+	 int devId=hardware->autoDetectDevice();
+	 PicType* picType=new PicType(devId);
+	 hardware->setPicType(picType);
+	 
+ */
 int Hardware::autoDetectDevice(void)
 {
 	return readId();
-	
 }
 
+
+/*Erase all the contents (code, data and config) of the pic*/
 int Hardware::bulkErase(void)
 {
 	char msg[64];
 	
 	msg[0]=CMD_ERASE;
-	int nBytes=0;
+	int nBytes=-1;
+	statusCallBack (0);
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,1)<0)
@@ -272,54 +324,55 @@ int Hardware::bulkErase(void)
 			
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
+			//cerr<<"Usb Error"<<endl;
 			return nBytes;
 		}
 		else
 		{
 			return (int)msg[0];
+			statusCallBack (100);
 		}
 	}
 	return nBytes;
 }
 
-
+/*Private function called by autoDetectDevice */
 int Hardware::readId(void)
 {
 	char msg[64];
 	
 	msg[0]=CMD_READ_ID;
-	int nBytes=0;
+	int nBytes=-1;
+	statusCallBack (0);
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,1)<0)
 		{
-			return 0;
+			return -1;
 		}
 		nBytes = readString(msg);
 			
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
-			return 0;
+			return -1;
 		}
 		else
 		{
-			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
 			return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
-			
+			statusCallBack (100);
 		}
 	}
 	return nBytes;
 }
 
+/*give the hardware the command to switch to a certain pic algorithm*/
 int Hardware::setPicType(PicType* picType)
 {
 	char msg[64];
-	
+	statusCallBack (0);
 	msg[0]=CMD_SET_PICTYPE;
 	msg[1]=picType->getCurrentPic().picFamily;
-	int nBytes=0;
+	int nBytes=-1;
 	if (_handle !=NULL)
 	{
 		if(writeString(msg,2)<0)
@@ -330,19 +383,21 @@ int Hardware::setPicType(PicType* picType)
 			
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
-			return 0;
+			//cerr<<"Usb Error"<<endl;
+			return nBytes;
 		}
 		else
 		{
 			//cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
 			return (int)msg[0];
+			statusCallBack (100);
 			
 		}
 	}
 	return nBytes;
 }
 
+/*private function to read one block of code memory*/
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
 	UppPackage uppPackage;
@@ -364,13 +419,14 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(msg);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
+		/*if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;*/
 		return nBytes;
 	}
 	else return -1;
 }
 
+/*private function to write one block of code memory*/
 int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[10];
@@ -391,14 +447,15 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(resp_msg);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
+		/*if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;*/
 		return (int)resp_msg[0];
 	}
 	else return -1;
 	
 }
 
+/*private function to write one block of config memory*/
 int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[10];
@@ -419,8 +476,8 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(resp_msg);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
+		/*if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;*/
 		return (int)resp_msg[0];
 	}
 	else return -1;
@@ -428,7 +485,7 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 }
 
 
-
+/*private function to read one block of data memory*/
 int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
 	UppPackage uppPackage;
@@ -447,15 +504,15 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(msg);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
+		/*if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;*/
 		return nBytes;
 	}
 	else return -1;
 	
 }
 
-
+/*private function to write one block of data memory*/
 int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[10];
@@ -476,13 +533,14 @@ int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(resp_msg);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
+		/*if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;*/
 		return (int)resp_msg[0];
 	}
 	else return -1;	
 }
 
+/*check if usbpicprog is successfully connected to the usb bus and initialized*/
 bool Hardware::connected(void) 
 {
 		if (_handle == NULL)
@@ -491,66 +549,34 @@ bool Hardware::connected(void)
 			return 1;
 }
 
-
+/*Send a string of data to usbpicprog (through interrupt write)*/
 int Hardware::writeString(const char * msg,int size)
 {
 	int nBytes=0;
 	if (_handle != NULL)
 	{
-		for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
-		cout<<endl;
+		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
+		//cout<<endl;
 		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
-		if (nBytes < 0 )
-			cerr<<"Usb Error while writing to device"<<endl;
+		//if (nBytes < 0 )
+		//	cerr<<"Usb Error while writing to device"<<endl;
 		
 	}
 	else 
-		cerr<<"Error: Not connected"<<endl;
+		return -1;//cerr<<"Error: Not connected"<<endl;
 	return nBytes;
 }
 
+/*read a string of data from usbpicprog (through interrupt_read)*/
 int Hardware::readString(char* msg)
 {
 	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
+			return -1;//cerr<<"Usb Error"<<endl;
 		
 		}
 		return nBytes;
 		
 }
 
-const char * Hardware::readResponse(void)
-{
-	
-	char msg[64];
-	int nBytes = readString(msg);
-		if (nBytes < 0 )
-		{
-			cerr<<"Usb Error"<<endl;
-			return NULL;
-		}
-			
-	else
-	{
-		switch(msg[0])
-		{
-			case 1:
-				return "Received: 1, Ok";
-				break;
-			case 2:
-				return "Received: 2, asked for next block";
-				break;
-			case 3:
-				return "Error, PIC not supported for this action";
-				break;
-			default:
-				return "Received unexpected response";
-				break;	
-		}
-			
-	}
-}
-
-//

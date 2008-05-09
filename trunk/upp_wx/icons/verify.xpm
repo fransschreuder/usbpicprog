@@ -1,5 +1,5 @@
 /* XPM */
-static char * verify_xpm[] = {
+const char * verify_xpm[] = {
 "24 24 179 2",
 "  	c None",
 ". 	c #78726E",

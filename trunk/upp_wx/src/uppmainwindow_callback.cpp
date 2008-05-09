@@ -3,13 +3,19 @@
 #include "../svn_revision.h"
 
 
+
 static const wxChar *FILETYPES = _T(
 			"Hex files|*.hex|"
 			"All files|*.*"
 			);
 
-
-
+/*Update the progress bar*/
+void UppMainWindowCallBack::updateProgress(int value)
+{
+	uppProgressBar->SetValue(value);
+	Update(); //refresh the gui, also when busy
+}
+/*Put the contents of the hex file in the text area*/
 void UppMainWindowCallBack::printHexFile()
 {
     string output;
@@ -21,7 +27,7 @@ void UppMainWindowCallBack::printHexFile()
     uppHexEdit->Thaw();
 }
 
-
+/*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
 	uppHexEdit->Clear();
@@ -30,6 +36,7 @@ void UppMainWindowCallBack::upp_new()
 	fileOpened=false;
 }
 
+/*Open a hexfile using a file dialog*/
 void UppMainWindowCallBack::upp_open()
 {
 	wxFileDialog* openFileDialog =
@@ -42,7 +49,7 @@ void UppMainWindowCallBack::upp_open()
 	}
 }
 
-
+/*Open a hexfile by filename*/
 void UppMainWindowCallBack::upp_open_file(wxString path)
 {
 	
@@ -58,7 +65,7 @@ void UppMainWindowCallBack::upp_open_file(wxString path)
     }
 }
 
-
+/*re-open the hexfile*/
 void UppMainWindowCallBack::upp_refresh()
 {
 	if(readHexFile->reload(picType)<0)
@@ -69,6 +76,7 @@ void UppMainWindowCallBack::upp_refresh()
 	else printHexFile();
 }
 
+/*save the hexfile when already open, else perform a save_as*/
 void UppMainWindowCallBack::upp_save()
 {
 	if(fileOpened)
@@ -82,6 +90,7 @@ void UppMainWindowCallBack::upp_save()
 	else upp_save_as();
 }
 
+/*save the hex file with a file dialog*/
 void UppMainWindowCallBack::upp_save_as()
 {
 	wxFileDialog* openFileDialog =
@@ -102,6 +111,7 @@ void UppMainWindowCallBack::upp_exit()
 	Close();
 }
 
+/*Write everything to the device*/
 void UppMainWindowCallBack::upp_program()
 {
 	hardware->writeCode(readHexFile,picType);
@@ -109,6 +119,7 @@ void UppMainWindowCallBack::upp_program()
 	hardware->writeConfig(readHexFile,picType);
 }
 
+/*read everything from the device*/
 void UppMainWindowCallBack::upp_read()
 {
 	hardware->readCode(readHexFile,picType);
@@ -117,22 +128,26 @@ void UppMainWindowCallBack::upp_read()
 	printHexFile();
 }
 
+/*verify the device with the open hexfile*/
 void UppMainWindowCallBack::upp_verify()
 {
 	SetStatusText(wxT("Verify not implemented yet"));
            
 }
 
+/*perform a bulk-erase on the current PIC*/
 void UppMainWindowCallBack::upp_erase()
 {
 	hardware->bulkErase();
 }
 
+/*Check if the device is erased successfully*/
 void UppMainWindowCallBack::upp_blankcheck()
 {
 	SetStatusText(wxT("Blankcheck not implemented yet"));
 }
 
+/*Detect which PIC is connected and select it in the combobox and the hardware*/
 bool UppMainWindowCallBack::upp_autodetect()
 {
     int devId=hardware->autoDetectDevice();
@@ -144,9 +159,10 @@ bool UppMainWindowCallBack::upp_autodetect()
 	return (devId!=0);
 }
 
+/*Connect usbpicprog to the usb port*/
 bool UppMainWindowCallBack::upp_connect()
 {
-	hardware=new Hardware();
+	hardware=new Hardware(this);
 	if(hardware->connected())
 	{
 		upp_autodetect();
@@ -162,6 +178,7 @@ bool UppMainWindowCallBack::upp_connect()
 
 }
 
+/*disconnect the hardware*/
 void UppMainWindowCallBack::upp_disconnect()
 {
 	if(hardware->connected())
@@ -175,11 +192,13 @@ void UppMainWindowCallBack::upp_disconnect()
 	   }
 }
 
+/*load a browser with the usbpicprog website*/
 void UppMainWindowCallBack::upp_help()
 {
 	wxLaunchDefaultBrowser(wxT("http://usbpicprog.sourceforge.net/"));
 }
 
+/*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindowCallBack::upp_about()
 {
 	wxAboutDialogInfo aboutInfo;
@@ -194,7 +213,7 @@ void UppMainWindowCallBack::upp_about()
 	wxAboutBox(aboutInfo);
 }
 
-
+/*if the combo changed, also change it in the hardware*/
 void UppMainWindowCallBack::upp_combo_changed()
 {
 		picType=new PicType(string(m_comboBox1->GetValue().mb_str(wxConvUTF8)));
@@ -203,7 +222,7 @@ void UppMainWindowCallBack::upp_combo_changed()
 }
 
 
-
+/*Do the basic initialization of the main window*/
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
 	upp_connect();
@@ -214,6 +233,7 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 		
 	}
 
-	uppProgressBar->SetValue(50);
+	uppProgressBar->SetValue(100);
+	
 	fileOpened=false;
 }
