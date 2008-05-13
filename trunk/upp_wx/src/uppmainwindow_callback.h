@@ -5,8 +5,9 @@
 #endif
 #include <wx/wx.h>
 
-//#include <wx/aboutdlg.h>
-#ifndef _WX_ABOUTDLG_H_
+#if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
+#include <wx/aboutdlg.h>
+#else
 #warning About dialog not implemented, use a newer wxWidgets version!
 #endif
 //#include <wx/utils.h>
