@@ -97,6 +97,8 @@ public:
 	int autoDetectDevice(void);
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/	
 	bool connected(void);	
+/*Return a string containing the firmware version of usbpicprog*/
+	int getFirmwareVersion(char* msg);
 private :
 /*read a string of data from usbpicprog (through interrupt_read)*/
 	int readString(char* msg);

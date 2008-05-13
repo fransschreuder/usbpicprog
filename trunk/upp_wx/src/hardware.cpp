@@ -362,6 +362,32 @@ bool Hardware::connected(void)
 			return 1;
 }
 
+/*Return a string containing the firmware version of usbpicprog*/
+int Hardware::getFirmwareVersion(char* msg)
+{
+	msg[0]=CMD_FIRMWARE_VERSION;
+	int nBytes=-1;
+	statusCallBack (0);
+	if (_handle !=NULL)
+	{
+		if(writeString(msg,1)<0)
+		{
+			return -1;
+		}
+		nBytes = readString(msg);
+
+		if (nBytes < 0 )
+		{
+			return nBytes;
+		}
+		else
+		{
+			statusCallBack (100);
+		}
+	}
+	return nBytes;
+}
+
 /*read a string of data from usbpicprog (through interrupt_read)*/
 int Hardware::readString(char* msg)
 {
@@ -415,8 +441,8 @@ int Hardware::readId(void)
 		}
 		else
 		{
+   			statusCallBack (100);
 			return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
-			statusCallBack (100);
 		}
 	}
 	return nBytes;

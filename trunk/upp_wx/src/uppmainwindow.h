@@ -31,6 +31,11 @@ using namespace std;
 
 #define wxID_SAVE_AS 1000
 
+#define STATUS_FIELD_HARDWARE 0
+#define STATUS_FIELD_OTHER 1
+#define STATUS_FIELD_PROGRESS 2
+
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindow
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +84,7 @@ class UppMainWindow : public wxFrame
             wxRect rect;
             if(IsShown())
             {
-        	    m_statusBar1->GetFieldRect(1, rect);
+        	    m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
                 uppProgressBar->SetPosition(rect.GetPosition());
             	uppProgressBar->SetSize(rect.GetSize());
             }
