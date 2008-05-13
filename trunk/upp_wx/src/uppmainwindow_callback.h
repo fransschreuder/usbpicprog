@@ -4,8 +4,12 @@
 #  include <config.h>
 #endif
 #include <wx/wx.h>
-#include <wx/aboutdlg.h>
-#include <wx/utils.h>
+
+//#include <wx/aboutdlg.h>
+#ifndef _WX_ABOUTDLG_H_
+#warning About dialog not implemented, use a newer wxWidgets version!
+#endif
+//#include <wx/utils.h>
 #include <iostream>
 
 using namespace std;

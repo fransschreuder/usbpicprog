@@ -225,6 +225,7 @@ void UppMainWindowCallBack::upp_help()
 /*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindowCallBack::upp_about()
 {
+#ifdef _WX_ABOUTDLG_H_
 	wxAboutDialogInfo aboutInfo;
 	aboutInfo.SetName(wxT("Usbpicprog"));
 	#ifndef UPP_VERSION
@@ -235,6 +236,13 @@ void UppMainWindowCallBack::upp_about()
 	aboutInfo.SetDescription(wxT("An open source USB pic programmer"));
 	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.sourceforge.net/"));
 	wxAboutBox(aboutInfo);
+#else//_WX_ABOUTDLG_H_
+	#ifndef UPP_VERSION
+	wxMessageDialog(this, wxString(wxT("Usbpicprog (SVN) ")).Append(wxString::FromAscii(SVN_REVISION)), wxT("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
+	#else
+	wxMessageDialog(this, wxString(wxT("Usbpicprog ")).Append(wxString::FromAscii(UPP_VERSION)), wxT("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
+	#endif
+#endif//_WX_ABOUTDLG_H_
 }
 
 /*if the combo changed, also change it in the hardware*/
