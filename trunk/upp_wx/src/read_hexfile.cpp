@@ -48,6 +48,7 @@ ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 
 ReadHexFile::~ReadHexFile()
 {
+
 }
 
 int ReadHexFile::open(PicType* picType,const char* filename)

@@ -14,6 +14,7 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 {
 	upp_connect();
 	upp_new();
+
 	for(int i=0;i<(signed)picType->getPicNames().size();i++)
 	{
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
@@ -40,12 +41,17 @@ void UppMainWindowCallBack::printHexFile()
 	readHexFile->print(&output,picType);
 	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
     uppHexEdit->Thaw();
+	uppHexEdit->SetSelection(0,0); // cursor to top
 }
 
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-	if(readHexFile!=NULL)delete readHexFile;
+	//if(readHexFile!=NULL)delete readHexFile;
+	// FIXME!!!!
+	// results in crash on mac, even with the NULL check
+	// seems it works this way too, problem is that we now have a memory leak - Jan Paul (Gluggie)
+
 	readHexFile=new ReadHexFile(picType);
 	fileOpened=false;
 	printHexFile();
