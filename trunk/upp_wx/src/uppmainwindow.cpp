@@ -7,6 +7,7 @@
 
 #include "uppmainwindow.h"
 #include "include_icons.h"
+ #include "wx/app.h"
 
 enum{
 wxID_PROGRAM=wxID_HIGHEST+1,
@@ -41,85 +42,94 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuBar = new wxMenuBar( 0 );
 	uppMenuFile = new wxMenu();
 	wxMenuItem* uppMenuNew;
-	uppMenuNew = new wxMenuItem( uppMenuFile, wxID_NEW, wxString( wxT("New") ) + wxT('\t') + wxT("CTRL+N"), wxT("Clear open hex file"), wxITEM_NORMAL );
+	uppMenuNew = new wxMenuItem( uppMenuFile, wxID_NEW, wxString( wxT("&New") ) + wxT('\t') + wxT("CTRL+N"), wxT("Clear open hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuNew );
 	
 	wxMenuItem* uppMenuOpen;
-	uppMenuOpen = new wxMenuItem( uppMenuFile, wxID_OPEN, wxString( wxT("Open") ) + wxT('\t') + wxT("CTRL+O"), wxT("Open a hex file"), wxITEM_NORMAL );
+	uppMenuOpen = new wxMenuItem( uppMenuFile, wxID_OPEN, wxString( wxT("&Open") ) + wxT('\t') + wxT("CTRL+O"), wxT("Open a hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuOpen );
 	
 	wxMenuItem* uppMenuRefresh;
-	uppMenuRefresh = new wxMenuItem( uppMenuFile, wxID_REFRESH, wxString( wxT("Reload") ) + wxT('\t') + wxT("CTRL+R"), wxT("Reload current hex file"), wxITEM_NORMAL );
+	uppMenuRefresh = new wxMenuItem( uppMenuFile, wxID_REFRESH, wxString( wxT("&Reload") ) + wxT('\t') + wxT("CTRL+R"), wxT("Reload current hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuRefresh );
 	
 	wxMenuItem* uppMenuSave;
-	uppMenuSave = new wxMenuItem( uppMenuFile, wxID_SAVE, wxString( wxT("Save") ) + wxT('\t') + wxT("CTRL+S"), wxT("Save the hex file"), wxITEM_NORMAL );
+	uppMenuSave = new wxMenuItem( uppMenuFile, wxID_SAVE, wxString( wxT("&Save") ) + wxT('\t') + wxT("CTRL+S"), wxT("Save the hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuSave );
 	
 	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( uppMenuFile, wxID_SAVE_AS, wxString( wxT("Save As") ) , wxT("Save the hex file as"), wxITEM_NORMAL );
+	uppMenuSaveAs = new wxMenuItem( uppMenuFile, wxID_SAVE_AS, wxString( wxT("Save &As") ) , wxT("Save the hex file as"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuSaveAs );
 	
 	uppMenuFile->AppendSeparator();
 	
 	wxMenuItem* uppMenuExit;
-	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( wxT("Exit") ) + wxT('\t') + wxT("ALT+F4"), wxT("Exit Usbpicprog"), wxITEM_NORMAL );
+	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( wxT("&Quit") ) + wxT('\t') + wxT("ALT+F4"), wxT("Quit Usbpicprog"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuExit );
 	
-	uppMenuBar->Append( uppMenuFile, wxT("File") );
+	uppMenuBar->Append( uppMenuFile, wxT("&File") );
 	
 	uppMenuActions = new wxMenu();
 	wxMenuItem* uppMenuProgram;
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
+	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuProgram );
 	
 	wxMenuItem* uppMenuRead;
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
+	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuRead );
 	
 	wxMenuItem* uppMenuVerify;
-	uppMenuVerify = new wxMenuItem( uppMenuActions, wxID_VERIFY, wxString( wxT("Verify") ) , wxT("Verify the device"), wxITEM_NORMAL );
+	uppMenuVerify = new wxMenuItem( uppMenuActions, wxID_VERIFY, wxString( wxT("&Verify") ) , wxT("Verify the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuVerify );
 	
 	wxMenuItem* uppMenuErase;
-	uppMenuErase = new wxMenuItem( uppMenuActions, wxID_ERASE, wxString( wxT("Erase") ) , wxT("Erase the device"), wxITEM_NORMAL );
+	uppMenuErase = new wxMenuItem( uppMenuActions, wxID_ERASE, wxString( wxT("&Erase") ) , wxT("Erase the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuErase );
 	
 	wxMenuItem* uppMenuBlankCheck;
-	uppMenuBlankCheck = new wxMenuItem( uppMenuActions, wxID_BLANKCHECK, wxString( wxT("Blankcheck") ) , wxT("Check if the device is blank"), wxITEM_NORMAL );
+	uppMenuBlankCheck = new wxMenuItem( uppMenuActions, wxID_BLANKCHECK, wxString( wxT("&Blankcheck") ) , wxT("Check if the device is blank"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuBlankCheck );
 	
 	wxMenuItem* uppMenuAutoDetect;
-	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( wxT("Autodetect") ) , wxT("Detect the device"), wxITEM_NORMAL );
+	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( wxT("&Autodetect") ) , wxT("Detect the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuAutoDetect );
 	
 	wxMenuItem* uppMenuConnect;
-	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect") ) , wxT("Connect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("&Connect") ) , wxT("Connect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnect );
 	
 	wxMenuItem* uppMenuDisConnect;
-	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( wxT("Disconnect") ) , wxT("Disconnect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( wxT("&Disconnect") ) , wxT("Disconnect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuDisConnect );
 	
 	
-	uppMenuBar->Append( uppMenuActions, wxT("Actions") );
+	uppMenuBar->Append( uppMenuActions, wxT("&Actions") );
 	
 	uppMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
-	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( wxT("Help") ) + wxT('\t') + wxT("F1"), wxT("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
+	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( wxT("&Help") ) + wxT('\t') + wxT("F1"), wxT("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuItemHelp );
 	
 	wxMenuItem* uppMenuAbout;
-	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( wxT("About") ) , wxT("About Usbpicprog"), wxITEM_NORMAL );
+	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( wxT("&About") ) , wxT("About Usbpicprog"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuAbout );
 	
-	uppMenuBar->Append( uppMenuHelp, wxT("Help") );
+	uppMenuBar->Append( uppMenuHelp, wxT("&Help") );
 	
 	this->SetMenuBar( uppMenuBar );
 
-	m_statusBar1 = this->CreateStatusBar( 3, 1, wxID_ANY );
+	m_statusBar1 = this->CreateStatusBar( 4, 1, wxID_ANY );
+
+	int statuswidths[10];
+	statuswidths[STATUS_FIELD_HARDWARE] = -2;// auto resize left side of the status bar
+	statuswidths[STATUS_FIELD_OTHER] = -2; // auto resize message box reserved for other things
+	statuswidths[STATUS_FIELD_PROGRESS] = -1; // resize the progressbar also less
+	statuswidths[STATUS_FIELD_SIDE] = 20;  // fix for mac os x where in the right bottom corner there is a handle to resize the window
+	m_statusBar1->SetStatusWidths(4, statuswidths); 
+
 	wxRect rect;
-	m_statusBar1->GetFieldRect(1, rect);
+	m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
+
 	uppProgressBar = new wxGauge(m_statusBar1, wxID_ANY, 100, rect.GetPosition(), rect.GetSize(), wxGA_HORIZONTAL, wxDefaultValidator, wxT("Progress"));
 
 	m_toolBar1 = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY ); 
@@ -139,6 +149,11 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
 	m_toolBar1->AddControl( m_comboBox1 );
 	m_toolBar1->Realize();
+
+	#ifdef __WXMAC__
+		wxApp::s_macAboutMenuItemId = wxID_ABOUT;
+	#endif
+
 	
 	
 	// Connect Events
@@ -160,6 +175,8 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
 	
 	m_comboBox1->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
+	
+	this->SetSize(800,600);
 }
 
 BEGIN_EVENT_TABLE(UppMainWindow, wxFrame)

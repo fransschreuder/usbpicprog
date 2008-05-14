@@ -37,9 +37,10 @@ bool UsbPicProg::OnInit()
 /*Called by WxWidgets to clean up some stuff when the program exits*/
 int UsbPicProg::OnExit()
 {
-	delete readHexFile;
-	delete picType;
-	delete hardware;
+	//delete readHexFile;
+	//delete picType;
+	//delete hardware;
+	//error on mac, yet again
 	return 0;
 }
  
@@ -82,7 +83,8 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	   !parser.Found(wxT("f")))
 	{
 		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
-									   wxPoint(50, 50), wxSize(800, 600));
+									   wxPoint(50, 50), wxSize(20, 20));
+				// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
 		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}	
 		uppMainWindow->Show(TRUE);
 	}

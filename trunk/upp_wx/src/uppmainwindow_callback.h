@@ -30,23 +30,23 @@ class UppMainWindowCallBack: public UppMainWindow
 		
 		void updateProgress(int value);
 		void printHexFile();
-		void on_new( wxCommandEvent& event ){upp_new();event.Skip();}
-		void on_open( wxCommandEvent& event ){upp_open();event.Skip();};
-		void on_refresh( wxCommandEvent& event ){upp_refresh();event.Skip();};
-		void on_save( wxCommandEvent& event ){upp_save();event.Skip();};
-		void on_save_as( wxCommandEvent& event ){upp_save_as();event.Skip();};
-		void on_exit( wxCommandEvent& event ){upp_exit();event.Skip();};
-		void on_program( wxCommandEvent& event ){upp_program();event.Skip();};
-		void on_read( wxCommandEvent& event ){upp_read();event.Skip();};
-		void on_verify( wxCommandEvent& event ){upp_verify();event.Skip();};
-		void on_erase( wxCommandEvent& event ){upp_erase();event.Skip();};
-		void on_blankcheck( wxCommandEvent& event ){upp_blankcheck();event.Skip();};
-		void on_autodetect( wxCommandEvent& event ){upp_autodetect();event.Skip();};
-		void on_connect( wxCommandEvent& event ){upp_connect();event.Skip();};
-		void on_disconnect( wxCommandEvent& event ){upp_disconnect();event.Skip();};
-		void on_help( wxCommandEvent& event ){upp_help();event.Skip();};
-		void on_about( wxCommandEvent& event ){upp_about();event.Skip();};
-		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed();event.Skip();};
+		void on_new( wxCommandEvent& event ){upp_new();}
+		void on_open( wxCommandEvent& event ){upp_open();};
+		void on_refresh( wxCommandEvent& event ){upp_refresh();};
+		void on_save( wxCommandEvent& event ){upp_save();};
+		void on_save_as( wxCommandEvent& event ){upp_save_as();};
+		void on_exit( wxCommandEvent& event ){upp_exit();};
+		void on_program( wxCommandEvent& event ){upp_program();};
+		void on_read( wxCommandEvent& event ){upp_read();};
+		void on_verify( wxCommandEvent& event ){upp_verify();};
+		void on_erase( wxCommandEvent& event ){upp_erase();};
+		void on_blankcheck( wxCommandEvent& event ){upp_blankcheck();};
+		void on_autodetect( wxCommandEvent& event ){upp_autodetect();};
+		void on_connect( wxCommandEvent& event ){upp_connect();};
+		void on_disconnect( wxCommandEvent& event ){upp_disconnect();};
+		void on_help( wxCommandEvent& event ){upp_help();};
+		void on_about( wxCommandEvent& event ){upp_about();};
+		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed();};
 		void upp_open_file(wxString path);
 	private:
 		void upp_new();

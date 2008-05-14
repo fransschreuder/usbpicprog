@@ -21,7 +21,7 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 
 	}
 
-	uppProgressBar->SetValue(100);
+	uppProgressBar->SetValue(0);
 
 	fileOpened=false;
 }
@@ -343,9 +343,6 @@ void UppMainWindowCallBack::upp_help()
 /*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindowCallBack::upp_about()
 {
-#ifdef __WXMAC__
-#undef _WX_ABOUTDLG_H_
-#endif
 #ifdef _WX_ABOUTDLG_H_
 	wxAboutDialogInfo aboutInfo;
 	aboutInfo.SetName(wxT("Usbpicprog"));
