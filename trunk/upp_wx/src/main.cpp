@@ -141,7 +141,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
                         case TYPE_CODE: typeText=string("code");break;
                         case TYPE_DATA: typeText=string("data");break;
                         case TYPE_CONFIG: typeText=string("config");break;
-                        default: typeText=wxT("unknown");break;
+                        default: typeText=string("unknown");break;
                     }
                     printf("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                         typeText.c_str(),
@@ -228,7 +228,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
                             case TYPE_CODE: typeText=string("code");break;
                             case TYPE_DATA: typeText=string("data");break;
                             case TYPE_CONFIG: typeText=string("config");break;
-                            default: typeText=wxT("unknown");break;
+                            default: typeText=string("unknown");break;
                         }
                         printf("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),

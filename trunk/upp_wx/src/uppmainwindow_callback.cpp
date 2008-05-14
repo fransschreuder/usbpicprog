@@ -199,7 +199,7 @@ void UppMainWindowCallBack::upp_verify()
                 case TYPE_CODE: typeText=string("code");break;
                 case TYPE_DATA: typeText=string("data");break;
                 case TYPE_CONFIG: typeText=string("config");break;
-                default: typeText=wxT("unknown");break;
+                default: typeText=string("unknown");break;
             }
             verifyText.Printf(wxT("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
                 typeText.c_str(),
@@ -253,7 +253,7 @@ void UppMainWindowCallBack::upp_blankcheck()
                 case TYPE_CODE: typeText=string("code");break;
                 case TYPE_DATA: typeText=string("data");break;
                 case TYPE_CONFIG: typeText=string("config");break;
-                default: typeText=wxT("unknown");break;
+                default: typeText=string("unknown");break;
             }
             verifyText.Printf(wxT("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
                 typeText.c_str(),
