@@ -30,11 +30,17 @@ using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
-	codeMemory.resize(0);
-	dataMemory.resize(0);
-	configMemory.resize(0);
-	if((picType==NULL)||filename==NULL) return; //you need to call open later then
-	open(picType,filename);
+	
+	if((picType==NULL)&&filename==NULL) return; //you need to call open later then
+	else if((picType!=NULL)&&filename==NULL) //fill an empty hexfile with 0xFF
+	{
+        codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
+    	dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
+	    configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
+	    trimData(picType);
+	    return;
+    }
+	else open(picType,filename);
 }
 
 ReadHexFile::~ReadHexFile()

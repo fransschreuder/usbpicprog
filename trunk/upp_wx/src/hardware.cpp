@@ -340,6 +340,104 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 	return nBytes;
 }
 
+/*Reads the whole PIC and checks if the data matches hexData*/
+VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType)
+{
+    VerifyResult res;
+    ReadHexFile *verifyHexFile = new ReadHexFile;
+    if(readCode(verifyHexFile,picType)<0)
+	{
+        res.Result=VERIFY_USB_ERROR;
+        res.DataType=TYPE_CODE;
+        return res;
+    }
+	if(readData(verifyHexFile,picType)<0)
+	{
+        res.Result=VERIFY_USB_ERROR;
+        res.DataType=TYPE_DATA;
+        return res;
+    }
+	if(readConfig(verifyHexFile,picType)<0)
+	{
+        res.Result=VERIFY_USB_ERROR;
+        res.DataType=TYPE_CONFIG;
+        return res;
+    }
+    if ((hexData->getCodeMemory().size()+
+        hexData->getDataMemory().size()+
+        hexData->getConfigMemory().size())>0) //there should be at least some data in the file
+    {
+        for(int i=0;i<(signed)hexData->getCodeMemory().size();i++)
+        {
+            if((signed)verifyHexFile->getCodeMemory().size()<(i+1))
+            {
+                res.Result=VERIFY_OTHER_ERROR;
+                return res;
+            }
+            if(verifyHexFile->getCodeMemory()[i]!=hexData->getCodeMemory()[i])
+            {
+                res.Result=VERIFY_MISMATCH;
+                res.DataType=TYPE_CODE;
+                res.Address=i;
+                res.Read=verifyHexFile->getCodeMemory()[i];
+                res.Expected=hexData->getCodeMemory()[i];
+                return res;
+            }
+
+        }
+        for(int i=0;i<(signed)hexData->getDataMemory().size();i++)
+        {
+            if((signed)verifyHexFile->getDataMemory().size()<(i+1))
+            {
+                res.Result=VERIFY_OTHER_ERROR;              
+                return res;
+            }
+            if(verifyHexFile->getDataMemory()[i]!=hexData->getDataMemory()[i])
+            {
+                res.Result=VERIFY_MISMATCH;
+                res.DataType=TYPE_DATA;
+                res.Address=i;
+                res.Read=verifyHexFile->getDataMemory()[i];
+                res.Expected=hexData->getDataMemory()[i];
+                return res;
+            }
+
+        }
+        for(int i=0;i<(signed)hexData->getConfigMemory().size();i++)
+        {
+            if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
+            {
+                res.Result=VERIFY_OTHER_ERROR;                
+                return res;
+            }
+            if(verifyHexFile->getConfigMemory()[i]!=hexData->getConfigMemory()[i])
+            {
+                res.Result=VERIFY_MISMATCH;
+                res.DataType=TYPE_CONFIG;
+                res.Address=i;
+                res.Read=verifyHexFile->getConfigMemory()[i];
+                res.Expected=hexData->getConfigMemory()[i];
+                return res;
+            }
+
+        }
+        res.Result=VERIFY_SUCCESS;
+    }
+    else
+    {
+      res.Result=VERIFY_OTHER_ERROR;
+    }
+    return res;
+}
+
+/*Reads the whole PIC and checks if it is blank*/
+VerifyResult Hardware::blankCheck(PicType *picType)
+{
+    ReadHexFile* blankHexFile=new ReadHexFile(picType);
+    return verify(blankHexFile,picType);
+}
+
+
 /*This function does nothing but reading the devid from the PIC, call it the following way:
  
 	 Hardware* hardware=new Hardware();

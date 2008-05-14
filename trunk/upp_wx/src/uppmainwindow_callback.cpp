@@ -13,7 +13,7 @@ static const wxChar *FILETYPES = _T(
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
 	upp_connect();
-	readHexFile=new ReadHexFile();
+    upp_new();
 	for(int i=0;i<(signed)picType->getPicNames().size();i++)
 	{
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
@@ -21,7 +21,7 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 	}
 
 	uppProgressBar->SetValue(100);
-	printHexFile();
+
 	fileOpened=false;
 }
 
@@ -45,9 +45,8 @@ void UppMainWindowCallBack::printHexFile()
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-	uppHexEdit->Clear();
 	delete readHexFile;
-	readHexFile=new ReadHexFile();
+	readHexFile=new ReadHexFile(picType);
 	fileOpened=false;
 	printHexFile();
 }
@@ -186,91 +185,43 @@ void UppMainWindowCallBack::upp_read()
 void UppMainWindowCallBack::upp_verify()
 {
     wxString verifyText;
-    ReadHexFile *verifyHexFile = new ReadHexFile;
-    if(hardware->readCode(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading code memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-	if(hardware->readData(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading data memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-	if(hardware->readConfig(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading config memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-    if ((readHexFile->getCodeMemory().size()+
-        readHexFile->getDataMemory().size()+
-        readHexFile->getConfigMemory().size())>0)
+    string typeText;
+    VerifyResult res=hardware->verify(readHexFile,picType);
+    switch(res.Result)
     {
-        for(int i=0;i<(signed)readHexFile->getCodeMemory().size();i++)
-        {
-            if((signed)verifyHexFile->getCodeMemory().size()<(i+1))
-            {
-                SetStatusText(wxT("Read code smaller than in file"),STATUS_FIELD_OTHER);
-                wxMessageDialog(this, wxT("Read code smaller than in file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
-            if(verifyHexFile->getCodeMemory()[i]!=readHexFile->getCodeMemory()[i])
-            {
-                verifyText.Printf(wxT("Verify code failed at 0x%X. Read: 0x%02X, File: 0x%02X"),i,verifyHexFile->getCodeMemory()[i],readHexFile->getCodeMemory()[i]);
-                SetStatusText(verifyText,STATUS_FIELD_OTHER);
-                wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
+        case VERIFY_SUCCESS:
+            SetStatusText(wxT("Verify successful"),STATUS_FIELD_OTHER);
+            break;
+        case VERIFY_MISMATCH:
             
-        }
-        for(int i=0;i<(signed)readHexFile->getDataMemory().size();i++)
-        {
-            if((signed)verifyHexFile->getDataMemory().size()<(i+1))
+            switch (res.DataType)
             {
-                SetStatusText(wxT("Read data smaller than in file"),STATUS_FIELD_OTHER);
-                wxMessageDialog(this, wxT("Read data smaller than in file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
+                case TYPE_CODE: typeText=string("code");break;
+                case TYPE_DATA: typeText=string("data");break;
+                case TYPE_CONFIG: typeText=string("config");break;
+                default: typeText=wxT("unknown");break;
             }
-            if(verifyHexFile->getDataMemory()[i]!=readHexFile->getDataMemory()[i])
-            {
-                verifyText.Printf(wxT("Verify data failed at 0x%X. Read: 0x%02X, File: 0x%02X"),i,verifyHexFile->getDataMemory()[i],readHexFile->getDataMemory()[i]);
-                SetStatusText(verifyText,STATUS_FIELD_OTHER);
-                wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
-
-        }
-        for(int i=0;i<(signed)readHexFile->getConfigMemory().size();i++)
-        {
-            if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
-            {
-                SetStatusText(wxT("Read config smaller than in file"),STATUS_FIELD_OTHER);
-                wxMessageDialog(this, wxT("Read config smaller than in file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
-            if(verifyHexFile->getConfigMemory()[i]!=readHexFile->getConfigMemory()[i])
-            {
-                verifyText.Printf(wxT("Verify config failed at 0x%X. Read: 0x%02X, File: 0x%02X"),picType->getCurrentPic().ConfigAddress+i,
-                    verifyHexFile->getConfigMemory()[i],
-                    readHexFile->getConfigMemory()[i]);
-                SetStatusText(verifyText,STATUS_FIELD_OTHER);
-                wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
-
-        }
-        SetStatusText(wxT("Verified successfully"),STATUS_FIELD_OTHER);
-        
+            verifyText.Printf(wxT("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
+                typeText.c_str(),
+                res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                res.Read,
+                res.Expected);
+            SetStatusText(verifyText,STATUS_FIELD_OTHER);
+            wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        case VERIFY_USB_ERROR:
+            SetStatusText(wxT("USB error during verify"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("USB error during verify"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        case VERIFY_OTHER_ERROR:
+            SetStatusText(wxT("Unknown error during verify"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Unknown error during verify"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        default:
+            SetStatusText(wxT("I'm sorry for being stupid"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("I'm sorry for being stupid"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
     }
-    else
-    {
-        SetStatusText(wxT("Nothing to verify"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Nothing to verify"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-    }
-           
 }
 
 /*perform a bulk-erase on the current PIC*/
@@ -287,63 +238,43 @@ void UppMainWindowCallBack::upp_erase()
 /*Check if the device is erased successfully*/
 void UppMainWindowCallBack::upp_blankcheck()
 {
-    int readWord,verifyWord;
-    if((picType->getCurrentPic().Name.find("P10")==0)|
-        (picType->getCurrentPic().Name.find("P12")==0)|
-        (picType->getCurrentPic().Name.find("P16")==0))verifyWord=0x3FFF;
-    else  verifyWord=0xFFFF;
-	
     wxString verifyText;
-    ReadHexFile *verifyHexFile = new ReadHexFile;
-    if(hardware->readCode(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading code memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-	if(hardware->readData(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading data memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-	if(hardware->readConfig(verifyHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error reading config memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error reading config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-    }
-    if ((verifyHexFile->getCodeMemory().size()+
-        verifyHexFile->getDataMemory().size()+
-        verifyHexFile->getConfigMemory().size())>0)
+    string typeText;
+    VerifyResult res=hardware->blankCheck(picType);
+    switch(res.Result)
     {
-        for(int i=0;i<(signed)verifyHexFile->getCodeMemory().size();i+=2)
-        {
-            readWord=verifyHexFile->getCodeMemory()[i]|(verifyHexFile->getCodeMemory()[i+1]<<8);
-            if(readWord!=verifyWord)
+        case VERIFY_SUCCESS:
+            SetStatusText(wxT("Device is blank"),STATUS_FIELD_OTHER);
+            break;
+        case VERIFY_MISMATCH:
+
+            switch (res.DataType)
             {
-                verifyText.Printf(wxT("Verify code failed at 0x%X. Read: 0x%04X, Expected: 0x%04X"),i,readWord,verifyWord);
-                SetStatusText(verifyText,STATUS_FIELD_OTHER);
-                wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
+                case TYPE_CODE: typeText=string("code");break;
+                case TYPE_DATA: typeText=string("data");break;
+                case TYPE_CONFIG: typeText=string("config");break;
+                default: typeText=wxT("unknown");break;
             }
-        }
-        for(int i=0;i<(signed)verifyHexFile->getDataMemory().size();i++)
-        {
-            if(verifyHexFile->getDataMemory()[i]!=0xFF)
-            {
-                verifyText.Printf(wxT("Verify data failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),i,verifyHexFile->getDataMemory()[i],0xFF);
-                SetStatusText(verifyText,STATUS_FIELD_OTHER);
-                wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-                return;
-            }
-        }
-        SetStatusText(wxT("Device is blank"),STATUS_FIELD_OTHER);
-    }
-    else
-    {
-        SetStatusText(wxT("Error performing a blankcheck"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error performing a blankcheck"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            verifyText.Printf(wxT("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
+                typeText.c_str(),
+                res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                res.Read,
+                res.Expected);
+            SetStatusText(verifyText,STATUS_FIELD_OTHER);
+            wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        case VERIFY_USB_ERROR:
+            SetStatusText(wxT("USB error during blankcheck"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("USB error during blankcheck"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        case VERIFY_OTHER_ERROR:
+            SetStatusText(wxT("Unknown error during blankcheck"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Unknown error during blankcheck"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
+        default:
+            SetStatusText(wxT("I'm sorry for being stupid"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("I'm sorry for being stupid"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
     }
 }
 

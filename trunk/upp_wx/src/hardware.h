@@ -65,6 +65,33 @@ typedef union _UppPackage
 	char data[37];
 }UppPackage;
 
+
+
+typedef enum _VRResult
+{
+    VERIFY_SUCCESS=0,
+    VERIFY_MISMATCH,
+    VERIFY_USB_ERROR,
+    VERIFY_OTHER_ERROR
+}VRResult;
+
+typedef enum _VRDataType
+{
+    TYPE_CODE=0,
+    TYPE_DATA,
+    TYPE_CONFIG
+}VRDataType;
+
+typedef struct _VerifyResult
+{
+    VRResult Result;
+    VRDataType DataType;
+    int Address;
+    int Read;
+    int Expected;
+}VerifyResult;
+
+
 class Hardware
 {
 public:
@@ -89,6 +116,10 @@ public:
 	int readConfig(ReadHexFile *hexData,PicType *picType);
 /*Writes the configuration words (and user ID's for PIC16 dev's)*/	
 	int writeConfig(ReadHexFile *hexData,PicType *picType);	
+/*Reads the whole PIC and checks if the data matches hexData*/
+	VerifyResult verify(ReadHexFile *hexData, PicType *picType);
+/*Reads the whole PIC and checks if it is blank*/
+	VerifyResult blankCheck(PicType *picType);	
 /*This function does nothing but reading the devid from the PIC, call it the following way:
 	 Hardware* hardware=new Hardware();
 	 int devId=hardware->autoDetectDevice();

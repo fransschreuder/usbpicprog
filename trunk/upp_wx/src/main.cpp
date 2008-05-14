@@ -114,21 +114,57 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			int devId=hardware->autoDetectDevice();
 	        picType=new PicType(devId);
 			hardware->setPicType(picType);
+			if(devId>0)cout<<"Detected: ";
+			else cout<<"Detection failed, setting pictype to default: ";
 			cout<<picType->getCurrentPic().Name<<endl;
 		}
 		/* if -e is passed, bulk erase the entire pic*/
 		if(parser.Found(wxT("e")))
 		{
-			hardware->bulkErase();
+            cout<<"Bulk erase..."<<endl;
+			if(hardware->bulkErase()<0)cout<<"Error during erase"<<endl;
 		}
 		/* if -b is passed, check if the device is blank*/
 		if(parser.Found(wxT("b")))
 		{
-			cout<<"Blankcheck not implemented yet"<<endl;
+            cout<<"Blankcheck..."<<endl;
+            string typeText;
+            VerifyResult res=hardware->blankCheck(picType);
+            switch(res.Result)
+            {
+                case VERIFY_SUCCESS:
+                    cout<<"Device is blank"<<endl;
+                    break;
+                case VERIFY_MISMATCH:
+                    switch (res.DataType)
+                    {
+                        case TYPE_CODE: typeText=string("code");break;
+                        case TYPE_DATA: typeText=string("data");break;
+                        case TYPE_CONFIG: typeText=string("config");break;
+                        default: typeText=wxT("unknown");break;
+                    }
+                    printf("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
+                        typeText.c_str(),
+                        res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                        res.Read,
+                        res.Expected);
+                    cout<<endl;
+                    break;
+                case VERIFY_USB_ERROR:
+                    cout<<"USB error during blankcheck"<<endl;
+                    break;
+                case VERIFY_OTHER_ERROR:
+                    cout<<"Unknown error during blankcheck"<<endl;
+                    break;
+                default:
+                    cout<<"I'm sorry for being stupid"<<endl;
+                    break;
+            }
 		}
 		/* if -w is passed, open the hexfile and write it to the pic */
 		if(parser.Found(wxT("w")))
 		{
+            cout<<"Write..."<<endl;
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 			else
 			{
@@ -139,22 +175,23 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
                     readHexFile->print(&output,picType);
                     cout<<output<<endl;
                 }
-				hardware->writeCode(readHexFile,picType);
-				hardware->writeData(readHexFile,picType);
-				hardware->writeConfig(readHexFile,picType);
+				if(hardware->writeCode(readHexFile,picType)<0)cout<<"Error writing Code"<<endl;
+				if(hardware->writeData(readHexFile,picType)<0)cout<<"Error writing Data"<<endl;
+				if(hardware->writeConfig(readHexFile,picType)<0)cout<<"Error writing Config"<<endl;
 				delete readHexFile;
 			}
 		}
 		/* if -r is passed, read it to the pic and save it to the hexfile	 */
 		if(parser.Found(wxT("r")))
 		{
+            cout<<"Read..."<<endl;
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 			else
 			{
 				readHexFile=new ReadHexFile();
-				hardware->readCode(readHexFile,picType);
-				hardware->readData(readHexFile,picType);
-				hardware->readConfig(readHexFile,picType);
+				if(hardware->readCode(readHexFile,picType)<0)cout<<"Error reading Code"<<endl;
+				if(hardware->readData(readHexFile,picType)<0)cout<<"Error reading Data"<<endl;
+				if(hardware->readConfig(readHexFile,picType)<0)cout<<"Error reading Config"<<endl;
 				if(readHexFile->saveAs(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to save file"<<endl;
 				if(!silent_mode)
 				{
@@ -167,10 +204,50 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		/* if -v is passed, open the hexfile, read it and compare the results*/
 		if(parser.Found(wxT("v")))
 		{
+            cout<<"Verify..."<<endl;
 			if(parser.GetParamCount()==0){cout<<"Please specify a filename"<<endl;}
 			else
 			{
-				cout<<"Verify not implemented yet!!!"<<endl;
+                readHexFile=new ReadHexFile();
+				if(readHexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to open file"<<endl;
+				if(!silent_mode)
+				{
+                    readHexFile->print(&output,picType);
+                    cout<<output<<endl;
+                }
+                string typeText;
+                VerifyResult res=hardware->verify(readHexFile,picType);
+                switch(res.Result)
+                {
+                    case VERIFY_SUCCESS:
+                        cout<<"Verify successful"<<endl;
+                        break;
+                    case VERIFY_MISMATCH:
+                        switch (res.DataType)
+                        {
+                            case TYPE_CODE: typeText=string("code");break;
+                            case TYPE_DATA: typeText=string("data");break;
+                            case TYPE_CONFIG: typeText=string("config");break;
+                            default: typeText=wxT("unknown");break;
+                        }
+                        printf("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
+                            typeText.c_str(),
+                            res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                            res.Read,
+                            res.Expected);
+                        cout<<endl;
+                        break;
+                    case VERIFY_USB_ERROR:
+                        cout<<"USB error during verify"<<endl;
+                        break;
+                    case VERIFY_OTHER_ERROR:
+                        cout<<"Unknown error during verify"<<endl;
+                        break;
+                    default:
+                        cout<<"I'm sorry for being stupid"<<endl;
+                        break;
+                }
+                delete readHexFile;
 			}
 		}
 		
