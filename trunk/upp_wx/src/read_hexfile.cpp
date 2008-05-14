@@ -31,6 +31,9 @@ using namespace std;
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
 	
+	codeMemory.resize(0);
+    dataMemory.resize(0);
+	configMemory.resize(0);
 	if((picType==NULL)&&filename==NULL) return; //you need to call open later then
 	else if((picType!=NULL)&&filename==NULL) //fill an empty hexfile with 0xFF
 	{
