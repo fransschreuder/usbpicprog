@@ -23,8 +23,6 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 	uppProgressBar->SetValue(100);
 
 	fileOpened=false;
-	SetFocus();
-
 }
 
 /*Update the progress bar*/
