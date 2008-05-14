@@ -46,7 +46,7 @@ void UppMainWindowCallBack::printHexFile()
 void UppMainWindowCallBack::upp_new()
 {
 	delete readHexFile;
-	readHexFile=new ReadHexFile(picType);
+	readHexFile=new ReadHexFile();
 	fileOpened=false;
 	printHexFile();
 }
@@ -337,6 +337,9 @@ void UppMainWindowCallBack::upp_help()
 /*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindowCallBack::upp_about()
 {
+#ifdef __WXMAC__
+#undef _WX_ABOUTDLG_H_
+#endif
 #ifdef _WX_ABOUTDLG_H_
 	wxAboutDialogInfo aboutInfo;
 	aboutInfo.SetName(wxT("Usbpicprog"));
@@ -355,6 +358,7 @@ void UppMainWindowCallBack::upp_about()
 	wxMessageDialog(this, wxString(wxT("Usbpicprog ")).Append(wxString::FromAscii(UPP_VERSION)), wxT("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
 	#endif
 #endif//_WX_ABOUTDLG_H_
+
 }
 
 /*if the combo changed, also change it in the hardware*/
