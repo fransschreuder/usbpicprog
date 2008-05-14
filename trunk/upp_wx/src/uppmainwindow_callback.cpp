@@ -13,7 +13,7 @@ static const wxChar *FILETYPES = _T(
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
 	upp_connect();
-    upp_new();
+	upp_new();
 	for(int i=0;i<(signed)picType->getPicNames().size();i++)
 	{
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
@@ -23,6 +23,8 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 	uppProgressBar->SetValue(100);
 
 	fileOpened=false;
+	SetFocus();
+
 }
 
 /*Update the progress bar*/
