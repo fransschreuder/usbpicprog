@@ -32,7 +32,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer;
 	bSizer = new wxBoxSizer( wxVERTICAL );
 	
-	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
+	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE| wxTE_READONLY );
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
 	//uppHexEdit->SetDefaultStyle(wxTextAttr()::SetFont());
 	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND );
@@ -111,7 +111,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuHelp->Append( uppMenuItemHelp );
 	
 	wxMenuItem* uppMenuAbout;
-	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( wxT("&About") ) , wxT("About Usbpicprog"), wxITEM_NORMAL );
+	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( wxT("&About usbpicprog") ) , wxT("About Usbpicprog"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuAbout );
 	
 	uppMenuBar->Append( uppMenuHelp, wxT("&Help") );
@@ -124,7 +124,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	statuswidths[STATUS_FIELD_HARDWARE] = -2;// auto resize left side of the status bar
 	statuswidths[STATUS_FIELD_OTHER] = -2; // auto resize message box reserved for other things
 	statuswidths[STATUS_FIELD_PROGRESS] = -1; // resize the progressbar also less
-	statuswidths[STATUS_FIELD_SIDE] = 20;  // fix for mac os x where in the right bottom corner there is a handle to resize the window
+	statuswidths[STATUS_FIELD_SIDE] = STATUS_FIELD_SIDE_WIDTH;  // fix for mac os x where in the right bottom corner there is a handle to resize the window
 	m_statusBar1->SetStatusWidths(4, statuswidths); 
 
 	wxRect rect;
