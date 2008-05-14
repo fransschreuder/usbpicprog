@@ -45,8 +45,8 @@ void UppMainWindowCallBack::printHexFile()
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-	delete readHexFile;
-	readHexFile=new ReadHexFile();
+	if(readHexFile!=NULL)delete readHexFile;
+	readHexFile=new ReadHexFile(picType);
 	fileOpened=false;
 	printHexFile();
 }
