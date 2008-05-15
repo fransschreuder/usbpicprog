@@ -2,8 +2,6 @@
 #include "uppmainwindow.h"
 #include "../svn_revision.h"
 
-
-
 static const wxChar *FILETYPES = _T(
 			"Hex files|*.hex|"
 			"All files|*.*"
@@ -40,6 +38,7 @@ void UppMainWindowCallBack::printHexFile()
 	uppHexEdit->Clear();	
 	readHexFile->print(&output,picType);
 	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
+	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
     uppHexEdit->Thaw();
 	uppHexEdit->SetSelection(0,0); // cursor to top
 }
@@ -60,6 +59,7 @@ void UppMainWindowCallBack::upp_new()
 /*Open a hexfile using a file dialog*/
 void UppMainWindowCallBack::upp_open()
 {
+	//wxOpen is not defined in wxWidgets 2.9
 	wxFileDialog* openFileDialog =
 		new wxFileDialog( this, wxT("Open hexfile"), wxT(""), wxT(""), FILETYPES,
 		                  wxOPEN, wxDefaultPosition);
@@ -122,9 +122,11 @@ void UppMainWindowCallBack::upp_save()
 /*save the hex file with a file dialog*/
 void UppMainWindowCallBack::upp_save_as()
 {
+	//wxSAVE is not defined in wxWidgets 2.9
 	wxFileDialog* openFileDialog =
 		new wxFileDialog( this, wxT("Save hexfile"), wxT(""), wxT(""), FILETYPES,
 		                  wxSAVE, wxDefaultPosition);
+						  
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)

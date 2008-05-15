@@ -25,7 +25,6 @@
 #include <vector>
 //#include <string>
 
-
 using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
@@ -66,7 +65,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 	codeMemory.resize(0);
 	if(fp==NULL) 
 	{
-		//cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
+		cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
 		return -1;
 	}
 	do
@@ -78,7 +77,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 		
 		if((((byteCount+5)*2)+1)!=(signed)tempStr.size())
 		{
-			//cerr<<"Failure in hex file... Exiting"<<endl;
+			cerr<<"Failure in hex file... Exiting"<<endl;
 			return -1;
 		}
 		
@@ -92,7 +91,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 		sscanf(tempStr.c_str()+9+(byteCount*2),"%02X",&checkSum);
 		if(!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
 		{
-			//cerr<<"Error in checksum... Exiting"<<endl;
+			cerr<<"Error in checksum... Exiting"<<endl;
 			return -1;
 		}
 		switch(recordType)
@@ -146,7 +145,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 			case ENDOFFILE:
 				break;
 			default:
-				//cerr<<"unknown record type: "<<recordType<<endl;
+				cerr<<"unknown record type: "<<recordType<<endl;
 				return -1;
 				break;
 				
@@ -190,7 +189,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
 
 	if(fp==NULL)
 	{
-		//cerr<<"Could not open Hex file for writing... Exiting\n\n"<<endl;
+		cerr<<"Could not open Hex file for writing... Exiting\n\n"<<endl;
 		return -1;
 	}
 	if(codeMemory.size()>0)

@@ -27,6 +27,8 @@ IMPLEMENT_APP(UsbPicProg)
 #include <windows.h>
 #endif
 
+UppMainWindowCallBack *uppMainWindow;
+
 /*This is the wxWidgets initialization function, but we only use it to call 
  *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
 bool UsbPicProg::OnInit()
@@ -56,7 +58,12 @@ void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
     parser.SetDesc (g_cmdLineDesc);
     parser.SetSwitchChars (wxT("-"));
 }
- 
+
+void UsbPicProg::MacOpenFile(const wxString &fileName)
+{
+	uppMainWindow->upp_open_file(fileName);
+}
+
 /*After command line is being processed, this function is being called
 by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/
@@ -82,7 +89,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	   !parser.Found(wxT("b"))&
 	   !parser.Found(wxT("f")))
 	{
-		UppMainWindowCallBack *uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
+		uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
 									   wxPoint(50, 50), wxSize(20, 20));
 				// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
 		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}	

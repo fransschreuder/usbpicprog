@@ -52,7 +52,8 @@ class UsbPicProg : public wxApp
 by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/    
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
- 
+	
+	virtual void MacOpenFile(const wxString &fileName);
 private:
 /*silent_mode is true if -s switch is passed in command line*/
     bool silent_mode;   
@@ -69,6 +70,7 @@ DECLARE_APP(UsbPicProg)
 
 
 /*Command line parameters and help text	 */
+
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
      { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"),    	wxT("displays help on the command line parameters"),wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
@@ -83,4 +85,21 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
  
      { wxCMD_LINE_NONE }
 };
+
+/* wxWidgets 2.9:
+static const wxCmdLineEntryDesc g_cmdLineDesc [] =
+{
+     { wxCMD_LINE_SWITCH, "h", "help",    	"displays help on the command line parameters",wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+	 { wxCMD_LINE_OPTION, "p", "pictype", 	"specify the pic type (eg -p=P18F2550)", wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+     { wxCMD_LINE_SWITCH, "s", "silent",  	"do not display the hex file" },
+	 { wxCMD_LINE_SWITCH, "w", "write",  		"write the device" },
+	 { wxCMD_LINE_SWITCH, "r", "read",  		"read the device" },
+	 { wxCMD_LINE_SWITCH, "v", "verify",  	"verify the device" },
+	 { wxCMD_LINE_SWITCH, "e", "erase",  		"bulk erase the device" },
+	 { wxCMD_LINE_SWITCH, "b", "blankcheck",  "blankcheck the device" },
+	 { wxCMD_LINE_PARAM,  "f", "file",  		"hexfile",wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
+ 
+     { wxCMD_LINE_NONE }
+};*/
+
 #endif //MAIN_H

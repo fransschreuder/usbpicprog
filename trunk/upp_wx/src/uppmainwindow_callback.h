@@ -1,5 +1,6 @@
 #ifndef UPPMAINWINDOW_CALLBACK_H
 #define UPPMAINWINDOW_CALLBACK_H
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif

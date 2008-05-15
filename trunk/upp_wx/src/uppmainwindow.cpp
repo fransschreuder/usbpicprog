@@ -34,6 +34,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE| wxTE_READONLY );
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
+	
 	//uppHexEdit->SetDefaultStyle(wxTextAttr()::SetFont());
 	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND );
 	
@@ -64,7 +65,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuFile->AppendSeparator();
 	
 	wxMenuItem* uppMenuExit;
-	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( wxT("&Quit") ) + wxT('\t') + wxT("ALT+F4"), wxT("Quit Usbpicprog"), wxITEM_NORMAL );
+	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( wxT("&Exit") ) + wxT('\t') + wxT("ALT+F4"), wxT("Exit Usbpicprog"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuExit );
 	
 	uppMenuBar->Append( uppMenuFile, wxT("&File") );
@@ -151,6 +152,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1->Realize();
 
 	#ifdef __WXMAC__
+		// not compatible with wxWidgets 2.9
 		wxApp::s_macAboutMenuItemId = wxID_ABOUT;
 	#endif
 

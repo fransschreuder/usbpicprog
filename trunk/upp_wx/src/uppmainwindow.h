@@ -37,7 +37,7 @@ using namespace std;
 #define STATUS_FIELD_SIDE 3
 
 #ifdef __WXMAC__
-#define STATUS_FIELD_SIDE_WIDTH 20
+#define STATUS_FIELD_SIDE_WIDTH 15
 #else //__WXMAC__
 #define STATUS_FIELD_SIDE_WIDTH 0
 #endif //__WXMAC__
