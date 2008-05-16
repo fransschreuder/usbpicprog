@@ -290,6 +290,7 @@ void UppMainWindowCallBack::upp_blankcheck()
 bool UppMainWindowCallBack::upp_autodetect()
 {
     int devId=hardware->autoDetectDevice();
+	cout<<hex<<devId<<endl;
 	picType=new PicType(devId);
 	hardware->setPicType(picType);
 	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
@@ -309,7 +310,7 @@ bool UppMainWindowCallBack::upp_connect()
 		if(hardware->getFirmwareVersion(msg)<0)
             SetStatusText(wxT("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
         else
-    		SetStatusText(wxString::FromAscii(msg).Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
+    		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
     }
 	else
 	{

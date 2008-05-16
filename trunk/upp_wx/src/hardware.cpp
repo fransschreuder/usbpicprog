@@ -190,6 +190,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			printf("%p\n",dataBlock);
 			nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 		}
 	}
@@ -489,7 +490,7 @@ int Hardware::getFirmwareVersion(char* msg)
 /*read a string of data from usbpicprog (through interrupt_read)*/
 int Hardware::readString(char* msg)
 {
-	int nBytes = usb_interrupt_read(_handle,1,(char*)msg,64,5000);
+	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{
 			return -1;//cerr<<"Usb Error"<<endl;
@@ -507,7 +508,7 @@ int Hardware::writeString(const char * msg,int size)
 	{
 		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
 		//cout<<endl;
-		nBytes = usb_interrupt_write(_handle,1,(char*)msg,size,5000);
+		nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,5000);
 		//if (nBytes < 0 )
 		//	cerr<<"Usb Error while writing to device"<<endl;
 
@@ -580,24 +581,29 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 /*private function to write one block of code memory*/
 int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 {
-	char resp_msg[10];
+	char resp_msg[64];
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
+		cout<<"0";
 		uppPackage.fields.cmd=CMD_WRITE_CODE;
 		uppPackage.fields.size=size;
 		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
 		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
 		uppPackage.fields.addrL=(char)(address&0xFF);
 		uppPackage.fields.blocktype=(char)lastblock;
-		strncpy(uppPackage.fields.dataField,msg,size);
+		cout<<"1";
+		memcpy(uppPackage.fields.dataField,msg,size);
+		cout<<"2";
 		int nBytes = writeString(uppPackage.data,size+6);
+		cout<<"3";
 		if (nBytes < 0 )
 		{
 			return nBytes;
 		}
-			
+		cout<<"4";	
 		nBytes = readString(resp_msg);
+		cout<<"5";
 		/*if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;*/
 		return (int)resp_msg[0];
@@ -609,7 +615,7 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 /*private function to write one block of config memory*/
 int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 {
-	char resp_msg[10];
+	char resp_msg[64];
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
@@ -666,7 +672,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 /*private function to write one block of data memory*/
 int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 {
-	char resp_msg[10];
+	char resp_msg[64];
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{

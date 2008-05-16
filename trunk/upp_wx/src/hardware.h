@@ -48,6 +48,9 @@
 #define BLOCKSIZE_CONFIG 8
 #define BLOCKSIZE_CODE 32
 
+#define READ_ENDPOINT 0x81
+#define WRITE_ENDPOINT 0x01
+
 
 /*Upp package is the data header which is sent to usbpicprog*/
 typedef union _UppPackage
