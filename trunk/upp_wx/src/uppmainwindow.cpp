@@ -72,11 +72,19 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	uppMenuActions = new wxMenu();
 	wxMenuItem* uppMenuProgram;
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
+	#ifdef __WXMAC__
+		uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("CTRL+7"), wxT("Program the device"), wxITEM_NORMAL );
+	#else	
+		uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
+	#endif
 	uppMenuActions->Append( uppMenuProgram );
 	
 	wxMenuItem* uppMenuRead;
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
+	#ifdef __WXMAC__
+		uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("CTRL+8"), wxT("Read the device"), wxITEM_NORMAL );
+	#else	
+		uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
+	#endif
 	uppMenuActions->Append( uppMenuRead );
 	
 	wxMenuItem* uppMenuVerify;
