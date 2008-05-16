@@ -305,12 +305,15 @@ bool UppMainWindowCallBack::upp_connect()
 	hardware=new Hardware(this);
 	if(hardware->connected())
 	{
+		cout<<0<<endl;
 		upp_autodetect();
+		cout<<1<<endl;
 		char msg[64];
 		if(hardware->getFirmwareVersion(msg)<0)
             SetStatusText(wxT("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
         else
     		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
+		cout<<2<<endl;
     }
 	else
 	{

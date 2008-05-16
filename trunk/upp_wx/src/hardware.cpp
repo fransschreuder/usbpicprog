@@ -190,7 +190,6 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			printf("%p\n",dataBlock);
 			nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 		}
 	}
@@ -585,25 +584,19 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		cout<<"0";
 		uppPackage.fields.cmd=CMD_WRITE_CODE;
 		uppPackage.fields.size=size;
 		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
 		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
 		uppPackage.fields.addrL=(char)(address&0xFF);
 		uppPackage.fields.blocktype=(char)lastblock;
-		cout<<"1";
 		memcpy(uppPackage.fields.dataField,msg,size);
-		cout<<"2";
 		int nBytes = writeString(uppPackage.data,size+6);
-		cout<<"3";
 		if (nBytes < 0 )
 		{
 			return nBytes;
 		}
-		cout<<"4";	
 		nBytes = readString(resp_msg);
-		cout<<"5";
 		/*if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;*/
 		return (int)resp_msg[0];

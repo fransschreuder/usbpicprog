@@ -206,6 +206,8 @@ void ProcessIO(void)
 		if((input_buffer[0])==CMD_SET_PICTYPE)
 		{
 			set_pictype(input_buffer+1);
+			output_buffer[0]=1;
+			counter=1;
 		}
 		if((input_buffer[0])==CMD_FIRMWARE_VERSION)
 		{
@@ -227,20 +229,14 @@ void set_pictype(unsigned char* data)
 {
 	switch(data[0])
 	{
-		case 0:	pictype=PIC16;	break;
-		case 1:	pictype=PIC18;	break;
-		default:pictype=PIC16;	break;
-	}
-	switch(data[1])
-	{
-		case 0:	picvariant=P18F2XXX;break;
-		case 1:	picvariant=P18FXX2; break;
-		case 2:	picvariant=P16F87XA;break;
-		case 3:	picvariant=P16F62XA;break;
-		case 4: picvariant=P16F62X;break;
-		case 5: picvariant=P12F629;break;
-		case 6: picvariant=P12F6XX;break;
-		default: picvariant=P18F2XXX;break;
+		case 0:	picvariant=P18F2XXX;pictype=PIC18;break;
+		case 1:	picvariant=P18FXX2;pictype=PIC18; break;
+		case 2:	picvariant=P16F87XA;pictype=PIC16;break;
+		case 3:	picvariant=P16F62XA;pictype=PIC16;break;
+		case 4: picvariant=P16F62X;pictype=PIC16;break;
+		case 5: picvariant=P12F629;pictype=PIC16;break;
+		case 6: picvariant=P12F6XX;pictype=PIC16;break;
+		default: picvariant=P18F2XXX;pictype=PIC18;break;
 	}	
 }
 
