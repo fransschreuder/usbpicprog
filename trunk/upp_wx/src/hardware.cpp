@@ -80,7 +80,7 @@ int Hardware::setPicType(PicType* picType)
 
 		if (nBytes < 0 )
 		{
-			//cerr<<"Usb Error"<<endl;
+			cerr<<"Usb Error"<<endl;
 			return nBytes;
 		}
 		else
@@ -112,7 +112,7 @@ int Hardware::bulkErase(void)
 
 		if (nBytes < 0 )
 		{
-			//cerr<<"Usb Error"<<endl;
+			cerr<<"Usb Error"<<endl;
 			return nBytes;
 		}
 		else
@@ -151,7 +151,7 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 				}
 				else
 				{
-					//cerr<<"Trying to read memory outside Code area"<<endl;
+					cerr<<"Trying to read memory outside Code area"<<endl;
 					return -1;
 				}
 			}
@@ -223,7 +223,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 				}
 				else
 				{
-					//cerr<<"Trying to read memory outside Data area"<<endl;
+					cerr<<"Trying to read memory outside Data area"<<endl;
 					return -1;
 				}
 			}
@@ -296,7 +296,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 				}
 				else
 				{
-					//cerr<<"Trying to read memory outside Config area"<<endl;
+					cerr<<"Trying to read memory outside Config area"<<endl;
 					return -1;
 				}
 			}	
@@ -492,8 +492,8 @@ int Hardware::readString(char* msg)
 	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{
-			return -1;//cerr<<"Usb Error"<<endl;
-
+			cerr<<"Usb Error"<<endl;
+			return -1;
 		}
 		return nBytes;
 
@@ -507,13 +507,18 @@ int Hardware::writeString(const char * msg,int size)
 	{
 		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
 		//cout<<endl;
+
 		nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,5000);
-		//if (nBytes < 0 )
-		//	cerr<<"Usb Error while writing to device"<<endl;
+		
+		if (nBytes < size )
+			cerr<<"Usb Error while writing to device: "<<nBytes<<" bytes"<<endl;
 
 	}
 	else
-		return -1;//cerr<<"Error: Not connected"<<endl;
+	{
+		cerr<<"Error: Not connected"<<endl;
+		return -1;
+	}
 	return nBytes;
 }
 
@@ -570,8 +575,8 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(msg);
-		/*if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;*/
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
 		return nBytes;
 	}
 	else return -1;
@@ -597,8 +602,8 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 			return nBytes;
 		}
 		nBytes = readString(resp_msg);
-		/*if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;*/
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
 	}
 	else return -1;
@@ -626,8 +631,8 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(resp_msg);
-		/*if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;*/
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
 	}
 	else return -1;
@@ -654,8 +659,8 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(msg);
-		/*if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;*/
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
 		return nBytes;
 	}
 	else return -1;
@@ -683,8 +688,8 @@ int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 		}
 			
 		nBytes = readString(resp_msg);
-		/*if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;*/
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
 	}
 	else return -1;	
