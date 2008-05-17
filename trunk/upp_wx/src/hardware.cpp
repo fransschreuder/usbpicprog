@@ -51,6 +51,18 @@ Hardware::Hardware(void* CB)
 				break;
 	}
 	
+	if(_handle!=NULL)
+	{
+        struct usb_config_descriptor *config = dev->config; 
+        struct usb_interface *interface = config->interface;
+        struct usb_interface_descriptor *altsetting = interface->altsetting;
+		
+		if (usb_set_configuration(_handle, config->iConfiguration) < 0) 
+			cerr<<"Couldn't set configuration"<<endl;
+		
+		if (usb_claim_interface(_handle, altsetting->bInterfaceNumber) < 0)
+			cerr<<"Couldn't claim interface"<<endl;
+	}
 }
 
 Hardware::~Hardware()
@@ -69,6 +81,7 @@ int Hardware::setPicType(PicType* picType)
 	statusCallBack (0);
 	msg[0]=CMD_SET_PICTYPE;
 	msg[1]=picType->getCurrentPic().picFamily;
+	
 	int nBytes=-1;
 	if (_handle !=NULL)
 	{
@@ -526,6 +539,8 @@ int Hardware::writeString(const char * msg,int size)
 int Hardware::readId(void)
 {
 	char msg[64];
+	
+	cerr<<"Reading ID"<<endl;
 	
 	msg[0]=CMD_READ_ID;
 	int nBytes=-1;
