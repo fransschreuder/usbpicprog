@@ -22,8 +22,6 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 
 	}
 
-	uppProgressBar->SetValue(0);
-
 	fileOpened=false;
 }
 
@@ -313,9 +311,8 @@ bool UppMainWindowCallBack::upp_autodetect()
 /*Connect usbpicprog to the usb port*/
 bool UppMainWindowCallBack::upp_connect()
 {	
-	upp_disconnect();
-	cerr<<"New Hardware!"<<endl;
-	hardware=new Hardware(this);
+	if (hardware != NULL) delete hardware;
+	hardware=new Hardware(this, HW_UPP);
 	if(hardware->connected())
 	{
 		upp_autodetect();
@@ -332,13 +329,15 @@ bool UppMainWindowCallBack::upp_connect()
 	    m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 		SetStatusText(wxT("Usbpicprog not found"),STATUS_FIELD_HARDWARE);
     }
+	
+	upp_update_hardware_type();
     return hardware->connected();
 }
 
 /*Connect bootloader to the usb port*/
 bool UppMainWindowCallBack::upp_connect_boot()
 {
-	upp_disconnect();
+	if (hardware != NULL) delete hardware;
 	hardware=new Hardware(this, HW_BOOTLOADER);
 	if(hardware->connected())
 	{
@@ -355,6 +354,8 @@ bool UppMainWindowCallBack::upp_connect_boot()
 	    m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 		SetStatusText(wxT("Bootloader not found"),STATUS_FIELD_HARDWARE);
     }
+	
+	upp_update_hardware_type();
     return hardware->connected();
 }
 
@@ -420,6 +421,23 @@ void UppMainWindowCallBack::upp_combo_changed()
 	}
 }
 
-
-
+void UppMainWindowCallBack::upp_update_hardware_type()
+{
+	if (hardware != NULL)
+	{
+		if (hardware->getHardwareType() == HW_UPP)
+		{
+			m_radioButton_upp->SetValue(true);
+		}
+		else if (hardware->getHardwareType() == HW_BOOTLOADER)
+		{
+			m_radioButton_boot->SetValue(true);
+		}
+		else
+		{
+			m_radioButton_upp->SetValue(false);
+			m_radioButton_boot->SetValue(false);
+		}
+	}
+}
 

@@ -104,7 +104,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuActions->Append( uppMenuAutoDetect );
 	
 	wxMenuItem* uppMenuConnect;
-	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("&Connect Usbpicprog") ) + wxT('\t') + wxT("CTRL+U"), wxT("Connect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect &Usbpicprog") ) + wxT('\t') + wxT("CTRL+U"), wxT("Connect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnect );
 	
 	wxMenuItem* uppMenuConnectBoot;

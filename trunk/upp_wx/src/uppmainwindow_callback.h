@@ -75,6 +75,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		void upp_help();
 		void upp_about();
 		void upp_combo_changed();
+		void upp_update_hardware_type();
 		ReadHexFile* readHexFile;
 		PicType* picType;
 		Hardware* hardware;

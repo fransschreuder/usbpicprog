@@ -106,9 +106,10 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 
 Hardware::~Hardware()
 {
+	statusCallBack (0);
+	
 	if(_handle)
 	{
-		
 		usb_release_interface(_handle, bInterfaceNumber);
 		usb_close(_handle);
 		_handle=NULL;
