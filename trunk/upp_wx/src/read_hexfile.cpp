@@ -29,25 +29,26 @@ using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
-	
-	codeMemory.resize(0);
-    dataMemory.resize(0);
-	configMemory.resize(0);
-	if((picType==NULL)&&filename==NULL) return; //you need to call open later then
-	else if((picType!=NULL)&&filename==NULL) //fill an empty hexfile with 0xFF
-	{
-        codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
-    	dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
-	    configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
-	    trimData(picType);
-	    return;
-    }
-	else open(picType,filename);
+	if((picType!=NULL)&&(filename==NULL))newFile(picType); 
+	else if((picType!=NULL)&&(filename!=NULL))open(picType,filename);
+	//If both arguments are NULL, you need to call open later
 }
 
 ReadHexFile::~ReadHexFile()
 {
 
+}
+
+/*fill an empty hexfile with 0xFF*/
+int ReadHexFile::newFile(PicType* picType)
+{
+	codeMemory.resize(0);
+	dataMemory.resize(0);
+	configMemory.resize(0);
+	codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
+	dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
+	configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
+	trimData(picType);
 }
 
 int ReadHexFile::open(PicType* picType,const char* filename)

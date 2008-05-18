@@ -52,8 +52,9 @@
 #define BLOCKSIZE_CONFIG 8
 #define BLOCKSIZE_CODE 32
 
-#define READ_ENDPOINT 0x81
-#define WRITE_ENDPOINT 0x01
+#define ENDPOINT 1
+#define READ_ENDPOINT (ENDPOINT|USB_ENDPOINT_IN)
+#define WRITE_ENDPOINT (ENDPOINT|USB_ENDPOINT_OUT)
 
 
 /*Upp package is the data header which is sent to usbpicprog*/
@@ -151,7 +152,7 @@ public:
 	int getFirmwareVersion(char* msg);
 private :
 /*read a string of data from usbpicprog (through interrupt_read)*/
-	int readString(char* msg);
+	int readString(char* msg,int size);
 /*Send a string of data to usbpicprog (through interrupt write)*/	
 	int writeString(const char* msg,int size);
 /*Private function called by autoDetectDevice */	

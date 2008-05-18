@@ -94,7 +94,8 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
 									   wxPoint(50, 50), wxSize(20, 20));
 				// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
-		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}	
+		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}
+		else{uppMainWindow->upp_new();}
 		uppMainWindow->Show(TRUE);
 	}
 	else	//start a command line app

@@ -10,12 +10,11 @@ static const wxChar *FILETYPES = _T(
 /*Do the basic initialization of the main window*/
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
-	readHexFile=NULL;
+
+	readHexFile=new ReadHexFile();
 	picType=NULL;
 	hardware=NULL;
-	
 	upp_connect();
-	upp_new();
 
 	for(int i=0;i<(signed)picType->getPicNames().size();i++)
 	{
@@ -50,8 +49,8 @@ void UppMainWindowCallBack::printHexFile()
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-	if(readHexFile!=NULL)delete readHexFile;
-	readHexFile=new ReadHexFile(picType);
+
+	readHexFile->newFile(picType);
 	fileOpened=false;
 	printHexFile();
 }
@@ -302,7 +301,7 @@ bool UppMainWindowCallBack::upp_autodetect()
 	if (hardware == NULL) return 0;
 	
 	int devId=hardware->autoDetectDevice();
-	cout<<hex<<devId<<endl;
+	cout<<hex<<devId<<dec<<endl;
 	picType=new PicType(devId);
 	hardware->setPicType(picType);
 	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));

@@ -38,6 +38,8 @@ class ReadHexFile
 	public:
 		ReadHexFile(PicType* picType=NULL,const char* filename=NULL);
 		~ReadHexFile();
+		/*fill an empty hexfile with 0xFF*/
+		int newFile(PicType* picType);
 		int open(PicType* picType, const char* filename);
 		int reload(PicType* picType);
 		int saveAs(PicType* picType,const char* filename);

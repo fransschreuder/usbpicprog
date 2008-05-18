@@ -56,8 +56,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
 		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed(); EVENT_FIX};
 		void upp_open_file(wxString path);
-	private:
 		void upp_new();
+	private:
 		void upp_open();
 		void upp_refresh();
 		void upp_save();

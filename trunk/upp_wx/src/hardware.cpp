@@ -38,6 +38,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	ptCallBack=CB;
 	usb_find_busses();
 	usb_find_devices();
+//	usb_debug=10;
 	
 	while (hwtype > -1)
 	{
@@ -88,6 +89,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	
 	if(_handle!=NULL)
 	{
+
         struct usb_config_descriptor *config = dev->config; 
         struct usb_interface *interface = config->interface;
         struct usb_interface_descriptor *altsetting = interface->altsetting;
@@ -95,9 +97,10 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		
 		if (usb_set_configuration(_handle, config->iConfiguration) < 0) 
 			cerr<<"Couldn't set configuration"<<endl;
-		
+#ifdef _WXMAC_
 		if (usb_claim_interface(_handle, bInterfaceNumber) < 0)
 			cerr<<"Couldn't claim interface"<<endl;
+#endif		
 	}
 }
 
@@ -135,7 +138,7 @@ int Hardware::setPicType(PicType* picType)
 		{
 			return 0;
 		}
-		nBytes = readString(msg);
+		nBytes = readString(msg,1);
 
 		if (nBytes < 0 )
 		{
@@ -167,7 +170,7 @@ int Hardware::bulkErase(void)
 		{
 			return 0;
 		}
-		nBytes = readString(msg);
+		nBytes = readString(msg,1);
 
 		if (nBytes < 0 )
 		{
@@ -231,6 +234,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 	int blocktype;
 	if (_handle !=NULL)
 	{
+		nBytes=0;
 		for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
 		{
 			statusCallBack ((blockcounter*100)/((signed)hexData->getCodeMemory().size()));
@@ -304,6 +308,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 	statusCallBack (0);
 	if (_handle !=NULL)
 	{
+		nBytes=0;
 		for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
 		{
 			statusCallBack ((blockcounter*100)/((signed)hexData->getDataMemory().size()));
@@ -375,6 +380,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 	statusCallBack (0);
 	if (_handle !=NULL)
 	{
+		nBytes=0;
 		for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
 		{
 			statusCallBack ((blockcounter*100)/((signed)hexData->getConfigMemory().size()));
@@ -534,7 +540,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			{
 				return -1;
 			}
-			nBytes = readString(msg);
+			nBytes = readString(msg,64);
 			
 			if (nBytes < 0 )
 			{
@@ -563,7 +569,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			{
 				return -1;
 			}
-			nBytes = readString(msg);
+			nBytes = readString(msg,64);
 			
 			if (nBytes < 0 )
 			{
@@ -581,14 +587,13 @@ int Hardware::getFirmwareVersion(char* msg)
 }
 
 /*read a string of data from usbpicprog (through interrupt_read)*/
-int Hardware::readString(char* msg)
+int Hardware::readString(char* msg,int size)
 {
 	if (_handle == NULL) return -1;
-	
-	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,64,5000);
+	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
 		if (nBytes < 0 )
 		{
-			cerr<<"Usb Error"<<endl;
+			cerr<<"Usb Error while reading: "<<nBytes<<endl;
 			return -1;
 		}
 		return nBytes;
@@ -605,10 +610,8 @@ int Hardware::writeString(const char * msg,int size)
 		//cout<<endl;
 
 		nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,5000);
-		
 		if (nBytes < size )
 			cerr<<"Usb Error while writing to device: "<<nBytes<<" bytes"<<endl;
-
 	}
 	else
 	{
@@ -634,7 +637,7 @@ int Hardware::readId(void)
 		{
 			return -1;
 		}
-		nBytes = readString(msg);
+		nBytes = readString(msg,2);
 			
 		if (nBytes < 0 )
 		{
@@ -672,7 +675,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			return nBytes;
 		}
 			
-		nBytes = readString(msg);
+		nBytes = readString(msg,size);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -699,7 +702,7 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 		{
 			return nBytes;
 		}
-		nBytes = readString(resp_msg);
+		nBytes = readString(resp_msg,1);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
@@ -728,7 +731,7 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 			return nBytes;
 		}
 			
-		nBytes = readString(resp_msg);
+		nBytes = readString(resp_msg,1);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
@@ -756,7 +759,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 			return nBytes;
 		}
 			
-		nBytes = readString(msg);
+		nBytes = readString(msg,size);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -785,7 +788,7 @@ int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 			return nBytes;
 		}
 			
-		nBytes = readString(resp_msg);
+		nBytes = readString(resp_msg,1);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
