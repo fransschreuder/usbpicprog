@@ -26,29 +26,64 @@ using namespace std;
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points 
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
-Hardware::Hardware(void* CB) 
+Hardware::Hardware(void* CB, HardwareType SetHardware)
 {
-	struct usb_bus *bus;
-	struct usb_device *dev;
+	struct usb_bus *bus=NULL;
+	struct usb_device *dev=NULL;
+	int hwtype = SetHardware;
+	
+	_handle=NULL;
+	
 	usb_init();
 	ptCallBack=CB;
 	usb_find_busses();
 	usb_find_devices();
 	
-	for (bus=usb_get_busses();bus;bus=bus->next)
+	while (hwtype > -1)
 	{
-		for (dev=bus->devices;dev;dev=dev->next)
+		for (bus=usb_get_busses();bus;bus=bus->next)
 		{
-			
-			_handle = usb_open(dev);
-			if (!_handle)continue; //failed to open this device, choose the next one
-			if ((dev->descriptor.idVendor == VENDOR) && (dev->descriptor.idProduct == PRODUCT) )
-				break; //found usbpicprog, exit the for loop
-			usb_close(_handle);
-			_handle=NULL;
-		}
+			for (dev=bus->devices;dev;dev=dev->next)
+			{
+				
+				_handle = usb_open(dev);
+				if (!_handle)continue; //failed to open this device, choose the next one
+				if (hwtype == HW_UPP)
+				{
+					if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
+						break; //found usbpicprog, exit the for loop
+				}
+				else
+				{
+					if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
+						break; //found usbpicprog, exit the for loop
+				}
+				usb_close(_handle);
+				_handle=NULL;
+			}
 			if(_handle!=NULL)	//successfully initialized? don't try any other buses
 				break;
+		}
+		
+		if(_handle==NULL)
+		{
+			hwtype++;
+			if (hwtype >= HARDWARETYPE_NUM)
+			{
+				hwtype = 0;
+			}
+			
+			if (hwtype == SetHardware)
+			{
+				CurrentHardware = (HardwareType)hwtype;
+				hwtype = -1;
+			}
+		}
+		else
+		{
+			CurrentHardware = (HardwareType)hwtype;
+			hwtype = -1;
+		}
 	}
 	
 	if(_handle!=NULL)
@@ -56,28 +91,39 @@ Hardware::Hardware(void* CB)
         struct usb_config_descriptor *config = dev->config; 
         struct usb_interface *interface = config->interface;
         struct usb_interface_descriptor *altsetting = interface->altsetting;
+		bInterfaceNumber = altsetting->bInterfaceNumber;
 		
 		if (usb_set_configuration(_handle, config->iConfiguration) < 0) 
 			cerr<<"Couldn't set configuration"<<endl;
 		
-		if (usb_claim_interface(_handle, altsetting->bInterfaceNumber) < 0)
+		if (usb_claim_interface(_handle, bInterfaceNumber) < 0)
 			cerr<<"Couldn't claim interface"<<endl;
 	}
 }
 
 Hardware::~Hardware()
 {
-	if(_handle!=NULL)
+	if(_handle)
 	{
+		
+		usb_release_interface(_handle, bInterfaceNumber);
 		usb_close(_handle);
 		_handle=NULL;
 	}
+}
+
+HardwareType Hardware::getHardwareType(void)
+{
+	return CurrentHardware;
 }
 
 /*give the hardware the command to switch to a certain pic algorithm*/
 int Hardware::setPicType(PicType* picType)
 {
 	char msg[64];
+	
+	if (CurrentHardware == HW_BOOTLOADER) return 0;
+	
 	statusCallBack (0);
 	msg[0]=CMD_SET_PICTYPE;
 	msg[1]=picType->getCurrentPic().picFamily;
@@ -461,6 +507,7 @@ VerifyResult Hardware::blankCheck(PicType *picType)
  */
 int Hardware::autoDetectDevice(void)
 {
+	if (CurrentHardware == HW_BOOTLOADER) return 0;
 	return readId();
 }
 
@@ -476,32 +523,68 @@ bool Hardware::connected(void)
 /*Return a string containing the firmware version of usbpicprog*/
 int Hardware::getFirmwareVersion(char* msg)
 {
-	msg[0]=CMD_FIRMWARE_VERSION;
-	int nBytes=-1;
-	statusCallBack (0);
-	if (_handle !=NULL)
+	if (CurrentHardware == HW_UPP)
 	{
-		if(writeString(msg,1)<0)
+		msg[0]=CMD_FIRMWARE_VERSION;
+		int nBytes=-1;
+		statusCallBack (0);
+		if (_handle !=NULL)
 		{
-			return -1;
+			if(writeString(msg,1)<0)
+			{
+				return -1;
+			}
+			nBytes = readString(msg);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			else
+			{
+				statusCallBack (100);
+			}
 		}
-		nBytes = readString(msg);
-
-		if (nBytes < 0 )
+		return nBytes;
+	}
+	else
+	{
+		msg[0]=0;
+		msg[1]=0;
+		msg[2]=0;
+		msg[3]=0;
+		msg[4]=0;
+		
+		int nBytes=-1;
+		statusCallBack (0);
+		if (_handle !=NULL)
 		{
-			return nBytes;
-		}
-		else
-		{
-			statusCallBack (100);
+			if(writeString(msg,5)<0)
+			{
+				return -1;
+			}
+			nBytes = readString(msg);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			else
+			{
+				statusCallBack (100);
+				sprintf(msg, "Bootloader v%d.%d", msg[3], msg[2]);
+						
+				return nBytes;
+			}
 		}
 	}
-	return nBytes;
 }
 
 /*read a string of data from usbpicprog (through interrupt_read)*/
 int Hardware::readString(char* msg)
 {
+	if (_handle == NULL) return -1;
+	
 	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,64,5000);
 		if (nBytes < 0 )
 		{

@@ -26,6 +26,7 @@ using namespace std;
 #include <wx/frame.h>
 #include <wx/artprov.h>
 #include <wx/gauge.h>
+#include <wx/radiobut.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -59,6 +60,8 @@ class UppMainWindow : public wxFrame
 		wxToolBar* m_toolBar1;
 		wxComboBox* m_comboBox1;
 		wxGauge* uppProgressBar;
+		wxRadioButton* m_radioButton_upp;
+		wxRadioButton* m_radioButton_boot;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void on_new( wxCommandEvent& event ){ event.Skip(); }
@@ -74,6 +77,7 @@ class UppMainWindow : public wxFrame
 		virtual void on_blankcheck( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_autodetect( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_connect( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_connect_boot( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_disconnect( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }

@@ -23,8 +23,12 @@
 #include <usb.h>
 #include <iostream>
 //
-#define VENDOR 0x04D8
-#define PRODUCT 0x000E
+#define UPP_VENDOR 0x04D8
+#define UPP_PRODUCT 0x000E
+
+#define BOOTLOADER_VENDOR 0x04D8
+#define BOOTLOADER_PRODUCT 0x000B
+
 #include "read_hexfile.h"
 #include "pictype.h"
 
@@ -94,6 +98,14 @@ typedef struct _VerifyResult
     int Expected;
 }VerifyResult;
 
+typedef enum _HardwareType
+{
+    HW_UPP=0,
+    HW_BOOTLOADER=1
+}HardwareType;
+
+#define HARDWARETYPE_NUM 2
+
 
 class Hardware
 {
@@ -101,8 +113,10 @@ public:
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
-	Hardware(void* CB=NULL);
+	Hardware(void* CB=NULL, HardwareType SetHardware=HW_UPP);	
 	~Hardware();
+/* Get the hardware type, because we autodetect hardware if the type given through SetHardware is not detected */
+	HardwareType getHardwareType(void);
 /*give the hardware the command to switch to a certain pic algorithm*/	
 	int setPicType(PicType* picType);
 /*Erase all the contents (code, data and config) of the pic*/
@@ -129,6 +143,8 @@ public:
 	 PicType* picType=new PicType(devId);
 	 hardware->setPicType(picType); */	
 	int autoDetectDevice(void);
+	
+	int myTest;
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/	
 	bool connected(void);	
 /*Return a string containing the firmware version of usbpicprog*/
@@ -158,5 +174,9 @@ private :
 	usb_dev_handle	*_handle;	
 /*Pointer to the class UppMainWindowCallBack in order to call back the statusbar*/	
 	void* ptCallBack;
+	
+	int bInterfaceNumber;
+	
+	HardwareType CurrentHardware;
 };
 #endif //HARDWARE_H

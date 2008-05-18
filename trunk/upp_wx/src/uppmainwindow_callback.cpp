@@ -10,6 +10,10 @@ static const wxChar *FILETYPES = _T(
 /*Do the basic initialization of the main window*/
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
 {
+	readHexFile=NULL;
+	picType=NULL;
+	hardware=NULL;
+	
 	upp_connect();
 	upp_new();
 
@@ -46,11 +50,7 @@ void UppMainWindowCallBack::printHexFile()
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-	//if(readHexFile!=NULL)delete readHexFile;
-	// FIXME!!!!
-	// results in crash on mac, even with the NULL check
-	// seems it works this way too, problem is that we now have a memory leak - Jan Paul (Gluggie)
-
+	if(readHexFile!=NULL)delete readHexFile;
 	readHexFile=new ReadHexFile(picType);
 	fileOpened=false;
 	printHexFile();
@@ -145,6 +145,8 @@ void UppMainWindowCallBack::upp_exit()
 /*Write everything to the device*/
 void UppMainWindowCallBack::upp_program()
 {
+	if (hardware == NULL) return;
+	
 	if(hardware->writeCode(readHexFile,picType)<0)
 	{
         SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
@@ -168,6 +170,8 @@ void UppMainWindowCallBack::upp_program()
 /*read everything from the device*/
 void UppMainWindowCallBack::upp_read()
 {
+	if (hardware == NULL) return;
+	
 	if(hardware->readCode(readHexFile,picType)<0)
 	{
         SetStatusText(wxT("Error reading code memory"),STATUS_FIELD_OTHER);
@@ -192,6 +196,8 @@ void UppMainWindowCallBack::upp_read()
 /*verify the device with the open hexfile*/
 void UppMainWindowCallBack::upp_verify()
 {
+	if (hardware == NULL) return;
+	
     wxString verifyText;
     string typeText;
     VerifyResult res=hardware->verify(readHexFile,picType);
@@ -235,6 +241,8 @@ void UppMainWindowCallBack::upp_verify()
 /*perform a bulk-erase on the current PIC*/
 void UppMainWindowCallBack::upp_erase()
 {
+	if (hardware == NULL) return;
+	
 	if(hardware->bulkErase()<0)
 	{
         SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
@@ -246,6 +254,8 @@ void UppMainWindowCallBack::upp_erase()
 /*Check if the device is erased successfully*/
 void UppMainWindowCallBack::upp_blankcheck()
 {
+	if (hardware == NULL) return;
+	
     wxString verifyText;
     string typeText;
     VerifyResult res=hardware->blankCheck(picType);
@@ -289,7 +299,9 @@ void UppMainWindowCallBack::upp_blankcheck()
 /*Detect which PIC is connected and select it in the combobox and the hardware*/
 bool UppMainWindowCallBack::upp_autodetect()
 {
-    int devId=hardware->autoDetectDevice();
+	if (hardware == NULL) return 0;
+	
+	int devId=hardware->autoDetectDevice();
 	cout<<hex<<devId<<endl;
 	picType=new PicType(devId);
 	hardware->setPicType(picType);
@@ -301,19 +313,18 @@ bool UppMainWindowCallBack::upp_autodetect()
 
 /*Connect usbpicprog to the usb port*/
 bool UppMainWindowCallBack::upp_connect()
-{
+{	
+	upp_disconnect();
+	cerr<<"New Hardware!"<<endl;
 	hardware=new Hardware(this);
 	if(hardware->connected())
 	{
-		cout<<0<<endl;
 		upp_autodetect();
-		cout<<1<<endl;
 		char msg[64];
 		if(hardware->getFirmwareVersion(msg)<0)
             SetStatusText(wxT("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
         else
     		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
-		cout<<2<<endl;
     }
 	else
 	{
@@ -323,21 +334,50 @@ bool UppMainWindowCallBack::upp_connect()
 		SetStatusText(wxT("Usbpicprog not found"),STATUS_FIELD_HARDWARE);
     }
     return hardware->connected();
+}
 
+/*Connect bootloader to the usb port*/
+bool UppMainWindowCallBack::upp_connect_boot()
+{
+	upp_disconnect();
+	hardware=new Hardware(this, HW_BOOTLOADER);
+	if(hardware->connected())
+	{
+		char msg[64];
+		if(hardware->getFirmwareVersion(msg)<0)
+            SetStatusText(wxT("Unable to read bootloader version"),STATUS_FIELD_HARDWARE);
+        else
+    		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
+    }
+	else
+	{
+     	picType=new PicType(0);
+    	hardware->setPicType(picType);
+	    m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
+		SetStatusText(wxT("Bootloader not found"),STATUS_FIELD_HARDWARE);
+    }
+    return hardware->connected();
 }
 
 /*disconnect the hardware*/
 void UppMainWindowCallBack::upp_disconnect()
 {
-	if(hardware->connected())
-	   {
-		   delete hardware;
-		   SetStatusText(wxT("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
-	   }
-	   else
-	   {
-		   SetStatusText(wxT("Already disconnected"),STATUS_FIELD_HARDWARE);
-	   }
+	if(hardware != NULL)
+	{
+		if (hardware->connected())
+		{
+			delete hardware;
+			SetStatusText(wxT("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);	
+		}
+		else
+		{
+			SetStatusText(wxT("Already disconnected"),STATUS_FIELD_HARDWARE);
+		}
+	}
+	else
+	{
+		SetStatusText(wxT("Already disconnected"),STATUS_FIELD_HARDWARE);
+	}
 }
 
 /*load a browser with the usbpicprog website*/
@@ -373,9 +413,12 @@ void UppMainWindowCallBack::upp_about()
 /*if the combo changed, also change it in the hardware*/
 void UppMainWindowCallBack::upp_combo_changed()
 {
+	if (hardware != NULL)
+	{
 		picType=new PicType(string(m_comboBox1->GetValue().mb_str(wxConvUTF8)));
 		hardware->setPicType(picType);
     	upp_new();
+	}
 }
 
 

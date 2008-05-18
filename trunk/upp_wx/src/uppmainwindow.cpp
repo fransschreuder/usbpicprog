@@ -104,8 +104,12 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuActions->Append( uppMenuAutoDetect );
 	
 	wxMenuItem* uppMenuConnect;
-	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("&Connect") ) , wxT("Connect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("&Connect Usbpicprog") ) + wxT('\t') + wxT("CTRL+U"), wxT("Connect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnect );
+	
+	wxMenuItem* uppMenuConnectBoot;
+	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect &Bootloader") ) + wxT('\t') + wxT("CTRL+B") , wxT("Connect Bootloader"), wxITEM_NORMAL );
+	uppMenuActions->Append( uppMenuConnectBoot );
 	
 	wxMenuItem* uppMenuDisConnect;
 	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( wxT("&Disconnect") ) , wxT("Disconnect Usbpicprog"), wxITEM_NORMAL );
@@ -157,6 +161,13 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1->AddSeparator();
 	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
 	m_toolBar1->AddControl( m_comboBox1 );
+	
+	m_toolBar1->AddSeparator();
+	m_radioButton_upp = new wxRadioButton( m_toolBar1, wxID_ANY, wxT("Usbpicprog"), wxDefaultPosition, wxDefaultSize, 0);
+	m_toolBar1->AddControl(m_radioButton_upp);
+	m_radioButton_boot = new wxRadioButton( m_toolBar1, wxID_ANY, wxT("Bootloader"), wxDefaultPosition, wxDefaultSize, 0);
+	m_toolBar1->AddControl(m_radioButton_boot);
+	
 	m_toolBar1->Realize();
 
 	#ifdef __WXMAC__
@@ -180,11 +191,14 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( uppMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
 	this->Connect( uppMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
 	this->Connect( uppMenuConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+	this->Connect( uppMenuConnectBoot->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
 	this->Connect( uppMenuDisConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 	this->Connect( uppMenuItemHelp->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
 	
 	m_comboBox1->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
+	m_radioButton_upp->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ), NULL, this );
+	m_radioButton_boot->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ), NULL, this );
 	
 	this->SetSize(800,600);
 }
@@ -209,9 +223,13 @@ UppMainWindow::~UppMainWindow()
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
 	m_comboBox1->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
+	m_radioButton_upp->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ), NULL, this );
+	m_radioButton_boot->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ), NULL, this );
+	
 	delete m_toolBar1;
 }

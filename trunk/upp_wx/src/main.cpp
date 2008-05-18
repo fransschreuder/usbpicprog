@@ -39,10 +39,9 @@ bool UsbPicProg::OnInit()
 /*Called by WxWidgets to clean up some stuff when the program exits*/
 int UsbPicProg::OnExit()
 {
-	//delete readHexFile;
-	//delete picType;
-	//delete hardware;
-	//error on mac, yet again
+	if (readHexFile != NULL) delete readHexFile;
+	if (picType != NULL) delete picType;
+	if (hardware != NULL) delete hardware;
 	return 0;
 }
  
@@ -69,7 +68,10 @@ by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-
+	readHexFile = NULL;
+	picType = NULL;
+	hardware = NULL;
+	
     #ifndef UPP_VERSION
 	wxString versionString=wxString(wxT("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
 	#else
