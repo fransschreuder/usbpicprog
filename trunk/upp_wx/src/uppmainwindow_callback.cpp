@@ -318,7 +318,7 @@ bool UppMainWindowCallBack::upp_connect()
 		upp_autodetect();
 		char msg[64];
 		if(hardware->getFirmwareVersion(msg)<0)
-            SetStatusText(wxT("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
+            SetStatusText(wxT("Unable to read version"),STATUS_FIELD_HARDWARE);
         else
     		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
     }
@@ -341,9 +341,10 @@ bool UppMainWindowCallBack::upp_connect_boot()
 	hardware=new Hardware(this, HW_BOOTLOADER);
 	if(hardware->connected())
 	{
+		upp_autodetect();
 		char msg[64];
 		if(hardware->getFirmwareVersion(msg)<0)
-            SetStatusText(wxT("Unable to read bootloader version"),STATUS_FIELD_HARDWARE);
+            SetStatusText(wxT("Unable to read version"),STATUS_FIELD_HARDWARE);
         else
     		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
     }
@@ -367,6 +368,7 @@ void UppMainWindowCallBack::upp_disconnect()
 		if (hardware->connected())
 		{
 			delete hardware;
+			hardware = NULL;
 			SetStatusText(wxT("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);	
 		}
 		else
@@ -378,6 +380,8 @@ void UppMainWindowCallBack::upp_disconnect()
 	{
 		SetStatusText(wxT("Already disconnected"),STATUS_FIELD_HARDWARE);
 	}
+	
+	upp_update_hardware_type();
 }
 
 /*load a browser with the usbpicprog website*/
@@ -423,6 +427,9 @@ void UppMainWindowCallBack::upp_combo_changed()
 
 void UppMainWindowCallBack::upp_update_hardware_type()
 {
+	m_radioButton_upp->SetValue(false);
+	m_radioButton_boot->SetValue(false);
+	
 	if (hardware != NULL)
 	{
 		if (hardware->getHardwareType() == HW_UPP)
@@ -432,11 +439,6 @@ void UppMainWindowCallBack::upp_update_hardware_type()
 		else if (hardware->getHardwareType() == HW_BOOTLOADER)
 		{
 			m_radioButton_boot->SetValue(true);
-		}
-		else
-		{
-			m_radioButton_upp->SetValue(false);
-			m_radioButton_boot->SetValue(false);
 		}
 	}
 }

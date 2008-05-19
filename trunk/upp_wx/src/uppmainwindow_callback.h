@@ -49,8 +49,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		void on_erase( wxCommandEvent& event ){upp_erase(); EVENT_FIX};
 		void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX};
 		void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX};
-		void on_connect( wxCommandEvent& event ){upp_connect(); EVENT_FIX};
-		void on_connect_boot( wxCommandEvent& event ){upp_connect_boot(); EVENT_FIX};
+		void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
+		void on_connect_boot( wxCommandEvent& event){upp_connect_boot(); EVENT_FIX};
 		void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
 		void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
 		void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};

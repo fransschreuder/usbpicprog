@@ -101,11 +101,12 @@ typedef struct _VerifyResult
 
 typedef enum _HardwareType
 {
-    HW_UPP=0,
-    HW_BOOTLOADER=1
+	HW_NONE=0,
+    HW_UPP,
+    HW_BOOTLOADER
 }HardwareType;
 
-#define HARDWARETYPE_NUM 2
+#define HARDWARETYPE_NUM 3
 
 
 class Hardware

@@ -17,6 +17,7 @@ wxID_ERASE,
 wxID_BLANKCHECK,
 wxID_AUTODETECT,
 wxID_CONNECT ,
+wxID_CONNECT_BOOT,
 wxID_DISCONNECT 
 };
 
@@ -108,7 +109,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuActions->Append( uppMenuConnect );
 	
 	wxMenuItem* uppMenuConnectBoot;
-	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect &Bootloader") ) + wxT('\t') + wxT("CTRL+B") , wxT("Connect Bootloader"), wxITEM_NORMAL );
+	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT_BOOT, wxString( wxT("Connect &Bootloader") ) + wxT('\t') + wxT("CTRL+B") , wxT("Connect Bootloader"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnectBoot );
 	
 	wxMenuItem* uppMenuDisConnect;

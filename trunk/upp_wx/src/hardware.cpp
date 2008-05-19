@@ -76,7 +76,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			
 			if (hwtype == SetHardware)
 			{
-				CurrentHardware = (HardwareType)hwtype;
+				CurrentHardware = HW_NONE;
 				hwtype = -1;
 			}
 		}
@@ -97,7 +97,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		
 		if (usb_set_configuration(_handle, config->iConfiguration) < 0) 
 			cerr<<"Couldn't set configuration"<<endl;
-#ifdef _WXMAC_
+#ifdef __WXMAC__
 		if (usb_claim_interface(_handle, bInterfaceNumber) < 0)
 			cerr<<"Couldn't claim interface"<<endl;
 #endif		
