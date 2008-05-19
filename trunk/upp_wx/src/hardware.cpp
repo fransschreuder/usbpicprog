@@ -593,6 +593,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			}
 		}
 	}
+	return -1;
 }
 
 /*read a string of data from usbpicprog (through interrupt_read)*/

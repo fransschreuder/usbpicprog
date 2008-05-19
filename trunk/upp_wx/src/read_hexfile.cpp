@@ -49,6 +49,7 @@ int ReadHexFile::newFile(PicType* picType)
 	dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
 	configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
 	trimData(picType);
+	return 0;
 }
 
 int ReadHexFile::open(PicType* picType,const char* filename)
