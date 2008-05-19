@@ -70,7 +70,7 @@ typedef union _UppPackage
 		unsigned blocktype:8; //The blocktype can be middle, first or last (or first|last)
 		char dataField[32];
 	}fields;
-	char data[37];
+	char data[38];
 }UppPackage;
 
 typedef union _BootloaderPackage
@@ -79,12 +79,12 @@ typedef union _BootloaderPackage
 	{
 		unsigned cmd:8;   //one of the CMD_ defines above
 		unsigned size:8;  //size of the datafield
-		unsigned addrL:8; //the address is devided in 3 bytes, Upper, High and Low
+		unsigned addrL:8;                   //Little-indian order
 		unsigned addrH:8;
 		unsigned addrU:8;
 		unsigned char dataField[32];
 	}fields;
-	char data[36];
+	char data[37];
 }BootloaderPackage;
 
 

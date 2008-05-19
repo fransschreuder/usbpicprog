@@ -193,7 +193,7 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 	int nBytes;
 	nBytes=-1;
 	vector<int> mem;
-	mem.resize(picType->getCurrentPic().CodeSize);
+	mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
 	char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
 	statusCallBack (0);
@@ -211,16 +211,23 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 			{
 				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
 				{
-					mem[blockcounter+i]=(dataBlock[i]&0xFF);
+					if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
+					{
+						cerr<<(int)(unsigned char)dataBlock[i]<<endl;
+					}
+					mem[blockcounter+i]=((unsigned char)dataBlock[i]);
 				}
 				else
 				{
 					cerr<<"Trying to read memory outside Code area"<<endl;
-					return -1;
+					//return -1;
 				}
 			}
 				
-			
+			if (dataBlock[BLOCKSIZE_CODE-1] == 0)
+			{
+				blockcounter-=BLOCKSIZE_CODE-1;
+			}
 		}
 		hexData->putCodeMemory(mem);
 	}
@@ -668,6 +675,7 @@ int Hardware::readId(void)
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
 	int nBytes = -1;
+	unsigned int i, j;
 	
 	if (_handle !=NULL)
 	{
@@ -677,10 +685,10 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			
 			uppPackage.fields.cmd=CMD_READ_CODE;
 			uppPackage.fields.size=size;
-			uppPackage.fields.addrU=(char)((address>>16)&0xFF);
-			uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-			uppPackage.fields.addrL=(char)(address&0xFF);
-			uppPackage.fields.blocktype=(char)lastblock;
+			uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+			uppPackage.fields.blocktype=(unsigned char)lastblock;
 			nBytes = writeString(uppPackage.data,6);
 			
 			if (nBytes < 0 )
@@ -696,9 +704,9 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			
 			bootloaderPackage.fields.cmd=0x01;
 			bootloaderPackage.fields.size=size;
-			bootloaderPackage.fields.addrU=(char)((address>>16)&0xFF);
-			bootloaderPackage.fields.addrH=(char)((address>>8)&0xFF);
-			bootloaderPackage.fields.addrL=(char)(address&0xFF);
+			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
 			
 			nBytes = writeString(bootloaderPackage.data,5);
 			
