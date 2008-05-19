@@ -73,6 +73,20 @@ typedef union _UppPackage
 	char data[37];
 }UppPackage;
 
+typedef union _BootloaderPackage
+{
+	struct _fields
+	{
+		unsigned cmd:8;   //one of the CMD_ defines above
+		unsigned size:8;  //size of the datafield
+		unsigned addrL:8; //the address is devided in 3 bytes, Upper, High and Low
+		unsigned addrH:8;
+		unsigned addrU:8;
+		unsigned char dataField[32];
+	}fields;
+	char data[36];
+}BootloaderPackage;
+
 
 
 typedef enum _VRResult

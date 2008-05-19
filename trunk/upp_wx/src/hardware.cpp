@@ -199,18 +199,19 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 	statusCallBack (0);
 	if (_handle !=NULL)
 	{
+		nBytes=0;
 		for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_CODE)
 		{
 			statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().CodeSize));
 			blocktype=BLOCKTYPE_MIDDLE;
-			if(blockcounter=0)blocktype|=BLOCKTYPE_FIRST;
+			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			nBytes+=readCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
 			for(int i=0;i<BLOCKSIZE_CODE;i++)
 			{
 				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
 				{
-					mem[blockcounter+i]=dataBlock[i];
+					mem[blockcounter+i]=(dataBlock[i]&0xFF);
 				}
 				else
 				{
@@ -339,6 +340,13 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
 	nBytes=-1;
+	
+	if (CurrentHardware == HW_BOOTLOADER)
+	{
+		statusCallBack(100);
+		return 0;
+	}
+	
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().ConfigSize);
 	char dataBlock[BLOCKSIZE_CONFIG];
@@ -658,25 +666,54 @@ int Hardware::readId(void)
 /*private function to read one block of code memory*/
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
-	UppPackage uppPackage;
+	int nBytes = -1;
+	
 	if (_handle !=NULL)
 	{
-		uppPackage.fields.cmd=CMD_READ_CODE;
-		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
-		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(char)(address&0xFF);
-		uppPackage.fields.blocktype=(char)lastblock;
-		
-		
-	    
-		int nBytes = writeString(uppPackage.data,6);
-		if (nBytes < 0 )
+		if (CurrentHardware == HW_UPP)
 		{
-			return nBytes;
-		}
+			UppPackage uppPackage;
 			
-		nBytes = readString(msg,size);
+			uppPackage.fields.cmd=CMD_READ_CODE;
+			uppPackage.fields.size=size;
+			uppPackage.fields.addrU=(char)((address>>16)&0xFF);
+			uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+			uppPackage.fields.addrL=(char)(address&0xFF);
+			uppPackage.fields.blocktype=(char)lastblock;
+			nBytes = writeString(uppPackage.data,6);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			
+			nBytes = readString(msg,size);
+		}
+		else
+		{
+			BootloaderPackage bootloaderPackage;
+			
+			bootloaderPackage.fields.cmd=0x01;
+			bootloaderPackage.fields.size=size;
+			bootloaderPackage.fields.addrU=(char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(char)(address&0xFF);
+			
+			nBytes = writeString(bootloaderPackage.data,5);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			
+			char tmpmsg[size+5];
+			
+			nBytes = readString(tmpmsg,size+5) - 5;
+			
+			strncpy(msg,tmpmsg+5,nBytes);
+		}
+		
+		
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -745,28 +782,59 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 /*private function to read one block of data memory*/
 int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
-	UppPackage uppPackage;
+	int nBytes = -1;
+	
 	if (_handle !=NULL)
 	{
-		uppPackage.fields.cmd=CMD_READ_DATA;
-		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=0;
-		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(char)(address&0xFF);
-		uppPackage.fields.blocktype=(char)lastblock;
-		int nBytes = writeString(uppPackage.data,6);
-		if (nBytes < 0 )
+		if (CurrentHardware == HW_UPP)
 		{
-			return nBytes;
-		}
+			UppPackage uppPackage;
 			
-		nBytes = readString(msg,size);
+			uppPackage.fields.cmd=CMD_READ_DATA;
+			uppPackage.fields.size=size;
+			uppPackage.fields.addrU=(char)((address>>16)&0xFF);
+			uppPackage.fields.addrH=(char)((address>>8)&0xFF);
+			uppPackage.fields.addrL=(char)(address&0xFF);
+			uppPackage.fields.blocktype=(char)lastblock;
+			nBytes = writeString(uppPackage.data,6);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			
+			nBytes = readString(msg,size);
+		}
+		else
+		{
+			BootloaderPackage bootloaderPackage;
+			
+			bootloaderPackage.fields.cmd=0x04;
+			bootloaderPackage.fields.size=size;
+			bootloaderPackage.fields.addrU=(char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(char)(address&0xFF);
+			
+			nBytes = writeString(bootloaderPackage.data,5);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			
+			char tmpmsg[size+5];
+			
+			nBytes = readString(tmpmsg,size+5) - 5;
+			
+			strncpy(msg,tmpmsg+5,nBytes);
+		}
+		
+		
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
 	}
 	else return -1;
-	
 }
 
 /*private function to write one block of data memory*/
