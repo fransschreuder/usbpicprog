@@ -27,7 +27,7 @@ byte old_sw2,old_sw3;
 byte input_buffer[USBGEN_EP_SIZE];
 byte output_buffer[USBGEN_EP_SIZE];
 
-rom char upp_version[]={"UsbPicProg v0.1\r\n"};
+rom char upp_version[]={"UsbPicProg 0.1"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
@@ -149,13 +149,13 @@ void ProcessIO(void)
 	nBytes=USBGenRead((byte*)input_buffer,64);
 	if(nBytes>0)
 	{
-		if((input_buffer[0])==0x10) 
+		if((input_buffer[0])==0x10)  //CMD_BULK_ERASE
 		{
 		output_buffer[0]=bulk_erase(pictype,picvariant);
 		counter=1;
 		//setLeds(0x07);
 		}
-		if((input_buffer[0])==0x20) 
+		if((input_buffer[0])==0x20) //CMD_GET_ID
 		{
 			if(pictype==PIC18)
 			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
@@ -163,7 +163,7 @@ void ProcessIO(void)
 			read_code(pictype,picvariant,0x2006,(char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
 		}
-		if((input_buffer[0])==0x30) 
+		if((input_buffer[0])==0x30) //CMD_WRITE_CODE
 		{
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
@@ -171,7 +171,7 @@ void ProcessIO(void)
 			output_buffer[0]=write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
-		if((input_buffer[0])==0x40) 
+		if((input_buffer[0])==0x40) //CMD_READ_CODE
 		{
 				address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
@@ -180,22 +180,22 @@ void ProcessIO(void)
 				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);
 				counter=input_buffer[1];
 		}
-		if((input_buffer[0])==0x50) 
+		if((input_buffer[0])==0x50) //CMD_WRITE_DATA
 		{
-			intaddress=((unsigned int)input_buffer[2])<<8|
-					((unsigned int)input_buffer[3]);
+			intaddress=((unsigned int)input_buffer[3])<<8|
+					((unsigned int)input_buffer[4]);
 	
-			output_buffer[0]=write_data(pictype,picvariant,intaddress, (char*)(input_buffer+5),input_buffer[1],input_buffer[4]); 
+			output_buffer[0]=write_data(pictype,picvariant,intaddress, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
 			counter=1;
 		}
-		if((input_buffer[0])==0x60) 
+		if((input_buffer[0])==0x60) //CMD_READ_DATA
 		{
-			intaddress=((unsigned int)input_buffer[2])<<8|
-					((unsigned int)input_buffer[3]);
-			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[4]); 
+			intaddress=((unsigned int)input_buffer[3])<<8|
+					((unsigned int)input_buffer[4]);
+			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[5]); 
 			counter=input_buffer[1];
 		}
-		if((input_buffer[0])==0x70)
+		if((input_buffer[0])==0x70) //CMD_WRITE_CONFIG
 		{
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
@@ -203,11 +203,11 @@ void ProcessIO(void)
 			output_buffer[0]=write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
-		if((input_buffer[0])==0x80)
+		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE
 		{
 			set_pictype(input_buffer+1);
 		}
-		if((input_buffer[0])==0x90)
+		if((input_buffer[0])==0x90) //CMD_FIRMWARE_VERSION
 		{
 			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 			counter=18;
@@ -227,20 +227,14 @@ void set_pictype(unsigned char* data)
 {
 	switch(data[0])
 	{
-		case 0:	pictype=PIC16;	break;
-		case 1:	pictype=PIC18;	break;
-		default:pictype=PIC16;	break;
-	}
-	switch(data[1])
-	{
-		case 0:	picvariant=P18F2XXX;break;
-		case 1:	picvariant=P18FXX2; break;
-		case 2:	picvariant=P16F87XA;break;
-		case 3:	picvariant=P16F62XA;break;
-		case 4: picvariant=P16F62X;break;
-		case 5: picvariant=P12F629;break;
-		case 6: picvariant=P12F6XX;break;
-		default: picvariant=P18F2XXX;break;
+		case 0:	picvariant=P18F2XXX;pictype=PIC18;break;
+		case 1:	picvariant=P18FXX2;pictype=PIC18;break;
+		case 2:	picvariant=P16F87XA;pictype=PIC16;break;
+		case 3:	picvariant=P16F62XA;pictype=PIC16;break;
+		case 4: picvariant=P16F62X;pictype=PIC16;break;
+		case 5: picvariant=P12F629;pictype=PIC16;break;
+		case 6: picvariant=P12F6XX;pictype=PIC16;break;
+		default: picvariant=P18F2XXX;pictype=PIC18;break;
 	}	
 }
 
