@@ -23,6 +23,8 @@
 
 using namespace std;
 
+extern int usb_debug;
+#define USB_DEBUG 10
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points 
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
@@ -38,7 +40,10 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	ptCallBack=CB;
 	usb_find_busses();
 	usb_find_devices();
-//	usb_debug=10;
+#ifdef USB_DEBUG
+#warning usb debug enabled
+	usb_debug=USB_DEBUG;
+#endif
 	
 	while (hwtype > -1)
 	{
@@ -611,6 +616,7 @@ int Hardware::readString(char* msg,int size)
 		if (nBytes < 0 )
 		{
 			cerr<<"Usb Error while reading: "<<nBytes<<endl;
+			cerr<<usb_strerror()<<endl;
 			return -1;
 		}
 		return nBytes;
@@ -628,7 +634,10 @@ int Hardware::writeString(const char * msg,int size)
 
 		nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,5000);
 		if (nBytes < size )
+		{
 			cerr<<"Usb Error while writing to device: "<<nBytes<<" bytes"<<endl;
+			cerr<<usb_strerror()<<endl;
+		}
 	}
 	else
 	{
