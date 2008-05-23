@@ -427,18 +427,17 @@ void UppMainWindowCallBack::upp_combo_changed()
 
 void UppMainWindowCallBack::upp_update_hardware_type()
 {
-	m_radioButton_upp->SetValue(false);
-	m_radioButton_boot->SetValue(false);
-	
 	if (hardware != NULL)
 	{
 		if (hardware->getHardwareType() == HW_UPP)
 		{
 			m_radioButton_upp->SetValue(true);
+			m_radioButton_boot->SetValue(false);		
 		}
 		else if (hardware->getHardwareType() == HW_BOOTLOADER)
 		{
 			m_radioButton_boot->SetValue(true);
+			m_radioButton_upp->SetValue(false);
 		}
 	}
 }
