@@ -117,10 +117,10 @@ typedef enum _HardwareType
 {
 	HW_NONE=0,
     HW_UPP,
-    HW_BOOTLOADER
+    HW_BOOTLOADER,
+    HARDWARETYPE_NUM
 }HardwareType;
 
-#define HARDWARETYPE_NUM 3
 
 
 class Hardware
@@ -166,6 +166,7 @@ public:
 /*Return a string containing the firmware version of usbpicprog*/
 	int getFirmwareVersion(char* msg);
 private :
+	void tryToDetachDriver(void);
 /*read a string of data from usbpicprog (through interrupt_read)*/
 	int readString(char* msg,int size);
 /*Send a string of data to usbpicprog (through interrupt write)*/	

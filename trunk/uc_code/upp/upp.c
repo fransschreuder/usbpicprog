@@ -141,9 +141,13 @@ void ProcessIO(void)
     unsigned long address;
     unsigned int intaddress;
 
-    BlinkUSBStatus();
+    
     // User Application USB tasks
-    if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1)) return;
+    if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1))
+    {
+	BlinkUSBStatus();
+    	return;
+    }
 
     
 	nBytes=USBGenRead((byte*)input_buffer,64);
@@ -151,9 +155,9 @@ void ProcessIO(void)
 	{
 		if((input_buffer[0])==0x10)  //CMD_BULK_ERASE
 		{
-		output_buffer[0]=bulk_erase(pictype,picvariant);
-		counter=1;
-		//setLeds(0x07);
+			setLeds(0x01);
+			output_buffer[0]=bulk_erase(pictype,picvariant);
+			counter=1;
 		}
 		if((input_buffer[0])==0x20) //CMD_GET_ID
 		{

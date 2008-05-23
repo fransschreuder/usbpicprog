@@ -69,7 +69,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			if(_handle!=NULL)	//successfully initialized? don't try any other buses
 				break;
 		}
-		
+
 		if(_handle==NULL)
 		{
 			hwtype++;
@@ -90,21 +90,16 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			hwtype = -1;
 		}
 	}
-	
+	tryToDetachDriver();
 	if(_handle!=NULL)
 	{
-
-        struct usb_config_descriptor *config = dev->config; 
-        struct usb_interface *interface = config->interface;
-        struct usb_interface_descriptor *altsetting = interface->altsetting;
-		bInterfaceNumber = altsetting->bInterfaceNumber;
-		
-		if (usb_set_configuration(_handle, config->iConfiguration) < 0) 
+        usb_config_descriptor &config = dev->config[0]; 
+		if (usb_set_configuration(_handle, config.bConfigurationValue) < 0) 
 			cerr<<"Couldn't set configuration"<<endl;
-#ifdef __WXMAC__
-		if (usb_claim_interface(_handle, bInterfaceNumber) < 0)
+	
+		if (usb_claim_interface(_handle, config.interface[0].altsetting[0].bInterfaceNumber) < 0)
 			cerr<<"Couldn't claim interface"<<endl;
-#endif		
+
 	}
 }
 
@@ -123,6 +118,23 @@ Hardware::~Hardware()
 HardwareType Hardware::getHardwareType(void)
 {
 	return CurrentHardware;
+}
+
+void Hardware::tryToDetachDriver()
+{
+  // try to detach an already existing driver... (linux only)
+#if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
+//  log(Log::DebugLevel::Extra, "find if there is already an installed driver");
+  char dname[256] = "";
+  if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+//  log(Log::DebugLevel::Normal, QString("  a driver \"%1\" is already installed...").arg(dname));
+#  if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
+  usb_detach_kernel_driver_np(_handle, bInterfaceNumber);
+ // log(Log::DebugLevel::Normal, "  try to detach it...");
+  if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+ // log(Log::DebugLevel::Normal, "  failed to detach it");
+#  endif
+#endif
 }
 
 /*give the hardware the command to switch to a certain pic algorithm*/
@@ -215,10 +227,10 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 			{
 				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
 				{
-					if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
+					/*if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
 					{
 						cerr<<(int)(unsigned char)dataBlock[i]<<endl;
-					}
+					}*/
 					mem[blockcounter+i]=((unsigned char)dataBlock[i]);
 				}
 				else
@@ -228,10 +240,10 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 				}
 			}
 				
-			if (dataBlock[BLOCKSIZE_CODE-1] == 0)
+			/*if (dataBlock[BLOCKSIZE_CODE-1] == 0)
 			{
 				blockcounter-=BLOCKSIZE_CODE-1;
-			}
+			}*/
 		}
 		hexData->putCodeMemory(mem);
 	}
@@ -377,6 +389,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
 				{
 					mem[blockcounter+i]=dataBlock[i];
+					cerr<<hex<<(int)dataBlock[i]<<" "<<dec;
 				}
 				else
 				{
@@ -387,6 +400,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 		}
 		hexData->putConfigMemory(mem);
 	}
+	cerr<<endl;
 	return nBytes;
 }
 
@@ -628,6 +642,33 @@ int Hardware::writeString(const char * msg,int size)
 	int nBytes=0;
 	if (_handle != NULL)
 	{
+		
+		/*
+		int todo = size;
+		while(1)
+		{
+			int res = 0;
+			//qDebug("write ep=%i todo=%i/%i", ep, todo, size);
+			if ( mode==Interrupt ) res = usb_interrupt_write(_handle, ep, (char *)data + size - todo, todo, 1000);
+			else res = usb_bulk_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
+			//qDebug("res: %i", res);
+			if ( res==todo ) break;
+			if ( uint(time.elapsed())>3000 ) 
+			{ // 3 s
+				if ( res<0 ) setSystemError(i18n("Error sending data (ep=%1 res=%2)").arg(toHexLabel(ep, 2)).arg(res));
+				else log(Log::LineType::Error, i18n("Timeout: only some data sent (%1/%2 bytes).").arg(size-todo).arg(size));
+				return false;
+			}
+			if ( res==0 ) log(Log::DebugLevel::Normal, i18n("Nothing sent: retrying..."));
+			if ( res>0 ) todo -= res;
+			msleep(100);
+	  }
+
+*/
+		
+		
+		
+		
 		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
 		//cout<<endl;
 
