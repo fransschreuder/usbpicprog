@@ -173,19 +173,19 @@ void UppMainWindowCallBack::upp_read()
 	{
         SetStatusText(wxT("Error reading code memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, wxT("Error reading code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+        //return;
     }
 	if(hardware->readData(readHexFile,picType)<0)
 	{
         SetStatusText(wxT("Error reading data memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, wxT("Error reading data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+        //return;
     }
 	if(hardware->readConfig(readHexFile,picType)<0)
 	{
         SetStatusText(wxT("Error reading config memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, wxT("Error reading config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+        //return;
     }
 	printHexFile();
 }
