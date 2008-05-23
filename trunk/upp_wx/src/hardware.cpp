@@ -23,7 +23,6 @@
 
 using namespace std;
 
-extern int usb_debug;
 #define USB_DEBUG 10
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points 
  to the parent UppMainWindowCallBack which is used for updating the progress
@@ -42,7 +41,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	usb_find_devices();
 #ifdef USB_DEBUG
 	cout<<"USB debug enabled, remove #define USB_DEBUG 10 in hardware.cpp to disable it"<<endl; 
-	usb_debug=USB_DEBUG;
+	usb_set_debug(USB_DEBUG);
 #endif
 	
 	while (hwtype > -1)
