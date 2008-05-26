@@ -1,24 +1,26 @@
 #!/bin/sh -e
-#in upp_wx:
 #help2man needs to be edited (change "2>/dev/null" into "2>&1")
-cd deb_package
-if [ -d usr ]
+if [ -d deb_package ]
 then
-	echo usr exists, removing ...
-	rm -rf usr
+	echo Directory deb_package exists, removing ...
+	rm -rf deb_package
 fi
-cd ..
+tar -zxvf deb_package.tar.gz
 ./configure --prefix=$(pwd)/deb_package/usr/local
 make 
 make install
 mkdir deb_package/usr/local/man/
 mkdir deb_package/usr/local/man/man1
+mkdir deb_package/usr/share
+mkdir deb_package/usr/share/pixmaps
+mkdir deb_package/usr/share/applications
+cp icons/usbpicprog.xpm deb_package/usr/share/pixmaps
+cp Usbpicprog.desktop deb_package/usr/share/applications
 help2man deb_package/usr/local/bin/usbpicprog>deb_package/usr/local/man/man1/usbpicprog.1
 gzip --best deb_package/usr/local/man/man1/usbpicprog.1
 gzip --best deb_package/usr/local/doc/usbpicprog/COPYING
 gzip --best deb_package/usr/local/doc/usbpicprog/ChangeLog
 md5deep -r -l usr>deb_package/DEBIAN/md5sums
-dpkg-deb --build deb_package
-mv deb_package.deb usbpicprog0.1.deb
+dpkg-deb --build deb_package usbpicprog0.1.deb
 echo FINISHED
 
