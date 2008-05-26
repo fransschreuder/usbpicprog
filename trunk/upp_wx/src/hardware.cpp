@@ -90,9 +90,9 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			hwtype = -1;
 		}
 	}
-	tryToDetachDriver();
 	if(_handle!=NULL)
 	{
+		tryToDetachDriver();
         usb_config_descriptor &config = dev->config[0]; 
 		if (usb_set_configuration(_handle, config.bConfigurationValue) < 0) 
 			cerr<<"Couldn't set configuration"<<endl;

@@ -82,6 +82,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	 *Else, a command line application is started.						*
 	 *Only the filename may be passed to the gui						*/
 	if(!parser.Found(wxT("h"))&
+	   !parser.Found(wxT("V"))&
 	   !parser.Found(wxT("p"))&
 	   !parser.Found(wxT("s"))&
 	   !parser.Found(wxT("w"))&
@@ -109,6 +110,15 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		  freopen( "CON", "w", stderr );
 		}
 #endif
+		if(parser.Found(wxT("V")))
+		{
+			#ifndef UPP_VERSION
+				cerr<<string("usbpicprog (SVN) ").append(SVN_REVISION)<<endl;
+			#else
+				cerr<<string("usbpicprog ").append(UPP_VERSION)<<endl;
+			#endif
+			return EXIT_SUCCESS;
+		}
 		//command line -s or --silent passed?
 		silent_mode = parser.Found(wxT("s"));	
 		hardware=new Hardware();

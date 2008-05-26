@@ -74,6 +74,7 @@ DECLARE_APP(UsbPicProg)
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
      { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"),    	wxT("displays help on the command line parameters"),wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+	{ wxCMD_LINE_SWITCH, wxT("V"), wxT("version"),    	wxT("displays version information of usbpicprog")},
 	 { wxCMD_LINE_OPTION, wxT("p"), wxT("pictype"), 	wxT("specify the pic type (eg -p=P18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
      { wxCMD_LINE_SWITCH, wxT("s"), wxT("silent"),  	wxT("do not display the hex file") },
 	 { wxCMD_LINE_SWITCH, wxT("w"), wxT("write"),  		wxT("write the device") },

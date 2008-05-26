@@ -8,7 +8,7 @@ then
 	rm -rf usr
 fi
 cd ..
-./configure --prefix=$HOME/usbpicprog/trunk/upp_wx/deb_package/usr/local
+./configure --prefix=$(pwd)/deb_package/usr/local
 make 
 make install
 mkdir deb_package/usr/local/man/
