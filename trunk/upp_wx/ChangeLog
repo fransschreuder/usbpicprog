@@ -1,0 +1,413 @@
+2008-05-23  fransschreuder
+
+	* src/uppmainwindow_callback.cpp: bugfixes
+
+2008-05-23  fransschreuder
+
+	* src/hardware.cpp, src/hardware.h, src/pictype.cpp,
+	  svn_revision.h: fixed usb init
+
+2008-05-23  fransschreuder
+
+	* src/hardware.cpp: in stead of extern int usb_debug,
+	  usb_set_debug(DEBUG_LEVEL) is now used
+
+2008-05-23  fransschreuder
+
+	* src/hardware.cpp, src/uppmainwindow_callback.cpp: some debug info
+
+2008-05-23  fransschreuder
+
+	* src/hardware.cpp: added int usb_debug=10 to enable libusb debug
+	  information
+
+2008-05-20  fransschreuder
+
+	* svn_revision.h: went back to rev 208 with uc_code - that one was
+	  at least working...
+	  Don't worry, not much changed since then.
+
+2008-05-19  gluggie
+
+	* src/hardware.cpp, src/hardware.h: Experimental fixes...
+
+2008-05-19  fransschreuder
+
+	* Makefile.win, src/hardware.cpp, src/read_hexfile.cpp: added
+	  missing returns for some functions
+
+2008-05-19  gluggie
+
+	* src/hardware.cpp, src/hardware.h: Bootloader reading implemented
+
+2008-05-19  gluggie
+
+	* src/hardware.cpp, src/hardware.h, src/uppmainwindow.cpp,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h:
+	  Several interface and hardware fixes
+
+2008-05-18  gluggie
+
+	* src/hardware.cpp, src/uppmainwindow.cpp,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h:
+	  Several more fixes
+
+2008-05-18  fransschreuder
+
+	* src/hardware.cpp, src/hardware.h, src/main.cpp,
+	  src/read_hexfile.cpp, src/read_hexfile.h,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h:
+	  some bugfixes
+
+2008-05-18  gluggie
+
+	* src/hardware.cpp, src/hardware.h, src/main.cpp,
+	  src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  svn_revision.h: Major bugfixes and first implementation of
+	  Bootloader
+
+2008-05-18  gluggie
+
+	* readme-mac.txt: Added readme for mac
+
+2008-05-18  gluggie
+
+	* buildmac.sh, libs/libusb.dylib, mac_copytoapp.sh,
+	  src/uppmainwindow.cpp, svn_revision.h: OS X app now includes
+	  libusb and wxwidgets
+
+2008-05-17  gluggie
+
+	* src/hardware.cpp, svn_revision.h: USB Fix (claim interface)
+
+2008-05-17  gluggie
+
+	* svn_revision.h: Fixes
+
+2008-05-17  gluggie
+
+	* libs, libs/libusb.dylib, mac_copytoapp.sh, src/hardware.cpp,
+	  svn_revision.h: Fixes
+
+2008-05-16  fransschreuder
+
+	* src/hardware.cpp, src/uppmainwindow_callback.cpp: bugfixes
+
+2008-05-16  fransschreuder
+
+	* src/hardware.cpp, src/hardware.h, src/uppmainwindow_callback.cpp,
+	  svn_revision.h: fixed stack smashing bug
+
+2008-05-16  fransschreuder
+
+	* icons/refresh.xpm: static char gives problems in new gcc, so made
+	  it const char in
+	  refres.xpm
+
+2008-05-16  gluggie
+
+	* icons/refresh.xpm, src/uppmainwindow.cpp: Bugfixes
+
+2008-05-15  gluggie
+
+	* src/Info.plist, src/include_icons.h, src/main.cpp, src/main.h,
+	  src/read_hexfile.cpp, src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  svn_revision.h: Added drag-and-drop and doubleclick of hex files
+	  in Mac OS X, improved wxWidgets 2.9 compatibility and fixed some
+	  minor bugs
+
+2008-05-14  gluggie
+
+	* icons/usbpicprog.icns, mac_copytoapp.sh, src/Info.plist,
+	  src/uppmainwindow_callback.h: Fixed event handling and added
+	  high-res icons for OSX
+
+2008-05-14  gluggie
+
+	* src/uppmainwindow.cpp, src/uppmainwindow.h: Minor fixes
+
+2008-05-14  gluggie
+
+	* src/main.cpp, src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h:
+	  Several fixes for mac and GUI polishing
+
+2008-05-14  gluggie
+
+	* buildmac.sh, mac_copytoapp.sh, src/read_hexfile.cpp,
+	  src/uppmainwindow_callback.cpp, svn_revision.h: Several fixes for
+	  Mac OS X
+
+2008-05-14  fransschreuder
+
+	* src/uppmainwindow_callback.cpp:
+
+2008-05-14  gluggie
+
+	* COPYING, INSTALL, buildmac.sh, install-sh, missing,
+	  src/Info.plist, svn_revision.h: Mac installer added.
+
+2008-05-14  fransschreuder
+
+	* src/read_hexfile.cpp: re-inserted resize(0) in readHexFile
+	  (crashed on mac)
+
+2008-05-14  fransschreuder
+
+	* Makefile.win, src/uppmainwindow_callback.cpp: fixed some things
+	  for mac
+
+2008-05-14  fransschreuder
+
+	* src/uppmainwindow_callback.cpp: removed SetFocus again
+
+2008-05-14  fransschreuder
+
+	* src/uppmainwindow_callback.cpp, svn_revision.h: inserted SetFocus
+	  (would this help for the mac?)
+
+2008-05-14  fransschreuder
+
+	* src/main.cpp, src/uppmainwindow_callback.cpp: nothing really...
+
+2008-05-14  fransschreuder
+
+	* Makefile.win, src/hardware.cpp, src/hardware.h, src/main.cpp,
+	  src/read_hexfile.cpp, src/uppmainwindow_callback.cpp,
+	  svn_revision.h: implemented verify and blankcheck (command line +
+	  gui)
+
+2008-05-13  fransschreuder
+
+	* Makefile.win, src/hardware.cpp, src/hardware.h,
+	  src/read_hexfile.h, src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp, svn_revision.h: Implemented
+	  Verify and Blankcheck (gui only, command line todo later)
+
+2008-05-13  fransschreuder
+
+	* Makefile.win, src/uppmainwindow_callback.h, svn_revision.h: check
+	  for wxWidgets version 2.7.1, else don't include about dialog
+	  header files
+
+2008-05-13  fransschreuder
+
+	* src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  svn_revision.h: Ignore the about dialog for older versions of
+	  wxWidgets (just show a
+	  wxMessageDialog then)
+
+2008-05-09  fransschreuder
+
+	* Makefile.win, src/hardware.cpp, src/hardware.h,
+	  src/include_icons.h, src/main.cpp, src/main.h, src/pictype.cpp,
+	  src/pictype.h, src/read_hexfile.cpp, src/read_hexfile.h,
+	  src/upp_commandline.cpp, src/upp_commandline.h,
+	  src/uppmainwindow_callback.cpp, svn_revision.h, usbpicprog.dev:
+	  some more comments in the code...
+
+2008-05-09  fransschreuder
+
+	* icons/blankcheck.xpm, icons/erase.xpm, icons/program.xpm,
+	  icons/read.xpm, icons/refresh.xpm, icons/usbpicprog.xpm,
+	  icons/verify.xpm, src/Makefile.am, src/hardware.cpp,
+	  src/hardware.h, src/main.cpp, src/main.h, src/pictype.cpp,
+	  src/pictype.h, src/read_hexfile.cpp,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  svn_revision.h: implemented progressbar and some comments in the
+	  code
+
+2008-05-07  fransschreuder
+
+	* src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp: added a progress bar to the
+	  statusbar
+
+2008-05-07  fransschreuder
+
+	* config.h.in, configure.ac, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h, svn_revision.h: removed that check
+	  for wxAboutBox again, it didn't work
+
+2008-05-07  fransschreuder
+
+	* COPYING, INSTALL, config.h.in, configure.ac, install-sh, missing,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  svn_revision.h: check wether wxAboutBox is available and ignore
+	  it for old wxWidgets
+	  versions
+
+2008-05-07  fransschreuder
+
+	* Makefile.am, config.h.in, configure.ac, svn_revision.h:
+	  configure.ac does not check for gtk anymore
+
+2008-05-07  fransschreuder
+
+	* autogen.sh, src/Makefile.am, src/main.cpp, src/svn_revision.h,
+	  src/svn_revision.sh, src/uppmainwindow_callback.cpp,
+	  svn_revision.h, svn_revision.sh: svn_revision.h is now generated
+	  from autogen.sh
+
+2008-05-07  fransschreuder
+
+	* src/Makefile.am, src/svn_revision.h, src/svn_revision.sh,
+	  src/uppmainwindow.cpp: fixed makefile and shell script for
+	  svn_revision
+
+2008-05-06  fransschreuder
+
+	* Makefile.win, src/Makefile.am, src/hardware.cpp, src/main.cpp,
+	  src/main.h, src/pictype.cpp, src/read_hexfile.cpp,
+	  src/read_hexfile.h, src/svn_revision.h, src/svn_revision.sh,
+	  src/uppmainwindow_callback.cpp, src/uppmainwindow_callback.h,
+	  usbpicprog.dev: included svn_revision in dialog box and title bar
+
+2008-05-06  fransschreuder
+
+	* config.h.in, src/main.cpp, src/main.h: fixed error in the command
+	  line string
+	  added exit(0) when a command line is given, to terminate the app
+	  when
+	  finished
+
+2008-05-06  fransschreuder
+
+	* configure.ac, src/Makefile.am: included libusb in configure.ac
+
+2008-05-05  fransschreuder
+
+	* src/main.cpp: implemented command line parameters "w", "r" and
+	  "e"
+	  Verify and blankcheck still unimplemented.
+
+2008-05-04  fransschreuder
+
+	* po/Makefile.in.in, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h: changed some wxT into
+	  wxString::FromAscii
+
+2008-04-28  fransschreuder
+
+	* Makefile.win, src/main.cpp, src/read_hexfile.cpp,
+	  src/read_hexfile.h, src/uppmainwindow_callback.cpp: implemented
+	  save hexfile
+
+2008-04-28  fransschreuder
+
+	* po/Makefile.in.in:
+
+2008-04-28  fransschreuder
+
+	* po, po/POTFILES.in: I shouldn't have deleted the po dir
+
+2008-04-28  fransschreuder
+
+	* Makefile, Makefile.in, aclocal.m4, autom4te.cache, config.h,
+	  config.log, config.status, configure, depcomp, intltool-extract,
+	  intltool-merge, intltool-update, libtool, po, stamp-h1,
+	  usbpicprog.layout: Cleaned up the SVN
+
+2008-04-28  fransschreuder
+
+	* Makefile.win, src/include_icons.h, usbpicprog.dev,
+	  usbpicprog.ico, usbpicprog.layout: added Makefile and wxDevC++
+	  files for Windows
+
+2008-04-28 07:40  fransschreuder
+
+	* icons/win/usbpicprog.ico: added usbpicprog icon for windows
+
+2008-04-28  fransschreuder
+
+	* icons/win, icons/win/blankcheck.xpm, icons/win/erase.xpm,
+	  icons/win/program.xpm, icons/win/read.xpm, icons/win/refresh.xpm,
+	  icons/win/usbpicprog.xpm, icons/win/verify.xpm,
+	  src/include_icons.h, src/uppmainwindow.cpp: added icons for
+	  windows (16x16 icons)
+
+2008-04-24  fransschreuder
+
+	* Makefile, config.log, config.status, icons/usbpicprog.xpm,
+	  libtool, src/Makefile.am, src/include_icons.h, src/main.cpp,
+	  src/uppmainwindow.cpp, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h: implemented most functionality of
+	  the programmer software
+
+2008-04-23  fransschreuder
+
+	* Makefile, autom4te.cache/requests, config.log, config.status,
+	  src/main.cpp: removed Close function from main.cpp (3x)
+
+2008-04-23  fransschreuder
+
+	* AUTHORS, ChangeLog, INSTALL, Makefile, Makefile.am, Makefile.in,
+	  NEWS, README, TODO.tasks, aclocal.m4, autogen.sh, autom4te.cache,
+	  autom4te.cache/output.0, autom4te.cache/output.1,
+	  autom4te.cache/requests, autom4te.cache/traces.0,
+	  autom4te.cache/traces.1, config.h, config.h.in, config.log,
+	  config.status, config.sub, configure, configure.ac, depcomp,
+	  intltool-extract, intltool-extract.in, intltool-merge,
+	  intltool-update, intltool-update.in, libtool, ltmain.sh, missing,
+	  src/main.cpp, src/main.h, stamp-h1: implemented some command line
+	  things
+
+2008-04-23  fransschreuder
+
+	* src/Makefile.am, src/hardware.cpp, src/hardware.h, src/main.cpp,
+	  src/main.h, src/pictype.cpp, src/pictype.h, src/read_hexfile.cpp,
+	  src/read_hexfile.h, src/upp_commandline.cpp,
+	  src/upp_commandline.h, src/uppmainwindow.cpp,
+	  src/uppmainwindow.h, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h: implemented part of the things that
+	  were implemented in upp_gui
+
+2008-04-23  fransschreuder
+
+	* icons/refresh.xpm, src/include_icons.h, src/uppmainwindow.cpp,
+	  src/uppmainwindow.h, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h: added default os icons for standard
+	  actions on toolbar
+
+2008-04-23 06:15  fransschreuder
+
+	* icons/about.xpm, icons/blankcheck.xpm, icons/burnchip.xpm,
+	  icons/chip.xpm, icons/copy.xpm, icons/cut.xpm, icons/erase.xpm,
+	  icons/erasechip.xpm, icons/exit.xpm, icons/generate.xpm,
+	  icons/new.xpm, icons/open.xpm, icons/paste.xpm, icons/prefs.xpm,
+	  icons/program.xpm, icons/read.xpm, icons/readchip.xpm,
+	  icons/refresh.xpm, icons/remove.xpm, icons/save.xpm,
+	  icons/save_as.xpm, icons/tutorial.xpm, icons/verify.xpm,
+	  icons/verifychip.xpm, src/include_icons.h, src/main.cc,
+	  src/main.cpp, src/uppmain.h, src/uppmainwindow.cpp,
+	  src/uppmainwindow.h, src/usbpicprog.fbp,
+	  src/usbpicprogMyFrame1.cpp, src/usbpicprogMyFrame1.h: upp_wx is
+	  now the new cross platform gui...
+	  Let's start with the integration of the other code into this gui.
+
+2008-04-21  fransschreuder
+
+	* icons, icons/about.xpm, icons/blankcheck.xpm, icons/burnchip.xpm,
+	  icons/chip.xpm, icons/copy.xpm, icons/cut.xpm,
+	  icons/erasechip.xpm, icons/exit.xpm, icons/generate.xpm,
+	  icons/new.xpm, icons/open.xpm, icons/paste.xpm, icons/prefs.xpm,
+	  icons/readchip.xpm, icons/refresh.xpm, icons/remove.xpm,
+	  icons/save.xpm, icons/save_as.xpm, icons/tutorial.xpm,
+	  icons/verifychip.xpm, src/uppmainwindow.cpp, src/uppmainwindow.h,
+	  src/uppmainwindow_callback.cpp, src/usbpicprog.fbp,
+	  usbpicprog.anjuta: added icons to upp_wx
+
+2008-04-21 fransschreuder
+
+	* ., COPYING, config.guess, install-sh, intltool-merge.in,
+	  mkinstalldirs, po, po/.cvsignore, po/ChangeLog, po/LINGUAS,
+	  po/Makefile.in.in, po/POTFILES.in, src, src/main.cc,
+	  src/main.cpp, src/uppmain.h, src/uppmainwindow.cpp,
+	  src/uppmainwindow.h, src/uppmainwindow_callback.cpp,
+	  src/uppmainwindow_callback.h, src/usbpicprog.fbp,
+	  src/usbpicprogMyFrame1.cpp, src/usbpicprogMyFrame1.h: added a
+	  wxwidgets version for the ui
+	  (nothing implemented yet, just testing the abilities)
+
