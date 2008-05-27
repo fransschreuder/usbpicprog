@@ -214,6 +214,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 				if(hardware->readCode(readHexFile,picType)<0)cout<<"Error reading Code"<<endl;
 				if(hardware->readData(readHexFile,picType)<0)cout<<"Error reading Data"<<endl;
 				if(hardware->readConfig(readHexFile,picType)<0)cout<<"Error reading Config"<<endl;
+				readHexFile->trimData(picType);
 				if(readHexFile->saveAs(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cout<<"Unable to save file"<<endl;
 				if(!silent_mode)
 				{

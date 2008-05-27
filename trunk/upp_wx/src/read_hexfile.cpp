@@ -174,6 +174,22 @@ void ReadHexFile::trimData(PicType* picType)
             configMemory[i]&=0x3F;
         }
     }
+	else
+	{
+        for(int i=1;i<(signed)codeMemory.size();i++)
+        {
+            codeMemory[i]&=0xFF;
+        }
+        for(int i=1;i<(signed)configMemory.size();i++)
+        {
+            configMemory[i]&=0xFF;
+        }
+    }
+    for(int i=1;i<(signed)dataMemory.size();i++)
+    {
+        dataMemory[i]&=0xFF;
+    }
+		
 }
 
 int ReadHexFile::reload(PicType* picType)

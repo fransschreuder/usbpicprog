@@ -16,7 +16,7 @@ mkdir deb_package/usr/share/pixmaps
 mkdir deb_package/usr/share/applications
 cp icons/usbpicprog.xpm deb_package/usr/share/pixmaps
 cp Usbpicprog.desktop deb_package/usr/share/applications
-help2man deb_package/usr/local/bin/usbpicprog>deb_package/usr/local/man/man1/usbpicprog.1
+./help2man deb_package/usr/local/bin/usbpicprog>deb_package/usr/local/man/man1/usbpicprog.1
 gzip --best deb_package/usr/local/man/man1/usbpicprog.1
 gzip --best deb_package/usr/local/doc/usbpicprog/COPYING
 gzip --best deb_package/usr/local/doc/usbpicprog/ChangeLog

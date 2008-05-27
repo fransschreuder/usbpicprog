@@ -312,7 +312,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 				else
 				{
 					cerr<<"Trying to read memory outside Data area"<<endl;
-					return -1;
+	//				return -1;
 				}
 			}
 		}
@@ -383,7 +383,8 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+	
+			nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
 			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
@@ -393,10 +394,10 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 				}
 				else
 				{
-					cerr<<"Trying to read memory outside Config area"<<endl;
-					return -1;
+					cerr<<"Trying to read memory outside Config area: bc+i="<<blockcounter+i<<"Configsize="<<picType->getCurrentPic().ConfigSize<<endl;
+//					return -1;
 				}
-			}	
+			}
 		}
 		hexData->putConfigMemory(mem);
 	}
@@ -456,15 +457,14 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType)
         res.DataType=TYPE_DATA;
         return res;
     }
-	if(readConfig(verifyHexFile,picType)<0)
+	/*if(readConfig(verifyHexFile,picType)<0)
 	{
         res.Result=VERIFY_USB_ERROR;
         res.DataType=TYPE_CONFIG;
         return res;
-    }
+    }*/
     if ((hexData->getCodeMemory().size()+
-        hexData->getDataMemory().size()+
-        hexData->getConfigMemory().size())>0) //there should be at least some data in the file
+        hexData->getDataMemory().size())>0) //there should be at least some data in the file
     {
         for(int i=0;i<(signed)hexData->getCodeMemory().size();i++)
         {
@@ -502,6 +502,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType)
             }
 
         }
+		/*
         for(int i=0;i<(signed)hexData->getConfigMemory().size();i++)
         {
             if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
@@ -519,7 +520,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType)
                 return res;
             }
 
-        }
+        }*/
         res.Result=VERIFY_SUCCESS;
     }
     else

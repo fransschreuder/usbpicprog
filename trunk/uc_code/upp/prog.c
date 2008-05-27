@@ -15,6 +15,27 @@
 #include "system\interrupt\interrupt.h"
 #include "prog_lolvl.h"
 
+#pragma romdata eedata = 0xf00000
+
+const rom unsigned char eeprom_data1 = 1;
+const rom unsigned char eeprom_data2 = 2;
+const rom unsigned char eeprom_data3 = 3;
+const rom unsigned char eeprom_data4 = 4;
+const rom unsigned char eeprom_data5 = 5;
+const rom unsigned char eeprom_data6 = 6;
+const rom unsigned char eeprom_data7 = 7;
+const rom unsigned char eeprom_data8 = 8;
+const rom unsigned char eeprom_data9 = 9;
+const rom unsigned char eeprom_data10 = 10;
+const rom unsigned char eeprom_data11 = 11;
+const rom unsigned char eeprom_data12 = 12;
+const rom unsigned char eeprom_data13 = 13;
+const rom unsigned char eeprom_data14 = 14;
+const rom unsigned char eeprom_data15 = 15;
+const rom unsigned char eeprom_data16 = 16;
+const rom unsigned char eeprom_data17 = 17;
+
+#pragma code
 extern long lasttick;
 extern long tick;
 
@@ -27,7 +48,6 @@ unsigned int osccal,bandgap; //for P12F629 devices...
 char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 {
 	unsigned int i;
-	char temp_data[64];
 	set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
@@ -108,7 +128,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			pic_send_n_bits(6,0x08);//3. Execute a Begin Programming command.
 			DelayMs(Tera);//4. Wait Tera for the erase cycle to complete.
 			PGD=0;*/
-			for(i=0;i<64;i+=2) //fill buffer with 0x3FFF
+			/*for(i=0;i<64;i+=2) //fill buffer with 0x3FFF
 			{
 				temp_data[i]=0x3F;
 				temp_data[i+1]=0xFF;
@@ -123,7 +143,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 				temp_data[i]=0xFF;
 			}
 			write_data(pictype, picvariant, 0, temp_data, 64, 1);
-			write_data(pictype, picvariant, 0, temp_data, 64, 2);
+			write_data(pictype, picvariant, 0, temp_data, 64, 2);*/
 			break;
 		default:
 			PGD=0;
@@ -165,11 +185,11 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 			{
 				//write 2 bytes and post increment by 2
 				//				MSB				LSB
-				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))<<8|
-						((unsigned int)*(data+1+blockcounter)));
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
+						(((unsigned int)*(data+1+blockcounter))<<8));
 			}
 			//write last 2 bytes of the block and start programming
-			pic_send(4,0x0F,((unsigned int)*(data+blockcounter))<<8|((unsigned int)*(data+1+blockcounter))); 
+			pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 			pic_send_n_bits(3, 0);
 			lasttick=tick;
 			PGC=1;	//hold PGC high for P9 and low for P10
@@ -183,8 +203,8 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 			{
 				for(i=0;i<16;i+=2)
 				{
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i])<<8)|   //MSB
-						(((unsigned int)data[blockcounter+i+1])));//LSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i]))|   //MSB
+						(((unsigned int)data[blockcounter+i+1])<<8));//LSB
                                         if(i<14)pic_send_n_bits(6,0x06);	//increment address
 				}
 				pic_send_n_bits(6,0x08);    //begin programming
@@ -198,8 +218,8 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 			{
 				if((address+blockcounter)<0x3FF) //do not program
 				{
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
-							(((unsigned int)data[blockcounter+1])));//LSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+							(((unsigned int)data[blockcounter+1])<<8));//LSB
 					pic_send_n_bits(6,0x18);    //begin programming, externally timed
 					DelayMs(2);
 					pic_send_n_bits(6,0x0A); 	//end programming
@@ -227,8 +247,8 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 		case P16F62X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
-				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
-						(((unsigned int)data[blockcounter+1])));//LSB
+				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+						(((unsigned int)data[blockcounter+1])<<8));//LSB
 				pic_send_n_bits(6,0x08);    //begin programming
 				DelayMs(Tprog);
 				//read data from program memory (to verify) not yet impl...

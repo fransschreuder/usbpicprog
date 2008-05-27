@@ -187,6 +187,7 @@ void UppMainWindowCallBack::upp_read()
         wxMessageDialog(this, wxT("Error reading config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
         //return;
     }
+	readHexFile->trimData(picType);
 	printHexFile();
 }
 
@@ -196,7 +197,7 @@ void UppMainWindowCallBack::upp_verify()
 	if (hardware == NULL) return;
 	
     wxString verifyText;
-    string typeText;
+    char typeText[64];
     VerifyResult res=hardware->verify(readHexFile,picType);
     switch(res.Result)
     {
@@ -207,14 +208,15 @@ void UppMainWindowCallBack::upp_verify()
             
             switch (res.DataType)
             {
-                case TYPE_CODE: typeText=string("code");break;
-                case TYPE_DATA: typeText=string("data");break;
-                case TYPE_CONFIG: typeText=string("config");break;
-                default: typeText=string("unknown");break;
+                case TYPE_CODE: strcpy(typeText,"code");break;
+                case TYPE_DATA: strcpy(typeText,"data");break;
+                case TYPE_CONFIG: strcpy(typeText,"config");break;
+                default: strcpy(typeText,"unknown");break;
             }
+			cout<<typeText<<endl;
             verifyText.Printf(wxT("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                typeText.c_str(),
-                res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+							  typeText,
+                res.Address+((res.DataType==TYPE_CONFIG)*picType->getCurrentPic().ConfigAddress),
                 res.Read,
                 res.Expected);
             SetStatusText(verifyText,STATUS_FIELD_OTHER);
