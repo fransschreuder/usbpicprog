@@ -255,7 +255,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
 	nBytes=-1;
-	char dataBlock[BLOCKSIZE_CODE];
+	unsigned char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
 	if (_handle !=NULL)
 	{
@@ -328,7 +328,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
 	nBytes=-1;
-	char dataBlock[BLOCKSIZE_DATA];
+	unsigned char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
 	statusCallBack (0);
 	if (_handle !=NULL)
@@ -410,7 +410,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
 	nBytes=-1;
-	char dataBlock[BLOCKSIZE_CONFIG];
+	unsigned char dataBlock[BLOCKSIZE_CONFIG];
 	int blocktype;
 	statusCallBack (0);
 	if (_handle !=NULL)
@@ -613,7 +613,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			else
 			{
 				statusCallBack (100);
-				sprintf(msg, "Bootloader v%d.%d", msg[3], msg[2]);
+				sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
 						
 				return nBytes;
 			}
@@ -769,7 +769,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
 			
-			strncpy(msg,tmpmsg+5,nBytes);
+			memcpy(msg,tmpmsg+5,nBytes);
 		}
 		
 		
@@ -781,7 +781,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 }
 
 /*private function to write one block of code memory*/
-int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
+int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[64];
 	UppPackage uppPackage;
@@ -789,10 +789,10 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 	{
 		uppPackage.fields.cmd=CMD_WRITE_CODE;
 		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
-		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(char)(address&0xFF);
-		uppPackage.fields.blocktype=(char)lastblock;
+		uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+		uppPackage.fields.blocktype=(unsigned char)lastblock;
 		memcpy(uppPackage.fields.dataField,msg,size);
 		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
@@ -809,7 +809,7 @@ int Hardware::writeCodeBlock(char * msg,int address,int size,int lastblock)
 }
 
 /*private function to write one block of config memory*/
-int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
+int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[64];
 	UppPackage uppPackage;
@@ -817,11 +817,11 @@ int Hardware::writeConfigBlock(char * msg,int address,int size,int lastblock)
 	{
 		uppPackage.fields.cmd=CMD_WRITE_CONFIG;
 		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=(char)((address>>16)&0xFF);
-		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(char)(address&0xFF);
-		uppPackage.fields.blocktype=(char)lastblock;
-		strncpy(uppPackage.fields.dataField,msg,size);
+		uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+		uppPackage.fields.blocktype=(unsigned char)lastblock;
+		memcpy(uppPackage.fields.dataField,msg,size);
 		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
 		{
@@ -851,10 +851,10 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 			
 			uppPackage.fields.cmd=CMD_READ_DATA;
 			uppPackage.fields.size=size;
-			uppPackage.fields.addrU=(char)((address>>16)&0xFF);
-			uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-			uppPackage.fields.addrL=(char)(address&0xFF);
-			uppPackage.fields.blocktype=(char)lastblock;
+			uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+			uppPackage.fields.blocktype=(unsigned char)lastblock;
 			nBytes = writeString(uppPackage.data,6);
 			
 			if (nBytes < 0 )
@@ -870,9 +870,9 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 			
 			bootloaderPackage.fields.cmd=0x04;
 			bootloaderPackage.fields.size=size;
-			bootloaderPackage.fields.addrU=(char)((address>>16)&0xFF);
-			bootloaderPackage.fields.addrH=(char)((address>>8)&0xFF);
-			bootloaderPackage.fields.addrL=(char)(address&0xFF);
+			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
 			
 			nBytes = writeString(bootloaderPackage.data,5);
 			
@@ -885,7 +885,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
 			
-			strncpy(msg,tmpmsg+5,nBytes);
+			memcpy(msg,tmpmsg+5,nBytes);
 		}
 		
 		
@@ -897,7 +897,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 }
 
 /*private function to write one block of data memory*/
-int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
+int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[64];
 	UppPackage uppPackage;
@@ -906,10 +906,10 @@ int Hardware::writeDataBlock(char * msg,int address,int size,int lastblock)
 		uppPackage.fields.cmd=CMD_WRITE_DATA;
 		uppPackage.fields.size=size;
 		uppPackage.fields.addrU=0;
-		uppPackage.fields.addrH=(char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(char)(address&0xFF);
-		uppPackage.fields.blocktype=(char)lastblock;
-		strncpy(uppPackage.fields.dataField,msg,size);
+		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+		uppPackage.fields.blocktype=(unsigned char)lastblock;
+		memcpy(uppPackage.fields.dataField,msg,size);
 		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
 		{

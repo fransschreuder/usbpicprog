@@ -68,7 +68,7 @@ typedef union _UppPackage
 		unsigned addrH:8;
 		unsigned addrL:8;
 		unsigned blocktype:8; //The blocktype can be middle, first or last (or first|last)
-		char dataField[32];
+		unsigned char dataField[32];
 	}fields;
 	char data[38];
 }UppPackage;
@@ -176,13 +176,13 @@ private :
 /*private function to read one block of code memory*/	
 	int readCodeBlock(char * msg,int address,int size,int lastblock);
 /*private function to write one block of code memory*/	
-	int writeCodeBlock(char * msg,int address,int size,int lastblock);
+	int writeCodeBlock(unsigned char * msg,int address,int size,int lastblock);
 /*private function to write one block of config memory*/	
-	int writeConfigBlock(char * msg,int address,int size,int lastblock);
+	int writeConfigBlock(unsigned char * msg,int address,int size,int lastblock);
 /*private function to read one block of data memory*/	
 	int readDataBlock(char * msg,int address,int size,int lastblock);
 /*private function to write one block of data memory*/	
-	int writeDataBlock(char * msg,int address,int size,int lastblock);
+	int writeDataBlock(unsigned char * msg,int address,int size,int lastblock);
 /*When Hardware is constructed, ptCallBack is initiated by a pointer
  to UppMainWindowCallBack, this function calls the callback function
  to update the progress bar*/	

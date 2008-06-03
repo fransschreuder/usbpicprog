@@ -1,0 +1,23 @@
+#!/bin/sh -e
+USERS=$(users)
+UPPGROUP="microchip"
+set -- $USERS
+FIRSTUSER=$1
+echo $FIRSTUSER
+
+GROUPS="$(groups) ${FIRSTUSER}"
+
+#if [ echo $GROUPS | grep microchip ]
+#then
+#	echo microchip
+#fi
+
+echo "adding current user to the group microchip"
+
+if `echo ${GROUPS} | grep "${UPPGROUP}" 1>/dev/null 2>&1`
+then
+  echo "user already in group"
+else
+  groupadd ${UPPGROUP}
+  gpasswd -a ${FIRSTUSER} ${UPPGROUP}
+fi

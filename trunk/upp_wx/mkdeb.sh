@@ -5,7 +5,11 @@ then
 	echo Directory deb_package exists, removing ...
 	rm -rf deb_package
 fi
-tar -zxvf deb_package.tar.gz
+mkdir deb_package
+mkdir deb_package/DEBIAN
+cp control deb_package/DEBIAN
+cp postinst deb_package/DEBIAN
+cp prerm deb_package/DEBIAN
 ./configure --prefix=$(pwd)/deb_package/usr/local
 make 
 make install
