@@ -231,7 +231,7 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 					{
 						cerr<<(int)(unsigned char)dataBlock[i]<<endl;
 					}*/
-					mem[blockcounter+i]=((unsigned char)dataBlock[i]);
+					mem[blockcounter+i]=((unsigned char)(dataBlock[i]&0xFF));
 				}
 				else
 				{
@@ -307,7 +307,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 			{
 				if(picType->getCurrentPic().DataSize>(blockcounter+i))
 				{
-					mem[blockcounter+i]=dataBlock[i];
+					mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
 				}
 				else
 				{
@@ -389,8 +389,8 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
 				{
-					mem[blockcounter+i]=dataBlock[i];
-					cerr<<hex<<(int)dataBlock[i]<<" "<<dec;
+					mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
+//					cerr<<hex<<(int)dataBlock[i]<<" "<<dec;
 				}
 				else
 				{

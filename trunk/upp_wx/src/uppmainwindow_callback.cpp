@@ -197,7 +197,7 @@ void UppMainWindowCallBack::upp_verify()
 	if (hardware == NULL) return;
 	
     wxString verifyText;
-    char typeText[64];
+	wxString typeText;
     VerifyResult res=hardware->verify(readHexFile,picType);
     switch(res.Result)
     {
@@ -208,17 +208,16 @@ void UppMainWindowCallBack::upp_verify()
             
             switch (res.DataType)
             {
-                case TYPE_CODE: strcpy(typeText,"code");break;
-                case TYPE_DATA: strcpy(typeText,"data");break;
-                case TYPE_CONFIG: strcpy(typeText,"config");break;
-                default: strcpy(typeText,"unknown");break;
+                case TYPE_CODE: typeText=wxT("Verify code");break;
+                case TYPE_DATA: typeText=wxT("Verify data");break;
+                case TYPE_CONFIG: typeText=wxT("Verify config");break;
+                default: typeText=wxT("Verify unknown");break;
             }
-			cout<<typeText<<endl;
-            verifyText.Printf(wxT("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-							  typeText,
+            verifyText.Printf(wxT(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
                 res.Address+((res.DataType==TYPE_CONFIG)*picType->getCurrentPic().ConfigAddress),
                 res.Read,
-                res.Expected);
+							  res.Expected);
+			verifyText.Prepend(typeText);
             SetStatusText(verifyText,STATUS_FIELD_OTHER);
             wxMessageDialog(this, verifyText, wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
             break;
