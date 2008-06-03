@@ -174,6 +174,8 @@ void ProcessIO(void)
 					((unsigned long)input_buffer[4]);
 			output_buffer[0]=write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
+			/*memcpy(output_buffer,input_buffer,input_buffer[1]);
+			counter=input_buffer[1];*/
 		}
 		if((input_buffer[0])==0x40) //CMD_READ_CODE
 		{

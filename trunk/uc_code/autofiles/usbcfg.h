@@ -67,7 +67,7 @@
 #define USBGEN_UEP              UEP1
 #define USBGEN_BD_OUT           ep1Bo
 #define USBGEN_BD_IN            ep1Bi
-#define USBGEN_EP_SIZE          70
+#define USBGEN_EP_SIZE          38
 
 #define MAX_EP_NUMBER           2           // UEP2
 

@@ -794,14 +794,28 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
 		uppPackage.fields.blocktype=(unsigned char)lastblock;
 		memcpy(uppPackage.fields.dataField,msg,size);
+		if(address==0)
+		{
+			for(int i=0;i<size+6;i++)
+				cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
+			cout<<endl;
+		}
 		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
 		{
 			return nBytes;
 		}
+//		nBytes = readString(resp_msg,size+6);
 		nBytes = readString(resp_msg,1);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
+/*		if(address==0)
+		{
+			for(int i=0;i<size+6;i++)
+				cout<<hex<<(int)resp_msg[i]<<" "<<dec;
+			cout<<endl;
+		}*/
+//		return 0;
 		return (int)resp_msg[0];
 	}
 	else return -1;
