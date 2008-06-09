@@ -33,11 +33,14 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer;
 	bSizer = new wxBoxSizer( wxVERTICAL );
 	
-	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE| wxTE_READONLY );
-	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
+	uppHexEdit = new UppHexview( this, wxID_ANY,  wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxNO_BORDER );
+	//uppHexEdit = new UppHexview( this, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
+	
+	//uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
 	
 	//uppHexEdit->SetDefaultStyle(wxTextAttr()::SetFont());
 	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND );
+	
 	
 	this->SetSizer( bSizer );
 	this->Layout();

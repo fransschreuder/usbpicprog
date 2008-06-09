@@ -27,6 +27,7 @@ using namespace std;
 #include <wx/artprov.h>
 #include <wx/gauge.h>
 #include <wx/radiobut.h>
+#include <wx/grid.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -43,6 +44,8 @@ using namespace std;
 #define STATUS_FIELD_SIDE_WIDTH 0
 #endif //__WXMAC__
 
+#include "hexview.h"
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindow
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,7 +54,8 @@ class UppMainWindow : public wxFrame
 	
 	protected:
         
-		wxTextCtrl* uppHexEdit;
+		UppHexview* uppHexEdit;
+		//wxTextCtrl* uppHexEdit;
 		wxMenuBar* uppMenuBar;
 		wxMenu* uppMenuFile;
 		wxMenu* uppMenuActions;
@@ -89,7 +93,7 @@ class UppMainWindow : public wxFrame
 		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~UppMainWindow();
 	private:
-        void OnSize(wxSizeEvent& event)
+        virtual void OnSize(wxSizeEvent& event)
         {
             wxRect rect;
             if(IsShown())

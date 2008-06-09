@@ -45,11 +45,17 @@ class ReadHexFile
 		int saveAs(PicType* picType,const char* filename);
 	    int save(PicType* picType);
 		void putCodeMemory(vector<int> &mem);
+		void putCodeMemory(int address, int mem);
 		void putDataMemory(vector<int> &mem);
+		void putDataMemory(int address, int mem);
 		void putConfigMemory(vector<int> &mem);
+		void putConfigMemory(int address, int mem);
 		vector<int> &getCodeMemory(void);
+		int getCodeMemory(int address);
 		vector<int> &getDataMemory(void);
+		int getDataMemory(int address);
 		vector<int> &getConfigMemory(void);
+		int getConfigMemory(int address);
 		void print(string* output,PicType* picType);
 		void trimData(PicType* picType);
 		

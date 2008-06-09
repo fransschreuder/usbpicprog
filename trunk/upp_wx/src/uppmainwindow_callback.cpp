@@ -35,13 +35,14 @@ void UppMainWindowCallBack::updateProgress(int value)
 void UppMainWindowCallBack::printHexFile()
 {
     string output;
-	uppHexEdit->Freeze();
-	uppHexEdit->Clear();	
-	readHexFile->print(&output,picType);
-	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
-	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
-    uppHexEdit->Thaw();
-	uppHexEdit->SetSelection(0,0); // cursor to top
+	uppHexEdit->putHexFile(readHexFile);
+//	uppHexEdit->Freeze();
+//	uppHexEdit->Clear();	
+	//readHexFile->print(&output,picType);
+//	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
+//	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
+//   uppHexEdit->Thaw();
+//	uppHexEdit->SetSelection(0,0); // cursor to top
 }
 
 /*clear the hexfile*/
@@ -441,5 +442,21 @@ void UppMainWindowCallBack::upp_update_hardware_type()
 			m_radioButton_upp->SetValue(false);
 		}
 	}
+}
+
+void UppMainWindowCallBack::OnSize(wxSizeEvent& event)
+{
+	wxRect rect;
+	if(IsShown())
+	{
+		m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
+
+		uppProgressBar->SetPosition(rect.GetPosition());
+		uppProgressBar->SetSize(rect.GetSize());
+		if(uppHexEdit->OnResize(event))
+			uppHexEdit->putHexFile(readHexFile);
+	}
+	event.Skip();
+
 }
 

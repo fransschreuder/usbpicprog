@@ -80,6 +80,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		PicType* picType;
 		Hardware* hardware;
 		bool fileOpened;
+		void OnSize(wxSizeEvent& event);
 		
 };
 #endif
