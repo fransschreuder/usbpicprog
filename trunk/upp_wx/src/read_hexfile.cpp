@@ -314,7 +314,7 @@ void ReadHexFile::putCodeMemory(vector<int> &mem)
 
 void ReadHexFile::putCodeMemory(int address, int mem)
 {
-	if(codeMemory.size()>address)codeMemory[address]=mem;
+	if(codeMemory.size()>(unsigned)address)codeMemory[address]=mem;
 }
 
 void ReadHexFile::putDataMemory(vector<int> &mem)
@@ -324,7 +324,7 @@ void ReadHexFile::putDataMemory(vector<int> &mem)
 
 void ReadHexFile::putDataMemory(int address, int mem)
 {
-	if(dataMemory.size()>address)dataMemory[address]=mem;
+	if(dataMemory.size()>(unsigned)address)dataMemory[address]=mem;
 }
 
 void ReadHexFile::putConfigMemory(vector<int> &mem)
@@ -334,7 +334,7 @@ void ReadHexFile::putConfigMemory(vector<int> &mem)
 
 void ReadHexFile::putConfigMemory(int address, int mem)
 {
-	if(configMemory.size()>address)configMemory[address]=mem;
+	if(configMemory.size()>(unsigned)address)configMemory[address]=mem;
 }
 
 bool ReadHexFile::calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum)
@@ -385,7 +385,7 @@ vector<int> &ReadHexFile::getCodeMemory(void)
 
 int ReadHexFile::getCodeMemory(int address)
 {
-	if(address<codeMemory.size())
+	if((unsigned)address<codeMemory.size())
 		return codeMemory[address];
 	else
 		return 0;
@@ -398,7 +398,7 @@ vector<int> &ReadHexFile::getDataMemory(void)
 
 int ReadHexFile::getDataMemory(int address)
 {
-	if(address<dataMemory.size())
+	if((unsigned)address<dataMemory.size())
 		return dataMemory[address];
 	else
 		return 0;
@@ -411,7 +411,7 @@ vector<int> &ReadHexFile::getConfigMemory(void)
 
 int ReadHexFile::getConfigMemory(int address)
 {
-	if(address<configMemory.size())
+	if((unsigned)address<configMemory.size())
 		return configMemory[address];
 	else
 		return 0;

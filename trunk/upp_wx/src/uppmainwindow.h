@@ -53,7 +53,7 @@ class UppMainWindow : public wxFrame
 {
 	
 	protected:
-        
+        wxBoxSizer* bSizer;
 		UppHexview* uppHexEdit;
 		//wxTextCtrl* uppHexEdit;
 		wxMenuBar* uppMenuBar;

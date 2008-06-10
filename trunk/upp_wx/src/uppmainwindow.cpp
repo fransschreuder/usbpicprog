@@ -30,7 +30,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	SetIcon(wxIcon( usbpicprog_xpm ));
 	
-	wxBoxSizer* bSizer;
+	
 	bSizer = new wxBoxSizer( wxVERTICAL );
 	
 	uppHexEdit = new UppHexview( this, wxID_ANY,  wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxNO_BORDER );

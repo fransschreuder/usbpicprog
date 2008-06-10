@@ -725,8 +725,6 @@ int Hardware::readId(void)
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
 	int nBytes = -1;
-	unsigned int i, j;
-	
 	if (_handle !=NULL)
 	{
 		if (CurrentHardware == HW_UPP)

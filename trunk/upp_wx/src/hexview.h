@@ -23,6 +23,8 @@ class UppHexview : public wxPanel
 		void setLabels (void);
 		ReadHexFile* readHexFile;
 	protected:
+        wxFlexGridSizer* bSizer2;
+       	wxBoxSizer* hexViewBoxSizer;
 		wxScrolledWindow* hexViewScrolledWindow;
 		wxStaticText* labelCode;
 		wxGrid* codeGrid;
@@ -37,7 +39,7 @@ class UppHexview : public wxPanel
 		
 	
 	public:
-		bool OnResize(wxSizeEvent& event);
+		bool OnResize( void );
 		void putHexFile(ReadHexFile* hexFile);
 		UppHexview( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL );
 		~UppHexview();

@@ -5,12 +5,12 @@
 #define COLWIDTH 28
 UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
 {
-	wxBoxSizer* hexViewBoxSizer;
+
 	hexViewBoxSizer = new wxBoxSizer( wxVERTICAL );
 	
 	hexViewScrolledWindow = new wxScrolledWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
 	hexViewScrolledWindow->SetScrollRate( 10, 10 );
-	wxFlexGridSizer* bSizer2;
+	
 	bSizer2 = new wxFlexGridSizer( 6,1,-1,-1 );
 	
 	labelCode = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Code Memory"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -20,7 +20,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	codeGrid = new wxGrid( hexViewScrolledWindow, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	codeGrid->CreateGrid( 1, 16 );
+	codeGrid->CreateGrid( 0, 8 );
 	codeGrid->EnableEditing( true );
 	codeGrid->EnableGridLines( true );
 	codeGrid->EnableDragGridSize( false );
@@ -40,8 +40,8 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	// Label Appearance
 	
 	// Cell Defaults
-	codeGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( codeGrid, 1, wxALL|wxALIGN_TOP|wxALIGN_BOTTOM, 5 );
+	//codeGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+	bSizer2->Add( codeGrid, 1, wxALL|wxALIGN_TOP, 5 );
 	
 	labelConfig = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Config Memory"), wxDefaultPosition, wxDefaultSize, 0 );
 	labelConfig->Wrap( -1 );
@@ -50,7 +50,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	configGrid = new wxGrid( hexViewScrolledWindow, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	configGrid->CreateGrid( 1, 16 );
+	configGrid->CreateGrid( 0, 8 );
 	configGrid->EnableEditing( true );
 	configGrid->EnableGridLines( true );
 	configGrid->EnableDragGridSize( false );
@@ -70,8 +70,8 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	// Label Appearance
 	
 	// Cell Defaults
-	configGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( configGrid, 1, wxALL|wxALIGN_TOP|wxALIGN_BOTTOM, 5 );
+	//configGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+	bSizer2->Add( configGrid, 1, wxALL|wxALIGN_TOP, 5 );
 	
 	labelData = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Data Memory"), wxDefaultPosition, wxDefaultSize, 0 );
 	labelData->Wrap( -1 );
@@ -80,7 +80,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	dataGrid = new wxGrid( hexViewScrolledWindow, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	dataGrid->CreateGrid( 1, 16 );
+	dataGrid->CreateGrid( 0, 8 );
 	dataGrid->EnableEditing( true );
 	dataGrid->EnableGridLines( true );
 	dataGrid->EnableDragGridSize( false );
@@ -100,8 +100,8 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id, const wxPoint& pos, con
 	// Label Appearance
 	
 	// Cell Defaults
-	dataGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( dataGrid, 1, wxALL|wxALIGN_TOP|wxALIGN_BOTTOM, 5 );
+	//dataGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+	bSizer2->Add( dataGrid, 1, wxALL|wxALIGN_TOP, 5 );
 	
 	hexViewScrolledWindow->SetSizer( bSizer2 );
 	hexViewScrolledWindow->Layout();
@@ -134,9 +134,9 @@ UppHexview::~UppHexview()
 
 
 
-bool UppHexview::OnResize(wxSizeEvent& event)
+bool UppHexview::OnResize(void)
 {
-	int PanelWidth=event.GetSize().GetWidth();
+	int PanelWidth=GetSize().GetWidth();
 	int ColSize=codeGrid->GetColSize(1);
 	int MaxNumberCols=((PanelWidth-(ROWLABELWIDTH+OTHERWIDTH))/ColSize);
 	MaxNumberCols-=(MaxNumberCols%8);
@@ -156,7 +156,47 @@ bool UppHexview::OnResize(wxSizeEvent& event)
 			dataGrid->AppendCols(MaxNumberCols-dataGrid->GetNumberCols(),false);
 		}
 		autoSizeColumns();
-		setLabels();
+		//codeGrid->SetSize(wxSize(codeGrid->GetNumberRows()*codeGrid->GetRowSize(1),codeGrid->GetNumberCols()*COLWIDTH));	
+		//configGrid->SetSize(wxSize(configGrid->GetNumberRows()*configGrid->GetRowSize(1),configGrid->GetNumberCols()*COLWIDTH));	
+		//dataGrid->SetSize(wxSize(dataGrid->GetNumberRows()*dataGrid->GetRowSize(1),dataGrid->GetNumberCols()*COLWIDTH));	
+        //this->SetSizer( hexViewBoxSizer );
+    	
+	    setLabels ();
+	    labelCode->Fit();
+	    codeGrid->Fit();
+	    labelConfig->Fit();
+	    configGrid->Fit();
+	    labelData->Fit();
+	    dataGrid->Fit();
+	    bSizer2->Fit( hexViewScrolledWindow );
+//    	hexViewScrolledWindow->Layout();
+    	/*bSizer2->Fit( hexViewScrolledWindow );    
+    	hexViewBoxSizer->Fit( this );   
+    	hexViewScrolledWindow->Layout();
+        Layout();
+        Update();*/
+        
+ 
+
+
+    	
+                
+    /*    delete bSizer2;
+		bSizer2 = new wxBoxSizer( wxVERTICAL );//new wxFlexGridSizer( 6,1,-1,-1 );
+		bSizer2->Add( labelCode, 0, wxALL, 5 );
+		bSizer2->Add( codeGrid, 1, wxALL|wxEXPAND, 5 );
+		bSizer2->Add( labelConfig, 0, wxALL, 5 );
+		bSizer2->Add( configGrid, 1, wxALL|wxEXPAND, 5 );
+		bSizer2->Add( labelData, 0, wxALL, 5 );
+		bSizer2->Add( dataGrid, 1, wxALL|wxEXPAND, 5 );
+
+
+    	hexViewScrolledWindow->SetSizer( bSizer2 );
+    	hexViewScrolledWindow->Layout();
+    	bSizer2->Fit( hexViewScrolledWindow );
+    	
+    	Layout();*/
+		
 		return true;
 	}
 	return false;
@@ -170,15 +210,14 @@ void UppHexview::putHexFile(ReadHexFile* hexFile)
 	codeGrid->DeleteRows(0, codeGrid->GetNumberRows(),false);
 	codeGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getCodeMemory().size()/codeGrid->GetNumberCols(),false);
 	
-	for(int i=0;i<readHexFile->getCodeMemory().size();i++)
+	for(unsigned int i=0;i<readHexFile->getCodeMemory().size();i++)
 	{
 		codeGrid->SetCellValue(i/(codeGrid->GetNumberCols()),i%(codeGrid->GetNumberCols()) , 
 							   wxString::Format(_("%02X"),readHexFile->getCodeMemory()[i]));
 	}
 	configGrid->DeleteRows(0, configGrid->GetNumberRows(),false);
 	configGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getConfigMemory().size()/configGrid->GetNumberCols(),false);
-	
-	for(int i=0;i<readHexFile->getConfigMemory().size();i++)
+	for(unsigned int i=0;i<readHexFile->getConfigMemory().size();i++)
 	{
 		configGrid->SetCellValue(i/(configGrid->GetNumberCols()),i%(configGrid->GetNumberCols()) , 
 							   wxString::Format(_("%02X"),readHexFile->getConfigMemory()[i]));
@@ -186,11 +225,12 @@ void UppHexview::putHexFile(ReadHexFile* hexFile)
 	dataGrid->DeleteRows(0, dataGrid->GetNumberRows(),false);
 	dataGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getDataMemory().size()/dataGrid->GetNumberCols(),false);
 	
-	for(int i=0;i<readHexFile->getDataMemory().size();i++)
+	for(unsigned int i=0;i<readHexFile->getDataMemory().size();i++)
 	{
 		dataGrid->SetCellValue(i/(dataGrid->GetNumberCols()),i%(dataGrid->GetNumberCols()) , 
 							   wxString::Format(_("%02X"),readHexFile->getDataMemory()[i]));
 	}
+
 	setLabels();
 	Fit();
 	
@@ -215,9 +255,9 @@ void UppHexview::setLabels(void)
 
 void UppHexview::autoSizeColumns(void)
 {
-	codeGrid->AutoSizeColumns(true);
+	/*codeGrid->AutoSizeColumns(true);
 	dataGrid->AutoSizeColumns(true);
-	configGrid->AutoSizeColumns(true);
+	configGrid->AutoSizeColumns(true);*/
 	for(int i=0;i<codeGrid->GetNumberCols();i++)
 	{
 		codeGrid->SetColSize(i, COLWIDTH);

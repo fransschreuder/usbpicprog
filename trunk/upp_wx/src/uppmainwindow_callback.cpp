@@ -36,6 +36,12 @@ void UppMainWindowCallBack::printHexFile()
 {
     string output;
 	uppHexEdit->putHexFile(readHexFile);
+    #ifdef __WXMSW__
+    int w=GetSize().GetWidth();
+    int h=GetSize().GetHeight();
+    SetSize(wxSize(w-1,h-1));
+    SetSize(wxSize(w,h));
+    #endif
 //	uppHexEdit->Freeze();
 //	uppHexEdit->Clear();	
 	//readHexFile->print(&output,picType);
@@ -453,9 +459,11 @@ void UppMainWindowCallBack::OnSize(wxSizeEvent& event)
 
 		uppProgressBar->SetPosition(rect.GetPosition());
 		uppProgressBar->SetSize(rect.GetSize());
-		if(uppHexEdit->OnResize(event))
-			uppHexEdit->putHexFile(readHexFile);
+		
 	}
+	this->Layout();
+	if(uppHexEdit->OnResize())
+			uppHexEdit->putHexFile(readHexFile);
 	event.Skip();
 
 }

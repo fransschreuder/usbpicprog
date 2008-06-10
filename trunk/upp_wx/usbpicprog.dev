@@ -1,7 +1,7 @@
 [Project]
 FileName=usbpicprog.dev
 Name=usbpicprog
-UnitCount=13
+UnitCount=15
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -131,7 +131,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit14]
-FileName=src\uppmainwindow.h
+FileName=src\hexview.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=src\uppmainwindow_callback.cpp
+FileName=src\hexview.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
