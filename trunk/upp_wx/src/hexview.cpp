@@ -272,7 +272,7 @@ void UppHexview::OnCodeChanged (wxGridEvent& event )
 	
 	int Data;
 	wxString CellData=codeGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.c_str(),"%X",&Data);
+	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
 	if((Data>=0)&&(Data<=0xFF))
 	{
 		readHexFile->putCodeMemory(Position,Data);
@@ -288,7 +288,7 @@ void UppHexview::OnConfigChanged (wxGridEvent& event )
 	
 	int Data;
 	wxString CellData=configGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.c_str(),"%X",&Data);
+	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
 	if((Data>=0)&&(Data<=0xFF))
 	{
 		readHexFile->putConfigMemory(Position,Data);
@@ -304,7 +304,7 @@ void UppHexview::OnDataChanged (wxGridEvent& event )
 	
 	int Data;
 	wxString CellData=dataGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.c_str(),"%X",&Data);
+	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
 	if((Data>=0)&&(Data<=0xFF))
 	{
 		readHexFile->putDataMemory(Position,Data);
