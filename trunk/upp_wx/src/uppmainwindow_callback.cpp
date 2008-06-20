@@ -35,20 +35,20 @@ void UppMainWindowCallBack::updateProgress(int value)
 void UppMainWindowCallBack::printHexFile()
 {
     string output;
-	uppHexEdit->putHexFile(readHexFile);
+	/*uppHexEdit->putHexFile(readHexFile);
     #ifdef __WXMSW__
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
     SetSize(wxSize(w-1,h-1));
     SetSize(wxSize(w,h));
-    #endif
-//	uppHexEdit->Freeze();
-//	uppHexEdit->Clear();	
-	//readHexFile->print(&output,picType);
-//	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
-//	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
-//   uppHexEdit->Thaw();
-//	uppHexEdit->SetSelection(0,0); // cursor to top
+    #endif*/
+	uppHexEdit->Freeze();
+	uppHexEdit->Clear();	
+	readHexFile->print(&output,picType);
+	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
+	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
+   uppHexEdit->Thaw();
+	uppHexEdit->SetSelection(0,0); // cursor to top
 }
 
 /*clear the hexfile*/
@@ -435,7 +435,7 @@ void UppMainWindowCallBack::upp_combo_changed()
 
 void UppMainWindowCallBack::upp_update_hardware_type()
 {
-	if (hardware != NULL)
+	if (hardware != NULL && hardware->getHardwareType() != HW_NONE)
 	{
 		if (hardware->getHardwareType() == HW_UPP)
 		{
@@ -447,6 +447,11 @@ void UppMainWindowCallBack::upp_update_hardware_type()
 			m_radioButton_boot->SetValue(true);
 			m_radioButton_upp->SetValue(false);
 		}
+	}
+	else
+	{
+		m_radioButton_boot->SetValue(false);
+		m_radioButton_upp->SetValue(false);
 	}
 }
 
@@ -461,9 +466,9 @@ void UppMainWindowCallBack::OnSize(wxSizeEvent& event)
 		uppProgressBar->SetSize(rect.GetSize());
 		
 	}
-	this->Layout();
-	if(uppHexEdit->OnResize())
-			uppHexEdit->putHexFile(readHexFile);
+	//this->Layout();
+	//if(uppHexEdit->OnResize())
+	//		uppHexEdit->putHexFile(readHexFile);
 	event.Skip();
 
 }

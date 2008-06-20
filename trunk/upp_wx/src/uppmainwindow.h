@@ -54,8 +54,8 @@ class UppMainWindow : public wxFrame
 	
 	protected:
         wxBoxSizer* bSizer;
-		UppHexview* uppHexEdit;
-		//wxTextCtrl* uppHexEdit;
+		//UppHexview* uppHexEdit;
+		wxTextCtrl* uppHexEdit;
 		wxMenuBar* uppMenuBar;
 		wxMenu* uppMenuFile;
 		wxMenu* uppMenuActions;
