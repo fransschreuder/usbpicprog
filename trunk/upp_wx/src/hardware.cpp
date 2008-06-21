@@ -155,7 +155,8 @@ int Hardware::setPicType(PicType* picType)
 		{
 			return 0;
 		}
-		nBytes = readString(msg,1);
+		
+		//nBytes = readString(msg,1);
 
 		if (nBytes < 0 )
 		{
@@ -364,12 +365,6 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 	int nBytes;
 	nBytes=-1;
 	
-	if (CurrentHardware == HW_BOOTLOADER)
-	{
-		statusCallBack(100);
-		return 0;
-	}
-	
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().ConfigSize);
 	char dataBlock[BLOCKSIZE_CONFIG];
@@ -384,7 +379,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 	
-			nBytes+=readCodeBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
+			nBytes+=readConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
 			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
@@ -719,6 +714,47 @@ int Hardware::readId(void)
 	return nBytes;
 }
 
+int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
+{
+	int nBytes = -1;
+	
+	if (_handle !=NULL)
+	{
+		if (CurrentHardware == HW_UPP)
+		{
+			return readCodeBlock(msg, address, size, lastblock);
+		}
+		else
+		{
+			BootloaderPackage bootloaderPackage;
+			
+			bootloaderPackage.fields.cmd=0x06;
+			bootloaderPackage.fields.size=size;
+			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+			
+			nBytes = writeString(bootloaderPackage.data,5);
+			
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+			
+			char tmpmsg[size+5];
+			
+			nBytes = readString(tmpmsg,size+5) - 5;
+			
+			memcpy(msg,tmpmsg+5,nBytes);
+		}
+		
+		
+		if (nBytes < 0 )
+			cerr<<"Usb Error"<<endl;
+		return nBytes;
+	}
+	else return -1;
+}
 
 
 /*private function to read one block of code memory*/

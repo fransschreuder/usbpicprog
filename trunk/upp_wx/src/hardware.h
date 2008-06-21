@@ -48,7 +48,7 @@
 #define BLOCKTYPE_LAST 2
 #define BLOCKTYPE_FIRST_LAST 3
 
-#define BLOCKSIZE_DATA 32
+#define BLOCKSIZE_DATA 8
 #define BLOCKSIZE_CONFIG 8
 #define BLOCKSIZE_CODE 32
 
@@ -177,6 +177,8 @@ private :
 	int readCodeBlock(char * msg,int address,int size,int lastblock);
 /*private function to write one block of code memory*/	
 	int writeCodeBlock(unsigned char * msg,int address,int size,int lastblock);
+/*private function to read one block of config memory*/	
+	int readConfigBlock(char * msg, int address, int size, int lastblock);
 /*private function to write one block of config memory*/	
 	int writeConfigBlock(unsigned char * msg,int address,int size,int lastblock);
 /*private function to read one block of data memory*/	
