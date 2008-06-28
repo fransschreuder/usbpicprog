@@ -23,9 +23,11 @@
 #pragma udata
 #endif
 byte old_sw2,old_sw3;
+#pragma udata BUFFERS=0x100
 
 byte input_buffer[USBGEN_EP_SIZE];
 byte output_buffer[USBGEN_EP_SIZE];
+#pragma udata
 
 rom char upp_version[]={"UsbPicProg 0.1"};
 rom char ansi_clrscr[]={"\x1b[2J"};         // ANSI Clear Screen Command
@@ -162,9 +164,9 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x20) //CMD_GET_ID
 		{
 			if(pictype==PIC18)
-			read_code(pictype,picvariant,0x3FFFFE,(char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
+			read_code(pictype,picvariant,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 			else
-			read_code(pictype,picvariant,0x2006,(char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
+				read_code(pictype,picvariant,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) //CMD_WRITE_CODE
@@ -172,7 +174,7 @@ void ProcessIO(void)
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
 					((unsigned long)input_buffer[4]);
-			output_buffer[0]=write_code(pictype,picvariant,address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			output_buffer[0]=write_code(pictype,picvariant,address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 			/*memcpy(output_buffer,input_buffer,input_buffer[1]);
 			counter=input_buffer[1];*/
@@ -183,7 +185,7 @@ void ProcessIO(void)
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_code(pictype,picvariant,address,(char*)output_buffer,input_buffer[1],input_buffer[5]);
+				read_code(pictype,picvariant,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
 				counter=input_buffer[1];
 		}
 		if((input_buffer[0])==0x50) //CMD_WRITE_DATA
@@ -191,14 +193,14 @@ void ProcessIO(void)
 			intaddress=((unsigned int)input_buffer[3])<<8|
 					((unsigned int)input_buffer[4]);
 	
-			output_buffer[0]=write_data(pictype,picvariant,intaddress, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+			output_buffer[0]=write_data(pictype,picvariant,intaddress, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
 			counter=1;
 		}
 		if((input_buffer[0])==0x60) //CMD_READ_DATA
 		{
 			intaddress=((unsigned int)input_buffer[3])<<8|
 					((unsigned int)input_buffer[4]);
-			read_data(pictype,picvariant,intaddress,(char*)output_buffer,input_buffer[1],input_buffer[5]); 
+			read_data(pictype,picvariant,intaddress,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
 			counter=input_buffer[1];
 		}
 		if((input_buffer[0])==0x70) //CMD_WRITE_CONFIG
@@ -206,7 +208,7 @@ void ProcessIO(void)
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
 					((unsigned long)input_buffer[4]);
-			output_buffer[0]=write_config_bits(pictype, picvariant, address, (char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			output_buffer[0]=write_config_bits(pictype, picvariant, address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
 		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE

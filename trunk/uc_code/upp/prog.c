@@ -170,7 +170,7 @@ data contains the data MSB0, LSB0, MSB1, LSB1, etc...
 blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
-char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data,char blocksize,char lastblock)
+char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data,char blocksize,char lastblock)
 {
 	unsigned int i;
 	char blockcounter;
@@ -276,7 +276,7 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, c
 before calling this function, datastate must be DATASTART
 call as many times until datastate==DATASUCCESS
  */
-char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
+char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, unsigned char* data, char blocksize, char lastblock)
 {
 	char blockcounter;
 	char receiveddata;
@@ -358,7 +358,7 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
 **/
-char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
+char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {
 	char i;
 	static char blockcounter;
@@ -485,7 +485,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
 **/
-void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, char* data, char blocksize, char lastblock)
+void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {
 	unsigned int i;
 	char blockcounter=0;
@@ -549,7 +549,7 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, ch
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
 **/
-void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, char* data, char blocksize, char lastblock)
+void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, unsigned char* data, char blocksize, char lastblock)
 {
 	
 	unsigned int i;
