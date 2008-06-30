@@ -21,8 +21,23 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
 
 	}
+	uppConfig=new wxConfig(wxT("usbpicprog"));
+	
+  	if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {
+	
+  	}
+  	else {
+    	defaultPath=wxT("");
+  	}
 
+	
 	fileOpened=false;
+}
+
+UppMainWindowCallBack::~UppMainWindowCallBack()
+{
+	uppConfig->Write(wxT("DefaultPath"), defaultPath);
+	delete uppConfig;
 }
 
 /*Update the progress bar*/
@@ -65,12 +80,14 @@ void UppMainWindowCallBack::upp_open()
 {
 	//wxOpen is not defined in wxWidgets 2.9
 	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, wxT("Open hexfile"), wxT(""), wxT(""), FILETYPES,
+		new wxFileDialog( this, wxT("Open hexfile"), defaultPath, wxT(""), FILETYPES,
 		                  wxOPEN, wxDefaultPosition);
+	
  
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		upp_open_file(openFileDialog->GetPath());
+		defaultPath=openFileDialog->GetDirectory();
 	}
 }
 
@@ -128,15 +145,15 @@ void UppMainWindowCallBack::upp_save_as()
 {
 	//wxSAVE is not defined in wxWidgets 2.9
 	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, wxT("Save hexfile"), wxT(""), wxT(""), FILETYPES,
+		new wxFileDialog( this, wxT("Save hexfile"), defaultPath, wxT(""), FILETYPES,
 		                  wxSAVE, wxDefaultPosition);
-						  
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
 		{
             SetStatusText(wxT("Unable to save file"),STATUS_FIELD_OTHER);
             wxMessageDialog(this, wxT("Unable to save file"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			defaultPath=openFileDialog->GetDirectory();
         }
 	}
 }
@@ -150,6 +167,12 @@ void UppMainWindowCallBack::upp_exit()
 void UppMainWindowCallBack::upp_program()
 {
 	if (hardware == NULL) return;
+	if(hardware->bulkErase()<0)
+	{
+		SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
+        wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        return;
+	}
 	
 	if(hardware->writeCode(readHexFile,picType)<0)
 	{
@@ -307,7 +330,7 @@ bool UppMainWindowCallBack::upp_autodetect()
 	if (hardware == NULL) return 0;
 	
 	int devId=hardware->autoDetectDevice();
-	cout<<hex<<devId<<dec<<endl;
+	cout<<"ID: 0x"<<hex<<devId<<dec<<endl;
 	picType=new PicType(devId);
 	hardware->setPicType(picType);
 	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));

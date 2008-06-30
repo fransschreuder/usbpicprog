@@ -6,6 +6,10 @@
 #endif
 #include <wx/wx.h>
 
+
+#include <wx/config.h>
+#include <wx/confbase.h>
+
 #if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
 #include <wx/aboutdlg.h>
 #else
@@ -34,7 +38,7 @@ class UppMainWindowCallBack: public UppMainWindow
 	public:
 		 
 		UppMainWindowCallBack(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL  ) ;
-		
+		~UppMainWindowCallBack();
 		void updateProgress(int value);
 		void printHexFile();
 		void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
@@ -81,6 +85,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		Hardware* hardware;
 		bool fileOpened;
 		void OnSize(wxSizeEvent& event);
+		wxConfig* uppConfig;
+		wxString defaultPath;
 		
 };
 #endif
