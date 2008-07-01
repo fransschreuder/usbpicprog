@@ -21,7 +21,7 @@ mkdir deb_package/usr/share/applications
 mkdir deb_package/etc
 mkdir deb_package/etc/udev
 mkdir deb_package/etc/udev/rules.d
-cp icons/usbpicprog.xpm deb_package/usr/share/pixmaps
+cp icons/usbpicprog.svg deb_package/usr/share/pixmaps
 cp Usbpicprog.desktop deb_package/usr/share/applications
 cp 26-microchip.rules deb_package/etc/udev/rules.d
 ./help2man deb_package/usr/local/bin/usbpicprog>deb_package/usr/local/man/man1/usbpicprog.1
