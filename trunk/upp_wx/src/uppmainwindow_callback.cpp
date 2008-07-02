@@ -49,21 +49,24 @@ void UppMainWindowCallBack::updateProgress(int value)
 /*Put the contents of the hex file in the text area*/
 void UppMainWindowCallBack::printHexFile()
 {
-    string output;
-	/*uppHexEdit->putHexFile(readHexFile);
-    #ifdef __WXMSW__
+#ifdef USE_UPPHEXVIEW
+	uppHexEdit->putHexFile(readHexFile);
+	/*#ifdef __WXMSW__
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
     SetSize(wxSize(w-1,h-1));
     SetSize(wxSize(w,h));
     #endif*/
+#else
+	string output;
 	uppHexEdit->Freeze();
 	uppHexEdit->Clear();	
 	readHexFile->print(&output,picType);
 	uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
-   uppHexEdit->Thaw();
-	uppHexEdit->SetSelection(0,0); // cursor to top
+    uppHexEdit->Thaw();
+	uppHexEdit->SetSelection(0,0); // cursor to top*/
+#endif
 }
 
 /*clear the hexfile*/
@@ -489,7 +492,7 @@ void UppMainWindowCallBack::OnSize(wxSizeEvent& event)
 		uppProgressBar->SetSize(rect.GetSize());
 		
 	}
-	//this->Layout();
+	this->Layout();
 	//if(uppHexEdit->OnResize())
 	//		uppHexEdit->putHexFile(readHexFile);
 	event.Skip();

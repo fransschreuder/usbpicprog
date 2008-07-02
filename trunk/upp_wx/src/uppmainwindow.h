@@ -45,7 +45,10 @@ using namespace std;
 #endif //__WXMAC__
 
 #include "hexview.h"
-
+#define USE_UPPHEXVIEW
+#ifdef USE_UPPHEXVIEW
+#warning "if you want the old wxTextCtrl, comment USE_UPPHEXVIEW in uppmainwindow.h"
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindow
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,8 +57,11 @@ class UppMainWindow : public wxFrame
 	
 	protected:
         wxBoxSizer* bSizer;
-		//UppHexview* uppHexEdit;
+#ifdef USE_UPPHEXVIEW
+		UppHexview* uppHexEdit;
+#else
 		wxTextCtrl* uppHexEdit;
+#endif
 		wxMenuBar* uppMenuBar;
 		wxMenu* uppMenuFile;
 		wxMenu* uppMenuActions;

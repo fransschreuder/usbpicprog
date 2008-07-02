@@ -1,5 +1,5 @@
 /* XPM */
-static char * usbpicprog_xpm[] = {
+const char * usbpicprog_xpm[] = {
 "48 48 1234 2",
 "  	c None",
 ". 	c #6A9388",

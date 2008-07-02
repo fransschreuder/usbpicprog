@@ -32,8 +32,11 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	
 	bSizer = new wxBoxSizer( wxVERTICAL );
-	
-	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_MULTILINE | wxNO_BORDER );
+#ifdef USE_UPPHEXVIEW
+	uppHexEdit = new UppHexview( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize);
+#else
+	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize, wxTE_READONLY| wxTE_MULTILINE | wxNO_BORDER );
+#endif	
 	
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
 	
@@ -202,7 +205,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_radioButton_upp->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ), NULL, this );
 	m_radioButton_boot->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ), NULL, this );
 	
-	this->SetSize(800,600);
+	this->SetSize(850,600);
 }
 
 BEGIN_EVENT_TABLE(UppMainWindow, wxFrame)
