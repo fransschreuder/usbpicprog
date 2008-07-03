@@ -45,10 +45,8 @@ using namespace std;
 #endif //__WXMAC__
 
 #include "hexview.h"
-#define USE_UPPHEXVIEW
-#ifdef USE_UPPHEXVIEW
-#warning "if you want the old wxTextCtrl, comment USE_UPPHEXVIEW in uppmainwindow.h"
-#endif
+//#define USE_UPPHEXVIEW
+
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindow
 ///////////////////////////////////////////////////////////////////////////////
