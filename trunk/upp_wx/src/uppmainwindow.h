@@ -64,6 +64,7 @@ class UppMainWindow : public wxFrame
 #endif
 		wxMenuBar* uppMenuBar;
 		wxMenu* uppMenuFile;
+		wxMenu* uppMenuEdit;
 		wxMenu* uppMenuActions;
 		wxMenu* uppMenuHelp;
 		wxStatusBar* m_statusBar1;
@@ -80,6 +81,8 @@ class UppMainWindow : public wxFrame
 		virtual void on_save( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_save_as( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_exit( wxCommandEvent& event ){ event.Skip(); }
+    	virtual void on_copy( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_selectall( wxCommandEvent& event ){ event.Skip(); }    	
 		virtual void on_program( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_read( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_verify( wxCommandEvent& event ){ event.Skip(); }

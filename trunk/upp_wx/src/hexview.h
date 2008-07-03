@@ -45,6 +45,8 @@ class UppHexview : public wxPanel
 		
 	
 	public:
+        void Copy(void);
+        void SelectAll(void);
 		void putHexFile(ReadHexFile* hexFile);
 		UppHexview( wxWindow* parent, wxWindowID id = wxID_ANY, wxString title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL );
 		~UppHexview();

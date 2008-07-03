@@ -47,6 +47,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX};
 		void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX};
 		void on_exit( wxCommandEvent& event ){upp_exit(); EVENT_FIX};
+		void on_copy( wxCommandEvent& event ){upp_copy(); EVENT_FIX};
+		void on_selectall( wxCommandEvent& event ){upp_selectall(); EVENT_FIX};
 		void on_program( wxCommandEvent& event ){upp_program(); EVENT_FIX};
 		void on_read( wxCommandEvent& event ){upp_read(); EVENT_FIX};
 		void on_verify( wxCommandEvent& event ){upp_verify(); EVENT_FIX};
@@ -67,6 +69,8 @@ class UppMainWindowCallBack: public UppMainWindow
 		void upp_save();
 		void upp_save_as();
 		void upp_exit();
+		void upp_copy();
+		void upp_selectall();        		
 		void upp_program();
 		void upp_read();
 		void upp_verify();

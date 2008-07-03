@@ -51,12 +51,12 @@ void UppMainWindowCallBack::printHexFile()
 {
 #ifdef USE_UPPHEXVIEW
 	uppHexEdit->putHexFile(readHexFile);
-	/*#ifdef __WXMSW__
+	#ifdef __WXMSW__
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
     SetSize(wxSize(w-1,h-1));
     SetSize(wxSize(w,h));
-    #endif*/
+    #endif
 #else
 	string output;
 	uppHexEdit->Freeze();
@@ -164,6 +164,20 @@ void UppMainWindowCallBack::upp_save_as()
 void UppMainWindowCallBack::upp_exit()
 {
 	Close();
+}
+
+void UppMainWindowCallBack::upp_copy()
+{
+    uppHexEdit->Copy();
+}
+
+void UppMainWindowCallBack::upp_selectall()
+{
+    #ifdef USE_UPPHEXVIEW
+    uppHexEdit->SelectAll();
+    #else
+    uppHexEdit->SetSelection(-1,-1);
+    #endif
 }
 
 /*Write everything to the device*/

@@ -1,5 +1,5 @@
 #include "hexview.h"
-
+#include <wx/wx.h>
 
 #define ROWLABELWIDTH 120
 #define OTHERWIDTH 52
@@ -25,6 +25,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id,wxString title, const wx
 	codeGrid->EnableEditing( true );
 	codeGrid->EnableGridLines( false );
 	codeGrid->EnableDragGridSize( false );
+	codeGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
 	codeGrid->SetMargins( 0, 0 );
 	
 	// Columns
@@ -55,6 +56,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id,wxString title, const wx
 	configGrid->EnableEditing( true );
 	configGrid->EnableGridLines( false );
 	configGrid->EnableDragGridSize( false );
+	configGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
 	configGrid->SetMargins( 0, 0 );
 	
 	// Columns
@@ -85,6 +87,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id,wxString title, const wx
 	dataGrid->EnableEditing( true );
 	dataGrid->EnableGridLines( false );
 	dataGrid->EnableDragGridSize( false );
+    dataGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
 	dataGrid->SetMargins( 0, 0 );
 	
 	// Columns
@@ -201,28 +204,104 @@ void UppHexview::autoSizeColumns(void)
 	}
 }
 
-void UppHexview::OnCopy (wxCommandEvent& event)
+void UppHexview::Copy(void)
 {
-	/*wxClipboard *clipboard = new wxClipboard();
+    int cnt;
+    wxClipboard *clipboard = new wxClipboard();
 	wxTextDataObject *dataobj = new wxTextDataObject(wxT(""));
-	cout<<codeGrid->GetSelectedCells().<<endl;
-	
-	dataobj->SetData(datastr.Length(),&datastr);
+	wxString datastr(wxT(""));
+    cnt=codeGrid->GetSelectionBlockTopLeft().GetCount();
+    if (cnt>0)datastr.Append(wxT("Code Memory\n"));
+    for(int i=0;i<cnt;i++)
+    {
+        int topLeftRow=codeGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
+        int bottomRightRow=codeGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
+        int topLeftCol=codeGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
+        int bottomRightCol=codeGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
+        for(int r=topLeftRow;r<=bottomRightRow;r++)
+        {
+            datastr.Append(codeGrid->GetRowLabelValue(r));
+            datastr.Append(wxT(": "));
+            for(int c=topLeftCol;c<=bottomRightCol;c++)
+            {
+                datastr.Append(codeGrid->GetCellValue(r,c));
+                datastr.Append(wxT(" "));
+            }
+            datastr.Append(wxT("\n"));
+        }
+    }
+
+    cnt=configGrid->GetSelectionBlockTopLeft().GetCount();
+    if (cnt>0)datastr.Append(wxT("\nConfig Memory\n"));
+    for(int i=0;i<cnt;i++)
+    {
+        int topLeftRow=configGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
+        int bottomRightRow=configGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
+        int topLeftCol=configGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
+        int bottomRightCol=configGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
+        for(int r=topLeftRow;r<=bottomRightRow;r++)
+        {
+            datastr.Append(configGrid->GetRowLabelValue(r));
+            datastr.Append(wxT(": "));
+            for(int c=topLeftCol;c<=bottomRightCol;c++)
+            {
+                datastr.Append(configGrid->GetCellValue(r,c));
+                datastr.Append(wxT(" "));
+            }
+            datastr.Append(wxT("\n"));
+        }
+    }
+    
+    cnt=dataGrid->GetSelectionBlockTopLeft().GetCount();
+    if (cnt>0)datastr.Append(wxT("\nData Memory\n"));
+    for(int i=0;i<cnt;i++)
+    {
+        int topLeftRow=dataGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
+        int bottomRightRow=dataGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
+        int topLeftCol=dataGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
+        int bottomRightCol=dataGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
+        for(int r=topLeftRow;r<=bottomRightRow;r++)
+        {
+            datastr.Append(dataGrid->GetRowLabelValue(r));
+            datastr.Append(wxT(": "));
+            for(int c=topLeftCol;c<=bottomRightCol;c++)
+            {
+                datastr.Append(dataGrid->GetCellValue(r,c));
+                datastr.Append(wxT(" "));
+            }
+            datastr.Append(wxT("\n"));
+        }
+    }
+    
+    //wxMessageDialog(this, datastr, wxT("code Memory"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+
+	dataobj->SetData(datastr.Length(),datastr.c_str());
 	if(	clipboard->Open());
 	{
 		clipboard->SetData(dataobj);
 		clipboard->Close();
 	}
 	//delete clipboard;
-	*/
-	cerr<<"not implemented yet"<<endl;
+
+	//cerr<<"not implemented yet"<<endl;
+}
+
+
+void UppHexview::OnCopy (wxCommandEvent& event)
+{
+	Copy();
+}
+
+void UppHexview::SelectAll(void)
+{
+    codeGrid->SelectAll();
+	configGrid->SelectAll();
+	dataGrid->SelectAll();
 }
 
 void UppHexview::OnSelectAll (wxCommandEvent& event)
 {
-	codeGrid->SelectAll();
-	configGrid->SelectAll();
-	dataGrid->SelectAll();
+    SelectAll();
 }
 
 void UppHexview::OnCodeRightClicked (wxGridEvent& event)

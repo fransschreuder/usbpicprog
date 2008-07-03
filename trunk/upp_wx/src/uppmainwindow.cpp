@@ -75,6 +75,17 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	uppMenuBar->Append( uppMenuFile, wxT("&File") );
 	
+	uppMenuEdit = new wxMenu();
+	wxMenuItem* uppMenuCopy;
+	uppMenuCopy = new wxMenuItem( uppMenuEdit, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("CTRL+C"), wxT("Copy selection"), wxITEM_NORMAL );
+	uppMenuEdit->Append( uppMenuCopy );
+
+	wxMenuItem* uppMenuSelectall;
+	uppMenuSelectall = new wxMenuItem( uppMenuEdit, wxID_SELECTALL, wxString( wxT("Select &All") ) + wxT('\t') + wxT("CTRL+A"), wxT("Select all"), wxITEM_NORMAL );
+	uppMenuEdit->Append( uppMenuSelectall );
+
+    uppMenuBar->Append( uppMenuEdit, wxT("&Edit") );
+	
 	uppMenuActions = new wxMenu();
 	wxMenuItem* uppMenuProgram;
 	#ifdef __WXMAC__
@@ -189,6 +200,8 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( uppMenuSave->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save ) );
 	this->Connect( uppMenuSaveAs->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
 	this->Connect( uppMenuExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_exit ) );
+	this->Connect( uppMenuCopy->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_copy ) );
+	this->Connect( uppMenuSelectall->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_selectall ) );
 	this->Connect( uppMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
 	this->Connect( uppMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
 	this->Connect( uppMenuVerify->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
@@ -221,6 +234,8 @@ UppMainWindow::~UppMainWindow()
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_exit ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_copy ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_selectall ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
