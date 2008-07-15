@@ -545,10 +545,10 @@ int Hardware::autoDetectDevice(void)
 {
 	int devId=0;
 	if (CurrentHardware == HW_BOOTLOADER) return 0;
-	setPicType (new PicType("P18F2550"));	//need to set hardware to PIC18, no matter which one
+	/*setPicType (new PicType("P18F2550"));	//need to set hardware to PIC18, no matter which one
 	devId=readId();
 	if((devId!=0)&&(devId!=0xFFFF)&&(devId>0))return devId;
-	setPicType(new PicType("P16F628A"));	//and now try PIC16
+	setPicType(new PicType("P16F628A"));	//and now try PIC16*/
 	return readId();
 }
 

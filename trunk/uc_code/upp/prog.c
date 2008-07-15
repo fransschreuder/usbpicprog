@@ -368,14 +368,14 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 	{
 		case P18F2XXX:
         		pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
-			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
-			address=0x300000;
+			pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
+			//address=0x300000;
 			//start for loop
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				set_address(pictype, address+((unsigned int)blockcounter));
 				//LSB first
-				pic_send(4,0x0F,((unsigned int)*(data))&0x00FF);
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+blockcounter))<<8));
 				pic_send_n_bits(3, 0);
 				PGC=1;	//hold PGC high for P9
 				DelayMs(P9);
@@ -383,7 +383,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
 				set_address(pictype, address+((unsigned int)blockcounter)+1);
-				pic_send(4,0x0F, (((unsigned int)*(data+1))<<8)&0xFF00); //load MSB and start programming
+				pic_send(4,0x0F, ((unsigned int)*(data+1+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); //load MSB and start programming
 				pic_send_n_bits(3, 0);
 				PGC=1;	//hold PGC high for P9
 				DelayMs(P9);
