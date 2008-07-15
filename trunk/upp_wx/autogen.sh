@@ -149,7 +149,7 @@ do
   fi
 done
 
-conf_flags="--enable-maintainer-mode CXXFLAGS=-DUSE_UPPHEXVIEW
+conf_flags="--enable-maintainer-mode
 "
 
 if test x$NOCONFIGURE = x; then

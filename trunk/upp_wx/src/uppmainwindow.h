@@ -45,7 +45,8 @@ using namespace std;
 #endif //__WXMAC__
 
 #include "hexview.h"
-//#define USE_UPPHEXVIEW
+
+#define USE_UPPHEXVIEW
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindow
