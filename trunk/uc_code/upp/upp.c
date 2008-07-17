@@ -214,6 +214,8 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE
 		{
 			set_pictype(input_buffer+1);
+			output_buffer[0]=1; //Ok
+			counter=1;
 		}
 		if((input_buffer[0])==0x90) //CMD_FIRMWARE_VERSION
 		{

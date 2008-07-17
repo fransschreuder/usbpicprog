@@ -512,8 +512,8 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, un
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 				{
 					payload=pic_read_14_bits(6,0x04); //read code memory
-					data[blockcounter]=(char)(payload>>8);
-					data[blockcounter+1]=(char)payload;
+					data[blockcounter+1]=(char)(payload>>8);
+					data[blockcounter]=(char)payload;
 					pic_send_n_bits(6,0x06);	//increment address
 				}
 			}
@@ -527,8 +527,8 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, un
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 				{
 					payload=pic_read_14_bits(6,0x04); //read code memory
-					data[blockcounter]=(char)(payload>>8);
-					data[blockcounter+1]=(char)payload;
+					data[blockcounter+1]=(char)(payload>>8);
+					data[blockcounter]=(char)payload;
 					pic_send_n_bits(6,0x06);	//increment address
 				}
 
