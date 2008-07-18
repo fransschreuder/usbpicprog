@@ -2,6 +2,7 @@
 #include "uppmainwindow.h"
 #include "../svn_revision.h"
 
+
 static const wxChar *FILETYPES = _T(
 			"Hex files|*.hex|"
 			"All files|*.*"
@@ -23,20 +24,27 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 	}
 	uppConfig=new wxConfig(wxT("usbpicprog"));
 	
-  	if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {
-	
-  	}
-  	else {
-    	defaultPath=wxT("");
-  	}
-
-	
+  	if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
+    if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
+    if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}    
+    if ( uppConfig->Read(wxT("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}    
+    if ( uppConfig->Read(wxT("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
+    if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=true;}
+    if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
+    if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
 	fileOpened=false;
 }
 
 UppMainWindowCallBack::~UppMainWindowCallBack()
 {
 	uppConfig->Write(wxT("DefaultPath"), defaultPath);
+	uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
+    uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
+    uppConfig->Write(wxT("ConfigProgramData"), configFields.ConfigProgramData);
+    uppConfig->Write(wxT("ConfigVerifyCode"), configFields.ConfigVerifyCode);
+    uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
+    uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
+    uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
 	delete uppConfig;
 }
 
@@ -184,30 +192,41 @@ void UppMainWindowCallBack::upp_selectall()
 void UppMainWindowCallBack::upp_program()
 {
 	if (hardware == NULL) return;
-	if(hardware->bulkErase()<0)
+	if(configFields.ConfigEraseBeforeProgramming)
 	{
-		SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
-	}
-	
-	if(hardware->writeCode(readHexFile,picType)<0)
-	{
-        SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error programming code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+    	if(hardware->bulkErase()<0)
+    	{
+    		SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            return;
+    	}
     }
-	if(hardware->writeData(readHexFile,picType)<0)
+    if(configFields.ConfigProgramCode)
 	{
-        SetStatusText(wxT("Error programming data memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error programming data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+    	if(hardware->writeCode(readHexFile,picType)<0)
+    	{
+            SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Error programming code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            return;
+        }
     }
-	if(hardware->writeConfig(readHexFile,picType)<0)
+    if(configFields.ConfigProgramConfig)
 	{
-        SetStatusText(wxT("Error programming config memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, wxT("Error programming config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        return;
+    	if(hardware->writeData(readHexFile,picType)<0)
+    	{
+            SetStatusText(wxT("Error programming data memory"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Error programming data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            return;
+        }
+    }
+    if(configFields.ConfigProgramData)
+	{
+    	if(hardware->writeConfig(readHexFile,picType)<0)
+    	{
+            SetStatusText(wxT("Error programming config memory"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, wxT("Error programming config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            return;
+        }
     }
 }
 
@@ -245,7 +264,7 @@ void UppMainWindowCallBack::upp_verify()
 	
     wxString verifyText;
 	wxString typeText;
-    VerifyResult res=hardware->verify(readHexFile,picType);
+    VerifyResult res=hardware->verify(readHexFile,picType,configFields.ConfigVerifyCode,configFields.ConfigVerifyConfig,configFields.ConfigVerifyData);
     switch(res.Result)
     {
         case VERIFY_SUCCESS:
@@ -430,6 +449,17 @@ void UppMainWindowCallBack::upp_disconnect()
 	}
 	
 	upp_update_hardware_type();
+}
+
+void UppMainWindowCallBack::upp_preferences()
+{
+
+    configFields.OkClicked=false;
+    PreferencesDialog *preferencesDialog = new PreferencesDialog(this, wxID_ANY, wxT("Preferences"), wxPoint(-1,-1), wxSize(-1,-1));
+    preferencesDialog->SetConfigFields(configFields);
+    preferencesDialog->ShowModal();
+    configFields=preferencesDialog->GetResult();
+    
 }
 
 /*load a browser with the usbpicprog website*/

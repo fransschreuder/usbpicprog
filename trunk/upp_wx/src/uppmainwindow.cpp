@@ -134,6 +134,16 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	uppMenuBar->Append( uppMenuActions, wxT("&Actions") );
 	
+	
+	uppMenuOptions = new wxMenu();
+	wxMenuItem* uppMenuPreferences;
+	uppMenuPreferences = new wxMenuItem( uppMenuOptions, wxID_PREFERENCES, wxString( wxT("&Preferences") ), wxT("Preferences"), wxITEM_NORMAL );
+	uppMenuOptions->Append( uppMenuPreferences );
+
+
+    uppMenuBar->Append( uppMenuOptions, wxT("&Options") );
+	
+	
 	uppMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
 	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( wxT("&Help") ) + wxT('\t') + wxT("F1"), wxT("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
@@ -211,6 +221,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	this->Connect( uppMenuConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
 	this->Connect( uppMenuConnectBoot->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
 	this->Connect( uppMenuDisConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+	this->Connect( uppMenuPreferences->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_preferences ) );
 	this->Connect( uppMenuItemHelp->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
 	
@@ -245,6 +256,7 @@ UppMainWindow::~UppMainWindow()
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+    this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_preferences ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
 	m_comboBox1->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );

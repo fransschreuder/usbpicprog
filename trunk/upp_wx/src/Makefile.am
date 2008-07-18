@@ -31,7 +31,9 @@ usbpicprog_SOURCES = \
 	uppmainwindow_callback.h \
 	uppmainwindow.h \
 	hexview.cpp \
-	hexview.h
+	hexview.h \
+	preferences.cpp \
+	preferences.h
 
 usbpicprog_LDFLAGS = 
 

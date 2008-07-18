@@ -24,6 +24,7 @@ using namespace std;
 #include "hardware.h"
 #include "pictype.h"
 #include "read_hexfile.h"
+#include "preferences.h"
 
 #ifdef __WXMAC__
 #define EVENT_FIX 
@@ -58,6 +59,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
 		void on_connect_boot( wxCommandEvent& event){upp_connect_boot(); EVENT_FIX};
 		void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
+		void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};		
 		void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
 		void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
 		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed(); EVENT_FIX};
@@ -80,6 +82,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		bool upp_connect();
 		bool upp_connect_boot();
 		void upp_disconnect();
+		void upp_preferences();		
 		void upp_help();
 		void upp_about();
 		void upp_combo_changed();
@@ -91,6 +94,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		void OnSize(wxSizeEvent& event);
 		wxConfig* uppConfig;
 		wxString defaultPath;
+	    ConfigFields configFields;
 		
 };
 #endif

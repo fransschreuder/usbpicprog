@@ -1,7 +1,7 @@
 [Project]
 FileName=usbpicprog.dev
 Name=usbpicprog
-UnitCount=15
+UnitCount=17
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -226,6 +226,26 @@ compilerType=1
 
 [Unit11]
 FileName=src\uppmainwindow.cpp
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit16]
+FileName=src\preferences.h
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit17]
+FileName=src\preferences.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1

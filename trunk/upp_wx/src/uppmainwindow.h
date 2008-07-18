@@ -65,6 +65,7 @@ class UppMainWindow : public wxFrame
 		wxMenu* uppMenuFile;
 		wxMenu* uppMenuEdit;
 		wxMenu* uppMenuActions;
+		wxMenu* uppMenuOptions;
 		wxMenu* uppMenuHelp;
 		wxStatusBar* m_statusBar1;
 		wxToolBar* m_toolBar1;
@@ -91,6 +92,7 @@ class UppMainWindow : public wxFrame
 		virtual void on_connect( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_connect_boot( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_disconnect( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_preferences( wxCommandEvent& event){ event.Skip(); }
 		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_combo_changed( wxCommandEvent& event ){ event.Skip(); }

@@ -150,7 +150,7 @@ public:
 /*Writes the configuration words (and user ID's for PIC16 dev's)*/	
 	int writeConfig(ReadHexFile *hexData,PicType *picType);	
 /*Reads the whole PIC and checks if the data matches hexData*/
-	VerifyResult verify(ReadHexFile *hexData, PicType *picType);
+	VerifyResult verify(ReadHexFile *hexData, PicType *picType, bool doCode=true, bool doConfig=true, bool doData=true);
 /*Reads the whole PIC and checks if it is blank*/
 	VerifyResult blankCheck(PicType *picType);	
 /*This function does nothing but reading the devid from the PIC, call it the following way:
