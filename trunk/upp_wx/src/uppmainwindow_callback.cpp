@@ -59,7 +59,7 @@ void UppMainWindowCallBack::printHexFile()
 {
 #ifdef USE_UPPHEXVIEW
 	uppHexEdit->putHexFile(readHexFile);
-	#ifdef __WXMSW__
+	#if defined(__WXMSW__) || defined(__WXMAC__)
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
     SetSize(wxSize(w-1,h-1));
