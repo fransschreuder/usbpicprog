@@ -74,6 +74,7 @@ void clock_delay()
 {
 	//char i;
 	//for(i=0;i<2;i++)continue;
+	Nop();
 	Nop(); //would that be enough for all pic's?
 	Nop();
 }

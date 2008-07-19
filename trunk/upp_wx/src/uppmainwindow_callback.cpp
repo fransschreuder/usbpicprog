@@ -58,7 +58,7 @@ void UppMainWindowCallBack::updateProgress(int value)
 void UppMainWindowCallBack::printHexFile()
 {
 #ifdef USE_UPPHEXVIEW
-	uppHexEdit->putHexFile(readHexFile);
+	uppHexEdit->putHexFile(readHexFile,picType);
 	#if defined(__WXMSW__) || defined(__WXMAC__)
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();

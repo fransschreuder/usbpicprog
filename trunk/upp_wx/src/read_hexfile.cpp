@@ -58,6 +58,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 	int address;
 	int byteCount;
 	int checkSum;
+	int configAddress;
 	string tempStr;
 	RecordType recordType;
 	ifstream fp (filename);
@@ -102,16 +103,18 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 				/**
 				Is The address within the Config Memory range?
 				 */
-				if(((extAddress+address)>=(picType->getCurrentPic().ConfigAddress))&&
-				((extAddress+address)<(picType->getCurrentPic().ConfigAddress+picType->getCurrentPic().ConfigSize)))
+				configAddress=picType->getCurrentPic().ConfigAddress;
+				if(picType->getCurrentPic().Name.find("P18F")!=0)configAddress*=2;
+				if(((extAddress+address)>=(configAddress))&&
+				((extAddress+address)<(configAddress+picType->getCurrentPic().ConfigSize)))
 				   {
 					   if((signed)configMemory.size()<(picType->getCurrentPic().ConfigSize))
 					   {
-						   int newSize =(extAddress+address+lineData.size())-(picType->getCurrentPic().ConfigAddress);
+						   int newSize =(extAddress+address+lineData.size())-(configAddress);
 						   if((signed)configMemory.size()<newSize)configMemory.resize(newSize,0xFF);
 					   }
 					   for(int i=0;i<(signed)lineData.size();i++)
-					   configMemory[extAddress+address+i-picType->getCurrentPic().ConfigAddress]=lineData[i];
+					   configMemory[extAddress+address+i-configAddress]=lineData[i];
 				   }
 				/**
 				Is The address within the Code Memory range?

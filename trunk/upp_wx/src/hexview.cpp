@@ -4,7 +4,7 @@
 #define ROWLABELWIDTH 120
 #define OTHERWIDTH 52
 #define COLWIDTH 28
-UppHexview::UppHexview( wxWindow* parent, wxWindowID id,wxString title, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
+UppHexview::UppHexview(wxWindow* parent, wxWindowID id,wxString title, const wxPoint& pos, const wxSize& size, long style) : wxPanel( parent, id, pos, size, style )
 {
 
 	hexViewBoxSizer = new wxBoxSizer( wxVERTICAL );
@@ -114,7 +114,7 @@ UppHexview::UppHexview( wxWindow* parent, wxWindowID id,wxString title, const wx
 
 	this->SetSizer( hexViewBoxSizer );
 	this->Layout();
-	setLabels ();
+//	setLabels ();
 	autoSizeColumns();
 	hexViewBoxSizer->Fit( this );
 	
@@ -142,7 +142,7 @@ UppHexview::~UppHexview()
 }
 
 
-void UppHexview::putHexFile(ReadHexFile* hexFile)
+void UppHexview::putHexFile(ReadHexFile* hexFile, PicType* picType)
 {
 	readHexFile=hexFile;
 	codeGrid->DeleteRows(0, codeGrid->GetNumberRows(),false);
@@ -169,17 +169,17 @@ void UppHexview::putHexFile(ReadHexFile* hexFile)
 							   wxString::Format(wxT("%02X"),readHexFile->getDataMemory()[i]));
 	}
 
-	setLabels();
+	setLabels(picType->getCurrentPic().ConfigAddress);
 	Fit();
 	
 }
 
-void UppHexview::setLabels(void)
+void UppHexview::setLabels(int configOffset)
 {
 	for(int i=0;i<codeGrid->GetNumberRows();i++)
 		codeGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*codeGrid->GetNumberCols()));
 	for(int i=0;i<configGrid->GetNumberRows();i++)
-		configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*configGrid->GetNumberCols()));
+		configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),configOffset+i*configGrid->GetNumberCols()));
 	for(int i=0;i<dataGrid->GetNumberRows();i++)
 		dataGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*dataGrid->GetNumberCols()));
 	

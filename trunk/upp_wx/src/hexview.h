@@ -16,6 +16,7 @@
 #include <wx/clipbrd.h>
 #include <wx/dataobj.h>
 #include "read_hexfile.h"
+#include "pictype.h"
 #include <iostream>
 using namespace std;
 
@@ -24,7 +25,7 @@ class UppHexview : public wxPanel
 {
 	private:
 		void autoSizeColumns (void);
-		void setLabels (void);
+		void setLabels (int configOffset);
 		ReadHexFile* readHexFile;
 	protected:
         wxFlexGridSizer* bSizer2;
@@ -47,8 +48,8 @@ class UppHexview : public wxPanel
 	public:
         void Copy(void);
         void SelectAll(void);
-		void putHexFile(ReadHexFile* hexFile);
-		UppHexview( wxWindow* parent, wxWindowID id = wxID_ANY, wxString title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL );
+		void putHexFile(ReadHexFile* hexFile, PicType* picType);
+		UppHexview(wxWindow* parent, wxWindowID id = wxID_ANY, wxString title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxTAB_TRAVERSAL);
 		~UppHexview();
 	
 };

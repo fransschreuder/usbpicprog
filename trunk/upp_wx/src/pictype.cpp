@@ -136,10 +136,10 @@ const Pic picTypes[]={
 {
 	"P16F648A",	//Name
 	0x1000,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1100,		//UserId
 	0x3FE0		//UserIdMask
@@ -456,11 +456,11 @@ const Pic picTypes[]={
 	0x10CC0,		//UserId
 	0x1FFE0		//UserIdMask
 },
-#warning codesize was 0x8000
+//#warning codesize was 0x8000
 //PIC18F2550 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√
 {
 	"P18F2550",	//Name
-	0x1000,		//CodeSize 
+	0x8000,		//CodeSize 
 	0x300000,	//ConfigAddress
 	0xF00000,	//DataAddress in hex file
 	0x100,		//Datasize

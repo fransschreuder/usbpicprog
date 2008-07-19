@@ -223,7 +223,9 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes+=readCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
+			int	currentBlockCounter=blockcounter;
+			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+			nBytes+=readCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_CODE,blocktype);
 			for(int i=0;i<BLOCKSIZE_CODE;i++)
 			{
 				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
@@ -279,7 +281,9 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes=writeCodeBlock(dataBlock,blockcounter,BLOCKSIZE_CODE,blocktype);
+			int	currentBlockCounter=blockcounter;
+			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_CODE,blocktype);
 		}
 	}
 	return nBytes;
@@ -378,8 +382,9 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-	
-			nBytes+=readConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
+			int	currentBlockCounter=blockcounter;
+			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+			nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
 			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
@@ -429,7 +434,9 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes+=writeConfigBlock(dataBlock,blockcounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+			int	currentBlockCounter=blockcounter;
+			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+			nBytes+=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
 		}
 	}
 	return nBytes;

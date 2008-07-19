@@ -403,8 +403,8 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				//load data for config memory
 				if(((((char)address)+blockcounter)<4)||(((char)address+blockcounter)==7))
 				{
-					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
-							(((unsigned int)data[blockcounter+1])));//LSB
+					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
+							(((unsigned int)data[blockcounter+1])<<8));//LSB
 
 				}
 				if(((((char)address)+blockcounter)==4)||((((char)address)+blockcounter)==7))
@@ -427,15 +427,15 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				//load data for config memory
 				if(((((char)address)+blockcounter)<4))
 				{
-					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter])<<8)|   //MSB
-							(((unsigned int)data[blockcounter+1])));//LSB
+					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
+							(((unsigned int)data[blockcounter+1])<<8));//LSB
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
 				if(((((char)address)+blockcounter)==7))      //restore bandgap bits
 				{
-					payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter])<<8)|   //MSB
-							(((unsigned int)data[blockcounter+1]))));
+					payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter+1])<<8)|   //MSB
+							(((unsigned int)data[blockcounter]))));
 					pic_send_14_bits(6,0x00,payload);
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
@@ -456,8 +456,8 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				//load data for config memory
 				if(((((char)address)+blockcounter)<4)||((((char)address)+blockcounter)==7))
 				{
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter])<<8)|   //MSB
-							(((unsigned int)data[blockcounter+1])));//LSB
+					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
+					pic_send_14_bits(6,0x02,payload);//LSB
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
