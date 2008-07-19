@@ -228,6 +228,8 @@ void UppMainWindowCallBack::upp_program()
             return;
         }
     }
+	updateProgress(100);
+	return;
 }
 
 /*read everything from the device*/
@@ -255,6 +257,8 @@ void UppMainWindowCallBack::upp_read()
     }
 	readHexFile->trimData(picType);
 	printHexFile();
+	updateProgress(100);
+	return;
 }
 
 /*verify the device with the open hexfile*/
@@ -300,6 +304,8 @@ void UppMainWindowCallBack::upp_verify()
             wxMessageDialog(this, wxT("I'm sorry for being stupid"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
             break;
     }
+	updateProgress(100);
+	return;
 }
 
 /*perform a bulk-erase on the current PIC*/
@@ -313,6 +319,7 @@ void UppMainWindowCallBack::upp_erase()
         wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
         return;
     }
+	updateProgress(100);
 }
 
 /*Check if the device is erased successfully*/
@@ -358,6 +365,7 @@ void UppMainWindowCallBack::upp_blankcheck()
             wxMessageDialog(this, wxT("I'm sorry for being stupid"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
             break;
     }
+	updateProgress(100);
 }
 
 /*Detect which PIC is connected and select it in the combobox and the hardware*/
