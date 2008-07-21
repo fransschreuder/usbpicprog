@@ -32,8 +32,8 @@ const Pic defaultPic=
 	0x100,		//Datasize
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
-	0x1240,		//UserId
-	0xFFE0		//UserIdMask
+	0x11240,		//UserId
+	0x1FFE0		//UserIdMask
 };
 
 /*All the properties of supported PIC devices...*/

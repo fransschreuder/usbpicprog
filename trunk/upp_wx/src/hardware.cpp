@@ -411,6 +411,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 	int nBytes;
 	nBytes=-1;
 	unsigned char dataBlock[BLOCKSIZE_CONFIG];
+	int blocksize;
 	int blocktype;
 	statusCallBack (0);
 	if (_handle !=NULL)
@@ -419,11 +420,14 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 		for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
 		{
 			statusCallBack ((blockcounter*100)/((signed)hexData->getConfigMemory().size()));
+			blocksize=0;
 			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
 			{
 				if((signed)hexData->getConfigMemory().size()>(blockcounter+i))
 				{
 					dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
+					blocksize++;
+					cout<<"blocksize "<<blocksize<<endl;
 				}
 				else
 				{
@@ -436,7 +440,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 			if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			nBytes+=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);
+			nBytes+=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
 		}
 	}
 	return nBytes;
@@ -896,6 +900,9 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
 		uppPackage.fields.blocktype=(unsigned char)lastblock;
 		memcpy(uppPackage.fields.dataField,msg,size);
+		for(int i=0;i<size+6;i++)
+			cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
+		cout<<endl;
 		int nBytes = writeString(uppPackage.data,size+6);
 		if (nBytes < 0 )
 		{

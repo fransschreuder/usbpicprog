@@ -58,7 +58,8 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 	int address;
 	int byteCount;
 	int checkSum;
-	int configAddress;
+	int configAddress,dataAddress;
+	int newSize;
 	string tempStr;
 	RecordType recordType;
 	ifstream fp (filename);
@@ -110,11 +111,12 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 				   {
 					   if((signed)configMemory.size()<(picType->getCurrentPic().ConfigSize))
 					   {
-						   int newSize =(extAddress+address+lineData.size())-(configAddress);
+						   newSize =(extAddress+address+lineData.size())-(configAddress);
 						   if((signed)configMemory.size()<newSize)configMemory.resize(newSize,0xFF);
+						   for(int i=0;i<(signed)lineData.size();i++)
+							   configMemory[extAddress+address+i-configAddress]=lineData[i];
 					   }
-					   for(int i=0;i<(signed)lineData.size();i++)
-					   configMemory[extAddress+address+i-configAddress]=lineData[i];
+					   else cerr<<"Data in hex file outside config memory of PIC"<<endl;
 				   }
 				/**
 				Is The address within the Code Memory range?
@@ -123,25 +125,41 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 				   {
 					   if((signed)codeMemory.size()<(picType->getCurrentPic().CodeSize))
 					   {
-						   int newSize =(extAddress+address+lineData.size());
+						   newSize =(extAddress+address+lineData.size());
 						   if((signed)codeMemory.size()<newSize)codeMemory.resize(newSize,0xFF);
+						   for(int i=0;i<(signed)lineData.size();i++)
+							   codeMemory[extAddress+address+i]=lineData[i];
 					   }
-					   for(int i=0;i<(signed)lineData.size();i++)
-						   codeMemory[extAddress+address+i]=lineData[i];
+					   else cerr<<"Data in hex file outside code memory of PIC"<<endl;
 				   }
 				/**
 				Is The address within the Eeprom Data range?
 				*/
-				if(((extAddress+address)>=(picType->getCurrentPic().DataAddress))&&
-								    ((extAddress+address)<(picType->getCurrentPic().DataAddress+picType->getCurrentPic().DataSize)))
+				dataAddress=picType->getCurrentPic().DataAddress;
+				if(picType->getCurrentPic().Name.find("P18F")!=0)dataAddress*=2;
+				if(((extAddress+address)>=(dataAddress))&&
+								    ((extAddress+address)<(dataAddress+picType->getCurrentPic().DataSize)))
 				   {
 					   if((signed)dataMemory.size()<(picType->getCurrentPic().DataSize))
 					   {
-						   int newSize =(extAddress+address+lineData.size())-(picType->getCurrentPic().DataAddress);
+						   if(picType->getCurrentPic().Name.find("P18F")==0)
+							   newSize =(extAddress+address+lineData.size())-(dataAddress);
+						   else
+							   newSize =(extAddress+address+(lineData.size()/2))-(dataAddress);
 						   if((signed)dataMemory.size()<newSize)dataMemory.resize(newSize,0xFF);
+						   if(picType->getCurrentPic().Name.find("P18F")==0)
+						   {
+							   for(int i=0;i<(signed)lineData.size();i++)
+								   dataMemory[extAddress+address+i-dataAddress]=lineData[i];
+						   }
+						   else //PIC16 devices contain useless data after every data byte in data memory :(
+						   {
+							   for(int i=0;i<(signed)lineData.size();i+=2)
+								   dataMemory[extAddress+address+(i/2)-dataAddress]=lineData[i];
+						   }
 					   }
-					   for(int i=0;i<(signed)lineData.size();i++)
-						   dataMemory[extAddress+address+i-picType->getCurrentPic().DataAddress]=lineData[i];
+					   else cerr<<"Data in hex file outside data memory of PIC"<<endl;
+					   
 				   }
 				break;
 			case EXTADDR:
@@ -246,6 +264,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
     	lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().DataAddress;
+		if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -274,6 +293,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
     	lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().ConfigAddress;
+		if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;		
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
