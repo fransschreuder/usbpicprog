@@ -41,10 +41,10 @@ const Pic picTypes[]={
 {
 	"P12F629",	//Name
 	0x3FF,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x0F80,		//UserId
 	0x3FE0		//UserIdMask
@@ -52,10 +52,10 @@ const Pic picTypes[]={
 {
 	"P12F675",	//Name
 	0x3FF,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x0FC0,		//UserId
 	0x3FE0		//UserIdMask
@@ -64,10 +64,10 @@ const Pic picTypes[]={
 {
 	"P16F630",	//Name
 	0x3FF,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x10C0,		//UserId
 	0x3FE0		//UserIdMask
@@ -76,10 +76,10 @@ const Pic picTypes[]={
 {
 	"P16F676",	//Name
 	0x3FF,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x10E0,		//UserId
 	0x3FE0		//UserIdMask
@@ -88,10 +88,10 @@ const Pic picTypes[]={
 {
 	"P16F627",	//Name
 	0x400,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F62X,	//PicFamily
 	0x07A0,		//UserId
 	0x3FE0		//UserIdMask
@@ -100,10 +100,10 @@ const Pic picTypes[]={
 {
 	"P16F628",	//Name
 	0x800,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F62X,	//PicFamily
 	0x07C0,		//UserId
 	0x3FE0		//UserIdMask
@@ -112,10 +112,10 @@ const Pic picTypes[]={
 {
 	"P16F627A",	//Name
 	0x400,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1040,		//UserId
 	0x3FE0		//UserIdMask
@@ -124,10 +124,10 @@ const Pic picTypes[]={
 {
 	"P16F628A",	//Name
 	0x800,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1060,		//UserId
 	0x3FE0		//UserIdMask
@@ -148,10 +148,10 @@ const Pic picTypes[]={
 {
 	"P16F873A",	//Name
 	0x1000,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E40,		//UserId
 	0x3FF0		//UserIdMask
@@ -160,10 +160,10 @@ const Pic picTypes[]={
 {
 	"P16F874A",	//Name
 	0x1000,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E60,		//UserId
 	0x3FF0		//UserIdMask
@@ -172,10 +172,10 @@ const Pic picTypes[]={
 {
 	"P16F876A",	//Name
 	0x2000,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E00,		//UserId
 	0x3FF0		//UserIdMask
@@ -184,10 +184,10 @@ const Pic picTypes[]={
 {
 	"P16F877A",	//Name
 	0x2000,		//CodeSize
-	0x2000,		//ConfigAddress
+	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x10,		//ConfigSize
+	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E20,		//UserId
 	0x3FF0		//UserIdMask

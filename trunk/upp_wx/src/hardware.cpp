@@ -207,7 +207,7 @@ int Hardware::bulkErase(void)
 /*Read the code memory from the pic (starting from address 0 into *hexData*/
 int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 {
-	int nBytes;
+	int nBytes,blocksize;
 	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
@@ -225,8 +225,10 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			nBytes+=readCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_CODE,blocktype);
-			for(int i=0;i<BLOCKSIZE_CODE;i++)
+			if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_CODE))blocksize=BLOCKSIZE_CODE;
+			   else blocksize=picType->getCurrentPic().CodeSize-blockcounter;
+			nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
+			for(int i=0;i<blocksize;i++)
 			{
 				if(picType->getCurrentPic().CodeSize>(blockcounter+i))
 				{
@@ -292,7 +294,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 /* read the Eeprom Data area of the pic into *hexData->dataMemory */
 int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 {
-	int nBytes;
+	int nBytes,blocksize;
 	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().DataSize);
@@ -307,8 +309,11 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes+=readDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
-			for(int i=0;i<BLOCKSIZE_DATA;i++)
+			if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_DATA))blocksize=BLOCKSIZE_DATA;
+			   else blocksize=picType->getCurrentPic().DataSize-blockcounter;
+			
+			nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
+			for(int i=0;i<blocksize;i++)
 			{
 				if(picType->getCurrentPic().DataSize>(blockcounter+i))
 				{
@@ -366,7 +371,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 /* Read the configuration words (and user ID's for PIC16 dev's) */
 int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 {
-	int nBytes;
+	int nBytes,blocksize;
 	nBytes=-1;
 	
 	vector<int> mem;
@@ -384,8 +389,10 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,BLOCKSIZE_CONFIG,blocktype);		
-			for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+			if(picType->getCurrentPic().ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
+			   else blocksize=picType->getCurrentPic().ConfigSize-blockcounter;
+			nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);		
+			for(int i=0;i<blocksize;i++)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
 				{
@@ -811,6 +818,12 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			}
 			
 			nBytes = readString(msg,size);
+			if(address>0x2000)
+			{
+				cout<<hex<<address<<endl;
+				for(int i=0;i<size;i++)cout<<hex<<(unsigned int)msg[i]<<" ";
+				cout<<endl;
+			}
 		}
 		else
 		{

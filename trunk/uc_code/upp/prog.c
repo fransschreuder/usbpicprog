@@ -216,7 +216,7 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, u
 		case P12F629:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
-				if((address+blockcounter)<0x3FF) //do not program
+				if((address+(blockcounter>>1))<0x3FF) //do not program
 				{
 					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
@@ -401,13 +401,13 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if(((((char)address)+blockcounter)<4)||(((char)address+blockcounter)==7))
+				if(((((char)address)+(blockcounter>>1))<4)||(((char)address+blockcounter)==7))
 				{
 					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
 
 				}
-				if(((((char)address)+blockcounter)==4)||((((char)address)+blockcounter)==7))
+				if(((((char)address)+(blockcounter>>1))==4)||((((char)address)+blockcounter)==7))
 				{
 	                                pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
@@ -425,14 +425,14 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if(((((char)address)+blockcounter)<4))
+				if(((((char)address)+(blockcounter>>1))<4))
 				{
 					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
-				if(((((char)address)+blockcounter)==7))      //restore bandgap bits
+				if(((((char)address)+(blockcounter>>1))==7))      //restore bandgap bits
 				{
 					payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter+1])<<8)|   //MSB
 							(((unsigned int)data[blockcounter]))));
@@ -454,10 +454,10 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if(((((char)address)+blockcounter)<4)||((((char)address)+blockcounter)==7))
+				if(((((char)address)+(blockcounter>>1))<4)||((((char)address)+(blockcounter>>1))==7))
 				{
 					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
-					pic_send_14_bits(6,0x02,payload);//LSB
+					pic_send_14_bits(6,0x02,payload); //load data for programming
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
