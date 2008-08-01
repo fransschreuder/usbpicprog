@@ -74,9 +74,6 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			pic_send_n_bits(6,0x1F); //send 11111x to erase device
 			DelayMs(Tprog);
 			break;
-		case P12F6XX:
-			return 3;
-			break;
 		case P12F629:
 			for(i=0;i<0x3FF;i++)pic_send_n_bits(6,0x06);//set PC to 3FF
 			osccal=pic_read_14_bits(6,0x04);
@@ -91,6 +88,7 @@ char bulk_erase(PICTYPE pictype,PICVARIANT picvariant)
 			DelayMs(Tera);//f) Wait TERA.
 			//h) Restore OSCCAL and BG bits.*/
 			break;
+		case P12F6XX:	//same as P16F62XA
 		case P16F62XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
@@ -243,6 +241,23 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, u
 				DelayMs(2);
 				pic_send_n_bits(6,0x0A); 	//end programming
 			}
+			break;
+		case P12F6XX:		//4 word programming
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
+			{
+				for(i=0;i<8;i+=2)
+				{
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i]))|   //MSB
+							(((unsigned int)data[blockcounter+i+1])<<8));//LSB
+					if(i<6)pic_send_n_bits(6,0x06);	//increment address
+				}
+				pic_send_n_bits(6,0x8);    //begin programming, externally timed
+				DelayMs(Tprog);
+				//pic_send_n_bits(5,0x17);    //end programming
+				//for(i=0;i<100;i++);		//wait Tdis
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
 		case P16F62XA:      //same as P16F62X
 		case P16F62X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
@@ -262,6 +277,14 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, u
 	}
 	if(lastblock&2)
 	{
+		/*if(picvariant==P12F6XX)
+		{
+			DelayMs(1);
+			set_vdd_vpp(pictype,0);
+			DelayMs(1);
+			set_vdd_vpp(pictype,1);
+			DelayMs(1);
+		}*/
 		set_vdd_vpp(pictype,0);
 		return 1;	//ok
 	}
@@ -311,6 +334,7 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, un
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
 			break;
+		case P12F6XX:		//same as P16F62X
 		case P12F629:		//same as P16F62X
 		case P16F87XA:		//same as P16F62X?
 		case P16F62XA:          //same as P16F62X
@@ -444,6 +468,7 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P12F6XX: //same as P16F62X
 		case P16F62XA: //same as P16F62X
 		case P16F62X:
 			if(lastblock&1)
@@ -498,6 +523,7 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, un
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
+		case P12F6XX:	//same as P16F62X
 		case P12F629:	//same as P16F62X
 		case P16F87XA:	//same as P16F62X
 		case P16F62XA:  //same as P16F62X
@@ -574,6 +600,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, uns
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
 			}
 			break;
+		case P12F6XX:	//same as P16F62X			
 		case P12F629:	//same as P16F62X			
 		case P16F87XA:	//same as P16F62X
 		case P16F62XA:  //same as P16F62X

@@ -40,7 +40,7 @@ const Pic defaultPic=
 const Pic picTypes[]={
 {
 	"P12F629",	//Name
-	0x3FF,		//CodeSize
+	0x3FF*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -51,7 +51,7 @@ const Pic picTypes[]={
 },
 {
 	"P12F675",	//Name
-	0x3FF,		//CodeSize
+	0x3FF*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -63,7 +63,7 @@ const Pic picTypes[]={
 //P16F630 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F630",	//Name
-	0x3FF,		//CodeSize
+	0x3FF*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -75,7 +75,7 @@ const Pic picTypes[]={
 //PIC16F676 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F676",	//Name
-	0x3FF,		//CodeSize
+	0x3FF*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -84,10 +84,154 @@ const Pic picTypes[]={
 	0x10E0,		//UserId
 	0x3FE0		//UserIdMask
 },
+//PIC12F635
+{
+	"P12F635",	//Name
+	0x400*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x80,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x0FA0,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F684
+{
+	"P16F684",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1080,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC12F683
+{
+	"P16F683",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x0460,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F685
+{
+	"P16F685",	//Name
+	0x1000*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x04A0,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F631
+{
+	"P16F631",	//Name
+	0x400*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x80,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1420,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F687
+{
+	"P16F687",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1320,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F636
+{
+	"P16F636",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x10A0,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F688
+{
+	"P16F688",	//Name
+	0x1000*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1340,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F639
+{
+	"P16F639",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x10A0,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F689
+{
+	"P16F689",	//Name
+	0x1000*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1340,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F677
+{
+	"P16F677",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1440,		//UserId
+	0x3FE0		//UserIdMask
+},
+//PIC16F690
+{
+	"P16F690",	//Name
+	0x1000*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x6,		//ConfigSize
+	P12F6XX,	//PicFamily
+	0x1400,		//UserId
+	0x3FE0		//UserIdMask
+},
 //PIC16F627 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F627",	//Name
-	0x400,		//CodeSize
+	0x400*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -99,7 +243,7 @@ const Pic picTypes[]={
 //PIC16F628 	√ 	½ 	√ 	√ 	√ 	√ 	√ 	√ 	√
 {
 	"P16F628",	//Name
-	0x800,		//CodeSize
+	0x800*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -111,7 +255,7 @@ const Pic picTypes[]={
 //PIC16F627A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F627A",	//Name
-	0x400,		//CodeSize
+	0x400*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -123,7 +267,7 @@ const Pic picTypes[]={
 //PIC16F628A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F628A",	//Name
-	0x800,		//CodeSize
+	0x800*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -135,7 +279,7 @@ const Pic picTypes[]={
 //PIC16F648A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F648A",	//Name
-	0x1000,		//CodeSize
+	0x1000*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
@@ -147,7 +291,7 @@ const Pic picTypes[]={
 //PIC16F873A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F873A",	//Name
-	0x1000,		//CodeSize
+	0x1000*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -159,7 +303,7 @@ const Pic picTypes[]={
 //PIC16F874A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F874A",	//Name
-	0x1000,		//CodeSize
+	0x1000*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
@@ -171,7 +315,7 @@ const Pic picTypes[]={
 //PIC16F875A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F876A",	//Name
-	0x2000,		//CodeSize
+	0x2000*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
@@ -183,7 +327,7 @@ const Pic picTypes[]={
 //PIC16F877A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F877A",	//Name
-	0x2000,		//CodeSize
+	0x2000*2,		//CodeSize
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
@@ -868,7 +1012,7 @@ PicType::PicType(string picTypeStr)
 }
 
 /*Constructor to select a pic by devId, usage:
- Pictype* picType=new PicType(0x1240); */
+ Pictype* picType=new PicType(0x11240); */
 PicType::PicType(int devId)
 {
 	const int numberOfSupportedDevices=sizeof(picTypes)/sizeof(Pic);
