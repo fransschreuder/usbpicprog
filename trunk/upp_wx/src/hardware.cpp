@@ -259,7 +259,6 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=-1;
 	unsigned char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
 	if (_handle !=NULL)
@@ -286,9 +285,13 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
 			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_CODE,blocktype);
+			if(nBytes==3) return -3;	//something not implemented in firmware :(
+			if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
 		}
 	}
-	return nBytes;
+	else return -4;
+	return 0;
 }
 
 /* read the Eeprom Data area of the pic into *hexData->dataMemory */
@@ -337,7 +340,6 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=-1;
 	unsigned char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
 	statusCallBack (0);
@@ -362,10 +364,14 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			nBytes+=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+			nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+			if(nBytes==3) return -3;	//something not implemented in firmware :(
+			if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
 		}
 	}
-	return nBytes;
+	else return -4;
+	return 0;
 }
 
 /* Read the configuration words (and user ID's for PIC16 dev's) */
@@ -416,7 +422,6 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
-	nBytes=-1;
 	unsigned char dataBlock[BLOCKSIZE_CONFIG];
 	int blocksize;
 	int blocktype;
@@ -447,10 +452,14 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 			if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			nBytes+=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
+			nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
+			if(nBytes==3) return -3;	//something not implemented in firmware :(
+			if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
 		}
 	}
-	return nBytes;
+	else return -4;	
+	return 0;
 }
 
 /*Reads the whole PIC and checks if the data matches hexData*/

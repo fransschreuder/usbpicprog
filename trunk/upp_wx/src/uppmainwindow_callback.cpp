@@ -194,38 +194,103 @@ void UppMainWindowCallBack::upp_program()
 	if (hardware == NULL) return;
 	if(configFields.ConfigEraseBeforeProgramming)
 	{
-    	if(hardware->bulkErase()<0)
+    	switch(hardware->bulkErase())
     	{
-    		SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-            return;
+	    case 1:
+	    SetStatusText(wxT("Erase OK"),STATUS_FIELD_OTHER);
+	    break;
+	    default:
+	    SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
+	    wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+	    break;
+	    
     	}
     }
     if(configFields.ConfigProgramCode)
 	{
-    	if(hardware->writeCode(readHexFile,picType)<0)
+    	switch(hardware->writeCode(readHexFile,picType))
     	{
-            SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, wxT("Error programming code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-            return;
+	    case 0:
+	                SetStatusText(wxT("Write Code memory OK"),STATUS_FIELD_OTHER);
+			break;
+	    case -1:
+			SetStatusText(wxT("Hardware should say OK"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should say OK"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -2:
+			SetStatusText(wxT("Hardware should ask for next block"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should ask for next block"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -3:
+			SetStatusText(wxT("write code not implemented for current PIC"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("write code not implemented for current PIC"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;		
+	    case -4:
+			SetStatusText(wxT("USB error while writing code memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("USB error while writing code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;				
+	    default:
+			SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Error programming code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
         }
     }
     if(configFields.ConfigProgramConfig)
 	{
-    	if(hardware->writeData(readHexFile,picType)<0)
+    	switch(hardware->writeData(readHexFile,picType))
     	{
-            SetStatusText(wxT("Error programming data memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, wxT("Error programming data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-            return;
+            case 0:
+	                SetStatusText(wxT("Write Data memory OK"),STATUS_FIELD_OTHER);
+			break;
+	    case -1:
+			SetStatusText(wxT("Hardware should say OK"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should say OK"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -2:
+			SetStatusText(wxT("Hardware should ask for next block"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should ask for next block"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -3:
+			SetStatusText(wxT("write data not implemented for current PIC"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("write data not implemented for current PIC"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;		
+	    case -4:
+			SetStatusText(wxT("USB error while writing code memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("USB error while writing code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;			
+	    default:
+			SetStatusText(wxT("Error programming data memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Error programming data memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
         }
     }
     if(configFields.ConfigProgramData)
 	{
-    	if(hardware->writeConfig(readHexFile,picType)<0)
+    	switch(hardware->writeConfig(readHexFile,picType))
     	{
-            SetStatusText(wxT("Error programming config memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, wxT("Error programming config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-            return;
+	    case 0:
+	                SetStatusText(wxT("Write Config memory OK"),STATUS_FIELD_OTHER);
+			break;
+	    case -1:
+			SetStatusText(wxT("Hardware should say OK"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should say OK"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -2:
+			SetStatusText(wxT("Hardware should ask for next block"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Hardware should ask for next block"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
+	    case -3:
+			SetStatusText(wxT("write config not implemented for current PIC"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("write config not implemented for current PIC"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;	
+	    case -4:
+			SetStatusText(wxT("USB error while writing code memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("USB error while writing code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;			
+	    default:
+			SetStatusText(wxT("Error programming config memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Error programming config memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;
         }
     }
 	updateProgress(100);
