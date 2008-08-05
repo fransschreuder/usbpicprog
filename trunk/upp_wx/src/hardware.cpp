@@ -207,25 +207,27 @@ int Hardware::bulkErase(void)
 /*Read the code memory from the pic (starting from address 0 into *hexData*/
 int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 {
-	int nBytes,blocksize;
+	int nBytes,blocksize,BLOCKSIZE_HW;
 	nBytes=-1;
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
 	char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
+	if (CurrentHardware == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+	else BLOCKSIZE_HW=BLOCKSIZE_CODE;
 	statusCallBack (0);
 	if (_handle !=NULL)
 	{
 		nBytes=0;
-		for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_CODE)
+		for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_HW)
 		{
 			statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().CodeSize));
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			if((picType->getCurrentPic().CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_CODE))blocksize=BLOCKSIZE_CODE;
+			if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
 			   else blocksize=picType->getCurrentPic().CodeSize-blockcounter;
 			nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
 			for(int i=0;i<blocksize;i++)
@@ -245,9 +247,9 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 				}
 			}
 				
-			/*if (dataBlock[BLOCKSIZE_CODE-1] == 0)
+			/*if (dataBlock[BLOCKSIZE_HW-1] == 0)
 			{
-				blockcounter-=BLOCKSIZE_CODE-1;
+				blockcounter-=BLOCKSIZE_HW-1;
 			}*/
 		}
 		hexData->putCodeMemory(mem);
@@ -259,15 +261,18 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes;
+	int BLOCKSIZE_HW;
 	unsigned char dataBlock[BLOCKSIZE_CODE];
 	int blocktype;
+	if (CurrentHardware == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+	else BLOCKSIZE_HW=BLOCKSIZE_CODE;
 	if (_handle !=NULL)
 	{
 		nBytes=0;
-		for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_CODE)
+		for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_HW)
 		{
 			statusCallBack ((blockcounter*100)/((signed)hexData->getCodeMemory().size()));
-			for(int i=0;i<BLOCKSIZE_CODE;i++)
+			for(int i=0;i<BLOCKSIZE_HW;i++)
 			{
 				if((signed)hexData->getCodeMemory().size()>(blockcounter+i))
 				{
@@ -281,10 +286,10 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 				
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_CODE)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
-			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_CODE,blocktype);
+			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
 			if(nBytes==3) return -3;	//something not implemented in firmware :(
 			if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
 			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
@@ -838,7 +843,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 		{
 			BootloaderPackage bootloaderPackage;
 			
-			bootloaderPackage.fields.cmd=0x01;
+			bootloaderPackage.fields.cmd=CMD_BOOT_READ_CODE;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
@@ -870,40 +875,62 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastblock)
 {
 	char resp_msg[64];
-	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		uppPackage.fields.cmd=CMD_WRITE_CODE;
-		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
-		uppPackage.fields.blocktype=(unsigned char)lastblock;
-		memcpy(uppPackage.fields.dataField,msg,size);
-		if(address==0)
+		if (CurrentHardware == HW_UPP)
 		{
-			for(int i=0;i<size+6;i++)
-				cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
-			cout<<endl;
+			UppPackage uppPackage;
+			uppPackage.fields.cmd=CMD_WRITE_CODE;
+			uppPackage.fields.size=size;
+			uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+			uppPackage.fields.blocktype=(unsigned char)lastblock;
+			memcpy(uppPackage.fields.dataField,msg,size);
+			if(address==0)
+			{
+				for(int i=0;i<size+6;i++)
+					cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
+				cout<<endl;
+			}
+			int nBytes = writeString(uppPackage.data,size+6);
+			if (nBytes < 0 )
+			{
+				return nBytes;
+			}
+	//		nBytes = readString(resp_msg,size+6);
+			nBytes = readString(resp_msg,1);
+			if (nBytes < 0 )
+				cerr<<"Usb Error"<<endl;
+	/*		if(address==0)
+			{
+				for(int i=0;i<size+6;i++)
+					cout<<hex<<(int)resp_msg[i]<<" "<<dec;
+				cout<<endl;
+			}*/
+	//		return 0;
+			return (int)resp_msg[0];
 		}
-		int nBytes = writeString(uppPackage.data,size+6);
-		if (nBytes < 0 )
+		else
 		{
-			return nBytes;
+			if(address<0x800)return 0;	//should not write inside bootloader area
+			BootloaderPackage bootloaderPackage;
+			
+			bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_CODE;
+			bootloaderPackage.fields.size=size;
+			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+			memcpy(bootloaderPackage.fields.dataField,msg,size);
+			if (writeString(bootloaderPackage.data,5+size) < 0 )
+			{
+				return -1;
+			}
+			
+			return 0;		
 		}
-//		nBytes = readString(resp_msg,size+6);
-		nBytes = readString(resp_msg,1);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
-/*		if(address==0)
-		{
-			for(int i=0;i<size+6;i++)
-				cout<<hex<<(int)resp_msg[i]<<" "<<dec;
-			cout<<endl;
-		}*/
-//		return 0;
-		return (int)resp_msg[0];
 	}
+	
 	else return -1;
 	
 }
