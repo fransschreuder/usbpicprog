@@ -61,7 +61,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 				else
 				{
 					if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
-						break; //found usbpicprog, exit the for loop
+						break; //found bootloader , exit the for loop
 				}
 				usb_close(_handle);
 				_handle=NULL;
@@ -178,7 +178,7 @@ int Hardware::setPicType(PicType* picType)
 int Hardware::bulkErase(void)
 {
 	char msg[64];
-
+	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement erase for bootloader
 	msg[0]=CMD_ERASE;
 	int nBytes=-1;
 	statusCallBack (0);
@@ -309,6 +309,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 	char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
 	statusCallBack (0);
+	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
 	if (_handle !=NULL)
 	{
 		for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
@@ -348,6 +349,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 	unsigned char dataBlock[BLOCKSIZE_DATA];
 	int blocktype;
 	statusCallBack (0);
+	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
 	if (_handle !=NULL)
 	{
 		nBytes=0;
@@ -390,6 +392,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 	char dataBlock[BLOCKSIZE_CONFIG];
 	int blocktype;
 	statusCallBack (0);
+	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement readConfig for bootloader
 	if (_handle !=NULL)
 	{
 		for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
@@ -431,6 +434,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 	int blocksize;
 	int blocktype;
 	statusCallBack (0);
+	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement writeConfig for bootloader
 	if (_handle !=NULL)
 	{
 		nBytes=0;
@@ -593,7 +597,7 @@ VerifyResult Hardware::blankCheck(PicType *picType)
 int Hardware::autoDetectDevice(void)
 {
 	int devId=0;
-	if (CurrentHardware == HW_BOOTLOADER) return 0;
+	if (CurrentHardware == HW_BOOTLOADER) return 0x11240;	//PIC18F2550
 	setPicType (new PicType("P18F2550"));	//need to set hardware to PIC18, no matter which one
 	devId=readId();
 	if((devId!=0xFFFF)&&(devId!=0xFEFE)&&(devId>1))return devId|0x10000; //add an extra bit to make the difference between 16F and 18F

@@ -177,6 +177,8 @@ public:
 	bool connected(void);	
 /*Return a string containing the firmware version of usbpicprog*/
 	int getFirmwareVersion(char* msg);
+	HardwareType getCurrentHardware(void){return CurrentHardware;}
+	
 private :
 	void tryToDetachDriver(void);
 /*read a string of data from usbpicprog (through interrupt_read)*/

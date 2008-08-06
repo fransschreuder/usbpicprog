@@ -570,6 +570,11 @@ void UppMainWindowCallBack::upp_combo_changed()
 {
 	if (hardware != NULL)
 	{
+        if(hardware->getCurrentHardware()!=HW_BOOTLOADER)
+        {
+            m_comboBox1->Undo();
+            return;
+        }
 		picType=new PicType(string(m_comboBox1->GetValue().mb_str(wxConvUTF8)));
 		hardware->setPicType(picType);
     	upp_new();
