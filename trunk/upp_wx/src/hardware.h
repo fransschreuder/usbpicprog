@@ -138,11 +138,13 @@ typedef enum _HardwareType
 class Hardware
 {
 public:
+  enum EndpointMode { Bulk = 0, Interrupt, Control, Isochronous, Nb_EndpointModes };
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
 	Hardware(void* CB=NULL, HardwareType SetHardware=HW_UPP);	
 	~Hardware();
+	EndpointMode endpointMode(uint ep);
 /* Get the hardware type, because we autodetect hardware if the type given through SetHardware is not detected */
 	HardwareType getHardwareType(void);
 /*give the hardware the command to switch to a certain pic algorithm*/	
@@ -209,6 +211,7 @@ private :
 	void* ptCallBack;
 	
 	int bInterfaceNumber;
+	const usb_interface_descriptor *privateInterface;
 	
 	HardwareType CurrentHardware;
 };

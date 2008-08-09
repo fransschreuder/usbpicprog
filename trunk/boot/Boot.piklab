@@ -26,6 +26,19 @@
       <item>usbdsc.h</item>
     </files>
     <custom_linker_script>18f4550.lkr</custom_linker_script>
+    <opened_files>
+      <item>usbdsc.h</item>
+      <item>usbcfg.h</item>
+      <item>usb.h</item>
+      <item>usbdrv.h</item>
+      <item>boot.h</item>
+      <item>usbctrltrf.h</item>
+      <item>boot.c</item>
+      <item>main.c</item>
+      <item>usb9.h</item>
+      <item>usbdefs_std_dsc.h</item>
+      <item>usbdsc.c</item>
+    </opened_files>
   </general>
   <editors/>
 </piklab>

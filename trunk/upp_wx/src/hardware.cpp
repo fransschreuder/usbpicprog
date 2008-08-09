@@ -21,9 +21,12 @@
 #include "hardware.h"
 #include "uppmainwindow_callback.h"
 
+
 using namespace std;
 
-#define USB_DEBUG 10
+
+
+#define USB_DEBUG 2
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points 
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
@@ -43,64 +46,122 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	cout<<"USB debug enabled, remove #define USB_DEBUG 10 in hardware.cpp to disable it"<<endl; 
 	usb_set_debug(USB_DEBUG);
 #endif
-	
-	while (hwtype > -1)
-	{
-		for (bus=usb_get_busses();bus;bus=bus->next)
-		{
-			for (dev=bus->devices;dev;dev=dev->next)
-			{
-				
-				_handle = usb_open(dev);
-				if (!_handle)continue; //failed to open this device, choose the next one
-				if (hwtype == HW_UPP)
-				{
-					if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
-						break; //found usbpicprog, exit the for loop
-				}
-				else
-				{
-					if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
-						break; //found bootloader , exit the for loop
-				}
-				usb_close(_handle);
-				_handle=NULL;
-			}
-			if(_handle!=NULL)	//successfully initialized? don't try any other buses
-				break;
-		}
 
-		if(_handle==NULL)
+	for (bus=usb_get_busses();bus;bus=bus->next)
+	{
+		for (dev=bus->devices;dev;dev=dev->next)
 		{
-			hwtype++;
-			if (hwtype >= HARDWARETYPE_NUM)
-			{
-				hwtype = 0;
-			}
 			
-			if (hwtype == SetHardware)
+
+			if (hwtype == HW_UPP)
 			{
-				CurrentHardware = HW_NONE;
-				hwtype = -1;
+				if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
+				{
+					_handle = usb_open(dev);
+					if (!_handle)continue; //failed to open this device, choose the next one
+					hwtype=HW_UPP;
+					break; //found usbpicprog, exit the for loop
+				}
+				if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
+				{
+					_handle = usb_open(dev);
+					if (!_handle)continue; //failed to open this device, choose the next one
+
+					hwtype=HW_BOOTLOADER;
+					break; //found bootloader , exit the for loop
+				}
 			}
+			else
+			{
+				if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
+				{
+					_handle = usb_open(dev);
+					if (!_handle)continue; //failed to open this device, choose the next one
+					
+					hwtype=HW_BOOTLOADER;
+					break; //found bootloader , exit the for loop
+				}
+				if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
+				{
+					_handle = usb_open(dev);
+					if (!_handle)continue; //failed to open this device, choose the next one
+					
+					hwtype=HW_UPP;
+					break; //found usbpicprog, exit the for loop
+				}
+			}
+/*			cout<<"closing handle"<<endl;
+			usb_close(_handle);*/
+			_handle=NULL;
 		}
-		else
-		{
-			CurrentHardware = (HardwareType)hwtype;
-			hwtype = -1;
-		}
+		if(_handle!=NULL)	//successfully initialized? don't try any other buses
+			break;
+	}
+
+	if(_handle==NULL)
+	{
+		CurrentHardware = HW_NONE;
+	}
+	else
+	{
+		CurrentHardware = (HardwareType)hwtype;
 	}
 	if(_handle!=NULL)
 	{
+		if (usb_reset(_handle) < 0)
+			cerr<<"Couldn't reset interface"<<endl;
+		usb_close(_handle);
+		_handle = usb_open(dev);
+		if(!_handle){
+			CurrentHardware = HW_NONE;
+			return;	
+		}
 		tryToDetachDriver();
-        usb_config_descriptor &config = dev->config[0]; 
-		if (usb_set_configuration(_handle, config.bConfigurationValue) < 0) 
-			cerr<<"Couldn't set configuration"<<endl;
-	
-		if (usb_claim_interface(_handle, config.interface[0].altsetting[0].bInterfaceNumber) < 0)
-			cerr<<"Couldn't claim interface"<<endl;
-
+		int _config=1;
+		int _interface=0;
+		int i;
+		for (i=0; i<dev->descriptor.bNumConfigurations; i++)
+			if ( _config==dev->config[i].bConfigurationValue ) break;
+		  if ( i==dev->descriptor.bNumConfigurations ) {
+			int old = _config;
+			i = 0;
+			_config = dev->config[i].bConfigurationValue;
+		  }
+  const usb_config_descriptor &configd = dev->config[i];
+  if ( usb_set_configuration(_handle, _config)<0 ) {
+	  cerr<<"Error setting configuration"<<endl;
+    return;
+  }
+		
+		for (i=0; i<configd.bNumInterfaces; i++)
+		    if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
+		if ( i==configd.bNumInterfaces ) {
+			int old = _interface;
+			i = 0;
+			_interface = configd.interface[i].altsetting[0].bInterfaceNumber;
+			cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
+		  }
+		  privateInterface = &(configd.interface[i].altsetting[0]);
+		  if ( usb_claim_interface(_handle, _interface)<0 ) {
+			cerr<<"Error claiming interface"<<endl;
+			return;
+		  }
 	}
+
+}
+
+Hardware::EndpointMode Hardware::endpointMode(uint ep)
+{
+  uint index = ep & USB_ENDPOINT_ADDRESS_MASK;
+  const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
+  switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) {
+    case USB_ENDPOINT_TYPE_BULK: return Bulk;
+    case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
+    case USB_ENDPOINT_TYPE_ISOCHRONOUS: return Isochronous;
+    case USB_ENDPOINT_TYPE_CONTROL: return Control;
+    default: break;
+  }
+  return Nb_EndpointModes;
 }
 
 Hardware::~Hardware()
@@ -178,7 +239,7 @@ int Hardware::setPicType(PicType* picType)
 int Hardware::bulkErase(void)
 {
 	char msg[64];
-	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement erase for bootloader
+	if (CurrentHardware == HW_BOOTLOADER)return 1; //TODO implement erase for bootloader
 	msg[0]=CMD_ERASE;
 	int nBytes=-1;
 	statusCallBack (0);
@@ -290,9 +351,12 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			int	currentBlockCounter=blockcounter;
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
 			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
-			if(nBytes==3) return -3;	//something not implemented in firmware :(
-			if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
-			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
+			if (CurrentHardware == HW_UPP)
+			{	
+				if(nBytes==3) return -3;	//something not implemented in firmware :(
+				if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+				if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
+			}
 		}
 	}
 	else return -4;
@@ -448,7 +512,6 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 				{
 					dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
 					blocksize++;
-					cout<<"blocksize "<<blocksize<<endl;
 				}
 				else
 				{
@@ -643,6 +706,7 @@ int Hardware::getFirmwareVersion(char* msg)
 	}
 	else
 	{
+		cout<<"Get Firmware version for bootloader..."<<endl;
 		msg[0]=0;
 		msg[1]=0;
 		msg[2]=0;
@@ -653,10 +717,12 @@ int Hardware::getFirmwareVersion(char* msg)
 		statusCallBack (0);
 		if (_handle !=NULL)
 		{
+			cout<<"writeString"<<endl;
 			if(writeString(msg,5)<0)
 			{
 				return -1;
 			}
+			cout<<"readString"<<endl;
 			nBytes = readString(msg,64);
 			
 			if (nBytes < 0 )
@@ -679,7 +745,10 @@ int Hardware::getFirmwareVersion(char* msg)
 int Hardware::readString(char* msg,int size)
 {
 	if (_handle == NULL) return -1;
-	int nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
+	EndpointMode mode = endpointMode(WRITE_ENDPOINT);
+	int nBytes;
+	if ( mode==Interrupt )nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
+	else nBytes = usb_bulk_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
 		if (nBytes < 0 )
 		{
 			cerr<<"Usb Error while reading: "<<nBytes<<endl;
@@ -725,11 +794,12 @@ int Hardware::writeString(const char * msg,int size)
 		
 		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
 		//cout<<endl;
-
-		nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,5000);
+		EndpointMode mode = endpointMode(WRITE_ENDPOINT);
+		if ( mode==Interrupt )nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
+		else nBytes = usb_bulk_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
 		if (nBytes < size )
 		{
-			cerr<<"Usb Error while writing to device: "<<nBytes<<" bytes"<<endl;
+			cerr<<"Usb Error while writing to device: "<<size<<" bytes, errCode: "<<nBytes<<endl;
 			cerr<<usb_strerror()<<endl;
 		}
 	}
@@ -836,12 +906,12 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			}
 			
 			nBytes = readString(msg,size);
-			if(address>0x2000)
+			/*if(address>0x2000)
 			{
 				cout<<hex<<address<<endl;
 				for(int i=0;i<size;i++)cout<<hex<<(unsigned int)msg[i]<<" ";
 				cout<<endl;
-			}
+			}*/
 		}
 		else
 		{
@@ -917,7 +987,9 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 		}
 		else
 		{
-			if(address<0x800)return 0;	//should not write inside bootloader area
+			int OkOrLastblock=2; //Ask for next block
+			if (lastblock==BLOCKTYPE_LAST)OkOrLastblock=1; //Ok
+			if(address<0x800)return OkOrLastblock;	//should not write inside bootloader area
 			BootloaderPackage bootloaderPackage;
 			
 			bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_CODE;
@@ -930,8 +1002,8 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 			{
 				return -1;
 			}
-			
-			return 0;		
+			readString(resp_msg,5+size);
+			return OkOrLastblock;		
 		}
 	}
 	
