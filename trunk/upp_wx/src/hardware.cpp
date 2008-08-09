@@ -150,9 +150,9 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 
 }
 
-Hardware::EndpointMode Hardware::endpointMode(uint ep)
+Hardware::EndpointMode Hardware::endpointMode(int ep)
 {
-  uint index = ep & USB_ENDPOINT_ADDRESS_MASK;
+  int index = ep & USB_ENDPOINT_ADDRESS_MASK;
   const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
   switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) {
     case USB_ENDPOINT_TYPE_BULK: return Bulk;
@@ -776,7 +776,7 @@ int Hardware::writeString(const char * msg,int size)
 			else res = usb_bulk_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
 			//qDebug("res: %i", res);
 			if ( res==todo ) break;
-			if ( uint(time.elapsed())>3000 ) 
+			if ( int(time.elapsed())>3000 ) 
 			{ // 3 s
 				if ( res<0 ) setSystemError(i18n("Error sending data (ep=%1 res=%2)").arg(toHexLabel(ep, 2)).arg(res));
 				else log(Log::LineType::Error, i18n("Timeout: only some data sent (%1/%2 bytes).").arg(size-todo).arg(size));

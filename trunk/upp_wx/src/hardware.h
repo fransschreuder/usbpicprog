@@ -144,7 +144,7 @@ public:
  bar. If initiated with no argument, progress is not updated*/
 	Hardware(void* CB=NULL, HardwareType SetHardware=HW_UPP);	
 	~Hardware();
-	EndpointMode endpointMode(uint ep);
+	EndpointMode endpointMode(int ep);
 /* Get the hardware type, because we autodetect hardware if the type given through SetHardware is not detected */
 	HardwareType getHardwareType(void);
 /*give the hardware the command to switch to a certain pic algorithm*/	
