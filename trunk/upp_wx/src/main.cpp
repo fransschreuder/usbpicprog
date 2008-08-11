@@ -144,7 +144,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		if(parser.Found(wxT("e")))
 		{
             cout<<"Bulk erase..."<<endl;
-			if(hardware->bulkErase()<0)cerr<<"Error during erase"<<endl;
+			if(hardware->bulkErase(picType)<0)cerr<<"Error during erase"<<endl;
 		}
 		/* if -b is passed, check if the device is blank*/
 		if(parser.Found(wxT("b")))

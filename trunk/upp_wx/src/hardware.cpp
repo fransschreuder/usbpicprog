@@ -123,7 +123,6 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		for (i=0; i<dev->descriptor.bNumConfigurations; i++)
 			if ( _config==dev->config[i].bConfigurationValue ) break;
 		  if ( i==dev->descriptor.bNumConfigurations ) {
-			int old = _config;
 			i = 0;
 			_config = dev->config[i].bConfigurationValue;
 		  }
@@ -236,31 +235,56 @@ int Hardware::setPicType(PicType* picType)
 }
 
 /*Erase all the contents (code, data and config) of the pic*/
-int Hardware::bulkErase(void)
+int Hardware::bulkErase(PicType* picType)
 {
 	char msg[64];
-	if (CurrentHardware == HW_BOOTLOADER)return 1; //TODO implement erase for bootloader
-	msg[0]=CMD_ERASE;
 	int nBytes=-1;
 	statusCallBack (0);
 	if (_handle !=NULL)
 	{
-		if(writeString(msg,1)<0)
-		{
-			return 0;
-		}
-		nBytes = readString(msg,1);
-
-		if (nBytes < 0 )
-		{
-			cerr<<"Usb Error"<<endl;
-			return nBytes;
-		}
-		else
-		{
-			return (int)msg[0];
-			statusCallBack (100);
-		}
+        if (CurrentHardware == HW_UPP)
+        {
+          	msg[0]=CMD_ERASE;
+    		if(writeString(msg,1)<0)
+    		{
+    			return 0;
+    		}
+    		nBytes = readString(msg,1);
+    
+    		if (nBytes < 0 )
+    		{
+    			cerr<<"Usb Error"<<endl;
+    			return nBytes;
+    		}
+    		else
+    		{
+    			return (int)msg[0];
+    			statusCallBack (100);
+    		}
+        }
+        else //hardware is HW_BOOTLOADER
+        {
+            ReadHexFile * hf = new ReadHexFile(picType);
+            if(writeData(hf,picType)<0)return -1;
+            statusCallBack(50);
+            delete hf;            
+            for (int address=0x800; address<picType->getCurrentPic().CodeSize; address+=64) 
+            {
+    			BootloaderPackage bootloaderPackage;
+    			bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
+    			bootloaderPackage.fields.size=1; //only one block of 64 bytes supported by bootloader
+    			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+    			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+    			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+    			if (writeString(bootloaderPackage.data,5) < 0 )
+    			{
+    				return -1;
+    			}
+    			if(readString(msg,5)<0)return -1;
+                statusCallBack(100);
+            }
+            return 1;
+        }
 	}
 	return nBytes;
 }
@@ -853,7 +877,7 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 		{
 			BootloaderPackage bootloaderPackage;
 			
-			bootloaderPackage.fields.cmd=0x06;
+			bootloaderPackage.fields.cmd=CMD_BOOT_READ_CONFIG;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
@@ -869,7 +893,7 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 			char tmpmsg[size+5];
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
-			
+			if(nBytes<0)return nBytes;
 			memcpy(msg,tmpmsg+5,nBytes);
 		}
 		
@@ -1016,6 +1040,7 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 {
 	char resp_msg[64];
 	UppPackage uppPackage;
+	if (CurrentHardware == HW_BOOTLOADER)return 1;//say OK, but do nothing... we don't want to write config bits
 	if (_handle !=NULL)
 	{
 		uppPackage.fields.cmd=CMD_WRITE_CONFIG;
@@ -1074,7 +1099,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 		{
 			BootloaderPackage bootloaderPackage;
 			
-			bootloaderPackage.fields.cmd=0x04;
+			bootloaderPackage.fields.cmd=CMD_BOOT_READ_DATA;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
@@ -1109,23 +1134,44 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 	UppPackage uppPackage;
 	if (_handle !=NULL)
 	{
-		uppPackage.fields.cmd=CMD_WRITE_DATA;
-		uppPackage.fields.size=size;
-		uppPackage.fields.addrU=0;
-		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
-		uppPackage.fields.blocktype=(unsigned char)lastblock;
-		memcpy(uppPackage.fields.dataField,msg,size);
-		int nBytes = writeString(uppPackage.data,size+6);
-		if (nBytes < 0 )
+        if (CurrentHardware == HW_UPP)
 		{
-			return nBytes;
+    		uppPackage.fields.cmd=CMD_WRITE_DATA;
+    		uppPackage.fields.size=size;
+    		uppPackage.fields.addrU=0;
+    		uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+    		uppPackage.fields.addrL=(unsigned char)(address&0xFF);
+    		uppPackage.fields.blocktype=(unsigned char)lastblock;
+    		memcpy(uppPackage.fields.dataField,msg,size);
+    		int nBytes = writeString(uppPackage.data,size+6);
+    		if (nBytes < 0 )
+    		{
+    			return nBytes;
+    		}
+    			
+    		nBytes = readString(resp_msg,1);
+    		if (nBytes < 0 )
+    			cerr<<"Usb Error"<<endl;
+    		return (int)resp_msg[0];
+        }
+        else
+		{
+			int OkOrLastblock=2; //Ask for next block
+			if (lastblock==BLOCKTYPE_LAST)OkOrLastblock=1; //Ok
+			BootloaderPackage bootloaderPackage;
+			bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_DATA;
+			bootloaderPackage.fields.size=size;
+			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+			memcpy(bootloaderPackage.fields.dataField,msg,size);
+			if (writeString(bootloaderPackage.data,5+size) < 0 )
+			{
+				return -1;
+			}
+			if(readString(resp_msg,5+size)<0)return -1;
+			return OkOrLastblock;
 		}
-			
-		nBytes = readString(resp_msg,1);
-		if (nBytes < 0 )
-			cerr<<"Usb Error"<<endl;
-		return (int)resp_msg[0];
 	}
 	else return -1;	
 }

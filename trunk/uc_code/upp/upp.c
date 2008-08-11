@@ -213,8 +213,8 @@ void ProcessIO(void)
 		}
 		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE
 		{
-			set_pictype(input_buffer+1);
-			output_buffer[0]=1; //Ok
+			output_buffer[0]=set_pictype(input_buffer+1);
+			//output_buffer[0]=1; //Ok
 			counter=1;
 		}
 		if((input_buffer[0])==0x90) //CMD_FIRMWARE_VERSION
@@ -233,7 +233,7 @@ void ProcessIO(void)
 }//end ProcessIO
 
 
-void set_pictype(unsigned char* data)
+byte set_pictype(unsigned char* data)
 {
 	switch(data[0])
 	{
@@ -244,8 +244,9 @@ void set_pictype(unsigned char* data)
 		case 4: picvariant=P16F62X;pictype=PIC16;break;
 		case 5: picvariant=P12F629;pictype=PIC16;break;
 		case 6: picvariant=P12F6XX;pictype=PIC16;break;
-		default: picvariant=P18F2XXX;pictype=PIC18;break;
-	}	
+		default: picvariant=P18F2XXX;pictype=PIC18;return 3;break;
+	}
+	return 1;	
 }
 
 

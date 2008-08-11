@@ -150,7 +150,7 @@ public:
 /*give the hardware the command to switch to a certain pic algorithm*/	
 	int setPicType(PicType* picType);
 /*Erase all the contents (code, data and config) of the pic*/
-	int bulkErase(void);	
+	int bulkErase(PicType *picType);	
 /*Read the code memory from the pic (starting from address 0 into *hexData*/	
 	int readCode(ReadHexFile *hexData,PicType *picType);
 /* Write the code memory area of the pic with the data in *hexData */	

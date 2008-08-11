@@ -194,7 +194,7 @@ void UppMainWindowCallBack::upp_program()
 	if (hardware == NULL) return;
 	if(configFields.ConfigEraseBeforeProgramming)
 	{
-    	switch(hardware->bulkErase())
+    	switch(hardware->bulkErase(picType))
     	{
 	    case 1:
 	    SetStatusText(wxT("Erase OK"),STATUS_FIELD_OTHER);
@@ -378,7 +378,7 @@ void UppMainWindowCallBack::upp_erase()
 {
 	if (hardware == NULL) return;
 	
-	if(hardware->bulkErase()<0)
+	if(hardware->bulkErase(picType)<0)
 	{
         SetStatusText(wxT("Error erasing the device"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, wxT("Error erasing the device"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
