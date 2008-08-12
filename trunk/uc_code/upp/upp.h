@@ -11,7 +11,7 @@
 void UserInit(void);
 void timer1Init(void);
 void ProcessIO(void);
-byte set_pictype(unsigned char* data);
+unsigned char set_pictype(unsigned char* data);
 void setLeds(char n);
 
 #endif //UPP_H

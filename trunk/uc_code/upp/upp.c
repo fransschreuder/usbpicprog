@@ -233,7 +233,7 @@ void ProcessIO(void)
 }//end ProcessIO
 
 
-byte set_pictype(unsigned char* data)
+unsigned char set_pictype(unsigned char* data)
 {
 	switch(data[0])
 	{
