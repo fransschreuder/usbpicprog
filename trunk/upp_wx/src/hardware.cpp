@@ -127,6 +127,9 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			_config = dev->config[i].bConfigurationValue;
 		  }
   const usb_config_descriptor &configd = dev->config[i];
+  /*#ifdef __WXMSW__	//something goes wrong here in Win
+  _config = 0;
+  #endif*/
   if ( usb_set_configuration(_handle, _config)<0 ) {
 	  cerr<<"Error setting configuration"<<endl;
     return;
@@ -141,6 +144,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
 		  }
 		  privateInterface = &(configd.interface[i].altsetting[0]);
+          
 		  if ( usb_claim_interface(_handle, _interface)<0 ) {
 			cerr<<"Error claiming interface"<<endl;
 			return;
@@ -154,10 +158,10 @@ Hardware::EndpointMode Hardware::endpointMode(int ep)
   int index = ep & USB_ENDPOINT_ADDRESS_MASK;
   const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
   switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) {
-    case USB_ENDPOINT_TYPE_BULK: return Bulk;
-    case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
-    case USB_ENDPOINT_TYPE_ISOCHRONOUS: return Isochronous;
-    case USB_ENDPOINT_TYPE_CONTROL: return Control;
+    case USB_ENDPOINT_TYPE_BULK: cout<<"Bulk"<<endl;return Bulk;
+    case USB_ENDPOINT_TYPE_INTERRUPT: cout<<"Interrupt"<<endl;return Interrupt;
+    case USB_ENDPOINT_TYPE_ISOCHRONOUS: cout<<"Isochronous"<<endl;return Isochronous;
+    case USB_ENDPOINT_TYPE_CONTROL: cout<<"Control"<<endl;return Control;
     default: break;
   }
   return Nb_EndpointModes;
