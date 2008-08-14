@@ -1,4 +1,4 @@
-update=11/6/2007-14:09:24
+update=14/8/2008-12:37:35
 last_client=pcbnew
 [general]
 version=1
@@ -78,16 +78,16 @@ NetType=0
 EquName1=devcms
 [pcbnew]
 version=1
-PadDrlX=320
-PadDimH=600
-PadDimV=600
+PadDrlX=354
+PadDimH=650
+PadDimV=650
 PadForm=1
 PadMask=14745599
 ViaDiam=450
 ViaDril=250
 Isol=60
 Countlayer=2
-Lpiste=170
+Lpiste=300
 RouteTo=15
 RouteBo=0
 TypeVia=3
@@ -133,11 +133,12 @@ ShowMRa=1
 [pcbnew/libraries]
 LibDir=
 LibName1=supports
-LibName2=usb-b
-LibName3=connect
-LibName4=discret
-LibName5=pin_array
-LibName6=divers
-LibName7=libcms
-LibName8=display
-LibName9=valves
+LibName2=C:/Documents and Settings/schreuder/My Documents/kicad custom/custom
+LibName3=./modules/usb-b
+LibName4=connect
+LibName5=discret
+LibName6=pin_array
+LibName7=divers
+LibName8=libcms
+LibName9=display
+LibName10=valves
