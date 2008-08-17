@@ -196,6 +196,37 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, u
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
+		case P18FXX2:
+			//direct access to config memory
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
+			//configure the device for single panel writes
+			set_address(pictype, 0x3C0006);
+			pic_send(4,0x0C,0x0000); //write 0x00 to the tblptr to disable multi-panel writes
+			//direct access to code memory
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			set_address(pictype, address);
+			for(blockcounter=0;blockcounter<(blocksize);blockcounter+=8) //blocks of 8 bytes
+			{
+				for(i=0;i<6;i+=2)
+				{
+					//write 2 bytes and post increment by 2
+					//				MSB				LSB
+					pic_send(4,0x0D,((unsigned int)*(data+blockcounter+i))|
+							(((unsigned int)*(data+1+blockcounter+i))<<8));
+				}
+				//write last 2 bytes of the block and start programming
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(P9);
+				PGC=0;
+				DelayMs(P10);
+				pic_send_word(0x0000);
+			}
+			break;
 		case P16F87XA:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=16) //8 words of data = 16 bytes
 			{
@@ -306,6 +337,7 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, un
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
+		case P18FXX2:
 		case P18F2XXX:
 
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
@@ -319,6 +351,14 @@ char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, un
 				pic_send(4,0x00,0x0E00|(unsigned int)data[blockcounter]); //MOVLW data
 				pic_send(4,0x00,0x6eA8); //MOVWF EEDATA
 				pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
+				if(picvariant==P18FXX2)
+				{
+					//Step 5: Perform required sequence.
+					pic_send(4,0,0x0E55); //MOVLW 0X55
+					pic_send(4,0,0x6EA7); //MOVWF EECON2
+					pic_send(4,0,0x0EAA); //MOVLW 0XAA
+					pic_send(4,0,0x6EA7); //MOVWF EECON2
+				}
 				pic_send(4,0x00,0x82A6); //BSF EECON1, WR
 				//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
 				lasttick=tick;
@@ -390,9 +430,16 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
+		case P18FXX2:
 		case P18F2XXX:
         		pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 			pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
+			if(picvariant==P18FXX2)
+			{
+				//goto 0x100000
+				pic_send(4,0x00,0xEF00);
+				pic_send(4,0x00,0xF800);
+			}
 			//address=0x300000;
 			//start for loop
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
@@ -406,6 +453,10 @@ char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long add
 				PGC=0;	//hold PGC low for time P10
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
+				if(picvariant==P18FXX2)
+				{
+					pic_send(4,0x00,0x2AF6); //incf tblptr
+				}
 				set_address(pictype, address+((unsigned int)blockcounter)+1);
 				pic_send(4,0x0F, ((unsigned int)*(data+1+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); //load MSB and start programming
 				pic_send_n_bits(3, 0);
@@ -518,6 +569,7 @@ void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, un
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
+		case P18FXX2:
 		case P18F2XXX:
                         set_address(pictype, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -584,6 +636,7 @@ void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, uns
 	if(lastblock&1)set_vdd_vpp(pictype,1);
 	switch(picvariant)
 	{
+		case P18FXX2:
 		case P18F2XXX:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
