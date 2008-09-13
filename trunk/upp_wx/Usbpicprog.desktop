@@ -6,6 +6,6 @@ Type=Application
 Terminal=false
 Icon=usbpicprog
 Name=Usbpicprog
-Exec=gksudo usbpicprog
+Exec=usbpicprog
 Comment=A simple hardware USB pic programmer
 Categories=Application;Development;
