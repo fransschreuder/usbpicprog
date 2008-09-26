@@ -225,6 +225,8 @@ char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, u
 				PGC=0;
 				DelayMs(P10);
 				pic_send_word(0x0000);
+				pic_read_byte2(4,0x09);	//perform 2 reads to increase the address by 2
+				pic_read_byte2(4,0x09);
 			}
 			break;
 		case P16F87XA:

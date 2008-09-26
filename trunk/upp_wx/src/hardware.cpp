@@ -158,10 +158,10 @@ Hardware::EndpointMode Hardware::endpointMode(int ep)
   int index = ep & USB_ENDPOINT_ADDRESS_MASK;
   const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
   switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) {
-    case USB_ENDPOINT_TYPE_BULK: cout<<"Bulk"<<endl;return Bulk;
-    case USB_ENDPOINT_TYPE_INTERRUPT: cout<<"Interrupt"<<endl;return Interrupt;
-    case USB_ENDPOINT_TYPE_ISOCHRONOUS: cout<<"Isochronous"<<endl;return Isochronous;
-    case USB_ENDPOINT_TYPE_CONTROL: cout<<"Control"<<endl;return Control;
+    case USB_ENDPOINT_TYPE_BULK: return Bulk;
+    case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
+    case USB_ENDPOINT_TYPE_ISOCHRONOUS: return Isochronous;
+    case USB_ENDPOINT_TYPE_CONTROL: return Control;
     default: break;
   }
   return Nb_EndpointModes;

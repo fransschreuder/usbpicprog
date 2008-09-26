@@ -362,7 +362,7 @@ const Pic picTypes[]={
 },
 //PIC18F252 	½ 	U 	U 	U 	U 	U 	U 	U 	U
 {
-	"P18F253",	//Name
+	"P18F252",	//Name
 	0x8000,		//CodeSize
 	0x300000,	//ConfigAddress
 	0xF00000,	//DataAddress in hex file
