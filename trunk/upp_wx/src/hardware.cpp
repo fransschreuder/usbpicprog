@@ -108,15 +108,20 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	}
 	if(_handle!=NULL)
 	{
+        
+        #ifndef __WXMSW__
 		if (usb_reset(_handle) < 0)
 			cerr<<"Couldn't reset interface"<<endl;
 		usb_close(_handle);
 		_handle = usb_open(dev);
+		#endif
 		if(!_handle){
 			CurrentHardware = HW_NONE;
 			return;	
 		}
+		
 		tryToDetachDriver();
+		
 		int _config=1;
 		int _interface=0;
 		int i;
@@ -127,9 +132,10 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			_config = dev->config[i].bConfigurationValue;
 		  }
   const usb_config_descriptor &configd = dev->config[i];
-  /*#ifdef __WXMSW__	//something goes wrong here in Win
-  _config = 0;
-  #endif*/
+  #ifdef __WXMSW__	//something goes wrong here in Win
+//  _config = 0;
+//cout<<"config: "<<_config<<endl;
+  #endif
   if ( usb_set_configuration(_handle, _config)<0 ) {
 	  cerr<<"Error setting configuration"<<endl;
     return;

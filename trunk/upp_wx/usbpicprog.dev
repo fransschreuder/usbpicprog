@@ -168,19 +168,19 @@ ProductName=
 ProductVersion=
 AutoIncBuildNrOnRebuild=0
 AutoIncBuildNrOnCompile=0
-UnitCount=15
+UnitCount=17
 
 [Profile1]
 ProfileName=MingW 3.4.2
 Type=1
 ObjFiles=
 Includes="C:\Program Files\LibUSB-Win32\include"
-Libs="C:\Documents and Settings\schreuder\Desktop\libusb-win32-device-bin-0.1.12.1\lib\gcc"
+Libs="C:\Program Files\LibUSB-Win32\lib\gcc"
 ResourceIncludes=
 MakeIncludes=
 Compiler=-fno-exceptions_@@_-fno-pcc-struct-return_@@_-fstrict-aliasing_@@_-Wall_@@_-D__WXMSW___@@_-D__GNUWIN32___@@_-D__WIN95___@@_
 CppCompiler=-fno-exceptions_@@_-fno-pcc-struct-return_@@_-fstrict-aliasing_@@_-Wall_@@_-D__WXMSW___@@_-D__GNUWIN32___@@_-D__WIN95___@@_
-Linker=-mwindows_@@_-lwxmsw28_@@_-lwxmsw28_gl_@@_-lwxtiff_@@_-lwxjpeg_@@_-lwxpng_@@_-lwxzlib_@@_-lwxregex_@@_-lwxexpat_@@_-lkernel32_@@_-luser32_@@_-lgdi32_@@_-lcomdlg32_@@_-lwinspool_@@_-lwinmm_@@_-lshell32_@@_-lcomctl32_@@_-lole32_@@_-loleaut32_@@_-luuid_@@_-lrpcrt4_@@_-ladvapi32_@@_-lwsock32_@@_-lodbc32_@@_-lopengl32_@@_"../../../Program Files/LibUSB-Win32/lib/gcc/libusb.a"_@@_
+Linker=-mwindows_@@_-lwxmsw28_@@_-lwxmsw28_gl_@@_-lwxtiff_@@_-lwxjpeg_@@_-lwxpng_@@_-lwxzlib_@@_-lwxregex_@@_-lwxexpat_@@_-lkernel32_@@_-luser32_@@_-lgdi32_@@_-lcomdlg32_@@_-lwinspool_@@_-lwinmm_@@_-lshell32_@@_-lcomctl32_@@_-lole32_@@_-loleaut32_@@_-luuid_@@_-lrpcrt4_@@_-ladvapi32_@@_-lwsock32_@@_-lodbc32_@@_-lopengl32_@@_"c:/Program Files/LibUSB-Win32/lib/gcc/libusb.a"_@@_
 PreprocDefines=__WXMSW___@@___GNUWIN32___@@___WIN95___@@_
 CompilerSettings=0000000001001001000000
 Icon=usbpicprog.ico

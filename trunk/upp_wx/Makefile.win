@@ -1,14 +1,14 @@
 # Project: usbpicprog
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ 6.10.2 on 13-08-08 08:52
+# Makefile created by wxDev-C++ 6.10.2 on 27-09-08 11:12
 
 CPP       = g++.exe
 CC        = gcc.exe
 WINDRES   = windres.exe
 OBJ       = Objects/MingW/hardware.o Objects/MingW/main.o Objects/MingW/pictype.o Objects/MingW/read_hexfile.o Objects/MingW/uppmainwindow.o Objects/MingW/uppmainwindow_callback.o Objects/MingW/hexview.o Objects/MingW/preferences.o Objects/MingW/usbpicprog_private.res
 LINKOBJ   = Objects/MingW/hardware.o Objects/MingW/main.o Objects/MingW/pictype.o Objects/MingW/read_hexfile.o Objects/MingW/uppmainwindow.o Objects/MingW/uppmainwindow_callback.o Objects/MingW/hexview.o Objects/MingW/preferences.o Objects/MingW/usbpicprog_private.res
-LIBS      = -L"C:/Program Files/Dev-Cpp/Lib" -L"C:/Documents and Settings/schreuder/Desktop/libusb-win32-device-bin-0.1.12.1/lib/gcc" -mwindows -lwxmsw28 -lwxmsw28_gl -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregex -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32 "../../../Program Files/LibUSB-Win32/lib/gcc/libusb.a"  -g3 
+LIBS      = -L"C:/Program Files/Dev-Cpp/Lib" -L"C:/Program Files/LibUSB-Win32/lib/gcc" -mwindows -lwxmsw28 -lwxmsw28_gl -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregex -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32 "c:/Program Files/LibUSB-Win32/lib/gcc/libusb.a"  -g3 
 INCS      = -I"include" -I"C:/Program Files/LibUSB-Win32/include"
 CXXINCS   = -I"C:/Program Files/Dev-Cpp/lib/gcc/mingw32/3.4.2/include" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2/backward" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2/mingw32" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2" -I"C:/Program Files/Dev-Cpp/include" -I"C:/Program Files/Dev-Cpp/" -I"C:/Program Files/Dev-Cpp/include/common/wx/msw" -I"C:/Program Files/Dev-Cpp/include/common/wx/generic" -I"C:/Program Files/Dev-Cpp/include/common/wx/fl" -I"C:/Program Files/Dev-Cpp/include/common/wx/gizmos" -I"C:/Program Files/Dev-Cpp/include/common/wx/html" -I"C:/Program Files/Dev-Cpp/include/common/wx/mmedia" -I"C:/Program Files/Dev-Cpp/include/common/wx/net" -I"C:/Program Files/Dev-Cpp/include/common/wx/ogl" -I"C:/Program Files/Dev-Cpp/include/common/wx/plot" -I"C:/Program Files/Dev-Cpp/include/common/wx/protocol" -I"C:/Program Files/Dev-Cpp/include/common/wx/stc" -I"C:/Program Files/Dev-Cpp/include/common/wx/svg" -I"C:/Program Files/Dev-Cpp/include/common/wx/xml" -I"C:/Program Files/Dev-Cpp/include/common/wx/xrc" -I"C:/Program Files/Dev-Cpp/include/common/wx" -I"C:/Program Files/Dev-Cpp/include/common" -I"C:/Program Files/LibUSB-Win32/include"
 RCINCS    = --include-dir "C:/PROGRA~1/Dev-Cpp/include/common"
