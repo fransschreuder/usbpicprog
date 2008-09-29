@@ -1,0 +1,22 @@
+README
+
+Welcome to usbpicprog, an open source Microchip PIC programmer for the USB port.
+
+The idea of usbpicprog is to create an USB in circuit programmer for the Microchip PIC processors. The hardware must be as simple as possible, the current version only contains one PIC18F2550, 3 mosfets, and besides the connectors a hand full of passive components.
+
+Components
+
+Usbpicprog consists of three main components which can be found in the subversion tree on the SourceForge page
+
+    * Hardware - A PCB design which contains the necessary components to interface from the USB port to a Microchip ICSP (in circuit serial programming) header.
+    * Embedded software - The software that runs on the processor on the PCB. It contains the USB framework, and high and low level functions for in PIC circuit programming.
+    * PC software - A wxWidgets based (cross platform) application to communicate with usbpicprog
+
+Status
+
+Currently, a version of the PCB (v0.2) has been released for development purposes only, this version has proofed to be stable and if no extra functionality is needed, it will be released as the final version.
+
+The embedded software needs a lot of work to be done, currently the functions for the PIC18F2XXX / 4XXX, PIC16F62X, PIC16F62XA, PIC12F629 /675 have been implemented and need to be tested thoroughly. The PIC18FXX2 / XX8, and the PIC16F87X are being implemented at the moment.
+
+The PC application is nearly ready, some small things need to be implemented besides all new PIC types that will be added in the embedded software. Check out the SVN tree!
+

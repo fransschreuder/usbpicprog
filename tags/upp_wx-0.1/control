@@ -1,0 +1,13 @@
+Package: usbpicprog
+Version: 0.1
+Section: devel
+Priority: optional
+Architecture: all
+Depends: libusb-0.1-4 (>= 0.1.12), libwxbase2.8-0 (>= 2.8), libwxgtk2.8-0 (>= 2.8)
+Suggests: piklab
+Conflicts: 
+Provides: 
+Installed-Size: 1185
+Maintainer: Frans Schreuder <fransschreuder@users.sourceforge.net>
+Description: Usbpicprog - An open source USB pic programmer
+http://usbpicprog.sourceforge.net
