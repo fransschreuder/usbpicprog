@@ -64,7 +64,6 @@ class PreferencesDialog : public wxDialog
 		wxButton *WxButtonCancel;
 		wxButton *WxButtonOk;
 		wxBoxSizer *WxBoxSizer2;
-//		wxBoxSizer *WxBoxSizer3;
 		wxCheckBox *uppConfigVerifyData;
 		wxCheckBox *uppConfigVerifyConfig;
 		wxCheckBox *uppConfigVerifyCode;

@@ -32,11 +32,11 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	
 	bSizer = new wxBoxSizer( wxVERTICAL );
-#ifdef USE_UPPHEXVIEW
+	#ifdef USE_UPPHEXVIEW
 	uppHexEdit = new UppHexview( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize);
-#else
+	#else
 	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize, wxTE_READONLY| wxTE_MULTILINE | wxNO_BORDER );
-#endif	
+	#endif	
 	
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
 	
@@ -89,17 +89,17 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuActions = new wxMenu();
 	wxMenuItem* uppMenuProgram;
 	#ifdef __WXMAC__
-		uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("CTRL+7"), wxT("Program the device"), wxITEM_NORMAL );
+	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("CTRL+7"), wxT("Program the device"), wxITEM_NORMAL );
 	#else	
-		uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
+	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
 	#endif
 	uppMenuActions->Append( uppMenuProgram );
 	
 	wxMenuItem* uppMenuRead;
 	#ifdef __WXMAC__
-		uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("CTRL+8"), wxT("Read the device"), wxITEM_NORMAL );
+	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("CTRL+8"), wxT("Read the device"), wxITEM_NORMAL );
 	#else	
-		uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
+	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
 	#endif
 	uppMenuActions->Append( uppMenuRead );
 	
@@ -197,8 +197,8 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	m_toolBar1->Realize();
 
 	#ifdef __WXMAC__
-		// not compatible with wxWidgets 2.9
-		wxApp::s_macAboutMenuItemId = wxID_ABOUT;
+	// not compatible with wxWidgets 2.9
+	wxApp::s_macAboutMenuItemId = wxID_ABOUT;
 	#endif
 
 	
@@ -233,7 +233,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 }
 
 BEGIN_EVENT_TABLE(UppMainWindow, wxFrame)
- EVT_SIZE(UppMainWindow::OnSize)
+	EVT_SIZE(UppMainWindow::OnSize)
 END_EVENT_TABLE()
 
 UppMainWindow::~UppMainWindow()

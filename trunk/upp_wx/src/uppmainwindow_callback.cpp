@@ -4,9 +4,8 @@
 
 
 static const wxChar *FILETYPES = _T(
-			"Hex files|*.hex|"
-			"All files|*.*"
-			);
+	"Hex files|*.hex|"
+	"All files|*.*");
 
 /*Do the basic initialization of the main window*/
 UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , const wxString& title , const wxPoint& pos , const wxSize& size , long style ) : UppMainWindow( parent, id, title, pos, size, style )
@@ -57,7 +56,7 @@ void UppMainWindowCallBack::updateProgress(int value)
 /*Put the contents of the hex file in the text area*/
 void UppMainWindowCallBack::printHexFile()
 {
-#ifdef USE_UPPHEXVIEW
+	#ifdef USE_UPPHEXVIEW
 	uppHexEdit->putHexFile(readHexFile,picType);
 	#if defined(__WXMSW__) || defined(__WXMAC__)
     int w=GetSize().GetWidth();
@@ -65,7 +64,7 @@ void UppMainWindowCallBack::printHexFile()
     SetSize(wxSize(w-1,h-1));
     SetSize(wxSize(w,h));
     #endif
-#else
+	#else
 	string output;
 	uppHexEdit->Freeze();
 	uppHexEdit->Clear();	
@@ -74,13 +73,12 @@ void UppMainWindowCallBack::printHexFile()
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
     uppHexEdit->Thaw();
 	uppHexEdit->SetSelection(0,0); // cursor to top*/
-#endif
+	#endif
 }
 
 /*clear the hexfile*/
 void UppMainWindowCallBack::upp_new()
 {
-
 	readHexFile->newFile(picType);
 	fileOpened=false;
 	printHexFile();
@@ -89,12 +87,8 @@ void UppMainWindowCallBack::upp_new()
 /*Open a hexfile using a file dialog*/
 void UppMainWindowCallBack::upp_open()
 {
-	//wxOpen is not defined in wxWidgets 2.9
-	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, wxT("Open hexfile"), defaultPath, wxT(""), FILETYPES,
-		                  wxOPEN, wxDefaultPosition);
-	
- 
+	//wxOpen is not defined in wxWidgets 2.9 -> so changed it to wxFD_OPEN
+	wxFileDialog* openFileDialog = new wxFileDialog( this, wxT("Open hexfile"), defaultPath, wxT(""), FILETYPES, wxFD_OPEN, wxDefaultPosition);
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		upp_open_file(openFileDialog->GetPath());
@@ -114,8 +108,8 @@ void UppMainWindowCallBack::upp_open_file(wxString path)
  	else
  	{
     	fileOpened=true;
-/*Now you would ask: why twice? well, I have no idea but sometimes the 
-first time doesn't completely put everything in the text area in Windows...*/    	
+		/*Now you would ask: why twice? well, I have no idea but sometimes the 
+		first time doesn't completely put everything in the text area in Windows...*/    	
    	   	printHexFile(); 
    	   	printHexFile();
     }
@@ -154,10 +148,8 @@ void UppMainWindowCallBack::upp_save()
 /*save the hex file with a file dialog*/
 void UppMainWindowCallBack::upp_save_as()
 {
-	//wxSAVE is not defined in wxWidgets 2.9
-	wxFileDialog* openFileDialog =
-		new wxFileDialog( this, wxT("Save hexfile"), defaultPath, wxT(""), FILETYPES,
-		                  wxSAVE, wxDefaultPosition);
+	//wxSAVE is not defined in wxWidgets 2.9 so changed it to wxFD_SAVE
+	wxFileDialog* openFileDialog =	new wxFileDialog( this, wxT("Save hexfile"), defaultPath, wxT(""), FILETYPES, wxFD_SAVE, wxDefaultPosition);
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
@@ -538,7 +530,7 @@ void UppMainWindowCallBack::upp_preferences()
 /*load a browser with the usbpicprog website*/
 void UppMainWindowCallBack::upp_help()
 {
-	wxLaunchDefaultBrowser(wxT("http://usbpicprog.sourceforge.net/"));
+	wxLaunchDefaultBrowser(wxT("http://usbpicprog.org/"));
 }
 
 /*show an about box (only supported from wxWidgets 2.8.something+) */
@@ -553,7 +545,7 @@ void UppMainWindowCallBack::upp_about()
 	aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
 	#endif
 	aboutInfo.SetDescription(wxT("An open source USB pic programmer"));
-	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.sourceforge.net/"));
+	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.org/"));
 	wxAboutBox(aboutInfo);
 #else//_WX_ABOUTDLG_H_
 	#ifndef UPP_VERSION
@@ -622,9 +614,6 @@ void UppMainWindowCallBack::OnSize(wxSizeEvent& event)
 		
 	}
 	this->Layout();
-	//if(uppHexEdit->OnResize())
-	//		uppHexEdit->putHexFile(readHexFile);
 	event.Skip();
-
 }
 

@@ -54,7 +54,7 @@ void PreferencesDialog::CreateGUIControls()
 	uppConfigProgramData = new wxCheckBox(this, wxID_ANY, wxT("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigProgramData"));
 	WxStaticBoxSizerProgram->Add(uppConfigProgramData,0,wxALIGN_LEFT | wxALL,5);
 
-    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, wxT("Erase before programming"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigEraseBeforeProgramming"));
+    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, wxT("Erase before programming"), wxPoint(-1,-1), wxSize(200,-1), 0, 		wxDefaultValidator, wxT("uppConfigEraseBeforeProgramming"));
 	WxStaticBoxSizerProgram->Add(uppConfigEraseBeforeProgramming,0,wxALIGN_LEFT | wxALL,5);
 
 	wxStaticBox* WxStaticBoxSizerVerify_StaticBoxObj = new wxStaticBox(this, wxID_ANY, wxT("Verify"));

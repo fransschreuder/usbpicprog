@@ -82,34 +82,33 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	 *Else, a command line application is started.						*
 	 *Only the filename may be passed to the gui						*/
 	if(!parser.Found(wxT("h"))&
-	   !parser.Found(wxT("V"))&
-	   !parser.Found(wxT("p"))&
-	   !parser.Found(wxT("s"))&
-	   !parser.Found(wxT("w"))&
-	   !parser.Found(wxT("r"))&
-	   !parser.Found(wxT("v"))&
-	   !parser.Found(wxT("e"))&
-	   !parser.Found(wxT("b"))&
-	   !parser.Found(wxT("f")))
+		!parser.Found(wxT("V"))&
+		!parser.Found(wxT("p"))&
+		!parser.Found(wxT("s"))&
+		!parser.Found(wxT("w"))&
+		!parser.Found(wxT("r"))&
+		!parser.Found(wxT("v"))&
+		!parser.Found(wxT("e"))&
+		!parser.Found(wxT("b"))&
+		!parser.Found(wxT("f")))
 	{
-		uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString,
-									   wxPoint(50, 50), wxSize(20, 20));
-				// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
+		uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString, wxPoint(50, 50), wxSize(20, 20));
+		// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
 		if(parser.GetParamCount()>0){uppMainWindow->upp_open_file(parser.GetParam(0));}
 		else{uppMainWindow->upp_new();}
 		uppMainWindow->Show(TRUE);
 	}
 	else	//start a command line app
 	{
-	/*when using Windows, wxWidgets takes over the terminal, *
-	 *but we want to have it for cout and cerr			     */
-#ifdef __WXMSW__	
+		/*when using Windows, wxWidgets takes over the terminal, *
+		 *but we want to have it for cout and cerr			     */
+		#ifdef __WXMSW__	
 		if( AttachConsole((DWORD)-1) )
 		{
 		  freopen( "CON", "w", stdout );
 		  freopen( "CON", "w", stderr );
 		}
-#endif
+		#endif
 		if(parser.Found(wxT("V")))
 		{
 			#ifndef UPP_VERSION
@@ -273,7 +272,6 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
                 delete readHexFile;
 			}
 		}
-		
 		exit(0);
 	}
     return true;

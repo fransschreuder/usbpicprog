@@ -90,8 +90,6 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 					break; //found usbpicprog, exit the for loop
 				}
 			}
-/*			cout<<"closing handle"<<endl;
-			usb_close(_handle);*/
 			_handle=NULL;
 		}
 		if(_handle!=NULL)	//successfully initialized? don't try any other buses
@@ -127,50 +125,49 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		int i;
 		for (i=0; i<dev->descriptor.bNumConfigurations; i++)
 			if ( _config==dev->config[i].bConfigurationValue ) break;
-		  if ( i==dev->descriptor.bNumConfigurations ) {
+		if ( i==dev->descriptor.bNumConfigurations ) 
+		{
 			i = 0;
 			_config = dev->config[i].bConfigurationValue;
-		  }
-  const usb_config_descriptor &configd = dev->config[i];
-  #ifdef __WXMSW__	//something goes wrong here in Win
-//  _config = 0;
-//cout<<"config: "<<_config<<endl;
-  #endif
-  if ( usb_set_configuration(_handle, _config)<0 ) {
-	  cerr<<"Error setting configuration"<<endl;
-    return;
-  }
-		
+	  	}
+		const usb_config_descriptor &configd = dev->config[i];
+		if ( usb_set_configuration(_handle, _config)<0 ) 
+		{
+			cerr<<"Error setting configuration"<<endl;
+			return;
+		}
+	
 		for (i=0; i<configd.bNumInterfaces; i++)
-		    if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
-		if ( i==configd.bNumInterfaces ) {
+			if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
+		if ( i==configd.bNumInterfaces ) 
+		{
 			int old = _interface;
 			i = 0;
 			_interface = configd.interface[i].altsetting[0].bInterfaceNumber;
 			cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
-		  }
-		  privateInterface = &(configd.interface[i].altsetting[0]);
-          
-		  if ( usb_claim_interface(_handle, _interface)<0 ) {
+		}
+		privateInterface = &(configd.interface[i].altsetting[0]);
+        if ( usb_claim_interface(_handle, _interface)<0 ) 
+        {
 			cerr<<"Error claiming interface"<<endl;
 			return;
-		  }
+		}
 	}
-
 }
 
 Hardware::EndpointMode Hardware::endpointMode(int ep)
 {
-  int index = ep & USB_ENDPOINT_ADDRESS_MASK;
-  const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
-  switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) {
-    case USB_ENDPOINT_TYPE_BULK: return Bulk;
-    case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
-    case USB_ENDPOINT_TYPE_ISOCHRONOUS: return Isochronous;
-    case USB_ENDPOINT_TYPE_CONTROL: return Control;
-    default: break;
-  }
-  return Nb_EndpointModes;
+	int index = ep & USB_ENDPOINT_ADDRESS_MASK;
+	const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
+	switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) 
+	{
+		case USB_ENDPOINT_TYPE_BULK: return Bulk;
+		case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
+		case USB_ENDPOINT_TYPE_ISOCHRONOUS: return Isochronous;
+		case USB_ENDPOINT_TYPE_CONTROL: return Control;
+		default: break;
+	}
+	return Nb_EndpointModes;
 }
 
 Hardware::~Hardware()
@@ -192,19 +189,19 @@ HardwareType Hardware::getHardwareType(void)
 
 void Hardware::tryToDetachDriver()
 {
-  // try to detach an already existing driver... (linux only)
-#if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
-//  log(Log::DebugLevel::Extra, "find if there is already an installed driver");
-  char dname[256] = "";
-  if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
-//  log(Log::DebugLevel::Normal, QString("  a driver \"%1\" is already installed...").arg(dname));
-#  if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
-  usb_detach_kernel_driver_np(_handle, bInterfaceNumber);
- // log(Log::DebugLevel::Normal, "  try to detach it...");
-  if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
- // log(Log::DebugLevel::Normal, "  failed to detach it");
-#  endif
-#endif
+	// try to detach an already existing driver... (linux only)
+	#if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
+	//  log(Log::DebugLevel::Extra, "find if there is already an installed driver");
+	char dname[256] = "";
+	if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+	//  log(Log::DebugLevel::Normal, QString("  a driver \"%1\" is already installed...").arg(dname));
+	#if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
+	usb_detach_kernel_driver_np(_handle, bInterfaceNumber);
+	// log(Log::DebugLevel::Normal, "  try to detach it...");
+	if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+	// log(Log::DebugLevel::Normal, "  failed to detach it");
+	#endif
+	#endif
 }
 
 /*give the hardware the command to switch to a certain pic algorithm*/
@@ -799,35 +796,6 @@ int Hardware::writeString(const char * msg,int size)
 	int nBytes=0;
 	if (_handle != NULL)
 	{
-		
-		/*
-		int todo = size;
-		while(1)
-		{
-			int res = 0;
-			//qDebug("write ep=%i todo=%i/%i", ep, todo, size);
-			if ( mode==Interrupt ) res = usb_interrupt_write(_handle, ep, (char *)data + size - todo, todo, 1000);
-			else res = usb_bulk_write(_handle, ep, (char *)data + size - todo, todo, timeout(todo));
-			//qDebug("res: %i", res);
-			if ( res==todo ) break;
-			if ( int(time.elapsed())>3000 ) 
-			{ // 3 s
-				if ( res<0 ) setSystemError(i18n("Error sending data (ep=%1 res=%2)").arg(toHexLabel(ep, 2)).arg(res));
-				else log(Log::LineType::Error, i18n("Timeout: only some data sent (%1/%2 bytes).").arg(size-todo).arg(size));
-				return false;
-			}
-			if ( res==0 ) log(Log::DebugLevel::Normal, i18n("Nothing sent: retrying..."));
-			if ( res>0 ) todo -= res;
-			msleep(100);
-	  }
-
-*/
-		
-		
-		
-		
-		//for(int i=0;i<size;i++)printf("%2X ",msg[i]&0xFF);
-		//cout<<endl;
 		EndpointMode mode = endpointMode(WRITE_ENDPOINT);
 		if ( mode==Interrupt )nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
 		else nBytes = usb_bulk_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
@@ -940,12 +908,6 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			}
 			
 			nBytes = readString(msg,size);
-			/*if(address>0x2000)
-			{
-				cout<<hex<<address<<endl;
-				for(int i=0;i<size;i++)cout<<hex<<(unsigned int)msg[i]<<" ";
-				cout<<endl;
-			}*/
 		}
 		else
 		{
@@ -1006,17 +968,9 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 			{
 				return nBytes;
 			}
-	//		nBytes = readString(resp_msg,size+6);
 			nBytes = readString(resp_msg,1);
 			if (nBytes < 0 )
 				cerr<<"Usb Error"<<endl;
-	/*		if(address==0)
-			{
-				for(int i=0;i<size+6;i++)
-					cout<<hex<<(int)resp_msg[i]<<" "<<dec;
-				cout<<endl;
-			}*/
-	//		return 0;
 			return (int)resp_msg[0];
 		}
 		else

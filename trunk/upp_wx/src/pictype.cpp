@@ -1031,7 +1031,7 @@ PicType::PicType(int devId)
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
 	for(int i=0;i<(signed)picNames.size();i++)
-			picNames[i]=picTypes[i].Name;
+		picNames[i]=picTypes[i].Name;
 }
 
 /*Returns the pic that has been selected*/
@@ -1043,6 +1043,5 @@ Pic PicType::getCurrentPic(void)
 /*Returns an array (vector) of strings containing all names of supported PICs*/
 vector<string> PicType::getPicNames(void)
 {
-
 	return picNames;			
 }
