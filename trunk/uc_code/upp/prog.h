@@ -17,8 +17,8 @@ Verify Configuration bits
 close VDD and MCLR
 
 **/
-typedef enum _PICTYPE{PIC10=0,PIC12,PIC16,PIC18,dsPIC}PICTYPE;
-typedef enum _PICVARIANT{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PICVARIANT;
+typedef enum _PICFAMILY{PIC10=0,PIC12,PIC16,PIC18,dsPIC}PICFAMILY;
+typedef enum _PICTYPE{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PICTYPE;
 
 /*
 typedef enum _ERASESTATE{ERASEIDLE=0, ERASESTART, ERASE1, ERASE2, ERASESTOP, ERASESUCCESS}ERASESTATE;
@@ -37,8 +37,8 @@ extern CONFIGSTATE configstate;
 before calling this function, erasestate has to be ERASESTART
 This function has to be called as many times until erasestate==ERASESUCCESS
  */
-char bulk_erase(PICTYPE pictype, PICVARIANT picvariant);
-//void program_erase(PICTYPE pictype);
+char bulk_erase(PICFAMILY picfamily, PICTYPE pictype);
+//void program_erase(PICFAMILY picfamily);
 
 /**
 before calling this function, progstate must be PROGSTART
@@ -50,18 +50,18 @@ data contains the data MSB0, LSB0, MSB1, LSB1, etc...
 blocksize is the block syze in BYTES
 lastblock is 1 if this block is the last block to program, otherwise lastblock is 0
  */
-char write_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data,char blocksize,char lastblock);
+char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data,char blocksize,char lastblock);
 
 /**
 for program_ids, program_memory can be used in stead with address 0x200000 and blocksize=8
-void program_ids(PICTYPE pictype,char address, char* data, char blocksize);
+void program_ids(PICFAMILY picfamily,char address, char* data, char blocksize);
 **/
 
 /**
 before calling this function, datastate must be DATASTART
 call as many times until progstate==PROGSUCCESS
  */
-char write_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, unsigned char* data, char blocksize, char lastblock);
+char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsigned char* data, char blocksize, char lastblock);
 
 
 /**
@@ -70,19 +70,19 @@ the address will be 0x300000 + the id location
 before calling this function, make configstate CONFIGSTART
 keep calling this function until configstate==CONFIGSUCCESS
  **/
-char write_config_bits(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data, char blocksize, char lastblock);
+char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize, char lastblock);
 
 /**
 This function has to be called only once per block
 read_program will read program memory, id's and configuration bits
  **/
-void read_code(PICTYPE pictype, PICVARIANT picvariant, unsigned long address, unsigned char* data, char blocksize, char lastblock);
+void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize, char lastblock);
 
 /**
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
  **/
-void read_data(PICTYPE pictype, PICVARIANT picvariant, unsigned int address, unsigned char* data, char blocksize, char lastblock);
+void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsigned char* data, char blocksize, char lastblock);
 
 
 

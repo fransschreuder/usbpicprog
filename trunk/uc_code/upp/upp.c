@@ -131,8 +131,8 @@ extern unsigned long tick, lasttick;
 //unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
 char sentNextBlockRequest=0;
-PICTYPE pictype=PIC18;
-PICVARIANT picvariant=P18F2XXX;
+PICFAMILY picfamily=PIC18;
+PICTYPE pictype=P18F2XXX;
 
 void ProcessIO(void)
 {
@@ -158,15 +158,15 @@ void ProcessIO(void)
 		if((input_buffer[0])==0x10)  //CMD_BULK_ERASE
 		{
 			setLeds(0x01);
-			output_buffer[0]=bulk_erase(pictype,picvariant);
+			output_buffer[0]=bulk_erase(picfamily,pictype);
 			counter=1;
 		}
 		if((input_buffer[0])==0x20) //CMD_GET_ID
 		{
-			if(pictype==PIC18)
-			read_code(pictype,picvariant,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
+			if(picfamily==PIC18)
+			read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 			else
-				read_code(pictype,picvariant,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
+				read_code(picfamily,pictype,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
 		}
 		if((input_buffer[0])==0x30) //CMD_WRITE_CODE
@@ -174,7 +174,7 @@ void ProcessIO(void)
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
 					((unsigned long)input_buffer[4]);
-			output_buffer[0]=write_code(pictype,picvariant,address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			output_buffer[0]=write_code(picfamily,pictype,address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 			/*memcpy(output_buffer,input_buffer,input_buffer[1]);
 			counter=input_buffer[1];*/
@@ -185,7 +185,7 @@ void ProcessIO(void)
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
 				
-				read_code(pictype,picvariant,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
+				read_code(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
 				counter=input_buffer[1];
 		}
 		if((input_buffer[0])==0x50) //CMD_WRITE_DATA
@@ -193,14 +193,14 @@ void ProcessIO(void)
 			intaddress=((unsigned int)input_buffer[3])<<8|
 					((unsigned int)input_buffer[4]);
 	
-			output_buffer[0]=write_data(pictype,picvariant,intaddress, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+			output_buffer[0]=write_data(picfamily,pictype,intaddress, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
 			counter=1;
 		}
 		if((input_buffer[0])==0x60) //CMD_READ_DATA
 		{
 			intaddress=((unsigned int)input_buffer[3])<<8|
 					((unsigned int)input_buffer[4]);
-			read_data(pictype,picvariant,intaddress,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
+			read_data(picfamily,pictype,intaddress,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
 			counter=input_buffer[1];
 		}
 		if((input_buffer[0])==0x70) //CMD_WRITE_CONFIG
@@ -208,7 +208,7 @@ void ProcessIO(void)
 			address=((unsigned long)input_buffer[2])<<16|
 					((unsigned long)input_buffer[3])<<8|
 					((unsigned long)input_buffer[4]);
-			output_buffer[0]=write_config_bits(pictype, picvariant, address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
+			output_buffer[0]=write_config_bits(picfamily, pictype, address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
 		}
 		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE
@@ -237,14 +237,14 @@ unsigned char set_pictype(unsigned char* data)
 {
 	switch(data[0])
 	{
-		case 0:	picvariant=P18F2XXX;pictype=PIC18;break;
-		case 1:	picvariant=P18FXX2;pictype=PIC18;break;
-		case 2:	picvariant=P16F87XA;pictype=PIC16;break;
-		case 3:	picvariant=P16F62XA;pictype=PIC16;break;
-		case 4: picvariant=P16F62X;pictype=PIC16;break;
-		case 5: picvariant=P12F629;pictype=PIC16;break;
-		case 6: picvariant=P12F6XX;pictype=PIC16;break;
-		default: picvariant=P18F2XXX;pictype=PIC18;return 3;break;
+		case 0:	pictype=P18F2XXX;picfamily=PIC18;break;
+		case 1:	pictype=P18FXX2;picfamily=PIC18;break;
+		case 2:	pictype=P16F87XA;picfamily=PIC16;break;
+		case 3:	pictype=P16F62XA;picfamily=PIC16;break;
+		case 4: pictype=P16F62X;picfamily=PIC16;break;
+		case 5: pictype=P12F629;picfamily=PIC16;break;
+		case 6: pictype=P12F6XX;picfamily=PIC16;break;
+		default: pictype=P18F2XXX;picfamily=PIC18;return 3;break;
 	}
 	return 1;	
 }

@@ -19,17 +19,17 @@
 extern long tick;
 extern long lasttick;
 
-void set_vdd_vpp(PICTYPE pictype,char level)
+void set_vdd_vpp(PICFAMILY picfamily,char level)
 {
     unsigned int i;
     if(level==1)
     {
-        if(pictype==PIC18)VDD=0; //high, (inverted)
+        if(picfamily==PIC18)VDD=0; //high, (inverted)
 	else VPP=0;
         lasttick=tick;
 	setLeds(1);
 	while((tick-lasttick)<20)continue;
-        if(pictype==PIC18)VPP=0; //high, (inverted)
+        if(picfamily==PIC18)VPP=0; //high, (inverted)
 	else VDD=0;
 	setLeds(2);
 	lasttick=tick;
@@ -50,9 +50,9 @@ void set_vdd_vpp(PICTYPE pictype,char level)
     }
 }
 
-void set_address(PICTYPE pictype, unsigned long address)
+void set_address(PICFAMILY picfamily, unsigned long address)
 {
-	switch(pictype)
+	switch(picfamily)
 	{
 		case PIC18:
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>16)&0xFF))); //MOVLW Addr [23:16]

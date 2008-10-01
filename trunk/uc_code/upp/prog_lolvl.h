@@ -9,12 +9,12 @@
 /**
 Sets or clears the VDD and VPP voltages
 **/
-void set_vdd_vpp(PICTYPE pictype, char level);
+void set_vdd_vpp(PICFAMILY picfamily, char level);
 
 /**
 sets the address pointer to a certain address location
 **/
-void set_address(PICTYPE pictype, unsigned long address);
+void set_address(PICFAMILY picfamily, unsigned long address);
 
 /**
 Would one Nop() cylce be enough delay for all PIC's?
