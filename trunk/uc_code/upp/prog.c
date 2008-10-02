@@ -573,7 +573,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	{
 		case P18FXX2:
 		case P18F2XXX:
-                        set_address(picfamily, address);
+			set_address(picfamily, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
@@ -584,8 +584,8 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 		case P16F62X:
 			if(address>=0x2000) //read configuration memory
 			{
-	                        pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-	                        if(lastblock&1)
+				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+				if(lastblock&1)
 				{
 					for(i=0;i<(((unsigned int)address)-0x2000);i++)pic_send_n_bits(6,0x06);	//increment address
 				}

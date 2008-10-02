@@ -20,8 +20,8 @@ void set_address(PICFAMILY picfamily, unsigned long address);
 Would one Nop() cylce be enough delay for all PIC's?
 It works for PIC18F2550
 **/
-//#define clock_delay() Nop()
-void clock_delay(void);
+#define clock_delay() Nop()
+//void clock_delay(void);
 
 /**
 reads 8 bits from a pic device with a given cmd_size bits command (only the 2nd byte is read)

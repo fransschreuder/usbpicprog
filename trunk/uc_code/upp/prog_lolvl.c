@@ -24,29 +24,29 @@ void set_vdd_vpp(PICFAMILY picfamily,char level)
     unsigned int i;
     if(level==1)
     {
-        if(picfamily==PIC18)VDD=0; //high, (inverted)
-	else VPP=0;
-        lasttick=tick;
-	setLeds(1);
-	while((tick-lasttick)<20)continue;
-        if(picfamily==PIC18)VPP=0; //high, (inverted)
-	else VDD=0;
-	setLeds(2);
-	lasttick=tick;
-	while((tick-lasttick)<20)continue;
-	setLeds(3);
+		if(picfamily==PIC18)VDD=0; //high, (inverted)
+		else VPP=0;
+		lasttick=tick;
+		setLeds(1);
+		while((tick-lasttick)<20)continue;
+		if(picfamily==PIC18)VPP=0; //high, (inverted)
+		else VDD=0;
+		setLeds(2);
+		lasttick=tick;
+		while((tick-lasttick)<20)continue;
+		setLeds(3);
     }
     else
     {
-        VPP=1; //low, (inverted)
-	setLeds(4);
-	lasttick=tick;
-	while((tick-lasttick)<20)continue;
-	setLeds(5);
-	VDD=1; //low, (inverted)
-	lasttick=tick;
-	while((tick-lasttick)<20)continue;
-	setLeds(0);
+		VPP=1; //low, (inverted)
+		setLeds(4);
+		lasttick=tick;
+		while((tick-lasttick)<20)continue;
+		setLeds(5);
+		VDD=1; //low, (inverted)
+		lasttick=tick;
+		while((tick-lasttick)<20)continue;
+		setLeds(0);
     }
 }
 
@@ -63,21 +63,21 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 			pic_send(4,0x00,0x6EF6); //MOVWF TBLPTRU
 			break;
 		case PIC16:
-                     pic_send(6,0x02,((unsigned int)address)<<1);
+			pic_send(6,0x02,((unsigned int)address)<<1);
 		default:
 			break;
 	}
 }
 
 
-void clock_delay()
+/*void clock_delay()
 {
 	//char i;
 	//for(i=0;i<2;i++)continue;
+	//Nop();
+	//Nop(); //would that be enough for all pic's?
 	Nop();
-	Nop(); //would that be enough for all pic's?
-	Nop();
-}
+}*/
 
 
 
@@ -104,7 +104,7 @@ void pic_send_n_bits(char cmd_size, char command)
 		clock_delay();
 
 	}
-	for(i=0;i<40;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
+	for(i=0;i<10;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
 }
 
 void pic_send_word(unsigned int payload)

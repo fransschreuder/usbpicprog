@@ -39,7 +39,6 @@ BOOL Switch3IsPressed(void);
 void setLeds(char n);
 
 
-
 /** D E C L A R A T I O N S **************************************************/
 #ifndef SDCC
 #pragma code
@@ -84,33 +83,6 @@ void setLeds(char n)
 }
 	
 /******************************************************************************
- * Function: 		void VoltagePump(void)
- * PreCondition:	None
- * Input:			None
- * Output:			None
- * Side Effects:	None
- * Overview:		This function has to be called every .. us and will 
- 
-******************************************************************************/
-
-/*void VoltagePump(void)
-{
-	static char pumpcount=0;
-    if(pumpcount == 0)
-    {
-	    pumpcount = 2;
-	    Pump1=!Pump1;
-	    Pump2=!Pump1;
-	    //Pump3=Pump1;
-	}
-    pumpcount--;
-	
-}
-*/	
-
-
-
-/******************************************************************************
  * Function:        void ProcessIO(void)
  *
  * PreCondition:    None
@@ -128,9 +100,7 @@ void setLeds(char n)
  *****************************************************************************/
 
 extern unsigned long tick, lasttick;
-//unsigned int count_number_of_blocks=0; //for test use only, normally this is done by the PC
 unsigned int input_buffer_offset=0;
-char sentNextBlockRequest=0;
 PICFAMILY picfamily=PIC18;
 PICTYPE pictype=P18F2XXX;
 
@@ -143,11 +113,11 @@ void ProcessIO(void)
     unsigned long address;
     unsigned int intaddress;
 
-    
-    // User Application USB tasks
+    // When the device is plugged in, the leds give the numbers 1, 2, 3, 4, 5. 
+    //After configured state, the leds are controlled by the next lines in this function
     if((usb_device_state < CONFIGURED_STATE)||(UCONbits.SUSPND==1))
     {
-	BlinkUSBStatus();
+		BlinkUSBStatus();
     	return;
     }
 
@@ -160,14 +130,16 @@ void ProcessIO(void)
 			setLeds(0x01);
 			output_buffer[0]=bulk_erase(picfamily,pictype);
 			counter=1;
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x20) //CMD_GET_ID
 		{
 			if(picfamily==PIC18)
-			read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
+				read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 			else
 				read_code(picfamily,pictype,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 			counter=2;
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x30) //CMD_WRITE_CODE
 		{
@@ -176,17 +148,17 @@ void ProcessIO(void)
 					((unsigned long)input_buffer[4]);
 			output_buffer[0]=write_code(picfamily,pictype,address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
-			/*memcpy(output_buffer,input_buffer,input_buffer[1]);
-			counter=input_buffer[1];*/
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x40) //CMD_READ_CODE
 		{
-				address=((unsigned long)input_buffer[2])<<16|
-						((unsigned long)input_buffer[3])<<8|
-						((unsigned long)input_buffer[4]);
-				
-				read_code(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
-				counter=input_buffer[1];
+			address=((unsigned long)input_buffer[2])<<16|
+					((unsigned long)input_buffer[3])<<8|
+					((unsigned long)input_buffer[4]);
+
+			read_code(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
+			counter=input_buffer[1];
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x50) //CMD_WRITE_DATA
 		{
@@ -195,6 +167,7 @@ void ProcessIO(void)
 	
 			output_buffer[0]=write_data(picfamily,pictype,intaddress, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
 			counter=1;
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x60) //CMD_READ_DATA
 		{
@@ -202,6 +175,7 @@ void ProcessIO(void)
 					((unsigned int)input_buffer[4]);
 			read_data(picfamily,pictype,intaddress,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
 			counter=input_buffer[1];
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x70) //CMD_WRITE_CONFIG
 		{
@@ -210,17 +184,20 @@ void ProcessIO(void)
 					((unsigned long)input_buffer[4]);
 			output_buffer[0]=write_config_bits(picfamily, pictype, address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]);
 			counter=1;
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x80) //CMD_SET_PICTYPE
 		{
 			output_buffer[0]=set_pictype(input_buffer+1);
 			//output_buffer[0]=1; //Ok
 			counter=1;
+			setLeds(0x05);
 		}
 		if((input_buffer[0])==0x90) //CMD_FIRMWARE_VERSION
 		{
 			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 			counter=18;
+			setLeds(0x05);
 		}
 		
 	}
