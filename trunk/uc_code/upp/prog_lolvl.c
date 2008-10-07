@@ -28,12 +28,12 @@ void set_vdd_vpp(PICFAMILY picfamily,char level)
 		else VPP=0;
 		lasttick=tick;
 		setLeds(1);
-		while((tick-lasttick)<20)continue;
+		while((tick-lasttick)<100)continue;
 		if(picfamily==PIC18)VPP=0; //high, (inverted)
 		else VDD=0;
 		setLeds(2);
 		lasttick=tick;
-		while((tick-lasttick)<20)continue;
+		while((tick-lasttick)<100)continue;
 		setLeds(3);
     }
     else
@@ -69,16 +69,21 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 	}
 }
 
-
-/*void clock_delay()
+/*
+void clock_delay()
 {
 	//char i;
 	//for(i=0;i<2;i++)continue;
 	//Nop();
 	//Nop(); //would that be enough for all pic's?
 	Nop();
-}*/
-
+	Nop();
+	Nop();
+	Nop();
+	Nop();
+	Nop();
+}
+*/
 
 
 /**

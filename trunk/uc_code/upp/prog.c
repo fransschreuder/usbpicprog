@@ -238,9 +238,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						(((unsigned int)data[blockcounter+i+1])<<8));//LSB
                                         if(i<14)pic_send_n_bits(6,0x06);	//increment address
 				}
-				pic_send_n_bits(6,0x08);    //begin programming
-				DelayMs(1);
-				pic_send_n_bits(5,0x17);    //end programming
+				pic_send_n_bits(6,0x08);    //begin erase / programming
+				DelayMs(8);
+				//pic_send_n_bits(5,0x17);    //end programming
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
@@ -469,7 +469,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_word(0x0000); //last part of the nop
 			}
 			break;
-		case P16F87XA:
+		/*case P16F87XA:
 			if(lastblock&1)
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -480,19 +480,19 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				//load data for config memory
 				if(((((char)address)+(blockcounter>>1))<4)||(((char)address+blockcounter)==7))
 				{
-					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
 
 				}
 				if(((((char)address)+(blockcounter>>1))==4)||((((char)address)+blockcounter)==7))
 				{
-	                                pic_send_n_bits(6,0x08);    //begin programming
+	                                pic_send_n_bits(6,0x18);    //begin programming
 					DelayMs(Tprog);
 				}
 				//read data from program memory (to verify) not yet impl...
 				pic_send_n_bits(6,0x06);	//increment address
 			}
-			break;
+			break;*/
 		case P12F629:
 			if(lastblock&1)
 			{
@@ -521,6 +521,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F87XA:
 		case P12F6XX: //same as P16F62X
 		case P16F62XA: //same as P16F62X
 		case P16F62X:
@@ -536,7 +537,15 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				{
 					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
 					pic_send_14_bits(6,0x02,payload); //load data for programming
-					pic_send_n_bits(6,0x08);    //begin programming
+					if(pictype==P16F87XA)
+					{
+						pic_send_n_bits(6,0x18);    //begin erase / programming
+					}
+					else
+					{
+						pic_send_n_bits(6,0x08);    //begin programming
+					}
+
 					DelayMs(Tprog);
 				}
 				//read data from program memory (to verify) not yet impl...
