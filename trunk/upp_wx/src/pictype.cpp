@@ -312,7 +312,7 @@ const Pic picTypes[]={
 	0x0E60,		//UserId
 	0x3FF0		//UserIdMask
 },
-//PIC16F875A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
+//PIC16F876A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F876A",	//Name
 	0x2000*2,		//CodeSize

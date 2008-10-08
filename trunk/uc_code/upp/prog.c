@@ -337,11 +337,9 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 	char blockcounter;
 	char receiveddata;
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
-	switch(pictype)
+	switch(picfamily)
 	{
-		case P18FXX2:
-		case P18F2XXX:
-
+		case PIC18:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -376,11 +374,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
 			break;
-		case P12F6XX:		//same as P16F62X
-		case P12F629:		//same as P16F62X
-		case P16F87XA:		//same as P16F62X?
-		case P16F62XA:          //same as P16F62X
-		case P16F62X:
+		case PIC16:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
 				//load data
@@ -469,30 +463,6 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_word(0x0000); //last part of the nop
 			}
 			break;
-		/*case P16F87XA:
-			if(lastblock&1)
-			{
-				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-				for(i=0;i<((char)address);i++)pic_send_n_bits(6,0x06);   //increment address until ADDRESS is reached
-			}
-                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
-			{
-				//load data for config memory
-				if(((((char)address)+(blockcounter>>1))<4)||(((char)address+blockcounter)==7))
-				{
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-							(((unsigned int)data[blockcounter+1])<<8));//LSB
-
-				}
-				if(((((char)address)+(blockcounter>>1))==4)||((((char)address)+blockcounter)==7))
-				{
-	                                pic_send_n_bits(6,0x18);    //begin programming
-					DelayMs(Tprog);
-				}
-				//read data from program memory (to verify) not yet impl...
-				pic_send_n_bits(6,0x06);	//increment address
-			}
-			break;*/
 		case P12F629:
 			if(lastblock&1)
 			{
@@ -537,15 +507,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				{
 					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
 					pic_send_14_bits(6,0x02,payload); //load data for programming
-					if(pictype==P16F87XA)
-					{
-						pic_send_n_bits(6,0x18);    //begin erase / programming
-					}
-					else
-					{
-						pic_send_n_bits(6,0x08);    //begin programming
-					}
-
+					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
 				//read data from program memory (to verify) not yet impl...
@@ -578,19 +540,14 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	char blockcounter=0;
 	unsigned int payload;
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
-	switch(pictype)
+	switch(picfamily)
 	{
-		case P18FXX2:
-		case P18F2XXX:
+		case PIC18:
 			set_address(picfamily, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
-		case P12F6XX:	//same as P16F62X
-		case P12F629:	//same as P16F62X
-		case P16F87XA:	//same as P16F62X
-		case P16F62XA:  //same as P16F62X
-		case P16F62X:
+		case PIC16:
 			if(address>=0x2000) //read configuration memory
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -645,10 +602,9 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 	char blockcounter=0;
 	//if(lastblock&1)
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
-	switch(pictype)
+	switch(picfamily)
 	{
-		case P18FXX2:
-		case P18F2XXX:
+		case PIC18:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -664,11 +620,7 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
 			}
 			break;
-		case P12F6XX:	//same as P16F62X			
-		case P12F629:	//same as P16F62X			
-		case P16F87XA:	//same as P16F62X
-		case P16F62XA:  //same as P16F62X
-		case P16F62X:
+		case PIC16:
 			if(lastblock&1)
 			{
 				pic_read_14_bits(6,0x05);
