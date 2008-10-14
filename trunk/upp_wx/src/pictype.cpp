@@ -39,6 +39,18 @@ const Pic defaultPic=
 /*All the properties of supported PIC devices...*/
 const Pic picTypes[]={
 {
+	"P16F84A",	//Name
+	0x1FF*2,	//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x40,		//Datasize
+	0x2,		//ConfigSize
+	P16F84A,	//PicFamily
+	0x0560,		//UserId
+	0x3FE0		//UserIdMask
+},
+
+{
 	"P12F629",	//Name
 	0x3FF*2,		//CodeSize
 	0x2007,		//ConfigAddress

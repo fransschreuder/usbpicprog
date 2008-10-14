@@ -25,7 +25,7 @@
 using namespace std;
 
 /*PicFamily is the range of algorithms, each by a certain range of PIC types*/
-typedef enum _PicFamily{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX}PicFamily;
+typedef enum _PicFamily{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX,P16F84A}PicFamily;
 
 /*Some generic properties of a pic.*/
 typedef struct 
