@@ -24,13 +24,11 @@ void set_vdd_vpp(PICFAMILY picfamily,char level)
     unsigned int i;
     if(level==1)
     {
-		if(picfamily==PIC18)VDD=0; //high, (inverted)
-		else VPP=0;
+		VDD=0; //high, (inverted)
 		lasttick=tick;
 		setLeds(1);
 		while((tick-lasttick)<100)continue;
-		if(picfamily==PIC18)VPP=0; //high, (inverted)
-		else VDD=0;
+		VPP=0; //high, (inverted)
 		setLeds(2);
 		lasttick=tick;
 		while((tick-lasttick)<100)continue;
