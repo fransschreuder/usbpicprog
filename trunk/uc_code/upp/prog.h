@@ -93,7 +93,7 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 #define P11 10
 #define P11A 5
 //delay times according to programming specification for PIC16F:
-#define Tera 8
+#define Tera 10
 #define Tprog 10
 #define Tdprog 8
 #endif //PROG_H
