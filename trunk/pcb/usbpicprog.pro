@@ -1,9 +1,5 @@
-update=14/8/2008-12:37:35
-last_client=pcbnew
-[general]
-version=1
-RootSch=usbpicprog.sch
-BoardNm=usbpicprog.brd
+update=17/10/2008-14:45:09
+last_client=KiCad
 [eeschema]
 version=1
 LibDir=
@@ -142,3 +138,7 @@ LibName7=divers
 LibName8=libcms
 LibName9=display
 LibName10=valves
+[general]
+version=1
+RootSch=
+BoardNm=

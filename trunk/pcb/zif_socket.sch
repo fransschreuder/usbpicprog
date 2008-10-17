@@ -1,11 +1,11 @@
-EESchema Schematic File Version 1
-LIBS:power,/home/frans/usbpicprog/pcb/library/18f4550,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,./zif_socket.cache
+EESchema Schematic File Version 2
+LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\zif_socket.cache
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "noname.sch"
-Date "9 dec 2007"
+Date "17 oct 2008"
 Rev ""
 Comp ""
 Comment1 ""
@@ -13,264 +13,288 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Label 4900 4500 0    60   ~
+PGDdsPIC18
 Wire Wire Line
-	3800 3650 3800 3600
+	4600 4500 4900 4500
 Wire Wire Line
-	3800 3600 3750 3600
+	7650 4450 8100 4450
 Wire Wire Line
-	1650 3900 1600 3900
+	7650 4250 8100 4250
 Wire Wire Line
-	1600 3900 1600 3950
+	7650 4050 8100 4050
 Wire Wire Line
-	1650 2600 1300 2600
+	4600 4800 4900 4800
 Wire Wire Line
-	3750 2700 4150 2700
+	4600 4600 4900 4600
 Wire Wire Line
-	7100 5900 7400 5900
+	4600 4300 4900 4300
 Wire Wire Line
-	4850 2850 4450 2850
+	4600 4100 4900 4100
 Wire Wire Line
-	6300 2150 6750 2150
+	4600 3900 4900 3900
 Wire Wire Line
-	4700 5850 4700 5900
+	3900 4600 3600 4600
 Wire Wire Line
-	4700 5900 4750 5900
+	3900 4100 3600 4100
 Wire Wire Line
-	7850 4350 7850 4100
+	3900 3800 3600 3800
 Wire Wire Line
-	7850 4100 7900 4100
+	3900 3900 3600 3900
 Wire Wire Line
-	6350 1950 6350 1850
+	3900 4200 3600 4200
 Wire Wire Line
-	6350 1850 6300 1850
+	3900 4500 3600 4500
 Wire Wire Line
-	10300 5300 10550 5300
+	4600 3800 4900 3800
 Wire Wire Line
-	7900 2900 7550 2900
+	4600 4000 4900 4000
 Wire Wire Line
-	8050 2050 8250 2050
+	4600 4200 4900 4200
 Wire Wire Line
-	8100 2300 8100 2250
+	4600 4400 4900 4400
 Wire Wire Line
-	8100 2250 8050 2250
+	4600 4700 4900 4700
 Wire Wire Line
-	8100 1950 8050 1950
+	4600 4900 4900 4900
 Wire Wire Line
-	8050 2150 8250 2150
+	7650 4150 8100 4150
 Wire Wire Line
-	8050 1850 8250 1850
+	7650 4350 8100 4350
 Wire Wire Line
-	10300 5200 10550 5200
+	7650 3800 8100 3800
 Wire Wire Line
-	4800 1750 4800 1850
+	7650 3600 8100 3600
 Wire Wire Line
-	4800 1850 4850 1850
+	7650 3400 8100 3400
 Wire Wire Line
-	7850 3850 7850 3900
+	7650 3500 8100 3500
 Wire Wire Line
-	7850 3900 7900 3900
+	7650 3700 8100 3700
 Wire Wire Line
-	7900 4300 7850 4300
-Connection ~ 7850 4300
+	7650 3150 8100 3150
 Wire Wire Line
-	4750 7200 4700 7200
+	7650 2950 8100 2950
 Wire Wire Line
-	4700 7200 4700 7300
+	7650 2750 8100 2750
 Wire Wire Line
-	6300 2550 6750 2550
+	7650 2850 8100 2850
 Wire Wire Line
-	7100 6000 7400 6000
+	7650 3050 8100 3050
 Wire Wire Line
-	4750 6750 4500 6750
+	7650 2500 8100 2500
 Wire Wire Line
-	3750 2600 4150 2600
+	7650 2300 8100 2300
 Wire Wire Line
-	1600 3750 1600 3800
+	7650 2100 8100 2100
 Wire Wire Line
-	1600 3800 1650 3800
+	7650 2200 8100 2200
 Wire Wire Line
-	3750 3500 3800 3500
+	7650 2400 8100 2400
+Wire Wire Line
+	7650 5750 8100 5750
+Wire Wire Line
+	7650 5550 8100 5550
+Wire Wire Line
+	7650 5350 8100 5350
+Wire Wire Line
+	7650 5450 8100 5450
+Wire Wire Line
+	7650 5650 8100 5650
+Wire Wire Line
+	7650 5100 8100 5100
+Wire Wire Line
+	7650 4900 8100 4900
+Wire Wire Line
+	7650 4700 8100 4700
+Wire Wire Line
+	7650 4800 8100 4800
+Wire Wire Line
+	7650 5000 8100 5000
+Wire Wire Line
+	7650 1850 8100 1850
+Wire Wire Line
+	7650 1650 8100 1650
+Wire Wire Line
+	7650 1450 8100 1450
+Wire Wire Line
+	7650 1550 8100 1550
+Wire Wire Line
+	7650 1750 8100 1750
+Text Label 8100 2850 0    60   ~
+VDD18
+Text Label 8100 2950 0    60   ~
+PGDdsPIC18
+Text Label 8100 3050 0    60   ~
+PGC18
+Text Label 8100 1450 0    60   ~
+MCLR40
+Text Label 8100 1550 0    60   ~
+VDD40
+Text Label 8100 1650 0    60   ~
+PGDdsPIC40
+Text Label 8100 1750 0    60   ~
+PGCdsPIC40
+Text Label 8100 1850 0    60   ~
+GND40
+Text Label 8100 2100 0    60   ~
+MCLR40
+Text Label 8100 2200 0    60   ~
+VDD40
+Text Label 8100 2300 0    60   ~
+PGDdsPIC28
+Text Label 8100 2400 0    60   ~
+PGCdsPIC28
+Text Label 8100 2500 0    60   ~
+GND40
+Text Label 8100 2750 0    60   ~
+MCLR40
+Text Label 8100 3150 0    60   ~
+PGD18
+Text Label 8100 3400 0    60   ~
+MCLR40
+Text Label 8100 3500 0    60   ~
+VDD40
+Text Label 8100 3600 0    60   ~
+PGD40
+Text Label 8100 3700 0    60   ~
+PGD12F
+Text Label 8100 3800 0    60   ~
+GND40
+Text Label 8100 4050 0    60   ~
+MCLR12F
+Text Label 8100 4150 0    60   ~
+VDD18
+Text Label 8100 4250 0    60   ~
+PGD18
+Text Label 8100 4350 0    60   ~
+PGC18
+Text Label 8100 4450 0    60   ~
+GND18
+Text Label 8100 4700 0    60   ~
+MCLR12F
+Text Label 8100 4800 0    60   ~
+MCLR40
+Text Label 8100 4900 0    60   ~
+PGD12F
+Text Label 8100 5000 0    60   ~
+PGC12F
+Text Label 8100 5100 0    60   ~
+PGD40
+Text Label 8100 5350 0    60   ~
+PGD40
+Text Label 8100 5450 0    60   ~
+PGD12F
+Text Label 8100 5550 0    60   ~
+PGD10F
+Text Label 8100 5650 0    60   ~
+MCLR12F
+Text Label 8100 5750 0    60   ~
+GND10F
 $Comp
-L VSS #PWR01
-U 1 1 475BE782
-P 3800 3650
-F 0 "#PWR01" H 3800 3650 30  0001 C C
-F 1 "VSS" H 3800 3580 30  0000 C C
-	1    3800 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L VDD #PWR02
-U 1 1 475BE779
-P 3800 3500
-F 0 "#PWR02" H 3800 3600 30  0001 C C
-F 1 "VDD" H 3800 3610 30  0000 C C
-	1    3800 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L PIC18F4550 U1
-U 1 1 475BE71B
-P 2700 3950
-F 0 "U1" H 2700 4050 70  0000 C C
-F 1 "PIC18F4550" H 2700 3850 70  0000 C C
-	1    2700 3950
-	1    0    0    -1  
-$EndComp
-Text Label 4150 2600 0    60   ~
-PGD
-Text Label 4150 2700 0    60   ~
-PGC
-Text Label 1300 2600 0    60   ~
-MCLR
-Text Label 4500 6750 0    60   ~
-MCLR
-Text Label 7400 6000 0    60   ~
-PGC
-Text Label 7400 5900 0    60   ~
-PGD
-Text Label 10550 5300 0    60   ~
-PGD
-Text Label 10550 5200 0    60   ~
-PGC
-Text Label 7550 2900 0    60   ~
-MCLR
-Text Label 4450 2850 0    60   ~
-MCLR
-Text Label 6750 2550 0    60   ~
-PGC
-Text Label 6750 2150 0    60   ~
-PGD
-$Comp
-L VSS #PWR03
-U 1 1 475BDF5A
-P 6350 1950
-F 0 "#PWR03" H 6350 1950 30  0001 C C
-F 1 "VSS" H 6350 1880 30  0000 C C
-	1    6350 1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L VDD #PWR04
-U 1 1 475BDF56
-P 4800 1750
-F 0 "#PWR04" H 4800 1850 30  0001 C C
-F 1 "VDD" H 4800 1860 30  0000 C C
-	1    4800 1750
-	1    0    0    -1  
-$EndComp
-$Comp
-L VDD #PWR05
-U 1 1 475BDF4E
-P 4700 5850
-F 0 "#PWR05" H 4700 5950 30  0001 C C
-F 1 "VDD" H 4700 5960 30  0000 C C
-	1    4700 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L VSS #PWR06
-U 1 1 475BDF49
-P 4700 7300
-F 0 "#PWR06" H 4700 7300 30  0001 C C
-F 1 "VSS" H 4700 7230 30  0000 C C
-	1    4700 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L VSS #PWR07
-U 1 1 475BDF3C
-P 1600 3950
-F 0 "#PWR07" H 1600 3950 30  0001 C C
-F 1 "VSS" H 1600 3880 30  0000 C C
-	1    1600 3950
-	1    0    0    -1  
-$EndComp
-$Comp
-L VDD #PWR08
-U 1 1 475BDF39
-P 1600 3750
-F 0 "#PWR08" H 1600 3850 30  0001 C C
-F 1 "VDD" H 1600 3860 30  0000 C C
-	1    1600 3750
-	1    0    0    -1  
-$EndComp
-$Comp
-L VDD #PWR09
-U 1 1 475BDF2E
-P 7850 3850
-F 0 "#PWR09" H 7850 3950 30  0001 C C
-F 1 "VDD" H 7850 3960 30  0000 C C
-	1    7850 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L VSS #PWR010
-U 1 1 475BDF29
-P 7850 4350
-F 0 "#PWR010" H 7850 4350 30  0001 C C
-F 1 "VSS" H 7850 4280 30  0000 C C
-	1    7850 4350
-	1    0    0    -1  
-$EndComp
-Text Label 8250 1850 0    60   ~
-MCLR
-Text Label 8250 2050 0    60   ~
-PGD
-Text Label 8250 2150 0    60   ~
-PGC
-$Comp
-L VDD #PWR011
-U 1 1 475BDED7
-P 8100 1950
-F 0 "#PWR011" H 8100 2050 30  0001 C C
-F 1 "VDD" H 8100 2060 30  0000 C C
-	1    8100 1950
-	0    1    1    0   
-$EndComp
-$Comp
-L VSS #PWR012
-U 1 1 475BDECF
-P 8100 2300
-F 0 "#PWR012" H 8100 2300 30  0001 C C
-F 1 "VSS" H 8100 2230 30  0000 C C
-	1    8100 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_5 P1
-U 1 1 475BDEC0
-P 7650 2050
-F 0 "P1" V 7600 2050 50  0000 C C
-F 1 "CONN_5" V 7700 2050 50  0000 C C
-	1    7650 2050
+L CONN_5 P2
+U 1 1 48F89F9B
+P 7250 1650
+F 0 "P2" V 7200 1650 50  0000 C C
+F 1 "dsPIC40P" V 7300 1650 50  0000 C C
+	1    7250 1650
 	-1   0    0    1   
 $EndComp
 $Comp
-L PIC12F675 U2
-U 1 1 475BDEA5
-P 5600 2350
-F 0 "U2" H 5550 2350 60  0000 C C
-F 1 "PIC12F675" H 5600 3100 60  0000 C C
-	1    5600 2350
+L CONN_5 P7
+U 1 1 48F89F49
+P 7250 4900
+F 0 "P7" V 7200 4900 50  0000 C C
+F 1 "PIC12F_8-14P" V 7300 4900 50  0000 C C
+	1    7250 4900
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_5 P8
+U 1 1 48F89F48
+P 7250 5550
+F 0 "P8" V 7200 5550 50  0000 C C
+F 1 "PIC10F_8P" V 7300 5550 50  0000 C C
+	1    7250 5550
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_5 P3
+U 1 1 48F89F42
+P 7250 2300
+F 0 "P3" V 7200 2300 50  0000 C C
+F 1 "dsPIC28P" V 7300 2300 50  0000 C C
+	1    7250 2300
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_5 P4
+U 1 1 48F89F41
+P 7250 2950
+F 0 "P4" V 7200 2950 50  0000 C C
+F 1 "dsPIC18P" V 7300 2950 50  0000 C C
+	1    7250 2950
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_5 P5
+U 1 1 48F89F3B
+P 7250 3600
+F 0 "P5" V 7200 3600 50  0000 C C
+F 1 "PIC28-40P" V 7300 3600 50  0000 C C
+	1    7250 3600
+	-1   0    0    1   
+$EndComp
+Text Label 4900 3800 0    60   ~
+PGD40
+Text Label 4900 3900 0    60   ~
+PGD12F
+Text Label 4900 4000 0    60   ~
+PGC12F
+Text Label 4900 4100 0    60   ~
+PGD10F
+Text Label 4900 4200 0    60   ~
+VDD18
+Text Label 4900 4300 0    60   ~
+PGD18
+Text Label 4900 4400 0    60   ~
+PGC18
+Text Label 4900 4600 0    60   ~
+VDD40
+Text Label 4900 4700 0    60   ~
+GND40
+Text Label 4900 4800 0    60   ~
+PGCdsPIC28
+Text Label 4900 4900 0    60   ~
+PGDdsPIC28
+Text Label 3600 4600 0    60   ~
+PGDdsPIC40
+Text Label 3600 4500 0    60   ~
+PGCdsPIC40
+Text Label 3600 4200 0    60   ~
+GND18
+Text Label 3600 4100 0    60   ~
+MCLR12F
+Text Label 3600 3900 0    60   ~
+GND10F
+Text Label 3600 3800 0    60   ~
+MCLR40
+$Comp
+L DIL40 P1
+U 1 1 48F84F4A
+P 4250 4750
+F 0 "P1" H 4250 5800 70  0000 C C
+F 1 "DIL40" V 4250 4750 60  0000 C C
+	1    4250 4750
 	1    0    0    -1  
 $EndComp
 $Comp
-L PIC18F2550 U4
-U 1 1 475BDE63
-P 9100 4150
-F 0 "U4" H 9625 5550 60  0000 C C
-F 1 "PIC18F2550" H 9475 2800 60  0000 C C
-	1    9100 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L PIC16F628A U3
-U 1 1 475BDE4B
-P 5800 6550
-F 0 "U3" H 6100 7350 60  0000 C C
-F 1 "PIC16F628A" H 6250 5750 60  0000 C C
-	1    5800 6550
-	1    0    0    -1  
+L CONN_5 P6
+U 1 1 475BDEC0
+P 7250 4250
+F 0 "P6" V 7200 4250 50  0000 C C
+F 1 "PIC18P" V 7300 4250 50  0000 C C
+	1    7250 4250
+	-1   0    0    1   
 $EndComp
 $EndSCHEMATC
