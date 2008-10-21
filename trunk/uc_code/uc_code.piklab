@@ -36,13 +36,6 @@
     <custom_linker_script>rm18f4550.lkr</custom_linker_script>
     <description/>
     <version>0.1</version>
-    <opened_files>
-      <item>upp/prog.c</item>
-      <item>upp/prog_lolvl.c</item>
-      <item>upp/prog_lolvl.h</item>
-      <item>upp/upp.c</item>
-      <item>upp/prog.h</item>
-    </opened_files>
   </general>
   <compiler>
     <has_custom_arguments>false</has_custom_arguments>

@@ -1010,12 +1010,14 @@ PicType::PicType(string picTypeStr)
 		if(picTypeStr.compare(picTypes[i].Name)==0)
 		{
 			currentPic=picTypes[i];
+			matchFound=true;
 		}
 	}
 	if(currentPic.Name.compare("")==0)
 	{
 		//cerr<<"Not Found: "<<picTypeStr<<endl;
 		currentPic=defaultPic;
+		matchFound=false;
 		//cerr<<"Setting the PIC to default: "<<currentPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));
@@ -1033,12 +1035,14 @@ PicType::PicType(int devId)
 		if((devId&picTypes[i].DevIdMask)==(picTypes[i].DevId))
 		{
 			currentPic=picTypes[i];
+			matchFound=true;
 		}
 	}
 	if(currentPic.Name.compare("")==0)
 	{
 		//cerr<<"Not Found: "<<hex<<devId<<endl;
 		currentPic=defaultPic;
+		matchFound=false;
 		//cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
 	}
 	picNames.resize(sizeof(picTypes)/sizeof(Pic));

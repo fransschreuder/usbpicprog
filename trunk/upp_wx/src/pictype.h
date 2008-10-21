@@ -54,11 +54,13 @@ class PicType
 		Pic getCurrentPic(void);
 /*Returns an array (vector) of strings containing all names of supported PICs*/		
 		vector<string> getPicNames(void);
+		bool matchWasFound(void){return matchFound;}
 	private:
 /*contains information about the currently selected pic*/
 		Pic currentPic;
 /*Contains the names of all supported PICs (initialized in constructor)*/		
 		vector<string> picNames;
+		bool matchFound;
 		
 	
 };
