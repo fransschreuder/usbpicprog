@@ -49,7 +49,6 @@ const Pic picTypes[]={
 	0x0560,		//UserId
 	0x3FE0		//UserIdMask
 },
-
 {
 	"P12F629",	//Name
 	0x3FF*2,		//CodeSize

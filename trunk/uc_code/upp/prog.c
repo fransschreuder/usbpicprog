@@ -570,8 +570,6 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 					data[blockcounter]=(char)payload;
 					pic_send_n_bits(6,0x06);	//increment address
 				}
-
-
 			}
 			break;
 		default:

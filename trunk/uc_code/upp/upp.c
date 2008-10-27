@@ -221,6 +221,7 @@ unsigned char set_pictype(unsigned char* data)
 		case 4: pictype=P16F62X;picfamily=PIC16;break;
 		case 5: pictype=P12F629;picfamily=PIC16;break;
 		case 6: pictype=P12F6XX;picfamily=PIC16;break;
+		case 7: pictype=P16F84A;picfamily=PIC16;break;
 		default: pictype=P18F2XXX;picfamily=PIC18;return 3;break;
 	}
 	return 1;	

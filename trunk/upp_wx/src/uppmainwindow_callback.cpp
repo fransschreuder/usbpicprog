@@ -218,9 +218,13 @@ void UppMainWindowCallBack::upp_program()
 			wxMessageDialog(this, wxT("write code not implemented for current PIC"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
 			break;		
 	    case -4:
+			SetStatusText(wxT("Verify error while writing code memory"),STATUS_FIELD_OTHER);
+			wxMessageDialog(this, wxT("Verify error while writing code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+			break;				
+	    case -5:
 			SetStatusText(wxT("USB error while writing code memory"),STATUS_FIELD_OTHER);
 			wxMessageDialog(this, wxT("USB error while writing code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-			break;				
+			break;	
 	    default:
 			SetStatusText(wxT("Error programming code memory"),STATUS_FIELD_OTHER);
 			wxMessageDialog(this, wxT("Error programming code memory"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();

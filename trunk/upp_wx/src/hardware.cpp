@@ -385,12 +385,13 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			if (CurrentHardware == HW_UPP)
 			{	
 				if(nBytes==3) return -3;	//something not implemented in firmware :(
+				if(nBytes==4) return -4;	//verify error
 				if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
 				if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
 			}
 		}
 	}
-	else return -4;
+	else return -5;
 	return 0;
 }
 
