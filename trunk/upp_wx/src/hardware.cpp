@@ -117,9 +117,9 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			CurrentHardware = HW_NONE;
 			return;	
 		}
-		
+#if 0
 		tryToDetachDriver();
-		
+#endif		
 		int _config=1;
 		int _interface=0;
 		int i;
@@ -134,6 +134,8 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		if ( usb_set_configuration(_handle, _config)<0 ) 
 		{
 			cerr<<"Error setting configuration"<<endl;
+			CurrentHardware = HW_NONE;
+			_handle=NULL;
 			return;
 		}
 	
@@ -150,6 +152,8 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
         if ( usb_claim_interface(_handle, _interface)<0 ) 
         {
 			cerr<<"Error claiming interface"<<endl;
+			CurrentHardware = HW_NONE;
+			_handle=NULL;
 			return;
 		}
 	}
@@ -976,6 +980,7 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 			nBytes = readString(resp_msg,1);
 			if (nBytes < 0 )
 				cerr<<"Usb Error"<<endl;
+			cout<<"Resp message: "<<(int)resp_msg[0]<<endl;
 			return (int)resp_msg[0];
 		}
 		else

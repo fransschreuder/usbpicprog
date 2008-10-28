@@ -405,8 +405,7 @@ void UppMainWindowCallBack::upp_blankcheck()
                 case TYPE_CONFIG: typeText=string("config");break;
                 default: typeText=string("unknown");break;
             }
-            verifyText.Printf(wxT("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                typeText.c_str(),
+            verifyText.Printf(wxT("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
                 res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
                 res.Read,
                 res.Expected);
@@ -441,6 +440,7 @@ bool UppMainWindowCallBack::upp_autodetect()
 	m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 	if(devId>0)SetStatusText(wxString(wxT("Detected: ")).Append(wxString::FromAscii(picType->getCurrentPic().Name.c_str())),STATUS_FIELD_HARDWARE);
 	else SetStatusText(wxT("No pic detected!"),STATUS_FIELD_HARDWARE);
+	upp_new();
 	return (devId>0);
 }
 
@@ -457,6 +457,7 @@ bool UppMainWindowCallBack::upp_connect()
             SetStatusText(wxT("Unable to read version"),STATUS_FIELD_HARDWARE);
         else
     		SetStatusText(wxString::FromAscii(msg).Trim().Append(wxT(" Connected")),STATUS_FIELD_HARDWARE);
+		upp_new();
     }
 	else
 	{
@@ -465,7 +466,6 @@ bool UppMainWindowCallBack::upp_connect()
 	    m_comboBox1->SetValue(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 		SetStatusText(wxT("Usbpicprog not found"),STATUS_FIELD_HARDWARE);
     }
-	
 	upp_update_hardware_type();
     return hardware->connected();
 }

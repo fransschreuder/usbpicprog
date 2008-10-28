@@ -212,17 +212,55 @@ void ProcessIO(void)
 
 unsigned char set_pictype(unsigned char* data)
 {
+	pictype=data[0];
 	switch(data[0])
 	{
-		case 0:	pictype=P18F2XXX;picfamily=PIC18;break;
-		case 1:	pictype=P18FXX2;picfamily=PIC18;break;
-		case 2:	pictype=P16F87XA;picfamily=PIC16;break;
-		case 3:	pictype=P16F62XA;picfamily=PIC16;break;
-		case 4: pictype=P16F62X;picfamily=PIC16;break;
-		case 5: pictype=P12F629;picfamily=PIC16;break;
-		case 6: pictype=P12F6XX;picfamily=PIC16;break;
-		case 7: pictype=P16F84A;picfamily=PIC16;break;
-		default: pictype=P18F2XXX;picfamily=PIC18;return 3;break;
+        case P10F20X:
+		case P16F87XA:
+		case P16F62XA:
+		case P16F62X:
+		case P12F629:
+		case P12F6XX:
+		case P16F84A:
+		case P16F81X:
+		case P16F7X:
+		case P16F7X7:
+		case P16F87X:
+		case P16F72:
+		case P16F87:
+		case P16F54:
+		case P16F57:
+		case P16F785:
+		case P16F59:
+		case P16F91X:
+		case P16F88X:
+		case P16C6XX:
+		case P16C55X:
+		case P16C7XX:
+		case P16C64x:
+		case P14000:
+		case P16C50X:
+		case P16C432:
+		case P17CXX:
+		case P17C7XX:picfamily=PIC16;break;
+		case P18F2XXX:
+		case P18FXX2:picfamily=PIC18;break;
+		case P18FXX39:
+		case P18F6X2X:
+		case P18FXX80:
+		case P18F8410:
+		case P18F6XJXX:
+		case P18F45J10:
+		case P18F97J60:
+		case P18F1X30:
+		case P18FXX23:
+		case P18FXXK20:picfamily=PIC18;break;
+        case P24FJXXXGA0XX:
+        case P24H:
+        case P24FJXXXGA1:picfamily=PIC24;break;
+        case dsP30F:picfamily=dsPIC30;break;
+        case dsP33F:picfamily=dsPIC33;break;
+   		default: pictype=P18F2XXX;picfamily=PIC18;return 3;break;
 	}
 	return 1;	
 }
