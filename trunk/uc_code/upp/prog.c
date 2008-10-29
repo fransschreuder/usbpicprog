@@ -69,6 +69,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P16F81X:
 		case P16F87XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			pic_send_n_bits(6,0x1F); //send 11111x to erase device
@@ -254,6 +255,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//pic_send_n_bits(6,0x0A); 	//end programming
 			}
 			break;
+		case P16F81X:
 		case P12F6XX:		//4 word programming
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
 			{
@@ -483,6 +485,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F81X:
 		case P16F84A:
 		case P16F87XA:
 		case P12F6XX: //same as P16F62X
