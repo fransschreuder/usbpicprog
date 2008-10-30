@@ -114,6 +114,55 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			break;
 		case P16F62X:
 			break;
+		case P10F200:
+			for(i=0;i<0xFF;i++)pic_send_n_bits(6,0x06);//set PC to FF
+			osccal=pic_read_14_bits(6,0x04);
+			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
+			bandgap=pic_read_14_bits(6,0x04);
+			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(picfamily,1);
+			pic_send_n_bits(6,0x06);//increment address
+			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
+			DelayMs(10);
+			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(picfamily,1);
+			for(i=0;i<0xFF;i++)pic_send_n_bits(6,0x06);//set PC to FF
+			pic_send_14_bits(6,0x04,osccal);
+			pic_send_n_bits(6,0x08); //begin programming
+			DelayMs(2);
+			pic_send_n_bits(6,0x0E); //end programming
+			DelayMs(1);
+			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
+			pic_send_14_bits(6,0x04,bandgap);
+			pic_send_n_bits(6,0x08); //begin programming
+			DelayMs(2);
+			pic_send_n_bits(6,0x0E); //end programming
+			DelayMs(1);
+			break;
+		case P10F202:
+			for(i=0;i<0x1FF;i++)pic_send_n_bits(6,0x06);//set PC to 1FF
+			osccal=pic_read_14_bits(6,0x04);
+			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
+			bandgap=pic_read_14_bits(6,0x04);
+			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(picfamily,1);
+			pic_send_n_bits(6,0x06);//increment address
+			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
+			DelayMs(10);
+			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(picfamily,1);
+			for(i=0;i<0x1FF;i++)pic_send_n_bits(6,0x06);//set PC to 1FF
+			pic_send_14_bits(6,0x04,osccal);
+			pic_send_n_bits(6,0x08); //begin programming
+			DelayMs(2);
+			pic_send_n_bits(6,0x0E); //end programming
+			DelayMs(1);
+			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
+			pic_send_14_bits(6,0x04,bandgap);
+			pic_send_n_bits(6,0x08); //begin programming
+			DelayMs(2);
+			pic_send_n_bits(6,0x0E); //end programming
+			DelayMs(1);
 		default:
 			PGD=0;
 			set_vdd_vpp(picfamily,0);
@@ -313,6 +362,34 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P10F200:
+		case P10F202:
+			if(lastblock&1)	pic_send_n_bits(6,0x06);//increment address to go from 1FF / 3FF to 0
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+						(((unsigned int)data[blockcounter+1])<<8));//LSB
+				pic_send_n_bits(6,0x08);    //begin programming
+				DelayMs(2);
+				pic_send_n_bits(6,0x0E);	//end programming
+				DelayMs(1);
+				payload=pic_read_14_bits(6,0x04); //read code memory
+				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+				{
+					//retry...
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+							(((unsigned int)data[blockcounter+1])<<8));//LSB
+					pic_send_n_bits(6,0x08);    //begin programming
+					DelayMs(2);
+					pic_send_n_bits(6,0x0E);	//end programming
+					DelayMs(1);
+					payload=pic_read_14_bits(6,0x04); //read code memory
+					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+						return 4; //verify error
+				}
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
 		default:
 			set_vdd_vpp(picfamily,0);
 			return 3;
@@ -347,6 +424,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 	char blockcounter;
 	char receiveddata;
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if((pictype==P10F200)||(pictype==P10F202))return 3;	//these devices have no data memory.
 	switch(picfamily)
 	{
 		case PIC18:
@@ -531,6 +609,16 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P10F200:
+		case P10F202:
+			payload=(((unsigned int)data[0]))|(((unsigned int)data[1])<<8);
+			pic_send_14_bits(6,0x02,payload); //load data for programming
+			pic_send_n_bits(6,0x08);    //begin programming
+			DelayMs(2);
+			pic_send_n_bits(6,0x0E);	//end programming
+			DelayMs(1);
+			break;
+			
 		default:
 			set_vdd_vpp(picfamily,0);
 			return 3;
@@ -565,7 +653,13 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
 		case PIC16:
-			if(address>=0x2000) //read configuration memory
+			if(((pictype==P10F200)&&(address==0x1FF))||((pictype==P10F202)&&(address==0x3FF)))
+			{
+				payload=pic_read_14_bits(6,0x04); //read config memory
+				data[1]=(char)(payload>>8);
+				data[0]=(char)payload;
+			}
+			else if(address>=0x2000) //read configuration memory
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 				if(lastblock&1)
@@ -584,6 +678,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			{
 				if(lastblock&1)
 				{
+					if((pictype==P10F200)||(pictype==P10F202))pic_send_n_bits(6,0x06);	//increment address
 					pic_read_14_bits(6,0x04); //read code memory
 					for(i=0;i<(unsigned int)address;i++)pic_send_n_bits(6,0x06);	//increment address
 				}

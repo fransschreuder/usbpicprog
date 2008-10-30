@@ -39,6 +39,50 @@ const Pic defaultPic=
 /*All the properties of supported PIC devices...*/
 const Pic picTypes[]={
 {
+	"P10F200",	//Name
+	0xFE*2,	//CodeSize
+	0x1FF,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x0,		//Datasize
+	0x2,		//ConfigSize
+	P10F200,	//PicFamily
+	0xF0000,		//UserId -> this is not implemented in 10F devices, no autodetection possible
+	0xFFFFF		//UserIdMask
+},
+{
+	"P10F202",	//Name
+	0x1FE*2,	//CodeSize
+	0x3FF,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x0,		//Datasize
+	0x2,		//ConfigSize
+	P10F202,	//PicFamily
+	0xF0000,		//UserId -> this is not implemented in 10F devices, no autodetection possible
+	0xFFFFF		//UserIdMask
+},
+{
+	"P10F204",	//Name
+	0xFE*2,	//CodeSize
+	0x1FF,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x0,		//Datasize
+	0x2,		//ConfigSize
+	P10F200,	//PicFamily
+	0xF0000,		//UserId -> this is not implemented in 10F devices, no autodetection possible
+	0xFFFFF		//UserIdMask
+},
+{
+	"P10F206",	//Name
+	0x1FE*2,	//CodeSize
+	0x3FF,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x0,		//Datasize
+	0x2,		//ConfigSize
+	P10F202,	//PicFamily
+	0xF0000,		//UserId -> this is not implemented in 10F devices, no autodetection possible
+	0xFFFFF		//UserIdMask
+},
+{
 	"P16F84A",	//Name
 	0x1FF*2,	//CodeSize
 	0x2007,		//ConfigAddress

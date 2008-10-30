@@ -410,6 +410,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 	int blocktype;
 	statusCallBack (0);
 	if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
+	if(picType->getCurrentPic().DataSize==0)return 0;//no data to read
 	if (_handle !=NULL)
 	{
 		for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)

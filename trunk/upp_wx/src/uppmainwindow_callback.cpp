@@ -58,12 +58,12 @@ void UppMainWindowCallBack::printHexFile()
 {
 	#ifdef USE_UPPHEXVIEW
 	uppHexEdit->putHexFile(readHexFile,picType);
-	#if defined(__WXMSW__) || defined(__WXMAC__)
+	//#if defined(__WXMSW__) || defined(__WXMAC__)
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
     SetSize(wxSize(w-1,h-1));
     SetSize(wxSize(w,h));
-    #endif
+    //#endif
 	#else
 	string output;
 	uppHexEdit->Freeze();
