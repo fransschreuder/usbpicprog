@@ -1,13 +1,5 @@
-update=14/8/2008-12:45:23
-last_client=pcbnew
-[cvpcb]
-version=1
-NetITyp=0
-NetIExt=.net
-PkgIExt=.pkg
-NetType=0
-[cvpcb/libraries]
-EquName1=devcms
+update=30/10/2008-08:36:18
+last_client=cvpcb
 [common]
 NetDir=
 [pcbnew]
@@ -66,8 +58,8 @@ ShowRat=0
 ShowMRa=1
 [pcbnew/libraries]
 LibDir=
-LibName1=supports
-LibName2=C:/Documents and Settings/schreuder/My Documents/kicad custom/custom
+LibName1=D:/Documents and Settings/schreuder/My Documents/kicad custom/custom
+LibName2=supports
 LibName3=connect
 LibName4=discret
 LibName5=pin_array
@@ -75,3 +67,8 @@ LibName6=divers
 LibName7=libcms
 LibName8=display
 LibName9=valves
+[cvpcb]
+version=1
+NetIExt=.net
+[cvpcb/libraries]
+EquName1=devcms

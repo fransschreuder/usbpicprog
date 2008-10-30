@@ -1,18 +1,30 @@
-EESchema Schematic File Version 1
-LIBS:power,usb-b,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\usbpicprog.cache
+EESchema Schematic File Version 2
+LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\usbpicprog.cache
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "Usbpicprog"
 Date "23 oct 2007"
-Rev "0.2"
+Rev "0.3"
 Comp "Usb Slim and Basic Pic In Circuit PROGrammer"
 Comment1 "http://usbpicprog.sourceforge.net"
 Comment2 "Frans Schreuder"
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 8600 3200
+Wire Wire Line
+	8600 3700 8600 3200
+Connection ~ 8400 3100
+Wire Wire Line
+	8200 3100 8750 3100
+Wire Wire Line
+	8750 3100 8750 2150
+Wire Wire Line
+	8750 2150 10150 2150
+Wire Wire Line
+	8600 4200 8600 4400
 Wire Wire Line
 	8000 2050 7950 2050
 Wire Wire Line
@@ -48,15 +60,13 @@ Wire Wire Line
 Wire Wire Line
 	3750 4800 3750 4850
 Wire Wire Line
-	9500 2350 8900 2350
+	7700 3300 7100 3300
 Wire Wire Line
 	10150 1950 8900 1950
 Wire Wire Line
-	10000 2350 10050 2350
+	8200 3300 8250 3300
 Wire Wire Line
-	10050 2350 10050 2250
-Wire Wire Line
-	10050 2250 10150 2250
+	8250 3300 8250 3200
 Wire Wire Line
 	9600 3350 10150 3350
 Wire Wire Line
@@ -213,9 +223,7 @@ Wire Wire Line
 Wire Wire Line
 	9600 3250 10150 3250
 Wire Wire Line
-	10000 2150 10150 2150
-Wire Wire Line
-	9500 2150 8900 2150
+	7700 3100 7100 3100
 Wire Wire Line
 	5450 1400 4850 1400
 Wire Wire Line
@@ -239,6 +247,49 @@ Wire Wire Line
 	7250 1500 7250 2100
 Wire Wire Line
 	8400 2050 10150 2050
+Wire Wire Line
+	7250 2600 7250 2650
+Wire Wire Line
+	8400 4200 8400 4300
+Wire Wire Line
+	8400 4300 7150 4300
+Wire Wire Line
+	8400 3100 8400 3700
+Wire Wire Line
+	8250 3200 8850 3200
+Wire Wire Line
+	8850 3200 8850 2250
+Wire Wire Line
+	8850 2250 10150 2250
+Wire Wire Line
+	8600 4400 7150 4400
+$Comp
+L R R11
+U 1 1 49096B01
+P 8600 3950
+F 0 "R11" V 8680 3950 50  0000 C C
+F 1 "470" V 8600 3950 50  0000 C C
+	1    8600 3950
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R10
+U 1 1 49096ACD
+P 8400 3950
+F 0 "R10" V 8480 3950 50  0000 C C
+F 1 "470" V 8400 3950 50  0000 C C
+	1    8400 3950
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R9
+U 1 1 49096A85
+P 7250 2350
+F 0 "R9" V 7330 2350 50  0000 C C
+F 1 "1k" V 7250 2350 50  0000 C C
+	1    7250 2350
+	-1   0    0    1   
+$EndComp
 $Comp
 L DIODE D9
 U 1 1 471DF3F8
@@ -250,7 +301,7 @@ F 1 "1n4148" H 8200 1950 40  0000 C C
 $EndComp
 Text Label 7500 5800 0    60   ~
 VDD_CTL
-Text Label 7250 2100 0    60   ~
+Text Label 7250 2650 0    60   ~
 VDD_CTL
 $Comp
 L FET_P Q3
@@ -392,9 +443,9 @@ F 1 "100n" H 3800 4950 50  0000 L C
 	1    3750 5050
 	1    0    0    -1  
 $EndComp
-Text Label 8900 2350 0    60   ~
+Text Label 7100 3300 0    60   ~
 PGC
-Text Label 8900 2150 0    60   ~
+Text Label 7100 3100 0    60   ~
 PGD
 Text Label 8900 1950 0    60   ~
 VPP
@@ -793,19 +844,19 @@ $EndComp
 $Comp
 L R R5
 U 1 1 466D175B
-P 9750 2350
-F 0 "R5" V 9830 2350 50  0000 C C
-F 1 "100" V 9750 2350 50  0000 C C
-	1    9750 2350
+P 7950 3300
+F 0 "R5" V 8030 3300 50  0000 C C
+F 1 "470" V 7950 3300 50  0000 C C
+	1    7950 3300
 	0    1    1    0   
 $EndComp
 $Comp
 L R R4
 U 1 1 466D175A
-P 9750 2150
-F 0 "R4" V 9830 2150 50  0000 C C
-F 1 "100" V 9750 2150 50  0000 C C
-	1    9750 2150
+P 7950 3100
+F 0 "R4" V 8030 3100 50  0000 C C
+F 1 "470" V 7950 3100 50  0000 C C
+	1    7950 3100
 	0    1    1    0   
 $EndComp
 $Comp

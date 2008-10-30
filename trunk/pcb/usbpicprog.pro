@@ -1,5 +1,5 @@
-update=17/10/2008-14:45:09
-last_client=KiCad
+update=30/10/2008-08:35:38
+last_client=cvpcb
 [eeschema]
 version=1
 LibDir=
@@ -64,14 +64,6 @@ LibName27=contrib
 LibName28=valves
 [common]
 NetDir=
-[cvpcb]
-version=1
-NetITyp=0
-NetIExt=.net
-PkgIExt=.pkg
-NetType=0
-[cvpcb/libraries]
-EquName1=devcms
 [pcbnew]
 version=1
 PadDrlX=354
@@ -128,8 +120,8 @@ ShowRat=0
 ShowMRa=1
 [pcbnew/libraries]
 LibDir=
-LibName1=supports
-LibName2=C:/Documents and Settings/schreuder/My Documents/kicad custom/custom
+LibName1=D:/Documents and Settings/schreuder/My Documents/kicad custom/custom
+LibName2=supports
 LibName3=./modules/usb-b
 LibName4=connect
 LibName5=discret
@@ -142,3 +134,8 @@ LibName10=valves
 version=1
 RootSch=
 BoardNm=
+[cvpcb]
+version=1
+NetIExt=.net
+[cvpcb/libraries]
+EquName1=devcms
