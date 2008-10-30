@@ -256,6 +256,22 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			}
 			break;
 		case P16F81X:
+			//4 word programming
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
+			{
+				for(i=0;i<8;i+=2)
+				{
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i]))|   //MSB
+							(((unsigned int)data[blockcounter+i+1])<<8));//LSB
+					if(i<6)pic_send_n_bits(6,0x06);	//increment address
+				}
+				pic_send_n_bits(6,0x18);    //begin programming only, externally timed
+				DelayMs(2);
+				pic_send_n_bits(6,0x17);    //end programming
+				//for(i=0;i<100;i++);		//wait Tdis
+				pic_send_n_bits(6,0x06);	//increment address
+			}
+			break;
 		case P12F6XX:		//4 word programming
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
 			{
@@ -267,7 +283,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				}
 				pic_send_n_bits(6,0x8);    //begin programming, externally timed
 				DelayMs(Tprog);
-				//pic_send_n_bits(5,0x17);    //end programming
+				//pic_send_n_bits(6,0x17);    //end programming
 				//for(i=0;i<100;i++);		//wait Tdis
 				pic_send_n_bits(6,0x06);	//increment address
 			}
@@ -374,9 +390,14 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				//load data
 				pic_send_14_bits(6,0x03,((unsigned int)data[blockcounter]));//LSB only
 				//begin programming command
-				pic_send_n_bits(6,0x08);
+				if(pictype==P16F81X)
+					pic_send_n_bits(6,0x18);
+				else
+					pic_send_n_bits(6,0x08);
 				//wait Tprog
 				DelayMs(Tdprog);
+				if(pictype==P16F81X)
+					pic_send_n_bits(6,0x17);//end programming
 				//read data from data memory (to verify) not yet impl...
 				//increment address
 				pic_send_n_bits(6,0x06);
