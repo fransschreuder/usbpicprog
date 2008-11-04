@@ -1,0 +1,13 @@
+void Exercise_02(void)
+{
+    /* Insert code here - 3 lines*/
+    if(Switch3IsPressed())
+    {
+        if(mUSBUSARTIsTxTrfReady())
+        {
+            putrsUSBUSART(ex02_string);
+        }
+    }
+    /* End */
+    
+}//end Exercise_02

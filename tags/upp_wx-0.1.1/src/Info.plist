@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>usbpicprog</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hex</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>PIC Hex-file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>usbpicprog</string>
+	<key>CFBundleIconFile</key>
+	<string>usbpicprog.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.usbpicprog</string>
+	<key>CFBundleName</key>
+	<string>usbpicprog</string>
+	<key>LSRequiresCarbon</key>
+	<true/>
+</dict>
+</plist>
