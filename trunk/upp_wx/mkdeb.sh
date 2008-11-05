@@ -29,6 +29,6 @@ gzip --best deb_package/usr/local/man/man1/usbpicprog.1
 gzip --best deb_package/usr/local/doc/usbpicprog/COPYING
 gzip --best deb_package/usr/local/doc/usbpicprog/ChangeLog
 md5deep -r -l deb_package/usr>deb_package/DEBIAN/md5sums
-dpkg-deb --build deb_package usbpicprog0.1.deb
+dpkg-deb --build deb_package usbpicprog0.1.2.deb
 echo FINISHED
 
