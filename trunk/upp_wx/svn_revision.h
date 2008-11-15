@@ -1,2 +1,2 @@
-
-#define SVN_REVISION "382"
+// generated file
+#define SVN_REVISION "382M"
