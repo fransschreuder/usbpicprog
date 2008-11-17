@@ -44,6 +44,7 @@ PIC{
 	PicFamily picFamily;
 	int DevId;
 	int DevIdMask;
+	int ConfigMask[16];
 }Pic;
 
 class PicType

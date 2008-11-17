@@ -521,6 +521,8 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 				}
 			}
 		}
+/*		for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
+			mem[i]&=picType->getCurrentPic().ConfigMask[i];*/
 		hexData->putConfigMemory(mem);
 	}
 	cerr<<endl;
@@ -657,7 +659,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
                     res.Result=VERIFY_OTHER_ERROR;                
                     return res;
                 }
-                if(verifyHexFile->getConfigMemory()[i]!=hexData->getConfigMemory()[i])
+                if((verifyHexFile->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i])!=(hexData->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i]))
                 {
                     res.Result=VERIFY_MISMATCH;
                     res.DataType=TYPE_CONFIG;
