@@ -49,7 +49,7 @@ const Pic picTypes[]={
 	P10F200,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
 	0xFFFFF,		//DevIdMask
-	{0xFF,0x3F}
+	{0x1C,0x00}
 
 },
 {
@@ -62,7 +62,7 @@ const Pic picTypes[]={
 	P10F202,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
 	0xFFFFF,		//DevIdMask
-	{0xFF,0x3F}
+	{0x1C,0x00}
 },
 {
 	"P10F204",	//Name
@@ -74,7 +74,7 @@ const Pic picTypes[]={
 	P10F200,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
 	0xFFFFF,		//DevIdMask
-	{0xFF,0x3F}
+	{0x1C,0x00}
 },
 {
 	"P10F206",	//Name
@@ -86,7 +86,7 @@ const Pic picTypes[]={
 	P10F202,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
 	0xFFFFF,		//DevIdMask
-	{0xFF,0x3F}
+	{0x1C,0x00}
 },
 {
 	"P16F84A",	//Name
@@ -110,7 +110,7 @@ const Pic picTypes[]={
 	P12F629,	//PicFamily
 	0x0F80,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x31}
 },
 {
 	"P12F675",	//Name
@@ -122,7 +122,7 @@ const Pic picTypes[]={
 	P12F629,	//PicFamily
 	0x0FC0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x31}
 },
 //P16F630 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -135,7 +135,7 @@ const Pic picTypes[]={
 	P12F629,	//PicFamily
 	0x10C0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x31}
 },
 //PIC16F676 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -148,7 +148,7 @@ const Pic picTypes[]={
 	P12F629,	//PicFamily
 	0x10E0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x31}
 },
 //PIC12F635
 {
@@ -161,7 +161,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x0FA0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x1F}
 },
 //PIC16F684
 {
@@ -174,7 +174,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1080,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC12F683
 {
@@ -187,7 +187,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x0460,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F685
 {
@@ -199,7 +199,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x04A0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x0F}
 },
 //PIC16F631
 {
@@ -212,7 +213,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1420,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F687
 {
@@ -225,7 +226,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1320,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F636
 {
@@ -238,7 +239,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x10A0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x1F}
 },
 //PIC16F688
 {
@@ -251,7 +252,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1340,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F639
 {
@@ -264,7 +265,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x10A0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x1F}
 },
 //PIC16F689
 {
@@ -277,7 +278,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1340,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F677
 {
@@ -290,7 +291,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1440,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F690
 {
@@ -303,7 +304,7 @@ const Pic picTypes[]={
 	P12F6XX,	//PicFamily
 	0x1400,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x0F}
 },
 //PIC16F627 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -316,7 +317,7 @@ const Pic picTypes[]={
 	P16F62X,	//PicFamily
 	0x07A0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x3D}
 },
 //PIC16F628 	√ 	½ 	√ 	√ 	√ 	√ 	√ 	√ 	√
 {
@@ -329,7 +330,7 @@ const Pic picTypes[]={
 	P16F62X,	//PicFamily
 	0x07C0,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x3D}
 },
 //PIC16F627A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -342,7 +343,7 @@ const Pic picTypes[]={
 	P16F62XA,	//PicFamily
 	0x1040,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x21}
 },
 //PIC16F628A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -355,7 +356,7 @@ const Pic picTypes[]={
 	P16F62XA,	//PicFamily
 	0x1060,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x21}
 },
 //PIC16F648A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -368,7 +369,7 @@ const Pic picTypes[]={
 	P16F62XA,	//PicFamily
 	0x1100,		//DevId
 	0x3FE0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xFF,0x21}
 },
 //PIC16F818
 {
@@ -407,7 +408,7 @@ const Pic picTypes[]={
 	P16F87XA,	//PicFamily
 	0x0E40,		//DevId
 	0x3FF0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xCF,0x2F}
 },
 //PIC16F874A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -420,7 +421,7 @@ const Pic picTypes[]={
 	P16F87XA,	//PicFamily
 	0x0E60,		//DevId
 	0x3FF0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xCF,0x2F}
 },
 //PIC16F876A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -433,7 +434,7 @@ const Pic picTypes[]={
 	P16F87XA,	//PicFamily
 	0x0E00,		//DevId
 	0x3FF0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xCF,0x2F}
 },
 //PIC16F877A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -446,7 +447,7 @@ const Pic picTypes[]={
 	P16F87XA,	//PicFamily
 	0x0E20,		//DevId
 	0x3FF0,		//DevIdMask
-	{0xFF,0x3F}
+	{0xCF,0x2F}
 },
 //PIC18F242 	½ 	U 	U 	U 	U 	U 	U 	U 	U
 {
