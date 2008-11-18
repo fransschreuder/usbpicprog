@@ -61,7 +61,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P10F202,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
-	0xFFFFF		//DevIdMask
+	0xFFFFF,		//DevIdMask
+	{0xFF,0x3F}
 },
 {
 	"P10F204",	//Name
@@ -72,7 +73,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P10F200,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
-	0xFFFFF		//DevIdMask
+	0xFFFFF,		//DevIdMask
+	{0xFF,0x3F}
 },
 {
 	"P10F206",	//Name
@@ -83,7 +85,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P10F202,	//PicFamily
 	0xF0000,		//DevId -> this is not implemented in 10F devices, no autodetection possible
-	0xFFFFF		//DevIdMask
+	0xFFFFF,		//DevIdMask
+	{0xFF,0x3F}
 },
 {
 	"P16F84A",	//Name
@@ -94,7 +97,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F84A,	//PicFamily
 	0x0560,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 {
 	"P12F629",	//Name
@@ -105,7 +109,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x0F80,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 {
 	"P12F675",	//Name
@@ -116,7 +121,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x0FC0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //P16F630 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -128,7 +134,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x10C0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F676 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -140,7 +147,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P12F629,	//PicFamily
 	0x10E0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC12F635
 {
@@ -149,10 +157,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x0FA0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F684
 {
@@ -161,10 +170,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1080,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC12F683
 {
@@ -173,10 +183,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x0460,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F685
 {
@@ -185,7 +196,7 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x04A0,		//DevId
 	0x3FE0		//DevIdMask
@@ -197,10 +208,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x80,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1420,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F687
 {
@@ -209,10 +221,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1320,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F636
 {
@@ -221,10 +234,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x10A0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F688
 {
@@ -233,10 +247,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1340,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F639
 {
@@ -245,10 +260,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x10A0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F689
 {
@@ -257,10 +273,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1340,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F677
 {
@@ -269,10 +286,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1440,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F690
 {
@@ -281,10 +299,11 @@ const Pic picTypes[]={
 	0x2007,		//ConfigAddress
 	0x2100,		//DataAddress in hex file
 	0x100,		//Datasize
-	0x6,		//ConfigSize
+	0x2,		//ConfigSize
 	P12F6XX,	//PicFamily
 	0x1400,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F627 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -296,7 +315,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F62X,	//PicFamily
 	0x07A0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F628 	√ 	½ 	√ 	√ 	√ 	√ 	√ 	√ 	√
 {
@@ -308,7 +328,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F62X,	//PicFamily
 	0x07C0,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F627A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -320,7 +341,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1040,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F628A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -332,7 +354,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1060,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F648A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -344,7 +367,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F62XA,	//PicFamily
 	0x1100,		//DevId
-	0x3FE0		//DevIdMask
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F818
 {
@@ -356,7 +380,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F81X,	//PicFamily
 	0x04C0,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F819
 {
@@ -368,7 +393,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F81X,	//PicFamily
 	0x04E0,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F873A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -380,7 +406,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E40,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F874A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -392,7 +419,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E60,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F876A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -404,7 +432,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E00,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC16F877A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -416,7 +445,8 @@ const Pic picTypes[]={
 	0x2,		//ConfigSize
 	P16F87XA,	//PicFamily
 	0x0E20,		//DevId
-	0x3FF0		//DevIdMask
+	0x3FF0,		//DevIdMask
+	{0xFF,0x3F}
 },
 //PIC18F242 	½ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -532,7 +562,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12160,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} 
 
 },
 //PIC18F2321 	√ 	U 	U 	U 	U 	U 	U 	U 	U
@@ -545,7 +576,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12120,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F2410 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -557,7 +589,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11160,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F2420 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -569,7 +602,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11140,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F2423 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -581,7 +615,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11150,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F2450 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -593,7 +628,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12420,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x86, 0xED, 0x00, 0x03, 0x40, 0x03, 0x60, 0x03, 0x40} //ConfigMask
 },
 //PIC18F2455 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -605,7 +641,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11260,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x07, 0xC0, 0x07, 0xE0, 0x07, 0x40} //ConfigMask
 },
 //PIC18F2458 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -617,7 +654,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12A60,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x07, 0xC0, 0x07, 0xE0, 0x07, 0x40} //ConfigMask
 },
 //PIC18F2480 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -629,7 +667,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11AE0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2510 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -641,7 +680,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11120,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0x1F, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2515 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -653,7 +693,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10CE0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2520 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -665,7 +706,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11100,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2523 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -677,7 +719,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11110,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2525 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -689,7 +732,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10CC0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //#warning codesize was 0x8000
 //PIC18F2550 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√
@@ -702,7 +746,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11240,		//UserId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2553 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -714,7 +759,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12A40,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2580 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -726,7 +772,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11AC0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2585 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -738,7 +785,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10EE0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2610 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -750,7 +798,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C90,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2620 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -762,7 +811,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C80,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2680 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -774,7 +824,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10EC0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F2682 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -786,7 +837,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12700,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x3F, 0xC0, 0x3F, 0xE0, 0x3F, 0x40} //ConfigMask
 },
 //PIC18F2685 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -798,7 +850,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12720,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x3F, 0xC0, 0x3F, 0xE0, 0x3F, 0x40} //ConfigMask
 },
 //PIC18F4221 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -810,7 +863,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12140,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4321 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -822,7 +876,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12100,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4410 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -834,7 +889,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x110E0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4420 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -846,7 +902,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x110C0,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4423 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -858,7 +915,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x110D0,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4450 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -870,7 +928,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12400,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x86, 0xED, 0x00, 0x03, 0x40, 0x03, 0x60, 0x03, 0x40} //ConfigMask
 },
 //PIC18F4455 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -882,7 +941,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11220,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x07, 0xC0, 0x07, 0xE0, 0x07, 0x40} //ConfigMask
 },
 //PIC18F4458 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -894,7 +954,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12A20,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x07, 0xC0, 0x07, 0xE0, 0x07, 0x40} //ConfigMask
 },
 //PIC18F4480 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -906,7 +967,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11AA0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4510 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -918,7 +980,8 @@ const Pic picTypes[]={
 	0x0F,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x110A0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4515 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -930,7 +993,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C60,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4520 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -942,7 +1006,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11080,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4523 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -954,7 +1019,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11090,		//DevId
-	0x1FFF0		//DevIdMask
+	0x1FFF0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4525 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -966,7 +1032,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C40,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4550 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -978,7 +1045,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11200,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,	//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4553 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -990,7 +1058,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12A00,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x3F, 0xCF, 0x3F, 0x1F, 0x00, 0x87, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4580 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1002,7 +1071,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x11A80,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xE5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4585 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1014,7 +1084,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10EA0,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4610 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1026,7 +1097,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C20,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4620 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1038,7 +1110,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10C00,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4680 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1050,7 +1123,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x10E80,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x0F, 0xC0, 0x0F, 0xE0, 0x0F, 0x40} //ConfigMask
 },
 //PIC18F4682 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1062,7 +1136,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12740,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x3F, 0xC0, 0x3F, 0xE0, 0x3F, 0x40} //ConfigMask
 },
 //PIC18F4685 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
@@ -1074,7 +1149,8 @@ const Pic picTypes[]={
 	0x0E,		//ConfigSize
 	P18F2XXX,	//PicFamily
 	0x12760,		//DevId
-	0x1FFE0		//DevIdMask
+	0x1FFE0,		//DevIdMask
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x86, 0xC5, 0x00, 0x3F, 0xC0, 0x3F, 0xE0, 0x3F, 0x40} //ConfigMask
 }
 };
 

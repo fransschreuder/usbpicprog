@@ -49,6 +49,8 @@ int ReadHexFile::newFile(PicType* picType)
 	dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
 	configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
 	trimData(picType);
+	for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
+		configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
 	return 0;
 }
 
