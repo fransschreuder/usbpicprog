@@ -397,6 +397,97 @@ const Pic picTypes[]={
 	0x3FF0,		//DevIdMask
 	{0xFF,0x3F}
 },
+//PIC16F870	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F870",	//Name
+	0x400*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x40,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x0D00,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F871	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F871",	//Name
+	0x400*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x40,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x0D20,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F872	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F872",	//Name
+	0x400*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x40,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x08E0,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F873	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F873",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x80,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x0960,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F874	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F874",	//Name
+	0x800*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x80,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x0920,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F876	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F876",	//Name
+	0x1000*2,		//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x09E0,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
+//PIC16F877	√ 	U 	U 	U 	U 	U 	U 	U 	U
+{
+	"P16F877",	//Name
+	0x1000*2,	//CodeSize
+	0x2007,		//ConfigAddress
+	0x2100,		//DataAddress in hex file
+	0x100,		//Datasize
+	0x2,		//ConfigSize
+	P16F87X,	//PicFamily
+	0x09A0,		//DevId
+	0x3FE0,		//DevIdMask
+	{0xFF,0x3B}
+},
 //PIC16F873A 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
 	"P16F873A",	//Name
