@@ -108,6 +108,17 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 				pic_send_n_bits(6,0x01);	//6. Execute a Bulk Erase Setup1 command (000001)
 				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
 			}
+		case P16F91X:
+			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+			for(i=0;i<8;i++)pic_send_n_bits(6,0x06);//set PC to 0x3008
+			pic_send_n_bits(6,0x09); //bulk erase program memory, userid and config memory
+			DelayMs(6);		//wait terase
+			set_vdd_vpp(picfamily,0);//reset
+			DelayMs(10);
+			set_vdd_vpp(picfamily,1);
+			DelayMs(10);
+			pic_send_n_bits(6,0x0B); //bulk erase data memory
+			DelayMs(6);		//wait terase
 		case P16F81X:
 		case P16F87XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -343,6 +354,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//pic_send_n_bits(6,0x0A); 	//end programming
 			}
 			break;
+		case P16F91X:
 		case P16F81X:
 			//4 word programming
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
@@ -508,18 +520,25 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				//load data
 				pic_send_14_bits(6,0x03,((unsigned int)data[blockcounter]));//LSB only
 				//begin programming command
-				if(pictype==P16F81X)
-					pic_send_n_bits(6,0x18);
-				else
-					pic_send_n_bits(6,0x08);
+				switch(pictype)
+				{
+					case P16F81X:
+					case P16F91X:
+						pic_send_n_bits(6,0x18);
+						break;
+					default:
+						pic_send_n_bits(6,0x08);
+						break;
+				}
 				//wait Tprog
 				DelayMs(Tdprog);
 				if(pictype==P16F81X)
 					pic_send_n_bits(6,0x17);//end programming
+				if(pictype==P16F91X)
+					pic_send_n_bits(6,0x0A);//end programming
 				//read data from data memory (to verify) not yet impl...
 				//increment address
 				pic_send_n_bits(6,0x06);
-
 			}
 			break;
 		default:
@@ -625,6 +644,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 			}
 			break;
 		case P16F87X:
+		case P16F91X:
 		case P16F81X:
 		case P16F84A:
 		case P16F87XA:
