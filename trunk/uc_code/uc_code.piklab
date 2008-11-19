@@ -32,6 +32,7 @@
       <item>upp/prog.c</item>
       <item>upp/prog_lolvl.h</item>
       <item>upp/prog_lolvl.c</item>
+      <item>svn_revision.h</item>
     </files>
     <custom_linker_script>rm18f4550.lkr</custom_linker_script>
     <description/>

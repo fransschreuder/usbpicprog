@@ -48,6 +48,7 @@ unsigned int osccal,bandgap; //for P12F629 devices...
 char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 {
 	unsigned int i;
+	unsigned char temp[2];
 	set_vdd_vpp(picfamily,1);
 	switch(pictype)
 	{
@@ -69,6 +70,40 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P16F87X:
+			read_code(picfamily, pictype, 0x2007, temp, 2, 3); //read the config word to see wether it is code protected or not
+			if(((temp[1]&0x31)<0x31)||((temp[0]&0x30)<0x30))
+			{
+				pic_send_14_bits(6,0x00,0x3FFF);//Execute a Load Configuration command (00) with (0x3FFF)
+				for(i=0;i<7;i++)
+					pic_send_n_bits(6,0x06);//2. Execute Increment Address command (000110) to set address to configuration word location (0x2007)
+				pic_send_n_bits(6,0x01);	//3. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//4. Execute a Bulk Erase Setup2 command (000111)
+				pic_send_n_bits(6,0x08);	//5. Execute a Begin Erase/Programming command (001000)
+				DelayMs(8);			//6. Wait 8 ms
+				pic_send_n_bits(6,0x01);	//7. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//8. Execute a Bulk Erase Setup2 command (000111)
+			}
+			else //device is not code protected
+			{
+				//Execute a Load Data for Program Memory command
+				pic_send_14_bits(6,0x02,0x3FFF);//(000010) with a ’1’ in all locations (0x3FFF)
+				pic_send_n_bits(6,0x01);	//2. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//3. Execute a Bulk Erase Setup2 command (000111)
+				pic_send_n_bits(6,0x08);	//4. Execute a Begin Erase/Programming command (001000)
+				DelayMs(8);			//5. Wait 8 ms
+				pic_send_n_bits(6,0x01);	//6. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
+				//Procedure to bulk erase data memory:
+				pic_send_14_bits(6,0x03,0x3FFF);//1. Execute a Load Data for Data Memory command (000011) with (0x3FFF)
+				
+				pic_send_n_bits(6,0x01);	//2. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//3. Execute a Bulk Erase Setup2 command (000111)
+				pic_send_n_bits(6,0x08);	//4. Execute a Begin Erase/Programming command (001000)
+				DelayMs(8);			//5. Wait 8 ms
+				pic_send_n_bits(6,0x01);	//6. Execute a Bulk Erase Setup1 command (000001)
+				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
+			}
 		case P16F81X:
 		case P16F87XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
