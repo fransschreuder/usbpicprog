@@ -72,6 +72,10 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			break;
 		case P16F87X:
 			read_code(picfamily, pictype, 0x2007, temp, 2, 3); //read the config word to see wether it is code protected or not
+			set_vdd_vpp(picfamily,0);
+			DelayMs(10);
+			set_vdd_vpp(picfamily,1);
+			DelayMs(10);
 			if(((temp[1]&0x31)<0x31)||((temp[0]&0x30)<0x30))
 			{
 				pic_send_14_bits(6,0x00,0x3FFF);//Execute a Load Configuration command (00) with (0x3FFF)
@@ -372,6 +376,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F87X:	//same as P16F62X
 		case P16F84A:	//same as P16F62X
 		case P16F62XA:	//same as P16F62X
 		case P16F62X:
@@ -619,6 +624,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F87X:
 		case P16F81X:
 		case P16F84A:
 		case P16F87XA:
