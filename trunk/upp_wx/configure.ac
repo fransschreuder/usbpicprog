@@ -45,15 +45,15 @@ AC_PROG_CXX
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
-#GETTEXT_PACKAGE=usbpicprog
-#AC_SUBST(GETTEXT_PACKAGE)
-#AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
-#AM_GLIB_GNU_GETTEXT
-#IT_PROG_INTLTOOL([0.35.0])
+GETTEXT_PACKAGE=usbpicprog
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
 
 
 
-#AM_PROG_LIBTOOL
+AM_PROG_LIBTOOL
 
 
 
@@ -89,4 +89,5 @@ AC_SUBST(USBPICPROG_LIBS)
 AC_OUTPUT([
 Makefile
 src/Makefile
+po/Makefile.in
 ])

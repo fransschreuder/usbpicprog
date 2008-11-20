@@ -73,7 +73,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	picType = NULL;
 	hardware = NULL;
 	m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
-	m_locale->AddCatalog(wxT("i18n"));
+	m_locale->AddCatalog(wxT("usbpicprog"));
 	
     #ifndef UPP_VERSION
 	wxString versionString=wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
