@@ -14,7 +14,7 @@ UppHexview::UppHexview(wxWindow* parent, wxWindowID id,wxString title, const wxP
 	
 	bSizer2 = new wxFlexGridSizer( 6,1,-1,-1 );
 	
-	labelCode = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Code Memory"), wxDefaultPosition, wxDefaultSize, 0 );
+	labelCode = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Code Memory"), wxDefaultPosition, wxDefaultSize, 0 );
 	//labelCode->Wrap( -1 );
 	bSizer2->Add( labelCode, 0, wxALL, 5 );
 	
@@ -45,7 +45,7 @@ UppHexview::UppHexview(wxWindow* parent, wxWindowID id,wxString title, const wxP
 	//codeGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
 	bSizer2->Add( codeGrid, 1, wxALL|wxALIGN_TOP, 5 );
 	
-	labelConfig = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Config Memory"), wxDefaultPosition, wxDefaultSize, 0 );
+	labelConfig = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Config Memory"), wxDefaultPosition, wxDefaultSize, 0 );
 	//labelConfig->Wrap( -1 );
 	bSizer2->Add( labelConfig, 0, wxALL, 5 );
 	
@@ -76,7 +76,7 @@ UppHexview::UppHexview(wxWindow* parent, wxWindowID id,wxString title, const wxP
 	//configGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
 	bSizer2->Add( configGrid, 1, wxALL|wxALIGN_TOP, 5 );
 	
-	labelData = new wxStaticText( hexViewScrolledWindow, wxID_ANY, wxT("Data Memory"), wxDefaultPosition, wxDefaultSize, 0 );
+	labelData = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Data Memory"), wxDefaultPosition, wxDefaultSize, 0 );
 	//labelData->Wrap( -1 );
 	bSizer2->Add( labelData, 0, wxALL, 5 );
 	
@@ -158,7 +158,7 @@ void UppHexview::putHexFile(ReadHexFile* hexFile, PicType* picType)
 	for(unsigned int i=0;i<readHexFile->getConfigMemory().size();i++)
 	{
 		configGrid->SetCellValue(i/(configGrid->GetNumberCols()),i%(configGrid->GetNumberCols()) , 
-							   wxString::Format(wxT("%02X"),readHexFile->getConfigMemory()[i]));
+							   wxString::Format(_("%02X"),readHexFile->getConfigMemory()[i]));
 	}
 	dataGrid->DeleteRows(0, dataGrid->GetNumberRows(),false);
 	dataGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getDataMemory().size()/dataGrid->GetNumberCols(),false);
@@ -166,7 +166,7 @@ void UppHexview::putHexFile(ReadHexFile* hexFile, PicType* picType)
 	for(unsigned int i=0;i<readHexFile->getDataMemory().size();i++)
 	{
 		dataGrid->SetCellValue(i/(dataGrid->GetNumberCols()),i%(dataGrid->GetNumberCols()) , 
-							   wxString::Format(wxT("%02X"),readHexFile->getDataMemory()[i]));
+							   wxString::Format(_("%02X"),readHexFile->getDataMemory()[i]));
 	}
 
 	setLabels(picType->getCurrentPic().ConfigAddress);
@@ -177,18 +177,18 @@ void UppHexview::putHexFile(ReadHexFile* hexFile, PicType* picType)
 void UppHexview::setLabels(int configOffset)
 {
 	for(int i=0;i<codeGrid->GetNumberRows();i++)
-		codeGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*codeGrid->GetNumberCols()));
+		codeGrid->SetRowLabelValue(i,wxString::Format(_("%06X"),i*codeGrid->GetNumberCols()));
 	for(int i=0;i<configGrid->GetNumberRows();i++)
-		configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),configOffset+i*configGrid->GetNumberCols()));
+		configGrid->SetRowLabelValue(i,wxString::Format(_("%06X"),configOffset+i*configGrid->GetNumberCols()));
 	for(int i=0;i<dataGrid->GetNumberRows();i++)
-		dataGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*dataGrid->GetNumberCols()));
+		dataGrid->SetRowLabelValue(i,wxString::Format(_("%06X"),i*dataGrid->GetNumberCols()));
 	
 	for(int i=0;i<codeGrid->GetNumberCols();i++)
-		codeGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
+		codeGrid->SetColLabelValue(i,wxString::Format(_("%02X"),i));
 	for(int i=0;i<configGrid->GetNumberCols();i++)
-		configGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));								   
+		configGrid->SetColLabelValue(i,wxString::Format(_("%02X"),i));								   
 	for(int i=0;i<dataGrid->GetNumberCols();i++)
-		dataGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));								   
+		dataGrid->SetColLabelValue(i,wxString::Format(_("%02X"),i));								   
 }
 
 void UppHexview::autoSizeColumns(void)
@@ -208,10 +208,10 @@ void UppHexview::Copy(void)
 {
     int cnt;
     wxClipboard *clipboard = new wxClipboard();
-	wxTextDataObject *dataobj = new wxTextDataObject(wxT(""));
-	wxString datastr(wxT(""));
+	wxTextDataObject *dataobj = new wxTextDataObject(_(""));
+	wxString datastr(_(""));
     cnt=codeGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(wxT("Code Memory\n"));
+    if (cnt>0)datastr.Append(_("Code Memory\n"));
     for(int i=0;i<cnt;i++)
     {
         int topLeftRow=codeGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
@@ -221,18 +221,18 @@ void UppHexview::Copy(void)
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
             datastr.Append(codeGrid->GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
+            datastr.Append(_(": "));
             for(int c=topLeftCol;c<=bottomRightCol;c++)
             {
                 datastr.Append(codeGrid->GetCellValue(r,c));
-                datastr.Append(wxT(" "));
+                datastr.Append(_(" "));
             }
-            datastr.Append(wxT("\n"));
+            datastr.Append(_("\n"));
         }
     }
 
     cnt=configGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(wxT("\nConfig Memory\n"));
+    if (cnt>0)datastr.Append(_("\nConfig Memory\n"));
     for(int i=0;i<cnt;i++)
     {
         int topLeftRow=configGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
@@ -242,18 +242,18 @@ void UppHexview::Copy(void)
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
             datastr.Append(configGrid->GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
+            datastr.Append(_(": "));
             for(int c=topLeftCol;c<=bottomRightCol;c++)
             {
                 datastr.Append(configGrid->GetCellValue(r,c));
-                datastr.Append(wxT(" "));
+                datastr.Append(_(" "));
             }
-            datastr.Append(wxT("\n"));
+            datastr.Append(_("\n"));
         }
     }
     
     cnt=dataGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(wxT("\nData Memory\n"));
+    if (cnt>0)datastr.Append(_("\nData Memory\n"));
     for(int i=0;i<cnt;i++)
     {
         int topLeftRow=dataGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
@@ -263,17 +263,17 @@ void UppHexview::Copy(void)
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
             datastr.Append(dataGrid->GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
+            datastr.Append(_(": "));
             for(int c=topLeftCol;c<=bottomRightCol;c++)
             {
                 datastr.Append(dataGrid->GetCellValue(r,c));
-                datastr.Append(wxT(" "));
+                datastr.Append(_(" "));
             }
-            datastr.Append(wxT("\n"));
+            datastr.Append(_("\n"));
         }
     }
     
-    //wxMessageDialog(this, datastr, wxT("code Memory"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+    //wxMessageDialog(this, datastr, _("code Memory"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
 
 	dataobj->SetData(datastr.Length(),datastr.c_str());
 	if(	clipboard->Open());
@@ -306,10 +306,10 @@ void UppHexview::OnSelectAll (wxCommandEvent& event)
 
 void UppHexview::OnCodeRightClicked (wxGridEvent& event)
 {
-	wxMenu oMenu(wxT("Edit"));
+	wxMenu oMenu(_("Edit"));
 	wxPoint oPos;
-	oMenu.Append(wxID_COPY, wxT("Copy"));
-	oMenu.Append(wxID_SELECTALL, wxT("Select All"));
+	oMenu.Append(wxID_COPY, _("Copy"));
+	oMenu.Append(wxID_SELECTALL, _("Select All"));
 	oPos=ScreenToClient(wxGetMousePosition());
 //wxGetMousePosition();
 	
@@ -329,7 +329,7 @@ void UppHexview::OnCodeChanged (wxGridEvent& event )
 		readHexFile->putCodeMemory(Position,Data);
 	}
 	
-	CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
+	CellData.Printf(_("%02X"),readHexFile->getCodeMemory(Position));
 	codeGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 
@@ -345,7 +345,7 @@ void UppHexview::OnConfigChanged (wxGridEvent& event )
 		readHexFile->putConfigMemory(Position,Data);
 	}
 	
-	CellData.Printf(wxT("%02X"),readHexFile->getConfigMemory(Position));
+	CellData.Printf(_("%02X"),readHexFile->getConfigMemory(Position));
 	configGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 
@@ -361,7 +361,7 @@ void UppHexview::OnDataChanged (wxGridEvent& event )
 		readHexFile->putDataMemory(Position,Data);
 	}
 	
-	CellData.Printf(wxT("%02X"),readHexFile->getDataMemory(Position));
+	CellData.Printf(_("%02X"),readHexFile->getDataMemory(Position));
 	dataGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 

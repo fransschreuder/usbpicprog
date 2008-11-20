@@ -54,7 +54,7 @@ class PreferencesDialog : public wxDialog
 		DECLARE_EVENT_TABLE();
 		
 	public:
-		PreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = wxT("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = PreferencesDialog_STYLE);
+		PreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = PreferencesDialog_STYLE);
 		virtual ~PreferencesDialog();
 		ConfigFields GetResult(){return configFields;}
 		void SetConfigFields(ConfigFields cf);

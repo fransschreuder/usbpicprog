@@ -1,3 +1,13 @@
 # List of source files containing translatable strings.
 
-src/main.c
+src/main.cpp
+src/main.h
+src/hexview.cpp
+src/hexview.h
+src/uppmainwindow.cpp
+src/preferences.cpp
+src/preferences.h
+src/uppmainwindow_callback.cpp
+src/uppmainwindow_callback.h
+src/src/uppmainwindow.cpp
+src/src/uppmainwindow.h

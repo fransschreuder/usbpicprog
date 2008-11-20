@@ -45,41 +45,41 @@ void PreferencesDialog::CreateGUIControls()
 	WxStaticBoxSizerProgram = new wxStaticBoxSizer(WxStaticBoxSizerProgram_StaticBoxObj, wxVERTICAL);
 	WxBoxSizer1->Add(WxStaticBoxSizerProgram, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
 
-	uppConfigProgramCode = new wxCheckBox(this, wxID_ANY, wxT("Code"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigProgramCode"));
+	uppConfigProgramCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigProgramCode"));
 	WxStaticBoxSizerProgram->Add(uppConfigProgramCode,0,wxALIGN_LEFT | wxALL,5);
 
-	uppConfigProgramConfig = new wxCheckBox(this, wxID_ANY, wxT("Config"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigProgramConfig"));
+	uppConfigProgramConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigProgramConfig"));
 	WxStaticBoxSizerProgram->Add(uppConfigProgramConfig,0,wxALIGN_LEFT | wxALL,5);
 
-	uppConfigProgramData = new wxCheckBox(this, wxID_ANY, wxT("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigProgramData"));
+	uppConfigProgramData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigProgramData"));
 	WxStaticBoxSizerProgram->Add(uppConfigProgramData,0,wxALIGN_LEFT | wxALL,5);
 
-    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, wxT("Erase before programming"), wxPoint(-1,-1), wxSize(200,-1), 0, 		wxDefaultValidator, wxT("uppConfigEraseBeforeProgramming"));
+    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, _("Erase before programming"), wxPoint(-1,-1), wxSize(200,-1), 0, 		wxDefaultValidator, _("uppConfigEraseBeforeProgramming"));
 	WxStaticBoxSizerProgram->Add(uppConfigEraseBeforeProgramming,0,wxALIGN_LEFT | wxALL,5);
 
-	wxStaticBox* WxStaticBoxSizerVerify_StaticBoxObj = new wxStaticBox(this, wxID_ANY, wxT("Verify"));
+	wxStaticBox* WxStaticBoxSizerVerify_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Verify"));
 	WxStaticBoxSizerVerify = new wxStaticBoxSizer(WxStaticBoxSizerVerify_StaticBoxObj, wxVERTICAL);
 	WxBoxSizer1->Add(WxStaticBoxSizerVerify, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
 
-	uppConfigVerifyCode = new wxCheckBox(this, wxID_ANY, wxT("Code"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyCode"));
+	uppConfigVerifyCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigVerifyCode"));
 	WxStaticBoxSizerVerify->Add(uppConfigVerifyCode,0,wxALIGN_LEFT | wxALL,5);
 
-	uppConfigVerifyConfig = new wxCheckBox(this, wxID_ANY, wxT("Config"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyConfig"));
+	uppConfigVerifyConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigVerifyConfig"));
 	WxStaticBoxSizerVerify->Add(uppConfigVerifyConfig,0,wxALIGN_LEFT | wxALL,5);
 
-	uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, wxT("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyData"));
+	uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, _("uppConfigVerifyData"));
 	WxStaticBoxSizerVerify->Add(uppConfigVerifyData,0,wxALIGN_LEFT | wxALL,5);
 	
 	WxBoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
 	WxBoxSizer1->Add(WxBoxSizer2, 0, wxALIGN_CENTER | wxALL, 5);
 
-	WxButtonOk = new wxButton(this, ID_WXBUTTONOK, wxT("Ok"), wxPoint(-1,-1), wxSize(-1,-1), 0, wxDefaultValidator, wxT("WxButtonOk"));
+	WxButtonOk = new wxButton(this, ID_WXBUTTONOK, _("Ok"), wxPoint(-1,-1), wxSize(-1,-1), 0, wxDefaultValidator, _("WxButtonOk"));
 	WxBoxSizer2->Add(WxButtonOk,0,wxALIGN_CENTER | wxALL,5);
 
-	WxButtonCancel = new wxButton(this, ID_WXBUTTONCANCEL, wxT("Cancel"), wxPoint(-1,-1), wxSize(-1,-1), 0, wxDefaultValidator, wxT("WxButtonCancel"));
+	WxButtonCancel = new wxButton(this, ID_WXBUTTONCANCEL, _("Cancel"), wxPoint(-1,-1), wxSize(-1,-1), 0, wxDefaultValidator, _("WxButtonCancel"));
 	WxBoxSizer2->Add(WxButtonCancel,0,wxALIGN_CENTER | wxALL,5);
 
-	SetTitle(wxT("Preferences"));
+	SetTitle(_("Preferences"));
 	SetIcon(wxNullIcon);
 	
 	GetSizer()->Layout();

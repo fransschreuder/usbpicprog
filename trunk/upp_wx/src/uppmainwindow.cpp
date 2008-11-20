@@ -33,9 +33,9 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	bSizer = new wxBoxSizer( wxVERTICAL );
 	#ifdef USE_UPPHEXVIEW
-	uppHexEdit = new UppHexview( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize);
+	uppHexEdit = new UppHexview( this, wxID_ANY, _(""),  wxDefaultPosition, wxDefaultSize);
 	#else
-	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize, wxTE_READONLY| wxTE_MULTILINE | wxNO_BORDER );
+	uppHexEdit = new wxTextCtrl( this, wxID_ANY, _(""),  wxDefaultPosition, wxDefaultSize, wxTE_READONLY| wxTE_MULTILINE | wxNO_BORDER );
 	#endif	
 	
 	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
@@ -48,112 +48,112 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	uppMenuBar = new wxMenuBar( 0 );
 	uppMenuFile = new wxMenu();
 	wxMenuItem* uppMenuNew;
-	uppMenuNew = new wxMenuItem( uppMenuFile, wxID_NEW, wxString( wxT("&New") ) + wxT('\t') + wxT("CTRL+N"), wxT("Clear open hex file"), wxITEM_NORMAL );
+	uppMenuNew = new wxMenuItem( uppMenuFile, wxID_NEW, wxString( _("&New") ) + wxT('\t') + _("CTRL+N"), _("Clear open hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuNew );
 	
 	wxMenuItem* uppMenuOpen;
-	uppMenuOpen = new wxMenuItem( uppMenuFile, wxID_OPEN, wxString( wxT("&Open") ) + wxT('\t') + wxT("CTRL+O"), wxT("Open a hex file"), wxITEM_NORMAL );
+	uppMenuOpen = new wxMenuItem( uppMenuFile, wxID_OPEN, wxString( _("&Open") ) + wxT('\t') + _("CTRL+O"), _("Open a hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuOpen );
 	
 	wxMenuItem* uppMenuRefresh;
-	uppMenuRefresh = new wxMenuItem( uppMenuFile, wxID_REFRESH, wxString( wxT("&Reload") ) + wxT('\t') + wxT("CTRL+R"), wxT("Reload current hex file"), wxITEM_NORMAL );
+	uppMenuRefresh = new wxMenuItem( uppMenuFile, wxID_REFRESH, wxString( _("&Reload") ) + wxT('\t') + _("CTRL+R"), _("Reload current hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuRefresh );
 	
 	wxMenuItem* uppMenuSave;
-	uppMenuSave = new wxMenuItem( uppMenuFile, wxID_SAVE, wxString( wxT("&Save") ) + wxT('\t') + wxT("CTRL+S"), wxT("Save the hex file"), wxITEM_NORMAL );
+	uppMenuSave = new wxMenuItem( uppMenuFile, wxID_SAVE, wxString( _("&Save") ) + wxT('\t') + _("CTRL+S"), _("Save the hex file"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuSave );
 	
 	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( uppMenuFile, wxID_SAVE_AS, wxString( wxT("Save &As") ) , wxT("Save the hex file as"), wxITEM_NORMAL );
+	uppMenuSaveAs = new wxMenuItem( uppMenuFile, wxID_SAVE_AS, wxString( _("Save &As") ) , _("Save the hex file as"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuSaveAs );
 	
 	uppMenuFile->AppendSeparator();
 	
 	wxMenuItem* uppMenuExit;
-	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( wxT("&Exit") ) + wxT('\t') + wxT("ALT+F4"), wxT("Exit Usbpicprog"), wxITEM_NORMAL );
+	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( _("&Exit") ) + wxT('\t') + _("ALT+F4"), _("Exit Usbpicprog"), wxITEM_NORMAL );
 	uppMenuFile->Append( uppMenuExit );
 	
-	uppMenuBar->Append( uppMenuFile, wxT("&File") );
+	uppMenuBar->Append( uppMenuFile, _("&File") );
 	
 	uppMenuEdit = new wxMenu();
 	wxMenuItem* uppMenuCopy;
-	uppMenuCopy = new wxMenuItem( uppMenuEdit, wxID_COPY, wxString( wxT("&Copy") ) + wxT('\t') + wxT("CTRL+C"), wxT("Copy selection"), wxITEM_NORMAL );
+	uppMenuCopy = new wxMenuItem( uppMenuEdit, wxID_COPY, wxString( _("&Copy") ) + wxT('\t') + _("CTRL+C"), _("Copy selection"), wxITEM_NORMAL );
 	uppMenuEdit->Append( uppMenuCopy );
 
 	wxMenuItem* uppMenuSelectall;
-	uppMenuSelectall = new wxMenuItem( uppMenuEdit, wxID_SELECTALL, wxString( wxT("Select &All") ) + wxT('\t') + wxT("CTRL+A"), wxT("Select all"), wxITEM_NORMAL );
+	uppMenuSelectall = new wxMenuItem( uppMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) + wxT('\t') + _("CTRL+A"), _("Select all"), wxITEM_NORMAL );
 	uppMenuEdit->Append( uppMenuSelectall );
 
-    uppMenuBar->Append( uppMenuEdit, wxT("&Edit") );
+    uppMenuBar->Append( uppMenuEdit, _("&Edit") );
 	
 	uppMenuActions = new wxMenu();
 	wxMenuItem* uppMenuProgram;
 	#ifdef __WXMAC__
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("CTRL+7"), wxT("Program the device"), wxITEM_NORMAL );
+	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( _("&Program") ) + wxT('\t') + _("CTRL+7"), _("Program the device"), wxITEM_NORMAL );
 	#else	
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( wxT("&Program") ) + wxT('\t') + wxT("F7"), wxT("Program the device"), wxITEM_NORMAL );
+	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( _("&Program") ) + wxT('\t') + _("F7"), _("Program the device"), wxITEM_NORMAL );
 	#endif
 	uppMenuActions->Append( uppMenuProgram );
 	
 	wxMenuItem* uppMenuRead;
 	#ifdef __WXMAC__
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("CTRL+8"), wxT("Read the device"), wxITEM_NORMAL );
+	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( _("&Read") ) + wxT('\t') + _("CTRL+8"), _("Read the device"), wxITEM_NORMAL );
 	#else	
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( wxT("&Read") ) + wxT('\t') + wxT("F8"), wxT("Read the device"), wxITEM_NORMAL );
+	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( _("&Read") ) + wxT('\t') + _("F8"), _("Read the device"), wxITEM_NORMAL );
 	#endif
 	uppMenuActions->Append( uppMenuRead );
 	
 	wxMenuItem* uppMenuVerify;
-	uppMenuVerify = new wxMenuItem( uppMenuActions, wxID_VERIFY, wxString( wxT("&Verify") ) , wxT("Verify the device"), wxITEM_NORMAL );
+	uppMenuVerify = new wxMenuItem( uppMenuActions, wxID_VERIFY, wxString( _("&Verify") ) , _("Verify the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuVerify );
 	
 	wxMenuItem* uppMenuErase;
-	uppMenuErase = new wxMenuItem( uppMenuActions, wxID_ERASE, wxString( wxT("&Erase") ) , wxT("Erase the device"), wxITEM_NORMAL );
+	uppMenuErase = new wxMenuItem( uppMenuActions, wxID_ERASE, wxString( _("&Erase") ) , _("Erase the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuErase );
 	
 	wxMenuItem* uppMenuBlankCheck;
-	uppMenuBlankCheck = new wxMenuItem( uppMenuActions, wxID_BLANKCHECK, wxString( wxT("&Blankcheck") ) , wxT("Check if the device is blank"), wxITEM_NORMAL );
+	uppMenuBlankCheck = new wxMenuItem( uppMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck") ) , _("Check if the device is blank"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuBlankCheck );
 	
 	wxMenuItem* uppMenuAutoDetect;
-	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( wxT("&Autodetect") ) , wxT("Detect the device"), wxITEM_NORMAL );
+	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect") ) , _("Detect the device"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuAutoDetect );
 	
 	wxMenuItem* uppMenuConnect;
-	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( wxT("Connect &Usbpicprog") ) + wxT('\t') + wxT("CTRL+U"), wxT("Connect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( _("Connect &Usbpicprog") ) + wxT('\t') + _("CTRL+U"), _("Connect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnect );
 	
 	wxMenuItem* uppMenuConnectBoot;
-	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT_BOOT, wxString( wxT("Connect &Bootloader") ) + wxT('\t') + wxT("CTRL+B") , wxT("Connect Bootloader"), wxITEM_NORMAL );
+	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT_BOOT, wxString( _("Connect &Bootloader") ) + wxT('\t') + _("CTRL+B") , _("Connect Bootloader"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuConnectBoot );
 	
 	wxMenuItem* uppMenuDisConnect;
-	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( wxT("&Disconnect") ) , wxT("Disconnect Usbpicprog"), wxITEM_NORMAL );
+	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect") ) , _("Disconnect Usbpicprog"), wxITEM_NORMAL );
 	uppMenuActions->Append( uppMenuDisConnect );
 	
 	
-	uppMenuBar->Append( uppMenuActions, wxT("&Actions") );
+	uppMenuBar->Append( uppMenuActions, _("&Actions") );
 	
 	
 	uppMenuOptions = new wxMenu();
 	wxMenuItem* uppMenuPreferences;
-	uppMenuPreferences = new wxMenuItem( uppMenuOptions, wxID_PREFERENCES, wxString( wxT("&Preferences") ), wxT("Preferences"), wxITEM_NORMAL );
+	uppMenuPreferences = new wxMenuItem( uppMenuOptions, wxID_PREFERENCES, wxString( _("&Preferences") ), _("Preferences"), wxITEM_NORMAL );
 	uppMenuOptions->Append( uppMenuPreferences );
 
 
-    uppMenuBar->Append( uppMenuOptions, wxT("&Options") );
+    uppMenuBar->Append( uppMenuOptions, _("&Options") );
 	
 	
 	uppMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
-	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( wxT("&Help") ) + wxT('\t') + wxT("F1"), wxT("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
+	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( _("&Help") ) + wxT('\t') + _("F1"), _("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuItemHelp );
 	
 	wxMenuItem* uppMenuAbout;
-	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( wxT("&About usbpicprog") ) , wxT("About Usbpicprog"), wxITEM_NORMAL );
+	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( _("&About usbpicprog") ) , _("About Usbpicprog"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuAbout );
 	
-	uppMenuBar->Append( uppMenuHelp, wxT("&Help") );
+	uppMenuBar->Append( uppMenuHelp, _("&Help") );
 	
 	this->SetMenuBar( uppMenuBar );
 
@@ -169,29 +169,29 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	wxRect rect;
 	m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
 
-	uppProgressBar = new wxGauge(m_statusBar1, wxID_ANY, 100, rect.GetPosition(), rect.GetSize(), wxGA_HORIZONTAL, wxDefaultValidator, wxT("Progress"));
+	uppProgressBar = new wxGauge(m_statusBar1, wxID_ANY, 100, rect.GetPosition(), rect.GetSize(), wxGA_HORIZONTAL, wxDefaultValidator, _("Progress"));
 
 	m_toolBar1 = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY ); 
-	m_toolBar1->AddTool( wxID_NEW, wxT("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("new"), wxT("Clear open hex file") );
-	m_toolBar1->AddTool( wxID_OPEN, wxT("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("open"),  wxT("Open a hex file") );
-	m_toolBar1->AddTool( wxID_REFRESH, wxT("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, wxT("reload"),  wxT("Reload the hex file") );
-	m_toolBar1->AddTool( wxID_SAVE, wxT("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("save"), wxT("Save the hex file") );
-	m_toolBar1->AddTool( wxID_SAVE_AS, wxT("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, wxT("save as"), wxT("Save the hex file as") );
+	m_toolBar1->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"), _("Clear open hex file") );
+	m_toolBar1->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),  _("Open a hex file") );
+	m_toolBar1->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),  _("Reload the hex file") );
+	m_toolBar1->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"), _("Save the hex file") );
+	m_toolBar1->AddTool( wxID_SAVE_AS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"), _("Save the hex file as") );
 	m_toolBar1->AddSeparator();
-	m_toolBar1->AddTool( wxID_PROGRAM, wxT("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("program"), wxT("Program the device") );
-	m_toolBar1->AddTool( wxID_READ, wxT("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("read"), wxT("Read the device") );
-	m_toolBar1->AddTool( wxID_VERIFY, wxT("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("verify"), wxT("Verify the device") );
-	m_toolBar1->AddTool( wxID_ERASE, wxT("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("erase"), wxT("Erase the device") );
-	m_toolBar1->AddTool( wxID_BLANKCHECK, wxT("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, wxT("blankcheck"), wxT("Blankcheck the device") );
+	m_toolBar1->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"), _("Program the device") );
+	m_toolBar1->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"), _("Read the device") );
+	m_toolBar1->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"), _("Verify the device") );
+	m_toolBar1->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"), _("Erase the device") );
+	m_toolBar1->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"), _("Blankcheck the device") );
 	
 	m_toolBar1->AddSeparator();
-	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
+	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, _("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
 	m_toolBar1->AddControl( m_comboBox1 );
 	
 	m_toolBar1->AddSeparator();
-	m_radioButton_upp = new wxRadioButton( m_toolBar1, wxID_ANY, wxT("Usbpicprog"), wxDefaultPosition, wxDefaultSize, 0);
+	m_radioButton_upp = new wxRadioButton( m_toolBar1, wxID_ANY, _("Usbpicprog"), wxDefaultPosition, wxDefaultSize, 0);
 	m_toolBar1->AddControl(m_radioButton_upp);
-	m_radioButton_boot = new wxRadioButton( m_toolBar1, wxID_ANY, wxT("Bootloader"), wxDefaultPosition, wxDefaultSize, 0);
+	m_radioButton_boot = new wxRadioButton( m_toolBar1, wxID_ANY, _("Bootloader"), wxDefaultPosition, wxDefaultSize, 0);
 	m_toolBar1->AddControl(m_radioButton_boot);
 	
 	m_toolBar1->Realize();

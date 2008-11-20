@@ -42,6 +42,7 @@ int UsbPicProg::OnExit()
 	if (readHexFile != NULL) delete readHexFile;
 	if (picType != NULL) delete picType;
 	if (hardware != NULL) delete hardware;
+	delete m_locale;
 	return 0;
 }
  
@@ -55,7 +56,7 @@ int UsbPicProg::OnRun()
 void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 {
     parser.SetDesc (g_cmdLineDesc);
-    parser.SetSwitchChars (wxT("-"));
+    parser.SetSwitchChars (_("-"));
 }
 
 void UsbPicProg::MacOpenFile(const wxString &fileName)
@@ -71,26 +72,28 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	readHexFile = NULL;
 	picType = NULL;
 	hardware = NULL;
+	m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
+	m_locale->AddCatalog(wxT("i18n"));
 	
     #ifndef UPP_VERSION
-	wxString versionString=wxString(wxT("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
+	wxString versionString=wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
 	#else
-	wxString versionString=wxString(wxT("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
+	wxString versionString=wxString(_("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
 	#endif
     string output;
 	/*If no command line arguments are passed, we open the main window  *
 	 *Else, a command line application is started.						*
 	 *Only the filename may be passed to the gui						*/
-	if(!parser.Found(wxT("h"))&
-		!parser.Found(wxT("V"))&
-		!parser.Found(wxT("p"))&
-		!parser.Found(wxT("s"))&
-		!parser.Found(wxT("w"))&
-		!parser.Found(wxT("r"))&
-		!parser.Found(wxT("v"))&
-		!parser.Found(wxT("e"))&
-		!parser.Found(wxT("b"))&
-		!parser.Found(wxT("f")))
+	if(!parser.Found(_("h"))&
+		!parser.Found(_("V"))&
+		!parser.Found(_("p"))&
+		!parser.Found(_("s"))&
+		!parser.Found(_("w"))&
+		!parser.Found(_("r"))&
+		!parser.Found(_("v"))&
+		!parser.Found(_("e"))&
+		!parser.Found(_("b"))&
+		!parser.Found(_("f")))
 	{
 		uppMainWindow = new UppMainWindowCallBack((wxFrame *)NULL, 10000, versionString, wxPoint(50, 50), wxSize(20, 20));
 		// creating the window with 20x20 dimensions: workaround for minimum statusbar size, we'll resize it later to 800x600
@@ -109,7 +112,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		  freopen( "CON", "w", stderr );
 		}
 		#endif
-		if(parser.Found(wxT("V")))
+		if(parser.Found(_("V")))
 		{
 			#ifndef UPP_VERSION
 				cerr<<string("usbpicprog (SVN) ").append(SVN_REVISION)<<endl;
@@ -119,7 +122,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			return EXIT_SUCCESS;
 		}
 		//command line -s or --silent passed?
-		silent_mode = parser.Found(wxT("s"));	
+		silent_mode = parser.Found(_("s"));	
 		hardware=new Hardware();
 		if(!hardware->connected())
 		{
@@ -129,7 +132,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		wxString picTypeStr;
 		/* check if -p <str> is passed, else autodetect the device
 		 */
-		if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
+		if(parser.Found(_("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
 		else 
 		{
 			int devId=hardware->autoDetectDevice();
@@ -140,13 +143,13 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			cout<<picType->getCurrentPic().Name<<endl;
 		}
 		/* if -e is passed, bulk erase the entire pic*/
-		if(parser.Found(wxT("e")))
+		if(parser.Found(_("e")))
 		{
             cout<<"Bulk erase..."<<endl;
 			if(hardware->bulkErase(picType)<0)cerr<<"Error during erase"<<endl;
 		}
 		/* if -b is passed, check if the device is blank*/
-		if(parser.Found(wxT("b")))
+		if(parser.Found(_("b")))
 		{
             cout<<"Blankcheck..."<<endl;
             string typeText;
@@ -183,7 +186,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
             }
 		}
 		/* if -w is passed, open the hexfile and write it to the pic */
-		if(parser.Found(wxT("w")))
+		if(parser.Found(_("w")))
 		{
             cout<<"Write..."<<endl;
 			if(parser.GetParamCount()==0){cerr<<"Please specify a filename"<<endl;}
@@ -203,7 +206,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			}
 		}
 		/* if -r is passed, read it to the pic and save it to the hexfile	 */
-		if(parser.Found(wxT("r")))
+		if(parser.Found(_("r")))
 		{
             cout<<"Read..."<<endl;
 			if(parser.GetParamCount()==0){cerr<<"Please specify a filename"<<endl;}
@@ -224,7 +227,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			}
 		}
 		/* if -v is passed, open the hexfile, read it and compare the results*/
-		if(parser.Found(wxT("v")))
+		if(parser.Found(_("v")))
 		{
             cout<<"Verify..."<<endl;
 			if(parser.GetParamCount()==0){cerr<<"Please specify a filename"<<endl;}

@@ -63,6 +63,7 @@ private:
 	PicType* picType;
 /*class to open the usb port and communicate with usbpicprog*/	
 	Hardware* hardware;
+	wxLocale* m_locale;
 };
 
 /*This is some wxWidgets specific line...*/
@@ -73,16 +74,16 @@ DECLARE_APP(UsbPicProg)
 
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
-     { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"),    	wxT("displays help on the command line parameters"),wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
-     { wxCMD_LINE_SWITCH, wxT("V"), wxT("version"),    	wxT("displays version information of usbpicprog")},
-	 { wxCMD_LINE_OPTION, wxT("p"), wxT("pictype"), 	wxT("specify the pic type (eg -p=P18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
-     { wxCMD_LINE_SWITCH, wxT("s"), wxT("silent"),  	wxT("do not display the hex file") },
-	 { wxCMD_LINE_SWITCH, wxT("w"), wxT("write"),  		wxT("write the device") },
-	 { wxCMD_LINE_SWITCH, wxT("r"), wxT("read"),  		wxT("read the device") },
-	 { wxCMD_LINE_SWITCH, wxT("v"), wxT("verify"),  	wxT("verify the device") },
-	 { wxCMD_LINE_SWITCH, wxT("e"), wxT("erase"),  		wxT("bulk erase the device") },
-	 { wxCMD_LINE_SWITCH, wxT("b"), wxT("blankcheck"),  wxT("blankcheck the device") },
-	 { wxCMD_LINE_PARAM,  wxT("f"), wxT("file"),  		wxT("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
+     { wxCMD_LINE_SWITCH, _("h"), _("help"),    	_("displays help on the command line parameters"),wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+     { wxCMD_LINE_SWITCH, _("V"), _("version"),    	_("displays version information of usbpicprog")},
+	 { wxCMD_LINE_OPTION, _("p"), _("pictype"), 	_("specify the pic type (eg -p=P18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL},
+     { wxCMD_LINE_SWITCH, _("s"), _("silent"),  	_("do not display the hex file") },
+	 { wxCMD_LINE_SWITCH, _("w"), _("write"),  		_("write the device") },
+	 { wxCMD_LINE_SWITCH, _("r"), _("read"),  		_("read the device") },
+	 { wxCMD_LINE_SWITCH, _("v"), _("verify"),  	_("verify the device") },
+	 { wxCMD_LINE_SWITCH, _("e"), _("erase"),  		_("bulk erase the device") },
+	 { wxCMD_LINE_SWITCH, _("b"), _("blankcheck"),  _("blankcheck the device") },
+	 { wxCMD_LINE_PARAM,  _("f"), _("file"),  		_("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
  
      { wxCMD_LINE_NONE }
 };

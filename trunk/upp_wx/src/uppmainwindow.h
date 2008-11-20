@@ -100,7 +100,7 @@ class UppMainWindow : public wxFrame
 		
 	
 	public:
-		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~UppMainWindow();
 	private:
         virtual void OnSize(wxSizeEvent& event)
