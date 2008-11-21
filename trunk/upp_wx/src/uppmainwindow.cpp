@@ -146,7 +146,7 @@ UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	uppMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
-	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( _("&Help") ) + wxT('\t') + wxT("F1"), _("Open http://usbpicprog.sf.net"), wxITEM_NORMAL );
+	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( _("&Help") ) + wxT('\t') + wxT("F1"), _("Open http://usbpicprog.org"), wxITEM_NORMAL );
 	uppMenuHelp->Append( uppMenuItemHelp );
 	
 	wxMenuItem* uppMenuAbout;
