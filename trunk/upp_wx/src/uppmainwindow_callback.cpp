@@ -21,29 +21,29 @@ UppMainWindowCallBack::UppMainWindowCallBack(wxWindow* parent, wxWindowID id , c
 		m_comboBox1->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
 
 	}
-	uppConfig=new wxConfig(_("usbpicprog"));
+	uppConfig=new wxConfig(wxT("usbpicprog"));
 	
-  	if ( uppConfig->Read(_("DefaultPath"), &defaultPath) ) {}	else {defaultPath=_("");}
-    if ( uppConfig->Read(_("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
-    if ( uppConfig->Read(_("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}    
-    if ( uppConfig->Read(_("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}    
-    if ( uppConfig->Read(_("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
-    if ( uppConfig->Read(_("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
-    if ( uppConfig->Read(_("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
-    if ( uppConfig->Read(_("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
+  	if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
+    if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
+    if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}    
+    if ( uppConfig->Read(wxT("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}    
+    if ( uppConfig->Read(wxT("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
+    if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
+    if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
+    if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
 	fileOpened=false;
 }
 
 UppMainWindowCallBack::~UppMainWindowCallBack()
 {
-	uppConfig->Write(_("DefaultPath"), defaultPath);
-	uppConfig->Write(_("ConfigProgramCode"), configFields.ConfigProgramCode);
-    uppConfig->Write(_("ConfigProgramConfig"), configFields.ConfigProgramConfig);
-    uppConfig->Write(_("ConfigProgramData"), configFields.ConfigProgramData);
-    uppConfig->Write(_("ConfigVerifyCode"), configFields.ConfigVerifyCode);
-    uppConfig->Write(_("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
-    uppConfig->Write(_("ConfigVerifyData"), configFields.ConfigVerifyData);
-    uppConfig->Write(_("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
+	uppConfig->Write(wxT("DefaultPath"), defaultPath);
+	uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
+    uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
+    uppConfig->Write(wxT("ConfigProgramData"), configFields.ConfigProgramData);
+    uppConfig->Write(wxT("ConfigVerifyCode"), configFields.ConfigVerifyCode);
+    uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
+    uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
+    uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
 	delete uppConfig;
 }
 
@@ -88,7 +88,7 @@ void UppMainWindowCallBack::upp_new()
 void UppMainWindowCallBack::upp_open()
 {
 	//wxOpen is not defined in wxWidgets 2.9 -> so changed it to wxFD_OPEN
-	wxFileDialog* openFileDialog = new wxFileDialog( this, _("Open hexfile"), defaultPath, _(""), FILETYPES, wxFD_OPEN, wxDefaultPosition);
+	wxFileDialog* openFileDialog = new wxFileDialog( this, _("Open hexfile"), defaultPath, wxT(""), FILETYPES, wxFD_OPEN, wxDefaultPosition);
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		upp_open_file(openFileDialog->GetPath());
@@ -149,7 +149,7 @@ void UppMainWindowCallBack::upp_save()
 void UppMainWindowCallBack::upp_save_as()
 {
 	//wxSAVE is not defined in wxWidgets 2.9 so changed it to wxFD_SAVE
-	wxFileDialog* openFileDialog =	new wxFileDialog( this, _("Save hexfile"), defaultPath, _(""), FILETYPES, wxFD_SAVE, wxDefaultPosition);
+	wxFileDialog* openFileDialog =	new wxFileDialog( this, _("Save hexfile"), defaultPath, wxT(""), FILETYPES, wxFD_SAVE, wxDefaultPosition);
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 		if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
@@ -534,7 +534,7 @@ void UppMainWindowCallBack::upp_preferences()
 /*load a browser with the usbpicprog website*/
 void UppMainWindowCallBack::upp_help()
 {
-	wxLaunchDefaultBrowser(_("http://usbpicprog.org/"));
+	wxLaunchDefaultBrowser(wxT("http://usbpicprog.org/"));
 }
 
 /*show an about box (only supported from wxWidgets 2.8.something+) */
@@ -542,20 +542,20 @@ void UppMainWindowCallBack::upp_about()
 {
 #ifdef _WX_ABOUTDLG_H_
 	wxAboutDialogInfo aboutInfo;
-	aboutInfo.SetName(_("Usbpicprog"));
+	aboutInfo.SetName(wxT("Usbpicprog"));
 	#ifndef UPP_VERSION
-	aboutInfo.SetVersion(wxString(_("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+	aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
 	#else
 	aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
 	#endif
 	aboutInfo.SetDescription(_("An open source USB pic programmer"));
-	aboutInfo.SetCopyright(_("(C) 2008 http://usbpicprog.org/"));
+	aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.org/"));
 	wxAboutBox(aboutInfo);
 #else//_WX_ABOUTDLG_H_
 	#ifndef UPP_VERSION
-	wxMessageDialog(this, wxString(_("Usbpicprog (SVN) ")).Append(wxString::FromAscii(SVN_REVISION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
+	wxMessageDialog(this, wxString(wxT("Usbpicprog (SVN) ")).Append(wxString::FromAscii(SVN_REVISION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
 	#else
-	wxMessageDialog(this, wxString(_("Usbpicprog ")).Append(wxString::FromAscii(UPP_VERSION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
+	wxMessageDialog(this, wxString(wxT("Usbpicprog ")).Append(wxString::FromAscii(UPP_VERSION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
 	#endif
 #endif//_WX_ABOUTDLG_H_
 
