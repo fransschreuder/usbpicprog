@@ -1,0 +1,23 @@
+#!/bin/sh -e
+USERS=$(users)
+UPPGROUP="microchip"
+set -- $USERS
+FIRSTUSER=$1
+echo $FIRSTUSER
+
+GROUPS=$(groups ${FIRSTUSER}) 
+
+
+
+echo $GROUPS
+echo $UPPGROUP
+if `echo ${GROUPS} | grep "${UPPGROUP}" 1>/dev/null 2>&1`
+then
+  echo "removing group microchip"
+  gpasswd -d ${FIRSTUSER} ${UPPGROUP}
+  groupdel ${UPPGROUP}
+else
+  echo "no group microchip to remove"
+fi
+
+

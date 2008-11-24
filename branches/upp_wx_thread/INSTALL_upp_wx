@@ -1,0 +1,20 @@
+
+Compilation In Linux
+--------------------
+
+Get the latest version of wxWidgets (development version) and libusb (development version)
+Run the following commands.
+
+./autogen.sh
+./configure
+make
+make install
+
+Compilation in Windows
+----------------------
+
+Get wxDevCpp and libusb-win32
+Open usbpicprog.dev in wxDevCpp and compile.
+
+
+
