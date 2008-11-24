@@ -51,6 +51,8 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
     SetRowLabelSize( ROWLABELWIDTH );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
+    SetMinSize(wxSize(-1,300));
+
 /*
     // Connect Events
     Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCodeChanged ), NULL, this );
@@ -81,14 +83,21 @@ void UppHexViewGrid::ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicTyp
     readHexFile=hexFile;
 
     // clean current contents
-    DeleteRows(0, GetNumberRows(), false);
-    AppendRows(((data.size()%GetNumberCols())>0)+data.size()/GetNumberCols(), false);
+    if (GetNumberRows() > 0)
+        DeleteRows(0, GetNumberRows(), false);
 
+    // append new rows and set grid contents
+    AppendRows(((data.size()%GetNumberCols())>0)+data.size()/GetNumberCols(), false);
     for(unsigned int i=0;i<data.size();i++)
     {
         SetCellValue(i/(GetNumberCols()), i%(GetNumberCols()),
                      wxString::Format(wxT("%02X"), data[i]));
     }
+
+    for(int i=0;i<GetNumberRows();i++)
+        SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*GetNumberCols()));
+    for(int i=0;i<GetNumberCols();i++)
+        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
 
 /*
     configGrid->DeleteRows(0, configGrid->GetNumberRows(),false);
@@ -113,15 +122,11 @@ void UppHexViewGrid::ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicTyp
 /*
 void UppHexViewGrid::setLabels(int configOffset)
 {
-    for(int i=0;i<GetNumberRows();i++)
-        SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*GetNumberCols()));
     for(int i=0;i<configGrid->GetNumberRows();i++)
         configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),configOffset+i*configGrid->GetNumberCols()));
     for(int i=0;i<dataGrid->GetNumberRows();i++)
         dataGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*dataGrid->GetNumberCols()));
 
-    for(int i=0;i<GetNumberCols();i++)
-        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
     for(int i=0;i<configGrid->GetNumberCols();i++)
         configGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
     for(int i=0;i<dataGrid->GetNumberCols();i++)

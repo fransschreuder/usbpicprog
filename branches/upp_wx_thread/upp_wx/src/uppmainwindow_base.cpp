@@ -64,7 +64,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText2->Wrap( -1 );
 	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
 	
-	m_pConfigGrid = new wxGrid( m_pConfigPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_pConfigGrid = new UppHexViewGrid( m_pConfigPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
 	m_pConfigGrid->CreateGrid( 5, 5 );
@@ -102,7 +102,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText3->Wrap( -1 );
 	bSizer4->Add( m_staticText3, 0, wxALL, 5 );
 	
-	m_pDataGrid = new wxGrid( m_pDataPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_pDataGrid = new UppHexViewGrid( m_pDataPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
 	m_pDataGrid->CreateGrid( 5, 5 );

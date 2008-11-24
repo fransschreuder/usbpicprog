@@ -492,7 +492,7 @@
                                             <property name="row_sizes"></property>
                                             <property name="rows">5</property>
                                             <property name="size"></property>
-                                            <property name="subclass"></property>
+                                            <property name="subclass">UppHexViewGrid; hexview.h</property>
                                             <property name="tooltip"></property>
                                             <property name="window_extra_style"></property>
                                             <property name="window_name"></property>
@@ -708,7 +708,7 @@
                                             <property name="row_sizes"></property>
                                             <property name="rows">5</property>
                                             <property name="size"></property>
-                                            <property name="subclass"></property>
+                                            <property name="subclass">UppHexViewGrid; hexview.h</property>
                                             <property name="tooltip"></property>
                                             <property name="window_extra_style"></property>
                                             <property name="window_name"></property>

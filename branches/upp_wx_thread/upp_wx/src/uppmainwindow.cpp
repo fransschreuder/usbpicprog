@@ -129,7 +129,8 @@ void UppMainWindow::CompleteGUICreation()
     toolbar->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"), _("Erase the device") );
     toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"), _("Blankcheck the device") );
     toolbar->AddSeparator();
-    m_pPICChoice = new wxChoice(toolbar, wxID_ANY);
+
+    m_pPICChoice = new wxChoice(toolbar, wxID_ANY, wxDefaultPosition, wxSize(120,-1));
     toolbar->AddControl( m_pPICChoice );
 /*
     toolbar->AddSeparator();
@@ -181,6 +182,8 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
 
+    m_pNotebook->ChangeSelection(0);
+
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 }
@@ -188,7 +191,7 @@ void UppMainWindow::CompleteGUICreation()
 /*Update the progress bar*/
 void UppMainWindow::updateProgress(int value)
 {
-    //uppProgressBar->SetValue(value);
+    //uppProgressBar->SetValue(value); FIXME
     Update(); //refresh the gui, also when busy
 }
 
@@ -196,24 +199,8 @@ void UppMainWindow::updateProgress(int value)
 void UppMainWindow::printHexFile()
 {
     m_pCodeGrid->ShowHexFile(readHexFile,readHexFile->getCodeMemory(),picType);
-
-/*
-    //#if defined(__WXMSW__) || defined(__WXMAC__)
-    int w=GetSize().GetWidth();
-    int h=GetSize().GetHeight();
-    SetSize(wxSize(w-1,h-1));
-    SetSize(wxSize(w,h));
-    //#endif
-    #else
-    string output;
-    uppHexEdit->Freeze();
-    uppHexEdit->Clear();
-    readHexFile->print(&output,picType);
-    uppHexEdit->AppendText(wxString::FromAscii(output.c_str()));
-    uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
-    uppHexEdit->Thaw();
-    uppHexEdit->SetSelection(0,0); // cursor to top
-    #endif*/
+    m_pConfigGrid->ShowHexFile(readHexFile,readHexFile->getConfigMemory(),picType);
+    m_pDataGrid->ShowHexFile(readHexFile,readHexFile->getDataMemory(),picType);
 }
 
 /*clear the hexfile*/

@@ -50,10 +50,10 @@ class UppMainWindowBase : public wxFrame
 		UppHexViewGrid* m_pCodeGrid;
 		wxPanel* m_pConfigPanel;
 		wxStaticText* m_staticText2;
-		wxGrid* m_pConfigGrid;
+		UppHexViewGrid* m_pConfigGrid;
 		wxPanel* m_pDataPanel;
 		wxStaticText* m_staticText3;
-		wxGrid* m_pDataGrid;
+		UppHexViewGrid* m_pDataGrid;
 		wxMenuBar* m_pMenuBar;
 		wxMenu* m_pMenuFile;
 		wxMenu* m_pMenuEdit;
