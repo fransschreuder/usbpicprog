@@ -21,24 +21,29 @@
 #ifndef INCLUDE_ICONS_H
 #define INCLUDE_ICONS_H
 
-/*These icons are placed on the icon toolbar, usbpicprog.xpm is the main program
-icon.*/
+/*These icons are placed on the icon toolbar, usbpicprog.xpm is the main program icon.*/
 
-#if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
-#include "../icons/refresh.xpm"
-#include "../icons/blankcheck.xpm"
-#include "../icons/program.xpm"
-#include "../icons/erase.xpm"
-#include "../icons/read.xpm"
-#include "../icons/verify.xpm"
-#include "../icons/usbpicprog.xpm"
-#else   /*Icons for Windows and Mac*/
-#include "../icons/win/refresh.xpm"
-#include "../icons/win/blankcheck.xpm"
-#include "../icons/win/program.xpm"
-#include "../icons/win/erase.xpm"
-#include "../icons/win/read.xpm"
-#include "../icons/win/verify.xpm"
-#include "../icons/win/usbpicprog.xpm"
-#endif
+extern const char* refresh_xpm[];
+extern const char* blankcheck_xpm[];
+extern const char* program_xpm[];
+extern const char* erase_xpm[];
+extern const char* read_xpm[];
+extern const char* verify_xpm[];
+extern const char* usbpicprog_xpm[];
+
+
+// IDs for the toolbuttons in the toolbar
+enum
+{
+    wxID_PROGRAM = wxID_HIGHEST+1,
+    wxID_READ,
+    wxID_VERIFY,
+    wxID_ERASE,
+    wxID_BLANKCHECK,
+    wxID_AUTODETECT,
+    wxID_CONNECT,
+    wxID_CONNECT_BOOT,
+    wxID_DISCONNECT
+};
+
 #endif //INCLUDE_ICONS_H

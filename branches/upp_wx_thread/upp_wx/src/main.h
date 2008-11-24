@@ -29,7 +29,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "uppmainwindow_callback.h"
+#include "uppmainwindow.h"
 #include "hardware.h"
 #include "pictype.h"
 #include "read_hexfile.h"

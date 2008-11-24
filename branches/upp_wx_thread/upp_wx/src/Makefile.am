@@ -19,7 +19,7 @@ bin_PROGRAMS = usbpicprog
 usbpicprog_SOURCES = \
 	uppmainwindow.cpp \
 	main.cpp \
-	uppmainwindow_callback.cpp \
+	uppmainwindow_base.cpp \
 	hardware.cpp \
 	hardware.h \
 	include_icons.h \
@@ -28,20 +28,20 @@ usbpicprog_SOURCES = \
 	read_hexfile.cpp \
 	read_hexfile.h \
 	main.h \
-	uppmainwindow_callback.h \
+	uppmainwindow_base.h \
 	uppmainwindow.h \
 	hexview.cpp \
 	hexview.h \
 	preferences.cpp \
 	preferences.h
 
-usbpicprog_LDFLAGS = 
+usbpicprog_LDFLAGS =
 
 usbpicprog_LDADD = \
 	$(USBPICPROG_LIBS) \
 	$(WX_LIBS) \
 	$(LIBUSB_LIBS)
-	
+
 
 
 

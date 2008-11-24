@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "hardware.h"
-#include "uppmainwindow_callback.h"
+#include "uppmainwindow.h"
 
 
 using namespace std;
@@ -27,7 +27,7 @@ using namespace std;
 
 
 #define USB_DEBUG 2
-/*The class Hardware connects to usbpicprog using libusb. The void* CB points 
+/*The class Hardware connects to usbpicprog using libusb. The void* CB points
  to the parent UppMainWindowCallBack which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
 Hardware::Hardware(void* CB, HardwareType SetHardware)
@@ -35,15 +35,15 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	struct usb_bus *bus=NULL;
 	struct usb_device *dev=NULL;
 	int hwtype = SetHardware;
-	
+
 	_handle=NULL;
-	
+
 	usb_init();
 	ptCallBack=CB;
 	usb_find_busses();
 	usb_find_devices();
 #ifdef USB_DEBUG
-	cout<<"USB debug enabled, remove #define USB_DEBUG 10 in hardware.cpp to disable it"<<endl; 
+	cout<<"USB debug enabled, remove #define USB_DEBUG 10 in hardware.cpp to disable it"<<endl;
 	usb_set_debug(USB_DEBUG);
 #endif
 
@@ -51,7 +51,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	{
 		for (dev=bus->devices;dev;dev=dev->next)
 		{
-			
+
 
 			if (hwtype == HW_UPP)
 			{
@@ -77,7 +77,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 				{
 					_handle = usb_open(dev);
 					if (!_handle)continue; //failed to open this device, choose the next one
-					
+
 					hwtype=HW_BOOTLOADER;
 					break; //found bootloader , exit the for loop
 				}
@@ -85,7 +85,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 				{
 					_handle = usb_open(dev);
 					if (!_handle)continue; //failed to open this device, choose the next one
-					
+
 					hwtype=HW_UPP;
 					break; //found usbpicprog, exit the for loop
 				}
@@ -106,7 +106,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 	}
 	if(_handle!=NULL)
 	{
-        
+
         #ifndef __WXMSW__
 		if (usb_reset(_handle) < 0)
 			cerr<<"Couldn't reset interface"<<endl;
@@ -115,33 +115,33 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 		#endif
 		if(!_handle){
 			CurrentHardware = HW_NONE;
-			return;	
+			return;
 		}
 #if 0
 		tryToDetachDriver();
-#endif		
+#endif
 		int _config=1;
 		int _interface=0;
 		int i;
 		for (i=0; i<dev->descriptor.bNumConfigurations; i++)
 			if ( _config==dev->config[i].bConfigurationValue ) break;
-		if ( i==dev->descriptor.bNumConfigurations ) 
+		if ( i==dev->descriptor.bNumConfigurations )
 		{
 			i = 0;
 			_config = dev->config[i].bConfigurationValue;
 	  	}
 		const usb_config_descriptor &configd = dev->config[i];
-		if ( usb_set_configuration(_handle, _config)<0 ) 
+		if ( usb_set_configuration(_handle, _config)<0 )
 		{
 			cerr<<"Error setting configuration"<<endl;
 			CurrentHardware = HW_NONE;
 			_handle=NULL;
 			return;
 		}
-	
+
 		for (i=0; i<configd.bNumInterfaces; i++)
 			if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
-		if ( i==configd.bNumInterfaces ) 
+		if ( i==configd.bNumInterfaces )
 		{
 			int old = _interface;
 			i = 0;
@@ -149,7 +149,7 @@ Hardware::Hardware(void* CB, HardwareType SetHardware)
 			cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
 		}
 		privateInterface = &(configd.interface[i].altsetting[0]);
-        if ( usb_claim_interface(_handle, _interface)<0 ) 
+        if ( usb_claim_interface(_handle, _interface)<0 )
         {
 			cerr<<"Error claiming interface"<<endl;
 			CurrentHardware = HW_NONE;
@@ -163,7 +163,7 @@ Hardware::EndpointMode Hardware::endpointMode(int ep)
 {
 	int index = ep & USB_ENDPOINT_ADDRESS_MASK;
 	const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
-	switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK) 
+	switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK)
 	{
 		case USB_ENDPOINT_TYPE_BULK: return Bulk;
 		case USB_ENDPOINT_TYPE_INTERRUPT: return Interrupt;
@@ -177,7 +177,7 @@ Hardware::EndpointMode Hardware::endpointMode(int ep)
 Hardware::~Hardware()
 {
 	statusCallBack (0);
-	
+
 	if(_handle)
 	{
 		usb_release_interface(_handle, bInterfaceNumber);
@@ -212,13 +212,13 @@ void Hardware::tryToDetachDriver()
 int Hardware::setPicType(PicType* picType)
 {
 	char msg[64];
-	
+
 	if (CurrentHardware == HW_BOOTLOADER) return 0;
-	
+
 	statusCallBack (0);
 	msg[0]=CMD_SET_PICTYPE;
 	msg[1]=picType->getCurrentPic().picFamily;
-	
+
 	int nBytes=-1;
 	if (_handle !=NULL)
 	{
@@ -226,7 +226,7 @@ int Hardware::setPicType(PicType* picType)
 		{
 			return 0;
 		}
-		
+
 		nBytes = readString(msg,1);
 
 		if (nBytes < 0 )
@@ -261,7 +261,7 @@ int Hardware::bulkErase(PicType* picType)
     			return 0;
     		}
     		nBytes = readString(msg,1);
-    
+
     		if (nBytes < 0 )
     		{
     			cerr<<"Usb Error"<<endl;
@@ -278,8 +278,8 @@ int Hardware::bulkErase(PicType* picType)
             ReadHexFile * hf = new ReadHexFile(picType);
             if(writeData(hf,picType)<0)return -1;
             statusCallBack(50);
-            delete hf;            
-            for (int address=0x800; address<picType->getCurrentPic().CodeSize; address+=64) 
+            delete hf;
+            for (int address=0x800; address<picType->getCurrentPic().CodeSize; address+=64)
             {
     			BootloaderPackage bootloaderPackage;
     			bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
@@ -342,7 +342,7 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 					//return -1;
 				}
 			}
-				
+
 			/*if (dataBlock[BLOCKSIZE_HW-1] == 0)
 			{
 				blockcounter-=BLOCKSIZE_HW-1;
@@ -379,7 +379,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 					dataBlock[i]=0;
 				}
 			}
-				
+
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
@@ -387,7 +387,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
 			nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
 			if (CurrentHardware == HW_UPP)
-			{	
+			{
 				if(nBytes==3) return -3;	//something not implemented in firmware :(
 				if(nBytes==4) return -4;	//verify error
 				if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
@@ -421,7 +421,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 			if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_DATA))blocksize=BLOCKSIZE_DATA;
 			   else blocksize=picType->getCurrentPic().DataSize-blockcounter;
-			
+
 			nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
 			for(int i=0;i<blocksize;i++)
 			{
@@ -468,7 +468,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 					dataBlock[i]=0;
 				}
 			}
-				
+
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
@@ -487,7 +487,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 {
 	int nBytes,blocksize;
 	nBytes=-1;
-	
+
 	vector<int> mem;
 	mem.resize(picType->getCurrentPic().ConfigSize);
 	char dataBlock[BLOCKSIZE_CONFIG];
@@ -506,7 +506,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 			if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
 			if(picType->getCurrentPic().ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
 			   else blocksize=picType->getCurrentPic().ConfigSize-blockcounter;
-			nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);		
+			nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
 			for(int i=0;i<blocksize;i++)
 			{
 				if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
@@ -557,7 +557,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 					dataBlock[i]=0;
 				}
 			}
-				
+
 			blocktype=BLOCKTYPE_MIDDLE;
 			if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
 			if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
@@ -569,7 +569,7 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 			if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
 		}
 	}
-	else return -4;	
+	else return -4;
 	return 0;
 }
 
@@ -626,7 +626,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
                     res.Expected=hexData->getCodeMemory()[i];
                     return res;
                 }
-    
+
             }
         }
         if(doData)
@@ -635,7 +635,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
             {
                 if((signed)verifyHexFile->getDataMemory().size()<(i+1))
                 {
-                    res.Result=VERIFY_OTHER_ERROR;              
+                    res.Result=VERIFY_OTHER_ERROR;
                     return res;
                 }
                 if(verifyHexFile->getDataMemory()[i]!=hexData->getDataMemory()[i])
@@ -647,16 +647,16 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
                     res.Expected=hexData->getDataMemory()[i];
                     return res;
                 }
-    
+
             }
-        }	
+        }
         if(doConfig)
         {
             for(int i=0;i<(signed)hexData->getConfigMemory().size();i++)
             {
                 if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
                 {
-                    res.Result=VERIFY_OTHER_ERROR;                
+                    res.Result=VERIFY_OTHER_ERROR;
                     return res;
                 }
                 if((verifyHexFile->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i])!=(hexData->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i]))
@@ -668,7 +668,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
                     res.Expected=hexData->getConfigMemory()[i];
                     return res;
                 }
-    
+
             }
         }
         res.Result=VERIFY_SUCCESS;
@@ -689,12 +689,12 @@ VerifyResult Hardware::blankCheck(PicType *picType)
 
 
 /*This function does nothing but reading the devid from the PIC, call it the following way:
- 
+
 	 Hardware* hardware=new Hardware();
 	 int devId=hardware->autoDetectDevice();
 	 PicType* picType=new PicType(devId);
 	 hardware->setPicType(picType);
-	 
+
  */
 int Hardware::autoDetectDevice(void)
 {
@@ -735,7 +735,7 @@ int Hardware::getFirmwareVersion(char* msg)
 				return -1;
 			}
 			nBytes = readString(msg,64);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
@@ -755,7 +755,7 @@ int Hardware::getFirmwareVersion(char* msg)
 		msg[2]=0;
 		msg[3]=0;
 		msg[4]=0;
-		
+
 		int nBytes=-1;
 		statusCallBack (0);
 		if (_handle !=NULL)
@@ -767,7 +767,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			}
 			cout<<"readString"<<endl;
 			nBytes = readString(msg,64);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
@@ -776,7 +776,7 @@ int Hardware::getFirmwareVersion(char* msg)
 			{
 				statusCallBack (100);
 				sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
-						
+
 				return nBytes;
 			}
 		}
@@ -839,7 +839,7 @@ int Hardware::readId(void)
 			return -1;
 		}
 		nBytes = readString(msg,2);
-			
+
 		if (nBytes < 0 )
 		{
 			return -1;
@@ -856,7 +856,7 @@ int Hardware::readId(void)
 int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 {
 	int nBytes = -1;
-	
+
 	if (_handle !=NULL)
 	{
 		if (CurrentHardware == HW_UPP)
@@ -866,28 +866,28 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 		else
 		{
 			BootloaderPackage bootloaderPackage;
-			
+
 			bootloaderPackage.fields.cmd=CMD_BOOT_READ_CONFIG;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
 			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
-			
+
 			nBytes = writeString(bootloaderPackage.data,5);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
 			}
-			
+
 			char tmpmsg[size+5];
-			
+
 			nBytes = readString(tmpmsg,size+5) - 5;
 			if(nBytes<0)return nBytes;
 			memcpy(msg,tmpmsg+5,nBytes);
 		}
-		
-		
+
+
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -905,7 +905,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 		if (CurrentHardware == HW_UPP)
 		{
 			UppPackage uppPackage;
-			
+
 			uppPackage.fields.cmd=CMD_READ_CODE;
 			uppPackage.fields.size=size;
 			uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
@@ -913,39 +913,39 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 			uppPackage.fields.addrL=(unsigned char)(address&0xFF);
 			uppPackage.fields.blocktype=(unsigned char)lastblock;
 			nBytes = writeString(uppPackage.data,6);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
 			}
-			
+
 			nBytes = readString(msg,size);
 		}
 		else
 		{
 			BootloaderPackage bootloaderPackage;
-			
+
 			bootloaderPackage.fields.cmd=CMD_BOOT_READ_CODE;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
 			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
-			
+
 			nBytes = writeString(bootloaderPackage.data,5);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
 			}
-			
+
 			char tmpmsg[size+5];
-			
+
 			nBytes = readString(tmpmsg,size+5) - 5;
-			
+
 			memcpy(msg,tmpmsg+5,nBytes);
 		}
-		
-		
+
+
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -992,7 +992,7 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 			if (lastblock==BLOCKTYPE_LAST)OkOrLastblock=1; //Ok
 			if(address<0x800)return OkOrLastblock;	//should not write inside bootloader area
 			BootloaderPackage bootloaderPackage;
-			
+
 			bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_CODE;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
@@ -1004,12 +1004,12 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
 				return -1;
 			}
 			readString(resp_msg,5+size);
-			return OkOrLastblock;		
+			return OkOrLastblock;
 		}
 	}
-	
+
 	else return -1;
-	
+
 }
 
 /*private function to write one block of config memory*/
@@ -1035,14 +1035,14 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 		{
 			return nBytes;
 		}
-			
+
 		nBytes = readString(resp_msg,1);
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return (int)resp_msg[0];
 	}
 	else return -1;
-	
+
 }
 
 
@@ -1050,13 +1050,13 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
 	int nBytes = -1;
-	
+
 	if (_handle !=NULL)
 	{
 		if (CurrentHardware == HW_UPP)
 		{
 			UppPackage uppPackage;
-			
+
 			uppPackage.fields.cmd=CMD_READ_DATA;
 			uppPackage.fields.size=size;
 			uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
@@ -1064,39 +1064,39 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 			uppPackage.fields.addrL=(unsigned char)(address&0xFF);
 			uppPackage.fields.blocktype=(unsigned char)lastblock;
 			nBytes = writeString(uppPackage.data,6);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
 			}
-			
+
 			nBytes = readString(msg,size);
 		}
 		else
 		{
 			BootloaderPackage bootloaderPackage;
-			
+
 			bootloaderPackage.fields.cmd=CMD_BOOT_READ_DATA;
 			bootloaderPackage.fields.size=size;
 			bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
 			bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
 			bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
-			
+
 			nBytes = writeString(bootloaderPackage.data,5);
-			
+
 			if (nBytes < 0 )
 			{
 				return nBytes;
 			}
-			
+
 			char tmpmsg[size+5];
-			
+
 			nBytes = readString(tmpmsg,size+5) - 5;
-			
+
 			memcpy(msg,tmpmsg+5,nBytes);
 		}
-		
-		
+
+
 		if (nBytes < 0 )
 			cerr<<"Usb Error"<<endl;
 		return nBytes;
@@ -1125,7 +1125,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
     		{
     			return nBytes;
     		}
-    			
+
     		nBytes = readString(resp_msg,1);
     		if (nBytes < 0 )
     			cerr<<"Usb Error"<<endl;
@@ -1150,7 +1150,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 			return OkOrLastblock;
 		}
 	}
-	else return -1;	
+	else return -1;
 }
 
 /*When Hardware is constructed, ptCallBack is initiated by a pointer
@@ -1160,7 +1160,7 @@ void Hardware::statusCallBack(int value)
 {
 	if(ptCallBack!=NULL)
 	{
-		UppMainWindowCallBack* CB=(UppMainWindowCallBack*)ptCallBack;
+		UppMainWindow* CB=(UppMainWindow*)ptCallBack;
 		CB->updateProgress(value);
 	}
 }
