@@ -1,3 +1,23 @@
+/***************************************************************************
+ *   Copyright (C) 2008 by Frans Schreuder                                 *
+ *   usbpicprog.sourceforge.net                                            *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
 #ifndef UPPMAINWINDOW_CALLBACK_H
 #define UPPMAINWINDOW_CALLBACK_H
 
@@ -27,7 +47,7 @@ using namespace std;
 #include "preferences.h"
 
 #ifdef __WXMAC__
-#define EVENT_FIX 
+#define EVENT_FIX
 #else //__WXMAC__
 #define EVENT_FIX event.Skip();
 #endif //__WXMAC__
@@ -37,7 +57,7 @@ using namespace std;
 class UppMainWindowCallBack: public UppMainWindow
 {
 	public:
-		 
+
 		UppMainWindowCallBack(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 634,361 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL  ) ;
 		~UppMainWindowCallBack();
 		void updateProgress(int value);
@@ -59,7 +79,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
 		void on_connect_boot( wxCommandEvent& event){upp_connect_boot(); EVENT_FIX};
 		void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
-		void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};		
+		void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};
 		void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
 		void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
 		void on_combo_changed( wxCommandEvent& event ){upp_combo_changed(); EVENT_FIX};
@@ -72,7 +92,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		void upp_save_as();
 		void upp_exit();
 		void upp_copy();
-		void upp_selectall();        		
+		void upp_selectall();
 		void upp_program();
 		void upp_read();
 		void upp_verify();
@@ -82,7 +102,7 @@ class UppMainWindowCallBack: public UppMainWindow
 		bool upp_connect();
 		bool upp_connect_boot();
 		void upp_disconnect();
-		void upp_preferences();		
+		void upp_preferences();
 		void upp_help();
 		void upp_about();
 		void upp_combo_changed();
@@ -95,6 +115,6 @@ class UppMainWindowCallBack: public UppMainWindow
 		wxConfig* uppConfig;
 		wxString defaultPath;
 	    ConfigFields configFields;
-		
+
 };
 #endif

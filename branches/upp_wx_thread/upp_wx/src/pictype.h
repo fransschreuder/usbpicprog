@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #ifndef PICTYPE_H
 #define PICTYPE_H
 #include <string>
@@ -33,7 +34,7 @@ typedef enum _PicFamily{P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6
 }PicFamily;
 
 /*Some generic properties of a pic.*/
-typedef struct 
+typedef struct
 PIC{
 	string Name;
 	int CodeSize;
@@ -51,23 +52,23 @@ class PicType
 {
 	public:
 /*Constructor to select a pic by string, usage:
- Pictype* picType=new PicType("P18F2550"); */        
+ Pictype* picType=new PicType("P18F2550"); */
 		PicType(string picType);
  /*Constructor to select a pic by devId, usage:
- Pictype* picType=new PicType(0x1240); */		
+ Pictype* picType=new PicType(0x1240); */
 		PicType(int devId);
-/*Returns the pic that has been selected*/		
+/*Returns the pic that has been selected*/
 		Pic getCurrentPic(void);
-/*Returns an array (vector) of strings containing all names of supported PICs*/		
+/*Returns an array (vector) of strings containing all names of supported PICs*/
 		vector<string> getPicNames(void);
 		bool matchWasFound(void){return matchFound;}
 	private:
 /*contains information about the currently selected pic*/
 		Pic currentPic;
-/*Contains the names of all supported PICs (initialized in constructor)*/		
+/*Contains the names of all supported PICs (initialized in constructor)*/
 		vector<string> picNames;
 		bool matchFound;
-		
-	
+
+
 };
 #endif  //PICTYPE_H

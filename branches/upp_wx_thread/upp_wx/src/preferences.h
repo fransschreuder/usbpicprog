@@ -52,13 +52,13 @@ class PreferencesDialog : public wxDialog
 {
 	private:
 		DECLARE_EVENT_TABLE();
-		
+
 	public:
 		PreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = PreferencesDialog_STYLE);
 		virtual ~PreferencesDialog();
 		ConfigFields GetResult(){return configFields;}
 		void SetConfigFields(ConfigFields cf);
-	
+
 	private:
 
 		wxButton *WxButtonCancel;
@@ -76,16 +76,16 @@ class PreferencesDialog : public wxDialog
 		wxBoxSizer *WxBoxSizer1;
 		ConfigFields configFields;
 
-		
+
 	private:
 
 		enum
 		{
 			ID_WXBUTTONCANCEL = 1028,
 			ID_WXBUTTONOK = 1027,
-			ID_DUMMY_VALUE_ 
+			ID_DUMMY_VALUE_
 		};
-	
+
 	private:
 		void OnClose(wxCloseEvent& event);
 		void OnOk(wxCommandEvent& event);

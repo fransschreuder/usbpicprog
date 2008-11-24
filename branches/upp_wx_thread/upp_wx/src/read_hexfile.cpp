@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -29,7 +30,7 @@ using namespace std;
 
 ReadHexFile::ReadHexFile(PicType* picType,const char* filename)
 {
-	if((picType!=NULL)&&(filename==NULL))newFile(picType); 
+	if((picType!=NULL)&&(filename==NULL))newFile(picType);
 	else if((picType!=NULL)&&(filename!=NULL))open(picType,filename);
 	//If both arguments are NULL, you need to call open later
 }
@@ -69,7 +70,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 	configMemory.resize(0);
 	dataMemory.resize(0);
 	codeMemory.resize(0);
-	if(fp==NULL) 
+	if(fp==NULL)
 	{
 		cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
 		return -1;
@@ -78,21 +79,21 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 	{
 		fp>>tempStr;
 		strcpy(filenameToSave,filename);
-		
+
 		sscanf(tempStr.c_str(),":%02X",&byteCount);
-		
+
 		if((((byteCount+5)*2)+1)!=(signed)tempStr.size())
 		{
 			cerr<<"Failure in hex file... Exiting"<<endl;
 			return -1;
 		}
-		
+
 		sscanf(tempStr.c_str()+3,"%04X",&address);
 		sscanf(tempStr.c_str()+7,"%02X",(int*)&recordType);
 		lineData.resize(byteCount);
 		for(int i=0;i<byteCount;i++)
 		{
-			sscanf(tempStr.c_str()+9+(i*2),"%02X",&lineData[i]);	
+			sscanf(tempStr.c_str()+9+(i*2),"%02X",&lineData[i]);
 		}
 		sscanf(tempStr.c_str()+9+(byteCount*2),"%02X",&checkSum);
 		if(!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
@@ -161,7 +162,7 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 						   }
 					   }
 					   else cerr<<"Data in hex file outside data memory of PIC"<<endl;
-					   
+
 				   }
 				break;
 			case EXTADDR:
@@ -173,8 +174,8 @@ int ReadHexFile::open(PicType* picType,const char* filename)
 				cerr<<"unknown record type: "<<recordType<<endl;
 				return -1;
 				break;
-				
-			
+
+
 		}
 	}while(recordType!=ENDOFFILE);
 	fp.close();
@@ -212,7 +213,7 @@ void ReadHexFile::trimData(PicType* picType)
     {
         dataMemory[i]&=0xFF;
     }
-		
+
 }
 
 int ReadHexFile::reload(PicType* picType)
@@ -258,7 +259,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
     		}
     		makeLine(i,DATA,lineData,txt);
     		fp<<txt<<endl;
-    		
+
     	}
     }
 	if(dataMemory.size()>0)
@@ -295,7 +296,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
     	lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().ConfigAddress;
-		if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;		
+		if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -323,7 +324,7 @@ int ReadHexFile::saveAs(PicType* picType,const char* filename)
     makeLine(0,ENDOFFILE,lineData,txt);
     fp<<txt<<endl;
 	return 0;
-	
+
 }
 
 
@@ -369,14 +370,14 @@ bool ReadHexFile::calcCheckSum(int byteCount,int address, RecordType recordType,
 	check+=(address>>8)&0xFF;
 	check+=(address)&0xFF;
 	check+=recordType;
-	
+
 	for(int i=0;i<(signed)lineData.size();i++)
 	{
 		check+=lineData[i];
 	}
-	
+
 	check=(0x100-check)&0xFF;
-	
+
 	if(check!=checkSum)printf("%2X %2X\n",check,checkSum);
 	return (check==checkSum);
 }
@@ -399,10 +400,10 @@ void ReadHexFile::makeLine(int address, RecordType recordType, vector<int> &line
 	check=(0x100-check)&0xFF;
 
     sprintf(output_line+9+(lineData.size()*2),"%02X",check);
-    
+
 
 }
-	
+
 vector<int> &ReadHexFile::getCodeMemory(void)
 {
 	return codeMemory;

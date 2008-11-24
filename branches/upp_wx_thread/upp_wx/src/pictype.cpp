@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #include "pictype.h"
 #include <iostream>
 #include <fstream>
@@ -720,7 +721,7 @@ const Pic picTypes[]={
 	P18F2XXX,	//PicFamily
 	0x12160,		//DevId
 	0x1FFE0,		//DevIdMask
-	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40} 
+	{0x00, 0xCF, 0x1F, 0x1F, 0x00, 0x87, 0xF5, 0x00, 0x03, 0xC0, 0x03, 0xE0, 0x03, 0x40}
 
 },
 //PIC18F2321 	√ 	U 	U 	U 	U 	U 	U 	U 	U
@@ -896,7 +897,7 @@ const Pic picTypes[]={
 //PIC18F2550 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√ 	√
 {
 	"P18F2550",	//Name
-	0x8000,		//CodeSize 
+	0x8000,		//CodeSize
 	0x300000,	//ConfigAddress
 	0xF00000,	//DataAddress in hex file
 	0x100,		//Datasize
@@ -1371,5 +1372,5 @@ Pic PicType::getCurrentPic(void)
 /*Returns an array (vector) of strings containing all names of supported PICs*/
 vector<string> PicType::getPicNames(void)
 {
-	return picNames;			
+	return picNames;
 }

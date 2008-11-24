@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #include "main.h"
 #include <wx/wx.h>
 #include "../svn_revision.h"
@@ -29,7 +30,7 @@ IMPLEMENT_APP(UsbPicProg)
 
 UppMainWindowCallBack *uppMainWindow;
 
-/*This is the wxWidgets initialization function, but we only use it to call 
+/*This is the wxWidgets initialization function, but we only use it to call
  *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
 bool UsbPicProg::OnInit()
 {
@@ -45,13 +46,13 @@ int UsbPicProg::OnExit()
 	delete m_locale;
 	return 0;
 }
- 
+
 /*The "main" loop start here, but wxApp::OnRun calls OnInit and OnInitCmdLine*/
 int UsbPicProg::OnRun()
 {
     return wxApp::OnRun();
 }
- 
+
 /*Initialization function if command line is being used*/
 void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 {
@@ -74,7 +75,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	hardware = NULL;
 	m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
 	m_locale->AddCatalog(wxT("usbpicprog"));
-	
+
     #ifndef UPP_VERSION
 	wxString versionString=wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
 	#else
@@ -105,7 +106,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	{
 		/*when using Windows, wxWidgets takes over the terminal, *
 		 *but we want to have it for cout and cerr			     */
-		#ifdef __WXMSW__	
+		#ifdef __WXMSW__
 		if( AttachConsole((DWORD)-1) )
 		{
 		  freopen( "CON", "w", stdout );
@@ -122,7 +123,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 			return EXIT_SUCCESS;
 		}
 		//command line -s or --silent passed?
-		silent_mode = parser.Found(wxT("s"));	
+		silent_mode = parser.Found(wxT("s"));
 		hardware=new Hardware();
 		if(!hardware->connected())
 		{
@@ -133,7 +134,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 		/* check if -p <str> is passed, else autodetect the device
 		 */
 		if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
-		else 
+		else
 		{
 			int devId=hardware->autoDetectDevice();
 	        picType=new PicType(devId);

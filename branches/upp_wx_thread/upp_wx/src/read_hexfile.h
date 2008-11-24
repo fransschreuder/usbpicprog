@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #ifndef READHEXFILE_H
 #define READHEXFILE_H
 
@@ -26,7 +27,7 @@
 #include "pictype.h"
 
 typedef enum _RecordType{
-			DATA=0,// data record, contains data and 16-bit address. 
+			DATA=0,// data record, contains data and 16-bit address.
 			ENDOFFILE=1,// End Of File record, Usually ':00000001FF'.
 			EXTADDR =4// Extended Linear Address Record, allowing for fully 32 bit addressing. The address field is 0000, the byte count is 02. The two data bytes represent the upper 16 bits of the 32 bit address, when combined with the address of the 00 type record.
 }RecordType;
@@ -58,7 +59,7 @@ class ReadHexFile
 		int getConfigMemory(int address);
 		void print(string* output,PicType* picType);
 		void trimData(PicType* picType);
-		
+
 	private:
 		char filenameToSave[512];
 		vector<int> codeMemory;

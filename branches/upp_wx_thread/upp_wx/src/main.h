@@ -17,6 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #ifndef MAIN_H
 #define MAIN_H
 #ifdef HAVE_CONFIG_H
@@ -33,35 +34,35 @@
 #include "pictype.h"
 #include "read_hexfile.h"
 
-/*Implementation of main wxWidgets application, from 
- OnCmdLineParsed function, either the gui or the command line app 
+/*Implementation of main wxWidgets application, from
+ OnCmdLineParsed function, either the gui or the command line app
  is created.*/
 class UsbPicProg : public wxApp
 {
   public:
 /*This is the wxWidgets initialization function, but we only use it to call
- *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/        
+ *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
     virtual bool OnInit();
-/*Called by WxWidgets to clean up some stuff when the program exits*/    
+/*Called by WxWidgets to clean up some stuff when the program exits*/
 	virtual int OnExit();
-/*The "main" loop start here, but wxApp::OnRun calls OnInit and OnInitCmdLine*/	
+/*The "main" loop start here, but wxApp::OnRun calls OnInit and OnInitCmdLine*/
     virtual int OnRun();
-/*Initialization function if command line is being used*/    
+/*Initialization function if command line is being used*/
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
 /*After command line is being processed, this function is being called
 by wxWidgets, even if no arguments are given. This is the actual function
-in which the real application initializes.*/    
+in which the real application initializes.*/
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
-	
+
 	virtual void MacOpenFile(const wxString &fileName);
 private:
 /*silent_mode is true if -s switch is passed in command line*/
-    bool silent_mode;   
+    bool silent_mode;
 /*class to read, write, print and store the hex file*/
 	ReadHexFile* readHexFile;
-/*class which contains data about supported PIC types and detection by devId*/	
+/*class which contains data about supported PIC types and detection by devId*/
 	PicType* picType;
-/*class to open the usb port and communicate with usbpicprog*/	
+/*class to open the usb port and communicate with usbpicprog*/
 	Hardware* hardware;
 	wxLocale* m_locale;
 };
@@ -84,7 +85,7 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 	 { wxCMD_LINE_SWITCH, wxT("e"), _("erase"),  		_("bulk erase the device") },
 	 { wxCMD_LINE_SWITCH, wxT("b"), _("blankcheck"),  _("blankcheck the device") },
 	 { wxCMD_LINE_PARAM,  wxT("f"), _("file"),  		_("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
- 
+
      { wxCMD_LINE_NONE }
 };
 
@@ -100,7 +101,7 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 	 { wxCMD_LINE_SWITCH, "e", "erase",  		"bulk erase the device" },
 	 { wxCMD_LINE_SWITCH, "b", "blankcheck",  "blankcheck the device" },
 	 { wxCMD_LINE_PARAM,  "f", "file",  		"hexfile",wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
- 
+
      { wxCMD_LINE_NONE }
 };*/
 
