@@ -27,7 +27,7 @@
 #include <wx/statusbr.h>
 #include <wx/frame.h>
 
-#include "include_icons.h"
+#include "formbuilder_includes.h"
 
 ///////////////////////////////////////////////////////////////////////////
 

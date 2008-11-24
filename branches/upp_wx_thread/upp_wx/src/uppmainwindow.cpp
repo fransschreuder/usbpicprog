@@ -48,7 +48,55 @@ static const wxChar *FILETYPES = _T(
     "All files|*.*"
 );
 
-wxBitmap wxGetMenuBitmap(const char* xpm_data[])
+/*Do the basic initialization of the main window*/
+UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& title,
+                             const wxPoint& pos, const wxSize& size, long style )
+    : UppMainWindowBase( parent, id, title, pos, size, style )
+{
+    CompleteGUICreation();
+
+    // non-GUI init:
+    readHexFile=new ReadHexFile();
+    picType=NULL;
+    hardware=NULL;
+    upp_connect();
+
+    // append all PIC names to the choice control
+    for(int i=0;i<(signed)picType->getPicNames().size();i++)
+        m_pPICChoice->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
+    m_pPICChoice->SetStringSelection(wxT("P18F2550"));
+    m_pPICChoice->InvalidateBestSize();
+    m_pPICChoice->SetColumns(3);
+
+    uppConfig=new wxConfig(wxT("usbpicprog"));
+
+    if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
+    if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
+    if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}
+    if ( uppConfig->Read(wxT("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}
+    if ( uppConfig->Read(wxT("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
+    if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
+    if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
+    if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
+
+    fileOpened=false;
+}
+
+UppMainWindow::~UppMainWindow()
+{
+    uppConfig->Write(wxT("DefaultPath"), defaultPath);
+    uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
+    uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
+    uppConfig->Write(wxT("ConfigProgramData"), configFields.ConfigProgramData);
+    uppConfig->Write(wxT("ConfigVerifyCode"), configFields.ConfigVerifyCode);
+    uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
+    uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
+    uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
+
+    delete uppConfig;
+}
+
+wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
     wxImage tmp(xpm_data);
 
@@ -62,10 +110,7 @@ wxBitmap wxGetMenuBitmap(const char* xpm_data[])
     return wxBitmap(tmp);
 }
 
-/*Do the basic initialization of the main window*/
-UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& title,
-                             const wxPoint& pos, const wxSize& size, long style )
-    : UppMainWindowBase( parent, id, title, pos, size, style )
+void UppMainWindow::CompleteGUICreation()
 {
     // complete creation of the GUI creating the toolbar;
     // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
@@ -98,32 +143,32 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     wxMenu* pMenuActions = new wxMenu();
     wxMenuItem* pMenuProgram;
     pMenuProgram = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Program") ) + wxT('\t') + wxT("F7"), wxEmptyString, wxITEM_NORMAL );
-    pMenuProgram->SetBitmap(wxGetMenuBitmap( program_xpm ));
+    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
     pMenuActions->Append( pMenuProgram );
 
     wxMenuItem* pMenuRead;
     pMenuRead = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Read") ) + wxT('\t') + wxT("F8"), wxEmptyString, wxITEM_NORMAL );
-    pMenuRead->SetBitmap(wxGetMenuBitmap( read_xpm ));
+    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
     pMenuActions->Append( pMenuRead );
 
     wxMenuItem* pMenuVerify;
     pMenuVerify = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Verify") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuVerify->SetBitmap(wxGetMenuBitmap( verify_xpm ));
+    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
     pMenuActions->Append( pMenuVerify );
 
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Erase") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuErase->SetBitmap(wxGetMenuBitmap( erase_xpm ));
+    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
     pMenuActions->Append( pMenuErase );
 
     wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Blankcheck") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuBlankCheck->SetBitmap(wxGetMenuBitmap( blankcheck_xpm ));
+    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuBlankCheck );
 
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Autodetect") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuAutoDetect->SetBitmap(wxGetMenuBitmap( blankcheck_xpm ));
+    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuAutoDetect );
 
     m_pMenuBar->Insert(2, pMenuActions, _("Actions") );
@@ -135,48 +180,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
 
-    // non-GUI init:
-    readHexFile=new ReadHexFile();
-    picType=NULL;
-    hardware=NULL;
-    upp_connect();
-
-    // append all PIC names to the choice control
-    for(int i=0;i<(signed)picType->getPicNames().size();i++)
-        m_pPICChoice->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
-    m_pPICChoice->SetStringSelection(wxT("P18F2550"));
-    m_pPICChoice->InvalidateBestSize();
-    m_pPICChoice->SetColumns(3);
-
     this->SetSizerAndFit(m_pSizer);
-
-
-    uppConfig=new wxConfig(wxT("usbpicprog"));
-
-    if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
-    if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
-    if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}
-    if ( uppConfig->Read(wxT("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}
-    if ( uppConfig->Read(wxT("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
-    if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
-    if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
-    if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
-
-    fileOpened=false;
-}
-
-UppMainWindow::~UppMainWindow()
-{
-    uppConfig->Write(wxT("DefaultPath"), defaultPath);
-    uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
-    uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
-    uppConfig->Write(wxT("ConfigProgramData"), configFields.ConfigProgramData);
-    uppConfig->Write(wxT("ConfigVerifyCode"), configFields.ConfigVerifyCode);
-    uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
-    uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
-    uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
-
-    delete uppConfig;
 }
 
 /*Update the progress bar*/
@@ -188,7 +192,7 @@ void UppMainWindow::updateProgress(int value)
 
 /*Put the contents of the hex file in the text area*/
 void UppMainWindow::printHexFile()
-{/*  FIXME
+{
     #ifdef USE_UPPHEXVIEW
     uppHexEdit->putHexFile(readHexFile,picType);
     //#if defined(__WXMSW__) || defined(__WXMAC__)

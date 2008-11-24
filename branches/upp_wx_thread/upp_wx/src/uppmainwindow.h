@@ -76,10 +76,17 @@ public:
                   long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
     ~UppMainWindow();
 
-    void updateProgress(int value);
-    void printHexFile();
+
     void upp_open_file(const wxString& path);
     void upp_new();
+    void updateProgress(int value);
+
+protected:      // internal helpers
+
+    void printHexFile();
+
+    wxBitmap GetMenuBitmap(const char* xpm_data[]);
+    void CompleteGUICreation();
 
 public:     // event handlers
 
