@@ -10,6 +10,8 @@
 
 #include <wx/intl.h>
 
+class UppHexViewGrid;
+
 #include <wx/string.h>
 #include <wx/stattext.h>
 #include <wx/gdicmn.h>
@@ -45,7 +47,7 @@ class UppMainWindowBase : public wxFrame
 		wxNotebook* m_pNotebook;
 		wxPanel* m_pCodePanel;
 		wxStaticText* m_staticText1;
-		wxGrid* m_pCodeGrid;
+		UppHexViewGrid* m_pCodeGrid;
 		wxPanel* m_pConfigPanel;
 		wxStaticText* m_staticText2;
 		wxGrid* m_pConfigGrid;

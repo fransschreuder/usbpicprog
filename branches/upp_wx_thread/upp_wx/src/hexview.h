@@ -35,46 +35,41 @@
 #include <wx/utils.h>
 #include <wx/clipbrd.h>
 #include <wx/dataobj.h>
+
 #include "read_hexfile.h"
 #include "pictype.h"
+
 #include <iostream>
 using namespace std;
 
 
-class UppHexview : public wxPanel
+class UppHexViewGrid : public wxGrid
 {
+public:
+    UppHexViewGrid(wxWindow* parent, wxWindowID id = wxID_ANY,
+                   const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
+                   long style = wxWANTS_CHARS);
+    ~UppHexViewGrid();
+
+/*
+    void Copy(void);
+    void SelectAll(void);
+*/
+    void ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicType* picType);
+
 private:
+/*
     void autoSizeColumns (void);
-    void setLabels (int configOffset);
+    void setLabels (int configOffset);*/
     ReadHexFile* readHexFile;
 
 protected:
-    wxFlexGridSizer* bSizer2;
-    wxBoxSizer* hexViewBoxSizer;
-    wxScrolledWindow* hexViewScrolledWindow;
-    wxStaticText* labelCode;
-    wxGrid* codeGrid;
-    wxStaticText* labelConfig;
-    wxGrid* configGrid;
-    wxStaticText* labelData;
-    wxGrid* dataGrid;
-
     void OnCopy (wxCommandEvent& event);
     void OnSelectAll (wxCommandEvent& event);
     void OnCodeRightClicked (wxGridEvent& event );
     void OnCodeChanged( wxGridEvent& event );
     void OnDataChanged( wxGridEvent& event );
     void OnConfigChanged( wxGridEvent& event );
-
-public:
-    UppHexview(wxWindow* parent, wxWindowID id = wxID_ANY, wxString title = wxEmptyString,
-               const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-               long style = wxTAB_TRAVERSAL);
-    ~UppHexview();
-
-    void Copy(void);
-    void SelectAll(void);
-    void putHexFile(ReadHexFile* hexFile, PicType* picType);
 };
 
 #endif //__hexview__

@@ -5,6 +5,8 @@
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
+#include "hexview.h"
+
 #include "uppmainwindow_base.h"
 
 ///////////////////////////////////////////////////////////////////////////
@@ -24,23 +26,23 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText1->Wrap( -1 );
 	bSizer2->Add( m_staticText1, 0, wxALL, 5 );
 	
-	m_pCodeGrid = new wxGrid( m_pCodePanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_pCodeGrid = new UppHexViewGrid( m_pCodePanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	m_pCodeGrid->CreateGrid( 5, 5 );
+	m_pCodeGrid->CreateGrid( 0, 24 );
 	m_pCodeGrid->EnableEditing( true );
-	m_pCodeGrid->EnableGridLines( true );
+	m_pCodeGrid->EnableGridLines( false );
 	m_pCodeGrid->EnableDragGridSize( false );
 	m_pCodeGrid->SetMargins( 0, 0 );
 	
 	// Columns
 	m_pCodeGrid->EnableDragColMove( false );
-	m_pCodeGrid->EnableDragColSize( true );
+	m_pCodeGrid->EnableDragColSize( false );
 	m_pCodeGrid->SetColLabelSize( 30 );
 	m_pCodeGrid->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
-	m_pCodeGrid->EnableDragRowSize( true );
+	m_pCodeGrid->EnableDragRowSize( false );
 	m_pCodeGrid->SetRowLabelSize( 80 );
 	m_pCodeGrid->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	

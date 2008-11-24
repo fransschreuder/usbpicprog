@@ -22,6 +22,7 @@
 #include <wx/artprov.h>
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
+#include "hexview.h"
 #include "../svn_revision.h"
 
 #if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
@@ -180,6 +181,7 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
 
+    this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 }
 
@@ -193,8 +195,9 @@ void UppMainWindow::updateProgress(int value)
 /*Put the contents of the hex file in the text area*/
 void UppMainWindow::printHexFile()
 {
-    #ifdef USE_UPPHEXVIEW
-    uppHexEdit->putHexFile(readHexFile,picType);
+    m_pCodeGrid->ShowHexFile(readHexFile,readHexFile->getCodeMemory(),picType);
+
+/*
     //#if defined(__WXMSW__) || defined(__WXMAC__)
     int w=GetSize().GetWidth();
     int h=GetSize().GetHeight();
