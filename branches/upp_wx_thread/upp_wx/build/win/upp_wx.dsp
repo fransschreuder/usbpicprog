@@ -496,7 +496,7 @@ SOURCE=..\..\src\uppmainwindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\uppmainwindow_callback.cpp
+SOURCE=..\..\src\uppmainwindow_base.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -504,15 +504,15 @@ SOURCE=..\..\src\uppmainwindow_callback.cpp
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\src\formbuilder_includes.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\hardware.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\hexview.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\include_icons.h
 # End Source File
 # Begin Source File
 
@@ -536,7 +536,7 @@ SOURCE=..\..\src\uppmainwindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\uppmainwindow_callback.h
+SOURCE=..\..\src\uppmainwindow_base.h
 # End Source File
 # End Group
 # End Target
