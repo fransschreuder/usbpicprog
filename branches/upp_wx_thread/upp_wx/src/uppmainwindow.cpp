@@ -57,17 +57,10 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     CompleteGUICreation();
 
     // non-GUI init:
-    readHexFile=new ReadHexFile();
-    picType=NULL;
+    m_pHexFile=new ReadHexFile();
+    picType=NULL;       // means that there is no known PIC connected!
     hardware=NULL;
     upp_connect();
-
-    // append all PIC names to the choice control
-    for(int i=0;i<(signed)picType->getPicNames().size();i++)
-        m_pPICChoice->Append(wxString::FromAscii(picType->getPicNames()[i].c_str()));
-    m_pPICChoice->SetStringSelection(wxT("P18F2550"));
-    m_pPICChoice->InvalidateBestSize();
-    m_pPICChoice->SetColumns(3);
 
     uppConfig=new wxConfig(wxT("usbpicprog"));
 
@@ -207,6 +200,12 @@ void UppMainWindow::CompleteGUICreation()
     const int widths[] = { -2, -1 };
     m_pStatusBar->SetStatusWidths(2, widths);
 
+    // append all PIC names to the choice control
+    vector<string> arr;
+    PicType::getPicNames(arr);
+    for(unsigned int i=0;i<arr.size();i++)
+        m_pPICChoice->Append(wxString::FromAscii(arr[i].c_str()));
+
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 }
@@ -238,15 +237,15 @@ void UppMainWindow::updateProgress(int value)
 /*Put the contents of the hex file in the text area*/
 void UppMainWindow::printHexFile()
 {
-    m_pCodeGrid->ShowHexFile(readHexFile,readHexFile->getCodeMemory(),picType);
-    m_pConfigGrid->ShowHexFile(readHexFile,readHexFile->getConfigMemory(),picType);
-    m_pDataGrid->ShowHexFile(readHexFile,readHexFile->getDataMemory(),picType);
+    m_pCodeGrid->ShowHexFile(m_pHexFile,m_pHexFile->getCodeMemory(),picType);
+    m_pConfigGrid->ShowHexFile(m_pHexFile,m_pHexFile->getConfigMemory(),picType);
+    m_pDataGrid->ShowHexFile(m_pHexFile,m_pHexFile->getDataMemory(),picType);
 }
 
 /*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
-    readHexFile->newFile(picType);
+    m_pHexFile->newFile(picType);
     fileOpened=false;
     printHexFile();
 }
@@ -268,7 +267,7 @@ void UppMainWindow::upp_open()
 /*Open a hexfile by filename*/
 void UppMainWindow::upp_open_file(const wxString& path)
 {
-    if(readHexFile->open(picType,path.mb_str(wxConvUTF8))<0)
+    if(m_pHexFile->open(picType,path.mb_str(wxConvUTF8))<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, _("Unable to open file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
@@ -293,7 +292,7 @@ void UppMainWindow::upp_refresh()
         return;
     }
 
-    if(readHexFile->reload(picType)<0)
+    if(m_pHexFile->reload(picType)<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, _("Unable to open file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
@@ -306,7 +305,7 @@ void UppMainWindow::upp_save()
 {
     if(fileOpened)
     {
-        if(readHexFile->save(picType)<0)
+        if(m_pHexFile->save(picType)<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxMessageDialog(this, _("Unable to save file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
@@ -324,7 +323,7 @@ void UppMainWindow::upp_save_as()
 
     if ( openFileDialog->ShowModal() == wxID_OK )
     {
-        if(readHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+        if(m_pHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxMessageDialog(this, _("Unable to save file"), _("Error"),
@@ -357,26 +356,34 @@ void UppMainWindow::upp_selectall()
 void UppMainWindow::upp_program()
 {
     if (hardware == NULL) return;
+
+    if (picType->getCurrentPic().Name == UNKNOWN_PIC_NAME)
+    {
+        wxLogError(_("Uknown PIC connected"));
+        return;
+    }
+
     if(configFields.ConfigEraseBeforeProgramming)
     {
         switch(hardware->bulkErase(picType))
         {
         case 1:
-        SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
-        break;
+            SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
+            break;
         default:
-        SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Error erasing the device"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
-        break;
-
+            SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
+            wxMessageDialog(this, _("Error erasing the device"), _("Error"),
+                            wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            break;
         }
     }
+
     if(configFields.ConfigProgramCode)
     {
-        switch(hardware->writeCode(readHexFile,picType))
+        switch(hardware->writeCode(m_pHexFile,picType))
         {
         case 0:
-                    SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
+            SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
@@ -404,12 +411,13 @@ void UppMainWindow::upp_program()
             break;
         }
     }
+
     if(configFields.ConfigProgramConfig)
     {
-        switch(hardware->writeData(readHexFile,picType))
+        switch(hardware->writeData(m_pHexFile,picType))
         {
-            case 0:
-                    SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
+        case 0:
+            SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
@@ -433,12 +441,13 @@ void UppMainWindow::upp_program()
             break;
         }
     }
+
     if(configFields.ConfigProgramData)
     {
-        switch(hardware->writeConfig(readHexFile,picType))
+        switch(hardware->writeConfig(m_pHexFile,picType))
         {
         case 0:
-                    SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
+            SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
@@ -462,8 +471,8 @@ void UppMainWindow::upp_program()
             break;
         }
     }
+
     updateProgress(100);
-    return;
 }
 
 /*read everything from the device*/
@@ -471,25 +480,25 @@ void UppMainWindow::upp_read()
 {
     if (hardware == NULL) return;
 
-    if(hardware->readCode(readHexFile,picType)<0)
+    if(hardware->readCode(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading code memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, _("Error reading code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
         //return;
     }
-    if(hardware->readData(readHexFile,picType)<0)
+    if(hardware->readData(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading data memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, _("Error reading data memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
         //return;
     }
-    if(hardware->readConfig(readHexFile,picType)<0)
+    if(hardware->readConfig(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading config memory"),STATUS_FIELD_OTHER);
         wxMessageDialog(this, _("Error reading config memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
         //return;
     }
-    readHexFile->trimData(picType);
+    m_pHexFile->trimData(picType);
     printHexFile();
     updateProgress(100);
     return;
@@ -502,7 +511,7 @@ void UppMainWindow::upp_verify()
 
     wxString verifyText;
     wxString typeText;
-    VerifyResult res=hardware->verify(readHexFile,picType,configFields.ConfigVerifyCode,configFields.ConfigVerifyConfig,configFields.ConfigVerifyData);
+    VerifyResult res=hardware->verify(m_pHexFile,picType,configFields.ConfigVerifyCode,configFields.ConfigVerifyConfig,configFields.ConfigVerifyData);
     switch(res.Result)
     {
         case VERIFY_SUCCESS:
@@ -623,8 +632,10 @@ bool UppMainWindow::upp_autodetect()
 /*Connect usbpicprog to the usb port*/
 bool UppMainWindow::upp_connect()
 {
+    // recreate the hw class
     if (hardware != NULL) delete hardware;
     hardware=new Hardware(this, HW_UPP);
+
     if(hardware->connected())
     {
         upp_autodetect();
@@ -637,11 +648,12 @@ bool UppMainWindow::upp_connect()
     }
     else
     {
-        picType=new PicType(0);
+        picType=new PicType("Unknown");
         hardware->setPicType(picType);
 
         m_pPICChoice->SetStringSelection(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
 
+        //m_pPICChoice->SetSelection(m_idxUknownPIC);
         SetStatusText(_("Usbpicprog not found"),STATUS_FIELD_HARDWARE);
     }
     upp_update_hardware_type();

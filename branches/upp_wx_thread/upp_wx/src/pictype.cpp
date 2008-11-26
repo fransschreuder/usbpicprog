@@ -41,6 +41,18 @@ const Pic defaultPic=
 /*All the properties of supported PIC devices...*/
 const Pic picTypes[]={
 {
+    UNKNOWN_PIC_NAME,  //Name
+    0x9, //CodeSize
+    0x1FF,      //ConfigAddress
+    0x2100,     //DataAddress in hex file
+    0x0,        //Datasize
+    0x2,        //ConfigSize
+    P10F200,    //PicFamily
+    0xF0000,        //DevId -> this is not implemented in 10F devices, no autodetection possible
+    0xFFFFF,        //DevIdMask
+    {0x00,0x00}
+},
+{
 	"P10F200",	//Name
 	0xFE*2,	//CodeSize
 	0x1FF,		//ConfigAddress
@@ -1358,9 +1370,6 @@ PicType::PicType(int devId)
 		matchFound=false;
 		//cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
 	}
-	picNames.resize(sizeof(picTypes)/sizeof(Pic));
-	for(int i=0;i<(signed)picNames.size();i++)
-		picNames[i]=picTypes[i].Name;
 }
 
 /*Returns the pic that has been selected*/
@@ -1372,5 +1381,18 @@ Pic PicType::getCurrentPic(void)
 /*Returns an array (vector) of strings containing all names of supported PICs*/
 vector<string> PicType::getPicNames(void)
 {
+    picNames.resize(sizeof(picTypes)/sizeof(Pic));
+    for(int i=0;i<(signed)picNames.size();i++)
+        picNames[i]=picTypes[i].Name;
 	return picNames;
+}
+
+
+/*Returns an array (vector) of strings containing all names of supported PICs*/
+void PicType::getPicNames(vector<string>& ret)
+{
+    // FIXME
+    ret.resize(sizeof(picTypes)/sizeof(Pic));
+    for(int i=0;i<(signed)ret.size();i++)
+        ret[i]=picTypes[i].Name;
 }

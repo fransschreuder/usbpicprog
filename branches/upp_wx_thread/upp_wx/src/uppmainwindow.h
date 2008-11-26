@@ -146,7 +146,7 @@ private:
     void upp_update_hardware_type();
 
 private:    // member variables
-    ReadHexFile* readHexFile;
+    ReadHexFile* m_pHexFile;
     PicType* picType;
     Hardware* hardware;
     bool fileOpened;
@@ -155,5 +155,8 @@ private:    // member variables
     ConfigFields configFields;
 
     wxChoice* m_pPICChoice;
+    //const int m_idxUknownPIC;
 };
+#define m_idxUknownPIC 0
+
 #endif

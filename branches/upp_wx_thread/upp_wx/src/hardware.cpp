@@ -28,7 +28,7 @@ using namespace std;
 
 #define USB_DEBUG 2
 /*The class Hardware connects to usbpicprog using libusb. The void* CB points
- to the parent UppMainWindowCallBack which is used for updating the progress
+ to the parent UppMainWindow which is used for updating the progress
  bar. If initiated with no argument, progress is not updated*/
 Hardware::Hardware(void* CB, HardwareType SetHardware)
 {
@@ -1154,7 +1154,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 }
 
 /*When Hardware is constructed, ptCallBack is initiated by a pointer
- to UppMainWindowCallBack, this function calls the callback function
+ to UppMainWindow, this function calls the callback function
  to update the progress bar*/
 void Hardware::statusCallBack(int value)
 {
