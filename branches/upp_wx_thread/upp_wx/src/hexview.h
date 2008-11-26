@@ -63,10 +63,8 @@ private:
 protected:
     void OnCopy (wxCommandEvent& event);
     void OnSelectAll (wxCommandEvent& event);
-    void OnCodeRightClicked (wxGridEvent& event );
-    void OnCodeChanged( wxGridEvent& event );
-    void OnDataChanged( wxGridEvent& event );
-    void OnConfigChanged( wxGridEvent& event );
+    void OnCellRightClicked (wxGridEvent& event );
+    void OnCellChanged( wxGridEvent& event );
 };
 
 #endif //__hexview__

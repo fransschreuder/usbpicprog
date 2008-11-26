@@ -55,17 +55,17 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
 
     SetMinSize(wxSize(-1,300));
 
-/*
     // Connect Events
-    Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCodeChanged ), NULL, this );
-    configGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnConfigChanged ), NULL, this );
+    Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
+    Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
+    Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
+    Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
+
+/*    configGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnConfigChanged ), NULL, this );
     dataGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnDataChanged ), NULL, this );
-    Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCodeRightClicked ), NULL, this );
     configGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCodeRightClicked ), NULL, this );
     dataGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCodeRightClicked ), NULL, this );
 */
-    this->Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
-    this->Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
 UppHexViewGrid::~UppHexViewGrid()
@@ -128,19 +128,15 @@ void UppHexViewGrid::autoSizeColumns(void)
 
 void UppHexViewGrid::Copy()
 {
-    int cnt;
-    wxClipboard *clipboard = new wxClipboard();
-    wxTextDataObject *dataobj = new wxTextDataObject(wxT(""));
-    wxString datastr(wxT(""));
-    cnt=GetSelectionBlockTopLeft().GetCount();
-    //if (cnt>0)datastr.Append(_("Code Memory\n"));
-
+    wxString datastr;
+    int cnt=GetSelectionBlockTopLeft().GetCount();
     for(int i=0;i<cnt;i++)
     {
         int topLeftRow=GetSelectionBlockTopLeft().Item(i).GetRow();
         int bottomRightRow=GetSelectionBlockBottomRight().Item(i).GetRow();
         int topLeftCol=GetSelectionBlockTopLeft().Item(i).GetCol();
         int bottomRightCol=GetSelectionBlockBottomRight().Item(i).GetCol();
+
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
             datastr.Append(GetRowLabelValue(r));
@@ -154,14 +150,11 @@ void UppHexViewGrid::Copy()
         }
     }
 
-    dataobj->SetData(datastr.Length(),datastr.c_str());
-
-    if (clipboard->Open())
+    if (wxTheClipboard->Open())
     {
-        clipboard->SetData(dataobj);
-        clipboard->Close();
+        wxTheClipboard->SetData( new wxTextDataObject(datastr) );
+        wxTheClipboard->Close();
     }
-    //delete clipboard;
 }
 
 void UppHexViewGrid::OnCopy (wxCommandEvent& event)
@@ -174,21 +167,17 @@ void UppHexViewGrid::OnSelectAll (wxCommandEvent& event)
     SelectAll();
 }
 
-/*
-void UppHexViewGrid::OnCodeRightClicked (wxGridEvent& event)
+void UppHexViewGrid::OnCellRightClicked (wxGridEvent& event)
 {
     wxMenu oMenu(_("Edit"));
     wxPoint oPos;
     oMenu.Append(wxID_COPY, _("Copy"));
     oMenu.Append(wxID_SELECTALL, _("Select All"));
     oPos=ScreenToClient(wxGetMousePosition());
-//wxGetMousePosition();
-
     PopupMenu(&oMenu, oPos.x, oPos.y);
-
 }
 
-void UppHexViewGrid::OnCodeChanged (wxGridEvent& event )
+void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
 {
     int Position=event.GetCol()+(event.GetRow()*GetNumberCols());
 
@@ -203,7 +192,7 @@ void UppHexViewGrid::OnCodeChanged (wxGridEvent& event )
     CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
     SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
-
+/*
 void UppHexViewGrid::OnConfigChanged (wxGridEvent& event )
 {
     int Position=event.GetCol()+(event.GetRow()*configGrid->GetNumberCols());

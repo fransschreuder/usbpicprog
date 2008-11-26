@@ -69,7 +69,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	// Grid
 	m_pConfigGrid->CreateGrid( 5, 5 );
 	m_pConfigGrid->EnableEditing( true );
-	m_pConfigGrid->EnableGridLines( true );
+	m_pConfigGrid->EnableGridLines( false );
 	m_pConfigGrid->EnableDragGridSize( false );
 	m_pConfigGrid->SetMargins( 0, 0 );
 	
@@ -107,7 +107,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	// Grid
 	m_pDataGrid->CreateGrid( 5, 5 );
 	m_pDataGrid->EnableEditing( true );
-	m_pDataGrid->EnableGridLines( true );
+	m_pDataGrid->EnableGridLines( false );
 	m_pDataGrid->EnableDragGridSize( false );
 	m_pDataGrid->SetMargins( 0, 0 );
 	
