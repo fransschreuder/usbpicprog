@@ -32,7 +32,7 @@ extern const char* verify_xpm[];
 extern const char* usbpicprog_xpm[];
 
 
-// IDs for the toolbuttons in the toolbar
+// IDs for the toolbuttons in the toolbar and for the menu items of the actions menu
 enum
 {
     wxID_PROGRAM = wxID_HIGHEST+1,

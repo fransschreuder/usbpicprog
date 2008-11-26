@@ -97,6 +97,7 @@ UppMainWindow::~UppMainWindow()
     delete uppConfig;
 }
 
+/* returns a bitmap suitable for UppMainWindow menu items */
 wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
     wxImage tmp(xpm_data);
@@ -111,23 +112,81 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
     return wxBitmap(tmp);
 }
 
+/* completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
 void UppMainWindow::CompleteGUICreation()
 {
+    // create the actions menu with rescaled icons
+    wxMenu* pMenuActions = new wxMenu();
+    wxMenuItem* pMenuProgram;
+    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("Program...") ) + wxT('\t') + wxT("F7"),
+                                   _("Program the device"), wxITEM_NORMAL );
+    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
+    pMenuActions->Append( pMenuProgram );
+
+    wxMenuItem* pMenuRead;
+    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("Read...") ) + wxT('\t') + wxT("F8"),
+                                _("Read the device"), wxITEM_NORMAL );
+    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
+    pMenuActions->Append( pMenuRead );
+
+    wxMenuItem* pMenuVerify;
+    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("Verify...") ),
+                                  _("Verify the device"), wxITEM_NORMAL );
+    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
+    pMenuActions->Append( pMenuVerify );
+
+    wxMenuItem* pMenuErase;
+    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("Erase...") ),
+                                 _("Erase the device"), wxITEM_NORMAL );
+    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
+    pMenuActions->Append( pMenuErase );
+
+    wxMenuItem* pMenuBlankCheck;
+    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("Blankcheck...") ),
+                                      _("Blankcheck the device"), wxITEM_NORMAL );
+    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+    pMenuActions->Append( pMenuBlankCheck );
+
+    wxMenuItem* pMenuAutoDetect;
+    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("Autodetect...") ),
+                                      _("Detect the device"), wxITEM_NORMAL );
+    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+    pMenuActions->Append( pMenuAutoDetect );
+
+    m_pMenuBar->Insert(2, pMenuActions, _("Actions") );
+
+    this->Connect( pMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
+    this->Connect( pMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
+    this->Connect( pMenuVerify->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
+    this->Connect( pMenuErase->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
+    this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
+    this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+
     // complete creation of the GUI creating the toolbar;
     // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
     wxToolBar* toolbar = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY );
 
-    toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"), _("Clear open hex file") );
-    toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),  _("Open a hex file") );
-    toolbar->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),  _("Reload the hex file") );
-    toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"), _("Save the hex file") );
-    toolbar->AddTool( wxID_SAVE_AS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"), _("Save the hex file as") );
+    toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"),
+                      GetMenuBar()->FindItem(wxID_NEW)->GetHelp() );
+    toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),
+                      GetMenuBar()->FindItem(wxID_OPEN)->GetHelp() );
+    toolbar->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),
+                      GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
+    toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"),
+                      GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
+    toolbar->AddTool( wxID_SAVE_AS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"),
+                      GetMenuBar()->FindItem(wxID_SAVE_AS)->GetHelp() );
     toolbar->AddSeparator();
-    toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"), _("Program the device") );
-    toolbar->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"), _("Read the device") );
-    toolbar->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"), _("Verify the device") );
-    toolbar->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"), _("Erase the device") );
-    toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"), _("Blankcheck the device") );
+    toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"),
+                      GetMenuBar()->FindItem(wxID_PROGRAM)->GetHelp() );
+    toolbar->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"),
+                      GetMenuBar()->FindItem(wxID_READ)->GetHelp() );
+    toolbar->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"),
+                      GetMenuBar()->FindItem(wxID_VERIFY)->GetHelp() );
+    toolbar->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"),
+                      GetMenuBar()->FindItem(wxID_ERASE)->GetHelp() );
+    toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"),
+                      GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
     toolbar->AddSeparator();
 
     m_pPICChoice = new wxChoice(toolbar, wxID_ANY, wxDefaultPosition, wxSize(120,-1));
@@ -141,51 +200,28 @@ void UppMainWindow::CompleteGUICreation()
     */
     toolbar->Realize();
 
-    // complete creation of the actions menu, by adding rescaled icons
-    wxMenu* pMenuActions = new wxMenu();
-    wxMenuItem* pMenuProgram;
-    pMenuProgram = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Program") ) + wxT('\t') + wxT("F7"), wxEmptyString, wxITEM_NORMAL );
-    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
-    pMenuActions->Append( pMenuProgram );
-
-    wxMenuItem* pMenuRead;
-    pMenuRead = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Read") ) + wxT('\t') + wxT("F8"), wxEmptyString, wxITEM_NORMAL );
-    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
-    pMenuActions->Append( pMenuRead );
-
-    wxMenuItem* pMenuVerify;
-    pMenuVerify = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Verify") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
-    pMenuActions->Append( pMenuVerify );
-
-    wxMenuItem* pMenuErase;
-    pMenuErase = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Erase") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
-    pMenuActions->Append( pMenuErase );
-
-    wxMenuItem* pMenuBlankCheck;
-    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Blankcheck") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
-    pMenuActions->Append( pMenuBlankCheck );
-
-    wxMenuItem* pMenuAutoDetect;
-    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_ANY, wxString( _("Autodetect") ) , wxEmptyString, wxITEM_NORMAL );
-    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
-    pMenuActions->Append( pMenuAutoDetect );
-
-    m_pMenuBar->Insert(2, pMenuActions, _("Actions") );
-
-    this->Connect( pMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
-    this->Connect( pMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
-    this->Connect( pMenuVerify->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-    this->Connect( pMenuErase->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-    this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
-    this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
-
-    m_pNotebook->ChangeSelection(0);
+    // by default show code page at startup
+    m_pNotebook->ChangeSelection(PAGE_CODE);
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
+}
+
+/* returns a pointer to the grid currently open */
+UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
+{
+    switch (m_pNotebook->GetSelection())
+    {
+    case PAGE_CODE:
+        return m_pCodeGrid;
+    case PAGE_CONFIG:
+        return m_pConfigGrid;
+    case PAGE_DATA:
+        return m_pDataGrid;
+
+    default:
+        return NULL;
+    }
 }
 
 /*Update the progress bar*/
@@ -301,16 +337,16 @@ void UppMainWindow::upp_exit()
 
 void UppMainWindow::upp_copy()
 {
-//    uppHexEdit->Copy();           FIXME
+    UppHexViewGrid *grid = GetCurrentGrid();
+    if (grid)
+        grid->Copy();
 }
 
 void UppMainWindow::upp_selectall()
-{/* FIXME
-    #ifdef USE_UPPHEXVIEW
-    uppHexEdit->SelectAll();
-    #else
-    uppHexEdit->SetSelection(-1,-1);
-    #endif */
+{
+    UppHexViewGrid *grid = GetCurrentGrid();
+    if (grid)
+        grid->SelectAll();
 }
 
 /*Write everything to the device*/

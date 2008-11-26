@@ -51,10 +51,7 @@ public:
                    long style = wxWANTS_CHARS);
     ~UppHexViewGrid();
 
-/*
-    void Copy(void);
-    void SelectAll(void);
-*/
+    void Copy();
     void ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicType* picType);
 
 private:

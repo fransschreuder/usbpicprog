@@ -67,6 +67,8 @@ class UppMainWindowBase : public wxFrame
 		virtual void on_save( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_save_as( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_exit( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_copy( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_selectall( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
 		

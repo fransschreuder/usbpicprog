@@ -58,7 +58,13 @@ using namespace std;
 #define STATUS_FIELD_PROGRESS       2
 #define STATUS_FIELD_SIDE           3
 
-
+// defines the order in which the pages related to the loaded HEX file are shown
+enum UppMainWindowNotebookPages
+{
+    PAGE_CODE,
+    PAGE_CONFIG,
+    PAGE_DATA
+};
 
 
 /*
@@ -87,6 +93,8 @@ protected:      // internal helpers
 
     wxBitmap GetMenuBitmap(const char* xpm_data[]);
     void CompleteGUICreation();
+
+    UppHexViewGrid* GetCurrentGrid() const;
 
 public:     // event handlers
 
