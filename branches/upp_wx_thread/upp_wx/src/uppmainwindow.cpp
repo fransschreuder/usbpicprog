@@ -203,6 +203,10 @@ void UppMainWindow::CompleteGUICreation()
     // by default show code page at startup
     m_pNotebook->ChangeSelection(PAGE_CODE);
 
+    // make 2nd pane wide the half of the 1st pane:
+    const int widths[] = { -2, -1 };
+    m_pStatusBar->SetStatusWidths(2, widths);
+
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 }
@@ -781,20 +785,3 @@ void UppMainWindow::upp_update_hardware_type()
         m_radioButton_upp->SetValue(false);
     }*/
 }
-
-void UppMainWindow::OnSize(wxSizeEvent& event)
-{
-    wxRect rect;
-    if(IsShown())
-    {
-        m_pStatusBar->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
-
-        // FIXME
-        //uppProgressBar->SetPosition(rect.GetPosition());
-        //uppProgressBar->SetSize(rect.GetSize());
-
-    }
-    this->Layout();
-    event.Skip();
-}
-

@@ -60,22 +60,15 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
     Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
     Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
     Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
-
-/*    configGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnConfigChanged ), NULL, this );
-    dataGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnDataChanged ), NULL, this );
-    configGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCodeRightClicked ), NULL, this );
-    dataGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCodeRightClicked ), NULL, this );
-*/
 }
 
 UppHexViewGrid::~UppHexViewGrid()
 {
-/*
     // Disconnect Events
-    Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCodeChanged ), NULL, this );
-    configGrid->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCodeChanged ), NULL, this );
-    dataGrid->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnDataChanged ), NULL, this );
-*/
+    Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
+    Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
+    Disconnect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
+    Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
 void UppHexViewGrid::ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicType* picType)
@@ -186,6 +179,7 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
     sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
     if((Data>=0)&&(Data<=0xFF))
     {
+        // FIXME
         readHexFile->putCodeMemory(Position,Data);
     }
 

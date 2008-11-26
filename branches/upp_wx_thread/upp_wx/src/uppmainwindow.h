@@ -53,10 +53,12 @@ using namespace std;
 
 
 // more readable names for the various fields of the status bar
-#define STATUS_FIELD_HARDWARE       0
-#define STATUS_FIELD_OTHER          1
-#define STATUS_FIELD_PROGRESS       2
-#define STATUS_FIELD_SIDE           3
+enum UppMainWindowStatusBar
+{
+    STATUS_FIELD_MENU,
+    STATUS_FIELD_OTHER = STATUS_FIELD_MENU,
+    STATUS_FIELD_HARDWARE
+};
 
 // defines the order in which the pages related to the loaded HEX file are shown
 enum UppMainWindowNotebookPages
@@ -119,7 +121,6 @@ public:     // event handlers
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
     void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
     void on_combo_changed( wxCommandEvent& event ){upp_combo_changed(); EVENT_FIX};
-    void OnSize(wxSizeEvent& event);
 
 private:
     void upp_open();
