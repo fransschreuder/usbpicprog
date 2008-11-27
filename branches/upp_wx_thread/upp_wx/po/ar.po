@@ -25,7 +25,7 @@ msgstr "تعليمات"
 
 #: src/main.h:77
 msgid "displays help on the command line parameters"
-msgstr "displays help on the command line parameters"
+msgstr "إظهار المساعدة حول استخدام البرنامج مع موجه التعليمات (command prompt)"
 
 #: src/main.h:78
 msgid "version"
@@ -33,15 +33,15 @@ msgstr "الإصدار"
 
 #: src/main.h:78
 msgid "displays version information of usbpicprog"
-msgstr "displays version information of usbpicprog"
+msgstr "إظهار معلومات عن هذا الإصدار من usbpicprog"
 
 #: src/main.h:79
 msgid "pictype"
-msgstr "نوع البيك"
+msgstr "نوع الـ PIC"
 
 #: src/main.h:79
 msgid "specify the pic type (eg -p=P18F2550)"
-msgstr "تحديد نمط البيك (مثال -p=18F2550)"
+msgstr "تحديد نمط الـ PIC (مثال -p=18F2550)"
 
 #: src/main.h:80
 msgid "silent"
@@ -89,11 +89,11 @@ msgstr "مسح شامل للعنصر"
 #: src/main.h:85
 #: src/uppmainwindow.cpp:185
 msgid "blankcheck"
-msgstr "فحص كامل"
+msgstr "فحص الخلو"
 
 #: src/main.h:85
 msgid "blankcheck the device"
-msgstr "فحص كامل للعنصر"
+msgstr "فحص خلو العنصر"
 
 #: src/main.h:86
 msgid "file"
@@ -105,7 +105,7 @@ msgstr "ملف الهيكسا"
 
 #: src/hexview.cpp:17
 msgid "Code Memory"
-msgstr "ذاكرة البرنامج"
+msgstr "ذاكرة شيفرة التعليمات"
 
 #: src/hexview.cpp:48
 msgid "Config Memory"
@@ -113,11 +113,11 @@ msgstr "ذاكرة الإعدادات"
 
 #: src/hexview.cpp:79
 msgid "Data Memory"
-msgstr "ذارة المعطيات"
+msgstr "ذاكرة المعطيات"
 
 #: src/hexview.cpp:214
 msgid "Code Memory\n"
-msgstr "ذاكرة البرنامج\n"
+msgstr "ذاكرة شيفرة التعليمات\n"
 
 #: src/hexview.cpp:235
 msgid ""
@@ -233,7 +233,7 @@ msgstr "خطأ"
 
 #: src/uppmainwindow_callback.cpp:123
 msgid "No file to refresh"
-msgstr "No file to refresh"
+msgstr "لا يوجد ملف للإنعاش"
 
 #: src/uppmainwindow_callback.cpp:141
 #: src/uppmainwindow_callback.cpp:142
@@ -268,7 +268,7 @@ msgstr "تمت الكتابة في ذاكرة البرنامج"
 #: src/uppmainwindow_callback.cpp:271
 #: src/uppmainwindow_callback.cpp:272
 msgid "Hardware should say OK"
-msgstr "على البرمجة أن تستجيب إيجلبياً"
+msgstr "على المبرمجة أن تستجيب إيجابياً"
 
 #: src/uppmainwindow_callback.cpp:213
 #: src/uppmainwindow_callback.cpp:214
@@ -282,12 +282,12 @@ msgstr "على المبرمجة أن تطلب المجموعة التالية"
 #: src/uppmainwindow_callback.cpp:217
 #: src/uppmainwindow_callback.cpp:218
 msgid "write code not implemented for current PIC"
-msgstr "البرنامج باصداره الحالي لا يدعم كتابة البرنامج على هذا النمط من البيك"
+msgstr "البرنامج باصداره الحالي لا يدعم كتابة شيفرة التعليمات على هذا النمط من الـ PIC"
 
 #: src/uppmainwindow_callback.cpp:221
 #: src/uppmainwindow_callback.cpp:222
 msgid "Verify error while writing code memory"
-msgstr "تفخص الأخطاء أثناء الكتابة في ذاكرة المعطيات"
+msgstr "تفحص الأخطاء أثناء الكتابة في ذاكرة المعطيات"
 
 #: src/uppmainwindow_callback.cpp:225
 #: src/uppmainwindow_callback.cpp:226
@@ -296,12 +296,12 @@ msgstr "تفخص الأخطاء أثناء الكتابة في ذاكرة الم
 #: src/uppmainwindow_callback.cpp:283
 #: src/uppmainwindow_callback.cpp:284
 msgid "USB error while writing code memory"
-msgstr "حدث خطأ من الـ USB أثناء الكتابة ذاكرة البرنامج"
+msgstr "حدث خطأ من الـ USB أثناء الكتابة في ذاكرة التعليمات"
 
 #: src/uppmainwindow_callback.cpp:229
 #: src/uppmainwindow_callback.cpp:230
 msgid "Error programming code memory"
-msgstr "حدث خطأ أثناء الكتابة في ذاكرة البرنامج"
+msgstr "حدث خطأ عند الكتابة في ذاكرة التعليمات"
 
 #: src/uppmainwindow_callback.cpp:239
 msgid "Write Data memory OK"
@@ -310,12 +310,12 @@ msgstr "تمت الكتابة في ذاكرة المعطيات"
 #: src/uppmainwindow_callback.cpp:250
 #: src/uppmainwindow_callback.cpp:251
 msgid "write data not implemented for current PIC"
-msgstr "البرنامج باصداره الحالي لا يدعم كتابة المعطيات على هذا النمط من البيك"
+msgstr "البرنامج باصداره الحالي لا يدعم كتابة المعطيات على هذا النمط من الـ PIC"
 
 #: src/uppmainwindow_callback.cpp:258
 #: src/uppmainwindow_callback.cpp:259
 msgid "Error programming data memory"
-msgstr "حدث خطأ أثناء برمجة ذاكرة المعطيات"
+msgstr "حدث خطأ عند برمجة ذاكرة المعطيات"
 
 #: src/uppmainwindow_callback.cpp:268
 msgid "Write Config memory OK"
@@ -324,27 +324,27 @@ msgstr "تمت الكتابة في ذاكرة الإعدادات"
 #: src/uppmainwindow_callback.cpp:279
 #: src/uppmainwindow_callback.cpp:280
 msgid "write config not implemented for current PIC"
-msgstr "البرنامج باصداره الحالي لا يدعم كتابة الإعدادات على هذا النمط من البيك"
+msgstr "البرنامج باصداره الحالي لا يدعم كتابة الإعدادات على هذا النمط من الـ PIC"
 
 #: src/uppmainwindow_callback.cpp:287
 #: src/uppmainwindow_callback.cpp:288
 msgid "Error programming config memory"
-msgstr "حدث خطأ أثناء برمجة ذاكرة الإعدادات"
+msgstr "حدث خطأ عند برمجة ذاكرة الإعدادات"
 
 #: src/uppmainwindow_callback.cpp:303
 #: src/uppmainwindow_callback.cpp:304
 msgid "Error reading code memory"
-msgstr "حدث خطأ أثناء القراءة في ذاكرة البرنامج"
+msgstr "حدث خطأ عند قراءة ذاكرة التعليمات"
 
 #: src/uppmainwindow_callback.cpp:309
 #: src/uppmainwindow_callback.cpp:310
 msgid "Error reading data memory"
-msgstr "حدث خطأ أثناء القراءة في ذاكرة المعطيات"
+msgstr "حدث خطأ عند قراءة ذاكرة المعطيات"
 
 #: src/uppmainwindow_callback.cpp:315
 #: src/uppmainwindow_callback.cpp:316
 msgid "Error reading config memory"
-msgstr "حدث خطأ أثناء القراءة في ذاكرة الإعدادات"
+msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
 
 #: src/uppmainwindow_callback.cpp:336
 msgid "Verify successful"
@@ -352,7 +352,7 @@ msgstr "نجح التفحص"
 
 #: src/uppmainwindow_callback.cpp:342
 msgid "Verify code"
-msgstr "تفحص البرنامج"
+msgstr "تفحص شيفرة التعليمات"
 
 #: src/uppmainwindow_callback.cpp:343
 msgid "Verify data"
@@ -369,12 +369,12 @@ msgstr "Verify unknown"
 #: src/uppmainwindow_callback.cpp:347
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "فشلت عند 0x%X. القيمة المقروءة: 0x%02X, القيمة المتوقعة: 0x%02X"
 
 #: src/uppmainwindow_callback.cpp:356
 #: src/uppmainwindow_callback.cpp:357
 msgid "USB error during verify"
-msgstr "حدث خطأ من الـ USB أثناء اتفحص"
+msgstr "حدث خطأ من الـ USB أثناء التفحص"
 
 #: src/uppmainwindow_callback.cpp:360
 #: src/uppmainwindow_callback.cpp:361
@@ -390,22 +390,22 @@ msgstr "عذراً على غبائي"
 
 #: src/uppmainwindow_callback.cpp:397
 msgid "Device is blank"
-msgstr "العنصر فارغ تماماً"
+msgstr "العنصر خالٍ"
 
 #: src/uppmainwindow_callback.cpp:408
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "فشل فحص الخلو عند: 0x%X. القيمة المقروءة: 0x%02X,القيمة المتوقعة: 0x%02X"
 
 #: src/uppmainwindow_callback.cpp:416
 #: src/uppmainwindow_callback.cpp:417
 msgid "USB error during blankcheck"
-msgstr "حدث خطأ من الـ USB أثناء الفحص الشامل"
+msgstr "حدث خطأ من الـ USB أثناء فحص الخلو"
 
 #: src/uppmainwindow_callback.cpp:420
 #: src/uppmainwindow_callback.cpp:421
 msgid "Unknown error during blankcheck"
-msgstr "حدث خطأ غير معروف أثناء الفحص الشامل"
+msgstr "حدث خطأ غير معروف أثناء فحص الخلو"
 
 #: src/uppmainwindow_callback.cpp:441
 msgid "Detected: "
@@ -427,24 +427,24 @@ msgstr "تم الإتصال"
 
 #: src/uppmainwindow_callback.cpp:467
 msgid "Usbpicprog not found"
-msgstr "لم يتم العثور على المبرمجة"
+msgstr "لم يتم العثور على Usbpicprog"
 
 #: src/uppmainwindow_callback.cpp:492
 msgid "Bootloader not found"
-msgstr "Bootloader not found"
+msgstr "لم يتم العثور على الـBootloade"
 
 #: src/uppmainwindow_callback.cpp:508
 msgid "Disconnected usbpicprog"
-msgstr "Disconnected usbpicprog"
+msgstr "فصل usbpicprog"
 
 #: src/uppmainwindow_callback.cpp:512
 #: src/uppmainwindow_callback.cpp:517
 msgid "Already disconnected"
-msgstr "غير متصل"
+msgstr "لم يكن متصل"
 
 #: src/uppmainwindow_callback.cpp:551
 msgid "An open source USB pic programmer"
-msgstr "مبرمجة ذي المصدر المفتوح على الـUSB للمتحكمات الصغرية بيك"
+msgstr "مبرمجة للمتحكمات الصغرية بيك ذي المصدر المفتوح و على المنفذ USB"
 
 #: src/uppmainwindow_callback.cpp:556
 #: src/uppmainwindow_callback.cpp:558
@@ -569,11 +569,11 @@ msgstr "مسح العنصر"
 
 #: src/uppmainwindow.cpp:115
 msgid "&Blankcheck"
-msgstr "فحص الفرو&غ"
+msgstr "فحص ال&خلو"
 
 #: src/uppmainwindow.cpp:115
 msgid "Check if the device is blank"
-msgstr "تأكد من كون العنصر فارغ"
+msgstr "التأكد من كون العنصر فارغ"
 
 #: src/uppmainwindow.cpp:119
 msgid "&Autodetect"
@@ -585,19 +585,19 @@ msgstr "البحث عن البيك"
 
 #: src/uppmainwindow.cpp:123
 msgid "Connect &Usbpicprog"
-msgstr "Connect &Usbpicprog"
+msgstr "وصل &Usbpicprog"
 
 #: src/uppmainwindow.cpp:123
 msgid "Connect Usbpicprog"
-msgstr "Connect Usbpicprog"
+msgstr "وصل المبرمجة Usbpicprog"
 
 #: src/uppmainwindow.cpp:127
 msgid "Connect &Bootloader"
-msgstr "Connect &Bootloader"
+msgstr "وصل الـ &Bootloader"
 
 #: src/uppmainwindow.cpp:127
 msgid "Connect Bootloader"
-msgstr "Connect Bootloader"
+msgstr "وصل الـ Bootloader"
 
 #: src/uppmainwindow.cpp:131
 msgid "&Disconnect"
@@ -605,7 +605,7 @@ msgstr "ف&صل"
 
 #: src/uppmainwindow.cpp:131
 msgid "Disconnect Usbpicprog"
-msgstr "Disconnect Usbpicprog"
+msgstr "فصل Usbpicprog"
 
 #: src/uppmainwindow.cpp:135
 msgid "&Actions"
@@ -622,7 +622,7 @@ msgstr "&خيارات"
 #: src/uppmainwindow.cpp:149
 #: src/uppmainwindow.cpp:156
 msgid "&Help"
-msgstr "&تحرير"
+msgstr "&تعليمات"
 
 #: src/uppmainwindow.cpp:149
 msgid "Open http://usbpicprog.org"
@@ -670,7 +670,7 @@ msgstr "باشر البرمجة"
 
 #: src/uppmainwindow.cpp:185
 msgid "Blankcheck the device"
-msgstr "تفحص فروغ العنصر"
+msgstr "تفحص خلو العنصر"
 
 #: src/uppmainwindow.cpp:192
 msgid "Usbpicprog"

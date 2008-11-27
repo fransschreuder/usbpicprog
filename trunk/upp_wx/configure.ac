@@ -12,6 +12,8 @@ AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
+AC_CONFIG_MACRO_DIR([m4])
+
 WXCONFIG=wx-config
 AC_ARG_WITH(wx-config,
 [[  --with-wx-config=FILE
