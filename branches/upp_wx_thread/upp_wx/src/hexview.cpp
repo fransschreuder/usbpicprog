@@ -47,9 +47,9 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
     EnableDragColSize( false );
     SetColLabelSize( 30 );
     SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-
     for(int i=0;i<GetNumberCols();i++)
         SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
+    AutoSizeColumns(true);
 
     // Rows
     EnableDragRowSize( false );
@@ -112,7 +112,7 @@ void UppHexViewGrid::setLabels(int configOffset)
 /*
 void UppHexViewGrid::autoSizeColumns(void)
 {
-    /*AutoSizeColumns(true);
+    /*;
     dataGrid->AutoSizeColumns(true);
     configGrid->AutoSizeColumns(true);*
     for(int i=0;i<GetNumberCols();i++)

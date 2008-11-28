@@ -28,6 +28,7 @@
 #include <wx/wx.h>
 #include <wx/config.h>
 #include <wx/confbase.h>
+#include <wx/docview.h>
 
 #if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
 #include <wx/aboutdlg.h>
@@ -85,7 +86,7 @@ public:
     ~UppMainWindow();
 
 
-    void upp_open_file(const wxString& path);
+    bool upp_open_file(const wxString& path);
     void upp_new();
     void updateProgress(int value);
 
@@ -102,6 +103,7 @@ public:     // event handlers
 
     void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
     void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX};
+    void on_mru( wxCommandEvent& event );
     void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX};
     void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX};
     void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX};
@@ -155,7 +157,7 @@ private:    // member variables
     ConfigFields configFields;
 
     wxChoice* m_pPICChoice;
-    //const int m_idxUknownPIC;
+    wxFileHistory m_history;
 };
 #define m_idxUknownPIC 0
 

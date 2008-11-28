@@ -52,16 +52,9 @@ static const wxChar *FILETYPES = _T(
 /*Do the basic initialization of the main window*/
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& title,
                              const wxPoint& pos, const wxSize& size, long style )
-    : UppMainWindowBase( parent, id, title, pos, size, style )
+    : UppMainWindowBase( parent, id, title, pos, size, style ),
+      m_history(4)
 {
-    CompleteGUICreation();
-
-    // non-GUI init:
-    m_pHexFile=new ReadHexFile();
-    picType=NULL;       // means that there is no known PIC connected!
-    hardware=NULL;
-    upp_connect();
-
     uppConfig=new wxConfig(wxT("usbpicprog"));
 
     if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
@@ -72,6 +65,16 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
     if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
     if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
+
+    m_history.Load(*uppConfig);
+
+    CompleteGUICreation();
+
+    // non-GUI init:
+    m_pHexFile=new ReadHexFile();
+    picType=NULL;       // means that there is no known PIC connected!
+    hardware=NULL;
+    upp_connect();
 
     fileOpened=false;
 }
@@ -86,6 +89,8 @@ UppMainWindow::~UppMainWindow()
     uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
     uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
     uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
+
+    m_history.Save(*uppConfig);
 
     delete uppConfig;
 }
@@ -148,12 +153,18 @@ void UppMainWindow::CompleteGUICreation()
 
     m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
-    this->Connect( pMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
-    this->Connect( pMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
-    this->Connect( pMenuVerify->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-    this->Connect( pMenuErase->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-    this->Connect( pMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
-    this->Connect( pMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+    this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
+    this->Connect( wxID_READ, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
+    this->Connect( wxID_VERIFY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
+    this->Connect( wxID_ERASE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
+    this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
+    this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+
+    // create the most-recently-used section in File menu
+    m_history.UseMenu(m_pMenuFile);
+    m_history.AddFilesToMenu();
+
+    this->Connect( wxID_FILE1, wxID_FILE9, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_mru ) );
 
     // complete creation of the GUI creating the toolbar;
     // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
@@ -264,13 +275,20 @@ void UppMainWindow::upp_open()
     }
 }
 
+/*Open a hexfile using the most-recently-used menu items*/
+void UppMainWindow::on_mru(wxCommandEvent& event)
+{
+    upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
+}
+
 /*Open a hexfile by filename*/
-void UppMainWindow::upp_open_file(const wxString& path)
+bool UppMainWindow::upp_open_file(const wxString& path)
 {
     if(m_pHexFile->open(picType,path.mb_str(wxConvUTF8))<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Unable to open file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Unable to open file"));
+        return false;
     }
     else
     {
@@ -279,7 +297,11 @@ void UppMainWindow::upp_open_file(const wxString& path)
         /*Now you would ask: why twice? well, I have no idea but sometimes the
         first time doesn't completely put everything in the text area in Windows...*/
         printHexFile();
-        printHexFile();
+        //printHexFile();
+
+        m_history.AddFileToHistory(path);
+
+        return true;
     }
 }
 
