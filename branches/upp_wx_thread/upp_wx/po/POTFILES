@@ -4,7 +4,7 @@
 	../src/hexview.h \
 	../src/preferences.cpp \
 	../src/preferences.h \
-	../src/uppmainwindow_callback.cpp \
-	../src/uppmainwindow_callback.h \
+	../src/uppmainwindow_base.cpp \
+	../src/uppmainwindow_base.h \
 	../src/uppmainwindow.cpp \
 	../src/uppmainwindow.h
