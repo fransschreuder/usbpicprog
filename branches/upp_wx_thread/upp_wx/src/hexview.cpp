@@ -48,12 +48,18 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
     SetColLabelSize( 30 );
     SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
+    for(int i=0;i<GetNumberCols();i++)
+        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
+
     // Rows
     EnableDragRowSize( false );
     SetRowLabelSize( ROWLABELWIDTH );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
+    // since this widget has zero rows, at least initially, we need to explicitely
+    // set a reasonable minimum size...
     SetMinSize(wxSize(-1,300));
+    Fit();
 
     // Connect Events
     Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
@@ -90,8 +96,6 @@ void UppHexViewGrid::ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicTyp
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
         SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*GetNumberCols()));
-    for(int i=0;i<GetNumberCols();i++)
-        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
 
 /*   setLabels(picType->getCurrentPic().ConfigAddress);*/
     Fit();

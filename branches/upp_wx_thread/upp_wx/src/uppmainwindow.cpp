@@ -111,42 +111,42 @@ void UppMainWindow::CompleteGUICreation()
     // create the actions menu with rescaled icons
     wxMenu* pMenuActions = new wxMenu();
     wxMenuItem* pMenuProgram;
-    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("Program...") ) + wxT('\t') + wxT("F7"),
+    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
                                    _("Program the device"), wxITEM_NORMAL );
     pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
     pMenuActions->Append( pMenuProgram );
 
     wxMenuItem* pMenuRead;
-    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("Read...") ) + wxT('\t') + wxT("F8"),
+    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
                                 _("Read the device"), wxITEM_NORMAL );
     pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
     pMenuActions->Append( pMenuRead );
 
     wxMenuItem* pMenuVerify;
-    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("Verify...") ),
+    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
                                   _("Verify the device"), wxITEM_NORMAL );
     pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
     pMenuActions->Append( pMenuVerify );
 
     wxMenuItem* pMenuErase;
-    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("Erase...") ),
+    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
                                  _("Erase the device"), wxITEM_NORMAL );
     pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
     pMenuActions->Append( pMenuErase );
 
     wxMenuItem* pMenuBlankCheck;
-    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("Blankcheck...") ),
+    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
                                       _("Blankcheck the device"), wxITEM_NORMAL );
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuBlankCheck );
 
     wxMenuItem* pMenuAutoDetect;
-    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("Autodetect...") ),
+    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
                                       _("Detect the device"), wxITEM_NORMAL );
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuAutoDetect );
 
-    m_pMenuBar->Insert(2, pMenuActions, _("Actions") );
+    m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
     this->Connect( pMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
     this->Connect( pMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
@@ -167,8 +167,8 @@ void UppMainWindow::CompleteGUICreation()
                       GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
     toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"),
                       GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
-    toolbar->AddTool( wxID_SAVE_AS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"),
-                      GetMenuBar()->FindItem(wxID_SAVE_AS)->GetHelp() );
+    toolbar->AddTool( wxID_SAVEAS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"),
+                      GetMenuBar()->FindItem(wxID_SAVEAS)->GetHelp() );
     toolbar->AddSeparator();
     toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"),
                       GetMenuBar()->FindItem(wxID_PROGRAM)->GetHelp() );
