@@ -43,7 +43,9 @@ enum
     wxID_AUTODETECT,
     wxID_CONNECT,
     wxID_CONNECT_BOOT,
-    wxID_DISCONNECT
+    wxID_DISCONNECT,
+
+    wxID_PIC_CHOICE
 };
 
 #endif //INCLUDE_ICONS_H

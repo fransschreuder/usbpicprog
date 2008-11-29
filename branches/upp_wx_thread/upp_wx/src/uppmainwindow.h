@@ -121,7 +121,7 @@ public:     // event handlers
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
     void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
-    void on_combo_changed( wxCommandEvent& event ){upp_combo_changed(); EVENT_FIX};
+    void on_choice_changed( wxCommandEvent& event ){upp_choice_changed(); EVENT_FIX};
 
 private:
     void upp_open();
@@ -143,7 +143,7 @@ private:
     void upp_preferences();
     void upp_help();
     void upp_about();
-    void upp_combo_changed();
+    void upp_choice_changed();
     void upp_update_hardware_type();
 
 private:    // member variables

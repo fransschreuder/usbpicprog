@@ -199,7 +199,9 @@ void UppMainWindow::CompleteGUICreation()
                       GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
     toolbar->AddSeparator();
 
-    m_pPICChoice = new wxChoice(toolbar, wxID_ANY, wxDefaultPosition, wxSize(120,-1));
+    m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE, wxDefaultPosition, wxSize(120,-1));
+    this->Connect( wxID_PIC_CHOICE, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_choice_changed ) );
+
     toolbar->AddControl( m_pPICChoice );
 /*
     toolbar->AddSeparator();
@@ -780,7 +782,7 @@ void UppMainWindow::upp_about()
 }
 
 /*if the combo changed, also change it in the hardware*/
-void UppMainWindow::upp_combo_changed()
+void UppMainWindow::upp_choice_changed()
 {
     if (hardware != NULL)
     {
