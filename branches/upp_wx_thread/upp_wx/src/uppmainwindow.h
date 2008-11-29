@@ -97,9 +97,11 @@ protected:      // internal helpers
 
 public:     // event handlers
 
+    void on_mru( wxCommandEvent& event );
+    void on_close( wxCloseEvent& event );
+
     void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
     void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX};
-    void on_mru( wxCommandEvent& event );
     void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX};
     void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX};
     void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX};
@@ -148,9 +150,8 @@ private:
 private:    // member variables
 
     HexFile m_hexFile;
-
-    PicType* picType;
-    Hardware* hardware;
+    PicType m_picType;
+    Hardware* m_hardware;
 
     wxConfig* uppConfig;
     ConfigFields configFields;

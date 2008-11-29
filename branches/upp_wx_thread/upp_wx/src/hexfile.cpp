@@ -60,6 +60,7 @@ int HexFile::newFile(PicType* picType)
         configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
 
     m_bModified = false;
+    m_filename[0] = '\0';
 
     return 0;
 }

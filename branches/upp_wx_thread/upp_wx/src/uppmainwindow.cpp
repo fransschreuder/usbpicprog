@@ -25,6 +25,8 @@
 #include <wx/filedlg.h>
 #include <wx/filename.h>
 #include <wx/log.h>
+#include <wx/event.h>
+#include <wx/msgdlg.h>
 
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
@@ -55,11 +57,22 @@ static const wxChar *FILETYPES = _T(
     "All files|*.*"
 );
 
+wxString wxGetPicName(PicType* pt)
+{
+    return wxString::FromAscii(pt->getCurrentPic().Name.c_str());
+}
+
+
+
+// UPPMAINWINDOW
+// =============================================================================
+
+
 /*Do the basic initialization of the main window*/
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                          wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
-      m_history(4)
+      m_history(4), m_picType(0)
 {
     // load settings
     uppConfig=new wxConfig(wxT("usbpicprog"));
@@ -75,8 +88,8 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     m_history.Load(*uppConfig);
 
     // non-GUI init:
-    picType=NULL;       // means that there is no known PIC connected!
-    hardware=NULL;      // upp_connect() will allocate it
+    //m_picType=NULL;       // means that there is no known PIC connected!
+    m_hardware=NULL;      // upp_connect() will allocate it
 
     // GUI init:
     CompleteGUICreation();
@@ -115,7 +128,6 @@ void UppMainWindow::UpdateTitle()
         str += wxT(" - [") + wxString(_("untitled"));
     else
         str += wxT(" - [") + wxString::FromAscii(m_hexFile.getFileName());
-
 
     if (m_hexFile.wasModified())
         str += wxT(" *");
@@ -243,14 +255,15 @@ void UppMainWindow::CompleteGUICreation()
     m_pStatusBar->SetStatusWidths(2, widths);
 
     // append all PIC names to the choice control
-    vector<string> arr;
-    PicType::getPicNames(arr);
+    vector<string> arr = m_picType.getPicNames();
     for(unsigned int i=0;i<arr.size();i++)
         m_pPICChoice->Append(wxString::FromAscii(arr[i].c_str()));
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 
+    // misc event handlers
+    this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
     this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
 
     // set default title name
@@ -277,7 +290,7 @@ UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
     }
 }
 
-/*Update the progress bar; this function is called by Hardware */
+/*Update the progress bar; this function is called by m_hardware */
 void UppMainWindow::updateProgress(int value)
 {
     //uppProgressBar->SetValue(value); FIXME
@@ -287,10 +300,46 @@ void UppMainWindow::updateProgress(int value)
 /*Put the contents of the hex file in the text area*/
 void UppMainWindow::UpdateGrids()
 {
-    m_pCodeGrid->ShowHexFile(&m_hexFile,picType);
-    m_pConfigGrid->ShowHexFile(&m_hexFile,picType);
-    m_pDataGrid->ShowHexFile(&m_hexFile,picType);
+    m_pCodeGrid->ShowHexFile(&m_hexFile,&m_picType);
+    m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
+    m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
 }
+
+
+
+// UPPMAINWINDOW - event handlers
+// =============================================================================
+
+/*Open a hexfile using the most-recently-used menu items*/
+void UppMainWindow::on_mru(wxCommandEvent& event)
+{
+    upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
+}
+
+void UppMainWindow::on_close(wxCloseEvent& event)
+{
+    if ( event.CanVeto() && m_hexFile.wasModified() )
+    {
+        wxString msg = wxString::Format(
+            _("The HEX file '%s' has not been saved... continue closing?"),
+            m_hexFile.hasFileName() ? m_hexFile.getFileName() : "untitled");
+
+        if ( wxMessageBox(msg, _("Please confirm"),
+                          wxICON_QUESTION | wxYES_NO, this) != wxYES )
+        {
+            event.Veto();
+            return;
+        }
+    }
+
+    Destroy();  // you may also do:  event.Skip();
+                // since the default event handler does call Destroy(), too
+}
+
+
+
+// UPPMAINWINDOW - event handlers without event argument
+// =============================================================================
 
 /*The user touched one of the code/data/config grids*/
 void UppMainWindow::upp_cell_changed()
@@ -302,8 +351,10 @@ void UppMainWindow::upp_cell_changed()
 /*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
-    m_hexFile.newFile(picType);
+    m_hexFile.newFile(&m_picType);
+
     UpdateGrids();
+    UpdateTitle();
 }
 
 /*Open a hexfile using a file dialog*/
@@ -322,16 +373,10 @@ void UppMainWindow::upp_open()
     }
 }
 
-/*Open a hexfile using the most-recently-used menu items*/
-void UppMainWindow::on_mru(wxCommandEvent& event)
-{
-    upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
-}
-
 /*Open a hexfile by filename*/
 bool UppMainWindow::upp_open_file(const wxString& path)
 {
-    if(m_hexFile.open(picType,path.mb_str(wxConvUTF8))<0)
+    if(m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -356,7 +401,7 @@ void UppMainWindow::upp_refresh()
         return;
     }
 
-    if(m_hexFile.reload(picType)<0)
+    if(m_hexFile.reload(&m_picType)<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -373,11 +418,13 @@ void UppMainWindow::upp_save()
 {
     if(m_hexFile.hasFileName())
     {
-        if(m_hexFile.save(picType)<0)
+        if(m_hexFile.save(&m_picType)<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
         }
+        else
+            UpdateTitle();
     }
     else upp_save_as();
 }
@@ -394,11 +441,13 @@ void UppMainWindow::upp_save_as()
         // get the folder of the opened file, without the name&extension
         defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
 
-        if(m_hexFile.saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+        if(m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
         }
+        else
+            UpdateTitle();
     }
 }
 
@@ -424,17 +473,17 @@ void UppMainWindow::upp_selectall()
 /*Write everything to the device*/
 void UppMainWindow::upp_program()
 {
-    if (hardware == NULL) return;
+    if (m_hardware == NULL) return;
 
-    if (picType->getCurrentPic().Name == UNKNOWN_PIC_NAME)
+    if (!m_hardware->connected())
     {
-        wxLogError(_("Uknown PIC connected"));
+        wxLogError(_("The programmer is not connected"));
         return;
     }
 
     if(configFields.ConfigEraseBeforeProgramming)
     {
-        switch(hardware->bulkErase(picType))
+        switch(m_hardware->bulkErase(&m_picType))
         {
         case 1:
             SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
@@ -448,18 +497,18 @@ void UppMainWindow::upp_program()
 
     if(configFields.ConfigProgramCode)
     {
-        switch(hardware->writeCode(&m_hexFile,picType))
+        switch(m_hardware->writeCode(&m_hexFile,&m_picType))
         {
         case 0:
             SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
-            SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should say OK"));
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
             break;
         case -2:
-            SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should ask for next block"));
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write code not implemented for current PIC"),STATUS_FIELD_OTHER);
@@ -482,18 +531,18 @@ void UppMainWindow::upp_program()
 
     if(configFields.ConfigProgramConfig)
     {
-        switch(hardware->writeData(&m_hexFile,picType))
+        switch(m_hardware->writeData(&m_hexFile,&m_picType))
         {
         case 0:
             SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
-            SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should say OK"));
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
             break;
         case -2:
-            SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should ask for next block"));
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write data not implemented for current PIC"),STATUS_FIELD_OTHER);
@@ -512,18 +561,18 @@ void UppMainWindow::upp_program()
 
     if(configFields.ConfigProgramData)
     {
-        switch(hardware->writeConfig(&m_hexFile,picType))
+        switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
         {
         case 0:
             SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
             break;
         case -1:
-            SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should say OK"));
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
             break;
         case -2:
-            SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("Hardware should ask for next block"));
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write config not implemented for current PIC"),STATUS_FIELD_OTHER);
@@ -546,27 +595,33 @@ void UppMainWindow::upp_program()
 /*read everything from the device*/
 void UppMainWindow::upp_read()
 {
-    if (hardware == NULL) return;
+    if (m_hardware == NULL) return;
 
-    if(hardware->readCode(&m_hexFile,picType)<0)
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
         SetStatusText(_("Error reading code memory"),STATUS_FIELD_OTHER);
         wxLogError(_("Error reading code memory"));
         //return;
     }
-    if(hardware->readData(&m_hexFile,picType)<0)
+    if(m_hardware->readData(&m_hexFile,&m_picType)<0)
     {
         SetStatusText(_("Error reading data memory"),STATUS_FIELD_OTHER);
         wxLogError(_("Error reading data memory"));
         //return;
     }
-    if(hardware->readConfig(&m_hexFile,picType)<0)
+    if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
         SetStatusText(_("Error reading config memory"),STATUS_FIELD_OTHER);
         wxLogError(_("Error reading config memory"));
         //return;
     }
-    m_hexFile.trimData(picType);
+    m_hexFile.trimData(&m_picType);
     UpdateGrids();
     updateProgress(100);
     return;
@@ -575,12 +630,18 @@ void UppMainWindow::upp_read()
 /*verify the device with the open hexfile*/
 void UppMainWindow::upp_verify()
 {
-    if (hardware == NULL) return;
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
 
     wxString verifyText;
     wxString typeText;
     VerifyResult res=
-        hardware->verify(&m_hexFile,picType,configFields.ConfigVerifyCode,
+        m_hardware->verify(&m_hexFile,&m_picType,configFields.ConfigVerifyCode,
                          configFields.ConfigVerifyConfig,configFields.ConfigVerifyData);
 
     switch(res.Result)
@@ -598,7 +659,7 @@ void UppMainWindow::upp_verify()
                 default: typeText=_("Verify unknown");break;
             }
             verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                res.Address+((res.DataType==TYPE_CONFIG)*picType->getCurrentPic().ConfigAddress),
+                res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
                 res.Read,
                             res.Expected);
             verifyText.Prepend(typeText);
@@ -625,9 +686,15 @@ void UppMainWindow::upp_verify()
 /*perform a bulk-erase on the current PIC*/
 void UppMainWindow::upp_erase()
 {
-    if (hardware == NULL) return;
+    if (m_hardware == NULL) return;
 
-    if(hardware->bulkErase(picType)<0)
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    if(m_hardware->bulkErase(&m_picType)<0)
     {
         SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
         wxLogError(_("Error erasing the device"));
@@ -639,11 +706,17 @@ void UppMainWindow::upp_erase()
 /*Check if the device is erased successfully*/
 void UppMainWindow::upp_blankcheck()
 {
-    if (hardware == NULL) return;
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
 
     wxString verifyText;
     string typeText;
-    VerifyResult res=hardware->blankCheck(picType);
+    VerifyResult res=m_hardware->blankCheck(&m_picType);
     switch(res.Result)
     {
         case VERIFY_SUCCESS:
@@ -659,7 +732,7 @@ void UppMainWindow::upp_blankcheck()
                 default: typeText=string("unknown");break;
             }
             verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
                 res.Read,
                 res.Expected);
             SetStatusText(verifyText,STATUS_FIELD_OTHER);
@@ -681,98 +754,110 @@ void UppMainWindow::upp_blankcheck()
     updateProgress(100);
 }
 
-/*Detect which PIC is connected and select it in the combobox and the hardware*/
+/*Detect which PIC is connected and select it in the choicebox and the m_hardware*/
 bool UppMainWindow::upp_autodetect()
 {
-    if (hardware == NULL) return 0;
+    if (m_hardware == NULL) return false;
 
-    int devId=hardware->autoDetectDevice();
-    cout<<"ID: 0x"<<hex<<devId<<dec<<endl;
-    picType=new PicType(devId);
-    hardware->setPicType(picType);
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return false;
+    }
 
-    // FIXME: we know the index of the currently selected PIC; use SetSelection instead!
-    m_pPICChoice->SetStringSelection(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
+    int devId=m_hardware->autoDetectDevice();
+    cout<<"autodetected ID: 0x"<<hex<<devId<<dec<<endl;
 
-    if(devId>0)SetStatusText(wxString(_("Detected: ")).Append(wxString::FromAscii(picType->getCurrentPic().Name.c_str())),STATUS_FIELD_HARDWARE);
-    else SetStatusText(_("No pic detected!"),STATUS_FIELD_HARDWARE);
+    m_picType=PicType(devId);
+    m_hardware->setPicType(&m_picType);
+
+    wxString picName = wxGetPicName(&m_picType);
+    m_pPICChoice->SetStringSelection(picName);
+
+    if(devId>0)
+        SetStatusText(wxString(_("Detected: ")) + picName,STATUS_FIELD_HARDWARE);
+    else
+        SetStatusText(_("No pic detected!"),STATUS_FIELD_HARDWARE);
 
     upp_new();
 
     return (devId>0);
 }
 
-/*Connect upp_wx to the usb port*/
+/*Connect upp_wx to the upp programmer*/
 bool UppMainWindow::upp_connect()
 {
     // recreate the hw class
-    if (hardware != NULL) delete hardware;
-    hardware=new Hardware(this, HW_UPP);
+    if (m_hardware != NULL) delete m_hardware;
+    m_hardware=new Hardware(this, HW_UPP);
 
-    if(hardware->connected())
+    if(m_hardware->connected())
     {
-        upp_autodetect();
+        upp_autodetect();       // already calls upp_new();
+
         char msg[64];
-        if(hardware->getFirmwareVersion(msg)<0)
+        if(m_hardware->getFirmwareVersion(msg)<0)
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
         else
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-
-        upp_new();
     }
     else
     {
-        picType=new PicType("Unknown");
-        hardware->setPicType(picType);
+        m_picType=PicType(0);   // select default PIC
+        m_hardware->setPicType(&m_picType);
+        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
-        m_pPICChoice->SetStringSelection(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
+        SetStatusText(_("Usbpicprog programmer not found"),STATUS_FIELD_HARDWARE);
 
-        //m_pPICChoice->SetSelection(m_idxUknownPIC);
-        SetStatusText(_("Usbpicprog not found"),STATUS_FIELD_HARDWARE);
+        upp_new();
     }
 
     upp_update_hardware_type();
 
-    return hardware->connected();
+    return m_hardware->connected();
 }
 
-/*Connect bootloader to the usb port*/
+/*Connect upp_wx to the bootloader*/
 bool UppMainWindow::upp_connect_boot()
 {
-    if (hardware != NULL) delete hardware;
-    hardware=new Hardware(this, HW_BOOTLOADER);
-    if(hardware->connected())
+    if (m_hardware != NULL) delete m_hardware;
+    m_hardware=new Hardware(this, HW_BOOTLOADER);
+
+    if(m_hardware->connected())
     {
-        upp_autodetect();
+        upp_autodetect();       // already calls upp_new();
+
         char msg[64];
-        if(hardware->getFirmwareVersion(msg)<0)
+        if(m_hardware->getFirmwareVersion(msg)<0)
             SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
         else
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
     }
     else
     {
-        picType=new PicType(0);
-        hardware->setPicType(picType);
-
-        m_pPICChoice->SetStringSelection(wxString::FromAscii(picType->getCurrentPic().Name.c_str()));
+        m_picType=PicType(0);     // select default PIC
+        m_hardware->setPicType(&m_picType);
+        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
         SetStatusText(_("Bootloader not found"),STATUS_FIELD_HARDWARE);
+
+        upp_new();
     }
 
     upp_update_hardware_type();
-    return hardware->connected();
+
+    return m_hardware->connected();
 }
 
-/*disconnect the hardware*/
+/*disconnect the m_hardware*/
 void UppMainWindow::upp_disconnect()
 {
-    if(hardware != NULL)
+    if(m_hardware != NULL)
     {
-        if (hardware->connected())
+        if (m_hardware->connected())
         {
-            delete hardware;
-            hardware = NULL;
+            delete m_hardware;
+            m_hardware = NULL;
             SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
         }
         else
@@ -819,23 +904,27 @@ void UppMainWindow::upp_about()
     wxAboutBox(aboutInfo);
 }
 
-/*if the combo changed, also change it in the hardware*/
+/*if the combo changed, also change it in the m_hardware*/
 void UppMainWindow::upp_choice_changed()
 {
-    if (hardware != NULL)
+    if (m_hardware != NULL)
     {
-        if(hardware->getCurrentHardware()==HW_BOOTLOADER)
+        if(m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
-            //m_pPICChoice->Undo();  FIXME
+            // revert selection to the default type
+            m_pPICChoice->SetStringSelection(wxT("P18F2550"));
             return;
         }
-        picType=new PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
-        hardware->setPicType(picType);
+
+        m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+        m_hardware->setPicType(&m_picType);
+
         upp_new();
     }
     else
     {
-        picType=new PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+        m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+
         upp_new();
     }
 
@@ -844,14 +933,14 @@ void UppMainWindow::upp_choice_changed()
 void UppMainWindow::upp_update_hardware_type()
 {
     /* FIXME
-    if (hardware != NULL && hardware->getHardwareType() != HW_NONE)
+    if (m_hardware != NULL && m_hardware->getm_hardwareType() != HW_NONE)
     {
-        if (hardware->getHardwareType() == HW_UPP)
+        if (m_hardware->getm_hardwareType() == HW_UPP)
         {
             m_radioButton_upp->SetValue(true);
             m_radioButton_boot->SetValue(false);
         }
-        else if (hardware->getHardwareType() == HW_BOOTLOADER)
+        else if (m_hardware->getm_hardwareType() == HW_BOOTLOADER)
         {
             m_radioButton_boot->SetValue(true);
             m_radioButton_upp->SetValue(false);
