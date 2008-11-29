@@ -411,6 +411,7 @@ void UppMainWindow::upp_refresh()
     if(!m_hexFile.hasFileName())
     {
         SetStatusText(_("No file to refresh"),STATUS_FIELD_OTHER);
+        wxLogMessage(_("No file to refresh"));
         return;
     }
 
@@ -500,6 +501,7 @@ void UppMainWindow::upp_program()
         {
         case 1:
             SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Erase OK"));
             break;
         default:
             SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
@@ -514,6 +516,7 @@ void UppMainWindow::upp_program()
         {
         case 0:
             SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Code memory OK"));
             break;
         case -1:
             SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
@@ -548,6 +551,7 @@ void UppMainWindow::upp_program()
         {
         case 0:
             SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Data memory OK"));
             break;
         case -1:
             SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
@@ -578,6 +582,7 @@ void UppMainWindow::upp_program()
         {
         case 0:
             SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Config memory OK"));
             break;
         case -1:
             SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
@@ -672,6 +677,7 @@ void UppMainWindow::upp_verify()
     {
         case VERIFY_SUCCESS:
             SetStatusText(_("Verify successful"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Verify successful"));
             break;
         case VERIFY_MISMATCH:
 
@@ -756,6 +762,7 @@ void UppMainWindow::upp_blankcheck()
     {
         case VERIFY_SUCCESS:
             SetStatusText(_("Device is blank"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Device is blank"));
             break;
         case VERIFY_MISMATCH:
 
@@ -802,7 +809,7 @@ bool UppMainWindow::upp_autodetect()
     }
 
     int devId=m_hardware->autoDetectDevice();
-    cout<<"autodetected ID: 0x"<<hex<<devId<<dec<<endl;
+    cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
     m_picType=PicType(devId);
     m_hardware->setPicType(&m_picType);
@@ -811,9 +818,15 @@ bool UppMainWindow::upp_autodetect()
     m_pPICChoice->SetStringSelection(picName);
 
     if(devId>0)
+    {
         SetStatusText(wxString(_("Detected: ")) + picName,STATUS_FIELD_HARDWARE);
+        wxLogMessage(wxString(_("Detected: ")) + picName);
+    }
     else
-        SetStatusText(_("No pic detected!"),STATUS_FIELD_HARDWARE);
+    {
+        SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("No PIC detected!"));
+    }
 
     upp_new();
 
@@ -833,9 +846,15 @@ bool UppMainWindow::upp_connect()
 
         char msg[64];
         if(m_hardware->getFirmwareVersion(msg)<0)
+        {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Unable to read firmware version"));
+        }
         else
+        {
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+        }
     }
     else
     {
@@ -844,6 +863,7 @@ bool UppMainWindow::upp_connect()
         m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
         SetStatusText(_("Usbpicprog programmer not found"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("Usbpicprog programmer not found"));
 
         upp_new();
     }
@@ -865,9 +885,15 @@ bool UppMainWindow::upp_connect_boot()
 
         char msg[64];
         if(m_hardware->getFirmwareVersion(msg)<0)
+        {
             SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Unable to read version"));
+        }
         else
+        {
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+        }
     }
     else
     {
@@ -876,6 +902,7 @@ bool UppMainWindow::upp_connect_boot()
         m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
         SetStatusText(_("Bootloader not found"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("Bootloader not found"));
 
         upp_new();
     }
@@ -894,16 +921,20 @@ void UppMainWindow::upp_disconnect()
         {
             delete m_hardware;
             m_hardware = NULL;
+
             SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Disconnected usbpicprog"));
         }
         else
         {
             SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Already disconnected"));
         }
     }
     else
     {
         SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("Already disconnected"));
     }
 
     upp_update_hardware_type();
