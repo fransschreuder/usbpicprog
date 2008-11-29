@@ -18,7 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+
+#include <wx/statbox.h>
+
 #include "preferences.h"
+
+
 BEGIN_EVENT_TABLE(PreferencesDialog,wxDialog)
 	EVT_CLOSE(PreferencesDialog::OnClose)
 	EVT_BUTTON(ID_WXBUTTONOK,PreferencesDialog::OnOk)
@@ -33,7 +38,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent, wxWindowID id, const wxSt
 
 PreferencesDialog::~PreferencesDialog()
 {
-} 
+}
 
 void PreferencesDialog::CreateGUIControls()
 {
@@ -69,7 +74,7 @@ void PreferencesDialog::CreateGUIControls()
 
 	uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyData"));
 	WxStaticBoxSizerVerify->Add(uppConfigVerifyData,0,wxALIGN_LEFT | wxALL,5);
-	
+
 	WxBoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
 	WxBoxSizer1->Add(WxBoxSizer2, 0, wxALIGN_CENTER | wxALL, 5);
 
@@ -81,12 +86,12 @@ void PreferencesDialog::CreateGUIControls()
 
 	SetTitle(_("Preferences"));
 	SetIcon(wxNullIcon);
-	
+
 	GetSizer()->Layout();
 	GetSizer()->Fit(this);
 	GetSizer()->SetSizeHints(this);
 	Center();
-	
+
 }
 
 void PreferencesDialog::OnClose(wxCloseEvent& event)

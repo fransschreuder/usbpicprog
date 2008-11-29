@@ -25,7 +25,6 @@
 #  include <config.h>
 #endif
 
-#include <wx/wx.h>
 #include <wx/config.h>
 #include <wx/confbase.h>
 #include <wx/docview.h>

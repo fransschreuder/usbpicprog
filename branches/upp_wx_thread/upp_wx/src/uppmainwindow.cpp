@@ -20,6 +20,12 @@
 
 
 #include <wx/artprov.h>
+#include <wx/toolbar.h>
+#include <wx/choice.h>
+#include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+#include <wx/log.h>
+
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
 #include "hexview.h"
@@ -102,7 +108,7 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 
 #if wxCHECK_VERSION(2,9,0)
     wxSize sz = wxArtProvider::GetNativeSizeHint(wxART_MENU);
-    tmp.Rescale(sz);
+    tmp.Rescale(sz.GetWidth(), sz.GetHeight());
 #else
     tmp.Rescale(16,16);
 #endif

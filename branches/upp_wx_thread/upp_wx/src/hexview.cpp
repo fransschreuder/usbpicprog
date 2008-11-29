@@ -19,7 +19,10 @@
 ***************************************************************************/
 
 
-#include <wx/wx.h>
+#include <wx/clipbrd.h>
+#include <wx/dataobj.h>
+#include <wx/menu.h>
+
 #include "hexview.h"
 
 
@@ -35,7 +38,10 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
 {
     readHexFile=NULL;
 
-    CreateGrid( 0, 24 );
+    // NOTE: in wx2.9 we can't allocate a grid of zero rows... at least one
+    //       row is always _required_
+
+    CreateGrid( 1, 24 );
     EnableEditing( true );
     EnableGridLines( false );
     EnableDragGridSize( false );
@@ -184,10 +190,13 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
     if((Data>=0)&&(Data<=0xFF))
     {
         // FIXME
-        readHexFile->putCodeMemory(Position,Data);
+        if (readHexFile)
+            readHexFile->putCodeMemory(Position,Data);
     }
 
-    CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
+    if (readHexFile)
+        CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
+
     SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 /*

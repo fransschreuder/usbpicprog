@@ -10,15 +10,13 @@
 
 #include <wx/intl.h>
 
-class UppHexViewGrid;
-
 #include <wx/string.h>
 #include <wx/stattext.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/grid.h>
+#include "hexview.h"
 #include <wx/sizer.h>
 #include <wx/panel.h>
 #include <wx/bitmap.h>
@@ -56,7 +54,7 @@ class UppMainWindowBase : public wxFrame
 		wxMenuBar* m_pMenuBar;
 		wxMenu* m_pMenuFile;
 		wxMenu* m_pMenuEdit;
-		wxMenu* uppMenuHelp;
+		wxMenu* m_pMenuHelp;
 		wxStatusBar* m_pStatusBar;
 		
 		// Virtual event handlers, overide them in your derived class
