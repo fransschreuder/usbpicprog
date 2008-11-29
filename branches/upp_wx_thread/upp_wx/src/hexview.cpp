@@ -36,7 +36,7 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
                                long style)
     : wxGrid( parent, id, pos, size, style )
 {
-    readHexFile=NULL;
+    hexFile=NULL;
 
     // NOTE: in wx2.9 we can't allocate a grid of zero rows... at least one
     //       row is always _required_
@@ -83,9 +83,9 @@ UppHexViewGrid::~UppHexViewGrid()
     Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
-void UppHexViewGrid::ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicType* picType)
+void UppHexViewGrid::ShowHexFile(HexFile* hexFile, vector<int>& data, PicType* picType)
 {
-    readHexFile=hexFile;
+    hexFile=hexFile;
 
     // clean current contents
     if (GetNumberRows() > 0)
@@ -190,12 +190,12 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
     if((Data>=0)&&(Data<=0xFF))
     {
         // FIXME
-        if (readHexFile)
-            readHexFile->putCodeMemory(Position,Data);
+        if (hexFile)
+            hexFile->putCodeMemory(Position,Data);
     }
 
-    if (readHexFile)
-        CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
+    if (hexFile)
+        CellData.Printf(wxT("%02X"),hexFile->getCodeMemory(Position));
 
     SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
@@ -209,10 +209,10 @@ void UppHexViewGrid::OnConfigChanged (wxGridEvent& event )
     sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
     if((Data>=0)&&(Data<=0xFF))
     {
-        readHexFile->putConfigMemory(Position,Data);
+        hexFile->putConfigMemory(Position,Data);
     }
 
-    CellData.Printf(wxT("%02X"),readHexFile->getConfigMemory(Position));
+    CellData.Printf(wxT("%02X"),hexFile->getConfigMemory(Position));
     configGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 
@@ -225,10 +225,10 @@ void UppHexViewGrid::OnDataChanged (wxGridEvent& event )
     sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
     if((Data>=0)&&(Data<=0xFF))
     {
-        readHexFile->putDataMemory(Position,Data);
+        hexFile->putDataMemory(Position,Data);
     }
 
-    CellData.Printf(wxT("%02X"),readHexFile->getDataMemory(Position));
+    CellData.Printf(wxT("%02X"),hexFile->getDataMemory(Position));
     dataGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
 */

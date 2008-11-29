@@ -32,7 +32,7 @@
 #include "uppmainwindow.h"
 #include "hardware.h"
 #include "pictype.h"
-#include "read_hexfile.h"
+#include "hexfile.h"
 
 /*Implementation of main wxWidgets application, from
 OnCmdLineParsed function, either the gui or the command line app
@@ -53,17 +53,24 @@ public:
 by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
-
+/*Open the given file (mac specific)*/
     virtual void MacOpenFile(const wxString &fileName);
-private:
+
+
+private:        // command-line mode stuff (not used in GUI mode)
+
+/*the main() of the command line application*/
+    bool CmdLineMain(wxCmdLineParser& parser);
 /*silent_mode is true if -s switch is passed in command line*/
     bool silent_mode;
 /*class to read, write, print and store the hex file*/
-    ReadHexFile* readHexFile;
+    HexFile* hexFile;
 /*class which contains data about supported PIC types and detection by devId*/
     PicType* picType;
 /*class to open the usb port and communicate with usbpicprog*/
     Hardware* hardware;
+
+private:        // stuff common to both GUI and command-line modes
     wxLocale* m_locale;
 };
 

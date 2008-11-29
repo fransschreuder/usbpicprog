@@ -25,8 +25,8 @@ usbpicprog_SOURCES = \
 	include_icons.h \
 	pictype.cpp \
 	pictype.h \
-	read_hexfile.cpp \
-	read_hexfile.h \
+	hexfile.cpp \
+	hexfile.h \
 	main.h \
 	uppmainwindow_base.h \
 	uppmainwindow.h \

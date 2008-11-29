@@ -472,6 +472,10 @@ SOURCE=..\..\src\hardware.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\hexfile.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\hexview.cpp
 # End Source File
 # Begin Source File
@@ -485,10 +489,6 @@ SOURCE=..\..\src\pictype.cpp
 # Begin Source File
 
 SOURCE=..\..\src\preferences.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\read_hexfile.cpp
 # End Source File
 # Begin Source File
 
@@ -512,6 +512,10 @@ SOURCE=..\..\src\hardware.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\hexfile.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\hexview.h
 # End Source File
 # Begin Source File
@@ -525,10 +529,6 @@ SOURCE=..\..\src\pictype.h
 # Begin Source File
 
 SOURCE=..\..\src\preferences.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\read_hexfile.h
 # End Source File
 # Begin Source File
 

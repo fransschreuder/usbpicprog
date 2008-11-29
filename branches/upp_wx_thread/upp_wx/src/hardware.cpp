@@ -26,9 +26,9 @@ using namespace std;
 #define USB_DEBUG 2
 
 
-/*The class Hardware connects to usbpicprog using libusb. The void* CB points
-to the parent UppMainWindow which is used for updating the progress
-bar. If initiated with no argument, progress is not updated*/
+/*The class Hardware connects to usbpicprog using libusb. The CB pointer
+is used for updating the progressbar.
+If initiated with no argument, progress is not updated*/
 Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
 {
     struct usb_bus *bus=NULL;
@@ -274,7 +274,7 @@ int Hardware::bulkErase(PicType* picType)
         }
         else //hardware is HW_BOOTLOADER
         {
-            ReadHexFile * hf = new ReadHexFile(picType);
+            HexFile * hf = new HexFile(picType);
             if(writeData(hf,picType)<0)return -1;
             statusCallBack(50);
             delete hf;
@@ -300,7 +300,7 @@ int Hardware::bulkErase(PicType* picType)
 }
 
 /*Read the code memory from the pic (starting from address 0 into *hexData*/
-int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
+int Hardware::readCode(HexFile *hexData,PicType *picType)
 {
     int nBytes,blocksize,BLOCKSIZE_HW;
     nBytes=-1;
@@ -353,7 +353,7 @@ int Hardware::readCode(ReadHexFile *hexData,PicType *picType)
 }
 
 /* Write the code memory area of the pic with the data in *hexData */
-int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
+int Hardware::writeCode(HexFile *hexData,PicType *picType)
 {
     int nBytes;
     int BLOCKSIZE_HW;
@@ -399,7 +399,7 @@ int Hardware::writeCode(ReadHexFile *hexData,PicType *picType)
 }
 
 /* read the Eeprom Data area of the pic into *hexData->dataMemory */
-int Hardware::readData(ReadHexFile *hexData,PicType *picType)
+int Hardware::readData(HexFile *hexData,PicType *picType)
 {
     int nBytes,blocksize;
     nBytes=-1;
@@ -443,7 +443,7 @@ int Hardware::readData(ReadHexFile *hexData,PicType *picType)
 
 
 /*write the Eeprom data from *hexData->dataMemory into the pic*/
-int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
+int Hardware::writeData(HexFile *hexData,PicType *picType)
 {
     int nBytes;
     unsigned char dataBlock[BLOCKSIZE_DATA];
@@ -482,7 +482,7 @@ int Hardware::writeData(ReadHexFile *hexData,PicType *picType)
 }
 
 /* Read the configuration words (and user ID's for PIC16 dev's) */
-int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
+int Hardware::readConfig(HexFile *hexData,PicType *picType)
 {
     int nBytes,blocksize;
     nBytes=-1;
@@ -529,7 +529,7 @@ int Hardware::readConfig(ReadHexFile *hexData,PicType *picType)
 }
 
 /*Writes the configuration words (and user ID's for PIC16 dev's)*/
-int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
+int Hardware::writeConfig(HexFile *hexData,PicType *picType)
 {
     int nBytes;
     unsigned char dataBlock[BLOCKSIZE_CONFIG];
@@ -573,10 +573,10 @@ int Hardware::writeConfig(ReadHexFile *hexData,PicType *picType)
 }
 
 /*Reads the whole PIC and checks if the data matches hexData*/
-VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCode, bool doConfig, bool doData)
+VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, bool doConfig, bool doData)
 {
     VerifyResult res;
-    ReadHexFile *verifyHexFile = new ReadHexFile;
+    HexFile *verifyHexFile = new HexFile;
     if(doCode)
     {
         if(readCode(verifyHexFile,picType)<0)
@@ -682,7 +682,7 @@ VerifyResult Hardware::verify(ReadHexFile *hexData, PicType *picType, bool doCod
 /*Reads the whole PIC and checks if it is blank*/
 VerifyResult Hardware::blankCheck(PicType *picType)
 {
-    ReadHexFile* blankHexFile=new ReadHexFile(picType);
+    HexFile* blankHexFile=new HexFile(picType);
     return verify(blankHexFile,picType);
 }
 

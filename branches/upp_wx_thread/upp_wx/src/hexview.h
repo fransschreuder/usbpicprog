@@ -23,7 +23,7 @@
 
 #include <wx/grid.h>
 
-#include "read_hexfile.h"
+#include "hexfile.h"
 #include "pictype.h"
 
 #include <iostream>
@@ -39,13 +39,13 @@ public:
     ~UppHexViewGrid();
 
     void Copy();
-    void ShowHexFile(ReadHexFile* hexFile, vector<int>& data, PicType* picType);
+    void ShowHexFile(HexFile* hexFile, vector<int>& data, PicType* picType);
 
 private:
 /*
     void autoSizeColumns (void);
     void setLabels (int configOffset);*/
-    ReadHexFile* readHexFile;
+    HexFile* hexFile;
 
 protected:
     void OnCopy (wxCommandEvent& event);

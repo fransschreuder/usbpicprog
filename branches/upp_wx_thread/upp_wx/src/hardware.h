@@ -30,7 +30,7 @@
 #define BOOTLOADER_VENDOR 0x04D8
 #define BOOTLOADER_PRODUCT 0x000B
 
-#include "read_hexfile.h"
+#include "hexfile.h"
 #include "pictype.h"
 
 #define CMD_ERASE 0x10
@@ -156,19 +156,19 @@ bar. If initiated with no argument, progress is not updated*/
 /*Erase all the contents (code, data and config) of the pic*/
     int bulkErase(PicType *picType);
 /*Read the code memory from the pic (starting from address 0 into *hexData*/
-    int readCode(ReadHexFile *hexData,PicType *picType);
+    int readCode(HexFile *hexData,PicType *picType);
 /* Write the code memory area of the pic with the data in *hexData */
-    int writeCode(ReadHexFile *hexData,PicType *picType);
+    int writeCode(HexFile *hexData,PicType *picType);
 /* read the Eeprom Data area of the pic into *hexData->dataMemory */
-    int readData(ReadHexFile *hexData,PicType *picType);
+    int readData(HexFile *hexData,PicType *picType);
 /*write the Eeprom data from *hexData->dataMemory into the pic*/
-    int writeData(ReadHexFile *hexData,PicType *picType);
+    int writeData(HexFile *hexData,PicType *picType);
 /* Read the configuration words (and user ID's for PIC16 dev's) */
-    int readConfig(ReadHexFile *hexData,PicType *picType);
+    int readConfig(HexFile *hexData,PicType *picType);
 /*Writes the configuration words (and user ID's for PIC16 dev's)*/
-    int writeConfig(ReadHexFile *hexData,PicType *picType);
+    int writeConfig(HexFile *hexData,PicType *picType);
 /*Reads the whole PIC and checks if the data matches hexData*/
-    VerifyResult verify(ReadHexFile *hexData, PicType *picType, bool doCode=true, bool doConfig=true, bool doData=true);
+    VerifyResult verify(HexFile *hexData, PicType *picType, bool doCode=true, bool doConfig=true, bool doData=true);
 /*Reads the whole PIC and checks if it is blank*/
     VerifyResult blankCheck(PicType *picType);
 /*This function does nothing but reading the devid from the PIC, call it the following way:

@@ -42,7 +42,7 @@ using namespace std;
 #include "uppmainwindow_base.h"
 #include "hardware.h"
 #include "pictype.h"
-#include "read_hexfile.h"
+#include "hexfile.h"
 #include "preferences.h"
 
 #ifdef __WXMAC__
@@ -147,7 +147,7 @@ private:
     void upp_update_hardware_type();
 
 private:    // member variables
-    ReadHexFile* m_pHexFile;
+    HexFile* m_pHexFile;
     PicType* picType;
     Hardware* hardware;
     bool fileOpened;

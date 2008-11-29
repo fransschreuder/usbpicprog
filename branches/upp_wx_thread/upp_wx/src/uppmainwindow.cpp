@@ -76,7 +76,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     CompleteGUICreation();
 
     // non-GUI init:
-    m_pHexFile=new ReadHexFile();
+    m_pHexFile=new HexFile();
     picType=NULL;       // means that there is no known PIC connected!
     hardware=NULL;
     upp_connect();

@@ -18,8 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef INCLUDE_ICONS_H
-#define INCLUDE_ICONS_H
+#ifndef FORMBUILDER_INCLUDES_H
+#define FORMBUILDER_INCLUDES_H
 
 /*These icons are placed on the icon toolbar, usbpicprog.xpm is the main program icon.*/
 
@@ -48,4 +48,4 @@ enum
     wxID_PIC_CHOICE
 };
 
-#endif //INCLUDE_ICONS_H
+#endif //FORMBUILDER_INCLUDES_H
