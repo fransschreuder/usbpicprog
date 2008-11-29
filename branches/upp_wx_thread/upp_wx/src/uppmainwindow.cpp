@@ -305,6 +305,23 @@ void UppMainWindow::UpdateGrids()
     m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
 }
 
+bool UppMainWindow::ShoudContinueIfUnsaved()
+{
+    if (!m_hexFile.wasModified())
+        return true;    // continue
+
+    wxString msg = wxString::Format(
+        _("The HEX file '%s' has not been saved... its content will be lost; continue?"),
+        m_hexFile.hasFileName() ? m_hexFile.getFileName() : "untitled");
+
+    if ( wxMessageBox(msg, _("Please confirm"),
+                        wxICON_QUESTION | wxYES_NO, this) == wxYES )
+        return true;    // continue...
+
+    // don't continue!
+    return false;
+}
+
 
 
 // UPPMAINWINDOW - event handlers
@@ -318,22 +335,15 @@ void UppMainWindow::on_mru(wxCommandEvent& event)
 
 void UppMainWindow::on_close(wxCloseEvent& event)
 {
-    if ( event.CanVeto() && m_hexFile.wasModified() )
-    {
-        wxString msg = wxString::Format(
-            _("The HEX file '%s' has not been saved... continue closing?"),
-            m_hexFile.hasFileName() ? m_hexFile.getFileName() : "untitled");
-
-        if ( wxMessageBox(msg, _("Please confirm"),
-                          wxICON_QUESTION | wxYES_NO, this) != wxYES )
+    if ( event.CanVeto() )
+        if (!ShoudContinueIfUnsaved())
         {
+            // user replied "do not continue"
             event.Veto();
             return;
         }
-    }
 
-    Destroy();  // you may also do:  event.Skip();
-                // since the default event handler does call Destroy(), too
+    Destroy();
 }
 
 
@@ -351,6 +361,9 @@ void UppMainWindow::upp_cell_changed()
 /*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
+    if (!ShoudContinueIfUnsaved())
+        return;
+
     m_hexFile.newFile(&m_picType);
 
     UpdateGrids();
@@ -603,6 +616,14 @@ void UppMainWindow::upp_read()
         return;
     }
 
+    // this command overwrites current code/config/data HEX... so ask to the user
+    // before proceeding:
+    if (!ShoudContinueIfUnsaved())
+        return;
+
+    // reset current contents:
+    m_hexFile.newFile(&m_picType);
+
     if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
         SetStatusText(_("Error reading code memory"),STATUS_FIELD_OTHER);
@@ -621,10 +642,13 @@ void UppMainWindow::upp_read()
         wxLogError(_("Error reading config memory"));
         //return;
     }
+
     m_hexFile.trimData(&m_picType);
+
     UpdateGrids();
+    UpdateTitle();
+
     updateProgress(100);
-    return;
 }
 
 /*verify the device with the open hexfile*/
@@ -680,7 +704,6 @@ void UppMainWindow::upp_verify()
             break;
     }
     updateProgress(100);
-    return;
 }
 
 /*perform a bulk-erase on the current PIC*/
@@ -694,12 +717,24 @@ void UppMainWindow::upp_erase()
         return;
     }
 
+    // this command overwrites current code/config/data HEX... so ask to the user
+    // before proceeding:
+    if (!ShoudContinueIfUnsaved())
+        return;
+
+    // reset current contents:
+    m_hexFile.newFile(&m_picType);
+
     if(m_hardware->bulkErase(&m_picType)<0)
     {
         SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
         wxLogError(_("Error erasing the device"));
         return;
     }
+
+    UpdateGrids();
+    UpdateTitle();
+
     updateProgress(100);
 }
 
@@ -751,6 +786,7 @@ void UppMainWindow::upp_blankcheck()
             wxLogError(_("I'm sorry for being stupid"));
             break;
     }
+
     updateProgress(100);
 }
 

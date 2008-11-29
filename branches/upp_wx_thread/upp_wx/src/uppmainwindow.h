@@ -95,6 +95,8 @@ protected:      // internal helpers
 
     UppHexViewGrid* GetCurrentGrid() const;
 
+    bool ShoudContinueIfUnsaved();
+
 public:     // event handlers
 
     void on_mru( wxCommandEvent& event );
