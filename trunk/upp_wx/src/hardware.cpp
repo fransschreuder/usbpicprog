@@ -880,14 +880,11 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 				return nBytes;
 			}
 			
-			char *tmpmsg = new char[size+5];
+			char tmpmsg[size+5];
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
-			if(nBytes<0)
-            { delete [] tmpmsg; return nBytes; }
+			if(nBytes<0)return nBytes;
 			memcpy(msg,tmpmsg+5,nBytes);
-            
-            delete [] tmpmsg;
 		}
 		
 		
@@ -941,13 +938,11 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 				return nBytes;
 			}
 			
-			char *tmpmsg = new char[size+5];
+			char tmpmsg[size+5];
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
 			
 			memcpy(msg,tmpmsg+5,nBytes);
-            
-            delete [] tmpmsg;
 		}
 		
 		
@@ -1094,13 +1089,11 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 				return nBytes;
 			}
 			
-			char *tmpmsg = new char[size+5];
+			char tmpmsg[size+5];
 			
 			nBytes = readString(tmpmsg,size+5) - 5;
 			
 			memcpy(msg,tmpmsg+5,nBytes);
-            
-            delete [] tmpmsg;
 		}
 		
 		
