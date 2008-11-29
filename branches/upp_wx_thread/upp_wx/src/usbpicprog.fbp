@@ -234,7 +234,7 @@
                                         <object class="CustomControl" expanded="1">
                                             <property name="bg"></property>
                                             <property name="class">UppHexViewGrid</property>
-                                            <property name="construction">m_pCodeGrid = new UppHexViewGrid(m_pCodePanel, wxID_ANY);</property>
+                                            <property name="construction">m_pCodeGrid = new UppHexViewGrid(m_pCodePanel, wxID_ANY, HEXVIEW_CODE);</property>
                                             <property name="context_help"></property>
                                             <property name="declaration">UppHexViewGrid* m_pCodeGrid;</property>
                                             <property name="enabled">1</property>
@@ -392,7 +392,7 @@
                                         <object class="CustomControl" expanded="1">
                                             <property name="bg"></property>
                                             <property name="class">UppHewViewGrid</property>
-                                            <property name="construction">m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY);</property>
+                                            <property name="construction">m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY, HEXVIEW_CONFIG);</property>
                                             <property name="context_help"></property>
                                             <property name="declaration">UppHexViewGrid* m_pConfigGrid;</property>
                                             <property name="enabled">1</property>
@@ -550,7 +550,7 @@
                                         <object class="CustomControl" expanded="1">
                                             <property name="bg"></property>
                                             <property name="class">UppHexViewGrid</property>
-                                            <property name="construction">m_pDataGrid = new UppHexViewGrid(m_pDataPanel, wxID_ANY);</property>
+                                            <property name="construction">m_pDataGrid = new UppHexViewGrid(m_pDataPanel, wxID_ANY, HEXVIEW_DATA);</property>
                                             <property name="context_help"></property>
                                             <property name="declaration">UppHexViewGrid* m_pDataGrid;</property>
                                             <property name="enabled">1</property>

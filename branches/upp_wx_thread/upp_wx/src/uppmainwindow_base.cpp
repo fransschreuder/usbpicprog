@@ -24,7 +24,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText1->Wrap( -1 );
 	bSizer2->Add( m_staticText1, 0, wxALL, 5 );
 	
-	m_pCodeGrid = new UppHexViewGrid(m_pCodePanel, wxID_ANY);
+	m_pCodeGrid = new UppHexViewGrid(m_pCodePanel, wxID_ANY, HEXVIEW_CODE);
 	bSizer2->Add( m_pCodeGrid, 1, wxALL|wxEXPAND, 5 );
 	
 	m_pCodePanel->SetSizer( bSizer2 );
@@ -39,7 +39,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText2->Wrap( -1 );
 	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
 	
-	m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY);
+	m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY, HEXVIEW_CONFIG);
 	bSizer3->Add( m_pConfigGrid, 1, wxALL|wxEXPAND, 5 );
 	
 	m_pConfigPanel->SetSizer( bSizer3 );
@@ -54,7 +54,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_staticText3->Wrap( -1 );
 	bSizer4->Add( m_staticText3, 0, wxALL, 5 );
 	
-	m_pDataGrid = new UppHexViewGrid(m_pDataPanel, wxID_ANY);
+	m_pDataGrid = new UppHexViewGrid(m_pDataPanel, wxID_ANY, HEXVIEW_DATA);
 	bSizer4->Add( m_pDataGrid, 1, wxALL|wxEXPAND, 5 );
 	
 	m_pDataPanel->SetSizer( bSizer4 );

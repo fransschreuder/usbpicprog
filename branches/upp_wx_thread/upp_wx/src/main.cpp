@@ -74,14 +74,10 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
     hexFile = NULL;
     picType = NULL;
     hardware = NULL;
+
+    // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
     m_locale->AddCatalog(wxT("usbpicprog"));
-
-    #ifndef UPP_VERSION
-    wxString versionString=wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
-    #else
-    wxString versionString=wxString(_("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
-    #endif
 
     /*If no command line arguments are passed, we open the main window  *
     *Else, a command line application is started.						*
@@ -99,7 +95,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
         !parser.Found(wxT("f"), &tmp))
     {
         // start a GUI app
-        uppMainWindow = new UppMainWindow((wxFrame *)NULL, wxID_ANY, versionString);
+        uppMainWindow = new UppMainWindow((wxFrame *)NULL, wxID_ANY);
         SetTopWindow(uppMainWindow);
 
         uppMainWindow->Show(true);

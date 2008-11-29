@@ -30,22 +30,29 @@
 using namespace std;
 
 
+enum UppHexViewType
+{
+    HEXVIEW_CODE,
+    HEXVIEW_CONFIG,
+    HEXVIEW_DATA
+};
+
 class UppHexViewGrid : public wxGrid
 {
 public:
-    UppHexViewGrid(wxWindow* parent, wxWindowID id = wxID_ANY,
-                   const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                   long style = wxWANTS_CHARS);
+    UppHexViewGrid(wxWindow* parent, wxWindowID id,
+                   UppHexViewType type);
     ~UppHexViewGrid();
 
     void Copy();
-    void ShowHexFile(HexFile* hexFile, vector<int>& data, PicType* picType);
+    void ShowHexFile(HexFile* hexFile, PicType* picType);
 
 private:
 /*
     void autoSizeColumns (void);
     void setLabels (int configOffset);*/
-    HexFile* hexFile;
+    HexFile* m_hexFile;
+    UppHexViewType m_type;
 
 protected:
     void OnCopy (wxCommandEvent& event);

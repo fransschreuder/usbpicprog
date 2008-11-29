@@ -77,11 +77,7 @@ class UppMainWindow : public UppMainWindowBase
 {
 public:
 
-    UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY,
-                  const wxString& title = wxT("Usbpicprog"),
-                  const wxPoint& pos = wxDefaultPosition,
-                  const wxSize& size = wxDefaultSize,
-                  long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY);
     ~UppMainWindow();
 
 
@@ -91,7 +87,8 @@ public:
 
 protected:      // internal helpers
 
-    void printHexFile();
+    void UpdateGrids();
+    void UpdateTitle();
 
     wxBitmap GetMenuBitmap(const char* xpm_data[]);
     void CompleteGUICreation();
@@ -122,12 +119,14 @@ public:     // event handlers
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
     void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
     void on_choice_changed( wxCommandEvent& event ){upp_choice_changed(); EVENT_FIX};
+    void on_cell_changed( wxGridEvent& event ){ upp_cell_changed(); EVENT_FIX};
 
 private:
     void upp_open();
     void upp_refresh();
     void upp_save();
     void upp_save_as();
+    void upp_cell_changed();
     void upp_exit();
     void upp_copy();
     void upp_selectall();
@@ -147,13 +146,15 @@ private:
     void upp_update_hardware_type();
 
 private:    // member variables
-    HexFile* m_pHexFile;
+
+    HexFile m_hexFile;
+
     PicType* picType;
     Hardware* hardware;
-    bool fileOpened;
+
     wxConfig* uppConfig;
-    wxString defaultPath;
     ConfigFields configFields;
+    wxString defaultPath;
 
     wxChoice* m_pPICChoice;
     wxFileHistory m_history;

@@ -64,8 +64,13 @@ public:
     void print(string* output,PicType* picType);
     void trimData(PicType* picType);
 
+    const char* getFileName() const { return m_filename; }
+    bool hasFileName() const { return m_filename[0] != '\0'; }
+    bool wasModified() const { return m_bModified; }
+
 private:
-    char filenameToSave[512];
+    char m_filename[512];
+    bool m_bModified;
     vector<int> codeMemory;
     vector<int> dataMemory;
     vector<int> configMemory;

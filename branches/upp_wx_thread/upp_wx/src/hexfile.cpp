@@ -32,9 +32,14 @@ using namespace std;
 
 HexFile::HexFile(PicType* picType,const char* filename)
 {
-    if((picType!=NULL)&&(filename==NULL))newFile(picType);
-    else if((picType!=NULL)&&(filename!=NULL))open(picType,filename);
-    //If both arguments are NULL, you need to call open later
+    m_filename[0] = '\0';
+    m_bModified = false;
+
+    if((picType!=NULL)&&(filename==NULL))
+        newFile(picType);
+    else if((picType!=NULL)&&(filename!=NULL))
+        open(picType,filename);
+    //else: If both arguments are NULL, you need to call open later
 }
 
 HexFile::~HexFile()
@@ -53,6 +58,9 @@ int HexFile::newFile(PicType* picType)
     trimData(picType);
     for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
         configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
+
+    m_bModified = false;
+
     return 0;
 }
 
@@ -79,7 +87,7 @@ int HexFile::open(PicType* picType,const char* filename)
     do
     {
         fp>>tempStr;
-        strcpy(filenameToSave,filename);
+        strcpy(m_filename,filename);
 
         sscanf(tempStr.c_str(),":%02X",&byteCount);
 
@@ -181,6 +189,9 @@ int HexFile::open(PicType* picType,const char* filename)
     }while(recordType!=ENDOFFILE);
     fp.close();
     trimData(picType);
+
+    m_bModified = false;
+
     return 0;
 }
 
@@ -215,11 +226,12 @@ void HexFile::trimData(PicType* picType)
         dataMemory[i]&=0xFF;
     }
 
+    m_bModified = true;
 }
 
 int HexFile::reload(PicType* picType)
 {
-    return open(picType,filenameToSave);
+    return open(picType,m_filename);
 }
 
 int HexFile::saveAs(PicType* picType,const char* filename)
@@ -235,6 +247,9 @@ int HexFile::saveAs(PicType* picType,const char* filename)
         cerr<<"Could not open Hex file for writing... Exiting\n\n"<<endl;
         return -1;
     }
+
+    strcpy(m_filename,filename);
+
     if(codeMemory.size()>0)
     {
         lineData.resize(2);
@@ -324,47 +339,64 @@ int HexFile::saveAs(PicType* picType,const char* filename)
     lineData.resize(0);
     makeLine(0,ENDOFFILE,lineData,txt);
     fp<<txt<<endl;
+
+    m_bModified = false;
+
     return 0;
-
 }
-
 
 int HexFile::save(PicType* picType)
 {
-    return saveAs(picType,filenameToSave);
+    return saveAs(picType,m_filename);
 }
 
 void HexFile::putCodeMemory(vector<int> &mem)
 {
     codeMemory=mem;
+    m_bModified = true;
 }
 
 void HexFile::putCodeMemory(int address, int mem)
 {
-    if(codeMemory.size()>(unsigned)address)codeMemory[address]=mem;
+    if(codeMemory.size()>(unsigned)address)
+    {
+        codeMemory[address]=mem;
+        m_bModified = true;
+    }
 }
 
 void HexFile::putDataMemory(vector<int> &mem)
 {
     dataMemory=mem;
+    m_bModified = true;
 }
 
 void HexFile::putDataMemory(int address, int mem)
 {
-    if(dataMemory.size()>(unsigned)address)dataMemory[address]=mem;
+    if(dataMemory.size()>(unsigned)address)
+    {
+        dataMemory[address]=mem;
+        m_bModified = true;
+    }
 }
 
 void HexFile::putConfigMemory(vector<int> &mem)
 {
     configMemory=mem;
+    m_bModified = true;
 }
 
 void HexFile::putConfigMemory(int address, int mem)
 {
-    if(configMemory.size()>(unsigned)address)configMemory[address]=mem;
+    if(configMemory.size()>(unsigned)address)
+    {
+        configMemory[address]=mem;
+        m_bModified = true;
+    }
 }
 
-bool HexFile::calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum)
+bool HexFile::calcCheckSum(int byteCount,int address, RecordType recordType,
+                           vector<int> &lineData, int checkSum)
 {
     int check=0;
     check+=byteCount;
@@ -401,8 +433,6 @@ void HexFile::makeLine(int address, RecordType recordType, vector<int> &lineData
     check=(0x100-check)&0xFF;
 
     sprintf(output_line+9+(lineData.size()*2),"%02X",check);
-
-
 }
 
 vector<int> &HexFile::getCodeMemory(void)

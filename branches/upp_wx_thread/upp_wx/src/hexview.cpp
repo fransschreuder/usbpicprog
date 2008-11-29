@@ -22,6 +22,7 @@
 #include <wx/clipbrd.h>
 #include <wx/dataobj.h>
 #include <wx/menu.h>
+#include <wx/log.h>
 
 #include "hexview.h"
 
@@ -31,12 +32,11 @@
 #define COLWIDTH            28
 
 
-UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id,
-                               const wxPoint& pos, const wxSize& size,
-                               long style)
-    : wxGrid( parent, id, pos, size, style )
+UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType type)
+    : wxGrid( parent, id, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS )
 {
-    hexFile=NULL;
+    m_hexFile=NULL;
+    m_type=type;
 
     // NOTE: in wx2.9 we can't allocate a grid of zero rows... at least one
     //       row is always _required_
@@ -83,25 +83,39 @@ UppHexViewGrid::~UppHexViewGrid()
     Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
-void UppHexViewGrid::ShowHexFile(HexFile* hexFile, vector<int>& data, PicType* picType)
+void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
 {
-    hexFile=hexFile;
+    m_hexFile=hexFile;
+
+    const vector<int>* data = NULL;
+    switch (m_type)
+    {
+        case HEXVIEW_CODE:
+            data = &m_hexFile->getCodeMemory();
+            break;
+        case HEXVIEW_CONFIG:
+            data = &m_hexFile->getConfigMemory();
+            break;
+        case HEXVIEW_DATA:
+            data = &m_hexFile->getDataMemory();
+            break;
+    }
 
     // clean current contents
     if (GetNumberRows() > 0)
         DeleteRows(0, GetNumberRows(), false);
 
+    int n = GetNumberCols();
+    if (n == 0) n = 1;      // avoid divisions by zero
+
     // append new rows and set grid contents
-    AppendRows(((data.size()%GetNumberCols())>0)+data.size()/GetNumberCols(), false);
-    for(unsigned int i=0;i<data.size();i++)
-    {
-        SetCellValue(i/(GetNumberCols()), i%(GetNumberCols()),
-                     wxString::Format(wxT("%02X"), data[i]));
-    }
+    AppendRows(((data->size()%n)>0)+data->size()/n, false);
+    for(unsigned int i=0;i<data->size();i++)
+        SetCellValue(i/n, i%n, wxString::Format(wxT("%02X"), (*data)[i]));
 
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
-        SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*GetNumberCols()));
+        SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*n));
 
 /*   setLabels(picType->getCurrentPic().ConfigAddress);*/
     Fit();
@@ -187,48 +201,28 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
     int Data;
     wxString CellData=GetCellValue(event.GetRow(),event.GetCol());
     sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-    if((Data>=0)&&(Data<=0xFF))
-    {
-        // FIXME
-        if (hexFile)
-            hexFile->putCodeMemory(Position,Data);
-    }
 
-    if (hexFile)
-        CellData.Printf(wxT("%02X"),hexFile->getCodeMemory(Position));
+    if(m_hexFile && (Data>=0) && (Data<=0xFF))
+    {
+        switch (m_type)
+        {
+            case HEXVIEW_CODE:
+                m_hexFile->putCodeMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getCodeMemory(Position));
+                break;
+            case HEXVIEW_CONFIG:
+                m_hexFile->putConfigMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getConfigMemory(Position));
+                break;
+            case HEXVIEW_DATA:
+                m_hexFile->putDataMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getDataMemory(Position));
+                break;
+        }
+
+        // inform the parent that something was modified
+        GetParent()->ProcessEvent(event);
+    }
 
     SetCellValue(event.GetRow(),event.GetCol(),CellData);
 }
-/*
-void UppHexViewGrid::OnConfigChanged (wxGridEvent& event )
-{
-    int Position=event.GetCol()+(event.GetRow()*configGrid->GetNumberCols());
-
-    int Data;
-    wxString CellData=configGrid->GetCellValue(event.GetRow(),event.GetCol());
-    sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-    if((Data>=0)&&(Data<=0xFF))
-    {
-        hexFile->putConfigMemory(Position,Data);
-    }
-
-    CellData.Printf(wxT("%02X"),hexFile->getConfigMemory(Position));
-    configGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
-}
-
-void UppHexViewGrid::OnDataChanged (wxGridEvent& event )
-{
-    int Position=event.GetCol()+(event.GetRow()*dataGrid->GetNumberCols());
-
-    int Data;
-    wxString CellData=dataGrid->GetCellValue(event.GetRow(),event.GetCol());
-    sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-    if((Data>=0)&&(Data<=0xFF))
-    {
-        hexFile->putDataMemory(Position,Data);
-    }
-
-    CellData.Printf(wxT("%02X"),hexFile->getDataMemory(Position));
-    dataGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
-}
-*/

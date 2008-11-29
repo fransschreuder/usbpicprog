@@ -50,8 +50,6 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
     {
         for (dev=bus->devices;dev;dev=dev->next)
         {
-
-
             if (hwtype == HW_UPP)
             {
                 if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
