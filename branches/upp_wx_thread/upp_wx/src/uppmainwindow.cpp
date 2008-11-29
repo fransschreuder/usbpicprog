@@ -23,7 +23,6 @@
 #include <wx/toolbar.h>
 #include <wx/choice.h>
 #include <wx/filedlg.h>
-#include <wx/msgdlg.h>
 #include <wx/log.h>
 
 #include "uppmainwindow_base.h"
@@ -325,7 +324,7 @@ void UppMainWindow::upp_refresh()
     if(m_pHexFile->reload(picType)<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Unable to open file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Unable to open file"));
     }
     else printHexFile();
 }
@@ -338,7 +337,7 @@ void UppMainWindow::upp_save()
         if(m_pHexFile->save(picType)<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Unable to save file"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Unable to save file"));
         }
     }
     else upp_save_as();
@@ -356,8 +355,7 @@ void UppMainWindow::upp_save_as()
         if(m_pHexFile->saveAs(picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Unable to save file"), _("Error"),
-                            wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Unable to save file"));
             defaultPath=openFileDialog->GetDirectory();
         }
     }
@@ -402,8 +400,7 @@ void UppMainWindow::upp_program()
             break;
         default:
             SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Error erasing the device"), _("Error"),
-                            wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Error erasing the device"));
             break;
         }
     }
@@ -417,27 +414,27 @@ void UppMainWindow::upp_program()
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should say OK"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should say OK"));
             break;
         case -2:
             SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should ask for next block"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write code not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("write code not implemented for current PIC"), wxT("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("write code not implemented for current PIC"));
             break;
         case -4:
             SetStatusText(_("Verify error while writing code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Verify error while writing code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Verify error while writing code memory"));
             break;
         case -5:
             SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("USB error while writing code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("USB error while writing code memory"));
             break;
         default:
             SetStatusText(_("Error programming code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Error programming code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Error programming code memory"));
             break;
         }
     }
@@ -451,23 +448,23 @@ void UppMainWindow::upp_program()
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should say OK"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should say OK"));
             break;
         case -2:
             SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should ask for next block"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write data not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("write data not implemented for current PIC"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("write data not implemented for current PIC"));
             break;
         case -4:
             SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("USB error while writing code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("USB error while writing code memory"));
             break;
         default:
             SetStatusText(_("Error programming data memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Error programming data memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Error programming data memory"));
             break;
         }
     }
@@ -481,23 +478,23 @@ void UppMainWindow::upp_program()
             break;
         case -1:
             SetStatusText(_("Hardware should say OK"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should say OK"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should say OK"));
             break;
         case -2:
             SetStatusText(_("Hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Hardware should ask for next block"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Hardware should ask for next block"));
             break;
         case -3:
             SetStatusText(_("write config not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("write config not implemented for current PIC"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("write config not implemented for current PIC"));
             break;
         case -4:
             SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("USB error while writing code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("USB error while writing code memory"));
             break;
         default:
             SetStatusText(_("Error programming config memory"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Error programming config memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Error programming config memory"));
             break;
         }
     }
@@ -513,19 +510,19 @@ void UppMainWindow::upp_read()
     if(hardware->readCode(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading code memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Error reading code memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Error reading code memory"));
         //return;
     }
     if(hardware->readData(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading data memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Error reading data memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Error reading data memory"));
         //return;
     }
     if(hardware->readConfig(m_pHexFile,picType)<0)
     {
         SetStatusText(_("Error reading config memory"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Error reading config memory"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Error reading config memory"));
         //return;
     }
     m_pHexFile->trimData(picType);
@@ -562,19 +559,19 @@ void UppMainWindow::upp_verify()
                             res.Expected);
             verifyText.Prepend(typeText);
             SetStatusText(verifyText,STATUS_FIELD_OTHER);
-            wxMessageDialog(this, verifyText, _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(verifyText);
             break;
         case VERIFY_USB_ERROR:
             SetStatusText(_("USB error during verify"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("USB error during verify"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("USB error during verify"));
             break;
         case VERIFY_OTHER_ERROR:
             SetStatusText(_("Unknown error during verify"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Unknown error during verify"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Unknown error during verify"));
             break;
         default:
             SetStatusText(_("I'm sorry for being stupid"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("I'm sorry for being stupid"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("I'm sorry for being stupid"));
             break;
     }
     updateProgress(100);
@@ -589,7 +586,7 @@ void UppMainWindow::upp_erase()
     if(hardware->bulkErase(picType)<0)
     {
         SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
-        wxMessageDialog(this, _("Error erasing the device"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+        wxLogError(_("Error erasing the device"));
         return;
     }
     updateProgress(100);
@@ -622,19 +619,19 @@ void UppMainWindow::upp_blankcheck()
                 res.Read,
                 res.Expected);
             SetStatusText(verifyText,STATUS_FIELD_OTHER);
-            wxMessageDialog(this, verifyText, _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(verifyText);
             break;
         case VERIFY_USB_ERROR:
             SetStatusText(_("USB error during blankcheck"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("USB error during blankcheck"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("USB error during blankcheck"));
             break;
         case VERIFY_OTHER_ERROR:
             SetStatusText(_("Unknown error during blankcheck"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("Unknown error during blankcheck"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("Unknown error during blankcheck"));
             break;
         default:
             SetStatusText(_("I'm sorry for being stupid"),STATUS_FIELD_OTHER);
-            wxMessageDialog(this, _("I'm sorry for being stupid"), _("Error"),  wxOK | wxICON_ERROR,  wxDefaultPosition).ShowModal();
+            wxLogError(_("I'm sorry for being stupid"));
             break;
     }
     updateProgress(100);
@@ -760,7 +757,6 @@ void UppMainWindow::upp_help()
 /*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindow::upp_about()
 {
-#ifdef _WX_ABOUTDLG_H_
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetName(wxT("Usbpicprog"));
     #ifndef UPP_VERSION
@@ -770,15 +766,8 @@ void UppMainWindow::upp_about()
     #endif
     aboutInfo.SetDescription(_("An open source USB pic programmer"));
     aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.org/"));
-    wxAboutBox(aboutInfo);
-#else//_WX_ABOUTDLG_H_
-    #ifndef UPP_VERSION
-    wxMessageDialog(this, wxString(wxT("Usbpicprog (SVN) ")).Append(wxString::FromAscii(SVN_REVISION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
-    #else
-    wxMessageDialog(this, wxString(wxT("Usbpicprog ")).Append(wxString::FromAscii(UPP_VERSION)), _("About"),  wxOK | wxICON_INFORMATION,  wxDefaultPosition).ShowModal();
-    #endif
-#endif//_WX_ABOUTDLG_H_
 
+    wxAboutBox(aboutInfo);
 }
 
 /*if the combo changed, also change it in the hardware*/
