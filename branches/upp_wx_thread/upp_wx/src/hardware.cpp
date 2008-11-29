@@ -42,7 +42,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
     usb_find_busses();
     usb_find_devices();
 #ifdef USB_DEBUG
-    cout<<"USB debug enabled, remove #define USB_DEBUG 10 in hardware.cpp to disable it"<<endl;
+    cout<<"USB debug enabled, remove '#define USB_DEBUG 2' in hardware.cpp to disable it"<<endl;
     usb_set_debug(USB_DEBUG);
 #endif
 

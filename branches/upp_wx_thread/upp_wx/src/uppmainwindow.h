@@ -89,6 +89,7 @@ protected:      // internal helpers
 
     void UpdateGrids();
     void UpdateTitle();
+    void Reset();
 
     wxBitmap GetMenuBitmap(const char* xpm_data[]);
     void CompleteGUICreation();

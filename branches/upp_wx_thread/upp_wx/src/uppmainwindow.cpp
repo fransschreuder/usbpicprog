@@ -234,6 +234,7 @@ void UppMainWindow::CompleteGUICreation()
     toolbar->AddSeparator();
 
     m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE, wxDefaultPosition, wxSize(120,-1));
+    m_pPICChoice->SetToolTip(_("currently selected PIC type"));
     this->Connect( wxID_PIC_CHOICE, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_choice_changed ) );
 
     toolbar->AddControl( m_pPICChoice );
@@ -322,6 +323,14 @@ bool UppMainWindow::ShoudContinueIfUnsaved()
     return false;
 }
 
+void UppMainWindow::Reset()
+{
+    m_hexFile.newFile(&m_picType);
+
+    UpdateGrids();
+    UpdateTitle();
+}
+
 
 
 // UPPMAINWINDOW - event handlers
@@ -364,15 +373,15 @@ void UppMainWindow::upp_new()
     if (!ShoudContinueIfUnsaved())
         return;
 
-    m_hexFile.newFile(&m_picType);
-
-    UpdateGrids();
-    UpdateTitle();
+    Reset();
 }
 
 /*Open a hexfile using a file dialog*/
 void UppMainWindow::upp_open()
 {
+    if (!ShoudContinueIfUnsaved())
+        return;
+
     wxFileDialog* openFileDialog =
         new wxFileDialog( this, _("Open hexfile"), defaultPath, wxT(""),
                           FILETYPES, wxFD_OPEN, wxDefaultPosition);
@@ -414,6 +423,9 @@ void UppMainWindow::upp_refresh()
         wxLogMessage(_("No file to refresh"));
         return;
     }
+
+    if (!ShoudContinueIfUnsaved())
+        return;
 
     if(m_hexFile.reload(&m_picType)<0)
     {
@@ -728,9 +740,6 @@ void UppMainWindow::upp_erase()
     if (!ShoudContinueIfUnsaved())
         return;
 
-    // reset current contents:
-    m_hexFile.newFile(&m_picType);
-
     if(m_hardware->bulkErase(&m_picType)<0)
     {
         SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
@@ -738,8 +747,7 @@ void UppMainWindow::upp_erase()
         return;
     }
 
-    UpdateGrids();
-    UpdateTitle();
+    Reset();
 
     updateProgress(100);
 }
@@ -808,6 +816,10 @@ bool UppMainWindow::upp_autodetect()
         return false;
     }
 
+    // this command changes the pic-type and thus resets the current code/config/data stuff...
+    if (!ShoudContinueIfUnsaved())
+        return false;
+
     int devId=m_hardware->autoDetectDevice();
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
@@ -828,7 +840,7 @@ bool UppMainWindow::upp_autodetect()
         wxLogMessage(_("No PIC detected!"));
     }
 
-    upp_new();
+    Reset();
 
     return (devId>0);
 }
@@ -974,27 +986,39 @@ void UppMainWindow::upp_about()
 /*if the combo changed, also change it in the m_hardware*/
 void UppMainWindow::upp_choice_changed()
 {
+    // user changed the pic-type and thus we need to either
+    // - reset the current code/config/data grids
+    // - go back to the previously selected PIC
+    if (!ShoudContinueIfUnsaved())
+    {
+        // revert selection to the previous type
+        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+        return;
+    }
+
     if (m_hardware != NULL)
     {
         if(m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
-            // revert selection to the default type
-            m_pPICChoice->SetStringSelection(wxT("P18F2550"));
+            // revert selection to the previous type
+            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+            wxLogError(wxT("Cannot select a PIC different from '%s' when the bootloader is connected!"));
             return;
         }
 
+        // update the pic type
         m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
         m_hardware->setPicType(&m_picType);
 
-        upp_new();
+        Reset();
     }
     else
     {
+        // update the pic type
         m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
 
-        upp_new();
+        Reset();
     }
-
 }
 
 void UppMainWindow::upp_update_hardware_type()
