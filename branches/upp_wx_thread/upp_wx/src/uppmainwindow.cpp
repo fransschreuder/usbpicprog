@@ -742,13 +742,14 @@ void UppMainWindow::upp_disconnect()
 
 void UppMainWindow::upp_preferences()
 {
-
     configFields.OkClicked=false;
-    PreferencesDialog *preferencesDialog = new PreferencesDialog(this, wxID_ANY, _("Preferences"), wxPoint(-1,-1), wxSize(-1,-1));
+
+    PreferencesDialog *preferencesDialog =
+        new PreferencesDialog(this, wxID_ANY, _("Preferences"));
+
     preferencesDialog->SetConfigFields(configFields);
     preferencesDialog->ShowModal();
     configFields=preferencesDialog->GetResult();
-
 }
 
 /*load a browser with the usbpicprog website*/
