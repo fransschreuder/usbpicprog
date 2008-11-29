@@ -31,21 +31,21 @@
 #include "../svn_revision.h"
 
 #if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
-#include "../icons/refresh.xpm"
-#include "../icons/blankcheck.xpm"
-#include "../icons/program.xpm"
-#include "../icons/erase.xpm"
-#include "../icons/read.xpm"
-#include "../icons/verify.xpm"
-#include "../icons/usbpicprog.xpm"
+    #include "../icons/refresh.xpm"
+    #include "../icons/blankcheck.xpm"
+    #include "../icons/program.xpm"
+    #include "../icons/erase.xpm"
+    #include "../icons/read.xpm"
+    #include "../icons/verify.xpm"
+    #include "../icons/usbpicprog.xpm"
 #else   /*Icons for Windows and Mac*/
-#include "../icons/win/refresh.xpm"
-#include "../icons/win/blankcheck.xpm"
-#include "../icons/win/program.xpm"
-#include "../icons/win/erase.xpm"
-#include "../icons/win/read.xpm"
-#include "../icons/win/verify.xpm"
-#include "../icons/win/usbpicprog.xpm"
+    #include "../icons/win/refresh.xpm"
+    #include "../icons/win/blankcheck.xpm"
+    #include "../icons/win/program.xpm"
+    #include "../icons/win/erase.xpm"
+    #include "../icons/win/read.xpm"
+    #include "../icons/win/verify.xpm"
+    #include "../icons/win/usbpicprog.xpm"
 #endif
 
 
@@ -60,8 +60,8 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     : UppMainWindowBase( parent, id, title, pos, size, style ),
       m_history(4)
 {
+    // load settings
     uppConfig=new wxConfig(wxT("usbpicprog"));
-
     if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
     if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
     if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}
@@ -70,9 +70,9 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
     if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
     if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
     if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
-
     m_history.Load(*uppConfig);
 
+    // GUI init:
     CompleteGUICreation();
 
     // non-GUI init:
@@ -86,6 +86,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id, const wxString& ti
 
 UppMainWindow::~UppMainWindow()
 {
+    // save settings
     uppConfig->Write(wxT("DefaultPath"), defaultPath);
     uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
     uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
@@ -94,7 +95,6 @@ UppMainWindow::~UppMainWindow()
     uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
     uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
     uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
-
     m_history.Save(*uppConfig);
 
     delete uppConfig;
@@ -245,7 +245,7 @@ UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
     }
 }
 
-/*Update the progress bar*/
+/*Update the progress bar; this function is called by Hardware */
 void UppMainWindow::updateProgress(int value)
 {
     //uppProgressBar->SetValue(value); FIXME

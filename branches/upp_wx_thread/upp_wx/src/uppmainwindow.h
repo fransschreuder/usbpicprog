@@ -158,6 +158,5 @@ private:    // member variables
     wxChoice* m_pPICChoice;
     wxFileHistory m_history;
 };
-#define m_idxUknownPIC 0
 
 #endif
