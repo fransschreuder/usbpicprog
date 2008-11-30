@@ -714,7 +714,7 @@
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
                         <property name="enabled">1</property>
-                        <property name="help">Saves current code,config,data stuff as an HEX file</property>
+                        <property name="help">Saves current code,config,data as a HEX file</property>
                         <property name="id">wxID_SAVEAS</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label"></property>

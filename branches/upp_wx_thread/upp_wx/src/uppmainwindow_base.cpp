@@ -85,7 +85,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuFile->Append( uppMenuSave );
 	
 	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( wxEmptyString ) , _("Saves current code,config,data stuff as an HEX file"), wxITEM_NORMAL );
+	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( wxEmptyString ) , _("Saves current code,config,data as a HEX file"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuSaveAs );
 	
 	wxMenuItem* uppMenuExit;
