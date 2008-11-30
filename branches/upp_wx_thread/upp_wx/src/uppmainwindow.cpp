@@ -62,6 +62,11 @@ wxString wxGetPicName(PicType* pt)
     return wxString::FromAscii(pt->getCurrentPic().Name.c_str());
 }
 
+extern const wxEventType wxEVT_COMMAND_THREAD_UPDATE;
+extern const wxEventType wxEVT_COMMAND_THREAD_COMPLETE;
+DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_UPDATE)
+DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE)
+
 
 
 // UPPMAINWINDOW
@@ -88,8 +93,8 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     m_history.Load(*uppConfig);
 
     // non-GUI init:
-    //m_picType=NULL;       // means that there is no known PIC connected!
     m_hardware=NULL;      // upp_connect() will allocate it
+    m_dlgProgress=NULL;   // will be created when needed
 
     // GUI init:
     CompleteGUICreation();
@@ -266,6 +271,8 @@ void UppMainWindow::CompleteGUICreation()
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
     this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
+    this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxCommandEventHandler( UppMainWindow::OnThreadUpdate ) );
+    this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxCommandEventHandler( UppMainWindow::OnThreadCompleted ) );
 
     // set default title name
     UpdateTitle();
@@ -289,13 +296,6 @@ UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
     default:
         return NULL;
     }
-}
-
-/*Update the progress bar; this function is called by m_hardware */
-void UppMainWindow::updateProgress(int value)
-{
-    //uppProgressBar->SetValue(value); FIXME
-    Update(); //refresh the gui, also when busy
 }
 
 /*Put the contents of the hex file in the text area*/
@@ -352,8 +352,234 @@ void UppMainWindow::on_close(wxCloseEvent& event)
             return;
         }
 
+    // wait for the thread
+    if (GetThread())
+        GetThread()->Wait();
+
     Destroy();
 }
+
+
+
+// UPPMAINWINDOW - thread-related functions
+// =============================================================================
+
+/*Update the progress bar; this function is called by m_hardware */
+void UppMainWindow::updateProgress(int value)
+{
+    // this function is executed in the secondary thread's context!
+    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_UPDATE, value));
+}
+
+/*Update from the secondary thread */
+void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
+{
+    // this function is executed in the primary thread's context!
+    if (m_dlgProgress)
+        m_dlgProgress->Update(evt.GetId());
+}
+
+/*The secondary thread just finished*/
+void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
+{
+    // this function is executed in the primary thread's context!
+    if (m_dlgProgress)
+    {
+        m_dlgProgress->Destroy();
+        m_dlgProgress = NULL;
+    }
+
+    // log all messages created by the Entry()
+    // NOTE: the thread has ended, so that we can access m_arrLog safely
+    for (unsigned int i=0; i<m_arrLog.GetCount(); i++)
+        wxLogMessage(m_arrLog[i]);
+    m_arrLog.Clear();
+}
+
+wxThread::ExitCode UppMainWindow::Entry()
+{
+    // this function is the core of the secondary thread's context!
+    switch (m_mode)
+    {
+    case THREAD_PROGRAM:
+        return (wxThread::ExitCode)upp_thread_program();
+
+    case THREAD_READ:
+    case THREAD_VERIFY:
+    case THREAD_ERASE:
+        break;
+    }
+
+    return (wxThread::ExitCode)1;   // success
+}
+
+bool UppMainWindow::upp_thread_program()
+{
+    if(configFields.ConfigEraseBeforeProgramming)
+    {
+        switch(m_hardware->bulkErase(&m_picType))
+        {
+        case 1:
+            /*SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Erase OK"));*/
+            m_arrLog.Add(_("Erase OK"));
+            break;
+        default:
+            SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
+            wxLogError(_("Error erasing the device"));
+            // FIXME: shouldn't we exit the thread?
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(configFields.ConfigProgramCode)
+    {
+        switch(m_hardware->writeCode(&m_hexFile,&m_picType))
+        {
+        case 0:
+            /*SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Code memory OK"));*/
+            m_arrLog.Add(_("Write Code memory OK"));
+            break;
+        case -1:
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
+            break;
+        case -2:
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
+            break;
+        case -3:
+            SetStatusText(_("write code not implemented for current PIC"),STATUS_FIELD_OTHER);
+            wxLogError(_("write code not implemented for current PIC"));
+            break;
+        case -4:
+            SetStatusText(_("Verify error while writing code memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("Verify error while writing code memory"));
+            break;
+        case -5:
+            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("USB error while writing code memory"));
+            break;
+        default:
+            SetStatusText(_("Error programming code memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("Error programming code memory"));
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(configFields.ConfigProgramConfig)
+    {
+        switch(m_hardware->writeData(&m_hexFile,&m_picType))
+        {
+        case 0:
+            SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Data memory OK"));
+            break;
+        case -1:
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
+            break;
+        case -2:
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
+            break;
+        case -3:
+            SetStatusText(_("write data not implemented for current PIC"),STATUS_FIELD_OTHER);
+            wxLogError(_("write data not implemented for current PIC"));
+            break;
+        case -4:
+            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("USB error while writing code memory"));
+            break;
+        default:
+            SetStatusText(_("Error programming data memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("Error programming data memory"));
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(configFields.ConfigProgramData)
+    {
+        switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
+        {
+        case 0:
+            SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
+            wxLogMessage(_("Write Config memory OK"));
+            break;
+        case -1:
+            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should say OK"));
+            break;
+        case -2:
+            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
+            wxLogError(_("m_hardware should ask for next block"));
+            break;
+        case -3:
+            SetStatusText(_("write config not implemented for current PIC"),STATUS_FIELD_OTHER);
+            wxLogError(_("write config not implemented for current PIC"));
+            break;
+        case -4:
+            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("USB error while writing code memory"));
+            break;
+        default:
+            SetStatusText(_("Error programming config memory"),STATUS_FIELD_OTHER);
+            wxLogError(_("Error programming config memory"));
+            break;
+        }
+    }
+
+    // signal the main thread we've completed our task
+    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_COMPLETE));
+
+    return true;
+}
+
+bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
+{
+    // create the progress dialog to show while our secondary thread works
+    m_dlgProgress = new wxProgressDialog
+                    (
+                        _T("Progress dialog"),
+                        _T("Please wait until the operation is completed..."),
+                        100,
+                        this,
+                        //wxPD_CAN_ABORT |
+                        wxPD_APP_MODAL |
+                        wxPD_ELAPSED_TIME |
+                        wxPD_ESTIMATED_TIME |
+                        wxPD_REMAINING_TIME
+                    );
+
+    // thread is not running yet: no need for a critical section:
+    m_mode = mode;
+
+    // don't block our GUI while we program the attached device:
+    if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
+    {
+        wxLogError("Could not create the worker thread!");
+        return false;
+    }
+
+    if (GetThread()->Run() != wxTHREAD_NO_ERROR)
+    {
+        wxLogError("Could not run the worker thread!");
+        return false;
+    }
+
+    return true;
+}
+
 
 
 
@@ -507,119 +733,7 @@ void UppMainWindow::upp_program()
         return;
     }
 
-    if(configFields.ConfigEraseBeforeProgramming)
-    {
-        switch(m_hardware->bulkErase(&m_picType))
-        {
-        case 1:
-            SetStatusText(_("Erase OK"),STATUS_FIELD_OTHER);
-            wxLogMessage(_("Erase OK"));
-            break;
-        default:
-            SetStatusText(_("Error erasing the device"),STATUS_FIELD_OTHER);
-            wxLogError(_("Error erasing the device"));
-            break;
-        }
-    }
-
-    if(configFields.ConfigProgramCode)
-    {
-        switch(m_hardware->writeCode(&m_hexFile,&m_picType))
-        {
-        case 0:
-            SetStatusText(_("Write Code memory OK"),STATUS_FIELD_OTHER);
-            wxLogMessage(_("Write Code memory OK"));
-            break;
-        case -1:
-            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should say OK"));
-            break;
-        case -2:
-            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should ask for next block"));
-            break;
-        case -3:
-            SetStatusText(_("write code not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxLogError(_("write code not implemented for current PIC"));
-            break;
-        case -4:
-            SetStatusText(_("Verify error while writing code memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("Verify error while writing code memory"));
-            break;
-        case -5:
-            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("USB error while writing code memory"));
-            break;
-        default:
-            SetStatusText(_("Error programming code memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("Error programming code memory"));
-            break;
-        }
-    }
-
-    if(configFields.ConfigProgramConfig)
-    {
-        switch(m_hardware->writeData(&m_hexFile,&m_picType))
-        {
-        case 0:
-            SetStatusText(_("Write Data memory OK"),STATUS_FIELD_OTHER);
-            wxLogMessage(_("Write Data memory OK"));
-            break;
-        case -1:
-            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should say OK"));
-            break;
-        case -2:
-            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should ask for next block"));
-            break;
-        case -3:
-            SetStatusText(_("write data not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxLogError(_("write data not implemented for current PIC"));
-            break;
-        case -4:
-            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("USB error while writing code memory"));
-            break;
-        default:
-            SetStatusText(_("Error programming data memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("Error programming data memory"));
-            break;
-        }
-    }
-
-    if(configFields.ConfigProgramData)
-    {
-        switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
-        {
-        case 0:
-            SetStatusText(_("Write Config memory OK"),STATUS_FIELD_OTHER);
-            wxLogMessage(_("Write Config memory OK"));
-            break;
-        case -1:
-            SetStatusText(_("m_hardware should say OK"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should say OK"));
-            break;
-        case -2:
-            SetStatusText(_("m_hardware should ask for next block"),STATUS_FIELD_OTHER);
-            wxLogError(_("m_hardware should ask for next block"));
-            break;
-        case -3:
-            SetStatusText(_("write config not implemented for current PIC"),STATUS_FIELD_OTHER);
-            wxLogError(_("write config not implemented for current PIC"));
-            break;
-        case -4:
-            SetStatusText(_("USB error while writing code memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("USB error while writing code memory"));
-            break;
-        default:
-            SetStatusText(_("Error programming config memory"),STATUS_FIELD_OTHER);
-            wxLogError(_("Error programming config memory"));
-            break;
-        }
-    }
-
-    updateProgress(100);
+    RunThread(THREAD_PROGRAM);
 }
 
 /*read everything from the device*/

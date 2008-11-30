@@ -979,14 +979,14 @@ int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastbl
                 cout<<endl;
             }
             int nBytes = writeString(uppPackage.data,size+6);
-            if (nBytes < 0 )
+            if (nBytes < 0)
             {
                 return nBytes;
             }
             nBytes = readString(resp_msg,1);
-            if (nBytes < 0 )
+            if (nBytes < 0)
                 cerr<<"Usb Error"<<endl;
-            cout<<"Resp message: "<<(int)resp_msg[0]<<endl;
+            //cout<<"Response message: "<<(int)resp_msg[0]<<endl;
             return (int)resp_msg[0];
         }
         else
