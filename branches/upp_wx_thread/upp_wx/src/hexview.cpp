@@ -64,8 +64,7 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
 
     // since this widget has zero rows, at least initially, we need to explicitely
     // set a reasonable minimum size...
-    SetMinSize(wxSize(-1,300));
-    Fit();
+    SetMinClientSize(wxSize(-1,300));
 
     // Connect Events
     Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
@@ -113,35 +112,14 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     for(unsigned int i=0;i<data->size();i++)
         SetCellValue(i/n, i%n, wxString::Format(wxT("%02X"), (*data)[i]));
 
+    int offset = 0;
+    if (m_type == HEXVIEW_CONFIG)
+        offset = picType->getCurrentPic().ConfigAddress;
+
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
-        SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*n));
-
-/*   setLabels(picType->getCurrentPic().ConfigAddress);*/
-    Fit();
+        SetRowLabelValue(i,wxString::Format(wxT("%06X"),offset + i*n));
 }
-/*
-void UppHexViewGrid::setLabels(int configOffset)
-{
-    for(int i=0;i<configGrid->GetNumberRows();i++)
-        configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),configOffset+i*configGrid->GetNumberCols()));
-    for(int i=0;i<configGrid->GetNumberCols();i++)
-        configGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
-}
-
-/*
-void UppHexViewGrid::autoSizeColumns(void)
-{
-    /*;
-    dataGrid->AutoSizeColumns(true);
-    configGrid->AutoSizeColumns(true);*
-    for(int i=0;i<GetNumberCols();i++)
-    {
-        SetColSize(i, COLWIDTH);
-        configGrid->SetColSize(i, COLWIDTH);
-        dataGrid->SetColSize(i,COLWIDTH);
-    }
-}*/
 
 void UppHexViewGrid::Copy()
 {
