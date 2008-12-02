@@ -306,7 +306,7 @@ void UppMainWindow::UpdateGrids()
     m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
 }
 
-bool UppMainWindow::ShoudContinueIfUnsaved()
+bool UppMainWindow::ShouldContinueIfUnsaved()
 {
     if (!m_hexFile.wasModified())
         return true;    // continue
@@ -345,7 +345,7 @@ void UppMainWindow::on_mru(wxCommandEvent& event)
 void UppMainWindow::on_close(wxCloseEvent& event)
 {
     if ( event.CanVeto() )
-        if (!ShoudContinueIfUnsaved())
+        if (!ShouldContinueIfUnsaved())
         {
             // user replied "do not continue"
             event.Veto();
@@ -596,7 +596,7 @@ void UppMainWindow::upp_cell_changed()
 /*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return;
 
     Reset();
@@ -605,7 +605,7 @@ void UppMainWindow::upp_new()
 /*Open a hexfile using a file dialog*/
 void UppMainWindow::upp_open()
 {
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return;
 
     wxFileDialog* openFileDialog =
@@ -650,7 +650,7 @@ void UppMainWindow::upp_refresh()
         return;
     }
 
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return;
 
     if(m_hexFile.reload(&m_picType)<0)
@@ -749,7 +749,7 @@ void UppMainWindow::upp_read()
 
     // this command overwrites current code/config/data HEX... so ask to the user
     // before proceeding:
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return;
 
     // reset current contents:
@@ -851,7 +851,7 @@ void UppMainWindow::upp_erase()
 
     // this command overwrites current code/config/data HEX... so ask to the user
     // before proceeding:
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return;
 
     if(m_hardware->bulkErase(&m_picType)<0)
@@ -931,7 +931,7 @@ bool UppMainWindow::upp_autodetect()
     }
 
     // this command changes the pic-type and thus resets the current code/config/data stuff...
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
         return false;
 
     int devId=m_hardware->autoDetectDevice();
@@ -1103,7 +1103,7 @@ void UppMainWindow::upp_choice_changed()
     // user changed the pic-type and thus we need to either
     // - reset the current code/config/data grids
     // - go back to the previously selected PIC
-    if (!ShoudContinueIfUnsaved())
+    if (!ShouldContinueIfUnsaved())
     {
         // revert selection to the previous type
         m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
