@@ -31,6 +31,10 @@
 #define OTHERWIDTH          52
 #define COLWIDTH            28
 
+// array used for fast decimal=>hex conversion in ShowHexFile()
+static wxStringCharType g_digits[] =
+    { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
+
 
 UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType type)
     : wxGrid( parent, id, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS )
@@ -109,8 +113,31 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
 
     // append new rows and set grid contents
     AppendRows(((data->size()%n)>0)+data->size()/n, false);
+
+    wxStringCharType value[3];
+    value[2] = (wxStringCharType)'\0';
+
     for(unsigned int i=0;i<data->size();i++)
-        SetCellValue(i/n, i%n, wxString::Format(wxT("%02X"), (*data)[i]));
+    {
+        int number = (*data)[i];
+        wxASSERT(number >= 0 && number <= 255);
+#if 1
+        // code for fast decimal=>hex conversion
+        value[1] = g_digits[number%16];
+        number = number/16;
+        value[0] = g_digits[number%16];
+#else
+        // standard code for decimal=>hex conversion (slower)
+        snprintf(value, 3, "%02X", number);// = wxString::Format(wxT("%02X"), number);
+#endif
+
+        // NOTE: we don't use directly wxGrid::SetTable() since it's slower
+        //       than GetTable()->SetValue because it also cares about
+        //       marking as invalid the rect of the cell we have modified.
+        //       Since we're doing lots of changes, and we need to do them quickly,
+        //       we bypass wxGrid and later call Refresh() on the entire window.
+        GetTable()->SetValue(i/n, i%n, wxString(value));
+    }
 
     int offset = 0;
     if (m_type == HEXVIEW_CONFIG)
@@ -119,6 +146,8 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
         SetRowLabelValue(i,wxString::Format(wxT("%06X"),offset + i*n));
+
+    Refresh();
 }
 
 void UppHexViewGrid::Copy()
