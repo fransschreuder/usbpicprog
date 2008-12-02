@@ -30,7 +30,7 @@ WX_SHARED = 0
 # Use Unicode build of wxWidgets? [0,1]
 #   0 - ANSI
 #   1 - Unicode
-WX_UNICODE = 0
+WX_UNICODE = 1
 
 # Use debug build of wxWidgets (define __WXDEBUG__)? [0,1]
 #   0 - Release
@@ -38,7 +38,7 @@ WX_UNICODE = 0
 WX_DEBUG = 1
 
 # Version of the wx library to build against. 
-WX_VERSION = 28
+WX_VERSION = 29
 
 # Use monolithic build of wxWidgets? [0,1]
 #   0 - Multilib
