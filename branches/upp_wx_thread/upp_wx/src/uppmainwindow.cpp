@@ -163,40 +163,45 @@ void UppMainWindow::CompleteGUICreation()
     wxMenuItem* pMenuProgram;
     pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
                                    _("Program the device"), wxITEM_NORMAL );
-    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
     pMenuActions->Append( pMenuProgram );
 
     wxMenuItem* pMenuRead;
     pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
                                 _("Read the device"), wxITEM_NORMAL );
-    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
     pMenuActions->Append( pMenuRead );
 
     wxMenuItem* pMenuVerify;
     pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
                                   _("Verify the device"), wxITEM_NORMAL );
-    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
     pMenuActions->Append( pMenuVerify );
 
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
                                  _("Erase the device"), wxITEM_NORMAL );
-    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
     pMenuActions->Append( pMenuErase );
 
     wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
                                       _("Blankcheck the device"), wxITEM_NORMAL );
-    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuBlankCheck );
 
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
                                       _("Detect the device"), wxITEM_NORMAL );
-    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuActions->Append( pMenuAutoDetect );
 
     m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
+
+#ifdef __WXGTK__
+    // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
+    // on platforms without native stock icons); it looks weird to have them only for the Actions menu...
+    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
+    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
+    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
+    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
+    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+#endif
 
     this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
     this->Connect( wxID_READ, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
