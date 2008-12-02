@@ -18,9 +18,13 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// IMPORTANT: first include wxWidgets headers (indirectly)
 #include "hardware.h"
 #include "uppmainwindow.h"
 
+// NOW we can include the <usb.h> header without compiling problems
+#include <usb.h>
+#include <iostream>
 
 using namespace std;
 #define USB_DEBUG 2

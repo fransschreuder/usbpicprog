@@ -21,8 +21,8 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-#include <usb.h>
-#include <iostream>
+// IMPORTANT: do not include here <usb.h>; it will give problems on
+//            Windows when building with Unicode mode enabled
 
 #define UPP_VENDOR 0x04D8
 #define UPP_PRODUCT 0x000E
@@ -71,6 +71,8 @@
 
 // forward declaration:
 class UppMainWindow;
+struct usb_dev_handle;
+struct usb_interface_descriptor;
 
 /*Upp package is the data header which is sent to usbpicprog*/
 typedef union _UppPackage
