@@ -550,8 +550,8 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     // create the progress dialog to show while our secondary thread works
     m_dlgProgress = new wxProgressDialog
                     (
-                        _T("Progress dialog"),
-                        _T("Please wait until the operation is completed..."),
+                        _("Progress dialog"),
+                        _("Please wait until the operation is completed..."),
                         100,
                         this,
                         //wxPD_CAN_ABORT |
@@ -567,13 +567,13 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     // don't block our GUI while we program the attached device:
     if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
     {
-        wxLogError("Could not create the worker thread!");
+        wxLogError(_("Could not create the worker thread!"));
         return false;
     }
 
     if (GetThread()->Run() != wxTHREAD_NO_ERROR)
     {
-        wxLogError("Could not run the worker thread!");
+        wxLogError(_("Could not run the worker thread!"));
         return false;
     }
 
