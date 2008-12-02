@@ -160,41 +160,35 @@ void UppMainWindow::CompleteGUICreation()
 {
     // create the actions menu with rescaled icons
     wxMenu* pMenuActions = new wxMenu();
+
     wxMenuItem* pMenuProgram;
     pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
                                    _("Program the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuProgram );
 
     wxMenuItem* pMenuRead;
     pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
                                 _("Read the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuRead );
 
     wxMenuItem* pMenuVerify;
     pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
                                   _("Verify the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuVerify );
 
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
                                  _("Erase the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuErase );
 
     wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
                                       _("Blankcheck the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuBlankCheck );
 
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
                                       _("Detect the device"), wxITEM_NORMAL );
-    pMenuActions->Append( pMenuAutoDetect );
-
-    m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
 #ifdef __WXGTK__
     // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
     // on platforms without native stock icons); it looks weird to have them only for the Actions menu...
+    // NOTE: this needs to be done _before_ appending menu items or wxGTK won't like it
     pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
     pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
     pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
@@ -202,6 +196,15 @@ void UppMainWindow::CompleteGUICreation()
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
 #endif
+
+    pMenuActions->Append( pMenuProgram );
+    pMenuActions->Append( pMenuRead );
+    pMenuActions->Append( pMenuVerify );
+    pMenuActions->Append( pMenuErase );
+    pMenuActions->Append( pMenuBlankCheck );
+    pMenuActions->Append( pMenuAutoDetect );
+
+    m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
     this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
     this->Connect( wxID_READ, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
