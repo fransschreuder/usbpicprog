@@ -54,8 +54,7 @@
 
 
 static const wxChar *FILETYPES = _T(
-    "Hex files|*.hex|"
-    "All files|*.*"
+    "Hex files|*.hex|All files|*.*"
 );
 
 wxString wxGetPicName(PicType* pt)
