@@ -3,7 +3,7 @@
 
 <makefile>
 
-    <set var="WX_VERSION_DEFAULT">28</set>
+    <set var="WX_VERSION_DEFAULT">29</set>
     <include file="presets/wx.bkl"/>
     
     <set-srcdir>../..</set-srcdir>
