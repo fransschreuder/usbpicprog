@@ -107,14 +107,20 @@ protected:      // internal helpers
 
     UppHexViewGrid* GetCurrentGrid() const;
 
-    bool ShoudContinueIfUnsaved();
+    bool ShouldContinueIfUnsaved();
 
 
 protected:      // internal thread-related functions
 
+    // functions which are executed in the secondary thread context:
     wxThread::ExitCode Entry();
+    void LogFromThread(const wxString& str);
     bool upp_thread_program();
+    bool upp_thread_read();
+    bool upp_thread_verify();
+    bool upp_thread_erase();
 
+    // functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
     void OnThreadUpdate(wxCommandEvent& evt);
     void OnThreadCompleted(wxCommandEvent& evt);
@@ -184,8 +190,19 @@ private:    // member variables
     wxChoice* m_pPICChoice;
     wxFileHistory m_history;
 
+
+private:   // variables related to the threaded operations:
+
+    // accessed only by the main/primary thread
     wxProgressDialog* m_dlgProgress;
+
+    // the messages recorded during the thread activity
+    wxCriticalSection m_arrLogCS;
     wxArrayString m_arrLog;
+
+    // tells the thread which operation should be performed
+    // NOTE: since the main thread reads/writes this var only when the
+    //       secondary thread has ended, there's no need for critical section
     UppMainWindowThreadMode m_mode;
 };
 
