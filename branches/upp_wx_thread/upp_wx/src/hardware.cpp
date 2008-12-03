@@ -33,16 +33,15 @@ using namespace std;
 /*The class Hardware connects to usbpicprog using libusb. The CB pointer
 is used for updating the progressbar.
 If initiated with no argument, progress is not updated*/
-Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
+Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 {
     struct usb_bus *bus=NULL;
     struct usb_device *dev=NULL;
-    int hwtype = SetHardware;
 
-    _handle=NULL;
+    m_handle=NULL;
+    m_pCallBack=CB;
 
     usb_init();
-    ptCallBack=CB;
     usb_find_busses();
     usb_find_devices();
 #ifdef USB_DEBUG
@@ -58,15 +57,15 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
             {
                 if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
                 {
-                    _handle = usb_open(dev);
-                    if (!_handle)continue; //failed to open this device, choose the next one
+                    m_handle = usb_open(dev);
+                    if (!m_handle)continue; //failed to open this device, choose the next one
                     hwtype=HW_UPP;
                     break; //found usbpicprog, exit the for loop
                 }
                 if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
                 {
-                    _handle = usb_open(dev);
-                    if (!_handle)continue; //failed to open this device, choose the next one
+                    m_handle = usb_open(dev);
+                    if (!m_handle)continue; //failed to open this device, choose the next one
 
                     hwtype=HW_BOOTLOADER;
                     break; //found bootloader , exit the for loop
@@ -76,47 +75,44 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
             {
                 if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT) )
                 {
-                    _handle = usb_open(dev);
-                    if (!_handle)continue; //failed to open this device, choose the next one
+                    m_handle = usb_open(dev);
+                    if (!m_handle)continue; //failed to open this device, choose the next one
 
                     hwtype=HW_BOOTLOADER;
                     break; //found bootloader , exit the for loop
                 }
                 if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT) )
                 {
-                    _handle = usb_open(dev);
-                    if (!_handle)continue; //failed to open this device, choose the next one
+                    m_handle = usb_open(dev);
+                    if (!m_handle)continue; //failed to open this device, choose the next one
 
                     hwtype=HW_UPP;
                     break; //found usbpicprog, exit the for loop
                 }
             }
-            _handle=NULL;
+            m_handle=NULL;
         }
-        if(_handle!=NULL)	//successfully initialized? don't try any other buses
+        if(m_handle!=NULL)	//successfully initialized? don't try any other bus
             break;
     }
 
-    if(_handle==NULL)
-    {
-        CurrentHardware = HW_NONE;
-    }
+    if(m_handle==NULL)
+        m_hwCurrent = HW_NONE;
     else
-    {
-        CurrentHardware = (HardwareType)hwtype;
-    }
-    if(_handle!=NULL)
+        m_hwCurrent = (HardwareType)hwtype;
+
+    if(m_handle!=NULL)
     {
         #ifndef __WXMSW__
-        if (usb_reset(_handle) < 0)
+        if (usb_reset(m_handle) < 0)
             cerr<<"Couldn't reset interface"<<endl;
 
-        usb_close(_handle);
-        _handle = usb_open(dev);
+        usb_close(m_handle);
+        m_handle = usb_open(dev);
         #endif
 
-        if(!_handle){
-            CurrentHardware = HW_NONE;
+        if(!m_handle){
+            m_hwCurrent = HW_NONE;
             return;
         }
 #if 0
@@ -126,18 +122,20 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
         int _interface=0;
         int i;
         for (i=0; i<dev->descriptor.bNumConfigurations; i++)
-            if ( _config==dev->config[i].bConfigurationValue ) break;
+            if ( _config==dev->config[i].bConfigurationValue )
+                break;
+
         if ( i==dev->descriptor.bNumConfigurations )
         {
             i = 0;
             _config = dev->config[i].bConfigurationValue;
         }
         const usb_config_descriptor &configd = dev->config[i];
-        if ( usb_set_configuration(_handle, _config)<0 )
+        if ( usb_set_configuration(m_handle, _config)<0 )
         {
             cerr<<"Error setting configuration"<<endl;
-            CurrentHardware = HW_NONE;
-            _handle=NULL;
+            m_hwCurrent = HW_NONE;
+            m_handle = NULL;
             return;
         }
 
@@ -153,13 +151,14 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
             cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
         }
 
-        privateInterface = &(configd.interface[i].altsetting[0]);
+        m_interface = &(configd.interface[i].altsetting[0]);
 
-        if ( usb_claim_interface(_handle, _interface)<0 )
+        // claim the USB interface
+        if ( usb_claim_interface(m_handle, _interface)<0 )
         {
             cerr<<"Error claiming interface"<<endl;
-            CurrentHardware = HW_NONE;
-            _handle=NULL;
+            m_hwCurrent = HW_NONE;
+            m_handle = NULL;
             return;
         }
     }
@@ -168,7 +167,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
 Hardware::EndpointMode Hardware::endpointMode(int ep) const
 {
     int index = ep & USB_ENDPOINT_ADDRESS_MASK;
-    const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
+    const usb_endpoint_descriptor *ued = m_interface->endpoint + index;
     switch (ued->bmAttributes & USB_ENDPOINT_TYPE_MASK)
     {
         case USB_ENDPOINT_TYPE_BULK: return Bulk;
@@ -184,17 +183,17 @@ Hardware::~Hardware()
 {
     statusCallBack (0);
 
-    if(_handle)
+    if(m_handle)
     {
-        usb_release_interface(_handle, bInterfaceNumber);
-        usb_close(_handle);
-        _handle=NULL;
+        usb_release_interface(m_handle, m_nInterfaceNumber);
+        usb_close(m_handle);
+        m_handle=NULL;
     }
 }
 
 HardwareType Hardware::getHardwareType(void) const
 {
-    return CurrentHardware;
+    return m_hwCurrent;
 }
 
 void Hardware::tryToDetachDriver()
@@ -203,12 +202,12 @@ void Hardware::tryToDetachDriver()
     #if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
     //  log(Log::DebugLevel::Extra, "find if there is already an installed driver");
     char dname[256] = "";
-    if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+    if ( usb_get_driver_np(m_handle, m_nInterfaceNumber, dname, 255)<0 ) return;
     //  log(Log::DebugLevel::Normal, QString("  a driver \"%1\" is already installed...").arg(dname));
     #if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
-    usb_detach_kernel_driver_np(_handle, bInterfaceNumber);
+    usb_detach_kernel_driver_np(m_handle, m_nInterfaceNumber);
     // log(Log::DebugLevel::Normal, "  try to detach it...");
-    if ( usb_get_driver_np(_handle, bInterfaceNumber, dname, 255)<0 ) return;
+    if ( usb_get_driver_np(m_handle, m_nInterfaceNumber, dname, 255)<0 ) return;
     // log(Log::DebugLevel::Normal, "  failed to detach it");
     #endif
     #endif
@@ -219,14 +218,14 @@ int Hardware::setPicType(PicType* picType)
 {
     char msg[64];
 
-    if (CurrentHardware == HW_BOOTLOADER) return 0;
+    if (m_hwCurrent == HW_BOOTLOADER) return 0;
 
     statusCallBack (0);
     msg[0]=CMD_SET_PICTYPE;
     msg[1]=picType->getCurrentPic().picFamily;
 
     int nBytes=-1;
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
         if(writeString(msg,2)<0)
         {
@@ -257,9 +256,9 @@ int Hardware::bulkErase(PicType* picType)
     char msg[64];
     int nBytes=-1;
     statusCallBack (0);
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             msg[0]=CMD_ERASE;
             if(writeString(msg,1)<0)
@@ -315,10 +314,10 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
     char dataBlock[BLOCKSIZE_CODE];
     int blocktype;
-    if (CurrentHardware == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     statusCallBack (0);
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_HW)
@@ -366,9 +365,9 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
     int BLOCKSIZE_HW;
     unsigned char dataBlock[BLOCKSIZE_CODE];
     int blocktype;
-    if (CurrentHardware == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_HW)
@@ -392,7 +391,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             int	currentBlockCounter=blockcounter;
             if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
             nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
-            if (CurrentHardware == HW_UPP)
+            if (m_hwCurrent == HW_UPP)
             {
                 if(nBytes==3) return -3;	//something not implemented in firmware :(
                 if(nBytes==4) return -4;	//verify error
@@ -415,9 +414,9 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     char dataBlock[BLOCKSIZE_DATA];
     int blocktype;
     statusCallBack (0);
-    if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
+    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
     if(picType->getCurrentPic().DataSize==0)return 0;//no data to read
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
         {
@@ -456,8 +455,8 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     unsigned char dataBlock[BLOCKSIZE_DATA];
     int blocktype;
     statusCallBack (0);
-    if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
-    if (_handle !=NULL)
+    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
+    if (m_handle !=NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
@@ -499,8 +498,8 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     char dataBlock[BLOCKSIZE_CONFIG];
     int blocktype;
     statusCallBack (0);
-    if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement readConfig for bootloader
-    if (_handle !=NULL)
+    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readConfig for bootloader
+    if (m_handle !=NULL)
     {
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
         {
@@ -543,8 +542,8 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
     int blocksize;
     int blocktype;
     statusCallBack (0);
-    if (CurrentHardware == HW_BOOTLOADER)return 0; //TODO implement writeConfig for bootloader
-    if (_handle !=NULL)
+    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeConfig for bootloader
+    if (m_handle !=NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
@@ -705,7 +704,7 @@ VerifyResult Hardware::blankCheck(PicType *picType)
 int Hardware::autoDetectDevice(void)
 {
     int devId=0;
-    if (CurrentHardware == HW_BOOTLOADER) return 0x11240;	//PIC18F2550
+    if (m_hwCurrent == HW_BOOTLOADER) return 0x11240;	//PIC18F2550
     setPicType (new PicType("P18F2550"));	//need to set hardware to PIC18, no matter which one
     devId=readId();
     PicType *picType = new PicType(0x10000|devId);
@@ -720,7 +719,7 @@ int Hardware::autoDetectDevice(void)
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/
 bool Hardware::connected(void) const
 {
-        if (_handle == NULL)
+        if (m_handle == NULL)
             return 0;
         else
             return 1;
@@ -729,12 +728,12 @@ bool Hardware::connected(void) const
 /*Return a string containing the firmware version of usbpicprog*/
 int Hardware::getFirmwareVersion(char* msg) const
 {
-    if (CurrentHardware == HW_UPP)
+    if (m_hwCurrent == HW_UPP)
     {
         msg[0]=CMD_FIRMWARE_VERSION;
         int nBytes=-1;
         statusCallBack (0);
-        if (_handle !=NULL)
+        if (m_handle !=NULL)
         {
             if(writeString(msg,1)<0)
             {
@@ -764,7 +763,7 @@ int Hardware::getFirmwareVersion(char* msg) const
 
         int nBytes=-1;
         statusCallBack (0);
-        if (_handle !=NULL)
+        if (m_handle !=NULL)
         {
             cout<<"writeString"<<endl;
             if(writeString(msg,5)<0)
@@ -793,11 +792,11 @@ int Hardware::getFirmwareVersion(char* msg) const
 /*read a string of data from usbpicprog (through interrupt_read)*/
 int Hardware::readString(char* msg,int size) const
 {
-    if (_handle == NULL) return -1;
+    if (m_handle == NULL) return -1;
     EndpointMode mode = endpointMode(WRITE_ENDPOINT);
     int nBytes;
-    if ( mode==Interrupt )nBytes = usb_interrupt_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
-    else nBytes = usb_bulk_read(_handle,READ_ENDPOINT,(char*)msg,size,5000);
+    if ( mode==Interrupt )nBytes = usb_interrupt_read(m_handle,READ_ENDPOINT,(char*)msg,size,5000);
+    else nBytes = usb_bulk_read(m_handle,READ_ENDPOINT,(char*)msg,size,5000);
         if (nBytes < 0 )
         {
             cerr<<"Usb Error while reading: "<<nBytes<<endl;
@@ -812,11 +811,11 @@ int Hardware::readString(char* msg,int size) const
 int Hardware::writeString(const char * msg,int size) const
 {
     int nBytes=0;
-    if (_handle != NULL)
+    if (m_handle != NULL)
     {
         EndpointMode mode = endpointMode(WRITE_ENDPOINT);
-        if ( mode==Interrupt )nBytes = usb_interrupt_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
-        else nBytes = usb_bulk_write(_handle,WRITE_ENDPOINT,(char*)msg,size,500);
+        if ( mode==Interrupt )nBytes = usb_interrupt_write(m_handle,WRITE_ENDPOINT,(char*)msg,size,500);
+        else nBytes = usb_bulk_write(m_handle,WRITE_ENDPOINT,(char*)msg,size,500);
         if (nBytes < size )
         {
             cerr<<"Usb Error while writing to device: "<<size<<" bytes, errCode: "<<nBytes<<endl;
@@ -838,7 +837,7 @@ int Hardware::readId(void)
     msg[0]=CMD_READ_ID;
     int nBytes=-1;
     statusCallBack (0);
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
         if(writeString(msg,1)<0)
         {
@@ -863,9 +862,9 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 {
     int nBytes = -1;
 
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             return readCodeBlock(msg, address, size, lastblock);
         }
@@ -912,9 +911,9 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
     int nBytes = -1;
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             UppPackage uppPackage;
 
@@ -969,9 +968,9 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastblock)
 {
     char resp_msg[64];
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             UppPackage uppPackage;
             uppPackage.fields.cmd=CMD_WRITE_CODE;
@@ -1029,8 +1028,8 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 {
     char resp_msg[64];
     UppPackage uppPackage;
-    if (CurrentHardware == HW_BOOTLOADER)return 1;//say OK, but do nothing... we don't want to write config bits
-    if (_handle !=NULL)
+    if (m_hwCurrent == HW_BOOTLOADER)return 1;//say OK, but do nothing... we don't want to write config bits
+    if (m_handle !=NULL)
     {
         uppPackage.fields.cmd=CMD_WRITE_CONFIG;
         uppPackage.fields.size=size;
@@ -1063,9 +1062,9 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
     int nBytes = -1;
 
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             UppPackage uppPackage;
 
@@ -1121,9 +1120,9 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 {
     char resp_msg[64];
     UppPackage uppPackage;
-    if (_handle !=NULL)
+    if (m_handle !=NULL)
     {
-        if (CurrentHardware == HW_UPP)
+        if (m_hwCurrent == HW_UPP)
         {
             uppPackage.fields.cmd=CMD_WRITE_DATA;
             uppPackage.fields.size=size;
@@ -1165,13 +1164,13 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
     else return -1;
 }
 
-/*When Hardware is constructed, ptCallBack is initiated by a pointer
+/*When Hardware is constructed, m_pCallBack is initiated by a pointer
 to UppMainWindow, this function calls the callback function
 to update the progress bar*/
 void Hardware::statusCallBack(int value) const
 {
-    if(ptCallBack)
-        ptCallBack->updateProgress(value);
+    if(m_pCallBack)
+        m_pCallBack->updateProgress(value);
 }
 
 

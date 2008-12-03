@@ -184,7 +184,7 @@ public:
 /*Returns a string containing the firmware version of usbpicprog*/
     int getFirmwareVersion(char* msg) const;
 /*Returns the type of the hardware which we are currently attached to*/
-    HardwareType getCurrentHardware(void) const {return CurrentHardware;}
+    HardwareType getCurrentHardware(void) const {return m_hwCurrent;}
 
 private:
     void tryToDetachDriver(void);
@@ -211,17 +211,18 @@ to UppMainWindow, this function calls the callback function
 to update the progress bar*/
     void statusCallBack(int value) const;
 
+private:
 /*Device handle containing information about Usbpicprog while connected*/
-    usb_dev_handle* _handle;
+    usb_dev_handle* m_handle;
 /*Pointer to the class UppMainWindow in order to call back the statusbar*/
-    UppMainWindow* ptCallBack;
+    UppMainWindow* m_pCallBack;
 
 /*USB interface*/
-    int bInterfaceNumber;
-    const usb_interface_descriptor *privateInterface;
+    int m_nInterfaceNumber;
+    const usb_interface_descriptor *m_interface;
 
 /*Are we connected to the UPP bootloader or to the UPP programmer?*/
-    HardwareType CurrentHardware;
+    HardwareType m_hwCurrent;
 };
 
 #endif //HARDWARE_H
