@@ -104,6 +104,12 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
 
 UppMainWindow::~UppMainWindow()
 {
+    if (m_hardware)
+    {
+        delete m_hardware;
+        m_hardware = NULL;
+    }
+
     // save settings
     uppConfig->SetPath(wxT("/"));
     uppConfig->Write(wxT("DefaultPath"), defaultPath);
@@ -163,28 +169,35 @@ void UppMainWindow::CompleteGUICreation()
 
     wxMenuItem* pMenuProgram;
     pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
-                                   _("Program the device"), wxITEM_NORMAL );
+                                   _("Program the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuRead;
     pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
-                                _("Read the device"), wxITEM_NORMAL );
+                                _("Read the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuVerify;
     pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
-                                  _("Verify the device"), wxITEM_NORMAL );
+                                  _("Verify the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
-                                 _("Erase the device"), wxITEM_NORMAL );
+                                 _("Erase the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
-                                      _("Blankcheck the device"), wxITEM_NORMAL );
+                                      _("Blankcheck the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
-                                      _("Detect the device"), wxITEM_NORMAL );
+                                      _("Detect the type of the PIC device"), wxITEM_NORMAL );
 
+    wxMenuItem* pMenuConnect;
+    pMenuConnect = new wxMenuItem( pMenuActions, wxID_CONNECT, wxString( _("&Connect...") ),
+                                      _("Connect to the programmer"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuDisconnect;
+    pMenuDisconnect = new wxMenuItem( pMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect...") ),
+                                      _("Disconnect from the programmer"), wxITEM_NORMAL );
 #ifdef __WXGTK__
     // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
     // on platforms without native stock icons); it looks weird to have them only for the Actions menu...
@@ -195,6 +208,9 @@ void UppMainWindow::CompleteGUICreation()
     pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+
+    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap("gtk-connect", wxART_MENU));
+    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap("gtk-disconnect", wxART_MENU));
 #endif
 
     pMenuActions->Append( pMenuProgram );
@@ -203,6 +219,9 @@ void UppMainWindow::CompleteGUICreation()
     pMenuActions->Append( pMenuErase );
     pMenuActions->Append( pMenuBlankCheck );
     pMenuActions->Append( pMenuAutoDetect );
+    pMenuActions->AppendSeparator();
+    pMenuActions->Append( pMenuConnect );
+    pMenuActions->Append( pMenuDisconnect );
 
     m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
@@ -212,6 +231,8 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_ERASE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
     this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+    this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+    this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 
     // create the most-recently-used section in File menu
     m_history.UseMenu(m_pMenuFile);
@@ -1055,56 +1076,42 @@ bool UppMainWindow::upp_connect()
     }
     else
     {
-        m_picType=PicType(0);   // select default PIC
-        m_hardware->setPicType(&m_picType);
-        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+        // try to connect to the UPP bootloader since there are no UPP programmers...
 
-        SetStatusText(_("Usbpicprog programmer not found"),STATUS_FIELD_HARDWARE);
-        wxLogMessage(_("Usbpicprog programmer not found"));
+        delete m_hardware;
+        m_hardware=new Hardware(this, HW_BOOTLOADER);
 
-        upp_new();
-    }
-
-    upp_update_hardware_type();
-
-    return m_hardware->connected();
-}
-
-/*Connect upp_wx to the bootloader*/
-bool UppMainWindow::upp_connect_boot()
-{
-    if (m_hardware != NULL) delete m_hardware;
-    m_hardware=new Hardware(this, HW_BOOTLOADER);
-
-    if(m_hardware->connected())
-    {
-        upp_autodetect();       // already calls upp_new();
-
-        char msg[64];
-        if(m_hardware->getFirmwareVersion(msg)<0)
+        if(m_hardware->connected())
         {
-            SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Unable to read version"));
+            upp_autodetect();       // already calls upp_new();
+
+            char msg[64];
+            if(m_hardware->getFirmwareVersion(msg)<0)
+            {
+                SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
+                wxLogMessage(_("Unable to read version"));
+            }
+            else
+            {
+                SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+                wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+            }
         }
         else
         {
-            SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+            m_picType=PicType(0);     // select default PIC
+            m_hardware->setPicType(&m_picType);
+            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+
+            SetStatusText(_("Bootloader or Programmer not found"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Bootloader or Programmer not found"));
+
+            upp_new();
         }
     }
-    else
-    {
-        m_picType=PicType(0);     // select default PIC
-        m_hardware->setPicType(&m_picType);
-        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
-        SetStatusText(_("Bootloader not found"),STATUS_FIELD_HARDWARE);
-        wxLogMessage(_("Bootloader not found"));
-
-        upp_new();
-    }
-
-    upp_update_hardware_type();
+    //upp_update_hardware_type();
+    wxASSERT(m_hardware);
 
     return m_hardware->connected();
 }
@@ -1209,7 +1216,7 @@ void UppMainWindow::upp_choice_changed()
 void UppMainWindow::upp_update_hardware_type()
 {
     /* FIXME
-    if (m_hardware != NULL && m_hardware->getm_hardwareType() != HW_NONE)
+    if (m_hardware != NULL && m_hardware->getHardwareType() != HW_NONE)
     {
         if (m_hardware->getm_hardwareType() == HW_UPP)
         {

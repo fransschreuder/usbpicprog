@@ -41,8 +41,9 @@ enum
     wxID_ERASE,
     wxID_BLANKCHECK,
     wxID_AUTODETECT,
+
     wxID_CONNECT,
-    wxID_CONNECT_BOOT,
+    //wxID_CONNECT_BOOT,
     wxID_DISCONNECT,
 
     wxID_PIC_CHOICE

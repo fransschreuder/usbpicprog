@@ -145,7 +145,7 @@ public:     // event handlers
     void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX};
     void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX};
     void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
-    void on_connect_boot( wxCommandEvent& event){upp_connect_boot(); EVENT_FIX};
+    //void on_connect_boot( wxCommandEvent& event){upp_connect_boot(); EVENT_FIX};
     void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
@@ -169,7 +169,7 @@ private:
     void upp_blankcheck();
     bool upp_autodetect();
     bool upp_connect();
-    bool upp_connect_boot();
+    //bool upp_connect_boot();
     void upp_disconnect();
     void upp_preferences();
     void upp_help();
