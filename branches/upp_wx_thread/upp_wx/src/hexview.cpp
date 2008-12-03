@@ -66,10 +66,6 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     SetRowLabelSize( ROWLABELWIDTH );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
-    // since this widget has zero rows, at least initially, we need to explicitely
-    // set a reasonable minimum size...
-    SetMinClientSize(wxSize(-1,300));
-
     // Connect Events
     Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
     Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
@@ -84,6 +80,21 @@ UppHexViewGrid::~UppHexViewGrid()
     Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
     Disconnect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
     Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
+}
+
+wxSize UppHexViewGrid::DoGetBestSize() const
+{
+    wxSize sz = wxGrid::DoGetBestSize();
+
+    // we need to do this to avoid the presence of a small annoying horizontal scrollbar:
+    sz.x += 10;
+
+    // we need this because the minimal height is calculated after construction
+    // when we have only a single row in the widget (since ShowHexFile has not
+    // been called yet); this sets a reasonable value.
+    sz.y = 400;
+
+    return sz;
 }
 
 void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)

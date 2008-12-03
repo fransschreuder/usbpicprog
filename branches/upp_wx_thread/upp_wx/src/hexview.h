@@ -48,9 +48,6 @@ public:
     void ShowHexFile(HexFile* hexFile, PicType* picType);
 
 private:
-/*
-    void autoSizeColumns (void);
-    void setLabels (int configOffset);*/
     HexFile* m_hexFile;
     UppHexViewType m_type;
 
@@ -59,6 +56,8 @@ protected:
     void OnSelectAll (wxCommandEvent& event);
     void OnCellRightClicked (wxGridEvent& event );
     void OnCellChanged( wxGridEvent& event );
+
+    wxSize DoGetBestSize() const;
 };
 
 #endif //__hexview__
