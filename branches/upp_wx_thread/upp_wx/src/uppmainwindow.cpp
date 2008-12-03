@@ -1029,22 +1029,21 @@ bool UppMainWindow::upp_autodetect()
     int devId=m_hardware->autoDetectDevice();
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
-    m_picType=PicType(devId);
-    m_hardware->setPicType(&m_picType);
-
-    wxString picName = wxGetPicName(&m_picType);
-    m_pPICChoice->SetStringSelection(picName);
-
-    if(devId>0)
-    {
-        SetStatusText(wxString(_("Detected: ")) + picName,STATUS_FIELD_HARDWARE);
-        wxLogMessage(wxString(_("Detected: ")) + picName);
-    }
-    else
+    if(devId<0)
     {
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
         wxLogMessage(_("No PIC detected!"));
+        return false;
     }
+
+    m_picType=PicType(devId);
+    m_hardware->setPicType(&m_picType);
+
+    wxString picName=wxGetPicName(&m_picType);
+    m_pPICChoice->SetStringSelection(picName);
+
+    SetStatusText(wxString(_("Detected: ")) + picName,STATUS_FIELD_HARDWARE);
+    wxLogMessage(wxString(_("Detected: ")) + picName);
 
     Reset();
 
