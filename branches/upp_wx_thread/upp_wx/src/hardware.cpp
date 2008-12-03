@@ -227,16 +227,14 @@ int Hardware::setPicType(PicType* picType)
     msg[1]=picType->getCurrentPic().picFamily;
 
     int nBytes=-1;
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if(writeString(msg,2)<0)
-        {
-            return 0;
-        }
+            return 0;       // failure
 
         nBytes = readString(msg,1);
 
-        if (nBytes < 0 )
+        if (nBytes < 0)
         {
             cerr<<"Usb Error"<<endl;
             return nBytes;
@@ -249,7 +247,7 @@ int Hardware::setPicType(PicType* picType)
 
         }
     }
-    return nBytes;
+    return nBytes;      // failure
 }
 
 /*Erase all the contents (code, data and config) of the pic*/
@@ -258,7 +256,7 @@ int Hardware::bulkErase(PicType* picType)
     char msg[64];
     int nBytes=-1;
     statusCallBack (0);
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
@@ -319,7 +317,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     statusCallBack (0);
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_HW)
@@ -369,7 +367,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
     int blocktype;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_HW)
@@ -418,7 +416,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
     if(picType->getCurrentPic().DataSize==0)return 0;//no data to read
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
         {
@@ -458,7 +456,7 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     int blocktype;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
@@ -501,7 +499,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     int blocktype;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readConfig for bootloader
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
         {
@@ -545,7 +543,7 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
     int blocktype;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeConfig for bootloader
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         nBytes=0;
         for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
@@ -705,15 +703,27 @@ VerifyResult Hardware::blankCheck(PicType *picType)
 */
 int Hardware::autoDetectDevice(void)
 {
-    int devId=0;
-    if (m_hwCurrent == HW_BOOTLOADER) return 0x11240;	//PIC18F2550
-    setPicType (new PicType("P18F2550"));	//need to set hardware to PIC18, no matter which one
-    devId=readId();
+    if (m_hwCurrent == HW_BOOTLOADER)
+        return -1;//0x11240;     //PIC18F2550
+
+    //need to set hardware to PIC18, no matter which one
+    if (setPicType (new PicType("P18F2550")) < 0)
+        return -1;
+
+    int devId=readId();
+    if (devId < 0)
+        return -1;
+
     PicType *picType = new PicType(0x10000|devId);
-    if (picType->matchWasFound())return devId|0x10000; //add an extra bit to make the difference between 16F and 18F
+    if (picType->matchWasFound())
+        return devId|0x10000; //add an extra bit to make the difference between 16F and 18F
+
     delete picType;
     //if(((devId&0xFF00)!=0xFF00)&&(devId!=0xFEFE)&&(devId!=0x00FE)&&(devId>1))
-    setPicType(new PicType("P16F628A"));	//and now try PIC16*/
+
+    //and now try PIC16
+    if (setPicType(new PicType("P16F628A")) < 0)
+        return -1;
 
     return readId();
 }
@@ -721,10 +731,10 @@ int Hardware::autoDetectDevice(void)
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/
 bool Hardware::connected(void) const
 {
-        if (m_handle == NULL)
-            return 0;
-        else
-            return 1;
+    if (m_handle == NULL)
+        return 0;
+    else
+        return 1;
 }
 
 /*Return a string containing the firmware version of usbpicprog*/
@@ -735,7 +745,7 @@ int Hardware::getFirmwareVersion(char* msg) const
         msg[0]=CMD_FIRMWARE_VERSION;
         int nBytes=-1;
         statusCallBack (0);
-        if (m_handle !=NULL)
+        if (m_handle != NULL)
         {
             if(writeString(msg,1)<0)
             {
@@ -765,7 +775,7 @@ int Hardware::getFirmwareVersion(char* msg) const
 
         int nBytes=-1;
         statusCallBack (0);
-        if (m_handle !=NULL)
+        if (m_handle != NULL)
         {
             cout<<"writeString"<<endl;
             if(writeString(msg,5)<0)
@@ -839,7 +849,8 @@ int Hardware::readId(void)
     msg[0]=CMD_READ_ID;
     int nBytes=-1;
     statusCallBack (0);
-    if (m_handle !=NULL)
+
+    if (m_handle != NULL)
     {
         if(writeString(msg,1)<0)
         {
@@ -853,18 +864,20 @@ int Hardware::readId(void)
         }
         else
         {
+            // success
             statusCallBack (100);
             return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
         }
     }
-    return nBytes;
+
+    return nBytes;      // failure
 }
 
 int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 {
     int nBytes = -1;
 
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
@@ -913,7 +926,7 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
 int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 {
     int nBytes = -1;
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
@@ -970,7 +983,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
 int Hardware::writeCodeBlock(unsigned char * msg,int address,int size,int lastblock)
 {
     char resp_msg[64];
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
@@ -1031,7 +1044,7 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
     char resp_msg[64];
     UppPackage uppPackage;
     if (m_hwCurrent == HW_BOOTLOADER)return 1;//say OK, but do nothing... we don't want to write config bits
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         uppPackage.fields.cmd=CMD_WRITE_CONFIG;
         uppPackage.fields.size=size;
@@ -1064,7 +1077,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
 {
     int nBytes = -1;
 
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
@@ -1122,7 +1135,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 {
     char resp_msg[64];
     UppPackage uppPackage;
-    if (m_handle !=NULL)
+    if (m_handle != NULL)
     {
         if (m_hwCurrent == HW_UPP)
         {
