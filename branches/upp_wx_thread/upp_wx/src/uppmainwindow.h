@@ -183,9 +183,9 @@ private:    // member variables
     PicType m_picType;
     Hardware* m_hardware;
 
-    wxConfig* uppConfig;
-    ConfigFields configFields;
-    wxString defaultPath;
+    wxConfig* m_pConfig;
+    ConfigFields m_cfg;
+    wxString m_defaultPath;
 
     wxChoice* m_pPICChoice;
     wxFileHistory m_history;

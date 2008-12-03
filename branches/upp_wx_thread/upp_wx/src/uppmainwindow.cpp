@@ -80,17 +80,17 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
       m_history(4), m_picType(0)
 {
     // load settings
-    uppConfig=new wxConfig(wxT("usbpicprog"));
-    uppConfig->SetPath(wxT("/"));
-    if ( uppConfig->Read(wxT("DefaultPath"), &defaultPath) ) {}	else {defaultPath=wxT("");}
-    if ( uppConfig->Read(wxT("ConfigProgramCode"), &configFields.ConfigProgramCode)){} else {configFields.ConfigProgramCode=true;}
-    if ( uppConfig->Read(wxT("ConfigProgramConfig"), &configFields.ConfigProgramConfig)){} else {configFields.ConfigProgramConfig=true;}
-    if ( uppConfig->Read(wxT("ConfigProgramData"), &configFields.ConfigProgramData)){} else {configFields.ConfigProgramData=true;}
-    if ( uppConfig->Read(wxT("ConfigVerifyCode"), &configFields.ConfigVerifyCode)){} else {configFields.ConfigVerifyCode=true;}
-    if ( uppConfig->Read(wxT("ConfigVerifyConfig"), &configFields.ConfigVerifyConfig)){} else {configFields.ConfigVerifyConfig=false;}
-    if ( uppConfig->Read(wxT("ConfigVerifyData"), &configFields.ConfigVerifyData)){} else {configFields.ConfigVerifyData=true;}
-    if ( uppConfig->Read(wxT("ConfigEraseBeforeProgramming"), &configFields.ConfigEraseBeforeProgramming)){} else {configFields.ConfigEraseBeforeProgramming=true;}
-    m_history.Load(*uppConfig);
+    m_pConfig=new wxConfig(wxT("usbpicprog"));
+    m_pConfig->SetPath(wxT("/"));
+    if ( m_pConfig->Read(wxT("m_defaultPath"), &m_defaultPath) ) {}	else {m_defaultPath=wxT("");}
+    if ( m_pConfig->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode)){} else {m_cfg.ConfigProgramCode=true;}
+    if ( m_pConfig->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
+    if ( m_pConfig->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=false;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
+    if ( m_pConfig->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
+    m_history.Load(*m_pConfig);
 
     // non-GUI init:
     m_hardware=NULL;      // upp_connect() will allocate it
@@ -111,18 +111,18 @@ UppMainWindow::~UppMainWindow()
     }
 
     // save settings
-    uppConfig->SetPath(wxT("/"));
-    uppConfig->Write(wxT("DefaultPath"), defaultPath);
-    uppConfig->Write(wxT("ConfigProgramCode"), configFields.ConfigProgramCode);
-    uppConfig->Write(wxT("ConfigProgramConfig"), configFields.ConfigProgramConfig);
-    uppConfig->Write(wxT("ConfigProgramData"), configFields.ConfigProgramData);
-    uppConfig->Write(wxT("ConfigVerifyCode"), configFields.ConfigVerifyCode);
-    uppConfig->Write(wxT("ConfigVerifyConfig"), configFields.ConfigVerifyConfig);
-    uppConfig->Write(wxT("ConfigVerifyData"), configFields.ConfigVerifyData);
-    uppConfig->Write(wxT("ConfigEraseBeforeProgramming"), configFields.ConfigEraseBeforeProgramming);
-    m_history.Save(*uppConfig);
+    m_pConfig->SetPath(wxT("/"));
+    m_pConfig->Write(wxT("m_defaultPath"), m_defaultPath);
+    m_pConfig->Write(wxT("ConfigProgramCode"), m_cfg.ConfigProgramCode);
+    m_pConfig->Write(wxT("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
+    m_pConfig->Write(wxT("ConfigProgramData"), m_cfg.ConfigProgramData);
+    m_pConfig->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
+    m_pConfig->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
+    m_pConfig->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
+    m_pConfig->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
+    m_history.Save(*m_pConfig);
 
-    delete uppConfig;
+    delete m_pConfig;
 }
 
 void UppMainWindow::UpdateTitle()
@@ -484,7 +484,7 @@ bool UppMainWindow::upp_thread_program()
 {
     // NOTE: this function is executed in the secondary thread context
 
-    if(configFields.ConfigEraseBeforeProgramming)
+    if(m_cfg.ConfigEraseBeforeProgramming)
     {
         LogFromThread(_("Erasing before programming..."));
 
@@ -503,7 +503,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(configFields.ConfigProgramCode)
+    if(m_cfg.ConfigProgramCode)
     {
         LogFromThread(_("Programming the code area of the PIC..."));
 
@@ -536,7 +536,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(configFields.ConfigProgramConfig)
+    if(m_cfg.ConfigProgramConfig)
     {
         LogFromThread(_("Programming the configuration area of the PIC..."));
 
@@ -566,7 +566,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(configFields.ConfigProgramData)
+    if(m_cfg.ConfigProgramData)
     {
         LogFromThread(_("Programming data area of the PIC..."));
 
@@ -645,8 +645,8 @@ bool UppMainWindow::upp_thread_verify()
     wxString verifyText;
     wxString typeText;
     VerifyResult res=
-        m_hardware->verify(&m_hexFile,&m_picType,configFields.ConfigVerifyCode,
-                         configFields.ConfigVerifyConfig,configFields.ConfigVerifyData);
+        m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
+                         m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -764,13 +764,13 @@ void UppMainWindow::upp_open()
         return;
 
     wxFileDialog* openFileDialog =
-        new wxFileDialog( this, _("Open hexfile"), defaultPath, wxT(""),
+        new wxFileDialog( this, _("Open hexfile"), m_defaultPath, wxT(""),
                           FILETYPES, wxFD_OPEN, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
     {
         // get the folder of the opened file, without the name&extension
-        defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
+        m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
 
         upp_open_file(openFileDialog->GetPath());
     }
@@ -840,13 +840,13 @@ void UppMainWindow::upp_save()
 void UppMainWindow::upp_save_as()
 {
     wxFileDialog* openFileDialog =
-        new wxFileDialog( this, _("Save hexfile"), defaultPath, wxT(""),
+        new wxFileDialog( this, _("Save hexfile"), m_defaultPath, wxT(""),
                           FILETYPES, wxFD_SAVE, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
     {
         // get the folder of the opened file, without the name&extension
-        defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
+        m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
 
         if(m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
         {
@@ -1148,9 +1148,9 @@ void UppMainWindow::upp_preferences()
 {
     PreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
 
-    dlg.SetConfigFields(configFields);
+    dlg.SetConfigFields(m_cfg);
     if (dlg.ShowModal() == wxID_OK)
-        configFields = dlg.GetResult();
+        m_cfg = dlg.GetResult();
 }
 
 /*load a browser with the usbpicprog website*/
