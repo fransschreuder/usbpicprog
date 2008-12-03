@@ -107,13 +107,14 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
     }
     if(_handle!=NULL)
     {
-
         #ifndef __WXMSW__
         if (usb_reset(_handle) < 0)
             cerr<<"Couldn't reset interface"<<endl;
+
         usb_close(_handle);
         _handle = usb_open(dev);
         #endif
+
         if(!_handle){
             CurrentHardware = HW_NONE;
             return;
@@ -141,7 +142,9 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
         }
 
         for (i=0; i<configd.bNumInterfaces; i++)
-            if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber ) break;
+            if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber )
+                break;
+
         if ( i==configd.bNumInterfaces )
         {
             int old = _interface;
@@ -149,7 +152,9 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
             _interface = configd.interface[i].altsetting[0].bInterfaceNumber;
             cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
         }
+
         privateInterface = &(configd.interface[i].altsetting[0]);
+
         if ( usb_claim_interface(_handle, _interface)<0 )
         {
             cerr<<"Error claiming interface"<<endl;
@@ -160,7 +165,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType SetHardware)
     }
 }
 
-Hardware::EndpointMode Hardware::endpointMode(int ep)
+Hardware::EndpointMode Hardware::endpointMode(int ep) const
 {
     int index = ep & USB_ENDPOINT_ADDRESS_MASK;
     const usb_endpoint_descriptor *ued = privateInterface->endpoint + index;
@@ -187,7 +192,7 @@ Hardware::~Hardware()
     }
 }
 
-HardwareType Hardware::getHardwareType(void)
+HardwareType Hardware::getHardwareType(void) const
 {
     return CurrentHardware;
 }
@@ -713,7 +718,7 @@ int Hardware::autoDetectDevice(void)
 }
 
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/
-bool Hardware::connected(void)
+bool Hardware::connected(void) const
 {
         if (_handle == NULL)
             return 0;
@@ -722,7 +727,7 @@ bool Hardware::connected(void)
 }
 
 /*Return a string containing the firmware version of usbpicprog*/
-int Hardware::getFirmwareVersion(char* msg)
+int Hardware::getFirmwareVersion(char* msg) const
 {
     if (CurrentHardware == HW_UPP)
     {
@@ -786,7 +791,7 @@ int Hardware::getFirmwareVersion(char* msg)
 }
 
 /*read a string of data from usbpicprog (through interrupt_read)*/
-int Hardware::readString(char* msg,int size)
+int Hardware::readString(char* msg,int size) const
 {
     if (_handle == NULL) return -1;
     EndpointMode mode = endpointMode(WRITE_ENDPOINT);
@@ -804,7 +809,7 @@ int Hardware::readString(char* msg,int size)
 }
 
 /*Send a string of data to usbpicprog (through interrupt write)*/
-int Hardware::writeString(const char * msg,int size)
+int Hardware::writeString(const char * msg,int size) const
 {
     int nBytes=0;
     if (_handle != NULL)
@@ -1163,7 +1168,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
 /*When Hardware is constructed, ptCallBack is initiated by a pointer
 to UppMainWindow, this function calls the callback function
 to update the progress bar*/
-void Hardware::statusCallBack(int value)
+void Hardware::statusCallBack(int value) const
 {
     if(ptCallBack)
         ptCallBack->updateProgress(value);
