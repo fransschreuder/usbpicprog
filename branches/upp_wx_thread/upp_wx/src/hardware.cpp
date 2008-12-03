@@ -119,8 +119,10 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         tryToDetachDriver();
 #endif
         int _config=1;
-        int _interface=0;
         int i;
+
+        m_nInterfaceNumber = 0;
+
         for (i=0; i<dev->descriptor.bNumConfigurations; i++)
             if ( _config==dev->config[i].bConfigurationValue )
                 break;
@@ -140,21 +142,21 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         }
 
         for (i=0; i<configd.bNumInterfaces; i++)
-            if ( _interface==configd.interface[i].altsetting[0].bInterfaceNumber )
+            if ( m_nInterfaceNumber==configd.interface[i].altsetting[0].bInterfaceNumber )
                 break;
 
         if ( i==configd.bNumInterfaces )
         {
-            int old = _interface;
+            int old = m_nInterfaceNumber;
             i = 0;
-            _interface = configd.interface[i].altsetting[0].bInterfaceNumber;
-            cerr<<"Interface "<<old<<" not present: using "<<_interface<<endl;
+            m_nInterfaceNumber = configd.interface[i].altsetting[0].bInterfaceNumber;
+            cerr<<"Interface "<<old<<" not present: using "<<m_nInterfaceNumber<<endl;
         }
 
         m_interface = &(configd.interface[i].altsetting[0]);
 
         // claim the USB interface
-        if ( usb_claim_interface(m_handle, _interface)<0 )
+        if ( usb_claim_interface(m_handle, m_nInterfaceNumber)<0 )
         {
             cerr<<"Error claiming interface"<<endl;
             m_hwCurrent = HW_NONE;
