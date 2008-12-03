@@ -220,7 +220,7 @@ int Hardware::setPicType(PicType* picType)
 {
     char msg[64];
 
-    if (m_hwCurrent == HW_BOOTLOADER) return 0;
+    if (m_hwCurrent == HW_BOOTLOADER) return -1;
 
     statusCallBack (0);
     msg[0]=CMD_SET_PICTYPE;
@@ -230,7 +230,7 @@ int Hardware::setPicType(PicType* picType)
     if (m_handle != NULL)
     {
         if(writeString(msg,2)<0)
-            return 0;       // failure
+            return -1;       // failure
 
         nBytes = readString(msg,1);
 
@@ -244,9 +244,9 @@ int Hardware::setPicType(PicType* picType)
             //cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
             return (int)msg[0];
             statusCallBack (100);
-
         }
     }
+
     return nBytes;      // failure
 }
 
@@ -707,7 +707,7 @@ int Hardware::autoDetectDevice(void)
         return -1;//0x11240;     //PIC18F2550
 
     //need to set hardware to PIC18, no matter which one
-    if (setPicType (new PicType("P18F2550")) < 0)
+    if (setPicType(new PicType("P18F2550")) < 0)
         return -1;
 
     int devId=readId();
@@ -847,15 +847,14 @@ int Hardware::readId(void)
 {
     char msg[64];
     msg[0]=CMD_READ_ID;
-    int nBytes=-1;
     statusCallBack (0);
 
+    int nBytes=-1;
     if (m_handle != NULL)
     {
         if(writeString(msg,1)<0)
-        {
             return -1;
-        }
+
         nBytes = readString(msg,2);
 
         if (nBytes < 0 )
