@@ -1042,8 +1042,10 @@ bool UppMainWindow::upp_autodetect()
     wxString picName=wxGetPicName(&m_picType);
     m_pPICChoice->SetStringSelection(picName);
 
-    SetStatusText(wxString(_("Detected: ")) + picName,STATUS_FIELD_HARDWARE);
-    wxLogMessage(wxString(_("Detected: ")) + picName);
+    wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
+                                    picName.Mid(1).c_str(), devId);
+    SetStatusText(msg,STATUS_FIELD_HARDWARE);
+    wxLogMessage(msg);
 
     Reset();
 
@@ -1102,8 +1104,8 @@ bool UppMainWindow::upp_connect()
             m_hardware->setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
-            SetStatusText(_("Bootloader or Programmer not found"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Bootloader or Programmer not found"));
+            SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Bootloader or programmer not found"));
 
             upp_new();
         }
@@ -1162,14 +1164,18 @@ void UppMainWindow::upp_help()
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;
-    aboutInfo.SetName(wxT("Usbpicprog"));
+    aboutInfo.SetName("Usbpicprog");
     #ifndef UPP_VERSION
-    aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+    aboutInfo.SetVersion(wxString("(SVN) ").Append(wxString::FromAscii(SVN_REVISION)));
     #else
     aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
     #endif
     aboutInfo.SetDescription(_("An open source USB pic programmer"));
-    aboutInfo.SetCopyright(wxT("(C) 2008 http://usbpicprog.org/"));
+    //aboutInfo.SetCopyright("(C) 2008");
+    aboutInfo.SetWebSite("http://usbpicprog.org/");
+    aboutInfo.AddDeveloper("Frans Schreuder");
+    aboutInfo.AddDeveloper("Jan Paul Posma");
+    aboutInfo.AddDeveloper("Francesco Montorsi");
 
     wxAboutBox(aboutInfo);
 }
@@ -1197,19 +1203,14 @@ void UppMainWindow::upp_choice_changed()
             return;
         }
 
-        // update the pic type
-        m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
         m_hardware->setPicType(&m_picType);
-
-        Reset();
     }
-    else
-    {
-        // update the pic type
-        m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
 
-        Reset();
-    }
+    // update the pic type
+    m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+
+    // PIC changed; reset the code/config/data grids
+    Reset();
 }
 
 void UppMainWindow::upp_update_hardware_type()
