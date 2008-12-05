@@ -27,7 +27,7 @@
 #include <iostream>
 
 using namespace std;
-#define USB_DEBUG 2
+//#define USB_DEBUG 2
 
 
 /*The class Hardware connects to usbpicprog using libusb. The CB pointer

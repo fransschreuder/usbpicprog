@@ -209,8 +209,8 @@ void UppMainWindow::CompleteGUICreation()
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
 
-    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap("gtk-connect", wxART_MENU));
-    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap("gtk-disconnect", wxART_MENU));
+    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-connect"), wxART_MENU));
+    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-disconnect"), wxART_MENU));
 #endif
 
     pMenuActions->Append( pMenuProgram );

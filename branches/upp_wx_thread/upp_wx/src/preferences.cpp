@@ -20,6 +20,7 @@
 
 
 #include <wx/statbox.h>
+#include <wx/wx.h>
 
 #include "preferences.h"
 
