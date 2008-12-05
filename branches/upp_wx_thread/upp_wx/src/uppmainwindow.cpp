@@ -513,13 +513,13 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(_("Write Code memory OK"));
             break;
         case -1:
-            LogFromThread(_("m_hardware should say OK"));
+            LogFromThread(_("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("m_hardware should ask for next block"));
+            LogFromThread(_("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("write code not implemented for current PIC"));
+            LogFromThread(_("Write code not implemented for current PIC"));
             break;
         case -4:
             LogFromThread(_("Verify error while writing code memory"));
@@ -546,13 +546,13 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(_("Write Data memory OK"));
             break;
         case -1:
-            LogFromThread(_("m_hardware should say OK"));
+            LogFromThread(_("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("m_hardware should ask for next block"));
+            LogFromThread(_("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("write data not implemented for current PIC"));
+            LogFromThread(_("Write data not implemented for current PIC"));
             break;
         case -4:
             LogFromThread(_("USB error while writing code memory"));
@@ -576,13 +576,13 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(_("Write Config memory OK"));
             break;
         case -1:
-            LogFromThread(_("m_hardware should say OK"));
+            LogFromThread(_("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("m_hardware should ask for next block"));
+            LogFromThread(_("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("write config not implemented for current PIC"));
+            LogFromThread(_("Write config not implemented for current PIC"));
             break;
         case -4:
             LogFromThread(_("USB error while writing code memory"));
