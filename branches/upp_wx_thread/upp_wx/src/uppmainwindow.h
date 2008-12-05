@@ -30,6 +30,7 @@
 #include <wx/docview.h>
 #include <wx/thread.h>
 #include <wx/progdlg.h>
+#include <wx/log.h>
 
 #if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
 #include <wx/aboutdlg.h>
@@ -76,8 +77,11 @@ enum UppMainWindowThreadMode
     THREAD_PROGRAM,
     THREAD_READ,
     THREAD_VERIFY,
-    THREAD_ERASE
+    THREAD_ERASE,
+    THREAD_BLANKCHECK
 };
+
+typedef std::vector<time_t> wxArrayTime;
 
 
 /*
@@ -114,11 +118,12 @@ protected:      // internal thread-related functions
 
     // functions which are executed in the secondary thread context:
     wxThread::ExitCode Entry();
-    void LogFromThread(const wxString& str);
+    void LogFromThread(wxLogLevel level, const wxString& str);
     bool upp_thread_program();
     bool upp_thread_read();
     bool upp_thread_verify();
     bool upp_thread_erase();
+    bool upp_thread_blankcheck();
 
     // functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
@@ -196,6 +201,8 @@ private:   // variables related to the threaded operations:
     // the messages recorded during the thread activity
     wxCriticalSection m_arrLogCS;
     wxArrayString m_arrLog;
+    wxArrayInt m_arrLogLevel;
+    wxArrayTime m_arrLogTimes;
 
     // tells the thread which operation should be performed
     // NOTE: since the main thread reads/writes this var only when the

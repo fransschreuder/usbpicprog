@@ -24,7 +24,6 @@
 #include <wx/choice.h>
 #include <wx/filedlg.h>
 #include <wx/filename.h>
-#include <wx/log.h>
 #include <wx/event.h>
 #include <wx/msgdlg.h>
 #include <wx/debug.h>
@@ -431,12 +430,23 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
 
     // log all messages created by the Entry()
     // NOTE: the thread has ended, so that we can access m_arrLog safely
+    //       without using m_arrLogCS
+    bool success = true;
     for (unsigned int i=0; i<m_arrLog.GetCount(); i++)
-        wxLogMessage(m_arrLog[i]);
-    m_arrLog.Clear();
+    {
+        success &= m_arrLogLevel[i] == wxLOG_Message;
+        wxLog::OnLog(m_arrLogLevel[i], m_arrLog[i], m_arrLogTimes[i]);
+    }
+
+    m_arrLog.clear();
+    m_arrLogLevel.clear();
+    m_arrLogTimes.clear();
 
     SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
-    wxLogMessage(_("All operations completed"));
+    if (success)
+        wxLogMessage(_("All operations completed"));
+    else
+        wxLogWarning(_("Operations completed with errors/warnings"));
 }
 
 wxThread::ExitCode UppMainWindow::Entry()
@@ -461,6 +471,10 @@ wxThread::ExitCode UppMainWindow::Entry()
         exitCode = upp_thread_erase();
         break;
 
+    case THREAD_BLANKCHECK:
+        exitCode = upp_thread_blankcheck();
+        break;
+
     default:
         wxFAIL;
     }
@@ -478,12 +492,14 @@ wxThread::ExitCode UppMainWindow::Entry()
     return (wxThread::ExitCode)exitCode;
 }
 
-void UppMainWindow::LogFromThread(const wxString& str)
+void UppMainWindow::LogFromThread(wxLogLevel level, const wxString& str)
 {
     // NOTE: this function is executed in the secondary thread context
 
     wxCriticalSectionLocker lock(m_arrLogCS);
-    m_arrLog.Add(wxT("=> ") + str);
+    m_arrLog.push_back(wxT("=> ") + str);
+    m_arrLogLevel.push_back(level);
+    m_arrLogTimes.push_back(time(NULL));
 }
 
 bool UppMainWindow::upp_thread_program()
@@ -492,15 +508,15 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigEraseBeforeProgramming)
     {
-        LogFromThread(_("Erasing before programming..."));
+        LogFromThread(wxLOG_Message, _("Erasing before programming..."));
 
         switch(m_hardware->bulkErase(&m_picType))
         {
         case 1:
-            LogFromThread(_("Erase OK"));
+            LogFromThread(wxLOG_Message, _("Erase OK"));
             break;
         default:
-            LogFromThread(_("Error erasing the device"));
+            LogFromThread(wxLOG_Error, _("Error erasing the device"));
             // FIXME: shouldn't we exit the thread?
             break;
         }
@@ -511,30 +527,30 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigProgramCode)
     {
-        LogFromThread(_("Programming the code area of the PIC..."));
+        LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
 
         switch(m_hardware->writeCode(&m_hexFile,&m_picType))
         {
         case 0:
-            LogFromThread(_("Write Code memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Code memory OK"));
             break;
         case -1:
-            LogFromThread(_("The hardware should say OK"));
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("The hardware should ask for next block"));
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("Write code not implemented for current PIC"));
+            LogFromThread(wxLOG_Error, _("Write code not implemented for current PIC"));
             break;
         case -4:
-            LogFromThread(_("Verify error while writing code memory"));
+            LogFromThread(wxLOG_Error, _("Verify error while writing code memory"));
             break;
         case -5:
-            LogFromThread(_("USB error while writing code memory"));
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
             break;
         default:
-            LogFromThread(_("Error programming code memory"));
+            LogFromThread(wxLOG_Error, _("Error programming code memory"));
             break;
         }
     }
@@ -544,27 +560,27 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigProgramConfig)
     {
-        LogFromThread(_("Programming the configuration area of the PIC..."));
+        LogFromThread(wxLOG_Message, _("Programming the configuration area of the PIC..."));
 
         switch(m_hardware->writeData(&m_hexFile,&m_picType))
         {
         case 0:
-            LogFromThread(_("Write Data memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Data memory OK"));
             break;
         case -1:
-            LogFromThread(_("The hardware should say OK"));
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("The hardware should ask for next block"));
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("Write data not implemented for current PIC"));
+            LogFromThread(wxLOG_Error, _("Write data not implemented for current PIC"));
             break;
         case -4:
-            LogFromThread(_("USB error while writing code memory"));
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
             break;
         default:
-            LogFromThread(_("Error programming data memory"));
+            LogFromThread(wxLOG_Error, _("Error programming data memory"));
             break;
         }
     }
@@ -574,27 +590,27 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigProgramData)
     {
-        LogFromThread(_("Programming data area of the PIC..."));
+        LogFromThread(wxLOG_Message, _("Programming data area of the PIC..."));
 
         switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
         {
         case 0:
-            LogFromThread(_("Write Config memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Config memory OK"));
             break;
         case -1:
-            LogFromThread(_("The hardware should say OK"));
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
             break;
         case -2:
-            LogFromThread(_("The hardware should ask for next block"));
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
             break;
         case -3:
-            LogFromThread(_("Write config not implemented for current PIC"));
+            LogFromThread(wxLOG_Error, _("Write config not implemented for current PIC"));
             break;
         case -4:
-            LogFromThread(_("USB error while writing code memory"));
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
             break;
         default:
-            LogFromThread(_("Error programming config memory"));
+            LogFromThread(wxLOG_Error, _("Error programming config memory"));
             break;
         }
     }
@@ -609,30 +625,30 @@ bool UppMainWindow::upp_thread_read()
     // reset current contents:
     m_hexFile.newFile(&m_picType);
 
-    LogFromThread(_("Reading the code area of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
     if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
-        LogFromThread(_("Error reading code memory"));
+        LogFromThread(wxLOG_Error, _("Error reading code memory"));
         // proceed
     }
 
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    LogFromThread(_("Reading the data area of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
     if(m_hardware->readData(&m_hexFile,&m_picType)<0)
     {
-        LogFromThread(_("Error reading data memory"));
+        LogFromThread(wxLOG_Error, _("Error reading data memory"));
         // proceed
     }
 
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    LogFromThread(_("Reading the config area of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Reading the config area of the PIC..."));
     if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
-        LogFromThread(_("Error reading config memory"));
+        LogFromThread(wxLOG_Error, _("Error reading config memory"));
         // proceed
     }
 
@@ -646,7 +662,7 @@ bool UppMainWindow::upp_thread_verify()
     // NOTE: this function is executed in the secondary thread context
 
 
-    LogFromThread(_("Verifying all areas of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
 
     wxString verifyText;
     wxString typeText;
@@ -657,7 +673,7 @@ bool UppMainWindow::upp_thread_verify()
     switch(res.Result)
     {
     case VERIFY_SUCCESS:
-        LogFromThread(_("Verify successful"));
+        LogFromThread(wxLOG_Message, _("Verify successful"));
         break;
     case VERIFY_MISMATCH:
 
@@ -670,19 +686,18 @@ bool UppMainWindow::upp_thread_verify()
         }
         verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
             res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
-            res.Read,
-                        res.Expected);
+            res.Read, res.Expected);
         verifyText.Prepend(typeText);
-        LogFromThread(verifyText);
+        LogFromThread(wxLOG_Error, verifyText);
         break;
     case VERIFY_USB_ERROR:
-        LogFromThread(_("USB error during verify"));
+        LogFromThread(wxLOG_Error, _("USB error during verify"));
         break;
     case VERIFY_OTHER_ERROR:
-        LogFromThread(_("Unknown error during verify"));
+        LogFromThread(wxLOG_Error, _("Unknown error during verify"));
         break;
     default:
-        LogFromThread(_("I'm sorry for being stupid"));
+        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
         break;
     }
 
@@ -693,12 +708,59 @@ bool UppMainWindow::upp_thread_erase()
 {
     // NOTE: this function is executed in the secondary thread context
 
-    LogFromThread(_("Erasing all areas of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
 
     if(m_hardware->bulkErase(&m_picType)<0)
     {
-        LogFromThread(_("Error erasing the device"));
+        LogFromThread(wxLOG_Error, _("Error erasing the device"));
         return false;
+    }
+
+    return true;
+}
+
+bool UppMainWindow::upp_thread_blankcheck()
+{
+    wxString verifyText;
+    string typeText;
+
+    // NOTE: this function is executed in the secondary thread context
+
+    LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
+
+    VerifyResult res=m_hardware->blankCheck(&m_picType);
+
+    switch(res.Result)
+    {
+    case VERIFY_SUCCESS:
+        LogFromThread(wxLOG_Message, _("Device is blank"));
+        break;
+    case VERIFY_MISMATCH:
+        switch (res.DataType)
+        {
+            case TYPE_CODE: typeText=string("code");break;
+            case TYPE_DATA: typeText=string("data");break;
+            case TYPE_CONFIG: typeText=string("config");break;
+            default: typeText=string("unknown");break;
+        }
+
+        verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
+            res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
+            res.Read,
+            res.Expected);
+        verifyText += wxT("\n") + _("Device is not blank.");
+
+        LogFromThread(wxLOG_Message, verifyText);
+        break;
+    case VERIFY_USB_ERROR:
+        LogFromThread(wxLOG_Error, _("USB error during blankcheck"));
+        break;
+    case VERIFY_OTHER_ERROR:
+        LogFromThread(wxLOG_Error, _("Unknown error during blankcheck"));
+        break;
+    default:
+        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
+        break;
     }
 
     return true;
@@ -979,44 +1041,8 @@ void UppMainWindow::upp_blankcheck()
         return;
     }
 
-    wxString verifyText;
-    string typeText;
-    VerifyResult res=m_hardware->blankCheck(&m_picType);
-    switch(res.Result)
-    {
-        case VERIFY_SUCCESS:
-            SetStatusText(_("Device is blank"),STATUS_FIELD_OTHER);
-            wxLogMessage(_("Device is blank"));
-            break;
-        case VERIFY_MISMATCH:
-
-            switch (res.DataType)
-            {
-                case TYPE_CODE: typeText=string("code");break;
-                case TYPE_DATA: typeText=string("data");break;
-                case TYPE_CONFIG: typeText=string("config");break;
-                default: typeText=string("unknown");break;
-            }
-            verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
-                res.Read,
-                res.Expected);
-            SetStatusText(verifyText,STATUS_FIELD_OTHER);
-            wxLogError(verifyText);
-            break;
-        case VERIFY_USB_ERROR:
-            SetStatusText(_("USB error during blankcheck"),STATUS_FIELD_OTHER);
-            wxLogError(_("USB error during blankcheck"));
-            break;
-        case VERIFY_OTHER_ERROR:
-            SetStatusText(_("Unknown error during blankcheck"),STATUS_FIELD_OTHER);
-            wxLogError(_("Unknown error during blankcheck"));
-            break;
-        default:
-            SetStatusText(_("I'm sorry for being stupid"),STATUS_FIELD_OTHER);
-            wxLogError(_("I'm sorry for being stupid"));
-            break;
-    }
+    // run the operation in a secondary thread
+    RunThread(THREAD_BLANKCHECK);
 
     updateProgress(100);
 }

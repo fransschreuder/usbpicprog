@@ -724,10 +724,12 @@ int Hardware::autoDetectDevice(void)
     //and now try PIC16
     if (setPicType(new PicType("P16F628A")) < 0)
         return -1;
-	devId=readId();
-	picType = new PicType(devId);
-	if (picType->matchWasFound())
-		    return devId;
+
+    devId=readId();
+    picType = new PicType(devId);
+    if (picType->matchWasFound())
+        return devId;
+
     return 0;
 }
 

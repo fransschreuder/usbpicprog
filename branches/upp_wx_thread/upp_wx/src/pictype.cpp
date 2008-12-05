@@ -1349,7 +1349,7 @@ PicType::PicType(int devId)
         {
             currentPic=picTypes[i];
             matchFound=true;
-			cout<<"Matchfound true"<<endl;
+            cout<<"Matchfound true"<<endl;
         }
     }
     if(currentPic.Name.compare("")==0)
@@ -1357,7 +1357,7 @@ PicType::PicType(int devId)
         //cerr<<"Not Found: "<<hex<<devId<<endl;
         currentPic=defaultPic;
         matchFound=false;
-		cout<<"Matchfound false"<<endl;		
+        cout<<"Matchfound false"<<endl;
         //cerr<<"Setting the PIC to default: "<<defaultPic.Name<<endl;
     }
 }
