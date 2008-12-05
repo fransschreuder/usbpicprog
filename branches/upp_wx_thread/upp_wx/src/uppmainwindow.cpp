@@ -392,7 +392,12 @@ void UppMainWindow::updateProgress(int value)
 
     // the following line will result in a call to UppMainWindow::OnThreadUpdate()
     // in the primary thread context
+#if wxCHECK_VERSION(2,9,0)
     wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_UPDATE, value));
+#else
+    wxCommandEvent ev(wxEVT_COMMAND_THREAD_UPDATE, value);
+    wxPostEvent(this, ev);
+#endif
 }
 
 /*Update from the secondary thread */
@@ -403,9 +408,13 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     {
         wxCriticalSectionLocker lock(m_arrLogCS);
 
+#if wxCHECK_VERSION(2,9,0)
         m_dlgProgress->Update(evt.GetId(),
                               _("Please wait until the operations are completed:\n") +
                               wxJoin(m_arrLog, '\n'));
+#else
+        m_dlgProgress->Update(evt.GetId());
+#endif
         //m_arrLog.Clear();
     }
 }
@@ -459,7 +468,12 @@ wxThread::ExitCode UppMainWindow::Entry()
     // signal the main thread we've completed our task; this will result
     // in a call to UppMainWindow::OnThreadCompleted done in the primary
     // thread context:
+#if wxCHECK_VERSION(2,9,0)
     wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_COMPLETE));
+#else
+    wxCommandEvent ev(wxEVT_COMMAND_THREAD_COMPLETE);
+    wxPostEvent(this, ev);
+#endif
 
     return (wxThread::ExitCode)exitCode;
 }
@@ -710,7 +724,11 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     // note that the thread is not running yet so there's no need for a critical section:
     m_mode = mode;
 
+#if wxCHECK_VERSION(2,9,0)
     if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
+#else
+    if (wxThreadHelper::Create() != wxTHREAD_NO_ERROR)
+#endif
     {
         wxLogError(_("Could not create the worker thread!"));
         return false;
@@ -1153,18 +1171,18 @@ void UppMainWindow::upp_help()
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;
-    aboutInfo.SetName("Usbpicprog");
+    aboutInfo.SetName(wxT("Usbpicprog"));
     #ifndef UPP_VERSION
-    aboutInfo.SetVersion(wxString("(SVN) ").Append(wxString::FromAscii(SVN_REVISION)));
+    aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
     #else
     aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
     #endif
     aboutInfo.SetDescription(_("An open source USB pic programmer"));
     //aboutInfo.SetCopyright("(C) 2008");
-    aboutInfo.SetWebSite("http://usbpicprog.org/");
-    aboutInfo.AddDeveloper("Frans Schreuder");
-    aboutInfo.AddDeveloper("Jan Paul Posma");
-    aboutInfo.AddDeveloper("Francesco Montorsi");
+    aboutInfo.SetWebSite(wxT("http://usbpicprog.org/"));
+    aboutInfo.AddDeveloper(wxT("Frans Schreuder"));
+    aboutInfo.AddDeveloper(wxT("Jan Paul Posma"));
+    aboutInfo.AddDeveloper(wxT("Francesco Montorsi"));
 
     wxAboutBox(aboutInfo);
 }
