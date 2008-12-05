@@ -31,9 +31,11 @@
 #define OTHERWIDTH          52
 #define COLWIDTH            28
 
+#if wxCHECK_VERSION(2,9,0)
 // array used for fast decimal=>hex conversion in ShowHexFile()
 static wxStringCharType g_digits[] =
     { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
+#endif
 
 
 UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType type)
@@ -125,21 +127,26 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     // append new rows and set grid contents
     AppendRows(((data->size()%n)>0)+data->size()/n, false);
 
+#if wxCHECK_VERSION(2,9,0)
     wxStringCharType value[3];
     value[2] = (wxStringCharType)'\0';
+#else
+    wxChar value[3];
+    value[2] = wxT('\0');
+#endif
 
     for(unsigned int i=0;i<data->size();i++)
     {
         int number = (*data)[i];
         wxASSERT(number >= 0 && number <= 255);
-#if 1
+#if wxCHECK_VERSION(2,9,0)
         // code for fast decimal=>hex conversion
         value[1] = g_digits[number%16];
         number = number/16;
         value[0] = g_digits[number%16];
 #else
         // standard code for decimal=>hex conversion (slower)
-        snprintf(value, 3, "%02X", number);// = wxString::Format(wxT("%02X"), number);
+        wxSnprintf(value, 3, wxT("%02X"), number);// = wxString::Format(wxT("%02X"), number);
 #endif
 
         // NOTE: we don't use directly wxGrid::SetTable() since it's slower
