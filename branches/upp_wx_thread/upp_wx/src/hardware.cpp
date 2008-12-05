@@ -724,8 +724,11 @@ int Hardware::autoDetectDevice(void)
     //and now try PIC16
     if (setPicType(new PicType("P16F628A")) < 0)
         return -1;
-
-    return readId();
+	devId=readId();
+	picType = new PicType(devId);
+	if (picType->matchWasFound())
+		    return devId;
+    return 0;
 }
 
 /*check if usbpicprog is successfully connected to the usb bus and initialized*/
