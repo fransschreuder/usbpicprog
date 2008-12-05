@@ -131,8 +131,9 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     wxStringCharType value[3];
     value[2] = (wxStringCharType)'\0';
 #else
-    wxChar value[3];
-    value[2] = wxT('\0');
+    wxString value;
+    //wxChar value[3];
+    //value[2] = wxT('\0');
 #endif
 
     for(unsigned int i=0;i<data->size();i++)
@@ -146,7 +147,8 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
         value[0] = g_digits[number%16];
 #else
         // standard code for decimal=>hex conversion (slower)
-        wxSnprintf(value, 3, wxT("%02X"), number);// = wxString::Format(wxT("%02X"), number);
+        //wxSnprintf(value, 3, wxT("%02X"), number);
+        value = wxString::Format(wxT("%02X"), number);
 #endif
 
         // NOTE: we don't use directly wxGrid::SetTable() since it's slower
