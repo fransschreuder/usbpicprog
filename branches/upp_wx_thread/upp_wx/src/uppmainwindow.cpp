@@ -272,14 +272,6 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_PIC_CHOICE, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_choice_changed ) );
 
     toolbar->AddControl( m_pPICChoice );
-
-/* FIXME
-    toolbar->AddSeparator();
-    m_radioButton_upp = new wxRadioButton( toolbar, wxID_ANY, _("Usbpicprog"), wxDefaultPosition, wxDefaultSize, 0);
-    toolbar->AddControl(m_radioButton_upp);
-    m_radioButton_boot = new wxRadioButton( toolbar, wxID_ANY, _("Bootloader"), wxDefaultPosition, wxDefaultSize, 0);
-    toolbar->AddControl(m_radioButton_boot);
-    */
     toolbar->Realize();
 
     // by default show code page at startup
@@ -1111,7 +1103,6 @@ bool UppMainWindow::upp_connect()
         }
     }
 
-    //upp_update_hardware_type();
     wxASSERT(m_hardware);
 
     return m_hardware->connected();
@@ -1141,8 +1132,6 @@ void UppMainWindow::upp_disconnect()
         SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
         wxLogMessage(_("Already disconnected"));
     }
-
-    upp_update_hardware_type();
 }
 
 void UppMainWindow::upp_preferences()
@@ -1211,27 +1200,4 @@ void UppMainWindow::upp_choice_changed()
 
     // PIC changed; reset the code/config/data grids
     Reset();
-}
-
-void UppMainWindow::upp_update_hardware_type()
-{
-    /* FIXME
-    if (m_hardware != NULL && m_hardware->getHardwareType() != HW_NONE)
-    {
-        if (m_hardware->getm_hardwareType() == HW_UPP)
-        {
-            m_radioButton_upp->SetValue(true);
-            m_radioButton_boot->SetValue(false);
-        }
-        else if (m_hardware->getm_hardwareType() == HW_BOOTLOADER)
-        {
-            m_radioButton_boot->SetValue(true);
-            m_radioButton_upp->SetValue(false);
-        }
-    }
-    else
-    {
-        m_radioButton_boot->SetValue(false);
-        m_radioButton_upp->SetValue(false);
-    }*/
 }
