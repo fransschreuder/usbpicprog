@@ -28,7 +28,7 @@ top_srcdir = ..
 top_builddir = ..
 
 
-prefix = /home/frans/usbpicprog/branches/upp_wx_thread/upp_wx/deb_package/usr/local
+prefix = /usr/local
 exec_prefix = ${prefix}
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
