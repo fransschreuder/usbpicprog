@@ -1039,29 +1039,31 @@ bool UppMainWindow::upp_autodetect()
     int devId=m_hardware->autoDetectDevice();
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
-    if(devId<1)
-    {
-        SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
-        wxLogMessage(_("No PIC detected!"));
-		Reset();
-        return false;
-    }
-
+    // if devId is not a valid device ID, PicType ctor will select the default PIC (18F2550)
     m_picType=PicType(devId);
     m_hardware->setPicType(&m_picType);
 
+    // sync the choicebox with m_picType
     wxString picName=wxGetPicName(&m_picType);
     m_pPICChoice->SetStringSelection(picName);
-	
 
-	wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
-                                picName.Mid(1).c_str(), devId);
-	SetStatusText(msg,STATUS_FIELD_HARDWARE);
-	wxLogMessage(msg);
+    if(devId<1)
+    {
+        SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
+                     picName.Mid(1).c_str());
+    }
+    else
+    {
+        wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
+                                        picName.Mid(1).c_str(), devId);
+        SetStatusText(msg,STATUS_FIELD_HARDWARE);
+        wxLogMessage(msg);
+    }
 
     Reset();
 
-    return (devId>0);
+    return (devId>1);
 }
 
 /*Connect upp_wx to the upp programmer*/
