@@ -183,8 +183,6 @@ Hardware::EndpointMode Hardware::endpointMode(int ep) const
 
 Hardware::~Hardware()
 {
-    statusCallBack (0);
-
     if(m_handle)
     {
         usb_release_interface(m_handle, m_nInterfaceNumber);

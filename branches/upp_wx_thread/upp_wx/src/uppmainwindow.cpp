@@ -387,7 +387,8 @@ void UppMainWindow::on_close(wxCloseEvent& event)
 /*Update the progress bar; this function is called by m_hardware */
 void UppMainWindow::updateProgress(int value)
 {
-    // this function is executed in the secondary thread's context!
+    // NOTE: this function is executed in the secondary thread's context!
+    //wxASSERT(!wxThread::IsMain() || !m_dlgProgress);
 
     // the following line will result in a call to UppMainWindow::OnThreadUpdate()
     // in the primary thread context
@@ -402,10 +403,12 @@ void UppMainWindow::updateProgress(int value)
 /*Update from the secondary thread */
 void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 {
-    // this function is executed in the primary thread's context!
+    // NOTE: this function is executed in the primary thread's context!
+    wxASSERT(wxThread::IsMain());
+
     if (m_dlgProgress)
     {
-        wxCriticalSectionLocker lock(m_arrLogCS);
+        //wxCriticalSectionLocker lock(m_arrLogCS);
 
 #if wxCHECK_VERSION(2,9,0)
         m_dlgProgress->Update(evt.GetId(),
@@ -421,7 +424,9 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 /*The secondary thread just finished*/
 void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
 {
-    // this function is executed in the primary thread's context!
+    // NOTE: this function is executed in the primary thread's context!
+    wxASSERT(wxThread::IsMain());
+
     if (m_dlgProgress)
     {
         m_dlgProgress->Destroy();
@@ -447,11 +452,27 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
         wxLogMessage(_("All operations completed"));
     else
         wxLogWarning(_("Operations completed with errors/warnings"));
+
+    // some of the operations performed by the secondary thread
+    // require updating the title or the grids:
+    switch (m_mode)
+    {
+    case THREAD_READ:
+        UpdateGrids();
+        UpdateTitle();
+        break;
+
+    case THREAD_ERASE:
+        Reset();
+        break;
+    }
 }
 
 wxThread::ExitCode UppMainWindow::Entry()
 {
-    // this function is the core of the secondary thread's context!
+    // NOTE: this function is the core of the secondary thread's context!
+    wxASSERT(!wxThread::IsMain());
+
     bool exitCode;
     switch (m_mode)
     {
@@ -495,6 +516,7 @@ wxThread::ExitCode UppMainWindow::Entry()
 void UppMainWindow::LogFromThread(wxLogLevel level, const wxString& str)
 {
     // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
 
     wxCriticalSectionLocker lock(m_arrLogCS);
     m_arrLog.push_back(wxT("=> ") + str);
@@ -505,6 +527,7 @@ void UppMainWindow::LogFromThread(wxLogLevel level, const wxString& str)
 bool UppMainWindow::upp_thread_program()
 {
     // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
 
     if(m_cfg.ConfigEraseBeforeProgramming)
     {
@@ -621,6 +644,7 @@ bool UppMainWindow::upp_thread_program()
 bool UppMainWindow::upp_thread_read()
 {
     // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
 
     // reset current contents:
     m_hexFile.newFile(&m_picType);
@@ -660,6 +684,7 @@ bool UppMainWindow::upp_thread_read()
 bool UppMainWindow::upp_thread_verify()
 {
     // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
 
 
     LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
@@ -707,6 +732,7 @@ bool UppMainWindow::upp_thread_verify()
 bool UppMainWindow::upp_thread_erase()
 {
     // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
 
     LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
 
@@ -721,10 +747,11 @@ bool UppMainWindow::upp_thread_erase()
 
 bool UppMainWindow::upp_thread_blankcheck()
 {
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
     wxString verifyText;
     string typeText;
-
-    // NOTE: this function is executed in the secondary thread context
 
     LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
 
@@ -768,6 +795,9 @@ bool UppMainWindow::upp_thread_blankcheck()
 
 bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
 {
+    // NOTE: this function is executed in the primary thread context
+    wxASSERT(wxThread::IsMain());
+
     // create the progress dialog to show while our secondary thread works
     m_dlgProgress = new wxProgressDialog
                     (
@@ -982,11 +1012,6 @@ void UppMainWindow::upp_read()
 
     // run the operation in a secondary thread
     RunThread(THREAD_READ);
-
-    UpdateGrids();
-    UpdateTitle();
-
-    updateProgress(100);
 }
 
 /*verify the device with the open hexfile*/
@@ -1002,8 +1027,6 @@ void UppMainWindow::upp_verify()
 
     // run the operation in a secondary thread
     RunThread(THREAD_VERIFY);
-
-    updateProgress(100);
 }
 
 /*perform a bulk-erase on the current PIC*/
@@ -1024,10 +1047,6 @@ void UppMainWindow::upp_erase()
 
     // run the operation in a secondary thread
     RunThread(THREAD_ERASE);
-
-    Reset();
-
-    updateProgress(100);
 }
 
 /*Check if the device is erased successfully*/
@@ -1043,8 +1062,6 @@ void UppMainWindow::upp_blankcheck()
 
     // run the operation in a secondary thread
     RunThread(THREAD_BLANKCHECK);
-
-    updateProgress(100);
 }
 
 /*Detect which PIC is connected and select it in the choicebox and the m_hardware*/
