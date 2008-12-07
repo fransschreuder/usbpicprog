@@ -408,7 +408,7 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 
     if (m_dlgProgress)
     {
-        //wxCriticalSectionLocker lock(m_arrLogCS);
+        wxCriticalSectionLocker lock(m_arrLogCS);
 
 #if wxCHECK_VERSION(2,9,0)
         m_dlgProgress->Update(evt.GetId(),
@@ -417,7 +417,6 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 #else
         m_dlgProgress->Update(evt.GetId());
 #endif
-        //m_arrLog.Clear();
     }
 }
 
