@@ -775,7 +775,7 @@ bool UppMainWindow::upp_thread_blankcheck()
             res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
             res.Read,
             res.Expected);
-        verifyText += wxT("\n") + _("Device is not blank.");
+        verifyText += wxString(wxT("\n")) + _("Device is not blank.");
 
         LogFromThread(wxLOG_Message, verifyText);
         break;
