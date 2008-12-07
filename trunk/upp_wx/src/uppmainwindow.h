@@ -1,123 +1,213 @@
-///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
-// http://www.wxformbuilder.org/
-//
-// PLEASE DO "NOT" EDIT THIS FILE!
-///////////////////////////////////////////////////////////////////////////
+/***************************************************************************
+*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   usbpicprog.sourceforge.net                                            *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************/
+
+#ifndef UPPMAINWINDOW_CALLBACK_H
+#define UPPMAINWINDOW_CALLBACK_H
+
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <wx/config.h>
+#include <wx/confbase.h>
+#include <wx/docview.h>
+#include <wx/thread.h>
+#include <wx/progdlg.h>
+#include <wx/log.h>
+
+#if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
+#include <wx/aboutdlg.h>
+#else
+#warning About dialog not implemented, use a newer wxWidgets version!
+#endif
+
 #include <iostream>
+
 using namespace std;
-#ifndef __uppmainwindow__
-#define __uppmainwindow__
 
-#include <wx/string.h>
-#include <wx/textctrl.h>
-#include <wx/gdicmn.h>
-#include <wx/font.h>
-#include <wx/colour.h>
-#include <wx/settings.h>
-#include <wx/sizer.h>
-#include <wx/bitmap.h>
-#include <wx/image.h>
-#include <wx/icon.h>
-#include <wx/menu.h>
-#include <wx/statusbr.h>
-#include <wx/combobox.h>
-#include <wx/toolbar.h>
-#include <wx/frame.h>
-#include <wx/artprov.h>
-#include <wx/gauge.h>
-#include <wx/radiobut.h>
-#include <wx/grid.h>
-
-///////////////////////////////////////////////////////////////////////////
-
-#define wxID_SAVE_AS 1000
-
-#define STATUS_FIELD_HARDWARE 0
-#define STATUS_FIELD_OTHER 1
-#define STATUS_FIELD_PROGRESS 2
-#define STATUS_FIELD_SIDE 3
+#include "uppmainwindow_base.h"
+#include "hardware.h"
+#include "pictype.h"
+#include "hexfile.h"
+#include "preferences.h"
 
 #ifdef __WXMAC__
-#define STATUS_FIELD_SIDE_WIDTH 15
+#define EVENT_FIX
 #else //__WXMAC__
-#define STATUS_FIELD_SIDE_WIDTH 0
+#define EVENT_FIX event.Skip();
 #endif //__WXMAC__
 
-#include "hexview.h"
 
-#define USE_UPPHEXVIEW
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class UppMainWindow
-///////////////////////////////////////////////////////////////////////////////
-class UppMainWindow : public wxFrame 
+// more readable names for the various fields of the status bar
+enum UppMainWindowStatusBar
 {
-	
-	protected:
-        wxBoxSizer* bSizer;
-#ifdef USE_UPPHEXVIEW
-		UppHexview* uppHexEdit;
-#else
-		wxTextCtrl* uppHexEdit;
-#endif
-		wxMenuBar* uppMenuBar;
-		wxMenu* uppMenuFile;
-		wxMenu* uppMenuEdit;
-		wxMenu* uppMenuActions;
-		wxMenu* uppMenuOptions;
-		wxMenu* uppMenuHelp;
-		wxStatusBar* m_statusBar1;
-		wxToolBar* m_toolBar1;
-		wxComboBox* m_comboBox1;
-		wxGauge* uppProgressBar;
-		wxRadioButton* m_radioButton_upp;
-		wxRadioButton* m_radioButton_boot;
-		
-		// Virtual event handlers, overide them in your derived class
-		virtual void on_new( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_open( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_refresh( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_save( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_save_as( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_exit( wxCommandEvent& event ){ event.Skip(); }
-    	virtual void on_copy( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_selectall( wxCommandEvent& event ){ event.Skip(); }    	
-		virtual void on_program( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_read( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_verify( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_erase( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_blankcheck( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_autodetect( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_connect( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_connect_boot( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_disconnect( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_preferences( wxCommandEvent& event){ event.Skip(); }
-		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_combo_changed( wxCommandEvent& event ){ event.Skip(); }
-		
-		
-	
-	public:
-		UppMainWindow( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-		~UppMainWindow();
-	private:
-        virtual void OnSize(wxSizeEvent& event)
-        {
-            wxRect rect;
-            if(IsShown())
-            {
-        	m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
-
-                uppProgressBar->SetPosition(rect.GetPosition());
-            	uppProgressBar->SetSize(rect.GetSize());
-            }
-            event.Skip();
-
-        }
-    	DECLARE_EVENT_TABLE()
-	
+    STATUS_FIELD_MENU,
+    STATUS_FIELD_OTHER = STATUS_FIELD_MENU,
+    STATUS_FIELD_HARDWARE
 };
 
-#endif //__uppmainwindow__
+// defines the order in which the pages related to the loaded HEX file are shown
+enum UppMainWindowNotebookPages
+{
+    PAGE_CODE,
+    PAGE_CONFIG,
+    PAGE_DATA
+};
+
+// we use a single thread's Entry() function to do all kind of long tasks:
+enum UppMainWindowThreadMode
+{
+    THREAD_PROGRAM,
+    THREAD_READ,
+    THREAD_VERIFY,
+    THREAD_ERASE,
+    THREAD_BLANKCHECK
+};
+
+typedef std::vector<time_t> wxArrayTime;
+
+
+/*
+    This class derives from the UppMainWindowBase which is the class automatically
+    generated by wxFormBuilder, upon which the entire application is built.
+*/
+class UppMainWindow : public UppMainWindowBase, public wxThreadHelper
+{
+public:
+
+    UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY);
+    ~UppMainWindow();
+
+
+    bool upp_open_file(const wxString& path);
+    void upp_new();
+    void updateProgress(int value);
+
+protected:      // internal helpers
+
+    void UpdateGrids();
+    void UpdateTitle();
+    void Reset();
+
+    wxBitmap GetMenuBitmap(const char* xpm_data[]);
+    void CompleteGUICreation();
+
+    UppHexViewGrid* GetCurrentGrid() const;
+
+    bool ShouldContinueIfUnsaved();
+
+
+protected:      // internal thread-related functions
+
+    // functions which are executed in the secondary thread context:
+    wxThread::ExitCode Entry();
+    void LogFromThread(wxLogLevel level, const wxString& str);
+    bool upp_thread_program();
+    bool upp_thread_read();
+    bool upp_thread_verify();
+    bool upp_thread_erase();
+    bool upp_thread_blankcheck();
+
+    // functions which are executed in the primary thread context:
+    bool RunThread(UppMainWindowThreadMode mode);
+    void OnThreadUpdate(wxCommandEvent& evt);
+    void OnThreadCompleted(wxCommandEvent& evt);
+
+public:     // event handlers
+
+    void on_mru( wxCommandEvent& event );
+    void on_close( wxCloseEvent& event );
+
+    void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
+    void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX};
+    void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX};
+    void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX};
+    void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX};
+    void on_exit( wxCommandEvent& event ){upp_exit(); EVENT_FIX};
+    void on_copy( wxCommandEvent& event ){upp_copy(); EVENT_FIX};
+    void on_selectall( wxCommandEvent& event ){upp_selectall(); EVENT_FIX};
+    void on_program( wxCommandEvent& event ){upp_program(); EVENT_FIX};
+    void on_read( wxCommandEvent& event ){upp_read(); EVENT_FIX};
+    void on_verify( wxCommandEvent& event ){upp_verify(); EVENT_FIX};
+    void on_erase( wxCommandEvent& event ){upp_erase(); EVENT_FIX};
+    void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX};
+    void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX};
+    void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
+    void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
+    void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};
+    void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
+    void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
+    void on_choice_changed( wxCommandEvent& event ){upp_choice_changed(); EVENT_FIX};
+    void on_cell_changed( wxGridEvent& event ){ upp_cell_changed(); EVENT_FIX};
+
+private:
+    void upp_open();
+    void upp_refresh();
+    void upp_save();
+    void upp_save_as();
+    void upp_cell_changed();
+    void upp_exit();
+    void upp_copy();
+    void upp_selectall();
+    void upp_program();
+    void upp_read();
+    void upp_verify();
+    void upp_erase();
+    void upp_blankcheck();
+    bool upp_autodetect();
+    bool upp_connect();
+    void upp_disconnect();
+    void upp_preferences();
+    void upp_help();
+    void upp_about();
+    void upp_choice_changed();
+
+private:    // member variables
+
+    HexFile m_hexFile;
+    PicType m_picType;
+    Hardware* m_hardware;
+
+    wxConfig* m_pConfig;
+    ConfigFields m_cfg;
+    wxString m_defaultPath;
+
+    wxChoice* m_pPICChoice;
+    wxFileHistory m_history;
+
+
+private:   // variables related to the threaded operations:
+
+    // accessed only by the main/primary thread
+    wxProgressDialog* m_dlgProgress;
+
+    // the messages recorded during the thread activity
+    wxCriticalSection m_arrLogCS;
+    wxArrayString m_arrLog;
+    wxArrayInt m_arrLogLevel;
+    wxArrayTime m_arrLogTimes;
+
+    // tells the thread which operation should be performed
+    // NOTE: since the main thread reads/writes this var only when the
+    //       secondary thread has ended, there's no need for critical section
+    UppMainWindowThreadMode m_mode;
+};
+
+#endif

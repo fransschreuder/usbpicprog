@@ -1,267 +1,1268 @@
-///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
-// http://www.wxformbuilder.org/
-//
-// PLEASE DO "NOT" EDIT THIS FILE! ---> Haha, I edited it anyway :P
-///////////////////////////////////////////////////////////////////////////
+/***************************************************************************
+*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   usbpicprog.sourceforge.net                                            *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************/
 
+
+#include <wx/artprov.h>
+#include <wx/toolbar.h>
+#include <wx/choice.h>
+#include <wx/filedlg.h>
+#include <wx/filename.h>
+#include <wx/event.h>
+#include <wx/msgdlg.h>
+#include <wx/debug.h>
+
+#include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
-#include "include_icons.h"
- #include "wx/app.h"
+#include "hexview.h"
+#include "../svn_revision.h"
 
-enum{
-wxID_PROGRAM=wxID_HIGHEST+1,
-wxID_READ,
-wxID_VERIFY,
-wxID_ERASE,
-wxID_BLANKCHECK,
-wxID_AUTODETECT,
-wxID_CONNECT ,
-wxID_CONNECT_BOOT,
-wxID_DISCONNECT 
-};
+#if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
+    #include "../icons/refresh.xpm"
+    #include "../icons/blankcheck.xpm"
+    #include "../icons/program.xpm"
+    #include "../icons/erase.xpm"
+    #include "../icons/read.xpm"
+    #include "../icons/verify.xpm"
+    #include "../icons/usbpicprog.xpm"
+#else   /*Icons for Windows and Mac*/
+    #include "../icons/win/refresh.xpm"
+    #include "../icons/win/blankcheck.xpm"
+    #include "../icons/win/program.xpm"
+    #include "../icons/win/erase.xpm"
+    #include "../icons/win/read.xpm"
+    #include "../icons/win/verify.xpm"
+    #include "../icons/win/usbpicprog.xpm"
+#endif
 
 
-///////////////////////////////////////////////////////////////////////////
+static const wxChar *FILETYPES = _T(
+    "Hex files|*.hex|All files|*.*"
+);
 
-UppMainWindow::UppMainWindow( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+wxString wxGetPicName(PicType* pt)
 {
-    
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	SetIcon(wxIcon( usbpicprog_xpm ));
-	
-	
-	bSizer = new wxBoxSizer( wxVERTICAL );
-	#ifdef USE_UPPHEXVIEW
-	uppHexEdit = new UppHexview( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize);
-	#else
-	uppHexEdit = new wxTextCtrl( this, wxID_ANY, wxT(""),  wxDefaultPosition, wxDefaultSize, wxTE_READONLY| wxTE_MULTILINE | wxNO_BORDER );
-	#endif	
-	
-	uppHexEdit->SetFont(wxFont(12, wxMODERN, wxNORMAL,wxNORMAL));
-	
-	bSizer->Add( uppHexEdit, 1, wxBOTTOM|wxRIGHT|wxLEFT|wxEXPAND );
-	
-	
-	this->SetSizer( bSizer );
-	this->Layout();
-	uppMenuBar = new wxMenuBar( 0 );
-	uppMenuFile = new wxMenu();
-	wxMenuItem* uppMenuNew;
-	uppMenuNew = new wxMenuItem( uppMenuFile, wxID_NEW, wxString( _("&New") ) + wxT('\t') + wxT("CTRL+N"), _("Clear open hex file"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuNew );
-	
-	wxMenuItem* uppMenuOpen;
-	uppMenuOpen = new wxMenuItem( uppMenuFile, wxID_OPEN, wxString( _("&Open") ) + wxT('\t') + wxT("CTRL+O"), _("Open a hex file"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuOpen );
-	
-	wxMenuItem* uppMenuRefresh;
-	uppMenuRefresh = new wxMenuItem( uppMenuFile, wxID_REFRESH, wxString( _("&Reload") ) + wxT('\t') + wxT("CTRL+R"), _("Reload current hex file"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuRefresh );
-	
-	wxMenuItem* uppMenuSave;
-	uppMenuSave = new wxMenuItem( uppMenuFile, wxID_SAVE, wxString( _("&Save") ) + wxT('\t') + wxT("CTRL+S"), _("Save the hex file"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuSave );
-	
-	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( uppMenuFile, wxID_SAVE_AS, wxString( _("Save &As") ) , _("Save the hex file as"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuSaveAs );
-	
-	uppMenuFile->AppendSeparator();
-	
-	wxMenuItem* uppMenuExit;
-	uppMenuExit = new wxMenuItem( uppMenuFile, wxID_EXIT, wxString( _("&Exit") ) + wxT('\t') + wxT("ALT+F4"), _("Exit Usbpicprog"), wxITEM_NORMAL );
-	uppMenuFile->Append( uppMenuExit );
-	
-	uppMenuBar->Append( uppMenuFile, _("&File") );
-	
-	uppMenuEdit = new wxMenu();
-	wxMenuItem* uppMenuCopy;
-	uppMenuCopy = new wxMenuItem( uppMenuEdit, wxID_COPY, wxString( _("&Copy") ) + wxT('\t') + wxT("CTRL+C"), _("Copy selection"), wxITEM_NORMAL );
-	uppMenuEdit->Append( uppMenuCopy );
-
-	wxMenuItem* uppMenuSelectall;
-	uppMenuSelectall = new wxMenuItem( uppMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) + wxT('\t') + wxT("CTRL+A"), _("Select all"), wxITEM_NORMAL );
-	uppMenuEdit->Append( uppMenuSelectall );
-
-    uppMenuBar->Append( uppMenuEdit, _("&Edit") );
-	
-	uppMenuActions = new wxMenu();
-	wxMenuItem* uppMenuProgram;
-	#ifdef __WXMAC__
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( _("&Program") ) + wxT('\t') + wxT("CTRL+7"), _("Program the device"), wxITEM_NORMAL );
-	#else	
-	uppMenuProgram = new wxMenuItem( uppMenuActions, wxID_PROGRAM, wxString( _("&Program") ) + wxT('\t') + wxT("F7"), _("Program the device"), wxITEM_NORMAL );
-	#endif
-	uppMenuActions->Append( uppMenuProgram );
-	
-	wxMenuItem* uppMenuRead;
-	#ifdef __WXMAC__
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( _("&Read") ) + wxT('\t') + wxT("CTRL+8"), _("Read the device"), wxITEM_NORMAL );
-	#else	
-	uppMenuRead = new wxMenuItem( uppMenuActions, wxID_READ, wxString( _("&Read") ) + wxT('\t') + wxT("F8"), _("Read the device"), wxITEM_NORMAL );
-	#endif
-	uppMenuActions->Append( uppMenuRead );
-	
-	wxMenuItem* uppMenuVerify;
-	uppMenuVerify = new wxMenuItem( uppMenuActions, wxID_VERIFY, wxString( _("&Verify") ) , _("Verify the device"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuVerify );
-	
-	wxMenuItem* uppMenuErase;
-	uppMenuErase = new wxMenuItem( uppMenuActions, wxID_ERASE, wxString( _("&Erase") ) , _("Erase the device"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuErase );
-	
-	wxMenuItem* uppMenuBlankCheck;
-	uppMenuBlankCheck = new wxMenuItem( uppMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck") ) , _("Check if the device is blank"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuBlankCheck );
-	
-	wxMenuItem* uppMenuAutoDetect;
-	uppMenuAutoDetect = new wxMenuItem( uppMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect") ) , _("Detect the device"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuAutoDetect );
-	
-	wxMenuItem* uppMenuConnect;
-	uppMenuConnect = new wxMenuItem( uppMenuActions, wxID_CONNECT, wxString( _("Connect &Usbpicprog") ) + wxT('\t') + wxT("CTRL+U"), _("Connect Usbpicprog"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuConnect );
-	
-	wxMenuItem* uppMenuConnectBoot;
-	uppMenuConnectBoot = new wxMenuItem( uppMenuActions, wxID_CONNECT_BOOT, wxString( _("Connect &Bootloader") ) + wxT('\t') + wxT("CTRL+B") , _("Connect Bootloader"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuConnectBoot );
-	
-	wxMenuItem* uppMenuDisConnect;
-	uppMenuDisConnect = new wxMenuItem( uppMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect") ) , _("Disconnect Usbpicprog"), wxITEM_NORMAL );
-	uppMenuActions->Append( uppMenuDisConnect );
-	
-	
-	uppMenuBar->Append( uppMenuActions, _("&Actions") );
-	
-	
-	uppMenuOptions = new wxMenu();
-	wxMenuItem* uppMenuPreferences;
-	uppMenuPreferences = new wxMenuItem( uppMenuOptions, wxID_PREFERENCES, wxString( _("&Preferences") ), _("Preferences"), wxITEM_NORMAL );
-	uppMenuOptions->Append( uppMenuPreferences );
-
-
-    uppMenuBar->Append( uppMenuOptions, _("&Options") );
-	
-	
-	uppMenuHelp = new wxMenu();
-	wxMenuItem* uppMenuItemHelp;
-	uppMenuItemHelp = new wxMenuItem( uppMenuHelp, wxID_HELP, wxString( _("&Help") ) + wxT('\t') + wxT("F1"), _("Open http://usbpicprog.org"), wxITEM_NORMAL );
-	uppMenuHelp->Append( uppMenuItemHelp );
-	
-	wxMenuItem* uppMenuAbout;
-	uppMenuAbout = new wxMenuItem( uppMenuHelp, wxID_ABOUT, wxString( _("&About usbpicprog") ) , _("About Usbpicprog"), wxITEM_NORMAL );
-	uppMenuHelp->Append( uppMenuAbout );
-	
-	uppMenuBar->Append( uppMenuHelp, _("&Help") );
-	
-	this->SetMenuBar( uppMenuBar );
-
-	m_statusBar1 = this->CreateStatusBar( 4, 1, wxID_ANY );
-
-	int statuswidths[10];
-	statuswidths[STATUS_FIELD_HARDWARE] = -2;// auto resize left side of the status bar
-	statuswidths[STATUS_FIELD_OTHER] = -2; // auto resize message box reserved for other things
-	statuswidths[STATUS_FIELD_PROGRESS] = -1; // resize the progressbar also less
-	statuswidths[STATUS_FIELD_SIDE] = STATUS_FIELD_SIDE_WIDTH;  // fix for mac os x where in the right bottom corner there is a handle to resize the window
-	m_statusBar1->SetStatusWidths(4, statuswidths); 
-
-	wxRect rect;
-	m_statusBar1->GetFieldRect(STATUS_FIELD_PROGRESS, rect);
-
-	uppProgressBar = new wxGauge(m_statusBar1, wxID_ANY, 100, rect.GetPosition(), rect.GetSize(), wxGA_HORIZONTAL, wxDefaultValidator, _("Progress"));
-
-	m_toolBar1 = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY ); 
-	m_toolBar1->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"), _("Clear open hex file") );
-	m_toolBar1->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),  _("Open a hex file") );
-	m_toolBar1->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),  _("Reload the hex file") );
-	m_toolBar1->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"), _("Save the hex file") );
-	m_toolBar1->AddTool( wxID_SAVE_AS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"), _("Save the hex file as") );
-	m_toolBar1->AddSeparator();
-	m_toolBar1->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"), _("Program the device") );
-	m_toolBar1->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"), _("Read the device") );
-	m_toolBar1->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"), _("Verify the device") );
-	m_toolBar1->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"), _("Erase the device") );
-	m_toolBar1->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"), _("Blankcheck the device") );
-	
-	m_toolBar1->AddSeparator();
-	m_comboBox1 = new wxComboBox( m_toolBar1, wxID_ANY, wxT("P18F2550"), wxDefaultPosition, wxSize(150,-1), 0, NULL, 0 ); 
-	m_toolBar1->AddControl( m_comboBox1 );
-	
-	m_toolBar1->AddSeparator();
-	m_radioButton_upp = new wxRadioButton( m_toolBar1, wxID_ANY, _("Usbpicprog"), wxDefaultPosition, wxDefaultSize, 0);
-	m_toolBar1->AddControl(m_radioButton_upp);
-	m_radioButton_boot = new wxRadioButton( m_toolBar1, wxID_ANY, _("Bootloader"), wxDefaultPosition, wxDefaultSize, 0);
-	m_toolBar1->AddControl(m_radioButton_boot);
-	
-	m_toolBar1->Realize();
-
-	#ifdef __WXMAC__
-	// not compatible with wxWidgets 2.9
-	wxApp::s_macAboutMenuItemId = wxID_ABOUT;
-	#endif
-
-	
-	
-	// Connect Events
-	this->Connect( uppMenuNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_new ) );
-	this->Connect( uppMenuOpen->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_open ) );
-	this->Connect( uppMenuRefresh->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_refresh ) );
-	this->Connect( uppMenuSave->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save ) );
-	this->Connect( uppMenuSaveAs->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
-	this->Connect( uppMenuExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_exit ) );
-	this->Connect( uppMenuCopy->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_copy ) );
-	this->Connect( uppMenuSelectall->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_selectall ) );
-	this->Connect( uppMenuProgram->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
-	this->Connect( uppMenuRead->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
-	this->Connect( uppMenuVerify->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-	this->Connect( uppMenuErase->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-	this->Connect( uppMenuBlankCheck->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
-	this->Connect( uppMenuAutoDetect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
-	this->Connect( uppMenuConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
-	this->Connect( uppMenuConnectBoot->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
-	this->Connect( uppMenuDisConnect->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
-	this->Connect( uppMenuPreferences->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_preferences ) );
-	this->Connect( uppMenuItemHelp->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
-	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
-	
-	m_comboBox1->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
-	m_radioButton_upp->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ), NULL, this );
-	m_radioButton_boot->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ), NULL, this );
-	
-	this->SetSize(850,600);
+    return wxString::FromAscii(pt->getCurrentPic().Name.c_str());
 }
 
-BEGIN_EVENT_TABLE(UppMainWindow, wxFrame)
-	EVT_SIZE(UppMainWindow::OnSize)
-END_EVENT_TABLE()
+extern const wxEventType wxEVT_COMMAND_THREAD_UPDATE;
+extern const wxEventType wxEVT_COMMAND_THREAD_COMPLETE;
+DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_UPDATE)
+DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE)
+
+
+
+// UPPMAINWINDOW
+// =============================================================================
+
+
+/*Do the basic initialization of the main window*/
+UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
+    : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
+                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
+      m_history(4), m_picType(0)
+{
+    // load settings
+    m_pConfig=new wxConfig(wxT("usbpicprog"));
+    m_pConfig->SetPath(wxT("/"));
+    if ( m_pConfig->Read(wxT("m_defaultPath"), &m_defaultPath) ) {}	else {m_defaultPath=wxT("");}
+    if ( m_pConfig->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode)){} else {m_cfg.ConfigProgramCode=true;}
+    if ( m_pConfig->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
+    if ( m_pConfig->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=false;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
+    if ( m_pConfig->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
+    m_history.Load(*m_pConfig);
+
+    // non-GUI init:
+    m_hardware=NULL;      // upp_connect() will allocate it
+    m_dlgProgress=NULL;   // will be created when needed
+
+    // GUI init:
+    CompleteGUICreation();
+
+    upp_connect();
+}
 
 UppMainWindow::~UppMainWindow()
 {
-	// Disconnect Events
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_new ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_open ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_refresh ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_save_as ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_exit ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_copy ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_selectall ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
-    this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_preferences ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_help ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_about ) );
-	m_comboBox1->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( UppMainWindow::on_combo_changed ), NULL, this );
-	m_radioButton_upp->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ), NULL, this );
-	m_radioButton_boot->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect_boot ), NULL, this );
-	
-	delete m_toolBar1;
+    if (m_hardware)
+    {
+        delete m_hardware;
+        m_hardware = NULL;
+    }
+
+    // save settings
+    m_pConfig->SetPath(wxT("/"));
+    m_pConfig->Write(wxT("m_defaultPath"), m_defaultPath);
+    m_pConfig->Write(wxT("ConfigProgramCode"), m_cfg.ConfigProgramCode);
+    m_pConfig->Write(wxT("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
+    m_pConfig->Write(wxT("ConfigProgramData"), m_cfg.ConfigProgramData);
+    m_pConfig->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
+    m_pConfig->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
+    m_pConfig->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
+    m_pConfig->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
+    m_history.Save(*m_pConfig);
+
+    delete m_pConfig;
+}
+
+void UppMainWindow::UpdateTitle()
+{
+    wxString str;
+
+    #ifndef UPP_VERSION
+    str = wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
+    #else
+    str = wxString(_("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
+    #endif
+
+    if (!m_hexFile.hasFileName())
+        str += wxT(" - [") + wxString(_("untitled"));
+    else
+        str += wxT(" - [") + wxString::FromAscii(m_hexFile.getFileName());
+
+    if (m_hexFile.wasModified())
+        str += wxT(" *");
+
+    SetTitle(str + wxT("]"));
+}
+
+/* returns a bitmap suitable for UppMainWindow menu items */
+wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
+{
+    wxImage tmp(xpm_data);
+
+#if wxCHECK_VERSION(2,9,0)
+    wxSize sz = wxArtProvider::GetNativeSizeHint(wxART_MENU);
+    tmp.Rescale(sz.GetWidth(), sz.GetHeight());
+#else
+    tmp.Rescale(16,16);
+#endif
+
+    return wxBitmap(tmp);
+}
+
+/* completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
+void UppMainWindow::CompleteGUICreation()
+{
+    // create the actions menu with rescaled icons
+    wxMenu* pMenuActions = new wxMenu();
+
+    wxMenuItem* pMenuProgram;
+    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
+                                   _("Program the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuRead;
+    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
+                                _("Read the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuVerify;
+    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
+                                  _("Verify the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuErase;
+    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
+                                 _("Erase the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuBlankCheck;
+    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
+                                      _("Blankcheck the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuAutoDetect;
+    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
+                                      _("Detect the type of the PIC device"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuConnect;
+    pMenuConnect = new wxMenuItem( pMenuActions, wxID_CONNECT, wxString( _("&Connect...") ),
+                                      _("Connect to the programmer"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuDisconnect;
+    pMenuDisconnect = new wxMenuItem( pMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect...") ),
+                                      _("Disconnect from the programmer"), wxITEM_NORMAL );
+#ifdef __WXGTK__
+    // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
+    // on platforms without native stock icons); it looks weird to have them only for the Actions menu...
+    // NOTE: this needs to be done _before_ appending menu items or wxGTK won't like it
+    pMenuProgram->SetBitmap(GetMenuBitmap( program_xpm ));
+    pMenuRead->SetBitmap(GetMenuBitmap( read_xpm ));
+    pMenuVerify->SetBitmap(GetMenuBitmap( verify_xpm ));
+    pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
+    pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+    pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+
+    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-connect"), wxART_MENU));
+    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-disconnect"), wxART_MENU));
+#endif
+
+    pMenuActions->Append( pMenuProgram );
+    pMenuActions->Append( pMenuRead );
+    pMenuActions->Append( pMenuVerify );
+    pMenuActions->Append( pMenuErase );
+    pMenuActions->Append( pMenuBlankCheck );
+    pMenuActions->Append( pMenuAutoDetect );
+    pMenuActions->AppendSeparator();
+    pMenuActions->Append( pMenuConnect );
+    pMenuActions->Append( pMenuDisconnect );
+
+    m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
+
+    this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
+    this->Connect( wxID_READ, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
+    this->Connect( wxID_VERIFY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
+    this->Connect( wxID_ERASE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
+    this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
+    this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+    this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+    this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+
+    // create the most-recently-used section in File menu
+    m_history.UseMenu(m_pMenuFile);
+    m_history.AddFilesToMenu();
+
+    this->Connect( wxID_FILE1, wxID_FILE9, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_mru ) );
+
+    // complete creation of the GUI creating the toolbar;
+    // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
+    wxToolBar* toolbar = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY );
+
+    toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"),
+                      GetMenuBar()->FindItem(wxID_NEW)->GetHelp() );
+    toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),
+                      GetMenuBar()->FindItem(wxID_OPEN)->GetHelp() );
+    toolbar->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),
+                      GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
+    toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"),
+                      GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
+    toolbar->AddTool( wxID_SAVEAS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"),
+                      GetMenuBar()->FindItem(wxID_SAVEAS)->GetHelp() );
+    toolbar->AddSeparator();
+    toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"),
+                      GetMenuBar()->FindItem(wxID_PROGRAM)->GetHelp() );
+    toolbar->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"),
+                      GetMenuBar()->FindItem(wxID_READ)->GetHelp() );
+    toolbar->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"),
+                      GetMenuBar()->FindItem(wxID_VERIFY)->GetHelp() );
+    toolbar->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"),
+                      GetMenuBar()->FindItem(wxID_ERASE)->GetHelp() );
+    toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"),
+                      GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
+    toolbar->AddSeparator();
+
+    m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE, wxDefaultPosition, wxSize(120,-1));
+    m_pPICChoice->SetToolTip(_("currently selected PIC type"));
+    this->Connect( wxID_PIC_CHOICE, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_choice_changed ) );
+
+    toolbar->AddControl( m_pPICChoice );
+    toolbar->Realize();
+
+    // by default show code page at startup
+    m_pNotebook->ChangeSelection(PAGE_CODE);
+
+    // make 2nd pane wide the half of the 1st pane:
+    const int widths[] = { -2, -1 };
+    m_pStatusBar->SetStatusWidths(2, widths);
+
+    // append all PIC names to the choice control
+    vector<string> arr = m_picType.getPicNames();
+    for(unsigned int i=0;i<arr.size();i++)
+        m_pPICChoice->Append(wxString::FromAscii(arr[i].c_str()));
+
+    this->SetIcon(wxIcon( usbpicprog_xpm ));
+    this->SetSizerAndFit(m_pSizer);
+
+    // misc event handlers
+    this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
+    this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
+    this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxCommandEventHandler( UppMainWindow::OnThreadUpdate ) );
+    this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxCommandEventHandler( UppMainWindow::OnThreadCompleted ) );
+
+    // set default title name
+    UpdateTitle();
+
+    // show default stuff
+    UpdateGrids();
+}
+
+/* returns a pointer to the grid currently open */
+UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
+{
+    switch (m_pNotebook->GetSelection())
+    {
+    case PAGE_CODE:
+        return m_pCodeGrid;
+    case PAGE_CONFIG:
+        return m_pConfigGrid;
+    case PAGE_DATA:
+        return m_pDataGrid;
+
+    default:
+        return NULL;
+    }
+}
+
+/*Put the contents of the hex file in the text area*/
+void UppMainWindow::UpdateGrids()
+{
+    m_pCodeGrid->ShowHexFile(&m_hexFile,&m_picType);
+    m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
+    m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
+}
+
+bool UppMainWindow::ShouldContinueIfUnsaved()
+{
+    if (!m_hexFile.wasModified())
+        return true;    // continue
+
+    wxString msg = wxString::Format(
+        _("The HEX file '%s' has not been saved... its content will be lost; continue?"),
+        m_hexFile.hasFileName() ? m_hexFile.getFileName() : "untitled");
+
+    if ( wxMessageBox(msg, _("Please confirm"),
+                        wxICON_QUESTION | wxYES_NO, this) == wxYES )
+        return true;    // continue...
+
+    // don't continue!
+    return false;
+}
+
+void UppMainWindow::Reset()
+{
+    m_hexFile.newFile(&m_picType);
+
+    UpdateGrids();
+    UpdateTitle();
+}
+
+
+
+// UPPMAINWINDOW - event handlers
+// =============================================================================
+
+/*Open a hexfile using the most-recently-used menu items*/
+void UppMainWindow::on_mru(wxCommandEvent& event)
+{
+    upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
+}
+
+void UppMainWindow::on_close(wxCloseEvent& event)
+{
+    if ( event.CanVeto() )
+        if (!ShouldContinueIfUnsaved())
+        {
+            // user replied "do not continue"
+            event.Veto();
+            return;
+        }
+
+    // wait for the thread
+    if (GetThread())
+        GetThread()->Wait();
+
+    Destroy();
+}
+
+
+
+// UPPMAINWINDOW - thread-related functions
+// =============================================================================
+
+/*Update the progress bar; this function is called by m_hardware */
+void UppMainWindow::updateProgress(int value)
+{
+    // NOTE: this function is executed in the secondary thread's context!
+    //wxASSERT(!wxThread::IsMain() || !m_dlgProgress);
+
+    // the following line will result in a call to UppMainWindow::OnThreadUpdate()
+    // in the primary thread context
+#if wxCHECK_VERSION(2,9,0)
+    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_UPDATE, value));
+#else
+    wxCommandEvent ev(wxEVT_COMMAND_THREAD_UPDATE, value);
+    wxPostEvent(this, ev);
+#endif
+}
+
+/*Update from the secondary thread */
+void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
+{
+    // NOTE: this function is executed in the primary thread's context!
+    wxASSERT(wxThread::IsMain());
+
+    if (m_dlgProgress)
+    {
+        //wxCriticalSectionLocker lock(m_arrLogCS);
+
+#if wxCHECK_VERSION(2,9,0)
+        m_dlgProgress->Update(evt.GetId(),
+                              _("Please wait until the operations are completed:\n") +
+                              wxJoin(m_arrLog, '\n'));
+#else
+        m_dlgProgress->Update(evt.GetId());
+#endif
+        //m_arrLog.Clear();
+    }
+}
+
+/*The secondary thread just finished*/
+void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
+{
+    // NOTE: this function is executed in the primary thread's context!
+    wxASSERT(wxThread::IsMain());
+
+    if (m_dlgProgress)
+    {
+        m_dlgProgress->Destroy();
+        m_dlgProgress = NULL;
+    }
+
+    // log all messages created by the Entry()
+    // NOTE: the thread has ended, so that we can access m_arrLog safely
+    //       without using m_arrLogCS
+    bool success = true;
+    for (unsigned int i=0; i<m_arrLog.GetCount(); i++)
+    {
+        success &= m_arrLogLevel[i] == wxLOG_Message;
+        wxLog::OnLog(m_arrLogLevel[i], m_arrLog[i], m_arrLogTimes[i]);
+    }
+
+    m_arrLog.clear();
+    m_arrLogLevel.clear();
+    m_arrLogTimes.clear();
+
+    SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
+    if (success)
+        wxLogMessage(_("All operations completed"));
+    else
+        wxLogWarning(_("Operations completed with errors/warnings"));
+
+    // some of the operations performed by the secondary thread
+    // require updating the title or the grids:
+    switch (m_mode)
+    {
+    case THREAD_READ:
+        UpdateGrids();
+        UpdateTitle();
+        break;
+
+    case THREAD_ERASE:
+        Reset();
+        break;
+    }
+}
+
+wxThread::ExitCode UppMainWindow::Entry()
+{
+    // NOTE: this function is the core of the secondary thread's context!
+    wxASSERT(!wxThread::IsMain());
+
+    bool exitCode;
+    switch (m_mode)
+    {
+    case THREAD_PROGRAM:
+        exitCode = upp_thread_program();
+        break;
+
+    case THREAD_READ:
+        exitCode = upp_thread_read();
+        break;
+
+    case THREAD_VERIFY:
+        exitCode = upp_thread_verify();
+        break;
+
+    case THREAD_ERASE:
+        exitCode = upp_thread_erase();
+        break;
+
+    case THREAD_BLANKCHECK:
+        exitCode = upp_thread_blankcheck();
+        break;
+
+    default:
+        wxFAIL;
+    }
+
+    // signal the main thread we've completed our task; this will result
+    // in a call to UppMainWindow::OnThreadCompleted done in the primary
+    // thread context:
+#if wxCHECK_VERSION(2,9,0)
+    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_COMPLETE));
+#else
+    wxCommandEvent ev(wxEVT_COMMAND_THREAD_COMPLETE);
+    wxPostEvent(this, ev);
+#endif
+
+    return (wxThread::ExitCode)exitCode;
+}
+
+void UppMainWindow::LogFromThread(wxLogLevel level, const wxString& str)
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+    wxCriticalSectionLocker lock(m_arrLogCS);
+    m_arrLog.push_back(wxT("=> ") + str);
+    m_arrLogLevel.push_back(level);
+    m_arrLogTimes.push_back(time(NULL));
+}
+
+bool UppMainWindow::upp_thread_program()
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+    if(m_cfg.ConfigEraseBeforeProgramming)
+    {
+        LogFromThread(wxLOG_Message, _("Erasing before programming..."));
+
+        switch(m_hardware->bulkErase(&m_picType))
+        {
+        case 1:
+            LogFromThread(wxLOG_Message, _("Erase OK"));
+            break;
+        default:
+            LogFromThread(wxLOG_Error, _("Error erasing the device"));
+            // FIXME: shouldn't we exit the thread?
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(m_cfg.ConfigProgramCode)
+    {
+        LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
+
+        switch(m_hardware->writeCode(&m_hexFile,&m_picType))
+        {
+        case 0:
+            LogFromThread(wxLOG_Message, _("Write Code memory OK"));
+            break;
+        case -1:
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
+            break;
+        case -2:
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
+            break;
+        case -3:
+            LogFromThread(wxLOG_Error, _("Write code not implemented for current PIC"));
+            break;
+        case -4:
+            LogFromThread(wxLOG_Error, _("Verify error while writing code memory"));
+            break;
+        case -5:
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
+            break;
+        default:
+            LogFromThread(wxLOG_Error, _("Error programming code memory"));
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(m_cfg.ConfigProgramConfig)
+    {
+        LogFromThread(wxLOG_Message, _("Programming the configuration area of the PIC..."));
+
+        switch(m_hardware->writeData(&m_hexFile,&m_picType))
+        {
+        case 0:
+            LogFromThread(wxLOG_Message, _("Write Data memory OK"));
+            break;
+        case -1:
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
+            break;
+        case -2:
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
+            break;
+        case -3:
+            LogFromThread(wxLOG_Error, _("Write data not implemented for current PIC"));
+            break;
+        case -4:
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
+            break;
+        default:
+            LogFromThread(wxLOG_Error, _("Error programming data memory"));
+            break;
+        }
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    if(m_cfg.ConfigProgramData)
+    {
+        LogFromThread(wxLOG_Message, _("Programming data area of the PIC..."));
+
+        switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
+        {
+        case 0:
+            LogFromThread(wxLOG_Message, _("Write Config memory OK"));
+            break;
+        case -1:
+            LogFromThread(wxLOG_Error, _("The hardware should say OK"));
+            break;
+        case -2:
+            LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
+            break;
+        case -3:
+            LogFromThread(wxLOG_Error, _("Write config not implemented for current PIC"));
+            break;
+        case -4:
+            LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
+            break;
+        default:
+            LogFromThread(wxLOG_Error, _("Error programming config memory"));
+            break;
+        }
+    }
+
+    return true;
+}
+
+bool UppMainWindow::upp_thread_read()
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+    // reset current contents:
+    m_hexFile.newFile(&m_picType);
+
+    LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
+    if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
+    {
+        LogFromThread(wxLOG_Error, _("Error reading code memory"));
+        // proceed
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
+    if(m_hardware->readData(&m_hexFile,&m_picType)<0)
+    {
+        LogFromThread(wxLOG_Error, _("Error reading data memory"));
+        // proceed
+    }
+
+    if (GetThread()->TestDestroy())
+        return false;   // stop the operation...
+
+    LogFromThread(wxLOG_Message, _("Reading the config area of the PIC..."));
+    if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
+    {
+        LogFromThread(wxLOG_Error, _("Error reading config memory"));
+        // proceed
+    }
+
+    m_hexFile.trimData(&m_picType);
+
+    return true;
+}
+
+bool UppMainWindow::upp_thread_verify()
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+
+    LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
+
+    wxString verifyText;
+    wxString typeText;
+    VerifyResult res=
+        m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
+                         m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
+
+    switch(res.Result)
+    {
+    case VERIFY_SUCCESS:
+        LogFromThread(wxLOG_Message, _("Verify successful"));
+        break;
+    case VERIFY_MISMATCH:
+
+        switch (res.DataType)
+        {
+            case TYPE_CODE: typeText=_("Verify code");break;
+            case TYPE_DATA: typeText=_("Verify data");break;
+            case TYPE_CONFIG: typeText=_("Verify config");break;
+            default: typeText=_("Verify unknown");break;
+        }
+        verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
+            res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
+            res.Read, res.Expected);
+        verifyText.Prepend(typeText);
+        LogFromThread(wxLOG_Error, verifyText);
+        break;
+    case VERIFY_USB_ERROR:
+        LogFromThread(wxLOG_Error, _("USB error during verify"));
+        break;
+    case VERIFY_OTHER_ERROR:
+        LogFromThread(wxLOG_Error, _("Unknown error during verify"));
+        break;
+    default:
+        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
+        break;
+    }
+
+    return true;
+}
+
+bool UppMainWindow::upp_thread_erase()
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+    LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
+
+    if(m_hardware->bulkErase(&m_picType)<0)
+    {
+        LogFromThread(wxLOG_Error, _("Error erasing the device"));
+        return false;
+    }
+
+    return true;
+}
+
+bool UppMainWindow::upp_thread_blankcheck()
+{
+    // NOTE: this function is executed in the secondary thread context
+    wxASSERT(!wxThread::IsMain());
+
+    wxString verifyText;
+    string typeText;
+
+    LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
+
+    VerifyResult res=m_hardware->blankCheck(&m_picType);
+
+    switch(res.Result)
+    {
+    case VERIFY_SUCCESS:
+        LogFromThread(wxLOG_Message, _("Device is blank"));
+        break;
+    case VERIFY_MISMATCH:
+        switch (res.DataType)
+        {
+            case TYPE_CODE: typeText=string("code");break;
+            case TYPE_DATA: typeText=string("data");break;
+            case TYPE_CONFIG: typeText=string("config");break;
+            default: typeText=string("unknown");break;
+        }
+
+        verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
+            res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
+            res.Read,
+            res.Expected);
+        verifyText += wxT("\n") + _("Device is not blank.");
+
+        LogFromThread(wxLOG_Message, verifyText);
+        break;
+    case VERIFY_USB_ERROR:
+        LogFromThread(wxLOG_Error, _("USB error during blankcheck"));
+        break;
+    case VERIFY_OTHER_ERROR:
+        LogFromThread(wxLOG_Error, _("Unknown error during blankcheck"));
+        break;
+    default:
+        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
+        break;
+    }
+
+    return true;
+}
+
+bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
+{
+    // NOTE: this function is executed in the primary thread context
+    wxASSERT(wxThread::IsMain());
+
+    // create the progress dialog to show while our secondary thread works
+    m_dlgProgress = new wxProgressDialog
+                    (
+                        _("Progress dialog"),
+                        _("Initializing..."),
+                        100,
+                        this,
+                        //wxPD_CAN_ABORT |
+                        wxPD_APP_MODAL |
+                        wxPD_ELAPSED_TIME |
+                        wxPD_ESTIMATED_TIME |
+                        wxPD_REMAINING_TIME
+                    );
+
+    // inform the thread about which operation it must perform;
+    // note that the thread is not running yet so there's no need for a critical section:
+    m_mode = mode;
+
+#if wxCHECK_VERSION(2,9,0)
+    if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
+#else
+    if (wxThreadHelper::Create() != wxTHREAD_NO_ERROR)
+#endif
+    {
+        wxLogError(_("Could not create the worker thread!"));
+        return false;
+    }
+
+    if (GetThread()->Run() != wxTHREAD_NO_ERROR)
+    {
+        wxLogError(_("Could not run the worker thread!"));
+        return false;
+    }
+
+    // don't block our GUI while we communicate with the attached device
+
+    return true;
+}
+
+
+
+
+// UPPMAINWINDOW - event handlers without event argument
+// =============================================================================
+
+/*The user touched one of the code/data/config grids*/
+void UppMainWindow::upp_cell_changed()
+{
+    // m_hexFile has been automatically modified by the UppHexViewGrid!
+    UpdateTitle();
+}
+
+/*clear the hexfile*/
+void UppMainWindow::upp_new()
+{
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+    Reset();
+}
+
+/*Open a hexfile using a file dialog*/
+void UppMainWindow::upp_open()
+{
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+    wxFileDialog* openFileDialog =
+        new wxFileDialog( this, _("Open hexfile"), m_defaultPath, wxT(""),
+                          FILETYPES, wxFD_OPEN, wxDefaultPosition);
+
+    if ( openFileDialog->ShowModal() == wxID_OK )
+    {
+        // get the folder of the opened file, without the name&extension
+        m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
+
+        upp_open_file(openFileDialog->GetPath());
+    }
+}
+
+/*Open a hexfile by filename*/
+bool UppMainWindow::upp_open_file(const wxString& path)
+{
+    if(m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
+    {
+        SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
+        wxLogError(_("Unable to open file"));
+        return false;
+    }
+    else
+    {
+        UpdateGrids();
+        UpdateTitle();
+        m_history.AddFileToHistory(path);
+
+        return true;
+    }
+}
+
+/*re-open the hexfile*/
+void UppMainWindow::upp_refresh()
+{
+    if(!m_hexFile.hasFileName())
+    {
+        SetStatusText(_("No file to refresh"),STATUS_FIELD_OTHER);
+        wxLogMessage(_("No file to refresh"));
+        return;
+    }
+
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+    if(m_hexFile.reload(&m_picType)<0)
+    {
+        SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
+        wxLogError(_("Unable to open file"));
+    }
+    else
+    {
+        UpdateGrids();
+        UpdateTitle();
+    }
+}
+
+/*save the hexfile when already open, else perform a save_as*/
+void UppMainWindow::upp_save()
+{
+    if(m_hexFile.hasFileName())
+    {
+        if(m_hexFile.save(&m_picType)<0)
+        {
+            SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
+            wxLogError(_("Unable to save file"));
+        }
+        else
+            UpdateTitle();
+    }
+    else upp_save_as();
+}
+
+/*save the hex file with a file dialog*/
+void UppMainWindow::upp_save_as()
+{
+    wxFileDialog* openFileDialog =
+        new wxFileDialog( this, _("Save hexfile"), m_defaultPath, wxT(""),
+                          FILETYPES, wxFD_SAVE, wxDefaultPosition);
+
+    if ( openFileDialog->ShowModal() == wxID_OK )
+    {
+        // get the folder of the opened file, without the name&extension
+        m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
+
+        if(m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+        {
+            SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
+            wxLogError(_("Unable to save file"));
+        }
+        else
+            UpdateTitle();
+    }
+}
+
+void UppMainWindow::upp_exit()
+{
+    Close();
+}
+
+void UppMainWindow::upp_copy()
+{
+    UppHexViewGrid *grid = GetCurrentGrid();
+    if (grid)
+        grid->Copy();
+}
+
+void UppMainWindow::upp_selectall()
+{
+    UppHexViewGrid *grid = GetCurrentGrid();
+    if (grid)
+        grid->SelectAll();
+}
+
+/*Write everything to the device*/
+void UppMainWindow::upp_program()
+{
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // run the operation in a secondary thread
+    RunThread(THREAD_PROGRAM);
+}
+
+/*read everything from the device*/
+void UppMainWindow::upp_read()
+{
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // this command overwrites current code/config/data HEX... so ask to the user
+    // before proceeding:
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+    // run the operation in a secondary thread
+    RunThread(THREAD_READ);
+}
+
+/*verify the device with the open hexfile*/
+void UppMainWindow::upp_verify()
+{
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // run the operation in a secondary thread
+    RunThread(THREAD_VERIFY);
+}
+
+/*perform a bulk-erase on the current PIC*/
+void UppMainWindow::upp_erase()
+{
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // this command overwrites current code/config/data HEX... so ask to the user
+    // before proceeding:
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+    // run the operation in a secondary thread
+    RunThread(THREAD_ERASE);
+}
+
+/*Check if the device is erased successfully*/
+void UppMainWindow::upp_blankcheck()
+{
+    if (m_hardware == NULL) return;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // run the operation in a secondary thread
+    RunThread(THREAD_BLANKCHECK);
+}
+
+/*Detect which PIC is connected and select it in the choicebox and the m_hardware*/
+bool UppMainWindow::upp_autodetect()
+{
+    if (m_hardware == NULL) return false;
+
+    if (!m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return false;
+    }
+
+    // this command changes the pic-type and thus resets the current code/config/data stuff...
+    if (!ShouldContinueIfUnsaved())
+        return false;
+
+    int devId=m_hardware->autoDetectDevice();
+    cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
+
+    // if devId is not a valid device ID, PicType ctor will select the default PIC (18F2550)
+    m_picType=PicType(devId);
+    m_hardware->setPicType(&m_picType);
+
+    // sync the choicebox with m_picType
+    wxString picName=wxGetPicName(&m_picType);
+    m_pPICChoice->SetStringSelection(picName);
+
+    if(devId<1)
+    {
+        SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
+                     picName.Mid(1).c_str());
+    }
+    else
+    {
+        wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
+                                        picName.Mid(1).c_str(), devId);
+        SetStatusText(msg,STATUS_FIELD_HARDWARE);
+        wxLogMessage(msg);
+    }
+
+    Reset();
+
+    return (devId>1);
+}
+
+/*Connect upp_wx to the upp programmer*/
+bool UppMainWindow::upp_connect()
+{
+    // recreate the hw class
+    if (m_hardware != NULL) delete m_hardware;
+    m_hardware=new Hardware(this, HW_UPP);
+
+    if(m_hardware->connected())
+    {
+        upp_autodetect();       // already calls upp_new();
+
+        char msg[64];
+        if(m_hardware->getFirmwareVersion(msg)<0)
+        {
+            SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Unable to read firmware version"));
+        }
+        else
+        {
+            SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+        }
+    }
+    else
+    {
+        // try to connect to the UPP bootloader since there are no UPP programmers...
+
+        delete m_hardware;
+        m_hardware=new Hardware(this, HW_BOOTLOADER);
+
+        if(m_hardware->connected())
+        {
+            upp_autodetect();       // already calls upp_new();
+
+            char msg[64];
+            if(m_hardware->getFirmwareVersion(msg)<0)
+            {
+                SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
+                wxLogMessage(_("Unable to read version"));
+            }
+            else
+            {
+                SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+                wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+            }
+        }
+        else
+        {
+            m_picType=PicType(0);     // select default PIC
+            m_hardware->setPicType(&m_picType);
+            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+
+            SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Bootloader or programmer not found"));
+
+            upp_new();
+        }
+    }
+
+    wxASSERT(m_hardware);
+
+    return m_hardware->connected();
+}
+
+/*disconnect the m_hardware*/
+void UppMainWindow::upp_disconnect()
+{
+    if(m_hardware != NULL)
+    {
+        if (m_hardware->connected())
+        {
+            delete m_hardware;
+            m_hardware = NULL;
+
+            SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Disconnected usbpicprog"));
+        }
+        else
+        {
+            SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
+            wxLogMessage(_("Already disconnected"));
+        }
+    }
+    else
+    {
+        SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
+        wxLogMessage(_("Already disconnected"));
+    }
+}
+
+void UppMainWindow::upp_preferences()
+{
+    PreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
+
+    dlg.SetConfigFields(m_cfg);
+    if (dlg.ShowModal() == wxID_OK)
+        m_cfg = dlg.GetResult();
+}
+
+/*load a browser with the usbpicprog website*/
+void UppMainWindow::upp_help()
+{
+    wxLaunchDefaultBrowser(wxT("http://usbpicprog.org/"));
+}
+
+/*show an about box (only supported from wxWidgets 2.8.something+) */
+void UppMainWindow::upp_about()
+{
+    wxAboutDialogInfo aboutInfo;
+    aboutInfo.SetName(wxT("Usbpicprog"));
+    #ifndef UPP_VERSION
+    aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+    #else
+    aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
+    #endif
+    aboutInfo.SetDescription(_("An open source USB pic programmer"));
+    //aboutInfo.SetCopyright("(C) 2008");
+    aboutInfo.SetWebSite(wxT("http://usbpicprog.org/"));
+    aboutInfo.AddDeveloper(wxT("Frans Schreuder"));
+    aboutInfo.AddDeveloper(wxT("Jan Paul Posma"));
+    aboutInfo.AddDeveloper(wxT("Francesco Montorsi"));
+
+    wxAboutBox(aboutInfo);
+}
+
+/*if the combo changed, also change it in the m_hardware*/
+void UppMainWindow::upp_choice_changed()
+{
+    // user changed the pic-type and thus we need to either
+    // - reset the current code/config/data grids
+    // - go back to the previously selected PIC
+    if (!ShouldContinueIfUnsaved())
+    {
+        // revert selection to the previous type
+        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+        return;
+    }
+
+    if (m_hardware != NULL)
+    {
+        if(m_hardware->getCurrentHardware()==HW_BOOTLOADER)
+        {
+            // revert selection to the previous type
+            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+            wxLogError(wxT("Cannot select a PIC different from '%s' when the bootloader is connected!"));
+            return;
+        }
+
+        m_hardware->setPicType(&m_picType);
+    }
+
+    // update the pic type
+    m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+
+    // PIC changed; reset the code/config/data grids
+    Reset();
 }

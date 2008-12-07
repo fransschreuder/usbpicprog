@@ -1,365 +1,255 @@
+/***************************************************************************
+*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   usbpicprog.sourceforge.net                                            *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************/
+
+
+#include <wx/clipbrd.h>
+#include <wx/dataobj.h>
+#include <wx/menu.h>
+#include <wx/log.h>
+
 #include "hexview.h"
-#include <wx/wx.h>
 
-#define ROWLABELWIDTH 120
-#define OTHERWIDTH 52
-#define COLWIDTH 28
-UppHexview::UppHexview(wxWindow* parent, wxWindowID id,wxString title, const wxPoint& pos, const wxSize& size, long style) : wxPanel( parent, id, pos, size, style )
+
+#define ROWLABELWIDTH       120
+#define OTHERWIDTH          52
+#define COLWIDTH            28
+
+#if wxCHECK_VERSION(2,9,0)
+// array used for fast decimal=>hex conversion in ShowHexFile()
+static wxStringCharType g_digits[] =
+    { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
+#endif
+
+
+UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType type)
+    : wxGrid( parent, id, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS )
 {
+    m_hexFile=NULL;
+    m_type=type;
 
-	hexViewBoxSizer = new wxBoxSizer( wxVERTICAL );
-	
-	hexViewScrolledWindow = new wxScrolledWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL );
-	hexViewScrolledWindow->SetScrollRate( 10, 10 );
-	
-	bSizer2 = new wxFlexGridSizer( 6,1,-1,-1 );
-	
-	labelCode = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Code Memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	//labelCode->Wrap( -1 );
-	bSizer2->Add( labelCode, 0, wxALL, 5 );
-	
-	codeGrid = new wxGrid( hexViewScrolledWindow, -1 , wxDefaultPosition, wxDefaultSize,wxTAB_TRAVERSAL | wxBORDER_SUNKEN);
-	
-	// Grid
-	codeGrid->CreateGrid( 0, 24 );
-	codeGrid->EnableEditing( true );
-	codeGrid->EnableGridLines( false );
-	codeGrid->EnableDragGridSize( false );
-	codeGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
-	codeGrid->SetMargins( 0, 0 );
-	
-	// Columns
-	//codeGrid->EnableDragColMove( false );
-	codeGrid->EnableDragColSize( false );
-	codeGrid->SetColLabelSize( 30 );
-	codeGrid->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Rows
-	codeGrid->EnableDragRowSize( false );
-	codeGrid->SetRowLabelSize( ROWLABELWIDTH );
-	codeGrid->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Label Appearance
-	
-	// Cell Defaults
-	//codeGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( codeGrid, 1, wxALL|wxALIGN_TOP, 5 );
-	
-	labelConfig = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Config Memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	//labelConfig->Wrap( -1 );
-	bSizer2->Add( labelConfig, 0, wxALL, 5 );
-	
-	configGrid = new wxGrid( hexViewScrolledWindow, -1 , wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxBORDER_SUNKEN );
-	
-	// Grid
-	configGrid->CreateGrid( 0, 24 );
-	configGrid->EnableEditing( true );
-	configGrid->EnableGridLines( false );
-	configGrid->EnableDragGridSize( false );
-	configGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
-	configGrid->SetMargins( 0, 0 );
-	
-	// Columns
-	//configGrid->EnableDragColMove( false );
-	configGrid->EnableDragColSize( false );
-	configGrid->SetColLabelSize( 30 );
-	configGrid->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Rows
-	configGrid->EnableDragRowSize( true );
-	configGrid->SetRowLabelSize( ROWLABELWIDTH );
-	configGrid->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Label Appearance
-	
-	// Cell Defaults
-	//configGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( configGrid, 1, wxALL|wxALIGN_TOP, 5 );
-	
-	labelData = new wxStaticText( hexViewScrolledWindow, wxID_ANY, _("Data Memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	//labelData->Wrap( -1 );
-	bSizer2->Add( labelData, 0, wxALL, 5 );
-	
-	dataGrid = new wxGrid( hexViewScrolledWindow, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxBORDER_SUNKEN );
-	
-	// Grid
-	dataGrid->CreateGrid( 0, 24 );
-	dataGrid->EnableEditing( true );
-	dataGrid->EnableGridLines( false );
-	dataGrid->EnableDragGridSize( false );
-    dataGrid->SetSelectionMode(wxGrid::wxGridSelectRows);
-	dataGrid->SetMargins( 0, 0 );
-	
-	// Columns
-	//dataGrid->EnableDragColMove( false );
-	dataGrid->EnableDragColSize( false );
-	dataGrid->SetColLabelSize( 30 );
-	dataGrid->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Rows
-	dataGrid->EnableDragRowSize( false );
-	dataGrid->SetRowLabelSize( ROWLABELWIDTH );
-	dataGrid->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Label Appearance
-	
-	// Cell Defaults
-	//dataGrid->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer2->Add( dataGrid, 1, wxALL|wxALIGN_TOP, 5 );
-	
-	hexViewScrolledWindow->SetSizer( bSizer2 );
-	hexViewScrolledWindow->Layout();
-	bSizer2->Fit( hexViewScrolledWindow );
-	hexViewBoxSizer->Add( hexViewScrolledWindow, 1, wxEXPAND | wxALL, 5 );
+    // NOTE: in wx2.9 we can't allocate a grid of zero rows... at least one
+    //       row is always _required_
 
-	this->SetSizer( hexViewBoxSizer );
-	this->Layout();
-//	setLabels ();
-	autoSizeColumns();
-	hexViewBoxSizer->Fit( this );
-	
-	// Connect Events
-	codeGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnCodeChanged ), NULL, this );
-	configGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnConfigChanged ), NULL, this );
-	dataGrid->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnDataChanged ), NULL, this );
-	codeGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexview::OnCodeRightClicked ), NULL, this );
-	configGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexview::OnCodeRightClicked ), NULL, this );
-	dataGrid->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexview::OnCodeRightClicked ), NULL, this );
-	this->Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexview::OnCopy ) );
-	this->Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexview::OnSelectAll ) );
-	Refresh();
-	readHexFile=NULL;
-	
+    CreateGrid( 1, 24 );
+    EnableEditing( true );
+    EnableGridLines( false );
+    EnableDragGridSize( false );
+    SetSelectionMode(wxGrid::wxGridSelectRows);
+    SetMargins( 0, 0 );
+
+    // Columns
+    //EnableDragColMove( false );
+    EnableDragColSize( false );
+    SetColLabelSize( 30 );
+    SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+    for(int i=0;i<GetNumberCols();i++)
+        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
+    AutoSizeColumns(true);
+
+    // Rows
+    EnableDragRowSize( false );
+    SetRowLabelSize( ROWLABELWIDTH );
+    SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // Connect Events
+    Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
+    Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
+    Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
+    Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
-
-UppHexview::~UppHexview()
+UppHexViewGrid::~UppHexViewGrid()
 {
-	// Disconnect Events
-	codeGrid->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnCodeChanged ), NULL, this );
-	configGrid->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnCodeChanged ), NULL, this );
-	dataGrid->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexview::OnDataChanged ), NULL, this );
+    // Disconnect Events
+    Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
+    Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
+    Disconnect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
+    Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );
 }
 
-
-void UppHexview::putHexFile(ReadHexFile* hexFile, PicType* picType)
+wxSize UppHexViewGrid::DoGetBestSize() const
 {
-	readHexFile=hexFile;
-	codeGrid->DeleteRows(0, codeGrid->GetNumberRows(),false);
-	codeGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getCodeMemory().size()/codeGrid->GetNumberCols(),false);
-	
-	for(unsigned int i=0;i<readHexFile->getCodeMemory().size();i++)
-	{
-		codeGrid->SetCellValue(i/(codeGrid->GetNumberCols()),i%(codeGrid->GetNumberCols()) , 
-							   wxString::Format(wxT("%02X"),readHexFile->getCodeMemory()[i]));
-	}
-	configGrid->DeleteRows(0, configGrid->GetNumberRows(),false);
-	configGrid->AppendRows(((readHexFile->getConfigMemory().size()%configGrid->GetNumberCols())>0)+readHexFile->getConfigMemory().size()/configGrid->GetNumberCols(),false);
-	for(unsigned int i=0;i<readHexFile->getConfigMemory().size();i++)
-	{
-		configGrid->SetCellValue(i/(configGrid->GetNumberCols()),i%(configGrid->GetNumberCols()) , 
-							   wxString::Format(wxT("%02X"),readHexFile->getConfigMemory()[i]));
-	}
-	dataGrid->DeleteRows(0, dataGrid->GetNumberRows(),false);
-	dataGrid->AppendRows(((readHexFile->getCodeMemory().size()%codeGrid->GetNumberCols())>0)+readHexFile->getDataMemory().size()/dataGrid->GetNumberCols(),false);
-	
-	for(unsigned int i=0;i<readHexFile->getDataMemory().size();i++)
-	{
-		dataGrid->SetCellValue(i/(dataGrid->GetNumberCols()),i%(dataGrid->GetNumberCols()) , 
-							   wxString::Format(wxT("%02X"),readHexFile->getDataMemory()[i]));
-	}
+    wxSize sz = wxGrid::DoGetBestSize();
 
-	setLabels(picType->getCurrentPic().ConfigAddress);
-	Fit();
-	
+    // we need to do this to avoid the presence of a small annoying horizontal scrollbar:
+    sz.x += 10;
+
+    // we need this because the minimal height is calculated after construction
+    // when we have only a single row in the widget (since ShowHexFile has not
+    // been called yet); this sets a reasonable value.
+    sz.y = 400;
+
+    return sz;
 }
 
-void UppHexview::setLabels(int configOffset)
+void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
 {
-	for(int i=0;i<codeGrid->GetNumberRows();i++)
-		codeGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*codeGrid->GetNumberCols()));
-	for(int i=0;i<configGrid->GetNumberRows();i++)
-		configGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),configOffset+i*configGrid->GetNumberCols()));
-	for(int i=0;i<dataGrid->GetNumberRows();i++)
-		dataGrid->SetRowLabelValue(i,wxString::Format(wxT("%06X"),i*dataGrid->GetNumberCols()));
-	
-	for(int i=0;i<codeGrid->GetNumberCols();i++)
-		codeGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
-	for(int i=0;i<configGrid->GetNumberCols();i++)
-		configGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));								   
-	for(int i=0;i<dataGrid->GetNumberCols();i++)
-		dataGrid->SetColLabelValue(i,wxString::Format(wxT("%02X"),i));								   
+    m_hexFile=hexFile;
+
+    const vector<int>* data = NULL;
+    switch (m_type)
+    {
+        case HEXVIEW_CODE:
+            data = &m_hexFile->getCodeMemory();
+            break;
+        case HEXVIEW_CONFIG:
+            data = &m_hexFile->getConfigMemory();
+            break;
+        case HEXVIEW_DATA:
+            data = &m_hexFile->getDataMemory();
+            break;
+    }
+
+    // clean current contents
+    if (GetNumberRows() > 0)
+        DeleteRows(0, GetNumberRows(), false);
+
+    int n = GetNumberCols();
+    if (n == 0) n = 1;      // avoid divisions by zero
+
+    // append new rows and set grid contents
+    AppendRows(((data->size()%n)>0)+data->size()/n, false);
+
+#if wxCHECK_VERSION(2,9,0)
+    wxStringCharType value[3];
+    value[2] = (wxStringCharType)'\0';
+#else
+    wxString value;
+    //wxChar value[3];
+    //value[2] = wxT('\0');
+#endif
+
+    for(unsigned int i=0;i<data->size();i++)
+    {
+        int number = (*data)[i];
+        wxASSERT(number >= 0 && number <= 255);
+#if wxCHECK_VERSION(2,9,0)
+        // code for fast decimal=>hex conversion
+        value[1] = g_digits[number%16];
+        number = number/16;
+        value[0] = g_digits[number%16];
+#else
+        // standard code for decimal=>hex conversion (slower)
+        //wxSnprintf(value, 3, wxT("%02X"), number);
+        value = wxString::Format(wxT("%02X"), number);
+#endif
+
+        // NOTE: we don't use directly wxGrid::SetTable() since it's slower
+        //       than GetTable()->SetValue because it also cares about
+        //       marking as invalid the rect of the cell we have modified.
+        //       Since we're doing lots of changes, and we need to do them quickly,
+        //       we bypass wxGrid and later call Refresh() on the entire window.
+        GetTable()->SetValue(i/n, i%n, wxString(value));
+    }
+
+    int offset = 0;
+    if (m_type == HEXVIEW_CONFIG)
+        offset = picType->getCurrentPic().ConfigAddress;
+
+    // set column and row labels now
+    for(int i=0;i<GetNumberRows();i++)
+        SetRowLabelValue(i,wxString::Format(wxT("%06X"),offset + i*n));
+
+    Refresh();
 }
 
-void UppHexview::autoSizeColumns(void)
+void UppHexViewGrid::Copy()
 {
-	/*codeGrid->AutoSizeColumns(true);
-	dataGrid->AutoSizeColumns(true);
-	configGrid->AutoSizeColumns(true);*/
-	for(int i=0;i<codeGrid->GetNumberCols();i++)
-	{
-		codeGrid->SetColSize(i, COLWIDTH);
-		configGrid->SetColSize(i, COLWIDTH);
-		dataGrid->SetColSize(i,COLWIDTH);
-	}
-}
-
-void UppHexview::Copy(void)
-{
-    int cnt;
-    wxClipboard *clipboard = new wxClipboard();
-	wxTextDataObject *dataobj = new wxTextDataObject(wxT(""));
-	wxString datastr(wxT(""));
-    cnt=codeGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(_("Code Memory\n"));
+    wxString datastr;
+    int cnt=GetSelectionBlockTopLeft().GetCount();
     for(int i=0;i<cnt;i++)
     {
-        int topLeftRow=codeGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
-        int bottomRightRow=codeGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
-        int topLeftCol=codeGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
-        int bottomRightCol=codeGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
+        int topLeftRow=GetSelectionBlockTopLeft().Item(i).GetRow();
+        int bottomRightRow=GetSelectionBlockBottomRight().Item(i).GetRow();
+        int topLeftCol=GetSelectionBlockTopLeft().Item(i).GetCol();
+        int bottomRightCol=GetSelectionBlockBottomRight().Item(i).GetCol();
+
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
-            datastr.Append(codeGrid->GetRowLabelValue(r));
+            datastr.Append(GetRowLabelValue(r));
             datastr.Append(wxT(": "));
             for(int c=topLeftCol;c<=bottomRightCol;c++)
             {
-                datastr.Append(codeGrid->GetCellValue(r,c));
+                datastr.Append(GetCellValue(r,c));
                 datastr.Append(wxT(" "));
             }
             datastr.Append(wxT("\n"));
         }
     }
 
-    cnt=configGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(_("\nConfig Memory\n"));
-    for(int i=0;i<cnt;i++)
+    if (wxTheClipboard->Open())
     {
-        int topLeftRow=configGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
-        int bottomRightRow=configGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
-        int topLeftCol=configGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
-        int bottomRightCol=configGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
-        for(int r=topLeftRow;r<=bottomRightRow;r++)
-        {
-            datastr.Append(configGrid->GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
-            for(int c=topLeftCol;c<=bottomRightCol;c++)
-            {
-                datastr.Append(configGrid->GetCellValue(r,c));
-                datastr.Append(wxT(" "));
-            }
-            datastr.Append(wxT("\n"));
-        }
+        wxTheClipboard->SetData( new wxTextDataObject(datastr) );
+        wxTheClipboard->Close();
     }
-    
-    cnt=dataGrid->GetSelectionBlockTopLeft().GetCount();
-    if (cnt>0)datastr.Append(_("\nData Memory\n"));
-    for(int i=0;i<cnt;i++)
-    {
-        int topLeftRow=dataGrid->GetSelectionBlockTopLeft().Item(i).GetRow();
-        int bottomRightRow=dataGrid->GetSelectionBlockBottomRight().Item(i).GetRow();
-        int topLeftCol=dataGrid->GetSelectionBlockTopLeft().Item(i).GetCol();
-        int bottomRightCol=dataGrid->GetSelectionBlockBottomRight().Item(i).GetCol();
-        for(int r=topLeftRow;r<=bottomRightRow;r++)
-        {
-            datastr.Append(dataGrid->GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
-            for(int c=topLeftCol;c<=bottomRightCol;c++)
-            {
-                datastr.Append(dataGrid->GetCellValue(r,c));
-                datastr.Append(wxT(" "));
-            }
-            datastr.Append(wxT("\n"));
-        }
-    }
-    
-	dataobj->SetData(datastr.Length(),datastr.c_str());
-	if(	clipboard->Open());
-	{
-		clipboard->SetData(dataobj);
-		clipboard->Close();
-	}
-	//delete clipboard;
-
-	//cerr<<"not implemented yet"<<endl;
 }
 
-
-void UppHexview::OnCopy (wxCommandEvent& event)
+void UppHexViewGrid::OnCopy (wxCommandEvent& event)
 {
-	Copy();
+    Copy();
 }
 
-void UppHexview::SelectAll(void)
-{
-    codeGrid->SelectAll();
-	configGrid->SelectAll();
-	dataGrid->SelectAll();
-}
-
-void UppHexview::OnSelectAll (wxCommandEvent& event)
+void UppHexViewGrid::OnSelectAll (wxCommandEvent& event)
 {
     SelectAll();
 }
 
-void UppHexview::OnCodeRightClicked (wxGridEvent& event)
+void UppHexViewGrid::OnCellRightClicked (wxGridEvent& event)
 {
-	wxMenu oMenu(_("Edit"));
-	wxPoint oPos;
-	oMenu.Append(wxID_COPY, _("Copy"));
-	oMenu.Append(wxID_SELECTALL, _("Select All"));
-	oPos=ScreenToClient(wxGetMousePosition());
-//wxGetMousePosition();
-	
-	PopupMenu(&oMenu, oPos.x, oPos.y);
-	
+    wxMenu oMenu(_("Edit"));
+    wxPoint oPos;
+    oMenu.Append(wxID_COPY, _("Copy"));
+    oMenu.Append(wxID_SELECTALL, _("Select All"));
+    oPos=ScreenToClient(wxGetMousePosition());
+    PopupMenu(&oMenu, oPos.x, oPos.y);
 }
 
-void UppHexview::OnCodeChanged (wxGridEvent& event )
+void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
 {
-	int Position=event.GetCol()+(event.GetRow()*codeGrid->GetNumberCols());
-	
-	int Data;
-	wxString CellData=codeGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-	if((Data>=0)&&(Data<=0xFF))
-	{
-		readHexFile->putCodeMemory(Position,Data);
-	}
-	
-	CellData.Printf(wxT("%02X"),readHexFile->getCodeMemory(Position));
-	codeGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
-}
+    int Position=event.GetCol()+(event.GetRow()*GetNumberCols());
 
-void UppHexview::OnConfigChanged (wxGridEvent& event )
-{
-	int Position=event.GetCol()+(event.GetRow()*configGrid->GetNumberCols());
-	
-	int Data;
-	wxString CellData=configGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-	if((Data>=0)&&(Data<=0xFF))
-	{
-		readHexFile->putConfigMemory(Position,Data);
-	}
-	
-	CellData.Printf(wxT("%02X"),readHexFile->getConfigMemory(Position));
-	configGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
-}
+    int Data;
+    wxString CellData=GetCellValue(event.GetRow(),event.GetCol());
+    sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
 
-void UppHexview::OnDataChanged (wxGridEvent& event )
-{
-	int Position=event.GetCol()+(event.GetRow()*dataGrid->GetNumberCols());
-	
-	int Data;
-	wxString CellData=dataGrid->GetCellValue(event.GetRow(),event.GetCol());
-	sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
-	if((Data>=0)&&(Data<=0xFF))
-	{
-		readHexFile->putDataMemory(Position,Data);
-	}
-	
-	CellData.Printf(wxT("%02X"),readHexFile->getDataMemory(Position));
-	dataGrid->SetCellValue(event.GetRow(),event.GetCol(),CellData);
-}
+    if(m_hexFile && (Data>=0) && (Data<=0xFF))
+    {
+        switch (m_type)
+        {
+            case HEXVIEW_CODE:
+                m_hexFile->putCodeMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getCodeMemory(Position));
+                break;
+            case HEXVIEW_CONFIG:
+                m_hexFile->putConfigMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getConfigMemory(Position));
+                break;
+            case HEXVIEW_DATA:
+                m_hexFile->putDataMemory(Position,Data);
+                CellData.Printf(wxT("%02X"),m_hexFile->getDataMemory(Position));
+                break;
+        }
 
+        // inform the parent that something was modified
+        GetParent()->ProcessEvent(event);
+    }
+
+    SetCellValue(event.GetRow(),event.GetCol(),CellData);
+}
