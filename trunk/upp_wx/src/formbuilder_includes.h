@@ -46,7 +46,8 @@ enum
     //wxID_CONNECT_BOOT,
     wxID_DISCONNECT,
 
-    wxID_PIC_CHOICE
+    wxID_PIC_CHOICE_COMBO,
+    wxID_PIC_CHOICE_MENU
 };
 
 #endif //FORMBUILDER_INCLUDES_H

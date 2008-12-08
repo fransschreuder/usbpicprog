@@ -1377,12 +1377,3 @@ vector<string> PicType::getPicNames(void)
     return picNames;
 }
 
-
-/*Returns an array (vector) of strings containing all names of supported PICs
-void PicType::getPicNames(vector<string>& ret)
-{
-    // FIXME
-    ret.resize(sizeof(picTypes)/sizeof(Pic));
-    for(int i=0;i<(signed)ret.size();i++)
-        ret[i]=picTypes[i].Name;
-}*/

@@ -33,6 +33,8 @@
 #include "hexview.h"
 #include "../svn_revision.h"
 
+#include <map>
+
 #if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
     #include "../icons/refresh.xpm"
     #include "../icons/blankcheck.xpm"
@@ -94,6 +96,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     // non-GUI init:
     m_hardware=NULL;      // upp_connect() will allocate it
     m_dlgProgress=NULL;   // will be created when needed
+    m_arrPICName=m_picType.getPicNames();
 
     // GUI init:
     CompleteGUICreation();
@@ -197,6 +200,10 @@ void UppMainWindow::CompleteGUICreation()
     wxMenuItem* pMenuDisconnect;
     pMenuDisconnect = new wxMenuItem( pMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect...") ),
                                       _("Disconnect from the programmer"), wxITEM_NORMAL );
+
+    wxMenu* pMenuSelectPIC;
+    pMenuSelectPIC = new wxMenu( 0 );       // this is a menu with submenus
+
 #ifdef __WXGTK__
     // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
     // on platforms without native stock icons); it looks weird to have them only for the Actions menu...
@@ -221,7 +228,43 @@ void UppMainWindow::CompleteGUICreation()
     pMenuActions->AppendSeparator();
     pMenuActions->Append( pMenuConnect );
     pMenuActions->Append( pMenuDisconnect );
+    pMenuActions->AppendSeparator();
+    pMenuActions->AppendSubMenu( pMenuSelectPIC, wxString( _("&Select PIC...") ),
+                                 _("Change the currently selected PIC") );
 
+    // create a menu-item for each PIC
+    map<string,wxMenu*> menus;
+    for(unsigned int i=0;i<m_arrPICName.size();i++)
+    {
+        bool bFamilyFound = false;
+
+        // the first 4 characters of the PIC name is the family:
+        string family = m_arrPICName[i].substr(0, 4);
+
+        // is there a menu for this PIC family?
+        for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
+        {
+            if (j->first == family)
+            {
+                // yes, there's one!
+                wxMenu* pFamilyMenu = j->second;
+                pFamilyMenu->Append(wxID_PIC_CHOICE_MENU+i,
+                                    wxString::FromAscii(m_arrPICName[i].c_str()));
+                bFamilyFound = true;
+            }
+        }
+
+        if (!bFamilyFound)
+        {
+            // not yet; add it
+            menus[family] = new wxMenu(0);
+            i--; // repeat processing for this element
+        }
+    }
+
+    // add a submenu for each PIC family
+    for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
+        pMenuSelectPIC->AppendSubMenu(j->second, wxString::FromAscii(j->first.c_str()));
     m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
     this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
@@ -232,6 +275,9 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
     this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
     this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+
+    this->Connect( wxID_PIC_CHOICE_MENU, wxID_PIC_CHOICE_MENU+m_arrPICName.size(),
+                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_pic_choice_changed_bymenu ) );
 
     // create the most-recently-used section in File menu
     m_history.UseMenu(m_pMenuFile);
@@ -264,11 +310,14 @@ void UppMainWindow::CompleteGUICreation()
                       GetMenuBar()->FindItem(wxID_ERASE)->GetHelp() );
     toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"),
                       GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
+    toolbar->AddTool( wxID_AUTODETECT, _("autodetect"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("autodetect"),
+                      GetMenuBar()->FindItem(wxID_AUTODETECT)->GetHelp() );
     toolbar->AddSeparator();
 
-    m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE, wxDefaultPosition, wxSize(120,-1));
+    m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE_COMBO, wxDefaultPosition, wxSize(120,-1));
     m_pPICChoice->SetToolTip(_("currently selected PIC type"));
-    this->Connect( wxID_PIC_CHOICE, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_choice_changed ) );
+    this->Connect( wxID_PIC_CHOICE_COMBO, wxEVT_COMMAND_CHOICE_SELECTED,
+                   wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
 
     toolbar->AddControl( m_pPICChoice );
     toolbar->Realize();
@@ -281,9 +330,8 @@ void UppMainWindow::CompleteGUICreation()
     m_pStatusBar->SetStatusWidths(2, widths);
 
     // append all PIC names to the choice control
-    vector<string> arr = m_picType.getPicNames();
-    for(unsigned int i=0;i<arr.size();i++)
-        m_pPICChoice->Append(wxString::FromAscii(arr[i].c_str()));
+    for(unsigned int i=0;i<m_arrPICName.size();i++)
+        m_pPICChoice->Append(wxString::FromAscii(m_arrPICName[i].c_str()));
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
@@ -1234,7 +1282,7 @@ void UppMainWindow::upp_about()
 }
 
 /*if the combo changed, also change it in the m_hardware*/
-void UppMainWindow::upp_choice_changed()
+void UppMainWindow::upp_pic_choice_changed()
 {
     // user changed the pic-type and thus we need to either
     // - reset the current code/config/data grids
@@ -1248,7 +1296,7 @@ void UppMainWindow::upp_choice_changed()
 
     if (m_hardware != NULL)
     {
-        if(m_hardware->getCurrentHardware()==HW_BOOTLOADER)
+        if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
             // revert selection to the previous type
             m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
@@ -1265,3 +1313,38 @@ void UppMainWindow::upp_choice_changed()
     // PIC changed; reset the code/config/data grids
     Reset();
 }
+
+/*if the combo changed, also change it in the m_hardware*/
+void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
+{
+    // user changed the pic-type and thus we need to either
+    // - reset the current code/config/data grids
+    // - go back to the previously selected PIC
+    if (!ShouldContinueIfUnsaved())
+    {
+        return;     // do not change PIC selection
+    }
+
+    if (m_hardware != NULL)
+    {
+        if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
+        {
+            // do not change PIC selection
+            wxLogError(wxT("Cannot select a PIC different from '%s' when the bootloader is connected!"));
+            return;
+        }
+
+        m_hardware->setPicType(&m_picType);
+    }
+
+    // update the pic type
+    m_picType=PicType(m_arrPICName[id]);
+
+    // keep the choice box synchronized
+    m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[id].c_str()));
+
+    // PIC changed; reset the code/config/data grids
+    Reset();
+}
+
+

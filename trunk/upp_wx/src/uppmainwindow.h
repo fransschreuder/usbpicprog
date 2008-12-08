@@ -134,28 +134,29 @@ public:     // event handlers
 
     void on_mru( wxCommandEvent& event );
     void on_close( wxCloseEvent& event );
-
     void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
-    void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX};
-    void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX};
-    void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX};
-    void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX};
-    void on_exit( wxCommandEvent& event ){upp_exit(); EVENT_FIX};
-    void on_copy( wxCommandEvent& event ){upp_copy(); EVENT_FIX};
-    void on_selectall( wxCommandEvent& event ){upp_selectall(); EVENT_FIX};
-    void on_program( wxCommandEvent& event ){upp_program(); EVENT_FIX};
-    void on_read( wxCommandEvent& event ){upp_read(); EVENT_FIX};
-    void on_verify( wxCommandEvent& event ){upp_verify(); EVENT_FIX};
-    void on_erase( wxCommandEvent& event ){upp_erase(); EVENT_FIX};
-    void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX};
-    void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX};
-    void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX};
-    void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX};
-    void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX};
-    void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX};
-    void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX};
-    void on_choice_changed( wxCommandEvent& event ){upp_choice_changed(); EVENT_FIX};
-    void on_cell_changed( wxGridEvent& event ){ upp_cell_changed(); EVENT_FIX};
+    void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX}
+    void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX}
+    void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX}
+    void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX}
+    void on_exit( wxCommandEvent& event ){upp_exit(); EVENT_FIX}
+    void on_copy( wxCommandEvent& event ){upp_copy(); EVENT_FIX}
+    void on_selectall( wxCommandEvent& event ){upp_selectall(); EVENT_FIX}
+    void on_program( wxCommandEvent& event ){upp_program(); EVENT_FIX}
+    void on_read( wxCommandEvent& event ){upp_read(); EVENT_FIX}
+    void on_verify( wxCommandEvent& event ){upp_verify(); EVENT_FIX}
+    void on_erase( wxCommandEvent& event ){upp_erase(); EVENT_FIX}
+    void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX}
+    void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX}
+    void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
+    void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX}
+    void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
+    void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX}
+    void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX}
+    void on_cell_changed( wxGridEvent& event ){upp_cell_changed(); EVENT_FIX}
+    void on_pic_choice_changed( wxCommandEvent& event ){upp_pic_choice_changed(); EVENT_FIX}
+    void on_pic_choice_changed_bymenu( wxCommandEvent& event )
+        {upp_pic_choice_changed_bymenu(event.GetId()-wxID_PIC_CHOICE_MENU); EVENT_FIX}
 
 private:
     void upp_open();
@@ -177,13 +178,16 @@ private:
     void upp_preferences();
     void upp_help();
     void upp_about();
-    void upp_choice_changed();
+    void upp_pic_choice_changed();
+    void upp_pic_choice_changed_bymenu(int id);
 
 private:    // member variables
 
     HexFile m_hexFile;
     PicType m_picType;
     Hardware* m_hardware;
+
+    vector<string> m_arrPICName;
 
     wxConfig* m_pConfig;
     ConfigFields m_cfg;
