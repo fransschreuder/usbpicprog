@@ -166,6 +166,11 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 /* completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
 void UppMainWindow::CompleteGUICreation()
 {
+#ifdef __WXMSW__
+	// make the border around the wxNotebook to have the same background colour of the notebook bg colour
+	SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVEBORDER));
+#endif
+
     // create the actions menu with rescaled icons
     wxMenu* pMenuActions = new wxMenu();
 
