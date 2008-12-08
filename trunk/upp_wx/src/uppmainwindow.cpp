@@ -294,15 +294,16 @@ void UppMainWindow::CompleteGUICreation()
     // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
     wxToolBar* toolbar = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY );
 
-    toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("new"),
+	wxSize sz = toolbar->GetToolBitmapSize();
+    toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("new"),
                       GetMenuBar()->FindItem(wxID_NEW)->GetHelp() );
-    toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("open"),
+    toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("open"),
                       GetMenuBar()->FindItem(wxID_OPEN)->GetHelp() );
     toolbar->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),
                       GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
-    toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save"),
+    toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("save"),
                       GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
-    toolbar->AddTool( wxID_SAVEAS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("save as"),
+    toolbar->AddTool( wxID_SAVEAS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("save as"),
                       GetMenuBar()->FindItem(wxID_SAVEAS)->GetHelp() );
     toolbar->AddSeparator();
     toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"),
