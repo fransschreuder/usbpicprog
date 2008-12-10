@@ -74,9 +74,13 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
     hexFile = NULL;
     picType = NULL;
     hardware = NULL;
-
+    #ifdef __WXMSW__
+    wxLocale::AddCatalogLookupPathPrefix(_T("po"));
+    #endif
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
+    
+
     m_locale->AddCatalog(wxT("usbpicprog"));
 
     /*If no command line arguments are passed, we open the main window  *
