@@ -23,13 +23,10 @@
 #include <wx/dataobj.h>
 #include <wx/menu.h>
 #include <wx/log.h>
+#include <wx/settings.h>
 
 #include "hexview.h"
 
-
-#define ROWLABELWIDTH       120
-#define OTHERWIDTH          52
-#define COLWIDTH            28
 
 #if wxCHECK_VERSION(2,9,0)
 // array used for fast decimal=>hex conversion in ShowHexFile()
@@ -55,18 +52,18 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     SetMargins( 0, 0 );
 
     // Columns
-    //EnableDragColMove( false );
     EnableDragColSize( false );
-    SetColLabelSize( 30 );
     SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
     for(int i=0;i<GetNumberCols();i++)
         SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
-    AutoSizeColumns(true);
 
     // Rows
     EnableDragRowSize( false );
-    SetRowLabelSize( ROWLABELWIDTH );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // set in the first row a dummy label just to enable correct row auto-sizing
+    SetRowLabelValue(0, wxT("FFFFFF"));
+    AutoSize();     // let wxGrid auto-resize our columns and our row
 
     // Connect Events
     Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
@@ -89,7 +86,8 @@ wxSize UppHexViewGrid::DoGetBestSize() const
     wxSize sz = wxGrid::DoGetBestSize();
 
     // we need to do this to avoid the presence of a small annoying horizontal scrollbar:
-    sz.x += 10;
+    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X) +
+            10;     // small additional border
 
     // we need this because the minimal height is calculated after construction
     // when we have only a single row in the widget (since ShowHexFile has not
