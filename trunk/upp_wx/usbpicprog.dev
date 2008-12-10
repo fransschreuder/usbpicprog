@@ -1,7 +1,7 @@
 [Project]
 FileName=usbpicprog.dev
 Name=usbpicprog
-UnitCount=17
+UnitCount=16
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -11,7 +11,7 @@ ProfileIndex=0
 Folders=
 
 [Unit1]
-FileName=src\uppmainwindow_callback.h
+FileName=src\uppmainwindow.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -41,16 +41,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=src\include_icons.h
-CompileCpp=1
-Folder=usbpicprog
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit5]
 FileName=src\main.cpp
 CompileCpp=1
 Folder=usbpicprog
@@ -60,7 +50,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit6]
+[Unit5]
 FileName=src\main.h
 CompileCpp=1
 Folder=usbpicprog
@@ -70,7 +60,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit7]
+[Unit6]
 FileName=src\pictype.cpp
 CompileCpp=1
 Folder=usbpicprog
@@ -80,7 +70,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit8]
+[Unit7]
 FileName=src\pictype.h
 CompileCpp=1
 Folder=usbpicprog
@@ -90,8 +80,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit8]
+FileName=src\uppmainwindow_base.cpp
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit9]
-FileName=src\read_hexfile.cpp
+FileName=src\uppmainwindow_base.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -101,7 +101,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=src\read_hexfile.h
+FileName=src\uppmainwindow.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -111,7 +111,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit12]
-FileName=src\uppmainwindow.h
+FileName=src\hexview.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -121,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=src\uppmainwindow_callback.cpp
+FileName=src\preferences.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -131,7 +131,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit14]
-FileName=src\hexview.cpp
+FileName=src\preferences.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=src\hexview.h
+FileName=src\hexfile.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -195,7 +195,7 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-compilerType=0
+CompilerType=0
 
 [Profile2]
 ProfileName=Visual C++ 2005
@@ -222,10 +222,10 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
-compilerType=1
+CompilerType=1
 
 [Unit11]
-FileName=src\uppmainwindow.cpp
+FileName=src\hexview.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -235,7 +235,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
-FileName=src\preferences.h
+FileName=src\hexfile.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1

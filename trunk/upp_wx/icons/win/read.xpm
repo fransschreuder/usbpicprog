@@ -1,5 +1,5 @@
 /* XPM */
-static const char * read_xpm[] = {
+const char * read_xpm[] = {
 "16 16 107 2",
 "  	c None",
 ". 	c #858585",
