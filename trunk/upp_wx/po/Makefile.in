@@ -19,7 +19,7 @@
 
 GETTEXT_PACKAGE = usbpicprog
 PACKAGE = usbpicprog
-VERSION = 0.1
+VERSION = 0.1.2
 
 SHELL = /bin/sh
 
@@ -28,7 +28,7 @@ top_srcdir = ..
 top_builddir = ..
 
 
-prefix = /usr/local
+prefix = /home/schreuder/usbpicprog/trunk/upp_wx/deb_package/usr/local
 exec_prefix = ${prefix}
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
@@ -52,7 +52,7 @@ INTLTOOL_EXTRACT = /usr/bin/intltool-extract
 MSGMERGE = INTLTOOL_EXTRACT=$(INTLTOOL_EXTRACT) srcdir=$(srcdir) $(INTLTOOL_UPDATE) --gettext-package $(GETTEXT_PACKAGE) --dist
 GENPOT   = INTLTOOL_EXTRACT=$(INTLTOOL_EXTRACT) srcdir=$(srcdir) $(INTLTOOL_UPDATE) --gettext-package $(GETTEXT_PACKAGE) --pot
 
-ALL_LINGUAS =
+ALL_LINGUAS = 
 
 PO_LINGUAS=$(shell if test -r $(srcdir)/LINGUAS; then grep -v "^\#" $(srcdir)/LINGUAS; else echo "$(ALL_LINGUAS)"; fi)
 
