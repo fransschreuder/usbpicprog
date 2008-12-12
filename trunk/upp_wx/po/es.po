@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-12 17:44+0100\n"
-"PO-Revision-Date: 2008-12-12 17:44+0100\n"
+"PO-Revision-Date: 2008-12-12 18:06+0100\n"
 "Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,6 @@ msgid "&Reload"
 msgstr "&Recargar"
 
 #: ../src/uppmainwindow_base.cpp:80
-#, fuzzy
 msgid "Reloads the current HEX file from disk"
 msgstr "Recargar el archivo HEX actual"
 
@@ -122,7 +121,6 @@ msgid "Saves current code,config,data as a HEX file"
 msgstr ""
 
 #: ../src/uppmainwindow_base.cpp:92
-#, fuzzy
 msgid "E&xit"
 msgstr "&Salir"
 
@@ -172,7 +170,6 @@ msgid "Opens the Usbpicprog's website..."
 msgstr ""
 
 #: ../src/uppmainwindow_base.cpp:120
-#, fuzzy
 msgid "&About"
 msgstr "Acerca de"
 
@@ -193,42 +190,34 @@ msgid "untitled"
 msgstr ""
 
 #: ../src/uppmainwindow.cpp:178
-#, fuzzy
 msgid "&Program..."
 msgstr "&Programa"
 
 #: ../src/uppmainwindow.cpp:179
-#, fuzzy
 msgid "Program the PIC device"
 msgstr "Programar el dispositivo"
 
 #: ../src/uppmainwindow.cpp:182
-#, fuzzy
 msgid "&Read..."
-msgstr "Leer..."
+msgstr "&Leer..."
 
 #: ../src/uppmainwindow.cpp:183
-#, fuzzy
 msgid "Read the PIC device"
-msgstr "Leer el dispositivo"
+msgstr "&Leer el dispositivo"
 
 #: ../src/uppmainwindow.cpp:186
-#, fuzzy
 msgid "&Verify..."
-msgstr "Verificar..."
+msgstr "&Verificar..."
 
 #: ../src/uppmainwindow.cpp:187
-#, fuzzy
 msgid "Verify the PIC device"
 msgstr "Verificar el dispositivo"
 
 #: ../src/uppmainwindow.cpp:190
-#, fuzzy
 msgid "&Erase..."
 msgstr "B&orrar"
 
 #: ../src/uppmainwindow.cpp:191
-#, fuzzy
 msgid "Erase the PIC device"
 msgstr "Borrar el dispositivo"
 
@@ -241,12 +230,10 @@ msgid "Blankcheck the PIC device"
 msgstr ""
 
 #: ../src/uppmainwindow.cpp:198
-#, fuzzy
 msgid "&Autodetect..."
 msgstr "&Autodetectar"
 
 #: ../src/uppmainwindow.cpp:199
-#, fuzzy
 msgid "Detect the type of the PIC device"
 msgstr "Detectar el dispositivo"
 
@@ -327,9 +314,8 @@ msgid "blankcheck"
 msgstr "blankcheck"
 
 #: ../src/uppmainwindow.cpp:319
-#, fuzzy
 msgid "autodetect"
-msgstr "&Autodetectar"
+msgstr "autodetectar"
 
 #: ../src/uppmainwindow.cpp:324
 msgid "currently selected PIC type"
