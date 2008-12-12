@@ -2,6 +2,7 @@
 ## Created by Anjuta
 
 SUBDIRS = src po
+ACLOCAL_AMFLAGS =  -I m4
 
 usbpicprogdocdir = ${prefix}/doc/usbpicprog
 usbpicprogdoc_DATA = \
@@ -13,6 +14,7 @@ usbpicprogdoc_DATA = \
 	NEWS
 
 EXTRA_DIST = $(usbpicprogdoc_DATA)
+
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
