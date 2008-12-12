@@ -69,11 +69,11 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuBar = new wxMenuBar( 0 );
 	m_pMenuFile = new wxMenu();
 	wxMenuItem* uppMenuNew;
-	uppMenuNew = new wxMenuItem( m_pMenuFile, wxID_NEW, wxString( wxEmptyString ) , _("Resets the code, configuration and data areas of the currently open HEX file"), wxITEM_NORMAL );
+	uppMenuNew = new wxMenuItem( m_pMenuFile, wxID_NEW, wxString( _("&New") ) , _("Resets the code, configuration and data areas of the currently open HEX file"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuNew );
 	
 	wxMenuItem* uppMenuOpen;
-	uppMenuOpen = new wxMenuItem( m_pMenuFile, wxID_OPEN, wxString( wxEmptyString ) , _("Loads an HEX file for editing or programming..."), wxITEM_NORMAL );
+	uppMenuOpen = new wxMenuItem( m_pMenuFile, wxID_OPEN, wxString( _("&Open") ) , _("Loads an HEX file for editing or programming..."), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuOpen );
 	
 	wxMenuItem* uppMenuRefresh;
@@ -81,43 +81,43 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuFile->Append( uppMenuRefresh );
 	
 	wxMenuItem* uppMenuSave;
-	uppMenuSave = new wxMenuItem( m_pMenuFile, wxID_SAVE, wxString( wxEmptyString ) , _("Saves the HEX file with the modified data"), wxITEM_NORMAL );
+	uppMenuSave = new wxMenuItem( m_pMenuFile, wxID_SAVE, wxString( _("&Save") ) , _("Saves the HEX file with the modified data"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuSave );
 	
 	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( wxEmptyString ) , _("Saves current code,config,data as a HEX file"), wxITEM_NORMAL );
+	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( _("Save &As") ) , _("Saves current code,config,data as a HEX file"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuSaveAs );
 	
 	wxMenuItem* uppMenuExit;
-	uppMenuExit = new wxMenuItem( m_pMenuFile, wxID_EXIT, wxString( wxEmptyString ) , wxEmptyString, wxITEM_NORMAL );
+	uppMenuExit = new wxMenuItem( m_pMenuFile, wxID_EXIT, wxString( _("E&xit") ) , _("Exits the program"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuExit );
 	
 	m_pMenuBar->Append( m_pMenuFile, _("&File") );
 	
 	m_pMenuEdit = new wxMenu();
 	wxMenuItem* uppMenuCopy;
-	uppMenuCopy = new wxMenuItem( m_pMenuEdit, wxID_COPY, wxString( wxEmptyString ) , _("Copies to the clipboard currently selected cells"), wxITEM_NORMAL );
+	uppMenuCopy = new wxMenuItem( m_pMenuEdit, wxID_COPY, wxString( _("&Copy") ) , _("Copies to the clipboard currently selected cells"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuCopy );
 	
 	wxMenuItem* uppMenuSelectAll;
-	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( wxEmptyString ) , _("Selects the entire grid currently shown"), wxITEM_NORMAL );
+	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) , _("Selects the entire grid currently shown"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuSelectAll );
 	
 	wxMenuItem* uppMenuOptions;
-	uppMenuOptions = new wxMenuItem( m_pMenuEdit, wxID_PREFERENCES, wxString( wxEmptyString ) , _("Shows the options for this program"), wxITEM_NORMAL );
+	uppMenuOptions = new wxMenuItem( m_pMenuEdit, wxID_PREFERENCES, wxString( _("&Preferences") ) , _("Shows the options for this program"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuOptions );
 	
 	m_pMenuBar->Append( m_pMenuEdit, _("&Edit") );
 	
 	m_pMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
-	uppMenuItemHelp = new wxMenuItem( m_pMenuHelp, wxID_HELP, wxString( wxEmptyString ) , _("Opens the Usbpicprog's website..."), wxITEM_NORMAL );
+	uppMenuItemHelp = new wxMenuItem( m_pMenuHelp, wxID_HELP, wxString( _("&Help") ) , _("Opens the Usbpicprog's website..."), wxITEM_NORMAL );
 	m_pMenuHelp->Append( uppMenuItemHelp );
 	
 	m_pMenuHelp->AppendSeparator();
 	
 	wxMenuItem* uppMenuAbout;
-	uppMenuAbout = new wxMenuItem( m_pMenuHelp, wxID_ABOUT, wxString( wxEmptyString ) , _("Shows informations about this program"), wxITEM_NORMAL );
+	uppMenuAbout = new wxMenuItem( m_pMenuHelp, wxID_ABOUT, wxString( _("&About") ) , _("Shows informations about this program"), wxITEM_NORMAL );
 	m_pMenuHelp->Append( uppMenuAbout );
 	
 	m_pMenuBar->Append( m_pMenuHelp, _("&Help") );

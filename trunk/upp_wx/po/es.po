@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-10 09:39+0100\n"
-"PO-Revision-Date: 2008-12-10 09:39+0100\n"
+"POT-Creation-Date: 2008-12-12 17:44+0100\n"
+"PO-Revision-Date: 2008-12-12 17:44+0100\n"
 "Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,15 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/hexview.cpp:216
+#: ../src/hexview.cpp:214
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/hexview.cpp:218
+#: ../src/hexview.cpp:216
 msgid "Copy"
 msgstr "Copiar"
 
-#: ../src/hexview.cpp:219
+#: ../src/hexview.cpp:217
 msgid "Select All"
 msgstr "Seleccionar todo"
 
@@ -63,6 +63,122 @@ msgstr "Verificar"
 #: ../src/preferences.h:50
 msgid "Preferences"
 msgstr "Preferencias"
+
+#: ../src/uppmainwindow_base.cpp:23
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:38
+msgid "Hexadecimal view of the configuration fuses of the PIC:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:48
+msgid "Configuration flags"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:53
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "&New"
+msgstr "&Nuevo"
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "&Open"
+msgstr "&Abrir"
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "Loads an HEX file for editing or programming..."
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "&Reload"
+msgstr "&Recargar"
+
+#: ../src/uppmainwindow_base.cpp:80
+#, fuzzy
+msgid "Reloads the current HEX file from disk"
+msgstr "Recargar el archivo HEX actual"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "&Save"
+msgstr "&Guardar"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "Saves the HEX file with the modified data"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Save &As"
+msgstr "Guardar &Como"
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Saves current code,config,data as a HEX file"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:92
+#, fuzzy
+msgid "E&xit"
+msgstr "&Salir"
+
+#: ../src/uppmainwindow_base.cpp:92
+msgid "Exits the program"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:95
+msgid "&File"
+msgstr "&Archivo"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "&Copy"
+msgstr "&Copiar"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "Copies to the clipboard currently selected cells"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Select &All"
+msgstr "Seleccionar &todo"
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Selects the entire grid currently shown"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "&Preferences"
+msgstr "&Preferencias"
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "Shows the options for this program"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:110
+msgid "&Edit"
+msgstr "&Editar"
+
+#: ../src/uppmainwindow_base.cpp:114
+#: ../src/uppmainwindow_base.cpp:123
+msgid "&Help"
+msgstr "A&yuda"
+
+#: ../src/uppmainwindow_base.cpp:114
+msgid "Opens the Usbpicprog's website..."
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:120
+#, fuzzy
+msgid "&About"
+msgstr "Acerca de"
+
+#: ../src/uppmainwindow_base.cpp:120
+msgid "Shows informations about this program"
+msgstr ""
 
 #: ../src/uppmainwindow.cpp:135
 msgid "Usbpicprog rev: "
@@ -526,78 +642,9 @@ msgstr "Ya se ha desconectado"
 msgid "An open source USB pic programmer"
 msgstr ""
 
-#: ../src/uppmainwindow_base.cpp:23
-msgid "Hexadecimal view of the code area of the PIC:"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:38
-msgid "Hexadecimal view of the configuration fuses of the PIC:"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:48
-msgid "Configuration flags"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:53
-msgid "Hexadecimal view of the data area of the PIC:"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:72
-msgid "Resets the code, configuration and data areas of the currently open HEX file"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:76
-msgid "Loads an HEX file for editing or programming..."
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:80
-msgid "&Reload"
-msgstr "&Recargar"
-
-#: ../src/uppmainwindow_base.cpp:80
-#, fuzzy
-msgid "Reloads the current HEX file from disk"
-msgstr "Recargar el archivo HEX actual"
-
-#: ../src/uppmainwindow_base.cpp:84
-msgid "Saves the HEX file with the modified data"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:88
-msgid "Saves current code,config,data as a HEX file"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:95
-msgid "&File"
-msgstr "&Archivo"
-
-#: ../src/uppmainwindow_base.cpp:99
-msgid "Copies to the clipboard currently selected cells"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:103
-msgid "Selects the entire grid currently shown"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:107
-msgid "Shows the options for this program"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:110
-msgid "&Edit"
-msgstr "&Editar"
-
-#: ../src/uppmainwindow_base.cpp:114
-msgid "Opens the Usbpicprog's website..."
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:120
-msgid "Shows informations about this program"
-msgstr ""
-
-#: ../src/uppmainwindow_base.cpp:123
-msgid "&Help"
-msgstr "A&yuda"
+#: ../src/uppmainwindow_base.h:75
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
 
 #: ../src/main.h:86
 #: ../src/main.h:102
@@ -678,10 +725,6 @@ msgstr "archivo"
 #: ../src/main.h:111
 msgid "hexfile"
 msgstr "Archivo HEX"
-
-#: ../src/uppmainwindow_base.h:75
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
 
 #~ msgid "-"
 #~ msgstr "-"
@@ -805,46 +848,30 @@ msgstr "Usbpicprog"
 #~ msgstr "(C) 2008 http://usbpicprog.org/"
 #~ msgid "Usbpicprog (SVN) "
 #~ msgstr "Usbpicprog (SVN) "
-#~ msgid "About"
-#~ msgstr "Acerca de"
 #~ msgid "Usbpicprog "
 #~ msgstr "Usbpicprog "
-#~ msgid "&New"
-#~ msgstr "&Nuevo"
 #~ msgid "CTRL+N"
 #~ msgstr "CTRL+N"
 #~ msgid "Clear open hex file"
 #~ msgstr "Clear open hex file"
-#~ msgid "&Open"
-#~ msgstr "&Abrir"
 #~ msgid "CTRL+O"
 #~ msgstr "CTRL+O"
 #~ msgid "Open a hex file"
 #~ msgstr "Abrir un fichero HEX"
 #~ msgid "CTRL+R"
 #~ msgstr "CTRL+R"
-#~ msgid "&Save"
-#~ msgstr "&Guardar"
 #~ msgid "CTRL+S"
 #~ msgstr "CTRL+S"
 #~ msgid "Save the hex file"
 #~ msgstr "Guardar el fichero HEX"
-#~ msgid "Save &As"
-#~ msgstr "Guardar &Como"
 #~ msgid "Save the hex file as"
 #~ msgstr "Guardar el fichero HEX como"
-#~ msgid "&Exit"
-#~ msgstr "&Salir"
 #~ msgid "ALT+F4"
 #~ msgstr "ALT+F4"
 #~ msgid "Exit Usbpicprog"
 #~ msgstr "Salir de Usbpicprog"
-#~ msgid "&Copy"
-#~ msgstr "&Copiar"
 #~ msgid "CTRL+C"
 #~ msgstr "CTRL+C"
-#~ msgid "Select &All"
-#~ msgstr "Seleccionar &todo"
 #~ msgid "CTRL+A"
 #~ msgstr "CTRL+A"
 #~ msgid "Select all"
@@ -875,8 +902,6 @@ msgstr "Usbpicprog"
 #~ msgstr "CTRL+B"
 #~ msgid "Disconnect Usbpicprog"
 #~ msgstr "Desconectar Usbpicprog"
-#~ msgid "&Preferences"
-#~ msgstr "&Preferencias"
 #~ msgid "&Options"
 #~ msgstr "&Opciones"
 #~ msgid "F1"
