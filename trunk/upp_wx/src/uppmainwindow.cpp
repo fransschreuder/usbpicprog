@@ -91,6 +91,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=false;}
     if ( m_pConfig->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
     if ( m_pConfig->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
+    if ( m_pConfig->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=true;}
     m_history.Load(*m_pConfig);
 
     // non-GUI init:
@@ -122,6 +123,7 @@ UppMainWindow::~UppMainWindow()
     m_pConfig->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
     m_pConfig->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
     m_pConfig->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
+    m_pConfig->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
     m_history.Save(*m_pConfig);
 
     delete m_pConfig;
@@ -501,7 +503,7 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
     m_arrLogTimes.clear();
 
     SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
-    if (success)
+    if (success&&m_cfg.ConfigShowPopups)
         wxLogMessage(_("All operations completed"));
     else
         wxLogWarning(_("Operations completed with errors/warnings"));
@@ -1146,7 +1148,8 @@ bool UppMainWindow::upp_autodetect()
     if(devId<1)
     {
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
-        wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
+        if(m_cfg.ConfigShowPopups)
+                	wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
                      picName.Mid(1).c_str());
     }
     else
@@ -1154,7 +1157,8 @@ bool UppMainWindow::upp_autodetect()
         wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
                                         picName.Mid(1).c_str(), devId);
         SetStatusText(msg,STATUS_FIELD_HARDWARE);
-        wxLogMessage(msg);
+        if(m_cfg.ConfigShowPopups)
+        	wxLogMessage(msg);
     }
 
     Reset();
@@ -1177,12 +1181,13 @@ bool UppMainWindow::upp_connect()
         if(m_hardware->getFirmwareVersion(msg)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Unable to read firmware version"));
+           	wxLogMessage(_("Unable to read firmware version"));
         }
         else
         {
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+   			if(m_cfg.ConfigShowPopups)
+	            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
         }
     }
     else
@@ -1205,7 +1210,8 @@ bool UppMainWindow::upp_connect()
             else
             {
                 SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-                wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+                if(m_cfg.ConfigShowPopups)
+                	wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
             }
         }
         else
@@ -1215,7 +1221,8 @@ bool UppMainWindow::upp_connect()
             m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
 
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Bootloader or programmer not found"));
+            if(m_cfg.ConfigShowPopups)
+                wxLogMessage(_("Bootloader or programmer not found"));
 
             upp_new();
         }
@@ -1237,7 +1244,8 @@ void UppMainWindow::upp_disconnect()
             m_hardware = NULL;
 
             SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Disconnected usbpicprog"));
+            if(m_cfg.ConfigShowPopups)
+                wxLogMessage(_("Disconnected usbpicprog"));
         }
         else
         {

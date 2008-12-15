@@ -39,6 +39,7 @@ typedef struct {
         bool ConfigProgramData;
         bool ConfigProgramConfig;
         bool ConfigProgramCode;
+	bool ConfigShowPopups;
 }ConfigFields;
 
 class PreferencesDialog : public wxDialog
@@ -66,6 +67,8 @@ private:
     wxCheckBox *uppConfigProgramCode;
     wxCheckBox *uppConfigEraseBeforeProgramming;
     wxStaticBoxSizer *WxStaticBoxSizerProgram;
+    wxCheckBox *uppConfigShowPopups;
+    wxStaticBoxSizer *WxStaticBoxSizerGui;
     wxBoxSizer *WxBoxSizer1;
     ConfigFields configFields;
 
