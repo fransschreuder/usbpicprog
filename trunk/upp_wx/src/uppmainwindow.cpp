@@ -503,11 +503,13 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
     m_arrLogTimes.clear();
 
     SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
-    if (success&&m_cfg.ConfigShowPopups)
-        wxLogMessage(_("All operations completed"));
-    else
-        wxLogWarning(_("Operations completed with errors/warnings"));
-
+	if(m_cfg.ConfigShowPopups)
+	{
+		if (success)
+		    wxLogMessage(_("All operations completed"));
+		else
+		    wxLogWarning(_("Operations completed with errors/warnings"));
+	}
     // some of the operations performed by the secondary thread
     // require updating the title or the grids:
     switch (m_mode)
