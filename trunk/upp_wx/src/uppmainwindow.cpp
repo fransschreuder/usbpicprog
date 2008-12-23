@@ -465,14 +465,19 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     if (m_dlgProgress)
     {
         wxCriticalSectionLocker lock(m_arrLogCS);
-
+		if(!
 #if wxCHECK_VERSION(2,9,0)
         m_dlgProgress->Update(evt.GetId(),
                               _("Please wait until the operations are completed:\n") +
-                              wxJoin(m_arrLog, '\n'));
+                              wxJoin(m_arrLog, '\n'))
 #else
-        m_dlgProgress->Update(evt.GetId());
+        m_dlgProgress->Update(evt.GetId())
 #endif
+		   &&(!m_hardware->operationsAborted()))
+		{
+			m_hardware->abortOperations(true);
+			LogFromThread(wxLOG_Warning, _("Operations aborted"));
+		}
     }
 }
 
@@ -481,7 +486,7 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
 {
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
-
+	m_hardware->abortOperations(false);
     if (m_dlgProgress)
     {
         m_dlgProgress->Destroy();
@@ -862,11 +867,11 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
                         _("Initializing..."),
                         100,
                         this,
-                        //wxPD_CAN_ABORT |
+                        wxPD_CAN_ABORT |
                         wxPD_APP_MODAL |
                         wxPD_ELAPSED_TIME |
                         wxPD_ESTIMATED_TIME |
-                        wxPD_REMAINING_TIME
+                        wxPD_REMAINING_TIME 
                     );
 
     // inform the thread about which operation it must perform;

@@ -68,6 +68,8 @@
 #define READ_ENDPOINT (ENDPOINT|USB_ENDPOINT_IN)
 #define WRITE_ENDPOINT (ENDPOINT|USB_ENDPOINT_OUT)
 
+#define OPERATION_ABORTED 2
+
 
 // forward declaration:
 class UppMainWindow;
@@ -186,6 +188,13 @@ public:
 /*Returns the type of the hardware which we are currently attached to*/
     HardwareType getCurrentHardware(void) const {return m_hwCurrent;}
 
+/*
+This function can be called with abort=true to make all time-consuming functions abort,
+call it with false to reset the abortion
+*/
+	void abortOperations(bool abort);
+	bool operationsAborted();
+
 private:
     void tryToDetachDriver(void);
 /*Read a string of data from usbpicprog (through interrupt_read)*/
@@ -211,6 +220,7 @@ to UppMainWindow, this function calls the callback function
 to update the progress bar*/
     void statusCallBack(int value) const;
 
+
 private:
 /*Device handle containing information about Usbpicprog while connected*/
     usb_dev_handle* m_handle;
@@ -223,6 +233,9 @@ private:
 
 /*Are we connected to the UPP bootloader or to the UPP programmer?*/
     HardwareType m_hwCurrent;
+
+/*if this bool becomes true, all operations will be aborted*/
+	bool m_abortOperations;
 };
 
 #endif //HARDWARE_H
