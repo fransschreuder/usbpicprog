@@ -12,8 +12,7 @@ if [ -d .svn ]; then
       mv -f svn_revision.h.new svn_revision.h;
     fi
   fi
-fi
-if [ ! -f svn_revision.h ]; then
+else
   ( echo '// generated file';
     echo '#define SVN_REVISION "distribution"';
     echo '#define UPP_VERSION "0.2.0"'; ) > svn_revision.h;

@@ -1,14 +1,14 @@
 #PICKit 1
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="0032", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="0032", MODE="0660",GROUP="plugdev"
 #PICKit 2
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="0033", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="0033", MODE="0660",GROUP="plugdev"
 #ICD2
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="8000", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="8000", MODE="0660",GROUP="plugdev"
 #ICD21
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="8001", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="8001", MODE="0660",GROUP="plugdev"
 #PICDEM FS USB Bootloader
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="000b", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="000b", MODE="0660",GROUP="plugdev"
 #USBPICPROG
-SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="000e", MODE="0660",GROUP="microchip"
+SYSFS{idVendor}=="04d8", SYSFS{idProduct}=="000e", MODE="0660",GROUP="plugdev"
 
 
