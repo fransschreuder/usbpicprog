@@ -111,7 +111,7 @@ const Pic picTypes[]={
     P12F629,	//PicFamily
     0x0F80,		//DevId
     0x3FE0,		//DevIdMask
-    {0xFF,0x31}
+    {0xFF,0x01}
 },
 {
     "P12F675",	//Name
@@ -123,7 +123,7 @@ const Pic picTypes[]={
     P12F629,	//PicFamily
     0x0FC0,		//DevId
     0x3FE0,		//DevIdMask
-    {0xFF,0x31}
+    {0xFF,0x01}
 },
 //P16F630 	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {

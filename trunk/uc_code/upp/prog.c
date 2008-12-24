@@ -325,14 +325,21 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					DelayMs(8);
 					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 					{
-						//retry...
-						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-								(((unsigned int)data[blockcounter+1])<<8));//LSB
-						pic_send_n_bits(6,0x08);    //begin programming
-						DelayMs(Tprog);
-						payload=pic_read_14_bits(6,0x04); //read code memory
-						if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
-							return 4; //verify error
+						for(i=0;i<10;i++)//retry 10 times
+						{
+							DelayMs(10);
+							//retry...
+							pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+									(((unsigned int)data[blockcounter+1])<<8));//LSB
+							pic_send_n_bits(6,0x08);    //begin programming
+							DelayMs(Tprog);
+							payload=pic_read_14_bits(6,0x04); //read code memory
+							if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+							{
+								if(i==9)return 4; //verify error
+							}
+							else break; //verify successful, don't retry anymore
+						}
 					}
 					pic_send_n_bits(6,0x06);	//increment address
 				}
@@ -401,14 +408,20 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				payload=pic_read_14_bits(6,0x04); //read code memory
 				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 				{
-					//retry...
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-							(((unsigned int)data[blockcounter+1])<<8));//LSB
-					pic_send_n_bits(6,0x08);    //begin programming
-					DelayMs(Tprog);
-					payload=pic_read_14_bits(6,0x04); //read code memory
-					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
-						return 4; //verify error
+					for(i=0;i<10;i++)
+					{
+						//retry...
+						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+								(((unsigned int)data[blockcounter+1])<<8));//LSB
+						pic_send_n_bits(6,0x08);    //begin programming
+						DelayMs(Tprog);
+						payload=pic_read_14_bits(6,0x04); //read code memory
+						if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+						{
+							if(i==9)return 4; //verify error
+						}
+						else break; //verify successful, don't retry anymore
+					}
 				}
 				//read data from program memory (to verify) not yet impl...
 				pic_send_n_bits(6,0x06);	//increment address
@@ -428,16 +441,22 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				payload=pic_read_14_bits(6,0x04); //read code memory
 				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 				{
-					//retry...
-					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-							(((unsigned int)data[blockcounter+1])<<8));//LSB
-					pic_send_n_bits(6,0x08);    //begin programming
-					DelayMs(2);
-					pic_send_n_bits(6,0x0E);	//end programming
-					DelayMs(1);
-					payload=pic_read_14_bits(6,0x04); //read code memory
-					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
-						return 4; //verify error
+					for(i=0;i<10;i++)
+					{
+						//retry...
+						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+								(((unsigned int)data[blockcounter+1])<<8));//LSB
+						pic_send_n_bits(6,0x08);    //begin programming
+						DelayMs(2);
+						pic_send_n_bits(6,0x0E);	//end programming
+						DelayMs(1);
+						payload=pic_read_14_bits(6,0x04); //read code memory
+						if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+						{
+							if(i==9)return 4; //verify error
+						}
+						else break; //verify successful, don't retry anymore
+					}
 				}
 				pic_send_n_bits(6,0x06);	//increment address
 			}
@@ -522,6 +541,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				//begin programming command
 				switch(pictype)
 				{
+					case P12F629:
 					case P16F81X:
 					case P16F91X:
 						pic_send_n_bits(6,0x18);
@@ -532,10 +552,16 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				}
 				//wait Tprog
 				DelayMs(Tdprog);
-				if(pictype==P16F81X)
-					pic_send_n_bits(6,0x17);//end programming
-				if(pictype==P16F91X)
-					pic_send_n_bits(6,0x0A);//end programming
+				switch(pictype)
+				{
+					case P16F81X:
+						pic_send_n_bits(6,0x17);//end programming
+						break;
+					case P12F629:
+					case P16F91X:
+						pic_send_n_bits(6,0x0A);//end programming
+						break;
+				}
 				//read data from data memory (to verify) not yet impl...
 				//increment address
 				pic_send_n_bits(6,0x06);
@@ -626,7 +652,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				//load data for config memory
 				if(((((char)address)+(blockcounter>>1))<4))
 				{
-					pic_send_14_bits(6,0x00,(((unsigned int)data[blockcounter]))|   //MSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
@@ -635,7 +661,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				{
 					payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter+1])<<8)|   //MSB
 							(((unsigned int)data[blockcounter]))));
-					pic_send_14_bits(6,0x00,payload);
+					pic_send_14_bits(6,0x02,payload);
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
 				}
