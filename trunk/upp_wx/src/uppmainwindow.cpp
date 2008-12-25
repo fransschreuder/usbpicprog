@@ -602,18 +602,16 @@ bool UppMainWindow::upp_thread_program()
             break;
         default:
             LogFromThread(wxLOG_Error, _("Error erasing the device"));
-            // FIXME: shouldn't we exit the thread?
+			return false;
             break;
         }
     }
-
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
     if(m_cfg.ConfigProgramCode)
     {
         LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
-
         switch(m_hardware->writeCode(&m_hexFile,&m_picType))
         {
         case 0:
@@ -621,25 +619,24 @@ bool UppMainWindow::upp_thread_program()
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
-            break;
+			return false;
         case -2:
             LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
-            break;
+			return false;
         case -3:
             LogFromThread(wxLOG_Error, _("Write code not implemented for current PIC"));
-            break;
+			return false;
         case -4:
             LogFromThread(wxLOG_Error, _("Verify error while writing code memory"));
-            break;
+			return false;
         case -5:
             LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
-            break;
+			return false;
         default:
             LogFromThread(wxLOG_Error, _("Error programming code memory"));
-            break;
+			return false;
         }
     }
-
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
@@ -654,19 +651,19 @@ bool UppMainWindow::upp_thread_program()
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
-            break;
+			return false;
         case -2:
             LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
-            break;
+			return false;
         case -3:
             LogFromThread(wxLOG_Error, _("Write data not implemented for current PIC"));
-            break;
+			return false;
         case -4:
             LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
-            break;
+			return false;
         default:
             LogFromThread(wxLOG_Error, _("Error programming data memory"));
-            break;
+			return false;
         }
     }
 
@@ -684,19 +681,19 @@ bool UppMainWindow::upp_thread_program()
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
-            break;
+            return false;
         case -2:
             LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
-            break;
+            return false;
         case -3:
             LogFromThread(wxLOG_Error, _("Write config not implemented for current PIC"));
-            break;
+            return false;
         case -4:
             LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
-            break;
+            return false;
         default:
             LogFromThread(wxLOG_Error, _("Error programming config memory"));
-            break;
+            return false;
         }
     }
 
@@ -715,7 +712,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
-        // proceed
+	    m_hexFile.trimData(&m_picType);		
+		return false;
     }
 
     if (GetThread()->TestDestroy())
@@ -725,7 +723,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readData(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading data memory"));
-        // proceed
+	    m_hexFile.trimData(&m_picType);		
+		return false;
     }
 
     if (GetThread()->TestDestroy())
@@ -735,7 +734,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading config memory"));
-        // proceed
+	    m_hexFile.trimData(&m_picType);
+		return false;
     }
 
     m_hexFile.trimData(&m_picType);

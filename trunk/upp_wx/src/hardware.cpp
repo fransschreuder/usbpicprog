@@ -510,7 +510,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     int blocktype;
 	if(m_abortOperations)return OPERATION_ABORTED;	
 	statusCallBack (0);
-    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readConfig for bootloader
+    if (m_hwCurrent == HW_BOOTLOADER)return 0; //Better write no configuration words in bootloader, it's unsafe, you might destroy the bootloader
     if (m_handle != NULL)
     {
         for(int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
