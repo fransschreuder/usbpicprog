@@ -464,7 +464,7 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     int blocktype;
 	if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
-    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
+    //if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
     if (m_handle != NULL)
     {
         nBytes=0;
@@ -488,10 +488,13 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
             if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;			
             nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
-            if(nBytes==3) return -3;	//something not implemented in firmware :(
-            if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
-            if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
-			if(m_abortOperations)break;
+			if (m_hwCurrent == HW_UPP)
+            {
+		        if(nBytes==3) return -3;	//something not implemented in firmware :(
+		        if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+		        if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
+				if(m_abortOperations)break;
+			}
         }
     }
     else return -4;
@@ -557,7 +560,11 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
     int blocktype;
 	if(m_abortOperations)return OPERATION_ABORTED;	
     statusCallBack (0);
-    if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeConfig for bootloader
+    /*if (m_hwCurrent == HW_BOOTLOADER)
+	{
+		statusCallBack(100);
+		return 0; //It's not smart to write config bits in the bootloader
+	}*/
     if (m_handle != NULL)
     {
         nBytes=0;
@@ -921,7 +928,7 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
                 return nBytes;
             }
 
-            char *tmpmsg = new char[size+5];
+            char *tmpmsg=new char[size+5];
 
             nBytes = readString(tmpmsg,size+5) - 5;
             if(nBytes<0)
@@ -929,9 +936,10 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
                 delete [] tmpmsg;
                 return nBytes;
             }
+			delete [] tmpmsg;
 
             memcpy(msg,tmpmsg+5,nBytes);
-            delete [] tmpmsg;
+            //delete [] tmpmsg;
         }
 
 
@@ -985,12 +993,12 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
                 return nBytes;
             }
 
-            char *tmpmsg = new char[size+5];
+            char *tmpmsg=new char[size+5];
 
             nBytes = readString(tmpmsg,size+5) - 5;
 
             memcpy(msg,tmpmsg+5,nBytes);
-            delete [] tmpmsg;
+			delete [] tmpmsg;
         }
 
         if (nBytes < 0 )
@@ -1064,7 +1072,11 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
 {
     char resp_msg[64];
     UppPackage uppPackage;
-    if (m_hwCurrent == HW_BOOTLOADER)return 1;//say OK, but do nothing... we don't want to write config bits
+    if (m_hwCurrent == HW_BOOTLOADER)
+	{
+		if((lastblock&BLOCKTYPE_LAST)==BLOCKTYPE_LAST)return 1;//say OK, but do nothing... we don't want to write config bits
+		else return 2; //do nothing, but ask for the next block ask for the next block
+	}
     if (m_handle != NULL)
     {
         uppPackage.fields.cmd=CMD_WRITE_CONFIG;
@@ -1136,12 +1148,12 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
                 return nBytes;
             }
 
-            char *tmpmsg = new char[size+5];
+            char *tmpmsg=new char[size+5];
 
             nBytes = readString(tmpmsg,size+5) - 5;
 
             memcpy(msg,tmpmsg+5,nBytes);
-            delete [] tmpmsg;
+			delete [] tmpmsg;
         }
 
         if (nBytes < 0 )
@@ -1181,7 +1193,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
         else
         {
             int OkOrLastblock=2; //Ask for next block
-            if (lastblock==BLOCKTYPE_LAST)OkOrLastblock=1; //Ok
+            if ((lastblock|BLOCKTYPE_LAST)==BLOCKTYPE_LAST)OkOrLastblock=1; //Ok
             BootloaderPackage bootloaderPackage;
             bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_DATA;
             bootloaderPackage.fields.size=size;
@@ -1194,6 +1206,7 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
                 return -1;
             }
             if(readString(resp_msg,5+size)<0)return -1;
+			cout<<"Ok or last block: "<<OkOrLastblock<<endl;
             return OkOrLastblock;
         }
     }

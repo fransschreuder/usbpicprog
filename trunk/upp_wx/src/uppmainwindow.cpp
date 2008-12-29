@@ -562,9 +562,12 @@ wxThread::ExitCode UppMainWindow::Entry()
         wxFAIL;
     }
 
-    // signal the main thread we've completed our task; this will result
+	wxThread::Sleep(200); //work around for a bug in wxWidgets causing a segmentation fault
+	
+	// signal the main thread we've completed our task; this will result
     // in a call to UppMainWindow::OnThreadCompleted done in the primary
     // thread context:
+
 #if wxCHECK_VERSION(2,9,0)
     wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_COMPLETE));
 #else
@@ -642,7 +645,7 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigProgramConfig)
     {
-        LogFromThread(wxLOG_Message, _("Programming the configuration area of the PIC..."));
+        LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
 
         switch(m_hardware->writeData(&m_hexFile,&m_picType))
         {
@@ -672,7 +675,7 @@ bool UppMainWindow::upp_thread_program()
 
     if(m_cfg.ConfigProgramData)
     {
-        LogFromThread(wxLOG_Message, _("Programming data area of the PIC..."));
+        LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
 
         switch(m_hardware->writeConfig(&m_hexFile,&m_picType))
         {
