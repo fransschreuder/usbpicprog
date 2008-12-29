@@ -606,7 +606,6 @@ bool UppMainWindow::upp_thread_program()
         default:
             LogFromThread(wxLOG_Error, _("Error erasing the device"));
 			return false;
-            break;
         }
     }
     if (GetThread()->TestDestroy())
