@@ -733,10 +733,10 @@ bool UppMainWindow::upp_thread_read()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    LogFromThread(wxLOG_Message, _("Reading the config area of the PIC..."));
+    LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
     if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
-        LogFromThread(wxLOG_Error, _("Error reading config memory"));
+        LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
 	    m_hexFile.trimData(&m_picType);
 		return false;
     }
