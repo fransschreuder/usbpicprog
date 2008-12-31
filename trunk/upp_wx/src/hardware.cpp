@@ -416,7 +416,11 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     nBytes=-1;
     vector<int> mem;
     mem.resize(picType->getCurrentPic().DataSize);
-    char dataBlock[BLOCKSIZE_DATA];
+	int BLOCKSIZE_HW;
+	if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
+ 
+    char dataBlock[BLOCKSIZE_HW];
     int blocktype;
 	if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
@@ -424,14 +428,14 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     if(picType->getCurrentPic().DataSize==0)return 0;//no data to read
     if (m_handle != NULL)
     {
-        for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_DATA)
+        for(int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_HW)
         {
             statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().DataSize));
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->getCurrentPic().DataSize-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if((picType->getCurrentPic().DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_DATA))blocksize=BLOCKSIZE_DATA;
+            if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
             else blocksize=picType->getCurrentPic().DataSize-blockcounter;
 
             nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
@@ -460,7 +464,11 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
 int Hardware::writeData(HexFile *hexData,PicType *picType)
 {
     int nBytes;
-    unsigned char dataBlock[BLOCKSIZE_DATA];
+	int BLOCKSIZE_HW;
+	if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
+ 
+    unsigned char dataBlock[BLOCKSIZE_HW];
     int blocktype;
 	if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
@@ -468,10 +476,10 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     if (m_handle != NULL)
     {
         nBytes=0;
-        for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_DATA)
+        for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_HW)
         {
             statusCallBack ((blockcounter*100)/((signed)hexData->getDataMemory().size()));
-            for(int i=0;i<BLOCKSIZE_DATA;i++)
+            for(int i=0;i<BLOCKSIZE_HW;i++)
             {
                 if((signed)hexData->getDataMemory().size()>(blockcounter+i))
                 {
@@ -485,9 +493,9 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
 
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_DATA)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
 			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;			
-            nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_DATA,blocktype);
+            nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_HW,blocktype);
 			if (m_hwCurrent == HW_UPP)
             {
 		        if(nBytes==3) return -3;	//something not implemented in firmware :(
@@ -625,7 +633,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
             return res;
         }
     }
-    if(doConfig)
+    if(doConfig&&(m_hwCurrent != HW_UPP))
     {
         if(readConfig(verifyHexFile,picType)<0)
         {
@@ -679,7 +687,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
             }
         }
-        if(doConfig)
+        if(doConfig&&(m_hwCurrent == HW_UPP)) //it's no use to verify config for the bootloader
         {
             for(int i=0;i<(signed)hexData->getConfigMemory().size();i++)
             {
@@ -1206,7 +1214,6 @@ int Hardware::writeDataBlock(unsigned char * msg,int address,int size,int lastbl
                 return -1;
             }
             if(readString(resp_msg,5+size)<0)return -1;
-			cout<<"Ok or last block: "<<OkOrLastblock<<endl;
             return OkOrLastblock;
         }
     }
