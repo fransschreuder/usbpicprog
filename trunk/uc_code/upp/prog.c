@@ -1,7 +1,7 @@
 /*********************************************************************
  *
- *                UsbPicProg v0.1
- *                Frans Schreuder 23-02-2008
+ *                UsbPicProg v0.2.0
+ *                Frans Schreuder
  ********************************************************************/
 #include "upp.h" 
 #ifdef SDCC
@@ -15,6 +15,8 @@
 #include "system\interrupt\interrupt.h"
 #include "prog_lolvl.h"
 
+
+/*The following data is just to get something in the eeprom data, remove it if you like...*/
 #pragma romdata eedata = 0xf00000
 
 const rom unsigned char eeprom_data1 = 1;
@@ -69,6 +71,10 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
+			break;
+		case P16F7X7:
+			pic_send_n_bits(6,0x09); //send 1001xx to erase device
+			DelayMs(30);
 			break;
 		case P16F87X:
 			read_code(picfamily, pictype, 0x2007, temp, 2, 3); //read the config word to see wether it is code protected or not
@@ -359,6 +365,23 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x08);    //begin programming, internally timed
 				DelayMs(8);
 				//pic_send_n_bits(6,0x0A); 	//end programming
+			}
+			break;
+		case P16F7X7:
+			//2 word programming
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=4) //2 words of data = 4 bytes
+			{
+				for(i=0;i<4;i+=2)
+				{
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i]))|   //MSB
+							(((unsigned int)data[blockcounter+i+1])<<8));//LSB
+					if(i<6)pic_send_n_bits(6,0x06);	//increment address
+				}
+				pic_send_n_bits(6,0x08);    //begin programming only, externally timed
+				DelayMs(1);
+				pic_send_n_bits(6,0x0E);    //end programming
+				//for(i=0;i<100;i++);		//wait Tdis
+				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
 		case P16F91X:
@@ -669,6 +692,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F7X7:
 		case P16F87X:
 		case P16F91X:
 		case P16F81X:
@@ -691,6 +715,12 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 					pic_send_14_bits(6,0x02,payload); //load data for programming
 					pic_send_n_bits(6,0x08);    //begin programming
 					DelayMs(Tprog);
+					switch(pictype)
+					{
+						case P16F7X7:
+							pic_send_n_bits(6,0x0E);    //end programming
+							break;
+					}
 				}
 				//read data from program memory (to verify) not yet impl...
 				pic_send_n_bits(6,0x06);	//increment address
