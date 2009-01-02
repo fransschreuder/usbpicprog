@@ -593,6 +593,71 @@ const Pic picTypes[]={
     0x3FF0,		//DevIdMask
     {0xCF,0x2F}
 },
+//PIC16F882
+{
+    "P16F882",	//Name
+    0x800*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x80,		//Datasize
+    0x4,		//ConfigSize
+    P16F88X,	//PicFamily
+    0x2000,		//DevId
+    0x3FE0,		//DevIdMask
+    {0xFF,0x3F,0x00,0x07}
+},
+//PIC16F883
+{
+    "P16F883",	//Name
+    0x1000*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F88X,	//PicFamily
+    0x2020,		//DevId
+    0x3FE0,		//DevIdMask
+    {0xFF,0x3F,0x00,0x07}
+},
+//PIC16F884
+{
+    "P16F884",	//Name
+    0x1000*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F88X,	//PicFamily
+    0x2040,		//DevId
+    0x3FE0,		//DevIdMask
+    {0xFF,0x3F,0x00,0x07}
+},
+//PIC16F886
+{
+    "P16F886",	//Name
+    0x2000*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F88X,	//PicFamily
+    0x2060,		//DevId
+    0x3FE0,		//DevIdMask
+    {0xFF,0x3F,0x00,0x07}
+},
+//PIC16F887
+{
+    "P16F877",	//Name
+    0x2000*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F88X,	//PicFamily
+    0x2080,		//DevId
+    0x3FE0,		//DevIdMask
+    {0xFF,0x3F,0x00,0x07}
+},
 //PIC16F913
 {
     "P16F913",	//Name

@@ -114,9 +114,15 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 				pic_send_n_bits(6,0x01);	//6. Execute a Bulk Erase Setup1 command (000001)
 				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
 			}
+		case P16F88X:
 		case P16F91X:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-			for(i=0;i<8;i++)pic_send_n_bits(6,0x06);//set PC to 0x3008
+			switch(pictype)
+			{
+				case P16F91X:
+					for(i=0;i<8;i++)pic_send_n_bits(6,0x06);//set PC to 0x3008
+					break;
+			}
 			pic_send_n_bits(6,0x09); //bulk erase program memory, userid and config memory
 			DelayMs(6);		//wait terase
 			set_vdd_vpp(picfamily,0);//reset
@@ -305,6 +311,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_read_byte2(4,0x09);
 			}
 			break;
+		case P16F88X:
 		case P16F87XA:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=16) //8 words of data = 16 bytes
 			{
@@ -692,6 +699,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F88X:
 		case P16F7X7:
 		case P16F87X:
 		case P16F91X:
