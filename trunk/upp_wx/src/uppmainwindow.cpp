@@ -535,7 +535,7 @@ wxThread::ExitCode UppMainWindow::Entry()
     // NOTE: this function is the core of the secondary thread's context!
     wxASSERT(!wxThread::IsMain());
 
-    bool exitCode;
+    bool exitCode=false;
     switch (m_mode)
     {
     case THREAD_PROGRAM:
