@@ -64,6 +64,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P18F6X2X:
 		case P18FXX2:            //also valid for 18FXX8
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x0080);
@@ -278,6 +279,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
+		case P18F6X2X:
 		case P18FXX2:
 			//direct access to config memory
 			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
@@ -634,6 +636,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
 	switch(pictype)
 	{
+		case P18F6X2X:
 		case P18FXX2:
 		case P18F2XXX:
         		pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
