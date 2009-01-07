@@ -54,6 +54,46 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 	set_vdd_vpp(picfamily,1);
 	switch(pictype)
 	{
+		case P18FXX39:
+			set_address(picfamily, 0x3C0004);
+			pic_send(4,0x0C,0x0083); //shouldn't it be 0x0C??? prog spec says 0x00
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			pic_send(4,0x0C,0x0088); //shouldn't it be 0x0C??? prog spec says 0x00
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			pic_send(4,0x0C,0x0089); //shouldn't it be 0x0C??? prog spec says 0x00
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			pic_send(4,0x0C,0x008A); //shouldn't it be 0x0C??? prog spec says 0x00
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			set_address(picfamily, 0x200000);
+			pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
+			pic_send(4,0x00,0x88A6); //BSF EECON1, FREE
+			pic_send(4,0x00,0x0E55); // MOVLW 55h
+			pic_send(4,0x00,0x6EA7); // MOVWF EECON2
+			pic_send(4,0x00,0x0EAA); // MOVLW AAh
+			pic_send(4,0x00,0x6EA7); // MOVWF EECON2
+			pic_send(4,0x00,0x82A6); // BSF EECON1, WR
+					
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(P11);
+			pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
+			break;
 		case P18F2XXX:           //also valid for 18F4XXX
 			set_address(picfamily, 0x3C0005);
 			pic_send(4,0x0C,0x3F3F); //Write 3F3Fh to 3C0005h
@@ -279,6 +319,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
+		case P18FXX39:
 		case P18F6X2X:
 		case P18FXX2:
 			//direct access to config memory
@@ -636,6 +677,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 	if(lastblock&1)set_vdd_vpp(picfamily,1);
 	switch(pictype)
 	{
+		case P18FXX39:
 		case P18F6X2X:
 		case P18FXX2:
 		case P18F2XXX:
