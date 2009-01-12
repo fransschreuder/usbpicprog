@@ -168,7 +168,7 @@ int HexFile::open(PicType* picType,const char* filename)
                         else //PIC16 devices contain useless data after every data byte in data memory :(
                         {
                             for(int i=0;i<(signed)lineData.size();i+=2)
-                                dataMemory[extAddress+address+(i/2)-dataAddress]=lineData[i];
+                                dataMemory[(extAddress+address+i-dataAddress)/2]=lineData[i];
                         }
                     }
                     else cerr<<"Data in hex file outside data memory of PIC"<<endl;
