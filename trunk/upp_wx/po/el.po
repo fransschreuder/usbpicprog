@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-02 12:22+0100\n"
-"PO-Revision-Date: 2009-01-02 12:22+0100\n"
-"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
+"POT-Creation-Date: 2009-01-24 14:24+0100\n"
+"PO-Revision-Date: 2009-01-24 14:25+0100\n"
+"Last-Translator: Frans Schreuder <http://usbpicprog.org>\n"
 "Language-Team: English <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,60 +21,15 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/hexview.cpp:214
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-#: ../src/hexview.cpp:216
-msgid "Copy"
-msgstr "Αντιγραφή"
-
-#: ../src/hexview.cpp:217
-msgid "Select All"
-msgstr "Επιλογή όλων"
-
-#: ../src/preferences.cpp:52
-#: ../src/preferences.cpp:68
-#: ../src/uppmainwindow_base.cpp:33
-msgid "Code"
-msgstr "Κωδικας"
-
-#: ../src/preferences.cpp:55
-#: ../src/preferences.cpp:71
-msgid "Config"
-msgstr "Διαμόρφωση"
-
-#: ../src/preferences.cpp:58
-#: ../src/preferences.cpp:74
-#: ../src/uppmainwindow_base.cpp:63
-msgid "Data"
-msgstr "Δεδομένα"
-
-#: ../src/preferences.cpp:61
-msgid "Erase before programming"
-msgstr "Διεγράψτε πριν τον προγραμματισμό"
-
-#: ../src/preferences.cpp:64
-msgid "Verify"
-msgstr "Βεβαιώστε"
-
-#: ../src/preferences.cpp:77
-msgid "Gui"
-msgstr "Gui"
-
-#: ../src/preferences.cpp:81
-msgid "Show Popups on connect etc..."
-msgstr "Δείτε popups για τη σύνδεση κλπ..."
-
-#: ../src/preferences.cpp:91
-#: ../src/uppmainwindow.cpp:1274
-#: ../src/preferences.h:51
-msgid "Preferences"
-msgstr "Προτιμήσεις"
-
 #: ../src/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
 msgstr "Δεκαεξαδική προβολή του κώδικα της περιοχής του PIC:"
+
+#: ../src/uppmainwindow_base.cpp:33
+#: ../src/preferences.cpp:52
+#: ../src/preferences.cpp:68
+msgid "Code"
+msgstr "Κωδικας"
 
 #: ../src/uppmainwindow_base.cpp:38
 msgid "Hexadecimal view of the configuration fuses of the PIC:"
@@ -87,6 +42,12 @@ msgstr "Σημαίες διαμόρφωσης "
 #: ../src/uppmainwindow_base.cpp:53
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Δεκαεξαδική προβολή των δεδομένων της περιοχής PIC:"
+
+#: ../src/uppmainwindow_base.cpp:63
+#: ../src/preferences.cpp:58
+#: ../src/preferences.cpp:74
+msgid "Data"
+msgstr "Δεδομένα"
 
 #: ../src/uppmainwindow_base.cpp:72
 msgid "&New"
@@ -184,6 +145,45 @@ msgstr "&Σχετικά"
 #: ../src/uppmainwindow_base.cpp:120
 msgid "Shows informations about this program"
 msgstr "Εμφανίζει πληροφορίες σχετικά με αυτό το πρόγραμμα"
+
+#: ../src/preferences.cpp:55
+#: ../src/preferences.cpp:71
+msgid "Config"
+msgstr "Διαμόρφωση"
+
+#: ../src/preferences.cpp:61
+msgid "Erase before programming"
+msgstr "Διεγράψτε πριν τον προγραμματισμό"
+
+#: ../src/preferences.cpp:64
+msgid "Verify"
+msgstr "Βεβαιώστε"
+
+#: ../src/preferences.cpp:77
+msgid "Gui"
+msgstr "Gui"
+
+#: ../src/preferences.cpp:81
+msgid "Show Popups on connect etc..."
+msgstr "Δείτε popups για τη σύνδεση κλπ..."
+
+#: ../src/preferences.cpp:91
+#: ../src/uppmainwindow.cpp:1274
+#: ../src/preferences.h:51
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: ../src/hexview.cpp:214
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: ../src/hexview.cpp:216
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+#: ../src/hexview.cpp:217
+msgid "Select All"
+msgstr "Επιλογή όλων"
 
 #: ../src/uppmainwindow.cpp:137
 msgid "Usbpicprog rev: "
@@ -637,9 +637,10 @@ msgstr "Ήδη αποσυνδέμενο"
 msgid "An open source USB pic programmer"
 msgstr "Προγραμματιστής του open source USB pic"
 
-#: ../src/uppmainwindow_base.h:75
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
+#: ../src/uppmainwindow.cpp:1326
+#: ../src/uppmainwindow.cpp:1356
+msgid "Cannot select a PIC different when the bootloader is connected!"
+msgstr ""
 
 #: ../src/main.h:86
 #: ../src/main.h:102
@@ -720,4 +721,8 @@ msgstr "αρχείο"
 #: ../src/main.h:111
 msgid "hexfile"
 msgstr "δκαεξαδικό αρχείο"
+
+#: ../src/uppmainwindow_base.h:75
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
 
