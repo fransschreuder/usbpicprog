@@ -1323,7 +1323,7 @@ void UppMainWindow::upp_pic_choice_changed()
         {
             // revert selection to the previous type
             m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
-            wxLogError(wxT("Cannot select a PIC different from '%s' when the bootloader is connected!"));
+            wxLogError(_("Cannot select a PIC different when the bootloader is connected!"));
             return;
         }
 
@@ -1353,7 +1353,7 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
         if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
             // do not change PIC selection
-            wxLogError(wxT("Cannot select a PIC different from '%s' when the bootloader is connected!"));
+            wxLogError(_("Cannot select a PIC different when the bootloader is connected!"));
             return;
         }
 
