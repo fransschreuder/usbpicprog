@@ -1,22 +1,22 @@
 /***************************************************************************
-*   Copyright (C) 2008 by Frans Schreuder                                 *
-*   usbpicprog.sourceforge.net                                            *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-*   This program is distributed in the hope that it will be useful,       *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-*   GNU General Public License for more details.                          *
-*                                                                         *
-*   You should have received a copy of the GNU General Public License     *
-*   along with this program; if not, write to the                         *
-*   Free Software Foundation, Inc.,                                       *
-*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
-***************************************************************************/
+ *   Copyright (C) 2008 by Frans Schreuder                                 *
+ *   usbpicprog.sourceforge.net                                            *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
 
 #include "main.h"
 #include "../svn_revision.h"
@@ -31,7 +31,7 @@ IMPLEMENT_APP(UsbPicProg)
 UppMainWindow *uppMainWindow;
 
 /*This is the wxWidgets initialization function, but we only use it to call
-*wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
+ *wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
 bool UsbPicProg::OnInit()
 {
     return wxApp::OnInit();
@@ -67,25 +67,28 @@ void UsbPicProg::MacOpenFile(const wxString &fileName)
 }
 
 /*After command line is being processed, this function is being called
-by wxWidgets, even if no arguments are given. This is the actual function
-in which the real application initializes.*/
+ by wxWidgets, even if no arguments are given. This is the actual function
+ in which the real application initializes.*/
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
     hexFile = NULL;
     picType = NULL;
     hardware = NULL;
-    #ifdef __WXMSW__
+#ifdef __WXMSW__
     wxLocale::AddCatalogLookupPathPrefix(_T("po"));
-    #endif
+#endif
+#ifdef __WXMAC__
+    wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
+#endif
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
     
-
+	
     m_locale->AddCatalog(wxT("usbpicprog"));
-
+	
     /*If no command line arguments are passed, we open the main window  *
-    *Else, a command line application is started.						*
-    *Only the filename may be passed to the gui						*/
+	 *Else, a command line application is started.						*
+	 *Only the filename may be passed to the gui						*/
     wxString tmp;
     if (!parser.Found(wxT("h")) &&
         !parser.Found(wxT("V")) &&
@@ -101,7 +104,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
         // start a GUI app
         uppMainWindow = new UppMainWindow((wxFrame *)NULL, wxID_ANY);
         SetTopWindow(uppMainWindow);
-
+		
         uppMainWindow->Show(true);
     }
     else	//start a command line app
@@ -109,7 +112,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
         return CmdLineMain(parser);
         // CmdLineMain() calls exit() itself
     }
-
+	
     return true;
 }
 
@@ -118,25 +121,25 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     string output;
 	wxString filename;
     /*when using Windows, wxWidgets takes over the terminal, *
-    *but we want to have it for cout and cerr                */
-    #ifdef __WXMSW__
+	 *but we want to have it for cout and cerr                */
+#ifdef __WXMSW__
     if( AttachConsole((DWORD)-1) )
     {
-    freopen( "CON", "w", stdout );
-    freopen( "CON", "w", stderr );
+		freopen( "CON", "w", stdout );
+		freopen( "CON", "w", stderr );
     }
-    #endif
-
+#endif
+	
     if(parser.Found(wxT("V")))
     {
-        #ifndef UPP_VERSION
-            cerr<<string("usbpicprog (SVN) ").append(SVN_REVISION)<<endl;
-        #else
-            cerr<<string("usbpicprog ").append(UPP_VERSION)<<endl;
-        #endif
+#ifndef UPP_VERSION
+		cerr<<string("usbpicprog (SVN) ").append(SVN_REVISION)<<endl;
+#else
+		cerr<<string("usbpicprog ").append(UPP_VERSION)<<endl;
+#endif
         return EXIT_SUCCESS;
     }
-
+	
     //command line -s or --silent passed?
     silent_mode = parser.Found(wxT("s"));
     hardware=new Hardware();
@@ -146,9 +149,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         exit(-1);
     }
     wxString picTypeStr;
-
+	
     /* check if -p <str> is passed, else autodetect the device
-    */
+	 */
     if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
     else
     {
@@ -159,14 +162,14 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else cerr<<"Detection failed, setting pictype to default: ";
         cout<<picType->getCurrentPic().Name<<endl;
     }
-
+	
     /* if -e is passed, bulk erase the entire pic*/
     if(parser.Found(wxT("e")))
     {
         cout<<"Bulk erase..."<<endl;
         if(hardware->bulkErase(picType)<0)cerr<<"Error during erase"<<endl;
     }
-
+	
     /* if -b is passed, check if the device is blank*/
     if(parser.Found(wxT("b")))
     {
@@ -180,17 +183,17 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 break;
             case VERIFY_MISMATCH:
                 switch (res.DataType)
-                {
-                    case TYPE_CODE: typeText=string("code");break;
-                    case TYPE_DATA: typeText=string("data");break;
-                    case TYPE_CONFIG: typeText=string("config");break;
-                    default: typeText=string("unknown");break;
-                }
+			{
+				case TYPE_CODE: typeText=string("code");break;
+				case TYPE_DATA: typeText=string("data");break;
+				case TYPE_CONFIG: typeText=string("config");break;
+				default: typeText=string("unknown");break;
+			}
                 fprintf(stderr,"Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
-                    typeText.c_str(),
-                    res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
-                    res.Read,
-                    res.Expected);
+						typeText.c_str(),
+						res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+						res.Read,
+						res.Expected);
                 cout<<endl;
                 break;
             case VERIFY_USB_ERROR:
@@ -204,7 +207,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 break;
         }
     }
-
+	
     /* if -w is passed, open the hexfile and write it to the pic */
     if(parser.Found(wxT("w")))
     {
@@ -225,7 +228,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
-
+	
     /* if -r is passed, read it to the pic and save it to the hexfile    */
     if(parser.Found(wxT("r")))
     {
@@ -247,7 +250,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
-
+	
     /* if -v is passed, open the hexfile, read it and compare the results*/
     if(parser.Found(wxT("v")))
     {
@@ -271,17 +274,17 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                     break;
                 case VERIFY_MISMATCH:
                     switch (res.DataType)
-                    {
-                        case TYPE_CODE: typeText=string("code");break;
-                        case TYPE_DATA: typeText=string("data");break;
-                        case TYPE_CONFIG: typeText=string("config");break;
-                        default: typeText=string("unknown");break;
-                    }
+				{
+					case TYPE_CODE: typeText=string("code");break;
+					case TYPE_DATA: typeText=string("data");break;
+					case TYPE_CONFIG: typeText=string("config");break;
+					default: typeText=string("unknown");break;
+				}
                     fprintf(stderr,"Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
-                        typeText.c_str(),
-                        res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
-                        res.Read,
-                        res.Expected);
+							typeText.c_str(),
+							res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+							res.Read,
+							res.Expected);
                     cerr<<endl;
                     break;
                 case VERIFY_USB_ERROR:
@@ -297,6 +300,6 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
-
+	
     exit(0);
 }
