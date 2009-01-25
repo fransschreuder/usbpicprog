@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-24 14:27+0100\n"
-"PO-Revision-Date: 2009-01-24 14:27+0100\n"
-"Last-Translator: Frans Schreuder <http://usbpicprog.org>\n"
+"POT-Creation-Date: 2009-01-25 19:14+0100\n"
+"PO-Revision-Date: 2009-01-25 19:14+0100\n"
+"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
 "Language-Team: Kanwaljit Singh <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,15 +21,60 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
+#: ../src/hexview.cpp:214
+msgid "Edit"
+msgstr "ਸੋ਼ਧ"
+
+#: ../src/hexview.cpp:216
+msgid "Copy"
+msgstr "ਨਕਲ"
+
+#: ../src/hexview.cpp:217
+msgid "Select All"
+msgstr "ਸਾਰੇ ਚੁਣੋ"
+
+#: ../src/preferences.cpp:52
+#: ../src/preferences.cpp:68
+#: ../src/uppmainwindow_base.cpp:33
+msgid "Code"
+msgstr "ਕੋਡ"
+
+#: ../src/preferences.cpp:55
+#: ../src/preferences.cpp:71
+msgid "Config"
+msgstr "ਸੈਟਿਂਗ"
+
+#: ../src/preferences.cpp:58
+#: ../src/preferences.cpp:74
+#: ../src/uppmainwindow_base.cpp:63
+msgid "Data"
+msgstr "ਡਾਟਾ"
+
+#: ../src/preferences.cpp:61
+msgid "Erase before programming"
+msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
+
+#: ../src/preferences.cpp:64
+msgid "Verify"
+msgstr "ਸਪਸ਼ਟੀਕਰਨ"
+
+#: ../src/preferences.cpp:77
+msgid "Gui"
+msgstr "Gui"
+
+#: ../src/preferences.cpp:81
+msgid "Show Popups on connect etc..."
+msgstr "ਜੁੜਣ ਇਤਿਆਦ ਤੇ ਪੋਪਅਪ ਵਿਖਾਉ"
+
+#: ../src/preferences.cpp:91
+#: ../src/uppmainwindow.cpp:1274
+#: ../src/preferences.h:51
+msgid "Preferences"
+msgstr "ਸੈਟਿਂਗ"
+
 #: ../src/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
 msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: ../src/uppmainwindow_base.cpp:33
-#: ../src/preferences.cpp:52
-#: ../src/preferences.cpp:68
-msgid "Code"
-msgstr "ਕੋਡ"
 
 #: ../src/uppmainwindow_base.cpp:38
 msgid "Hexadecimal view of the configuration fuses of the PIC:"
@@ -42,12 +87,6 @@ msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
 #: ../src/uppmainwindow_base.cpp:53
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "PIC ਦੇ ਡਾਟਾ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: ../src/uppmainwindow_base.cpp:63
-#: ../src/preferences.cpp:58
-#: ../src/preferences.cpp:74
-msgid "Data"
-msgstr "ਡਾਟਾ"
 
 #: ../src/uppmainwindow_base.cpp:72
 msgid "&New"
@@ -145,45 +184,6 @@ msgstr "ਬਾਰੇ(&A)"
 #: ../src/uppmainwindow_base.cpp:120
 msgid "Shows informations about this program"
 msgstr "ਏਸ ਪਰੋਗਰਾਮ ਬਾਰੇ ਜਾਣਕਾਰੀ"
-
-#: ../src/preferences.cpp:55
-#: ../src/preferences.cpp:71
-msgid "Config"
-msgstr "ਸੈਟਿਂਗ"
-
-#: ../src/preferences.cpp:61
-msgid "Erase before programming"
-msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
-
-#: ../src/preferences.cpp:64
-msgid "Verify"
-msgstr "ਸਪਸ਼ਟੀਕਰਨ"
-
-#: ../src/preferences.cpp:77
-msgid "Gui"
-msgstr "Gui"
-
-#: ../src/preferences.cpp:81
-msgid "Show Popups on connect etc..."
-msgstr "ਜੁੜਣ ਇਤਿਆਦ ਤੇ ਪੋਪਅਪ ਵਿਖਾਉ"
-
-#: ../src/preferences.cpp:91
-#: ../src/uppmainwindow.cpp:1274
-#: ../src/preferences.h:51
-msgid "Preferences"
-msgstr "ਸੈਟਿਂਗ"
-
-#: ../src/hexview.cpp:214
-msgid "Edit"
-msgstr "ਸੋ਼ਧ"
-
-#: ../src/hexview.cpp:216
-msgid "Copy"
-msgstr "ਨਕਲ"
-
-#: ../src/hexview.cpp:217
-msgid "Select All"
-msgstr "ਸਾਰੇ ਚੁਣੋ"
 
 #: ../src/uppmainwindow.cpp:137
 msgid "Usbpicprog rev: "
@@ -640,7 +640,11 @@ msgstr "ਇਕ ਖੁਲੇ ਕੋਡ ਵਾਲਾ USB pic ਪਰੋਗਰਾਮ
 #: ../src/uppmainwindow.cpp:1326
 #: ../src/uppmainwindow.cpp:1356
 msgid "Cannot select a PIC different when the bootloader is connected!"
-msgstr ""
+msgstr "ਜਦ ਬੁਟਲੋਡਰ ਕਨੇਕਟ ਹੋਵੇ ਤਾਂ ਹੋਰ PIC  ਨਹੀਂ ਚੁਣ ਸਕਦੇ!"
+
+#: ../src/uppmainwindow_base.h:75
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
 
 #: ../src/main.h:86
 #: ../src/main.h:102
@@ -721,8 +725,4 @@ msgstr "ਫਾਇਲ"
 #: ../src/main.h:111
 msgid "hexfile"
 msgstr "ਹੈਕਸਫਾਇਲ"
-
-#: ../src/uppmainwindow_base.h:75
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
 
