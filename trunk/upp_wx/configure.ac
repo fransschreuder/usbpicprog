@@ -34,7 +34,7 @@ fi
  
 WX_CPPFLAGS="`$WXCONFIG --cppflags`"
 WX_CXXFLAGS="`$WXCONFIG --cxxflags`"
-WX_LIBS="`$WXCONFIG --libs`"
+ WX_LIBS="`$WXCONFIG --static --libs`"
  
 AC_SUBST(WX_CPPFLAGS)
 AC_SUBST(WX_CXXFLAGS)
