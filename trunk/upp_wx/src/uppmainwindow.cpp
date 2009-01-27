@@ -1323,7 +1323,7 @@ void UppMainWindow::upp_pic_choice_changed()
         {
             // revert selection to the previous type
             m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
-            wxLogError(_("Cannot select a PIC different when the bootloader is connected!"));
+            wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
         }
 

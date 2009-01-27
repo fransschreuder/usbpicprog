@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-24 14:27+0100\n"
-"PO-Revision-Date: 2009-01-24 14:27+0100\n"
-"Last-Translator: Frans Schreuder <http://usbpicprog.org>\n"
+"POT-Creation-Date: 2009-01-27 14:05+0100\n"
+"PO-Revision-Date: 2009-01-27 14:05+0100\n"
+"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
 "Language-Team: English <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,135 +21,34 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/uppmainwindow_base.cpp:23
-msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "Vista Hexadecimal da área de código da PIC:"
+#: ../src/hexview.cpp:214
+msgid "Edit"
+msgstr "Editar"
 
-#: ../src/uppmainwindow_base.cpp:33
+#: ../src/hexview.cpp:216
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../src/hexview.cpp:217
+msgid "Select All"
+msgstr "Selecionar Tudo"
+
 #: ../src/preferences.cpp:52
 #: ../src/preferences.cpp:68
+#: ../src/uppmainwindow_base.cpp:33
 msgid "Code"
 msgstr "Código"
-
-#: ../src/uppmainwindow_base.cpp:38
-msgid "Hexadecimal view of the configuration fuses of the PIC:"
-msgstr "Vista Hexadecimal da configuração da PIC:"
-
-#: ../src/uppmainwindow_base.cpp:48
-msgid "Configuration flags"
-msgstr "Marcadores de configuração"
-
-#: ../src/uppmainwindow_base.cpp:53
-msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "Vista Hexadecimal da área de dados da PIC:"
-
-#: ../src/uppmainwindow_base.cpp:63
-#: ../src/preferences.cpp:58
-#: ../src/preferences.cpp:74
-msgid "Data"
-msgstr "Dados"
-
-#: ../src/uppmainwindow_base.cpp:72
-msgid "&New"
-msgstr "&Novo"
-
-#: ../src/uppmainwindow_base.cpp:72
-msgid "Resets the code, configuration and data areas of the currently open HEX file"
-msgstr "Limpar as áreas de código, configuração e dados do ficheiro HEX aberto"
-
-#: ../src/uppmainwindow_base.cpp:76
-msgid "&Open"
-msgstr "&Abrir"
-
-#: ../src/uppmainwindow_base.cpp:76
-msgid "Loads an HEX file for editing or programming..."
-msgstr "Lê um ficheiro HEX para edição ou programação..."
-
-#: ../src/uppmainwindow_base.cpp:80
-msgid "&Reload"
-msgstr "&Recarregar"
-
-#: ../src/uppmainwindow_base.cpp:80
-msgid "Reloads the current HEX file from disk"
-msgstr "Recarrega o ficheiro HEX actual do disco"
-
-#: ../src/uppmainwindow_base.cpp:84
-msgid "&Save"
-msgstr "&Salvar"
-
-#: ../src/uppmainwindow_base.cpp:84
-msgid "Saves the HEX file with the modified data"
-msgstr "Salva o ficheiro HEX com os dados alterados"
-
-#: ../src/uppmainwindow_base.cpp:88
-msgid "Save &As"
-msgstr "Salvar &Como"
-
-#: ../src/uppmainwindow_base.cpp:88
-msgid "Saves current code,config,data as a HEX file"
-msgstr "Salva o código, configuração, dados actuais como ficheiro HEX"
-
-#: ../src/uppmainwindow_base.cpp:92
-msgid "E&xit"
-msgstr "Sa&ir"
-
-#: ../src/uppmainwindow_base.cpp:92
-msgid "Exits the program"
-msgstr "Sai do programa"
-
-#: ../src/uppmainwindow_base.cpp:95
-msgid "&File"
-msgstr "&Ficheiro"
-
-#: ../src/uppmainwindow_base.cpp:99
-msgid "&Copy"
-msgstr "&Copiar"
-
-#: ../src/uppmainwindow_base.cpp:99
-msgid "Copies to the clipboard currently selected cells"
-msgstr "Copia as células actuais para a área de transferência"
-
-#: ../src/uppmainwindow_base.cpp:103
-msgid "Select &All"
-msgstr "Selecionar &Tudo"
-
-#: ../src/uppmainwindow_base.cpp:103
-msgid "Selects the entire grid currently shown"
-msgstr "Seleciona toda a grelha actual"
-
-#: ../src/uppmainwindow_base.cpp:107
-msgid "&Preferences"
-msgstr "&Preferências"
-
-#: ../src/uppmainwindow_base.cpp:107
-msgid "Shows the options for this program"
-msgstr "Mostra as opções para este programa"
-
-#: ../src/uppmainwindow_base.cpp:110
-msgid "&Edit"
-msgstr "&Editar"
-
-#: ../src/uppmainwindow_base.cpp:114
-#: ../src/uppmainwindow_base.cpp:123
-msgid "&Help"
-msgstr "&Ajuda"
-
-#: ../src/uppmainwindow_base.cpp:114
-msgid "Opens the Usbpicprog's website..."
-msgstr "Abre o site do Usbpicprog..."
-
-#: ../src/uppmainwindow_base.cpp:120
-msgid "&About"
-msgstr "&Acerca"
-
-#: ../src/uppmainwindow_base.cpp:120
-msgid "Shows informations about this program"
-msgstr "Mostra informação acerca deste programa"
 
 #: ../src/preferences.cpp:55
 #: ../src/preferences.cpp:71
 msgid "Config"
 msgstr "Configurar"
+
+#: ../src/preferences.cpp:58
+#: ../src/preferences.cpp:74
+#: ../src/uppmainwindow_base.cpp:63
+msgid "Data"
+msgstr "Dados"
 
 #: ../src/preferences.cpp:61
 msgid "Erase before programming"
@@ -172,18 +71,6 @@ msgstr "Mostrar popups na conexão, etc..."
 #: ../src/preferences.h:51
 msgid "Preferences"
 msgstr "Preferências"
-
-#: ../src/hexview.cpp:214
-msgid "Edit"
-msgstr "Editar"
-
-#: ../src/hexview.cpp:216
-msgid "Copy"
-msgstr "Copiar"
-
-#: ../src/hexview.cpp:217
-msgid "Select All"
-msgstr "Selecionar Tudo"
 
 #: ../src/uppmainwindow.cpp:137
 msgid "Usbpicprog rev: "
@@ -638,9 +525,126 @@ msgid "An open source USB pic programmer"
 msgstr "Um programador pic USB open source"
 
 #: ../src/uppmainwindow.cpp:1326
+#, fuzzy
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "Não pode selecionar um PIC diferente quando o bootloader está ligado!"
+
 #: ../src/uppmainwindow.cpp:1356
 msgid "Cannot select a PIC different when the bootloader is connected!"
-msgstr ""
+msgstr "Não pode selecionar um PIC diferente quando o bootloader está ligado!"
+
+#: ../src/uppmainwindow_base.cpp:23
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr "Vista Hexadecimal da área de código da PIC:"
+
+#: ../src/uppmainwindow_base.cpp:38
+msgid "Hexadecimal view of the configuration fuses of the PIC:"
+msgstr "Vista Hexadecimal da configuração da PIC:"
+
+#: ../src/uppmainwindow_base.cpp:48
+msgid "Configuration flags"
+msgstr "Marcadores de configuração"
+
+#: ../src/uppmainwindow_base.cpp:53
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr "Vista Hexadecimal da área de dados da PIC:"
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "&New"
+msgstr "&Novo"
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "Limpar as áreas de código, configuração e dados do ficheiro HEX aberto"
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "&Open"
+msgstr "&Abrir"
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "Loads an HEX file for editing or programming..."
+msgstr "Lê um ficheiro HEX para edição ou programação..."
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "&Reload"
+msgstr "&Recarregar"
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "Reloads the current HEX file from disk"
+msgstr "Recarrega o ficheiro HEX actual do disco"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "&Save"
+msgstr "&Salvar"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "Saves the HEX file with the modified data"
+msgstr "Salva o ficheiro HEX com os dados alterados"
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Save &As"
+msgstr "Salvar &Como"
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Saves current code,config,data as a HEX file"
+msgstr "Salva o código, configuração, dados actuais como ficheiro HEX"
+
+#: ../src/uppmainwindow_base.cpp:92
+msgid "E&xit"
+msgstr "Sa&ir"
+
+#: ../src/uppmainwindow_base.cpp:92
+msgid "Exits the program"
+msgstr "Sai do programa"
+
+#: ../src/uppmainwindow_base.cpp:95
+msgid "&File"
+msgstr "&Ficheiro"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "&Copy"
+msgstr "&Copiar"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "Copies to the clipboard currently selected cells"
+msgstr "Copia as células actuais para a área de transferência"
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Select &All"
+msgstr "Selecionar &Tudo"
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Selects the entire grid currently shown"
+msgstr "Seleciona toda a grelha actual"
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "&Preferences"
+msgstr "&Preferências"
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "Shows the options for this program"
+msgstr "Mostra as opções para este programa"
+
+#: ../src/uppmainwindow_base.cpp:110
+msgid "&Edit"
+msgstr "&Editar"
+
+#: ../src/uppmainwindow_base.cpp:114
+#: ../src/uppmainwindow_base.cpp:123
+msgid "&Help"
+msgstr "&Ajuda"
+
+#: ../src/uppmainwindow_base.cpp:114
+msgid "Opens the Usbpicprog's website..."
+msgstr "Abre o site do Usbpicprog..."
+
+#: ../src/uppmainwindow_base.cpp:120
+msgid "&About"
+msgstr "&Acerca"
+
+#: ../src/uppmainwindow_base.cpp:120
+msgid "Shows informations about this program"
+msgstr "Mostra informação acerca deste programa"
 
 #: ../src/main.h:86
 #: ../src/main.h:102

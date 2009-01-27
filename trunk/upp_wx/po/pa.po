@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-25 19:14+0100\n"
-"PO-Revision-Date: 2009-01-25 19:14+0100\n"
+"POT-Creation-Date: 2009-01-27 14:05+0100\n"
+"PO-Revision-Date: 2009-01-27 14:05+0100\n"
 "Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
 "Language-Team: Kanwaljit Singh <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -71,119 +71,6 @@ msgstr "ਜੁੜਣ ਇਤਿਆਦ ਤੇ ਪੋਪਅਪ ਵਿਖਾਉ"
 #: ../src/preferences.h:51
 msgid "Preferences"
 msgstr "ਸੈਟਿਂਗ"
-
-#: ../src/uppmainwindow_base.cpp:23
-msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: ../src/uppmainwindow_base.cpp:38
-msgid "Hexadecimal view of the configuration fuses of the PIC:"
-msgstr "PIC ਦੇ ਕਨਫਿਗਰੇਸ਼ਨ ਫਿਉਜ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: ../src/uppmainwindow_base.cpp:48
-msgid "Configuration flags"
-msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
-
-#: ../src/uppmainwindow_base.cpp:53
-msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "PIC ਦੇ ਡਾਟਾ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: ../src/uppmainwindow_base.cpp:72
-msgid "&New"
-msgstr "ਨਵਾਂ(&N)"
-
-#: ../src/uppmainwindow_base.cpp:72
-msgid "Resets the code, configuration and data areas of the currently open HEX file"
-msgstr "ਖੁਲੀ ਹੋਈ ਹੈਕਸ ਫਾਇਲ ਦੇ ਕੋਡ, ਡਾਟਾ ਤੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਰਿਸੈਟ ਕਰੋ"
-
-#: ../src/uppmainwindow_base.cpp:76
-msgid "&Open"
-msgstr "ਖੋਲੋ(&O)"
-
-#: ../src/uppmainwindow_base.cpp:76
-msgid "Loads an HEX file for editing or programming..."
-msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਸੋਧ ਜਾਂ ਪਰੋਗਰਾਮਿਗਂ ਲਈ ਲੋਡ ਕਰਦਾ ਹੈ..."
-
-#: ../src/uppmainwindow_base.cpp:80
-msgid "&Reload"
-msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ(&R)"
-
-#: ../src/uppmainwindow_base.cpp:80
-msgid "Reloads the current HEX file from disk"
-msgstr "ਇਸ  HEX ਫਾਇਲ ਨੂੰ ਡਿਸਕ ਤੋਂ ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
-
-#: ../src/uppmainwindow_base.cpp:84
-msgid "&Save"
-msgstr "ਸੰਭਾਲੋ(&S)"
-
-#: ../src/uppmainwindow_base.cpp:84
-msgid "Saves the HEX file with the modified data"
-msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਬਦਲੇ ਹੋਏ ਡਾਟਾ ਨਾਲ ਸੰਭਾਲੋ"
-
-#: ../src/uppmainwindow_base.cpp:88
-msgid "Save &As"
-msgstr "ਇੰਜ ਸੰਭਾਲੋ(&A)..."
-
-#: ../src/uppmainwindow_base.cpp:88
-msgid "Saves current code,config,data as a HEX file"
-msgstr "ਹੁਣ ਦੇ ਕੋਡ, ਸੈਟਿਂਗ, ਡਾਟਾ ਨੂੰ ਹੈਕਸ ਫਾਇਲ 'ਚ ਸੰਭਾਲੋ"
-
-#: ../src/uppmainwindow_base.cpp:92
-msgid "E&xit"
-msgstr "ਨਿਕਲੋ(&x)"
-
-#: ../src/uppmainwindow_base.cpp:92
-msgid "Exits the program"
-msgstr "ਪਰੋਗਰਾਮ ਤੋਂ ਨਿਕਲੋ"
-
-#: ../src/uppmainwindow_base.cpp:95
-msgid "&File"
-msgstr "ਫਾਇਲ(&F)"
-
-#: ../src/uppmainwindow_base.cpp:99
-msgid "&Copy"
-msgstr "ਨਕਲ(&C)"
-
-#: ../src/uppmainwindow_base.cpp:99
-msgid "Copies to the clipboard currently selected cells"
-msgstr "ਕਲਿਪਬੋਰਡ ਨੂੰ ਛੁਣੇ ਹੋਏ ਸੈਲਾਂ ਦੀ ਨਕਲ ਕਰੋ"
-
-#: ../src/uppmainwindow_base.cpp:103
-msgid "Select &All"
-msgstr "ਸਾਰੇ ਚੁਣੋ(&A)"
-
-#: ../src/uppmainwindow_base.cpp:103
-msgid "Selects the entire grid currently shown"
-msgstr "ਹੁਣ ਵਿਖਾਇਆ ਜਾ ਰਿਹਾ ਸਾਰਾ ਗਰਿਡ ਚੁਣੋ"
-
-#: ../src/uppmainwindow_base.cpp:107
-msgid "&Preferences"
-msgstr "ਸੈਟਿਂਗ(&P)"
-
-#: ../src/uppmainwindow_base.cpp:107
-msgid "Shows the options for this program"
-msgstr "ਇਸ ਪਰੋਗਰਾਮ ਦੀ ਆਪਸ਼ਨ ਵਿਖਾਓ"
-
-#: ../src/uppmainwindow_base.cpp:110
-msgid "&Edit"
-msgstr "ਸੋਧ(&E)"
-
-#: ../src/uppmainwindow_base.cpp:114
-#: ../src/uppmainwindow_base.cpp:123
-msgid "&Help"
-msgstr "ਮਦਦ(&H)"
-
-#: ../src/uppmainwindow_base.cpp:114
-msgid "Opens the Usbpicprog's website..."
-msgstr "Usbpicprog's ਦੀ ਵੈਬਸਾਇਟ ਖੋਲੋ"
-
-#: ../src/uppmainwindow_base.cpp:120
-msgid "&About"
-msgstr "ਬਾਰੇ(&A)"
-
-#: ../src/uppmainwindow_base.cpp:120
-msgid "Shows informations about this program"
-msgstr "ਏਸ ਪਰੋਗਰਾਮ ਬਾਰੇ ਜਾਣਕਾਰੀ"
 
 #: ../src/uppmainwindow.cpp:137
 msgid "Usbpicprog rev: "
@@ -638,13 +525,126 @@ msgid "An open source USB pic programmer"
 msgstr "ਇਕ ਖੁਲੇ ਕੋਡ ਵਾਲਾ USB pic ਪਰੋਗਰਾਮਰ"
 
 #: ../src/uppmainwindow.cpp:1326
+#, fuzzy
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "ਜਦ ਬੁਟਲੋਡਰ ਕਨੇਕਟ ਹੋਵੇ ਤਾਂ ਹੋਰ PIC  ਨਹੀਂ ਚੁਣ ਸਕਦੇ!"
+
 #: ../src/uppmainwindow.cpp:1356
 msgid "Cannot select a PIC different when the bootloader is connected!"
 msgstr "ਜਦ ਬੁਟਲੋਡਰ ਕਨੇਕਟ ਹੋਵੇ ਤਾਂ ਹੋਰ PIC  ਨਹੀਂ ਚੁਣ ਸਕਦੇ!"
 
-#: ../src/uppmainwindow_base.h:75
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
+#: ../src/uppmainwindow_base.cpp:23
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
+
+#: ../src/uppmainwindow_base.cpp:38
+msgid "Hexadecimal view of the configuration fuses of the PIC:"
+msgstr "PIC ਦੇ ਕਨਫਿਗਰੇਸ਼ਨ ਫਿਉਜ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
+
+#: ../src/uppmainwindow_base.cpp:48
+msgid "Configuration flags"
+msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
+
+#: ../src/uppmainwindow_base.cpp:53
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr "PIC ਦੇ ਡਾਟਾ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "&New"
+msgstr "ਨਵਾਂ(&N)"
+
+#: ../src/uppmainwindow_base.cpp:72
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "ਖੁਲੀ ਹੋਈ ਹੈਕਸ ਫਾਇਲ ਦੇ ਕੋਡ, ਡਾਟਾ ਤੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਰਿਸੈਟ ਕਰੋ"
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "&Open"
+msgstr "ਖੋਲੋ(&O)"
+
+#: ../src/uppmainwindow_base.cpp:76
+msgid "Loads an HEX file for editing or programming..."
+msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਸੋਧ ਜਾਂ ਪਰੋਗਰਾਮਿਗਂ ਲਈ ਲੋਡ ਕਰਦਾ ਹੈ..."
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "&Reload"
+msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ(&R)"
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "Reloads the current HEX file from disk"
+msgstr "ਇਸ  HEX ਫਾਇਲ ਨੂੰ ਡਿਸਕ ਤੋਂ ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "&Save"
+msgstr "ਸੰਭਾਲੋ(&S)"
+
+#: ../src/uppmainwindow_base.cpp:84
+msgid "Saves the HEX file with the modified data"
+msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਬਦਲੇ ਹੋਏ ਡਾਟਾ ਨਾਲ ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Save &As"
+msgstr "ਇੰਜ ਸੰਭਾਲੋ(&A)..."
+
+#: ../src/uppmainwindow_base.cpp:88
+msgid "Saves current code,config,data as a HEX file"
+msgstr "ਹੁਣ ਦੇ ਕੋਡ, ਸੈਟਿਂਗ, ਡਾਟਾ ਨੂੰ ਹੈਕਸ ਫਾਇਲ 'ਚ ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:92
+msgid "E&xit"
+msgstr "ਨਿਕਲੋ(&x)"
+
+#: ../src/uppmainwindow_base.cpp:92
+msgid "Exits the program"
+msgstr "ਪਰੋਗਰਾਮ ਤੋਂ ਨਿਕਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:95
+msgid "&File"
+msgstr "ਫਾਇਲ(&F)"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "&Copy"
+msgstr "ਨਕਲ(&C)"
+
+#: ../src/uppmainwindow_base.cpp:99
+msgid "Copies to the clipboard currently selected cells"
+msgstr "ਕਲਿਪਬੋਰਡ ਨੂੰ ਛੁਣੇ ਹੋਏ ਸੈਲਾਂ ਦੀ ਨਕਲ ਕਰੋ"
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Select &All"
+msgstr "ਸਾਰੇ ਚੁਣੋ(&A)"
+
+#: ../src/uppmainwindow_base.cpp:103
+msgid "Selects the entire grid currently shown"
+msgstr "ਹੁਣ ਵਿਖਾਇਆ ਜਾ ਰਿਹਾ ਸਾਰਾ ਗਰਿਡ ਚੁਣੋ"
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "&Preferences"
+msgstr "ਸੈਟਿਂਗ(&P)"
+
+#: ../src/uppmainwindow_base.cpp:107
+msgid "Shows the options for this program"
+msgstr "ਇਸ ਪਰੋਗਰਾਮ ਦੀ ਆਪਸ਼ਨ ਵਿਖਾਓ"
+
+#: ../src/uppmainwindow_base.cpp:110
+msgid "&Edit"
+msgstr "ਸੋਧ(&E)"
+
+#: ../src/uppmainwindow_base.cpp:114
+#: ../src/uppmainwindow_base.cpp:123
+msgid "&Help"
+msgstr "ਮਦਦ(&H)"
+
+#: ../src/uppmainwindow_base.cpp:114
+msgid "Opens the Usbpicprog's website..."
+msgstr "Usbpicprog's ਦੀ ਵੈਬਸਾਇਟ ਖੋਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:120
+msgid "&About"
+msgstr "ਬਾਰੇ(&A)"
+
+#: ../src/uppmainwindow_base.cpp:120
+msgid "Shows informations about this program"
+msgstr "ਏਸ ਪਰੋਗਰਾਮ ਬਾਰੇ ਜਾਣਕਾਰੀ"
 
 #: ../src/main.h:86
 #: ../src/main.h:102
@@ -725,4 +725,8 @@ msgstr "ਫਾਇਲ"
 #: ../src/main.h:111
 msgid "hexfile"
 msgstr "ਹੈਕਸਫਾਇਲ"
+
+#: ../src/uppmainwindow_base.h:75
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
 
