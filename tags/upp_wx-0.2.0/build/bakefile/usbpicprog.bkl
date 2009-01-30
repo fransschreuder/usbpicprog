@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!-- $Id$ -->
+
+<makefile>
+
+    <set var="WX_VERSION_DEFAULT">29</set>
+    <include file="presets/wx.bkl"/>
+    
+    <set-srcdir>../..</set-srcdir>
+    <set-wxlike-builddir/>
+    
+    
+    <!-- this option allows to specify the libUSB installation folder -->
+    <set var="LIBUSB_DIR_DEFAULT">$(DOLLAR)(LIBUSB)</set>
+    <option name="LIBUSB_DIR" category="path" never_empty="1">
+        <default-value>$(LIBUSB_DIR_DEFAULT)</default-value>
+        <description>
+            The directory where libusb library is installed
+        </description>
+    </option>
+        
+        
+    <exe id="upp_wx" template="wxgui,wxlike">
+        <sources>$(fileList('src/*.cpp'))</sources>
+        <headers>$(fileList('src/*.h'))</headers>
+        
+        <include>$(SRCDIR)/src</include>
+        <include>$(LIBUSB_DIR)/src</include>
+
+        <lib-path>$(LIBUSB_DIR)/lib/msvc</lib-path>
+        <sys-lib>libusb</sys-lib>
+        <wx-lib>adv</wx-lib>
+        <wx-lib>core</wx-lib>
+        <wx-lib>base</wx-lib>
+    </exe>
+
+</makefile>

@@ -1,0 +1,13 @@
+Package: usbpicprog
+Version: 0.2.0
+Section: devel
+Priority: optional
+Architecture: all
+Depends: libusb-0.1-4 (>= 0.1.12)
+Suggests: piklab
+Conflicts: 
+Provides: 
+Installed-Size: 6041
+Maintainer: Frans Schreuder <fransschreuder@users.sourceforge.net>
+Description: Usbpicprog - An open source USB pic programmer
+	usbpicprog.sourceforge.net
