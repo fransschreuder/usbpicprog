@@ -130,8 +130,6 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     value[2] = (wxStringCharType)'\0';
 #else
     wxString value;
-    //wxChar value[3];
-    //value[2] = wxT('\0');
 #endif
 
     for(unsigned int i=0;i<data->size();i++)
@@ -246,7 +244,7 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
         }
 
         // inform the parent that something was modified
-        GetParent()->ProcessEvent(event);
+        GetParent()->GetEventHandler()->ProcessEvent(event);
     }
 
     SetCellValue(event.GetRow(),event.GetCol(),CellData);
