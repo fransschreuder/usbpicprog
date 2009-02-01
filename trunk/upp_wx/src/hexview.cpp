@@ -45,6 +45,9 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     //       row is always _required_
 
     CreateGrid( 1, 24 );
+#if wxCHECK_VERSION(2,9,0)
+    SetUseNativeColLabels( true );      // makes the control look more native
+#endif
     EnableEditing( true );
     EnableGridLines( false );
     EnableDragGridSize( false );
