@@ -127,8 +127,13 @@ protected:      // internal thread-related functions
 
     // functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
+#if wxCHECK_VERSION(2,9,0)
+    void OnThreadUpdate(wxThreadEvent& evt);
+    void OnThreadCompleted(wxThreadEvent& evt);
+#else
     void OnThreadUpdate(wxCommandEvent& evt);
     void OnThreadCompleted(wxCommandEvent& evt);
+#endif
 
 public:     // event handlers
 

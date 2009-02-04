@@ -37,7 +37,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 {
     struct usb_bus *bus=NULL;
     struct usb_device *dev=NULL;
-	m_abortOperations=false;
+    m_abortOperations=false;
     m_handle=NULL;
     m_pCallBack=CB;
 
@@ -258,7 +258,7 @@ int Hardware::bulkErase(PicType* picType)
     {
         if (m_hwCurrent == HW_UPP)
         {
-			if(m_abortOperations)return OPERATION_ABORTED;
+            if(m_abortOperations)return OPERATION_ABORTED;
             msg[0]=CMD_ERASE;
             if(writeString(msg,1)<0)
             {
@@ -285,7 +285,7 @@ int Hardware::bulkErase(PicType* picType)
             delete hf;
             for (int address=0x800; address<picType->getCurrentPic().CodeSize; address+=64)
             {
-				if(m_abortOperations)return OPERATION_ABORTED;
+                if(m_abortOperations)return OPERATION_ABORTED;
                 BootloaderPackage bootloaderPackage;
                 bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
                 bootloaderPackage.fields.size=1; //only one block of 64 bytes supported by bootloader
@@ -314,7 +314,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
     char dataBlock[BLOCKSIZE_CODE];
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;
+    if(m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     statusCallBack (0);
@@ -327,7 +327,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if((picType->getCurrentPic().CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
             if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
             if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
@@ -349,7 +349,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
                     //return -1;
                 }
             }
-			if(m_abortOperations)break;
+            if(m_abortOperations)break;
             /*if (dataBlock[BLOCKSIZE_HW-1] == 0)
             {
                 blockcounter-=BLOCKSIZE_HW-1;
@@ -367,7 +367,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
     int BLOCKSIZE_HW;
     unsigned char dataBlock[BLOCKSIZE_CODE];
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;
+    if(m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     if (m_handle != NULL)
@@ -391,7 +391,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
             if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
             nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
@@ -402,7 +402,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
                 if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
                 if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
             }
-			if(m_abortOperations)break;
+            if(m_abortOperations)break;
         }
     }
     else return -5;
@@ -416,13 +416,13 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     nBytes=-1;
     vector<int> mem;
     mem.resize(picType->getCurrentPic().DataSize);
-	int BLOCKSIZE_HW;
-	if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    int BLOCKSIZE_HW;
+    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
- 
+
     char dataBlock[BLOCKSIZE_HW];
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;
+    if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement readData for bootloader
     if(picType->getCurrentPic().DataSize==0)return 0;//no data to read
@@ -434,7 +434,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if((picType->getCurrentPic().DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
             else blocksize=picType->getCurrentPic().DataSize-blockcounter;
 
@@ -451,7 +451,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     //				return -1;
                 }
             }
-			if(m_abortOperations)break;
+            if(m_abortOperations)break;
         }
         hexData->putDataMemory(mem);
     }
@@ -464,13 +464,13 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
 int Hardware::writeData(HexFile *hexData,PicType *picType)
 {
     int nBytes;
-	int BLOCKSIZE_HW;
-	if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
+    int BLOCKSIZE_HW;
+    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
- 
+
     unsigned char dataBlock[BLOCKSIZE_HW];
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;
+    if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     //if (m_hwCurrent == HW_BOOTLOADER)return 0; //TODO implement writeData for bootloader
     if (m_handle != NULL)
@@ -494,15 +494,15 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;			
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_HW,blocktype);
-			if (m_hwCurrent == HW_UPP)
+            if (m_hwCurrent == HW_UPP)
             {
-		        if(nBytes==3) return -3;	//something not implemented in firmware :(
-		        if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
-		        if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
-				if(m_abortOperations)break;
-			}
+                if(nBytes==3) return -3;	//something not implemented in firmware :(
+                if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
+                if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
+                if(m_abortOperations)break;
+            }
         }
     }
     else return -4;
@@ -519,8 +519,8 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     mem.resize(picType->getCurrentPic().ConfigSize);
     char dataBlock[BLOCKSIZE_CONFIG];
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;	
-	statusCallBack (0);
+    if(m_abortOperations)return OPERATION_ABORTED;
+    statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; //Better write no configuration words in bootloader, it's unsafe, you might destroy the bootloader
     if (m_handle != NULL)
     {
@@ -530,7 +530,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;			
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
             if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
             if(picType->getCurrentPic().ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
@@ -549,7 +549,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
 //					return -1;
                 }
             }
-			if(m_abortOperations)break;
+            if(m_abortOperations)break;
         }
 /*		for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
             mem[i]&=picType->getCurrentPic().ConfigMask[i];*/
@@ -566,13 +566,13 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
     unsigned char dataBlock[BLOCKSIZE_CONFIG];
     int blocksize;
     int blocktype;
-	if(m_abortOperations)return OPERATION_ABORTED;	
+    if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     /*if (m_hwCurrent == HW_BOOTLOADER)
-	{
-		statusCallBack(100);
-		return 0; //It's not smart to write config bits in the bootloader
-	}*/
+    {
+        statusCallBack(100);
+        return 0; //It's not smart to write config bits in the bootloader
+    }*/
     if (m_handle != NULL)
     {
         nBytes=0;
@@ -596,14 +596,14 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
             if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-			if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
             if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
             nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
             if(nBytes==3) return -3;	//something not implemented in firmware :(
             if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block
             if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	//should say OK
-			if(m_abortOperations)break;
+            if(m_abortOperations)break;
         }
     }
     else return -4;
@@ -944,7 +944,7 @@ int Hardware::readConfigBlock(char * msg, int address, int size, int lastblock)
                 delete [] tmpmsg;
                 return nBytes;
             }
-			delete [] tmpmsg;
+            delete [] tmpmsg;
 
             memcpy(msg,tmpmsg+5,nBytes);
             //delete [] tmpmsg;
@@ -1006,7 +1006,7 @@ int Hardware::readCodeBlock(char * msg,int address,int size,int lastblock)
             nBytes = readString(tmpmsg,size+5) - 5;
 
             memcpy(msg,tmpmsg+5,nBytes);
-			delete [] tmpmsg;
+            delete [] tmpmsg;
         }
 
         if (nBytes < 0 )
@@ -1081,10 +1081,10 @@ int Hardware::writeConfigBlock(unsigned char * msg,int address,int size,int last
     char resp_msg[64];
     UppPackage uppPackage;
     if (m_hwCurrent == HW_BOOTLOADER)
-	{
-		if((lastblock&BLOCKTYPE_LAST)==BLOCKTYPE_LAST)return 1;//say OK, but do nothing... we don't want to write config bits
-		else return 2; //do nothing, but ask for the next block ask for the next block
-	}
+    {
+        if((lastblock&BLOCKTYPE_LAST)==BLOCKTYPE_LAST)return 1;//say OK, but do nothing... we don't want to write config bits
+        else return 2; //do nothing, but ask for the next block ask for the next block
+    }
     if (m_handle != NULL)
     {
         uppPackage.fields.cmd=CMD_WRITE_CONFIG;
@@ -1161,7 +1161,7 @@ int Hardware::readDataBlock(char * msg,int address,int size,int lastblock)
             nBytes = readString(tmpmsg,size+5) - 5;
 
             memcpy(msg,tmpmsg+5,nBytes);
-			delete [] tmpmsg;
+            delete [] tmpmsg;
         }
 
         if (nBytes < 0 )
@@ -1231,11 +1231,11 @@ void Hardware::statusCallBack(int value) const
 
 void Hardware::abortOperations(bool abort)
 {
-	m_abortOperations=abort;
+    m_abortOperations=abort;
 }
 
 bool Hardware::operationsAborted()
 {
-	return m_abortOperations;
+    return m_abortOperations;
 }
 

@@ -63,10 +63,16 @@ wxString wxGetPicName(PicType* pt)
     return wxString::FromAscii(pt->getCurrentPic().Name.c_str());
 }
 
+#if wxCHECK_VERSION(2,9,0)
+wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEvent )
+wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEvent )
+#else
 extern const wxEventType wxEVT_COMMAND_THREAD_UPDATE;
 extern const wxEventType wxEVT_COMMAND_THREAD_COMPLETE;
 DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_UPDATE)
 DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE)
+#endif
+
 
 
 
@@ -77,8 +83,8 @@ DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE)
 /*Do the basic initialization of the main window*/
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
-                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
-      m_history(4), m_picType(0)
+                        wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
+    m_history(4), m_picType(0)
 {
     // load settings
     m_pConfig=new wxConfig(wxT("usbpicprog"));
@@ -169,8 +175,8 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 void UppMainWindow::CompleteGUICreation()
 {
 #ifdef __WXMSW__
-	// make the border around the wxNotebook to have the same background colour of the notebook bg colour
-	SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVEBORDER));
+    // make the border around the wxNotebook to have the same background colour of the notebook bg colour
+    SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVEBORDER));
 #endif
 
     // create the actions menu with rescaled icons
@@ -178,7 +184,7 @@ void UppMainWindow::CompleteGUICreation()
 
     wxMenuItem* pMenuProgram;
     pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
-                                   _("Program the PIC device"), wxITEM_NORMAL );
+                                _("Program the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuRead;
     pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
@@ -186,27 +192,27 @@ void UppMainWindow::CompleteGUICreation()
 
     wxMenuItem* pMenuVerify;
     pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
-                                  _("Verify the PIC device"), wxITEM_NORMAL );
+                                _("Verify the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
-                                 _("Erase the PIC device"), wxITEM_NORMAL );
+                                _("Erase the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
-                                      _("Blankcheck the PIC device"), wxITEM_NORMAL );
+                                    _("Blankcheck the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
-                                      _("Detect the type of the PIC device"), wxITEM_NORMAL );
+                                    _("Detect the type of the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuConnect;
     pMenuConnect = new wxMenuItem( pMenuActions, wxID_CONNECT, wxString( _("&Connect...") ),
-                                      _("Connect to the programmer"), wxITEM_NORMAL );
+                                    _("Connect to the programmer"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuDisconnect;
     pMenuDisconnect = new wxMenuItem( pMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect...") ),
-                                      _("Disconnect from the programmer"), wxITEM_NORMAL );
+                                    _("Disconnect from the programmer"), wxITEM_NORMAL );
 
     wxMenu* pMenuSelectPIC;
     pMenuSelectPIC = new wxMenu( 0 );       // this is a menu with submenus
@@ -237,7 +243,7 @@ void UppMainWindow::CompleteGUICreation()
     pMenuActions->Append( pMenuDisconnect );
     pMenuActions->AppendSeparator();
     pMenuActions->AppendSubMenu( pMenuSelectPIC, wxString( _("&Select PIC...") ),
-                                 _("Change the currently selected PIC") );
+                                _("Change the currently selected PIC") );
 
     // create a menu-item for each PIC
     map<string,wxMenu*> menus;
@@ -284,7 +290,7 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 
     this->Connect( wxID_PIC_CHOICE_MENU, wxID_PIC_CHOICE_MENU+m_arrPICName.size(),
-                   wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_pic_choice_changed_bymenu ) );
+                wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_pic_choice_changed_bymenu ) );
 
     // create the most-recently-used section in File menu
     m_history.UseMenu(m_pMenuFile);
@@ -296,36 +302,36 @@ void UppMainWindow::CompleteGUICreation()
     // we can't let wxFormBuilder do it because it does not support wxArtProvider's usage
     wxToolBar* toolbar = this->CreateToolBar( wxTB_DOCKABLE|wxTB_HORIZONTAL, wxID_ANY );
 
-	wxSize sz = toolbar->GetToolBitmapSize();
+    wxSize sz = toolbar->GetToolBitmapSize();
     toolbar->AddTool( wxID_NEW, _("new"), wxArtProvider::GetBitmap(wxART_NEW,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("new"),
-                      GetMenuBar()->FindItem(wxID_NEW)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_NEW)->GetHelp() );
     toolbar->AddTool( wxID_OPEN, _("open"), wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("open"),
-                      GetMenuBar()->FindItem(wxID_OPEN)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_OPEN)->GetHelp() );
     toolbar->AddTool( wxID_REFRESH, _("reload"), wxIcon(refresh_xpm), wxNullBitmap, wxITEM_NORMAL, _("reload"),
-                      GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_REFRESH)->GetHelp() );
     toolbar->AddTool( wxID_SAVE, _("save"), wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("save"),
-                      GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_SAVE)->GetHelp() );
     toolbar->AddTool( wxID_SAVEAS, _("save as"), wxArtProvider::GetBitmap(wxART_FILE_SAVE_AS,wxART_TOOLBAR,sz), wxNullBitmap, wxITEM_NORMAL, _("save as"),
-                      GetMenuBar()->FindItem(wxID_SAVEAS)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_SAVEAS)->GetHelp() );
     toolbar->AddSeparator();
     toolbar->AddTool( wxID_PROGRAM, _("program"), wxIcon( program_xpm ), wxNullBitmap, wxITEM_NORMAL, _("program"),
-                      GetMenuBar()->FindItem(wxID_PROGRAM)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_PROGRAM)->GetHelp() );
     toolbar->AddTool( wxID_READ, _("read"), wxIcon( read_xpm ), wxNullBitmap, wxITEM_NORMAL, _("read"),
-                      GetMenuBar()->FindItem(wxID_READ)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_READ)->GetHelp() );
     toolbar->AddTool( wxID_VERIFY, _("verify"), wxIcon( verify_xpm ), wxNullBitmap, wxITEM_NORMAL, _("verify"),
-                      GetMenuBar()->FindItem(wxID_VERIFY)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_VERIFY)->GetHelp() );
     toolbar->AddTool( wxID_ERASE, _("erase"), wxIcon( erase_xpm ), wxNullBitmap, wxITEM_NORMAL, _("erase"),
-                      GetMenuBar()->FindItem(wxID_ERASE)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_ERASE)->GetHelp() );
     toolbar->AddTool( wxID_BLANKCHECK, _("blankcheck"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("blankcheck"),
-                      GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
     toolbar->AddTool( wxID_AUTODETECT, _("autodetect"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("autodetect"),
-                      GetMenuBar()->FindItem(wxID_AUTODETECT)->GetHelp() );
+                    GetMenuBar()->FindItem(wxID_AUTODETECT)->GetHelp() );
     toolbar->AddSeparator();
 
     m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE_COMBO, wxDefaultPosition, wxSize(120,-1));
     m_pPICChoice->SetToolTip(_("currently selected PIC type"));
     this->Connect( wxID_PIC_CHOICE_COMBO, wxEVT_COMMAND_CHOICE_SELECTED,
-                   wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
+                wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
 
     toolbar->AddControl( m_pPICChoice );
     toolbar->Realize();
@@ -347,8 +353,13 @@ void UppMainWindow::CompleteGUICreation()
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
     this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
+#if wxCHECK_VERSION(2,9,0)
+    this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
+    this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
+#else
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxCommandEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxCommandEventHandler( UppMainWindow::OnThreadCompleted ) );
+#endif
 
     // set default title name
     UpdateTitle();
@@ -449,15 +460,22 @@ void UppMainWindow::updateProgress(int value)
     // the following line will result in a call to UppMainWindow::OnThreadUpdate()
     // in the primary thread context
 #if wxCHECK_VERSION(2,9,0)
-    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_UPDATE, value));
+    wxThreadEvent* ev = new wxThreadEvent(wxEVT_COMMAND_THREAD_UPDATE);
+    ev->SetInt(value);
+    wxQueueEvent(this, ev);
 #else
-    wxCommandEvent ev(wxEVT_COMMAND_THREAD_UPDATE, value);
+    wxCommandEvent ev(wxEVT_COMMAND_THREAD_UPDATE);
+    ev.SetInt(value);
     wxPostEvent(this, ev);
 #endif
 }
 
 /*Update from the secondary thread */
+#if wxCHECK_VERSION(2,9,0)
+void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
+#else
 void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
+#endif
 {
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
@@ -465,28 +483,37 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     if (m_dlgProgress)
     {
         wxCriticalSectionLocker lock(m_arrLogCS);
-		if(!
+
+        bool continueOperation =
 #if wxCHECK_VERSION(2,9,0)
-        m_dlgProgress->Update(evt.GetId(),
-                              _("Please wait until the operations are completed:\n") +
-                              wxJoin(m_arrLog, '\n'))
+            m_dlgProgress->Update(evt.GetInt(),
+                                _("Please wait until the operations are completed:\n") +
+                                wxJoin(m_arrLog, '\n'));
 #else
-        m_dlgProgress->Update(evt.GetId())
+            m_dlgProgress->Update(evt.GetInt());
 #endif
-		   &&(!m_hardware->operationsAborted()))
-		{
-			m_hardware->abortOperations(true);
-			LogFromThread(wxLOG_Warning, _("Operations aborted"));
-		}
+        if (!continueOperation &&               // user clicked "abort"?
+            !m_hardware->operationsAborted())   // is the hardware already aborting?
+        {
+            m_hardware->abortOperations(true);
+            LogFromThread(wxLOG_Warning, _("Operations aborted"));
+        }
     }
 }
 
 /*The secondary thread just finished*/
+#if wxCHECK_VERSION(2,9,0)
+void UppMainWindow::OnThreadCompleted(wxThreadEvent& evt)
+#else
 void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
+#endif
 {
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
-	m_hardware->abortOperations(false);
+
+    // reset abort flag:
+    m_hardware->abortOperations(false);
+
     if (m_dlgProgress)
     {
         m_dlgProgress->Destroy();
@@ -508,13 +535,13 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
     m_arrLogTimes.clear();
 
     SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
-	if(m_cfg.ConfigShowPopups)
-	{
-		if (success)
-		    wxLogMessage(_("All operations completed"));
-		else
-		    wxLogWarning(_("Operations completed with errors/warnings"));
-	}
+    if(m_cfg.ConfigShowPopups)
+    {
+        if (success)
+            wxLogMessage(_("All operations completed"));
+        else
+            wxLogWarning(_("Operations completed with errors/warnings"));
+    }
     // some of the operations performed by the secondary thread
     // require updating the title or the grids:
     switch (m_mode)
@@ -562,14 +589,24 @@ wxThread::ExitCode UppMainWindow::Entry()
         wxFAIL;
     }
 
-	wxThread::Sleep(200); //work around for a bug in wxWidgets causing a segmentation fault
-	
-	// signal the main thread we've completed our task; this will result
+#if !wxCHECK_VERSION(2,9,0)
+    // NOTE: since wx2.9.0 thanks to the selective Yield() behaviour,
+    //       we are sure that the order of the wxEVT_COMMAND_THREAD_UPDATE
+    //       and wxEVT_COMMAND_THREAD_COMPLETE events will be respected.
+    //       I.e. the "update" one will always be processed before the "complete" one.
+    //       Previous wx2.9 this was not granted since wxProgressDialog::Update
+    //       called wxYieldIfNeeded(), thus we use a Sleep(500) to (try to)
+    //       ensure that "complete" will be processed after the "update" event.
+    //       See ticket #10320 in wxWidgets for more info.
+    wxThread::Sleep(500);
+#endif
+
+    // signal the main thread we've completed our task; this will result
     // in a call to UppMainWindow::OnThreadCompleted done in the primary
     // thread context:
 
 #if wxCHECK_VERSION(2,9,0)
-    wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_THREAD_COMPLETE));
+    wxQueueEvent(this, new wxThreadEvent(wxEVT_COMMAND_THREAD_COMPLETE));
 #else
     wxCommandEvent ev(wxEVT_COMMAND_THREAD_COMPLETE);
     wxPostEvent(this, ev);
@@ -605,7 +642,7 @@ bool UppMainWindow::upp_thread_program()
             break;
         default:
             LogFromThread(wxLOG_Error, _("Error erasing the device"));
-			return false;
+            return false;
         }
     }
     if (GetThread()->TestDestroy())
@@ -621,22 +658,22 @@ bool UppMainWindow::upp_thread_program()
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
-			return false;
+            return false;
         case -2:
             LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
-			return false;
+            return false;
         case -3:
             LogFromThread(wxLOG_Error, _("Write code not implemented for current PIC"));
-			return false;
+            return false;
         case -4:
             LogFromThread(wxLOG_Error, _("Verify error while writing code memory"));
-			return false;
+            return false;
         case -5:
             LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
-			return false;
+            return false;
         default:
             LogFromThread(wxLOG_Error, _("Error programming code memory"));
-			return false;
+            return false;
         }
     }
     if (GetThread()->TestDestroy())
@@ -653,19 +690,19 @@ bool UppMainWindow::upp_thread_program()
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
-			return false;
+            return false;
         case -2:
             LogFromThread(wxLOG_Error, _("The hardware should ask for next block"));
-			return false;
+            return false;
         case -3:
             LogFromThread(wxLOG_Error, _("Write data not implemented for current PIC"));
-			return false;
+            return false;
         case -4:
             LogFromThread(wxLOG_Error, _("USB error while writing code memory"));
-			return false;
+            return false;
         default:
             LogFromThread(wxLOG_Error, _("Error programming data memory"));
-			return false;
+            return false;
         }
     }
 
@@ -714,8 +751,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
-	    m_hexFile.trimData(&m_picType);		
-		return false;
+        m_hexFile.trimData(&m_picType);
+        return false;
     }
 
     if (GetThread()->TestDestroy())
@@ -725,8 +762,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readData(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading data memory"));
-	    m_hexFile.trimData(&m_picType);		
-		return false;
+        m_hexFile.trimData(&m_picType);
+        return false;
     }
 
     if (GetThread()->TestDestroy())
@@ -736,8 +773,8 @@ bool UppMainWindow::upp_thread_read()
     if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
-	    m_hexFile.trimData(&m_picType);
-		return false;
+        m_hexFile.trimData(&m_picType);
+        return false;
     }
 
     m_hexFile.trimData(&m_picType);
@@ -757,7 +794,7 @@ bool UppMainWindow::upp_thread_verify()
     wxString typeText;
     VerifyResult res=
         m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
-                         m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
+                        m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -873,7 +910,7 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
                         wxPD_APP_MODAL |
                         wxPD_ELAPSED_TIME |
                         wxPD_ESTIMATED_TIME |
-                        wxPD_REMAINING_TIME 
+                        wxPD_REMAINING_TIME
                     );
 
     // inform the thread about which operation it must perform;
@@ -931,7 +968,7 @@ void UppMainWindow::upp_open()
 
     wxFileDialog* openFileDialog =
         new wxFileDialog( this, _("Open hexfile"), m_defaultPath, wxT(""),
-                          FILETYPES, wxFD_OPEN, wxDefaultPosition);
+                        FILETYPES, wxFD_OPEN, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
     {
@@ -1007,7 +1044,7 @@ void UppMainWindow::upp_save_as()
 {
     wxFileDialog* openFileDialog =
         new wxFileDialog( this, _("Save hexfile"), m_defaultPath, wxT(""),
-                          FILETYPES, wxFD_SAVE, wxDefaultPosition);
+                        FILETYPES, wxFD_SAVE, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
     {
@@ -1158,8 +1195,8 @@ bool UppMainWindow::upp_autodetect()
     {
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
         if(m_cfg.ConfigShowPopups)
-                	wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
-                     picName.Mid(1).c_str());
+                    wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
+                    picName.Mid(1).c_str());
     }
     else
     {
@@ -1167,7 +1204,7 @@ bool UppMainWindow::upp_autodetect()
                                         picName.Mid(1).c_str(), devId);
         SetStatusText(msg,STATUS_FIELD_HARDWARE);
         if(m_cfg.ConfigShowPopups)
-        	wxLogMessage(msg);
+            wxLogMessage(msg);
     }
 
     Reset();
@@ -1190,13 +1227,13 @@ bool UppMainWindow::upp_connect()
         if(m_hardware->getFirmwareVersion(msg)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
-           	wxLogMessage(_("Unable to read firmware version"));
+            wxLogMessage(_("Unable to read firmware version"));
         }
         else
         {
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-   			if(m_cfg.ConfigShowPopups)
-	            wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+            if(m_cfg.ConfigShowPopups)
+                wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
         }
     }
     else
@@ -1220,7 +1257,7 @@ bool UppMainWindow::upp_connect()
             {
                 SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
                 if(m_cfg.ConfigShowPopups)
-                	wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+                    wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
             }
         }
         else

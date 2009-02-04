@@ -146,7 +146,7 @@ public:
     enum EndpointMode { Bulk = 0, Interrupt, Control, Isochronous, Nb_EndpointModes };
 
 /* The CB pointer links with the parent UppMainWindow which is used for updating the progress bar.
-   If initiated with no argument, progress is not updated*/
+If initiated with no argument, progress is not updated*/
     Hardware(UppMainWindow* CB=NULL, HardwareType SetHardware=HW_UPP);
     ~Hardware();
 
@@ -192,8 +192,8 @@ public:
 This function can be called with abort=true to make all time-consuming functions abort,
 call it with false to reset the abortion
 */
-	void abortOperations(bool abort);
-	bool operationsAborted();
+    void abortOperations(bool abort);
+    bool operationsAborted();
 
 private:
     void tryToDetachDriver(void);
@@ -235,7 +235,7 @@ private:
     HardwareType m_hwCurrent;
 
 /*if this bool becomes true, all operations will be aborted*/
-	bool m_abortOperations;
+    bool m_abortOperations;
 };
 
 #endif //HARDWARE_H
