@@ -45,8 +45,6 @@ public:
     virtual bool OnInit();
 /*Called by WxWidgets to clean up some stuff when the program exits*/
     virtual int OnExit();
-/*The "main" loop start here, but wxApp::OnRun calls OnInit and OnInitCmdLine*/
-    virtual int OnRun();
 /*Initialization function if command line is being used*/
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
 /*After command line is being processed, this function is being called
@@ -61,6 +59,8 @@ private:        // command-line mode stuff (not used in GUI mode)
 
 /*the main() of the command line application*/
     bool CmdLineMain(wxCmdLineParser& parser);
+/*did we start as a console-only app?*/
+    bool m_console;
 /*silent_mode is true if -s switch is passed in command line*/
     bool silent_mode;
 /*class to read, write, print and store the hex file*/
