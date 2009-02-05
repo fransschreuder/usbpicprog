@@ -60,9 +60,9 @@ bool UsbPicProg::OnInit()
 /*Called by WxWidgets to clean up some stuff when the program exits*/
 int UsbPicProg::OnExit()
 {
-    if (hexFile != NULL) delete hexFile;
-    if (picType != NULL) delete picType;
-    if (hardware != NULL) delete hardware;
+    if (m_hexFile != NULL) delete m_hexFile;
+    if (m_picType != NULL) delete m_picType;
+    if (m_hardware != NULL) delete m_hardware;
     delete m_locale;
 
     return wxApp::OnExit();
@@ -80,9 +80,9 @@ by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-    hexFile = NULL;
-    picType = NULL;
-    hardware = NULL;
+    m_hexFile = NULL;
+    m_picType = NULL;
+    m_hardware = NULL;
 #ifdef __WXMSW__
     wxLocale::AddCatalogLookupPathPrefix(_T("po"));
 #endif
@@ -145,33 +145,33 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     }
 
     //command line -s or --silent passed?
-    silent_mode = parser.Found(wxT("s"));
-    hardware=new Hardware();
-    if(!hardware->connected())
+    m_silent_mode = parser.Found(wxT("s"));
+    m_hardware = new Hardware();
+    if(!m_hardware->connected())
     {
         cerr<<"Usbpicprog not found"<<endl;
         exit(-1);
     }
-    wxString picTypeStr;
+    wxString m_picTypeStr;
 
     /* check if -p <str> is passed, else autodetect the device
     */
-    if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
+    if(parser.Found(wxT("p"),&m_picTypeStr))m_picType=new PicType(string(m_picTypeStr.mb_str(wxConvUTF8)));
     else
     {
-        int devId=hardware->autoDetectDevice();
-        picType=new PicType(devId);
-        hardware->setPicType(picType);
+        int devId=m_hardware->autoDetectDevice();
+        m_picType=new PicType(devId);
+        m_hardware->setPicType(m_picType);
         if(devId>0)cout<<"Detected: ";
-        else cerr<<"Detection failed, setting pictype to default: ";
-        cout<<picType->getCurrentPic().Name<<endl;
+        else cerr<<"Detection failed, setting m_picType to default: ";
+        cout<<m_picType->getCurrentPic().Name<<endl;
     }
 
     /* if -e is passed, bulk erase the entire pic*/
     if(parser.Found(wxT("e")))
     {
         cout<<"Bulk erase..."<<endl;
-        if(hardware->bulkErase(picType)<0)cerr<<"Error during erase"<<endl;
+        if(m_hardware->bulkErase(m_picType)<0)cerr<<"Error during erase"<<endl;
     }
 
     /* if -b is passed, check if the device is blank*/
@@ -179,7 +179,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     {
         cout<<"Blankcheck..."<<endl;
         string typeText;
-        VerifyResult res=hardware->blankCheck(picType);
+        VerifyResult res=m_hardware->blankCheck(m_picType);
         switch(res.Result)
         {
             case VERIFY_SUCCESS:
@@ -195,7 +195,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             }
                 fprintf(stderr,"Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                         typeText.c_str(),
-                        res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                        res.Address+((res.DataType==TYPE_CONFIG)+m_picType->getCurrentPic().ConfigAddress),
                         res.Read,
                         res.Expected);
                 cout<<endl;
@@ -212,65 +212,65 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         }
     }
 
-    /* if -w is passed, open the hexfile and write it to the pic */
+    /* if -w is passed, open the m_hexFile and write it to the pic */
     if(parser.Found(wxT("w")))
     {
         cout<<"Write..."<<endl;
         if(!parser.Found(wxT("f"),&filename)){cerr<<"Please specify a filename"<<endl;}
         else
         {
-            hexFile=new HexFile();
-            if(hexFile->open(picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
-            if(!silent_mode)
+            m_hexFile=new HexFile();
+            if(m_hexFile->open(m_picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
+            if(!m_silent_mode)
             {
-                hexFile->print(&output,picType);
+                m_hexFile->print(&output,m_picType);
                 cout<<output<<endl;
             }
-            if(hardware->writeCode(hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
-            if(hardware->writeData(hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
-            if(hardware->writeConfig(hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
-            delete hexFile;
+            if(m_hardware->writeCode(m_hexFile,m_picType)<0)cerr<<"Error writing Code"<<endl;
+            if(m_hardware->writeData(m_hexFile,m_picType)<0)cerr<<"Error writing Data"<<endl;
+            if(m_hardware->writeConfig(m_hexFile,m_picType)<0)cerr<<"Error writing Config"<<endl;
+            delete m_hexFile;
         }
     }
 
-    /* if -r is passed, read it to the pic and save it to the hexfile    */
+    /* if -r is passed, read it to the pic and save it to the m_hexFile    */
     if(parser.Found(wxT("r")))
     {
         cout<<"Read..."<<endl;
         if(!parser.Found(wxT("f"),&filename)){cerr<<"Please specify a filename"<<endl;}
         else
         {
-            hexFile=new HexFile();
-            if(hardware->readCode(hexFile,picType)<0)cerr<<"Error reading Code"<<endl;
-            if(hardware->readData(hexFile,picType)<0)cerr<<"Error reading Data"<<endl;
-            if(hardware->readConfig(hexFile,picType)<0)cerr<<"Error reading Config"<<endl;
-            hexFile->trimData(picType);
-            if(hexFile->saveAs(picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to save file"<<endl;
-            if(!silent_mode)
+            m_hexFile=new HexFile();
+            if(m_hardware->readCode(m_hexFile,m_picType)<0)cerr<<"Error reading Code"<<endl;
+            if(m_hardware->readData(m_hexFile,m_picType)<0)cerr<<"Error reading Data"<<endl;
+            if(m_hardware->readConfig(m_hexFile,m_picType)<0)cerr<<"Error reading Config"<<endl;
+            m_hexFile->trimData(m_picType);
+            if(m_hexFile->saveAs(m_picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to save file"<<endl;
+            if(!m_silent_mode)
             {
-                hexFile->print(&output,picType);
+                m_hexFile->print(&output,m_picType);
                 cout<<output<<endl;
             }
-            delete hexFile;
+            delete m_hexFile;
         }
     }
 
-    /* if -v is passed, open the hexfile, read it and compare the results*/
+    /* if -v is passed, open the m_hexFile, read it and compare the results*/
     if(parser.Found(wxT("v")))
     {
         cout<<"Verify..."<<endl;
         if(parser.GetParamCount()==0){cerr<<"Please specify a filename"<<endl;}
         else
         {
-            hexFile=new HexFile();
-            if(hexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
-            if(!silent_mode)
+            m_hexFile=new HexFile();
+            if(m_hexFile->open(m_picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
+            if(!m_silent_mode)
             {
-                hexFile->print(&output,picType);
+                m_hexFile->print(&output,m_picType);
                 cout<<output<<endl;
             }
             string typeText;
-            VerifyResult res=hardware->verify(hexFile,picType);
+            VerifyResult res=m_hardware->verify(m_hexFile,m_picType);
             switch(res.Result)
             {
                 case VERIFY_SUCCESS:
@@ -286,7 +286,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 }
                     fprintf(stderr,"Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),
-                            res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                            res.Address+((res.DataType==TYPE_CONFIG)+m_picType->getCurrentPic().ConfigAddress),
                             res.Read,
                             res.Expected);
                     cerr<<endl;
@@ -301,7 +301,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                     cerr<<"I'm sorry for being stupid"<<endl;
                     break;
             }
-            delete hexFile;
+            delete m_hexFile;
         }
     }
 

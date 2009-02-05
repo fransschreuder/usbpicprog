@@ -59,16 +59,17 @@ private:        // command-line mode stuff (not used in GUI mode)
 
 /*the main() of the command line application*/
     bool CmdLineMain(wxCmdLineParser& parser);
+
 /*did we start as a console-only app?*/
     bool m_console;
 /*silent_mode is true if -s switch is passed in command line*/
-    bool silent_mode;
+    bool m_silent_mode;
 /*class to read, write, print and store the hex file*/
-    HexFile* hexFile;
+    HexFile* m_hexFile;
 /*class which contains data about supported PIC types and detection by devId*/
-    PicType* picType;
+    PicType* m_picType;
 /*class to open the usb port and communicate with usbpicprog*/
-    Hardware* hardware;
+    Hardware* m_hardware;
 
 private:        // stuff common to both GUI and command-line modes
     wxLocale* m_locale;
