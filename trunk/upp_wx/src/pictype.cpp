@@ -251,7 +251,7 @@ const Pic picTypes[]={
     0x100,		//Datasize
     0x2,		//ConfigSize
     P12F6XX,	//PicFamily
-    0x1340,		//DevId
+    0x1080,		//DevId
     0x3FE0,		//DevIdMask
     {0xFF,0x0F}
 },
