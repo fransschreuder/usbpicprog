@@ -51,7 +51,7 @@ mv usbpicprog-$RELEASE.tar.gz ..
 cd usbpicprog-$RELEASE
 echo creating deb package...
 ./mkdeb.sh
-mv usbpicprog0.2.0.deb ../../usbpicprog-$RELEASE.deb
+mv usbpicprog0.2.1.deb ../../usbpicprog-$RELEASE.deb
 cd ../..
 rm -rf firmware
 rm -rf usbpicprog
