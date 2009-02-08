@@ -19,20 +19,36 @@
 extern long tick;
 extern long lasttick;
 
-void set_vdd_vpp(PICFAMILY picfamily,char level)
+void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 {
     unsigned int i;
     if(level==1)
     {
-		VDD=0; //high, (inverted)
-		lasttick=tick;
-		setLeds(1);
-		while((tick-lasttick)<100)continue;
-		VPP=0; //high, (inverted)
-		setLeds(2);
-		lasttick=tick;
-		while((tick-lasttick)<100)continue;
-		setLeds(3);
+	switch(pictype)
+	{
+		case P12F6XX:
+			VPP=0;
+			break;
+		default:
+			VDD=0; //high, (inverted)
+			break;
+	}
+	lasttick=tick;
+	setLeds(1);
+	while((tick-lasttick)<100)continue;
+	switch(pictype)
+	{
+		case P12F6XX:
+			VDD=0;
+			break;
+		default:
+			VPP=0; //high, (inverted)
+			break;
+	}
+	setLeds(2);
+	lasttick=tick;
+	while((tick-lasttick)<100)continue;
+	setLeds(3);
     }
     else
     {

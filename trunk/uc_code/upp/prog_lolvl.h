@@ -9,7 +9,7 @@
 /**
 Sets or clears the VDD and VPP voltages
 **/
-void set_vdd_vpp(PICFAMILY picfamily, char level);
+void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily, char level);
 
 /**
 sets the address pointer to a certain address location

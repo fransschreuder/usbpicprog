@@ -51,7 +51,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 {
 	unsigned int i;
 	unsigned char temp[2];
-	set_vdd_vpp(picfamily,1);
+	set_vdd_vpp(pictype,picfamily,1);
 	switch(pictype)
 	{
 		case P18FXX39:
@@ -119,9 +119,9 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			break;
 		case P16F87X:
 			read_code(picfamily, pictype, 0x2007, temp, 2, 3); //read the config word to see wether it is code protected or not
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			DelayMs(10);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,1);
 			DelayMs(10);
 			if(((temp[1]&0x31)<0x31)||((temp[0]&0x30)<0x30))
 			{
@@ -166,9 +166,9 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			}
 			pic_send_n_bits(6,0x09); //bulk erase program memory, userid and config memory
 			DelayMs(6);		//wait terase
-			set_vdd_vpp(picfamily,0);//reset
+			set_vdd_vpp(pictype, picfamily,0);//reset
 			DelayMs(10);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,1);
 			DelayMs(10);
 			pic_send_n_bits(6,0x0B); //bulk erase data memory
 			DelayMs(6);		//wait terase
@@ -208,8 +208,8 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send_n_bits(6,0x09); //perform bulk erase of the user memory
 			DelayMs(Tera); //wait Tera for erase to complete
 			/*PGD=0;
-			set_vdd_vpp(picfamily,0);
-			set_vdd_vpp(picfamily,1);    */
+			set_vdd_vpp(pictype, picfamily,0);
+			set_vdd_vpp(pictype, picfamily,1);    */
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			DelayMs(Tera);
@@ -222,13 +222,13 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			osccal=pic_read_14_bits(6,0x04);
 			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
 			bandgap=pic_read_14_bits(6,0x04);
-			set_vdd_vpp(picfamily,0);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,0);
+			set_vdd_vpp(pictype, picfamily,1);
 			pic_send_n_bits(6,0x06);//increment address
 			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
 			DelayMs(10);
-			set_vdd_vpp(picfamily,0);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,0);
+			set_vdd_vpp(pictype, picfamily,1);
 			for(i=0;i<0xFF;i++)pic_send_n_bits(6,0x06);//set PC to FF
 			pic_send_14_bits(6,0x04,osccal);
 			pic_send_n_bits(6,0x08); //begin programming
@@ -247,13 +247,13 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			osccal=pic_read_14_bits(6,0x04);
 			for(i=0;i<5;i++)pic_send_n_bits(6,0x06);//set PC to 0x104
 			bandgap=pic_read_14_bits(6,0x04);
-			set_vdd_vpp(picfamily,0);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,0);
+			set_vdd_vpp(pictype, picfamily,1);
 			pic_send_n_bits(6,0x06);//increment address
 			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
 			DelayMs(10);
-			set_vdd_vpp(picfamily,0);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,0);
+			set_vdd_vpp(pictype, picfamily,1);
 			for(i=0;i<0x1FF;i++)pic_send_n_bits(6,0x06);//set PC to 1FF
 			pic_send_14_bits(6,0x04,osccal);
 			pic_send_n_bits(6,0x08); //begin programming
@@ -268,11 +268,11 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			DelayMs(1);
 		default:
 			PGD=0;
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			return 3;
 			break;
 	}
-	set_vdd_vpp(picfamily,0);
+	set_vdd_vpp(pictype, picfamily,0);
 	return 1; //1 means "OK"
 }
 
@@ -295,7 +295,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 {
 	unsigned int i,payload;
 	char blockcounter;
-	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(pictype)
 	{
 		case P18F2XXX:
@@ -535,7 +535,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			}
 			break;
 		default:
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			return 3;
 			break;
 	}
@@ -544,12 +544,12 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		/*if(pictype==P12F6XX)
 		{
 			DelayMs(1);
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			DelayMs(1);
-			set_vdd_vpp(picfamily,1);
+			set_vdd_vpp(pictype, picfamily,1);
 			DelayMs(1);
 		}*/
-		set_vdd_vpp(picfamily,0);
+		set_vdd_vpp(pictype, picfamily,0);
 		return 1;	//ok
 	}
 	else
@@ -567,7 +567,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 {
 	char blockcounter;
 	char receiveddata;
-	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	if((pictype==P10F200)||(pictype==P10F202))return 3;	//these devices have no data memory.
 	switch(picfamily)
 	{
@@ -641,13 +641,13 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 			}
 			break;
 		default:
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			return 3;     //unknown pic type
 			break;
 	}
 	if(lastblock&2)
 	{
-		set_vdd_vpp(picfamily,0);
+		set_vdd_vpp(pictype, picfamily,0);
 		return 1;	//ok
 	}
 	else
@@ -674,7 +674,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(pictype)
 	{
 		case P18FXX39:
@@ -790,13 +790,13 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 			break;
 			
 		default:
-			set_vdd_vpp(picfamily,0);
+			set_vdd_vpp(pictype, picfamily,0);
 			return 3;
 			break;
 	}
 	if(lastblock&2)
 	{
-		set_vdd_vpp(picfamily,0);
+		set_vdd_vpp(pictype, picfamily,0);
 		return 1;	//ok
 	}
 	else
@@ -814,7 +814,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	unsigned int i;
 	char blockcounter=0;
 	unsigned int payload;
-	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
 		case PIC18:
@@ -866,7 +866,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				*(data+blockcounter)=0;
 			break;
 	}
-	if(lastblock&2)set_vdd_vpp(picfamily,0);
+	if(lastblock&2)set_vdd_vpp(pictype, picfamily,0);
 
 }
 
@@ -881,7 +881,7 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 	unsigned int i;
 	char blockcounter=0;
 	//if(lastblock&1)
-	if(lastblock&1)set_vdd_vpp(picfamily,1);
+	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
 		case PIC18:
@@ -918,7 +918,7 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 			break;
 	}
 	//if(lastblock&2)
-	if(lastblock&2)set_vdd_vpp(picfamily,0);
+	if(lastblock&2)set_vdd_vpp(pictype, picfamily,0);
 }
 
 

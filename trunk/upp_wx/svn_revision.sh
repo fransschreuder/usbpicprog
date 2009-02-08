@@ -15,5 +15,5 @@ if [ -d .svn ]; then
 else
   ( echo '// generated file';
     echo '#define SVN_REVISION "distribution"';
-    echo '#define UPP_VERSION "0.2.0"'; ) > svn_revision.h;
+    echo '#define UPP_VERSION "0.2.1"'; ) > svn_revision.h;
 fi
