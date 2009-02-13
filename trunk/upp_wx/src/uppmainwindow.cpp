@@ -94,10 +94,10 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     if ( m_pConfig->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
     if ( m_pConfig->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
     if ( m_pConfig->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
-    if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=false;}
+    if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=true;}
     if ( m_pConfig->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
     if ( m_pConfig->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
-    if ( m_pConfig->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=true;}
+    if ( m_pConfig->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=false;}
     m_history.Load(*m_pConfig);
 
     // non-GUI init:
