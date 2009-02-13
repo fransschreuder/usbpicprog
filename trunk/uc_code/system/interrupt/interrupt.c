@@ -52,11 +52,18 @@ void high_isr(void) interrupt 2
 	if(PIR1bits.TMR1IF)
 	{
 		tick++;
-		Pump1=!Pump1;
-		Pump2=!Pump1;
+		/*Pump1=!Pump1;
+		Pump2=!Pump1;*/
 		TMR1H=TMR1H_PRESET;
 		TMR1L=TMR1L_PRESET;
 		PIR1bits.TMR1IF=0;
+	}
+	if(INTCONbits.TMR0IF)
+	{
+		Pump1=!Pump1;
+		Pump2=!Pump1;
+		TMR0L=68;//TMR0L_PRESET;
+		INTCONbits.TMR0IF=0;
 	}
 }
 

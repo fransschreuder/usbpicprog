@@ -62,17 +62,26 @@ void UserInit(void)
 	PGC=0;
 	INTCON2bits.RBPU=1; //disable Portb pullup resistors
     timer1Init();
+    timer0Init();
 }//end UserInit
 
 void timer1Init(void)
 {
-	INTCON=0xC0; //global and periferal interrupts enabled
+	INTCON|=0xC0; //global and periferal interrupts enabled
 	PIE1bits.TMR1IE=1;//enable timer1 interrupt
 	PIR1bits.TMR1IF=0;//clear interrupt flag
 	IPR1bits.TMR1IP=1;//high priority interrupt
 	TMR1H=TMR1H_PRESET;
 	TMR1L=TMR1L_PRESET;
 	T1CON=0x01; //timer1 on, prescaler 1;1, internal clock
+}
+
+void timer0Init(void)
+{
+	INTCON|=0xE0; //global, periferal and t0ie bits enabled
+	INTCONbits.TMR0IF=0; //clear interrupt flag
+	TMR0L=68;//TMR0L_PRESET;
+	T0CON=0xC3; //prescaler div by 1:16
 }
 
 void setLeds(char n)

@@ -112,6 +112,10 @@
 #define TMR1H_PRESET ((TMR1_PRESET & 0xFF00)>>8)
 #define TMR1L_PRESET (TMR1_PRESET & 0x00FF)
 
+#define TMR0_PERIOD 250
+//TMR0 has a 1:16 prescaler
+#define TMR0L_PRESET (255-((CLOCK_FREQ*TMR0_PERIOD)/(4*16))
+
 
 //volatile struct __PORTC_LEDS_t __at (0xF82) PORTCleds;
 

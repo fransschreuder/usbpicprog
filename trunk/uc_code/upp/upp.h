@@ -10,6 +10,7 @@
 /** P U B L I C  P R O T O T Y P E S *****************************************/
 void UserInit(void);
 void timer1Init(void);
+void timer0Init(void);
 void ProcessIO(void);
 unsigned char set_pictype(unsigned char* data);
 void setLeds(char n);
