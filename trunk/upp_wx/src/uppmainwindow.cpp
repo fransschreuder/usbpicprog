@@ -93,18 +93,27 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
 {
     SetName(wxT("UppMainWindow"));
 
-    // load settings
+    // load settings from config file or set a default value
     wxConfigBase* pCfg = wxConfig::Get();
     pCfg->SetPath(wxT("/"));
-    if ( pCfg->Read(wxT("m_defaultPath"), &m_defaultPath) ) {}	else {m_defaultPath=wxT("");}
-    if ( pCfg->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode)){} else {m_cfg.ConfigProgramCode=true;}
-    if ( pCfg->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
-    if ( pCfg->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
-    if ( pCfg->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
-    if ( pCfg->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=true;}
-    if ( pCfg->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
-    if ( pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
-    if ( pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=false;}
+    if ( !pCfg->Read(wxT("m_defaultPath"), &m_defaultPath) )
+        m_defaultPath=wxT("");
+    if ( !pCfg->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode))
+        m_cfg.ConfigProgramCode=true;
+    if ( !pCfg->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig))
+        m_cfg.ConfigProgramConfig=true;
+    if ( !pCfg->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData))
+        m_cfg.ConfigProgramData=true;
+    if ( !pCfg->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode))
+        m_cfg.ConfigVerifyCode=true;
+    if ( !pCfg->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig))
+        m_cfg.ConfigVerifyConfig=true;
+    if ( !pCfg->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData))
+        m_cfg.ConfigVerifyData=true;
+    if ( !pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming))
+        m_cfg.ConfigEraseBeforeProgramming=true;
+    if ( !pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
+        m_cfg.ConfigShowPopups=false;
     m_history.Load(*pCfg);
 
     // non-GUI init:
@@ -115,16 +124,20 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     // GUI init:
     CompleteGUICreation();    // also loads the saved pos&size of this frame
 
+    // find the hardware connected to the PC, if any:
     upp_connect();
 
 #if wxCHECK_VERSION(2,9,0)
-    // if upp_connect() didn't find a PIC device, load the last-chosen PIC
-    if (!m_hardware->connected())
+    // if upp_connect() didn't find a PIC device, load the last chosen PIC
+    int lastPic;
+    if (!m_hardware->connected() &&
+        pCfg->Read(wxT("SelectedPIC"), &lastPic) &&
+        lastPic >= 0 && lastPic < m_arrPICName.size())
     {
-        m_picType=PicType(m_arrPICName[id]);
+        m_picType=PicType(m_arrPICName[lastPic]);
 
         // keep the choice box synchronized
-        m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[id].c_str()));
+        m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[lastPic].c_str()));
 
         // PIC changed; reset the code/config/data grids
         Reset();
@@ -152,6 +165,7 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
     pCfg->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
     pCfg->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
+    pCfg->Write(wxT("SelectedPIC"), m_pPICChoice->GetSelection());
     m_history.Save(*pCfg);
 }
 
