@@ -28,6 +28,11 @@
 #include <wx/msgdlg.h>
 #include <wx/debug.h>
 
+#if wxCHECK_VERSION(2,9,0)
+#include <wx/persist/toplevel.h>
+#include <wx/evtloop.h>
+#endif
+
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
 #include "hexview.h"
@@ -86,19 +91,21 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
     m_history(4), m_picType(0)
 {
+    SetName(wxT("UppMainWindow"));
+
     // load settings
-    m_pConfig=new wxConfig(wxT("usbpicprog"));
-    m_pConfig->SetPath(wxT("/"));
-    if ( m_pConfig->Read(wxT("m_defaultPath"), &m_defaultPath) ) {}	else {m_defaultPath=wxT("");}
-    if ( m_pConfig->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode)){} else {m_cfg.ConfigProgramCode=true;}
-    if ( m_pConfig->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
-    if ( m_pConfig->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
-    if ( m_pConfig->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
-    if ( m_pConfig->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=true;}
-    if ( m_pConfig->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
-    if ( m_pConfig->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
-    if ( m_pConfig->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=false;}
-    m_history.Load(*m_pConfig);
+    wxConfigBase* pCfg = wxConfig::Get();
+    pCfg->SetPath(wxT("/"));
+    if ( pCfg->Read(wxT("m_defaultPath"), &m_defaultPath) ) {}	else {m_defaultPath=wxT("");}
+    if ( pCfg->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode)){} else {m_cfg.ConfigProgramCode=true;}
+    if ( pCfg->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig)){} else {m_cfg.ConfigProgramConfig=true;}
+    if ( pCfg->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData)){} else {m_cfg.ConfigProgramData=true;}
+    if ( pCfg->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode)){} else {m_cfg.ConfigVerifyCode=true;}
+    if ( pCfg->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig)){} else {m_cfg.ConfigVerifyConfig=true;}
+    if ( pCfg->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData)){} else {m_cfg.ConfigVerifyData=true;}
+    if ( pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming)){} else {m_cfg.ConfigEraseBeforeProgramming=true;}
+    if ( pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups)){} else {m_cfg.ConfigShowPopups=false;}
+    m_history.Load(*pCfg);
 
     // non-GUI init:
     m_hardware=NULL;      // upp_connect() will allocate it
@@ -106,9 +113,23 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     m_arrPICName=m_picType.getPicNames();
 
     // GUI init:
-    CompleteGUICreation();
+    CompleteGUICreation();    // also loads the saved pos&size of this frame
 
     upp_connect();
+
+#if wxCHECK_VERSION(2,9,0)
+    // if upp_connect() didn't find a PIC device, load the last-chosen PIC
+    if (!m_hardware->connected())
+    {
+        m_picType=PicType(m_arrPICName[id]);
+
+        // keep the choice box synchronized
+        m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[id].c_str()));
+
+        // PIC changed; reset the code/config/data grids
+        Reset();
+    }
+#endif
 }
 
 UppMainWindow::~UppMainWindow()
@@ -120,19 +141,18 @@ UppMainWindow::~UppMainWindow()
     }
 
     // save settings
-    m_pConfig->SetPath(wxT("/"));
-    m_pConfig->Write(wxT("m_defaultPath"), m_defaultPath);
-    m_pConfig->Write(wxT("ConfigProgramCode"), m_cfg.ConfigProgramCode);
-    m_pConfig->Write(wxT("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
-    m_pConfig->Write(wxT("ConfigProgramData"), m_cfg.ConfigProgramData);
-    m_pConfig->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
-    m_pConfig->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
-    m_pConfig->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
-    m_pConfig->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
-    m_pConfig->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
-    m_history.Save(*m_pConfig);
-
-    delete m_pConfig;
+    wxConfigBase* pCfg = wxConfig::Get();
+    pCfg->SetPath(wxT("/"));
+    pCfg->Write(wxT("m_defaultPath"), m_defaultPath);
+    pCfg->Write(wxT("ConfigProgramCode"), m_cfg.ConfigProgramCode);
+    pCfg->Write(wxT("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
+    pCfg->Write(wxT("ConfigProgramData"), m_cfg.ConfigProgramData);
+    pCfg->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
+    pCfg->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
+    pCfg->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
+    pCfg->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
+    pCfg->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
+    m_history.Save(*pCfg);
 }
 
 void UppMainWindow::UpdateTitle()
@@ -339,8 +359,8 @@ void UppMainWindow::CompleteGUICreation()
     // by default show code page at startup
     m_pNotebook->ChangeSelection(PAGE_CODE);
 
-    // make 2nd pane wide the half of the 1st pane:
-    const int widths[] = { -2, -1 };
+    // make 2nd pane wide about the half of the 1st pane:
+    const int widths[] = { -5, -3 };
     m_pStatusBar->SetStatusWidths(2, widths);
 
     // append all PIC names to the choice control
@@ -349,6 +369,11 @@ void UppMainWindow::CompleteGUICreation()
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
+
+#if wxCHECK_VERSION(2,9,0)
+    // eventually load position&size of this window from the wxConfig object:
+    wxPersistenceManager::Get().RegisterAndRestore(this);
+#endif
 
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
@@ -454,12 +479,15 @@ void UppMainWindow::on_close(wxCloseEvent& event)
 /*Update the progress bar; this function is called by m_hardware */
 void UppMainWindow::updateProgress(int value)
 {
-    // NOTE: this function is executed in the secondary thread's context!
-    //wxASSERT(!wxThread::IsMain() || !m_dlgProgress);
+    // NOTE: this function is not always executed in the secondary thread's context
+    //       so that we cannot do: wxASSERT(!wxThread::IsMain() || !m_dlgProgress);
 
     // the following line will result in a call to UppMainWindow::OnThreadUpdate()
     // in the primary thread context
 #if wxCHECK_VERSION(2,9,0)
+    if (wxEventLoopBase::GetActive() == NULL)
+        return;     // this may happen at startup, when the Hardware class is initialized
+
     wxThreadEvent* ev = new wxThreadEvent(wxEVT_COMMAND_THREAD_UPDATE);
     ev->SetInt(value);
     wxQueueEvent(this, ev);
@@ -1195,8 +1223,8 @@ bool UppMainWindow::upp_autodetect()
     {
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
         if(m_cfg.ConfigShowPopups)
-                    wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
-                    picName.Mid(1).c_str());
+            wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
+                         picName.Mid(1).c_str());
     }
     else
     {
@@ -1390,7 +1418,7 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
         if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
             // do not change PIC selection
-            wxLogError(_("Cannot select a PIC different when the bootloader is connected!"));
+            wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
         }
 

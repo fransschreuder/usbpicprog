@@ -194,7 +194,6 @@ private:    // member variables
 
     vector<string> m_arrPICName;
 
-    wxConfig* m_pConfig;
     ConfigFields m_cfg;
     wxString m_defaultPath;
 
