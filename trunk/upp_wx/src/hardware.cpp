@@ -769,9 +769,9 @@ int Hardware::autoDetectDevice(void)
 bool Hardware::connected(void) const
 {
     if (m_handle == NULL)
-        return 0;
+        return false;
     else
-        return 1;
+        return true;
 }
 
 /*Return a string containing the firmware version of usbpicprog*/
