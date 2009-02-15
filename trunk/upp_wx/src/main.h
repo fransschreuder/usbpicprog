@@ -54,24 +54,15 @@ in which the real application initializes.*/
 /*Open the given file (mac specific)*/
     virtual void MacOpenFile(const wxString &fileName);
 
-
-private:        // command-line mode stuff (not used in GUI mode)
+private:        // stuff common to both GUI and command-line modes
 
 /*the main() of the command line application*/
     bool CmdLineMain(wxCmdLineParser& parser);
 
 /*did we start as a console-only app?*/
     bool m_console;
-/*silent_mode is true if -s switch is passed in command line*/
-    bool m_silent_mode;
-/*class to read, write, print and store the hex file*/
-    HexFile* m_hexFile;
-/*class which contains data about supported PIC types and detection by devId*/
-    PicType* m_picType;
-/*class to open the usb port and communicate with usbpicprog*/
-    Hardware* m_hardware;
 
-private:        // stuff common to both GUI and command-line modes
+/*application locale*/
     wxLocale* m_locale;
 };
 
