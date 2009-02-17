@@ -24,6 +24,11 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
     unsigned int i;
     if(level==1)
     {
+	TRISPGD =0;    //PGD output
+	TRISPGC =0;    //PGC output
+	PGD =0;        // initial value for programming mode
+	PGC =0;        // initial value for programming mode
+	clock_delay();    // dummy tempo
 	switch(pictype)
 	{
 		case P12F6XX:
@@ -53,11 +58,15 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
     else
     {
 		VPP=1; //low, (inverted)
+		VPP_RST=1; //hard reset, low (inverted)
 		setLeds(4);
 		lasttick=tick;
 		while((tick-lasttick)<20)continue;
+		VPP_RST=0; //hard reset, high (inverted)
 		setLeds(5);
 		VDD=1; //low, (inverted)
+		TRISPGD =1;    //PGD input
+        	TRISPGC =1;    //PGC input
 		lasttick=tick;
 		while((tick-lasttick)<20)continue;
 		setLeds(0);
