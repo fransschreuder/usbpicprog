@@ -251,8 +251,8 @@ File ::54ABE009-E61D-49E9-9B06-890AFDF8EEAC -directory <%InstallDir%>/po/pa/LC_M
 File ::62D9EA43-80A4-4746-8C82-7070CB988E9C -name pa.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::569C6254-33BC-4EF1-A796-3E020F43821D -directory <%InstallDir%>/po/pt/LC_MESSAGES/ -targetfilename usbpicprog.mo -name pt.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::B57C2807-5691-49E9-A86E-9B0956D04924 -name pt.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
-File ::E887A4E7-1F8C-4A9D-B584-0D4D7373B390 -directory <%InstallDir%>/po/cz/LC_MESSAGES/ -targetfilename usbpicprog.mo -name cz.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
-File ::0DE4CFFB-7554-45AB-82C2-5D12D433A6EF -name cz.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
+File ::E887A4E7-1F8C-4A9D-B584-0D4D7373B390 -directory <%InstallDir%>/po/cs/LC_MESSAGES/ -targetfilename usbpicprog.mo -name cs.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
+File ::0DE4CFFB-7554-45AB-82C2-5D12D433A6EF -name cs.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 Component ::C41EF465-5503-42F9-A53A-A7954CDE469C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::4F7975A2-07BF-4638-B3F5-01F86679744C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::C3970F63-BF05-4C83-B458-ECD160F1E772 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
