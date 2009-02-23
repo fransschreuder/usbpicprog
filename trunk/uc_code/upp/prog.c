@@ -113,6 +113,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P16F7X:
 		case P16F7X7:
 			pic_send_n_bits(6,0x09); //send 1001xx to erase device
 			DelayMs(30);
@@ -417,6 +418,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//pic_send_n_bits(6,0x0A); 	//end programming
 			}
 			break;
+		case P16F7X:
 		case P16F7X7:
 			//2 word programming
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=4) //2 words of data = 4 bytes
@@ -745,6 +747,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 			}
 			break;
 		case P16F88X:
+		case P16F7X:
 		case P16F7X7:
 		case P16F87X:
 		case P16F91X:
@@ -770,6 +773,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 					DelayMs(Tprog);
 					switch(pictype)
 					{
+						case P16F7X:
 						case P16F7X7:
 							pic_send_n_bits(6,0x0E);    //end programming
 							break;
