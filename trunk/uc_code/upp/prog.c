@@ -174,6 +174,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			DelayMs(10);
 			pic_send_n_bits(6,0x0B); //bulk erase data memory
 			DelayMs(6);		//wait terase
+		case P16F87:
 		case P16F81X:
 		case P16F87XA:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -438,6 +439,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F87:
 		case P16F91X:
 		case P16F81X:
 			//4 word programming
@@ -619,6 +621,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsi
 				switch(pictype)
 				{
 					case P12F629:
+					case P16F87:
 					case P16F81X:
 					case P16F91X:
 						pic_send_n_bits(6,0x18);
@@ -748,6 +751,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F87:
 		case P16F88X:
 		case P16F72:
 		case P16F7X:

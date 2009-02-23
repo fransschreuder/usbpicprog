@@ -515,6 +515,19 @@ const Pic picTypes[]={
     0x3FF0,		//DevIdMask
     {0xFF,0x3F}
 },
+//PIC16F87
+{
+    "P16F87",	//Name
+    0x800*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F87,	//PicFamily
+    0x0720,		//DevId
+    0x3FF0,		//DevIdMask
+    {0xFF,0x3F,0x03,0x00} //ConfigMask
+},
 //PIC16F870	√ 	U 	U 	U 	U 	U 	U 	U 	U
 {
     "P16F870",	//Name
@@ -657,6 +670,19 @@ const Pic picTypes[]={
     0x0E20,		//DevId
     0x3FF0,		//DevIdMask
     {0xCF,0x2F}
+},
+//PIC16F88
+{
+    "P16F88",	//Name
+    0x800*2,		//CodeSize
+    0x2007,		//ConfigAddress
+    0x2100,		//DataAddress in hex file
+    0x100,		//Datasize
+    0x4,		//ConfigSize
+    P16F87,	//PicFamily
+    0x0760,		//DevId
+    0x3FF0,		//DevIdMask
+    {0xFF,0x3F,0x03,0x00} //ConfigMask
 },
 //PIC16F882
 {
