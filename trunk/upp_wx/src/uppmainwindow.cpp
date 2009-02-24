@@ -918,9 +918,8 @@ bool UppMainWindow::upp_thread_blankcheck()
             res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
             res.Read,
             res.Expected);
-        verifyText += wxString(wxT("\n")) + _("Device is not blank.");
-
         LogFromThread(wxLOG_Message, verifyText);
+        LogFromThread(wxLOG_Message, _("Device is not blank."));
         break;
     case VERIFY_USB_ERROR:
         LogFromThread(wxLOG_Error, _("USB error during blankcheck"));
