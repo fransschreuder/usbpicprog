@@ -538,7 +538,7 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
             !m_hardware->operationsAborted())   // is the hardware already aborting?
         {
             m_hardware->abortOperations(true);
-            LogFromThread(wxLOG_Warning, _("Operations aborted"));
+            wxLogWarning(_("Operations aborted"));
         }
     }
 }
