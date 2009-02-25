@@ -9,7 +9,7 @@
         autoconf,borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
     </add-formats>
 
-    <add-flags>-I %WXWIN%/build/bakefiles/wxpresets</add-flags>
+    <add-flags>-I $(envvar('WXWIN'))/build/bakefiles/wxpresets</add-flags>
 
     <!-- Directories where the files go: -->
     <add-flags formats="autoconf">

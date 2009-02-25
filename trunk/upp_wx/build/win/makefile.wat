@@ -85,21 +85,6 @@ _BUILDDIR_SHARED_SUFFIX =
 !ifeq WX_SHARED 1
 _BUILDDIR_SHARED_SUFFIX = _dll
 !endif
-____WX_SHARED_0_p =
-!ifeq WX_SHARED 0
-____WX_SHARED_0_p = 
-!endif
-!ifeq WX_SHARED 1
-____WX_SHARED_0_p = -dWXUSINGDLL
-!endif
-__WXUNICODE_DEFINE_p =
-!ifeq WX_UNICODE 1
-__WXUNICODE_DEFINE_p = -d_UNICODE
-!endif
-__WXDEBUG_DEFINE_p =
-!ifeq WX_DEBUG 1
-__WXDEBUG_DEFINE_p = -d__WXDEBUG__
-!endif
 ____upp_wx__OPT_2 =
 !ifeq WX_DEBUG 0
 ____upp_wx__OPT_2 = -ot -ox
@@ -135,6 +120,21 @@ __WXLIB_BASE_NAME_p = wxbase$(WX_VERSION)$(WXLIBPOSTFIX).lib
 !endif
 !ifeq WX_MONOLITHIC 1
 __WXLIB_BASE_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX).lib
+!endif
+____WX_SHARED_0_p =
+!ifeq WX_SHARED 0
+____WX_SHARED_0_p = 
+!endif
+!ifeq WX_SHARED 1
+____WX_SHARED_0_p = -dWXUSINGDLL
+!endif
+__WXUNICODE_DEFINE_p =
+!ifeq WX_UNICODE 1
+__WXUNICODE_DEFINE_p = -d_UNICODE
+!endif
+__WXDEBUG_DEFINE_p =
+!ifeq WX_DEBUG 1
+__WXDEBUG_DEFINE_p = -d__WXDEBUG__
 !endif
 WXLIBPOSTFIX =
 !ifeq WX_DEBUG 0
@@ -184,7 +184,7 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX) :
 
 ### Targets: ###
 
-all : .SYMBOLIC test_for_selected_wxbuild watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe
+all : .SYMBOLIC test_for_selected_wxbuild watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
 
 clean : .SYMBOLIC 
 	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj
@@ -192,7 +192,7 @@ clean : .SYMBOLIC
 	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.lbc del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.lbc
 	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.ilk del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.ilk
 	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch
-	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe
+	-if exist watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe del watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
 
 test_for_selected_wxbuild :  
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
@@ -206,7 +206,7 @@ test_for_selected_wxbuild :
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	exit 1
 
-watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe :  $(UPP_WX_OBJECTS)
+watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe :  $(UPP_WX_OBJECTS) watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 	@%create watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc
 	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option quiet
 	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc name $^@
@@ -214,7 +214,7 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe :  $(UPP_WX_OBJECTS)
 	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(WXLIBPATH) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath $(LIBUSB_DIR)\lib\msvc $(LDFLAGS)
 	@for %i in ($(UPP_WX_OBJECTS)) do @%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc file %i
 	@for %i in ( libusb.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib) do @%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc library %i
-	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc
+	@%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option resource=watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 	@for %i in () do @%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option stack=%i
 	wlink @watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc
 
@@ -241,4 +241,7 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj :  .AUT
 
 watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj :  .AUTODEPEND ..\..\src\uppmainwindow_base.cpp
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
+
+watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res :  .AUTODEPEND ..\..\icons\win\upp_wx.rc
+	wrc -q -ad -bt=nt -r -fo=$^@  $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) -d__WXMSW__ -i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include -i=..\..\src -i=$(LIBUSB_DIR)\src $<
 

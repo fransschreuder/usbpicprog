@@ -64,6 +64,9 @@
 #define BLOCKSIZE_CODE 32
 #define BLOCKSIZE_BOOTLOADER 16
 
+#define BLOCKSIZE_MAXSIZE 128
+    // only used when allocating temporary buffers
+
 #define ENDPOINT 1
 #define READ_ENDPOINT (ENDPOINT|USB_ENDPOINT_IN)
 #define WRITE_ENDPOINT (ENDPOINT|USB_ENDPOINT_OUT)

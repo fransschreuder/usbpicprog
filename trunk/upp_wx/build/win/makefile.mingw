@@ -65,7 +65,8 @@ UPP_WX_OBJECTS =  \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.o \
-	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o
+	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o \
+	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o
 
 ### Conditionally set variables: ###
 
@@ -84,11 +85,23 @@ endif
 ifeq ($(WX_SHARED),1)
 ____WX_SHARED_0_p = -DWXUSINGDLL
 endif
+ifeq ($(WX_SHARED),0)
+____WX_SHARED_0_p_1 = 
+endif
+ifeq ($(WX_SHARED),1)
+____WX_SHARED_0_p_1 = --define WXUSINGDLL
+endif
 ifeq ($(WX_UNICODE),1)
 __WXUNICODE_DEFINE_p = -D_UNICODE
 endif
+ifeq ($(WX_UNICODE),1)
+__WXUNICODE_DEFINE_p_1 = --define _UNICODE
+endif
 ifeq ($(WX_DEBUG),1)
 __WXDEBUG_DEFINE_p = -D__WXDEBUG__
+endif
+ifeq ($(WX_DEBUG),1)
+__WXDEBUG_DEFINE_p_1 = --define __WXDEBUG__
 endif
 ifeq ($(WX_DEBUG),0)
 ____upp_wx__OPT_2 = -O2
@@ -143,12 +156,12 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX):
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe
+all: test_for_selected_wxbuild gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
 
 clean: 
 	-if exist gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.o del gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.o
 	-if exist gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.d del gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.d
-	-if exist gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe del gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe
+	-if exist gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe del gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
 
 test_for_selected_wxbuild: 
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
@@ -162,7 +175,7 @@ test_for_selected_wxbuild:
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	exit 1
 
-gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.exe: $(UPP_WX_OBJECTS)
+gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe: $(UPP_WX_OBJECTS) gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o
 	$(CXX) -o $@ $(UPP_WX_OBJECTS)  -mthreads -L$(WX_DIR)$(WXLIBPATH) -Wl,--subsystem,windows -mwindows $(____upp_wx__DEBUGINFO) -L$(LIBUSB_DIR)\lib\msvc $(LDFLAGS)  -llibusb $(__WXLIB_ADV_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) -lwxtiff$(WX3RDPARTYLIBPOSTFIX) -lwxjpeg$(WX3RDPARTYLIBPOSTFIX) -lwxpng$(WX3RDPARTYLIBPOSTFIX) -lwxzlib$(WX3RDPARTYLIBPOSTFIX) -lwxregex$(WXLIBPOSTFIX) -lwxexpat$(WX3RDPARTYLIBPOSTFIX) -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.o: ../../src/hardware.cpp
@@ -188,6 +201,9 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.o: ../../sr
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o: ../../src/uppmainwindow_base.cpp
 	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
+
+gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o: ../../icons/win/upp_wx.rc
+	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_0_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../../src --include-dir $(LIBUSB_DIR)/src
 
 .PHONY: all clean
 

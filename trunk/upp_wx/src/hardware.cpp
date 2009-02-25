@@ -312,7 +312,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     nBytes=-1;
     vector<int> mem;
     mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
-    char dataBlock[BLOCKSIZE_CODE];
+    char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
@@ -365,7 +365,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
 {
     int nBytes;
     int BLOCKSIZE_HW;
-    unsigned char dataBlock[BLOCKSIZE_CODE];
+    unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
@@ -420,7 +420,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
 
-    char dataBlock[BLOCKSIZE_HW];
+    char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
@@ -468,7 +468,7 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
 
-    unsigned char dataBlock[BLOCKSIZE_HW];
+    unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
