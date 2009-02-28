@@ -18,8 +18,8 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#ifndef HexFile_H
-#define HexFile_H
+#ifndef HEXFILE_H
+#define HEXFILE_H
 
 #include <vector>
 //#include <string>
@@ -78,4 +78,4 @@ private:
     void makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line);
 };
 
-#endif //HexFile_H
+#endif //HEXFILE_H

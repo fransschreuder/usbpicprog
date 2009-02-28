@@ -18,8 +18,8 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#ifndef __hexview__
-#define __hexview__
+#ifndef HEXVIEW_H
+#define HEXVIEW_H
 
 #include <wx/grid.h>
 
@@ -60,4 +60,4 @@ protected:
     wxSize DoGetBestSize() const;
 };
 
-#endif //__hexview__
+#endif //HEXVIEW_H

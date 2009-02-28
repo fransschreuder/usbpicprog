@@ -18,8 +18,8 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#ifndef UPPMAINWINDOW_CALLBACK_H
-#define UPPMAINWINDOW_CALLBACK_H
+#ifndef UPPMAINWINDOW_H
+#define UPPMAINWINDOW_H
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -218,4 +218,4 @@ private:   // variables related to the threaded operations:
     UppMainWindowThreadMode m_mode;
 };
 
-#endif
+#endif   // UPPMAINWINDOW_H

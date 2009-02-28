@@ -18,8 +18,8 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#ifndef __PREFERENCESDIALOG_h__
-#define __PREFERENCESDIALOG_h__
+#ifndef PREFERENCESDIALOG_H
+#define PREFERENCESDIALOG_H
 
 
 #include <wx/dialog.h>
@@ -27,8 +27,8 @@
 #include <wx/checkbox.h>
 #include <wx/sizer.h>
 
-#undef PreferencesDialog_STYLE
-#define PreferencesDialog_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
+#undef PREFERENCESDIALOG_STYLE
+#define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
 
 
 typedef struct {
@@ -50,7 +50,7 @@ private:
 public:
     PreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"),
                       const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                      long style = PreferencesDialog_STYLE);
+                      long style = PREFERENCESDIALOG_STYLE);
     virtual ~PreferencesDialog();
 
     ConfigFields GetResult() const {return configFields;}
@@ -77,4 +77,4 @@ private:
     void CreateGUIControls();
 };
 
-#endif
+#endif  // PREFERENCESDIALOG_H

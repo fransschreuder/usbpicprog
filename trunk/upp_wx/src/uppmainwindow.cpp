@@ -132,7 +132,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     int lastPic;
     if (!m_hardware->connected() &&
         pCfg->Read(wxT("SelectedPIC"), &lastPic) &&
-        lastPic >= 0 && lastPic < m_arrPICName.size())
+        lastPic >= 0 && lastPic < (int)m_arrPICName.size())
     {
         m_picType=PicType(m_arrPICName[lastPic]);
 
