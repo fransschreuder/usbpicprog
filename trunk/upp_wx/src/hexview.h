@@ -37,6 +37,9 @@ enum UppHexViewType
     HEXVIEW_DATA
 };
 
+/**
+    A specialized grid which shows a portion of memory of a PIC.
+*/
 class UppHexViewGrid : public wxGrid
 {
 public:

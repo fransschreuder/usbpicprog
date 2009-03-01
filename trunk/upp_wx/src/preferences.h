@@ -30,18 +30,20 @@
 #undef PREFERENCESDIALOG_STYLE
 #define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
 
-
 typedef struct {
-        bool ConfigEraseBeforeProgramming;
-        bool ConfigVerifyData;
-        bool ConfigVerifyConfig;
-        bool ConfigVerifyCode;
-        bool ConfigProgramData;
-        bool ConfigProgramConfig;
-        bool ConfigProgramCode;
-	bool ConfigShowPopups;
-}ConfigFields;
+    bool ConfigEraseBeforeProgramming;
+    bool ConfigVerifyData;
+    bool ConfigVerifyConfig;
+    bool ConfigVerifyCode;
+    bool ConfigProgramData;
+    bool ConfigProgramConfig;
+    bool ConfigProgramCode;
+    bool ConfigShowPopups;
+} ConfigFields;
 
+/**
+    The dialog which allows the user to toggle/untoggle some global options.
+*/
 class PreferencesDialog : public wxDialog
 {
 private:
@@ -57,7 +59,6 @@ public:
     void SetConfigFields(ConfigFields cf);
 
 private:
-
     wxCheckBox *uppConfigVerifyData;
     wxCheckBox *uppConfigVerifyConfig;
     wxCheckBox *uppConfigVerifyCode;

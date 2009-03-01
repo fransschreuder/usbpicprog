@@ -34,35 +34,38 @@
 #include "pictype.h"
 #include "hexfile.h"
 
-/*Implementation of main wxWidgets application, from
-OnCmdLineParsed function, either the gui or the command line app
-is created.*/
+/**
+    Implementation of main wxWidgets application.
+    
+    In the OnCmdLineParsed() function, either the GUI or the command line app
+    is created.
+*/
 class UsbPicProg : public wxApp
 {
 public:
-/*This is the wxWidgets initialization function, but we only use it to call
-*wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
+/**This is the wxWidgets initialization function, but we only use it to call
+wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
     virtual bool OnInit();
-/*Called by WxWidgets to clean up some stuff when the program exits*/
+/**Called by WxWidgets to clean up some stuff when the program exits*/
     virtual int OnExit();
-/*Initialization function if command line is being used*/
+/**Initialization function if command line is being used*/
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
-/*After command line is being processed, this function is being called
+/**After command line is being processed, this function is being called
 by wxWidgets, even if no arguments are given. This is the actual function
 in which the real application initializes.*/
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
-/*Open the given file (mac specific)*/
+/**Open the given file (mac specific)*/
     virtual void MacOpenFile(const wxString &fileName);
 
 private:        // stuff common to both GUI and command-line modes
 
-/*the main() of the command line application*/
+/**The main() of the command line application*/
     bool CmdLineMain(wxCmdLineParser& parser);
 
-/*did we start as a console-only app?*/
+/**Did we start as a console-only app?*/
     bool m_console;
 
-/*application locale*/
+/**Application locale*/
     wxLocale* m_locale;
 };
 

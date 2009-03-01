@@ -26,17 +26,25 @@
 #include "pictype.h"
 using namespace std;
 
+/**
+    The identifiers of the different records contained into an HEX file.
+    See HexFile for more info.
+*/
+typedef enum {
+    DATA=0,       ///< Data record, contains data and 16-bit address.
+    ENDOFFILE=1,  ///< End Of File record, Usually ':00000001FF'.
+    EXTADDR=4     ///< Extended Linear Address Record, allowing for fully 32 bit addressing.
+                  ///< The address field is 0000, the byte count is 02. The two data bytes
+                  ///< represent the upper 16 bits of the 32 bit address, when combined with
+                  ///< the address of the 00 type record.
+} RecordType;
 
-typedef enum _RecordType{
-    DATA=0,       // data record, contains data and 16-bit address.
-    ENDOFFILE=1,  // End Of File record, Usually ':00000001FF'.
-    EXTADDR =4    // Extended Linear Address Record, allowing for fully 32 bit addressing.
-                  // The address field is 0000, the byte count is 02. The two data bytes
-                  // represent the upper 16 bits of the 32 bit address, when combined with
-                  // the address of the 00 type record.
-}RecordType;
+/**
+    This class represents an HEX file.
 
-
+    Supports loading and saving in the Intel HEX format (the one commonly
+    used by PIC compilers): http://en.wikipedia.org/wiki/Intel_HEX.
+*/
 class HexFile
 {
 public:
