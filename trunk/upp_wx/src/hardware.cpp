@@ -633,7 +633,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
             return res;
         }
     }
-    if(doConfig&&(m_hwCurrent != HW_UPP))
+    if(doConfig)//&&(m_hwCurrent != HW_UPP))
     {
         if(readConfig(verifyHexFile,picType)<0)
         {
@@ -643,7 +643,8 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
         }
     }
     if ((hexData->getCodeMemory().size()+
-        hexData->getDataMemory().size())>0) //there should be at least some data in the file
+        hexData->getDataMemory().size()+
+        hexData->getConfigMemory().size())>0) //there should be at least some data in the file
     {
         if(doCode)
         {
@@ -652,6 +653,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
                 if((signed)verifyHexFile->getCodeMemory().size()<(i+1))
                 {
                     res.Result=VERIFY_OTHER_ERROR;
+                    cout<<"Verify size mismatch in code"<<endl;
                     return res;
                 }
                 if(verifyHexFile->getCodeMemory()[i]!=hexData->getCodeMemory()[i])
@@ -673,6 +675,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
                 if((signed)verifyHexFile->getDataMemory().size()<(i+1))
                 {
                     res.Result=VERIFY_OTHER_ERROR;
+                    cout<<"Verify size mismatch in data"<<endl;
                     return res;
                 }
                 if(verifyHexFile->getDataMemory()[i]!=hexData->getDataMemory()[i])
@@ -694,6 +697,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
                 if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
                 {
                     res.Result=VERIFY_OTHER_ERROR;
+                    cout<<"Verify size mismatch in config"<<endl;
                     return res;
                 }
                 if((verifyHexFile->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i])!=(hexData->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i]))
@@ -712,7 +716,8 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     else
     {
-    res.Result=VERIFY_OTHER_ERROR;
+        res.Result=VERIFY_OTHER_ERROR;
+        cout<<"No data to verify"<<endl;
     }
     return res;
 }
