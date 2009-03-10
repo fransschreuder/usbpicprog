@@ -95,13 +95,14 @@ typedef std::vector<time_t> wxArrayTime;
 class UppMainWindow : public UppMainWindowBase, public wxThreadHelper
 {
 public:
-
+	///Constructor of the root window of the wxWidgets application
     UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY);
     ~UppMainWindow();
 
-
+	///executed when the File --> open command is executed, but also on command line
     bool upp_open_file(const wxString& path);
     void upp_new();
+    ///Callback function to update the progress bar of the programming process
     void updateProgress(int value);
 
 protected:      // internal helpers
@@ -119,8 +120,8 @@ protected:      // internal helpers
 
 
 protected:      // internal thread-related functions
-
-    // functions which are executed in the secondary thread context:
+//@{
+    /// functions which are executed in the secondary thread context:
     wxThread::ExitCode Entry();
     void LogFromThread(wxLogLevel level, const wxString& str);
     bool upp_thread_program();
@@ -128,18 +129,22 @@ protected:      // internal thread-related functions
     bool upp_thread_verify();
     bool upp_thread_erase();
     bool upp_thread_blankcheck();
-
-    // functions which are executed in the primary thread context:
+//@}
+//@{
+    /// functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
 #if wxCHECK_VERSION(2,9,0)
     void OnThreadUpdate(wxThreadEvent& evt);
     void OnThreadCompleted(wxThreadEvent& evt);
+//@}
 #else
     void OnThreadUpdate(wxCommandEvent& evt);
     void OnThreadCompleted(wxCommandEvent& evt);
 #endif
 
-public:     // event handlers
+public:     
+//@{
+/// event handlers
 
     void on_mru( wxCommandEvent& event );
     void on_close( wxCloseEvent& event );
@@ -166,6 +171,7 @@ public:     // event handlers
     void on_pic_choice_changed( wxCommandEvent& event ){upp_pic_choice_changed(); EVENT_FIX}
     void on_pic_choice_changed_bymenu( wxCommandEvent& event )
         {upp_pic_choice_changed_bymenu(event.GetId()-wxID_PIC_CHOICE_MENU); EVENT_FIX}
+//@}        
 
 private:
     void upp_open();
