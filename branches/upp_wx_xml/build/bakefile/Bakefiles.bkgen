@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!-- $Id: Bakefiles.bkgen 555 2009-02-25 19:43:00Z frm $ -->
+
+<bakefile-gen xmlns="http://www.bakefile.org/schema/bakefile-gen">
+    <input>usbpicprog.bkl</input>
+
+    <!-- List of output formats to generate: -->
+    <add-formats>
+        autoconf,borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
+    </add-formats>
+
+    <add-flags>-I $(envvar('WXWIN'))/build/bakefiles/wxpresets</add-flags>
+
+    <!-- Directories where the files go: -->
+    <add-flags formats="autoconf">
+        -o../../Makefile.in
+    </add-flags>
+    <add-flags formats="autoconf">
+        -DAUTOCONF_MACROS_FILE=../../autoconf_inc.m4
+    </add-flags>
+    
+    <add-flags formats="borland">
+        -o../win/makefile.bcc
+    </add-flags>
+    <add-flags formats="mingw">
+        -o../win/makefile.mingw
+    </add-flags>
+    <add-flags formats="msvc">
+        -o../win/makefile.vc
+    </add-flags>
+    <add-flags formats="watcom">
+        -o../win/makefile.wat
+    </add-flags>
+    <add-flags formats="msvc6prj">
+        -o../win/upp_wx.dsw
+    </add-flags>
+    <add-flags formats="msvs2003prj">
+        -o../win/upp_wx_vc7.sln
+    </add-flags>
+    <add-flags formats="msvs2005prj">
+        -o../win/upp_wx_vc8.sln
+    </add-flags>
+    <add-flags formats="msvs2008prj">
+        -o../win/upp_wx_vc9.sln
+    </add-flags>
+    
+</bakefile-gen>
