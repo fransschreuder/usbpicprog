@@ -1,52 +1,60 @@
-dnl Process this file with autoconf to produce a configure script.
-dnl Created by Anjuta application wizard.
+dnl ***************************************************************************
+dnl *   Copyright (C) 2008 by Frans Schreuder                                 *
+dnl *   usbpicprog.sourceforge.net                                            *
+dnl *                                                                         *
+dnl *   This program is free software; you can redistribute it and/or modify  *
+dnl *   it under the terms of the GNU General Public License as published by  *
+dnl *   the Free Software Foundation; either version 2 of the License, or     *
+dnl *   (at your option) any later version.                                   *
+dnl *                                                                         *
+dnl *   This program is distributed in the hope that it will be useful,       *
+dnl *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+dnl *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+dnl *   GNU General Public License for more details.                          *
+dnl *                                                                         *
+dnl *   You should have received a copy of the GNU General Public License     *
+dnl *   along with this program; if not, write to the                         *
+dnl *   Free Software Foundation, Inc.,                                       *
+dnl *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+dnl ***************************************************************************
+
+
+
 
 AC_INIT(usbpicprog, 0.1.2)
-
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
+AC_CONFIG_MACRO_DIR([m4])
+
+
+
+dnl ***************************************************************************
+dnl Configure options
+dnl ***************************************************************************
+
+WX_CONFIG_OPTIONS
+
+
+
+dnl ***************************************************************************
+dnl Basic checks
+dnl ***************************************************************************
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
-
-AC_CONFIG_MACRO_DIR([m4])
-
-WXCONFIG=wx-config
-AC_ARG_WITH(wx-config,
-[[  --with-wx-config=FILE
-    Use the given path to wx-config when determining
-    wxWidgets configuration; defaults to "wx-config"]],
-[
-    if test "$withval" != "yes" -a "$withval" != ""; then
-        WXCONFIG=$withval
-    fi
-])
-AC_MSG_CHECKING([wxWidgets version])
-if wxversion=`$WXCONFIG --version`; then
-    AC_MSG_RESULT([$wxversion])
-else
-    AC_MSG_RESULT([not found])
-    AC_MSG_ERROR([wxWidgets is required. Try --with-wx-config.])
-fi
- 
-WX_CPPFLAGS="`$WXCONFIG --cppflags`"
-WX_CXXFLAGS="`$WXCONFIG --cxxflags`"
- WX_LIBS="`$WXCONFIG --static --libs`"
- 
-AC_SUBST(WX_CPPFLAGS)
-AC_SUBST(WX_CXXFLAGS)
-AC_SUBST(WX_LIBS)
-
 AC_PROG_CPP
 AC_PROG_CXX
+AM_PROG_LIBTOOL
+
 
 
 dnl ***************************************************************************
-dnl Internatinalization
+dnl Internationalization
 dnl ***************************************************************************
+
 GETTEXT_PACKAGE=usbpicprog
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
@@ -55,32 +63,51 @@ IT_PROG_INTLTOOL([0.35.0])
 
 
 
-AM_PROG_LIBTOOL
-
-
-
-#PKG_CHECK_MODULES(USBPICPROG, [gtk+-2.0 libglade-2.0    ])       
-
+dnl ***************************************************************************
+dnl Basic checks
+dnl ***************************************************************************
 
 #
-# libusb allows us to use the integrated CCID smartcard reader driver.
+# check for wxWidgets
+#
+WX_CONFIG_CHECK([2.8.0], [has_wxWin=1])
+if test "$has_wxWin" != 1; then
+    AC_MSG_ERROR([
+       wxWidgets must be installed on your system
+       but wx-config script couldn't be found.
+
+       Please check that wx-config is in path, the directory
+       where wxWidgets libraries are installed (returned by
+      'wx-config --libs' command) is in LD_LIBRARY_PATH or
+       equivalent variable and wxWidgets version is 2.3.4 or above.
+    ])
+fi
+
+# CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
+# CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
+# CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
+# LIBS="$LIBS $WX_LIBS"
+
+#
+# check for libusb
 #
 AC_CHECK_LIB(usb, usb_bulk_write,
-              [ LIBUSB_LIBS="$LIBUSB_LIBS -lusb"
-                AC_DEFINE(HAVE_LIBUSB,1,
+             [
+               has_libusb=1
+               LIBUSB_LIBS="$LIBUSB_LIBS -lusb"
+               AC_DEFINE(HAVE_LIBUSB,1,
                          [defined if libusb is available])
              ])
+if test "$has_libusb" != 1; then
+    AC_MSG_ERROR([
+        Libusb 0.1.x is required.
+        
+        Please install it from your package manager.
+    ])
+fi
+
 AC_SUBST(LIBUSB_LIBS)
 AC_CHECK_FUNCS(usb_create_match)
-
-
-
-#PKG_CHECK_MODULES(LIBUSB, [libusb], [
-#	        LIBUSB_MSG=yes
-#	        AC_DEFINE(HAVE_LIBUSB, 1, [Have libusb libraries and header files])
-#	        ], [
-#	        LIBUSB_MSG=no
-#	        ])
 
 AC_SUBST(LIBUSB_CFLAGS)
 #AC_SUBST(LIBUSB_LIBS)
@@ -88,8 +115,13 @@ AC_SUBST(USBPICPROG_CFLAGS)
 AC_SUBST(USBPICPROG_LIBS)
 
 
+
+dnl ***************************************************************************
+dnl Output generation
+dnl ***************************************************************************
+
 AC_OUTPUT([
-Makefile
-src/Makefile
-po/Makefile.in
+    Makefile
+    src/Makefile
+    po/Makefile.in
 ])
