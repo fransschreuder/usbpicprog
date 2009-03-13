@@ -262,8 +262,8 @@ void UppMainWindow::CompleteGUICreation()
     {
         bool bFamilyFound = false;
 
-        // the first 4 characters of the PIC name is the family:
-        string family = m_arrPICName[i].substr(0, 4);
+        // the first 4 characters of the PIC name are the family:
+        string family(m_arrPICName[i].substr(0, 4).c_str());
 
         // is there a menu for this PIC family?
         for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
@@ -463,7 +463,7 @@ void UppMainWindow::UpdatePicInfo()
 
     m_pDatasheetLink->SetLabel(wxString::Format("%s datasheet", pic.GetExtName()));
     m_pDatasheetLink->SetURL(
-        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet site:microchip.com", pic.GetExtName()));
+        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", pic.GetExtName()));
     m_pDatasheetLink->SetVisited(false);
     m_pDatasheetLink->GetContainingSizer()->Layout();
         // size may have changed: relayout the m_pDatasheetLink's container
@@ -1544,7 +1544,7 @@ void UppMainWindow::upp_package_variant_changed()
             // - make best use of the available space
             // - avoid drawing package excessively big
             const unsigned int BoxW = min(sz.GetWidth()/3,80);
-            const unsigned int BoxH = min(BoxW*PinPerSide/3,unsigned int(sz.GetHeight()*0.8));
+            const unsigned int BoxH = min(BoxW*PinPerSide/3,(unsigned int)(sz.GetHeight()*0.8));
             const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
             const unsigned int R = BoxW/6;
