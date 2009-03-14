@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 29 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -25,7 +25,7 @@
 #include <wx/hyperlink.h>
 #include <wx/statbox.h>
 #include <wx/choice.h>
-#include <wx/statbmp.h>
+#include "packageview.h"
 #include <wx/notebook.h>
 #include <wx/menu.h>
 #include <wx/statusbr.h>
@@ -66,7 +66,7 @@ class UppMainWindowBase : public wxFrame
 		wxStaticText* m_pDataMemoryText;
 		wxStaticText* m_staticText7;
 		wxChoice* m_pPackageVariants;
-		wxStaticBitmap* m_pPackageBmp;
+		UppPackageViewWindow* m_pPackageWin;
 		wxStaticText* m_staticText11;
 		wxMenuBar* m_pMenuBar;
 		wxMenu* m_pMenuFile;

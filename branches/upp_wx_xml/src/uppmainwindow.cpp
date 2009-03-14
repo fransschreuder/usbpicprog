@@ -38,6 +38,7 @@
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
 #include "hexview.h"
+#include "packageview.h"
 #include "../svn_revision.h"
 
 #include <map>
@@ -1503,128 +1504,5 @@ void UppMainWindow::upp_package_variant_changed()
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
 
-    if (sz == wxDefaultSize)
-        sz = m_pPackageBmp->GetClientSize();
-
-    // initialize the bitmap
-    wxBitmap bmp;
-    if (!bmp.Create(sz.GetWidth(), sz.GetHeight()))
-    {
-        wxLogError("Can't create the package bitmap!");
-        return;
-    }
-
-    wxMemoryDC dc(bmp);
-    if (!dc.IsOk())
-    {
-        wxLogError("Can't draw the PIC package!");
-        return;
-    }
-
-    // clear the bitmap
-    dc.SetBackground(*wxWHITE);
-    dc.SetBrush(*wxWHITE);
-    dc.Clear();
-
-    // set some GUI objects common to all packages-drawing code
-    dc.SetFont(*wxSMALL_FONT);
-    dc.SetPen(*wxBLACK_PEN);
-
-    switch (pkg.Type)
-    {
-    case PDIP:
-    case SOIC:
-    case SSOP:
-        {
-            // some drawing constants:
-
-            const unsigned int PinPerSide = pkg.GetPinCount()/2;
-
-            // choose reasonable package width&height to
-            // - make best use of the available space
-            // - avoid drawing package excessively big
-            const unsigned int BoxW = min(sz.GetWidth()/3,80);
-            const unsigned int BoxH = min(BoxW*PinPerSide/3,(unsigned int)(sz.GetHeight()*0.8));
-            const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
-            const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
-            const unsigned int R = BoxW/6;
-
-            // pin height is calculated imposing that
-            // 1) PinPerSide*PinH + (PinPerSide+1)*PinSpacing = BoxH
-            // 2) PinSpacing = PinH/2
-            // solving for PinH yields:
-            const unsigned int PinH = 2*BoxH/(3.0*PinPerSide+1);
-            const unsigned int PinSpacing = PinH/2;
-            const unsigned int PinW = PinH;
-
-            // the error is caused by rounding:
-            const unsigned int PinYOffset =
-                (BoxH - (PinPerSide*PinH + (PinPerSide+1)*PinSpacing))/2;
-
-            // select a font suitable for 
-            wxFont fnt(wxSize(0,int(PinH*0.8)), wxFONTFAMILY_DEFAULT,
-                       wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-            dc.SetFont(fnt);
-            const unsigned int PinLabelW = 2*dc.GetCharWidth();
-            const unsigned int PinLabelH = dc.GetCharHeight();
-
-            // draw the PIC package box
-            dc.DrawRectangle(BoxX, BoxY, BoxW, BoxH);
-            dc.DrawArc(sz.GetWidth()/2-R, BoxY + 1,
-                       sz.GetWidth()/2+R, BoxY + 1,
-                       sz.GetWidth()/2, BoxY + 1);
-
-            // draw the name of the PIC model in the centre of the box
-            wxSize nameSz = dc.GetTextExtent(m_picType.getCurrentPic().GetExtName());
-            dc.DrawRotatedText(m_picType.getCurrentPic().GetExtName(),
-                               (sz.GetWidth() + nameSz.GetHeight())/2,
-                               (sz.GetHeight() - nameSz.GetWidth())/2,
-                               -90);                               
-
-            // draw the pins
-            for (unsigned int i=0; i<PinPerSide; i++)
-            {
-                unsigned int pinY = BoxY + PinYOffset + (i+1)*PinSpacing + i*PinH;
-                unsigned int pinLabelY = pinY + (PinH-PinLabelH)/2;
-
-                // pins on the left side
-                dc.SetTextForeground(pkg.IsICSPPin(i) ? *wxRED : *wxBLACK);
-                dc.DrawRectangle(BoxX-PinW, pinY,
-                                 PinW+1, PinH);
-                dc.DrawText(wxString::Format("%d", i+1), BoxX+PinSpacing, pinLabelY);
-                dc.DrawText(pkg.PinNames[i], 
-                            BoxX-PinW-PinSpacing-dc.GetTextExtent(pkg.PinNames[i]).GetWidth(),
-                            pinLabelY);
-
-                // pins on the right side
-                unsigned int pinIdx = pkg.GetPinCount()-i-1;
-                dc.SetTextForeground(pkg.IsICSPPin(pinIdx) ? *wxRED : *wxBLACK);
-                dc.DrawRectangle(BoxX+BoxW-1, pinY,
-                                 PinW, PinH);
-                dc.DrawText(wxString::Format("%d", pinIdx+1), 
-                            BoxX+BoxW-PinLabelW-PinSpacing, pinLabelY);
-                dc.DrawText(pkg.PinNames[pinIdx], 
-                            BoxX+BoxW+PinW+PinSpacing,
-                            pinLabelY);
-            }
-        }
-        break;
-
-    case MQFP:
-    case TQFP:
-    case PLCC:
-        // TODO
-        break;
-
-    default:
-        break;
-    }
-
-    dc.SelectObject(wxNullBitmap);
-
-    // update the bitmap
-    m_pPackageBmp->SetBitmap(bmp);
-
-    Layout();
-    Refresh();
+    m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
 }

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 29 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -60,7 +60,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDataPanel->SetSizer( bSizer4 );
 	m_pDataPanel->Layout();
 	bSizer4->Fit( m_pDataPanel );
-	m_pNotebook->AddPage( m_pDataPanel, _("Data"), true );
+	m_pNotebook->AddPage( m_pDataPanel, _("Data"), false );
 	m_pInfoPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
@@ -97,8 +97,8 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	
 	bSizer5->Add( sbSizer1, 1, wxALL|wxEXPAND, 5 );
 	
-	wxStaticBoxSizer* sbSizer2;
-	sbSizer2 = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Package") ), wxVERTICAL );
+	wxStaticBoxSizer* pPackageSizer;
+	pPackageSizer = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Package") ), wxVERTICAL );
 	
 	wxBoxSizer* bSizer7;
 	bSizer7 = new wxBoxSizer( wxHORIZONTAL );
@@ -112,21 +112,21 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pPackageVariants->SetSelection( 0 );
 	bSizer7->Add( m_pPackageVariants, 0, wxALIGN_CENTER|wxALL, 5 );
 	
-	sbSizer2->Add( bSizer7, 0, wxEXPAND, 5 );
+	pPackageSizer->Add( bSizer7, 0, wxEXPAND, 5 );
 	
-	m_pPackageBmp = new wxStaticBitmap( m_pInfoPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, 0 );
-	sbSizer2->Add( m_pPackageBmp, 1, wxALIGN_CENTER|wxALL|wxEXPAND, 5 );
+	m_pPackageWin = new UppPackageViewWindow(m_pInfoPanel, wxID_ANY);
+	pPackageSizer->Add( m_pPackageWin, 1, wxALL|wxEXPAND, 5 );
 	
 	m_staticText11 = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Note: red pins are (some of those) used in ICSP."), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText11->Wrap( -1 );
-	sbSizer2->Add( m_staticText11, 0, wxALL, 5 );
+	pPackageSizer->Add( m_staticText11, 0, wxALL, 5 );
 	
-	bSizer5->Add( sbSizer2, 1, wxALL|wxEXPAND, 5 );
+	bSizer5->Add( pPackageSizer, 1, wxALL|wxEXPAND, 5 );
 	
 	m_pInfoPanel->SetSizer( bSizer5 );
 	m_pInfoPanel->Layout();
 	bSizer5->Fit( m_pInfoPanel );
-	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), false );
+	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), true );
 	
 	m_pSizer->Add( m_pNotebook, 1, wxEXPAND | wxALL, 5 );
 	

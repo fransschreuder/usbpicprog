@@ -444,7 +444,7 @@
                         <object class="notebookpage" expanded="1">
                             <property name="bitmap"></property>
                             <property name="label">Data</property>
-                            <property name="select">1</property>
+                            <property name="select">0</property>
                             <object class="wxPanel" expanded="1">
                                 <property name="bg"></property>
                                 <property name="context_help"></property>
@@ -602,7 +602,7 @@
                         <object class="notebookpage" expanded="1">
                             <property name="bitmap"></property>
                             <property name="label">PIC info</property>
-                            <property name="select">0</property>
+                            <property name="select">1</property>
                             <object class="wxPanel" expanded="1">
                                 <property name="bg"></property>
                                 <property name="context_help"></property>
@@ -1033,7 +1033,7 @@
                                             <property name="id">wxID_ANY</property>
                                             <property name="label">Package</property>
                                             <property name="minimum_size"></property>
-                                            <property name="name">sbSizer2</property>
+                                            <property name="name">pPackageSizer</property>
                                             <property name="orient">wxVERTICAL</property>
                                             <property name="permission">none</property>
                                             <event name="OnUpdateUI"></event>
@@ -1041,7 +1041,7 @@
                                                 <property name="border">5</property>
                                                 <property name="flag">wxEXPAND</property>
                                                 <property name="proportion">0</property>
-                                                <object class="wxBoxSizer" expanded="1">
+                                                <object class="wxBoxSizer" expanded="0">
                                                     <property name="minimum_size"></property>
                                                     <property name="name">bSizer7</property>
                                                     <property name="orient">wxHORIZONTAL</property>
@@ -1152,22 +1152,26 @@
                                             </object>
                                             <object class="sizeritem" expanded="1">
                                                 <property name="border">5</property>
-                                                <property name="flag">wxALIGN_CENTER|wxALL|wxEXPAND</property>
+                                                <property name="flag">wxALL|wxEXPAND</property>
                                                 <property name="proportion">1</property>
-                                                <object class="wxStaticBitmap" expanded="1">
+                                                <object class="CustomControl" expanded="1">
                                                     <property name="bg"></property>
-                                                    <property name="bitmap"></property>
+                                                    <property name="class">UppPackageViewWindow</property>
+                                                    <property name="construction">m_pPackageWin = new UppPackageViewWindow(m_pInfoPanel, wxID_ANY);</property>
                                                     <property name="context_help"></property>
+                                                    <property name="declaration">UppPackageViewWindow* m_pPackageWin;</property>
                                                     <property name="enabled">1</property>
                                                     <property name="fg"></property>
                                                     <property name="font"></property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
+                                                    <property name="include">#include &quot;packageview.h&quot;</property>
                                                     <property name="maximum_size"></property>
                                                     <property name="minimum_size"></property>
-                                                    <property name="name">m_pPackageBmp</property>
+                                                    <property name="name">m_pPackageWin</property>
                                                     <property name="permission">protected</property>
                                                     <property name="pos"></property>
+                                                    <property name="settings"></property>
                                                     <property name="size"></property>
                                                     <property name="subclass"></property>
                                                     <property name="tooltip"></property>

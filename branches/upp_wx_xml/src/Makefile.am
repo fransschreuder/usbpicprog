@@ -32,6 +32,8 @@ usbpicprog_SOURCES = \
 	uppmainwindow.h \
 	hexview.cpp \
 	hexview.h \
+    packageview.cpp \
+    packageview.h \
 	preferences.cpp \
 	preferences.h
 
