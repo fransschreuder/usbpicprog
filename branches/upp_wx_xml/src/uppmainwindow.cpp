@@ -127,18 +127,22 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
 
 #if wxCHECK_VERSION(2,9,0)
     // if upp_connect() didn't find a PIC device, load the last chosen PIC
-    int lastPic=0;
-    if (!m_hardware->connected() &&
-        pCfg->Read(wxT("SelectedPIC"), &lastPic) &&
-        lastPic >= 0 && lastPic < (int)m_arrPICName.size())
+    if (!m_hardware->connected())
     {
-        m_picType=PicType((string)m_arrPICName[lastPic]);
+        // NOTE: select a PIC reading the last used one which was saved in wxConfig
+        //       or just use the first one (0-th) as pCfg->Read() default value
+        long lastPic=0;
+        if ((lastPic=pCfg->Read(wxT("SelectedPIC"), (long)0)) >= 0 && 
+            lastPic < (int)m_arrPICName.size())
+        {
+            m_picType=PicType((string)m_arrPICName[lastPic]);
 
-        // keep the choice box synchronized
-        m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
+            // keep the choice box synchronized
+            m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
 
-        // PIC changed; reset the code/config/data grids
-        Reset();
+            // PIC changed; reset the code/config/data grids
+            Reset();
+        }
     }
 #endif
 }
