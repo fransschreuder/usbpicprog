@@ -65,7 +65,7 @@ UPP_WX_CXXFLAGS = /MD$(____upp_wx__DEBUGINFO_9) /DWIN32 $(____WX_SHARED_2_p) \
 	$(____upp_wx__OPT_5) $(____upp_wx__DEBUGINFO_6) \
 	$(______upp_wx__DEBUGINFO_8_p) \
 	/Fdvcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb /W4 \
-	/I..\..\src /I$(LIBUSB_DIR)\src /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
+	/I..\..\src /I$(LIBUSB_DIR)\include /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj \
@@ -242,5 +242,5 @@ vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj: ..
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow_base.cpp
 
 vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res: ..\..\icons\win\upp_wx.rc
-	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i $(LIBUSB_DIR)\src ..\..\icons\win\upp_wx.rc
+	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i $(LIBUSB_DIR)\include ..\..\icons\win\upp_wx.rc
 

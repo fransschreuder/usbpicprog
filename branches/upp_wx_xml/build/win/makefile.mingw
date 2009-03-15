@@ -56,7 +56,7 @@ UPP_WX_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) \
 	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include \
 	$(____upp_wx__OPT_2) $(____upp_wx__DEBUGINFO) -W -Wall -I..\..\src \
-	-I$(LIBUSB_DIR)\src $(CPPFLAGS) $(CXXFLAGS)
+	-I$(LIBUSB_DIR)\include $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.o \
@@ -210,7 +210,7 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o: ../
 	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o: ../../icons/win/upp_wx.rc
-	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_0_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../../src --include-dir $(LIBUSB_DIR)/src
+	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_0_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../../src --include-dir $(LIBUSB_DIR)/include
 
 .PHONY: all clean
 

@@ -30,7 +30,7 @@
         <warnings>max</warnings>
         
         <include>$(SRCDIR)/src</include>
-        <include>$(LIBUSB_DIR)/src</include>
+        <include>$(LIBUSB_DIR)/include</include>
 
         <lib-path>$(LIBUSB_DIR)/lib/msvc</lib-path>
         <sys-lib>libusb</sys-lib>
