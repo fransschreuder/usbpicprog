@@ -484,6 +484,10 @@ SOURCE=..\..\src\main.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\packageview.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\pictype.cpp
 # End Source File
 # Begin Source File
@@ -525,6 +529,10 @@ SOURCE=..\..\src\hexview.h
 # Begin Source File
 
 SOURCE=..\..\src\main.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\packageview.h
 # End Source File
 # Begin Source File
 
