@@ -21,12 +21,19 @@
 
 #include <wx/clipbrd.h>
 #include <wx/dcclient.h>
+#include <wx/dcmemory.h>
+#include <wx/log.h>
+
 #include "packageview.h"
 
 
 UppPackageViewWindow::UppPackageViewWindow(wxWindow* parent, wxWindowID id)
-    : wxScrolledWindow( parent, id )
+    : wxScrolledWindow( parent, id, wxDefaultPosition, wxDefaultSize, 
+                        wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, "packageview" )
 {
+    SetBackgroundStyle(wxBG_STYLE_COLOUR);
+    SetBackgroundColour(*wxWHITE);
+    
     Connect(wxEVT_PAINT, wxPaintEventHandler(UppPackageViewWindow::OnPaint), NULL, this);
 }
 
@@ -38,6 +45,29 @@ wxSize UppPackageViewWindow::DoGetBestSize() const
 void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
 {
     wxPaintDC dc(this);
+    
+    // center the bitmap in the window
+    wxSize sz = GetClientSize();
+    dc.DrawBitmap(m_bmp, (sz.GetWidth()-m_bmp.GetWidth())/2, (sz.GetHeight()-m_bmp.GetHeight())/2);
+}
+
+void UppPackageViewWindow::Refresh()
+{
+    wxSize sz = GetClientSize();
+
+    // initialize the bitmap
+    if (!m_bmp.Create(sz.GetWidth(), sz.GetHeight()))
+    {
+        wxLogError("Can't create the package bitmap!");
+        return;
+    }
+
+    wxMemoryDC dc(m_bmp);
+    if (!dc.IsOk())
+    {
+        wxLogError("Can't draw the PIC package!");
+        return;
+    }
 
     // clear the bitmap
     dc.SetBackground(*wxWHITE);
@@ -48,7 +78,6 @@ void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
     dc.SetFont(*wxSMALL_FONT);
     dc.SetPen(*wxBLACK_PEN);
 
-    wxSize sz = GetClientSize();
     switch (m_pkg.Type)
     {
     case PDIP:
@@ -138,4 +167,8 @@ void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
     default:
         break;
     }
+    
+    dc.SelectObject(wxNullBitmap);
+    
+    wxScrolledWindow::Refresh();
 }

@@ -35,12 +35,17 @@ public:
     void SetChip(const wxString& name, const ChipPackage& pkg)
         { m_name=name; m_pkg=pkg; Refresh(); }
     
+    void Refresh();
+    
 protected:
     void OnPaint(wxPaintEvent& event);
     wxSize DoGetBestSize() const;
     
     wxString m_name;
     ChipPackage m_pkg;
+    
+    /** The cached bitmap with the package drawing */
+    wxBitmap m_bmp;
 };
 
 #endif //PACKAGEVIEW_H
