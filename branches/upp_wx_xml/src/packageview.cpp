@@ -48,7 +48,9 @@ void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
     
     // center the bitmap in the window
     wxSize sz = GetClientSize();
-    dc.DrawBitmap(m_bmp, (sz.GetWidth()-m_bmp.GetWidth())/2, (sz.GetHeight()-m_bmp.GetHeight())/2);
+
+    if (m_bmp.IsOk())
+        dc.DrawBitmap(m_bmp, (sz.GetWidth()-m_bmp.GetWidth())/2, (sz.GetHeight()-m_bmp.GetHeight())/2);
 }
 
 void UppPackageViewWindow::Refresh()
