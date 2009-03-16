@@ -277,7 +277,51 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
         }
         else if (child->GetName() == "config")
         {
-            //TODO
+            ConfigBlock block;
+            block.Name = child->GetAttribute("name");
+            if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
+                return UPP_INVALID_PIC;
+
+            // load the ConfigMask objects belonging to this block
+            wxXmlNode *maskNode = child->GetChildren();
+            while (maskNode)
+            {
+                if (maskNode->GetName() == "mask")
+                {
+                    ConfigMask mask;
+                    mask.Name = maskNode->GetAttribute("name");
+                    if (!maskNode->GetAttribute("value").ToULong(&mask.Value, 0))
+                        return UPP_INVALID_PIC;
+
+                    // load the ConfigValue objects belonging to this mask
+                    wxXmlNode *valueNode = maskNode->GetChildren();
+                    while (valueNode)
+                    {
+                        if (valueNode->GetName() == "value")
+                        {
+                            ConfigValue value;
+                            value.Name = valueNode->GetAttribute("name");
+
+                            if (valueNode->GetAttribute("value") != "default")
+                            {
+                                if (!valueNode->GetAttribute("value").ToULong(&value.Value, 0))
+                                    return UPP_INVALID_PIC;
+
+                                mask.Values.push_back(value);
+                            }
+                            //else: for now ignore the <value value="default" .../> tags
+                        }
+
+                        valueNode = valueNode->GetNext();
+                    }
+
+                    block.Masks.push_back(mask);
+                }
+
+                maskNode = maskNode->GetNext();
+            }
+
+            p.Config.push_back(block);
         }
         else if (child->GetName() == "package")
         {

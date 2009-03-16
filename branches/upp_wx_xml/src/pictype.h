@@ -71,15 +71,13 @@ typedef enum {
     //                 update also the ChipPackage::GetPackageTypeFromString function!
 } PackageType;
 
-//typedef map< PackageType, map<unsigned int,wxBitmap> > PackageBitmap;
-
 /**
     Describes the package of a PIC (used only for informative purposes).
 */
 class ChipPackage
 {
 public:
-    ChipPackage() {}
+    ChipPackage() : Type(UPP_INVALID_PACKAGETYPE) {}
 
     /**
         The size of this array indicates the number of pins of this package.
@@ -95,13 +93,6 @@ public:
 
     wxString GetName() const
         { return GetStringFromPackageType(Type); }
-    /*const wxBitmap& GetBitmap() const
-        {
-            const wxBitmap& bmp = s_arrImage[Type][PinNames.GetCount()];
-            if (bmp.IsOk())
-                return bmp;
-            return s_bmpUnknown;
-        }*/
     unsigned int GetPinCount() const
         { return PinNames.GetCount(); }
 
@@ -110,6 +101,7 @@ public:
         if (PinNames[idx].Contains("VDD") ||
             PinNames[idx].Contains("VSS") ||
             PinNames[idx].Contains("GND") ||
+            PinNames[idx].Contains("ICSP") ||
             PinNames[idx].Contains("MCLR") ||
             PinNames[idx].Contains("PGC") ||
             PinNames[idx].Contains("PGD"))
@@ -118,11 +110,6 @@ public:
     }
 
 public:     // static
-    /**
-        Initializes the graphics for the various packages.
-    */
-    //static bool Init();
-
     /**
         Returns the PackageType for the given package type name or 
         @c UPP_INVALID_PACKAGETYPE on error.
@@ -133,20 +120,49 @@ public:     // static
         Returns the name for the given PackageType.
     */
     static wxString GetStringFromPackageType(PackageType type);
+};
 
-private:
-    /**
-        The images associated with the various packages.
-        This is a double-dimensional vector, whose @e first index is used
-        to indicate the PackageType, while 
-    */
-    //static PackageBitmap s_arrImage;
+/**
+    Describes a configuration bit value.
+*/
+class ConfigValue
+{
+public:
+    ConfigValue() : Value(0) {}
 
-    /**
-        The image associated to the combinations of package type / pin numbers
-        for which we don't have a valid image.
-    */
-    //static wxBitmap s_bmpUnknown;
+    wxString Name;
+    unsigned long Value;
+
+    // leave out cname, sdcc_cname
+};
+
+/**
+    Describes a configuration "mask".
+*/
+class ConfigMask
+{
+public:
+    ConfigMask() : Value(0) {}
+
+    wxString Name;
+    unsigned long Value;
+    vector<ConfigValue> Values;
+};
+
+/**
+    Describes a block of configuration bits.
+*/
+class ConfigBlock
+{
+public:
+    ConfigBlock() : Offset(0), WriteMask(0) {}
+
+    unsigned long Offset;
+    unsigned long WriteMask;
+    wxString Name;
+    vector<ConfigMask> Masks;
+
+    // leave out bvalue
 };
 
 /**
@@ -180,6 +196,10 @@ public:
     PicFamily picFamily;
     unsigned int DevId;
     unsigned int DevIdMask;
+
+    vector<ConfigBlock> Config;
+
+    // TODO: remove this in favour of "Config"
     unsigned int ConfigMask[16];
 
     // package descriptor:
