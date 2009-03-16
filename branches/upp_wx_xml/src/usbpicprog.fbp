@@ -286,7 +286,7 @@
                         <object class="notebookpage" expanded="1">
                             <property name="bitmap"></property>
                             <property name="label">Configuration flags</property>
-                            <property name="select">0</property>
+                            <property name="select">1</property>
                             <object class="wxPanel" expanded="1">
                                 <property name="bg"></property>
                                 <property name="context_help"></property>
@@ -346,7 +346,7 @@
                                             <property name="font"></property>
                                             <property name="hidden">0</property>
                                             <property name="id">wxID_ANY</property>
-                                            <property name="label">Hexadecimal view of the configuration fuses of the PIC:</property>
+                                            <property name="label">Configuration flags for this PIC:</property>
                                             <property name="maximum_size"></property>
                                             <property name="minimum_size"></property>
                                             <property name="name">m_staticText2</property>
@@ -391,19 +391,19 @@
                                         <property name="proportion">1</property>
                                         <object class="CustomControl" expanded="1">
                                             <property name="bg"></property>
-                                            <property name="class">UppHewViewGrid</property>
-                                            <property name="construction">m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY, HEXVIEW_CONFIG);</property>
+                                            <property name="class">class ConfigViewBook;</property>
+                                            <property name="construction">m_pConfigListbook = new ConfigViewBook(m_pConfigPanel, wxID_ANY);</property>
                                             <property name="context_help"></property>
-                                            <property name="declaration">UppHexViewGrid* m_pConfigGrid;</property>
+                                            <property name="declaration">ConfigViewBook* m_pConfigListbook;</property>
                                             <property name="enabled">1</property>
                                             <property name="fg"></property>
                                             <property name="font"></property>
                                             <property name="hidden">0</property>
                                             <property name="id">wxID_ANY</property>
-                                            <property name="include">#include &quot;hexview.h&quot;</property>
+                                            <property name="include">#include &quot;configview.h&quot;</property>
                                             <property name="maximum_size"></property>
                                             <property name="minimum_size"></property>
-                                            <property name="name">m_pConfigGrid</property>
+                                            <property name="name">m_pConfigListbook</property>
                                             <property name="permission">protected</property>
                                             <property name="pos"></property>
                                             <property name="settings"></property>
@@ -602,7 +602,7 @@
                         <object class="notebookpage" expanded="1">
                             <property name="bitmap"></property>
                             <property name="label">PIC info</property>
-                            <property name="select">1</property>
+                            <property name="select">0</property>
                             <object class="wxPanel" expanded="1">
                                 <property name="bg"></property>
                                 <property name="context_help"></property>

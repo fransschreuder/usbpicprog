@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 29 2008)
+// C++ code generated with wxFormBuilder (version Apr 16 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -35,17 +35,17 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	wxBoxSizer* bSizer3;
 	bSizer3 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Hexadecimal view of the configuration fuses of the PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Configuration flags for this PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText2->Wrap( -1 );
 	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
 	
-	m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY, HEXVIEW_CONFIG);
-	bSizer3->Add( m_pConfigGrid, 1, wxALL|wxEXPAND, 5 );
+	m_pConfigListbook = new ConfigViewBook(m_pConfigPanel, wxID_ANY);
+	bSizer3->Add( m_pConfigListbook, 1, wxALL|wxEXPAND, 5 );
 	
 	m_pConfigPanel->SetSizer( bSizer3 );
 	m_pConfigPanel->Layout();
 	bSizer3->Fit( m_pConfigPanel );
-	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), false );
+	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), true );
 	m_pDataPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
@@ -126,7 +126,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pInfoPanel->SetSizer( bSizer5 );
 	m_pInfoPanel->Layout();
 	bSizer5->Fit( m_pInfoPanel );
-	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), true );
+	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), false );
 	
 	m_pSizer->Add( m_pNotebook, 1, wxEXPAND | wxALL, 5 );
 	

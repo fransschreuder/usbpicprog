@@ -67,7 +67,6 @@ enum UppMainWindowStatusBar
 enum UppMainWindowNotebookPages
 {
     PAGE_CODE,
-    PAGE_CONFIG,
     PAGE_DATA
 };
 

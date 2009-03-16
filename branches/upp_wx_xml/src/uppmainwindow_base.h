@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 29 2008)
+// C++ code generated with wxFormBuilder (version Apr 16 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -22,6 +22,7 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
+#include "configview.h"
 #include <wx/hyperlink.h>
 #include <wx/statbox.h>
 #include <wx/choice.h>
@@ -52,7 +53,7 @@ class UppMainWindowBase : public wxFrame
 		UppHexViewGrid* m_pCodeGrid;
 		wxPanel* m_pConfigPanel;
 		wxStaticText* m_staticText2;
-		UppHexViewGrid* m_pConfigGrid;
+		ConfigViewBook* m_pConfigListbook;
 		wxPanel* m_pDataPanel;
 		wxStaticText* m_staticText3;
 		UppHexViewGrid* m_pDataGrid;

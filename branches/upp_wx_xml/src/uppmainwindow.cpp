@@ -39,6 +39,7 @@
 #include "uppmainwindow.h"
 #include "hexview.h"
 #include "packageview.h"
+#include "configview.h"
 #include "../svn_revision.h"
 
 #include <map>
@@ -396,8 +397,6 @@ UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
     {
     case PAGE_CODE:
         return m_pCodeGrid;
-    case PAGE_CONFIG:
-        return m_pConfigGrid;
     case PAGE_DATA:
         return m_pDataGrid;
 
@@ -452,8 +451,10 @@ void UppMainWindow::UpdateGrids()
 {
     // reset grid contents
     m_pCodeGrid->ShowHexFile(&m_hexFile,&m_picType);
-    m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
+    //m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
     m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
+
+    m_pConfigListbook->SetPIC(m_picType.getCurrentPic());
 }
 
 void UppMainWindow::UpdatePicInfo()

@@ -147,6 +147,14 @@ public:
     wxString Name;
     unsigned long Value;
     vector<ConfigValue> Values;
+
+    wxArrayString GetStringValues() const
+    {
+        wxArrayString ret;
+        for (unsigned int i=0; i<Values.size(); i++)
+            ret.Add(Values[i].Name);
+        return ret;
+    }
 };
 
 /**
@@ -208,6 +216,11 @@ public:
 
 /**
     A PIC type.
+
+    @todo rename this class to PicChooser and rename its ctors
+          to FindPIC() and make all its function static.
+          Change UppMainWindow to store&use a Pic instance.
+          Or otherwise simply merge this class with the Pic class itself.
 */
 class PicType
 {
