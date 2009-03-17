@@ -64,7 +64,7 @@ IT_PROG_INTLTOOL([0.35.0])
 
 
 dnl ***************************************************************************
-dnl Basic checks
+dnl Checks for our library dependencies
 dnl ***************************************************************************
 
 #
@@ -79,7 +79,7 @@ if test "$has_wxWin" != 1; then
        Please check that wx-config is in path, the directory
        where wxWidgets libraries are installed (returned by
       'wx-config --libs' command) is in LD_LIBRARY_PATH or
-       equivalent variable and wxWidgets version is 2.3.4 or above.
+       equivalent variable and wxWidgets version is 2.8.0 or above.
     ])
 fi
 
