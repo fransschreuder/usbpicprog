@@ -24,24 +24,47 @@
 #include <wx/listbook.h>
 
 #include "pictype.h"
+#include "hexfile.h"
 
 /**
     A specialized listbook which shows the configuration flags of a PIC.
 */
-class ConfigViewBook : public wxListbook
+class UppConfigViewBook : public wxListbook
 {
 public:
-    ConfigViewBook(wxWindow* parent, wxWindowID id);
-    ~ConfigViewBook();
+    UppConfigViewBook(wxWindow* parent, wxWindowID id);
+    ~UppConfigViewBook();
 
-    void SetPIC(const Pic& pic);
+    /**
+        Sets the HexFile instance to update upon user changes on the config flags.
+        This function also needs a Pic instance because the HexFile stores the flags
+        in a plain array but this widget needs more info to display the various
+        configuration options to the user; the Pic class provides them.
+
+        This function resets the current contents of this control using the
+        data stored in the HexFile.
+
+        Note that the @a hex pointer is stored inside this class
+        thus the caller must ensure the validity of the HexFile object 
+        for the entire lifetime of this window.
+
+    */
+    void SetHexFile(HexFile* hex, const Pic& pic);
 
 private:
+    /**
+        The HexFile contains the current config flags.
+    */
+    HexFile* m_hexFile;
+
+    /**
+        The Pic structure contains info about the config flags for the PIC model
+        selected by the user (but does not contain the actual data - m_hexFile contains it).
+    */
+    Pic m_pic;
 
 protected:
-    void OnCopy (wxCommandEvent& event);
-
-    //wxSize DoGetBestSize() const;
+    void OnChange(wxCommandEvent& event);
 };
 
 #endif //CONFIGVIEW_H

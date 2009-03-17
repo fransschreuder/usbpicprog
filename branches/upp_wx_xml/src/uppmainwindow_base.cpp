@@ -31,21 +31,6 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pCodePanel->Layout();
 	bSizer2->Fit( m_pCodePanel );
 	m_pNotebook->AddPage( m_pCodePanel, _("Code"), false );
-	m_pConfigPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer3;
-	bSizer3 = new wxBoxSizer( wxVERTICAL );
-	
-	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Configuration flags for this PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText2->Wrap( -1 );
-	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
-	
-	m_pConfigListbook = new ConfigViewBook(m_pConfigPanel, wxID_ANY);
-	bSizer3->Add( m_pConfigListbook, 1, wxALL|wxEXPAND, 5 );
-	
-	m_pConfigPanel->SetSizer( bSizer3 );
-	m_pConfigPanel->Layout();
-	bSizer3->Fit( m_pConfigPanel );
-	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), true );
 	m_pDataPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
@@ -61,6 +46,21 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDataPanel->Layout();
 	bSizer4->Fit( m_pDataPanel );
 	m_pNotebook->AddPage( m_pDataPanel, _("Data"), false );
+	m_pConfigPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer3;
+	bSizer3 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Configuration flags for this PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2->Wrap( -1 );
+	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
+	
+	m_pConfigListbook = new UppConfigViewBook(m_pConfigPanel, wxID_ANY);
+	bSizer3->Add( m_pConfigListbook, 1, wxALL|wxEXPAND, 5 );
+	
+	m_pConfigPanel->SetSizer( bSizer3 );
+	m_pConfigPanel->Layout();
+	bSizer3->Fit( m_pConfigPanel );
+	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), true );
 	m_pInfoPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxHORIZONTAL );

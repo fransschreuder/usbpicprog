@@ -51,12 +51,12 @@ class UppMainWindowBase : public wxFrame
 		wxPanel* m_pCodePanel;
 		wxStaticText* m_staticText1;
 		UppHexViewGrid* m_pCodeGrid;
-		wxPanel* m_pConfigPanel;
-		wxStaticText* m_staticText2;
-		ConfigViewBook* m_pConfigListbook;
 		wxPanel* m_pDataPanel;
 		wxStaticText* m_staticText3;
 		UppHexViewGrid* m_pDataGrid;
+		wxPanel* m_pConfigPanel;
+		wxStaticText* m_staticText2;
+		UppConfigViewBook* m_pConfigListbook;
 		wxPanel* m_pInfoPanel;
 		wxHyperlinkCtrl* m_pDatasheetLink;
 		wxStaticText* m_pVPPText;

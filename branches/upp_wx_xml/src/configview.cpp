@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   Copyright (C) 2008-2009 by Frans Schreuder, Francesco Montorsi        *
 *   usbpicprog.sourceforge.net                                            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -25,51 +25,30 @@
 #include <wx/choice.h>
 
 #include "configview.h"
+#include "uppmainwindow.h"
 
 
-ConfigViewBook::ConfigViewBook(wxWindow* parent, wxWindowID id)
+UppConfigViewBook::UppConfigViewBook(wxWindow* parent, wxWindowID id)
     : wxListbook( parent, id, wxDefaultPosition, wxDefaultSize, wxLB_DEFAULT )
 {
-/*
-    // Connect Events
-    Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
-    Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
-    Connect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
-    Connect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );*/
 }
 
-ConfigViewBook::~ConfigViewBook()
-{/*
-    // Disconnect Events
-    Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppHexViewGrid::OnCellChanged ), NULL, this );
-    Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( UppHexViewGrid::OnCellRightClicked ), NULL, this );
-    Disconnect( wxID_COPY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnCopy ) );
-    Disconnect( wxID_SELECTALL, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppHexViewGrid::OnSelectAll ) );*/
+UppConfigViewBook::~UppConfigViewBook()
+{
 }
-/*
-wxSize ConfigViewBook::DoGetBestSize() const
+
+void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 {
-    wxSize sz = wxGrid::DoGetBestSize();
+    m_pic = pic;
+    m_hexFile = hex;
 
-    // we need to do this to avoid the presence of a small annoying horizontal scrollbar:
-    sz.x += wxSystemSettings::GetMetric(wxSYS_VSCROLL_X) +
-            10;     // small additional border
-
-    // we need this because the minimal height is calculated after construction
-    // when we have only a single row in the widget (since ShowHexFile has not
-    // been called yet); this sets a reasonable value.
-    sz.y = 400;
-
-    return sz;
-}*/
-
-void ConfigViewBook::SetPIC(const Pic& pic)
-{
+    // reset current contents
     DeleteAllPages();
 
-    for (unsigned int i=0; i<pic.Config.size(); i++)
+    // add new GUI selectors for the config flags of this PIC
+    for (unsigned int i=0; i<m_pic.Config.size(); i++)
     {
-        const ConfigBlock& block = pic.Config[i];
+        const ConfigBlock& block = m_pic.Config[i];
         if (block.Masks.size() == 0)
             continue;       // skip this block
 
@@ -84,11 +63,18 @@ void ConfigViewBook::SetPIC(const Pic& pic)
             sz->Add(new wxStaticText(panel, wxID_ANY, mask.Name + ":"),
                     0, wxLEFT|wxALIGN_CENTER, 5);
 
+            // NOTE: we give each wxChoice we build the name of the mask it controls;
+            //       in this way from OnChange() we may easily find out which object
+            //       is sending the notification
             wxChoice *choice = 
-                new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, mask.GetStringValues());
-            choice->SetSelection(0);
+                new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
+                             mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
-            // connect to choice selected event?
+            // TODO: put the config values from HexFile to this ctrl
+            choice->SetSelection(0);
+            choice->Connect(wxEVT_COMMAND_CHOICE_SELECTED, 
+                            wxCommandEventHandler(UppConfigViewBook::OnChange), 
+                            NULL, this);
 
             sz->Add(choice, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
         }
@@ -100,3 +86,32 @@ void ConfigViewBook::SetPIC(const Pic& pic)
     }
 }
 
+void UppConfigViewBook::OnChange(wxCommandEvent& event)
+{
+    wxChoice *choice = dynamic_cast<wxChoice*>(event.GetEventObject());
+    wxASSERT(choice);
+
+    // get the block the user is currently viewing/editing
+    const ConfigBlock& block = m_pic.Config[GetSelection()];
+
+    // find the config mask which was changed
+    const ConfigMask* mask = NULL;
+    for (unsigned int i=0; i<block.Masks.size(); i++)
+    {
+        if (block.Masks[i].Name == choice->GetName())
+        {
+            mask = &block.Masks[i];
+            break;
+        }
+    }
+
+    wxASSERT(mask);
+    int newConfigValue = mask->Values[choice->GetSelection()].Value;
+
+    // TODO: we need to update the HEX file
+
+    // notify the main window about this change
+    UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
+    wxASSERT(main);
+    main->upp_hex_changed();
+}
