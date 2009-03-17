@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   Copyright (C) 2008-2009 by Frans Schreuder, Francesco Montorsi        *
 *   usbpicprog.sourceforge.net                                            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -84,7 +84,6 @@ DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE);
 // =============================================================================
 
 
-/*Do the basic initialization of the main window*/
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
@@ -172,7 +171,6 @@ UppMainWindow::~UppMainWindow()
     m_history.Save(*pCfg);
 }
 
-/* returns a bitmap suitable for UppMainWindow menu items */
 wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
     wxImage tmp(xpm_data);
@@ -187,7 +185,6 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
     return wxBitmap(tmp);
 }
 
-/* completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
 void UppMainWindow::CompleteGUICreation()
 {
 #ifdef __WXMSW__
@@ -373,7 +370,7 @@ void UppMainWindow::CompleteGUICreation()
 
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
-    this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
+    this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
 #if wxCHECK_VERSION(2,9,0)
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
@@ -381,13 +378,11 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxCommandEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxCommandEventHandler( UppMainWindow::OnThreadCompleted ) );
 #endif
-    this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
 
     // set default title name
     UpdateTitle();
 
     // show default stuff
-    UpdateGrids();
     UpdatePicInfo();
 }
 
@@ -447,18 +442,16 @@ void UppMainWindow::UpdateTitle()
     SetTitle(str + wxT("]"));
 }
 
-void UppMainWindow::UpdateGrids()
-{
-    // reset grid contents
-    m_pCodeGrid->ShowHexFile(&m_hexFile,&m_picType);
-    //m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
-    m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
-
-    m_pConfigListbook->SetPIC(m_picType.getCurrentPic());
-}
-
 void UppMainWindow::UpdatePicInfo()
 {
+    // reset grid contents
+    m_pCodeGrid->SetHexFile(&m_hexFile);
+    m_pDataGrid->SetHexFile(&m_hexFile);
+
+    // reset config listbook contents
+    m_pConfigListbook->SetHexFile(&m_hexFile, m_picType.getCurrentPic());
+
+    // reset the PIC info page
     const Pic& pic = m_picType.getCurrentPic();
     if (!pic.ok())
         return;
@@ -496,7 +489,6 @@ void UppMainWindow::Reset()
 {
     m_hexFile.newFile(&m_picType);
 
-    UpdateGrids();
     UpdatePicInfo();
     UpdateTitle();
 }
@@ -505,7 +497,6 @@ void UppMainWindow::Reset()
 // UPPMAINWINDOW - event handlers
 // =============================================================================
 
-/*Open a hexfile using the most-recently-used menu items*/
 void UppMainWindow::on_mru(wxCommandEvent& event)
 {
     upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
@@ -533,7 +524,6 @@ void UppMainWindow::on_close(wxCloseEvent& event)
 // UPPMAINWINDOW - thread-related functions
 // =============================================================================
 
-/*Update the progress bar; this function is called by m_hardware */
 void UppMainWindow::updateProgress(int value)
 {
     // NOTE: this function is not always executed in the secondary thread's context
@@ -555,7 +545,6 @@ void UppMainWindow::updateProgress(int value)
 #endif
 }
 
-/*Update from the secondary thread */
 #if wxCHECK_VERSION(2,9,0)
 void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
 #else
@@ -586,7 +575,6 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     }
 }
 
-/*The secondary thread just finished*/
 #if wxCHECK_VERSION(2,9,0)
 void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
 #else
@@ -632,7 +620,6 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
     switch (m_mode)
     {
     case THREAD_READ:
-        UpdateGrids();
         UpdatePicInfo();
         UpdateTitle();
         break;
@@ -1032,14 +1019,13 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
 // UPPMAINWINDOW - event handlers without event argument
 // =============================================================================
 
-/*The user touched one of the code/data/config grids*/
-void UppMainWindow::upp_cell_changed()
+void UppMainWindow::upp_hex_changed()
 {
-    // m_hexFile has been automatically modified by the UppHexViewGrid!
+    // m_hexFile has been automatically modified by the UppHexViewGrid
+    // or our m_picType instance was automatically modified by the ConfigViewListbook
     UpdateTitle();
 }
 
-/*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
     if (!ShouldContinueIfUnsaved())
@@ -1048,7 +1034,6 @@ void UppMainWindow::upp_new()
     Reset();
 }
 
-/*Open a hexfile using a file dialog*/
 void UppMainWindow::upp_open()
 {
     if (!ShouldContinueIfUnsaved())
@@ -1067,7 +1052,6 @@ void UppMainWindow::upp_open()
     }
 }
 
-/*Open a hexfile by filename*/
 bool UppMainWindow::upp_open_file(const wxString& path)
 {
     if(m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
@@ -1078,7 +1062,6 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
     else
     {
-        UpdateGrids();
         UpdatePicInfo();
         UpdateTitle();
         m_history.AddFileToHistory(path);
@@ -1087,7 +1070,6 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
 }
 
-/*re-open the hexfile*/
 void UppMainWindow::upp_refresh()
 {
     if(!m_hexFile.hasFileName())
@@ -1107,13 +1089,11 @@ void UppMainWindow::upp_refresh()
     }
     else
     {
-        UpdateGrids();
         UpdatePicInfo();
         UpdateTitle();
     }
 }
 
-/*save the hexfile when already open, else perform a save_as*/
 void UppMainWindow::upp_save()
 {
     if(m_hexFile.hasFileName())
@@ -1129,7 +1109,6 @@ void UppMainWindow::upp_save()
     else upp_save_as();
 }
 
-/*save the hex file with a file dialog*/
 void UppMainWindow::upp_save_as()
 {
     wxFileDialog* openFileDialog =
@@ -1170,7 +1149,6 @@ void UppMainWindow::upp_selectall()
         grid->SelectAll();
 }
 
-/*Write everything to the device*/
 void UppMainWindow::upp_program()
 {
     if (m_hardware == NULL) return;
@@ -1402,7 +1380,7 @@ void UppMainWindow::upp_disconnect()
 
 void UppMainWindow::upp_preferences()
 {
-    PreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
+    UppPreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
 
     dlg.SetConfigFields(m_cfg);
     if (dlg.ShowModal() == wxID_OK)

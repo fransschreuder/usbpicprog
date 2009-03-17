@@ -94,29 +94,50 @@ typedef std::vector<time_t> wxArrayTime;
 class UppMainWindow : public UppMainWindowBase, public wxThreadHelper
 {
 public:
-
     UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY);
     ~UppMainWindow();
 
-
+    /** Open a hexfile by filename */
     bool upp_open_file(const wxString& path);
+
+    /** Clear the hexfile and updates the GUI */
     void upp_new();
+
+    /** Update the progress bar; this callback function is called by the Hardware class */
     void updateProgress(int value);
+
+    /** 
+        The user touched one of the code/data grids or one of the config values.
+        This callback function is called by UppHexViewGrid and 
+    */
+    void upp_hex_changed();
 
 protected:      // internal helpers
 
-    /** Put the contents of the hex file in the text area */
-    void UpdateGrids();
+    /** Transfers data from the m_hexFile member to the various GUI controls */
     void UpdatePicInfo();
+
+    /** Updates the title of this frame */
     void UpdateTitle();
+
+    /** Resets the m_hexFile member and then calls UpdatePicInfo() to update the GUI */
     void Reset();
 
+    /** Returns a bitmap suitable for UppMainWindow menu items */
     wxBitmap GetMenuBitmap(const char* xpm_data[]);
+
+    /** Completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
     void CompleteGUICreation();
 
     /** Returns a pointer to the grid currently open */
     UppHexViewGrid* GetCurrentGrid() const;
 
+    /** 
+        In case the user modified some of the code/config/data memory of m_hexFile,
+        warns him that he's going to loose his modification if he doesn't save.
+
+        Call this function whenever m_hexFile is going to be modified.
+    */
     bool ShouldContinueIfUnsaved();
 
 
@@ -134,14 +155,17 @@ protected:      // internal thread-related functions
     // functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
 #if wxCHECK_VERSION(2,9,0)
+    /** Handles an update from the secondary thread */
     void OnThreadUpdate(wxThreadEvent& evt);
+
+    /** Handles the notification about the secondary thread just finishing */
     void OnThreadCompleted(wxThreadEvent& evt);
 #else
     void OnThreadUpdate(wxCommandEvent& evt);
     void OnThreadCompleted(wxCommandEvent& evt);
 #endif
 
-public:     // event handlers
+protected:     // event handlers
     void on_mru( wxCommandEvent& event );
     void on_close( wxCloseEvent& event );
     void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
@@ -163,7 +187,6 @@ public:     // event handlers
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX}
     void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX}
-    void on_cell_changed( wxGridEvent& event ){upp_cell_changed(); EVENT_FIX}
     void on_pic_choice_changed( wxCommandEvent& event ){upp_pic_choice_changed(); EVENT_FIX}
     void on_pic_choice_changed_bymenu( wxCommandEvent& event )
         {upp_pic_choice_changed_bymenu(event.GetId()-wxID_PIC_CHOICE_MENU); EVENT_FIX}
@@ -171,14 +194,48 @@ public:     // event handlers
         {upp_package_variant_changed(); EVENT_FIX}
 
 private:    // real event handlers
+
+    /** Open a hexfile using a file dialog */
     void upp_open();
+
+    /** Re-open the hexfile */
     void upp_refresh();
+
+    /** Save the hexfile when already open, else perform a save_as */
     void upp_save();
+
+    /** Save the hex file with a file dialog */
     void upp_save_as();
-    void upp_cell_changed();
+
+    /** The user is exiting the app */
     void upp_exit();
+
+    /** The user clicked copy */
     void upp_copy();
+
+    /** The user clicked select all */
     void upp_selectall();
+
+    void upp_preferences();
+    void upp_help();
+    void upp_about();
+
+    /**
+        @name Functions to keep internal structs and the GUI synchronized
+
+        See also the public upp_hex_changed().
+    */
+    //@{
+    void upp_pic_choice_changed();
+    void upp_pic_choice_changed_bymenu(int id);
+    void upp_package_variant_changed();
+    //@
+
+    /**
+        @name Functions which issue commands to the hardware class.
+    */
+    //@{
+    /** Write everything to the device */
     void upp_program();
     void upp_read();
     void upp_verify();
@@ -187,22 +244,29 @@ private:    // real event handlers
     bool upp_autodetect();
     bool upp_connect();
     void upp_disconnect();
-    void upp_preferences();
-    void upp_help();
-    void upp_about();
-    void upp_pic_choice_changed();
-    void upp_pic_choice_changed_bymenu(int id);
-    void upp_package_variant_changed();
+    //@
+
 
 private:    // member variables
 
+    /**
+        Contains the current code, data, config bytes shown in this window.
+    */
     HexFile m_hexFile;
+
+    /**
+        Contains all the info about the current PIC model selected in this window.
+    */
     PicType m_picType;
+
+    /**
+        Manages communication to the real hardware.
+    */
     Hardware* m_hardware;
 
     wxArrayString m_arrPICName;
 
-    ConfigFields m_cfg;
+    UppPreferences m_cfg;
     wxString m_defaultPath;
 
     wxChoice* m_pPICChoice;

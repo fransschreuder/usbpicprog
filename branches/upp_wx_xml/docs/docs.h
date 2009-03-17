@@ -8,4 +8,11 @@
     
     Please note that this manual is useful only to UsbPicProg developers or to contributors.
 
+
+    \section conventions Conventions used in UsbPicProg code
+
+    The GUI classes have the @c Upp prefix.
+    All the doxygen docs go in the headers.
+    TOWRITE.
+
 */
