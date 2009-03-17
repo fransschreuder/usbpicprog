@@ -67,6 +67,7 @@ UPP_WX_CXXFLAGS = /MD$(____upp_wx__DEBUGINFO_9) /DWIN32 $(____WX_SHARED_2_p) \
 	/Fdvcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb /W4 \
 	/I..\..\src /I$(LIBUSB_DIR)\include /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  \
+	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj \
 	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj \
@@ -213,6 +214,9 @@ vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe: $(UPP_WX_OBJECTS)
 	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) /SUBSYSTEM:WINDOWS $(____upp_wx__DEBUGINFO_7) /pdb:"vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb" /LIBPATH:$(LIBUSB_DIR)\lib\msvc $(LDFLAGS) @<<
 	$(UPP_WX_OBJECTS)  libusb.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
 <<
+
+vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj: ..\..\src\configview.cpp
+	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\configview.cpp
 
 vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj: ..\..\src\hardware.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\hardware.cpp

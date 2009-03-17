@@ -468,6 +468,10 @@ LINK32=link.exe
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\src\configview.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\hardware.cpp
 # End Source File
 # Begin Source File
@@ -510,6 +514,10 @@ SOURCE=..\..\src\uppmainwindow_base.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\src\configview.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\src\formbuilder_includes.h
