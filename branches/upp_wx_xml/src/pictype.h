@@ -148,11 +148,16 @@ public:
     unsigned long Value;
     vector<ConfigValue> Values;
 
-    wxArrayString GetStringValues() const
+    wxArrayString GetStringValues(bool includeValues = true) const
     {
         wxArrayString ret;
         for (unsigned int i=0; i<Values.size(); i++)
-            ret.Add(Values[i].Name);
+        {
+            if (includeValues)
+                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, Values[i].Value));
+            else
+                ret.Add(Values[i].Name);
+        }
         return ret;
     }
 };
@@ -174,7 +179,13 @@ public:
 };
 
 /**
-    Some generic properties of a PIC.
+    This class represents a PIC device.
+
+    Pic class stores all properties of a PIC, but does NOT store the
+    code, config and data memory areas (see HexFile for that).
+    
+    The info stored in this class are initialized at run-time using one of
+    FindPIC() static functions and then are not modified anymore.
 */
 class Pic
 {
@@ -243,6 +254,8 @@ public:
 
     /**Returns the PIC that was selected in the ctor.*/
     const Pic& getCurrentPic() const
+        { return m_currentPic; }
+    Pic& getCurrentPic()
         { return m_currentPic; }
     /**Returns true if the construction of this instance was successful.*/
     bool ok() const 
