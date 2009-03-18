@@ -72,6 +72,17 @@ typedef enum {
 } PackageType;
 
 /**
+    The meaning of the voltage values stored inside the arrays of Pic class.
+*/
+typedef enum {
+    MINIMUM = 0,
+    NOMINAL,
+    MAXIMUM,
+
+    VOLTAGE_TYPE_MAX
+} VoltageType;
+
+/**
     Describes the package of a PIC (used only for informative purposes).
 */
 class ChipPackage
@@ -191,9 +202,12 @@ class Pic
 {
 public:
     Pic() : CodeSize(0), ConfigAddress(0), DataAddress(0), DataSize(0), ConfigSize(0), 
-            picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0) 
+            picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
     {
         memset(ConfigMask, 0, sizeof(ConfigMask));
+
+        for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
+            WorkVoltages[i] = ProgVoltages[i] = 0.0;
     }
 
     /// Is this PIC structure correctly initialized?
@@ -216,13 +230,23 @@ public:
     unsigned int DevId;
     unsigned int DevIdMask;
 
+    /// The array of configuration blocks
     vector<ConfigBlock> Config;
+
+    /// Package descriptor
+    vector<ChipPackage> Package;
+
+    /// The programming voltages; see VoltageType enum.
+    float ProgVoltages[VOLTAGE_TYPE_MAX];
+
+    /// The working voltages; see VoltageType enum.
+    float WorkVoltages[VOLTAGE_TYPE_MAX];
+
+    /// The minimum & maximum frequencies for this PIC.
+    float MinFreq, MaxFreq;
 
     // TODO: remove this in favour of "Config"
     unsigned int ConfigMask[16];
-
-    // package descriptor:
-    vector<ChipPackage> Package;
 };
 
 /**

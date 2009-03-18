@@ -470,9 +470,11 @@ void UppMainWindow::UpdatePicInfo()
     m_pDatasheetLink->GetContainingSizer()->Layout();
         // size may have changed: relayout the m_pDatasheetLink's container
 
-    m_pVPPText->SetLabel(wxString::Format("Programming voltage (Vpp): TODO"));
-    m_pVDDText->SetLabel(wxString::Format("Supply voltage (Vdd): TODO"));
-    m_pFrequencyText->SetLabel(wxString::Format("Frequency range: TODO"));
+    m_pVPPText->SetLabel(wxString::Format("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
+                         pic.ProgVoltages[MINIMUM], pic.ProgVoltages[NOMINAL], pic.ProgVoltages[MAXIMUM]));
+    m_pVDDText->SetLabel(wxString::Format("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
+                         pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
+    m_pFrequencyText->SetLabel(wxString::Format("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz", pic.MinFreq, pic.MaxFreq));
     m_pDeviceIDText->SetLabel(wxString::Format("Device ID: 0x%X", pic.DevId));
     m_pCodeMemoryText->SetLabel(wxString::Format("Code memory size: %d bytes", pic.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format("Data memory size: %d bytes", pic.DataSize));

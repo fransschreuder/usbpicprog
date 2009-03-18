@@ -35,12 +35,9 @@
 
 #include "pictype.h"
 
-
 // statics
 vector<PicType::PicIndexInfo> PicType::s_arrSupported;
 PicType::PicIndexInfo PicType::s_default;
-//PackageBitmap ChipPackage::s_arrImage;
-//wxBitmap ChipPackage::s_bmpUnknown;
 
 
 PicType::PicType(string picTypeStr)
@@ -229,8 +226,14 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     wxString str;
     long num=0;
 
-    if (!doc.Load(wxStandardPaths::Get().GetDataDir() + 
-                  wxFileName::GetPathSeparator() + picName + ".xml"))
+    wxString prefix = wxStandardPaths::Get().GetDataDir() + 
+                      wxFileName::GetPathSeparator();
+#ifdef __WXMSW__
+    prefix += "xml_data";
+    prefix += wxFileName::GetPathSeparator();
+#endif
+
+    if (!doc.Load(prefix + picName + ".xml"))
         return UPP_INVALID_PIC;
     if (doc.GetRoot()->GetName() != "device")
         return UPP_INVALID_PIC;
@@ -279,6 +282,44 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                     !str.ToLong(&num, 0))
                     return UPP_INVALID_PIC;
                 p.DataAddress = num;
+            }
+        }
+        else if (child->GetName() == "voltages")
+        {
+            for (VoltageType i=(VoltageType)0; i<VOLTAGE_TYPE_MAX; i=VoltageType(i+1))
+            {
+                wxString attr;
+                if (i == MINIMUM) attr = "min";
+                else if (i == NOMINAL) attr = "nominal";
+                else if (i == MAXIMUM) attr = "max";
+
+                double val;
+                if (child->GetAttribute(attr).ToDouble(&val))
+                {
+                    if (child->GetAttribute("name") == "vpp")
+                        p.ProgVoltages[i] = val;
+                    else if (child->GetAttribute("name") == "vdd_prog")
+                        p.WorkVoltages[i] = val;
+                    else
+                        return UPP_INVALID_PIC;
+                }
+            }
+        }
+        else if (child->GetName() == "frequency_range")
+        {
+            wxXmlNode *freqNode = child->GetChildren();
+            while (freqNode)
+            {
+                if (freqNode->GetName() == "frequency")
+                {
+                    double val;
+                    if (freqNode->GetAttribute("start").ToDouble(&val))
+                        p.MinFreq = std::min(p.MinFreq, (float)val);
+                    if (freqNode->GetAttribute("end").ToDouble(&val))
+                        p.MaxFreq = std::max(p.MaxFreq, (float)val);
+                }
+
+                freqNode = freqNode->GetNext();
             }
         }
         else if (child->GetName() == "config")

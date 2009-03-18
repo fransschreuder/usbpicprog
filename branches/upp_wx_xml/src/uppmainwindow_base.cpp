@@ -60,7 +60,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pConfigPanel->SetSizer( bSizer3 );
 	m_pConfigPanel->Layout();
 	bSizer3->Fit( m_pConfigPanel );
-	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), true );
+	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), false );
 	m_pInfoPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
@@ -71,15 +71,15 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDatasheetLink = new wxHyperlinkCtrl( m_pInfoPanel, wxID_ANY, _("Datasheet"), wxEmptyString, wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
 	sbSizer1->Add( m_pDatasheetLink, 0, wxALL, 5 );
 	
-	m_pVPPText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Vpp:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVPPText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Programming voltage (Vpp):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pVPPText->Wrap( -1 );
 	sbSizer1->Add( m_pVPPText, 0, wxALL, 5 );
 	
-	m_pVDDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Vdd:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVDDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Working voltages (Vdd):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pVDDText->Wrap( -1 );
 	sbSizer1->Add( m_pVDDText, 0, wxALL, 5 );
 	
-	m_pFrequencyText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Frequency range:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pFrequencyText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Frequency range:\n   MIN\n   MAX"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pFrequencyText->Wrap( -1 );
 	sbSizer1->Add( m_pFrequencyText, 0, wxALL, 5 );
 	
@@ -126,7 +126,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pInfoPanel->SetSizer( bSizer5 );
 	m_pInfoPanel->Layout();
 	bSizer5->Fit( m_pInfoPanel );
-	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), false );
+	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), true );
 	
 	m_pSizer->Add( m_pNotebook, 1, wxEXPAND | wxALL, 5 );
 	
