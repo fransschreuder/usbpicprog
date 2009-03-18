@@ -30,6 +30,9 @@
 #undef PREFERENCESDIALOG_STYLE
 #define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
 
+/**
+    A structure containing the global preferences for the UsbPicProg GUI.
+*/
 typedef struct {
     bool ConfigEraseBeforeProgramming;
     bool ConfigVerifyData;

@@ -18,6 +18,10 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
+
 #include <wx/xml/xml.h>
 #include <wx/dir.h>
 #include <wx/log.h>
@@ -425,63 +429,6 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
     return UPP_INVALID_PICFAMILY;
 }
 
-/* static 
-wxString PicType::GetStringFromFamily(PicFamily type)
-{
-#undef FAMILY
-#define FAMILY(x)           \
-    if (type == x)          \
-        return wxString(#x);
-    
-    FAMILY(P18F2XXX);
-    FAMILY(P18FXX2);
-    FAMILY(P16F87XA);
-    FAMILY(P16F62XA);
-    FAMILY(P16F62X);
-    FAMILY(P12F629);
-    FAMILY(P12F6XX);
-    FAMILY(P16F84A);
-    FAMILY(P16F81X);
-    FAMILY(P16F7X);
-    FAMILY(P16F7X7);
-    FAMILY(P16F87X);
-    FAMILY(P16F72);
-    FAMILY(P16F87);
-    FAMILY(P16F54);
-    FAMILY(P16F57);
-    FAMILY(P16F785);
-    FAMILY(P16F59);
-    FAMILY(P16F91X);
-    FAMILY(P16F88X);
-    FAMILY(P16C6XX);
-    FAMILY(P16C55X);
-    FAMILY(P16C7XX);
-    FAMILY(P16C64X);
-    FAMILY(P14000);
-    FAMILY(P16C50X);
-    FAMILY(P17CXX);
-    FAMILY(P17C7XX);
-    FAMILY(P18FXX39);
-    FAMILY(P18F6X2X);
-    FAMILY(P18FXX80);
-    FAMILY(P18F8410);
-    FAMILY(P18F6XJXX);    
-    FAMILY(P18F45J10);    
-    FAMILY(P18F97J60);    
-    FAMILY(P18F1X30);    
-    FAMILY(P18FXX23);    
-    FAMILY(P18FXXK20);    
-    FAMILY(P24FJXXXGA0XX);    
-    FAMILY(P24FJXXXGA1);    
-    FAMILY(dsP30F);    
-    FAMILY(dsP33F);    
-    FAMILY(P24H);    
-    FAMILY(P10F200);    
-    FAMILY(P10F202);    
-
-    return wxEmptyString;
-}*/
-
 /* static */
 PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 {
@@ -516,55 +463,3 @@ wxString ChipPackage::GetStringFromPackageType(PackageType type)
 
     return wxEmptyString;
 }
-
-/* static 
-bool ChipPackage::Init()
-{
-    wxDir dir;
-    if ( !dir.Open("packages") )
-    {
-        wxLogError(_("Could not access the 'packages' folder."));
-        return false;
-    }
-
-    wxString prefix("packages");
-    prefix += wxFileName::GetPathSeparator();
-
-    if (!s_bmpUnknown.LoadFile(prefix + UPP_UNKNOWN_BITMAP_FILE, wxBITMAP_TYPE_PNG))
-    {
-        wxLogError(_("Couldn't load the image '%s'."), prefix + UPP_UNKNOWN_BITMAP_FILE);
-        return false;
-    }
-
-    wxString filename;
-    for ( bool cont = dir.GetFirst(&filename, "*.png", wxDIR_FILES);
-          cont;
-          cont = dir.GetNext(&filename) )
-    {
-        wxString str = wxFileName(filename).GetName();
-
-        if (str.Freq('_') != 1)
-            continue;       // skip this
-
-        PackageType pt = GetPackageTypeFromString(str.BeforeFirst('_'));
-        if (pt == UPP_INVALID_PACKAGETYPE)
-            continue;       // skip this
-
-        unsigned long npins;
-        if (!str.AfterFirst('_').ToULong(&npins))
-            continue;       // skip this
-
-        wxBitmap bmp;
-        if (!bmp.LoadFile(prefix + filename, wxBITMAP_TYPE_PNG))
-        {
-            wxLogError(_("Couldn't load the package file '%s'."), prefix + filename);
-            continue;
-        }
-        
-        if (bmp.IsOk())
-            s_arrImage[pt][npins] = bmp;
-    }
-
-    return s_arrImage.size()>0;
-}*/
-
