@@ -123,5 +123,6 @@ dnl ***************************************************************************
 AC_OUTPUT([
     Makefile
     src/Makefile
+    xml_data/Makefile
     po/Makefile.in
 ])

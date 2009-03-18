@@ -4,10 +4,8 @@
 
 INCLUDES = \
 	$(WX_CXXFLAGS) \
-	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" $(USBPICPROG_CFLAGS)\
-	$(LIBUSB_CFLAGS)
+	$(LIBUSB_CFLAGS) \
+	-DPACKAGE_PREFIX=\""$(prefix)"\"
 
 AM_CFLAGS =\
 	 -Wall \
@@ -32,10 +30,10 @@ usbpicprog_SOURCES = \
 	uppmainwindow.h \
 	hexview.cpp \
 	hexview.h \
-    packageview.cpp \
-    packageview.h \
-    configview.cpp \
-    configview.h \
+	packageview.cpp \
+	packageview.h \
+	configview.cpp \
+	configview.h \
 	preferences.cpp \
 	preferences.h
 
@@ -45,9 +43,4 @@ usbpicprog_LDADD = \
 	$(USBPICPROG_LIBS) \
 	$(WX_LIBS) \
 	$(LIBUSB_LIBS)
-
-
-
-
-
 

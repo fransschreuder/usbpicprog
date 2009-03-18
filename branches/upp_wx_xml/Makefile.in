@@ -63,9 +63,11 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(usbpicprogdocdir)"
+am__installdirs = "$(DESTDIR)$(usbpicprogdir)" \
+	"$(DESTDIR)$(usbpicprogdocdir)"
+usbpicprogDATA_INSTALL = $(INSTALL_DATA)
 usbpicprogdocDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(usbpicprogdoc_DATA)
+DATA = $(usbpicprog_DATA) $(usbpicprogdoc_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -124,29 +126,10 @@ INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLLIBS = @INTLLIBS@
-INTLTOOL_CAVES_RULE = @INTLTOOL_CAVES_RULE@
-INTLTOOL_DESKTOP_RULE = @INTLTOOL_DESKTOP_RULE@
-INTLTOOL_DIRECTORY_RULE = @INTLTOOL_DIRECTORY_RULE@
 INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
-INTLTOOL_KBD_RULE = @INTLTOOL_KBD_RULE@
-INTLTOOL_KEYS_RULE = @INTLTOOL_KEYS_RULE@
 INTLTOOL_MERGE = @INTLTOOL_MERGE@
-INTLTOOL_OAF_RULE = @INTLTOOL_OAF_RULE@
 INTLTOOL_PERL = @INTLTOOL_PERL@
-INTLTOOL_POLICY_RULE = @INTLTOOL_POLICY_RULE@
-INTLTOOL_PONG_RULE = @INTLTOOL_PONG_RULE@
-INTLTOOL_PROP_RULE = @INTLTOOL_PROP_RULE@
-INTLTOOL_SCHEMAS_RULE = @INTLTOOL_SCHEMAS_RULE@
-INTLTOOL_SERVER_RULE = @INTLTOOL_SERVER_RULE@
-INTLTOOL_SERVICE_RULE = @INTLTOOL_SERVICE_RULE@
-INTLTOOL_SHEET_RULE = @INTLTOOL_SHEET_RULE@
-INTLTOOL_SOUNDLIST_RULE = @INTLTOOL_SOUNDLIST_RULE@
-INTLTOOL_THEME_RULE = @INTLTOOL_THEME_RULE@
-INTLTOOL_UI_RULE = @INTLTOOL_UI_RULE@
 INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
-INTLTOOL_XAM_RULE = @INTLTOOL_XAM_RULE@
-INTLTOOL_XML_NOMERGE_RULE = @INTLTOOL_XML_NOMERGE_RULE@
-INTLTOOL_XML_RULE = @INTLTOOL_XML_RULE@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
@@ -257,7 +240,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = src po
+SUBDIRS = src po xml_data
 ACLOCAL_AMFLAGS = -I m4
 usbpicprogdocdir = ${prefix}/doc/usbpicprog
 usbpicprogdoc_DATA = \
@@ -268,7 +251,11 @@ usbpicprogdoc_DATA = \
 	INSTALL\
 	NEWS
 
-EXTRA_DIST = $(usbpicprogdoc_DATA)
+usbpicprogdir = ${prefix}/share/usbpicprog
+usbpicprog_DATA = \
+	index.xml
+
+EXTRA_DIST = $(usbpicprogdoc_DATA) $(usbpicprog_DATA)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -332,6 +319,23 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool config.lt
+install-usbpicprogDATA: $(usbpicprog_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(usbpicprogdir)" || $(MKDIR_P) "$(DESTDIR)$(usbpicprogdir)"
+	@list='$(usbpicprog_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(usbpicprogDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(usbpicprogdir)/$$f'"; \
+	  $(usbpicprogDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(usbpicprogdir)/$$f"; \
+	done
+
+uninstall-usbpicprogDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(usbpicprog_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(usbpicprogdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(usbpicprogdir)/$$f"; \
+	done
 install-usbpicprogdocDATA: $(usbpicprogdoc_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(usbpicprogdocdir)" || $(MKDIR_P) "$(DESTDIR)$(usbpicprogdocdir)"
@@ -636,7 +640,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(usbpicprogdocdir)"; do \
+	for dir in "$(DESTDIR)$(usbpicprogdir)" "$(DESTDIR)$(usbpicprogdocdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -683,7 +687,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-usbpicprogdocDATA
+install-data-am: install-usbpicprogDATA install-usbpicprogdocDATA
 
 install-dvi: install-dvi-recursive
 
@@ -719,7 +723,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-usbpicprogdocDATA
+uninstall-am: uninstall-usbpicprogDATA uninstall-usbpicprogdocDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
@@ -735,11 +739,12 @@ uninstall-am: uninstall-usbpicprogdocDATA
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip install-usbpicprogdocDATA installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am uninstall-usbpicprogdocDATA
+	install-strip install-usbpicprogDATA install-usbpicprogdocDATA \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-recursive uninstall uninstall-am \
+	uninstall-usbpicprogDATA uninstall-usbpicprogdocDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
