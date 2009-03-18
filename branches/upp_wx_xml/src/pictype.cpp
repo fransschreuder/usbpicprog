@@ -23,6 +23,8 @@
 #include <wx/log.h>
 #include <wx/intl.h>
 #include <wx/filename.h>
+#include <wx/stdpaths.h>
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -135,7 +137,9 @@ bool PicType::Init()
     // the supported PIC types
 
     wxXmlDocument idx;
-    if (!idx.Load(UPP_INDEX_FILE))
+    if (!idx.Load(wxStandardPaths::Get().GetDataDir() + 
+                  wxFileName::GetPathSeparator() + 
+                  UPP_INDEX_FILE))
     {
         wxLogError("Cannot load '%s'.", UPP_INDEX_FILE);
         return false;
@@ -221,10 +225,8 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     wxString str;
     long num=0;
 
-    wxString prefix("xml_data");
-    prefix += wxFileName::GetPathSeparator();
-
-    if (!doc.Load(prefix + picName + ".xml"))
+    if (!doc.Load(wxStandardPaths::Get().GetDataDir() + 
+                  wxFileName::GetPathSeparator() + picName + ".xml"))
         return UPP_INVALID_PIC;
     if (doc.GetRoot()->GetName() != "device")
         return UPP_INVALID_PIC;

@@ -18,6 +18,8 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+#include <wx/stdpaths.h>
+
 #include "main.h"
 #include "../svn_revision.h"
 
@@ -51,6 +53,10 @@ bool UsbPicProg::OnInit()
 
     // init the PNG handler
     wxImage::AddHandler( new wxPNGHandler );
+
+#ifndef __WXMSW__
+    ((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
+#endif
 
     // init the supported PIC types
     if (!PicType::Init())
