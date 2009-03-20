@@ -294,7 +294,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                 else if (i == MAXIMUM) attr = "max";
 
                 double val;
-                if (child->GetAttribute(attr).ToDouble(&val))
+                if (child->GetAttribute(attr).ToCDouble(&val))
                 {
                     if (child->GetAttribute("name") == "vpp")
                         p.ProgVoltages[i] = val;
@@ -313,9 +313,9 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                 if (freqNode->GetName() == "frequency")
                 {
                     double val;
-                    if (freqNode->GetAttribute("start").ToDouble(&val))
+                    if (freqNode->GetAttribute("start").ToCDouble(&val))
                         p.MinFreq = std::min(p.MinFreq, (float)val);
-                    if (freqNode->GetAttribute("end").ToDouble(&val))
+                    if (freqNode->GetAttribute("end").ToCDouble(&val))
                         p.MaxFreq = std::max(p.MaxFreq, (float)val);
                 }
 
