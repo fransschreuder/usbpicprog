@@ -99,7 +99,6 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
     else
     {
         m_currentPic = LoadPiklabXML(indexInfo.name);
-
         // complete the Piklab data with some UPP-specific data
         // previously loaded from UPP_INDEX_FILE
         m_currentPic.DevIdMask = indexInfo.devIdMask;
@@ -109,7 +108,6 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
         // cache the entire structure in our internal static array:
         indexInfo.pic = m_currentPic;
     }
-
     return m_currentPic.ok();
 }
 
@@ -181,8 +179,11 @@ bool PicType::Init()
             if (str.ToLong(&num, 0))
                 info.devIdMask = num;
 
+
             if (info.name == UPP_DEFAULT_PIC_MODEL)
+			{
                 s_default = info;
+			}
 
             // insert this PicIndexInfo structure into the array of the
             // supported PICs:
@@ -225,7 +226,6 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     wxXmlDocument doc;
     wxString str;
     long num=0;
-
     wxString prefix = wxStandardPaths::Get().GetDataDir() + 
                       wxFileName::GetPathSeparator();
 #ifdef __WXMSW__
@@ -242,17 +242,17 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     if (!doc.GetRoot()->GetAttribute("name", &str) ||
         str != picName)
         return UPP_INVALID_PIC;
-    p.Name = "P" + str;
-
+    p.Name = "P" + str;
     // load the device ID of the PIC
     // NOTE: PIC of the 10F family do not have a device ID (no autodetection is possible)
-    wxString t = p.Name.substr(0,4);
-    if (p.Name.substr(0,4) != "P10F" &&
+	wxString t = wxString(p.Name.substr(0,4).c_str());
+    if (t.compare("P10F") != 0 &&
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
-        return UPP_INVALID_PIC;
+	{
+		return UPP_INVALID_PIC;
+	}
     p.DevId = num;
-
     wxXmlNode *child = doc.GetRoot()->GetChildren();
     while (child)
     {
@@ -262,7 +262,6 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             
             if (!child->GetAttribute("name", &name))
                 return UPP_INVALID_PIC;
-
             if (name == "code")
                 p.CodeSize = GetRange(child);
             else if (name == "config")
@@ -410,7 +409,6 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
 
         child = child->GetNext();
     }
-
     return p;
 }
 

@@ -28,7 +28,7 @@
 #include <string>
 #include <map>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 class wxXmlNode;
 
@@ -212,7 +212,8 @@ public:
 
     /// Is this PIC structure correctly initialized?
     bool ok() const
-        { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
+        { //cout<<"Name: "<<Name<<" picFamily: "<<picFamily<<endl;
+		return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
 
     /// Returns the PIC name which starts with "PIC" instead of "P".
     wxString GetExtName() const

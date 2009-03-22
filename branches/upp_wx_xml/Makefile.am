@@ -4,6 +4,8 @@
 SUBDIRS = src po xml_data
 ACLOCAL_AMFLAGS =  -I m4
 
+
+
 usbpicprogdocdir = ${prefix}/doc/usbpicprog
 usbpicprogdoc_DATA = \
 	README\

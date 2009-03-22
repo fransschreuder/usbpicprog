@@ -112,7 +112,7 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
 
     // TODO: we need to update the HEX file
-
+	cout<<"newConfigValue: "<<hex<<newConfigValue<<endl;
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);
