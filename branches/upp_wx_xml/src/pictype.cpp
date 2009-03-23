@@ -249,9 +249,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     if (t.compare("P10F") != 0 &&
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
-	{
 		return UPP_INVALID_PIC;
-	}
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
     while (child)
@@ -299,8 +297,10 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                         p.ProgVoltages[i] = val;
                     else if (child->GetAttribute("name") == "vdd_prog")
                         p.WorkVoltages[i] = val;
-                    else
-                        return UPP_INVALID_PIC;
+                    else if (child->GetAttribute("name") == "vdd_prog_write")
+						p.WorkVoltages[i] = val;
+					else
+						return UPP_INVALID_PIC;
                 }
             }
         }
@@ -327,7 +327,6 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             block.Name = child->GetAttribute("name");
             if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
                 return UPP_INVALID_PIC;
-
             // load the ConfigMask objects belonging to this block
             wxXmlNode *maskNode = child->GetChildren();
             while (maskNode)
@@ -338,7 +337,6 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                     mask.Name = maskNode->GetAttribute("name");
                     if (!maskNode->GetAttribute("value").ToULong(&mask.Value, 0))
                         return UPP_INVALID_PIC;
-
                     // load the ConfigValue objects belonging to this mask
                     wxXmlNode *valueNode = maskNode->GetChildren();
                     while (valueNode)
@@ -374,7 +372,9 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             wxArrayString types = wxSplit(child->GetAttribute("types"), ' ');
             unsigned long npins;
             if (!child->GetAttribute("nb_pins").ToULong(&npins))
-                return UPP_INVALID_PIC;
+			{
+				return UPP_INVALID_PIC;
+			}
 
             wxArrayString names;
             names.Add(wxEmptyString, npins);
