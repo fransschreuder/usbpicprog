@@ -99,20 +99,27 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
 
     // find the config mask which was changed
     const ConfigMask* mask = NULL;
+	unsigned int SelectedMask;
     for (unsigned int i=0; i<block.Masks.size(); i++)
     {
         if (block.Masks[i].Name == choice->GetName())
         {
             mask = &block.Masks[i];
+			SelectedMask=i;
             break;
         }
     }
 
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
-
+	int newConfigByte = 0; //TODO load from hexfile
+	for (unsigned int i=0; i<mask->Values.size();i++)
+	{
+		newConfigByte &= ~mask->Values[i].Value;
+	}
+	newConfigByte |= mask->Values[SelectedMask].Value;
     // TODO: we need to update the HEX file
-	cout<<"newConfigValue: "<<hex<<newConfigValue<<endl;
+	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<newConfigValue<<endl;
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);
