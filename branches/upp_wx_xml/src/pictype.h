@@ -217,7 +217,10 @@ public:
 
     /// Returns the PIC name which starts with "PIC" instead of "P".
     wxString GetExtName() const
-        { return wxString("PIC" + Name.substr(1)); }
+        { 
+			if(Name.empty())return Name;
+			return wxString("PIC" + Name.substr(1)); 
+		}
 
     // public members to avoid lots of getters/setters:
 

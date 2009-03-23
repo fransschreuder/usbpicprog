@@ -267,7 +267,6 @@ void UppMainWindow::CompleteGUICreation()
     for(unsigned int i=0;i<m_arrPICName.size();i++)
     {
         bool bFamilyFound = false;
-
         // the first 4 characters of the PIC name are the family:
         string family(m_arrPICName[i].substr(0, 4).c_str());
 
@@ -1430,7 +1429,6 @@ void UppMainWindow::upp_pic_choice_changed()
         m_pPICChoice->SetStringSelection(m_picType.getPicName());
         return;
     }
-
     if (m_hardware != NULL)
     {
         if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
@@ -1443,10 +1441,8 @@ void UppMainWindow::upp_pic_choice_changed()
 
         m_hardware->setPicType(&m_picType);
     }
-
     // update the pic type
     m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
-
     // PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -1487,10 +1483,9 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
 void UppMainWindow::upp_package_variant_changed()
 {
     static wxSize sz = wxDefaultSize;
-
     // get the new package
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
-
-    m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
+	if(m_picType.ok())
+	    m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
 }
