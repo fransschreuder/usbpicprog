@@ -261,10 +261,10 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             if (!child->GetAttribute("name", &name))
                 return UPP_INVALID_PIC;
             if (name == "code")
-                p.CodeSize = GetRange(child);
+                p.CodeSize = (GetRange(child)+1)*2; //times 2 because this is in words
             else if (name == "config")
             {
-                p.ConfigSize = GetRange(child);
+                p.ConfigSize = (GetRange(child)+1)*2; //times 2 becuase this is in words
                 
                 if (!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))

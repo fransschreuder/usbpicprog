@@ -73,8 +73,28 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                 new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
-            // TODO: put the config values from HexFile to this ctrl
-            choice->SetSelection(0);
+			unsigned int ConfigWord=0,ConfigWordMask=0;
+			cout<<"Configmemory->size: "<<hex->getConfigMemory().size()<<endl;
+			if((2*i+1)<=(hex->getConfigMemory().size()))
+			{
+				cout<<hex->getConfigMemory()[0]<<" "<<hex->getConfigMemory()[1]<<endl;
+				ConfigWord=((hex->getConfigMemory()[i*2]<<8)|hex->getConfigMemory()[i*2+1]);
+				cout<<"ConfigWord: "<<ConfigWord<<endl;
+			}
+
+			for(unsigned int k=0;k<mask.Values.size();k++)
+			{
+				ConfigWordMask|=mask.Values[k].Value;
+			}
+			choice->SetSelection(0);
+			for(unsigned int k=0;k<mask.Values.size();k++)
+			{
+				if((ConfigWord&ConfigWordMask)==mask.Values[k].Value)
+				{	
+					choice->SetSelection(k);
+					cout<<"k "<<k<<endl;
+				}
+			}
             choice->Connect(wxEVT_COMMAND_CHOICE_SELECTED, 
                             wxCommandEventHandler(UppConfigViewBook::OnChange), 
                             NULL, this);
