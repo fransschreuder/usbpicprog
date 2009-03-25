@@ -112,9 +112,13 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         m_cfg.ConfigVerifyData=true;
     if ( !pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming))
         m_cfg.ConfigEraseBeforeProgramming=true;
+	if ( !pCfg->Read(wxT("ConfigVerifyAfterProgramming"), &m_cfg.ConfigVerifyAfterProgramming))
+        m_cfg.ConfigShowPopups=false;
     if ( !pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
         m_cfg.ConfigShowPopups=false;
     m_history.Load(*pCfg);
+
+
 
     // non-GUI init:
     m_hardware=NULL;      // upp_connect() will allocate it
@@ -163,6 +167,7 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
     pCfg->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
     pCfg->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
+    pCfg->Write(wxT("ConfigVerifyAfterProgramming"), m_cfg.ConfigVerifyAfterProgramming);
     pCfg->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
     pCfg->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
     pCfg->Write(wxT("SelectedPIC"), m_pPICChoice->GetSelection());
@@ -777,7 +782,10 @@ bool UppMainWindow::upp_thread_program()
             return false;
         }
     }
-
+	if(m_cfg.ConfigVerifyAfterProgramming)
+    {
+		upp_thread_verify();
+	}
     return true;
 }
 

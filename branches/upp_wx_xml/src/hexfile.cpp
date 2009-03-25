@@ -399,6 +399,8 @@ void HexFile::putConfigMemory(vector<int> &mem)
 
 void HexFile::putConfigMemory(int address, int mem)
 {
+	if(m_configMemory.size()<=(unsigned)address) 
+		m_configMemory.resize(address+1);
     if(m_configMemory.size()>(unsigned)address)
     {
         m_configMemory[address]=mem;

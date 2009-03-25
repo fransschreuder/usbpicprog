@@ -31,6 +31,7 @@
 #define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
 
 typedef struct {
+		bool ConfigVerifyAfterProgramming;
     bool ConfigEraseBeforeProgramming;
     bool ConfigVerifyData;
     bool ConfigVerifyConfig;
@@ -60,6 +61,7 @@ public:
 
 private:
     wxCheckBox *uppConfigVerifyData;
+    wxCheckBox *uppConfigVerifyAfterProgramming;
     wxCheckBox *uppConfigVerifyConfig;
     wxCheckBox *uppConfigVerifyCode;
     wxStaticBoxSizer *WxStaticBoxSizerVerify;

@@ -74,12 +74,10 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
 			unsigned int ConfigWord=0,ConfigWordMask=0;
-			cout<<"Configmemory->size: "<<hex->getConfigMemory().size()<<endl;
 			if((2*i+1)<=(hex->getConfigMemory().size()))
 			{
-				cout<<hex->getConfigMemory()[0]<<" "<<hex->getConfigMemory()[1]<<endl;
-				ConfigWord=((hex->getConfigMemory()[i*2]<<8)|hex->getConfigMemory()[i*2+1]);
-				cout<<"ConfigWord: "<<ConfigWord<<endl;
+				ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
+				cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
 			}
 
 			for(unsigned int k=0;k<mask.Values.size();k++)
@@ -92,7 +90,6 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 				if((ConfigWord&ConfigWordMask)==mask.Values[k].Value)
 				{	
 					choice->SetSelection(k);
-					cout<<"k "<<k<<endl;
 				}
 			}
             choice->Connect(wxEVT_COMMAND_CHOICE_SELECTED, 
@@ -132,14 +129,22 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
 
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
-	int newConfigByte = 0; //TODO load from hexfile
+	int ConfigWord = 0; 
+	if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+	{
+		ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
+					(m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
+		
+	}
+
 	for (unsigned int i=0; i<mask->Values.size();i++)
 	{
-		newConfigByte &= ~mask->Values[i].Value;
+		ConfigWord &= ~mask->Values[i].Value;
 	}
-	newConfigByte |= mask->Values[SelectedMask].Value;
-    // TODO: we need to update the HEX file
-	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<newConfigValue<<endl;
+	ConfigWord |= mask->Values[SelectedMask].Value;
+	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
+	m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
+	m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);

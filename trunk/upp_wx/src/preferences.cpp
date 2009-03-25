@@ -74,6 +74,10 @@ void PreferencesDialog::CreateGUIControls()
     uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyData"));
     WxStaticBoxSizerVerify->Add(uppConfigVerifyData,0,wxALIGN_LEFT | wxALL,5);
 
+	uppConfigVerifyAfterProgramming = new wxCheckBox(this, wxID_ANY, _("Verify after programming"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyAfterProgramming"));
+    WxStaticBoxSizerVerify->Add(uppConfigVerifyAfterProgramming,0,wxALIGN_LEFT | wxALL,5);
+
+	
     wxStaticBox* WxStaticBoxSizerGui_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Gui"));
     WxStaticBoxSizerGui = new wxStaticBoxSizer(WxStaticBoxSizerGui_StaticBoxObj, wxVERTICAL);
     WxBoxSizer1->Add(WxStaticBoxSizerGui, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
@@ -99,6 +103,7 @@ void PreferencesDialog::CreateGUIControls()
 
 void PreferencesDialog::OnOk(wxCommandEvent& event)
 {
+    configFields.ConfigVerifyAfterProgramming=uppConfigVerifyAfterProgramming->IsChecked();
     configFields.ConfigVerifyData=uppConfigVerifyData->IsChecked();
     configFields.ConfigVerifyConfig=uppConfigVerifyConfig->IsChecked();
     configFields.ConfigVerifyCode=uppConfigVerifyCode->IsChecked();
@@ -114,7 +119,7 @@ void PreferencesDialog::OnOk(wxCommandEvent& event)
 void PreferencesDialog::SetConfigFields(ConfigFields cf)
 {
     configFields=cf;
-
+    uppConfigVerifyAfterProgramming->SetValue(cf.ConfigVerifyAfterProgramming);	
     uppConfigProgramCode->SetValue(cf.ConfigProgramCode);
     uppConfigProgramConfig->SetValue(cf.ConfigProgramConfig);
     uppConfigProgramData->SetValue(cf.ConfigProgramData);
