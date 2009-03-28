@@ -122,11 +122,11 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
         if (block.Masks[i].Name == choice->GetName())
         {
             mask = &block.Masks[i];
-			SelectedMask=i;
+			//SelectedMask=i;
             break;
         }
     }
-
+	SelectedMask=GetSelection();
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
 	int ConfigWord = 0; 
@@ -141,7 +141,7 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
 	{
 		ConfigWord &= ~mask->Values[i].Value;
 	}
-	ConfigWord |= mask->Values[SelectedMask].Value;
+	ConfigWord |= newConfigValue;
 	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
 	m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
 	m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
