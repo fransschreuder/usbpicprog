@@ -339,7 +339,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
             if((picType->getCurrentPic().CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
             if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
             else blocksize=picType->getCurrentPic().CodeSize-blockcounter;
             nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
@@ -406,7 +406,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
             nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
             if (m_hwCurrent == HW_UPP)
             {
@@ -552,7 +552,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
             if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
             if(picType->getCurrentPic().ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
             else blocksize=picType->getCurrentPic().ConfigSize-blockcounter;
             nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
@@ -618,7 +618,7 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
             if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(picType->getCurrentPic().Name.find("P18F")!=0)currentBlockCounter/=2;
+            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
             nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
             if(nBytes==3) return -3;	//something not implemented in firmware :(
             if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; //should ask for next block

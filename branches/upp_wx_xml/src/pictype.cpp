@@ -273,7 +273,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             }
             else if (name == "eeprom")
             {
-                p.DataSize = GetRange(child);
+                p.DataSize = GetRange(child)+1;
                 
                 if (!child->GetAttribute("hexfile_offset", &str) ||
                     !str.ToLong(&num, 0))

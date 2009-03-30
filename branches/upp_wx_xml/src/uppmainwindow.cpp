@@ -475,7 +475,7 @@ void UppMainWindow::UpdatePicInfo()
     m_pVDDText->SetLabel(wxString::Format("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
                          pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
     m_pFrequencyText->SetLabel(wxString::Format("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz", pic.MinFreq, pic.MaxFreq));
-    m_pDeviceIDText->SetLabel(wxString::Format("Device ID: 0x%X", pic.DevId));
+    m_pDeviceIDText->SetLabel(wxString::Format("Device ID: 0x%X", pic.DevId&0xFFFF));
     m_pCodeMemoryText->SetLabel(wxString::Format("Code memory size: %d bytes", pic.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format("Data memory size: %d bytes", pic.DataSize));
 
