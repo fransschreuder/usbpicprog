@@ -74,11 +74,22 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
 			unsigned int ConfigWord=0,ConfigWordMask=0;
-			if((2*i+1)<=(hex->getConfigMemory().size()))
+			if(m_pic.is16Bit())
 			{
-				ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
-				cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
+				if((i+1)<=(hex->getConfigMemory().size()))
+				{
+					ConfigWord=hex->getConfigMemory()[i];
+					cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
+				}
 			}
+			else
+			{
+				if((2*i+1)<=(hex->getConfigMemory().size()))
+				{
+					ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
+					cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
+				}
+			}				
 
 			for(unsigned int k=0;k<mask.Values.size();k++)
 			{
@@ -130,11 +141,22 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
 	int ConfigWord = 0; 
-	if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+	if(m_pic.is16Bit())
 	{
-		ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
-					(m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
+		if((SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+		{
+			ConfigWord=m_hexFile->getConfigMemory()[SelectedMask];
 		
+		}
+	}
+	else
+	{
+		if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+		{
+			ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
+						(m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
+		
+		}
 	}
 
 	for (unsigned int i=0; i<mask->Values.size();i++)
@@ -143,8 +165,15 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
 	}
 	ConfigWord |= newConfigValue;
 	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
-	m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
-	m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
+	if(m_pic.is16Bit())
+	{
+		m_hexFile->putConfigMemory(SelectedMask,ConfigWord&0xFF);
+	}
+	else
+	{
+		m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
+		m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
+	}
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);

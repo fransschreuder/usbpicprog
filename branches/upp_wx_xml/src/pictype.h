@@ -215,6 +215,10 @@ public:
         { //cout<<"Name: "<<Name<<" picFamily: "<<picFamily<<endl;
 		return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
 
+	/// Returns true if the PIC is a 16bit device (e.g. Pic18)
+	bool is16Bit()
+	{return (Name.find("P18F")==0);	}
+
     /// Returns the PIC name which starts with "PIC" instead of "P".
     wxString GetExtName() const
         { 
@@ -292,7 +296,7 @@ public:
     wxString getPicName() const
         { return wxString::FromAscii(m_currentPic.Name.c_str()); }
 
-
+	
     // static utilities
 
     /**
