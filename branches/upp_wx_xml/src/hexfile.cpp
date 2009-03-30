@@ -128,7 +128,7 @@ int HexFile::open(PicType* picType,const char* filename)
                 Is The address within the Config Memory range?
                 */
                 configAddress=picType->getCurrentPic().ConfigAddress;
-                if(picType->getCurrentPic().Name.find("P18F")!=0)
+                if(!picType->getCurrentPic().is16Bit())
                     configAddress*=2;
                 if(((extAddress+address)>=(configAddress))&&
                    ((extAddress+address)<(configAddress+picType->getCurrentPic().ConfigSize)))
@@ -160,18 +160,18 @@ int HexFile::open(PicType* picType,const char* filename)
                 Is The address within the Eeprom Data range?
                 */
                 dataAddress=picType->getCurrentPic().DataAddress;
-                if(picType->getCurrentPic().Name.find("P18F")!=0)dataAddress*=2;
+                if(!picType->getCurrentPic().is16Bit())dataAddress*=2;
                 if(((extAddress+address)>=(dataAddress))&&
                                     ((extAddress+address)<(dataAddress+picType->getCurrentPic().DataSize)))
                 {
                     if((signed)m_dataMemory.size()<(picType->getCurrentPic().DataSize))
                     {
-                        if(picType->getCurrentPic().Name.find("P18F")==0)
+                        if(picType->getCurrentPic().is16Bit())
                             newSize =(extAddress+address+lineData.size())-(dataAddress);
                         else
                             newSize =(extAddress+address+(lineData.size()/2))-(dataAddress);
                         if((signed)m_dataMemory.size()<newSize)m_dataMemory.resize(newSize,0xFF);
-                        if(picType->getCurrentPic().Name.find("P18F")==0)
+                        if(picType->getCurrentPic().is16Bit())
                         {
                             for(int i=0;i<(signed)lineData.size();i++)
                                 m_dataMemory[extAddress+address+i-dataAddress]=lineData[i];
@@ -208,9 +208,7 @@ int HexFile::open(PicType* picType,const char* filename)
 
 void HexFile::trimData(PicType* picType)
 {
-    if((picType->getCurrentPic().Name.find("P10")==0)|
-        (picType->getCurrentPic().Name.find("P12")==0)|
-        (picType->getCurrentPic().Name.find("P16")==0))
+    if(!picType->getCurrentPic().is16Bit())
     {
         for(int i=1;i<(signed)m_codeMemory.size();i+=2)
         {
@@ -294,7 +292,7 @@ int HexFile::saveAs(PicType* picType,const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().DataAddress;
-        if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
+        if(!picType->getCurrentPic().is16Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -323,7 +321,7 @@ int HexFile::saveAs(PicType* picType,const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().ConfigAddress;
-        if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
+        if(!picType->getCurrentPic().is16Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
