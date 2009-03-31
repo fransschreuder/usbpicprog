@@ -29,11 +29,12 @@
 #include <iostream>
 using namespace std;
 
-
+/**
+    Used with UppHexViewGrid to specify the code area of the PIC to show.
+*/
 enum UppHexViewType
 {
     HEXVIEW_CODE,
-    HEXVIEW_CONFIG,
     HEXVIEW_DATA
 };
 
@@ -47,8 +48,22 @@ public:
                    UppHexViewType type);
     ~UppHexViewGrid();
 
+    /**
+        Copies the selected block of this grid to the clipboard.
+    */
     void Copy();
-    void ShowHexFile(HexFile* hexFile, PicType* picType);
+
+    /**
+        Sets the HexFile instance to update upon user changes on the grid.
+
+        This function resets the current contents of the grid using the
+        data stored in the HexFile.
+
+        Note that the @a hexFile pointer is stored inside this class
+        thus the caller must ensure the validity of the HexFile object 
+        for the entire lifetime of this window.
+    */
+    void SetHexFile(HexFile* hexFile);
 
 private:
     HexFile* m_hexFile;

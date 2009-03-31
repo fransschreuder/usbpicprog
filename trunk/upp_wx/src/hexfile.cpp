@@ -18,6 +18,10 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -49,15 +53,15 @@ HexFile::~HexFile()
 /*fill an empty hexfile with 0xFF*/
 int HexFile::newFile(PicType* picType)
 {
-    codeMemory.resize(0);
-    dataMemory.resize(0);
-    configMemory.resize(0);
-    codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
-    dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
-    configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
+    m_codeMemory.resize(0);
+    m_dataMemory.resize(0);
+    m_configMemory.resize(0);
+    m_codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
+    m_dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
+    m_configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
     trimData(picType);
-    for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
-        configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
+    for(unsigned int i=0;i<picType->getCurrentPic().ConfigSize;i++)
+        m_configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
 
     m_bModified = false;
     m_filename[0] = '\0';
@@ -67,24 +71,29 @@ int HexFile::newFile(PicType* picType)
 
 int HexFile::open(PicType* picType,const char* filename)
 {
-    int extAddress=0;
-    int address;
-    int byteCount;
-    int checkSum;
-    int configAddress,dataAddress;
-    int newSize;
+    unsigned int extAddress=0;
+    unsigned int address;
+    unsigned int byteCount;
+    unsigned int checkSum;
+    unsigned int configAddress,dataAddress;
+    unsigned int newSize;
     string tempStr;
     RecordType recordType;
     ifstream fp (filename);
     vector<int> lineData;
-    configMemory.resize(0);
-    dataMemory.resize(0);
-    codeMemory.resize(0);
+    m_configMemory.resize(0);
+    m_dataMemory.resize(0);
+    m_codeMemory.resize(0);
+
+    // for info about the HEX file format see:
+    // http://en.wikipedia.org/wiki/Intel_HEX
+
     if(fp==NULL)
     {
         cerr<<"Could not open Hex file... Exiting\n\n"<<endl;
         return -1;
     }
+
     do
     {
         fp>>tempStr;
@@ -101,7 +110,7 @@ int HexFile::open(PicType* picType,const char* filename)
         sscanf(tempStr.c_str()+3,"%04X",&address);
         sscanf(tempStr.c_str()+7,"%02X",(int*)&recordType);
         lineData.resize(byteCount);
-        for(int i=0;i<byteCount;i++)
+        for(unsigned int i=0;i<byteCount;i++)
         {
             sscanf(tempStr.c_str()+9+(i*2),"%02X",&lineData[i]);
         }
@@ -111,6 +120,7 @@ int HexFile::open(PicType* picType,const char* filename)
             cerr<<"Error in checksum... Exiting"<<endl;
             return -1;
         }
+
         switch(recordType)
         {
             case DATA:
@@ -118,16 +128,17 @@ int HexFile::open(PicType* picType,const char* filename)
                 Is The address within the Config Memory range?
                 */
                 configAddress=picType->getCurrentPic().ConfigAddress;
-                if(picType->getCurrentPic().Name.find("P18F")!=0)configAddress*=2;
+                if(!picType->getCurrentPic().is16Bit())
+                    configAddress*=2;
                 if(((extAddress+address)>=(configAddress))&&
-                ((extAddress+address)<(configAddress+picType->getCurrentPic().ConfigSize)))
+                   ((extAddress+address)<(configAddress+picType->getCurrentPic().ConfigSize)))
                 {
-                    if((signed)configMemory.size()<(picType->getCurrentPic().ConfigSize))
+                    if((signed)m_configMemory.size()<(picType->getCurrentPic().ConfigSize))
                     {
                         newSize =(extAddress+address+lineData.size())-(configAddress);
-                        if((signed)configMemory.size()<newSize)configMemory.resize(newSize,0xFF);
+                        if((signed)m_configMemory.size()<newSize)m_configMemory.resize(newSize,0xFF);
                         for(int i=0;i<(signed)lineData.size();i++)
-                            configMemory[extAddress+address+i-configAddress]=lineData[i];
+                            m_configMemory[extAddress+address+i-configAddress]=lineData[i];
                     }
                     else cerr<<"Data in hex file outside config memory of PIC"<<endl;
                 }
@@ -136,12 +147,12 @@ int HexFile::open(PicType* picType,const char* filename)
                 */
                 if((extAddress+address)<(picType->getCurrentPic().CodeSize))
                 {
-                    if((signed)codeMemory.size()<(picType->getCurrentPic().CodeSize))
+                    if((signed)m_codeMemory.size()<(picType->getCurrentPic().CodeSize))
                     {
                         newSize =(extAddress+address+lineData.size());
-                        if((signed)codeMemory.size()<newSize)codeMemory.resize(newSize,0xFF);
+                        if((signed)m_codeMemory.size()<newSize)m_codeMemory.resize(newSize,0xFF);
                         for(int i=0;i<(signed)lineData.size();i++)
-                            codeMemory[extAddress+address+i]=lineData[i];
+                            m_codeMemory[extAddress+address+i]=lineData[i];
                     }
                     else cerr<<"Data in hex file outside code memory of PIC"<<endl;
                 }
@@ -149,26 +160,26 @@ int HexFile::open(PicType* picType,const char* filename)
                 Is The address within the Eeprom Data range?
                 */
                 dataAddress=picType->getCurrentPic().DataAddress;
-                if(picType->getCurrentPic().Name.find("P18F")!=0)dataAddress*=2;
+                if(!picType->getCurrentPic().is16Bit())dataAddress*=2;
                 if(((extAddress+address)>=(dataAddress))&&
                                     ((extAddress+address)<(dataAddress+picType->getCurrentPic().DataSize)))
                 {
-                    if((signed)dataMemory.size()<(picType->getCurrentPic().DataSize))
+                    if((signed)m_dataMemory.size()<(picType->getCurrentPic().DataSize))
                     {
-                        if(picType->getCurrentPic().Name.find("P18F")==0)
+                        if(picType->getCurrentPic().is16Bit())
                             newSize =(extAddress+address+lineData.size())-(dataAddress);
                         else
                             newSize =(extAddress+address+(lineData.size()/2))-(dataAddress);
-                        if((signed)dataMemory.size()<newSize)dataMemory.resize(newSize,0xFF);
-                        if(picType->getCurrentPic().Name.find("P18F")==0)
+                        if((signed)m_dataMemory.size()<newSize)m_dataMemory.resize(newSize,0xFF);
+                        if(picType->getCurrentPic().is16Bit())
                         {
                             for(int i=0;i<(signed)lineData.size();i++)
-                                dataMemory[extAddress+address+i-dataAddress]=lineData[i];
+                                m_dataMemory[extAddress+address+i-dataAddress]=lineData[i];
                         }
                         else //PIC16 devices contain useless data after every data byte in data memory :(
                         {
                             for(int i=0;i<(signed)lineData.size();i+=2)
-                                dataMemory[(extAddress+address+i-dataAddress)/2]=lineData[i];
+                                m_dataMemory[(extAddress+address+i-dataAddress)/2]=lineData[i];
                         }
                     }
                     else cerr<<"Data in hex file outside data memory of PIC"<<endl;
@@ -184,10 +195,9 @@ int HexFile::open(PicType* picType,const char* filename)
                 cerr<<"unknown record type: "<<recordType<<endl;
                 return -1;
                 break;
-
-
         }
     }while(recordType!=ENDOFFILE);
+
     fp.close();
     trimData(picType);
 
@@ -198,33 +208,31 @@ int HexFile::open(PicType* picType,const char* filename)
 
 void HexFile::trimData(PicType* picType)
 {
-    if((picType->getCurrentPic().Name.find("P10")==0)|
-        (picType->getCurrentPic().Name.find("P12")==0)|
-        (picType->getCurrentPic().Name.find("P16")==0))
+    if(!picType->getCurrentPic().is16Bit())
     {
-        for(int i=1;i<(signed)codeMemory.size();i+=2)
+        for(int i=1;i<(signed)m_codeMemory.size();i+=2)
         {
-            codeMemory[i]&=0x3F;
+            m_codeMemory[i]&=0x3F;
         }
-        for(int i=1;i<(signed)configMemory.size();i+=2)
+        for(int i=1;i<(signed)m_configMemory.size();i+=2)
         {
-            configMemory[i]&=0x3F;
+            m_configMemory[i]&=0x3F;
         }
     }
     else
     {
-        for(int i=1;i<(signed)codeMemory.size();i++)
+        for(int i=1;i<(signed)m_codeMemory.size();i++)
         {
-            codeMemory[i]&=0xFF;
+            m_codeMemory[i]&=0xFF;
         }
-        for(int i=1;i<(signed)configMemory.size();i++)
+        for(int i=1;i<(signed)m_configMemory.size();i++)
         {
-            configMemory[i]&=0xFF;
+            m_configMemory[i]&=0xFF;
         }
     }
-    for(int i=1;i<(signed)dataMemory.size();i++)
+    for(int i=1;i<(signed)m_dataMemory.size();i++)
     {
-        dataMemory[i]&=0xFF;
+        m_dataMemory[i]&=0xFF;
     }
 
     m_bModified = true;
@@ -251,7 +259,7 @@ int HexFile::saveAs(PicType* picType,const char* filename)
 
     strcpy(m_filename,filename);
 
-    if(codeMemory.size()>0)
+    if(m_codeMemory.size()>0)
     {
         lineData.resize(2);
         //Put address 0x0000 in lineData
@@ -259,79 +267,79 @@ int HexFile::saveAs(PicType* picType,const char* filename)
         lineData[1]=0x00;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for(int i=0;i<(signed)codeMemory.size();i+=16)
+        for(int i=0;i<(signed)m_codeMemory.size();i+=16)
         {
-            if(i+16<(signed)codeMemory.size())
+            if(i+16<(signed)m_codeMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=codeMemory.size()-i;
+                lineSize=m_codeMemory.size()-i;
             }
             lineData.resize(lineSize);
             for(int j=0;j<lineSize;j++)
             {
-                lineData[j]=codeMemory[i+j];
+                lineData[j]=m_codeMemory[i+j];
             }
             makeLine(i,DATA,lineData,txt);
             fp<<txt<<endl;
 
         }
     }
-    if(dataMemory.size()>0)
+    if(m_dataMemory.size()>0)
     {
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().DataAddress;
-        if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
+        if(!picType->getCurrentPic().is16Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for(int i=0;i<(signed)dataMemory.size();i+=16)
+        for(int i=0;i<(signed)m_dataMemory.size();i+=16)
         {
-            if(i+16<(signed)dataMemory.size())
+            if(i+16<(signed)m_dataMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=dataMemory.size()-i;
+                lineSize=m_dataMemory.size()-i;
             }
             lineData.resize(lineSize);
             for(int j=0;j<lineSize;j++)
             {
-                lineData[j]=dataMemory[i+j];
+                lineData[j]=m_dataMemory[i+j];
             }
             makeLine(i+(address&0xFFFF),DATA,lineData,txt);
             fp<<txt<<endl;
         }
     }
-    if(configMemory.size()>0)
+    if(m_configMemory.size()>0)
     {
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->getCurrentPic().ConfigAddress;
-        if(picType->getCurrentPic().Name.find("P18F")!=0)address*=2;
+        if(!picType->getCurrentPic().is16Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for(int i=0;i<(signed)configMemory.size();i+=16)
+        for(int i=0;i<(signed)m_configMemory.size();i+=16)
         {
-            if(i+16<(signed)configMemory.size())
+            if(i+16<(signed)m_configMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=configMemory.size()-i;
+                lineSize=m_configMemory.size()-i;
             }
             lineData.resize(lineSize);
             for(int j=0;j<lineSize;j++)
             {
-                lineData[j]=configMemory[i+j];
+                lineData[j]=m_configMemory[i+j];
             }
             makeLine(i+(address&0xFFFF),DATA,lineData,txt);
             fp<<txt<<endl;
@@ -353,45 +361,47 @@ int HexFile::save(PicType* picType)
 
 void HexFile::putCodeMemory(vector<int> &mem)
 {
-    codeMemory=mem;
+    m_codeMemory=mem;
     m_bModified = true;
 }
 
 void HexFile::putCodeMemory(int address, int mem)
 {
-    if(codeMemory.size()>(unsigned)address)
+    if(m_codeMemory.size()>(unsigned)address)
     {
-        codeMemory[address]=mem;
+        m_codeMemory[address]=mem;
         m_bModified = true;
     }
 }
 
 void HexFile::putDataMemory(vector<int> &mem)
 {
-    dataMemory=mem;
+    m_dataMemory=mem;
     m_bModified = true;
 }
 
 void HexFile::putDataMemory(int address, int mem)
 {
-    if(dataMemory.size()>(unsigned)address)
+    if(m_dataMemory.size()>(unsigned)address)
     {
-        dataMemory[address]=mem;
+        m_dataMemory[address]=mem;
         m_bModified = true;
     }
 }
 
 void HexFile::putConfigMemory(vector<int> &mem)
 {
-    configMemory=mem;
+    m_configMemory=mem;
     m_bModified = true;
 }
 
 void HexFile::putConfigMemory(int address, int mem)
 {
-    if(configMemory.size()>(unsigned)address)
+	if(m_configMemory.size()<=(unsigned)address) 
+		m_configMemory.resize(address+1);
+    if(m_configMemory.size()>(unsigned)address)
     {
-        configMemory[address]=mem;
+        m_configMemory[address]=mem;
         m_bModified = true;
     }
 }
@@ -438,39 +448,39 @@ void HexFile::makeLine(int address, RecordType recordType, vector<int> &lineData
 
 vector<int> &HexFile::getCodeMemory(void)
 {
-    return codeMemory;
+    return m_codeMemory;
 }
 
 int HexFile::getCodeMemory(int address)
 {
-    if((unsigned)address<codeMemory.size())
-        return codeMemory[address];
+    if((unsigned)address<m_codeMemory.size())
+        return m_codeMemory[address];
     else
         return 0;
 }
 
 vector<int> &HexFile::getDataMemory(void)
 {
-    return dataMemory;
+    return m_dataMemory;
 }
 
 int HexFile::getDataMemory(int address)
 {
-    if((unsigned)address<dataMemory.size())
-        return dataMemory[address];
+    if((unsigned)address<m_dataMemory.size())
+        return m_dataMemory[address];
     else
         return 0;
 }
 
 vector<int> &HexFile::getConfigMemory(void)
 {
-    return configMemory;
+    return m_configMemory;
 }
 
 int HexFile::getConfigMemory(int address)
 {
-    if((unsigned)address<configMemory.size())
-        return configMemory[address];
+    if((unsigned)address<m_configMemory.size())
+        return m_configMemory[address];
     else
         return 0;
 }

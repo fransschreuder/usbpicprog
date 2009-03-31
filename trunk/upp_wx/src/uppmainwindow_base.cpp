@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 21 2008)
+// C++ code generated with wxFormBuilder (version Apr 16 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -31,21 +31,6 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pCodePanel->Layout();
 	bSizer2->Fit( m_pCodePanel );
 	m_pNotebook->AddPage( m_pCodePanel, _("Code"), false );
-	m_pConfigPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer3;
-	bSizer3 = new wxBoxSizer( wxVERTICAL );
-	
-	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Hexadecimal view of the configuration fuses of the PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText2->Wrap( -1 );
-	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
-	
-	m_pConfigGrid = new UppHexViewGrid(m_pConfigPanel, wxID_ANY, HEXVIEW_CONFIG);
-	bSizer3->Add( m_pConfigGrid, 1, wxALL|wxEXPAND, 5 );
-	
-	m_pConfigPanel->SetSizer( bSizer3 );
-	m_pConfigPanel->Layout();
-	bSizer3->Fit( m_pConfigPanel );
-	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), true );
 	m_pDataPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxVERTICAL );
@@ -61,6 +46,87 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDataPanel->Layout();
 	bSizer4->Fit( m_pDataPanel );
 	m_pNotebook->AddPage( m_pDataPanel, _("Data"), false );
+	m_pConfigPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer3;
+	bSizer3 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText2 = new wxStaticText( m_pConfigPanel, wxID_ANY, _("Configuration flags for this PIC:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2->Wrap( -1 );
+	bSizer3->Add( m_staticText2, 0, wxALL, 5 );
+	
+	m_pConfigListbook = new UppConfigViewBook(m_pConfigPanel, wxID_ANY);
+	bSizer3->Add( m_pConfigListbook, 1, wxALL|wxEXPAND, 5 );
+	
+	m_pConfigPanel->SetSizer( bSizer3 );
+	m_pConfigPanel->Layout();
+	bSizer3->Fit( m_pConfigPanel );
+	m_pNotebook->AddPage( m_pConfigPanel, _("Configuration flags"), false );
+	m_pInfoPanel = new wxPanel( m_pNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	wxBoxSizer* bSizer5;
+	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
+	
+	wxStaticBoxSizer* sbSizer1;
+	sbSizer1 = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Miscellaneous") ), wxVERTICAL );
+	
+	m_pDatasheetLink = new wxHyperlinkCtrl( m_pInfoPanel, wxID_ANY, _("Datasheet"), wxEmptyString, wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
+	sbSizer1->Add( m_pDatasheetLink, 0, wxALL, 5 );
+	
+	m_pVPPText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Programming voltage (Vpp):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVPPText->Wrap( -1 );
+	sbSizer1->Add( m_pVPPText, 0, wxALL, 5 );
+	
+	m_pVDDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Working voltages (Vdd):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVDDText->Wrap( -1 );
+	sbSizer1->Add( m_pVDDText, 0, wxALL, 5 );
+	
+	m_pFrequencyText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Frequency range:\n   MIN\n   MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pFrequencyText->Wrap( -1 );
+	sbSizer1->Add( m_pFrequencyText, 0, wxALL, 5 );
+	
+	m_pDeviceIDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Device ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pDeviceIDText->Wrap( -1 );
+	sbSizer1->Add( m_pDeviceIDText, 0, wxALL, 5 );
+	
+	m_pCodeMemoryText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Code memory size:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pCodeMemoryText->Wrap( -1 );
+	sbSizer1->Add( m_pCodeMemoryText, 0, wxALL, 5 );
+	
+	m_pDataMemoryText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Data memory size:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pDataMemoryText->Wrap( -1 );
+	sbSizer1->Add( m_pDataMemoryText, 0, wxALL, 5 );
+	
+	bSizer5->Add( sbSizer1, 1, wxALL|wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* pPackageSizer;
+	pPackageSizer = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Package") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer7;
+	bSizer7 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText7 = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Variants:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText7->Wrap( -1 );
+	bSizer7->Add( m_staticText7, 0, wxALIGN_CENTER|wxALL, 5 );
+	
+	wxArrayString m_pPackageVariantsChoices;
+	m_pPackageVariants = new wxChoice( m_pInfoPanel, wxID_PACKAGE_VARIANT, wxDefaultPosition, wxDefaultSize, m_pPackageVariantsChoices, 0 );
+	m_pPackageVariants->SetSelection( 0 );
+	bSizer7->Add( m_pPackageVariants, 0, wxALIGN_CENTER|wxALL, 5 );
+	
+	pPackageSizer->Add( bSizer7, 0, wxEXPAND, 5 );
+	
+	m_pPackageWin = new UppPackageViewWindow(m_pInfoPanel, wxID_ANY);
+	pPackageSizer->Add( m_pPackageWin, 1, wxALL|wxEXPAND, 5 );
+	
+	m_staticText11 = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Note: red pins are (some of those) used in ICSP."), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText11->Wrap( -1 );
+	pPackageSizer->Add( m_staticText11, 0, wxALL, 5 );
+	
+	bSizer5->Add( pPackageSizer, 1, wxALL|wxEXPAND, 5 );
+	
+	m_pInfoPanel->SetSizer( bSizer5 );
+	m_pInfoPanel->Layout();
+	bSizer5->Fit( m_pInfoPanel );
+	m_pNotebook->AddPage( m_pInfoPanel, _("PIC info"), true );
 	
 	m_pSizer->Add( m_pNotebook, 1, wxEXPAND | wxALL, 5 );
 	
@@ -102,6 +168,8 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	wxMenuItem* uppMenuSelectAll;
 	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) , _("Selects the entire grid currently shown"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuSelectAll );
+	
+	m_pMenuEdit->AppendSeparator();
 	
 	wxMenuItem* uppMenuOptions;
 	uppMenuOptions = new wxMenuItem( m_pMenuEdit, wxID_PREFERENCES, wxString( _("&Preferences") ) , _("Shows the options for this program"), wxITEM_NORMAL );

@@ -6,7 +6,7 @@
 
     <!-- List of output formats to generate: -->
     <add-formats>
-        autoconf,borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
+        borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
     </add-formats>
 
     <add-flags>-I $(envvar('WXWIN'))/build/bakefiles/wxpresets</add-flags>

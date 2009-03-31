@@ -18,6 +18,9 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
 
 #include <wx/statbox.h>
 #include <wx/wx.h>
@@ -25,21 +28,22 @@
 #include "preferences.h"
 
 
-BEGIN_EVENT_TABLE(PreferencesDialog,wxDialog)
-    EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
+BEGIN_EVENT_TABLE(UppPreferencesDialog,wxDialog)
+    EVT_BUTTON(wxID_OK, UppPreferencesDialog::OnOk)
 END_EVENT_TABLE()
 
-PreferencesDialog::PreferencesDialog(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &position, const wxSize& size, long style)
-: wxDialog(parent, id, title, position, size, style)
+UppPreferencesDialog::UppPreferencesDialog(wxWindow *parent, wxWindowID id, const wxString &title, 
+                                           const wxPoint &position, const wxSize& size, long style)
+    : wxDialog(parent, id, title, position, size, style)
 {
     CreateGUIControls();
 }
 
-PreferencesDialog::~PreferencesDialog()
+UppPreferencesDialog::~UppPreferencesDialog()
 {
 }
 
-void PreferencesDialog::CreateGUIControls()
+void UppPreferencesDialog::CreateGUIControls()
 {
     WxBoxSizer1 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(WxBoxSizer1);
@@ -101,24 +105,24 @@ void PreferencesDialog::CreateGUIControls()
     Center();
 }
 
-void PreferencesDialog::OnOk(wxCommandEvent& event)
+void UppPreferencesDialog::OnOk(wxCommandEvent& WXUNUSED(event))
 {
-    configFields.ConfigVerifyAfterProgramming=uppConfigVerifyAfterProgramming->IsChecked();
-    configFields.ConfigVerifyData=uppConfigVerifyData->IsChecked();
-    configFields.ConfigVerifyConfig=uppConfigVerifyConfig->IsChecked();
-    configFields.ConfigVerifyCode=uppConfigVerifyCode->IsChecked();
-    configFields.ConfigProgramData=uppConfigProgramData->IsChecked();
-    configFields.ConfigProgramConfig=uppConfigProgramConfig->IsChecked();
-    configFields.ConfigProgramCode=uppConfigProgramCode->IsChecked();
-    configFields.ConfigEraseBeforeProgramming=uppConfigEraseBeforeProgramming->IsChecked();
-    configFields.ConfigShowPopups=uppConfigShowPopups->IsChecked();
+	m_cfg.ConfigVerifyAfterProgramming=uppConfigVerifyAfterProgramming->IsChecked();
+    m_cfg.ConfigVerifyData=uppConfigVerifyData->IsChecked();
+    m_cfg.ConfigVerifyConfig=uppConfigVerifyConfig->IsChecked();
+    m_cfg.ConfigVerifyCode=uppConfigVerifyCode->IsChecked();
+    m_cfg.ConfigProgramData=uppConfigProgramData->IsChecked();
+    m_cfg.ConfigProgramConfig=uppConfigProgramConfig->IsChecked();
+    m_cfg.ConfigProgramCode=uppConfigProgramCode->IsChecked();
+    m_cfg.ConfigEraseBeforeProgramming=uppConfigEraseBeforeProgramming->IsChecked();
+    m_cfg.ConfigShowPopups=uppConfigShowPopups->IsChecked();
 
     EndModal(wxID_OK);
 }
 
-void PreferencesDialog::SetConfigFields(ConfigFields cf)
+void UppPreferencesDialog::SetConfigFields(UppPreferences cf)
 {
-    configFields=cf;
+    m_cfg=cf;
     uppConfigVerifyAfterProgramming->SetValue(cf.ConfigVerifyAfterProgramming);	
     uppConfigProgramCode->SetValue(cf.ConfigProgramCode);
     uppConfigProgramConfig->SetValue(cf.ConfigProgramConfig);

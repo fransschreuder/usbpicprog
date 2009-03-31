@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 21 2008)
+// C++ code generated with wxFormBuilder (version Apr 16 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -22,6 +22,11 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
+#include "configview.h"
+#include <wx/hyperlink.h>
+#include <wx/statbox.h>
+#include <wx/choice.h>
+#include "packageview.h"
 #include <wx/notebook.h>
 #include <wx/menu.h>
 #include <wx/statusbr.h>
@@ -31,6 +36,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
+#define wxID_PACKAGE_VARIANT 1000
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindowBase
@@ -45,12 +51,24 @@ class UppMainWindowBase : public wxFrame
 		wxPanel* m_pCodePanel;
 		wxStaticText* m_staticText1;
 		UppHexViewGrid* m_pCodeGrid;
-		wxPanel* m_pConfigPanel;
-		wxStaticText* m_staticText2;
-		UppHexViewGrid* m_pConfigGrid;
 		wxPanel* m_pDataPanel;
 		wxStaticText* m_staticText3;
 		UppHexViewGrid* m_pDataGrid;
+		wxPanel* m_pConfigPanel;
+		wxStaticText* m_staticText2;
+		UppConfigViewBook* m_pConfigListbook;
+		wxPanel* m_pInfoPanel;
+		wxHyperlinkCtrl* m_pDatasheetLink;
+		wxStaticText* m_pVPPText;
+		wxStaticText* m_pVDDText;
+		wxStaticText* m_pFrequencyText;
+		wxStaticText* m_pDeviceIDText;
+		wxStaticText* m_pCodeMemoryText;
+		wxStaticText* m_pDataMemoryText;
+		wxStaticText* m_staticText7;
+		wxChoice* m_pPackageVariants;
+		UppPackageViewWindow* m_pPackageWin;
+		wxStaticText* m_staticText11;
 		wxMenuBar* m_pMenuBar;
 		wxMenu* m_pMenuFile;
 		wxMenu* m_pMenuEdit;

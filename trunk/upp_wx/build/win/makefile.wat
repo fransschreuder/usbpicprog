@@ -65,7 +65,11 @@ LIBUSB_DIR = $(LIBUSB)
 !  loaddll wpp      wppdi86
 !  loaddll wppaxp   wppdaxp
 !  loaddll wpp386   wppd386
+! if $(__VERSION__) >= 1280
+!  loaddll wlink    wlinkd
+! else
 !  loaddll wlink    wlink
+! endif
 !  loaddll wlib     wlibd
 !endif
 
@@ -166,12 +170,14 @@ UPP_WX_CXXFLAGS = $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) &
 	$(__WXDEBUG_DEFINE_p) -d__WXMSW__ &
 	-i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include &
 	$(____upp_wx__OPT_2) $(____upp_wx__DEBUGINFO_3) -i=..\..\src &
-	-i=$(LIBUSB_DIR)\src $(CPPFLAGS) $(CXXFLAGS)
+	-i=$(LIBUSB_DIR)\include $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  &
+	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj &
+	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj &
 	watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj &
@@ -218,6 +224,9 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe :  $(UPP_WX_OBJEC
 	@for %i in () do @%append watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option stack=%i
 	wlink @watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc
 
+watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj :  .AUTODEPEND ..\..\src\configview.cpp
+	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
+
 watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj :  .AUTODEPEND ..\..\src\hardware.cpp
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
 
@@ -228,6 +237,9 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj :  .AUTODEPEN
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
 
 watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj :  .AUTODEPEND ..\..\src\main.cpp
+	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
+
+watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj :  .AUTODEPEND ..\..\src\packageview.cpp
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
 
 watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj :  .AUTODEPEND ..\..\src\pictype.cpp
@@ -243,5 +255,5 @@ watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj : 
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
 
 watmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res :  .AUTODEPEND ..\..\icons\win\upp_wx.rc
-	wrc -q -ad -bt=nt -r -fo=$^@  $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) -d__WXMSW__ -i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include -i=..\..\src -i=$(LIBUSB_DIR)\src $<
+	wrc -q -ad -bt=nt -r -fo=$^@  $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) -d__WXMSW__ -i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include -i=..\..\src -i=$(LIBUSB_DIR)\include $<
 

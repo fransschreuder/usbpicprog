@@ -18,6 +18,9 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
 
 #include <wx/clipbrd.h>
 #include <wx/dataobj.h>
@@ -26,6 +29,7 @@
 #include <wx/settings.h>
 
 #include "hexview.h"
+#include "uppmainwindow.h"
 
 
 #if wxCHECK_VERSION(2,9,0)
@@ -100,7 +104,7 @@ wxSize UppHexViewGrid::DoGetBestSize() const
     return sz;
 }
 
-void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
+void UppHexViewGrid::SetHexFile(HexFile* hexFile)
 {
     m_hexFile=hexFile;
 
@@ -109,9 +113,6 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     {
         case HEXVIEW_CODE:
             data = &m_hexFile->getCodeMemory();
-            break;
-        case HEXVIEW_CONFIG:
-            data = &m_hexFile->getConfigMemory();
             break;
         case HEXVIEW_DATA:
             data = &m_hexFile->getDataMemory();
@@ -135,7 +136,7 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
     wxString value;
 #endif
 
-    for(unsigned int i=0;i<data->size();i++)
+    for(unsigned int i=0; i<data->size(); i++)
     {
         int number = (*data)[i];
         wxASSERT(number >= 0 && number <= 255);
@@ -158,13 +159,9 @@ void UppHexViewGrid::ShowHexFile(HexFile* hexFile, PicType* picType)
         GetTable()->SetValue(i/n, i%n, wxString(value));
     }
 
-    int offset = 0;
-    if (m_type == HEXVIEW_CONFIG)
-        offset = picType->getCurrentPic().ConfigAddress;
-
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
-        SetRowLabelValue(i,wxString::Format(wxT("%06X"),offset + i*n));
+        SetRowLabelValue(i,wxString::Format(wxT("%06X"), i*n));
 
     Refresh();
 }
@@ -236,18 +233,16 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
                 m_hexFile->putCodeMemory(Position,Data);
                 CellData.Printf(wxT("%02X"),m_hexFile->getCodeMemory(Position));
                 break;
-            case HEXVIEW_CONFIG:
-                m_hexFile->putConfigMemory(Position,Data);
-                CellData.Printf(wxT("%02X"),m_hexFile->getConfigMemory(Position));
-                break;
             case HEXVIEW_DATA:
                 m_hexFile->putDataMemory(Position,Data);
                 CellData.Printf(wxT("%02X"),m_hexFile->getDataMemory(Position));
                 break;
         }
 
-        // inform the parent that something was modified
-        GetParent()->GetEventHandler()->ProcessEvent(event);
+        // notify the main window about this change
+        UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
+        wxASSERT(main);
+        main->upp_hex_changed();
     }
 
     SetCellValue(event.GetRow(),event.GetCol(),CellData);

@@ -22,9 +22,9 @@
 #define HEXFILE_H
 
 #include <vector>
-//#include <string>
-#include "pictype.h"
 using namespace std;
+
+#include "pictype.h"
 
 /**
     The identifiers of the different records contained into an HEX file.
@@ -44,6 +44,11 @@ typedef enum {
 
     Supports loading and saving in the Intel HEX format (the one commonly
     used by PIC compilers): http://en.wikipedia.org/wiki/Intel_HEX.
+
+    Note that this class is used by UppMainWindow to store the current status
+    of the code/config/data bytes; this class however doesn't store any info
+    about the PIC model for which we store the code/config/data bytes;
+    see the Pic class for that.
 */
 class HexFile
 {
@@ -51,7 +56,7 @@ public:
     HexFile(PicType* picType=NULL,const char* filename=NULL);
     ~HexFile();
 
-    /*fill an empty hexfile with 0xFF*/
+    /** Resets this instance and fills it with 0xFF bytes */
     int newFile(PicType* picType);
     int open(PicType* picType, const char* filename);
     int reload(PicType* picType);
@@ -79,9 +84,11 @@ public:
 private:
     char m_filename[512];
     bool m_bModified;
-    vector<int> codeMemory;
-    vector<int> dataMemory;
-    vector<int> configMemory;
+
+    vector<int> m_codeMemory;
+    vector<int> m_dataMemory;
+    vector<int> m_configMemory;
+
     bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
     void makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line);
 };

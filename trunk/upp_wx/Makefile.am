@@ -1,8 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src po
+SUBDIRS = src po xml_data
 ACLOCAL_AMFLAGS =  -I m4
+
+
 
 usbpicprogdocdir = ${prefix}/doc/usbpicprog
 usbpicprogdoc_DATA = \
@@ -13,7 +15,11 @@ usbpicprogdoc_DATA = \
 	INSTALL\
 	NEWS
 
-EXTRA_DIST = $(usbpicprogdoc_DATA)
+usbpicprogdir = ${prefix}/share/usbpicprog
+usbpicprog_DATA = \
+	index.xml
+
+EXTRA_DIST = $(usbpicprogdoc_DATA) $(usbpicprog_DATA)
 
 
 # Copy all the spec files. Of cource, only one is actually used.

@@ -5,6 +5,7 @@ srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
 DIE=0
+ACLOCAL_FLAGS="-I ."
 
 if [ -n "$GNOME2_DIR" ]; then
 	ACLOCAL_FLAGS="-I $GNOME2_DIR/share/aclocal $ACLOCAL_FLAGS"

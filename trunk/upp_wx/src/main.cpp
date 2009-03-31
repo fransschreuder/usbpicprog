@@ -18,6 +18,12 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
+
+#include <wx/stdpaths.h>
+
 #include "main.h"
 #include "../svn_revision.h"
 
@@ -49,9 +55,35 @@ bool UsbPicProg::OnInit()
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
     m_locale->AddCatalog(wxT("usbpicprog"));
 
+    // init the PNG handler
+    wxImage::AddHandler( new wxPNGHandler );
+
+#ifndef __WXMSW__
+    ((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
+#endif
+
+    // init the supported PIC types
+    if (!PicType::Init())
+    {
+        wxLogError(_("Cannot load XML PIC data."));
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
+        return false;
+    }
+/*
+    // load the package images
+    if (!ChipPackage::Init())
+    {
+        wxLogError(_("Cannot load package PNG data."));
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
+        return false;
+    }*/
+
     // wxApp::OnInit() will call UsbPicProg::OnInitCmdLine and UsbPicProg::OnCmdLineParsed
     if (!wxApp::OnInit())
+    {
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
         return false;
+    }
 
     SetVendorName(wxT("UsbPicProgrammer"));
 
@@ -188,12 +220,12 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 break;
             case VERIFY_MISMATCH:
                 switch (res.DataType)
-            {
-                case TYPE_CODE: typeText=string("code");break;
-                case TYPE_DATA: typeText=string("data");break;
-                case TYPE_CONFIG: typeText=string("config");break;
-                default: typeText=string("unknown");break;
-            }
+                {
+                    case TYPE_CODE: typeText=string("code");break;
+                    case TYPE_DATA: typeText=string("data");break;
+                    case TYPE_CONFIG: typeText=string("config");break;
+                    default: typeText=string("unknown");break;
+                }
                 fprintf(stderr,"Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                         typeText.c_str(),
                         res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
@@ -279,12 +311,12 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                     break;
                 case VERIFY_MISMATCH:
                     switch (res.DataType)
-                {
-                    case TYPE_CODE: typeText=string("code");break;
-                    case TYPE_DATA: typeText=string("data");break;
-                    case TYPE_CONFIG: typeText=string("config");break;
-                    default: typeText=string("unknown");break;
-                }
+                    {
+                        case TYPE_CODE: typeText=string("code");break;
+                        case TYPE_DATA: typeText=string("data");break;
+                        case TYPE_CONFIG: typeText=string("config");break;
+                        default: typeText=string("unknown");break;
+                    }
                     fprintf(stderr,"Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),
                             res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),

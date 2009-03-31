@@ -30,8 +30,11 @@
 #undef PREFERENCESDIALOG_STYLE
 #define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
 
+/**
+    A structure containing the global preferences for the UsbPicProg GUI.
+*/
 typedef struct {
-		bool ConfigVerifyAfterProgramming;
+	bool ConfigVerifyAfterProgramming;
     bool ConfigEraseBeforeProgramming;
     bool ConfigVerifyData;
     bool ConfigVerifyConfig;
@@ -40,24 +43,24 @@ typedef struct {
     bool ConfigProgramConfig;
     bool ConfigProgramCode;
     bool ConfigShowPopups;
-} ConfigFields;
+} UppPreferences;
 
 /**
     The dialog which allows the user to toggle/untoggle some global options.
 */
-class PreferencesDialog : public wxDialog
+class UppPreferencesDialog : public wxDialog
 {
 private:
     DECLARE_EVENT_TABLE();
 
 public:
-    PreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"),
-                      const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                      long style = PREFERENCESDIALOG_STYLE);
-    virtual ~PreferencesDialog();
+    UppPreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"),
+                         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
+                         long style = PREFERENCESDIALOG_STYLE);
+    virtual ~UppPreferencesDialog();
 
-    ConfigFields GetResult() const {return configFields;}
-    void SetConfigFields(ConfigFields cf);
+    UppPreferences GetResult() const { return m_cfg; }
+    void SetConfigFields(UppPreferences cf);
 
 private:
     wxCheckBox *uppConfigVerifyData;
@@ -73,7 +76,8 @@ private:
     wxCheckBox *uppConfigShowPopups;
     wxStaticBoxSizer *WxStaticBoxSizerGui;
     wxBoxSizer *WxBoxSizer1;
-    ConfigFields configFields;
+
+    UppPreferences m_cfg;
 
 private:
     void OnOk(wxCommandEvent& event);

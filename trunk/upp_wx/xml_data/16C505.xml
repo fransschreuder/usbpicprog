@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="16C505" document="010119" status="NR" alternative="16F505" memory_technology="EPROM" architecture="10X" pc="12"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Off"     bchecksum="0xFC00" cchecksum="0xEA48" />
+    <checksum protected="040:3FE" bchecksum="0xFBEF" cchecksum="0xE15B" />
+  </checksums>
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="commercial" >
+    <frequency start="0"  end="10" vdd_min="3" vdd_max="5.5" />
+    <frequency start="10" end="20" vdd_min="3" vdd_max="5.5" vdd_min_end="4.5" />
+  </frequency_range>
+  <frequency_range name="industrial" special="low_power" >
+    <frequency start="0" end="4" vdd_min="2.5" vdd_max="5.5" />
+  </frequency_range>
+  <frequency_range name="extended"   >
+    <frequency start="0" end="4"  vdd_min="3"   vdd_max="5.5" />
+    <frequency start="4" end="20" vdd_min="4.5" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"      min="12.75" max="13.25" nominal="13" />
+  <voltages name="vdd_prog" min="4.75"  max="5.25"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"     start="0x000" end="0x3FE" />
+  <memory name="calibration" start="0x3FF" end="0x3FF" cal_opmask="0xF00" cal_opcode="0xC00" />
+  <memory name="user_ids"    start="0x400" end="0x403" rmask="0x00F"      />
+  <memory name="config"      start="0xFFF" end="0xFFF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0xFFF" bvalue="0xFFF" >
+    <mask name="FOSC"  value="0x007" >
+      <value value="0x000" name="LP"           cname="_LP_OSC"             />
+      <value value="0x001" name="XT"           cname="_XT_OSC"             />
+      <value value="0x002" name="HS"           cname="_HS_OSC"             />
+      <value value="0x003" name="invalid" />
+      <value value="0x004" name="INTRC_IO"     cname="_IntRC_OSC_RB4EN"    />
+      <value value="0x005" name="INTRC_CLKOUT" cname="_IntRC_OSC_CLKOUTEN" />
+      <value value="0x006" name="EXTRC_IO"     cname="_ExtRC_OSC_RB4EN"    />
+      <value value="0x007" name="EXTRC_CLKOUT" cname="_ExtRC_OSC_CLKOUTEN" />
+    </mask>
+    <mask name="WDT"   value="0x008" >
+      <value value="0x000" name="Off" cname="_WDT_OFF" />
+      <value value="0x008" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="MCLRE" value="0x020" >
+      <value value="0x000" name="Internal" cname="_MCLRE_OFF" />
+      <value value="0x020" name="External" cname="_MCLRE_ON"  />
+    </mask>
+    <mask name="CP"    value="0xFD0" >
+      <value value="0x000" name="040:3FE" cname="_CP_ON"  />
+      <value value="0xFD0" name="Off"     cname="_CP_OFF" />
+      <value value="default" name="invalid" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic" nb_pins="14" >
+    <pin index="1"  name="VDD"             />
+    <pin index="2"  name="RB5/OSC1/CLKIN"  />
+    <pin index="3"  name="RB4/OSC2/CLKOUT" />
+    <pin index="4"  name="RB3/MCLR/VPP"    />
+    <pin index="5"  name="RC5/T0CKI"       />
+    <pin index="6"  name="RC4"             />
+    <pin index="7"  name="RC3"             />
+    <pin index="8"  name="RC2"             />
+    <pin index="9"  name="RC1"             />
+    <pin index="10" name="RC0"             />
+    <pin index="11" name="RB2"             />
+    <pin index="12" name="RB1/ICSPCLK"     />
+    <pin index="13" name="RB0/ICSPDAT"     />
+    <pin index="14" name="VSS"             />
+  </package>
+
+</device>

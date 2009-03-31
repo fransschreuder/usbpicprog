@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   Copyright (C) 2008-2009 by Frans Schreuder, Francesco Montorsi        *
 *   usbpicprog.sourceforge.net                                            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -18,6 +18,9 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+// NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
+//       it's important to include wx/defs.h before STL headers
+#include <wx/defs.h>
 
 #include <wx/artprov.h>
 #include <wx/toolbar.h>
@@ -27,6 +30,8 @@
 #include <wx/event.h>
 #include <wx/msgdlg.h>
 #include <wx/debug.h>
+#include <wx/dataview.h>
+#include <wx/dcmemory.h>
 
 #if wxCHECK_VERSION(2,9,0)
 #include <wx/persist/toplevel.h>
@@ -36,11 +41,14 @@
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
 #include "hexview.h"
+#include "packageview.h"
+#include "configview.h"
 #include "../svn_revision.h"
 
 #include <map>
 
-#if defined(__WXGTK__) || defined(__WXMOTIF__) /*GTK needs bigger icons than Windows*/
+#if defined(__WXGTK__) || defined(__WXMOTIF__) 
+    /*GTK needs bigger icons than Windows*/
     #include "../icons/refresh.xpm"
     #include "../icons/blankcheck.xpm"
     #include "../icons/program.xpm"
@@ -58,15 +66,9 @@
     #include "../icons/win/usbpicprog.xpm"
 #endif
 
-
 static const wxChar *FILETYPES = _T(
-    "Hex files|*.hex|All files|*.*"
+    "Hex files|*.hex;*.HEX|All files|*.*"
 );
-
-wxString wxGetPicName(PicType* pt)
-{
-    return wxString::FromAscii(pt->getCurrentPic().Name.c_str());
-}
 
 #if wxCHECK_VERSION(2,9,0)
 wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEvent );
@@ -85,7 +87,6 @@ DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE);
 // =============================================================================
 
 
-/*Do the basic initialization of the main window*/
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
@@ -118,12 +119,10 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         m_cfg.ConfigShowPopups=false;
     m_history.Load(*pCfg);
 
-
-
     // non-GUI init:
     m_hardware=NULL;      // upp_connect() will allocate it
     m_dlgProgress=NULL;   // will be created when needed
-    m_arrPICName=m_picType.getPicNames();
+    m_arrPICName=PicType::getSupportedPicNames();
 
     // GUI init:
     CompleteGUICreation();    // also loads the saved pos&size of this frame
@@ -133,18 +132,22 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
 
 #if wxCHECK_VERSION(2,9,0)
     // if upp_connect() didn't find a PIC device, load the last chosen PIC
-    int lastPic;
-    if (!m_hardware->connected() &&
-        pCfg->Read(wxT("SelectedPIC"), &lastPic) &&
-        lastPic >= 0 && lastPic < (int)m_arrPICName.size())
+    if (!m_hardware->connected())
     {
-        m_picType=PicType(m_arrPICName[lastPic]);
+        // NOTE: select a PIC reading the last used one which was saved in wxConfig
+        //       or just use the first one (0-th) as pCfg->Read() default value
+        long lastPic=0;
+        if ((lastPic=pCfg->Read(wxT("SelectedPIC"), (long)0)) >= 0 && 
+            lastPic < (int)m_arrPICName.size())
+        {
+            m_picType=PicType((string)m_arrPICName[lastPic]);
 
-        // keep the choice box synchronized
-        m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[lastPic].c_str()));
+            // keep the choice box synchronized
+            m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
 
-        // PIC changed; reset the code/config/data grids
-        Reset();
+            // PIC changed; reset the code/config/data grids
+            Reset();
+        }
     }
 #endif
 }
@@ -174,28 +177,6 @@ UppMainWindow::~UppMainWindow()
     m_history.Save(*pCfg);
 }
 
-void UppMainWindow::UpdateTitle()
-{
-    wxString str;
-
-    #ifndef UPP_VERSION
-    str = wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
-    #else
-    str = wxString(_("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
-    #endif
-
-    if (!m_hexFile.hasFileName())
-        str += wxT(" - [") + wxString(_("untitled"));
-    else
-        str += wxT(" - [") + wxString::FromAscii(m_hexFile.getFileName());
-
-    if (m_hexFile.wasModified())
-        str += wxT(" *");
-
-    SetTitle(str + wxT("]"));
-}
-
-/* returns a bitmap suitable for UppMainWindow menu items */
 wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
     wxImage tmp(xpm_data);
@@ -210,12 +191,12 @@ wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
     return wxBitmap(tmp);
 }
 
-/* completes UppMainWindow GUI creation started by wxFormBuilder-generated code */
 void UppMainWindow::CompleteGUICreation()
 {
 #ifdef __WXMSW__
     // make the border around the wxNotebook to have the same background colour of the notebook bg colour
-    SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVEBORDER));
+    SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
+    // in wx 2.9.0 there is the more readable/sensed synonim wxSYS_COLOUR_FRAMEBK
 #endif
 
     // create the actions menu with rescaled icons
@@ -289,9 +270,8 @@ void UppMainWindow::CompleteGUICreation()
     for(unsigned int i=0;i<m_arrPICName.size();i++)
     {
         bool bFamilyFound = false;
-
-        // the first 4 characters of the PIC name is the family:
-        string family = m_arrPICName[i].substr(0, 4);
+        // the first 4 characters of the PIC name are the family:
+        string family(m_arrPICName[i].substr(0, 4).c_str());
 
         // is there a menu for this PIC family?
         for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
@@ -301,7 +281,7 @@ void UppMainWindow::CompleteGUICreation()
                 // yes, there's one!
                 wxMenu* pFamilyMenu = j->second;
                 pFamilyMenu->Append(wxID_PIC_CHOICE_MENU+i,
-                                    wxString::FromAscii(m_arrPICName[i].c_str()));
+                                    m_arrPICName[i]);
                 bFamilyFound = true;
             }
         }
@@ -383,8 +363,7 @@ void UppMainWindow::CompleteGUICreation()
     m_pStatusBar->SetStatusWidths(2, widths);
 
     // append all PIC names to the choice control
-    for(unsigned int i=0;i<m_arrPICName.size();i++)
-        m_pPICChoice->Append(wxString::FromAscii(m_arrPICName[i].c_str()));
+    m_pPICChoice->Append(m_arrPICName);
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
@@ -396,7 +375,7 @@ void UppMainWindow::CompleteGUICreation()
 
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
-    this->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( UppMainWindow::on_cell_changed ), NULL, this );
+    this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
 #if wxCHECK_VERSION(2,9,0)
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
@@ -409,32 +388,21 @@ void UppMainWindow::CompleteGUICreation()
     UpdateTitle();
 
     // show default stuff
-    UpdateGrids();
+    UpdatePicInfo();
 }
 
-/* returns a pointer to the grid currently open */
 UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
 {
     switch (m_pNotebook->GetSelection())
     {
     case PAGE_CODE:
         return m_pCodeGrid;
-    case PAGE_CONFIG:
-        return m_pConfigGrid;
     case PAGE_DATA:
         return m_pDataGrid;
 
     default:
         return NULL;
     }
-}
-
-/*Put the contents of the hex file in the text area*/
-void UppMainWindow::UpdateGrids()
-{
-    m_pCodeGrid->ShowHexFile(&m_hexFile,&m_picType);
-    m_pConfigGrid->ShowHexFile(&m_hexFile,&m_picType);
-    m_pDataGrid->ShowHexFile(&m_hexFile,&m_picType);
 }
 
 bool UppMainWindow::ShouldContinueIfUnsaved()
@@ -454,20 +422,89 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
     return false;
 }
 
+
+// UPPMAINWINDOW - update functions
+// =============================================================================
+
+void UppMainWindow::UpdateTitle()
+{
+    wxString str;
+
+    #ifndef UPP_VERSION
+    str = wxString(_("Usbpicprog rev: ")).Append(wxString::FromAscii(SVN_REVISION));
+    #else
+    str = wxString(_("Usbpicprog: ")).Append(wxString::FromAscii(UPP_VERSION));
+    #endif
+
+    if (!m_hexFile.hasFileName())
+        str += wxT(" - [") + wxString(_("untitled"));
+    else
+        str += wxT(" - [") + wxString::FromAscii(m_hexFile.getFileName());
+
+    if (m_hexFile.wasModified())
+        str += wxT(" *");
+
+    SetTitle(str + wxT("]"));
+}
+
+void UppMainWindow::UpdatePicInfo()
+{
+    // reset grid contents
+    m_pCodeGrid->SetHexFile(&m_hexFile);
+    m_pDataGrid->SetHexFile(&m_hexFile);
+
+    // reset config listbook contents
+    m_pConfigListbook->SetHexFile(&m_hexFile, m_picType.getCurrentPic());
+	cout<<"ConfigMemory.size: "<<m_hexFile.getConfigMemory().size()<<endl;
+		cout<<"CodeMemory.size: "<<m_hexFile.getCodeMemory().size()<<endl;
+    // reset the PIC info page
+    const Pic& pic = m_picType.getCurrentPic();
+    if (!pic.ok())
+        return;
+
+    const vector<ChipPackage>& pkg = pic.Package;
+
+    // update the misc infos
+
+    m_pDatasheetLink->SetLabel(wxString::Format("%s datasheet", pic.GetExtName()));
+    m_pDatasheetLink->SetURL(
+        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", pic.GetExtName()));
+    m_pDatasheetLink->SetVisited(false);
+    m_pDatasheetLink->GetContainingSizer()->Layout();
+        // size may have changed: relayout the m_pDatasheetLink's container
+
+    m_pVPPText->SetLabel(wxString::Format("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
+                         pic.ProgVoltages[MINIMUM], pic.ProgVoltages[NOMINAL], pic.ProgVoltages[MAXIMUM]));
+    m_pVDDText->SetLabel(wxString::Format("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
+                         pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
+    m_pFrequencyText->SetLabel(wxString::Format("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz", pic.MinFreq, pic.MaxFreq));
+    m_pDeviceIDText->SetLabel(wxString::Format("Device ID: 0x%X", pic.DevId&0xFFFF));
+    m_pCodeMemoryText->SetLabel(wxString::Format("Code memory size: %d bytes", pic.CodeSize));
+    m_pDataMemoryText->SetLabel(wxString::Format("Data memory size: %d bytes", pic.DataSize));
+
+    // update the package variants combobox
+    m_pPackageVariants->Clear();
+    for (unsigned int i=0; i<pkg.size(); i++)
+        m_pPackageVariants->Append(
+            wxString::Format("%s [%d pins]", pkg[i].GetName(), pkg[i].GetPinCount()));
+    m_pPackageVariants->SetSelection(0);
+
+    // let's update the bitmap and the pin names:
+    upp_package_variant_changed();
+}
+
 void UppMainWindow::Reset()
 {
     m_hexFile.newFile(&m_picType);
 
-    UpdateGrids();
+    UpdatePicInfo();
     UpdateTitle();
 }
-
 
 
 // UPPMAINWINDOW - event handlers
 // =============================================================================
 
-/*Open a hexfile using the most-recently-used menu items*/
 void UppMainWindow::on_mru(wxCommandEvent& event)
 {
     upp_open_file(m_history.GetHistoryFile(event.GetId() - wxID_FILE1));
@@ -495,7 +532,6 @@ void UppMainWindow::on_close(wxCloseEvent& event)
 // UPPMAINWINDOW - thread-related functions
 // =============================================================================
 
-/*Update the progress bar; this function is called by m_hardware */
 void UppMainWindow::updateProgress(int value)
 {
     // NOTE: this function is not always executed in the secondary thread's context
@@ -517,7 +553,6 @@ void UppMainWindow::updateProgress(int value)
 #endif
 }
 
-/*Update from the secondary thread */
 #if wxCHECK_VERSION(2,9,0)
 void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
 #else
@@ -548,11 +583,10 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     }
 }
 
-/*The secondary thread just finished*/
 #if wxCHECK_VERSION(2,9,0)
-void UppMainWindow::OnThreadCompleted(wxThreadEvent& evt)
+void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
 #else
-void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
+void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
 #endif
 {
     // NOTE: this function is executed in the primary thread's context!
@@ -594,7 +628,7 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent& evt)
     switch (m_mode)
     {
     case THREAD_READ:
-        UpdateGrids();
+        UpdatePicInfo();
         UpdateTitle();
         break;
 
@@ -837,14 +871,13 @@ bool UppMainWindow::upp_thread_verify()
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
 
-
     LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
 
     wxString verifyText;
     wxString typeText;
     VerifyResult res=
         m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
-                        m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
+                           m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -955,6 +988,10 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
                         _("Initializing..."),
                         100,
                         this,
+                        // NOTE: it's very important to give the wxPD_AUTO_HIDE
+                        //       style to wxProgressDialog otherwise we may get
+                        //       unwanted reentrancies (see wx docs)
+                        wxPD_AUTO_HIDE |
                         wxPD_CAN_ABORT |
                         wxPD_APP_MODAL |
                         wxPD_ELAPSED_TIME |
@@ -993,14 +1030,13 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
 // UPPMAINWINDOW - event handlers without event argument
 // =============================================================================
 
-/*The user touched one of the code/data/config grids*/
-void UppMainWindow::upp_cell_changed()
+void UppMainWindow::upp_hex_changed()
 {
-    // m_hexFile has been automatically modified by the UppHexViewGrid!
+    // m_hexFile has been automatically modified by the UppHexViewGrid
+    // or our m_picType instance was automatically modified by the ConfigViewListbook
     UpdateTitle();
 }
 
-/*clear the hexfile*/
 void UppMainWindow::upp_new()
 {
     if (!ShouldContinueIfUnsaved())
@@ -1009,7 +1045,6 @@ void UppMainWindow::upp_new()
     Reset();
 }
 
-/*Open a hexfile using a file dialog*/
 void UppMainWindow::upp_open()
 {
     if (!ShouldContinueIfUnsaved())
@@ -1028,7 +1063,6 @@ void UppMainWindow::upp_open()
     }
 }
 
-/*Open a hexfile by filename*/
 bool UppMainWindow::upp_open_file(const wxString& path)
 {
     if(m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
@@ -1039,7 +1073,7 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
     else
     {
-        UpdateGrids();
+        UpdatePicInfo();
         UpdateTitle();
         m_history.AddFileToHistory(path);
 
@@ -1047,7 +1081,6 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
 }
 
-/*re-open the hexfile*/
 void UppMainWindow::upp_refresh()
 {
     if(!m_hexFile.hasFileName())
@@ -1067,12 +1100,11 @@ void UppMainWindow::upp_refresh()
     }
     else
     {
-        UpdateGrids();
+        UpdatePicInfo();
         UpdateTitle();
     }
 }
 
-/*save the hexfile when already open, else perform a save_as*/
 void UppMainWindow::upp_save()
 {
     if(m_hexFile.hasFileName())
@@ -1088,7 +1120,6 @@ void UppMainWindow::upp_save()
     else upp_save_as();
 }
 
-/*save the hex file with a file dialog*/
 void UppMainWindow::upp_save_as()
 {
     wxFileDialog* openFileDialog =
@@ -1129,7 +1160,6 @@ void UppMainWindow::upp_selectall()
         grid->SelectAll();
 }
 
-/*Write everything to the device*/
 void UppMainWindow::upp_program()
 {
     if (m_hardware == NULL) return;
@@ -1232,12 +1262,16 @@ bool UppMainWindow::upp_autodetect()
     int devId=m_hardware->autoDetectDevice();
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
-    // if devId is not a valid device ID, PicType ctor will select the default PIC (18F2550)
-    m_picType=PicType(devId);
+    // if devId is not a valid device ID, select the default PIC
+    if (devId == -1)
+        m_picType=PicType(UPP_DEFAULT_PIC);
+    else
+        m_picType=PicType(devId);
+    wxASSERT(m_picType.ok());
     m_hardware->setPicType(&m_picType);
 
     // sync the choicebox with m_picType
-    wxString picName=wxGetPicName(&m_picType);
+    wxString picName=m_picType.getPicName();
     m_pPICChoice->SetStringSelection(picName);
 
     if(devId<1)
@@ -1313,7 +1347,7 @@ bool UppMainWindow::upp_connect()
         {
             m_picType=PicType(0);     // select default PIC
             m_hardware->setPicType(&m_picType);
-            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+            m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
             if(m_cfg.ConfigShowPopups)
@@ -1357,7 +1391,7 @@ void UppMainWindow::upp_disconnect()
 
 void UppMainWindow::upp_preferences()
 {
-    PreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
+    UppPreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
 
     dlg.SetConfigFields(m_cfg);
     if (dlg.ShowModal() == wxID_OK)
@@ -1399,26 +1433,23 @@ void UppMainWindow::upp_pic_choice_changed()
     if (!ShouldContinueIfUnsaved())
     {
         // revert selection to the previous type
-        m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+        m_pPICChoice->SetStringSelection(m_picType.getPicName());
         return;
     }
-
     if (m_hardware != NULL)
     {
         if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
         {
             // revert selection to the previous type
-            m_pPICChoice->SetStringSelection(wxGetPicName(&m_picType));
+            m_pPICChoice->SetStringSelection(m_picType.getPicName());
             wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
         }
 
         m_hardware->setPicType(&m_picType);
     }
-
     // update the pic type
     m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
-
     // PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -1447,13 +1478,22 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
     }
 
     // update the pic type
-    m_picType=PicType(m_arrPICName[id]);
+    m_picType=PicType((string)m_arrPICName[id]);
 
     // keep the choice box synchronized
-    m_pPICChoice->SetStringSelection(wxString::FromAscii(m_arrPICName[id].c_str()));
+    m_pPICChoice->SetStringSelection(m_arrPICName[id]);
 
     // PIC changed; reset the code/config/data grids
     Reset();
 }
 
+void UppMainWindow::upp_package_variant_changed()
+{
+    static wxSize sz = wxDefaultSize;
+    // get the new package
+    const ChipPackage& pkg = 
+        m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
+	if(m_picType.ok())
+	    m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
+}
 

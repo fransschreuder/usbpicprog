@@ -28,7 +28,7 @@
         <win32-res>icons/win/upp_wx.rc</win32-res>
         
         <include>$(SRCDIR)/src</include>
-        <include>$(LIBUSB_DIR)/src</include>
+        <include>$(LIBUSB_DIR)/include</include>
 
         <lib-path>$(LIBUSB_DIR)/lib/msvc</lib-path>
         <sys-lib>libusb</sys-lib>
