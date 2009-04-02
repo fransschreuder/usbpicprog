@@ -664,7 +664,7 @@
                                             <event name="OnUpdateUI"></event>
                                             <object class="sizeritem" expanded="1">
                                                 <property name="border">5</property>
-                                                <property name="flag">wxALL</property>
+                                                <property name="flag">wxALL|wxEXPAND</property>
                                                 <property name="proportion">0</property>
                                                 <object class="wxHyperlinkCtrl" expanded="1">
                                                     <property name="bg"></property>
@@ -729,7 +729,7 @@
                                                     <property name="font"></property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
-                                                    <property name="label">Programming voltage (Vpp):&#x0A;    MIN&#x0A;    NOM&#x0A;    MAX</property>
+                                                    <property name="label">Programming voltage (Vpp):&#x0A;    MIN&#x0A;    NOM&#x0A;    MAX&#x0A;_dontTranslateThis_</property>
                                                     <property name="maximum_size"></property>
                                                     <property name="minimum_size"></property>
                                                     <property name="name">m_pVPPText</property>
@@ -780,7 +780,7 @@
                                                     <property name="font"></property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
-                                                    <property name="label">Working voltages (Vdd):&#x0A;    MIN&#x0A;    NOM&#x0A;    MAX</property>
+                                                    <property name="label">Working voltages (Vdd):&#x0A;    MIN&#x0A;    NOM&#x0A;    MAX&#x0A;_dontTranslateThis_</property>
                                                     <property name="maximum_size"></property>
                                                     <property name="minimum_size"></property>
                                                     <property name="name">m_pVDDText</property>
@@ -831,7 +831,7 @@
                                                     <property name="font"></property>
                                                     <property name="hidden">0</property>
                                                     <property name="id">wxID_ANY</property>
-                                                    <property name="label">Frequency range:&#x0A;   MIN&#x0A;   MAX</property>
+                                                    <property name="label">Frequency range:&#x0A;   MIN&#x0A;   MAX&#x0A;_dontTranslateThis_</property>
                                                     <property name="maximum_size"></property>
                                                     <property name="minimum_size"></property>
                                                     <property name="name">m_pFrequencyText</property>

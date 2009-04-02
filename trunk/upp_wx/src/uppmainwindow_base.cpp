@@ -69,17 +69,17 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	sbSizer1 = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Miscellaneous") ), wxVERTICAL );
 	
 	m_pDatasheetLink = new wxHyperlinkCtrl( m_pInfoPanel, wxID_ANY, _("Datasheet"), wxEmptyString, wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
-	sbSizer1->Add( m_pDatasheetLink, 0, wxALL, 5 );
+	sbSizer1->Add( m_pDatasheetLink, 0, wxALL|wxEXPAND, 5 );
 	
-	m_pVPPText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Programming voltage (Vpp):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVPPText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Programming voltage (Vpp):\n    MIN\n    NOM\n    MAX\n_dontTranslateThis_"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pVPPText->Wrap( -1 );
 	sbSizer1->Add( m_pVPPText, 0, wxALL, 5 );
 	
-	m_pVDDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Working voltages (Vdd):\n    MIN\n    NOM\n    MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pVDDText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Working voltages (Vdd):\n    MIN\n    NOM\n    MAX\n_dontTranslateThis_"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pVDDText->Wrap( -1 );
 	sbSizer1->Add( m_pVDDText, 0, wxALL, 5 );
 	
-	m_pFrequencyText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Frequency range:\n   MIN\n   MAX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pFrequencyText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Frequency range:\n   MIN\n   MAX\n_dontTranslateThis_"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_pFrequencyText->Wrap( -1 );
 	sbSizer1->Add( m_pFrequencyText, 0, wxALL, 5 );
 	

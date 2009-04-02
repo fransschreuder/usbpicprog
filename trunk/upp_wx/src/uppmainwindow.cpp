@@ -113,7 +113,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         m_cfg.ConfigVerifyData=true;
     if ( !pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming))
         m_cfg.ConfigEraseBeforeProgramming=true;
-	if ( !pCfg->Read(wxT("ConfigVerifyAfterProgramming"), &m_cfg.ConfigVerifyAfterProgramming))
+    if ( !pCfg->Read(wxT("ConfigVerifyAfterProgramming"), &m_cfg.ConfigVerifyAfterProgramming))
         m_cfg.ConfigShowPopups=false;
     if ( !pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
         m_cfg.ConfigShowPopups=false;
@@ -455,8 +455,10 @@ void UppMainWindow::UpdatePicInfo()
 
     // reset config listbook contents
     m_pConfigListbook->SetHexFile(&m_hexFile, m_picType.getCurrentPic());
-	cout<<"ConfigMemory.size: "<<m_hexFile.getConfigMemory().size()<<endl;
-		cout<<"CodeMemory.size: "<<m_hexFile.getCodeMemory().size()<<endl;
+
+    cout<<"ConfigMemory.size: "<<m_hexFile.getConfigMemory().size()<<endl;
+    cout<<"CodeMemory.size: "<<m_hexFile.getCodeMemory().size()<<endl;
+
     // reset the PIC info page
     const Pic& pic = m_picType.getCurrentPic();
     if (!pic.ok())
@@ -466,27 +468,32 @@ void UppMainWindow::UpdatePicInfo()
 
     // update the misc infos
 
-    m_pDatasheetLink->SetLabel(wxString::Format("%s datasheet", pic.GetExtName()));
+    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), pic.GetExtName()));
     m_pDatasheetLink->SetURL(
         wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", pic.GetExtName()));
     m_pDatasheetLink->SetVisited(false);
+
+    m_pVPPText->SetLabel(
+        wxString::Format(_("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
+                         pic.ProgVoltages[MINIMUM], pic.ProgVoltages[NOMINAL], pic.ProgVoltages[MAXIMUM]));
+    m_pVDDText->SetLabel(
+        wxString::Format(_("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
+                         pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
+    m_pFrequencyText->SetLabel(wxString::Format(_("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz"), pic.MinFreq, pic.MaxFreq));
+    m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), pic.DevId&0xFFFF));
+    m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), pic.CodeSize));
+    m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), pic.DataSize));
+
     m_pDatasheetLink->GetContainingSizer()->Layout();
         // size may have changed: relayout the m_pDatasheetLink's container
-
-    m_pVPPText->SetLabel(wxString::Format("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
-                         pic.ProgVoltages[MINIMUM], pic.ProgVoltages[NOMINAL], pic.ProgVoltages[MAXIMUM]));
-    m_pVDDText->SetLabel(wxString::Format("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV",
-                         pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
-    m_pFrequencyText->SetLabel(wxString::Format("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz", pic.MinFreq, pic.MaxFreq));
-    m_pDeviceIDText->SetLabel(wxString::Format("Device ID: 0x%X", pic.DevId&0xFFFF));
-    m_pCodeMemoryText->SetLabel(wxString::Format("Code memory size: %d bytes", pic.CodeSize));
-    m_pDataMemoryText->SetLabel(wxString::Format("Data memory size: %d bytes", pic.DataSize));
+        // (after updating the various label texts since they have the same parent
+        //  of m_pDatasheetLink)
 
     // update the package variants combobox
     m_pPackageVariants->Clear();
     for (unsigned int i=0; i<pkg.size(); i++)
         m_pPackageVariants->Append(
-            wxString::Format("%s [%d pins]", pkg[i].GetName(), pkg[i].GetPinCount()));
+            wxString::Format(_("%s [%d pins]"), pkg[i].GetName(), pkg[i].GetPinCount()));
     m_pPackageVariants->SetSelection(0);
 
     // let's update the bitmap and the pin names:
@@ -816,10 +823,10 @@ bool UppMainWindow::upp_thread_program()
             return false;
         }
     }
-	if(m_cfg.ConfigVerifyAfterProgramming)
+    if(m_cfg.ConfigVerifyAfterProgramming)
     {
-		upp_thread_verify();
-	}
+        upp_thread_verify();
+    }
     return true;
 }
 
@@ -877,7 +884,7 @@ bool UppMainWindow::upp_thread_verify()
     wxString typeText;
     VerifyResult res=
         m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
-                           m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
+                        m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -1279,7 +1286,7 @@ bool UppMainWindow::upp_autodetect()
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
         if(m_cfg.ConfigShowPopups)
             wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
-                         picName.Mid(1).c_str());
+                        picName.Mid(1).c_str());
     }
     else
     {
@@ -1493,7 +1500,7 @@ void UppMainWindow::upp_package_variant_changed()
     // get the new package
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
-	if(m_picType.ok())
-	    m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
+    if(m_picType.ok())
+        m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
 }
 
