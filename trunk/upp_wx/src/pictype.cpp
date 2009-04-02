@@ -41,6 +41,10 @@ vector<PicType::PicIndexInfo> PicType::s_arrSupported;
 PicType::PicIndexInfo PicType::s_default;
 
 
+// ----------------------------------------------------------------------------
+// PicType
+// ----------------------------------------------------------------------------
+
 PicType::PicType(string picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
@@ -55,14 +59,6 @@ PicType::PicType(string picTypeStr)
             return;
         }
     }
-/*
-    // if no match was found, try to load the default PIC
-    if (!m_currentPic.ok() &&
-        !LoadPIC(s_default))
-    {
-        wxLogError("Could not load data for PIC '%s'.", UPP_DEFAULT_PIC);
-        return;
-    }*/
 }
 
 PicType::PicType(int devId)
@@ -79,14 +75,6 @@ PicType::PicType(int devId)
             return;
         }
     }
-/*
-    // if no match was found, try to load the default PIC
-    if (!m_currentPic.ok() &&
-        !LoadPIC(s_default))
-    {
-        wxLogError("Could not load data for PIC '%s'.", UPP_DEFAULT_PIC);
-        return;
-    }*/
 }
 
 bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
@@ -325,11 +313,12 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
         }
         else if (child->GetName() == "config")
         {
-            ConfigBlock block;
+            ConfigWord block;
             block.Name = child->GetAttribute("name");
             if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
                 return UPP_INVALID_PIC;
-            // load the ConfigMask objects belonging to this block
+
+            // load the ConfigMask objects belonging to this word
             wxXmlNode *maskNode = child->GetChildren();
             while (maskNode)
             {
@@ -470,6 +459,11 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
     return UPP_INVALID_PICFAMILY;
 }
 
+
+// ----------------------------------------------------------------------------
+// ChipPackage
+// ----------------------------------------------------------------------------
+
 /* static */
 PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 {
@@ -504,9 +498,6 @@ wxString ChipPackage::GetStringFromPackageType(PackageType type)
 
     return wxEmptyString;
 }
-
-
-
 
 #ifdef SWAP
 #undef SWAP(x,y,type)

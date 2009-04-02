@@ -31,6 +31,10 @@
 #include "uppmainwindow.h"
 
 
+// ----------------------------------------------------------------------------
+// UppConfigViewBook
+// ----------------------------------------------------------------------------
+
 UppConfigViewBook::UppConfigViewBook(wxWindow* parent, wxWindowID id)
     : wxListbook( parent, id, wxDefaultPosition, wxDefaultSize, wxLB_DEFAULT )
 {
@@ -51,12 +55,12 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
     // add new GUI selectors for the config flags of this PIC
     for (unsigned int i=0; i<m_pic.Config.size(); i++)
     {
-        const ConfigBlock& block = m_pic.Config[i];
+        const ConfigWord& block = m_pic.Config[i];
         if (block.Masks.size() == 0)
             continue;       // skip this block
 
         wxPanel *panel = new wxPanel(this, wxID_ANY);
-        wxFlexGridSizer *sz = new wxFlexGridSizer(2 /* num of columns */, 
+        wxFlexGridSizer *sz = new wxFlexGridSizer(2 /* num of columns */,
                                                   10, 10 /* h and vgap */);
 
         for (unsigned int j=0; j<block.Masks.size(); j++)
@@ -67,42 +71,46 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                     0, wxLEFT|wxALIGN_CENTER, 5);
 
             // NOTE: we give each wxChoice we build the name of the mask it controls;
-            //       in this way from OnChange() we may easily find out which object
+            //       in this way from OnChange() we can easily find out which object
             //       is sending the notification
-            wxChoice *choice = 
-                new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, 
+            wxChoice *choice =
+                new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
-			unsigned int ConfigWord=0,ConfigWordMask=0;
-			if(m_pic.is16Bit())
-			{
-				if((i+1)<=(hex->getConfigMemory().size()))
-				{
-					ConfigWord=hex->getConfigMemory()[i];
-					cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
-				}
-			}
-			else
-			{
-				if((2*i+1)<=(hex->getConfigMemory().size()))
-				{
-					ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
-					cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
-				}
-			}				
+            // set the 
+            
+            unsigned int ConfigWord=0, ConfigWordMask=0;
+            if (m_pic.is16Bit())
+            {
+                if ((i+1)<=(hex->getConfigMemory().size()))
+                {
+                    ConfigWord=hex->getConfigMemory()[i];
+                    cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
+                }
+            }
+            else
+            {
+                if ((2*i+1)<=(hex->getConfigMemory().size()))
+                {
+                    ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
+                    cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
+                }
+            }
 
-			for(unsigned int k=0;k<mask.Values.size();k++)
-			{
-				ConfigWordMask|=mask.Values[k].Value;
-			}
-			choice->SetSelection(0);
-			for(unsigned int k=0;k<mask.Values.size();k++)
-			{
-				if((ConfigWord&ConfigWordMask)==mask.Values[k].Value)
-				{	
-					choice->SetSelection(k);
-				}
-			}
+            for (unsigned int k=0;k<mask.Values.size();k++)
+            {
+                ConfigWordMask|=mask.Values[k].Value;
+            }
+
+            choice->SetSelection(0);
+            for (unsigned int k=0; k<mask.Values.size(); k++)
+            {
+                if((ConfigWord&ConfigWordMask)==mask.Values[k].Value)
+                {
+                    choice->SetSelection(k);
+                }
+            }
+            
             choice->Connect(wxEVT_COMMAND_CHOICE_SELECTED, 
                             wxCommandEventHandler(UppConfigViewBook::OnChange), 
                             NULL, this);
@@ -123,57 +131,57 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
     wxASSERT(choice);
 
     // get the block the user is currently viewing/editing
-    const ConfigBlock& block = m_pic.Config[GetSelection()];
+    const ConfigWord& block = m_pic.Config[GetSelection()];
 
     // find the config mask which was changed
     const ConfigMask* mask = NULL;
-	unsigned int SelectedMask;
+    unsigned int SelectedMask;
     for (unsigned int i=0; i<block.Masks.size(); i++)
     {
         if (block.Masks[i].Name == choice->GetName())
         {
             mask = &block.Masks[i];
-			//SelectedMask=i;
+            //SelectedMask=i;
             break;
         }
     }
-	SelectedMask=GetSelection();
+    SelectedMask=GetSelection();
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
-	int ConfigWord = 0; 
-	if(m_pic.is16Bit())
-	{
-		if((SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
-		{
-			ConfigWord=m_hexFile->getConfigMemory()[SelectedMask];
-		
-		}
-	}
-	else
-	{
-		if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
-		{
-			ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
-						(m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
-		
-		}
-	}
+    int ConfigWord = 0; 
+    if(m_pic.is16Bit())
+    {
+        if((SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+        {
+            ConfigWord=m_hexFile->getConfigMemory()[SelectedMask];
+        
+        }
+    }
+    else
+    {
+        if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
+        {
+            ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
+                        (m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
+        
+        }
+    }
 
-	for (unsigned int i=0; i<mask->Values.size();i++)
-	{
-		ConfigWord &= ~mask->Values[i].Value;
-	}
-	ConfigWord |= newConfigValue;
-	cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
-	if(m_pic.is16Bit())
-	{
-		m_hexFile->putConfigMemory(SelectedMask,ConfigWord&0xFF);
-	}
-	else
-	{
-		m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
-		m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
-	}
+    for (unsigned int i=0; i<mask->Values.size();i++)
+    {
+        ConfigWord &= ~mask->Values[i].Value;
+    }
+    ConfigWord |= newConfigValue;
+    cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
+    if(m_pic.is16Bit())
+    {
+        m_hexFile->putConfigMemory(SelectedMask,ConfigWord&0xFF);
+    }
+    else
+    {
+        m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
+        m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
+    }
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);

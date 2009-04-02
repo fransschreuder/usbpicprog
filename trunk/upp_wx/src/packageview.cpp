@@ -30,6 +30,10 @@
 #include "packageview.h"
 
 
+// ----------------------------------------------------------------------------
+// UppPackageViewWindow
+// ----------------------------------------------------------------------------
+
 UppPackageViewWindow::UppPackageViewWindow(wxWindow* parent, wxWindowID id)
     : wxScrolledWindow( parent, id, wxDefaultPosition, wxDefaultSize, 
                         wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, "packageview" )

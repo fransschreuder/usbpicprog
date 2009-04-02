@@ -35,6 +35,10 @@ IMPLEMENT_APP(UsbPicProg)
 #endif
 
 
+// ----------------------------------------------------------------------------
+// UsbPicProg
+// ----------------------------------------------------------------------------
+
 /*Mac-specific open file function*/
 void UsbPicProg::MacOpenFile(const wxString &fileName)
 {
@@ -69,14 +73,6 @@ bool UsbPicProg::OnInit()
         delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
         return false;
     }
-/*
-    // load the package images
-    if (!ChipPackage::Init())
-    {
-        wxLogError(_("Cannot load package PNG data."));
-        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
-        return false;
-    }*/
 
     // wxApp::OnInit() will call UsbPicProg::OnInitCmdLine and UsbPicProg::OnCmdLineParsed
     if (!wxApp::OnInit())

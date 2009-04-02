@@ -94,6 +94,8 @@ typedef enum {
 
 /**
     Describes the package of a PIC (used only for informative purposes).
+    
+    In Piklab XML files this class holds the information stored in a @c package node.
 */
 class ChipPackage
 {
@@ -101,6 +103,8 @@ public:
     ChipPackage() : Type(UPP_INVALID_PACKAGETYPE) {}
 
     /**
+        The name of the pins.
+    
         The size of this array indicates the number of pins of this package.
         The name associated with some of the pins maybe the empty string or not.
     */
@@ -117,11 +121,22 @@ public:
     */
     void Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel);
 
+    /**
+        Returns the name of this package.
+    */
     wxString GetName() const
         { return GetStringFromPackageType(Type); }
+        
+    /**
+        Returns the number of pins of this package.
+    */
     unsigned int GetPinCount() const
         { return PinNames.GetCount(); }
 
+    /**
+        Returns true if the pin with index @a idx is involved in ICSP
+        (in circuit serial programming).
+    */
     bool IsICSPPin(unsigned int idx) const
     {
         if (PinNames[idx].Contains("VDD") ||
@@ -180,19 +195,44 @@ protected:  // internal utils
             The pin names in wxTOP/wxBOTTOM case are printed rotated by 90 degrees.
     */
     void DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
-                  unsigned int FirstPin, unsigned int LastPin, bool invertOrder,
-                  wxDirection dir);
+                unsigned int FirstPin, unsigned int LastPin, bool invertOrder,
+                wxDirection dir);
 };
 
 /**
-    Describes a configuration bit value.
+    Describes a configuration value for a ConfigMask object.
+    
+    In Piklab XML files this class holds the information stored in a
+    <tt>config -> mask -> value</tt> node:
+    
+    @code
+    <config ...>
+        <mask ...>
+            <value value="0x0000" name="LP" />
+        </mask>
+    </config>
+    @endcode
 */
 class ConfigValue
 {
 public:
     ConfigValue() : Value(0) {}
 
+    /**
+        The name of this configuration value; e.g. "XT" to indicate that the oscillator
+        of the PIC (if the ConfigMask object which contains us is called "FOSC")
+        should use a quartz crystal.
+    */
     wxString Name;
+    
+    /**
+        The value that the set of bits grouped by the ConfigMask object which contains us
+        should assume when the user selects this configuration value.
+        
+        E.g. for PIC18F2550 the bits 2-0 in the first config word (named PLLDIV2, PLLDIV1
+        and PLLDIV0) should assume configuration value "101" when the user selects
+        "Divide by 6 (24 MHz oscillator input)".
+    */
     unsigned long Value;
 
     // leave out cname, sdcc_cname
@@ -200,16 +240,45 @@ public:
 
 /**
     Describes a configuration "mask".
+    
+    This is a set of bits inside a configuration word (represented by ConfigWord class)
+    dedicated to the same purpose (e.g. the configuration of the PIC oscillator).
+    
+    In Piklab XML files this class holds the information stored in a
+    <tt>config -> mask</tt> node:
+    
+    @code
+    <config ...>
+        <mask name="FOSC"  value="0x0003">
+            ...
+        </mask>
+    </config>
+    @endcode
 */
 class ConfigMask
 {
 public:
     ConfigMask() : Value(0) {}
 
+    /**
+        The name of this set of configuration bits.
+    */
     wxString Name;
+    
+    /**
+        The mask to select the bits belonging to this ConfigMask from the entire configuration word ???
+    */
     unsigned long Value;
+    
+    /**
+        The various configuration values that this set of bits can assume.
+    */
     vector<ConfigValue> Values;
 
+    /**
+        Returns the array containing the user-friendly names of the available
+        configuration values.
+    */
     wxArrayString GetStringValues(bool includeValues = true) const
     {
         wxArrayString ret;
@@ -225,16 +294,42 @@ public:
 };
 
 /**
-    Describes a block of configuration bits.
+    Describes a word of configuration bits.
+    
+    This is usually 8 bits grouped in some ConfigMask objects.
+
+    In Piklab XML files this class holds the information stored in a
+    <tt>config</tt> node:
+
+    @code
+    <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0x00">
+        ...
+    </config>
+    @endcode
 */
-class ConfigBlock
+class ConfigWord
 {
 public:
-    ConfigBlock() : Offset(0), WriteMask(0) {}
+    ConfigWord() : Offset(0), WriteMask(0) {}
 
+    /**
+        The offset of this configuration word inside the configuration memory area of the PIC.
+    */
     unsigned long Offset;
+    
+    /**
+        The write mask. TODO: currently unused; remove?
+    */
     unsigned long WriteMask;
+    
+    /**
+        The name of this configuration word.
+    */
     wxString Name;
+    
+    /**
+        The different sets of bits in which this configuration word is divided.
+    */
     vector<ConfigMask> Masks;
 
     // leave out bvalue
@@ -256,26 +351,24 @@ public:
             picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
     {
         memset(ConfigMask, 0, sizeof(ConfigMask));
-
         for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
             WorkVoltages[i] = ProgVoltages[i] = 0.0;
     }
 
     /// Is this PIC structure correctly initialized?
     bool ok() const
-        { //cout<<"Name: "<<Name<<" picFamily: "<<picFamily<<endl;
-		return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
+        { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
 
-	/// Returns true if the PIC is a 16bit device (e.g. Pic18)
-	bool is16Bit()
-	{return (Name.find("P18F")==0);	}
+    /// Returns true if the PIC is a 16bit device (e.g. Pic18)
+    bool is16Bit()
+        { return (Name.find("P18F")==0); }
 
     /// Returns the PIC name which starts with "PIC" instead of "P".
     wxString GetExtName() const
-        { 
-			if(Name.empty())return Name;
-			return wxString("PIC" + Name.substr(1)); 
-		}
+        {
+            if(Name.empty())return Name;
+            return wxString("PIC" + Name.substr(1)); 
+        }
 
     // public members to avoid lots of getters/setters:
 
@@ -290,7 +383,7 @@ public:
     unsigned int DevIdMask;
 
     /// The array of configuration blocks
-    vector<ConfigBlock> Config;
+    vector<ConfigWord> Config;
 
     /// Package descriptor
     vector<ChipPackage> Package;
@@ -304,7 +397,7 @@ public:
     /// The minimum & maximum frequencies for this PIC.
     float MinFreq, MaxFreq;
 
-    // TODO: remove this in favour of "Config"
+    // TODO: remove this in favour of "Config"                                              
     unsigned int ConfigMask[16];
 };
 
@@ -312,9 +405,9 @@ public:
     A PIC type.
 
     @todo rename this class to PicChooser and rename its ctors
-          to FindPIC() and make all its function static.
-          Change UppMainWindow to store&use a Pic instance.
-          Or otherwise simply merge this class with the Pic class itself.
+        to FindPIC() and make all its function static.
+        Change UppMainWindow to store&use a Pic instance.
+        Or otherwise simply merge this class with the Pic class itself.
 */
 class PicType
 {
@@ -322,32 +415,34 @@ public:
     /**
         Constructor to select a pic by string, usage:
         @code Pictype* picType=new PicType("P18F2550"); @endcode
-        Use ok() to test if the ctor did successful find a
-        valid PIC model.
+
+        Use ok() to test if the ctor did successful find a valid PIC model.
     */
     PicType(string picType);
 
     /**
         Constructor to select a pic by devId, usage:
         @code Pictype* picType=new PicType(0x1240); @endcode
-        Use ok() to test if the ctor did successful find a
-        valid PIC model.
+
+        Use ok() to test if the ctor did successful find a valid PIC model.
     */
     PicType(int devId);
 
-    /**Returns the PIC that was selected in the ctor.*/
+    /** Returns the PIC that was selected in the ctor. */
     const Pic& getCurrentPic() const
         { return m_currentPic; }
     Pic& getCurrentPic()
         { return m_currentPic; }
-    /**Returns true if the construction of this instance was successful.*/
+        
+    /** Returns true if the construction of this instance was successful. */
     bool ok() const 
         { return m_currentPic.ok(); }
-    /**Returns the current PIC name as a wxString.*/
+        
+    /** Returns the current PIC name as a wxString. */
     wxString getPicName() const
         { return wxString::FromAscii(m_currentPic.Name.c_str()); }
 
-	
+
     // static utilities
 
     /**
@@ -409,7 +504,7 @@ private:    // utilities
         @note Does not log any error.
     */
     bool LoadPIC(PicType::PicIndexInfo& indexInfo);
-    
+
     /**
         Loads the Piklab XML for the given PIC name
         (the name must not start with 'P').
@@ -419,7 +514,7 @@ private:    // utilities
         @return UPP_INVALID_PIC on failure, or a valid Pic structure otherwise.
     */
     static Pic LoadPiklabXML(const wxString& picName);
-    
+
     /**
         Returns the range indicated by the given XML node.
     */

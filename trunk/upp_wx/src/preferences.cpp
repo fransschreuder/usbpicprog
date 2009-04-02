@@ -28,12 +28,16 @@
 #include "preferences.h"
 
 
-BEGIN_EVENT_TABLE(UppPreferencesDialog,wxDialog)
+// ----------------------------------------------------------------------------
+// UppPreferencesDialog
+// ----------------------------------------------------------------------------
+
+BEGIN_EVENT_TABLE(UppPreferencesDialog, wxDialog)
     EVT_BUTTON(wxID_OK, UppPreferencesDialog::OnOk)
 END_EVENT_TABLE()
 
 UppPreferencesDialog::UppPreferencesDialog(wxWindow *parent, wxWindowID id, const wxString &title, 
-                                           const wxPoint &position, const wxSize& size, long style)
+                                        const wxPoint &position, const wxSize& size, long style)
     : wxDialog(parent, id, title, position, size, style)
 {
     CreateGUIControls();
@@ -45,69 +49,83 @@ UppPreferencesDialog::~UppPreferencesDialog()
 
 void UppPreferencesDialog::CreateGUIControls()
 {
-    WxBoxSizer1 = new wxBoxSizer(wxVERTICAL);
-    this->SetSizer(WxBoxSizer1);
-    this->SetAutoLayout(true);
-
-    wxStaticBox* WxStaticBoxSizerProgram_StaticBoxObj = new wxStaticBox(this, wxID_ANY, wxT("Program"));
-    WxStaticBoxSizerProgram = new wxStaticBoxSizer(WxStaticBoxSizerProgram_StaticBoxObj, wxVERTICAL);
-    WxBoxSizer1->Add(WxStaticBoxSizerProgram, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
-
-    uppConfigProgramCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigProgramCode"));
-    WxStaticBoxSizerProgram->Add(uppConfigProgramCode,0,wxALIGN_LEFT | wxALL,5);
-
-    uppConfigProgramConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigProgramConfig"));
-    WxStaticBoxSizerProgram->Add(uppConfigProgramConfig,0,wxALIGN_LEFT | wxALL,5);
-
-    uppConfigProgramData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigProgramData"));
-    WxStaticBoxSizerProgram->Add(uppConfigProgramData,0,wxALIGN_LEFT | wxALL,5);
-
-    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, _("Erase before programming"), wxPoint(-1,-1), wxSize(200,-1), 0, wxDefaultValidator, wxT("uppConfigEraseBeforeProgramming"));
-    WxStaticBoxSizerProgram->Add(uppConfigEraseBeforeProgramming,0,wxALIGN_LEFT | wxALL,5);
-
-    wxStaticBox* WxStaticBoxSizerVerify_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Verify"));
-    WxStaticBoxSizerVerify = new wxStaticBoxSizer(WxStaticBoxSizerVerify_StaticBoxObj, wxVERTICAL);
-    WxBoxSizer1->Add(WxStaticBoxSizerVerify, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
-
-    uppConfigVerifyCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyCode"));
-    WxStaticBoxSizerVerify->Add(uppConfigVerifyCode,0,wxALIGN_LEFT | wxALL,5);
-
-    uppConfigVerifyConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyConfig"));
-    WxStaticBoxSizerVerify->Add(uppConfigVerifyConfig,0,wxALIGN_LEFT | wxALL,5);
-
-    uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, _("Data"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyData"));
-    WxStaticBoxSizerVerify->Add(uppConfigVerifyData,0,wxALIGN_LEFT | wxALL,5);
-
-	uppConfigVerifyAfterProgramming = new wxCheckBox(this, wxID_ANY, _("Verify after programming"), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigVerifyAfterProgramming"));
-    WxStaticBoxSizerVerify->Add(uppConfigVerifyAfterProgramming,0,wxALIGN_LEFT | wxALL,5);
-
-	
-    wxStaticBox* WxStaticBoxSizerGui_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Gui"));
-    WxStaticBoxSizerGui = new wxStaticBoxSizer(WxStaticBoxSizerGui_StaticBoxObj, wxVERTICAL);
-    WxBoxSizer1->Add(WxStaticBoxSizerGui, 0, wxALIGN_CENTER | wxALL | wxLEFT | wxRIGHT | wxTOP | wxBOTTOM, 5);
-
-    uppConfigShowPopups = new wxCheckBox(this, wxID_ANY, _("Show Popups on connect etc..."), wxPoint(-1,-1), wxSize(300,-1), 0, wxDefaultValidator, wxT("uppConfigShowPopups"));
-    WxStaticBoxSizerGui->Add(uppConfigShowPopups,0,wxALIGN_LEFT | wxALL,5);
-
-    wxStdDialogButtonSizer*WxBoxSizer2 = new wxStdDialogButtonSizer();
-    WxBoxSizer1->Add(WxBoxSizer2, 0, wxALIGN_CENTER | wxALL, 5);
-
-    WxBoxSizer2->AddButton(new wxButton(this, wxID_OK));
-    WxBoxSizer2->AddButton(new wxButton(this, wxID_CANCEL));
-    WxBoxSizer2->Realize();
-
     SetTitle(_("Preferences"));
     SetIcon(wxNullIcon);
 
-    GetSizer()->Layout();
-    GetSizer()->Fit(this);
-    GetSizer()->SetSizeHints(this);
-    Center();
+    WxBoxSizer1 = new wxBoxSizer(wxVERTICAL);
+
+    // program static box
+    
+    wxStaticBox* WxStaticBoxSizerProgram_StaticBoxObj = new wxStaticBox(this, wxID_ANY, wxT("Program"));
+    WxStaticBoxSizerProgram = new wxStaticBoxSizer(WxStaticBoxSizerProgram_StaticBoxObj, wxVERTICAL);
+
+    uppConfigProgramCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxDefaultPosition, 
+                                          wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigProgramCode"));
+    WxStaticBoxSizerProgram->Add(uppConfigProgramCode,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigProgramConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxDefaultPosition, 
+                                            wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigProgramConfig"));
+    WxStaticBoxSizerProgram->Add(uppConfigProgramConfig,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigProgramData = new wxCheckBox(this, wxID_ANY, _("Data"), wxDefaultPosition, 
+                                          wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigProgramData"));
+    WxStaticBoxSizerProgram->Add(uppConfigProgramData,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigEraseBeforeProgramming = new wxCheckBox(this, wxID_ANY, _("Erase before programming"), wxDefaultPosition, 
+                                                     wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigEraseBeforeProgramming"));
+    WxStaticBoxSizerProgram->Add(uppConfigEraseBeforeProgramming,1,wxALIGN_LEFT | wxALL,5);
+
+    
+    // verify static box
+    
+    wxStaticBox* WxStaticBoxSizerVerify_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Verify"));
+    WxStaticBoxSizerVerify = new wxStaticBoxSizer(WxStaticBoxSizerVerify_StaticBoxObj, wxVERTICAL);
+    
+    uppConfigVerifyCode = new wxCheckBox(this, wxID_ANY, _("Code"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigVerifyCode"));
+    WxStaticBoxSizerVerify->Add(uppConfigVerifyCode,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigVerifyConfig = new wxCheckBox(this, wxID_ANY, _("Config"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigVerifyConfig"));
+    WxStaticBoxSizerVerify->Add(uppConfigVerifyConfig,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigVerifyData = new wxCheckBox(this, wxID_ANY, _("Data"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigVerifyData"));
+    WxStaticBoxSizerVerify->Add(uppConfigVerifyData,1,wxALIGN_LEFT | wxALL,5);
+
+    uppConfigVerifyAfterProgramming = new wxCheckBox(this, wxID_ANY, _("Verify after programming"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigVerifyAfterProgramming"));
+    WxStaticBoxSizerVerify->Add(uppConfigVerifyAfterProgramming,1,wxALIGN_LEFT | wxALL,5);
+
+    
+    // gui static box
+    
+    wxStaticBox* WxStaticBoxSizerGui_StaticBoxObj = new wxStaticBox(this, wxID_ANY, _("Gui"));
+    WxStaticBoxSizerGui = new wxStaticBoxSizer(WxStaticBoxSizerGui_StaticBoxObj, wxVERTICAL);
+    
+    uppConfigShowPopups = new wxCheckBox(this, wxID_ANY, _("Show Popups on connect etc..."), wxDefaultPosition, 
+                                         wxDefaultSize, 0, wxDefaultValidator, wxT("uppConfigShowPopups"));
+    WxStaticBoxSizerGui->Add(uppConfigShowPopups,1,wxALIGN_LEFT | wxALL,5);
+
+
+    // setup button sizer
+    
+    wxStdDialogButtonSizer*WxBoxSizer2 = new wxStdDialogButtonSizer();
+    WxBoxSizer2->AddButton(new wxButton(this, wxID_OK));
+    WxBoxSizer2->AddButton(new wxButton(this, wxID_CANCEL));
+    WxBoxSizer2->Realize();
+    
+    
+    // complete sizer:
+
+    WxBoxSizer1->Add(WxStaticBoxSizerProgram, 1, wxALIGN_LEFT | wxALL, 5);
+    WxBoxSizer1->Add(WxStaticBoxSizerVerify, 1, wxALIGN_LEFT | wxALL, 5);
+    WxBoxSizer1->Add(WxStaticBoxSizerGui, 1, wxALIGN_LEFT | wxALL, 5);
+    WxBoxSizer1->Add(WxBoxSizer2, 1, wxALIGN_CENTER | wxALL, 5);
+
+    this->SetSizerAndFit(WxBoxSizer1);
+    this->Center();
 }
 
 void UppPreferencesDialog::OnOk(wxCommandEvent& WXUNUSED(event))
 {
-	m_cfg.ConfigVerifyAfterProgramming=uppConfigVerifyAfterProgramming->IsChecked();
+    m_cfg.ConfigVerifyAfterProgramming=uppConfigVerifyAfterProgramming->IsChecked();
     m_cfg.ConfigVerifyData=uppConfigVerifyData->IsChecked();
     m_cfg.ConfigVerifyConfig=uppConfigVerifyConfig->IsChecked();
     m_cfg.ConfigVerifyCode=uppConfigVerifyCode->IsChecked();
@@ -132,5 +150,4 @@ void UppPreferencesDialog::SetConfigFields(UppPreferences cf)
     uppConfigVerifyData->SetValue(cf.ConfigVerifyData);
     uppConfigEraseBeforeProgramming->SetValue(cf.ConfigEraseBeforeProgramming);
     uppConfigShowPopups->SetValue(cf.ConfigShowPopups);
-
 }

@@ -34,6 +34,10 @@
 using namespace std;
 
 
+// ----------------------------------------------------------------------------
+// HexFile
+// ----------------------------------------------------------------------------
+
 HexFile::HexFile(PicType* picType,const char* filename)
 {
     m_filename[0] = '\0';
@@ -59,9 +63,11 @@ int HexFile::newFile(PicType* picType)
     m_codeMemory.resize(picType->getCurrentPic().CodeSize,0xFF);
     m_dataMemory.resize(picType->getCurrentPic().DataSize,0xFF);
     m_configMemory.resize(picType->getCurrentPic().ConfigSize,0xFF);
+    
     trimData(picType);
-    for(unsigned int i=0;i<picType->getCurrentPic().ConfigSize;i++)
-        m_configMemory[i]&=picType->getCurrentPic().ConfigMask[i];
+    
+    for (unsigned int i=0;i<picType->getCurrentPic().ConfigSize;i++)
+        m_configMemory[i] &= picType->getCurrentPic().ConfigMask[i];
 
     m_bModified = false;
     m_filename[0] = '\0';

@@ -39,6 +39,10 @@ static wxStringCharType g_digits[] =
 #endif
 
 
+// ----------------------------------------------------------------------------
+// UppHexViewGrid
+// ----------------------------------------------------------------------------
+
 UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType type)
     : wxGrid( parent, id, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS )
 {

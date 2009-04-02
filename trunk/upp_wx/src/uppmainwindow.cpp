@@ -82,10 +82,9 @@ DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE);
 
 
 
-
-// UPPMAINWINDOW
-// =============================================================================
-
+// ----------------------------------------------------------------------------
+// UppMainWindow
+// ----------------------------------------------------------------------------
 
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,

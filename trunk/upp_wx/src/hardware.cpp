@@ -33,6 +33,11 @@
 using namespace std;
 //#define USB_DEBUG 2
 
+
+// ----------------------------------------------------------------------------
+// Hardware
+// ----------------------------------------------------------------------------
+
 /*The class Hardware connects to usbpicprog using libusb. The CB pointer
 is used for updating the progressbar.
 If initiated with no argument, progress is not updated*/
@@ -722,7 +727,8 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
                     cout<<"Verify size mismatch in config"<<endl;
                     return res;
                 }
-                if((verifyHexFile->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i])!=(hexData->getConfigMemory()[i]&picType->getCurrentPic().ConfigMask[i]))
+                if((verifyHexFile->getConfigMemory()[i] & picType->getCurrentPic().ConfigMask[i])!=
+                    (hexData->getConfigMemory()[i] & picType->getCurrentPic().ConfigMask[i]))
                 {
                     res.Result=VERIFY_MISMATCH;
                     res.DataType=TYPE_CONFIG;
