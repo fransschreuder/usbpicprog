@@ -28,6 +28,7 @@
 #include <wx/intl.h>
 #include <wx/filename.h>
 #include <wx/stdpaths.h>
+#include <wx/dcclient.h>
 
 #include <iostream>
 #include <fstream>
@@ -137,8 +138,8 @@ bool PicType::Init()
 
     wxXmlDocument idx;
     if (!idx.Load(wxStandardPaths::Get().GetDataDir() + 
-                  wxFileName::GetPathSeparator() + 
-                  UPP_INDEX_FILE))
+                wxFileName::GetPathSeparator() + 
+                UPP_INDEX_FILE))
     {
         wxLogError("Cannot load '%s'.", UPP_INDEX_FILE);
         return false;
@@ -181,9 +182,9 @@ bool PicType::Init()
 
 
             if (info.name == UPP_DEFAULT_PIC_MODEL)
-			{
+            {
                 s_default = info;
-			}
+            }
 
             // insert this PicIndexInfo structure into the array of the
             // supported PICs:
@@ -227,7 +228,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     wxString str;
     long num=0;
     wxString prefix = wxStandardPaths::Get().GetDataDir() + 
-                      wxFileName::GetPathSeparator();
+                    wxFileName::GetPathSeparator();
 #ifdef __WXMSW__
     prefix += "xml_data";
     prefix += wxFileName::GetPathSeparator();
@@ -242,14 +243,15 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     if (!doc.GetRoot()->GetAttribute("name", &str) ||
         str != picName)
         return UPP_INVALID_PIC;
-    p.Name = "P" + str;
+    p.Name = "P" + str;
+
     // load the device ID of the PIC
     // NOTE: PIC of the 10F family do not have a device ID (no autodetection is possible)
-	wxString t = wxString(p.Name.substr(0,4).c_str());
+    wxString t = wxString(p.Name.substr(0,4).c_str());
     if (t.compare("P10F") != 0 &&
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
-		return UPP_INVALID_PIC;
+        return UPP_INVALID_PIC;
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
     while (child)
@@ -261,10 +263,10 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             if (!child->GetAttribute("name", &name))
                 return UPP_INVALID_PIC;
             if (name == "code")
-                p.CodeSize = (GetRange(child)+1)*2; //times 2 because this is in words
+                p.CodeSize = (GetRange(child)+1)*2; //times 2 because this is in word units
             else if (name == "config")
             {
-                p.ConfigSize = (GetRange(child)+1)*2; //times 2 becuase this is in words
+                p.ConfigSize = (GetRange(child)+1)*2; //times 2 because this is in word units
                 
                 if (!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))
@@ -298,9 +300,9 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                     else if (child->GetAttribute("name") == "vdd_prog")
                         p.WorkVoltages[i] = val;
                     else if (child->GetAttribute("name") == "vdd_prog_write")
-						p.WorkVoltages[i] = val;
-					else
-						return UPP_INVALID_PIC;
+                        p.WorkVoltages[i] = val;
+                    else
+                        return UPP_INVALID_PIC;
                 }
             }
         }
@@ -372,9 +374,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             wxArrayString types = wxSplit(child->GetAttribute("types"), ' ');
             unsigned long npins;
             if (!child->GetAttribute("nb_pins").ToULong(&npins))
-			{
-				return UPP_INVALID_PIC;
-			}
+                return UPP_INVALID_PIC;
 
             wxArrayString names;
             names.Add(wxEmptyString, npins);
@@ -403,6 +403,8 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                 ChipPackage pkg;
                 pkg.Type = pt;
                 pkg.PinNames = names;
+                
+                // add it to the PicType instance:
                 p.Package.push_back(pkg);
             }
         }
@@ -502,3 +504,213 @@ wxString ChipPackage::GetStringFromPackageType(PackageType type)
 
     return wxEmptyString;
 }
+
+
+
+
+#ifdef SWAP
+#undef SWAP(x,y,type)
+#endif
+
+#define SWAP(x,y,type)     { type tmp=x; x=y; y=tmp; }
+
+void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
+                           unsigned int FirstPin, unsigned int LastPin,
+                           bool invertOrder,
+                           wxDirection dir)
+{
+    wxASSERT_MSG(LastPin>FirstPin, "invalid pin indexes");
+
+    // some drawing constants:
+
+    const unsigned int PinCount = LastPin - FirstPin;
+
+    // pin height is calculated imposing that
+    // 1) PinCount*PinH + (PinCount+1)*PinSpacing = PackageLen
+    // 2) PinSpacing = PinH/2
+    // solving for PinH yields:
+    unsigned int PinH = floor(2*PackageLen/(3.0*PinCount+1));
+    unsigned int PinW = 1.5*PinH;
+    const unsigned int PinSpacing = floor(PinH/2.0);
+
+    // the error which force us to have a "pin y offset" is caused by rounding
+    // in the calculation of PinH:
+    const int PinOffset = (PackageLen - (PinCount*PinH + (PinCount+1)*PinSpacing))/2;
+    wxASSERT(PinOffset>=0);
+
+    // select a font suitable for the PinH we have computed above:
+    wxFont fnt(wxSize(0,int(PinH*0.8)), wxFONTFAMILY_DEFAULT,
+                wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    dc.SetFont(fnt);
+    const unsigned int PinLabelW = 2*dc.GetCharWidth();
+    const unsigned int PinLabelH = dc.GetCharHeight();
+
+    unsigned int start = invertOrder ? LastPin-1 : FirstPin;
+    unsigned int end = invertOrder ? FirstPin-1 : LastPin;
+    int inc = invertOrder ? -1 : +1;
+    
+    if (dir == wxLEFT || dir == wxRIGHT)
+    {
+        unsigned int pinX = (dir == wxLEFT) ? pt.x-PinW+1 : pt.x-1;
+        unsigned int pinY = pt.y + PinOffset + PinSpacing;
+        
+        unsigned int pinNumberX = (dir == wxLEFT) ? pt.x+PinSpacing : pt.x-PinLabelW-PinSpacing;
+        
+        // draw the pins organizing them in a vertical column
+        for (unsigned int i=start; i != end; i+=inc)
+        {
+            unsigned int pinNumberY = pinY + (PinH-PinLabelH)/2;
+            
+            unsigned int pinLabelX =
+                (dir == wxLEFT) ? pinX-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : pinX+PinW+PinSpacing;
+            unsigned int pinLabelY = pinNumberY;
+
+            // draw the pin rect
+            dc.DrawRectangle(pinX, pinY, PinW, PinH);
+
+            // print the pin number
+            dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
+            dc.DrawText(wxString::Format("%d", i+1), pinNumberX, pinNumberY);
+
+            // print the pin name
+            dc.DrawText(PinNames[i], pinLabelX, pinLabelY);
+
+            pinY += PinH+PinSpacing;
+        }
+    }
+    else if (dir == wxTOP || dir == wxBOTTOM)
+    {
+        SWAP(PinH, PinW, unsigned int);
+            // in this case the PackageLen is the number of horizontal pixels available
+            // for drawing the pin strip; thus we want to compute PinW and set PinH
+            
+        // VERY IMPORTANT: the code below is the dual of the code for wxLEFT|wxRIGHT case!
+        //                 If you change something here, you may want to change it also
+        //                 above, with the appropriate differences
+
+        unsigned int pinX = pt.x + PinOffset + PinSpacing;
+        unsigned int pinY = (dir == wxTOP) ? pt.y-PinH+1 : pt.y-1;
+        
+        unsigned int pinNumberY = (dir == wxTOP) ? pt.y+PinSpacing : pt.y-PinLabelH-PinSpacing;
+        
+        // draw the pins organizing them in a horizontal column
+        for (unsigned int i=start; i != end; i+=inc)
+        {
+            unsigned int pinNumberX = pinX + (PinW+PinLabelH)/2;
+            
+            unsigned int pinLabelX = pinNumberX;
+            unsigned int pinLabelY = 
+                (dir == wxTOP) ? pinY-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : pinY+PinH+PinSpacing;
+
+            // draw the pin rect
+            dc.DrawRectangle(pinX, pinY, PinW, PinH);
+
+            // print the pin number
+            dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
+            dc.DrawRotatedText(wxString::Format("%d", i+1), pinNumberX, pinNumberY, -90);
+
+            // print the pin name
+            dc.DrawRotatedText(PinNames[i], pinLabelX, pinLabelY, -90);
+
+            pinX += PinW+PinSpacing;
+        }
+    }
+    else
+        wxLogWarning("Invalid direction");
+}
+
+void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
+{
+    // set some GUI objects common to all packages-drawing code
+    dc.SetFont(*wxSMALL_FONT);
+    dc.SetPen(*wxBLACK_PEN);
+
+    switch (Type)
+    {
+    case PDIP:
+    case SOIC:
+    case SSOP:
+        {
+            // some drawing constants:
+
+            // in these package types, pins are organized in two columns:
+            const unsigned int PinPerSide = GetPinCount()/2;
+            if ((GetPinCount()%2) != 0)
+            {
+                wxLogWarning("Invalid odd pin count: %d", GetPinCount());
+                return;
+            }
+
+            // choose reasonable package width&height to
+            // - make best use of the available space
+            // - avoid drawing package excessively big
+            const unsigned int BoxW = min(sz.GetWidth()/3,80);
+            const unsigned int BoxH = min(BoxW*PinPerSide/3,(unsigned int)(sz.GetHeight()*0.8));
+            const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
+            const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
+            const unsigned int R = BoxW/6;
+
+            // draw the PIC package box
+            dc.DrawRectangle(BoxX, BoxY, BoxW, BoxH);
+            dc.DrawArc(sz.GetWidth()/2-R, BoxY + 1,
+                       sz.GetWidth()/2+R, BoxY + 1,
+                       sz.GetWidth()/2, BoxY + 1);
+
+            // draw the name of the PIC model in the centre of the box
+            const wxSize& nameSz = dc.GetTextExtent(chipModel);
+            dc.DrawRotatedText(chipModel,
+                               (sz.GetWidth() + nameSz.GetHeight())/2,
+                               (sz.GetHeight() - nameSz.GetWidth())/2,
+                               -90);
+
+            // draw the pins
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxH, 0, PinPerSide, false, wxLEFT);
+            DrawPins(dc, wxPoint(BoxX+BoxW, BoxY), BoxH, PinPerSide, GetPinCount(), true, wxRIGHT);
+        }
+        break;
+
+    case MQFP:
+    case TQFP:
+    case PLCC:
+        {
+            // some drawing constants:
+
+            // in these package types, pins are organized in two columns:
+            const unsigned int PinPerSide = GetPinCount()/4;
+            if ((GetPinCount()%4) != 0)
+            {
+                wxLogWarning("Invalid pin count: %d", GetPinCount());
+                return;
+            }
+
+            // choose reasonable package width&height to
+            // - make best use of the available space
+            // - avoid drawing package excessively big
+            const unsigned int BoxL = max(sz.GetWidth()/2,80);
+            const unsigned int BoxX = (sz.GetWidth()-BoxL)/2;
+            const unsigned int BoxY = (sz.GetHeight()-BoxL)/2;
+            const unsigned int R = BoxL/10;
+
+            // draw the PIC package box
+            dc.DrawRectangle(BoxX, BoxY, BoxL, BoxL);
+            dc.DrawCircle(BoxX+int(R*1.8), BoxY+int(R*1.8), R/2);
+
+            // draw the name of the PIC model in the centre of the box
+            const wxSize& nameSz = dc.GetTextExtent(chipModel);
+            dc.DrawText(chipModel,
+                        (sz.GetWidth() - nameSz.GetWidth())/2,
+                        (sz.GetHeight() - nameSz.GetHeight())/2);
+
+            // draw the pins
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, 0, PinPerSide, false, wxLEFT);
+            DrawPins(dc, wxPoint(BoxX, BoxY+BoxL), BoxL, PinPerSide, PinPerSide*2, false, wxBOTTOM);
+            DrawPins(dc, wxPoint(BoxX+BoxL, BoxY), BoxL, PinPerSide*2, PinPerSide*3, true, wxRIGHT);
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, PinPerSide*3, PinPerSide*4, true, wxTOP);
+        }
+        break;
+        
+    default:
+        break;
+    }
+}
+

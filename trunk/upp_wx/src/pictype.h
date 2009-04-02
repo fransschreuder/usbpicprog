@@ -29,8 +29,15 @@
 #include <map>
 #include <vector>
 #include <iostream>
+
 using namespace std;
+
+// forward declarations:
 class wxXmlNode;
+class wxDC;
+
+
+// constants:
 
 #define UPP_UNKNOWN_BITMAP_FILE wxT("unknown.png")
 #define UPP_INDEX_FILE          wxT("index.xml")
@@ -38,6 +45,9 @@ class wxXmlNode;
 #define UPP_DEFAULT_PIC         "P18F2550"
 
 #define UPP_INVALID_PIC         (Pic())
+
+
+// enums:
 
 /**
     PicFamily indicates a programming algorith, each one is used by a certain 
@@ -101,6 +111,11 @@ public:
     */
     PackageType Type;
 
+    /**
+        Draws this package on the given @a dc, making it fit inside the given
+        size @a sz. In the center of the package the @a chipModel string is drawn.
+    */
+    void Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel);
 
     wxString GetName() const
         { return GetStringFromPackageType(Type); }
@@ -131,6 +146,42 @@ public:     // static
         Returns the name for the given PackageType.
     */
     static wxString GetStringFromPackageType(PackageType type);
+    
+    
+protected:  // internal utils
+    /**
+        Draws a row or column of pins.
+        
+        More precisely, this function draws a rectangle of appropriate size
+        representing the pin (as seen from above the package), the pin number next
+        to it and finally the pin name next to it (on the opposite side of the
+        pin number).
+        
+        @param dc
+            The DC where the pins are drawn
+        @param pt
+            The location at which the strip of pins should start
+        @param PackageLen
+            The len of the package (in pixels) in the direction specified by @a dir
+        @param FirstPin
+            The index of the first pin to draw
+        @param LastPin
+            The index of the last pin to draw + 1
+        @param invertOrder
+            If true then the pins are drawn from the last one back to the first one
+        @param dir
+            The direction of the strip of pins.
+            If wxLEFT or wxRIGHT is given, then a vertical column of pins is drawn
+            with the pin names drawn on the left of the pins (first case) or on
+            the right of the pins (second case).
+            If wxTOP or wxBOTTOM is given, then an horizontal row of pins is drawn
+            with the pin names drawn above the pins (first case) or below them
+            (second case). 
+            The pin names in wxTOP/wxBOTTOM case are printed rotated by 90 degrees.
+    */
+    void DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
+                  unsigned int FirstPin, unsigned int LastPin, bool invertOrder,
+                  wxDirection dir);
 };
 
 /**
