@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 29 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -95,7 +95,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDataMemoryText->Wrap( -1 );
 	sbSizer1->Add( m_pDataMemoryText, 0, wxALL, 5 );
 	
-	bSizer5->Add( sbSizer1, 1, wxALL|wxEXPAND, 5 );
+	bSizer5->Add( sbSizer1, 0, wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* pPackageSizer;
 	pPackageSizer = new wxStaticBoxSizer( new wxStaticBox( m_pInfoPanel, wxID_ANY, _("Package") ), wxVERTICAL );
