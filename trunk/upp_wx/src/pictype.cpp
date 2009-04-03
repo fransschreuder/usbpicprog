@@ -507,10 +507,16 @@ wxString ChipPackage::GetStringFromPackageType(PackageType type)
 
 void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
                            unsigned int FirstPin, unsigned int LastPin,
-                           bool invertOrder,
+                           int flags,
                            wxDirection dir)
 {
     wxASSERT_MSG(LastPin>FirstPin, "invalid pin indexes");
+
+    // NOTE: inside this function context
+    //    pin number == the index of the pin (e.g. "1", "2", etc)
+    //    pin name == pin label == the name of the pin signal (e.g. "VCC", "GND" etc)
+    //    pin == pin rectangle
+
 
     // some drawing constants:
 
@@ -533,40 +539,46 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
     wxFont fnt(wxSize(0,int(PinH*0.8)), wxFONTFAMILY_DEFAULT,
                 wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
     dc.SetFont(fnt);
-    const unsigned int PinLabelW = 2*dc.GetCharWidth();
-    const unsigned int PinLabelH = dc.GetCharHeight();
+    const unsigned int PinNumberW = 2*dc.GetCharWidth();
+    const unsigned int PinNumberH = dc.GetCharHeight();
 
+    bool invertOrder = (flags & DRAWPIN_INVERTED_ORDER) != 0;
     unsigned int start = invertOrder ? LastPin-1 : FirstPin;
     unsigned int end = invertOrder ? FirstPin-1 : LastPin;
     int inc = invertOrder ? -1 : +1;
     
     if (dir == wxLEFT || dir == wxRIGHT)
     {
-        unsigned int pinX = (dir == wxLEFT) ? pt.x-PinW+1 : pt.x-1;
-        unsigned int pinY = pt.y + PinOffset + PinSpacing;
+        unsigned int PinX = (dir == wxLEFT) ? pt.x-PinW+1 : pt.x-1;
+        unsigned int PinY = pt.y + PinOffset + PinSpacing;
         
-        unsigned int pinNumberX = (dir == wxLEFT) ? pt.x+PinSpacing : pt.x-PinLabelW-PinSpacing;
+        unsigned int PinNumberX = (dir == wxLEFT) ? 
+                pt.x+PinSpacing : pt.x-PinNumberW-PinSpacing;
         
+        if (flags & DRAWPIN_NUMBERS_INSIDE_PINS)
+            PinNumberX = PinX + (PinW-PinNumberW)/2;
+
         // draw the pins organizing them in a vertical column
         for (unsigned int i=start; i != end; i+=inc)
         {
-            unsigned int pinNumberY = pinY + (PinH-PinLabelH)/2;
+            unsigned int PinNumberY = PinY + (PinH-PinNumberH)/2;
             
-            unsigned int pinLabelX =
-                (dir == wxLEFT) ? pinX-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : pinX+PinW+PinSpacing;
-            unsigned int pinLabelY = pinNumberY;
+            unsigned int pinLabelX = (dir == wxLEFT) ? 
+                PinX-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : 
+                PinX+PinW+PinSpacing;
+            unsigned int pinLabelY = PinNumberY;
 
             // draw the pin rect
-            dc.DrawRectangle(pinX, pinY, PinW, PinH);
+            dc.DrawRectangle(PinX, PinY, PinW, PinH);
 
             // print the pin number
             dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
-            dc.DrawText(wxString::Format("%d", i+1), pinNumberX, pinNumberY);
+            dc.DrawText(wxString::Format("%d", i+1), PinNumberX, PinNumberY);
 
             // print the pin name
             dc.DrawText(PinNames[i], pinLabelX, pinLabelY);
 
-            pinY += PinH+PinSpacing;
+            PinY += PinH+PinSpacing;
         }
     }
     else if (dir == wxTOP || dir == wxBOTTOM)
@@ -578,32 +590,38 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
         // VERY IMPORTANT: the code below is the dual of the code for wxLEFT|wxRIGHT case!
         //                 If you change something here, you may want to change it also
         //                 above, with the appropriate differences
+        // NOTE: remember however that the text is drawn rotated by 90 degrees
 
-        unsigned int pinX = pt.x + PinOffset + PinSpacing;
-        unsigned int pinY = (dir == wxTOP) ? pt.y-PinH+1 : pt.y-1;
+        unsigned int PinX = pt.x + PinOffset + PinSpacing;
+        unsigned int PinY = (dir == wxTOP) ? pt.y-PinH+1 : pt.y-1;
         
-        unsigned int pinNumberY = (dir == wxTOP) ? pt.y+PinSpacing : pt.y-PinLabelH-PinSpacing;
+        unsigned int PinNumberY = (dir == wxTOP) ? 
+            pt.y+PinSpacing : pt.y-PinNumberH-PinSpacing;
+
+        if (flags & DRAWPIN_NUMBERS_INSIDE_PINS)
+            PinNumberY = PinY + (PinH-PinNumberW)/2;
         
         // draw the pins organizing them in a horizontal column
         for (unsigned int i=start; i != end; i+=inc)
         {
-            unsigned int pinNumberX = pinX + (PinW+PinLabelH)/2;
+            unsigned int PinNumberX = PinX + PinNumberH + (PinW-PinNumberH)/2;
             
-            unsigned int pinLabelX = pinNumberX;
-            unsigned int pinLabelY = 
-                (dir == wxTOP) ? pinY-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : pinY+PinH+PinSpacing;
+            unsigned int pinLabelX = PinNumberX;
+            unsigned int pinLabelY = (dir == wxTOP) ? 
+                PinY-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : 
+                PinY+PinH+PinSpacing;
 
             // draw the pin rect
-            dc.DrawRectangle(pinX, pinY, PinW, PinH);
+            dc.DrawRectangle(PinX, PinY, PinW, PinH);
 
             // print the pin number
             dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
-            dc.DrawRotatedText(wxString::Format("%d", i+1), pinNumberX, pinNumberY, -90);
+            dc.DrawRotatedText(wxString::Format("%d", i+1), PinNumberX, PinNumberY, -90);
 
             // print the pin name
             dc.DrawRotatedText(PinNames[i], pinLabelX, pinLabelY, -90);
 
-            pinX += PinW+PinSpacing;
+            PinX += PinW+PinSpacing;
         }
     }
     else
@@ -613,7 +631,6 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
 void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
 {
     // set some GUI objects common to all packages-drawing code
-    dc.SetFont(*wxSMALL_FONT);
     dc.SetPen(*wxBLACK_PEN);
 
     switch (Type)
@@ -636,7 +653,8 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             // - make best use of the available space
             // - avoid drawing package excessively big
             const unsigned int BoxW = min(sz.GetWidth()/3,80);
-            const unsigned int BoxH = min(BoxW*PinPerSide/3,(unsigned int)(sz.GetHeight()*0.8));
+            const unsigned int BoxH = min(BoxW*PinPerSide/3,
+                                          (unsigned int)(sz.GetHeight()*0.8));
             const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
             const unsigned int R = BoxW/6;
@@ -649,14 +667,17 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
 
             // draw the name of the PIC model in the centre of the box
             const wxSize& nameSz = dc.GetTextExtent(chipModel);
+            dc.SetFont(*wxSMALL_FONT);
             dc.DrawRotatedText(chipModel,
                                (sz.GetWidth() + nameSz.GetHeight())/2,
                                (sz.GetHeight() - nameSz.GetWidth())/2,
                                -90);
 
             // draw the pins
-            DrawPins(dc, wxPoint(BoxX, BoxY), BoxH, 0, PinPerSide, false, wxLEFT);
-            DrawPins(dc, wxPoint(BoxX+BoxW, BoxY), BoxH, PinPerSide, GetPinCount(), true, wxRIGHT);
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxH, 0, PinPerSide, 
+                     0, wxLEFT);
+            DrawPins(dc, wxPoint(BoxX+BoxW, BoxY), BoxH, PinPerSide, GetPinCount(), 
+                     DRAWPIN_INVERTED_ORDER, wxRIGHT);
         }
         break;
 
@@ -684,19 +705,24 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
 
             // draw the PIC package box
             dc.DrawRectangle(BoxX, BoxY, BoxL, BoxL);
-            dc.DrawCircle(BoxX+int(R*1.8), BoxY+int(R*1.8), R/2);
+            dc.DrawCircle(BoxX+int(R*1.3), BoxY+int(R*1.3), R/2);
 
             // draw the name of the PIC model in the centre of the box
             const wxSize& nameSz = dc.GetTextExtent(chipModel);
+            dc.SetFont(*wxNORMAL_FONT);
             dc.DrawText(chipModel,
                         (sz.GetWidth() - nameSz.GetWidth())/2,
                         (sz.GetHeight() - nameSz.GetHeight())/2);
 
             // draw the pins
-            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, 0, PinPerSide, false, wxLEFT);
-            DrawPins(dc, wxPoint(BoxX, BoxY+BoxL), BoxL, PinPerSide, PinPerSide*2, false, wxBOTTOM);
-            DrawPins(dc, wxPoint(BoxX+BoxL, BoxY), BoxL, PinPerSide*2, PinPerSide*3, true, wxRIGHT);
-            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, PinPerSide*3, PinPerSide*4, true, wxTOP);
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, 0, PinPerSide, 
+                     DRAWPIN_NUMBERS_INSIDE_PINS, wxLEFT);
+            DrawPins(dc, wxPoint(BoxX, BoxY+BoxL), BoxL, PinPerSide, PinPerSide*2, 
+                     DRAWPIN_NUMBERS_INSIDE_PINS, wxBOTTOM);
+            DrawPins(dc, wxPoint(BoxX+BoxL, BoxY), BoxL, PinPerSide*2, PinPerSide*3, 
+                     DRAWPIN_INVERTED_ORDER|DRAWPIN_NUMBERS_INSIDE_PINS, wxRIGHT);
+            DrawPins(dc, wxPoint(BoxX, BoxY), BoxL, PinPerSide*3, PinPerSide*4, 
+                     DRAWPIN_INVERTED_ORDER|DRAWPIN_NUMBERS_INSIDE_PINS, wxTOP);
         }
         break;
         

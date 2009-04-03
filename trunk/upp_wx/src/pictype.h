@@ -165,6 +165,23 @@ public:     // static
     
 protected:  // internal utils
     /**
+        Flags to be used with DrawPins().
+    */
+    enum DrawPinsFlags
+    {
+        /**
+            Specifies that the pins are drawn from the last one back to the first one.
+        */
+        DRAWPIN_INVERTED_ORDER = 1,
+
+        /**
+            Specifies that the pin numbers should be drawn inside the pin rects,
+            rather than drawing them next to the rects.
+        */
+        DRAWPIN_NUMBERS_INSIDE_PINS = 2
+    };
+
+    /**
         Draws a row or column of pins.
         
         More precisely, this function draws a rectangle of appropriate size
@@ -182,8 +199,8 @@ protected:  // internal utils
             The index of the first pin to draw
         @param LastPin
             The index of the last pin to draw + 1
-        @param invertOrder
-            If true then the pins are drawn from the last one back to the first one
+        @param flags
+            A combination of the enum values of DrawPinsFlags
         @param dir
             The direction of the strip of pins.
             If wxLEFT or wxRIGHT is given, then a vertical column of pins is drawn
@@ -195,7 +212,7 @@ protected:  // internal utils
             The pin names in wxTOP/wxBOTTOM case are printed rotated by 90 degrees.
     */
     void DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
-                unsigned int FirstPin, unsigned int LastPin, bool invertOrder,
+                unsigned int FirstPin, unsigned int LastPin, int flags,
                 wxDirection dir);
 };
 
