@@ -26,6 +26,7 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/choice.h>
+#include <wx/textctrl.h>
 
 #include "configview.h"
 #include "uppmainwindow.h"
@@ -56,13 +57,13 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
     for (unsigned int i=0; i<m_pic.Config.size(); i++)
     {
         const ConfigWord& block = m_pic.Config[i];
-        if (block.Masks.size() == 0)
-            continue;       // skip this block
+/*        if (block.Masks.size() == 0)
+            continue;       // skip this block*/
 
         wxPanel *panel = new wxPanel(this, wxID_ANY);
         wxFlexGridSizer *sz = new wxFlexGridSizer(2 /* num of columns */,
                                                   10, 10 /* h and vgap */);
-
+		unsigned int ConfigWord=0;
         for (unsigned int j=0; j<block.Masks.size(); j++)
         {
             const ConfigMask& mask = block.Masks[j];
@@ -79,13 +80,12 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 
             // set the 
             
-            unsigned int ConfigWord=0, ConfigWordMask=0;
+            unsigned int ConfigWordMask=0;
             if (m_pic.is16Bit())
             {
                 if ((i+1)<=(hex->getConfigMemory().size()))
                 {
                     ConfigWord=hex->getConfigMemory()[i];
-                    cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
                 }
             }
             else
@@ -93,7 +93,6 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                 if ((2*i+1)<=(hex->getConfigMemory().size()))
                 {
                     ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
-                    cout<<"ConfigWord: "<<std::hex<<ConfigWord<<endl;
                 }
             }
 
@@ -118,6 +117,16 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
             sz->Add(choice, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
         }
 
+		sz->Add(new wxStaticText(panel, wxID_ANY, "Configword: "),
+                    0, wxLEFT|wxALIGN_CENTER, 5);
+		wxString configWordHex;
+		 configWordHex.Printf("%02X",ConfigWord);
+		m_configWordCtrl[i] = new wxTextCtrl(panel, wxID_ANY,configWordHex,
+					wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, block.Name+"Configword");
+
+        sz->Add(m_configWordCtrl[i], 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
+		//TODO add onchange for configWordCtrl
+		
         sz->AddGrowableCol(1, 1);
         panel->SetSizerAndFit(sz);
 
@@ -129,26 +138,24 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
 {
     wxChoice *choice = dynamic_cast<wxChoice*>(event.GetEventObject());
     wxASSERT(choice);
-
     // get the block the user is currently viewing/editing
     const ConfigWord& block = m_pic.Config[GetSelection()];
 
     // find the config mask which was changed
     const ConfigMask* mask = NULL;
-    unsigned int SelectedMask;
     for (unsigned int i=0; i<block.Masks.size(); i++)
     {
         if (block.Masks[i].Name == choice->GetName())
         {
             mask = &block.Masks[i];
-            //SelectedMask=i;
             break;
         }
     }
-    SelectedMask=GetSelection();
+    unsigned int SelectedMask=GetSelection();
     wxASSERT(mask);
     int newConfigValue = mask->Values[choice->GetSelection()].Value;
     int ConfigWord = 0; 
+
     if(m_pic.is16Bit())
     {
         if((SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
@@ -166,13 +173,14 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
         
         }
     }
-
-    for (unsigned int i=0; i<mask->Values.size();i++)
+	for (unsigned int i=0; i<mask->Values.size();i++)
     {
         ConfigWord &= ~mask->Values[i].Value;
     }
     ConfigWord |= newConfigValue;
-    cout<<"newConfigValue for byte"<<SelectedMask<<": "<<hex<<ConfigWord<<endl;
+	wxString configWordHex;
+		 configWordHex.Printf("%02X",ConfigWord);
+	m_configWordCtrl[SelectedMask]->SetValue(configWordHex);
     if(m_pic.is16Bit())
     {
         m_hexFile->putConfigMemory(SelectedMask,ConfigWord&0xFF);

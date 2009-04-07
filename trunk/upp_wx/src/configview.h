@@ -22,6 +22,7 @@
 #define CONFIGVIEW_H
 
 #include <wx/listbook.h>
+#include <wx/textctrl.h>
 
 #include "pictype.h"
 #include "hexfile.h"
@@ -62,6 +63,7 @@ private:
         selected by the user (but does not contain the actual data - m_hexFile contains it).
     */
     Pic m_pic;
+	wxTextCtrl *m_configWordCtrl[16];
 
 protected:
     void OnChange(wxCommandEvent& event);
