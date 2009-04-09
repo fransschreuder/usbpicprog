@@ -125,7 +125,15 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 					wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, block.Name+"Configword");
 
         sz->Add(m_configWordCtrl[i], 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
-		//TODO add onchange for configWordCtrl
+		if(m_pic.is16Bit())
+			m_configWordCtrl[i]->SetMaxLength(2);
+		else
+			m_configWordCtrl[i]->SetMaxLength(4);
+		 
+		 
+		m_configWordCtrl[i]->Connect(wxEVT_COMMAND_TEXT_UPDATED , 
+                            wxCommandEventHandler(UppConfigViewBook::OnConfigWordChange), 
+                            NULL, this);
 		
         sz->AddGrowableCol(1, 1);
         panel->SetSizerAndFit(sz);
@@ -194,4 +202,81 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);
     main->upp_hex_changed();
+}
+
+void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
+{
+	unsigned int ConfigWordInt = 0; 
+	
+	
+	if(!m_configWordCtrl[GetSelection()]->GetValue().ToULong((unsigned long*)&ConfigWordInt, 16))
+	{
+		if(m_pic.is16Bit())
+		{
+		    if((GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
+		    {
+		        ConfigWordInt=m_hexFile->getConfigMemory()[GetSelection()];
+		    
+		    }
+		}
+		else
+		{
+		    if((2*GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
+		    {
+		        ConfigWordInt=((m_hexFile->getConfigMemory()[GetSelection()*2])|
+		                    (m_hexFile->getConfigMemory()[GetSelection()*2+1]<<8));
+		    
+		    }
+		}
+		wxString configWordHex;
+		configWordHex.Printf("%02X",ConfigWordInt);
+		m_configWordCtrl[GetSelection()]->ChangeValue(configWordHex);
+		return;
+	}
+	else
+	{
+		if(m_pic.is16Bit()) //put the value back into the hexfile
+		{
+		    m_hexFile->putConfigMemory(GetSelection(),ConfigWordInt&0xFF);
+		}
+		else
+		{
+		    m_hexFile->putConfigMemory(GetSelection()*2,ConfigWordInt&0xFF);
+		    m_hexFile->putConfigMemory(GetSelection()*2+1,(ConfigWordInt&0xFF00)>>8);
+		}
+		//update the wxChoices
+
+	
+		const ConfigWord& block = m_pic.Config[GetSelection()];
+		
+		
+		for(int i=0;i<block.Masks.size();i++)
+		{
+			const ConfigMask& mask = block.Masks[i];
+			wxChoice *choice;
+			for(int j=0;j<GetCurrentPage()->GetChildren().size();j++)
+			{
+				if(mask.Name==GetCurrentPage()->GetChildren().Item(j).GetName())
+					choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j));
+			}
+			
+			wxASSERT(choice);
+			int ConfigWordMask=0;
+					
+			for (unsigned int k=0;k<mask.Values.size();k++)
+		    {
+		        ConfigWordMask|=mask.Values[k].Value;
+		    }
+
+		    choice->SetSelection(0);
+		    for (unsigned int k=0; k<mask.Values.size(); k++)
+		    {
+		        if((ConfigWordInt&ConfigWordMask)==mask.Values[k].Value)
+		        {
+		            choice->SetSelection(k);
+		        }
+		    }
+		}
+		
+	}
 }

@@ -67,6 +67,7 @@ private:
 
 protected:
     void OnChange(wxCommandEvent& event);
+	void OnConfigWordChange(wxCommandEvent& event);
 };
 
 #endif //CONFIGVIEW_H
