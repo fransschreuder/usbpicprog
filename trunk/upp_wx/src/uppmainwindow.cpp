@@ -455,9 +455,6 @@ void UppMainWindow::UpdatePicInfo()
     // reset config listbook contents
     m_pConfigListbook->SetHexFile(&m_hexFile, m_picType.getCurrentPic());
 
-    cout<<"ConfigMemory.size: "<<m_hexFile.getConfigMemory().size()<<endl;
-    cout<<"CodeMemory.size: "<<m_hexFile.getCodeMemory().size()<<endl;
-
     // reset the PIC info page
     const Pic& pic = m_picType.getCurrentPic();
     if (!pic.ok())

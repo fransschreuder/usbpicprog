@@ -120,7 +120,12 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 		sz->Add(new wxStaticText(panel, wxID_ANY, "Configword: "),
                     0, wxLEFT|wxALIGN_CENTER, 5);
 		wxString configWordHex;
-		 configWordHex.Printf("%02X",ConfigWord);
+		
+		if(m_pic.is16Bit())
+			configWordHex.Printf("%02X",ConfigWord);
+		else
+			configWordHex.Printf("%04X",ConfigWord);
+
 		m_configWordCtrl[i] = new wxTextCtrl(panel, wxID_ANY,configWordHex,
 					wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, block.Name+"Configword");
 
@@ -187,7 +192,10 @@ void UppConfigViewBook::OnChange(wxCommandEvent& event)
     }
     ConfigWord |= newConfigValue;
 	wxString configWordHex;
+	if(m_pic.is16Bit())
 		 configWordHex.Printf("%02X",ConfigWord);
+	else
+		 configWordHex.Printf("%04X",ConfigWord);
 	m_configWordCtrl[SelectedMask]->SetValue(configWordHex);
     if(m_pic.is16Bit())
     {
@@ -216,7 +224,7 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 		    if((GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
 		    {
 		        ConfigWordInt=m_hexFile->getConfigMemory()[GetSelection()];
-		    
+				    
 		    }
 		}
 		else
@@ -229,7 +237,11 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 		    }
 		}
 		wxString configWordHex;
-		configWordHex.Printf("%02X",ConfigWordInt);
+		if(m_pic.is16Bit())
+			configWordHex.Printf("%02X",ConfigWordInt);
+		else
+			configWordHex.Printf("%04X",ConfigWordInt);
+		if(m_configWordCtrl[GetSelection()]->GetValue().size()==0)return;
 		m_configWordCtrl[GetSelection()]->ChangeValue(configWordHex);
 		return;
 	}
@@ -237,10 +249,12 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 	{
 		if(m_pic.is16Bit()) //put the value back into the hexfile
 		{
+			ConfigWordInt&=0xFF;
 		    m_hexFile->putConfigMemory(GetSelection(),ConfigWordInt&0xFF);
 		}
 		else
 		{
+			ConfigWordInt&=0x3FFF;
 		    m_hexFile->putConfigMemory(GetSelection()*2,ConfigWordInt&0xFF);
 		    m_hexFile->putConfigMemory(GetSelection()*2+1,(ConfigWordInt&0xFF00)>>8);
 		}
