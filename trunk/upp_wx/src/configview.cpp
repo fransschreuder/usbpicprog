@@ -256,8 +256,8 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 			wxChoice *choice;
 			for(int j=0;j<GetCurrentPage()->GetChildren().size();j++)
 			{
-				if(mask.Name==GetCurrentPage()->GetChildren().Item(j).GetName())
-					choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j));
+				if(mask.Name==GetCurrentPage()->GetChildren().Item(j)->GetData()->GetName())
+					choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j)->GetData());
 			}
 			
 			wxASSERT(choice);
