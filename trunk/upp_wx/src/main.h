@@ -43,37 +43,51 @@
 class UsbPicProg : public wxApp
 {
 public:
-/**This is the wxWidgets initialization function, but we only use it to call
-wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
+
+    /**
+        This is the wxWidgets initialization function, but we only use it to call
+        wxWidgets our own OnInit(), because OnInitCmdLine () is being used.
+    */
     virtual bool OnInit();
-/**Called by WxWidgets to clean up some stuff when the program exits*/
+
+    /**
+        Called by WxWidgets to clean up some stuff when the program exits.
+    */
     virtual int OnExit();
-/**Initialization function if command line is being used*/
+
+    /**
+        Initialization function if command line is being used.
+    */
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
-/**After command line is being processed, this function is being called
-by wxWidgets, even if no arguments are given. This is the actual function
-in which the real application initializes.*/
+
+    /**
+        After command line is being processed, this function is being called
+        by wxWidgets, even if no arguments are given. This is the actual function
+        in which the real application initializes.
+    */
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
-/**Open the given file (mac specific)*/
+
+    /**
+        Open the given file (mac specific).
+    */
     virtual void MacOpenFile(const wxString &fileName);
 
 private:        // stuff common to both GUI and command-line modes
 
-/**The main() of the command line application*/
+    /** The main() of the command line application */
     bool CmdLineMain(wxCmdLineParser& parser);
 
-/**Did we start as a console-only app?*/
+    /** Did we start as a console-only app? */
     bool m_console;
 
-/**Application locale*/
+    /** Application locale */
     wxLocale* m_locale;
 };
 
-/*This is some wxWidgets specific line...*/
 DECLARE_APP(UsbPicProg)
 
 
-/*Command line parameters and help text	 */
+/* Command line parameters and help text */
 
 #if wxCHECK_VERSION(2,9,0)
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
