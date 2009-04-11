@@ -480,10 +480,9 @@ void UppMainWindow::UpdatePicInfo()
     m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), pic.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), pic.DataSize));
 
-    m_pDatasheetLink->GetContainingSizer()->Layout();
-        // size may have changed: relayout the m_pDatasheetLink's container
-        // (after updating the various label texts since they have the same parent
-        //  of m_pDatasheetLink)
+    m_pInfoPanel->Layout();
+        // size may have changed: relayout the panel which is the parent of the windows
+        // whose size has changed (do it after updating _all_ label texts)
 
     // update the package variants combobox
     m_pPackageVariants->Clear();
