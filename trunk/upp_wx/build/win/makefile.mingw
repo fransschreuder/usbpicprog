@@ -25,9 +25,6 @@ LDFLAGS ?=
 # Use DLL build of wx library? [0,1]
 WX_SHARED ?= 0
 
-# Use Unicode build of wxWidgets? [0,1]
-WX_UNICODE ?= 1
-
 # Use debug build of wxWidgets (define __WXDEBUG__)? [0,1]
 WX_DEBUG ?= 1
 
@@ -52,7 +49,7 @@ LIBUSB_DIR ?= $(LIBUSB)
 ### Variables: ###
 
 CPPDEPS = -MT$@ -MF$@.d -MD -MP
-UPP_WX_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED_0_p) $(__WXUNICODE_DEFINE_p) \
+UPP_WX_CXXFLAGS = -DHAVE_W32API_H $(____WX_SHARED_0_p) -D_UNICODE \
 	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include \
 	$(____upp_wx__OPT_2) $(____upp_wx__DEBUGINFO) -I..\..\src \
@@ -66,6 +63,7 @@ UPP_WX_OBJECTS =  \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.o \
+	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o \
 	gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o
@@ -92,12 +90,6 @@ ____WX_SHARED_0_p_1 =
 endif
 ifeq ($(WX_SHARED),1)
 ____WX_SHARED_0_p_1 = --define WXUSINGDLL
-endif
-ifeq ($(WX_UNICODE),1)
-__WXUNICODE_DEFINE_p = -D_UNICODE
-endif
-ifeq ($(WX_UNICODE),1)
-__WXUNICODE_DEFINE_p_1 = --define _UNICODE
 endif
 ifeq ($(WX_DEBUG),1)
 __WXDEBUG_DEFINE_p = -D__WXDEBUG__
@@ -127,19 +119,10 @@ ifeq ($(WX_MONOLITHIC),1)
 __WXLIB_BASE_NAME_p = -lwxmsw$(WX_VERSION)$(WXLIBPOSTFIX)
 endif
 ifeq ($(WX_DEBUG),0)
-ifeq ($(WX_UNICODE),1)
 WXLIBPOSTFIX = u
 endif
-endif
 ifeq ($(WX_DEBUG),1)
-ifeq ($(WX_UNICODE),0)
-WXLIBPOSTFIX = d
-endif
-endif
-ifeq ($(WX_DEBUG),1)
-ifeq ($(WX_UNICODE),1)
 WXLIBPOSTFIX = ud
-endif
 endif
 ifeq ($(WX_SHARED),0)
 WXLIBPATH = \lib\gcc_lib
@@ -207,6 +190,9 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.o: ../../src/pict
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.o: ../../src/preferences.cpp
 	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
 
+gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.o: ../../src/preferences_base.cpp
+	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
+
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.o: ../../src/uppmainwindow.cpp
 	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
 
@@ -214,7 +200,7 @@ gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.o: ../
 	$(CXX) -c -o $@ $(UPP_WX_CXXFLAGS) $(CPPDEPS) $<
 
 gccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx_rc.o: ../../icons/win/upp_wx.rc
-	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_0_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../../src --include-dir $(LIBUSB_DIR)/include
+	windres --use-temp-file -i$< -o$@  --define HAVE_W32API_H $(____WX_SHARED_0_p_1) --define _UNICODE $(__WXDEBUG_DEFINE_p_1) --define __WXMSW__ --include-dir $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) --include-dir $(WX_DIR)/include --include-dir ../../src --include-dir $(LIBUSB_DIR)/include
 
 .PHONY: all clean
 

@@ -1393,7 +1393,7 @@ void UppMainWindow::upp_disconnect()
 
 void UppMainWindow::upp_preferences()
 {
-    UppPreferencesDialog dlg(this, wxID_ANY, _("Preferences"));
+    UppPreferencesDialog dlg(this);
 
     dlg.SetConfigFields(m_cfg);
     if (dlg.ShowModal() == wxID_OK)

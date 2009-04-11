@@ -16,8 +16,10 @@ bin_PROGRAMS = usbpicprog
 
 usbpicprog_SOURCES = \
 	uppmainwindow.cpp \
+	uppmainwindow.h \
 	main.cpp \
 	uppmainwindow_base.cpp \
+	uppmainwindow_base.h \
 	hardware.cpp \
 	hardware.h \
 	include_icons.h \
@@ -26,14 +28,14 @@ usbpicprog_SOURCES = \
 	hexfile.cpp \
 	hexfile.h \
 	main.h \
-	uppmainwindow_base.h \
-	uppmainwindow.h \
 	hexview.cpp \
 	hexview.h \
 	packageview.cpp \
 	packageview.h \
 	configview.cpp \
 	configview.h \
+	preferences_base.cpp \
+	preferences_base.h \
 	preferences.cpp \
 	preferences.h
 

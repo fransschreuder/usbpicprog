@@ -4,6 +4,8 @@
 <makefile>
 
     <set var="WX_VERSION_DEFAULT">29</set>
+    <set var="WX_UNICODE">1</set>
+
     <include file="presets/wx.bkl"/>
     
     <set-srcdir>../..</set-srcdir>

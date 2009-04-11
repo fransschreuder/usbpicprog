@@ -21,14 +21,7 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
-
-#include <wx/dialog.h>
-#include <wx/button.h>
-#include <wx/checkbox.h>
-#include <wx/sizer.h>
-
-#undef PREFERENCESDIALOG_STYLE
-#define PREFERENCESDIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxSTAY_ON_TOP | wxDIALOG_NO_PARENT | wxMINIMIZE_BOX | wxCLOSE_BOX)
+#include "preferences_base.h"
 
 /**
     A structure containing the global preferences for the UsbPicProg GUI.
@@ -48,40 +41,23 @@ typedef struct {
 /**
     The dialog which allows the user to toggle/untoggle some global options.
 */
-class UppPreferencesDialog : public wxDialog
+class UppPreferencesDialog : public UppPreferencesDialogBase
 {
 private:
     DECLARE_EVENT_TABLE();
 
 public:
-    UppPreferencesDialog(wxWindow *parent, wxWindowID id = 1, const wxString &title = _("Preferences"),
-                         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                         long style = PREFERENCESDIALOG_STYLE);
+    UppPreferencesDialog(wxWindow *parent);
     virtual ~UppPreferencesDialog();
 
-    UppPreferences GetResult() const { return m_cfg; }
-    void SetConfigFields(UppPreferences cf);
-
-private:
-    wxCheckBox *uppConfigVerifyData;
-    wxCheckBox *uppConfigVerifyAfterProgramming;
-    wxCheckBox *uppConfigVerifyConfig;
-    wxCheckBox *uppConfigVerifyCode;
-    wxStaticBoxSizer *WxStaticBoxSizerVerify;
-    wxCheckBox *uppConfigProgramData;
-    wxCheckBox *uppConfigProgramConfig;
-    wxCheckBox *uppConfigProgramCode;
-    wxCheckBox *uppConfigEraseBeforeProgramming;
-    wxStaticBoxSizer *WxStaticBoxSizerProgram;
-    wxCheckBox *uppConfigShowPopups;
-    wxStaticBoxSizer *WxStaticBoxSizerGui;
-    wxBoxSizer *WxBoxSizer1;
-
-    UppPreferences m_cfg;
+    const UppPreferences& GetResult() const 
+        { return m_cfg; }
+    void SetConfigFields(const UppPreferences& cf);
 
 private:
     void OnOk(wxCommandEvent& event);
-    void CreateGUIControls();
+
+    UppPreferences m_cfg;
 };
 
 #endif  // PREFERENCESDIALOG_H

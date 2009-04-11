@@ -44,11 +44,6 @@ LDFLAGS =
 WX_SHARED = 0
 !endif
 
-# Use Unicode build of wxWidgets? [0,1]
-!ifndef WX_UNICODE
-WX_UNICODE = 1
-!endif
-
 # Use debug build of wxWidgets (define __WXDEBUG__)? [0,1]
 !ifndef WX_DEBUG
 WX_DEBUG = 1
@@ -82,8 +77,8 @@ LIBUSB_DIR = $(LIBUSB)
 
 ### Variables: ###
 
-UPP_WX_CXXFLAGS = -I$(BCCDIR)\include $(____WX_SHARED_0_p) \
-	$(__WXUNICODE_DEFINE_p) $(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
+UPP_WX_CXXFLAGS = -I$(BCCDIR)\include $(____WX_SHARED_0_p) -D_UNICODE \
+	$(__WXDEBUG_DEFINE_p) -D__WXMSW__ \
 	-I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -I$(WX_DIR)\include \
 	$(____upp_wx__OPT_3) $(____upp_wx__DEBUGINFO) -I..\..\src \
 	-I$(LIBUSB_DIR)\include $(CPPFLAGS) $(CXXFLAGS)
@@ -96,6 +91,7 @@ UPP_WX_OBJECTS =  \
 	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj \
 	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj \
 	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj \
+	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj \
 	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj \
 	bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj
 
@@ -121,12 +117,6 @@ ____WX_SHARED_0_p_1 =
 !endif
 !if "$(WX_SHARED)" == "1"
 ____WX_SHARED_0_p_1 = -dWXUSINGDLL
-!endif
-!if "$(WX_UNICODE)" == "1"
-__WXUNICODE_DEFINE_p = -D_UNICODE
-!endif
-!if "$(WX_UNICODE)" == "1"
-__WXUNICODE_DEFINE_p_1 = -d_UNICODE
 !endif
 !if "$(WX_DEBUG)" == "1"
 __WXDEBUG_DEFINE_p = -D__WXDEBUG__
@@ -155,13 +145,10 @@ __WXLIB_BASE_NAME_p = wxbase$(WX_VERSION)$(WXLIBPOSTFIX).lib
 !if "$(WX_MONOLITHIC)" == "1"
 __WXLIB_BASE_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX).lib
 !endif
-!if "$(WX_DEBUG)" == "0" && "$(WX_UNICODE)" == "1"
+!if "$(WX_DEBUG)" == "0"
 WXLIBPOSTFIX = u
 !endif
-!if "$(WX_DEBUG)" == "1" && "$(WX_UNICODE)" == "0"
-WXLIBPOSTFIX = d
-!endif
-!if "$(WX_DEBUG)" == "1" && "$(WX_UNICODE)" == "1"
+!if "$(WX_DEBUG)" == "1"
 WXLIBPOSTFIX = ud
 !endif
 !if "$(WX_SHARED)" == "0"
@@ -238,6 +225,9 @@ bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj: ..\..\src\pi
 bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj: ..\..\src\preferences.cpp
 	$(CXX) -q -c -P -o$@ $(UPP_WX_CXXFLAGS) ..\..\src\preferences.cpp
 
+bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj: ..\..\src\preferences_base.cpp
+	$(CXX) -q -c -P -o$@ $(UPP_WX_CXXFLAGS) ..\..\src\preferences_base.cpp
+
 bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj: ..\..\src\uppmainwindow.cpp
 	$(CXX) -q -c -P -o$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow.cpp
 
@@ -245,5 +235,5 @@ bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj: .
 	$(CXX) -q -c -P -o$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow_base.cpp
 
 bccmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res: ..\..\icons\win\upp_wx.rc
-	brcc32 -32 -r -fo$@ -i$(BCCDIR)\include  $(____WX_SHARED_0_p_1) $(__WXUNICODE_DEFINE_p_1) $(__WXDEBUG_DEFINE_p_1) -d__WXMSW__ -i$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i$(WX_DIR)\include -i..\..\src -i$(LIBUSB_DIR)\include ..\..\icons\win\upp_wx.rc
+	brcc32 -32 -r -fo$@ -i$(BCCDIR)\include  $(____WX_SHARED_0_p_1) -d_UNICODE $(__WXDEBUG_DEFINE_p_1) -d__WXMSW__ -i$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i$(WX_DIR)\include -i..\..\src -i$(LIBUSB_DIR)\include ..\..\icons\win\upp_wx.rc
 
