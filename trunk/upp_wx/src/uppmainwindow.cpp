@@ -573,6 +573,9 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
             m_dlgProgress->Update(evt.GetInt(),
                                 _("Please wait until the operations are completed:\n") +
                                 wxJoin(m_arrLog, '\n'));
+
+        // update to the new label size
+        m_dlgProgress->Fit();
 #else
             m_dlgProgress->Update(evt.GetInt());
 #endif
