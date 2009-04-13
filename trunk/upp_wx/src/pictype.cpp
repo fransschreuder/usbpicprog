@@ -93,7 +93,28 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
         m_currentPic.DevIdMask = indexInfo.devIdMask;
         m_currentPic.DevId = indexInfo.devId;
         m_currentPic.picFamily = indexInfo.picFamily;
-
+		for(unsigned int i=0;i<m_currentPic.Config.size();i++)
+		{
+			int tmpConfigMask=0;
+			for(unsigned int j=0;j<m_currentPic.Config[i].Masks.size();j++)
+			{
+				for(unsigned int k=0;k<m_currentPic.Config[i].Masks[j].Values.size();k++)
+				{
+					tmpConfigMask|=m_currentPic.Config[i].Masks[j].Values[k].Value;
+					cout<<tmpConfigMask<<endl;
+				}
+			}
+			if(m_currentPic.is16Bit())
+			{
+				m_currentPic.ConfigMask[i]=tmpConfigMask;
+			}
+			else
+			{
+				m_currentPic.ConfigMask[i*2]=tmpConfigMask&0xFF;
+				m_currentPic.ConfigMask[i*2+1]=(tmpConfigMask>>8)&0xFF;
+			}
+			
+		}
         // cache the entire structure in our internal static array:
         indexInfo.pic = m_currentPic;
     }
