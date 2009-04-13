@@ -31,15 +31,9 @@
 #include <wx/thread.h>
 #include <wx/progdlg.h>
 #include <wx/log.h>
-
-#if wxCHECK_VERSION(2,7,1) //about dialog only implemented from wxWidgets v2.7.1
 #include <wx/aboutdlg.h>
-#else
-#warning About dialog not implemented, use a newer wxWidgets version!
-#endif
 
 #include <iostream>
-
 using namespace std;
 
 #include "uppmainwindow_base.h"
@@ -49,9 +43,9 @@ using namespace std;
 #include "preferences.h"
 
 #ifdef __WXMAC__
-#define EVENT_FIX
+    #define EVENT_FIX
 #else //__WXMAC__
-#define EVENT_FIX event.Skip();
+    #define EVENT_FIX event.Skip();
 #endif //__WXMAC__
 
 
@@ -83,6 +77,9 @@ enum UppMainWindowThreadMode
 };
 
 typedef std::vector<time_t> wxArrayTime;
+
+/// The prefix used with the messages passed to the wxProgressDialog.
+#define PROGRESS_MESSAGE_PREFIX    (wxString::FromUTF8("\xC2\xBB "))
 
 
 /**

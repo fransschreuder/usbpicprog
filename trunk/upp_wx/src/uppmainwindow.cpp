@@ -576,6 +576,9 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 
         // update to the new label size
         m_dlgProgress->Fit();
+
+        // make sure the focused window is the progress dialog:
+        m_dlgProgress->SetFocus();
 #else
             m_dlgProgress->Update(evt.GetInt());
 #endif
@@ -613,21 +616,25 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
     for (unsigned int i=0; i<m_arrLog.GetCount(); i++)
     {
         success &= m_arrLogLevel[i] == wxLOG_Message;
-        wxLog::OnLog(m_arrLogLevel[i], m_arrLog[i], m_arrLogTimes[i]);
+        wxLog::OnLog(m_arrLogLevel[i], 
+                     m_arrLog[i].StartsWith(PROGRESS_MESSAGE_PREFIX) ? 
+                        m_arrLog[i].Mid(PROGRESS_MESSAGE_PREFIX.Length()) : m_arrLog[i], 
+                     m_arrLogTimes[i]);
     }
 
     m_arrLog.clear();
     m_arrLogLevel.clear();
     m_arrLogTimes.clear();
 
-    SetStatusText(_("All operations completed"),STATUS_FIELD_OTHER);
-    if(m_cfg.ConfigShowPopups)
+    SetStatusText(_("All operations completed"), STATUS_FIELD_OTHER);
+    if (m_cfg.ConfigShowPopups)
     {
         if (success)
             wxLogMessage(_("All operations completed"));
         else
             wxLogWarning(_("Operations completed with errors/warnings"));
     }
+
     // some of the operations performed by the secondary thread
     // require updating the title or the grids:
     switch (m_mode)
@@ -641,6 +648,12 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
         Reset();
         break;
     }
+
+    // make sure all thread messages logged above are shown to the user _now_
+    // (after updating the PIC info); sometimes in fact it may happen that the
+    // idle event which triggers wxLog flushing is not generated and so the
+    // log messages are shown only when the application is exited
+    wxLog::FlushActive();
 }
 
 wxThread::ExitCode UppMainWindow::Entry()
@@ -707,7 +720,7 @@ void UppMainWindow::LogFromThread(wxLogLevel level, const wxString& str)
     wxASSERT(!wxThread::IsMain());
 
     wxCriticalSectionLocker lock(m_arrLogCS);
-    m_arrLog.push_back(wxT("=> ") + str);
+    m_arrLog.push_back(PROGRESS_MESSAGE_PREFIX + str);
     m_arrLogLevel.push_back(level);
     m_arrLogTimes.push_back(time(NULL));
 }
@@ -717,7 +730,7 @@ bool UppMainWindow::upp_thread_program()
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
 
-    if(m_cfg.ConfigEraseBeforeProgramming)
+    if (m_cfg.ConfigEraseBeforeProgramming)
     {
         LogFromThread(wxLOG_Message, _("Erasing before programming..."));
 
@@ -734,7 +747,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(m_cfg.ConfigProgramCode)
+    if (m_cfg.ConfigProgramCode)
     {
         LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
         switch(m_hardware->writeCode(&m_hexFile,&m_picType))
@@ -765,7 +778,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(m_cfg.ConfigProgramConfig)
+    if (m_cfg.ConfigProgramConfig)
     {
         LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
 
@@ -795,7 +808,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    if(m_cfg.ConfigProgramData)
+    if (m_cfg.ConfigProgramData)
     {
         LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
 
@@ -821,7 +834,7 @@ bool UppMainWindow::upp_thread_program()
             return false;
         }
     }
-    if(m_cfg.ConfigVerifyAfterProgramming)
+    if (m_cfg.ConfigVerifyAfterProgramming)
     {
         upp_thread_verify();
     }
@@ -837,7 +850,7 @@ bool UppMainWindow::upp_thread_read()
     m_hexFile.newFile(&m_picType);
 
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
-    if(m_hardware->readCode(&m_hexFile,&m_picType)<0)
+    if (m_hardware->readCode(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
         m_hexFile.trimData(&m_picType);
@@ -848,7 +861,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
-    if(m_hardware->readData(&m_hexFile,&m_picType)<0)
+    if (m_hardware->readData(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading data memory"));
         m_hexFile.trimData(&m_picType);
@@ -859,7 +872,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
-    if(m_hardware->readConfig(&m_hexFile,&m_picType)<0)
+    if (m_hardware->readConfig(&m_hexFile,&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
         m_hexFile.trimData(&m_picType);
@@ -925,7 +938,7 @@ bool UppMainWindow::upp_thread_erase()
 
     LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
 
-    if(m_hardware->bulkErase(&m_picType)<0)
+    if (m_hardware->bulkErase(&m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error erasing the device"));
         return false;
@@ -1070,7 +1083,7 @@ void UppMainWindow::upp_open()
 
 bool UppMainWindow::upp_open_file(const wxString& path)
 {
-    if(m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
+    if (m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -1088,7 +1101,7 @@ bool UppMainWindow::upp_open_file(const wxString& path)
 
 void UppMainWindow::upp_refresh()
 {
-    if(!m_hexFile.hasFileName())
+    if (!m_hexFile.hasFileName())
     {
         SetStatusText(_("No file to refresh"),STATUS_FIELD_OTHER);
         wxLogMessage(_("No file to refresh"));
@@ -1098,7 +1111,7 @@ void UppMainWindow::upp_refresh()
     if (!ShouldContinueIfUnsaved())
         return;
 
-    if(m_hexFile.reload(&m_picType)<0)
+    if (m_hexFile.reload(&m_picType)<0)
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -1112,9 +1125,9 @@ void UppMainWindow::upp_refresh()
 
 void UppMainWindow::upp_save()
 {
-    if(m_hexFile.hasFileName())
+    if (m_hexFile.hasFileName())
     {
-        if(m_hexFile.save(&m_picType)<0)
+        if (m_hexFile.save(&m_picType)<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
@@ -1136,7 +1149,7 @@ void UppMainWindow::upp_save_as()
         // get the folder of the opened file, without the name&extension
         m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
 
-        if(m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+        if (m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
@@ -1279,10 +1292,10 @@ bool UppMainWindow::upp_autodetect()
     wxString picName=m_picType.getPicName();
     m_pPICChoice->SetStringSelection(picName);
 
-    if(devId<1)
+    if (devId<1)
     {
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
-        if(m_cfg.ConfigShowPopups)
+        if (m_cfg.ConfigShowPopups)
             wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
                         picName.Mid(1).c_str());
     }
@@ -1291,7 +1304,7 @@ bool UppMainWindow::upp_autodetect()
         wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
                                         picName.Mid(1).c_str(), devId);
         SetStatusText(msg,STATUS_FIELD_HARDWARE);
-        if(m_cfg.ConfigShowPopups)
+        if (m_cfg.ConfigShowPopups)
             wxLogMessage(msg);
     }
 
@@ -1307,12 +1320,12 @@ bool UppMainWindow::upp_connect()
     if (m_hardware != NULL) delete m_hardware;
     m_hardware=new Hardware(this, HW_UPP);
 
-    if(m_hardware->connected())
+    if (m_hardware->connected())
     {
         upp_autodetect();       // already calls upp_new();
 
         char msg[64];
-        if(m_hardware->getFirmwareVersion(msg)<0)
+        if (m_hardware->getFirmwareVersion(msg)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
             wxLogMessage(_("Unable to read firmware version"));
@@ -1320,7 +1333,7 @@ bool UppMainWindow::upp_connect()
         else
         {
             SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-            if(m_cfg.ConfigShowPopups)
+            if (m_cfg.ConfigShowPopups)
                 wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
         }
     }
@@ -1331,12 +1344,12 @@ bool UppMainWindow::upp_connect()
         delete m_hardware;
         m_hardware=new Hardware(this, HW_BOOTLOADER);
 
-        if(m_hardware->connected())
+        if (m_hardware->connected())
         {
             upp_autodetect();       // already calls upp_new();
 
             char msg[64];
-            if(m_hardware->getFirmwareVersion(msg)<0)
+            if (m_hardware->getFirmwareVersion(msg)<0)
             {
                 SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
                 wxLogMessage(_("Unable to read version"));
@@ -1344,7 +1357,7 @@ bool UppMainWindow::upp_connect()
             else
             {
                 SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
-                if(m_cfg.ConfigShowPopups)
+                if (m_cfg.ConfigShowPopups)
                     wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
             }
         }
@@ -1355,7 +1368,7 @@ bool UppMainWindow::upp_connect()
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
-            if(m_cfg.ConfigShowPopups)
+            if (m_cfg.ConfigShowPopups)
                 wxLogMessage(_("Bootloader or programmer not found"));
 
             upp_new();
@@ -1370,7 +1383,7 @@ bool UppMainWindow::upp_connect()
 /*disconnect the m_hardware*/
 void UppMainWindow::upp_disconnect()
 {
-    if(m_hardware != NULL)
+    if (m_hardware != NULL)
     {
         if (m_hardware->connected())
         {
@@ -1378,7 +1391,7 @@ void UppMainWindow::upp_disconnect()
             m_hardware = NULL;
 
             SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
-            if(m_cfg.ConfigShowPopups)
+            if (m_cfg.ConfigShowPopups)
                 wxLogMessage(_("Disconnected usbpicprog"));
         }
         else
@@ -1495,10 +1508,11 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
 void UppMainWindow::upp_package_variant_changed()
 {
     static wxSize sz = wxDefaultSize;
+
     // get the new package
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
-    if(m_picType.ok())
+    if (m_picType.ok())
         m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
 }
 

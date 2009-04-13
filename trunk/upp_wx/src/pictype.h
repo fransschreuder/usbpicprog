@@ -377,13 +377,13 @@ public:
         { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
 
     /// Returns true if the PIC is a 16bit device (e.g. Pic18)
-    bool is16Bit()
+    bool is16Bit() const
         { return (Name.find("P18F")==0); }
 
     /// Returns the PIC name which starts with "PIC" instead of "P".
     wxString GetExtName() const
         {
-            if(Name.empty())return Name;
+            if (Name.empty()) return Name;
             return wxString("PIC" + Name.substr(1)); 
         }
 
