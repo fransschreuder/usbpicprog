@@ -16,7 +16,7 @@ make install
 mkdir deb_package/usr/local/man/
 mkdir deb_package/usr/local/man/man1
 mkdir deb_package/usr/share
-cp -r deb_package/usr/local/share/locale/ deb_package/usr/share/
+#cp -r deb_package/usr/local/share/locale/ deb_package/usr/share/
 mkdir deb_package/usr/share/pixmaps
 mkdir deb_package/usr/share/applications
 mkdir deb_package/etc
