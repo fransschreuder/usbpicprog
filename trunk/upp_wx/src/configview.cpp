@@ -221,7 +221,7 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 	{
 		if(m_pic.is16Bit())
 		{
-		    if((GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
+		    if((unsigned)(GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
 		    {
 		        ConfigWordInt=m_hexFile->getConfigMemory()[GetSelection()];
 				    
@@ -229,7 +229,7 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 		}
 		else
 		{
-		    if((2*GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
+		    if((unsigned)(2*GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
 		    {
 		        ConfigWordInt=((m_hexFile->getConfigMemory()[GetSelection()*2])|
 		                    (m_hexFile->getConfigMemory()[GetSelection()*2+1]<<8));
@@ -264,11 +264,11 @@ void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
 		const ConfigWord& block = m_pic.Config[GetSelection()];
 		
 		
-		for(int i=0;i<block.Masks.size();i++)
+		for(unsigned int i=0;i<block.Masks.size();i++)
 		{
 			const ConfigMask& mask = block.Masks[i];
-			wxChoice *choice;
-			for(int j=0;j<GetCurrentPage()->GetChildren().size();j++)
+			wxChoice *choice=NULL;
+			for(unsigned int j=0;j<GetCurrentPage()->GetChildren().size();j++)
 			{
 				if(mask.Name==GetCurrentPage()->GetChildren().Item(j)->GetData()->GetName())
 					choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j)->GetData());

@@ -1,7 +1,7 @@
 [Project]
 FileName=usbpicprog.dev
 Name=usbpicprog
-UnitCount=19
+UnitCount=23
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -174,13 +174,13 @@ UnitCount=17
 ProfileName=MingW 3.4.2
 Type=1
 ObjFiles=
-Includes="C:\Program Files\LibUSB-Win32\include"
-Libs="C:\Program Files\LibUSB-Win32\lib\gcc"
+Includes="C:\Program Files\LibUSB-Win32\include";"C:\Program Files\Dev-Cpp\wxWidgets-2.9.0-msw-static\include\wx";"C:\Program Files\Dev-Cpp\wxWidgets-2.9.0-msw-static\lib\wx\include\msw-unicode-release-static-2.9"
+Libs="C:\Program Files\LibUSB-Win32\lib\gcc";"C:\Program Files\Dev-Cpp\wxWidgets-2.9.0-msw-static\lib";"C:\Program Files\LibUSB-Win32\lib\gcc"
 ResourceIncludes=
 MakeIncludes=
 Compiler=-fno-exceptions_@@_-fno-pcc-struct-return_@@_-fstrict-aliasing_@@_-Wall_@@_-D__WXMSW___@@_-D__GNUWIN32___@@_-D__WIN95___@@_
 CppCompiler=-fno-exceptions_@@_-fno-pcc-struct-return_@@_-fstrict-aliasing_@@_-Wall_@@_-D__WXMSW___@@_-D__GNUWIN32___@@_-D__WIN95___@@_
-Linker=-mwindows_@@_-lwxmsw28_@@_-lwxmsw28_gl_@@_-lwxtiff_@@_-lwxjpeg_@@_-lwxpng_@@_-lwxzlib_@@_-lwxregex_@@_-lwxexpat_@@_-lkernel32_@@_-luser32_@@_-lgdi32_@@_-lcomdlg32_@@_-lwinspool_@@_-lwinmm_@@_-lshell32_@@_-lcomctl32_@@_-lole32_@@_-loleaut32_@@_-luuid_@@_-lrpcrt4_@@_-ladvapi32_@@_-lwsock32_@@_-lodbc32_@@_-lopengl32_@@_"c:/Program Files/LibUSB-Win32/lib/gcc/libusb.a"_@@_
+Linker=-mwindows _@@_-lwx_mswu_xrc-2.9_@@_-lwx_mswu_html-2.9_@@_-lwx_mswu_qa-2.9_@@_-lwx_mswu_adv-2.9_@@_-lwx_mswu_core-2.9_@@_-lwx_baseu_xml-2.9_@@_-lwx_baseu_net-2.9_@@_-lwx_baseu-2.9_@@_-lwxregexu-2.9 _@@_-lwxexpat-2.9 _@@_-lwxtiff-2.9 _@@_-lwxjpeg-2.9 _@@_-lwxpng-2.9 _@@_-lwxzlib-2.9 _@@_-lrpcrt4 _@@_-loleaut32 _@@_-lole32 _@@_-luuid _@@_-lwinspool _@@_-lwinmm _@@_-lshell32 _@@_-lcomctl32 _@@_-lcomdlg32 _@@_-lctl3d32 _@@_-ladvapi32 _@@_-lwsock32 _@@_-lgdi32  _@@_-lusb _@@_
 PreprocDefines=__WXMSW___@@___GNUWIN32___@@___WIN95___@@_
 CompilerSettings=0000000001001001000000
 Icon=usbpicprog.ico
@@ -244,30 +244,72 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit19]
+FileName=src\configview.h
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+CompileCpp=1
+
 [Unit17]
-FileName=po\nl.po
+FileName=src\preferences_base.h
 CompileCpp=1
 Folder=usbpicprog
-Compile=0
-Link=0
+Compile=1
+Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
-FileName=po\ar.po
+FileName=src\configview.cpp
+CompileCpp=1
 Folder=usbpicprog
-Compile=0
-Link=0
+Compile=1
+Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit19]
-FileName=po\es.po
+[Unit20]
+FileName=src\formbuilder_includes.h
+CompileCpp=1
 Folder=usbpicprog
-Compile=0
-Link=0
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit21]
+FileName=src\packageview.cpp
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit22]
+FileName=src\packageview.h
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit23]
+FileName=src\preferences_base.cpp
+CompileCpp=1
+Folder=usbpicprog
+Compile=1
+Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
