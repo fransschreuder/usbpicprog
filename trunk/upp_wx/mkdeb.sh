@@ -10,8 +10,10 @@ mkdir deb_package/DEBIAN
 cp control deb_package/DEBIAN
 cp postinst deb_package/DEBIAN
 cp prerm deb_package/DEBIAN
-./configure --prefix=$(pwd)/deb_package/usr/local
-make 
+#first configure with the normal prefix in favour of xml_data of which the path is hard linked into the binary
+./configure --prefix=/usr/local
+make
+./configure --prefix=$(pwd)/deb_package/usr/local 
 make install
 mkdir deb_package/usr/local/man/
 mkdir deb_package/usr/local/man/man1
