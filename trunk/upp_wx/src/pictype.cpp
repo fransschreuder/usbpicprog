@@ -547,9 +547,9 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
     // 1) PinCount*PinH + (PinCount+1)*PinSpacing = PackageLen
     // 2) PinSpacing = PinH/2
     // solving for PinH yields:
-    unsigned int PinH = floor(2*PackageLen/(3.0*PinCount+1));
-    unsigned int PinW = 1.5*PinH;
-    const unsigned int PinSpacing = floor(PinH/2.0);
+    unsigned int PinH = (unsigned int)floor(2*PackageLen/(3.0*PinCount+1));
+    unsigned int PinW = (unsigned int)1.5*PinH;
+    const unsigned int PinSpacing = (const unsigned int)floor(PinH/2.0);
 
     // the error which force us to have a "pin y offset" is caused by rounding
     // in the calculation of PinH:

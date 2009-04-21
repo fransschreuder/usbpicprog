@@ -381,10 +381,10 @@ public:
         { return (Name.find("P18F")==0); }
 
     /// Returns the PIC name which starts with "PIC" instead of "P".
-    wxString GetExtName() const
+    string GetExtName() const
         {
             if (Name.empty()) return Name;
-            return wxString("PIC" + Name.substr(1)); 
+            return string("PIC" + Name.substr(1)); 
         }
 
     // public members to avoid lots of getters/setters:
