@@ -464,9 +464,9 @@ void UppMainWindow::UpdatePicInfo()
 
     // update the misc infos
 
-    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), pic.GetExtName()));
+    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(pic.GetExtName().c_str())));
     m_pDatasheetLink->SetURL(
-        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", pic.GetExtName()));
+        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(pic.GetExtName().c_str())));
     m_pDatasheetLink->SetVisited(false);
 
     m_pVPPText->SetLabel(
@@ -1513,6 +1513,6 @@ void UppMainWindow::upp_package_variant_changed()
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
     if (m_picType.ok())
-        m_pPackageWin->SetChip(m_picType.getCurrentPic().GetExtName(), pkg);
+        m_pPackageWin->SetChip(wxString(m_picType.getCurrentPic().GetExtName().c_str()), pkg);
 }
 
