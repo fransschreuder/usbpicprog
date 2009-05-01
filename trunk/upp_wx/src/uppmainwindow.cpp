@@ -64,6 +64,9 @@
     #include "../icons/win/read.xpm"
     #include "../icons/win/verify.xpm"
     #include "../icons/win/usbpicprog.xpm"
+    #include "../icons/win/zoomin.xpm"
+    #include "../icons/win/zoomout.xpm"
+    #include "../icons/win/zoomfit.xpm"
 #endif
 
 static const wxChar *FILETYPES = _T(
@@ -355,13 +358,17 @@ void UppMainWindow::CompleteGUICreation()
     toolbar->Realize();
 
     // set bitmaps on the bitmap buttons
+#ifdef __WXGTK__
     m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-in"));
-    m_pZoomInButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomIn), NULL, m_pPackageWin);
-    
     m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-out"));
-    m_pZoomOutButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomOut), NULL, m_pPackageWin);
-    
     m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-fit"));
+#else
+    m_pZoomInButton->SetBitmapLabel( wxBitmap(zoomin_xpm) );
+    m_pZoomOutButton->SetBitmapLabel( wxBitmap(zoomout_xpm) );
+    m_pZoomFitButton->SetBitmapLabel( wxBitmap(zoomfit_xpm) );
+#endif
+    m_pZoomInButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomIn), NULL, m_pPackageWin);
+    m_pZoomOutButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomOut), NULL, m_pPackageWin);
     m_pZoomFitButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomFit), NULL, m_pPackageWin);
     
     // by default show code page at startup
