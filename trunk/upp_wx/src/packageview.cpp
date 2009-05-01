@@ -26,6 +26,8 @@
 #include <wx/dcclient.h>
 #include <wx/dcmemory.h>
 #include <wx/log.h>
+#include <wx/bmpbuttn.h>
+#include <wx/artprov.h>
 
 #include "packageview.h"
 
@@ -35,13 +37,17 @@
 // ----------------------------------------------------------------------------
 
 UppPackageViewWindow::UppPackageViewWindow(wxWindow* parent, wxWindowID id)
-    : wxScrolledWindow( parent, id, wxDefaultPosition, wxDefaultSize, 
-                        wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, "packageview" )
+    : wxScrolledCanvas( parent, id, wxDefaultPosition, wxDefaultSize, 
+                        wxHSCROLL|wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, "packageview" )
 {
-    SetBackgroundStyle(wxBG_STYLE_COLOUR);
+    //SetBackgroundStyle(wxBG_STYLE_COLOUR);
     SetBackgroundColour(*wxWHITE);
-    
+    SetScrollRate(20,20);
+
     Connect(wxEVT_PAINT, wxPaintEventHandler(UppPackageViewWindow::OnPaint), NULL, this);
+    Connect(wxEVT_SIZE, wxSizeEventHandler(UppPackageViewWindow::OnSize), NULL, this);
+    
+    m_fitting = false;
 }
 
 wxSize UppPackageViewWindow::DoGetBestSize() const
@@ -49,23 +55,10 @@ wxSize UppPackageViewWindow::DoGetBestSize() const
     return wxSize(100,150);
 }
 
-void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
+void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
 {
-    wxPaintDC dc(this);
-    
-    // center the bitmap in the window
-    wxSize sz = GetClientSize();
-
-    if (m_bmp.IsOk())
-        dc.DrawBitmap(m_bmp, (sz.GetWidth()-m_bmp.GetWidth())/2, (sz.GetHeight()-m_bmp.GetHeight())/2);
-}
-
-void UppPackageViewWindow::Refresh()
-{
-    const wxSize& sz = GetClientSize();
-
     // initialize the bitmap
-    if (!m_bmp.Create(sz.GetWidth(), sz.GetHeight()))
+    if (!m_bmp.Create(sz))
     {
         wxLogError("Can't create the package bitmap!");
         return;
@@ -83,9 +76,53 @@ void UppPackageViewWindow::Refresh()
     dc.SetBrush(*wxWHITE);
     dc.Clear();
     
-    // draw the package
+    // draw the package on the bitmap
     m_pkg.Draw(dc, sz, m_name);
     dc.SelectObject(wxNullBitmap);
     
-    wxScrolledWindow::Refresh();
+    SetVirtualSize(sz);
+    AdjustScrollbars();
+    Refresh();
+}
+
+
+// ----------------------------------------------------------------------------
+// UppPackageViewWindow - event handlers
+// ----------------------------------------------------------------------------
+
+void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
+{
+    wxPaintDC dc(this);
+    DoPrepareDC(dc);
+
+    // should always be valid:
+    wxASSERT(m_bmp.IsOk());
+
+    dc.DrawBitmap(m_bmp, 0, 0);
+}
+
+void UppPackageViewWindow::OnSize(wxSizeEvent& WXUNUSED(event))
+{
+    if (m_fitting)
+        FitBitmap();
+    //else: don't bypass the user's custom zoom on the package by calling FitBitmap()
+}
+
+void UppPackageViewWindow::OnZoomIn(wxCommandEvent& WXUNUSED(event))
+{
+    UpdateBitmap(GetVirtualSize()*1.5);
+    
+    m_fitting = m_bmp.GetSize() == GetClientSize();
+}
+
+void UppPackageViewWindow::OnZoomOut(wxCommandEvent& WXUNUSED(event))
+{
+    UpdateBitmap(GetVirtualSize()*(1.0/1.5));
+    
+    m_fitting = m_bmp.GetSize() == GetClientSize();
+}
+
+void UppPackageViewWindow::OnZoomFit(wxCommandEvent& WXUNUSED(event))
+{
+    FitBitmap();
 }

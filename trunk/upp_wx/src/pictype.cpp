@@ -673,9 +673,8 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             // choose reasonable package width&height to
             // - make best use of the available space
             // - avoid drawing package excessively big
-            const unsigned int BoxW = min(sz.GetWidth()/3,80);
-            const unsigned int BoxH = min(BoxW*PinPerSide/3,
-                                          (unsigned int)(sz.GetHeight()*0.8));
+            const unsigned int BoxW = sz.GetWidth()/3;
+            const unsigned int BoxH = sz.GetHeight()*0.8;
             const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
             const unsigned int R = BoxW/6;
@@ -687,8 +686,9 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
                        sz.GetWidth()/2, BoxY + 1);
 
             // draw the name of the PIC model in the centre of the box
+            dc.SetFont(wxFont(wxSize(0, BoxW/8), wxFONTFAMILY_DEFAULT,
+                              wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
             const wxSize& nameSz = dc.GetTextExtent(chipModel);
-            dc.SetFont(*wxSMALL_FONT);
             dc.DrawRotatedText(chipModel,
                                (sz.GetWidth() + nameSz.GetHeight())/2,
                                (sz.GetHeight() - nameSz.GetWidth())/2,
@@ -729,8 +729,9 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             dc.DrawCircle(BoxX+int(R*1.3), BoxY+int(R*1.3), R/2);
 
             // draw the name of the PIC model in the centre of the box
+            dc.SetFont(wxFont(wxSize(0, BoxL/10), wxFONTFAMILY_DEFAULT,
+                              wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD));
             const wxSize& nameSz = dc.GetTextExtent(chipModel);
-            dc.SetFont(*wxNORMAL_FONT);
             dc.DrawText(chipModel,
                         (sz.GetWidth() - nameSz.GetWidth())/2,
                         (sz.GetHeight() - nameSz.GetHeight())/2);

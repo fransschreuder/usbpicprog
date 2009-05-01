@@ -27,25 +27,54 @@
 /**
     A simple window showing the package of a PIC.
 */
-class UppPackageViewWindow : public wxScrolledWindow
+class UppPackageViewWindow : public wxScrolledCanvas
 {
 public:
     UppPackageViewWindow(wxWindow* parent, wxWindowID id);
 
+    /**
+        Update the chip package to show in this window.
+        
+        This function fits the package drawing and refreshes this window
+        calling FitBitmap().
+    */
     void SetChip(const wxString& name, const ChipPackage& pkg)
-        { m_name=name; m_pkg=pkg; Refresh(); }
-    
-    void Refresh();
-    
-protected:
+        { m_name=name; m_pkg=pkg; FitBitmap(); }
+
+    /**
+        Updates the m_bmp member so that it fits this window.
+        Automatically calls Refresh() after the update.
+    */
+    void FitBitmap()
+        { UpdateBitmap(GetClientSize()); m_fitting=true; }
+
+public:     // event handlers
+    void OnZoomIn(wxCommandEvent& event);
+    void OnZoomOut(wxCommandEvent& event);
+    void OnZoomFit(wxCommandEvent& event);
     void OnPaint(wxPaintEvent& event);
+    void OnSize(wxSizeEvent& event);
+
+protected:
     wxSize DoGetBestSize() const;
     
+    /**
+        Updates the m_bmp member with the package drawing.
+        Automatically calls Refresh() after the update.
+    */
+    void UpdateBitmap(const wxSize& sz);
+    
+    /** The name of the PIC device currently shown. */
     wxString m_name;
+    
+    /** The instance of the class holding all info about the device's package. */
     ChipPackage m_pkg;
     
-    /** The cached bitmap with the package drawing */
+    /** The cached bitmap with the package drawing. */
     wxBitmap m_bmp;
+    
+    /** Are we currently in the "fit the bitmap in the window" mode? */
+    bool m_fitting;
 };
 
 #endif //PACKAGEVIEW_H

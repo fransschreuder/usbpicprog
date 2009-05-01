@@ -189,6 +189,8 @@ protected:     // event handlers
         {upp_pic_choice_changed_bymenu(event.GetId()-wxID_PIC_CHOICE_MENU); EVENT_FIX}
     void on_package_variant_changed( wxCommandEvent& event ) 
         {upp_package_variant_changed(); EVENT_FIX}
+    void on_size( wxSizeEvent& event ) 
+        {upp_size_changed(); EVENT_FIX}
 
 private:    // real event handlers
 
@@ -213,8 +215,13 @@ private:    // real event handlers
     /** The user clicked select all */
     void upp_selectall();
 
+    /** Show preferences dialog */
     void upp_preferences();
+    
+    /** Load a browser with the usbpicprog website */
     void upp_help();
+    
+    /** Show an about box */
     void upp_about();
 
     /**
@@ -223,25 +230,52 @@ private:    // real event handlers
         See also the public upp_hex_changed().
     */
     //@{
+    
+    /** Size of the window was changed */
+    void upp_size_changed();
+    
+    /** If the PIC was changed from the wxChoice in the toolbar, also change it in the m_hardware */
     void upp_pic_choice_changed();
+    
+    /** If the PIC was changed from the menu, also change it in the m_hardware */
     void upp_pic_choice_changed_bymenu(int id);
+    
+    /** The package of the current PIC was changed by the choice box in the misc info panel */
     void upp_package_variant_changed();
-    //@
+    
+    //@}
+
 
     /**
         @name Functions which issue commands to the hardware class.
     */
     //@{
+    
     /** Write everything to the device */
     void upp_program();
+    
+    /** Read everything from the device */
     void upp_read();
+    
+    /** Verify the device with the open hexfile */
     void upp_verify();
+    
+    /** Perform a bulk-erase on the current PIC */
     void upp_erase();
+    
+    /** Check if the device is erased successfully */
     void upp_blankcheck();
+    
+    /** Detect which PIC is connected and select it in the choicebox and the m_hardware */
     bool upp_autodetect();
+    
+    /** Connect upp_wx to the upp programmer */
     bool upp_connect();
+    
+    /** Disconnect the m_hardware */
     void upp_disconnect();
-    //@
+    
+    //@}
 
 
 private:    // member variables

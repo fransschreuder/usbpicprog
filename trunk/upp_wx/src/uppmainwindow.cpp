@@ -354,6 +354,16 @@ void UppMainWindow::CompleteGUICreation()
     toolbar->AddControl( m_pPICChoice );
     toolbar->Realize();
 
+    // set bitmaps on the bitmap buttons
+    m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-in"));
+    m_pZoomInButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomIn), NULL, m_pPackageWin);
+    
+    m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-out"));
+    m_pZoomOutButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomOut), NULL, m_pPackageWin);
+    
+    m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-fit"));
+    m_pZoomFitButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(UppPackageViewWindow::OnZoomFit), NULL, m_pPackageWin);
+    
     // by default show code page at startup
     m_pNotebook->ChangeSelection(PAGE_CODE);
 
@@ -374,6 +384,7 @@ void UppMainWindow::CompleteGUICreation()
 
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
+    this->Connect( wxEVT_SIZE, wxSizeEventHandler( UppMainWindow::on_size ) );
     this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
 #if wxCHECK_VERSION(2,9,0)
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
@@ -388,6 +399,11 @@ void UppMainWindow::CompleteGUICreation()
 
     // show default stuff
     UpdatePicInfo();
+
+    // this is to be sure that the package-view window gets updated by our upp_size_changed()
+    // event handler to reflect the effective window size
+    // (this somehow doesn't happen on wxGTK; probably because of deferred top-window resizing)
+    PostSizeEvent();
 }
 
 UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
@@ -1192,7 +1208,6 @@ void UppMainWindow::upp_program()
     RunThread(THREAD_PROGRAM);
 }
 
-/*read everything from the device*/
 void UppMainWindow::upp_read()
 {
     if (m_hardware == NULL) return;
@@ -1212,7 +1227,6 @@ void UppMainWindow::upp_read()
     RunThread(THREAD_READ);
 }
 
-/*verify the device with the open hexfile*/
 void UppMainWindow::upp_verify()
 {
     if (m_hardware == NULL) return;
@@ -1227,7 +1241,6 @@ void UppMainWindow::upp_verify()
     RunThread(THREAD_VERIFY);
 }
 
-/*perform a bulk-erase on the current PIC*/
 void UppMainWindow::upp_erase()
 {
     if (m_hardware == NULL) return;
@@ -1247,7 +1260,6 @@ void UppMainWindow::upp_erase()
     RunThread(THREAD_ERASE);
 }
 
-/*Check if the device is erased successfully*/
 void UppMainWindow::upp_blankcheck()
 {
     if (m_hardware == NULL) return;
@@ -1262,7 +1274,6 @@ void UppMainWindow::upp_blankcheck()
     RunThread(THREAD_BLANKCHECK);
 }
 
-/*Detect which PIC is connected and select it in the choicebox and the m_hardware*/
 bool UppMainWindow::upp_autodetect()
 {
     if (m_hardware == NULL) return false;
@@ -1313,7 +1324,6 @@ bool UppMainWindow::upp_autodetect()
     return (devId>1);
 }
 
-/*Connect upp_wx to the upp programmer*/
 bool UppMainWindow::upp_connect()
 {
     // recreate the hw class
@@ -1380,7 +1390,6 @@ bool UppMainWindow::upp_connect()
     return m_hardware->connected();
 }
 
-/*disconnect the m_hardware*/
 void UppMainWindow::upp_disconnect()
 {
     if (m_hardware != NULL)
@@ -1416,13 +1425,11 @@ void UppMainWindow::upp_preferences()
         m_cfg = dlg.GetResult();
 }
 
-/*load a browser with the usbpicprog website*/
 void UppMainWindow::upp_help()
 {
     wxLaunchDefaultBrowser(wxT("http://usbpicprog.org/"));
 }
 
-/*show an about box (only supported from wxWidgets 2.8.something+) */
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;
@@ -1442,7 +1449,6 @@ void UppMainWindow::upp_about()
     wxAboutBox(aboutInfo);
 }
 
-/*if the combo changed, also change it in the m_hardware*/
 void UppMainWindow::upp_pic_choice_changed()
 {
     // user changed the pic-type and thus we need to either
@@ -1472,7 +1478,6 @@ void UppMainWindow::upp_pic_choice_changed()
     Reset();
 }
 
-/*if the combo changed, also change it in the m_hardware*/
 void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
 {
     // user changed the pic-type and thus we need to either
@@ -1507,12 +1512,23 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
 
 void UppMainWindow::upp_package_variant_changed()
 {
-    static wxSize sz = wxDefaultSize;
-
     // get the new package
     const ChipPackage& pkg = 
         m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
+
+    // set it to the package-view window
     if (m_picType.ok())
         m_pPackageWin->SetChip(wxString(m_picType.getCurrentPic().GetExtName().c_str()), pkg);
 }
 
+void UppMainWindow::upp_size_changed()
+{
+    static bool firsttime = true;
+    
+    // update the package view window 
+    if (firsttime)
+    {
+        m_pPackageWin->FitBitmap();
+        firsttime = false;
+    }
+}

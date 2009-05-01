@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 29 2008)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -111,6 +111,30 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pPackageVariants = new wxChoice( m_pInfoPanel, wxID_PACKAGE_VARIANT, wxDefaultPosition, wxDefaultSize, m_pPackageVariantsChoices, 0 );
 	m_pPackageVariants->SetSelection( 0 );
 	bSizer7->Add( m_pPackageVariants, 0, wxALIGN_CENTER|wxALL, 5 );
+	
+	
+	bSizer7->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_pZoomInButton = new wxBitmapButton( m_pInfoPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	m_pZoomInButton->SetToolTip( _("Zoom in") );
+	
+	m_pZoomInButton->SetToolTip( _("Zoom in") );
+	
+	bSizer7->Add( m_pZoomInButton, 0, wxALL, 5 );
+	
+	m_pZoomOutButton = new wxBitmapButton( m_pInfoPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	m_pZoomOutButton->SetToolTip( _("Zoom out") );
+	
+	m_pZoomOutButton->SetToolTip( _("Zoom out") );
+	
+	bSizer7->Add( m_pZoomOutButton, 0, wxALL, 5 );
+	
+	m_pZoomFitButton = new wxBitmapButton( m_pInfoPanel, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	m_pZoomFitButton->SetToolTip( _("Fit package drawing") );
+	
+	m_pZoomFitButton->SetToolTip( _("Fit package drawing") );
+	
+	bSizer7->Add( m_pZoomFitButton, 0, wxALL, 5 );
 	
 	pPackageSizer->Add( bSizer7, 0, wxEXPAND, 5 );
 	
