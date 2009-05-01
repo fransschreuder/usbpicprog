@@ -27,6 +27,7 @@
 #include <wx/stattext.h>
 #include <wx/choice.h>
 #include <wx/textctrl.h>
+#include <wx/statline.h>
 
 #include "configview.h"
 #include "uppmainwindow.h"
@@ -54,243 +55,281 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
     DeleteAllPages();
 
     // add new GUI selectors for the config flags of this PIC
-    for (unsigned int i=0; i<m_pic.Config.size(); i++)
+    for (unsigned int i=0; i<m_pic.ConfigWords.size(); i++)
     {
-        const ConfigWord& block = m_pic.Config[i];
-/*        if (block.Masks.size() == 0)
-            continue;       // skip this block*/
+        UppConfigViewPageControls pageCtrl;
+
+        const ConfigWord& word = m_pic.ConfigWords[i];
+        /*if (word.Masks.size() == 0)
+            continue;       // skip this word*/
 
         wxPanel *panel = new wxPanel(this, wxID_ANY);
         wxFlexGridSizer *sz = new wxFlexGridSizer(2 /* num of columns */,
                                                   10, 10 /* h and vgap */);
-		unsigned int ConfigWord=0;
-        for (unsigned int j=0; j<block.Masks.size(); j++)
+        unsigned int ConfigWord=0;
+        for (unsigned int j=0; j<word.Masks.size(); j++)
         {
-            const ConfigMask& mask = block.Masks[j];
+            const ConfigMask& mask = word.Masks[j];
 
             sz->Add(new wxStaticText(panel, wxID_ANY, mask.Name + ":"),
                     0, wxLEFT|wxALIGN_CENTER, 5);
 
             // NOTE: we give each wxChoice we build the name of the mask it controls;
-            //       in this way from OnChange() we can easily find out which object
+            //       in this way from OnChoiceChange() we can easily find out which object
             //       is sending the notification
             wxChoice *choice =
                 new wxChoice(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
-            // set the 
-            
-            unsigned int ConfigWordMask=0;
+            // set the configuration word
             if (m_pic.is16Bit())
             {
-                if ((i+1)<=(hex->getConfigMemory().size()))
+                if ((i+1) <= hex->getConfigMemory().size())
                 {
-                    ConfigWord=hex->getConfigMemory()[i];
+                    ConfigWord = hex->getConfigMemory()[i];
                 }
             }
-            else
+            else        // 8 bit PIC
             {
-                if ((2*i+1)<=(hex->getConfigMemory().size()))
+                if ((2*i+1) <= hex->getConfigMemory().size())
                 {
-                    ConfigWord=((hex->getConfigMemory()[i*2])|(hex->getConfigMemory()[i*2+1]<<8));
+                    ConfigWord = (hex->getConfigMemory()[i*2])|
+                                 (hex->getConfigMemory()[i*2+1]<<8);
                 }
             }
 
-            for (unsigned int k=0;k<mask.Values.size();k++)
-            {
-                ConfigWordMask|=mask.Values[k].Value;
-            }
+            // build the configuration word mask combining all values allowed
+            // for this ConfigMask object
+            // TODO: reuse Pic::ConfigMask here!
+            unsigned int ConfigWordMask = 0;
+            for (unsigned int k=0; k < mask.Values.size(); k++)
+                ConfigWordMask |= mask.Values[k].Value;
 
             choice->SetSelection(0);
-            for (unsigned int k=0; k<mask.Values.size(); k++)
+            for (unsigned int k=0; k < mask.Values.size(); k++)
             {
-                if((ConfigWord&ConfigWordMask)==mask.Values[k].Value)
+                if ((ConfigWord&ConfigWordMask) == mask.Values[k].Value)
                 {
                     choice->SetSelection(k);
+                    break;  // the current value for this ConfigMask has been found
                 }
             }
-            
+
             choice->Connect(wxEVT_COMMAND_CHOICE_SELECTED, 
-                            wxCommandEventHandler(UppConfigViewBook::OnChange), 
-                            NULL, this);
+                wxCommandEventHandler(UppConfigViewBook::OnChoiceChange), 
+                NULL, this);
 
             sz->Add(choice, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
+
+            pageCtrl.choiceCtrl.push_back(choice);
         }
 
-		sz->Add(new wxStaticText(panel, wxID_ANY, "Configword: "),
-                    0, wxLEFT|wxALIGN_CENTER, 5);
-		wxString configWordHex;
-		
-		if(m_pic.is16Bit())
-			configWordHex.Printf("%02X",ConfigWord);
-		else
-			configWordHex.Printf("%04X",ConfigWord);
 
-		m_configWordCtrl[i] = new wxTextCtrl(panel, wxID_ANY,configWordHex,
-					wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, block.Name+"Configword");
+        sz->AddSpacer(1);
+        sz->Add(new wxStaticLine(panel, wxID_ANY), 1, wxEXPAND|wxALL, 10);
 
-        sz->Add(m_configWordCtrl[i], 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
-		if(m_pic.is16Bit())
-			m_configWordCtrl[i]->SetMaxLength(2);
-		else
-			m_configWordCtrl[i]->SetMaxLength(4);
-		 
-		 
-		m_configWordCtrl[i]->Connect(wxEVT_COMMAND_TEXT_UPDATED , 
-                            wxCommandEventHandler(UppConfigViewBook::OnConfigWordChange), 
-                            NULL, this);
-		
+
+        // add the text control which contains the current hex value
+        // for the i-th configuration word
+
+        sz->Add(new wxStaticText(panel, wxID_ANY, "Word:"),
+                0, wxLEFT|wxALIGN_CENTER, 5);
+
+        wxString configWordHex;
+        if (m_pic.is16Bit())
+            configWordHex.Printf("%04X", ConfigWord);
+        else
+            configWordHex.Printf("%02X", ConfigWord);
+
+        wxTextCtrl* tc = new wxTextCtrl(panel, wxID_ANY, configWordHex,
+                                         wxDefaultPosition, wxDefaultSize, 0, 
+                                         wxDefaultValidator, word.Name+"Configword");
+        tc->SetToolTip(
+            wxString::Format(_("The current value for the %d-th configuration word as derived from above configuration choices"), i));
+
+        tc->SetMaxLength(m_pic.is16Bit() ? 4 : 2);
+        tc->Connect(wxEVT_COMMAND_TEXT_UPDATED, 
+                    wxCommandEventHandler(UppConfigViewBook::OnConfigWordDirectChange), 
+                    NULL, this);
+
+        sz->Add(tc, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
+
+        pageCtrl.textCtrl = tc;
+
+
+        // complete the creation of the panel:
+
         sz->AddGrowableCol(1, 1);
         panel->SetSizerAndFit(sz);
 
-        AddPage(panel, block.Name.empty() ? wxString::Format("Word %d", i) : block.Name);
+
+        // complete the creation of this page:
+
+        AddPage(panel, word.Name.empty() ? wxString::Format("Word %d", i) : word.Name);
+        m_ctrl.push_back(pageCtrl);
     }
 }
 
-void UppConfigViewBook::OnChange(wxCommandEvent& event)
+void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
 {
     wxChoice *choice = dynamic_cast<wxChoice*>(event.GetEventObject());
     wxASSERT(choice);
-    // get the block the user is currently viewing/editing
-    const ConfigWord& block = m_pic.Config[GetSelection()];
 
-    // find the config mask which was changed
+    unsigned int SelectedWord = GetSelection();
+
+    // get the cfg word the user is currently viewing/editing
+    const ConfigWord& word = m_pic.ConfigWords[SelectedWord];
+
+    // find the config mask (associated with the choice control which emitted
+    // the event) which needs to be updated
     const ConfigMask* mask = NULL;
-    for (unsigned int i=0; i<block.Masks.size(); i++)
+    for (unsigned int i=0; i<word.Masks.size(); i++)
     {
-        if (block.Masks[i].Name == choice->GetName())
+        if (word.Masks[i].Name == choice->GetName())
         {
-            mask = &block.Masks[i];
+            mask = &word.Masks[i];
             break;
         }
     }
-    unsigned int SelectedMask=GetSelection();
-    wxASSERT(mask);
-    int newConfigValue = mask->Values[choice->GetSelection()].Value;
-    int ConfigWord = 0; 
 
-    if(m_pic.is16Bit())
+    wxASSERT(mask);
+
+    // get the current value of the configuration word from the HEX file
+    int ConfigWord = 0; 
+    if (m_pic.is16Bit())
     {
-        if((SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
-        {
-            ConfigWord=m_hexFile->getConfigMemory()[SelectedMask];
-        
-        }
+        if ((SelectedWord+1) <= m_hexFile->getConfigMemory().size())
+            ConfigWord = m_hexFile->getConfigMemory()[SelectedWord];
     }
-    else
+    else    // 8 bit PIC
     {
-        if((2*SelectedMask+1)<=(m_hexFile->getConfigMemory().size()))
-        {
-            ConfigWord=((m_hexFile->getConfigMemory()[SelectedMask*2])|
-                        (m_hexFile->getConfigMemory()[SelectedMask*2+1]<<8));
-        
-        }
+        if ((2*SelectedWord+1) <= m_hexFile->getConfigMemory().size())
+            ConfigWord = (m_hexFile->getConfigMemory()[SelectedWord*2])|
+                         (m_hexFile->getConfigMemory()[SelectedWord*2+1]<<8);
     }
-	for (unsigned int i=0; i<mask->Values.size();i++)
-    {
+
+    // combine the current value with the new value selected by the user
+    // through the wxChoice
+    // TODO: reuse Pic::ConfigMask
+    for (unsigned int i=0; i<mask->Values.size();i++)
         ConfigWord &= ~mask->Values[i].Value;
-    }
-    ConfigWord |= newConfigValue;
-	wxString configWordHex;
-	if(m_pic.is16Bit())
-		 configWordHex.Printf("%02X",ConfigWord);
-	else
-		 configWordHex.Printf("%04X",ConfigWord);
-	m_configWordCtrl[SelectedMask]->SetValue(configWordHex);
-    if(m_pic.is16Bit())
+    ConfigWord |= mask->Values[choice->GetSelection()].Value;
+
+    wxString configWordHex;
+    if (m_pic.is16Bit())
+        configWordHex.Printf("%04X", ConfigWord);
+    else
+        configWordHex.Printf("%02X", ConfigWord);
+
+    // save the new value back in the HEX file and in the textctrl for the
+    // selected configuration word:
+    m_ctrl[SelectedWord].textCtrl->ChangeValue(configWordHex);
+    if (m_pic.is16Bit())
     {
-        m_hexFile->putConfigMemory(SelectedMask,ConfigWord&0xFF);
+        m_hexFile->putConfigMemory(SelectedWord, ConfigWord&0xFF);
     }
     else
     {
-        m_hexFile->putConfigMemory(SelectedMask*2,ConfigWord&0xFF);
-        m_hexFile->putConfigMemory(SelectedMask*2+1,(ConfigWord&0xFF00)>>8);
+        m_hexFile->putConfigMemory(SelectedWord*2, ConfigWord&0xFF);
+        m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWord&0xFF00)>>8);
     }
+
     // notify the main window about this change
     UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
     wxASSERT(main);
     main->upp_hex_changed();
 }
 
-void UppConfigViewBook::OnConfigWordChange(wxCommandEvent& event)
+void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 {
-	unsigned int ConfigWordInt = 0; 
-	
-	
-	if(!m_configWordCtrl[GetSelection()]->GetValue().ToULong((unsigned long*)&ConfigWordInt, 16))
-	{
-		if(m_pic.is16Bit())
-		{
-		    if((unsigned)(GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
-		    {
-		        ConfigWordInt=m_hexFile->getConfigMemory()[GetSelection()];
-				    
-		    }
-		}
-		else
-		{
-		    if((unsigned)(2*GetSelection()+1)<=(m_hexFile->getConfigMemory().size()))
-		    {
-		        ConfigWordInt=((m_hexFile->getConfigMemory()[GetSelection()*2])|
-		                    (m_hexFile->getConfigMemory()[GetSelection()*2+1]<<8));
-		    
-		    }
-		}
-		wxString configWordHex;
-		if(m_pic.is16Bit())
-			configWordHex.Printf("%02X",ConfigWordInt);
-		else
-			configWordHex.Printf("%04X",ConfigWordInt);
-		if(m_configWordCtrl[GetSelection()]->GetValue().size()==0)return;
-		m_configWordCtrl[GetSelection()]->ChangeValue(configWordHex);
-		return;
-	}
-	else
-	{
-		if(m_pic.is16Bit()) //put the value back into the hexfile
-		{
-			ConfigWordInt&=0xFF;
-		    m_hexFile->putConfigMemory(GetSelection(),ConfigWordInt&0xFF);
-		}
-		else
-		{
-			ConfigWordInt&=0x3FFF;
-		    m_hexFile->putConfigMemory(GetSelection()*2,ConfigWordInt&0xFF);
-		    m_hexFile->putConfigMemory(GetSelection()*2+1,(ConfigWordInt&0xFF00)>>8);
-		}
-		//update the wxChoices
+    unsigned long ConfigWordInt = 0; 
 
-	
-		const ConfigWord& block = m_pic.Config[GetSelection()];
-		
-		
-		for(unsigned int i=0;i<block.Masks.size();i++)
-		{
-			const ConfigMask& mask = block.Masks[i];
-			wxChoice *choice=NULL;
-			for(unsigned int j=0;j<GetCurrentPage()->GetChildren().size();j++)
-			{
-				if(mask.Name==GetCurrentPage()->GetChildren().Item(j)->GetData()->GetName())
-					choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j)->GetData());
-			}
-			
-			wxASSERT(choice);
-			int ConfigWordMask=0;
-					
-			for (unsigned int k=0;k<mask.Values.size();k++)
-		    {
-		        ConfigWordMask|=mask.Values[k].Value;
-		    }
+    wxString configStr = m_ctrl[GetSelection()].textCtrl->GetValue();
+    if (configStr.empty())
+        return;     // do not change anything
 
-		    choice->SetSelection(0);
-		    for (unsigned int k=0; k<mask.Values.size(); k++)
-		    {
-		        if((ConfigWordInt&ConfigWordMask)==mask.Values[k].Value)
-		        {
-		            choice->SetSelection(k);
-		        }
-		    }
-		}
-		
-	}
+    if (!configStr.ToULong(&ConfigWordInt, 16))
+    {
+        // the user has written something invalid (i.e. not convertible to a number)
+        // inside the text ctrl; in this case restore the default value for the affected
+        // configuration word reading it from the HEX file config memory area
+
+        if (m_pic.is16Bit())
+        {
+            if ((unsigned)(GetSelection()+1) <= m_hexFile->getConfigMemory().size())
+            {
+                ConfigWordInt = m_hexFile->getConfigMemory()[GetSelection()];
+            }
+        }
+        else        // 8 bit PIC
+        {
+            if ((unsigned)(2*GetSelection()+1) <= m_hexFile->getConfigMemory().size())
+            {
+                ConfigWordInt = ((m_hexFile->getConfigMemory()[GetSelection()*2])|
+                                (m_hexFile->getConfigMemory()[GetSelection()*2+1]<<8));
+            }
+        }
+
+        wxString configWordHex;
+        if (m_pic.is16Bit())
+            configWordHex.Printf("%02X",ConfigWordInt);
+        else
+            configWordHex.Printf("%04X",ConfigWordInt);
+
+        m_ctrl[GetSelection()].textCtrl->ChangeValue(configWordHex);
+    }
+    else
+    {
+        // the user entered a valid integer; put the value into the hexfile
+        if (m_pic.is16Bit())
+        {
+            ConfigWordInt &= 0xFF;
+            m_hexFile->putConfigMemory(GetSelection(), ConfigWordInt&0xFF);
+        }
+        else
+        {
+            ConfigWordInt &= 0x3FFF;
+            m_hexFile->putConfigMemory(GetSelection()*2, ConfigWordInt&0xFF);
+            m_hexFile->putConfigMemory(GetSelection()*2+1, (ConfigWordInt&0xFF00)>>8);
+        }
+
+        // notify the main window about this change
+        UppMainWindow* main = dynamic_cast<UppMainWindow*>(wxTheApp->GetTopWindow());
+        wxASSERT(main);
+        main->upp_hex_changed();
+
+        // now update the wxChoices for the selected configuration word
+
+        const ConfigWord& word = m_pic.ConfigWords[GetSelection()];
+        for (unsigned int i=0;i<word.Masks.size();i++)
+        {
+            const ConfigMask& mask = word.Masks[i];
+
+            // walk among the childrens of the selected page
+            wxChoice *choice;
+            for (unsigned int j=0;j<GetCurrentPage()->GetChildren().size();j++)
+            {
+                if (mask.Name == GetCurrentPage()->GetChildren().Item(j)->GetData()->GetName())
+                {
+                    // we've found a wxChoice
+                    choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j)->GetData());
+                    break;
+                }
+            }
+
+            wxASSERT(choice);
+
+            // build the mask for this configuration word
+            // TODO: reuse Pic::ConfigMask
+            int ConfigWordMask=0;
+            for (unsigned int k=0;k<mask.Values.size();k++)
+                ConfigWordMask|=mask.Values[k].Value;
+
+            // now update the selection for this wxChoice
+            choice->SetSelection(0);
+            for (unsigned int k=0; k<mask.Values.size(); k++)
+                if ((ConfigWordInt&ConfigWordMask) == mask.Values[k].Value)
+                    choice->SetSelection(k);
+        }
+    }
 }

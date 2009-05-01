@@ -51,7 +51,7 @@ class wxDC;
 
 /**
     PicFamily indicates a programming algorith, each one is used by a certain 
-    range of PICs  (in some cases a single one!)
+    range of PICs (in some cases a single one!)
 */
 typedef enum {
     P18F2XXX,P18FXX2,P16F87XA,P16F62XA,P16F62X,P12F629,P12F6XX,P16F84A,P16F81X,
@@ -389,18 +389,39 @@ public:
 
     // public members to avoid lots of getters/setters:
 
+    /// Name of the PIC model described by this Pic instance
     string Name;
+
+    /// Size of the code memory area (in word units??)
     unsigned int CodeSize;
-    unsigned int ConfigAddress;
-    unsigned int DataAddress; // in hex file
-    unsigned int DataSize;
+
+    /// Size of the configuration memory area (in word units??)
     unsigned int ConfigSize;
+
+    /// Size of the data memory area (in word units??)
+    unsigned int DataSize;
+
+    /// Address for the configuration memory area (in word units??)
+    unsigned int ConfigAddress;
+
+    /// Address for the data memory area (in word units??)
+    unsigned int DataAddress; // in hex file
+
+    /// The family to which this PIC belongs
     PicFamily picFamily;
+
+    /// The device ID for this type of PIC
     unsigned int DevId;
+
+    /// The bitmask to be used when comparing/manipulating #DevId.
     unsigned int DevIdMask;
 
     /// The array of configuration blocks
-    vector<ConfigWord> Config;
+    vector<ConfigWord> ConfigWords;
+
+    /// The final masks to be used for the various elements of the #ConfigWords array.
+    /// TODO: remove this member and put the computed mask inside ConfigWord::WriteMask instead.
+    unsigned int ConfigMask[16];
 
     /// Package descriptor
     vector<ChipPackage> Package;
@@ -413,9 +434,6 @@ public:
 
     /// The minimum & maximum frequencies for this PIC.
     float MinFreq, MaxFreq;
-
-    // TODO: remove this in favour of "Config"                                              
-    unsigned int ConfigMask[16];
 };
 
 /**

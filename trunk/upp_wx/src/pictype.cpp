@@ -81,43 +81,55 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
 {
     if (indexInfo.pic.ok())
     {
-        // this PIC data was already loaded and cached previously;
+        // the data for this PIC was already loaded and cached previously;
         // don't reload it again!
         m_currentPic = indexInfo.pic;
     }
     else
     {
         m_currentPic = LoadPiklabXML(indexInfo.name);
+
         // complete the Piklab data with some UPP-specific data
         // previously loaded from UPP_INDEX_FILE
         m_currentPic.DevIdMask = indexInfo.devIdMask;
         m_currentPic.DevId = indexInfo.devId;
         m_currentPic.picFamily = indexInfo.picFamily;
-		for(unsigned int i=0;i<m_currentPic.Config.size();i++)
-		{
-			int tmpConfigMask=0;
-			for(unsigned int j=0;j<m_currentPic.Config[i].Masks.size();j++)
-			{
-				for(unsigned int k=0;k<m_currentPic.Config[i].Masks[j].Values.size();k++)
-				{
-					tmpConfigMask|=m_currentPic.Config[i].Masks[j].Values[k].Value;
-					cout<<tmpConfigMask<<endl;
-				}
-			}
-			if(m_currentPic.is16Bit())
-			{
-				m_currentPic.ConfigMask[i]=tmpConfigMask;
-			}
-			else
-			{
-				m_currentPic.ConfigMask[i*2]=tmpConfigMask&0xFF;
-				m_currentPic.ConfigMask[i*2+1]=(tmpConfigMask>>8)&0xFF;
-			}
-			
-		}
+
+        // finally, compute the configuration mask using the data previously loaded
+        // from the Piklab XML file
+        for (unsigned int i=0; i<m_currentPic.ConfigWords.size(); i++)
+        {
+            const ConfigWord& word = m_currentPic.ConfigWords[i];
+            int tmpConfigMask=0;
+
+            for (unsigned int j=0; j<word.Masks.size(); j++)
+            {
+                const ConfigMask& mask = word.Masks[j];
+
+                for (unsigned int k=0; k<mask.Values.size(); k++)
+                {
+                    tmpConfigMask |= mask.Values[k].Value;
+                    cout<<tmpConfigMask<<endl;
+                }
+            }
+
+            if (m_currentPic.is16Bit())
+            {
+                m_currentPic.ConfigMask[i] = tmpConfigMask;
+            }
+            else
+            {
+                // for 8 bit devices, each mask need to be saved in two different 
+                // elements of the mask array:
+                m_currentPic.ConfigMask[i*2] = tmpConfigMask & 0xFF;
+                m_currentPic.ConfigMask[i*2+1] = (tmpConfigMask>>8) & 0xFF;
+            }
+        }
+
         // cache the entire structure in our internal static array:
         indexInfo.pic = m_currentPic;
     }
+
     return m_currentPic.ok();
 }
 
@@ -147,8 +159,8 @@ bool PicType::Init()
 
     wxXmlDocument idx;
     if (!idx.Load(wxStandardPaths::Get().GetDataDir() + 
-                wxFileName::GetPathSeparator() + 
-                UPP_INDEX_FILE))
+                  wxFileName::GetPathSeparator() + 
+                  UPP_INDEX_FILE))
     {
         wxLogError("Cannot load '%s'.", UPP_INDEX_FILE);
         return false;
@@ -180,7 +192,7 @@ bool PicType::Init()
                 wxLogError("Invalid PIC family for PIC '%s'.", info.name);
                 return false;
             }
-            
+
             child->GetAttribute("upp_devid", &str);
             if (str.ToLong(&num, 0))
                 info.devId = num;
@@ -188,7 +200,6 @@ bool PicType::Init()
             child->GetAttribute("upp_devidmask", &str);
             if (str.ToLong(&num, 0))
                 info.devIdMask = num;
-
 
             if (info.name == UPP_DEFAULT_PIC_MODEL)
             {
@@ -237,7 +248,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     wxString str;
     long num=0;
     wxString prefix = wxStandardPaths::Get().GetDataDir() + 
-                    wxFileName::GetPathSeparator();
+                      wxFileName::GetPathSeparator();
 #ifdef __WXMSW__
     prefix += "xml_data";
     prefix += wxFileName::GetPathSeparator();
@@ -261,6 +272,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
         return UPP_INVALID_PIC;
+
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
     while (child)
@@ -268,15 +280,15 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
         if (child->GetName() == "memory")
         {
             wxString name;
-            
+
             if (!child->GetAttribute("name", &name))
                 return UPP_INVALID_PIC;
             if (name == "code")
-                p.CodeSize = (GetRange(child)+1)*2; //times 2 because this is in word units
+                p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
             else if (name == "config")
             {
-                p.ConfigSize = (GetRange(child)+1)*2; //times 2 because this is in word units
-                
+                p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
+
                 if (!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))
                     return UPP_INVALID_PIC;
@@ -285,7 +297,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             else if (name == "eeprom")
             {
                 p.DataSize = GetRange(child)+1;
-                
+
                 if (!child->GetAttribute("hexfile_offset", &str) ||
                     !str.ToLong(&num, 0))
                     return UPP_INVALID_PIC;
@@ -349,6 +361,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                     mask.Name = maskNode->GetAttribute("name");
                     if (!maskNode->GetAttribute("value").ToULong(&mask.Value, 0))
                         return UPP_INVALID_PIC;
+
                     // load the ConfigValue objects belonging to this mask
                     wxXmlNode *valueNode = maskNode->GetChildren();
                     while (valueNode)
@@ -377,7 +390,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                 maskNode = maskNode->GetNext();
             }
 
-            p.Config.push_back(block);
+            p.ConfigWords.push_back(block);
         }
         else if (child->GetName() == "package")
         {
@@ -408,12 +421,12 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
                 PackageType pt = ChipPackage::GetPackageTypeFromString(types[i]);
                 if (pt == UPP_INVALID_PACKAGETYPE)
                     continue;
-                
+
                 // init this valid package
                 ChipPackage pkg;
                 pkg.Type = pt;
                 pkg.PinNames = names;
-                
+
                 // add it to the PicType instance:
                 p.Package.push_back(pkg);
             }
@@ -558,7 +571,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
 
     // select a font suitable for the PinH we have computed above:
     wxFont fnt(wxSize(0,int(PinH*0.8)), wxFONTFAMILY_DEFAULT,
-                wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+               wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
     dc.SetFont(fnt);
     const unsigned int PinNumberW = 2*dc.GetCharWidth();
     const unsigned int PinNumberH = dc.GetCharHeight();
@@ -567,15 +580,15 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
     unsigned int start = invertOrder ? LastPin-1 : FirstPin;
     unsigned int end = invertOrder ? FirstPin-1 : LastPin;
     int inc = invertOrder ? -1 : +1;
-    
+
     if (dir == wxLEFT || dir == wxRIGHT)
     {
         unsigned int PinX = (dir == wxLEFT) ? pt.x-PinW+1 : pt.x-1;
         unsigned int PinY = pt.y + PinOffset + PinSpacing;
-        
+
         unsigned int PinNumberX = (dir == wxLEFT) ? 
                 pt.x+PinSpacing : pt.x-PinNumberW-PinSpacing;
-        
+
         if (flags & DRAWPIN_NUMBERS_INSIDE_PINS)
             PinNumberX = PinX + (PinW-PinNumberW)/2;
 
@@ -583,7 +596,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
         for (unsigned int i=start; i != end; i+=inc)
         {
             unsigned int PinNumberY = PinY + (PinH-PinNumberH)/2;
-            
+
             unsigned int pinLabelX = (dir == wxLEFT) ? 
                 PinX-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : 
                 PinX+PinW+PinSpacing;
@@ -607,7 +620,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
         SWAP(PinH, PinW, unsigned int);
             // in this case the PackageLen is the number of horizontal pixels available
             // for drawing the pin strip; thus we want to compute PinW and set PinH
-            
+
         // VERY IMPORTANT: the code below is the dual of the code for wxLEFT|wxRIGHT case!
         //                 If you change something here, you may want to change it also
         //                 above, with the appropriate differences
@@ -615,18 +628,18 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
 
         unsigned int PinX = pt.x + PinOffset + PinSpacing;
         unsigned int PinY = (dir == wxTOP) ? pt.y-PinH+1 : pt.y-1;
-        
+
         unsigned int PinNumberY = (dir == wxTOP) ? 
             pt.y+PinSpacing : pt.y-PinNumberH-PinSpacing;
 
         if (flags & DRAWPIN_NUMBERS_INSIDE_PINS)
             PinNumberY = PinY + (PinH-PinNumberW)/2;
-        
+
         // draw the pins organizing them in a horizontal column
         for (unsigned int i=start; i != end; i+=inc)
         {
             unsigned int PinNumberX = PinX + PinNumberH + (PinW-PinNumberH)/2;
-            
+
             unsigned int pinLabelX = PinNumberX;
             unsigned int pinLabelY = (dir == wxTOP) ? 
                 PinY-PinSpacing-dc.GetTextExtent(PinNames[i]).GetWidth() : 
@@ -747,7 +760,7 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
                      DRAWPIN_INVERTED_ORDER|DRAWPIN_NUMBERS_INSIDE_PINS, wxTOP);
         }
         break;
-        
+
     default:
         break;
     }

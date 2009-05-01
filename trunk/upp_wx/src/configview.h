@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   Copyright (C) 2008 by Frans Schreuder, Francesco Montorsi             *
 *   usbpicprog.sourceforge.net                                            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -26,6 +26,24 @@
 
 #include "pictype.h"
 #include "hexfile.h"
+
+
+class wxChoice;
+class wxTextCtrl;
+
+/// Helper structure used by UppConfigViewBook to keep track of the
+/// controls it creates for each of its pages
+typedef struct
+{
+    /// The wxChoices associated with the various ConfigMask objects contained
+    /// into the same ConfigWord instance
+    vector<wxChoice*> choiceCtrl;
+
+    /// The text control which holds the HEX value for the configuration word
+    wxTextCtrl* textCtrl;
+} UppConfigViewPageControls;
+
+
 
 /**
     A specialized listbook which shows the configuration flags of a PIC.
@@ -63,11 +81,24 @@ private:
         selected by the user (but does not contain the actual data - m_hexFile contains it).
     */
     Pic m_pic;
-	wxTextCtrl *m_configWordCtrl[16];
+
+    /**
+        Pointers to the wxChoice and wxTextCtrl controls which contain the current values 
+        of the various configuration words.
+    */
+    vector<UppConfigViewPageControls> m_ctrl;
 
 protected:
-    void OnChange(wxCommandEvent& event);
-	void OnConfigWordChange(wxCommandEvent& event);
+    /**
+        Called when the user changes the selection inside one of the wxChoice that are
+        contained inside UppConfigViewBook.
+    */
+    void OnChoiceChange(wxCommandEvent& event);
+
+    /**
+        Called when the user changes the contents of one of #m_configWordCtrl text controls.
+    */
+    void OnConfigWordDirectChange(wxCommandEvent& event);
 };
 
 #endif //CONFIGVIEW_H
