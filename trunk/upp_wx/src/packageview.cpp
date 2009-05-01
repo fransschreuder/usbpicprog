@@ -80,7 +80,15 @@ void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
     m_pkg.Draw(dc, sz, m_name);
     dc.SelectObject(wxNullBitmap);
     
-    SetVirtualSize(sz);
+    {
+        // NOTE: on wxMSW setting the virtual size triggers a size event
+        //       and thus our OnSize() would be called with an outdated
+        //       m_fitting variable; to avoid this we temporarily block
+        //       event generation
+        wxEventBlocker nul(this);
+        SetVirtualSize(sz);
+    }
+
     AdjustScrollbars();
     Refresh();
 }
@@ -110,14 +118,14 @@ void UppPackageViewWindow::OnSize(wxSizeEvent& WXUNUSED(event))
 
 void UppPackageViewWindow::OnZoomIn(wxCommandEvent& WXUNUSED(event))
 {
-    UpdateBitmap(GetVirtualSize()*1.5);
+    UpdateBitmap(m_bmp.GetSize()*1.5);
     
     m_fitting = m_bmp.GetSize() == GetClientSize();
 }
 
 void UppPackageViewWindow::OnZoomOut(wxCommandEvent& WXUNUSED(event))
 {
-    UpdateBitmap(GetVirtualSize()*(1.0/1.5));
+    UpdateBitmap(m_bmp.GetSize()*(1.0/1.5));
     
     m_fitting = m_bmp.GetSize() == GetClientSize();
 }
