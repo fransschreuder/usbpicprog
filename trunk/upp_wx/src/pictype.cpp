@@ -41,6 +41,13 @@ vector<PicType::PicIndexInfo> PicType::s_arrSupported;
 PicType::PicIndexInfo PicType::s_default;
 
 
+// these symbols are mostly used for debugging; they should be 0 by default since we
+// want to load Piklab XML files on demand for max performances
+// Typical debug use is to check that all supported devices have valid Piklab XML
+// files which can be loaded without warnings/errors
+#define LOAD_ALL_PIKLAB_FILES_AT_STARTUP        0
+#define LOAD_SUPPORTED_PIKLAB_FILES_AT_STARTUP  0
+
 // ----------------------------------------------------------------------------
 // PicType
 // ----------------------------------------------------------------------------
@@ -124,6 +131,10 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
                 m_currentPic.ConfigMask[i*2] = tmpConfigMask & 0xFF;
                 m_currentPic.ConfigMask[i*2+1] = (tmpConfigMask>>8) & 0xFF;
             }
+            
+            if (word.Mask != tmpConfigMask)
+                wxLogWarning(_("Wrong write mask for %s. Computed mask is %X; loaded mask is %X"), 
+                             m_currentPic.GetExtName(), tmpConfigMask, word.Mask);
         }
 
         // cache the entire structure in our internal static array:
@@ -220,6 +231,38 @@ bool PicType::Init()
         wxLogError("Could not load the data for the PIC '%s'.", UPP_DEFAULT_PIC_MODEL);
         return false;
     }
+    
+#if LOAD_SUPPORTED_PIKLAB_FILES_AT_STARTUP
+    for (unsigned int i=0;i<s_arrSupported.size();i++)
+    {
+        // constructing this instance triggers loading of the XML file:
+        PicType temp(string(s_arrSupported[i].name.c_str()));
+    }
+#endif
+#if LOAD_ALL_PIKLAB_FILES_AT_STARTUP
+    wxString prefix = wxStandardPaths::Get().GetDataDir() + 
+                      wxFileName::GetPathSeparator();
+#ifdef __WXMSW__
+    prefix += "xml_data";
+    prefix += wxFileName::GetPathSeparator();
+#endif
+
+    wxDir dir;
+    if ( !dir.Open(prefix) )
+    {
+        wxLogError(_("Could not access the 'xml_data' folder."));
+        return false;
+    }
+
+    wxString filename;
+    for ( bool cont = dir.GetFirst(&filename, "*.xml", wxDIR_FILES);
+          cont;
+          cont = dir.GetNext(&filename) )
+    {
+        if (!LoadPiklabXMLFile(prefix + filename).ok())
+            wxLogError("Could not load the PIC data from '%s'.", filename);
+    }
+#endif
 
     return s_arrSupported.size()>0;
 }
@@ -243,10 +286,6 @@ int PicType::GetRange(const wxXmlNode* p)
 /* static */
 Pic PicType::LoadPiklabXML(const wxString& picName)
 {
-    Pic p;
-    wxXmlDocument doc;
-    wxString str;
-    long num=0;
     wxString prefix = wxStandardPaths::Get().GetDataDir() + 
                       wxFileName::GetPathSeparator();
 #ifdef __WXMSW__
@@ -254,14 +293,28 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     prefix += wxFileName::GetPathSeparator();
 #endif
 
-    if (!doc.Load(prefix + picName + ".xml"))
+    Pic ret = LoadPiklabXMLFile(prefix + picName + ".xml");
+    if (ret.Name != "P" + picName)  // PIC name should match picName
+        return UPP_INVALID_PIC;
+    
+    return ret;
+}
+
+/* static */
+Pic PicType::LoadPiklabXMLFile(const wxString& fileName)
+{
+    Pic p;
+    wxXmlDocument doc;
+    wxString str;
+    long num=0;
+    
+    if (!doc.Load(fileName))
         return UPP_INVALID_PIC;
     if (doc.GetRoot()->GetName() != "device")
         return UPP_INVALID_PIC;
 
-    // load the name of the PIC: it should match picName
-    if (!doc.GetRoot()->GetAttribute("name", &str) ||
-        str != picName)
+    // load the name of the PIC:
+    if (!doc.GetRoot()->GetAttribute("name", &str))
         return UPP_INVALID_PIC;
     p.Name = "P" + str;
 
@@ -349,6 +402,12 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
             ConfigWord block;
             block.Name = child->GetAttribute("name");
             if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
+                return UPP_INVALID_PIC;
+            
+            // NOTE: for some reason the real mask for this configuration word
+            //       is stored into "bvalue" and not in "wmask"!
+            //       See also the check we do in PicType::LoadPIC
+            if (!child->GetAttribute("bvalue").ToULong(&block.Mask, 0))
                 return UPP_INVALID_PIC;
 
             // load the ConfigMask objects belonging to this word

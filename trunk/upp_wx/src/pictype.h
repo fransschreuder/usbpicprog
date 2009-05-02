@@ -327,7 +327,7 @@ public:
 class ConfigWord
 {
 public:
-    ConfigWord() : Offset(0), WriteMask(0) {}
+    ConfigWord() : Offset(0), Mask(0) {}
 
     /**
         The offset of this configuration word inside the configuration memory area of the PIC.
@@ -335,9 +335,13 @@ public:
     unsigned long Offset;
     
     /**
-        The write mask. TODO: currently unused; remove?
+        The mask for this configuration word.
+        This is obtained OR-ing all possible values for all our ConfigMask objects.
+        
+        This value is loaded from Piklab XML file but it's also checked against our
+        computed value in PicType::LoadPIC().
     */
-    unsigned long WriteMask;
+    unsigned long Mask;
     
     /**
         The name of this configuration word.
@@ -439,7 +443,7 @@ public:
 /**
     A PIC type.
 
-    @todo rename this class to PicChooser and rename its ctors
+    TODO rename this class to PicChooser and rename its ctors
         to FindPIC() and make all its function static.
         Change UppMainWindow to store&use a Pic instance.
         Or otherwise simply merge this class with the Pic class itself.
@@ -541,14 +545,23 @@ private:    // utilities
     bool LoadPIC(PicType::PicIndexInfo& indexInfo);
 
     /**
-        Loads the Piklab XML for the given PIC name
-        (the name must not start with 'P').
+        Loads the Piklab XML for the given PIC name.
+        
+        @param picName
+            The name of the PIC whose data must be loaded.
+            This string must @b not start with 'P' or 'PIC' but directly with the 
+            model number (e.g. '16F84A').
 
         @note Does not log any error.
 
         @return UPP_INVALID_PIC on failure, or a valid Pic structure otherwise.
     */
     static Pic LoadPiklabXML(const wxString& picName);
+    
+    /**
+        Loads the Piklab XML identified by the given @a fileName.
+    */
+    static Pic LoadPiklabXMLFile(const wxString& fileName);
 
     /**
         Returns the range indicated by the given XML node.
