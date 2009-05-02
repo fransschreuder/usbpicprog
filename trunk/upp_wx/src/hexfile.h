@@ -56,33 +56,63 @@ public:
     HexFile(PicType* picType=NULL,const char* filename=NULL);
     ~HexFile();
 
-    /** Resets this instance and fills it with 0xFF bytes */
+    /**
+        Resets this instance and fills it with 0xFF bytes; then calls trimData().
+    */
     int newFile(PicType* picType);
+    
     int open(PicType* picType, const char* filename);
     int reload(PicType* picType);
-    int saveAs(PicType* picType,const char* filename);
+    int saveAs(PicType* picType, const char* filename);
     int save(PicType* picType);
+    
+    /**
+        @name Memory manipulation functions
+    */
+    //@{
+    
     void putCodeMemory(vector<int> &mem);
     void putCodeMemory(int address, int mem);
     void putDataMemory(vector<int> &mem);
     void putDataMemory(int address, int mem);
     void putConfigMemory(vector<int> &mem);
     void putConfigMemory(int address, int mem);
-    vector<int> &getCodeMemory(void);
+    
+    //@}
+    
+    
+    /**
+        @name Memory read functions
+    */
+    //@{
+    
+    vector<int> &getCodeMemory();
     int getCodeMemory(int address);
-    vector<int> &getDataMemory(void);
+    vector<int> &getDataMemory();
     int getDataMemory(int address);
-    vector<int> &getConfigMemory(void);
+    vector<int> &getConfigMemory();
     int getConfigMemory(int address);
-    void print(string* output,PicType* picType);
+    
+    //@}
+    
+    
+    /**
+        Dumps into the @a output string the current code/config/data memory contents.
+    */
+    void print(string* output, PicType* picType);
+    
+    /**
+        Masks code, config and data memory areas with the @c 0xFF or @c 0x3F mask
+        respectively for 16 and 8 bit devices.
+    */
     void trimData(PicType* picType);
 
-    const char* getFileName() const { return m_filename; }
+    const char* getFileName() const { return m_filename.c_str(); }
     bool hasFileName() const { return m_filename[0] != '\0'; }
     bool wasModified() const { return m_bModified; }
 
 private:
-    char m_filename[512];
+    string m_filename;
     bool m_bModified;
 
     vector<int> m_codeMemory;

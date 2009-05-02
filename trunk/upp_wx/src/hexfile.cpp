@@ -54,7 +54,6 @@ HexFile::~HexFile()
 {
 }
 
-/*fill an empty hexfile with 0xFF*/
 int HexFile::newFile(PicType* picType)
 {
     m_codeMemory.resize(0);
@@ -103,7 +102,8 @@ int HexFile::open(PicType* picType,const char* filename)
     do
     {
         fp>>tempStr;
-        strcpy(m_filename,filename);
+        
+        m_filename = string(filename);
 
         sscanf(tempStr.c_str(),":%02X",&byteCount);
 
@@ -216,37 +216,28 @@ void HexFile::trimData(PicType* picType)
 {
     if(!picType->getCurrentPic().is16Bit())
     {
-        for(int i=1;i<(signed)m_codeMemory.size();i+=2)
-        {
+        for(unsigned int i=1;i<m_codeMemory.size();i+=2)
             m_codeMemory[i]&=0x3F;
-        }
-        for(int i=1;i<(signed)m_configMemory.size();i+=2)
-        {
+        for(unsigned int i=1;i<m_configMemory.size();i+=2)
             m_configMemory[i]&=0x3F;
-        }
     }
     else
     {
-        for(int i=1;i<(signed)m_codeMemory.size();i++)
-        {
+        for(unsigned int i=1;i<m_codeMemory.size();i++)
             m_codeMemory[i]&=0xFF;
-        }
-        for(int i=1;i<(signed)m_configMemory.size();i++)
-        {
+        for(unsigned int i=1;i<m_configMemory.size();i++)
             m_configMemory[i]&=0xFF;
-        }
     }
-    for(int i=1;i<(signed)m_dataMemory.size();i++)
-    {
+    
+    for(unsigned int i=1;i<m_dataMemory.size();i++)
         m_dataMemory[i]&=0xFF;
-    }
 
     m_bModified = true;
 }
 
 int HexFile::reload(PicType* picType)
 {
-    return open(picType,m_filename);
+    return open(picType, m_filename.c_str());
 }
 
 int HexFile::saveAs(PicType* picType,const char* filename)
@@ -263,7 +254,7 @@ int HexFile::saveAs(PicType* picType,const char* filename)
         return -1;
     }
 
-    strcpy(m_filename,filename);
+    m_filename = string(filename);
 
     if(m_codeMemory.size()>0)
     {
@@ -362,7 +353,7 @@ int HexFile::saveAs(PicType* picType,const char* filename)
 
 int HexFile::save(PicType* picType)
 {
-    return saveAs(picType,m_filename);
+    return saveAs(picType, m_filename.c_str());
 }
 
 void HexFile::putCodeMemory(vector<int> &mem)
