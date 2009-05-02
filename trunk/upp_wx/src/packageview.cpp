@@ -31,6 +31,8 @@
 
 #include "packageview.h"
 
+#define MAX_SIZE        5000
+#define MIN_SIZE        50
 
 // ----------------------------------------------------------------------------
 // UppPackageViewWindow
@@ -118,6 +120,11 @@ void UppPackageViewWindow::OnSize(wxSizeEvent& WXUNUSED(event))
 
 void UppPackageViewWindow::OnZoomIn(wxCommandEvent& WXUNUSED(event))
 {
+    if (max(m_bmp.GetWidth(), m_bmp.GetHeight()) >= MAX_SIZE)
+        return;     // zooming into the bitmap consumes memory; without this limit
+                    // the app would crash at some point (depending on the user's system)
+                    // because of some malloc() call returning NULL...
+    
     UpdateBitmap(m_bmp.GetSize()*1.5);
     
     m_fitting = m_bmp.GetSize() == GetClientSize();
@@ -125,6 +132,11 @@ void UppPackageViewWindow::OnZoomIn(wxCommandEvent& WXUNUSED(event))
 
 void UppPackageViewWindow::OnZoomOut(wxCommandEvent& WXUNUSED(event))
 {
+    if (min(m_bmp.GetWidth(), m_bmp.GetHeight()) <= MIN_SIZE)
+        return;     // zooming out of the bitmap makes the bitmap smaller and smaller;
+                    // when reaching an invalid size (width/height == 0) an assert
+                    // would fail in UpdateBitmap(); avoid it
+        
     UpdateBitmap(m_bmp.GetSize()*(1.0/1.5));
     
     m_fitting = m_bmp.GetSize() == GetClientSize();

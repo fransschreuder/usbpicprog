@@ -569,6 +569,10 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
     const int PinOffset = (PackageLen - (PinCount*PinH + (PinCount+1)*PinSpacing))/2;
     wxASSERT(PinOffset>=0);
 
+    if (int(PinH*0.8) == 0)
+        return;     // this happens for very small package sizes;
+                    // the check avoids an assertion failure from wxFont ctor
+    
     // select a font suitable for the PinH we have computed above:
     wxFont fnt(wxSize(0,int(PinH*0.8)), wxFONTFAMILY_DEFAULT,
                wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
@@ -691,6 +695,10 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
             const unsigned int R = BoxW/6;
+            
+            if (int(BoxW/8) == 0)
+                return;     // this happens for very small package sizes;
+                            // the check avoids an assertion failure from wxFont ctor later
 
             // draw the PIC package box
             dc.DrawRectangle(BoxX, BoxY, BoxW, BoxH);
@@ -736,6 +744,10 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             const unsigned int BoxX = (sz.GetWidth()-BoxL)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxL)/2;
             const unsigned int R = BoxL/10;
+            
+            if (int(BoxL/10) == 0)
+                return;     // this happens for very small package sizes;
+                            // the check avoids an assertion failure from wxFont ctor later
 
             // draw the PIC package box
             dc.DrawRectangle(BoxX, BoxY, BoxL, BoxL);
