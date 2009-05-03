@@ -252,7 +252,8 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
-            if(hexFile->open(picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
+            if(!hexFile->open(picType,filename.mb_str(wxConvUTF8)))
+                cerr<<"Unable to open file"<<endl;
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
@@ -277,7 +278,8 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             if(hardware->readData(hexFile,picType)<0)cerr<<"Error reading Data"<<endl;
             if(hardware->readConfig(hexFile,picType)<0)cerr<<"Error reading Config"<<endl;
             hexFile->trimData(picType);
-            if(hexFile->saveAs(picType,filename.mb_str(wxConvUTF8))<0)cerr<<"Unable to save file"<<endl;
+            if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
+                cerr<<"Unable to save file"<<endl;
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
@@ -295,7 +297,8 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
-            if(hexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8))<0)cerr<<"Unable to open file"<<endl;
+            if(!hexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8)))
+                cerr<<"Unable to open file"<<endl;
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
