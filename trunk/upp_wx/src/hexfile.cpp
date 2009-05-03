@@ -410,9 +410,9 @@ VerifyResult HexFile::verifyCode(const HexFile* other) const
 {
     VerifyResult res;
     
-    // comparing two HexFiles with different code memory sizes is a programming error,
+    // comparing two HexFiles with different memory sizes is a programming error,
     // not a problem with the PIC being tested!
-    wxASSERT(m_codeMemory.size() != other->m_codeMemory.size());
+    wxASSERT(m_codeMemory.size() == other->m_codeMemory.size());
     
     for (unsigned int i=0;i<m_codeMemory.size();i++)
     {
@@ -435,9 +435,9 @@ VerifyResult HexFile::verifyData(const HexFile* other) const
 {
     VerifyResult res;
     
-    // comparing two HexFiles with different code memory sizes is a programming error,
+    // comparing two HexFiles with different memory sizes is a programming error,
     // not a problem with the PIC being tested!
-    wxASSERT(m_dataMemory.size() != other->m_dataMemory.size());
+    wxASSERT(m_dataMemory.size() == other->m_dataMemory.size());
     
     for (unsigned int i=0;i<m_dataMemory.size();i++)
     {
@@ -460,9 +460,9 @@ VerifyResult HexFile::verifyConfig(const HexFile* other) const
 {
     VerifyResult res;
     
-    // comparing two HexFiles with different code memory sizes is a programming error,
+    // comparing two HexFiles with different memory sizes is a programming error,
     // not a problem with the PIC being tested!
-    wxASSERT(m_configMemory.size() != other->m_configMemory.size());
+    wxASSERT(m_configMemory.size() == other->m_configMemory.size());
     
     for (unsigned int i=0;i<m_configMemory.size();i++)
     {
