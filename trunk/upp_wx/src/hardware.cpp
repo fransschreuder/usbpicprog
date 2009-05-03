@@ -298,7 +298,7 @@ int Hardware::bulkErase(PicType* picType)
     else // hardware is HW_BOOTLOADER
     {
         HexFile* hf = new HexFile(picType);
-        if (writeData(hf, picType) < 0)
+        if (write(TYPE_DATA, hf, picType) < 0)
             return -1;
 
         statusCallBack(50);
@@ -330,316 +330,197 @@ int Hardware::bulkErase(PicType* picType)
     return nBytes;
 }
 
-int Hardware::readCode(HexFile *hexData, PicType *picType)
+int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
 {
-    int nBytes,blocksize,BLOCKSIZE_HW;
-    nBytes=-1;
-    vector<int> mem;
-
     if (!picType->ok()) return -1;
+    if (m_handle == NULL) return -1;
 
-    mem.resize(picType->CodeSize, 0xFF);
-    char dataBlock[BLOCKSIZE_MAXSIZE];
-    int blocktype;
-    if (m_abortOperations)return OPERATION_ABORTED;
-    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
-    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-    statusCallBack (0);
-    if (m_handle != NULL)
+    if (m_abortOperations)
+        return OPERATION_ABORTED;
+
+    // which memory area are we going to read?
+    unsigned int memorySize = 0;
+    switch (type)
     {
-        nBytes=0;
-        for(unsigned int blockcounter=0;blockcounter<picType->CodeSize;blockcounter+=BLOCKSIZE_HW)
-        {
-            statusCallBack ((blockcounter*100)/((signed)picType->CodeSize));
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if ((picType->CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            int	currentBlockCounter=blockcounter;
-            if (!picType->is16Bit())currentBlockCounter/=2;
-            if (picType->CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
-            else blocksize=picType->CodeSize-blockcounter;
-            nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
-            for(int i=0;i<blocksize;i++)
-            {
-                if (picType->CodeSize>(blockcounter+i))
-                {
-                    /*if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
-                    {
-                        wxLogError((int)(unsigned char)dataBlock[i]);
-                    }*/
-                    mem[blockcounter+i]=((unsigned char)(dataBlock[i]&0xFF));
-                }
-                else
-                {
-                    wxLogError("Trying to read memory outside Code area");
-                    // return -1;
-                }
-            }
-            if (m_abortOperations)break;
-            /*if (dataBlock[BLOCKSIZE_HW-1] == 0)
-            {
-                blockcounter-=BLOCKSIZE_HW-1;
-            }*/
-        }
-        hexData->putCodeMemory(mem);
+    case TYPE_CODE: memorySize = picType->CodeSize; break;
+    case TYPE_DATA: memorySize = picType->DataSize; break;
+    case TYPE_CONFIG: memorySize = picType->ConfigSize; break;
     }
+
+    if (memorySize==0)
+        return 0;       // no code/config/data to read
+
+    // create a temporary array to store data read
+    vector<int> mem;
+    mem.resize(memorySize, 0xFF);
+
+    // how big is each block?
+    unsigned int blockSizeHW;
+    if (type == TYPE_CODE || type == TYPE_DATA)
+    {
+        if (m_hwCurrent == HW_BOOTLOADER)
+            blockSizeHW=BLOCKSIZE_BOOTLOADER;
+        else 
+            blockSizeHW=BLOCKSIZE_CODE;
+    }
+    else
+        blockSizeHW=BLOCKSIZE_CONFIG;
+
+    statusCallBack (0);
+
+    if (type == TYPE_DATA && m_hwCurrent == HW_BOOTLOADER)
+        return 0;   // TODO implement readData for bootloader
+    if (type == TYPE_CONFIG && m_hwCurrent == HW_BOOTLOADER)
+        return 0;   // Better write no configuration words in bootloader;
+                    // it's unsafe: you might destroy the bootloader
+
+    int nBytes=0;
+    for(unsigned int blockcounter=0; blockcounter<memorySize; blockcounter+=blockSizeHW)
+    {
+        statusCallBack (blockcounter*100/memorySize);
+
+        // set the type of this block
+        unsigned int blocktype = BLOCKTYPE_MIDDLE;
+        if (blockcounter == 0)
+            blocktype |= BLOCKTYPE_FIRST;
+        if ((picType->CodeSize-blockSizeHW)<=blockcounter)
+            blocktype |= BLOCKTYPE_LAST;
+        if (m_abortOperations)
+            blocktype |= BLOCKTYPE_LAST;
+
+        unsigned int currentBlockCounter = blockcounter;
+        if (!picType->is16Bit())
+            currentBlockCounter /= 2;
+
+        unsigned int blocksize;
+        if (memorySize > (blockcounter+blockSizeHW))
+            blocksize = blockSizeHW;
+        else 
+            blocksize = memorySize-blockcounter;
+
+        // do read the block
+        char dataBlock[BLOCKSIZE_MAXSIZE];
+        nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
+
+        // move read data in the temporary array
+        for (unsigned int i=0; i<blocksize; i++)
+        {
+            if (memorySize > (blockcounter+i))
+                mem[blockcounter+i]=((unsigned char)(dataBlock[i]&0xFF));
+            else
+            {
+                wxLogError("Trying to read memory outside allowed area: bc+i=%d; memory size=%d", 
+                           blockcounter+i, memorySize);
+                // return -1;
+            }
+        }
+
+        if (m_abortOperations)
+            break;
+    }
+
+    // finally save the data we've just read into the hexfile:
+    switch (type)
+    {
+    case TYPE_CODE: hexData->putCodeMemory(mem); break;
+    case TYPE_DATA: hexData->putDataMemory(mem); break;
+    case TYPE_CONFIG: hexData->putConfigMemory(mem); break;
+    }
+
     return nBytes;
 }
 
-/* Write the code memory area of the pic with the data in *hexData */
-int Hardware::writeCode(HexFile *hexData, PicType *picType)
+int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 {
-    int nBytes;
-    int BLOCKSIZE_HW;
-    unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-    int blocktype;
-
     if (!picType->ok()) return -1;
+    if (m_handle == NULL) return -1;
 
-    if (m_abortOperations)return OPERATION_ABORTED;
-    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
-    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-    if (m_handle != NULL)
+    if (m_abortOperations)
+        return OPERATION_ABORTED;
+
+    // which memory area are we going to write?
+    vector<int>& memory = hexData->getCodeMemory();
+    unsigned int memorySize = 0;
+    switch (type)
     {
-        nBytes=0;
-        for(int blockcounter=0;blockcounter<(signed)hexData->getCodeMemory().size();blockcounter+=BLOCKSIZE_HW)
-        {
-            statusCallBack ((blockcounter*100)/((signed)hexData->getCodeMemory().size()));
-            for(int i=0;i<BLOCKSIZE_HW;i++)
-            {
-                if ((signed)hexData->getCodeMemory().size()>(blockcounter+i))
-                {
-                    dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
-                }
-                else
-                {
-                    dataBlock[i]=0;
-                }
-            }
-
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if (((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            int	currentBlockCounter=blockcounter;
-            if (!picType->is16Bit())currentBlockCounter/=2;
-            nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
-            if (m_hwCurrent == HW_UPP)
-            {
-                if (nBytes==3) return -3;	// something not implemented in firmware :(
-                if (nBytes==4) return -4;	// verify error
-                if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-                if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
-            }
-            if (m_abortOperations)break;
-        }
+    case TYPE_CODE: 
+        memorySize = picType->CodeSize; 
+        memory = hexData->getCodeMemory();
+        break;
+    case TYPE_DATA: 
+        memorySize = picType->DataSize; 
+        memory = hexData->getDataMemory();
+        break;
+    case TYPE_CONFIG: 
+        memorySize = picType->ConfigSize; 
+        memory = hexData->getConfigMemory();
+        break;
     }
-    else return -5;
-    return 0;
-}
 
-/* read the Eeprom Data area of the pic into *hexData->dataMemory */
-int Hardware::readData(HexFile *hexData, PicType *picType)
-{
-    int nBytes,blocksize;
-    nBytes=-1;
-    vector<int> mem;
+    if (memorySize==0)
+        return 0;       // no code/config/data to write
 
-    if (!picType->ok()) return -1;
+    // how big is each block?
+    unsigned int blockSizeHW;
+    if (type == TYPE_CODE || type == TYPE_DATA)
+    {
+        if (m_hwCurrent == HW_BOOTLOADER)
+            blockSizeHW=BLOCKSIZE_BOOTLOADER;
+        else 
+            blockSizeHW=BLOCKSIZE_CODE;
+    }
+    else
+        blockSizeHW=BLOCKSIZE_CONFIG;
 
-    mem.resize(picType->DataSize);
-    int BLOCKSIZE_HW;
-    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
-    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-
-    char dataBlock[BLOCKSIZE_MAXSIZE];
-    int blocktype;
-    if (m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
-    if (m_hwCurrent == HW_BOOTLOADER)return 0; // TODO implement readData for bootloader
-    if (picType->DataSize==0)return 0;// no data to read
-    if (m_handle != NULL)
-    {
-        for(unsigned int blockcounter=0;blockcounter<picType->DataSize;blockcounter+=BLOCKSIZE_HW)
-        {
-            statusCallBack ((blockcounter*100)/((signed)picType->DataSize));
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if ((picType->DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            if (picType->DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
-            else blocksize=picType->DataSize-blockcounter;
 
-            nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
-            for(int i=0;i<blocksize;i++)
-            {
-                if (picType->DataSize>(blockcounter+i))
-                {
-                    mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
-                }
-                else
-                {
-                    wxLogError("Trying to read memory outside Data area");
-    // 				return -1;
-                }
-            }
-            if (m_abortOperations)break;
+    int nBytes=0;
+    for (unsigned int blockcounter=0; blockcounter<memorySize; blockcounter+=blockSizeHW)
+    {
+        statusCallBack (blockcounter*100/memorySize);
+
+        // fill in a new datablock packet
+        unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
+        for (unsigned int i=0; i<blockSizeHW; i++)
+        {
+            if (memorySize > (blockcounter+i))
+                dataBlock[i]=memory[blockcounter+i];
+            else
+                dataBlock[i]=0;
         }
-        hexData->putDataMemory(mem);
+
+        // set the type of this block
+        unsigned int blocktype = BLOCKTYPE_MIDDLE;
+        if (blockcounter == 0)
+            blocktype |= BLOCKTYPE_FIRST;
+        if ((memorySize-blockSizeHW) <= blockcounter)
+            blocktype |= BLOCKTYPE_LAST;
+        if (m_abortOperations)
+            blocktype |= BLOCKTYPE_LAST;
+
+        unsigned int currentBlockCounter=blockcounter;
+        if (!picType->is16Bit())
+            currentBlockCounter/=2;
+
+        // do write the block
+        nBytes=writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
+        if (m_hwCurrent == HW_UPP)
+        {
+            if (nBytes==3) 
+                return -3;	// something not implemented in firmware :(
+            if (nBytes==4) 
+                return -4;	// verify error
+            if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))
+                return -2; // should ask for next block
+            if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))
+                return -1;	// should say OK
+        }
+
+        if (m_abortOperations)
+            break;
     }
+
     return nBytes;
-
-}
-
-int Hardware::writeData(HexFile *hexData, PicType *picType)
-{
-    int nBytes;
-    int BLOCKSIZE_HW;
-    if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
-    else BLOCKSIZE_HW=BLOCKSIZE_CODE;
-
-    if (!picType->ok()) return -1;
-
-    unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-    int blocktype;
-    if (m_abortOperations)return OPERATION_ABORTED;
-    statusCallBack (0);
-    // if (m_hwCurrent == HW_BOOTLOADER)return 0; // TODO implement writeData for bootloader
-    if (m_handle != NULL)
-    {
-        nBytes=0;
-        for (int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_HW)
-        {
-            statusCallBack ((blockcounter*100)/((signed)hexData->getDataMemory().size()));
-            for (int i=0;i<BLOCKSIZE_HW;i++)
-            {
-                if ((signed)hexData->getDataMemory().size()>(blockcounter+i))
-                {
-                    dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
-                }
-                else
-                {
-                    dataBlock[i]=0;
-                }
-            }
-
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if (((signed)hexData->getDataMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_HW,blocktype);
-            if (m_hwCurrent == HW_UPP)
-            {
-                if (nBytes==3) return -3;	// something not implemented in firmware :(
-                if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-                if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
-                if (m_abortOperations)break;
-            }
-        }
-    }
-    else return -4;
-    return 0;
-}
-
-int Hardware::readConfig(HexFile *hexData, PicType *picType)
-{
-    int nBytes,blocksize;
-    nBytes=-1;
-
-    if (!picType->ok()) return -1;
-
-    vector<int> mem;
-    mem.resize(picType->ConfigSize);
-    char dataBlock[BLOCKSIZE_CONFIG];
-    int blocktype;
-    if (m_abortOperations)return OPERATION_ABORTED;
-    statusCallBack (0);
-    if (m_hwCurrent == HW_BOOTLOADER)return 0; // Better write no configuration words in bootloader, it's unsafe, you might destroy the bootloader
-    if (m_handle != NULL)
-    {
-        for(unsigned int blockcounter=0;blockcounter<picType->ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
-        {
-            statusCallBack ((blockcounter*100)/((signed)picType->ConfigSize));
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if ((picType->ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            int	currentBlockCounter=blockcounter;
-            if (!picType->is16Bit())currentBlockCounter/=2;
-            if (picType->ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
-            else blocksize=picType->ConfigSize-blockcounter;
-            nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
-            for(int i=0;i<blocksize;i++)
-            {
-                if (picType->ConfigSize>(blockcounter+i))
-                {
-                    mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
-// 					wxLogError(hex<<(int)dataBlock[i]<<" "<<dec;
-                }
-                else
-                {
-                    wxLogError("Trying to read memory outside Config area: bc+i=%d Configsize=%d", blockcounter+i, picType->ConfigSize);
-// 					return -1;
-                }
-            }
-            if (m_abortOperations)break;
-        }
-/*		for(int i=0;i<picType->ConfigSize;i++)
-            mem[i]&=picType->ConfigMask[i];*/
-        hexData->putConfigMemory(mem);
-    }
-    return nBytes;
-}
-
-int Hardware::writeConfig(HexFile *hexData, PicType *picType)
-{
-    int nBytes;
-    unsigned char dataBlock[BLOCKSIZE_CONFIG];
-    int blocksize;
-    int blocktype;
-    if (m_abortOperations)return OPERATION_ABORTED;
-    statusCallBack (0);
-    /*if (m_hwCurrent == HW_BOOTLOADER)
-    {
-        statusCallBack(100);
-        return 0; // It's not smart to write config bits in the bootloader
-    }*/
-    if (m_handle != NULL)
-    {
-        nBytes=0;
-        for (int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
-        {
-            statusCallBack ((blockcounter*100)/((signed)hexData->getConfigMemory().size()));
-            blocksize=0;
-            for (int i=0;i<BLOCKSIZE_CONFIG;i++)
-            {
-                if ((signed)hexData->getConfigMemory().size()>(blockcounter+i))
-                {
-                    dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
-                    blocksize++;
-                }
-                else
-                {
-                    dataBlock[i]=0;
-                }
-            }
-
-            blocktype=BLOCKTYPE_MIDDLE;
-            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if (((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            int	currentBlockCounter=blockcounter;
-            if (!picType->is16Bit())currentBlockCounter/=2;
-            nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
-            if (nBytes==3) return -3;	// something not implemented in firmware :(
-            if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-            if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
-            if (m_abortOperations)break;
-        }
-    }
-    else return -4;
-    return 0;
 }
 
 VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, bool doConfig, bool doData)
@@ -654,7 +535,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     if (doCode)
     {
-        if (readCode(verifyHexFile, picType) < 0)
+        if (read(TYPE_CODE, verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
@@ -663,7 +544,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doData)
     {
-        if (readData(verifyHexFile, picType) < 0)
+        if (read(TYPE_DATA, verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
@@ -672,7 +553,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doConfig)
     {
-        if (readConfig(verifyHexFile, picType) < 0)
+        if (read(TYPE_CONFIG, verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
@@ -823,6 +704,7 @@ int Hardware::getFirmwareVersion(char* msg) const
 
         return nBytes;
     }
+
     return -1;
 }
 

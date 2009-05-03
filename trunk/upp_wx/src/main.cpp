@@ -259,9 +259,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 hexFile->print(&output,picType);
                 cout<<output<<endl;
             }
-            if(hardware->writeCode(hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
-            if(hardware->writeData(hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
-            if(hardware->writeConfig(hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
+            if(hardware->write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
+            if(hardware->write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
+            if(hardware->write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
             delete hexFile;
         }
     }
@@ -274,9 +274,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
-            if(hardware->readCode(hexFile,picType)<0)cerr<<"Error reading Code"<<endl;
-            if(hardware->readData(hexFile,picType)<0)cerr<<"Error reading Data"<<endl;
-            if(hardware->readConfig(hexFile,picType)<0)cerr<<"Error reading Config"<<endl;
+            if(hardware->read(TYPE_CODE,hexFile,picType)<0)cerr<<"Error reading Code"<<endl;
+            if(hardware->read(TYPE_DATA,hexFile,picType)<0)cerr<<"Error reading Data"<<endl;
+            if(hardware->read(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error reading Config"<<endl;
             hexFile->trimData(picType);
             if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to save file"<<endl;

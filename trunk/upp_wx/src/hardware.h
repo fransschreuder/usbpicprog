@@ -148,6 +148,8 @@ typedef enum
     This class opens two hardware endpoints for reading/writing to the connected
     hardware respectively identified by the @c READ_ENDPOINT and @c WRITE_ENDPOINT 
     constants.
+
+    TODO: add const attributes to func arguments not modified
 */
 class Hardware
 {
@@ -184,31 +186,38 @@ public:
     */
     ~Hardware();
 
-    /** Give the hardware the command to switch to a certain pic algorithm */
+    /** 
+        Gives the hardware the command to switch to a certain PIC programming algorithm.
+        Returns the reply code from the attached hardware or negative value if there was an error.
+    */
     int setPicType(PicType* picType);
 
-    /** Erase all the contents (code, data and config) of the pic */
+    /** 
+        Erases all the contents (code, data and config) of the PIC memory.
+        Returns the reply code from the attached hardware or a negative value if there was an error.
+    */
     int bulkErase(PicType *picType);
 
-    /** Read the code memory from the pic (starting from address 0) into *hexData */
-    int readCode(HexFile *hexData, PicType *picType);
+    /**
+        Reads the code/config/data memory from the PIC into *hexData.
+        If the device is a PIC16 and type==TYPE_CONFIG, then the user ID is read, too.
 
-    /** Write the code memory area of the pic with the data in *hexData */
-    int writeCode(HexFile *hexData, PicType *picType);
+        Returns the number of bytes read or a negative value if an error occurred.
+    */
+    int read(MemoryType type, HexFile *hexData, PicType *picType);
 
-    /** Read the Eeprom Data area of the pic into *hexData->dataMemory */
-    int readData(HexFile *hexData, PicType *picType);
+    /**
+        Writes the code/config/data memory from *hexData into the PIC.
+        If the device is a PIC16 and type==TYPE_CONFIG, then the user ID is written, too.
 
-    /** Write the Eeprom data from *hexData->dataMemory into the pic */
-    int writeData(HexFile *hexData, PicType *picType);
+        Returns the number of bytes written or a negative value if an error occurred.
+    */
+    int write(MemoryType type, HexFile *hexData, PicType *picType);
 
-    /** Read the configuration words (and user ID's for PIC16 dev's) */
-    int readConfig(HexFile *hexData, PicType *picType);
-
-    /** Writes the configuration words (and user ID's for PIC16 dev's) */
-    int writeConfig(HexFile *hexData, PicType *picType);
-
-    /** Reads the whole PIC and checks if the data matches hexData */
+    /** 
+        Reads the whole PIC memory and checks if the config/data/code areas match 
+        the relative contents of @a hexData. 
+    */
     VerifyResult verify(HexFile *hexData, PicType *picType, 
                         bool doCode=true, bool doConfig=true, bool doData=true);
 
@@ -216,23 +225,25 @@ public:
     VerifyResult blankCheck(PicType *picType);
 
     /** 
-        This function does nothing but reading the devid from the PIC, call it the following way:
-        @code
-        Hardware* hardware=new Hardware();
-        int devId=hardware->autoDetectDevice();
-        PicType* picType=new PicType(devId);
-        hardware->setPicType(picType);
-        @endcode
+        This function does nothing but reading the device id from the PIC and then returning it.
+        Like for others Hardware class functions, if an error occurs then a negative value is returned.
     */
     int autoDetectDevice();
 
     /** Returns the current mode of the USB endpoint */
     EndpointMode endpointMode(int ep) const;
 
-    /** Returns a string containing the firmware version of usbpicprog */
+    /** 
+        Reads the firmware version of the connected hardware. 
+
+        The firmware version is stored as a string in the given buffer which MUST be big enough
+        (at least 64 chars).
+
+        Returns the number of bytes read or a negative value if an error occurred.
+    */
     int getFirmwareVersion(char* msg) const;
 
-    /** Returns the type of the hardware which we are currently attached to */
+    /** Returns the type of the hardware which we are currently attached to. */
     HardwareType getCurrentHardware() const 
         { return m_hwCurrent; }
 
@@ -283,20 +294,6 @@ private:
         back its reply. 
     */
     int writeBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
-
-    int readCodeBlock(char* msg, int address, int size, int lastblock)
-        { return readBlock(TYPE_CODE, msg, address, size, lastblock); }
-    int readConfigBlock(char* msg, int address, int size, int lastblock)
-        { return readBlock(TYPE_CONFIG, msg, address, size, lastblock); }
-    int readDataBlock(char* msg, int address, int size, int lastblock)
-        { return readBlock(TYPE_DATA, msg, address, size, lastblock); }
-
-    int writeCodeBlock(unsigned char* msg, int address, int size, int lastblock)
-        { return writeBlock(TYPE_CODE, msg, address, size, lastblock); }
-    int writeConfigBlock(unsigned char* msg, int address, int size, int lastblock)
-        { return writeBlock(TYPE_CONFIG, msg, address, size, lastblock); }
-    int writeDataBlock(unsigned char* msg, int address, int size, int lastblock)
-        { return writeBlock(TYPE_DATA, msg, address, size, lastblock); }
 
     //@}
 
