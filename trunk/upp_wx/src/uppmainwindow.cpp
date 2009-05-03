@@ -1341,7 +1341,7 @@ bool UppMainWindow::upp_connect()
     {
         upp_autodetect();       // already calls upp_new();
 
-        char msg[64];
+        unsigned char msg[64];
         if (m_hardware->getFirmwareVersion(msg)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
@@ -1365,7 +1365,7 @@ bool UppMainWindow::upp_connect()
         {
             upp_autodetect();       // already calls upp_new();
 
-            char msg[64];
+            unsigned char msg[64];
             if (m_hardware->getFirmwareVersion(msg)<0)
             {
                 SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);

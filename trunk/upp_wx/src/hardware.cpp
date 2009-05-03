@@ -244,7 +244,7 @@ int Hardware::setPicType(PicType* picType)
 
     statusCallBack (0);
 
-    char msg[64];
+    unsigned char msg[64];
     msg[0]=CMD_SET_PICTYPE;
     msg[1]=picType->picFamily;
 
@@ -266,7 +266,7 @@ int Hardware::setPicType(PicType* picType)
 
 int Hardware::bulkErase(PicType* picType)
 {
-    char msg[64];
+    unsigned char msg[64];
     int nBytes=-1;
 
     if (!picType->ok()) return -1;
@@ -398,7 +398,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
             blocksize = memorySize-blockcounter;
 
         // do read the block
-        char dataBlock[BLOCKSIZE_MAXSIZE];
+        unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
 
         // move read data in the temporary array
@@ -653,7 +653,7 @@ int Hardware::autoDetectDevice()
     return -1;
 }
 
-int Hardware::getFirmwareVersion(char* msg) const
+int Hardware::getFirmwareVersion(unsigned char* msg) const
 {
     if (m_handle == NULL) return -1;
 
@@ -708,15 +708,15 @@ int Hardware::getFirmwareVersion(char* msg) const
 // Hardware - private functions
 // ----------------------------------------------------------------------------
 
-int Hardware::readString(char* msg, int size) const
+int Hardware::readString(unsigned char* msg, int size) const
 {
     if (m_handle == NULL) return -1;
 
     int nBytes;
     if ( endpointMode(WRITE_ENDPOINT)==Interrupt )  // FIXME: shouldn't we test READ_ENDPOINT?
-        nBytes = usb_interrupt_read(m_handle,READ_ENDPOINT,msg,size,USB_OPERATION_TIMEOUT);
+        nBytes = usb_interrupt_read(m_handle,READ_ENDPOINT,(char*)msg,size,USB_OPERATION_TIMEOUT);
     else
-        nBytes = usb_bulk_read(m_handle,READ_ENDPOINT,msg,size,USB_OPERATION_TIMEOUT);
+        nBytes = usb_bulk_read(m_handle,READ_ENDPOINT,(char*)msg,size,USB_OPERATION_TIMEOUT);
 
     if (nBytes < 0)
     {
@@ -727,7 +727,7 @@ int Hardware::readString(char* msg, int size) const
     return nBytes;
 }
 
-int Hardware::writeString(const char* msg, int size) const
+int Hardware::writeString(const unsigned char* msg, int size) const
 {
     if (m_handle == NULL) return -1;
 
@@ -754,7 +754,7 @@ int Hardware::readId()
     statusCallBack (0);
 
     // send to the hardware the READ-ID command
-    char msg[64];
+    unsigned char msg[64];
     msg[0]=CMD_READ_ID;
     if (writeString(msg,1) < 0)
         return -1;
@@ -769,7 +769,7 @@ int Hardware::readId()
     return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
 }
 
-int Hardware::readBlock(MemoryType type, char* msg, int address, int size, int lastblock)
+int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock)
 {
     if (m_handle == NULL) return -1;
 
@@ -833,7 +833,7 @@ int Hardware::readBlock(MemoryType type, char* msg, int address, int size, int l
             return nBytes;
 
         // read back the bytes
-        char* tmpmsg = new char[size+5];
+        unsigned char* tmpmsg = new unsigned char[size+5];
         nBytes = readString(tmpmsg,size+5) - 5;
         if (nBytes < 0)
         {
@@ -855,7 +855,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
 {
     if (m_handle == NULL) return -1;
 
-    char resp_msg[64];
+    unsigned char resp_msg[64];
     if (m_hwCurrent == HW_UPP)
     {
         UppPackage uppPackage;

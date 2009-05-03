@@ -27,8 +27,6 @@
 #include "hexfile.h"
 #include "pictype.h"
 
-
-
 #define UPP_VENDOR 0x04D8
 #define UPP_PRODUCT 0x000E
 
@@ -99,7 +97,7 @@ typedef union
         unsigned blocktype:8; /// The blocktype can be middle, first or last (or first|last)
         unsigned char dataField[32];
     } fields;
-    char data[38];
+    unsigned char data[38];
 } UppPackage;
 
 /** 
@@ -117,7 +115,7 @@ typedef union
         unsigned addrU:8;
         unsigned char dataField[32];
     } fields;
-    char data[37];
+    unsigned char data[37];
 } BootloaderPackage;
 
 /** 
@@ -241,7 +239,7 @@ public:
 
         Returns the number of bytes read or a negative value if an error occurred.
     */
-    int getFirmwareVersion(char* msg) const;
+    int getFirmwareVersion(unsigned char* msg) const;
 
     /** Returns the type of the hardware which we are currently attached to. */
     HardwareType getCurrentHardware() const 
@@ -275,10 +273,10 @@ private:
     //@{
 
     /** Read a string of data from the connected hardware (through usb_interrupt_read). */
-    int readString(char* msg, int size) const;
+    int readString(unsigned char* msg, int size) const;
 
     /** Send a string of data to the connected hardware (through usb_interrupt write). */
-    int writeString(const char* msg, int size) const;
+    int writeString(const unsigned char* msg, int size) const;
 
     /** Private function called by autoDetectDevice(). Returns the ID of the device to program. */
     int readId();
@@ -287,7 +285,7 @@ private:
         Read a block of a memory area sending the correct command to the hardware and reading
         back its reply. 
     */
-    int readBlock(MemoryType type, char* msg, int address, int size, int lastblock);
+    int readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
 
     /** 
         Writes a block of a memory area sending the correct command to the hardware and reading
