@@ -297,12 +297,11 @@ int Hardware::bulkErase(PicType* picType)
     }
     else // hardware is HW_BOOTLOADER
     {
-        HexFile* hf = new HexFile(picType);
-        if (write(TYPE_DATA, hf, picType) < 0)
+        HexFile hf(picType);
+        if (write(TYPE_DATA, &hf, picType) < 0)
             return -1;
 
         statusCallBack(50);
-        delete hf;
 
         for (unsigned int address=0x800; address<picType->CodeSize; address+=64)
         {
@@ -528,14 +527,13 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     VerifyResult res;
 
     // create a temporary hex file to store the code/config/data bytes we're going to read
-    HexFile *verifyHexFile = new HexFile;
-
+    HexFile verifyHexFile;
 
     // read from the device
 
     if (doCode)
     {
-        if (read(TYPE_CODE, verifyHexFile, picType) < 0)
+        if (read(TYPE_CODE, &verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
@@ -544,7 +542,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doData)
     {
-        if (read(TYPE_DATA, verifyHexFile, picType) < 0)
+        if (read(TYPE_DATA, &verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
@@ -553,7 +551,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doConfig)
     {
-        if (read(TYPE_CONFIG, verifyHexFile, picType) < 0)
+        if (read(TYPE_CONFIG, &verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
@@ -577,19 +575,19 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     if (doCode)
     {
-        res = hexData->verifyCode(verifyHexFile);
+        res = hexData->verifyCode(&verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
     if (doData)
     {
-        res = hexData->verifyData(verifyHexFile);
+        res = hexData->verifyData(&verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
     if (doConfig&&(m_hwCurrent == HW_UPP)) // it's no use to verify config for the bootloader
     {
-        res = hexData->verifyConfig(verifyHexFile);
+        res = hexData->verifyConfig(&verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
@@ -610,11 +608,8 @@ VerifyResult Hardware::blankCheck(PicType *picType)
 
     // create a temporary blank HEX file and verify current PIC
     // memory against it
-    HexFile* blankHexFile = new HexFile(picType);
-    ret = verify(blankHexFile, picType);
-    delete blankHexFile;
-
-    return ret;
+    HexFile blankHexFile(picType);
+    return verify(&blankHexFile, picType);
 }
 
 int Hardware::autoDetectDevice()
