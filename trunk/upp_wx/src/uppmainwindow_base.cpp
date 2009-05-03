@@ -95,6 +95,10 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pDataMemoryText->Wrap( -1 );
 	sbSizer1->Add( m_pDataMemoryText, 0, wxALL, 5 );
 	
+	m_pTypeText = new wxStaticText( m_pInfoPanel, wxID_ANY, _("Type:"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_pTypeText->Wrap( -1 );
+	sbSizer1->Add( m_pTypeText, 0, wxALL, 5 );
+	
 	bSizer5->Add( sbSizer1, 0, wxALL|wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* pPackageSizer;

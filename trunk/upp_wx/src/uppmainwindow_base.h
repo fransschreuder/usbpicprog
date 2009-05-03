@@ -67,6 +67,7 @@ class UppMainWindowBase : public wxFrame
 		wxStaticText* m_pDeviceIDText;
 		wxStaticText* m_pCodeMemoryText;
 		wxStaticText* m_pDataMemoryText;
+		wxStaticText* m_pTypeText;
 		wxStaticText* m_staticText7;
 		wxChoice* m_pPackageVariants;
 		
