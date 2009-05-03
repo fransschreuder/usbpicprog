@@ -1203,9 +1203,7 @@ void UppMainWindow::upp_selectall()
 
 void UppMainWindow::upp_program()
 {
-    if (m_hardware == NULL) return;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1217,9 +1215,7 @@ void UppMainWindow::upp_program()
 
 void UppMainWindow::upp_read()
 {
-    if (m_hardware == NULL) return;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1236,9 +1232,7 @@ void UppMainWindow::upp_read()
 
 void UppMainWindow::upp_verify()
 {
-    if (m_hardware == NULL) return;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1250,9 +1244,7 @@ void UppMainWindow::upp_verify()
 
 void UppMainWindow::upp_erase()
 {
-    if (m_hardware == NULL) return;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1269,9 +1261,7 @@ void UppMainWindow::upp_erase()
 
 void UppMainWindow::upp_blankcheck()
 {
-    if (m_hardware == NULL) return;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1283,9 +1273,7 @@ void UppMainWindow::upp_blankcheck()
 
 bool UppMainWindow::upp_autodetect()
 {
-    if (m_hardware == NULL) return false;
-
-    if (!m_hardware->connected())
+    if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
         return false;
@@ -1406,9 +1394,9 @@ void UppMainWindow::upp_disconnect()
             delete m_hardware;
             m_hardware = NULL;
 
-            SetStatusText(_("Disconnected usbpicprog"),STATUS_FIELD_HARDWARE);
+            SetStatusText(_("Disconnected"),STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups)
-                wxLogMessage(_("Disconnected usbpicprog"));
+                wxLogMessage(_("Disconnected"));
         }
         else
         {
