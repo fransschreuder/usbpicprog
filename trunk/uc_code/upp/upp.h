@@ -1,18 +1,31 @@
-/*********************************************************************
- *
- *                UsbPicProg v0.1
- *                Frans Schreuder 16-06-2007
- ********************************************************************/
+/**************************************************************************
+*   Copyright (C) 2008 by Frans Schreuder                                 *
+*   usbpicprog.sourceforge.net                                            *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+**************************************************************************/
 
 #ifndef UPP_H
 #define UPP_H
 
-/** P U B L I C  P R O T O T Y P E S *****************************************/
-void UserInit(void);
-void timer1Init(void);
-void timer0Init(void);
-void ProcessIO(void);
+void UserInit();
+void timer1Init();
+void timer0Init();
+void ProcessIO();
 unsigned char set_pictype(unsigned char* data);
 void setLeds(char n);
 
-#endif //UPP_H
+#endif // UPP_H
