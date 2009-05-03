@@ -114,8 +114,8 @@ public:
     void putDataMemory(vector<int> &mem);
     void putDataMemory(int address, int mem);
     
-    void putConfigMemory(vector<int> &mem);
-    void putConfigMemory(int address, int mem);
+    void putConfigMemory(vector<int> &mem, const PicType* pic);
+    void putConfigMemory(int address, int mem, const PicType* pic);
     
     //@}
     
@@ -190,7 +190,7 @@ private:
     
     bool calcCheckSum(int byteCount, int address, 
                       RecordType recordType, vector<int> &lineData, int checkSum);
-    void calcConfigMask(PicType* pic);
+    void calcConfigMask(const PicType* pic);
     void makeLine(int address, RecordType recordType, 
                   vector<int> &lineData, char* output_line);
 };

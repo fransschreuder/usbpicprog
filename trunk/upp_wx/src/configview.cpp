@@ -229,12 +229,12 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
     // save the new value back in the HEX file, too:
     if (m_pic.is16Bit())
     {
-        m_hexFile->putConfigMemory(SelectedWord, ConfigWord&0xFF);
+        m_hexFile->putConfigMemory(SelectedWord, ConfigWord&0xFF, &m_pic);
     }
     else
     {
-        m_hexFile->putConfigMemory(SelectedWord*2, ConfigWord&0xFF);
-        m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWord&0xFF00)>>8);
+        m_hexFile->putConfigMemory(SelectedWord*2, ConfigWord&0xFF, &m_pic);
+        m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWord&0xFF00)>>8, &m_pic);
     }
 
     // notify the main window about this change
@@ -284,13 +284,13 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
         if (m_pic.is16Bit())
         {
             ConfigWordInt &= 0xFF;
-            m_hexFile->putConfigMemory(SelectedWord, ConfigWordInt&0xFF);
+            m_hexFile->putConfigMemory(SelectedWord, ConfigWordInt&0xFF, &m_pic);
         }
         else
         {
             ConfigWordInt &= 0x3FFF;
-            m_hexFile->putConfigMemory(SelectedWord*2, ConfigWordInt&0xFF);
-            m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWordInt&0xFF00)>>8);
+            m_hexFile->putConfigMemory(SelectedWord*2, ConfigWordInt&0xFF, &m_pic);
+            m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWordInt&0xFF00)>>8, &m_pic);
         }
 
         // notify the main window about this change

@@ -389,16 +389,22 @@ void HexFile::putDataMemory(int address, int mem)
     }
 }
 
-void HexFile::putConfigMemory(vector<int> &mem)
+void HexFile::putConfigMemory(vector<int> &mem, const PicType* picType)
 {
     m_configMemory=mem;
+    calcConfigMask(picType);
+
     m_bModified = true;
 }
 
-void HexFile::putConfigMemory(int address, int mem)
+void HexFile::putConfigMemory(int address, int mem, const PicType* picType)
 {
     if (m_configMemory.size()<=(unsigned)address) 
+    {
         m_configMemory.resize(address+1);
+        calcConfigMask(picType);
+    }
+
     if (m_configMemory.size()>(unsigned)address)
     {
         m_configMemory[address]=mem;
@@ -592,7 +598,7 @@ void HexFile::print(string* output,PicType *picType)
 // HexFile - private functions
 // ----------------------------------------------------------------------------
 
-void HexFile::calcConfigMask(PicType* pic)
+void HexFile::calcConfigMask(const PicType* pic)
 {
     m_configMask.resize(m_configMemory.size());
     

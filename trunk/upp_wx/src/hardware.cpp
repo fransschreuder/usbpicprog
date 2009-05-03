@@ -424,7 +424,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
     {
     case TYPE_CODE: hexData->putCodeMemory(mem); break;
     case TYPE_DATA: hexData->putDataMemory(mem); break;
-    case TYPE_CONFIG: hexData->putConfigMemory(mem); break;
+    case TYPE_CONFIG: hexData->putConfigMemory(mem, picType); break;
     }
 
     return nBytes;
