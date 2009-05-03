@@ -39,6 +39,41 @@ typedef enum {
                   ///< the address of the 00 type record.
 } RecordType;
 
+/** 
+    The type of memory area to read/write/verify.
+    See the VerifyResult structure.
+*/
+typedef enum
+{
+    TYPE_CODE=0,
+    TYPE_DATA,
+    TYPE_CONFIG
+} MemoryType;
+
+/** 
+    Return values for a verify operation stored inside VerifyResult structure. 
+*/
+typedef enum
+{
+    VERIFY_SUCCESS=0,
+    VERIFY_MISMATCH,
+    VERIFY_USB_ERROR,
+    VERIFY_OTHER_ERROR
+} VRResult;
+
+/** 
+    The return value of Hardware::verify() and HexFile::verifyCode() functions.
+*/
+typedef struct
+{
+    VRResult Result;
+    MemoryType DataType;
+    int Address;
+    int Read;
+    int Expected;
+} VerifyResult;
+
+
 /**
     This class represents an HEX file.
 
@@ -53,19 +88,21 @@ typedef enum {
 class HexFile
 {
 public:
-    HexFile(PicType* picType=NULL,const char* filename=NULL);
-    ~HexFile();
+    HexFile(PicType* picType=NULL, const char* filename=NULL);
 
     /**
-        Resets this instance and fills it with 0xFF bytes; then calls trimData().
+        Resets this instance so that it can store code/config/data memory bytes for
+        the given @a picType PIC model.
+        
+        Fills the memory areas with 0xFF bytes; then calls trimData().
     */
-    int newFile(PicType* picType);
-    
-    int open(PicType* picType, const char* filename);
-    int reload(PicType* picType);
-    int saveAs(PicType* picType, const char* filename);
-    int save(PicType* picType);
-    
+    void newFile(PicType* picType);
+
+    bool open(PicType* picType, const char* filename);
+    bool reload(PicType* picType);
+    bool saveAs(PicType* picType, const char* filename);
+    bool save(PicType* picType);
+
     /**
         @name Memory manipulation functions
     */
@@ -73,8 +110,10 @@ public:
     
     void putCodeMemory(vector<int> &mem);
     void putCodeMemory(int address, int mem);
+    
     void putDataMemory(vector<int> &mem);
     void putDataMemory(int address, int mem);
+    
     void putConfigMemory(vector<int> &mem);
     void putConfigMemory(int address, int mem);
     
@@ -87,14 +126,19 @@ public:
     //@{
     
     vector<int> &getCodeMemory();
-    int getCodeMemory(int address);
+    int getCodeMemory(int address) const;
+    
     vector<int> &getDataMemory();
-    int getDataMemory(int address);
+    int getDataMemory(int address) const;
+    
     vector<int> &getConfigMemory();
-    int getConfigMemory(int address);
+    int getConfigMemory(int address) const;
     
     //@}
     
+    VerifyResult verifyCode(const HexFile* other) const;
+    VerifyResult verifyData(const HexFile* other) const;
+    VerifyResult verifyConfig(const HexFile* other) const;
     
     /**
         Dumps into the @a output string the current code/config/data memory contents.
@@ -109,18 +153,46 @@ public:
 
     const char* getFileName() const { return m_filename.c_str(); }
     bool hasFileName() const { return m_filename[0] != '\0'; }
+    
+    /**
+        Returns true if any memory byte was modified (through the putXXXMemory functions)
+        since last call to newFile(), open(), reload(). saveAs() or save().
+    */
     bool wasModified() const { return m_bModified; }
 
 private:
     string m_filename;
     bool m_bModified;
 
+    /**
+        @name Memory areas
+        
+        Each integer stored in these arrays represent a single word of code/data/config 
+        memory (obviously for 8bit PICs a word is 1 byte; for 16bit PICs a word is 2 bytes).
+    */
+    //@{
+    
     vector<int> m_codeMemory;
     vector<int> m_dataMemory;
     vector<int> m_configMemory;
+    
+    //@}
 
-    bool calcCheckSum(int byteCount,int address, RecordType recordType,vector<int> &lineData, int checkSum);
-    void makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line);
+    /**
+        The masks to be used for the various elements of the #m_configMemory array.
+        
+        Whenever you compare or set or read the i-th byte of #m_configMemory you should
+        always mask it with the i-th element of #m_configMask.
+        
+        This array is set by calcConfigMask().
+    */
+    vector<int> m_configMask;
+    
+    bool calcCheckSum(int byteCount, int address, 
+                      RecordType recordType, vector<int> &lineData, int checkSum);
+    void calcConfigMask(PicType* pic);
+    void makeLine(int address, RecordType recordType, 
+                  vector<int> &lineData, char* output_line);
 };
 
 #endif //HEXFILE_H

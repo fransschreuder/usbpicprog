@@ -101,14 +101,8 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
                 }
             }
 
-            // build the configuration word mask combining all values allowed
-            // for this ConfigMask object
-            // TODO: reuse Pic::ConfigMask here!
-            unsigned int ConfigWordMask = 0;
-            for (unsigned int k=0; k < mask.Values.size(); k++)
-                ConfigWordMask |= mask.Values[k].Value;
-
             choice->SetSelection(0);
+            unsigned int ConfigWordMask = mask.GetMask();
             for (unsigned int k=0; k < mask.Values.size(); k++)
             {
                 if ((ConfigWord&ConfigWordMask) == mask.Values[k].Value)
@@ -224,9 +218,7 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
 
     // combine the current value with the new value selected by the user
     // through the wxChoice
-    // TODO: reuse Pic::ConfigMask
-    for (unsigned int i=0; i<mask->Values.size();i++)
-        ConfigWord &= ~mask->Values[i].Value;
+    ConfigWord &= ~mask->GetMask();
     ConfigWord |= mask->Values[choice->GetSelection()].Value;
 
     // set the new value in the textctrl for the selected configuration word:
@@ -314,7 +306,7 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
             const ConfigMask& mask = word.Masks[i];
             const vector<wxChoice*>& choices = m_ctrl[SelectedWord].choiceArray;
 
-            // walk among the childrens of the selected page
+            // find the wxChoice for the i-th configuration mask:
             wxChoice *choice;
             for (unsigned int j=0; j<choices.size(); j++)
             {
@@ -328,14 +320,9 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
             wxASSERT(choice);
 
-            // build the mask for this configuration word
-            // TODO: reuse Pic::ConfigMask
-            int ConfigWordMask=0;
-            for (unsigned int k=0;k<mask.Values.size();k++)
-                ConfigWordMask|=mask.Values[k].Value;
-
             // now update the selection for this wxChoice
             choice->SetSelection(0);
+            unsigned int ConfigWordMask = mask.GetMask();
             for (unsigned int k=0; k<mask.Values.size(); k++)
                 if ((ConfigWordInt&ConfigWordMask) == mask.Values[k].Value)
                     choice->SetSelection(k);

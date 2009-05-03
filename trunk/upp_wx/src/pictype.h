@@ -438,7 +438,6 @@ public:
     Pic() : CodeSize(0), ConfigAddress(0), DataAddress(0), DataSize(0), ConfigSize(0), 
             picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
     {
-        memset(ConfigMask, 0, sizeof(ConfigMask));
         for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
             WorkVoltages[i] = ProgVoltages[i] = 0.0;
     }
@@ -460,7 +459,7 @@ public:
 
     // public members to avoid lots of getters/setters:
 
-    /// Name of the PIC model described by this Pic instance
+    /// Name of the PIC model described by this Pic instance.
     string Name;
 
     /// Size of the code memory area (in word units??)
@@ -476,25 +475,21 @@ public:
     unsigned int ConfigAddress;
 
     /// Address for the data memory area (in word units??)
-    unsigned int DataAddress; // in hex file
+    unsigned int DataAddress;
 
-    /// The family to which this PIC belongs
+    /// The family to which this PIC belongs.
     PicFamily picFamily;
 
-    /// The device ID for this type of PIC
+    /// The device ID for this type of PIC.
     unsigned int DevId;
 
     /// The bitmask to be used when comparing/manipulating #DevId.
     unsigned int DevIdMask;
 
-    /// The array of configuration blocks
+    /// The array of configuration blocks.
     vector<ConfigWord> ConfigWords;
 
-    /// The final masks to be used for the various elements of the #ConfigWords array.
-    /// TODO: remove this member and put the computed mask inside ConfigWord::WriteMask instead.
-    unsigned int ConfigMask[16];
-
-    /// Package descriptor
+    /// Package descriptors.
     vector<ChipPackage> Package;
 
     /// The programming voltages; see VoltageType enum.

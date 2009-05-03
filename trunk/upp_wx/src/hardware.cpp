@@ -683,70 +683,21 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     {
         if(doCode)
         {
-            for(int i=0;i<(signed)hexData->getCodeMemory().size();i++)
-            {
-                if((signed)verifyHexFile->getCodeMemory().size()<(i+1))
-                {
-                    res.Result=VERIFY_OTHER_ERROR;
-                    cout<<"Verify size mismatch in code"<<endl;
-                    return res;
-                }
-                if(verifyHexFile->getCodeMemory()[i]!=hexData->getCodeMemory()[i])
-                {
-                    res.Result=VERIFY_MISMATCH;
-                    res.DataType=TYPE_CODE;
-                    res.Address=i;
-                    res.Read=verifyHexFile->getCodeMemory()[i];
-                    res.Expected=hexData->getCodeMemory()[i];
-                    return res;
-                }
-
-            }
+            res = hexData->verifyCode(verifyHexFile);
+            if (res.Result != VERIFY_SUCCESS)
+                return res;
         }
         if(doData)
         {
-            for(int i=0;i<(signed)hexData->getDataMemory().size();i++)
-            {
-                if((signed)verifyHexFile->getDataMemory().size()<(i+1))
-                {
-                    res.Result=VERIFY_OTHER_ERROR;
-                    cout<<"Verify size mismatch in data"<<endl;
-                    return res;
-                }
-                if(verifyHexFile->getDataMemory()[i]!=hexData->getDataMemory()[i])
-                {
-                    res.Result=VERIFY_MISMATCH;
-                    res.DataType=TYPE_DATA;
-                    res.Address=i;
-                    res.Read=verifyHexFile->getDataMemory()[i];
-                    res.Expected=hexData->getDataMemory()[i];
-                    return res;
-                }
-
-            }
+            res = hexData->verifyData(verifyHexFile);
+            if (res.Result != VERIFY_SUCCESS)
+                return res;
         }
         if(doConfig&&(m_hwCurrent == HW_UPP)) // it's no use to verify config for the bootloader
         {
-            for(int i=0;i<(signed)hexData->getConfigMemory().size();i++)
-            {
-                if((signed)verifyHexFile->getConfigMemory().size()<(i+1))
-                {
-                    res.Result=VERIFY_OTHER_ERROR;
-                    cout<<"Verify size mismatch in config"<<endl;
-                    return res;
-                }
-                if((verifyHexFile->getConfigMemory()[i] & picType->getCurrentPic().ConfigMask[i])!=
-                    (hexData->getConfigMemory()[i] & picType->getCurrentPic().ConfigMask[i]))
-                {
-                    res.Result=VERIFY_MISMATCH;
-                    res.DataType=TYPE_CONFIG;
-                    res.Address=i;
-                    res.Read=verifyHexFile->getConfigMemory()[i];
-                    res.Expected=hexData->getConfigMemory()[i];
-                    return res;
-                }
-
-            }
+            res = hexData->verifyConfig(verifyHexFile);
+            if (res.Result != VERIFY_SUCCESS)
+                return res;
         }
         res.Result=VERIFY_SUCCESS;
     }

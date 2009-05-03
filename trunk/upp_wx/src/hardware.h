@@ -121,40 +121,6 @@ typedef union
 } BootloaderPackage;
 
 /** 
-    The type of memory area to read/write/verify.
-    See the VerifyResult structure.
-*/
-typedef enum
-{
-    TYPE_CODE=0,
-    TYPE_DATA,
-    TYPE_CONFIG
-} MemoryType;
-
-/** 
-    Return values for a verify operation stored inside VerifyResult structure. 
-*/
-typedef enum
-{
-    VERIFY_SUCCESS=0,
-    VERIFY_MISMATCH,
-    VERIFY_USB_ERROR,
-    VERIFY_OTHER_ERROR
-} VRResult;
-
-/** 
-    The return value of Hardware::verify() function.
-*/
-typedef struct
-{
-    VRResult Result;
-    MemoryType DataType;
-    int Address;
-    int Read;
-    int Expected;
-} VerifyResult;
-
-/** 
     The different types of hardware circuits supported by upp_wx.
 */
 typedef enum
