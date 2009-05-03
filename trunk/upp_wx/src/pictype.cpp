@@ -52,61 +52,71 @@ PicType::PicIndexInfo PicType::s_default;
 // PicType
 // ----------------------------------------------------------------------------
 
-PicType::PicType(string picTypeStr)
+bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
+{
+    if (indexInfo.pic)
+    {
+        // the data for this PIC was already loaded and cached previously;
+        // don't reload it again!
+        *this = *indexInfo.pic;
+    }
+    else
+    {
+        *this = LoadPiklabXML(indexInfo.name);
+
+        // complete the Piklab data with some UPP-specific data
+        // previously loaded from UPP_INDEX_FILE
+        DevIdMask = indexInfo.devIdMask;
+        DevId = indexInfo.devId;
+        picFamily = indexInfo.picFamily;
+
+        // cache the entire structure in our internal static array:
+        indexInfo.pic = new PicType(*this);
+    }
+
+    return ok();
+}
+
+/* static*/
+PicType PicType::FindPIC(string picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
         if (picTypeStr.compare("P" + s_arrSupported[i].name)==0)
         {
             // this is a supported PIC!
-            if (!LoadPIC(s_arrSupported[i]))
+
+            PicType ret;
+            if (!ret.LoadPIC(s_arrSupported[i]))
                 wxLogError("Could not load data for PIC '%s'.", picTypeStr);
 
             // we either failed or successfully loaded the PIC data...
-            return;
+            return ret;
         }
     }
+    
+    return UPP_INVALID_PIC;
 }
 
-PicType::PicType(int devId)
+/* static*/
+PicType PicType::FindPIC(unsigned int devId)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
         if ((devId & s_arrSupported[i].devIdMask) == s_arrSupported[i].devId)
         {
             // this is a supported PIC!
-            if (!LoadPIC(s_arrSupported[i]))
+            
+            PicType ret;
+            if (!ret.LoadPIC(s_arrSupported[i]))
                 wxLogError("Could not load data for PIC '%s'.", s_arrSupported[i].name);
 
             // we either failed or successfully loaded the PIC data...
-            return;
+            return ret;
         }
     }
-}
-
-bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
-{
-    if (indexInfo.pic.ok())
-    {
-        // the data for this PIC was already loaded and cached previously;
-        // don't reload it again!
-        m_currentPic = indexInfo.pic;
-    }
-    else
-    {
-        m_currentPic = LoadPiklabXML(indexInfo.name);
-
-        // complete the Piklab data with some UPP-specific data
-        // previously loaded from UPP_INDEX_FILE
-        m_currentPic.DevIdMask = indexInfo.devIdMask;
-        m_currentPic.DevId = indexInfo.devId;
-        m_currentPic.picFamily = indexInfo.picFamily;
-
-        // cache the entire structure in our internal static array:
-        indexInfo.pic = m_currentPic;
-    }
-
-    return m_currentPic.ok();
+    
+    return UPP_INVALID_PIC;
 }
 
 /* static */
@@ -161,6 +171,7 @@ bool PicType::Init()
             wxString str;
             long num;
 
+            info.pic = NULL;
             info.name = child->GetAttribute("name");
             info.picFamily = GetFamilyFromString(child->GetAttribute("upp_family"));
             if (info.picFamily == UPP_INVALID_PICFAMILY)
@@ -232,6 +243,16 @@ bool PicType::Init()
     return s_arrSupported.size()>0;
 }
 
+/* static*/
+void PicType::CleanUp()
+{
+    for (unsigned int i=0;i<s_arrSupported.size();i++)
+    {
+        if (s_arrSupported[i].pic)
+            delete s_arrSupported[i].pic;
+    }
+}
+
 /* static */
 int PicType::GetRange(const wxXmlNode* p)
 {
@@ -249,7 +270,7 @@ int PicType::GetRange(const wxXmlNode* p)
 }
 
 /* static */
-Pic PicType::LoadPiklabXML(const wxString& picName)
+PicType PicType::LoadPiklabXML(const wxString& picName)
 {
     wxString prefix = wxStandardPaths::Get().GetDataDir() + 
                       wxFileName::GetPathSeparator();
@@ -258,7 +279,7 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
     prefix += wxFileName::GetPathSeparator();
 #endif
 
-    Pic ret = LoadPiklabXMLFile(prefix + picName + ".xml");
+    PicType ret = LoadPiklabXMLFile(prefix + picName + ".xml");
     if (ret.Name != "P" + picName)  // PIC name should match picName
         return UPP_INVALID_PIC;
     
@@ -266,9 +287,9 @@ Pic PicType::LoadPiklabXML(const wxString& picName)
 }
 
 /* static */
-Pic PicType::LoadPiklabXMLFile(const wxString& fileName)
+PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 {
-    Pic p;
+    PicType p;
     wxXmlDocument doc;
     wxString str;
     long num=0;

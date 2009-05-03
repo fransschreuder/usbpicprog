@@ -68,7 +68,7 @@ public:
         for the entire lifetime of this window.
 
     */
-    void SetHexFile(HexFile* hex, const Pic& pic);
+    void SetHexFile(HexFile* hex, const PicType& pic);
 
 private:
     /**
@@ -80,7 +80,7 @@ private:
         The Pic structure contains info about the config flags for the PIC model
         selected by the user (but does not contain the actual data - m_hexFile contains it).
     */
-    Pic m_pic;
+    PicType m_pic;
 
     /**
         Pointers to the wxChoice and wxTextCtrl controls which contain the current values 

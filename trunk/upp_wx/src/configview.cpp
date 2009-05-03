@@ -46,7 +46,7 @@ UppConfigViewBook::~UppConfigViewBook()
 {
 }
 
-void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
+void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
 {
     m_pic = pic;
     m_hexFile = hex;

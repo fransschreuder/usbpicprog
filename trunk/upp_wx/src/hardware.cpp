@@ -239,7 +239,7 @@ int Hardware::setPicType(PicType* picType)
 
     statusCallBack (0);
     msg[0]=CMD_SET_PICTYPE;
-    msg[1]=picType->getCurrentPic().picFamily;
+    msg[1]=picType->picFamily;
 
     int nBytes=-1;
     if (m_handle != NULL)
@@ -303,7 +303,7 @@ int Hardware::bulkErase(PicType* picType)
             if(writeData(hf,picType) < 0)return -1;
             statusCallBack(50);
             delete hf;
-            for (unsigned int address=0x800; address<picType->getCurrentPic().CodeSize; address+=64)
+            for (unsigned int address=0x800; address<picType->CodeSize; address+=64)
             {
                 if(m_abortOperations)return OPERATION_ABORTED;
                 BootloaderPackage bootloaderPackage;
@@ -334,7 +334,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
 
     if (!picType->ok()) return -1;
 
-    mem.resize(picType->getCurrentPic().CodeSize, 0xFF);
+    mem.resize(picType->CodeSize, 0xFF);
     char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
@@ -344,21 +344,21 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     if (m_handle != NULL)
     {
         nBytes=0;
-        for(unsigned int blockcounter=0;blockcounter<picType->getCurrentPic().CodeSize;blockcounter+=BLOCKSIZE_HW)
+        for(unsigned int blockcounter=0;blockcounter<picType->CodeSize;blockcounter+=BLOCKSIZE_HW)
         {
-            statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().CodeSize));
+            statusCallBack ((blockcounter*100)/((signed)picType->CodeSize));
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->getCurrentPic().CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if((picType->CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
-            if(picType->getCurrentPic().CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
-            else blocksize=picType->getCurrentPic().CodeSize-blockcounter;
+            if(!picType->is16Bit())currentBlockCounter/=2;
+            if(picType->CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
+            else blocksize=picType->CodeSize-blockcounter;
             nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->getCurrentPic().CodeSize>(blockcounter+i))
+                if(picType->CodeSize>(blockcounter+i))
                 {
                     /*if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
                     {
@@ -419,7 +419,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
+            if(!picType->is16Bit())currentBlockCounter/=2;
             nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
             if (m_hwCurrent == HW_UPP)
             {
@@ -444,7 +444,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
 
     if (!picType->ok()) return -1;
 
-    mem.resize(picType->getCurrentPic().DataSize);
+    mem.resize(picType->DataSize);
     int BLOCKSIZE_HW;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
@@ -454,23 +454,23 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
     if(m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; // TODO implement readData for bootloader
-    if(picType->getCurrentPic().DataSize==0)return 0;// no data to read
+    if(picType->DataSize==0)return 0;// no data to read
     if (m_handle != NULL)
     {
-        for(unsigned int blockcounter=0;blockcounter<picType->getCurrentPic().DataSize;blockcounter+=BLOCKSIZE_HW)
+        for(unsigned int blockcounter=0;blockcounter<picType->DataSize;blockcounter+=BLOCKSIZE_HW)
         {
-            statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().DataSize));
+            statusCallBack ((blockcounter*100)/((signed)picType->DataSize));
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->getCurrentPic().DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if((picType->DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            if(picType->getCurrentPic().DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
-            else blocksize=picType->getCurrentPic().DataSize-blockcounter;
+            if(picType->DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
+            else blocksize=picType->DataSize-blockcounter;
 
             nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->getCurrentPic().DataSize>(blockcounter+i))
+                if(picType->DataSize>(blockcounter+i))
                 {
                     mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
                 }
@@ -549,7 +549,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     if (!picType->ok()) return -1;
 
     vector<int> mem;
-    mem.resize(picType->getCurrentPic().ConfigSize);
+    mem.resize(picType->ConfigSize);
     char dataBlock[BLOCKSIZE_CONFIG];
     int blocktype;
     if(m_abortOperations)return OPERATION_ABORTED;
@@ -557,35 +557,35 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     if (m_hwCurrent == HW_BOOTLOADER)return 0; // Better write no configuration words in bootloader, it's unsafe, you might destroy the bootloader
     if (m_handle != NULL)
     {
-        for(unsigned int blockcounter=0;blockcounter<picType->getCurrentPic().ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
+        for(unsigned int blockcounter=0;blockcounter<picType->ConfigSize;blockcounter+=BLOCKSIZE_CONFIG)
         {
-            statusCallBack ((blockcounter*100)/((signed)picType->getCurrentPic().ConfigSize));
+            statusCallBack ((blockcounter*100)/((signed)picType->ConfigSize));
             blocktype=BLOCKTYPE_MIDDLE;
             if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->getCurrentPic().ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if((picType->ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
-            if(picType->getCurrentPic().ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
-            else blocksize=picType->getCurrentPic().ConfigSize-blockcounter;
-            nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
+            if(!picType->is16Bit())currentBlockCounter/=2;
+            if(picType->ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
+            else blocksize=picType->ConfigSize-blockcounter;
+            nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->getCurrentPic().ConfigSize>(blockcounter+i))
+                if(picType->ConfigSize>(blockcounter+i))
                 {
                     mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
 // 					cerr<<hex<<(int)dataBlock[i]<<" "<<dec;
                 }
                 else
                 {
-                    cerr<<"Trying to read memory outside Config area: bc+i="<<blockcounter+i<<"Configsize="<<picType->getCurrentPic().ConfigSize<<endl;
+                    cerr<<"Trying to read memory outside Config area: bc+i="<<blockcounter+i<<"Configsize="<<picType->ConfigSize<<endl;
 // 					return -1;
                 }
             }
             if(m_abortOperations)break;
         }
-/*		for(int i=0;i<picType->getCurrentPic().ConfigSize;i++)
-            mem[i]&=picType->getCurrentPic().ConfigMask[i];*/
+/*		for(int i=0;i<picType->ConfigSize;i++)
+            mem[i]&=picType->ConfigMask[i];*/
         hexData->putConfigMemory(mem);
     }
     cerr<<endl;
@@ -631,8 +631,8 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
             if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
             if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->getCurrentPic().is16Bit())currentBlockCounter/=2;
-            nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->getCurrentPic().ConfigAddress,blocksize,blocktype);
+            if(!picType->is16Bit())currentBlockCounter/=2;
+            nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
             if(nBytes==3) return -3;	// something not implemented in firmware :(
             if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
             if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
@@ -724,14 +724,15 @@ int Hardware::autoDetectDevice()
         return -1;// 0x11240;     // PIC18F2550
 
     // need to set hardware to PIC18, no matter which one
-    if (setPicType(new PicType("P18F2550")) < 0)
+    PicType pic18 = PicType::FindPIC("P18F2550");
+    if (setPicType(&pic18) < 0)
         return -1;
 
     int devId=readId();
     if (devId < 0)
         return -1;
 
-    PicType picType(0x10000|devId);
+    PicType picType = PicType::FindPIC(0x10000|devId);
     if (picType.ok())
     {
         return devId|0x10000; 
@@ -740,11 +741,15 @@ int Hardware::autoDetectDevice()
     else
     {
         // try PIC16
-        if (setPicType(new PicType("P16F628A")) < 0)
+        PicType pic16 = PicType::FindPIC("P16F628A");
+        if (setPicType(&pic16) < 0)
             return -1;
 
         devId=readId();
-        PicType picType(devId);
+        if (devId < 0)
+            return -1;
+        
+        PicType picType = PicType::FindPIC(devId);
         if (picType.ok())
             return devId;
     }

@@ -92,7 +92,7 @@ DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE);
 UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
-    m_history(4), m_picType(0)
+    m_history(4)
 {
     SetName(wxT("UppMainWindow"));
 
@@ -142,7 +142,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         if ((lastPic=pCfg->Read(wxT("SelectedPIC"), (long)0)) >= 0 && 
             lastPic < (int)m_arrPICName.size())
         {
-            m_picType=PicType((string)m_arrPICName[lastPic]);
+            m_picType = PicType::FindPIC((string)m_arrPICName[lastPic]);
 
             // keep the choice box synchronized
             m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
@@ -476,33 +476,32 @@ void UppMainWindow::UpdatePicInfo()
     m_pDataGrid->SetHexFile(&m_hexFile);
 
     // reset config listbook contents
-    m_pConfigListbook->SetHexFile(&m_hexFile, m_picType.getCurrentPic());
+    m_pConfigListbook->SetHexFile(&m_hexFile, m_picType);
 
     // reset the PIC info page
-    const Pic& pic = m_picType.getCurrentPic();
-    if (!pic.ok())
+    if (!m_picType.ok())
         return;
 
-    const vector<ChipPackage>& pkg = pic.Package;
+    const vector<ChipPackage>& pkg = m_picType.Package;
 
     // update the misc infos
 
-    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(pic.GetExtName().c_str())));
+    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str())));
     m_pDatasheetLink->SetURL(
-        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(pic.GetExtName().c_str())));
+        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(m_picType.GetExtName().c_str())));
     m_pDatasheetLink->SetVisited(false);
 
     m_pVPPText->SetLabel(
         wxString::Format(_("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
-                         pic.ProgVoltages[MINIMUM], pic.ProgVoltages[NOMINAL], pic.ProgVoltages[MAXIMUM]));
+                         m_picType.ProgVoltages[MINIMUM], m_picType.ProgVoltages[NOMINAL], m_picType.ProgVoltages[MAXIMUM]));
     m_pVDDText->SetLabel(
         wxString::Format(_("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
-                         pic.WorkVoltages[MINIMUM], pic.WorkVoltages[NOMINAL], pic.WorkVoltages[MAXIMUM]));
-    m_pFrequencyText->SetLabel(wxString::Format(_("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz"), pic.MinFreq, pic.MaxFreq));
-    m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), pic.DevId&0xFFFF));
-    m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), pic.CodeSize));
-    m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), pic.DataSize));
-    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), pic.is16Bit() ? 16 : 8));
+                         m_picType.WorkVoltages[MINIMUM], m_picType.WorkVoltages[NOMINAL], m_picType.WorkVoltages[MAXIMUM]));
+    m_pFrequencyText->SetLabel(wxString::Format(_("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz"), m_picType.MinFreq, m_picType.MaxFreq));
+    m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), m_picType.DevId&0xFFFF));
+    m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), m_picType.CodeSize));
+    m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), m_picType.DataSize));
+    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.is16Bit() ? 16 : 8));
 
     m_pInfoPanel->Layout();
         // size may have changed: relayout the panel which is the parent of the windows
@@ -936,7 +935,7 @@ bool UppMainWindow::upp_thread_verify()
             default: typeText=_("Verify unknown");break;
         }
         verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                          res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
+                          res.Address+((res.DataType==TYPE_CONFIG)*m_picType.ConfigAddress),
                           res.Read, res.Expected);
         verifyText.Prepend(typeText);
         LogFromThread(wxLOG_Error, verifyText);
@@ -998,7 +997,7 @@ bool UppMainWindow::upp_thread_blankcheck()
         }
 
         verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-            res.Address+((res.DataType==TYPE_CONFIG)+m_picType.getCurrentPic().ConfigAddress),
+            res.Address+((res.DataType==TYPE_CONFIG)+m_picType.ConfigAddress),
             res.Read,
             res.Expected);
         LogFromThread(wxLOG_Message, verifyText);
@@ -1301,9 +1300,9 @@ bool UppMainWindow::upp_autodetect()
 
     // if devId is not a valid device ID, select the default PIC
     if (devId == -1)
-        m_picType=PicType(UPP_DEFAULT_PIC);
+        m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
     else
-        m_picType=PicType(devId);
+        m_picType = PicType::FindPIC(devId);
     wxASSERT(m_picType.ok());
     m_hardware->setPicType(&m_picType);
 
@@ -1381,7 +1380,7 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
-            m_picType=PicType(0);     // select default PIC
+            m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
             m_hardware->setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
@@ -1480,8 +1479,10 @@ void UppMainWindow::upp_pic_choice_changed()
 
         m_hardware->setPicType(&m_picType);
     }
+    
     // update the pic type
-    m_picType=PicType(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+    m_picType = PicType::FindPIC(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+    
     // PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -1509,7 +1510,7 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
     }
 
     // update the pic type
-    m_picType=PicType((string)m_arrPICName[id]);
+    m_picType = PicType::FindPIC((string)m_arrPICName[id]);
 
     // keep the choice box synchronized
     m_pPICChoice->SetStringSelection(m_arrPICName[id]);
@@ -1522,11 +1523,11 @@ void UppMainWindow::upp_package_variant_changed()
 {
     // get the new package
     const ChipPackage& pkg = 
-        m_picType.getCurrentPic().Package[m_pPackageVariants->GetSelection()];
+        m_picType.Package[m_pPackageVariants->GetSelection()];
 
     // set it to the package-view window
     if (m_picType.ok())
-        m_pPackageWin->SetChip(wxString(m_picType.getCurrentPic().GetExtName().c_str()), pkg);
+        m_pPackageWin->SetChip(wxString(m_picType.GetExtName().c_str()), pkg);
 }
 
 void UppMainWindow::upp_size_changed()

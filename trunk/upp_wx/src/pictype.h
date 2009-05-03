@@ -44,7 +44,7 @@ class wxDC;
 #define UPP_DEFAULT_PIC_MODEL   wxT("18F2550")
 #define UPP_DEFAULT_PIC         "P18F2550"
 
-#define UPP_INVALID_PIC         (Pic())
+#define UPP_INVALID_PIC         (PicType())
 
 
 // enums:
@@ -424,42 +424,34 @@ public:
 };
 
 /**
-    This class represents a PIC device.
+    This class represents a PIC device type.
 
-    Pic class stores all properties of a PIC, but does NOT store the
-    code, config and data memory areas (see HexFile for that).
+    The PicType class stores all properties of a PIC, but does @b NOT store the
+    code, config and data memory areas (see HexFile class for that).
     
     The info stored in this class are initialized at run-time using one of
     FindPIC() static functions and then are not modified anymore.
 */
-class Pic
+class PicType
 {
 public:
-    Pic() : CodeSize(0), ConfigAddress(0), DataAddress(0), DataSize(0), ConfigSize(0), 
-            picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
+    /**
+        Default constructor.
+        
+        To make a PicType instance valid (so that ok() return true) initialize
+        a PicType assigning it the return value of FindPIC() function.
+    */
+    PicType() : CodeSize(0), ConfigAddress(0), DataAddress(0), DataSize(0), ConfigSize(0), 
+                picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
     {
         for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
             WorkVoltages[i] = ProgVoltages[i] = 0.0;
     }
 
-    /// Is this PIC structure correctly initialized?
-    bool ok() const
-        { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; }
-
-    /// Returns true if the PIC is a 16bit device (e.g. Pic18)
-    bool is16Bit() const
-        { return (Name.find("P18F")==0); }
-
-    /// Returns the PIC name which starts with "PIC" instead of "P".
-    string GetExtName() const
-        {
-            if (Name.empty()) return Name;
-            return string("PIC" + Name.substr(1)); 
-        }
-
     // public members to avoid lots of getters/setters:
 
     /// Name of the PIC model described by this Pic instance.
+    /// This string always starts with "P" (not "PIC") prefix.
     string Name;
 
     /// Size of the code memory area (in word units??)
@@ -500,51 +492,46 @@ public:
 
     /// The minimum & maximum frequencies for this PIC.
     float MinFreq, MaxFreq;
-};
 
-/**
-    A PIC type.
 
-    TODO rename this class to PicChooser and rename its ctors
-        to FindPIC() and make all its function static.
-        Change UppMainWindow to store&use a Pic instance.
-        Or otherwise simply merge this class with the Pic class itself.
-*/
-class PicType
-{
-public:
-    /**
-        Constructor to select a pic by string, usage:
-        @code Pictype* picType=new PicType("P18F2550"); @endcode
+    /** Is this PIC instance correctly initialized? */
+    bool ok() const
+        { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; 
+            /* TODO: check for more members to be non-NULL */ }
 
-        Use ok() to test if the ctor did successful find a valid PIC model.
-    */
-    PicType(string picType);
+    /** Returns true if the PIC is a 16bit device (e.g. Pic18). */
+    bool is16Bit() const
+        { return (Name.find("P18F")==0); }
 
-    /**
-        Constructor to select a pic by devId, usage:
-        @code Pictype* picType=new PicType(0x1240); @endcode
-
-        Use ok() to test if the ctor did successful find a valid PIC model.
-    */
-    PicType(int devId);
-
-    /** Returns the PIC that was selected in the ctor. */
-    const Pic& getCurrentPic() const
-        { return m_currentPic; }
-    Pic& getCurrentPic()
-        { return m_currentPic; }
-        
-    /** Returns true if the construction of this instance was successful. */
-    bool ok() const 
-        { return m_currentPic.ok(); }
+    /** Returns the PIC name which starts with "PIC" instead of "P". */
+    string GetExtName() const
+        {
+            if (Name.empty()) return Name;
+            return string("PIC" + Name.substr(1)); 
+        }
         
     /** Returns the current PIC name as a wxString. */
     wxString getPicName() const
-        { return wxString::FromAscii(m_currentPic.Name.c_str()); }
+        { return wxString::FromAscii(Name.c_str()); }
 
 
     // static utilities
+
+    /**
+        Returns a PicType instance describing the PIC model named @a picType.
+
+        If there's no supported PIC with the given name, then the instance
+        returned will return false when calling ok() on it.
+    */
+    static PicType FindPIC(string picType);
+
+    /**
+        Returns a PicType instance describing the PIC model whose device id is @a devId.
+
+        If there's no supported PIC with the given device id, then the instance
+        returned will return false when calling ok() on it.
+    */
+    static PicType FindPIC(unsigned int devId);
 
     /**
         Returns an array (vector) of strings containing all names of supported PICs.
@@ -558,6 +545,13 @@ public:
         This needs to be called only once at program startup.
     */
     static bool Init();
+    
+    /**
+        Clears all internal static variables.
+        
+        This needs to be called only once at program exit.
+    */
+    static void CleanUp();
 
 private:        // data
     /**
@@ -566,25 +560,18 @@ private:        // data
     */
     typedef struct
     {
-        /// This is the pic name @e without the initial "P"
+        /// This is the pic name @e without the initial "P" or "PIC" prefix
         wxString name;
+        
         PicFamily picFamily;
         unsigned int devIdMask;
         unsigned int devId;
 
-        /// This is the full cached PIC structure as loaded from the Piklab XML
-        /// file. If pic.ok()==false, it means the relative XML file still needs
-        /// to be loaded.
-        Pic pic;
+        /// This is the full cached PicType instance. 
+        /// If pic->ok()==false or pic==NULL, it means the relative XML file still 
+        /// needs to be loaded (see LoadPIC()).
+        PicType* pic;
     } PicIndexInfo;
-
-    /**
-        The PIC selected in the ctor
-        This is loaded on-the-fly from the Piklab XML files.
-    */
-    Pic m_currentPic;
-
-    // static data:
 
     /**
         The names of the supported PICs.
@@ -616,14 +603,18 @@ private:    // utilities
 
         @note Does not log any error.
 
-        @return UPP_INVALID_PIC on failure, or a valid Pic structure otherwise.
+        @return UPP_INVALID_PIC on failure, or a valid PicType otherwise.
     */
-    static Pic LoadPiklabXML(const wxString& picName);
+    static PicType LoadPiklabXML(const wxString& picName);
     
     /**
         Loads the Piklab XML identified by the given @a fileName.
+        
+        @note Does not log any error.
+
+        @return UPP_INVALID_PIC on failure, or a valid PicType otherwise.
     */
-    static Pic LoadPiklabXMLFile(const wxString& fileName);
+    static PicType LoadPiklabXMLFile(const wxString& fileName);
 
     /**
         Returns the range indicated by the given XML node.

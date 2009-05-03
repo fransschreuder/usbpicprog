@@ -101,6 +101,8 @@ bool UsbPicProg::OnInit()
 int UsbPicProg::OnExit()
 {
     delete m_locale;
+    
+    PicType::CleanUp();
 
     return wxApp::OnExit();
 }
@@ -185,15 +187,16 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
     /* check if -p <str> is passed, else autodetect the device
     */
-    if(parser.Found(wxT("p"),&picTypeStr))picType=new PicType(string(picTypeStr.mb_str(wxConvUTF8)));
+    if(parser.Found(wxT("p"),&picTypeStr))
+        picType=new PicType(PicType::FindPIC(string(picTypeStr.mb_str(wxConvUTF8))));
     else
     {
         int devId=hardware->autoDetectDevice();
-        picType=new PicType(devId);
+        picType=new PicType(PicType::FindPIC(devId));
         hardware->setPicType(picType);
         if(devId>0)cout<<"Detected: ";
         else cerr<<"Detection failed, setting picType to default: ";
-        cout<<picType->getCurrentPic().Name<<endl;
+        cout<<picType->Name<<endl;
     }
 
     /* if -e is passed, bulk erase the entire pic*/
@@ -224,7 +227,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 }
                 fprintf(stderr,"Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                         typeText.c_str(),
-                        res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                        res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
                         res.Read,
                         res.Expected);
                 cout<<endl;
@@ -315,7 +318,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                     }
                     fprintf(stderr,"Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),
-                            res.Address+((res.DataType==TYPE_CONFIG)+picType->getCurrentPic().ConfigAddress),
+                            res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
                             res.Read,
                             res.Expected);
                     cerr<<endl;
