@@ -601,7 +601,17 @@ void HexFile::print(string* output,PicType *picType)
 void HexFile::calcConfigMask(const PicType* pic)
 {
     m_configMask.resize(m_configMemory.size());
+    if (m_configMask.size() == 0)
+        return;
+
+    // make sure that later in the for() loop we won't access invalid elements
+    // of m_configMask array:
+    if (pic->is16Bit())
+        wxASSERT(pic->ConfigWords.size() == m_configMask.size());
+    else
+        wxASSERT(pic->ConfigWords.size()*2 == m_configMask.size());
     
+    // reset m_configMask contents
     for (unsigned int i=0; i<pic->ConfigWords.size(); i++)
     {
         unsigned int mask = pic->ConfigWords[i].GetMask();
