@@ -53,6 +53,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 
     // reset current contents
     DeleteAllPages();
+    m_ctrl.clear();
 
     // add new GUI selectors for the config flags of this PIC
     for (unsigned int i=0; i<m_pic.ConfigWords.size(); i++)
@@ -71,7 +72,9 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
         {
             const ConfigMask& mask = word.Masks[j];
 
-            sz->Add(new wxStaticText(panel, wxID_ANY, mask.Name + ":"),
+            sz->Add(new wxStaticText(panel, wxID_ANY, 
+                                     wxString::Format("<b>%s</b> [%d bits]:", mask.Name, mask.GetBitSize()),
+                                     wxDefaultPosition, wxDefaultSize, wxST_MARKUP),
                     0, wxLEFT|wxALIGN_CENTER, 5);
 
             // NOTE: we give each wxChoice we build the name of the mask it controls;
@@ -121,46 +124,57 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const Pic& pic)
 
             sz->Add(choice, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
 
-            pageCtrl.choiceCtrl.push_back(choice);
+            pageCtrl.choiceArray.push_back(choice);
         }
 
-
-        sz->AddSpacer(1);
-        sz->Add(new wxStaticLine(panel, wxID_ANY), 1, wxEXPAND|wxALL, 10);
-
+        
+        wxBoxSizer* boxSz = new wxBoxSizer(wxHORIZONTAL);
 
         // add the text control which contains the current hex value
         // for the i-th configuration word
 
-        sz->Add(new wxStaticText(panel, wxID_ANY, "Word:"),
-                0, wxLEFT|wxALIGN_CENTER, 5);
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, "Configuration Word:"),
+                   0, wxLEFT|wxRIGHT|wxALIGN_CENTER, 5);
 
-        wxString configWordHex;
-        if (m_pic.is16Bit())
-            configWordHex.Printf("%04X", ConfigWord);
-        else
-            configWordHex.Printf("%02X", ConfigWord);
-
-        wxTextCtrl* tc = new wxTextCtrl(panel, wxID_ANY, configWordHex,
-                                         wxDefaultPosition, wxDefaultSize, 0, 
-                                         wxDefaultValidator, word.Name+"Configword");
+        // NOTE: we use %04X because even for 8 bit devices the configuration words
+        //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
+        wxTextCtrl* tc = new wxTextCtrl(panel, wxID_ANY, wxString::Format("%04X", ConfigWord));
         tc->SetToolTip(
             wxString::Format(_("The current value for the %d-th configuration word as derived from above configuration choices"), i));
 
-        tc->SetMaxLength(m_pic.is16Bit() ? 4 : 2);
+        tc->SetMaxLength(wxString::Format("%X", word.GetMask()).size());
+        
         tc->Connect(wxEVT_COMMAND_TEXT_UPDATED, 
                     wxCommandEventHandler(UppConfigViewBook::OnConfigWordDirectChange), 
                     NULL, this);
 
-        sz->Add(tc, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
+        boxSz->Add(tc, 0, wxRIGHT|wxALIGN_CENTER|wxEXPAND, 5);
 
         pageCtrl.textCtrl = tc;
+        
+        
+        
+        // add a few more details about the location of current config word in PIC memory
+
+        boxSz->AddStretchSpacer(1);
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format("Location in memory: 0x%X", m_pic.ConfigAddress + word.Offset)),
+                0, wxLEFT|wxALIGN_CENTER, 5);
+                
+        boxSz->AddStretchSpacer(1);
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format("Length: %d bits", word.GetBitSize())),
+                0, wxLEFT|wxALIGN_CENTER, 5);
+        boxSz->AddStretchSpacer(1);
 
 
         // complete the creation of the panel:
-
+        
+        wxBoxSizer* panelSz = new wxBoxSizer(wxVERTICAL);
+        panelSz->Add(sz, 0, wxEXPAND);
+        panelSz->Add(new wxStaticLine(panel, wxID_ANY), 0, wxEXPAND|wxALL, 10);
+        panelSz->Add(boxSz, 0, wxEXPAND|wxALL, 5);
+        
         sz->AddGrowableCol(1, 1);
-        panel->SetSizerAndFit(sz);
+        panel->SetSizerAndFit(panelSz);
 
 
         // complete the creation of this page:
@@ -215,15 +229,12 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
         ConfigWord &= ~mask->Values[i].Value;
     ConfigWord |= mask->Values[choice->GetSelection()].Value;
 
-    wxString configWordHex;
-    if (m_pic.is16Bit())
-        configWordHex.Printf("%04X", ConfigWord);
-    else
-        configWordHex.Printf("%02X", ConfigWord);
-
-    // save the new value back in the HEX file and in the textctrl for the
-    // selected configuration word:
-    m_ctrl[SelectedWord].textCtrl->ChangeValue(configWordHex);
+    // set the new value in the textctrl for the selected configuration word:
+    // NOTE: we use %04X because even for 8 bit devices the configuration words
+    //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
+    m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", ConfigWord));
+    
+    // save the new value back in the HEX file, too:
     if (m_pic.is16Bit())
     {
         m_hexFile->putConfigMemory(SelectedWord, ConfigWord&0xFF);
@@ -242,9 +253,10 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
 
 void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 {
+    unsigned int SelectedWord = GetSelection();
     unsigned long ConfigWordInt = 0; 
 
-    wxString configStr = m_ctrl[GetSelection()].textCtrl->GetValue();
+    wxString configStr = m_ctrl[SelectedWord].textCtrl->GetValue();
     if (configStr.empty())
         return;     // do not change anything
 
@@ -256,27 +268,23 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
         if (m_pic.is16Bit())
         {
-            if ((unsigned)(GetSelection()+1) <= m_hexFile->getConfigMemory().size())
+            if ((unsigned)(SelectedWord+1) <= m_hexFile->getConfigMemory().size())
             {
-                ConfigWordInt = m_hexFile->getConfigMemory()[GetSelection()];
+                ConfigWordInt = m_hexFile->getConfigMemory()[SelectedWord];
             }
         }
         else        // 8 bit PIC
         {
-            if ((unsigned)(2*GetSelection()+1) <= m_hexFile->getConfigMemory().size())
+            if ((unsigned)(2*SelectedWord+1) <= m_hexFile->getConfigMemory().size())
             {
-                ConfigWordInt = ((m_hexFile->getConfigMemory()[GetSelection()*2])|
-                                (m_hexFile->getConfigMemory()[GetSelection()*2+1]<<8));
+                ConfigWordInt = ((m_hexFile->getConfigMemory()[SelectedWord*2])|
+                                (m_hexFile->getConfigMemory()[SelectedWord*2+1]<<8));
             }
         }
 
-        wxString configWordHex;
-        if (m_pic.is16Bit())
-            configWordHex.Printf("%02X",ConfigWordInt);
-        else
-            configWordHex.Printf("%04X",ConfigWordInt);
-
-        m_ctrl[GetSelection()].textCtrl->ChangeValue(configWordHex);
+        // NOTE: we use %04X because even for 8 bit devices the configuration words
+        //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
+        m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", ConfigWordInt));
     }
     else
     {
@@ -284,13 +292,13 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
         if (m_pic.is16Bit())
         {
             ConfigWordInt &= 0xFF;
-            m_hexFile->putConfigMemory(GetSelection(), ConfigWordInt&0xFF);
+            m_hexFile->putConfigMemory(SelectedWord, ConfigWordInt&0xFF);
         }
         else
         {
             ConfigWordInt &= 0x3FFF;
-            m_hexFile->putConfigMemory(GetSelection()*2, ConfigWordInt&0xFF);
-            m_hexFile->putConfigMemory(GetSelection()*2+1, (ConfigWordInt&0xFF00)>>8);
+            m_hexFile->putConfigMemory(SelectedWord*2, ConfigWordInt&0xFF);
+            m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWordInt&0xFF00)>>8);
         }
 
         // notify the main window about this change
@@ -300,19 +308,20 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
         // now update the wxChoices for the selected configuration word
 
-        const ConfigWord& word = m_pic.ConfigWords[GetSelection()];
-        for (unsigned int i=0;i<word.Masks.size();i++)
+        const ConfigWord& word = m_pic.ConfigWords[SelectedWord];
+        for (unsigned int i=0; i<word.Masks.size(); i++)
         {
             const ConfigMask& mask = word.Masks[i];
+            const vector<wxChoice*>& choices = m_ctrl[SelectedWord].choiceArray;
 
             // walk among the childrens of the selected page
             wxChoice *choice;
-            for (unsigned int j=0;j<GetCurrentPage()->GetChildren().size();j++)
+            for (unsigned int j=0; j<choices.size(); j++)
             {
-                if (mask.Name == GetCurrentPage()->GetChildren().Item(j)->GetData()->GetName())
+                if (mask.Name == choices[j]->GetName())
                 {
                     // we've found a wxChoice
-                    choice = dynamic_cast<wxChoice*> (GetCurrentPage()->GetChildren().Item(j)->GetData());
+                    choice = choices[j];
                     break;
                 }
             }

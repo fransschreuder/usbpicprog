@@ -275,7 +275,7 @@ public:
 class ConfigMask
 {
 public:
-    ConfigMask() : Value(0) {}
+    ConfigMask() {}
 
     /**
         The name of this set of configuration bits.
@@ -283,15 +283,13 @@ public:
     wxString Name;
     
     /**
-        The mask to select the bits belonging to this ConfigMask from the entire configuration word ???
-    */
-    unsigned long Value;
-    
-    /**
         The various configuration values that this set of bits can assume.
     */
     vector<ConfigValue> Values;
 
+    // leave out 'value' from Piklab XML files; we calculate the mask on the 
+    // fly in GetMask()
+    
     /**
         Returns the array containing the user-friendly names of the available
         configuration values.
@@ -307,6 +305,42 @@ public:
                 ret.Add(Values[i].Name);
         }
         return ret;
+    }
+
+    /**
+        Computes the mask associated with the set of bits for this configuration mask
+        and returns it.
+    */
+    unsigned long GetMask() const
+    {
+        int tmpConfigMask=0;
+        for (unsigned int j=0; j<Values.size(); j++)
+            tmpConfigMask |= Values[j].Value;
+
+        return tmpConfigMask;
+    }
+
+    /**
+        Returns the number of bits grouped by this configuration mask.
+        
+        Note that the returned value is 1-based and not 0-based.
+    */
+    unsigned int GetBitSize() const
+    {
+        unsigned int nbits = 0;
+        unsigned long tmp = GetMask();
+        
+        for (; tmp != 0; )
+        {
+            if ((tmp%2) == 1) 
+                nbits++;    // the last bit of 'tmp' is set to 1
+                
+            // analyze next bit:
+            tmp >>= 1;
+        }
+        
+        // nbits is the number of bits set to 1 of our config mask
+        return nbits;
     }
 };
 
@@ -327,21 +361,12 @@ public:
 class ConfigWord
 {
 public:
-    ConfigWord() : Offset(0), Mask(0) {}
+    ConfigWord() : Offset(0) {}
 
     /**
         The offset of this configuration word inside the configuration memory area of the PIC.
     */
     unsigned long Offset;
-    
-    /**
-        The mask for this configuration word.
-        This is obtained OR-ing all possible values for all our ConfigMask objects.
-        
-        This value is loaded from Piklab XML file but it's also checked against our
-        computed value in PicType::LoadPIC().
-    */
-    unsigned long Mask;
     
     /**
         The name of this configuration word.
@@ -353,7 +378,49 @@ public:
     */
     vector<ConfigMask> Masks;
 
-    // leave out bvalue
+    // leave out 'wmask', 'bvalue' from Piklab XML files; we calculate the masks on the 
+    // fly in GetMask()
+    
+    /**
+        Returns the mask for this configuration word.
+        This is obtained OR-ing all possible values for all our ConfigMask objects.
+    */
+    unsigned long GetMask() const
+    {
+        int tmpConfigMask=0;
+        for (unsigned int j=0; j<Masks.size(); j++)
+            tmpConfigMask |= Masks[j].GetMask();
+        
+        return tmpConfigMask;
+    }
+    
+    /**
+        Returns the number of bits grouped by this configuration word.
+        
+        Note that the returned value is 1-based and not 0-based.
+    */
+    unsigned int GetBitSize() const
+    {
+        unsigned int nbits;
+        unsigned long tmp = GetMask();
+        
+        for (nbits=0; tmp != 0; nbits++)
+            tmp >>= 1;
+        
+#ifdef __WXDEBUG__
+        // coherency check:
+        unsigned int acc = 0;
+        for (unsigned int i=0; i<Masks.size(); i++)
+            acc += Masks[i].GetBitSize();
+        wxASSERT(acc <= nbits);
+#endif
+        
+        // nbits is the index of the MSB set to 1 of our mask;
+        // note that for a mask of e.g. "3FF0" this function returns 14 (i.e. the number
+        // of bits required to e.g. store this configuration word) and not 10
+        // (i.e. the number of bits set to 1)
+        return nbits;
+    }
 };
 
 /**

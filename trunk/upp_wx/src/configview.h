@@ -37,7 +37,7 @@ typedef struct
 {
     /// The wxChoices associated with the various ConfigMask objects contained
     /// into the same ConfigWord instance
-    vector<wxChoice*> choiceCtrl;
+    vector<wxChoice*> choiceArray;
 
     /// The text control which holds the HEX value for the configuration word
     wxTextCtrl* textCtrl;

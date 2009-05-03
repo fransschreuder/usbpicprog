@@ -104,6 +104,8 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
 
         // finally, compute the configuration mask using the data previously loaded
         // from the Piklab XML file
+        // TODO: remove this code; we shouldn't need it given that the mask can be
+        //       computed on the fly with ConfigWord::GetMask()
         for (unsigned int i=0; i<m_currentPic.ConfigWords.size(); i++)
         {
             const ConfigWord& word = m_currentPic.ConfigWords[i];
@@ -131,10 +133,6 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
                 m_currentPic.ConfigMask[i*2] = tmpConfigMask & 0xFF;
                 m_currentPic.ConfigMask[i*2+1] = (tmpConfigMask>>8) & 0xFF;
             }
-            
-            if (word.Mask != tmpConfigMask)
-                wxLogWarning(_("Wrong write mask for %s. Computed mask is %X; loaded mask is %X"), 
-                             m_currentPic.GetExtName(), tmpConfigMask, word.Mask);
         }
 
         // cache the entire structure in our internal static array:
@@ -403,12 +401,6 @@ Pic PicType::LoadPiklabXMLFile(const wxString& fileName)
             block.Name = child->GetAttribute("name");
             if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
                 return UPP_INVALID_PIC;
-            
-            // NOTE: for some reason the real mask for this configuration word
-            //       is stored into "bvalue" and not in "wmask"!
-            //       See also the check we do in PicType::LoadPIC
-            if (!child->GetAttribute("bvalue").ToULong(&block.Mask, 0))
-                return UPP_INVALID_PIC;
 
             // load the ConfigMask objects belonging to this word
             wxXmlNode *maskNode = child->GetChildren();
@@ -418,8 +410,6 @@ Pic PicType::LoadPiklabXMLFile(const wxString& fileName)
                 {
                     ConfigMask mask;
                     mask.Name = maskNode->GetAttribute("name");
-                    if (!maskNode->GetAttribute("value").ToULong(&mask.Value, 0))
-                        return UPP_INVALID_PIC;
 
                     // load the ConfigValue objects belonging to this mask
                     wxXmlNode *valueNode = maskNode->GetChildren();
