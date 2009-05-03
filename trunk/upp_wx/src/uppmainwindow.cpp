@@ -917,9 +917,9 @@ bool UppMainWindow::upp_thread_verify()
 
     wxString verifyText;
     wxString typeText;
-    VerifyResult res=
-        m_hardware->verify(&m_hexFile,&m_picType,m_cfg.ConfigVerifyCode,
-                        m_cfg.ConfigVerifyConfig,m_cfg.ConfigVerifyData);
+    VerifyResult res =
+        m_hardware->verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
+                           m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -936,8 +936,8 @@ bool UppMainWindow::upp_thread_verify()
             default: typeText=_("Verify unknown");break;
         }
         verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-            res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
-            res.Read, res.Expected);
+                          res.Address+((res.DataType==TYPE_CONFIG)*m_picType.getCurrentPic().ConfigAddress),
+                          res.Read, res.Expected);
         verifyText.Prepend(typeText);
         LogFromThread(wxLOG_Error, verifyText);
         break;
@@ -1107,7 +1107,7 @@ void UppMainWindow::upp_open()
 
 bool UppMainWindow::upp_open_file(const wxString& path)
 {
-    if (m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8))<0)
+    if (!m_hexFile.open(&m_picType,path.mb_str(wxConvUTF8)))
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -1135,7 +1135,7 @@ void UppMainWindow::upp_refresh()
     if (!ShouldContinueIfUnsaved())
         return;
 
-    if (m_hexFile.reload(&m_picType)<0)
+    if (!m_hexFile.reload(&m_picType))
     {
         SetStatusText(_("Unable to open file"),STATUS_FIELD_OTHER);
         wxLogError(_("Unable to open file"));
@@ -1151,7 +1151,7 @@ void UppMainWindow::upp_save()
 {
     if (m_hexFile.hasFileName())
     {
-        if (m_hexFile.save(&m_picType)<0)
+        if (!m_hexFile.save(&m_picType))
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
@@ -1173,7 +1173,7 @@ void UppMainWindow::upp_save_as()
         // get the folder of the opened file, without the name&extension
         m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
 
-        if (m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8))<0)
+        if (!m_hexFile.saveAs(&m_picType,openFileDialog->GetPath().mb_str(wxConvUTF8)))
         {
             SetStatusText(_("Unable to save file"),STATUS_FIELD_OTHER);
             wxLogError(_("Unable to save file"));
