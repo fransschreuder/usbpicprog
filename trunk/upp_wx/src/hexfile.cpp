@@ -96,15 +96,18 @@ bool HexFile::open(PicType* picType, const char* filename)
         wxLogError("Could not open Hex file...");
         return false;
     }
+            
+    m_filename = string(filename);
+
 
     // parse the file
 
     do
     {
+        // read a line from the file
         fp>>tempStr;
-        
-        m_filename = string(filename);
 
+        // first 2 digits are the byte count
         sscanf(tempStr.c_str(),":%02X",&byteCount);
         if ((((byteCount+5)*2)+1)!=(signed)tempStr.size())
         {
@@ -114,10 +117,13 @@ bool HexFile::open(PicType* picType, const char* filename)
 
         sscanf(tempStr.c_str()+3,"%04X",&address);
         sscanf(tempStr.c_str()+7,"%02X",(int*)&recordType);
+
+        // read the data from this line
         lineData.resize(byteCount);
         for (unsigned int i=0;i<byteCount;i++)
             sscanf(tempStr.c_str()+9+(i*2),"%02X",&lineData[i]);
 
+        // last two bytes are the checksum
         sscanf(tempStr.c_str()+9+(byteCount*2),"%02X",&checkSum);
         if (!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
         {
@@ -128,7 +134,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         switch (recordType)
         {
         case DATA:
-            // Is The address within the Config Memory range?
+            // is the address within the Config Memory range?
             configAddress=picType->ConfigAddress;
             if (!picType->is16Bit())
                 configAddress*=2;
@@ -137,41 +143,29 @@ bool HexFile::open(PicType* picType, const char* filename)
             {
                 if (m_configMemory.size() < picType->ConfigSize)
                 {
-                    newSize = (extAddress+address+lineData.size())- configAddress;
+                    newSize = extAddress+address+lineData.size() - configAddress;
                     if (m_configMemory.size()<newSize)
                         m_configMemory.resize(newSize,0xFF);
+
                     for (unsigned int i=0;i<lineData.size();i++)
                         m_configMemory[extAddress+address+i-configAddress]=lineData[i];
                 }
                 else wxLogError("Data in hex file outside config memory of PIC");
             }
             
-            // Is The address within the Code Memory range?
-            if ((extAddress+address)<(picType->CodeSize))
-            {
-                if (m_codeMemory.size() < picType->CodeSize)
-                {
-                    newSize = (extAddress+address+lineData.size());
-                    if (m_codeMemory.size()<newSize)
-                        m_codeMemory.resize(newSize,0xFF);
-                    for (unsigned int i=0;i<lineData.size();i++)
-                        m_codeMemory[extAddress+address+i]=lineData[i];
-                }
-                else wxLogError("Data in hex file outside code memory of PIC");
-            }
-            
-            // Is The address within the Eeprom Data Memory range?
+            // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
-            if (!picType->is16Bit())dataAddress*=2;
+            if (!picType->is16Bit())
+                dataAddress*=2;
             if (((extAddress+address)>=(dataAddress))&&
-                                ((extAddress+address)<(dataAddress+picType->DataSize)))
+                ((extAddress+address)<(dataAddress+picType->DataSize)))
             {
                 if (m_dataMemory.size() < picType->DataSize)
                 {
                     if (picType->is16Bit())
-                        newSize = (extAddress+address+lineData.size()) -dataAddress;
+                        newSize = extAddress+address+lineData.size() - dataAddress;
                     else
-                        newSize = (extAddress+address+(lineData.size()/2)) - dataAddress;
+                        newSize = extAddress+address+lineData.size()/2 - dataAddress;
                     
                     if (m_dataMemory.size()<newSize)
                         m_dataMemory.resize(newSize,0xFF);
@@ -187,6 +181,21 @@ bool HexFile::open(PicType* picType, const char* filename)
                     }
                 }
                 else wxLogError("Data in hex file outside data memory of PIC");
+            }
+            
+            // is the address within the Code Memory range?
+            if ((extAddress+address)<(picType->CodeSize))
+            {
+                if (m_codeMemory.size() < picType->CodeSize)
+                {
+                    newSize = extAddress+address+lineData.size();
+                    if (m_codeMemory.size()<newSize)
+                        m_codeMemory.resize(newSize,0xFF);
+
+                    for (unsigned int i=0;i<lineData.size();i++)
+                        m_codeMemory[extAddress+address+i]=lineData[i];
+                }
+                else wxLogError("Data in hex file outside code memory of PIC");
             }
             break;
             
@@ -205,9 +214,12 @@ bool HexFile::open(PicType* picType, const char* filename)
     } while (recordType!=ENDOFFILE);
 
     fp.close();
-    trimData(picType);
+
+    // make sure that the config memory array's size is always picType->ConfigSize
+    m_configMemory.resize(picType->ConfigSize,0xFF);
     calcConfigMask(picType);    // update m_configMask
     
+    trimData(picType);
     m_bModified = false;
 
     return true;
@@ -606,9 +618,9 @@ void HexFile::calcConfigMask(const PicType* pic)
 
     // make sure that later in the for() loop we won't access invalid elements
     // of m_configMask array:
-    if (pic->is16Bit())
-        wxASSERT(pic->ConfigWords.size() == m_configMask.size());
-    else
+    if (!pic->is16Bit())
+        //wxASSERT(pic->ConfigWords.size() == m_configMask.size());
+    //else
         wxASSERT(pic->ConfigWords.size()*2 == m_configMask.size());
     
     // reset m_configMask contents
