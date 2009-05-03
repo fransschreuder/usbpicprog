@@ -439,24 +439,20 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
     // which memory area are we going to write?
     vector<int>& memory = hexData->getCodeMemory();
-    unsigned int memorySize = 0;
     switch (type)
     {
     case TYPE_CODE: 
-        memorySize = picType->CodeSize; 
         memory = hexData->getCodeMemory();
         break;
     case TYPE_DATA: 
-        memorySize = picType->DataSize; 
         memory = hexData->getDataMemory();
         break;
     case TYPE_CONFIG: 
-        memorySize = picType->ConfigSize; 
         memory = hexData->getConfigMemory();
         break;
     }
 
-    if (memorySize==0)
+    if (memory.size()==0)
         return 0;       // no code/config/data to write
 
     // how big is each block?
@@ -474,15 +470,15 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
     statusCallBack (0);
 
     int nBytes=0;
-    for (unsigned int blockcounter=0; blockcounter<memorySize; blockcounter+=blockSizeHW)
+    for (unsigned int blockcounter=0; blockcounter<memory.size(); blockcounter+=blockSizeHW)
     {
-        statusCallBack (blockcounter*100/memorySize);
+        statusCallBack (blockcounter*100/memory.size());
 
         // fill in a new datablock packet
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         for (unsigned int i=0; i<blockSizeHW; i++)
         {
-            if (memorySize > (blockcounter+i))
+            if (memory.size() > (blockcounter+i))
                 dataBlock[i]=memory[blockcounter+i];
             else
                 dataBlock[i]=0;
@@ -492,7 +488,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
         if (blockcounter == 0)
             blocktype |= BLOCKTYPE_FIRST;
-        if ((memorySize-blockSizeHW) <= blockcounter)
+        if ((memory.size()-blockSizeHW) <= blockcounter)
             blocktype |= BLOCKTYPE_LAST;
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
