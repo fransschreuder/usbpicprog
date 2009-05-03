@@ -96,7 +96,7 @@ protected:
     void OnChoiceChange(wxCommandEvent& event);
 
     /**
-        Called when the user changes the contents of one of #m_configWordCtrl text controls.
+        Called when the user changes the contents of one of m_ctrl::textCtrl text controls.
     */
     void OnConfigWordDirectChange(wxCommandEvent& event);
 };
