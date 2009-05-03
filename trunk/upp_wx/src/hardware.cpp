@@ -21,6 +21,7 @@
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
+#include <wx/log.h>
 
 // IMPORTANT: first include wxWidgets headers (indirectly)
 #include "hardware.h"
@@ -63,7 +64,8 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
             {
                 // search first the UPP and then, if no UPP is found, the bootloader
 
-                if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT))
+                if ((dev->descriptor.idVendor == UPP_VENDOR) && 
+                    (dev->descriptor.idProduct == UPP_PRODUCT))
                 {
                     m_handle = usb_open(dev);
                     if (!m_handle)
@@ -73,7 +75,8 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
                     break; // found usbpicprog, exit the for loop
                 }
 
-                if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT))
+                if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && 
+                    (dev->descriptor.idProduct == BOOTLOADER_PRODUCT))
                 {
                     m_handle = usb_open(dev);
                     if (!m_handle)
@@ -87,7 +90,8 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
             {
                 // search first the bootloader and then, if no bootloader is found, the UPP
 
-                if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && (dev->descriptor.idProduct == BOOTLOADER_PRODUCT))
+                if ((dev->descriptor.idVendor == BOOTLOADER_VENDOR) && 
+                    (dev->descriptor.idProduct == BOOTLOADER_PRODUCT))
                 {
                     m_handle = usb_open(dev);
                     if (!m_handle)
@@ -96,10 +100,12 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
                     hwtype=HW_BOOTLOADER;
                     break; // found bootloader, exit the for loop
                 }
-                if ((dev->descriptor.idVendor == UPP_VENDOR) && (dev->descriptor.idProduct == UPP_PRODUCT))
+                if ((dev->descriptor.idVendor == UPP_VENDOR) && 
+                    (dev->descriptor.idProduct == UPP_PRODUCT))
                 {
                     m_handle = usb_open(dev);
-                    if (!m_handle)continue; // failed to open this device, choose the next one
+                    if (!m_handle)
+                        continue; // failed to open this device, choose the next one
 
                     hwtype=HW_UPP;
                     break; // found usbpicprog, exit the for loop
@@ -124,12 +130,12 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_hwCurrent = (HardwareType)hwtype;
 #ifndef __WXMSW__
     if (usb_reset(m_handle) < 0)
-        cerr<<"Couldn't reset interface"<<endl;
+        wxLogError("Couldn't reset interface");
 
     usb_close(m_handle);
     m_handle = usb_open(dev);
 
-    if(!m_handle)
+    if (!m_handle)
     {
         m_hwCurrent = HW_NONE;
         return;
@@ -160,7 +166,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     const usb_config_descriptor &configd = dev->config[i];
     if ( usb_set_configuration(m_handle, _config)<0 )
     {
-        cerr<<"Error setting configuration"<<endl;
+        wxLogError("Error setting configuration");
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -175,7 +181,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         int old = m_nInterfaceNumber;
         i = 0;
         m_nInterfaceNumber = configd.interface[i].altsetting[0].bInterfaceNumber;
-        cerr<<"Interface "<<old<<" not present: using "<<m_nInterfaceNumber<<endl;
+        wxLogError("Interface %d not present: using %d", old, m_nInterfaceNumber);
     }
 
     m_interface = &(configd.interface[i].altsetting[0]);
@@ -185,7 +191,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 
     if ( usb_claim_interface(m_handle, m_nInterfaceNumber)<0 )
     {
-        cerr<<"Error claiming interface"<<endl;
+        wxLogError("Error claiming interface");
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -198,14 +204,15 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 
 Hardware::~Hardware()
 {
-    if(m_handle)
+    if (m_handle)
     {
         usb_release_interface(m_handle, m_nInterfaceNumber);
         usb_close(m_handle);
 
         m_handle=NULL;
-        m_hwCurrent=HW_NONE;
     }
+        
+    m_hwCurrent=HW_NONE;
 }
 
 void Hardware::statusCallBack(int value) const
@@ -229,104 +236,101 @@ Hardware::EndpointMode Hardware::endpointMode(int ep) const
     return Nb_EndpointModes;
 }
 
-/*give the hardware the command to switch to a certain pic algorithm*/
 int Hardware::setPicType(PicType* picType)
 {
-    char msg[64];
-
     if (!picType->ok()) return -1;
     if (m_hwCurrent == HW_BOOTLOADER) return -1;
+    if (m_handle == NULL) return -1;
 
     statusCallBack (0);
+
+    char msg[64];
     msg[0]=CMD_SET_PICTYPE;
     msg[1]=picType->picFamily;
 
-    int nBytes=-1;
-    if (m_handle != NULL)
+    // send the command to the hw
+    if (writeString(msg,2) < 0)
+        return -1;       // failure
+
+    // read back the reply
+    int nBytes = readString(msg,1);
+    if (nBytes < 0)
     {
-        if(writeString(msg,2) < 0)
-            return -1;       // failure
-
-        nBytes = readString(msg,1);
-
-        if (nBytes < 0)
-        {
-            cerr<<"Usb Error"<<endl;
-            return nBytes;
-        }
-        else
-        {
-            // cout<<"Id: "<<hex<<((int)msg[0]&0xFF)<<" "<<hex<<((int)msg[1]&0xFF)<<", "<<nBytes<<" bytes"<<endl;
-            statusCallBack (100);
-            return (int)msg[0];
-        }
+        wxLogError("Usb Error");
+        return nBytes;
     }
 
-    return nBytes;      // failure
+    statusCallBack (100);
+    return (int)msg[0];
 }
 
-/*Erase all the contents (code, data and config) of the pic*/
 int Hardware::bulkErase(PicType* picType)
 {
     char msg[64];
     int nBytes=-1;
 
     if (!picType->ok()) return -1;
+    if (m_handle == NULL) return -1;
 
     statusCallBack (0);
-    if (m_handle != NULL)
-    {
-        if (m_hwCurrent == HW_UPP)
-        {
-            if(m_abortOperations)return OPERATION_ABORTED;
-            msg[0]=CMD_ERASE;
-            if(writeString(msg,1) < 0)
-            {
-                return 0;
-            }
-            nBytes = readString(msg,1);
 
-            if (nBytes < 0)
-            {
-                cerr<<"Usb Error"<<endl;
-                return nBytes;
-            }
-            else
-            {
-                statusCallBack (100);
-                return (int)msg[0];
-            }
-        }
-        else // hardware is HW_BOOTLOADER
+    if (m_hwCurrent == HW_UPP)
+    {
+        if (m_abortOperations)
+            return OPERATION_ABORTED;
+
+        // send the command
+        msg[0]=CMD_ERASE;
+        if (writeString(msg,1) < 0)
+            return 0;
+
+        // read back the reply
+        nBytes = readString(msg,1);
+        if (nBytes < 0)
         {
-            HexFile * hf = new HexFile(picType);
-            if(writeData(hf,picType) < 0)return -1;
-            statusCallBack(50);
-            delete hf;
-            for (unsigned int address=0x800; address<picType->CodeSize; address+=64)
-            {
-                if(m_abortOperations)return OPERATION_ABORTED;
-                BootloaderPackage bootloaderPackage;
-                bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
-                bootloaderPackage.fields.size=1; // only one block of 64 bytes supported by bootloader
-                bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-                bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-                bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
-                if (writeString(bootloaderPackage.data,5) < 0)
-                {
-                    return -1;
-                }
-                if(readString(msg,5) < 0)return -1;
-                statusCallBack(100);
-            }
-            return 1;
+            wxLogError("Usb Error");
+            return nBytes;
         }
+
+        statusCallBack (100);
+        return (int)msg[0];
     }
+    else // hardware is HW_BOOTLOADER
+    {
+        HexFile* hf = new HexFile(picType);
+        if (writeData(hf, picType) < 0)
+            return -1;
+
+        statusCallBack(50);
+        delete hf;
+
+        for (unsigned int address=0x800; address<picType->CodeSize; address+=64)
+        {
+            if (m_abortOperations)
+                return OPERATION_ABORTED;
+
+            BootloaderPackage bootloaderPackage;
+            bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
+            bootloaderPackage.fields.size=1; // only one block of 64 bytes supported by bootloader
+            bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
+            bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
+            bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+
+            if (writeString(bootloaderPackage.data,5) < 0)
+                return -1;
+            if (readString(msg,5) < 0)
+                return -1;
+
+            statusCallBack(100);
+        }
+
+        return 1;
+    }
+
     return nBytes;
 }
 
-/*Read the code memory from the pic (starting from address 0 into *hexData*/
-int Hardware::readCode(HexFile *hexData,PicType *picType)
+int Hardware::readCode(HexFile *hexData, PicType *picType)
 {
     int nBytes,blocksize,BLOCKSIZE_HW;
     nBytes=-1;
@@ -337,7 +341,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
     mem.resize(picType->CodeSize, 0xFF);
     char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     statusCallBack (0);
@@ -348,31 +352,31 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
         {
             statusCallBack ((blockcounter*100)/((signed)picType->CodeSize));
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if ((picType->CodeSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->is16Bit())currentBlockCounter/=2;
-            if(picType->CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
+            if (!picType->is16Bit())currentBlockCounter/=2;
+            if (picType->CodeSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
             else blocksize=picType->CodeSize-blockcounter;
             nBytes+=readCodeBlock(dataBlock,currentBlockCounter,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->CodeSize>(blockcounter+i))
+                if (picType->CodeSize>(blockcounter+i))
                 {
                     /*if (blockcounter+i >= 0x800 && blockcounter+i <= 0xA00)
                     {
-                        cerr<<(int)(unsigned char)dataBlock[i]<<endl;
+                        wxLogError((int)(unsigned char)dataBlock[i]);
                     }*/
                     mem[blockcounter+i]=((unsigned char)(dataBlock[i]&0xFF));
                 }
                 else
                 {
-                    cerr<<"Trying to read memory outside Code area"<<endl;
+                    wxLogError("Trying to read memory outside Code area");
                     // return -1;
                 }
             }
-            if(m_abortOperations)break;
+            if (m_abortOperations)break;
             /*if (dataBlock[BLOCKSIZE_HW-1] == 0)
             {
                 blockcounter-=BLOCKSIZE_HW-1;
@@ -384,7 +388,7 @@ int Hardware::readCode(HexFile *hexData,PicType *picType)
 }
 
 /* Write the code memory area of the pic with the data in *hexData */
-int Hardware::writeCode(HexFile *hexData,PicType *picType)
+int Hardware::writeCode(HexFile *hexData, PicType *picType)
 {
     int nBytes;
     int BLOCKSIZE_HW;
@@ -393,7 +397,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
 
     if (!picType->ok()) return -1;
 
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     if (m_hwCurrent == HW_BOOTLOADER)BLOCKSIZE_HW=BLOCKSIZE_BOOTLOADER;
     else BLOCKSIZE_HW=BLOCKSIZE_CODE;
     if (m_handle != NULL)
@@ -404,7 +408,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             statusCallBack ((blockcounter*100)/((signed)hexData->getCodeMemory().size()));
             for(int i=0;i<BLOCKSIZE_HW;i++)
             {
-                if((signed)hexData->getCodeMemory().size()>(blockcounter+i))
+                if ((signed)hexData->getCodeMemory().size()>(blockcounter+i))
                 {
                     dataBlock[i]=hexData->getCodeMemory()[blockcounter+i];
                 }
@@ -415,20 +419,20 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
             }
 
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if(((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if (((signed)hexData->getCodeMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->is16Bit())currentBlockCounter/=2;
+            if (!picType->is16Bit())currentBlockCounter/=2;
             nBytes=writeCodeBlock(dataBlock,currentBlockCounter,BLOCKSIZE_HW,blocktype);
             if (m_hwCurrent == HW_UPP)
             {
-                if(nBytes==3) return -3;	// something not implemented in firmware :(
-                if(nBytes==4) return -4;	// verify error
-                if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-                if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
+                if (nBytes==3) return -3;	// something not implemented in firmware :(
+                if (nBytes==4) return -4;	// verify error
+                if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
+                if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
             }
-            if(m_abortOperations)break;
+            if (m_abortOperations)break;
         }
     }
     else return -5;
@@ -436,7 +440,7 @@ int Hardware::writeCode(HexFile *hexData,PicType *picType)
 }
 
 /* read the Eeprom Data area of the pic into *hexData->dataMemory */
-int Hardware::readData(HexFile *hexData,PicType *picType)
+int Hardware::readData(HexFile *hexData, PicType *picType)
 {
     int nBytes,blocksize;
     nBytes=-1;
@@ -451,36 +455,36 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
 
     char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; // TODO implement readData for bootloader
-    if(picType->DataSize==0)return 0;// no data to read
+    if (picType->DataSize==0)return 0;// no data to read
     if (m_handle != NULL)
     {
         for(unsigned int blockcounter=0;blockcounter<picType->DataSize;blockcounter+=BLOCKSIZE_HW)
         {
             statusCallBack ((blockcounter*100)/((signed)picType->DataSize));
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
-            if(picType->DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if ((picType->DataSize-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (picType->DataSize>(blockcounter+BLOCKSIZE_HW))blocksize=BLOCKSIZE_HW;
             else blocksize=picType->DataSize-blockcounter;
 
             nBytes+=readDataBlock(dataBlock,blockcounter,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->DataSize>(blockcounter+i))
+                if (picType->DataSize>(blockcounter+i))
                 {
                     mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
                 }
                 else
                 {
-                    cerr<<"Trying to read memory outside Data area"<<endl;
+                    wxLogError("Trying to read memory outside Data area");
     // 				return -1;
                 }
             }
-            if(m_abortOperations)break;
+            if (m_abortOperations)break;
         }
         hexData->putDataMemory(mem);
     }
@@ -488,9 +492,7 @@ int Hardware::readData(HexFile *hexData,PicType *picType)
 
 }
 
-
-/*write the Eeprom data from *hexData->dataMemory into the pic*/
-int Hardware::writeData(HexFile *hexData,PicType *picType)
+int Hardware::writeData(HexFile *hexData, PicType *picType)
 {
     int nBytes;
     int BLOCKSIZE_HW;
@@ -501,18 +503,18 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
 
     unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
     int blocktype;
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     // if (m_hwCurrent == HW_BOOTLOADER)return 0; // TODO implement writeData for bootloader
     if (m_handle != NULL)
     {
         nBytes=0;
-        for(int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_HW)
+        for (int blockcounter=0;blockcounter<(signed)hexData->getDataMemory().size();blockcounter+=BLOCKSIZE_HW)
         {
             statusCallBack ((blockcounter*100)/((signed)hexData->getDataMemory().size()));
-            for(int i=0;i<BLOCKSIZE_HW;i++)
+            for (int i=0;i<BLOCKSIZE_HW;i++)
             {
-                if((signed)hexData->getDataMemory().size()>(blockcounter+i))
+                if ((signed)hexData->getDataMemory().size()>(blockcounter+i))
                 {
                     dataBlock[i]=hexData->getDataMemory()[blockcounter+i];
                 }
@@ -523,16 +525,16 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
             }
 
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if(((signed)hexData->getDataMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if (((signed)hexData->getDataMemory().size()-BLOCKSIZE_HW)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             nBytes=writeDataBlock(dataBlock,blockcounter,BLOCKSIZE_HW,blocktype);
             if (m_hwCurrent == HW_UPP)
             {
-                if(nBytes==3) return -3;	// something not implemented in firmware :(
-                if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-                if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
-                if(m_abortOperations)break;
+                if (nBytes==3) return -3;	// something not implemented in firmware :(
+                if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
+                if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
+                if (m_abortOperations)break;
             }
         }
     }
@@ -540,8 +542,7 @@ int Hardware::writeData(HexFile *hexData,PicType *picType)
     return 0;
 }
 
-/* Read the configuration words (and user ID's for PIC16 dev's) */
-int Hardware::readConfig(HexFile *hexData,PicType *picType)
+int Hardware::readConfig(HexFile *hexData, PicType *picType)
 {
     int nBytes,blocksize;
     nBytes=-1;
@@ -552,7 +553,7 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
     mem.resize(picType->ConfigSize);
     char dataBlock[BLOCKSIZE_CONFIG];
     int blocktype;
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     if (m_hwCurrent == HW_BOOTLOADER)return 0; // Better write no configuration words in bootloader, it's unsafe, you might destroy the bootloader
     if (m_handle != NULL)
@@ -561,45 +562,43 @@ int Hardware::readConfig(HexFile *hexData,PicType *picType)
         {
             statusCallBack ((blockcounter*100)/((signed)picType->ConfigSize));
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if((picType->ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if ((picType->ConfigSize-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->is16Bit())currentBlockCounter/=2;
-            if(picType->ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
+            if (!picType->is16Bit())currentBlockCounter/=2;
+            if (picType->ConfigSize>(blockcounter+BLOCKSIZE_CONFIG))blocksize=BLOCKSIZE_CONFIG;
             else blocksize=picType->ConfigSize-blockcounter;
             nBytes+=readConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
             for(int i=0;i<blocksize;i++)
             {
-                if(picType->ConfigSize>(blockcounter+i))
+                if (picType->ConfigSize>(blockcounter+i))
                 {
                     mem[blockcounter+i]=(unsigned char)(dataBlock[i]&0xFF);
-// 					cerr<<hex<<(int)dataBlock[i]<<" "<<dec;
+// 					wxLogError(hex<<(int)dataBlock[i]<<" "<<dec;
                 }
                 else
                 {
-                    cerr<<"Trying to read memory outside Config area: bc+i="<<blockcounter+i<<"Configsize="<<picType->ConfigSize<<endl;
+                    wxLogError("Trying to read memory outside Config area: bc+i=%d Configsize=%d", blockcounter+i, picType->ConfigSize);
 // 					return -1;
                 }
             }
-            if(m_abortOperations)break;
+            if (m_abortOperations)break;
         }
 /*		for(int i=0;i<picType->ConfigSize;i++)
             mem[i]&=picType->ConfigMask[i];*/
         hexData->putConfigMemory(mem);
     }
-    cerr<<endl;
     return nBytes;
 }
 
-/*Writes the configuration words (and user ID's for PIC16 dev's)*/
-int Hardware::writeConfig(HexFile *hexData,PicType *picType)
+int Hardware::writeConfig(HexFile *hexData, PicType *picType)
 {
     int nBytes;
     unsigned char dataBlock[BLOCKSIZE_CONFIG];
     int blocksize;
     int blocktype;
-    if(m_abortOperations)return OPERATION_ABORTED;
+    if (m_abortOperations)return OPERATION_ABORTED;
     statusCallBack (0);
     /*if (m_hwCurrent == HW_BOOTLOADER)
     {
@@ -609,13 +608,13 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
     if (m_handle != NULL)
     {
         nBytes=0;
-        for(int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
+        for (int blockcounter=0;blockcounter<(signed)hexData->getConfigMemory().size();blockcounter+=BLOCKSIZE_CONFIG)
         {
             statusCallBack ((blockcounter*100)/((signed)hexData->getConfigMemory().size()));
             blocksize=0;
-            for(int i=0;i<BLOCKSIZE_CONFIG;i++)
+            for (int i=0;i<BLOCKSIZE_CONFIG;i++)
             {
-                if((signed)hexData->getConfigMemory().size()>(blockcounter+i))
+                if ((signed)hexData->getConfigMemory().size()>(blockcounter+i))
                 {
                     dataBlock[i]=hexData->getConfigMemory()[blockcounter+i];
                     blocksize++;
@@ -627,101 +626,122 @@ int Hardware::writeConfig(HexFile *hexData,PicType *picType)
             }
 
             blocktype=BLOCKTYPE_MIDDLE;
-            if(blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
-            if(((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
-            if(m_abortOperations)blocktype|=BLOCKTYPE_LAST;
+            if (blockcounter==0)blocktype|=BLOCKTYPE_FIRST;
+            if (((signed)hexData->getConfigMemory().size()-BLOCKSIZE_CONFIG)<=blockcounter)blocktype|=BLOCKTYPE_LAST;
+            if (m_abortOperations)blocktype|=BLOCKTYPE_LAST;
             int	currentBlockCounter=blockcounter;
-            if(!picType->is16Bit())currentBlockCounter/=2;
+            if (!picType->is16Bit())currentBlockCounter/=2;
             nBytes=writeConfigBlock(dataBlock,currentBlockCounter+picType->ConfigAddress,blocksize,blocktype);
-            if(nBytes==3) return -3;	// something not implemented in firmware :(
-            if(((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
-            if((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
-            if(m_abortOperations)break;
+            if (nBytes==3) return -3;	// something not implemented in firmware :(
+            if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))return -2; // should ask for next block
+            if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))return -1;	// should say OK
+            if (m_abortOperations)break;
         }
     }
     else return -4;
     return 0;
 }
 
-/*Reads the whole PIC and checks if the data matches hexData*/
 VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, bool doConfig, bool doData)
 {
-    // if (!picType->ok()) return -1;
-
     VerifyResult res;
+
+    // create a temporary hex file to store the code/config/data bytes we're going to read
     HexFile *verifyHexFile = new HexFile;
-    if(doCode)
+
+
+    // read from the device
+
+    if (doCode)
     {
-        if(readCode(verifyHexFile,picType) < 0)
+        if (readCode(verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
             return res;
         }
     }
-    if(doData)
+    if (doData)
     {
-        if(readData(verifyHexFile,picType) < 0)
+        if (readData(verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
             return res;
         }
     }
-    if(doConfig)// &&(m_hwCurrent != HW_UPP))
+    if (doConfig)
     {
-        if(readConfig(verifyHexFile,picType) < 0)
+        if (readConfig(verifyHexFile, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
             return res;
         }
     }
+
+
+    // compare read values and hexData
+
     if ((hexData->getCodeMemory().size()+
         hexData->getDataMemory().size()+
-        hexData->getConfigMemory().size())>0) // there should be at least some data in the file
+        hexData->getConfigMemory().size())==0) 
     {
-        if(doCode)
-        {
-            res = hexData->verifyCode(verifyHexFile);
-            if (res.Result != VERIFY_SUCCESS)
-                return res;
-        }
-        if(doData)
-        {
-            res = hexData->verifyData(verifyHexFile);
-            if (res.Result != VERIFY_SUCCESS)
-                return res;
-        }
-        if(doConfig&&(m_hwCurrent == HW_UPP)) // it's no use to verify config for the bootloader
-        {
-            res = hexData->verifyConfig(verifyHexFile);
-            if (res.Result != VERIFY_SUCCESS)
-                return res;
-        }
-        res.Result=VERIFY_SUCCESS;
-    }
-    else
-    {
+        // there should be at least some data in the file
+        wxLogWarning("No data to verify");
+
         res.Result=VERIFY_OTHER_ERROR;
-        cout<<"No data to verify"<<endl;
+        return res;
     }
+
+    if (doCode)
+    {
+        res = hexData->verifyCode(verifyHexFile);
+        if (res.Result != VERIFY_SUCCESS)
+            return res;
+    }
+    if (doData)
+    {
+        res = hexData->verifyData(verifyHexFile);
+        if (res.Result != VERIFY_SUCCESS)
+            return res;
+    }
+    if (doConfig&&(m_hwCurrent == HW_UPP)) // it's no use to verify config for the bootloader
+    {
+        res = hexData->verifyConfig(verifyHexFile);
+        if (res.Result != VERIFY_SUCCESS)
+            return res;
+    }
+
+    res.Result=VERIFY_SUCCESS;
     return res;
 }
 
-/*Reads the whole PIC and checks if it is blank*/
 VerifyResult Hardware::blankCheck(PicType *picType)
 {
-    // if (!picType->ok()) return -1;
+    VerifyResult ret;
 
-    HexFile* blankHexFile=new HexFile(picType);
-    return verify(blankHexFile,picType);
+    if (!picType->ok())
+    {
+        ret.Result = VERIFY_OTHER_ERROR;
+        return ret;
+    }
+
+    // create a temporary blank HEX file and verify current PIC
+    // memory against it
+    HexFile* blankHexFile = new HexFile(picType);
+    ret = verify(blankHexFile, picType);
+    delete blankHexFile;
+
+    return ret;
 }
 
 int Hardware::autoDetectDevice()
 {
+    if (m_handle == NULL) return -1;
+
     if (m_hwCurrent == HW_BOOTLOADER)
-        return -1;// 0x11240;     // PIC18F2550
+        return -1;     // PIC18F2550
 
     // need to set hardware to PIC18, no matter which one
     PicType pic18 = PicType::FindPIC("P18F2550");
@@ -740,7 +760,7 @@ int Hardware::autoDetectDevice()
     }
     else
     {
-        // try PIC16
+        // try PIC16: the specific PIC16 device doesn't matter
         PicType pic16 = PicType::FindPIC("P16F628A");
         if (setPicType(&pic16) < 0)
             return -1;
@@ -757,36 +777,31 @@ int Hardware::autoDetectDevice()
     return -1;
 }
 
-/*Return a string containing the firmware version of usbpicprog*/
 int Hardware::getFirmwareVersion(char* msg) const
 {
+    if (m_handle == NULL) return -1;
+
     if (m_hwCurrent == HW_UPP)
     {
-        msg[0]=CMD_FIRMWARE_VERSION;
-        int nBytes=-1;
         statusCallBack (0);
-        if (m_handle != NULL)
-        {
-            if(writeString(msg,1) < 0)
-            {
-                return -1;
-            }
-            nBytes = readString(msg,64);
 
-            if (nBytes < 0)
-            {
-                return nBytes;
-            }
-            else
-            {
-                statusCallBack (100);
-            }
-        }
+        // send the command
+        msg[0]=CMD_FIRMWARE_VERSION;
+        if (writeString(msg,1) < 0)
+            return -1;
+
+        // read back the reply
+        int nBytes = readString(msg,64);
+        if (nBytes < 0)
+            return nBytes;
+
+        statusCallBack (100);
         return nBytes;
     }
     else
     {
-        cout<<"Get Firmware version for bootloader..."<<endl;
+        wxLogMessage("Getting Firmware version for bootloader...");
+
         msg[0]=0;
         msg[1]=0;
         msg[2]=0;
@@ -795,28 +810,18 @@ int Hardware::getFirmwareVersion(char* msg) const
 
         int nBytes=-1;
         statusCallBack (0);
-        if (m_handle != NULL)
-        {
-            cout<<"writeString"<<endl;
-            if(writeString(msg,5) < 0)
-            {
-                return -1;
-            }
-            cout<<"readString"<<endl;
-            nBytes = readString(msg,64);
 
-            if (nBytes < 0)
-            {
-                return nBytes;
-            }
-            else
-            {
-                statusCallBack (100);
-                sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
+        if (writeString(msg,5) < 0)
+            return -1;
 
-                return nBytes;
-            }
-        }
+        nBytes = readString(msg,64);
+        if (nBytes < 0)
+            return nBytes;
+
+        statusCallBack (100);
+        sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
+
+        return nBytes;
     }
     return -1;
 }
@@ -838,8 +843,7 @@ int Hardware::readString(char* msg, int size) const
 
     if (nBytes < 0)
     {
-        cerr<<"Usb Error while reading: "<<nBytes<<endl;
-        cerr<<usb_strerror()<<endl;
+        wxLogError("Usb Error while reading: %s", usb_strerror());
         return -1;
     }
 
@@ -858,8 +862,8 @@ int Hardware::writeString(const char* msg, int size) const
 
     if (nBytes < size)
     {
-        cerr<<"Usb Error while writing to device: "<<size<<" bytes, errCode: "<<nBytes<<endl;
-        cerr<<usb_strerror()<<endl;
+        wxLogError("Usb Error while writing to device: %d bytes, errCode: %d", size, nBytes);
+        wxLogError("%s", usb_strerror());
         return -1;
     }
 
@@ -956,7 +960,7 @@ int Hardware::readBlock(MemoryType type, char* msg, int address, int size, int l
         nBytes = readString(tmpmsg,size+5) - 5;
         if (nBytes < 0)
         {
-            cerr<<"Usb Error"<<endl;
+            wxLogError("Usb Error");
             delete [] tmpmsg;
             return nBytes;
         }
@@ -966,7 +970,7 @@ int Hardware::readBlock(MemoryType type, char* msg, int address, int size, int l
     }
 
     if (nBytes < 0)
-        cerr<<"Usb Error"<<endl;
+        wxLogError("Usb Error");
     return nBytes;
 }
 
@@ -1000,7 +1004,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
 
         /*if (address==0)
         {
-            for(int i=0;i<size+6;i++)
+            for (int i=0;i<size+6;i++)
                 cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
             cout<<endl;
         }*/
@@ -1011,7 +1015,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
 
         nBytes = readString(resp_msg,1);
         if (nBytes < 0)
-            cerr<<"Usb Error"<<endl;
+            wxLogError("Usb Error");
         // cout<<"Response message: "<<(int)resp_msg[0]<<endl;
         return (int)resp_msg[0];
     }
@@ -1029,7 +1033,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
         if (lastblock==BLOCKTYPE_LAST)
             OkOrLastblock=1; // ok
 
-        if(address<0x800)
+        if (address<0x800)
             return OkOrLastblock;	// should not write inside bootloader area
 
         BootloaderPackage bootloaderPackage;
