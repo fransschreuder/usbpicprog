@@ -571,19 +571,20 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     if (doCode)
     {
-        res = hexData->verifyCode(&verifyHexFile);
+        res = hexData->verify(TYPE_CODE, &verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
     if (doData)
     {
-        res = hexData->verifyData(&verifyHexFile);
+        res = hexData->verify(TYPE_DATA, &verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
-    if (doConfig&&(m_hwCurrent == HW_UPP)) // it's no use to verify config for the bootloader
+    if (doConfig && m_hwCurrent == HW_UPP) 
+        // it's no use to verify config for the bootloader
     {
-        res = hexData->verifyConfig(&verifyHexFile);
+        res = hexData->verify(TYPE_CONFIG, &verifyHexFile);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }

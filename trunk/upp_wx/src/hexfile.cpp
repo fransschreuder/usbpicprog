@@ -424,75 +424,68 @@ void HexFile::putConfigMemory(int address, int mem, const PicType* picType)
     }
 }
 
-VerifyResult HexFile::verifyCode(const HexFile* other) const
+VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
 {
     VerifyResult res;
-    
-    // comparing two HexFiles with different memory sizes is a programming error,
-    // not a problem with the PIC being tested!
-    wxASSERT(m_codeMemory.size() == other->m_codeMemory.size());
-    
-    for (unsigned int i=0;i<m_codeMemory.size();i++)
+    res.Result=VERIFY_MISMATCH;
+    res.DataType=type;
+
+    const vector<int>* arrThis;
+    const vector<int>* arrOther;
+    switch (type)
     {
-        if (other->m_codeMemory[i] != m_codeMemory[i])
+    case TYPE_CODE: 
+        arrThis=&m_codeMemory; 
+        arrOther=&other->m_codeMemory; 
+        break;
+    case TYPE_DATA: 
+        arrThis=&m_dataMemory; 
+        arrOther=&other->m_dataMemory; 
+        break;
+    case TYPE_CONFIG: 
+        arrThis=&m_configMemory; 
+        arrOther=&other->m_configMemory; 
+        break;
+    }
+
+    // ensure that in the loop below we won't exceed any array bound
+    for (unsigned int i=0; i<min(arrThis->size(), arrOther->size()); i++)
+    {
+        if ((*arrThis)[i] != (*arrOther)[i])
         {
-            res.Result=VERIFY_MISMATCH;
-            res.DataType=TYPE_CODE;
             res.Address=i;
-            res.Read=other->m_codeMemory[i];
-            res.Expected=m_codeMemory[i];
+            res.Read=(*arrThis)[i];
+            res.Expected=(*arrOther)[i];
             return res;
         }
     }
     
-    res.Result = VERIFY_SUCCESS;
-    return res;
-}
-
-VerifyResult HexFile::verifyData(const HexFile* other) const
-{
-    VerifyResult res;
-    
-    // comparing two HexFiles with different memory sizes is a programming error,
-    // not a problem with the PIC being tested!
-    wxASSERT(m_dataMemory.size() == other->m_dataMemory.size());
-    
-    for (unsigned int i=0;i<m_dataMemory.size();i++)
+    // the two hexfile memories match even if they have different size at the condition
+    // that the bigger buffer is filled with zeroes
+    if (arrThis->size() > arrOther->size())
     {
-        if (other->m_dataMemory[i] != m_dataMemory[i])
+        for (unsigned int i=arrOther->size(); i<arrThis->size(); i++)
         {
-            res.Result=VERIFY_MISMATCH;
-            res.DataType=TYPE_DATA;
-            res.Address=i;
-            res.Read=other->m_dataMemory[i];
-            res.Expected=m_dataMemory[i];
-            return res;
+            if ((*arrThis)[i] != 0)
+            {
+                res.Address=i;
+                res.Read=(*arrThis)[i];
+                res.Expected=0;
+                return res;
+            }
         }
     }
-    
-    res.Result = VERIFY_SUCCESS;
-    return res;
-}
-
-VerifyResult HexFile::verifyConfig(const HexFile* other) const
-{
-    VerifyResult res;
-    
-    // comparing two HexFiles with different memory sizes is a programming error,
-    // not a problem with the PIC being tested!
-    wxASSERT(m_configMemory.size() == other->m_configMemory.size());
-    
-    for (unsigned int i=0;i<m_configMemory.size();i++)
+    else if (arrThis->size() < arrOther->size())
     {
-        if ((other->m_configMemory[i] & other->m_configMask[i]) != 
-             (m_configMemory[i] & m_configMask[i]))
+        for (unsigned int i=arrThis->size(); i<arrOther->size(); i++)
         {
-            res.Result=VERIFY_MISMATCH;
-            res.DataType=TYPE_CONFIG;
-            res.Address=i;
-            res.Read=other->m_configMemory[i];
-            res.Expected=m_configMemory[i];
-            return res;
+            if ((*arrOther)[i] != 0)
+            {
+                res.Address=i;
+                res.Read=0;
+                res.Expected=(*arrOther)[i];
+                return res;
+            }
         }
     }
     

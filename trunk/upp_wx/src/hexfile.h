@@ -136,9 +136,7 @@ public:
     
     //@}
     
-    VerifyResult verifyCode(const HexFile* other) const;
-    VerifyResult verifyData(const HexFile* other) const;
-    VerifyResult verifyConfig(const HexFile* other) const;
+    VerifyResult verify(MemoryType type, const HexFile* other) const;
     
     /**
         Dumps into the @a output string the current code/config/data memory contents.
