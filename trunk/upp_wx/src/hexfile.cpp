@@ -612,9 +612,11 @@ void HexFile::calcConfigMask(const PicType* pic)
     // make sure that later in the for() loop we won't access invalid elements
     // of m_configMask array:
     if (!pic->is16Bit())
-        //wxASSERT(pic->ConfigWords.size() == m_configMask.size());
+        //wxASSERT(pic->ConfigWords.size() == m_configMask.size(),
+        //         "invalid number of config words for " + pic->Name);
     //else
-        wxASSERT(pic->ConfigWords.size()*2 == m_configMask.size());
+        wxASSERT_MSG(pic->ConfigWords.size()*2 == m_configMask.size(),
+                     "invalid number of config words for " + pic->Name);
     
     // reset m_configMask contents
     for (unsigned int i=0; i<pic->ConfigWords.size(); i++)
