@@ -127,14 +127,14 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         // add the text control which contains the current hex value
         // for the i-th configuration word
 
-        boxSz->Add(new wxStaticText(panel, wxID_ANY, "Configuration Word:"),
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, _("Configuration Word:")),
                    0, wxLEFT|wxRIGHT|wxALIGN_CENTER, 5);
 
         // NOTE: we use %04X because even for 8 bit devices the configuration words
         //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
         wxTextCtrl* tc = new wxTextCtrl(panel, wxID_ANY, wxString::Format("%04X", ConfigWord));
         tc->SetToolTip(
-            wxString::Format(_("The current value for the %d-th configuration word as derived from above configuration choices"), i));
+            wxString::Format(_("Current value for the %d-th configuration word as derived from above configuration choices"), i));
 
         tc->SetMaxLength(wxString::Format("%X", word.GetMask()).size());
         
@@ -151,11 +151,11 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         // add a few more details about the location of current config word in PIC memory
 
         boxSz->AddStretchSpacer(1);
-        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format("Location in memory: 0x%X", m_pic.ConfigAddress + word.Offset)),
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format(_("Location in memory: 0x%X"), m_pic.ConfigAddress + word.Offset)),
                 0, wxLEFT|wxALIGN_CENTER, 5);
                 
         boxSz->AddStretchSpacer(1);
-        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format("Length: %d bits", word.GetBitSize())),
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format(_("Length: %d bits"), word.GetBitSize())),
                 0, wxLEFT|wxALIGN_CENTER, 5);
         boxSz->AddStretchSpacer(1);
 
@@ -173,7 +173,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
 
         // complete the creation of this page:
 
-        AddPage(panel, word.Name.empty() ? wxString::Format("Word %d", i) : word.Name);
+        AddPage(panel, word.Name.empty() ? wxString::Format(_("Word %d"), i) : word.Name);
         m_ctrl.push_back(pageCtrl);
     }
 }
