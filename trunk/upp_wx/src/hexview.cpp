@@ -223,23 +223,25 @@ void UppHexViewGrid::OnCellRightClicked (wxGridEvent& event)
 
 void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
 {
-    int Position=event.GetCol()+(event.GetRow()*GetNumberCols());
+    wxString oldCellDataStr = event.GetString();
+    int position = event.GetCol() + event.GetRow()*GetNumberCols();
+    int cellData;
 
-    int Data;
-    wxString CellData=GetCellValue(event.GetRow(),event.GetCol());
-    sscanf(CellData.mb_str(wxConvUTF8),"%X",&Data);
+    // get the new value for the changed cell
+    wxString cellDataStr = GetCellValue(event.GetRow(), event.GetCol());
+    sscanf(cellDataStr.mb_str(wxConvUTF8), "%X", &cellData);
 
-    if(m_hexFile && (Data>=0) && (Data<=0xFF))
+    if (m_hexFile && cellData>=0 && cellData<=0xFF)
     {
         switch (m_type)
         {
             case HEXVIEW_CODE:
-                m_hexFile->putCodeMemory(Position,Data);
-                CellData.Printf(wxT("%02X"),m_hexFile->getCodeMemory(Position));
+                m_hexFile->putCodeMemory(position, cellData);
+                cellDataStr.Printf(wxT("%02X"), m_hexFile->getCodeMemory(position));
                 break;
             case HEXVIEW_DATA:
-                m_hexFile->putDataMemory(Position,Data);
-                CellData.Printf(wxT("%02X"),m_hexFile->getDataMemory(Position));
+                m_hexFile->putDataMemory(position, cellData);
+                cellDataStr.Printf(wxT("%02X"), m_hexFile->getDataMemory(position));
                 break;
         }
 
@@ -248,6 +250,9 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
         wxASSERT(main);
         main->upp_hex_changed();
     }
+    else
+        cellDataStr = oldCellDataStr;
 
-    SetCellValue(event.GetRow(),event.GetCol(),CellData);
+    // set the new, filtered, value
+    SetCellValue(event.GetRow(), event.GetCol(), cellDataStr);
 }
