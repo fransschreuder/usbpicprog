@@ -123,6 +123,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
 
         
         wxBoxSizer* boxSz = new wxBoxSizer(wxHORIZONTAL);
+        boxSz->AddStretchSpacer(1);
 
         // add the text control which contains the current hex value
         // for the i-th configuration word
