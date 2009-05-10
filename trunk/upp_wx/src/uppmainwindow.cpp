@@ -916,6 +916,8 @@ bool UppMainWindow::upp_thread_verify()
 
     wxString verifyText;
     wxString typeText;
+
+    // do the verify operation:
     VerifyResult res =
         m_hardware->verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
                            m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
@@ -926,7 +928,6 @@ bool UppMainWindow::upp_thread_verify()
         LogFromThread(wxLOG_Message, _("Verify successful"));
         break;
     case VERIFY_MISMATCH:
-
         switch (res.DataType)
         {
             case TYPE_CODE: typeText=_("Verify code");break;
@@ -980,9 +981,10 @@ bool UppMainWindow::upp_thread_blankcheck()
 
     LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
 
-    VerifyResult res=m_hardware->blankCheck(&m_picType);
+    // do the blankcheck:
+    VerifyResult res = m_hardware->blankCheck(&m_picType);
 
-    switch(res.Result)
+    switch (res.Result)
     {
     case VERIFY_SUCCESS:
         LogFromThread(wxLOG_Message, _("Device is blank"));
@@ -1023,11 +1025,16 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     wxASSERT(wxThread::IsMain());
 
     // create the progress dialog to show while our secondary thread works
+    // NOTE: we use 101 as maximum value and not 100 because updateProgress() 
+    //       will often be called with values between 0 and 100 for each
+    //       sub-operation performed inside the various upp_thread_* functions; 
+    //       we however want the progress dialog to auto-hide _only_ when all 
+    //       sub-operations have been completed, i.e. in OnThreadCompleted
     m_dlgProgress = new wxProgressDialog
                     (
                         _("Progress dialog"),
                         _("Initializing..."),
-                        100,
+                        101,
                         this,
                         // NOTE: it's very important to give the wxPD_AUTO_HIDE
                         //       style to wxProgressDialog otherwise we may get
