@@ -208,7 +208,7 @@ public:
         Writes the code/config/data memory from *hexData into the PIC.
         If the device is a PIC16 and type==TYPE_CONFIG, then the user ID is written, too.
 
-        Returns the number of bytes written or a negative value if an error occurred.
+        Returns 1 or a negative value if an error occurred.
     */
     int write(MemoryType type, HexFile *hexData, PicType *picType);
 

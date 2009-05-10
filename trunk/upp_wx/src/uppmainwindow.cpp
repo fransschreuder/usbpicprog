@@ -775,7 +775,7 @@ bool UppMainWindow::upp_thread_program()
         LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
         switch(m_hardware->write(TYPE_CODE, &m_hexFile, &m_picType))
         {
-        case 0:
+        case 1:
             LogFromThread(wxLOG_Message, _("Write Code memory OK"));
             break;
         case -1:
@@ -807,7 +807,7 @@ bool UppMainWindow::upp_thread_program()
 
         switch(m_hardware->write(TYPE_DATA, &m_hexFile, &m_picType))
         {
-        case 0:
+        case 1:
             LogFromThread(wxLOG_Message, _("Write Data memory OK"));
             break;
         case -1:
@@ -837,7 +837,7 @@ bool UppMainWindow::upp_thread_program()
 
         switch(m_hardware->write(TYPE_CONFIG, &m_hexFile, &m_picType))
         {
-        case 0:
+        case 1:
             LogFromThread(wxLOG_Message, _("Write Config memory OK"));
             break;
         case -1:

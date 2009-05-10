@@ -267,7 +267,6 @@ int Hardware::setPicType(PicType* picType)
 int Hardware::bulkErase(PicType* picType)
 {
     unsigned char msg[64];
-    int nBytes=-1;
 
     if (!picType->ok()) return -1;
     if (m_handle == NULL) return -1;
@@ -285,7 +284,7 @@ int Hardware::bulkErase(PicType* picType)
             return 0;
 
         // read back the reply
-        nBytes = readString(msg,1);
+        int nBytes = readString(msg,1);
         if (nBytes < 0)
         {
             wxLogError("Usb Error");
@@ -323,10 +322,8 @@ int Hardware::bulkErase(PicType* picType)
             statusCallBack(100);
         }
 
-        return 1;
+        return 1;   // OK
     }
-
-    return nBytes;
 }
 
 int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
@@ -349,7 +346,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
     if (memorySize==0)
         return 0;       // no code/config/data to read
 
-    // create a temporary array to store data read
+    // create a temporary array to store read data
     vector<int> mem;
     mem.resize(memorySize, 0xFF);
 
@@ -438,22 +435,24 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         return OPERATION_ABORTED;
 
     // which memory area are we going to write?
-    vector<int>& memory = hexData->getCodeMemory();
+    vector<int>* memory = NULL;
     switch (type)
     {
     case TYPE_CODE: 
-        memory = hexData->getCodeMemory();
+        memory = &hexData->getCodeMemory();
         break;
     case TYPE_DATA: 
-        memory = hexData->getDataMemory();
+        memory = &hexData->getDataMemory();
         break;
     case TYPE_CONFIG: 
-        memory = hexData->getConfigMemory();
+        memory = &hexData->getConfigMemory();
         break;
+    default:
+        wxFAIL_MSG("invalid type code");
     }
 
-    if (memory.size()==0)
-        return 0;       // no code/config/data to write
+    if (memory->size()==0)
+        return 1;       // no code/config/data to write
 
     // how big is each block?
     unsigned int blockSizeHW;
@@ -470,16 +469,16 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
     statusCallBack (0);
 
     int nBytes=0;
-    for (unsigned int blockcounter=0; blockcounter<memory.size(); blockcounter+=blockSizeHW)
+    for (unsigned int blockcounter=0; blockcounter<memory->size(); blockcounter+=blockSizeHW)
     {
-        statusCallBack (blockcounter*100/memory.size());
+        statusCallBack (blockcounter*100/memory->size());
 
         // fill in a new datablock packet
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         for (unsigned int i=0; i<blockSizeHW; i++)
         {
-            if (memory.size() > (blockcounter+i))
-                dataBlock[i]=memory[blockcounter+i];
+            if (memory->size() > (blockcounter+i))
+                dataBlock[i]=(*memory)[blockcounter+i];
             else
                 dataBlock[i]=0;
         }
@@ -488,7 +487,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
         if (blockcounter == 0)
             blocktype |= BLOCKTYPE_FIRST;
-        if ((memory.size()-blockSizeHW) <= blockcounter)
+        if ((memory->size()-blockSizeHW) <= blockcounter)
             blocktype |= BLOCKTYPE_LAST;
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
@@ -498,24 +497,26 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             currentBlockCounter/=2;
 
         // do write the block
-        nBytes=writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
+        int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
         if (m_hwCurrent == HW_UPP)
         {
-            if (nBytes==3) 
+            if (retCode==3) 
                 return -3;	// something not implemented in firmware :(
-            if (nBytes==4) 
+            if (retCode==4) 
                 return -4;	// verify error
-            if (((blocktype==BLOCKTYPE_MIDDLE)||(blocktype==BLOCKTYPE_FIRST))&&(nBytes!=2))
-                return -2; // should ask for next block
-            if ((blocktype==BLOCKTYPE_LAST)&&(nBytes!=1))
+            if ((blocktype==BLOCKTYPE_MIDDLE || blocktype==BLOCKTYPE_FIRST) && retCode!=2)
+                return -2;  // should ask for next block
+            if (blocktype==BLOCKTYPE_LAST && retCode!=1)
                 return -1;	// should say OK
+
+            // retCode == 1 means "OK, all finished"; retCode == 2 means "OK, waiting for next block"
         }
 
         if (m_abortOperations)
             break;
     }
 
-    return nBytes;
+    return 1;       // OK
 }
 
 VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, bool doConfig, bool doData)
@@ -696,8 +697,6 @@ int Hardware::getFirmwareVersion(unsigned char* msg) const
 
         return nBytes;
     }
-
-    return -1;
 }
 
 
