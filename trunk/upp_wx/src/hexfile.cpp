@@ -371,7 +371,7 @@ bool HexFile::save(PicType* picType)
     return saveAs(picType, m_filename.c_str());
 }
 
-void HexFile::putCodeMemory(vector<int> &mem)
+void HexFile::putCodeMemory(const vector<int>& mem)
 {
     m_codeMemory=mem;
     m_bModified = true;
@@ -386,7 +386,7 @@ void HexFile::putCodeMemory(int address, int mem)
     }
 }
 
-void HexFile::putDataMemory(vector<int> &mem)
+void HexFile::putDataMemory(const vector<int>& mem)
 {
     m_dataMemory=mem;
     m_bModified = true;
@@ -401,7 +401,7 @@ void HexFile::putDataMemory(int address, int mem)
     }
 }
 
-void HexFile::putConfigMemory(vector<int> &mem, const PicType* picType)
+void HexFile::putConfigMemory(const vector<int>& mem, const PicType* picType)
 {
     m_configMemory=mem;
     calcConfigMask(picType);
@@ -493,7 +493,7 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
     return res;
 }
 
-vector<int> &HexFile::getCodeMemory()
+vector<int>& HexFile::getCodeMemory()
 {
     return m_codeMemory;
 }
@@ -506,7 +506,7 @@ int HexFile::getCodeMemory(int address) const
         return 0;
 }
 
-vector<int> &HexFile::getDataMemory()
+vector<int>& HexFile::getDataMemory()
 {
     return m_dataMemory;
 }
@@ -519,7 +519,7 @@ int HexFile::getDataMemory(int address) const
         return 0;
 }
 
-vector<int> &HexFile::getConfigMemory()
+vector<int>& HexFile::getConfigMemory()
 {
     return m_configMemory;
 }
@@ -638,7 +638,7 @@ void HexFile::calcConfigMask(const PicType* pic)
 }
 
 bool HexFile::calcCheckSum(int byteCount, int address, RecordType recordType,
-                           vector<int> &lineData, int checkSum)
+                           const vector<int>& lineData, int checkSum)
 {
     int check=0;
     check+=byteCount;
@@ -646,18 +646,17 @@ bool HexFile::calcCheckSum(int byteCount, int address, RecordType recordType,
     check+=(address)&0xFF;
     check+=recordType;
 
-    for (int i=0;i<(signed)lineData.size();i++)
-    {
+    for (unsigned int i=0;i<lineData.size();i++)
         check+=lineData[i];
-    }
 
     check=(0x100-check)&0xFF;
 
-    if (check!=checkSum)printf("%2X %2X\n",check,checkSum);
+    if (check!=checkSum)
+        printf("%2X %2X\n",check,checkSum);
     return (check==checkSum);
 }
 
-void HexFile::makeLine(int address, RecordType recordType, vector<int> &lineData, char* output_line)
+void HexFile::makeLine(int address, RecordType recordType, const vector<int>& lineData, char* output_line)
 {
     int check=0;
     int byteCount=lineData.size();
@@ -666,7 +665,7 @@ void HexFile::makeLine(int address, RecordType recordType, vector<int> &lineData
     check+=(address)&0xFF;
     check+=recordType;
     sprintf(output_line,":%02X%04X%02X",byteCount,address,recordType);
-    for (int i=0;i<(signed)lineData.size();i++)
+    for (unsigned int i=0;i<lineData.size();i++)
     {
         sprintf(output_line+9+(i*2),"%02X",lineData[i]);
         check+=(lineData[i]&0xFF);

@@ -108,13 +108,13 @@ public:
     */
     //@{
     
-    void putCodeMemory(vector<int> &mem);
+    void putCodeMemory(const vector<int>& mem);
     void putCodeMemory(int address, int mem);
     
-    void putDataMemory(vector<int> &mem);
+    void putDataMemory(const vector<int>& mem);
     void putDataMemory(int address, int mem);
     
-    void putConfigMemory(vector<int> &mem, const PicType* pic);
+    void putConfigMemory(const vector<int>& mem, const PicType* pic);
     void putConfigMemory(int address, int mem, const PicType* pic);
     
     //@}
@@ -125,13 +125,13 @@ public:
     */
     //@{
     
-    vector<int> &getCodeMemory();
+    vector<int>& getCodeMemory();
     int getCodeMemory(int address) const;
     
-    vector<int> &getDataMemory();
+    vector<int>& getDataMemory();
     int getDataMemory(int address) const;
     
-    vector<int> &getConfigMemory();
+    vector<int>& getConfigMemory();
     int getConfigMemory(int address) const;
     
     //@}
@@ -187,10 +187,10 @@ private:
     vector<int> m_configMask;
     
     bool calcCheckSum(int byteCount, int address, 
-                      RecordType recordType, vector<int> &lineData, int checkSum);
+                      RecordType recordType, const vector<int>& lineData, int checkSum);
     void calcConfigMask(const PicType* pic);
     void makeLine(int address, RecordType recordType, 
-                  vector<int> &lineData, char* output_line);
+                  const vector<int>& lineData, char* output_line);
 };
 
 #endif //HEXFILE_H
