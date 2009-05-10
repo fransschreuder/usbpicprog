@@ -121,6 +121,10 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
             pageCtrl.choiceArray.push_back(choice);
         }
 
+        if (word.Masks.size() == 0)
+            sz->Add(new wxStaticText(panel, wxID_ANY, "No available configuration choices for this configuration word."), 
+                    0, wxALL|wxALIGN_CENTER, 5);
+
         
         wxBoxSizer* boxSz = new wxBoxSizer(wxHORIZONTAL);
         boxSz->AddStretchSpacer(1);
