@@ -426,6 +426,10 @@ void HexFile::putConfigMemory(int address, int mem, const PicType* picType)
 
 VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
 {
+    // NOTE: this function assumes that *this instance is the one containing
+    //       data read from the device under test, and the *other instance
+    //       is the one containing the expected data
+
     VerifyResult res;
     res.Result=VERIFY_MISMATCH;
     res.DataType=type;

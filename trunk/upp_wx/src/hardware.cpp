@@ -524,13 +524,13 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     VerifyResult res;
 
     // create a temporary hex file to store the code/config/data bytes we're going to read
-    HexFile verifyHexFile;
+    HexFile readData;
 
     // read from the device
 
     if (doCode)
     {
-        if (read(TYPE_CODE, &verifyHexFile, picType) < 0)
+        if (read(TYPE_CODE, &readData, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
@@ -539,7 +539,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doData)
     {
-        if (read(TYPE_DATA, &verifyHexFile, picType) < 0)
+        if (read(TYPE_DATA, &readData, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
@@ -548,7 +548,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
     }
     if (doConfig)
     {
-        if (read(TYPE_CONFIG, &verifyHexFile, picType) < 0)
+        if (read(TYPE_CONFIG, &readData, picType) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
@@ -572,20 +572,20 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     if (doCode)
     {
-        res = hexData->verify(TYPE_CODE, &verifyHexFile);
+        res = readData.verify(TYPE_CODE, hexData);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
     if (doData)
     {
-        res = hexData->verify(TYPE_DATA, &verifyHexFile);
+        res = readData.verify(TYPE_DATA, hexData);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
     if (doConfig && m_hwCurrent == HW_UPP) 
         // it's no use to verify config for the bootloader
     {
-        res = hexData->verify(TYPE_CONFIG, &verifyHexFile);
+        res = readData.verify(TYPE_CONFIG, hexData);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
