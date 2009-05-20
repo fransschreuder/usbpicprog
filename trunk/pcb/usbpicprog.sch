@@ -1,5 +1,5 @@
-EESchema Schematic File Version 1
-LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,./usbpicprog.cache
+EESchema Schematic File Version 2
+LIBS:power,device,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\usbpicprog.cache
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
@@ -353,7 +353,7 @@ L R R11
 U 1 1 49096B01
 P 8600 3950
 F 0 "R11" V 8680 3950 50  0000 C C
-F 1 "470" V 8600 3950 50  0000 C C
+F 1 "1k" V 8600 3950 50  0000 C C
 	1    8600 3950
 	-1   0    0    1   
 $EndComp
@@ -362,7 +362,7 @@ L R R10
 U 1 1 49096ACD
 P 8400 3950
 F 0 "R10" V 8480 3950 50  0000 C C
-F 1 "470" V 8400 3950 50  0000 C C
+F 1 "1k" V 8400 3950 50  0000 C C
 	1    8400 3950
 	-1   0    0    1   
 $EndComp
@@ -600,7 +600,7 @@ L R R8
 U 1 1 466D3678
 P 1850 3700
 F 0 "R8" V 1930 3700 50  0000 C C
-F 1 "150" V 1850 3700 50  0000 C C
+F 1 "470" V 1850 3700 50  0000 C C
 	1    1850 3700
 	-1   0    0    1   
 $EndComp
@@ -609,7 +609,7 @@ L R R7
 U 1 1 466D3677
 P 1550 3700
 F 0 "R7" V 1630 3700 50  0000 C C
-F 1 "150" V 1550 3700 50  0000 C C
+F 1 "470" V 1550 3700 50  0000 C C
 	1    1550 3700
 	-1   0    0    1   
 $EndComp
@@ -618,7 +618,7 @@ L R R6
 U 1 1 466D3676
 P 1250 3700
 F 0 "R6" V 1330 3700 50  0000 C C
-F 1 "150" V 1250 3700 50  0000 C C
+F 1 "470" V 1250 3700 50  0000 C C
 	1    1250 3700
 	1    0    0    -1  
 $EndComp
@@ -627,7 +627,7 @@ L LED D7
 U 1 1 466D3669
 P 1850 4250
 F 0 "D7" H 1850 4350 50  0000 C C
-F 1 "LED" H 1850 4150 50  0000 C C
+F 1 "GREEN" H 1850 4150 50  0000 C C
 	1    1850 4250
 	0    1    1    0   
 $EndComp
@@ -636,7 +636,7 @@ L LED D6
 U 1 1 466D3665
 P 1550 4250
 F 0 "D6" H 1550 4350 50  0000 C C
-F 1 "LED" H 1550 4150 50  0000 C C
+F 1 "YELLOW" H 1550 4150 50  0000 C C
 	1    1550 4250
 	0    1    1    0   
 $EndComp
@@ -645,7 +645,7 @@ L LED D5
 U 1 1 466D3654
 P 1250 4250
 F 0 "D5" H 1250 4350 50  0000 C C
-F 1 "LED" H 1250 4150 50  0000 C C
+F 1 "RED" H 1250 4150 50  0000 C C
 	1    1250 4250
 	0    1    1    0   
 $EndComp
@@ -690,7 +690,7 @@ L C C3
 U 1 1 466D33F6
 P 4350 6600
 F 0 "C3" H 4400 6700 50  0000 L C
-F 1 "15p" H 4400 6500 50  0000 L C
+F 1 "22p" H 4400 6500 50  0000 L C
 	1    4350 6600
 	1    0    0    -1  
 $EndComp
@@ -699,7 +699,7 @@ L C C2
 U 1 1 466D33F3
 P 3400 6600
 F 0 "C2" H 3450 6700 50  0000 L C
-F 1 "15p" H 3450 6500 50  0000 L C
+F 1 "22p" H 3450 6500 50  0000 L C
 	1    3400 6600
 	1    0    0    -1  
 $EndComp
