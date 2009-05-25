@@ -6,37 +6,37 @@
     <files>
       <item>io_cfg.h</item>
       <item>main.c</item>
-      <item>autofiles/usbdsc.c</item>
-      <item>system/interrupt/interrupt.c</item>
-      <item>system/usb/usbmmap.c</item>
-      <item>system/usb/class/generic/usbgen.c</item>
-      <item>system/usb/usb9/usb9.c</item>
-      <item>system/usb/usbctrltrf/usbctrltrf.c</item>
-      <item>system/typedefs.h</item>
-      <item>system/usb/usbdrv/usbdrv.c</item>
-      <item>upp/upp.c</item>
-      <item>autofiles/usbcfg.h</item>
-      <item>autofiles/usbdsc.h</item>
-      <item>system/interrupt/interrupt.h</item>
-      <item>system/usb/class/generic/usbgen.h</item>
-      <item>system/usb/usb9/usb9.h</item>
-      <item>system/usb/usbctrltrf/usbctrltrf.h</item>
-      <item>system/usb/usbdefs/usbdefs_ep0_buff.h</item>
-      <item>system/usb/usbdefs/usbdefs_std_dsc.h</item>
-      <item>system/usb/usbdrv/usbdrv.h</item>
-      <item>system/usb/usb_compile_time_validation.h</item>
-      <item>system/usb/usb.h</item>
-      <item>system/usb/usbmmap.h</item>
-      <item>upp/upp.h</item>
-      <item>upp/prog.h</item>
-      <item>upp/prog.c</item>
-      <item>upp/prog_lolvl.h</item>
-      <item>upp/prog_lolvl.c</item>
+      <item>usbdsc.c</item>
+      <item>interrupt.c</item>
+      <item>usbmmap.c</item>
+      <item>usbgen.c</item>
+      <item>usb9.c</item>
+      <item>usbctrltrf.c</item>
+      <item>typedefs.h</item>
+      <item>usbdrv.c</item>
+      <item>upp.c</item>
+      <item>usbcfg.h</item>
+      <item>usbdsc.h</item>
+      <item>interrupt.h</item>
+      <item>usbgen.h</item>
+      <item>usb9.h</item>
+      <item>usbctrltrf.h</item>
+      <item>usbdefs_ep0_buff.h</item>
+      <item>usbdefs_std_dsc.h</item>
+      <item>usbdrv.h</item>
+      <item>usb_compile_time_validation.h</item>
+      <item>usb.h</item>
+      <item>usbmmap.h</item>
+      <item>upp.h</item>
+      <item>prog.h</item>
+      <item>prog.c</item>
+      <item>prog_lolvl.h</item>
+      <item>prog_lolvl.c</item>
       <item>svn_revision.h</item>
     </files>
     <custom_linker_script>rm18f4550.lkr</custom_linker_script>
     <description/>
-    <version>0.1</version>
+    <version>0.2.1</version>
   </general>
   <compiler>
     <has_custom_arguments>false</has_custom_arguments>

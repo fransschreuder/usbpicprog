@@ -40,8 +40,8 @@
 #else
 #include <p18cxxx.h>
 #endif
-#include "system\typedefs.h"
-#include "system\usb\usb.h"
+#include "typedefs.h"
+#include "usb.h"
 #include "io_cfg.h"             // Required for USBCheckBusStatus()
 
 /** V A R I A B L E S ********************************************************/

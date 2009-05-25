@@ -24,8 +24,8 @@
 #else
 #include <p18cxxx.h>
 #endif
-#include "system\typedefs.h"
-#include "system\interrupt\interrupt.h"
+#include "typedefs.h"
+#include "interrupt.h"
 #include "prog.h"
 #include "upp.h" 
 #include "io_cfg.h"             // I/O pin mapping
@@ -35,60 +35,55 @@ extern long lasttick;
 
 void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 {
-    unsigned int i;
-    if(level==1)
-    {
-	TRISPGD =0;    //PGD output
-	TRISPGC =0;    //PGC output
-	PGD =0;        // initial value for programming mode
-	PGC =0;        // initial value for programming mode
-	clock_delay();    // dummy tempo
-	switch(pictype)
+	unsigned int i;
+	if(level==1)
 	{
-		case P12F6XX:
-			VPP=0;
-			break;
-		default:
-			VDD=0; //high, (inverted)
-			break;
+		TRISPGD =0;    //PGD output
+		TRISPGC =0;    //PGC output
+		PGD =0;        // initial value for programming mode
+		PGC =0;        // initial value for programming mode
+		clock_delay();    // dummy tempo
+		switch(pictype)
+		{
+			case P12F6XX:
+				VPP=0;
+				break;
+			default:
+				VDD=0; //high, (inverted)
+				break;
+		}
+		lasttick=tick;
+		while((tick-lasttick)<100)continue;
+		switch(pictype)
+		{
+			case P12F6XX:
+				VDD=0;
+				break;
+			default:
+				VPP=0; //high, (inverted)
+				break;
+		}
+		lasttick=tick;
+		while((tick-lasttick)<100)continue;
 	}
-	lasttick=tick;
-	setLeds(1);
-	while((tick-lasttick)<100)continue;
-	switch(pictype)
+	else
 	{
-		case P12F6XX:
-			VDD=0;
-			break;
-		default:
-			VPP=0; //high, (inverted)
-			break;
-	}
-	setLeds(2);
-	lasttick=tick;
-	while((tick-lasttick)<100)continue;
-	setLeds(3);
-    }
-    else
-    {
 		VPP=1; //low, (inverted)
 		VPP_RST=1; //hard reset, low (inverted)
-		setLeds(4);
 		lasttick=tick;
 		while((tick-lasttick)<20)continue;
 		VPP_RST=0; //hard reset, high (inverted)
-		setLeds(5);
 		VDD=1; //low, (inverted)
 		TRISPGD =1;    //PGD input
-        	TRISPGC =1;    //PGC input
+		TRISPGC =1;    //PGC input
 		lasttick=tick;
 		while((tick-lasttick)<20)continue;
-		setLeds(0);
-    }
+	}
 }
 
 void set_address(PICFAMILY picfamily, unsigned long address)
 {
+	unsigned long i;
 	switch(picfamily)
 	{
 		case PIC18:
@@ -100,28 +95,12 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 			pic_send(4,0x00,0x6EF6); //MOVWF TBLPTRU
 			break;
 		case PIC16:
-			pic_send(6,0x02,((unsigned int)address)<<1);
+			for(i=0;i<address;i+=2)
+				pic_send_n_bits(6,0x06);	//increment address
 		default:
 			break;
 	}
 }
-
-/*
-void clock_delay()
-{
-	//char i;
-	//for(i=0;i<2;i++)continue;
-	//Nop();
-	//Nop(); //would that be enough for all pic's?
-	Nop();
-	Nop();
-	Nop();
-	Nop();
-	Nop();
-	Nop();
-}
-*/
-
 
 /**
 Writes a n-bit command

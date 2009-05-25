@@ -3,7 +3,7 @@
  *                Microchip USB C18 Firmware Version 1.0
  *
  *********************************************************************
- * FileName:        usbctrltrf.h
+ * FileName:        usb9.h
  * Dependencies:    See INCLUDES section below
  * Processor:       PIC18
  * Compiler:        C18 2.30.01+
@@ -33,50 +33,62 @@
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Rawin Rojvanit       11/19/04    Original.
  ********************************************************************/
-#ifndef USBCTRLTRF_H
-#define USBCTRLTRF_H
+#ifndef USB9_H
+#define USB9_H
 
 /** I N C L U D E S **********************************************************/
-#include "system/typedefs.h"
+#include "typedefs.h"
 
 /** D E F I N I T I O N S ****************************************************/
 
-/* Control Transfer States */
-#define WAIT_SETUP          0
-#define CTRL_TRF_TX         1
-#define CTRL_TRF_RX         2
+/******************************************************************************
+ * Standard Request Codes
+ * USB 2.0 Spec Ref Table 9-4
+ *****************************************************************************/
+#define GET_STATUS  0
+#define CLR_FEATURE 1
+#define SET_FEATURE 3
+#define SET_ADR     5
+#define GET_DSC     6
+#define SET_DSC     7
+#define GET_CFG     8
+#define SET_CFG     9
+#define GET_INTF    10
+#define SET_INTF    11
+#define SYNCH_FRAME 12
 
-/* USB PID: Token Types - See chapter 8 in the USB specification */
-#define SETUP_TOKEN         0b00001101
-#define OUT_TOKEN           0b00000001
-#define IN_TOKEN            0b00001001
+/* Standard Feature Selectors */
+#define DEVICE_REMOTE_WAKEUP    0x01
+#define ENDPOINT_HALT           0x00
 
-/* bmRequestType Definitions */
-#define HOST_TO_DEV         0
-#define DEV_TO_HOST         1
-
-#define STANDARD            0x00
-#define CLASS               0x01
-#define VENDOR              0x02
-
-#define RCPT_DEV            0
-#define RCPT_INTF           1
-#define RCPT_EP             2
-#define RCPT_OTH            3
+/******************************************************************************
+ * Macro:           void mUSBCheckAdrPendingState(void)
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ * Overview:        Specialized checking routine, it checks if the device
+ *                  is in the ADDRESS PENDING STATE and services it if it is.
+ *
+ * Note:            None
+ *****************************************************************************/
+#define mUSBCheckAdrPendingState()  if(usb_device_state==ADR_PENDING_STATE) \
+                                    {                                       \
+                                        UADDR = SetupPkt.bDevADR._byte;     \
+                                        if(UADDR > 0)                       \
+                                            usb_device_state=ADDRESS_STATE; \
+                                        else                                \
+                                            usb_device_state=DEFAULT_STATE; \
+                                    }//end if
 
 /** E X T E R N S ************************************************************/
-extern byte ctrl_trf_session_owner;
-
-extern POINTER pSrc;
-extern POINTER pDst;
-extern WORD wCount;
 
 /** P U B L I C  P R O T O T Y P E S *****************************************/
-void USBCtrlEPService(void);
-void USBCtrlTrfTxService(void);
-void USBCtrlTrfRxService(void);
-void USBCtrlEPServiceComplete(void);
-void USBPrepareForNextSetupTrf(void);
+void USBCheckStdRequest(void);
 
-
-#endif //USBCTRLTRF_H
+#endif //USB9_H

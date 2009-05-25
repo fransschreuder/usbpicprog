@@ -21,10 +21,24 @@
 #ifndef UPP_H
 #define UPP_H
 
-void UserInit();
-void timer1Init();
-void timer0Init();
-void ProcessIO();
+#define CMD_BULK_ERASE 0x10
+#define CMD_GET_ID 0x20
+#define CMD_WRITE_CODE 0x30
+#define CMD_READ_CODE 0x40
+#define CMD_WRITE_DATA 0x50
+#define CMD_READ_DATA 0x60
+#define CMD_WRITE_CONFIG 0x70
+#define CMD_SET_PICTYPE 0x80
+#define CMD_FIRMWARE_VERSION 0x90
+
+#define LEDS_ON 0x04
+#define LEDS_RD 0x02
+#define LEDS_WR 0x01
+
+void UserInit(void);
+void timer1Init(void);
+void timer0Init(void);
+void ProcessIO(void);
 unsigned char set_pictype(unsigned char* data);
 void setLeds(char n);
 

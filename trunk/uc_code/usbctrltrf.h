@@ -3,7 +3,7 @@
  *                Microchip USB C18 Firmware Version 1.0
  *
  *********************************************************************
- * FileName:        usb_compile_time_validation.h
+ * FileName:        usbctrltrf.h
  * Dependencies:    See INCLUDES section below
  * Processor:       PIC18
  * Compiler:        C18 2.30.01+
@@ -31,32 +31,52 @@
  *
  * Author               Date        Comment
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Rawin Rojvanit       7/10/04     Original.
+ * Rawin Rojvanit       11/19/04    Original.
  ********************************************************************/
+#ifndef USBCTRLTRF_H
+#define USBCTRLTRF_H
 
-#ifndef USB_COMPILE_TIME_VALIDATION_H
-#define USB_COMPILE_TIME_VALIDATION_H
+/** I N C L U D E S **********************************************************/
+#include "typedefs.h"
 
-/** I N C L U D E S *************************************************/
-#include "system/typedefs.h"
-#include "system/usb/usb.h"
+/** D E F I N I T I O N S ****************************************************/
 
-/** U S B  V A L I D A T I O N **************************************/
+/* Control Transfer States */
+#define WAIT_SETUP          0
+#define CTRL_TRF_TX         1
+#define CTRL_TRF_RX         2
 
-#if (EP0_BUFF_SIZE != 8) && (EP0_BUFF_SIZE != 16) &&  (EP0_BUFF_SIZE != 32) && (EP0_BUFF_SIZE != 64)
-#error(Invalid buffer size for endpoint 0,check "autofiles\usbcfg.h")
-#endif
+/* USB PID: Token Types - See chapter 8 in the USB specification */
+#define SETUP_TOKEN         0b00001101
+#define OUT_TOKEN           0b00000001
+#define IN_TOKEN            0b00001001
 
-#if defined(HID_INT_OUT_EP_SIZE)
-    #if (HID_INT_OUT_EP_SIZE > 64)
-        #error(HID Out endpoint size cannot be bigger than 64, check "autofiles\usbcfg.h")
-    #endif
-#endif
+/* bmRequestType Definitions */
+#define HOST_TO_DEV         0
+#define DEV_TO_HOST         1
 
-#ifdef HID_INT_IN_EP_SIZE
-    #if (HID_INT_IN_EP_SIZE > 64)
-        #error(HID In endpoint size cannot be bigger than 64, check "autofiles\usbcfg.h")
-    #endif
-#endif
+#define STANDARD            0x00
+#define CLASS               0x01
+#define VENDOR              0x02
 
-#endif //USB_COMPILE_TIME_VALIDATION_H
+#define RCPT_DEV            0
+#define RCPT_INTF           1
+#define RCPT_EP             2
+#define RCPT_OTH            3
+
+/** E X T E R N S ************************************************************/
+extern byte ctrl_trf_session_owner;
+
+extern POINTER pSrc;
+extern POINTER pDst;
+extern WORD wCount;
+
+/** P U B L I C  P R O T O T Y P E S *****************************************/
+void USBCtrlEPService(void);
+void USBCtrlTrfTxService(void);
+void USBCtrlTrfRxService(void);
+void USBCtrlEPServiceComplete(void);
+void USBPrepareForNextSetupTrf(void);
+
+
+#endif //USBCTRLTRF_H

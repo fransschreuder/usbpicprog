@@ -11,8 +11,8 @@
 #else
 #include <p18cxxx.h>
 #endif
-#include "system/typedefs.h"
-#include "system/interrupt/interrupt.h"
+#include "typedefs.h"
+#include "interrupt.h"
 #include "io_cfg.h"
 /** V A R I A B L E S ********************************************************/
 long tick=0;

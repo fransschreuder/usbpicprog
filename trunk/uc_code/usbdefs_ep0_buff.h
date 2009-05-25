@@ -41,8 +41,8 @@
 #define USBDEFS_EP0_BUFF_H
 
 /** I N C L U D E S **********************************************************/
-#include "system/typedefs.h"
-#include "autofiles/usbcfg.h"       // usbcfg.h contains required definitions
+#include "typedefs.h"
+#include "usbcfg.h"       // usbcfg.h contains required definitions
 
 /******************************************************************************
  * CTRL_TRF_SETUP:

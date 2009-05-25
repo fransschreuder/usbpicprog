@@ -3,7 +3,7 @@
  *                Microchip USB C18 Firmware Version 1.0
  *
  *********************************************************************
- * FileName:        usbdsc.h
+ * FileName:        usb_compile_time_validation.h
  * Dependencies:    See INCLUDES section below
  * Processor:       PIC18
  * Compiler:        C18 2.30.01+
@@ -29,46 +29,34 @@
  * IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
  *
+ * Author               Date        Comment
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Rawin Rojvanit       7/10/04     Original.
  ********************************************************************/
 
-/*********************************************************************
- * Descriptor specific type definitions are defined in:
- * system\usb\usbdefs\usbdefs_std_dsc.h
- ********************************************************************/
-
-#ifndef USBDSC_H
-#define USBDSC_H
+#ifndef USB_COMPILE_TIME_VALIDATION_H
+#define USB_COMPILE_TIME_VALIDATION_H
 
 /** I N C L U D E S *************************************************/
-#include "system/typedefs.h"
-#include "autofiles/usbcfg.h"
+#include "typedefs.h"
+#include "usb.h"
 
-#include "system/usb/usb.h"
+/** U S B  V A L I D A T I O N **************************************/
 
-/** D E F I N I T I O N S *******************************************/
-#ifndef SDCC
-#define CFG01 rom struct                            \
-{   USB_CFG_DSC             cd01;                   \
-    USB_INTF_DSC            i00a00;                 \
-    USB_EP_DSC              ep01o_i00a00;           \
-    USB_EP_DSC              ep01i_i00a00;           \
-} cfg01
-#else
-typedef  struct CFG01 
-{   USB_CFG_DSC             cd01;                   
-    USB_INTF_DSC            i00a00;                 
-    USB_EP_DSC              ep01o_i00a00;           
-    USB_EP_DSC              ep01i_i00a00;           
-    USB_INTF_DSC            i01a00;                 
-    USB_EP_DSC              ep02i_i01a00;           
-} cfg01;
+#if (EP0_BUFF_SIZE != 8) && (EP0_BUFF_SIZE != 16) &&  (EP0_BUFF_SIZE != 32) && (EP0_BUFF_SIZE != 64)
+#error(Invalid buffer size for endpoint 0,check "autofiles\usbcfg.h")
 #endif
-/** E X T E R N S ***************************************************/
-extern rom USB_DEV_DSC device_dsc;
-#ifndef SDCC
-extern CFG01;
-#endif
-extern rom const unsigned char *rom USB_CD_Ptr[];
-extern rom const unsigned char *rom USB_SD_Ptr[];
 
-#endif //USBDSC_H
+#if defined(HID_INT_OUT_EP_SIZE)
+    #if (HID_INT_OUT_EP_SIZE > 64)
+        #error(HID Out endpoint size cannot be bigger than 64, check "autofiles\usbcfg.h")
+    #endif
+#endif
+
+#ifdef HID_INT_IN_EP_SIZE
+    #if (HID_INT_IN_EP_SIZE > 64)
+        #error(HID In endpoint size cannot be bigger than 64, check "autofiles\usbcfg.h")
+    #endif
+#endif
+
+#endif //USB_COMPILE_TIME_VALIDATION_H

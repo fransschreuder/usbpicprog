@@ -170,8 +170,8 @@
  ********************************************************************/
  
 /** I N C L U D E S *************************************************/
-#include "system/typedefs.h"
-#include "system/usb/usb.h"
+#include "typedefs.h"
+#include "usb.h"
 
 /** C O N S T A N T S ************************************************/
 #ifndef SDCC

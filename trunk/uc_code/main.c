@@ -35,18 +35,18 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
-#include "system/interrupt/interrupt.h"
+#include "interrupt.h"
 #ifdef SDCC
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
 #endif
-#include "system/typedefs.h"                        // Required
-#include "system/usb/usb.h"                         // Required
+#include "typedefs.h"                        // Required
+#include "usb.h"                         // Required
 #include "io_cfg.h"                                 // Required
 
-#include "system/usb/usb_compile_time_validation.h" // Optional
-#include "upp/upp.h"                              // Modifiable
+#include "usb_compile_time_validation.h" // Optional
+#include "upp.h"                              // Modifiable
 
 #ifndef SDCC_MODEL_SMALL
 #pragma config PLLDIV = 2, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
@@ -92,7 +92,7 @@ extern void _startup (void);        // See c018i.c in your C18 compiler dir
 #pragma code _RESET_INTERRUPT_VECTOR = 0x000800
 void _reset (void)
 {
-    _asm goto _startup _endasm
+	_asm goto _startup _endasm
 }
 #pragma code
 
@@ -163,15 +163,15 @@ void main(void)
 	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
-    //usb_reset();
-    InitializeSystem();
-    
-    //usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
-    while(1)
-    {
-        USBTasks();         // USB Tasks
-        ProcessIO();        // See user\user.c & .h
-    }//end while
+	//usb_reset();
+	InitializeSystem();
+	
+	//usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
+	while(1)
+	{
+		USBTasks();         // USB Tasks
+		ProcessIO();        // See user\user.c & .h
+	}//end while
 }//end main
 
 /******************************************************************************
@@ -196,19 +196,19 @@ void main(void)
  *****************************************************************************/
 static void InitializeSystem(void)
 {
-    ADCON1 |= 0x0F;                 // Default all pins to digital
-    
-    #if defined(USE_USB_BUS_SENSE_IO)
-    tris_usb_bus_sense = INPUT_PIN; // See io_cfg.h
-    #endif
-    
-    #if defined(USE_SELF_POWER_SENSE_IO)
-    tris_self_power = INPUT_PIN;
-    #endif
-    
-    mInitializeUSBDriver();         // See usbdrv.h
-    
-    UserInit();                     // See upp.c & .h
+	ADCON1 |= 0x0F;                 // Default all pins to digital
+	
+	#if defined(USE_USB_BUS_SENSE_IO)
+	tris_usb_bus_sense = INPUT_PIN; // See io_cfg.h
+	#endif
+	
+	#if defined(USE_SELF_POWER_SENSE_IO)
+	tris_self_power = INPUT_PIN;
+	#endif
+	
+	mInitializeUSBDriver();         // See usbdrv.h
+	
+	UserInit();                     // See upp.c & .h
 
 }//end InitializeSystem
 
@@ -229,12 +229,12 @@ static void InitializeSystem(void)
  *****************************************************************************/
 void USBTasks(void)
 {
-    /*
-     * Servicing Hardware
-     */
-    USBCheckBusStatus();                    // Must use polling method
-    if(UCFGbits.UTEYE!=1)
-        USBDriverService();                 // Interrupt or polling method
+	/*
+	* Servicing Hardware
+	*/
+	USBCheckBusStatus();                    // Must use polling method
+	if(UCFGbits.UTEYE!=1)
+		USBDriverService();                 // Interrupt or polling method
 
 }// end USBTasks
 

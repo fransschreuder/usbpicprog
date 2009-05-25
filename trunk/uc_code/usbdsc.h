@@ -3,7 +3,7 @@
  *                Microchip USB C18 Firmware Version 1.0
  *
  *********************************************************************
- * FileName:        usb.h
+ * FileName:        usbdsc.h
  * Dependencies:    See INCLUDES section below
  * Processor:       PIC18
  * Compiler:        C18 2.30.01+
@@ -29,34 +29,46 @@
  * IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
  *
- * Author               Date        Comment
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Rawin Rojvanit       11/19/04    Original.
  ********************************************************************/
-#ifndef USB_H
-#define USB_H
 
-/*
- * usb.h provides a centralize way to include all files
- * required by Microchip USB Firmware.
- *
- * The order of inclusion is important.
- * Dependency conflicts are resolved by the correct ordering.
- */
+/*********************************************************************
+ * Descriptor specific type definitions are defined in:
+ * system\usb\usbdefs\usbdefs_std_dsc.h
+ ********************************************************************/
 
-#include "autofiles/usbcfg.h"
-#include "system/usb/usbdefs/usbdefs_std_dsc.h"
-#include "autofiles/usbdsc.h"
+#ifndef USBDSC_H
+#define USBDSC_H
 
-#include "system/usb/usbdefs/usbdefs_ep0_buff.h"
-#include "system/usb/usbmmap.h"
+/** I N C L U D E S *************************************************/
+#include "typedefs.h"
+#include "usbcfg.h"
 
-#include "system/usb/usbdrv/usbdrv.h"
-#include "system/usb/usbctrltrf/usbctrltrf.h"
-#include "system/usb/usb9/usb9.h"
+#include "usb.h"
 
-#if defined(USB_USE_GEN)               // See autofiles\usbcfg.h
-#include "system/usb/class/generic/usbgen.h"
+/** D E F I N I T I O N S *******************************************/
+#ifndef SDCC
+#define CFG01 rom struct                            \
+{   USB_CFG_DSC             cd01;                   \
+    USB_INTF_DSC            i00a00;                 \
+    USB_EP_DSC              ep01o_i00a00;           \
+    USB_EP_DSC              ep01i_i00a00;           \
+} cfg01
+#else
+typedef  struct CFG01 
+{   USB_CFG_DSC             cd01;                   
+    USB_INTF_DSC            i00a00;                 
+    USB_EP_DSC              ep01o_i00a00;           
+    USB_EP_DSC              ep01i_i00a00;           
+    USB_INTF_DSC            i01a00;                 
+    USB_EP_DSC              ep02i_i01a00;           
+} cfg01;
 #endif
-          
-#endif //USB_H
+/** E X T E R N S ***************************************************/
+extern rom USB_DEV_DSC device_dsc;
+#ifndef SDCC
+extern CFG01;
+#endif
+extern rom const unsigned char *rom USB_CD_Ptr[];
+extern rom const unsigned char *rom USB_SD_Ptr[];
+
+#endif //USBDSC_H
