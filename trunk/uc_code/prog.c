@@ -50,9 +50,9 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			dspic_send(0x7002);	//perform a bulk erase command
 			dspic_send(0x0003);
 			i=dspic_read();
-			if(i!=0x1700)return 2; //response should be 0x1700, 0x0002
+			if(i!=0x1700)return 4; //response should be 0x1700, 0x0002
 			i=dspic_read();
-			if(i!=0x0002)return 2;
+			if(i!=0x0002)return 4;
 			DelayMs(5);
 			break;
 		case P18FXX39:
@@ -297,6 +297,26 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(pictype)
 	{
+		case dsP30F:
+			if((address%48)==0) //3 blocks of 32 bytes, only the first one needs a header
+			{
+				dspic_send(0x5033);
+				dspic_send(((unsigned int)(address>>16))&0xFF);
+				dspic_send((unsigned int)address);
+			}
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				dspic_send(((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			if((address%96)==0) //3 blocks of 32 bytes, only the first one needs a header
+			{
+				DelayMs(5);
+				payload=dspic_read();
+				if(payload!=0x1500)return 4; //response should be 0x1500, 0x0002
+				payload=dspic_read();
+				if(payload!=0x0002)return 4;
+			}
+			break;
 		case P18F2XXX:
 			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
@@ -515,12 +535,33 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 
 char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsigned char* data, char blocksize, char lastblock)
 {
+	unsigned int payload;
 	char blockcounter;
 	char receiveddata;
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	if((pictype==P10F200)||(pictype==P10F202))return 3;	//these devices have no data memory.
 	switch(picfamily)
 	{
+		case dsP30F:
+			if((address%16)==0) //4 blocks of 8 bytes, only the first one needs a header
+			{
+				dspic_send(0x3013);
+				dspic_send(((unsigned int)(address>>16))&0xFF);
+				dspic_send((unsigned int)address);
+			}
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				dspic_send(((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			if((address%96)==0) //3 blocks of 32 bytes, only the first one needs a header
+			{
+				DelayMs(5);
+				payload=dspic_read();
+				if(payload!=0x1400)return 4; //response should be 0x1400, 0x0002
+				payload=dspic_read();
+				if(payload!=0x0002)return 4;
+			}
+			break;
 		case PIC18:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
@@ -628,6 +669,20 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(pictype)
 	{
+		case dsP30F:
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				dspic_send(0x6004);
+				dspic_send(((unsigned int)(address>>16))&0xFF);
+				dspic_send((unsigned int)address);
+				dspic_send(((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8));
+				DelayMs(5);
+				payload=dspic_read();
+				if(payload!=0x1600)return 4; //response should be 0x1600, 0x0002
+				payload=dspic_read();
+				if(payload!=0x0002)return 4;
+			}
+			break;
 		case P18FXX39:
 		case P18F6X2X:
 		case P18FXX2:
