@@ -496,7 +496,7 @@ public:
 
     /** Is this PIC instance correctly initialized? */
     bool ok() const
-        { return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; 
+        { 	return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; 
             /* TODO: check for more members to be non-NULL */ }
 
     /** Returns true if the PIC is a 16bit device (e.g. Pic18). */

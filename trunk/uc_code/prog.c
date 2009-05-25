@@ -46,6 +46,15 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 	set_vdd_vpp(pictype,picfamily,1);
 	switch(pictype)
 	{
+		case dsP30F:
+			dspic_send(0x7002);	//perform a bulk erase command
+			dspic_send(0x0003);
+			i=dspic_read();
+			if(i!=0x1700)return 2; //response should be 0x1700, 0x0002
+			i=dspic_read();
+			if(i!=0x0002)return 2;
+			DelayMs(5);
+			break;
 		case P18FXX39:
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x0083); //shouldn't it be 0x0C??? prog spec says 0x00

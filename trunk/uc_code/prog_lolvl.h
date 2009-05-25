@@ -81,5 +81,16 @@ void pic_send_14_bits(char cmd_size, char command, unsigned int payload);
 void pic_send(char cmd_size, char command, unsigned int payload);
 
 
+/**
+   Writes a 16 bit word to a dsPic device
+*/
+void dspic_send(unsigned int payload);
+
+/**
+  Reads a 16 bit word from a dsPic device
+*/
+unsigned int dspic_read(void);
+		
+
 
 #endif // PROG_LOLVL_H

@@ -14,8 +14,8 @@
             url="http://anjuta.org/plugins/"
             mandatory="yes">
 		<require group="Anjuta Plugin"
-                 attribute="Location"
-                 value="anjuta-symbol-browser:SymbolBrowserPlugin"/>
+                 attribute="Interfaces"
+                 value="IAnjutaSymbolManager"/>
 	</plugin>
 	<plugin name="Make Build System"
             url="http://anjuta.org/plugins/"
@@ -39,6 +39,6 @@
             mandatory="no">
 		<require group="Anjuta Plugin"
                  attribute="Interfaces"
-                 value="IAnjutaDebuggerManager"/>
+                 value="IAnjutaDebugManager"/>
 	</plugin>
 </anjuta>

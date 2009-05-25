@@ -270,3 +270,50 @@ char pic_read_byte2(char cmd_size, char command)
 	clock_delay();
 	return result;
 }
+
+/**
+   Writes a 16 bit word to a dsPic device, MSB first
+ */
+void dspic_send(unsigned int payload)
+{
+	unsigned int i;
+	for(i=0x8000;i>0;i>>=1)
+	{
+
+		PGC=1;
+		clock_delay();
+		if((payload&i)==i)PGD=1;
+		else PGD=0;
+		clock_delay();
+		PGC=0;
+		clock_delay();
+	}
+	clock_delay();
+}
+
+/**
+  Reads a 16 bit word from a dsPic device, MSB first
+ */
+unsigned int dspic_read(void)
+{
+	char i;
+	unsigned int result;
+	TRISPGD=1; //PGD = input
+	for(i=0;i<10;i++)continue;
+	result=0;
+	clock_delay();
+	for(i=15;i>=0;i--)
+	{
+		PGC=1;
+		clock_delay();
+		result|=((char)PGD_READ)<<i;
+		clock_delay();
+		PGC=0;
+		clock_delay();
+	}
+	TRISPGD=0; //PGD = output
+	PGD=0;
+	clock_delay();
+	return result;
+}
+

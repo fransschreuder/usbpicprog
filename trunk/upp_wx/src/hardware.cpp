@@ -784,7 +784,6 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
             uppPackage.fields.cmd=CMD_READ_DATA;
             break;
         }
-
         uppPackage.fields.size=size;
         uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
         uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
@@ -867,7 +866,6 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             uppPackage.fields.cmd=CMD_WRITE_DATA;
             break;
         }
-
         uppPackage.fields.size=size;
         uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
         uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);

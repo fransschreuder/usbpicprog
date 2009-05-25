@@ -327,7 +327,6 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             else if (name == "config")
             {
                 p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
-
                 if (!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))
                     return UPP_INVALID_PIC;
@@ -339,7 +338,9 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 
                 if (!child->GetAttribute("hexfile_offset", &str) ||
                     !str.ToLong(&num, 0))
-                    return UPP_INVALID_PIC;
+					{if(!child->GetAttribute("start", &str) ||
+                    !str.ToLong(&num, 0))						
+						return UPP_INVALID_PIC;}
                 p.DataAddress = num;
             }
         }
