@@ -827,6 +827,23 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
+		case dsPIC30:
+			dspic_send(0x2004);
+			dspic_send((int)blocksize/3);
+			dspic_send(((unsigned int)(address>>16))&0xFF);
+			dspic_send((unsigned int)address);
+			DelayMs(1);
+			payload=dspic_read();
+			if(payload!=0x1200)return 4; //response should be 0x1200, 2+ 3*n/2
+			payload=dspic_read();
+			if(payload!=(2+((unsigned int)blocksize>>1)))return 4;
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{	
+				payload=dspic_read();
+				data[blockcounter]=(unsigned char)payload;
+				data[blockcounter+1]=(unsigned char)(payload>>8);
+			}
+			break;
 		case PIC18:
 			set_address(picfamily, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -885,7 +902,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 This function reads a block of data from the data eeprom of size blocksize into *data
 call this function only once.
 **/
-void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsigned char* data, char blocksize, char lastblock)
+unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsigned char* data, char blocksize, char lastblock)
 {
 	
 	unsigned int i;
@@ -894,6 +911,23 @@ void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, unsig
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
+		case dsPIC30:
+			dspic_send(0x1004);
+			dspic_send((int)blocksize/2);
+			dspic_send(((unsigned int)(address>>16))&0xFF);
+			dspic_send((unsigned int)address);
+			DelayMs(1);
+			i=dspic_read();
+			if(i!=0x1200)return 4; //response should be 0x1200, 2+ 3*n/2
+			i=dspic_read();
+			if(i!=(2+((unsigned int)blocksize>>1)))return 4;
+			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{	
+				i=dspic_read();
+				data[blockcounter]=(unsigned char)i;
+				data[blockcounter+1]=(unsigned char)(i>>8);
+			}
+			
 		case PIC18:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS

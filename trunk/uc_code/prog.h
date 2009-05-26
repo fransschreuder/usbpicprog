@@ -52,7 +52,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                unsigned char* data, char blocksize, char lastblock);
 
-void read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, 
+unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, 
                unsigned char* data, char blocksize, char lastblock);
 
 

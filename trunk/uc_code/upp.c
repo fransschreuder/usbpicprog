@@ -159,10 +159,21 @@ void ProcessIO(void)
 				break;
 			case CMD_GET_ID:
 				setLeds(LEDS_ON | LEDS_RD);
-				if(picfamily==PIC18)
-					read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
-				else
-					read_code(picfamily,pictype,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
+				switch(picfamily)
+				{
+					case dsPIC30:
+						if(read_data(picfamily,pictype,0xFF0000,(unsigned char*)output_buffer,2,3)==4)
+						{
+							output_buffer[0]=0;
+							output_buffer[1]=0;
+						}
+					case PIC18:
+						read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
+						break;
+					case PIC16:
+						read_code(picfamily,pictype,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
+						break;
+				}
 				counter=2;
 				setLeds(LEDS_ON);
 				break;
