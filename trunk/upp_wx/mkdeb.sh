@@ -1,5 +1,6 @@
 #!/bin/sh -e
 #help2man needs to be edited (change "2>/dev/null" into "2>&1")
+ARCHITECTURE=$(uname -m)
 if [ -d deb_package ]
 then
 	echo Directory deb_package exists, removing ...
@@ -7,7 +8,7 @@ then
 fi
 mkdir deb_package
 mkdir deb_package/DEBIAN
-cp control deb_package/DEBIAN
+cp control-$ARCHITECTURE deb_package/DEBIAN/control
 cp postinst deb_package/DEBIAN
 cp prerm deb_package/DEBIAN
 #first configure with the normal prefix in favour of xml_data of which the path is hard linked into the binary

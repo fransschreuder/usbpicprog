@@ -8,6 +8,8 @@ else
   RELEASE=$(svnversion -n)-$(date +%Y%m%d)
 fi
 echo Building release: $RELEASE
+ARCHITECTURE=$(uname -m)
+echo Building for architecture: $ARCHITECTURE
 
 if [ -d release ]
 then
@@ -51,7 +53,7 @@ mv usbpicprog-$RELEASE.tar.gz ..
 cd usbpicprog-$RELEASE
 echo creating deb package...
 ./mkdeb.sh
-mv usbpicprog0.2.1.deb ../../usbpicprog-$RELEASE.deb
+mv usbpicprog0.2.1.deb ../../usbpicprog-$RELEASE-$ARCHITECTURE.deb
 cd ../..
 rm -rf firmware
 rm -rf usbpicprog
