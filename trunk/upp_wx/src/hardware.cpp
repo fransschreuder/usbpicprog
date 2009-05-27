@@ -409,6 +409,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
                            blockcounter+i, memorySize);
                 // return -1;
             }
+			if(blockcounter==0)cout<<std::hex<<mem[blockcounter+i]<<endl;
         }
 
         if (m_abortOperations)
@@ -452,7 +453,9 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
     }
 
     if (memory->size()==0)
+	{
         return 1;       // no code/config/data to write
+	}
 
     // how big is each block?
     unsigned int blockSizeHW;
@@ -709,7 +712,7 @@ int Hardware::readString(unsigned char* msg, int size) const
     if (m_handle == NULL) return -1;
 
     int nBytes;
-    if ( endpointMode(WRITE_ENDPOINT)==Interrupt )  // FIXME: shouldn't we test READ_ENDPOINT?
+    if ( endpointMode(READ_ENDPOINT)==Interrupt )  
         nBytes = usb_interrupt_read(m_handle,READ_ENDPOINT,(char*)msg,size,USB_OPERATION_TIMEOUT);
     else
         nBytes = usb_bulk_read(m_handle,READ_ENDPOINT,(char*)msg,size,USB_OPERATION_TIMEOUT);
