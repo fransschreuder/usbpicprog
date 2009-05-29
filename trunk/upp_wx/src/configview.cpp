@@ -214,7 +214,7 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
         if ((SelectedWord+1) <= m_hexFile->getConfigMemory().size())
             ConfigWord = m_hexFile->getConfigMemory()[SelectedWord];
     }
-    else    // 8 bit PIC
+    else    // 14 bit pic and 24 bit pic
     {
         if ((2*SelectedWord+1) <= m_hexFile->getConfigMemory().size())
             ConfigWord = (m_hexFile->getConfigMemory()[SelectedWord*2])|
@@ -236,7 +236,7 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
     {
         m_hexFile->putConfigMemory(SelectedWord, ConfigWord&0xFF, &m_pic);
     }
-    else
+    else //for 14 bit and 24 bit, put 16 bits in the config memory per word
     {
         m_hexFile->putConfigMemory(SelectedWord*2, ConfigWord&0xFF, &m_pic);
         m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWord&0xFF00)>>8, &m_pic);
@@ -270,7 +270,7 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
                 ConfigWordInt = m_hexFile->getConfigMemory()[SelectedWord];
             }
         }
-        else        // 8 bit PIC
+        else        // 14 bit and 24 bit
         {
             if ((unsigned)(2*SelectedWord+1) <= m_hexFile->getConfigMemory().size())
             {
@@ -293,7 +293,7 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
         }
         else
         {
-            ConfigWordInt &= 0x3FFF;
+            if(m_pic.is14Bit()) ConfigWordInt &= 0x3FFF; // for 14 bit devices, we need a mask
             m_hexFile->putConfigMemory(SelectedWord*2, ConfigWordInt&0xFF, &m_pic);
             m_hexFile->putConfigMemory(SelectedWord*2+1, (ConfigWordInt&0xFF00)>>8, &m_pic);
         }

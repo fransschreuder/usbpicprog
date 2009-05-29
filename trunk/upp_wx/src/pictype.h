@@ -499,10 +499,18 @@ public:
         { 	return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; 
             /* TODO: check for more members to be non-NULL */ }
 
+    /** Returns true if the PIC is a 14bit device (e.g. Pic12, PIC16). */
+    bool is14Bit() const
+        { return (Name.find("P10")==0)||(Name.find("P12")==0)||(Name.find("P16")==0); }
+
     /** Returns true if the PIC is a 16bit device (e.g. Pic18). */
     bool is16Bit() const
         { return (Name.find("P18F")==0); }
 
+	    /** Returns true if the PIC is a 24bit device (e.g. dsPIC). */
+    bool is24Bit() const
+        { return (Name.find("P30F")==0); }
+	
     /** Returns the PIC name which starts with "PIC" instead of "P". */
     string GetExtName() const
         {

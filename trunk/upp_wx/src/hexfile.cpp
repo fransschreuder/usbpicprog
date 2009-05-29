@@ -136,7 +136,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         case DATA:
             // is the address within the Config Memory range?
             configAddress=picType->ConfigAddress;
-            if (!picType->is16Bit())
+            if (picType->is14Bit()||picType->is24Bit())
                 configAddress*=2;
             if (((extAddress+address)>=(configAddress))&&
                 ((extAddress+address)<(configAddress+picType->ConfigSize)))
@@ -155,8 +155,9 @@ bool HexFile::open(PicType* picType, const char* filename)
             
             // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
-            if (!picType->is16Bit())
+            if (picType->is14Bit()||picType->is24Bit())
                 dataAddress*=2;
+				
             if (((extAddress+address)>=(dataAddress))&&
                 ((extAddress+address)<(dataAddress+picType->DataSize)))
             {
@@ -164,12 +165,12 @@ bool HexFile::open(PicType* picType, const char* filename)
                 {
                     if (picType->is16Bit())
                         newSize = extAddress+address+lineData.size() - dataAddress;
-                    else
+                    else		//for 14 and 24 bit addresses:
                         newSize = extAddress+address+lineData.size()/2 - dataAddress;
                     
                     if (m_dataMemory.size()<newSize)
                         m_dataMemory.resize(newSize,0xFF);
-                    if (picType->is16Bit())
+                    if (picType->is16Bit()||picType->is24Bit())
                     {
                         for (unsigned int i=0;i<lineData.size();i++)
                             m_dataMemory[extAddress+address+i-dataAddress]=lineData[i];
@@ -227,7 +228,7 @@ bool HexFile::open(PicType* picType, const char* filename)
 
 void HexFile::trimData(PicType* picType)
 {
-    if (!picType->is16Bit())
+    if (picType->is14Bit())
     {
         for (unsigned int i=1;i<m_codeMemory.size();i+=2)
             m_codeMemory[i]&=0x3F;
@@ -302,7 +303,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->DataAddress;
-        if (!picType->is16Bit())address*=2;
+        if (picType->is14Bit()||picType->is24Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -332,7 +333,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->ConfigAddress;
-        if (!picType->is16Bit())address*=2;
+        if (picType->is14Bit()||picType->is24Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -615,7 +616,7 @@ void HexFile::calcConfigMask(const PicType* pic)
 
     // make sure that later in the for() loop we won't access invalid elements
     // of m_configMask array:
-    if (!pic->is16Bit())
+    if (pic->is14Bit())
         //wxASSERT(pic->ConfigWords.size() == m_configMask.size(),
         //         "invalid number of config words for " + pic->Name);
     //else
@@ -631,9 +632,9 @@ void HexFile::calcConfigMask(const PicType* pic)
         {
             m_configMask[i] = mask;
         }
-        else
+        else 
         {
-            // for 8 bit devices, each mask need to be saved in two different 
+            // for 14 and 24 bit devices, each mask need to be saved in two different 
             // elements of the mask array:
             m_configMask[i*2] = mask & 0xFF;
             m_configMask[i*2+1] = (mask>>8) & 0xFF;

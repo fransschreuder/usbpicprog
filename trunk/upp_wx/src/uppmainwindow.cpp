@@ -501,7 +501,7 @@ void UppMainWindow::UpdatePicInfo()
     m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), m_picType.DevId&0xFFFF));
     m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), m_picType.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), m_picType.DataSize));
-    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.is16Bit() ? 16 : 8));
+    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.is16Bit() ? 16 : 14));
 
     m_pInfoPanel->Layout();
         // size may have changed: relayout the panel which is the parent of the windows

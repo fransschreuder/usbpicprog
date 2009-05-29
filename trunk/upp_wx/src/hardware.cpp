@@ -385,8 +385,13 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
             blocktype |= BLOCKTYPE_LAST;
 
         unsigned int currentBlockCounter = blockcounter;
-        if (!picType->is16Bit())
+        if (picType->is14Bit())
             currentBlockCounter /= 2;
+		if (picType->is24Bit())
+		{
+			if(type==TYPE_CODE)currentBlockCounter /= 3;
+			else currentBlockCounter /= 2; //for data and config
+		}
 
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
@@ -496,8 +501,13 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             blocktype |= BLOCKTYPE_LAST;
 
         unsigned int currentBlockCounter=blockcounter;
-        if (!picType->is16Bit())
-            currentBlockCounter/=2;
+        if (picType->is14Bit())
+            currentBlockCounter /= 2;
+		if (picType->is24Bit())
+		{
+			if(type==TYPE_CODE)currentBlockCounter /= 3;
+			else currentBlockCounter /= 2; //for data and config
+		}
 
         // do write the block
         int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
@@ -620,37 +630,52 @@ int Hardware::autoDetectDevice()
     if (m_hwCurrent == HW_BOOTLOADER)
         return -1;     // PIC18F2550
 
-    // need to set hardware to PIC18, no matter which one
-    PicType pic18 = PicType::FindPIC("P18F2550");
-    if (setPicType(&pic18) < 0)
-        return -1;
+	PicType pic30 = PicType::FindPIC("P30F1010");
+	if(setPicType(&pic30)<0)
+		return -1;
 
-    int devId=readId();
-    if (devId < 0)
-        return -1;
+	int devId=readId();
+	if(devId<0)
+		return -1;
 
-    PicType picType = PicType::FindPIC(0x10000|devId);
-    if (picType.ok())
-    {
-        return devId|0x10000; 
-            // add an extra bit to make the difference between 16F and 18F
-    }
-    else
-    {
-        // try PIC16: the specific PIC16 device doesn't matter
-        PicType pic16 = PicType::FindPIC("P16F628A");
-        if (setPicType(&pic16) < 0)
-            return -1;
+	PicType picType = PicType::FindPIC(0x20000|devId);
 
-        devId=readId();
-        if (devId < 0)
-            return -1;
-        
-        PicType picType = PicType::FindPIC(devId);
-        if (picType.ok())
-            return devId;
-    }
+	if(picType.ok())
+		return devId|0x20000; 
+	else
+	{
+	
+		// need to set hardware to PIC18, no matter which one
+		PicType pic18 = PicType::FindPIC("P18F2550");
+		if (setPicType(&pic18) < 0)
+			return -1;
 
+		int devId=readId();
+		if (devId < 0)
+			return -1;
+
+		PicType picType = PicType::FindPIC(0x10000|devId);
+		if (picType.ok())
+		{
+			return devId|0x10000; 
+				// add an extra bit to make the difference between 16F and 18F
+		}
+		else
+		{
+			// try PIC16: the specific PIC16 device doesn't matter
+			PicType pic16 = PicType::FindPIC("P16F628A");
+			if (setPicType(&pic16) < 0)
+				return -1;
+
+			devId=readId();
+			if (devId < 0)
+				return -1;
+			
+			PicType picType = PicType::FindPIC(devId);
+			if (picType.ok())
+				return devId;
+		}
+	}
     return -1;
 }
 
