@@ -82,6 +82,17 @@ class UppMainWindow;
 struct usb_dev_handle;
 struct usb_interface_descriptor;
 
+
+typedef struct
+{
+	string versionString;
+	int major;
+	int minor;
+	int release;
+	bool stableRelease;
+	bool isBootloader;
+}FirmwareVersion;
+
 /** 
     UppPackage is the data header which is sent to the programmer hardware
 */
@@ -239,7 +250,7 @@ public:
 
         Returns the number of bytes read or a negative value if an error occurred.
     */
-    int getFirmwareVersion(unsigned char* msg) const;
+    int getFirmwareVersion(FirmwareVersion* firmwareVersion) const;
 
     /** Returns the type of the hardware which we are currently attached to. */
     HardwareType getCurrentHardware() const 

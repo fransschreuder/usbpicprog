@@ -679,29 +679,57 @@ int Hardware::autoDetectDevice()
     return -1;
 }
 
-int Hardware::getFirmwareVersion(unsigned char* msg) const
+int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 {
+	unsigned char msg[64];
     if (m_handle == NULL) return -1;
 
     if (m_hwCurrent == HW_UPP)
     {
         statusCallBack (0);
-
+		firmwareVersion->isBootloader=false;
         // send the command
         msg[0]=CMD_FIRMWARE_VERSION;
         if (writeString(msg,1) < 0)
-            return -1;
-
+		{
+			firmwareVersion->versionString="";
+			firmwareVersion->major=0;
+			firmwareVersion->minor=0;
+			firmwareVersion->release=0;
+			return -1;
+		}
         // read back the reply
         int nBytes = readString(msg,64);
         if (nBytes < 0)
-            return nBytes;
-
+		{
+			firmwareVersion->versionString="";
+			firmwareVersion->major=0;
+			firmwareVersion->minor=0;
+			firmwareVersion->release=0;
+			return nBytes;
+		}
+		firmwareVersion->versionString.assign((const char*)msg);
+		string strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
+		firmwareVersion->stableRelease=(strippedVersion.size()==5);
+		if(firmwareVersion->stableRelease)
+		{
+			firmwareVersion->major=atoi(strippedVersion.substr(0,1).c_str());
+			firmwareVersion->minor=atoi(strippedVersion.substr(2,1).c_str());
+			firmwareVersion->release=atoi(strippedVersion.substr(4,1).c_str());
+		}
+		else
+		{
+			firmwareVersion->major=0;
+			firmwareVersion->minor=0;
+			firmwareVersion->release=atoi(strippedVersion.c_str());
+		}
+		cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
         statusCallBack (100);
         return nBytes;
     }
     else
     {
+		firmwareVersion->isBootloader=true;
         wxLogMessage("Getting Firmware version for bootloader...");
 
         msg[0]=0;
@@ -721,8 +749,12 @@ int Hardware::getFirmwareVersion(unsigned char* msg) const
             return nBytes;
 
         statusCallBack (100);
+		firmwareVersion->major=msg[3];
+		firmwareVersion->minor=msg[2];
+		firmwareVersion->release=0;
         sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
-
+		firmwareVersion->versionString.assign((const char*)msg);
+		firmwareVersion->stableRelease=true;
         return nBytes;
     }
 }
@@ -979,4 +1011,5 @@ void Hardware::tryToDetachDriver()
 #endif
 #endif
 }
+
 

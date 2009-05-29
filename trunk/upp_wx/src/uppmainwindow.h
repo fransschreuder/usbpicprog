@@ -273,7 +273,9 @@ private:    // real event handlers
     
     /** Detect which PIC is connected and select it in the choicebox and the m_hardware */
     bool upp_autodetect();
-    
+
+	void checkFirmwareVersion(FirmwareVersion firmwareVersion);
+	
     /** Connect upp_wx to the upp programmer */
     bool upp_connect();
     

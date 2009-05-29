@@ -1326,6 +1326,37 @@ bool UppMainWindow::upp_autodetect()
     return (devId>1);
 }
 
+#define STABLE_VERSION_MAJOR 0
+#define STABLE_VERSION_MINOR 2
+#define STABLE_VERSION_RELEASE 0
+
+#define DEV_VERSION 667
+
+void UppMainWindow ::checkFirmwareVersion(FirmwareVersion firmwareVersion)
+{
+	if(firmwareVersion.stableRelease)
+	{
+		if(firmwareVersion.major>STABLE_VERSION_MAJOR) {wxLogMessage(_("Firmware probably too new")); return;}
+		if(firmwareVersion.major==STABLE_VERSION_MAJOR)
+		{
+			if(firmwareVersion.minor>STABLE_VERSION_MINOR){wxLogMessage(_("Firmware probably too new")); return;}
+			if(firmwareVersion.minor==STABLE_VERSION_MINOR)
+			{
+				if(firmwareVersion.release>STABLE_VERSION_RELEASE){wxLogMessage(_("Firmware probably too new")); return;}
+				if((firmwareVersion.release==STABLE_VERSION_RELEASE)&&string(SVN_REVISION).compare("0.2.0")!=0)
+				{wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. concider upgrading your firmware")); return;}
+				else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;}
+			}
+			else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;	}
+		}
+		else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;	}
+	}
+	else
+	{
+		if(firmwareVersion.release<DEV_VERSION)wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;
+	}
+}
+
 bool UppMainWindow::upp_connect()
 {
     // recreate the hw class
@@ -1336,17 +1367,18 @@ bool UppMainWindow::upp_connect()
     {
         upp_autodetect();       // already calls upp_new();
 
-        unsigned char msg[64];
-        if (m_hardware->getFirmwareVersion(msg)<0)
+        FirmwareVersion firmwareVersion;
+        if (m_hardware->getFirmwareVersion(&firmwareVersion)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
             wxLogMessage(_("Unable to read firmware version"));
         }
         else
         {
-            SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+            SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups)
-                wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+                wxLogMessage(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")));
+			if(!firmwareVersion.isBootloader)checkFirmwareVersion(firmwareVersion);
         }
     }
     else
@@ -1360,17 +1392,17 @@ bool UppMainWindow::upp_connect()
         {
             upp_autodetect();       // already calls upp_new();
 
-            unsigned char msg[64];
-            if (m_hardware->getFirmwareVersion(msg)<0)
+            FirmwareVersion firmwareVersion;
+            if (m_hardware->getFirmwareVersion(&firmwareVersion)<0)
             {
                 SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
                 wxLogMessage(_("Unable to read version"));
             }
             else
             {
-                SetStatusText(wxString::FromAscii(msg).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+                SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
                 if (m_cfg.ConfigShowPopups)
-                    wxLogMessage(wxString::FromAscii(msg).Trim().Append(_(" Connected")));
+                    wxLogMessage(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")));
             }
         }
         else
