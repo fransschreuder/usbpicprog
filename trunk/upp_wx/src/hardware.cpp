@@ -379,11 +379,13 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
         if (blockcounter == 0)
             blocktype |= BLOCKTYPE_FIRST;
-        if ((picType->CodeSize-blockSizeHW)<=blockcounter)
+        if (((int)memorySize-(int)blockSizeHW)<=(int)blockcounter)
             blocktype |= BLOCKTYPE_LAST;
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
 
+
+		
         unsigned int currentBlockCounter = blockcounter;
         if (picType->is14Bit())
             currentBlockCounter /= 2;
@@ -414,7 +416,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
                            blockcounter+i, memorySize);
                 // return -1;
             }
-			if(blockcounter==0)cout<<std::hex<<mem[blockcounter+i]<<endl;
+			//if(blockcounter==0)cout<<std::hex<<mem[blockcounter+i]<<endl;
         }
 
         if (m_abortOperations)
@@ -495,10 +497,16 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
         if (blockcounter == 0)
             blocktype |= BLOCKTYPE_FIRST;
-        if ((memory->size()-blockSizeHW) <= blockcounter)
+        if (((int)memory->size()-(int)blockSizeHW) <= (int)blockcounter)
             blocktype |= BLOCKTYPE_LAST;
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
+
+		/*if(type==TYPE_CONFIG)
+		{
+			cout<<"Blocktype: "<<blocktype<<", memory size: "<<memory->size()<<", blocksizeHw: "<<blockSizeHW<<", blockcounter: "<<blockcounter<<endl;
+		}*/
+		   
 
         unsigned int currentBlockCounter=blockcounter;
         if (picType->is14Bit())
@@ -723,7 +731,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 			firmwareVersion->minor=0;
 			firmwareVersion->release=atoi(strippedVersion.c_str());
 		}
-		cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
+		//cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
         statusCallBack (100);
         return nBytes;
     }
@@ -838,6 +846,7 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         {
         case TYPE_CODE:
         case TYPE_CONFIG:
+			//cout<<"Read code or config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
             uppPackage.fields.cmd=CMD_READ_CODE;
             break;
         case TYPE_DATA:
@@ -896,6 +905,9 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
             delete [] tmpmsg;
             return nBytes;
         }
+		/*for(int i=0;i<size+6;i++)
+			cout<<std::hex<<(int)tmpmsg[i]<<" ";
+		cout<<endl;*/
 
         memcpy(msg,tmpmsg+5,nBytes);
         delete [] tmpmsg;
@@ -917,12 +929,15 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
         switch (type)
         {
         case TYPE_CODE:
+			//cout<<"Write code block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
             uppPackage.fields.cmd=CMD_WRITE_CODE;
             break;
         case TYPE_CONFIG:
+			//cout<<"Write config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
             uppPackage.fields.cmd=CMD_WRITE_CONFIG;
             break;
         case TYPE_DATA:
+			//cout<<"Write data block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
             uppPackage.fields.cmd=CMD_WRITE_DATA;
             break;
         }
@@ -939,7 +954,10 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
                 cout<<hex<<(int)uppPackage.data[i]<<" "<<dec;
             cout<<endl;
         }*/
-
+		/*for(int i=0;i<size+6;i++)
+			cout<<std::hex<<(int)uppPackage.data[i]<<" ";
+		cout<<endl;*/
+			
         int nBytes = writeString(uppPackage.data,size+6);
         if (nBytes < 0)
             return nBytes;
