@@ -444,6 +444,72 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
     return false;
 }
 
+#define STABLE_VERSION_MAJOR 0
+#define STABLE_VERSION_MINOR 2
+#define STABLE_VERSION_RELEASE 0
+
+#define DEV_VERSION 667
+
+void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
+{
+    if (!firmwareVersion.stableRelease)
+    {
+        if (firmwareVersion.release<DEV_VERSION)
+            wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+        return;
+    }
+    
+    // check major digit
+    
+    if (firmwareVersion.major>STABLE_VERSION_MAJOR)
+    {
+        wxLogMessage(_("Firmware probably too new")); 
+        return;
+    }
+    else if (firmwareVersion.major==STABLE_VERSION_MAJOR)
+    {
+        // check minor digit
+        
+        if (firmwareVersion.minor>STABLE_VERSION_MINOR)
+        {
+            wxLogMessage(_("Firmware probably too new")); 
+            return;
+        }
+        else if (firmwareVersion.minor==STABLE_VERSION_MINOR)
+        {
+            // check release digit
+            
+            if (firmwareVersion.release>STABLE_VERSION_RELEASE)
+            {
+                wxLogMessage(_("Firmware probably too new")); 
+                return;
+            }
+            else if (firmwareVersion.release==STABLE_VERSION_RELEASE && 
+                     string(SVN_REVISION).compare("0.2.0")!=0)
+            {
+                wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware")); 
+                return;
+            }
+            else
+            {
+                wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+                return;
+            }
+        }
+        else
+        {
+            wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+            return; 
+        }
+    }
+    else
+    {
+        wxLogMessage(_("Your firmware is too old; please consider upgrading it"));  
+        return; 
+    }
+}
+
+
 
 // UPPMAINWINDOW - update functions
 // =============================================================================
@@ -493,10 +559,10 @@ void UppMainWindow::UpdatePicInfo()
 
     m_pVPPText->SetLabel(
         wxString::Format(_("Programming voltage (Vpp):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
-                         m_picType.ProgVoltages[MINIMUM], m_picType.ProgVoltages[NOMINAL], m_picType.ProgVoltages[MAXIMUM]));
+                        m_picType.ProgVoltages[MINIMUM], m_picType.ProgVoltages[NOMINAL], m_picType.ProgVoltages[MAXIMUM]));
     m_pVDDText->SetLabel(
         wxString::Format(_("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
-                         m_picType.WorkVoltages[MINIMUM], m_picType.WorkVoltages[NOMINAL], m_picType.WorkVoltages[MAXIMUM]));
+                        m_picType.WorkVoltages[MINIMUM], m_picType.WorkVoltages[NOMINAL], m_picType.WorkVoltages[MAXIMUM]));
     m_pFrequencyText->SetLabel(wxString::Format(_("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz"), m_picType.MinFreq, m_picType.MaxFreq));
     m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), m_picType.DevId&0xFFFF));
     m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), m_picType.CodeSize));
@@ -640,9 +706,9 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
     {
         success &= m_arrLogLevel[i] == wxLOG_Message;
         wxLog::OnLog(m_arrLogLevel[i], 
-                     m_arrLog[i].StartsWith(PROGRESS_MESSAGE_PREFIX) ? 
+                    m_arrLog[i].StartsWith(PROGRESS_MESSAGE_PREFIX) ? 
                         m_arrLog[i].Mid(PROGRESS_MESSAGE_PREFIX.Length()) : m_arrLog[i], 
-                     m_arrLogTimes[i]);
+                    m_arrLogTimes[i]);
     }
 
     m_arrLog.clear();
@@ -920,7 +986,7 @@ bool UppMainWindow::upp_thread_verify()
     // do the verify operation:
     VerifyResult res =
         m_hardware->verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
-                           m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
+                        m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
 
     switch(res.Result)
     {
@@ -936,8 +1002,8 @@ bool UppMainWindow::upp_thread_verify()
             default: typeText=_("Verify unknown");break;
         }
         verifyText.Printf(_(" failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
-                          res.Address+((res.DataType==TYPE_CONFIG)*m_picType.ConfigAddress),
-                          res.Read, res.Expected);
+                        res.Address+((res.DataType==TYPE_CONFIG)*m_picType.ConfigAddress),
+                        res.Read, res.Expected);
         verifyText.Prepend(typeText);
         LogFromThread(wxLOG_Error, verifyText);
         break;
@@ -1326,37 +1392,6 @@ bool UppMainWindow::upp_autodetect()
     return (devId>1);
 }
 
-#define STABLE_VERSION_MAJOR 0
-#define STABLE_VERSION_MINOR 2
-#define STABLE_VERSION_RELEASE 0
-
-#define DEV_VERSION 667
-
-void UppMainWindow ::checkFirmwareVersion(FirmwareVersion firmwareVersion)
-{
-	if(firmwareVersion.stableRelease)
-	{
-		if(firmwareVersion.major>STABLE_VERSION_MAJOR) {wxLogMessage(_("Firmware probably too new")); return;}
-		if(firmwareVersion.major==STABLE_VERSION_MAJOR)
-		{
-			if(firmwareVersion.minor>STABLE_VERSION_MINOR){wxLogMessage(_("Firmware probably too new")); return;}
-			if(firmwareVersion.minor==STABLE_VERSION_MINOR)
-			{
-				if(firmwareVersion.release>STABLE_VERSION_RELEASE){wxLogMessage(_("Firmware probably too new")); return;}
-				if((firmwareVersion.release==STABLE_VERSION_RELEASE)&&string(SVN_REVISION).compare("0.2.0")!=0)
-				{wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. concider upgrading your firmware")); return;}
-				else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;}
-			}
-			else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;	}
-		}
-		else{wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;	}
-	}
-	else
-	{
-		if(firmwareVersion.release<DEV_VERSION)wxLogMessage(_("Your firmware is too old, concider upgrading your firmware")); return;
-	}
-}
-
 bool UppMainWindow::upp_connect()
 {
     // recreate the hw class
@@ -1375,10 +1410,13 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
-            SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+            SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),
+                          STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups)
                 wxLogMessage(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")));
-			if(!firmwareVersion.isBootloader)checkFirmwareVersion(firmwareVersion);
+
+            if (!firmwareVersion.isBootloader)
+                checkFirmwareVersion(firmwareVersion);
         }
     }
     else
