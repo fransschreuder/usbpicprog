@@ -62,6 +62,9 @@ bool UsbPicProg::OnInit()
     // init the PNG handler
     wxImage::AddHandler( new wxPNGHandler );
 
+    // we're not interested to timestamps; they only take away space in the log dialog
+    wxLog::DisableTimestamp();
+
 #ifndef __WXMSW__
     ((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
 #endif
