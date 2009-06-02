@@ -1,7 +1,7 @@
 # Project: usbpicprog
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ 7.0 on 21/04/09 13:44
+# Makefile created by wxDev-C++ 7.0 on 02/06/09 11:44
 
 CPP       = g++.exe
 CC        = gcc.exe
@@ -42,7 +42,7 @@ Objects/MingW/pictype.o: $(GLOBALDEPS) src/pictype.cpp src/pictype.h
 Objects/MingW/uppmainwindow_base.o: $(GLOBALDEPS) src/uppmainwindow_base.cpp src/uppmainwindow_base.h src/hexview.h src/hexfile.h src/pictype.h src/pictype.h src/configview.h src/pictype.h src/hexfile.h src/packageview.h src/pictype.h src/formbuilder_includes.h
 	$(CPP) -c src/uppmainwindow_base.cpp -o Objects/MingW/uppmainwindow_base.o $(CXXFLAGS)
 
-Objects/MingW/uppmainwindow.o: $(GLOBALDEPS) src/uppmainwindow.cpp src/uppmainwindow_base.h src/hexview.h src/hexfile.h src/pictype.h src/pictype.h src/configview.h src/pictype.h src/hexfile.h src/packageview.h src/pictype.h src/formbuilder_includes.h src/uppmainwindow.h src/uppmainwindow_base.h src/hardware.h src/hexfile.h src/pictype.h src/pictype.h src/hexfile.h src/preferences.h src/preferences_base.h src/hexview.h src/packageview.h src/configview.h svn_revision.h icons/refresh.xpm icons/blankcheck.xpm icons/program.xpm icons/erase.xpm icons/read.xpm icons/verify.xpm icons/usbpicprog.xpm icons/win/refresh.xpm icons/win/blankcheck.xpm icons/win/program.xpm icons/win/erase.xpm icons/win/read.xpm icons/win/verify.xpm icons/win/usbpicprog.xpm
+Objects/MingW/uppmainwindow.o: $(GLOBALDEPS) src/uppmainwindow.cpp src/uppmainwindow_base.h src/hexview.h src/hexfile.h src/pictype.h src/pictype.h src/configview.h src/pictype.h src/hexfile.h src/packageview.h src/pictype.h src/formbuilder_includes.h src/uppmainwindow.h src/uppmainwindow_base.h src/hardware.h src/hexfile.h src/pictype.h src/pictype.h src/hexfile.h src/preferences.h src/preferences_base.h src/hexview.h src/packageview.h src/configview.h svn_revision.h icons/refresh.xpm icons/blankcheck.xpm icons/program.xpm icons/erase.xpm icons/read.xpm icons/verify.xpm icons/usbpicprog.xpm icons/win/refresh.xpm icons/win/blankcheck.xpm icons/win/program.xpm icons/win/erase.xpm icons/win/read.xpm icons/win/verify.xpm icons/win/usbpicprog.xpm icons/win/zoomin.xpm icons/win/zoomout.xpm icons/win/zoomfit.xpm
 	$(CPP) -c src/uppmainwindow.cpp -o Objects/MingW/uppmainwindow.o $(CXXFLAGS)
 
 Objects/MingW/hexview.o: $(GLOBALDEPS) src/hexview.cpp src/hexview.h src/hexfile.h src/pictype.h src/pictype.h src/uppmainwindow.h src/uppmainwindow_base.h src/hexview.h src/configview.h src/pictype.h src/hexfile.h src/packageview.h src/pictype.h src/formbuilder_includes.h src/hardware.h src/hexfile.h src/pictype.h src/pictype.h src/hexfile.h src/preferences.h src/preferences_base.h
