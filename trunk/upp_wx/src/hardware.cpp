@@ -352,16 +352,29 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
 
     // how big is each block?
     unsigned int blockSizeHW;
-    if (type == TYPE_CODE || type == TYPE_DATA)
-    {
-        if (m_hwCurrent == HW_BOOTLOADER)
-            blockSizeHW=BLOCKSIZE_BOOTLOADER;
-        else 
-            blockSizeHW=BLOCKSIZE_CODE;
-    }
-    else
-        blockSizeHW=BLOCKSIZE_CONFIG;
-
+	switch(type)
+	{
+		case TYPE_CONFIG:
+		case TYPE_CODE:
+			if (m_hwCurrent == HW_BOOTLOADER)
+				blockSizeHW=BLOCKSIZE_BOOTLOADER;
+			else 
+			{
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC;
+				else blockSizeHW=BLOCKSIZE_CODE;
+			}
+			break;
+		case TYPE_DATA:
+			if (m_hwCurrent == HW_BOOTLOADER)
+				blockSizeHW=BLOCKSIZE_BOOTLOADER;
+			else 
+			{
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC;
+				else blockSizeHW=BLOCKSIZE_DATA;
+			}
+			break;
+	}
+			
     statusCallBack (0);
 
     if (type == TYPE_DATA && m_hwCurrent == HW_BOOTLOADER)
@@ -389,12 +402,6 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int currentBlockCounter = blockcounter;
         if (picType->is14Bit())
             currentBlockCounter /= 2;
-		if (picType->is24Bit())
-		{
-			if(type==TYPE_CODE)currentBlockCounter /= 3;
-			else currentBlockCounter /= 2; //for data and config
-		}
-
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
             blocksize = blockSizeHW;
@@ -466,15 +473,30 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
     // how big is each block?
     unsigned int blockSizeHW;
-    if (type == TYPE_CODE || type == TYPE_DATA)
-    {
-        if (m_hwCurrent == HW_BOOTLOADER)
-            blockSizeHW=BLOCKSIZE_BOOTLOADER;
-        else 
-            blockSizeHW=BLOCKSIZE_CODE;
-    }
-    else
-        blockSizeHW=BLOCKSIZE_CONFIG;
+	switch(type)
+	{
+		case TYPE_CODE:
+			if (m_hwCurrent == HW_BOOTLOADER)
+				blockSizeHW=BLOCKSIZE_BOOTLOADER;
+			else 
+			{
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC;
+				else blockSizeHW=BLOCKSIZE_CODE;
+			}
+			break;
+		case TYPE_DATA:
+			if (m_hwCurrent == HW_BOOTLOADER)
+				blockSizeHW=BLOCKSIZE_BOOTLOADER;
+			else 
+			{
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC;
+				else blockSizeHW=BLOCKSIZE_DATA;
+			}
+			break;
+		case TYPE_CONFIG:
+			blockSizeHW=BLOCKSIZE_CONFIG;
+			break;
+	}
 
     statusCallBack (0);
 
@@ -511,11 +533,6 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int currentBlockCounter=blockcounter;
         if (picType->is14Bit())
             currentBlockCounter /= 2;
-		if (picType->is24Bit())
-		{
-			if(type==TYPE_CODE)currentBlockCounter /= 3;
-			else currentBlockCounter /= 2; //for data and config
-		}
 
         // do write the block
         int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
@@ -643,6 +660,9 @@ int Hardware::autoDetectDevice()
 		return -1;
 
 	int devId=readId();
+
+	cout<<"Devid PIC30: "<<devId<<endl;
+	
 	if(devId<0)
 		return -1;
 
@@ -738,7 +758,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
     else
     {
 		firmwareVersion->isBootloader=true;
-        wxLogMessage("Getting Firmware version for bootloader...");
+        //wxLogMessage("Getting Firmware version for bootloader...");
 
         msg[0]=0;
         msg[1]=0;

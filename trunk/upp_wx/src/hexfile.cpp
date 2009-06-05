@@ -136,7 +136,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         case DATA:
             // is the address within the Config Memory range?
             configAddress=picType->ConfigAddress;
-            if (picType->is14Bit()||picType->is24Bit())
+            if (picType->is14Bit())
                 configAddress*=2;
             if (((extAddress+address)>=(configAddress))&&
                 ((extAddress+address)<(configAddress+picType->ConfigSize)))
@@ -155,7 +155,7 @@ bool HexFile::open(PicType* picType, const char* filename)
             
             // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
-            if (picType->is14Bit()||picType->is24Bit())
+            if (picType->is14Bit())
                 dataAddress*=2;
 				
             if (((extAddress+address)>=(dataAddress))&&
@@ -163,9 +163,9 @@ bool HexFile::open(PicType* picType, const char* filename)
             {
                 if (m_dataMemory.size() < picType->DataSize)
                 {
-                    if (picType->is16Bit())
+                    if (picType->is16Bit()||(picType->is24Bit()))
                         newSize = extAddress+address+lineData.size() - dataAddress;
-                    else		//for 14 and 24 bit addresses:
+                    else		//for 14
                         newSize = extAddress+address+lineData.size()/2 - dataAddress;
                     
                     if (m_dataMemory.size()<newSize)
@@ -303,7 +303,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->DataAddress;
-        if (picType->is14Bit()||picType->is24Bit())address*=2;
+        if (picType->is14Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
@@ -333,7 +333,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->ConfigAddress;
-        if (picType->is14Bit()||picType->is24Bit())address*=2;
+        if (picType->is14Bit())address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);

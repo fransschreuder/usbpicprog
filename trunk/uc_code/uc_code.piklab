@@ -19,6 +19,11 @@
       <item>prog.c</item>
       <item>prog_lolvl.c</item>
       <item>upp.h</item>
+      <item>interrupt.h</item>
+      <item>io_cfg.h</item>
+      <item>prog.h</item>
+      <item>prog_lolvl.h</item>
+      <item>svn_revision.h</item>
     </files>
   </general>
   <compiler>

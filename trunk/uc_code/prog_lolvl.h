@@ -80,16 +80,26 @@ void pic_send_14_bits(char cmd_size, char command, unsigned int payload);
 */
 void pic_send(char cmd_size, char command, unsigned int payload);
 
+/**
+  reads a 16 bit word from a dsPic device using normal ICSP
+*/
+unsigned int dspic_read_16_bits(void);
+
+
+/**
+  gives a 24 bit instruction to a dsPIC device
+*/
+void dspic_send_24_bits(unsigned long payload);
 
 /**
    Writes a 16 bit word to a dsPic device
 */
-void dspic_send(unsigned int payload);
+//void dspic_send(unsigned int payload);
 
 /**
   Reads a 16 bit word from a dsPic device
 */
-unsigned int dspic_read(void);
+//unsigned int dspic_read(void);
 		
 
 

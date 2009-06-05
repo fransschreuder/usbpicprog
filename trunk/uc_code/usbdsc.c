@@ -244,26 +244,26 @@ struct{byte bLength;byte bDscType;word string[1];}sd000={
 rom struct{byte bLength;byte bDscType;word string[20];}sd001={
 sizeof(sd001),DSC_STR,
 'u','s','b','p','i','c','p','r','o','g',
-'.','s','f','.','n','e','t',' ',' ',' '};
+'.','o','r','g',' ',' ',' ',' ',' ',' '};
 #else
 struct{byte bLength;byte bDscType;word string[20];}sd001={
 	sizeof(sd001),DSC_STR,
 	       'u','s','b','p','i','c','p','r','o','g',
-	'.','s','f','.','n','e','t',' ',' ',' '};
+	'.','o','r','g',' ',' ',' ',' ',' ',' '};
 #endif
 
 #ifndef SDCC
 rom struct{byte bLength;byte bDscType;word string[33];}sd002={
 sizeof(sd002),DSC_STR,
-'P','I','C','D','E','M',' ','F','S',' ','U','S','B',' ',
-'D','e','m','o',' ','B','o','a','r','d',' ','(','C',')',
-' ','2','0','0','4'};
+'u','s','b','p','i','c','p','r','o','g','.','o','r','g',
+' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+' ',' ',' ',' ',' '};
 #else
 struct{byte bLength;byte bDscType;word string[33];}sd002={
 	sizeof(sd002),DSC_STR,
-	       'P','I','C','D','E','M',' ','F','S',' ','U','S','B',' ',
-	'D','e','m','o',' ','B','o','a','r','d',' ','(','C',')',
- ' ','2','0','0','4'};
+	       'u','s','b','p','i','c','p','r','o','g','.','o','r','g',
+	' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+ ' ',' ',' ',' ',' '};
 #endif
 #ifndef SDCC
 rom const unsigned char *rom USB_CD_Ptr[]={&cfg01,&cfg01};

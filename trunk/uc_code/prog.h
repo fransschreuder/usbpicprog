@@ -43,7 +43,7 @@ char bulk_erase(PICFAMILY picfamily, PICTYPE pictype);
 char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                 unsigned char* data,char blocksize,char lastblock);
 
-char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, 
+char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                 unsigned char* data, char blocksize, char lastblock);
 
 char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
@@ -52,7 +52,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                unsigned char* data, char blocksize, char lastblock);
 
-unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned int address, 
+unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                unsigned char* data, char blocksize, char lastblock);
 
 

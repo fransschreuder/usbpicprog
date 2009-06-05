@@ -44,7 +44,9 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		PGC =0;        // initial value for programming mode
 		clock_delay();    // dummy tempo
 		switch(pictype)
-		{
+		{		
+			/*case dsP30F
+				break;		*/
 			case P12F6XX:
 				VPP=0;
 				break;
@@ -58,6 +60,16 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		{
 			case P12F6XX:
 				VDD=0;
+				break;
+			case dsP30F:
+				VPP=0;
+				lasttick=tick;
+				while((tick-lasttick)<25)continue;
+				//execute 4 nop instructions using SIX
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
 				break;
 			default:
 				VPP=0; //high, (inverted)
@@ -271,49 +283,52 @@ char pic_read_byte2(char cmd_size, char command)
 	return result;
 }
 
-/**
-   Writes a 16 bit word to a dsPic device, MSB first
- */
-void dspic_send(unsigned int payload)
-{
-	unsigned int i;
-	for(i=0x8000;i>0;i>>=1)
-	{
-
-		PGC=1;
-		clock_delay();
-		if((payload&i)==i)PGD=1;
-		else PGD=0;
-		clock_delay();
-		PGC=0;
-		clock_delay();
-	}
-	clock_delay();
-}
-
-/**
-  Reads a 16 bit word from a dsPic device, MSB first
- */
-unsigned int dspic_read(void)
+/// read a 16 bit "word" from a dsPIC
+unsigned int dspic_read_16_bits(void)
 {
 	char i;
 	unsigned int result;
-	TRISPGD=1; //PGD = input
+	pic_send_n_bits(4,1);
 	for(i=0;i<10;i++)continue;
 	result=0;
+	pic_send_n_bits(8,0);
+	TRISPGD=1; //PGD = input
 	clock_delay();
-	for(i=15;i>=0;i--)
+	for(i=0;i<16;i++)
 	{
+
 		PGC=1;
 		clock_delay();
-		result|=((char)PGD_READ)<<i;
+		result|=((unsigned int)PGD_READ)<<i;
 		clock_delay();
 		PGC=0;
 		clock_delay();
 	}
+	
 	TRISPGD=0; //PGD = output
 	PGD=0;
 	clock_delay();
 	return result;
 }
+
+
+void dspic_send_24_bits(unsigned long payload)
+{
+	unsigned char i;
+	pic_send_n_bits(4,0);
+	for(i=0;i<24;i++)
+	{
+
+		PGC=1;
+		clock_delay();
+		if(payload&1)PGD=1;
+		else PGD=0;
+		payload>>=1;
+		clock_delay();
+		PGC=0;
+		clock_delay();
+	}
+}
+
+
 

@@ -135,7 +135,6 @@ void ProcessIO(void)
 	static byte counter=0;
 	int nBytes;
 	unsigned long address;
-	unsigned int intaddress;
 	
 	// When the device is plugged in, the leds give the numbers 1, 2, 3, 4, 5. 
 	//After configured state, the leds are controlled by the next lines in this function
@@ -162,11 +161,8 @@ void ProcessIO(void)
 				switch(picfamily)
 				{
 					case dsPIC30:
-						if(read_data(picfamily,pictype,0xFF0000,(unsigned char*)output_buffer,2,3)==4)
-						{
-							output_buffer[0]=0;
-							output_buffer[1]=0;
-						}
+						read_code(picfamily,pictype,0xFF0000,(unsigned char*)output_buffer,2,3);
+						break;
 					case PIC18:
 						read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 						break;
@@ -197,17 +193,19 @@ void ProcessIO(void)
 				break;
 			case CMD_WRITE_DATA:
 				setLeds(LEDS_ON | LEDS_WR);
-				intaddress=((unsigned int)input_buffer[3])<<8|
-						((unsigned int)input_buffer[4]);
-				output_buffer[0]=write_data(picfamily,pictype,intaddress, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
+				address=((unsigned long)input_buffer[2])<<16|
+						((unsigned long)input_buffer[3])<<8|
+						((unsigned long)input_buffer[4]);
+				output_buffer[0]=write_data(picfamily,pictype,address, (unsigned char*)(input_buffer+6),input_buffer[1],input_buffer[5]); 
 				counter=1;
 				setLeds(LEDS_ON);
 				break;
 			case CMD_READ_DATA:
 				setLeds(LEDS_ON | LEDS_RD);
-				intaddress=((unsigned int)input_buffer[3])<<8|
-						((unsigned int)input_buffer[4]);
-				read_data(picfamily,pictype,intaddress,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
+				address=((unsigned long)input_buffer[2])<<16|
+						((unsigned long)input_buffer[3])<<8|
+						((unsigned long)input_buffer[4]);
+				read_data(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]); 
 				counter=input_buffer[1];
 				setLeds(LEDS_ON);
 				break;

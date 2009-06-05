@@ -544,6 +544,8 @@ void UppMainWindow::UpdatePicInfo()
     // reset config listbook contents
     m_pConfigListbook->SetHexFile(&m_hexFile, m_picType);
 
+	cout<<"Pic family (from updatePicInfo: "<<m_picType.picFamily<<endl;
+	
     // reset the PIC info page
     if (!m_picType.ok())
         return;
