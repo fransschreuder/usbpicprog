@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-09 16:16+0100\n"
-"PO-Revision-Date: 2009-06-09 16:16+0100\n"
+"PO-Revision-Date: 2009-06-09 16:28+0100\n"
 "Last-Translator: Frans Schreuder <fransschreuder@lists.sourceforge.net>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -38,9 +38,8 @@ msgid "Select All"
 msgstr "Alles Selecteren"
 
 #: ../src/configview.cpp:135
-#, fuzzy
 msgid "Configuration Word:"
-msgstr "Configuratie flags"
+msgstr "Configuratie flags:"
 
 #: ../src/configview.cpp:142
 #, c-format
@@ -67,24 +66,20 @@ msgid "Global settings for Usbpicprog:"
 msgstr "Globale instellingen voor Usbpicprog:"
 
 #: ../src/preferences_base.cpp:24
-#, fuzzy
 msgid "Program options"
-msgstr "&Programmeren"
+msgstr "Programmeeropties"
 
 #: ../src/preferences_base.cpp:26
-#, fuzzy
 msgid "Write code memory"
-msgstr "Schrijven van Code geheugen OK"
+msgstr "Schrijf code geheugen"
 
 #: ../src/preferences_base.cpp:30
-#, fuzzy
 msgid "Write config memory"
-msgstr "Schrijven van Config geheugen OK"
+msgstr "Schrijf config geheugen"
 
 #: ../src/preferences_base.cpp:34
-#, fuzzy
 msgid "Write data memory"
-msgstr "Schrijven van Data geheugen Ok"
+msgstr "Schrijf data geheugen"
 
 #: ../src/preferences_base.cpp:38
 msgid "Erase before programming"
@@ -95,32 +90,26 @@ msgid "Verify after programming"
 msgstr "Verifieer na programmeren"
 
 #: ../src/preferences_base.cpp:49
-#, fuzzy
 msgid "Verify options"
-msgstr "Verifieer config"
+msgstr "Verifieer opties"
 
 #: ../src/preferences_base.cpp:51
-#, fuzzy
 msgid "Verify code memory"
-msgstr "Verifieer code"
+msgstr "Verifieer code geheugen"
 
 #: ../src/preferences_base.cpp:55
-#, fuzzy
 msgid "Verify config memory"
-msgstr "Verifieer config"
+msgstr "Verifieer config geheugen"
 
 #: ../src/preferences_base.cpp:59
-#, fuzzy
 msgid "Verify data memory"
-msgstr "Verifieer data"
+msgstr "Verifieer data geheugen"
 
 #: ../src/preferences_base.cpp:66
-#, fuzzy
 msgid "GUI options"
-msgstr "&Opties"
+msgstr "GUI opties"
 
 #: ../src/preferences_base.cpp:68
-#, fuzzy
 msgid "Shows popups on connect etc..."
 msgstr "Geef popups weer bij verbinden etc..."
 
@@ -287,22 +276,22 @@ msgid "untitled"
 msgstr "naamloos"
 
 #: ../src/uppmainwindow.cpp:557
-#, fuzzy, c-format
+#, c-format
 msgid "%s datasheet"
-msgstr "Datasheet"
+msgstr "%s datasheet"
 
 #: ../src/uppmainwindow.cpp:563
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
 "   Min=%.2fV\n"
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
-"Programmeervoltage (Vpp):\n"
-"    MIN\n"
-"    NOM\n"
-"    MAX"
+"Programmeerspanning (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
 
 #: ../src/uppmainwindow.cpp:566
 #, c-format
@@ -318,30 +307,30 @@ msgstr ""
 "   Max=%.2fV"
 
 #: ../src/uppmainwindow.cpp:568
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Frequency range:\n"
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
 "Werkfrequentie:\n"
-"   MIN\n"
-"   MAX"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
 
 #: ../src/uppmainwindow.cpp:569
-#, fuzzy, c-format
+#, c-format
 msgid "Device ID: 0x%X"
-msgstr "Device ID:"
+msgstr "Device ID: 0x%X"
 
 #: ../src/uppmainwindow.cpp:570
-#, fuzzy, c-format
+#, c-format
 msgid "Code memory size: %d bytes"
-msgstr "Grootte van code geheugen:"
+msgstr "Grootte van code geheugen: %d bytes"
 
 #: ../src/uppmainwindow.cpp:571
-#, fuzzy, c-format
+#, c-format
 msgid "Data memory size: %d bytes"
-msgstr "Grootte van data geheugen:"
+msgstr "Grootte van data geheugen: %d bytes"
 
 #: ../src/uppmainwindow.cpp:572
 #, c-format
@@ -638,9 +627,8 @@ msgstr "Bootloader of Programmer niet gevonden"
 
 #: ../src/uppmainwindow.cpp:1476
 #: ../src/uppmainwindow.cpp:1478
-#, fuzzy
 msgid "Disconnected"
-msgstr "&Verbreek..."
+msgstr "Verbinding verbroken"
 
 #: ../src/uppmainwindow.cpp:1482
 #: ../src/uppmainwindow.cpp:1483
@@ -691,7 +679,6 @@ msgid "Datasheet"
 msgstr "Datasheet"
 
 #: ../src/uppmainwindow_base.cpp:74
-#, fuzzy
 msgid ""
 "Programming voltage (Vpp):\n"
 "    MIN\n"
@@ -699,13 +686,13 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Programmeervoltage (Vpp):\n"
+"Programming voltage (Vpp):\n"
 "    MIN\n"
 "    NOM\n"
-"    MAX"
+"    MAX\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:78
-#, fuzzy
 msgid ""
 "Working voltages (Vdd):\n"
 "    MIN\n"
@@ -713,22 +700,23 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Werkvoltages (Vdd):\n"
+"Working voltages (Vdd):\n"
 "    MIN\n"
 "    NOM\n"
-"    MAX"
+"    MAX\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:82
-#, fuzzy
 msgid ""
 "Frequency range:\n"
 "   MIN\n"
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Werkfrequentie:\n"
+"Frequency range:\n"
 "   MIN\n"
-"   MAX"
+"   MAX\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:86
 msgid "Device ID:"
