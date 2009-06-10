@@ -326,7 +326,7 @@ int Hardware::bulkErase(PicType* picType)
     }
 }
 
-int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
+int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes)
 {
     if (!picType->ok()) return -1;
     if (m_handle == NULL) return -1;
@@ -336,6 +336,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
 
     // which memory area are we going to read?
     unsigned int memorySize = 0;
+	
     switch (type)
     {
     case TYPE_CODE: memorySize = picType->CodeSize; break;
@@ -343,6 +344,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType)
     case TYPE_CONFIG: memorySize = picType->ConfigSize; break;
     }
 
+	if((numberOfBytes>0)&&(numberOfBytes<memorySize))memorySize=numberOfBytes;
+	
     if (memorySize==0)
         return 0;       // no code/config/data to read
 
@@ -566,27 +569,27 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     // read from the device
 
-    if (doCode)
+    if (doCode&&(hexData->getCodeMemory().size()>0))
     {
-        if (read(TYPE_CODE, &readData, picType) < 0)
+        if (read(TYPE_CODE, &readData, picType,hexData->getCodeMemory().size()) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
             return res;
         }
     }
-    if (doData)
+    if (doData&&(hexData->getDataMemory().size()>0))
     {
-        if (read(TYPE_DATA, &readData, picType) < 0)
+        if (read(TYPE_DATA, &readData, picType,hexData->getDataMemory().size()) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
             return res;
         }
     }
-    if (doConfig)
+    if (doConfig&&(hexData->getConfigMemory().size()>0))
     {
-        if (read(TYPE_CONFIG, &readData, picType) < 0)
+        if (read(TYPE_CONFIG, &readData, picType,hexData->getConfigMemory().size()) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
@@ -608,19 +611,19 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
         return res;
     }
 
-    if (doCode)
+    if (doCode&&(hexData->getCodeMemory().size()>0))
     {
         res = readData.verify(TYPE_CODE, hexData);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
-    if (doData)
+    if (doData&&(hexData->getDataMemory().size()>0))
     {
         res = readData.verify(TYPE_DATA, hexData);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
-    if (doConfig && m_hwCurrent == HW_UPP) 
+    if (doConfig && m_hwCurrent == HW_UPP &&(hexData->getConfigMemory().size()>0)) 
         // it's no use to verify config for the bootloader
     {
         res = readData.verify(TYPE_CONFIG, hexData);
