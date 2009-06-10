@@ -49,7 +49,8 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 		case dsP30F:
 			//bulk erase program memory
 			//step 1
-			dspic_send_24_bits(0x040100);	//GOTO 0x100
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x000000);	//NOP
 			for(i=0;i<2;i++)
@@ -76,8 +77,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				DelayMs(200);			//Externally time 200ms
-				dspic_send_24_bits(0x000000);	//NOP
-				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
@@ -95,8 +94,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
 			DelayMs(2);			//Externally time 2 msec
-			dspic_send_24_bits(0x000000);	//NOP
-			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
@@ -1005,11 +1002,12 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			if(address>=0xF80000)
 			{
 				//Step 1: Exit the Reset vector.
-				dspic_send_24_bits(0x040100);	//GOTO 0x100
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 2: Initialize TBLPAG, and the read pointer (W6) and the write pointer (W7) for TBLRD instruction.
-				dspic_send_24_bits(0x200F80);	//MOV #0xF8, W0
+				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #0xF8, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
 				dspic_send_24_bits(0xEB0300);	//CLR W6
 				dspic_send_24_bits(0xEB0380);	//CLR W7
@@ -1036,7 +1034,8 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			else
 			{
 				//Step 1: Exit the Reset vector.
-				dspic_send_24_bits(0x040100);	//GOTO 0x100
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 2: Initialize TBLPAG and the read pointer (W6) for TBLRD instruction.
@@ -1045,7 +1044,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				dspic_send_24_bits(0x200006|((address&0x00FFFF)<<4));	//MOV #<SourceAddress15:0>, W6
 				//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
 				dspic_send_24_bits(0xEB0380);	//CLR W7
-				dspic_send_24_bits(0x000000);	//NOP
+				//dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xBA1B96);	//TBLRDL [W6], [W7++]
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
@@ -1073,7 +1072,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				//Step 4: Output W0:W5 using the VISI register and REGOUT command.
 				for(i=0;i<6;i++)
 				{
-					dspic_send_24_bits(0x883C20);	//MOV W0, VISI
+					dspic_send_24_bits(0x883C20|(unsigned long) i);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
 					payload=dspic_read_16_bits();	//Clock out contents of VISI register
 					data[blockcounter+i*2]=(unsigned char)payload&0xFF;
@@ -1153,8 +1152,10 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 	switch(picfamily)
 	{
 		case dsPIC30:
+			
 			//Step 1: Exit the Reset vector.
-			dspic_send_24_bits(0x040100);	//GOTO 0x100
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x000000);	//NOP
 			//Step 2: Initialize TBLPAG and the read pointer (W6) for TBLRD instruction.
@@ -1163,7 +1164,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			dspic_send_24_bits(0x200006|((address&0xFFFF)<<4));	//MOV #<SourceAddress15:0>, W6
 			//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
 			dspic_send_24_bits(0xEB0380);	//CLR W7
-			dspic_send_24_bits(0x000000);	//NOP
+			//dspic_send_24_bits(0x000000);	//NOP
 			for(i=0;i<4;i++)
 			{
 				dspic_send_24_bits(0xBA1BB6);	//TBLRDL [W6++], [W7++]
@@ -1171,7 +1172,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				dspic_send_24_bits(0x000000);	//NOP
 			}
 			//Step 4: Output W0:W5 using the VISI register and REGOUT command.
-			for(i=0;i<6;i++)
+			for(i=0;i<4;i++)
 			{
 				dspic_send_24_bits(0x883C20|(unsigned long)i);	//MOV W0, VISI
 				dspic_send_24_bits(0x000000);	//NOP
@@ -1181,8 +1182,8 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				dspic_send_24_bits(0x000000);	//NOP
 			}
 			//Step 5: Reset device internal PC.
-			dspic_send_24_bits(0x040100);	//GOTO 0x100
-			dspic_send_24_bits(0x000000);	//NOP
+			//dspic_send_24_bits(0x040100);	//GOTO 0x100
+			//dspic_send_24_bits(0x000000);	//NOP
 			break;
 		case PIC18:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
