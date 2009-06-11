@@ -469,6 +469,34 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 p.Package.push_back(pkg);
             }
         }
+		else if (child->GetName() == "checksums")
+        {
+            wxXmlNode *checksumsNode = child->GetChildren();
+            while (checksumsNode)
+            {
+
+                unsigned long val;
+				if (checksumsNode->GetName() == "checksum")
+                {
+		            if (checksumsNode->GetAttribute("protected")=="Off")
+					{
+						if (checksumsNode->GetAttribute("bchecksum").AfterFirst('x').ToULong(&val,16))
+							p.CheckSums.bChecksumCpOff=(unsigned int) val;
+						if (checksumsNode->GetAttribute("cchecksum").AfterFirst('x').ToULong(&val,16))
+							p.CheckSums.cChecksumCpOff=(unsigned int) val;
+					}
+					if (checksumsNode->GetAttribute("protected")=="All")
+					{
+						if (checksumsNode->GetAttribute("bchecksum").AfterFirst('x').ToULong(&val,16))
+							p.CheckSums.bChecksumCpAll=(unsigned int) val;
+						if (checksumsNode->GetAttribute("cchecksum").AfterFirst('x').ToULong(&val,16))
+							p.CheckSums.cChecksumCpAll=(unsigned int) val;
+					}
+
+				}
+                checksumsNode = checksumsNode->GetNext();
+            }
+        }
 
         child = child->GetNext();
     }

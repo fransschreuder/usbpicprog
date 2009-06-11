@@ -92,6 +92,8 @@ typedef enum {
     VOLTAGE_TYPE_MAX
 } VoltageType;
 
+	
+
 /**
     Describes the package of a PIC (used only for informative purposes).
     
@@ -493,6 +495,14 @@ public:
     /// The minimum & maximum frequencies for this PIC.
     float MinFreq, MaxFreq;
 
+
+	struct CheckSumType
+    {
+		unsigned int bChecksumCpOff;
+		unsigned int cChecksumCpOff;
+		unsigned int bChecksumCpAll;
+		unsigned int cChecksumCpAll;
+    } CheckSums;
 
     /** Is this PIC instance correctly initialized? */
     bool ok() const
