@@ -45,8 +45,9 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		clock_delay();    // dummy tempo
 		switch(pictype)
 		{		
-			/*case dsP30F
-				break;		*/
+			case dsP30F:
+				break;
+			
 			case P12F6XX:
 				VPP=0;
 				break;
@@ -62,14 +63,12 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				VDD=0;
 				break;
 			case dsP30F:
+				VDD=0;
+				lasttick=tick;
+				while((tick-lasttick)<1)continue;
 				VPP=0;
 				lasttick=tick;
 				while((tick-lasttick)<25)continue;
-				//execute 4 nop instructions using SIX
-				dspic_send_24_bits(0);
-				dspic_send_24_bits(0);
-				dspic_send_24_bits(0);
-				dspic_send_24_bits(0);
 				break;
 			default:
 				VPP=0; //high, (inverted)
@@ -289,19 +288,21 @@ unsigned int dspic_read_16_bits(void)
 	char i;
 	unsigned int result;
 	pic_send_n_bits(4,1);
-	for(i=0;i<10;i++)continue;
 	result=0;
-	pic_send_n_bits(8,0);
 	TRISPGD=1; //PGD = input
+	pic_send_n_bits(8,0);
 	clock_delay();
 	for(i=0;i<16;i++)
 	{
-
 		PGC=1;
 		clock_delay();
-		result|=((unsigned int)PGD_READ)<<i;
 		clock_delay();
+		result|=((unsigned int)PGD_READ)<<i;
 		PGC=0;
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
 		clock_delay();
 	}
 	
@@ -326,6 +327,9 @@ void dspic_send_24_bits(unsigned long payload)
 		payload>>=1;
 		clock_delay();
 		PGC=0;
+		clock_delay();
+		clock_delay();
+		clock_delay();
 		clock_delay();
 	}
 }

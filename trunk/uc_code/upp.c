@@ -329,9 +329,9 @@ void BlinkUSBStatus(void)
 		//USBWakeFromSuspend();
 		if(led_count==0)
 		{
-			mLED_1_Toggle();
+			mLED_1_Off();
 			mLED_2_Off();
-			mLED_3_Off();
+			mLED_3_Toggle();
 		}//end if
 	}
 	else
