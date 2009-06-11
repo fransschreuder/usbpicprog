@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-01 17:24+0200\n"
-"PO-Revision-Date: 2009-06-09 16:21+0100\n"
+"PO-Revision-Date: 2009-06-11 09:25+0100\n"
 "Last-Translator: Frans Schreuder <fransschreuder@lists.sourceforge.net>\n"
 "Language-Team: Patrick Nies <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -23,30 +23,29 @@ msgstr ""
 #. add the text control which contains the current hex value
 #. for the i-th configuration word
 #: ../src/configview.cpp:135
-#, fuzzy
 msgid "Configuration Word:"
-msgstr "Configuration"
+msgstr "Configuration:"
 
 #: ../src/configview.cpp:142
 #, c-format
 msgid "Current value for the %d-th configuration word as derived from above configuration choices"
-msgstr ""
+msgstr "Valeur pour le mot de configuration %d-th comme défini dans les choix de configuration ci-dessus"
 
 #: ../src/configview.cpp:159
 #, c-format
 msgid "Location in memory: 0x%X"
-msgstr ""
+msgstr "Emplacement en mémoire: 0x%X"
 
 #: ../src/configview.cpp:163
 #, c-format
 msgid "Length: %d bits"
-msgstr ""
+msgstr "Longueur: %d bits"
 
 #. complete the creation of this page:
 #: ../src/configview.cpp:181
 #, c-format
 msgid "Word %d"
-msgstr ""
+msgstr "Mot %d"
 
 #: ../src/hexview.cpp:216
 msgid "Edit"
@@ -62,7 +61,7 @@ msgstr "Tout sélectionner"
 
 #: ../src/main.cpp:72
 msgid "Cannot load XML PIC data."
-msgstr ""
+msgstr "Ne peut charger les données XML du PIC."
 
 #: ../src/main.h:95
 #: ../src/main.h:111
@@ -170,66 +169,57 @@ msgstr "Hexfile"
 
 #: ../src/pictype.cpp:229
 msgid "Could not access the 'xml_data' folder."
-msgstr ""
+msgstr "Ne peut accéder au dossier 'xml_data'."
 
 #: ../src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
-msgstr ""
+msgstr "Réglages généraux pour Usbpicprog:"
 
 #: ../src/preferences_base.cpp:24
 msgid "Program options"
-msgstr ""
+msgstr "Options du programme"
 
 #: ../src/preferences_base.cpp:26
-#, fuzzy
 msgid "Write code memory"
-msgstr "Écriture de la mémoire Code OK"
+msgstr "Écriture de la mémoire Code"
 
 #: ../src/preferences_base.cpp:30
-#, fuzzy
 msgid "Write config memory"
-msgstr "Écriture de la mémoire Config OK"
+msgstr "Écriture de la mémoire Config"
 
 #: ../src/preferences_base.cpp:34
-#, fuzzy
 msgid "Write data memory"
-msgstr "Écriture de la mémoire Data OK"
+msgstr "Écriture de la mémoire Data"
 
 #: ../src/preferences_base.cpp:38
 msgid "Erase before programming"
 msgstr "Effacer avant programmation"
 
 #: ../src/preferences_base.cpp:42
-#, fuzzy
 msgid "Verify after programming"
-msgstr "Effacer avant programmation"
+msgstr "Vérifier après programmation"
 
 #: ../src/preferences_base.cpp:49
-#, fuzzy
 msgid "Verify options"
-msgstr "Vérification de la Configuration"
+msgstr "Options de vérification"
 
 #: ../src/preferences_base.cpp:51
-#, fuzzy
 msgid "Verify code memory"
 msgstr "Vérification du Code"
 
 #: ../src/preferences_base.cpp:55
-#, fuzzy
 msgid "Verify config memory"
 msgstr "Vérification de la Configuration"
 
 #: ../src/preferences_base.cpp:59
-#, fuzzy
 msgid "Verify data memory"
 msgstr "Vérification de l'EEPROM"
 
 #: ../src/preferences_base.cpp:66
 msgid "GUI options"
-msgstr ""
+msgstr "Options d'affichage"
 
 #: ../src/preferences_base.cpp:68
-#, fuzzy
 msgid "Shows popups on connect etc..."
 msgstr "Montrer Popups au démarrage etc..."
 
@@ -240,14 +230,13 @@ msgstr "Préférences"
 #: ../src/statbox_children.patch:7
 #: ../src/uppmainwindow_base.cpp:69
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Divers"
 
 #: ../src/statbox_children.patch:9
 #: ../src/statbox_children.patch:10
 #: ../src/uppmainwindow_base.cpp:71
-#, fuzzy
 msgid "Datasheet"
-msgstr "Data"
+msgstr "Datasheet"
 
 #: ../src/statbox_children.patch:13
 #: ../src/statbox_children.patch:14
@@ -285,60 +274,58 @@ msgstr ""
 #: ../src/statbox_children.patch:29
 #: ../src/uppmainwindow_base.cpp:86
 msgid "Device ID:"
-msgstr ""
+msgstr "Device ID:"
 
 #: ../src/statbox_children.patch:33
 #: ../src/statbox_children.patch:34
 #: ../src/uppmainwindow_base.cpp:90
-#, fuzzy
 msgid "Code memory size:"
-msgstr "Écriture de la mémoire Code OK"
+msgstr "Taille de la mémoire Code:"
 
 #: ../src/statbox_children.patch:38
 #: ../src/statbox_children.patch:39
 #: ../src/uppmainwindow_base.cpp:94
-#, fuzzy
 msgid "Data memory size:"
-msgstr "Écriture de la mémoire Data OK"
+msgstr "Taille de la mémoire Data:"
 
 #: ../src/statbox_children.patch:43
 #: ../src/statbox_children.patch:44
 #: ../src/uppmainwindow_base.cpp:98
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../src/statbox_children.patch:52
 #: ../src/statbox_children.patch:53
 #: ../src/uppmainwindow_base.cpp:110
 msgid "Variants:"
-msgstr ""
+msgstr "Variantes:"
 
 #: ../src/statbox_children.patch:68
 #: ../src/statbox_children.patch:70
 #: ../src/uppmainwindow_base.cpp:123
 #: ../src/uppmainwindow_base.cpp:125
 msgid "Zoom in"
-msgstr ""
+msgstr "Zoom avant"
 
 #: ../src/statbox_children.patch:76
 #: ../src/statbox_children.patch:78
 #: ../src/uppmainwindow_base.cpp:130
 #: ../src/uppmainwindow_base.cpp:132
 msgid "Zoom out"
-msgstr ""
+msgstr "Zoom arrière"
 
 #: ../src/statbox_children.patch:84
 #: ../src/statbox_children.patch:86
 #: ../src/uppmainwindow_base.cpp:137
 #: ../src/uppmainwindow_base.cpp:139
 msgid "Fit package drawing"
-msgstr ""
+msgstr "Zoom sur boîtier"
 
 #: ../src/statbox_children.patch:95
 #: ../src/statbox_children.patch:96
 #: ../src/uppmainwindow_base.cpp:148
 msgid "Note: red pins are (some of those) used in ICSP."
-msgstr ""
+msgstr "Note: les broches en rouge sont (pour certaines) utilisée par l'ICSP."
 
 #: ../src/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
@@ -357,9 +344,8 @@ msgid "Data"
 msgstr "Data"
 
 #: ../src/uppmainwindow_base.cpp:53
-#, fuzzy
 msgid "Configuration flags for this PIC:"
-msgstr "Configuration"
+msgstr "Configuration pour ce PIC:"
 
 #: ../src/uppmainwindow_base.cpp:63
 msgid "Configuration flags"
@@ -367,11 +353,11 @@ msgstr "Configuration"
 
 #: ../src/uppmainwindow_base.cpp:105
 msgid "Package"
-msgstr ""
+msgstr "Boîtier"
 
 #: ../src/uppmainwindow_base.cpp:157
 msgid "PIC info"
-msgstr ""
+msgstr "PIC info"
 
 #: ../src/uppmainwindow_base.cpp:166
 msgid "&New"
@@ -596,17 +582,17 @@ msgstr "Confirmer SVP"
 #: ../src/uppmainwindow.cpp:501
 #: ../src/uppmainwindow.cpp:507
 msgid "Your firmware is too old; please consider upgrading it"
-msgstr ""
+msgstr "Votre firmware est trop ancien; SVP envisagez une mise à jour"
 
 #: ../src/uppmainwindow.cpp:466
 #: ../src/uppmainwindow.cpp:475
 #: ../src/uppmainwindow.cpp:484
 msgid "Firmware probably too new"
-msgstr ""
+msgstr "Firmware probablement trop récent"
 
 #: ../src/uppmainwindow.cpp:490
 msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
-msgstr ""
+msgstr "Vous utilisez une version a stable du firmware avec une version de développement du software. Envisagez une mise à jour du firmware"
 
 #: ../src/uppmainwindow.cpp:522
 msgid "Usbpicprog rev: "
@@ -622,9 +608,9 @@ msgstr "Sans titre"
 
 #. update the misc infos
 #: ../src/uppmainwindow.cpp:555
-#, fuzzy, c-format
+#, c-format
 msgid "%s datasheet"
-msgstr "Data"
+msgstr "%s datasheet"
 
 #: ../src/uppmainwindow.cpp:561
 #, c-format
@@ -634,6 +620,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"Voltage de programmation (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
 
 #: ../src/uppmainwindow.cpp:564
 #, c-format
@@ -643,6 +633,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"Voltage d'alimentation (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
 
 #: ../src/uppmainwindow.cpp:566
 #, c-format
@@ -651,31 +645,34 @@ msgid ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
+"Plage de fréquence:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
 
 #: ../src/uppmainwindow.cpp:567
 #, c-format
 msgid "Device ID: 0x%X"
-msgstr ""
+msgstr "Device ID: 0x%X"
 
 #: ../src/uppmainwindow.cpp:568
-#, fuzzy, c-format
+#, c-format
 msgid "Code memory size: %d bytes"
-msgstr "Écriture de la mémoire Code OK"
+msgstr "Taille de la mémoire Code: %d bytes"
 
 #: ../src/uppmainwindow.cpp:569
-#, fuzzy, c-format
+#, c-format
 msgid "Data memory size: %d bytes"
-msgstr "Écriture de la mémoire Data OK"
+msgstr "Taille de la mémoire Data: %d bytes"
 
 #: ../src/uppmainwindow.cpp:570
 #, c-format
 msgid "Type: %d-bit microcontroller"
-msgstr ""
+msgstr "Type: microcontrolleur %d-bit "
 
 #: ../src/uppmainwindow.cpp:580
 #, c-format
 msgid "%s [%d pins]"
-msgstr ""
+msgstr "%s [%d pins]"
 
 #: ../src/uppmainwindow.cpp:663
 msgid "Please wait until the operations are completed:\n"
@@ -964,9 +961,8 @@ msgstr "Bootloader ou programmateur non trouvé"
 
 #: ../src/uppmainwindow.cpp:1474
 #: ../src/uppmainwindow.cpp:1476
-#, fuzzy
 msgid "Disconnected"
-msgstr "&Déconnection"
+msgstr "Déconnecté"
 
 #: ../src/uppmainwindow.cpp:1480
 #: ../src/uppmainwindow.cpp:1481
@@ -982,7 +978,6 @@ msgstr "Un programmateur de PIC USB Open source"
 #. do not change PIC selection
 #: ../src/uppmainwindow.cpp:1541
 #: ../src/uppmainwindow.cpp:1570
-#, fuzzy
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "Impossible de sélectionner un PIC différent quand le bootloader est connecté !"
 
