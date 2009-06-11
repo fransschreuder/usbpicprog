@@ -44,6 +44,7 @@
 #include "packageview.h"
 #include "configview.h"
 #include "../svn_revision.h"
+#include "../firmwareinfo.h"
 
 #include <map>
 
@@ -444,11 +445,6 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
     return false;
 }
 
-#define STABLE_VERSION_MAJOR 0
-#define STABLE_VERSION_MINOR 2
-#define STABLE_VERSION_RELEASE 0
-
-#define DEV_VERSION 667
 
 void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {
