@@ -78,7 +78,7 @@ bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
 }
 
 /* static*/
-PicType PicType::FindPIC(string picTypeStr)
+PicType PicType::FindPIC(wxString picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
@@ -212,7 +212,7 @@ bool PicType::Init()
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
         // constructing this instance triggers loading of the XML file:
-        PicType temp(string(s_arrSupported[i].name.c_str()));
+        PicType temp(s_arrSupported[i].name);
     }
 #endif
 #if LOAD_ALL_PIKLAB_FILES_AT_STARTUP

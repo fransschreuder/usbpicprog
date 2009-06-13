@@ -87,7 +87,7 @@ struct usb_interface_descriptor;
 
 typedef struct
 {
-	string versionString;
+	wxString versionString;
 	int major;
 	int minor;
 	int release;

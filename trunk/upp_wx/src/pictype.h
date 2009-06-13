@@ -25,7 +25,7 @@
 #include <wx/arrstr.h>
 #include <wx/bitmap.h>
 
-#include <string>
+//#include <string>
 #include <map>
 #include <vector>
 #include <iostream>
@@ -454,7 +454,7 @@ public:
 
     /// Name of the PIC model described by this Pic instance.
     /// This string always starts with "P" (not "PIC") prefix.
-    string Name;
+    wxString Name;
 
     /// Size of the code memory area (in word units??)
     unsigned int CodeSize;
@@ -522,15 +522,15 @@ public:
         { return (Name.find("P30F")==0); }
 	
     /** Returns the PIC name which starts with "PIC" instead of "P". */
-    string GetExtName() const
+    wxString GetExtName() const
         {
             if (Name.empty()) return Name;
-            return string("PIC" + Name.substr(1)); 
+            return "PIC" + Name.substr(1); 
         }
         
     /** Returns the current PIC name as a wxString. */
     wxString getPicName() const
-        { return wxString::FromAscii(Name.c_str()); }
+        { return Name; }
 
 
     // static utilities
@@ -541,7 +541,7 @@ public:
         If there's no supported PIC with the given name, then the instance
         returned will return false when calling ok() on it.
     */
-    static PicType FindPIC(string picType);
+    static PicType FindPIC(wxString picType);
 
     /**
         Returns a PicType instance describing the PIC model whose device id is @a devId.

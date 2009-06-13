@@ -143,7 +143,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         if ((lastPic=pCfg->Read(wxT("SelectedPIC"), (long)0)) >= 0 && 
             lastPic < (int)m_arrPICName.size())
         {
-            m_picType = PicType::FindPIC((string)m_arrPICName[lastPic]);
+            m_picType = PicType::FindPIC(m_arrPICName[lastPic]);
 
             // keep the choice box synchronized
             m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
@@ -269,15 +269,15 @@ void UppMainWindow::CompleteGUICreation()
                                 _("Change the currently selected PIC") );
 
     // create a menu-item for each PIC
-    map<string,wxMenu*> menus;
+    map<wxString,wxMenu*> menus;
     for(unsigned int i=0;i<m_arrPICName.size();i++)
     {
         bool bFamilyFound = false;
         // the first 4 characters of the PIC name are the family:
-        string family(m_arrPICName[i].substr(0, 4).c_str());
+        wxString family(m_arrPICName[i].substr(0, 4).c_str());
 
         // is there a menu for this PIC family?
-        for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
+        for(map<wxString,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
         {
             if (j->first == family)
             {
@@ -298,8 +298,8 @@ void UppMainWindow::CompleteGUICreation()
     }
 
     // add a submenu for each PIC family
-    for(map<string,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
-        pMenuSelectPIC->AppendSubMenu(j->second, wxString::FromAscii(j->first.c_str()));
+    for(map<wxString,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
+        pMenuSelectPIC->AppendSubMenu(j->second, j->first);
     m_pMenuBar->Insert(2, pMenuActions, _("&Actions") );
 
     this->Connect( wxID_PROGRAM, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_program ) );
@@ -474,14 +474,15 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
         else if (firmwareVersion.minor==STABLE_VERSION_MINOR)
         {
             // check release digit
-            
+            wxString stableFirmwareVersion;
+			stableFirmwareVersion.Printf("%i.%i.%i", STABLE_VERSION_MAJOR, STABLE_VERSION_MINOR, STABLE_VERSION_RELEASE);
             if (firmwareVersion.release>STABLE_VERSION_RELEASE)
             {
                 wxLogMessage(_("Firmware probably too new")); 
                 return;
             }
             else if (firmwareVersion.release==STABLE_VERSION_RELEASE && 
-                     string(SVN_REVISION).compare("0.2.0")!=0)
+                     (wxString(SVN_REVISION)!=stableFirmwareVersion))
             {
                 wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware")); 
                 return;
@@ -1041,7 +1042,7 @@ bool UppMainWindow::upp_thread_blankcheck()
     wxASSERT(!wxThread::IsMain());
 
     wxString verifyText;
-    string typeText;
+    wxString typeText;
 
     LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
 
@@ -1056,10 +1057,10 @@ bool UppMainWindow::upp_thread_blankcheck()
     case VERIFY_MISMATCH:
         switch (res.DataType)
         {
-            case TYPE_CODE: typeText=string("code");break;
-            case TYPE_DATA: typeText=string("data");break;
-            case TYPE_CONFIG: typeText=string("config");break;
-            default: typeText=string("unknown");break;
+            case TYPE_CODE: typeText="code";break;
+            case TYPE_DATA: typeText="data";break;
+            case TYPE_CONFIG: typeText="config";break;
+            default: typeText="unknown";break;
         }
 
         verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
@@ -1408,10 +1409,10 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
-            SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),
+            SetStatusText(firmwareVersion.versionString.Trim().Append(_(" Connected")),
                           STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups)
-                wxLogMessage(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")));
+                wxLogMessage(firmwareVersion.versionString.Trim().Append(_(" Connected")));
 
             if (!firmwareVersion.isBootloader)
                 checkFirmwareVersion(firmwareVersion);
@@ -1436,9 +1437,9 @@ bool UppMainWindow::upp_connect()
             }
             else
             {
-                SetStatusText(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
+                SetStatusText(firmwareVersion.versionString.Trim().Append(_(" Connected")),STATUS_FIELD_HARDWARE);
                 if (m_cfg.ConfigShowPopups)
-                    wxLogMessage(wxString::FromAscii(firmwareVersion.versionString.c_str()).Trim().Append(_(" Connected")));
+                    wxLogMessage(firmwareVersion.versionString.Trim().Append(_(" Connected")));
             }
         }
         else
@@ -1544,7 +1545,7 @@ void UppMainWindow::upp_pic_choice_changed()
     }
     
     // update the pic type
-    m_picType = PicType::FindPIC(string(m_pPICChoice->GetStringSelection().mb_str(wxConvUTF8)));
+    m_picType = PicType::FindPIC(m_pPICChoice->GetStringSelection());
     
     // PIC changed; reset the code/config/data grids
     Reset();
@@ -1573,7 +1574,7 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
     }
 
     // update the pic type
-    m_picType = PicType::FindPIC((string)m_arrPICName[id]);
+    m_picType = PicType::FindPIC(m_arrPICName[id]);
 
     // keep the choice box synchronized
     m_pPICChoice->SetStringSelection(m_arrPICName[id]);

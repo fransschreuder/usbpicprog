@@ -740,7 +740,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 			return nBytes;
 		}
 		firmwareVersion->versionString.assign((const char*)msg);
-		string strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
+		wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
 		firmwareVersion->stableRelease=(strippedVersion.size()==5);
 		if(firmwareVersion->stableRelease)
 		{

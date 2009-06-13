@@ -23,12 +23,12 @@
 #include <wx/defs.h>
 
 #include <wx/log.h>
+#include <wx/string.h>
 
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <vector>
-#include <string.h>
 
 #include "hexfile.h"
 #include "pictype.h"
@@ -81,7 +81,7 @@ bool HexFile::open(PicType* picType, const char* filename)
     unsigned int newSize;
     string tempStr;
     RecordType recordType;
-    ifstream fp (filename);
+	ifstream fp(filename);
     vector<int> lineData;
     
     m_configMemory.resize(0);
@@ -97,7 +97,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         return false;
     }
             
-    m_filename = string(filename);
+    m_filename = wxString(filename);
 
 
     // parse the file
@@ -268,7 +268,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         return false;
     }
 
-    m_filename = string(filename);
+    m_filename = wxString(filename);
 
     if (m_codeMemory.size()>0)
     {
@@ -537,7 +537,7 @@ int HexFile::getConfigMemory(int address) const
         return 0;
 }
 
-void HexFile::print(string* output,PicType *picType)
+void HexFile::print(wxString* output,PicType *picType)
 {
     int lineSize;
     char txt[256];

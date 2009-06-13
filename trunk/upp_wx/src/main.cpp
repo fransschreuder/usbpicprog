@@ -156,7 +156,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     PicType* picType = NULL;
     Hardware* hardware = NULL;
 
-    string output;
+    wxString output;
     wxString filename;
     /*when using Windows, wxWidgets takes over the terminal, *
     *but we want to have it for cout and cerr                */
@@ -171,9 +171,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(wxT("V")))
     {
 #ifndef UPP_VERSION
-        cerr<<string("usbpicprog (SVN) ").append(SVN_REVISION)<<endl;
+        cerr<<wxString("usbpicprog (SVN) ")+(SVN_REVISION)<<endl;
 #else
-        cerr<<string("usbpicprog ").append(UPP_VERSION)<<endl;
+        cerr<<wxString("usbpicprog ")+(UPP_VERSION)<<endl;
 #endif
         return EXIT_SUCCESS;
     }
@@ -191,7 +191,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     /* check if -p <str> is passed, else autodetect the device
     */
     if(parser.Found(wxT("p"),&picTypeStr))
-        picType=new PicType(PicType::FindPIC(string(picTypeStr.mb_str(wxConvUTF8))));
+        picType=new PicType(PicType::FindPIC(picTypeStr));
     else
     {
         int devId=hardware->autoDetectDevice();
@@ -213,7 +213,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(wxT("b")))
     {
         cout<<"Blankcheck..."<<endl;
-        string typeText;
+        wxString typeText,tempStr;
         VerifyResult res=hardware->blankCheck(picType);
         switch(res.Result)
         {
@@ -223,17 +223,18 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             case VERIFY_MISMATCH:
                 switch (res.DataType)
                 {
-                    case TYPE_CODE: typeText=string("code");break;
-                    case TYPE_DATA: typeText=string("data");break;
-                    case TYPE_CONFIG: typeText=string("config");break;
-                    default: typeText=string("unknown");break;
+                    case TYPE_CODE: typeText="code";break;
+                    case TYPE_DATA: typeText="data";break;
+                    case TYPE_CONFIG: typeText="config";break;
+                    default: typeText="unknown";break;
                 }
-                fprintf(stderr,"Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
+				tempStr.Printf("Blankcheck %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                         typeText.c_str(),
                         res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
                         res.Read,
                         res.Expected);
-                cout<<endl;
+
+                cerr<<tempStr<<endl;
                 break;
             case VERIFY_USB_ERROR:
                 cerr<<"USB error during blankcheck"<<endl;
@@ -307,7 +308,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 hexFile->print(&output,picType);
                 cout<<output<<endl;
             }
-            string typeText;
+            wxString typeText,tempStr;
             VerifyResult res=hardware->verify(hexFile,picType);
             switch(res.Result)
             {
@@ -317,17 +318,17 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 case VERIFY_MISMATCH:
                     switch (res.DataType)
                     {
-                        case TYPE_CODE: typeText=string("code");break;
-                        case TYPE_DATA: typeText=string("data");break;
-                        case TYPE_CONFIG: typeText=string("config");break;
-                        default: typeText=string("unknown");break;
+                        case TYPE_CODE: typeText="code";break;
+                        case TYPE_DATA: typeText="data";break;
+                        case TYPE_CONFIG: typeText="config";break;
+                        default: typeText="unknown";break;
                     }
-                    fprintf(stderr,"Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
+                    tempStr.Printf("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),
                             res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
                             res.Read,
                             res.Expected);
-                    cerr<<endl;
+                    cerr<<tempStr<<endl;
                     break;
                 case VERIFY_USB_ERROR:
                     cerr<<"USB error during verify"<<endl;

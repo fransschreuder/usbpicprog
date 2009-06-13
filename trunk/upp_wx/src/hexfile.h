@@ -139,9 +139,9 @@ public:
     VerifyResult verify(MemoryType type, const HexFile* other) const;
     
     /**
-        Dumps into the @a output string the current code/config/data memory contents.
+        Dumps into the @a output wxString the current code/config/data memory contents.
     */
-    void print(string* output, PicType* picType);
+    void print(wxString* output, PicType* picType);
     
     /**
         Masks code, config and data memory areas with the @c 0xFF or @c 0x3F mask
@@ -159,7 +159,7 @@ public:
     bool wasModified() const { return m_bModified; }
 
 private:
-    string m_filename;
+    wxString m_filename;
     bool m_bModified;
 
     /**
