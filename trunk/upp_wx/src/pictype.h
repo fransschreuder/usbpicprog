@@ -302,7 +302,7 @@ public:
         for (unsigned int i=0; i<Values.size(); i++)
         {
             if (includeValues)
-                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, Values[i].Value));
+                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name.c_str(), (unsigned int)Values[i].Value));
             else
                 ret.Add(Values[i].Name);
         }
