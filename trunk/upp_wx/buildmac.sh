@@ -17,10 +17,12 @@ make -j 2
 make install
 
 cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog src/usbpicprog.app/Contents/MacOS
-cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/Contents/MacOS/po
+cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po
 cp src/Info.plist src/usbpicprog.app/Contents
 cp icons/usbpicprog.icns src/usbpicprog.app/Contents/Resources
 echo -n "APPL????" > src/usbpicprog.app/Contents/PkgInfo
+cp -R xml_data src/usbpicprog.app/xml_data
+cp index.xml src/usbpicprog.app/xml_data
 
 rm -rf src/usbpicprog.app/Contents/MacOS/output
 

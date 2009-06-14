@@ -142,11 +142,9 @@ bool PicType::Init()
 {
     // load the UPP_INDEX_FILE XML file which contains the list of
     // the supported PIC types
-
+	
     wxXmlDocument idx;
-    if (!idx.Load(wxStandardPaths::Get().GetDataDir() + 
-                  wxFileName::GetPathSeparator() + 
-                  UPP_INDEX_FILE))
+    if (!idx.Load(UPP_INDEX_PATH + UPP_INDEX_FILE))
     {
         wxLogError("Cannot load '%s'.", UPP_INDEX_FILE);
         return false;
@@ -216,8 +214,7 @@ bool PicType::Init()
     }
 #endif
 #if LOAD_ALL_PIKLAB_FILES_AT_STARTUP
-    wxString prefix = wxStandardPaths::Get().GetDataDir() + 
-                      wxFileName::GetPathSeparator();
+    wxString prefix = UPP_INDEX_PATH;
 #ifdef __WXMSW__
     prefix += "xml_data";
     prefix += wxFileName::GetPathSeparator();
@@ -272,8 +269,7 @@ int PicType::GetRange(const wxXmlNode* p)
 /* static */
 PicType PicType::LoadPiklabXML(const wxString& picName)
 {
-    wxString prefix = wxStandardPaths::Get().GetDataDir() + 
-                      wxFileName::GetPathSeparator();
+    wxString prefix = UPP_INDEX_PATH;
 #ifdef __WXMSW__
     prefix += "xml_data";
     prefix += wxFileName::GetPathSeparator();

@@ -53,7 +53,8 @@ bool UsbPicProg::OnInit()
     wxLocale::AddCatalogLookupPathPrefix(_T("po"));
 #endif
 #ifdef __WXMAC__
-    wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
+	wxLocale::AddCatalogLookupPathPrefix(((wxStandardPaths &)wxStandardPaths::Get()).GetExecutablePath() + _T("/po"));
+    //wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
 #endif
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
@@ -65,10 +66,9 @@ bool UsbPicProg::OnInit()
     // we're not interested to timestamps; they only take away space in the log dialog
     wxLog::DisableTimestamp();
 
-#ifndef __WXMSW__
+#if !defined(__WXMSW__) && !defined(__WXMAC__)
     ((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
 #endif
-
     // init the supported PIC types
     if (!PicType::Init())
     {
@@ -76,7 +76,7 @@ bool UsbPicProg::OnInit()
         delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
         return false;
     }
-
+	
     // wxApp::OnInit() will call UsbPicProg::OnInitCmdLine and UsbPicProg::OnCmdLineParsed
     if (!wxApp::OnInit())
     {
@@ -171,9 +171,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(wxT("V")))
     {
 #ifndef UPP_VERSION
-        cerr<<wxString("usbpicprog (SVN) ")+(SVN_REVISION)<<endl;
+        cerr<<"usbpicprog (SVN) "<<(SVN_REVISION)<<endl;
 #else
-        cerr<<wxString("usbpicprog ")+(UPP_VERSION)<<endl;
+        cerr<<"usbpicprog "<<(UPP_VERSION)<<endl;
 #endif
         return EXIT_SUCCESS;
     }
@@ -199,7 +199,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         hardware->setPicType(picType);
         if(devId>0)cout<<"Detected: ";
         else cerr<<"Detection failed, setting picType to default: ";
-        cout<<picType->Name<<endl;
+        cout<<(string)picType->Name<<endl;
     }
 
     /* if -e is passed, bulk erase the entire pic*/
@@ -234,7 +234,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                         res.Read,
                         res.Expected);
 
-                cerr<<tempStr<<endl;
+                cerr<<(string)tempStr<<endl;
                 break;
             case VERIFY_USB_ERROR:
                 cerr<<"USB error during blankcheck"<<endl;
@@ -261,7 +261,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
-                cout<<output<<endl;
+                cout<<(string)output<<endl;
             }
             if(hardware->write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
             if(hardware->write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
@@ -287,7 +287,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
-                cout<<output<<endl;
+                cout<<(string)output<<endl;
             }
             delete hexFile;
         }
@@ -306,7 +306,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             if(!silent_mode)
             {
                 hexFile->print(&output,picType);
-                cout<<output<<endl;
+                cout<<(string)output<<endl;
             }
             wxString typeText,tempStr;
             VerifyResult res=hardware->verify(hexFile,picType);
@@ -328,7 +328,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                             res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
                             res.Read,
                             res.Expected);
-                    cerr<<tempStr<<endl;
+                    cerr<<(string)tempStr<<endl;
                     break;
                 case VERIFY_USB_ERROR:
                     cerr<<"USB error during verify"<<endl;

@@ -41,6 +41,13 @@ class wxDC;
 
 #define UPP_UNKNOWN_BITMAP_FILE wxT("unknown.png")
 #define UPP_INDEX_FILE          wxT("index.xml")
+
+#ifdef __WXMAC__
+#define UPP_INDEX_PATH (((wxStandardPaths &)wxStandardPaths::Get()).GetExecutablePath() + _T("/xml_data/"))
+#else
+#define UPP_INDEX_PATH (wxStandardPaths::Get().GetDataDir() + wxFileName::GetPathSeparator())
+#endif
+
 #define UPP_DEFAULT_PIC_MODEL   wxT("18F2550")
 #define UPP_DEFAULT_PIC         "P18F2550"
 
@@ -302,7 +309,7 @@ public:
         for (unsigned int i=0; i<Values.size(); i++)
         {
             if (includeValues)
-                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name.c_str(), (unsigned int)Values[i].Value));
+                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, Values[i].Value));
             else
                 ret.Add(Values[i].Name);
         }
