@@ -234,12 +234,16 @@ void HexFile::trimData(PicType* picType)
             m_codeMemory[i]&=0x3F;
         for (unsigned int i=1;i<m_configMemory.size();i+=2)
             m_configMemory[i]&=0x3F;
+		for (unsigned int i=0;i<m_codeMemory.size();i+=2)
+            m_codeMemory[i]&=0xFF;
+        for (unsigned int i=0;i<m_configMemory.size();i+=2)
+            m_configMemory[i]&=0xFF;
     }
     else
     {
-        for (unsigned int i=1;i<m_codeMemory.size();i++)
+        for (unsigned int i=0;i<m_codeMemory.size();i++)
             m_codeMemory[i]&=0xFF;
-        for (unsigned int i=1;i<m_configMemory.size();i++)
+        for (unsigned int i=0;i<m_configMemory.size();i++)
             m_configMemory[i]&=0xFF;
     }
     
@@ -372,60 +376,52 @@ bool HexFile::save(PicType* picType)
     return saveAs(picType, m_filename.c_str());
 }
 
-void HexFile::putCodeMemory(const vector<int>& mem)
+void HexFile::putMemory(MemoryType type, const vector<int>& mem, const PicType* picType)
 {
-    m_codeMemory=mem;
-    m_bModified = true;
+	switch(type)
+	{
+		case TYPE_CODE: m_codeMemory=mem;break;
+		case TYPE_CONFIG: m_configMemory=mem; calcConfigMask(picType);break;
+		case TYPE_DATA: m_dataMemory=mem;break;
+	}
+	m_bModified = true;
 }
 
-void HexFile::putCodeMemory(int address, int mem)
+void HexFile::putMemory(MemoryType type, int address, int mem, const PicType* picType)
 {
-    if (m_codeMemory.size()>(unsigned)address)
-    {
-        m_codeMemory[address]=mem;
-        m_bModified = true;
-    }
+	switch(type)
+	{
+		case TYPE_CODE:
+			if (m_codeMemory.size()>(unsigned)address)
+			{
+				m_codeMemory[address]=mem;
+				m_bModified = true;
+			}
+			break;
+		case TYPE_CONFIG:
+		    if (m_configMemory.size()<=(unsigned)address) 
+			{
+				m_configMemory.resize(address+1);
+				calcConfigMask(picType);
+				m_bModified = true;
+			}
+			if (m_configMemory.size()>(unsigned)address)
+			{
+				m_configMemory[address]=mem;
+				m_bModified = true;
+			}
+			break;
+		case TYPE_DATA:
+			if (m_dataMemory.size()>(unsigned)address)
+			{
+				m_dataMemory[address]=mem;
+				m_bModified = true;
+			}
+			break;
+	}
 }
 
-void HexFile::putDataMemory(const vector<int>& mem)
-{
-    m_dataMemory=mem;
-    m_bModified = true;
-}
-
-void HexFile::putDataMemory(int address, int mem)
-{
-    if (m_dataMemory.size()>(unsigned)address)
-    {
-        m_dataMemory[address]=mem;
-        m_bModified = true;
-    }
-}
-
-void HexFile::putConfigMemory(const vector<int>& mem, const PicType* picType)
-{
-    m_configMemory=mem;
-    calcConfigMask(picType);
-
-    m_bModified = true;
-}
-
-void HexFile::putConfigMemory(int address, int mem, const PicType* picType)
-{
-    if (m_configMemory.size()<=(unsigned)address) 
-    {
-        m_configMemory.resize(address+1);
-        calcConfigMask(picType);
-    }
-
-    if (m_configMemory.size()>(unsigned)address)
-    {
-        m_configMemory[address]=mem;
-        m_bModified = true;
-    }
-}
-
-VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
+VerifyResult HexFile::verify(MemoryType type, const HexFile* other,bool skipBootSection) const
 {
     // NOTE: this function assumes that *this instance is the one containing
     //       data read from the device under test, and the *other instance
@@ -434,6 +430,7 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
     VerifyResult res;
     res.Result=VERIFY_MISMATCH;
     res.DataType=type;
+	unsigned int start=0;
 
     const vector<int>* arrThis;
     const vector<int>* arrOther;
@@ -442,6 +439,7 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
     case TYPE_CODE: 
         arrThis=&m_codeMemory; 
         arrOther=&other->m_codeMemory; 
+		if(skipBootSection)start=0x800; //the bootloader section ends at 0x800
         break;
     case TYPE_DATA: 
         arrThis=&m_dataMemory; 
@@ -454,19 +452,33 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
     }
 
     // ensure that in the loop below we won't exceed any array bound
-    for (unsigned int i=0; i<min(arrThis->size(), arrOther->size()); i++)
+    for (unsigned int i=start; i<min(arrThis->size(), arrOther->size()); i++)
     {
-        if ((*arrThis)[i] != (*arrOther)[i])
-        {
-            res.Address=i;
-            res.Read=(*arrThis)[i];
-            res.Expected=(*arrOther)[i];
-            return res;
-        }
+		switch(type)
+		{
+			case TYPE_DATA:
+			case TYPE_CODE:
+        		if ((*arrThis)[i] != (*arrOther)[i])
+				{
+					res.Address=i;
+					res.Read=(*arrThis)[i];
+					res.Expected=(*arrOther)[i];
+					return res;
+				}
+				break;
+			case TYPE_CONFIG:
+				if (((*arrThis)[i]&m_configMask[i]) != ((*arrOther)[i]&m_configMask[i]))
+				{
+					res.Address=i;
+					res.Read=(*arrThis)[i];
+					res.Expected=(*arrOther)[i];
+					return res;
+				}
+				break;
+		}
     }
-    
-    // the two hexfile memories match even if they have different size at the condition
-    // that the bigger buffer is filled with zeroes
+    /*
+    // It doesn't make sense to compare a larger hex file with zeroes! let's just not compare it with anything...
     if (arrThis->size() > arrOther->size())
     {
         for (unsigned int i=arrOther->size(); i<arrThis->size(); i++)
@@ -492,49 +504,42 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other) const
                 return res;
             }
         }
-    }
+    }*/
     
     res.Result = VERIFY_SUCCESS;
     return res;
 }
 
-vector<int>& HexFile::getCodeMemory()
+vector<int>& HexFile::getMemory(MemoryType type)
 {
-    return m_codeMemory;
+	switch(type)
+	{
+		case TYPE_CODE:return m_codeMemory;
+		case TYPE_DATA:return m_dataMemory;
+		case TYPE_CONFIG:return m_configMemory;
+	}
 }
 
-int HexFile::getCodeMemory(int address) const
+int HexFile::getMemory(MemoryType type, int address) const
 {
-    if ((unsigned)address<m_codeMemory.size())
-        return m_codeMemory[address];
-    else
-        return 0;
-}
-
-vector<int>& HexFile::getDataMemory()
-{
-    return m_dataMemory;
-}
-
-int HexFile::getDataMemory(int address) const
-{
-    if ((unsigned)address<m_dataMemory.size())
-        return m_dataMemory[address];
-    else
-        return 0;
-}
-
-vector<int>& HexFile::getConfigMemory()
-{
-    return m_configMemory;
-}
-
-int HexFile::getConfigMemory(int address) const
-{
-    if ((unsigned)address<m_configMemory.size())
-        return m_configMemory[address];
-    else
-        return 0;
+	switch(type)
+	{
+		case TYPE_CODE:
+			if ((unsigned)address<m_codeMemory.size())
+				return m_codeMemory[address];
+			else
+				return 0;
+		case TYPE_DATA:
+			if ((unsigned)address<m_dataMemory.size())
+				return m_dataMemory[address];
+			else
+				return 0;
+		case TYPE_CONFIG:
+			 if ((unsigned)address<m_configMemory.size())
+				return m_configMemory[address];
+			else
+				return 0;
+	}			
 }
 
 void HexFile::print(wxString* output,PicType *picType)
@@ -542,61 +547,61 @@ void HexFile::print(wxString* output,PicType *picType)
     int lineSize;
     char txt[256];
     output->append("Code Memory\n");
-    for (int i=0;i<(signed)getCodeMemory().size();i+=16)
+    for (int i=0;i<(signed)getMemory(TYPE_CODE).size();i+=16)
     {
         sprintf(txt,"%08X::",i);
         output->append(txt);
-        if (i+16<(signed)getCodeMemory().size())
+        if (i+16<(signed)getMemory(TYPE_CODE).size())
         {
             lineSize=16;
         }
         else
         {
-            lineSize=getCodeMemory().size()-i;
+            lineSize=getMemory(TYPE_CODE).size()-i;
         }
         for (int j=0;j<lineSize;j++)
         {
-            sprintf(txt,"%02X",getCodeMemory()[i+j]);
+            sprintf(txt,"%02X",getMemory(TYPE_CODE)[i+j]);
             output->append(txt);
         }
         output->append("\n");
     }
     output->append("\nConfig Memory\n");
-    for (int i=0;i<(signed)getConfigMemory().size();i+=16)
+    for (int i=0;i<(signed)getMemory(TYPE_CONFIG).size();i+=16)
     {
         sprintf(txt,"%08X::",i+picType->ConfigAddress);
         output->append(txt);
-        if (i+16<(signed)getConfigMemory().size())
+        if (i+16<(signed)getMemory(TYPE_CONFIG).size())
         {
             lineSize=16;
         }
         else
         {
-            lineSize=getConfigMemory().size()-i;
+            lineSize=getMemory(TYPE_CONFIG).size()-i;
         }
         for (int j=0;j<lineSize;j++)
         {
-            sprintf(txt,"%02X",getConfigMemory()[i+j]);
+            sprintf(txt,"%02X",getMemory(TYPE_CONFIG)[i+j]);
             output->append(txt);
         }
         output->append("\n");
     }
     output->append("\nData Memory\n");
-    for (int i=0;i<(signed)getDataMemory().size();i+=16)
+    for (int i=0;i<(signed)getMemory(TYPE_DATA).size();i+=16)
     {
         sprintf(txt,"%08X::",i);
         output->append(txt);
-        if (i+16<(signed)getDataMemory().size())
+        if (i+16<(signed)getMemory(TYPE_DATA).size())
         {
             lineSize=16;
         }
         else
         {
-            lineSize=getDataMemory().size()-i;
+            lineSize=getMemory(TYPE_DATA).size()-i;
         }
         for (int j=0;j<lineSize;j++)
         {
-            sprintf(txt,"%02X",getDataMemory()[i+j]);
+            sprintf(txt,"%02X",getMemory(TYPE_DATA)[i+j]);
             output->append(txt);
         }
         output->append("\n");

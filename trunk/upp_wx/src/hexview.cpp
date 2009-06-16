@@ -116,10 +116,10 @@ void UppHexViewGrid::SetHexFile(HexFile* hexFile)
     switch (m_type)
     {
         case HEXVIEW_CODE:
-            data = &m_hexFile->getCodeMemory();
+            data = &m_hexFile->getMemory(TYPE_CODE);
             break;
         case HEXVIEW_DATA:
-            data = &m_hexFile->getDataMemory();
+            data = &m_hexFile->getMemory(TYPE_DATA);
             break;
     }
 
@@ -236,12 +236,12 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
         switch (m_type)
         {
             case HEXVIEW_CODE:
-                m_hexFile->putCodeMemory(position, cellData);
-                cellDataStr.Printf(wxT("%02X"), m_hexFile->getCodeMemory(position));
+                m_hexFile->putMemory(TYPE_CODE, position, cellData, NULL);
+                cellDataStr.Printf(wxT("%02X"), m_hexFile->getMemory(TYPE_CODE, position));
                 break;
             case HEXVIEW_DATA:
-                m_hexFile->putDataMemory(position, cellData);
-                cellDataStr.Printf(wxT("%02X"), m_hexFile->getDataMemory(position));
+                m_hexFile->putMemory(TYPE_DATA, position, cellData, NULL);
+                cellDataStr.Printf(wxT("%02X"), m_hexFile->getMemory(TYPE_DATA, position));
                 break;
         }
 

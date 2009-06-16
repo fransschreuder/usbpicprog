@@ -108,14 +108,9 @@ public:
     */
     //@{
     
-    void putCodeMemory(const vector<int>& mem);
-    void putCodeMemory(int address, int mem);
-    
-    void putDataMemory(const vector<int>& mem);
-    void putDataMemory(int address, int mem);
-    
-    void putConfigMemory(const vector<int>& mem, const PicType* pic);
-    void putConfigMemory(int address, int mem, const PicType* pic);
+    void putMemory(MemoryType type, const vector<int>& mem, const PicType* picType);
+    void putMemory(MemoryType type, int address, int mem, const PicType* picType);
+
     
     //@}
     
@@ -124,19 +119,13 @@ public:
         @name Memory read functions
     */
     //@{
-    
-    vector<int>& getCodeMemory();
-    int getCodeMemory(int address) const;
-    
-    vector<int>& getDataMemory();
-    int getDataMemory(int address) const;
-    
-    vector<int>& getConfigMemory();
-    int getConfigMemory(int address) const;
+
+	vector<int>& getMemory(MemoryType type);
+	int getMemory(MemoryType type, int address) const;
     
     //@}
     
-    VerifyResult verify(MemoryType type, const HexFile* other) const;
+    VerifyResult verify(MemoryType type, const HexFile* other,bool skipBootSection) const;
     
     /**
         Dumps into the @a output wxString the current code/config/data memory contents.

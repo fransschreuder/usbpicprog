@@ -326,7 +326,7 @@ int Hardware::bulkErase(PicType* picType)
     }
 }
 
-int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes)
+int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes, HexFile *verifyData)
 {
     if (!picType->ok()) return -1;
     if (m_handle == NULL) return -1;
@@ -339,9 +339,9 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 	
     switch (type)
     {
-    case TYPE_CODE: memorySize = picType->CodeSize; break;
-    case TYPE_DATA: memorySize = picType->DataSize; break;
-    case TYPE_CONFIG: memorySize = picType->ConfigSize; break;
+		case TYPE_CODE: memorySize = picType->CodeSize; break;
+		case TYPE_DATA: memorySize = picType->DataSize; break;
+		case TYPE_CONFIG: memorySize = picType->ConfigSize; break;
     }
 
 	if((numberOfBytes>0)&&(numberOfBytes<memorySize))memorySize=numberOfBytes;
@@ -419,27 +419,40 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
         for (unsigned int i=0; i<blocksize; i++)
         {
             if (memorySize > (blockcounter+i))
-                mem[blockcounter+i]=((unsigned char)(dataBlock[i]&0xFF));
+                mem[blockcounter+i]=((int)(dataBlock[i]&0xFF));
             else
             {
                 wxLogError("Trying to read memory outside allowed area: bc+i=%d; memory size=%d", 
                            blockcounter+i, memorySize);
                 // return -1;
             }
+			if(verifyData!=NULL)
+			{
+				switch(type)
+				{
+					case TYPE_DATA:
+						if(verifyData->getMemory(type,blockcounter+i)!=mem[blockcounter+i]) m_abortOperations=true;
+						break;
+					case TYPE_CODE:
+						if(verifyData->getMemory(type,blockcounter+i)!=mem[blockcounter+i]) 
+						{
+							if(m_hwCurrent==HW_BOOTLOADER&&((blockcounter+i)>0x800))m_abortOperations=true;
+							if(m_hwCurrent!=HW_BOOTLOADER)m_abortOperations=true;
+						}
+						break;
+					case TYPE_CONFIG: //just continue reading -- this is always short and complicated to verify in this step
+						break;
+				}
+			}
 			//if(blockcounter==0)cout<<std::hex<<mem[blockcounter+i]<<endl;
         }
 
-        if (m_abortOperations)
+        if (m_abortOperations&&((blocktype &BLOCKTYPE_LAST)==BLOCKTYPE_LAST))
             break;
     }
 
     // finally save the data we've just read into the hexfile:
-    switch (type)
-    {
-    case TYPE_CODE: hexData->putCodeMemory(mem); break;
-    case TYPE_DATA: hexData->putDataMemory(mem); break;
-    case TYPE_CONFIG: hexData->putConfigMemory(mem, picType); break;
-    }
+    hexData->putMemory(type, mem, picType);
 
     return nBytes;
 }
@@ -454,21 +467,9 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
     // which memory area are we going to write?
     vector<int>* memory = NULL;
-    switch (type)
-    {
-    case TYPE_CODE: 
-        memory = &hexData->getCodeMemory();
-        break;
-    case TYPE_DATA: 
-        memory = &hexData->getDataMemory();
-        break;
-    case TYPE_CONFIG: 
-        memory = &hexData->getConfigMemory();
-        break;
-    default:
-        wxFAIL_MSG("invalid type code");
-    }
-
+    
+    memory = &hexData->getMemory(type);
+    
     if (memory->size()==0)
 	{
         return 1;       // no code/config/data to write
@@ -569,27 +570,27 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     // read from the device
 
-    if (doCode&&(hexData->getCodeMemory().size()>0))
+    if (doCode&&(hexData->getMemory(TYPE_CODE).size()>0))
     {
-        if (read(TYPE_CODE, &readData, picType,hexData->getCodeMemory().size()) < 0)
+        if (read(TYPE_CODE, &readData, picType,hexData->getMemory(TYPE_CODE).size(),hexData) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CODE;
             return res;
         }
     }
-    if (doData&&(hexData->getDataMemory().size()>0))
+    if (doData&&(hexData->getMemory(TYPE_DATA).size()>0))
     {
-        if (read(TYPE_DATA, &readData, picType,hexData->getDataMemory().size()) < 0)
+        if (read(TYPE_DATA, &readData, picType,hexData->getMemory(TYPE_DATA).size(),hexData) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_DATA;
             return res;
         }
     }
-    if (doConfig&&(hexData->getConfigMemory().size()>0))
+    if (doConfig&&(hexData->getMemory(TYPE_CONFIG).size()>0))
     {
-        if (read(TYPE_CONFIG, &readData, picType,hexData->getConfigMemory().size()) < 0)
+        if (read(TYPE_CONFIG, &readData, picType,hexData->getMemory(TYPE_CONFIG).size(),hexData) < 0)
         {
             res.Result=VERIFY_USB_ERROR;
             res.DataType=TYPE_CONFIG;
@@ -600,9 +601,9 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
 
     // compare read values and hexData
 
-    if ((hexData->getCodeMemory().size()+
-        hexData->getDataMemory().size()+
-        hexData->getConfigMemory().size())==0) 
+    if ((hexData->getMemory(TYPE_CODE).size()+
+        hexData->getMemory(TYPE_DATA).size()+
+        hexData->getMemory(TYPE_CONFIG).size())==0) 
     {
         // there should be at least some data in the file
         wxLogWarning("No data to verify");
@@ -611,22 +612,22 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
         return res;
     }
 
-    if (doCode&&(hexData->getCodeMemory().size()>0))
+    if (doCode&&(hexData->getMemory(TYPE_CODE).size()>0))
     {
-        res = readData.verify(TYPE_CODE, hexData);
+        res = readData.verify(TYPE_CODE, hexData,(m_hwCurrent==HW_BOOTLOADER));
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
-    if (doData&&(hexData->getDataMemory().size()>0))
+    if (doData&&(hexData->getMemory(TYPE_DATA).size()>0))
     {
-        res = readData.verify(TYPE_DATA, hexData);
+        res = readData.verify(TYPE_DATA, hexData,false);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
-    if (doConfig && m_hwCurrent == HW_UPP &&(hexData->getConfigMemory().size()>0)) 
+    if (doConfig && m_hwCurrent == HW_UPP &&(hexData->getMemory(TYPE_CONFIG).size()>0)) 
         // it's no use to verify config for the bootloader
     {
-        res = readData.verify(TYPE_CONFIG, hexData);
+        res = readData.verify(TYPE_CONFIG, hexData,false);
         if (res.Result != VERIFY_SUCCESS)
             return res;
     }
