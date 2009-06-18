@@ -262,7 +262,6 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 {
     unsigned int SelectedWord = GetSelection();
     unsigned long ConfigWordInt = 0; 
-	cout<<"Direct change"<<endl;
     wxString configStr = m_ctrl[SelectedWord].textCtrl->GetValue();
     if (configStr.empty())
         return;     // do not change anything

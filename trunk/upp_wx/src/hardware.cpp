@@ -535,13 +535,6 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             currentBlockCounter /= 2;
 		if(type==TYPE_CONFIG)
 			currentBlockCounter+=picType->ConfigAddress;
-
-
-		if(type==TYPE_CONFIG)
-		{
-			cout<<"ConfigAddress: "<<std::hex<<picType->ConfigAddress<<endl;
-			cout<<"Blocktype: "<<std::hex<<blocktype<<", memory size: "<<memory->size()<<", blocksizeHw: "<<blockSizeHW<<", blockcounter: "<<currentBlockCounter<<endl;
-		}
 		
 		// do write the block
         int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);

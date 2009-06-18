@@ -121,7 +121,6 @@ void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 by wxWidgets, even if no arguments are given. */
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-cout<<parser.GetParam(0)<<endl;
     /*If no command line arguments are passed, we open the main window  *
      *Else, a command line application is started.						*
      *Only the filename may be passed to the gui						*/
