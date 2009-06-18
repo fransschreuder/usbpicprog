@@ -528,17 +528,22 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
 
-		/*if(type==TYPE_CONFIG)
-		{
-			cout<<"Blocktype: "<<blocktype<<", memory size: "<<memory->size()<<", blocksizeHw: "<<blockSizeHW<<", blockcounter: "<<blockcounter<<endl;
-		}*/
 		   
 
         unsigned int currentBlockCounter=blockcounter;
         if (picType->is14Bit())
             currentBlockCounter /= 2;
+		if(type==TYPE_CONFIG)
+			currentBlockCounter+=picType->ConfigAddress;
 
-        // do write the block
+
+		if(type==TYPE_CONFIG)
+		{
+			cout<<"ConfigAddress: "<<std::hex<<picType->ConfigAddress<<endl;
+			cout<<"Blocktype: "<<std::hex<<blocktype<<", memory size: "<<memory->size()<<", blocksizeHw: "<<blockSizeHW<<", blockcounter: "<<currentBlockCounter<<endl;
+		}
+		
+		// do write the block
         int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
         if (m_hwCurrent == HW_UPP)
         {
@@ -554,7 +559,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             // retCode == 1 means "OK, all finished"; retCode == 2 means "OK, waiting for next block"
         }
 
-        if (m_abortOperations)
+        if (m_abortOperations&&((blocktype&BLOCKTYPE_LAST)==BLOCKTYPE_LAST))
             break;
     }
 
