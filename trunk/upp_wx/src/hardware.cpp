@@ -405,6 +405,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
         unsigned int currentBlockCounter = blockcounter;
         if (picType->is14Bit())
             currentBlockCounter /= 2;
+		if (type==TYPE_CONFIG)
+			currentBlockCounter+=picType->ConfigAddress;
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
             blocksize = blockSizeHW;
@@ -412,6 +414,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
             blocksize = memorySize-blockcounter;
 
         // do read the block
+		if(type==TYPE_CONFIG)
+			cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
 
