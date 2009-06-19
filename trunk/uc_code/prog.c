@@ -1202,9 +1202,9 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			}
 			break;
 		case PIC16:
-			if(lastblock&1)
+			if((lastblock&1)&&(address>0))
 			{
-				pic_read_14_bits(6,0x05);
+				data[0]=pic_read_14_bits(6,0x05);	//read first byte
 				for(i=0;i<(unsigned int)address;i++)pic_send_n_bits(6,0x06);	//increment address
 			}
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
