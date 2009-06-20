@@ -659,23 +659,28 @@ int Hardware::autoDetectDevice()
     if (m_handle == NULL) return -1;
 
     if (m_hwCurrent == HW_BOOTLOADER)
-        return -1;     // PIC18F2550
+	{
+		PicType picBoot = PicType::FindPIC("P18F2550");
+		cout<<"Bootloader Devid: "<<std::hex<<picBoot.DevId<<endl;
+		return picBoot.DevId;
+	}
+     
 
-	PicType pic30 = PicType::FindPIC("P30F1010");
-	if(setPicType(&pic30)<0)
+	PicType pic16 = PicType::FindPIC("P16F628A");
+	if(setPicType(&pic16)<0)
 		return -1;
 
 	int devId=readId();
 
-	cout<<"Devid PIC30: "<<devId<<endl;
+
 	
 	if(devId<0)
 		return -1;
 
-	PicType picType = PicType::FindPIC(0x20000|devId);
+	PicType picType = PicType::FindPIC(devId);
 
 	if(picType.ok())
-		return devId|0x20000; 
+		return devId; 
 	else
 	{
 	
@@ -697,17 +702,18 @@ int Hardware::autoDetectDevice()
 		else
 		{
 			// try PIC16: the specific PIC16 device doesn't matter
-			PicType pic16 = PicType::FindPIC("P16F628A");
-			if (setPicType(&pic16) < 0)
+			PicType pic30 = PicType::FindPIC("P30F1010");
+			if (setPicType(&pic30) < 0)
 				return -1;
 
 			devId=readId();
+				cout<<"Devid PIC30: "<<(devId|0x20000)<<endl;
 			if (devId < 0)
 				return -1;
 			
-			PicType picType = PicType::FindPIC(devId);
+			PicType picType = PicType::FindPIC(devId|0x20000);
 			if (picType.ok())
-				return devId;
+				return devId|0x20000;
 		}
 	}
     return -1;
