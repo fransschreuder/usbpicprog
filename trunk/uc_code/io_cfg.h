@@ -101,6 +101,12 @@
 #define TRISPGC TRISBbits.TRISB1
 #define VDD LATBbits.LATB2
 #define TRISVDD TRISBbits.TRISB2
+#define VPP_RUN LATAbits.LATA3
+#define TRISVPP_RUN TRISAbits.TRISA3
+#define PGD_LOW LATAbits.LATA4
+#define TRISPGD_LOW TRISAbits.TRISA4
+#define PGC_LOW LATAbits.LATA5
+#define TRISPGC_LOW TRISAbits.TRISA5
 /** Voltage pump ****************************************************/
 #define Pump1 LATAbits.LATA0
 #define Pump2 LATAbits.LATA1

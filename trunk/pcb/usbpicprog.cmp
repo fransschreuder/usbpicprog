@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Sat 23 May 2009 11:45:56 AM CEST
+Cmp-Mod V01 Created by CVpcb (20080825c) date = 26/6/2009-07:32:53
 
 BeginCmp
 TimeStamp = /466D32C2;
@@ -108,21 +108,21 @@ EndCmp
 BeginCmp
 TimeStamp = /466D3654;
 Reference = D5;
-ValeurCmp = RED;
+ValeurCmp = WR;
 IdModule  = SM1210;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3665;
 Reference = D6;
-ValeurCmp = YELLOW;
+ValeurCmp = RD;
 IdModule  = SM1210;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3669;
 Reference = D7;
-ValeurCmp = GREEN;
+ValeurCmp = ON;
 IdModule  = SM1210;
 EndCmp
 
@@ -136,6 +136,13 @@ EndCmp
 BeginCmp
 TimeStamp = /471DF3F8;
 Reference = D9;
+ValeurCmp = 1n4148;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A447726;
+Reference = D10;
 ValeurCmp = 1n4148;
 IdModule  = SM1206;
 EndCmp
@@ -304,7 +311,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4A17C51E;
 Reference = R16;
-ValeurCmp = 33k;
+ValeurCmp = 47k;
 IdModule  = SM0603;
 EndCmp
 
