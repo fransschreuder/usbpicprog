@@ -72,7 +72,7 @@ void UserInit(void)
 	TRISPGC=0;    
 	TRISVDD=0;
 	TRISVPP_RUN=0;
-	VPP_RUN=1;	//run = off
+	VPP_RUN=0;	//run = off
 	PGD_LOW=1;
 	TRISPGD_LOW=1; //LV devices disabled, high impedance / input
 	PGC_LOW=1;

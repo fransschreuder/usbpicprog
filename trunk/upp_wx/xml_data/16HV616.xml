@@ -7,17 +7,17 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="12F615" status="IP" memory_technology="FLASH" self_write="no" architecture="16X" id="0x2180" id_high_voltage="0x21A0"
+<device name="16F616" status="IP" memory_technology="FLASH" self_write="no" architecture="16X" id="0x1260"
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:noNamespaceSchemaLocation='pic.xsd'>
 
 <!--* Documents ************************************************************-->
-  <documents webpage="027148" datasheet="41302" progsheet="41284" erratas="80294" />
+  <documents webpage="026028" datasheet="41288" progsheet="41284" erratas="80296" />
 
 <!--* Checksums ************************************************************-->
   <checksums>
-    <checksum protected="Off" bchecksum="0xFFFF" cchecksum="0xCBCD" />
-    <checksum protected="All" bchecksum="0x03BE" cchecksum="0xCF8C" />
+    <checksum protected="Off" bchecksum="0xFBFF" cchecksum="0xC7CD" />
+    <checksum protected="All" bchecksum="0xFFBE" cchecksum="0xCB8C" />
   </checksums>
 
 <!--* Operating characteristics ********************************************-->
@@ -28,8 +28,8 @@
   </frequency_range>
 
   <frequency_range name="extended" special="high_voltage">
-    <frequency start="0"  end="4"  vdd_min="2"   vdd_max="5.0" />
-    <frequency start="4"  end="10" vdd_min="3"   vdd_max="5.0" />
+    <frequency start="0"  end="8"  vdd_min="2"   vdd_max="5.0" />
+    <frequency start="8"  end="10" vdd_min="3"   vdd_max="5.0" />
     <frequency start="10" end="20" vdd_min="4.5" vdd_max="5.0" />
   </frequency_range>
 
@@ -38,7 +38,7 @@
   <voltages name="vdd_prog_write" min="2"   max="5.5" nominal="5"    />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"      start="0x0000" end="0x03FF" />
+  <memory name="code"      start="0x0000" end="0x07FF" />
   <memory name="calibration"  start="0x2008" end="0x2008" cal_opmask="0x0000" cal_opcode="0x0000" />
   <memory name="user_ids"     start="0x2000" end="0x2003" rmask="0x007F"      />
   <memory name="device_id"    start="0x2006" end="0x2006" />
@@ -85,15 +85,40 @@
   </config>
 
 <!--* Packages *************************************************************-->
-  <package types="pdip soic dfns tssop" nb_pins="8" >
-    <pin index="1" name="VDD" />
-    <pin index="2" name="GP5/OSC1/T1CKI/CLKIN" />
-    <pin index="3" name="GP4/OSC2/AN3/C1IN-/T1G/CLKOUT" />
-    <pin index="4" name="GP3/MCLR/VPP" />
-    <pin index="5" name="GP2/AN2/T0CKI/INT/COUT/CCP1/P1A" />
-    <pin index="6" name="GP1/AN1/C0IN-/VREF/CLK" />
-    <pin index="7" name="GP0/AN0/CIN+/P1B/DAT" />
-    <pin index="8" name="VSS" />
+  <package types="pdip soic tssop" nb_pins="14" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+  </package>
+
+  <package types="qfn"       nb_pins="16" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
   </package>
 
 </device>

@@ -10,13 +10,21 @@
     <pic name="10F204" upp_family="P10F200" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="10F206" upp_family="P10F202" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="16F84A" upp_family="P16F84A" upp_devid="0x560" upp_devidmask="0x3FE0"/>
+    <pic name="12F609" upp_family="P12F61X" upp_devid="0x2240" upp_devidmask="0x3FE0"/>
+    <pic name="12F615" upp_family="P12F61X" upp_devid="0x2180" upp_devidmask="0x3FE0"/>
+    <pic name="12HV609" upp_family="P12F61X" upp_devid="0x2280" upp_devidmask="0x3FE0"/>
+    <pic name="12HV615" upp_family="P12F61X" upp_devid="0x21A0" upp_devidmask="0x3FE0"/>
     <pic name="12F629" upp_family="P12F629" upp_devid="0xF80" upp_devidmask="0x3FE0"/>
     <pic name="12F675" upp_family="P12F629" upp_devid="0xFC0" upp_devidmask="0x3FE0"/>
+    <pic name="12F683" upp_family="P12F6XX" upp_devid="0x460" upp_devidmask="0x3FE0"/>
     <pic name="16F630" upp_family="P12F629" upp_devid="0x10C0" upp_devidmask="0x3FE0"/>
     <pic name="16F676" upp_family="P12F629" upp_devid="0x10E0" upp_devidmask="0x3FE0"/>
     <pic name="12F635" upp_family="P12F6XX" upp_devid="0xFA0" upp_devidmask="0x3FE0"/>
+    <pic name="16F610" upp_family="P12F61X" upp_devid="0x2260" upp_devidmask="0x3FE0"/>
+    <pic name="16F616" upp_family="P12F61X" upp_devid="0x1240" upp_devidmask="0x3FE0"/>
+    <pic name="16HV610" upp_family="P12F61X" upp_devid="0x22A0" upp_devidmask="0x3FE0"/>
+    <pic name="16HV616" upp_family="P12F61X" upp_devid="0x1260" upp_devidmask="0x3FE0"/>
     <pic name="16F684" upp_family="P12F6XX" upp_devid="0x1080" upp_devidmask="0x3FE0"/>
-    <pic name="16F683" upp_family="P12F6XX" upp_devid="0x460" upp_devidmask="0x3FE0"/>
     <pic name="16F685" upp_family="P12F6XX" upp_devid="0x4A0" upp_devidmask="0x3FE0"/>
     <pic name="16F631" upp_family="P12F6XX" upp_devid="0x1420" upp_devidmask="0x3FE0"/>
     <pic name="16F687" upp_family="P12F6XX" upp_devid="0x1320" upp_devidmask="0x3FE0"/>

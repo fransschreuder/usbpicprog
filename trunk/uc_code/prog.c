@@ -241,6 +241,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			DelayMs(Tera);//f) Wait TERA.
 			//h) Restore OSCCAL and BG bits.*/
 			break;
+		case P12F61X:
 		case P16F84A:	//same as P16F62XA
 		case P12F6XX:	//same as P16F62XA
 		case P16F62XA:
@@ -259,6 +260,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			/*PGD=0;
 			set_vdd_vpp(pictype, picfamily,0);
 			set_vdd_vpp(pictype, picfamily,1);    */
+			if(pictype==P12F61X)break;	//does not have data memory
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			DelayMs(Tera);
@@ -486,12 +488,23 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case P16F62XA:	//same as P16F62X
 		case P16F62X:
 		case P12F629:
+		case P12F61X:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 						(((unsigned int)data[blockcounter+1])<<8));//LSB
-				pic_send_n_bits(6,0x08);    //begin programming
-				DelayMs(Tprog);
+				switch(pictype)
+				{
+					case P12F61X:
+						pic_send_n_bits(6,0x18);    //begin programming
+						DelayMs(Tprog);
+						pic_send_n_bits(6,0x0A);    //end programming
+						break;
+					default:
+						pic_send_n_bits(6,0x08);    //begin programming
+						DelayMs(Tprog);
+						break;
+				}
 				payload=pic_read_14_bits(6,0x04); //read code memory
 				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 				{
@@ -505,8 +518,18 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					else
 						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
-					pic_send_n_bits(6,0x08);    //begin programming
-					DelayMs(Tprog);
+					switch(pictype)
+					{
+						case P12F61X:
+							pic_send_n_bits(6,0x18);    //begin programming
+							DelayMs(Tprog);
+							pic_send_n_bits(6,0x0A);    //end programming
+							break;
+						default:
+							pic_send_n_bits(6,0x08);    //begin programming
+							DelayMs(Tprog);
+							break;
+					}
 					payload=pic_read_14_bits(6,0x04); //read code memory
 					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 					{
@@ -934,6 +957,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 		case P12F6XX: //same as P16F62X
 		case P16F62XA: //same as P16F62X
 		case P16F62X:
+		case P12F61X:
 			if(lastblock&1)
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -946,15 +970,25 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				{
 					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
 					pic_send_14_bits(6,0x02,payload); //load data for programming
-					pic_send_n_bits(6,0x08);    //begin programming
+					switch(pictype)
+					{
+						case P12F61X:
+							pic_send_n_bits(6,0x18);    //begin programming
+						default:
+							pic_send_n_bits(6,0x08);    //begin programming
+							break;
+					}
 					DelayMs(Tprog);
 					switch(pictype)
 					{
 						case P16F72:
 						case P16F7X:
 						case P16F7X7:
-						pic_send_n_bits(6,0x0E);    //end programming
-						break;
+							pic_send_n_bits(6,0x0E);    //end programming
+							break;
+						case P12F61X:
+							pic_send_n_bits(6,0x0A);	//end programming
+							break;
 					}
 				}
 				//read data from program memory (to verify) not yet impl...
