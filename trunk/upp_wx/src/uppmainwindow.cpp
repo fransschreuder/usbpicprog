@@ -1357,12 +1357,18 @@ bool UppMainWindow::upp_autodetect()
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
     // if devId is not a valid device ID, select the default PIC
-    if (devId == -1)
-        m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
-    else
+	if((!m_picType.ok())&&(devId==-1))
+	{
+		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
+    	wxASSERT(m_picType.ok());
+    	m_hardware->setPicType(&m_picType);
+	}
+	if (devId != -1)
+	{
         m_picType = PicType::FindPIC(devId);
-    wxASSERT(m_picType.ok());
-    m_hardware->setPicType(&m_picType);
+    	wxASSERT(m_picType.ok());
+    	m_hardware->setPicType(&m_picType);
+	}
 
     // sync the choicebox with m_picType
     wxString picName=m_picType.getPicName();
