@@ -1,4 +1,4 @@
-update=Sat 23 May 2009 11:45:40 AM CEST
+update=30/6/2009-11:52:51
 last_client=cvpcb
 [eeschema]
 version=1
@@ -120,7 +120,7 @@ ShowRat=0
 ShowMRa=1
 [pcbnew/libraries]
 LibDir=
-LibName1=/home/frans/kicad_custom/custom
+LibName1=/home/schreuder/kicad custom/custom
 LibName2=supports
 LibName3=./modules/usb-b
 LibName4=connect

@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20080912) date = 30/10/2008-08:36:40
+Cmp-Mod V01 Created by CVpcb (20080825c) date = 30/6/2009-11:56:16
 
 BeginCmp
 TimeStamp = /466D32C2;
@@ -10,14 +10,14 @@ EndCmp
 BeginCmp
 TimeStamp = /466D33F3;
 Reference = C2;
-ValeurCmp = 15p;
+ValeurCmp = 22p;
 IdModule  = C1;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D33F6;
 Reference = C3;
-ValeurCmp = 15p;
+ValeurCmp = 22p;
 IdModule  = C1;
 EndCmp
 
@@ -108,21 +108,21 @@ EndCmp
 BeginCmp
 TimeStamp = /466D3654;
 Reference = D5;
-ValeurCmp = LED;
+ValeurCmp = WR;
 IdModule  = LED;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3665;
 Reference = D6;
-ValeurCmp = LED;
+ValeurCmp = RD;
 IdModule  = LED;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3669;
 Reference = D7;
-ValeurCmp = LED;
+ValeurCmp = ON;
 IdModule  = LED;
 EndCmp
 
@@ -136,6 +136,13 @@ EndCmp
 BeginCmp
 TimeStamp = /471DF3F8;
 Reference = D9;
+ValeurCmp = 1n4148;
+IdModule  = D;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A447726;
+Reference = D10;
 ValeurCmp = 1n4148;
 IdModule  = D;
 EndCmp
@@ -183,6 +190,13 @@ IdModule  = TO92DGS;
 EndCmp
 
 BeginCmp
+TimeStamp = /49E8D0F9;
+Reference = Q4;
+ValeurCmp = BS170;
+IdModule  = TO92DGS;
+EndCmp
+
+BeginCmp
 TimeStamp = /466D1610;
 Reference = R1;
 ValeurCmp = 2k2;
@@ -220,42 +234,77 @@ EndCmp
 BeginCmp
 TimeStamp = /466D3676;
 Reference = R6;
-ValeurCmp = 150;
+ValeurCmp = 470;
 IdModule  = R;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3677;
 Reference = R7;
-ValeurCmp = 150;
+ValeurCmp = 470;
 IdModule  = R;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D3678;
 Reference = R8;
-ValeurCmp = 150;
+ValeurCmp = 470;
 IdModule  = R;
 EndCmp
 
 BeginCmp
-TimeStamp = /48A42F3D;
+TimeStamp = /49096A85;
 Reference = R9;
 ValeurCmp = 1k;
 IdModule  = R;
 EndCmp
 
 BeginCmp
-TimeStamp = /49096EAB;
+TimeStamp = /49096ACD;
 Reference = R10;
-ValeurCmp = 470;
+ValeurCmp = 1k;
 IdModule  = R;
 EndCmp
 
 BeginCmp
-TimeStamp = /49096EAC;
+TimeStamp = /49096B01;
 Reference = R11;
-ValeurCmp = 470;
+ValeurCmp = 1k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = /49E8D15B;
+Reference = R12;
+ValeurCmp = 100k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = /49E8D1CA;
+Reference = R13;
+ValeurCmp = 100k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = /49E8D2DB;
+Reference = R14;
+ValeurCmp = 1k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A17C513;
+Reference = R15;
+ValeurCmp = 100k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A17C51E;
+Reference = R16;
+ValeurCmp = 47k;
 IdModule  = R;
 EndCmp
 
