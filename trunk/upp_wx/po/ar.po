@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Usbpicprog\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-09 16:20+0100\n"
-"PO-Revision-Date: 2009-06-09 16:20+0100\n"
-"Last-Translator: Frans Schreuder <fransschreuder@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2009-07-04 12:25+0200\n"
+"Last-Translator: SAOUD Hadi\n"
 "Language-Team: Arabic <fransschreuder@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../src/main.cpp:75
 msgid "Cannot load XML PIC data."
-msgstr ""
+msgstr "لا يمكن تحميل معطيات الـPIC من ملف الـXML"
 
 #: ../src/hexview.cpp:216
 msgid "Edit"
@@ -38,92 +38,81 @@ msgid "Select All"
 msgstr "تحديد الكل"
 
 #: ../src/configview.cpp:135
-#, fuzzy
 msgid "Configuration Word:"
-msgstr "أعلام الإعدادات"
+msgstr "كلمة الإعدادات:"
 
+# mauvaise traduction?
 #: ../src/configview.cpp:142
 #, c-format
 msgid "Current value for the %d-th configuration word as derived from above configuration choices"
-msgstr ""
+msgstr "القيمة الحالية لكلمة التحكم رقم %d مشتقة من الخيارات المختارة أعلاه"
 
 #: ../src/configview.cpp:159
 #, c-format
 msgid "Location in memory: 0x%X"
-msgstr ""
+msgstr "التوضع في الذاكرة: 0x%X"
 
 #: ../src/configview.cpp:163
 #, c-format
 msgid "Length: %d bits"
-msgstr ""
+msgstr "الطول: %d bits"
 
 #: ../src/configview.cpp:181
 #, c-format
 msgid "Word %d"
-msgstr ""
+msgstr "الكلمة %d"
 
 #: ../src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
-msgstr ""
+msgstr "الإعدادات العامة لـUsbpicprog:"
 
 #: ../src/preferences_base.cpp:24
-#, fuzzy
 msgid "Program options"
-msgstr "$باشر البرمجة"
+msgstr "خيارات البرمجة"
 
 #: ../src/preferences_base.cpp:26
-#, fuzzy
 msgid "Write code memory"
-msgstr "تمت الكتابة في ذاكرة التعليمات"
+msgstr "كتابة ذاكرة التعليمات"
 
 #: ../src/preferences_base.cpp:30
-#, fuzzy
 msgid "Write config memory"
-msgstr "تمت الكتابة في ذاكرة الإعدادات"
+msgstr "كتابة ذاكرة الإعدادات"
 
 #: ../src/preferences_base.cpp:34
-#, fuzzy
 msgid "Write data memory"
-msgstr "تمت الكتابة في ذاكرة المعطيات"
+msgstr "كتابة ذاكرة المعطيات"
 
 #: ../src/preferences_base.cpp:38
 msgid "Erase before programming"
 msgstr "مسح قبل البرمجة"
 
 #: ../src/preferences_base.cpp:42
-#, fuzzy
 msgid "Verify after programming"
-msgstr "مسح قبل البرمجة"
+msgstr "التفحص بعد البرمجة"
 
 #: ../src/preferences_base.cpp:49
-#, fuzzy
 msgid "Verify options"
 msgstr "تفحص الإعدادات"
 
 #: ../src/preferences_base.cpp:51
-#, fuzzy
 msgid "Verify code memory"
-msgstr "تفحص شيفرة التعليمات"
+msgstr "تفحص ذاكرة التعليمات"
 
 #: ../src/preferences_base.cpp:55
-#, fuzzy
 msgid "Verify config memory"
-msgstr "تفحص الإعدادات"
+msgstr "تفحص ذاكرة الإعدادات"
 
 #: ../src/preferences_base.cpp:59
-#, fuzzy
 msgid "Verify data memory"
-msgstr "تفحص المعطيات"
+msgstr "تفحص ذاكرة المعطيات"
 
 #: ../src/preferences_base.cpp:66
-#, fuzzy
 msgid "GUI options"
-msgstr "&خيارات"
+msgstr "خيارات الواجهة الرسومية"
 
 #: ../src/preferences_base.cpp:68
-#, fuzzy
 msgid "Shows popups on connect etc..."
-msgstr "إظهار نافذة منبثقة عند الاتصال"
+msgstr "إظهار نافذة منبثقة عند الاتصال و غير ذلك"
 
 #: ../src/uppmainwindow.cpp:208
 msgid "&Program..."
@@ -193,7 +182,6 @@ msgstr "فصل المبرمجة"
 msgid "&Select PIC..."
 msgstr "اخ&تار الـPIC"
 
-# vérifier l'ordre
 #: ../src/uppmainwindow.cpp:268
 msgid "Change the currently selected PIC"
 msgstr "تغيير نمط الـPIC المختار"
@@ -264,17 +252,18 @@ msgstr "الرجاء، قم بالتأكيد"
 #: ../src/uppmainwindow.cpp:501
 #: ../src/uppmainwindow.cpp:507
 msgid "Your firmware is too old; please consider upgrading it"
-msgstr ""
+msgstr "برنامجك المثبت (firmware) قديم و يفضل تحديثه"
 
 #: ../src/uppmainwindow.cpp:466
 #: ../src/uppmainwindow.cpp:475
 #: ../src/uppmainwindow.cpp:484
+#, fuzzy
 msgid "Firmware probably too new"
-msgstr ""
+msgstr "قد يكون البرنامج المثبت (firmware) حديث جداَ"
 
 #: ../src/uppmainwindow.cpp:490
 msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
-msgstr ""
+msgstr "إنك تستخدم النسخة المستقرة من البرنامج الثابت (firmware) مع نسخة تجريبية من البرنامج. قد يكون من الأفضل تحديث البرنامج الثابت"
 
 #: ../src/uppmainwindow.cpp:522
 msgid "Usbpicprog rev: "
@@ -289,9 +278,9 @@ msgid "untitled"
 msgstr "دون-عنوان"
 
 #: ../src/uppmainwindow.cpp:557
-#, fuzzy, c-format
+#, c-format
 msgid "%s datasheet"
-msgstr "المعطيات"
+msgstr "%s datasheet"
 
 #: ../src/uppmainwindow.cpp:563
 #, c-format
@@ -301,6 +290,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"جهد البرمجة (Vpp):\n"
+"   الحهد الأصغري=%.2fV\n"
+"   الجهد الأسمي=%.2fV\n"
+"   الجهد الأعظمي=%.2fV"
 
 #: ../src/uppmainwindow.cpp:566
 #, c-format
@@ -310,6 +303,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"جهد التغذية (Vdd):\n"
+"   الحهد الأصغري=%.2fV\n"
+"   الجهد الأسمي=%.2fV\n"
+"   الجهد الأعظمي=%.2fV"
 
 #: ../src/uppmainwindow.cpp:568
 #, c-format
@@ -318,31 +315,34 @@ msgid ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
+"مجال التردد:   القيمة الدنيى=%.2fMhz\n"
+"   القيمة العظمى=%.2fMhz"
 
 #: ../src/uppmainwindow.cpp:569
 #, c-format
 msgid "Device ID: 0x%X"
-msgstr ""
+msgstr "رمز العنصر (ID): 0x%X"
 
 #: ../src/uppmainwindow.cpp:570
-#, fuzzy, c-format
+#, c-format
 msgid "Code memory size: %d bytes"
-msgstr "ذاكرة شيفرة التعليمات"
+msgstr "حجم ذاكرة شيفرة التعليمات: %d bytes"
 
 #: ../src/uppmainwindow.cpp:571
-#, fuzzy, c-format
+#, c-format
 msgid "Data memory size: %d bytes"
-msgstr "ذاكرة المعطيات"
+msgstr "حجم ذاكرة المعطيات: %d bytes"
 
 #: ../src/uppmainwindow.cpp:572
 #, c-format
 msgid "Type: %d-bit microcontroller"
-msgstr ""
+msgstr "النمط: متحكم صغري من %d بتات"
 
+# mauvaise traduction?
 #: ../src/uppmainwindow.cpp:582
 #, c-format
 msgid "%s [%d pins]"
-msgstr ""
+msgstr "%s [%d pins]"
 
 #: ../src/uppmainwindow.cpp:665
 msgid "Please wait until the operations are completed:\n"
@@ -410,7 +410,7 @@ msgstr "حدث خطأ من الـUSB أثناء الكتابة في ذاكرة �
 
 #: ../src/uppmainwindow.cpp:865
 msgid "Error programming code memory"
-msgstr "حدث خطأ عند الكتابة في ذاكرة التعليمات"
+msgstr "حدث خطأ أثناء الكتابة في ذاكرة التعليمات"
 
 #: ../src/uppmainwindow.cpp:874
 msgid "Programming the data area of the PIC..."
@@ -430,7 +430,7 @@ msgstr "حدث خطأ عند برمجة ذاكرة المعطيات"
 
 #: ../src/uppmainwindow.cpp:904
 msgid "Programming configuration area of the PIC..."
-msgstr "برمجة مجال إعدادات الـPIC"
+msgstr "برمجة مجال إعدادات الـPIC..."
 
 #: ../src/uppmainwindow.cpp:909
 msgid "Write Config memory OK"
@@ -442,7 +442,7 @@ msgstr "البرنامج باصداره الحالي لا يدعم كتابة ا
 
 #: ../src/uppmainwindow.cpp:924
 msgid "Error programming config memory"
-msgstr "حدث خطأ عند برمجة ذاكرة الإعدادات"
+msgstr "حدث خطأ أثناء برمجة ذاكرة الإعدادات"
 
 #: ../src/uppmainwindow.cpp:943
 msgid "Reading the code area of the PIC..."
@@ -450,7 +450,7 @@ msgstr "قراءة مجال تعليمات الـPIC"
 
 #: ../src/uppmainwindow.cpp:946
 msgid "Error reading code memory"
-msgstr "حدث خطأ عند قراءة ذاكرة التعليمات"
+msgstr "حدث خطأ أثناء قراءة ذاكرة التعليمات"
 
 #: ../src/uppmainwindow.cpp:954
 msgid "Reading the data area of the PIC..."
@@ -458,7 +458,7 @@ msgstr "قراءة مجال معطيات الـPIC"
 
 #: ../src/uppmainwindow.cpp:957
 msgid "Error reading data memory"
-msgstr "حدث خطأ عند قراءة ذاكرة المعطيات"
+msgstr "حدث خطأ أثناء قراءة ذاكرة المعطيات"
 
 #: ../src/uppmainwindow.cpp:965
 msgid "Reading the configuration area of the PIC..."
@@ -489,6 +489,7 @@ msgid "Verify config"
 msgstr "تفحص الإعدادات"
 
 #: ../src/uppmainwindow.cpp:1004
+#, fuzzy
 msgid "Verify unknown"
 msgstr "Verify unknown"
 
@@ -629,9 +630,8 @@ msgstr "لم يتم العثور على الـBootloader أو المبرمجة"
 
 #: ../src/uppmainwindow.cpp:1476
 #: ../src/uppmainwindow.cpp:1478
-#, fuzzy
 msgid "Disconnected"
-msgstr "ف&صل ..."
+msgstr "مفصول"
 
 #: ../src/uppmainwindow.cpp:1482
 #: ../src/uppmainwindow.cpp:1483
@@ -644,10 +644,11 @@ msgstr "لم يكن متصل"
 msgid "An open source USB pic programmer"
 msgstr "مبرمجة للمتحكمات الصغرية PIC ذي المصدر المفتوح و على المنفذ USB"
 
+# mauvaise traduction?
 #: ../src/uppmainwindow.cpp:1543
 #: ../src/uppmainwindow.cpp:1572
 msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr "عرض مجال تعليمات الـPIC بالنظام السداسي-عشري:"
+msgstr "لا يمكن تحديد بيك آخر بعد الاتصال بالـBootloader!"
 
 #: ../src/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
@@ -666,9 +667,8 @@ msgid "Data"
 msgstr "المعطيات"
 
 #: ../src/uppmainwindow_base.cpp:53
-#, fuzzy
 msgid "Configuration flags for this PIC:"
-msgstr "أعلام الإعدادات"
+msgstr "أعلام الإعدادات لهذا الـPIC:"
 
 #: ../src/uppmainwindow_base.cpp:63
 msgid "Configuration flags"
@@ -676,14 +676,15 @@ msgstr "أعلام الإعدادات"
 
 #: ../src/uppmainwindow_base.cpp:69
 msgid "Miscellaneous"
-msgstr ""
+msgstr "منوعات"
 
 #: ../src/uppmainwindow_base.cpp:71
-#, fuzzy
 msgid "Datasheet"
-msgstr "المعطيات"
+msgstr "Datasheet"
 
+# pas traduit
 #: ../src/uppmainwindow_base.cpp:74
+#, fuzzy
 msgid ""
 "Programming voltage (Vpp):\n"
 "    MIN\n"
@@ -691,8 +692,14 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Programming voltage (Vpp):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
 
+# pas traduit
 #: ../src/uppmainwindow_base.cpp:78
+#, fuzzy
 msgid ""
 "Working voltages (Vdd):\n"
 "    MIN\n"
@@ -700,63 +707,72 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Working voltages (Vdd):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
 
+# pas traduit
 #: ../src/uppmainwindow_base.cpp:82
+#, fuzzy
 msgid ""
 "Frequency range:\n"
 "   MIN\n"
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Frequency range:\n"
+"   MIN\n"
+"   MAX\n"
 
 #: ../src/uppmainwindow_base.cpp:86
 msgid "Device ID:"
-msgstr ""
+msgstr "رمز العنصر (ID):"
 
 #: ../src/uppmainwindow_base.cpp:90
-#, fuzzy
 msgid "Code memory size:"
-msgstr "ذاكرة شيفرة التعليمات"
+msgstr "حجم ذاكرة شيفرة التعليمات:"
 
 #: ../src/uppmainwindow_base.cpp:94
-#, fuzzy
 msgid "Data memory size:"
-msgstr "ذاكرة المعطيات"
+msgstr "حجم ذاكرة المعطيات:"
 
 #: ../src/uppmainwindow_base.cpp:98
 msgid "Type:"
-msgstr ""
+msgstr "النمط:"
 
 #: ../src/uppmainwindow_base.cpp:105
 msgid "Package"
-msgstr ""
+msgstr "التعليبة"
 
 #: ../src/uppmainwindow_base.cpp:110
+#, fuzzy
 msgid "Variants:"
-msgstr ""
+msgstr "منوع:"
 
 #: ../src/uppmainwindow_base.cpp:123
 #: ../src/uppmainwindow_base.cpp:125
 msgid "Zoom in"
-msgstr ""
+msgstr "تكبير"
 
 #: ../src/uppmainwindow_base.cpp:130
 #: ../src/uppmainwindow_base.cpp:132
 msgid "Zoom out"
-msgstr ""
+msgstr "تصغير"
 
 #: ../src/uppmainwindow_base.cpp:137
 #: ../src/uppmainwindow_base.cpp:139
+#, fuzzy
 msgid "Fit package drawing"
-msgstr ""
+msgstr "Fit package drawing"
 
 #: ../src/uppmainwindow_base.cpp:148
 msgid "Note: red pins are (some of those) used in ICSP."
-msgstr ""
+msgstr "ملاحظة: بعض الأقطاب الحمر مستخدمة من قبل الـICSP."
 
 #: ../src/uppmainwindow_base.cpp:157
 msgid "PIC info"
-msgstr ""
+msgstr "معلومات عن الـPIC"
 
 #: ../src/uppmainwindow_base.cpp:166
 msgid "&New"
@@ -799,8 +815,9 @@ msgid "Saves current code,config,data as a HEX file"
 msgstr "حفظ شيفرة التعليمات و المعطيات و الإعدادات الحالية في ملف هيكسا"
 
 #: ../src/uppmainwindow_base.cpp:186
+#, fuzzy
 msgid "E&xit"
-msgstr "شيفرة التعليمات"
+msgstr "خروج"
 
 #: ../src/uppmainwindow_base.cpp:186
 msgid "Exits the program"
@@ -857,7 +874,7 @@ msgstr "إظهار المعلومات حول هذا البرنامج"
 
 #: ../src/pictype.cpp:229
 msgid "Could not access the 'xml_data' folder."
-msgstr ""
+msgstr "لا يمكن الوصول إلى المجلد 'xml_data'"
 
 #: ../src/preferences_base.h:51
 msgid "Preferences"
