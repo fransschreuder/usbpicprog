@@ -511,7 +511,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					set_vdd_vpp(pictype, picfamily,0);	//do a hard reset to target processor
 					set_vdd_vpp(pictype, picfamily,1);
 					DelayMs(10);		//wait a while
-					set_address(picfamily, address+blockcounter); //go back to the address where it was
+					set_address(picfamily, address+(blockcounter>>1)); //go back to the address where it was
 				
 					if(pictype==P12F629&&((address+(blockcounter>>1))==0x3FF))
 						pic_send_14_bits(6,0x02,osccal);
