@@ -39,6 +39,7 @@
     <pic name="16F627A" upp_family="P16F62XA" upp_devid="0x1040" upp_devidmask="0x33FE0"/>
     <pic name="16F628A" upp_family="P16F62XA" upp_devid="0x1060" upp_devidmask="0x33FE0"/>
     <pic name="16F648A" upp_family="P16F62XA" upp_devid="0x1100" upp_devidmask="0x33FE0"/>
+    <pic name="16F716" upp_family="P16F716" upp_devid="0x1140" upp_devidmask="0x33FE0"/>
     <pic name="16F72" upp_family="P16F72" upp_devid="0x90" upp_devidmask="0x33FE0"/>
     <pic name="16F73" upp_family="P16F7X" upp_devid="0x600" upp_devidmask="0x33FE0"/>
     <pic name="16F737" upp_family="P16F7X7" upp_devid="0xBA0" upp_devidmask="0x33FE0"/>
