@@ -95,7 +95,7 @@ PicType PicType::FindPIC(wxString picTypeStr)
         }
     }
     
-    return UPP_INVALID_PIC;
+    {cout<<"arrSupported probably empty"<<endl;return UPP_INVALID_PIC;}
 }
 
 /* static*/
@@ -116,7 +116,7 @@ PicType PicType::FindPIC(unsigned int devId)
         }
     }
     
-    return UPP_INVALID_PIC;
+    {cout<<"arrSupported probably empty"<<endl;return UPP_INVALID_PIC;}
 }
 
 /* static */
@@ -277,7 +277,7 @@ PicType PicType::LoadPiklabXML(const wxString& picName)
 
     PicType ret = LoadPiklabXMLFile(prefix + picName + ".xml");
 	if (wxString(ret.Name.c_str()) != "P" + picName)  // PIC name should match picName
-        return UPP_INVALID_PIC;
+        {cout<<"error: PIC name should match picName: "<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
     
     return ret;
 }
@@ -291,13 +291,13 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     long num=0;
     
     if (!doc.Load(fileName))
-        return UPP_INVALID_PIC;
+        {cout<<"could not loade fileName"<<endl;return UPP_INVALID_PIC;}
     if (doc.GetRoot()->GetName() != "device")
-        return UPP_INVALID_PIC;
+        {cout<<"name differs from Device"<<endl;return UPP_INVALID_PIC;}
 
     // load the name of the PIC:
     if (!doc.GetRoot()->GetAttribute("name", &str))
-        return UPP_INVALID_PIC;
+        {cout<<"name attribute not found"<<endl;return UPP_INVALID_PIC;}
     p.Name = "P" + str;
 
     // load the device ID of the PIC
@@ -306,7 +306,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     if (t.compare("P10F") != 0 &&
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
-        return UPP_INVALID_PIC;
+        {cout<<"device ID not found"<<endl;return UPP_INVALID_PIC;}
 
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
@@ -317,7 +317,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             wxString name;
 
             if (!child->GetAttribute("name", &name))
-                return UPP_INVALID_PIC;
+                {cout<<"name attribute in memory not found"<<endl;return UPP_INVALID_PIC;}
             if (name == "code")
                 p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
             else if (name == "config")
@@ -325,7 +325,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
                 if (!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))
-                    return UPP_INVALID_PIC;
+                    {cout<<"start attribute in config memory not found"<<endl;return UPP_INVALID_PIC;}
                 p.ConfigAddress = num;
             }
             else if (name == "eeprom")
@@ -336,7 +336,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                     !str.ToLong(&num, 0))
 					{if(!child->GetAttribute("start", &str) ||
                     !str.ToLong(&num, 0))						
-						return UPP_INVALID_PIC;}
+						{cout<<"start attribute in hexfile_offset not found"<<endl;return UPP_INVALID_PIC;}}
                 p.DataAddress = num;
             }
         }
@@ -359,7 +359,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                     else if (child->GetAttribute("name") == "vdd_prog_write")
                         p.WorkVoltages[i] = val;
                     else
-                        return UPP_INVALID_PIC;
+                        {cout<<"name attribute for voltage not vpp, vdd_prog or vdd_prog_write"<<endl;return UPP_INVALID_PIC;}
                 }
             }
         }
@@ -385,7 +385,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             ConfigWord block;
             block.Name = child->GetAttribute("name");
             if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
-                return UPP_INVALID_PIC;
+                {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
 
             // load the ConfigMask objects belonging to this word
             wxXmlNode *maskNode = child->GetChildren();
@@ -408,7 +408,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                             if (valueNode->GetAttribute("value") != "default")
                             {
                                 if (!valueNode->GetAttribute("value").ToULong(&value.Value, 0))
-                                    return UPP_INVALID_PIC;
+                                    {cout<<"couldn't find attribute value in mask"<<endl;return UPP_INVALID_PIC;}
 
                                 mask.Values.push_back(value);
                             }
@@ -431,7 +431,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             wxArrayString types = wxSplit(child->GetAttribute("types"), ' ');
             unsigned long npins;
             if (!child->GetAttribute("nb_pins").ToULong(&npins))
-                return UPP_INVALID_PIC;
+                {cout<<"nb_pins not found in package"<<endl;return UPP_INVALID_PIC;}
 
             wxArrayString names;
             names.Add(wxEmptyString, npins);
