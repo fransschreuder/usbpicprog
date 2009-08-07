@@ -297,6 +297,12 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send_n_bits(6,0x0E); //end programming
 			DelayMs(1);
 			break;
+		case P16F59:
+		case P16F57:
+		case P16F54:
+			pic_send_n_bits(6,0x09); //begin programming
+			DelayMs(20);
+			break;
 		case P10F202:
 			for(i=0;i<0x1FF;i++)pic_send_n_bits(6,0x06);//set PC to 1FF
 			osccal=pic_read_14_bits(6,0x04);
@@ -628,6 +634,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F54:
+		case P16F57:
+		case P16F59:
 		case P10F200:
 		case P10F202:
 			if(lastblock&1)	pic_send_n_bits(6,0x06);//increment address to go from 1FF / 3FF to 0
@@ -1019,6 +1028,9 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P16F54:
+		case P16F57:
+		case P16F59:
 		case P10F200:
 		case P10F202:
 			payload=(((unsigned int)data[0]))|(((unsigned int)data[1])<<8);
@@ -1050,6 +1062,7 @@ read_program will read program memory, id's and configuration bits
 **/
 void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {
+	unsigned int configAddress=0;
 	unsigned int i;
 	char blockcounter=0;
 	unsigned int payload;
@@ -1148,13 +1161,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 			break;
 		case PIC16:
-			if(((pictype==P10F200)&&(address==0x1FF))||((pictype==P10F202)&&(address==0x3FF)))
-			{
-				payload=pic_read_14_bits(6,0x04); //read config memory
-				data[1]=(char)(payload>>8);
-				data[0]=(char)payload;
-			}
-			else if(address>=0x2000) //read configuration memory
+			if(address>=0x2000) //read configuration memory
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 				if(lastblock&1)
@@ -1173,7 +1180,6 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			{
 				if(lastblock&1)
 				{
-					if((pictype==P10F200)||(pictype==P10F202))pic_send_n_bits(6,0x06);	//increment address
 					pic_read_14_bits(6,0x04); //read code memory
 					for(i=0;i<(unsigned int)address;i++)pic_send_n_bits(6,0x06);	//increment address
 				}
@@ -1186,6 +1192,43 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				}
 			}
 			break;
+		case PIC10:
+			switch(pictype)
+			{
+				case P10F200:
+					configAddress=0x1FF;
+					break;
+				case P10F202:
+				case P16F54:
+					configAddress=0x3FF;
+					break;
+				case P16F57:
+				case P16F59:
+					configAddress=0xFFF;
+					break;
+			}
+			if(address==configAddress)
+			{					
+				payload=pic_read_14_bits(6,0x04); //read config memory
+				data[1]=(char)(payload>>8);
+				data[0]=(char)payload;
+			}
+			else
+			{
+				if(lastblock&1)
+				{
+					pic_send_n_bits(6,0x06);	//increment address
+					pic_read_14_bits(6,0x04); //read code memory
+					for(i=0;i<(unsigned int)address;i++)pic_send_n_bits(6,0x06);	//increment address
+				}
+				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+				{
+					payload=pic_read_14_bits(6,0x04); //read code memory
+					data[blockcounter+1]=(char)(payload>>8);
+					data[blockcounter]=(char)payload;
+					pic_send_n_bits(6,0x06);	//increment address
+				}
+			}
 		default:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)         //fill with zeros
 				*(data+blockcounter)=0;

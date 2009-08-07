@@ -303,7 +303,8 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     // load the device ID of the PIC
     // NOTE: PIC of the 10F family do not have a device ID (no autodetection is possible)
     wxString t = wxString(p.Name.substr(0,4).c_str());
-    if (t.compare("P10F") != 0 &&
+	wxString t2 = wxString(p.Name.substr(0,5).c_str());
+    if ((t.compare("P10F") != 0)&&(t2.compare("P16F5") != 0) &&
         (!doc.GetRoot()->GetAttribute("id", &str) ||
         !str.ToLong(&num, 0)))
         {cout<<"device ID not found"<<endl;return UPP_INVALID_PIC;}

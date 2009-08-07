@@ -105,6 +105,7 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address)&0xFF))); //MOVLW Addr [7:0]
 			pic_send(4,0x00,0x6EF6); //MOVWF TBLPTRU
 			break;
+		case PIC10:
 		case PIC16:
 			for(i=0;i<address;i++)
 				pic_send_n_bits(6,0x06);	//increment address

@@ -253,6 +253,9 @@ unsigned char set_pictype(unsigned char* data)
 	{
         	case P10F200:
 		case P10F202:
+		case P16F54:
+		case P16F57:
+		case P16F59:picfamily=PIC10;break;
 		case P16F87XA:
 		case P16F62XA:
 		case P16F62X:
@@ -266,10 +269,7 @@ unsigned char set_pictype(unsigned char* data)
 		case P16F87X:
 		case P16F72:
 		case P16F87:
-		case P16F54:
-		case P16F57:
 		case P16F785:
-		case P16F59:
 		case P16F91X:
 		case P16F88X:
 		case P16C6XX:
