@@ -64,11 +64,65 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				break;
 			case dsP30F:
 				VDD=0;
-				lasttick=tick;
-				while((tick-lasttick)<1)continue;
+				clock_delay();
 				VPP=0;
 				lasttick=tick;
 				while((tick-lasttick)<25)continue;
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
+				dspic_send_24_bits(0);
+				VPP=1;
+				_asm
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				nop
+				_endasm
+				VPP=0;
 				break;
 			default:
 				VPP=0; //high, (inverted)
@@ -298,6 +352,8 @@ unsigned int dspic_read_16_bits(void)
 		PGC=1;
 		clock_delay();
 		clock_delay();
+		clock_delay();
+		clock_delay();
 		result|=((unsigned int)PGD_READ)<<i;
 		PGC=0;
 		clock_delay();
@@ -317,7 +373,27 @@ unsigned int dspic_read_16_bits(void)
 void dspic_send_24_bits(unsigned long payload)
 {
 	unsigned char i;
-	pic_send_n_bits(4,0);
+	for(i=0;i<4;i++)
+	{
+		PGC=1;
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		PGC=0;
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+	}
 	for(i=0;i<24;i++)
 	{
 
@@ -327,7 +403,18 @@ void dspic_send_24_bits(unsigned long payload)
 		else PGD=0;
 		payload>>=1;
 		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
 		PGC=0;
+		clock_delay();
+		clock_delay();
+		clock_delay();
+		clock_delay();
 		clock_delay();
 		clock_delay();
 		clock_delay();

@@ -95,7 +95,7 @@ PicType PicType::FindPIC(wxString picTypeStr)
         }
     }
     
-    {cout<<"arrSupported probably empty"<<endl;return UPP_INVALID_PIC;}
+    return UPP_INVALID_PIC;
 }
 
 /* static*/
@@ -116,7 +116,7 @@ PicType PicType::FindPIC(unsigned int devId)
         }
     }
     
-    {cout<<"arrSupported probably empty"<<endl;return UPP_INVALID_PIC;}
+	return UPP_INVALID_PIC;
 }
 
 /* static */

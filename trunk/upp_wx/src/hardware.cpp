@@ -414,8 +414,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
             blocksize = memorySize-blockcounter;
 
         // do read the block
-		if(type==TYPE_CONFIG)
-			cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;
+		/*if(type==TYPE_CONFIG)
+			cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;*/
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
 
@@ -707,7 +707,7 @@ int Hardware::autoDetectDevice()
 				return -1;
 
 			devId=readId();
-				cout<<"Devid PIC30: "<<(devId|0x20000)<<endl;
+				cout<<"Devid PIC30: "<<std::hex<<(devId|0x20000)<<std::dec<<endl;
 			if (devId < 0)
 				return -1;
 			
