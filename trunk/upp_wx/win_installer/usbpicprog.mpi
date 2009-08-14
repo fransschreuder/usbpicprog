@@ -3,7 +3,7 @@ AllowLanguageSelection
 Yes
 
 AppName
-Usbpicprog
+usbpicprog
 
 ApplicationID
 D6D5438B-D9B3-4550-A88D-C12713D885FB
@@ -69,7 +69,7 @@ InstallPassword
 {}
 
 InstallVersion
-0.2.1.0
+0.3.0.0
 
 Language,de
 No
@@ -168,7 +168,7 @@ UpgradeApplicationID
 {}
 
 Version
-0.2.1
+0.3.0
 
 WizardHeight
 365
@@ -2069,7 +2069,7 @@ Windows,BuildSeparateArchives
 No
 
 Windows,Executable
-<%AppName%>-<%Version%>-Setup<%Ext%>
+<%AppName%>-<%Version%><%Ext%>
 
 Windows,FileDescription
 {<%AppName%> <%Version%> Setup}

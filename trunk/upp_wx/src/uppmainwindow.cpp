@@ -444,7 +444,9 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
     // don't continue!
     return false;
 }
-
+#ifndef SVN_REVISION
+#define SVN_REVISION UPP_VERSION
+#endif
 
 void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {

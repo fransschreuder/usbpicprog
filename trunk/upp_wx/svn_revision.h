@@ -1,2 +1,1 @@
-// generated file
-#define SVN_REVISION "717"
+#define UPP_VERSION "0.3.0"

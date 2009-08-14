@@ -47,7 +47,6 @@ rm -rf m4
 rm -rf autom4te.cache
 ( echo '// generated file';
     echo '#define SVN_REVISION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
-#define SVN_REVISION "usbpicprog 667"
 cd ..
 echo creating source archive...
 tar -zcvhf usbpicprog-$RELEASE.tar.gz usbpicprog-$RELEASE
@@ -56,7 +55,7 @@ mv usbpicprog-$RELEASE.tar.gz ..
 cd usbpicprog-$RELEASE
 echo creating deb package...
 ./mkdeb.sh
-mv usbpicprog0.2.1.deb ../../usbpicprog-$RELEASE-$ARCHITECTURE.deb
+mv usbpicprog0.3.0.deb ../../usbpicprog-$RELEASE-$ARCHITECTURE.deb
 cd ../..
 rm -rf firmware
 rm -rf usbpicprog
