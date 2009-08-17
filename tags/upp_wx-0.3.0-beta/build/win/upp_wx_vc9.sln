@@ -1,0 +1,38 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "upp_wx", "upp_wx_vc9.vcproj", "{43CF840D-0130-5D6E-99B2-E1204F4A3278}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DLL Debug Monolithic|Win32 = DLL Debug Monolithic|Win32
+		DLL Debug Multilib|Win32 = DLL Debug Multilib|Win32
+		DLL Release Monolithic|Win32 = DLL Release Monolithic|Win32
+		DLL Release Multilib|Win32 = DLL Release Multilib|Win32
+		Static Debug Monolithic|Win32 = Static Debug Monolithic|Win32
+		Static Debug Multilib|Win32 = Static Debug Multilib|Win32
+		Static Release Monolithic|Win32 = Static Release Monolithic|Win32
+		Static Release Multilib|Win32 = Static Release Multilib|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Debug Monolithic|Win32.ActiveCfg = DLL Debug Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Debug Monolithic|Win32.Build.0 = DLL Debug Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Debug Multilib|Win32.ActiveCfg = DLL Debug Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Debug Multilib|Win32.Build.0 = DLL Debug Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Release Monolithic|Win32.ActiveCfg = DLL Release Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Release Monolithic|Win32.Build.0 = DLL Release Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Release Multilib|Win32.ActiveCfg = DLL Release Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.DLL Release Multilib|Win32.Build.0 = DLL Release Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Debug Monolithic|Win32.ActiveCfg = Static Debug Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Debug Monolithic|Win32.Build.0 = Static Debug Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Debug Multilib|Win32.ActiveCfg = Static Debug Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Debug Multilib|Win32.Build.0 = Static Debug Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Release Monolithic|Win32.ActiveCfg = Static Release Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Release Monolithic|Win32.Build.0 = Static Release Monolithic|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Release Multilib|Win32.ActiveCfg = Static Release Multilib|Win32
+		{43CF840D-0130-5D6E-99B2-E1204F4A3278}.Static Release Multilib|Win32.Build.0 = Static Release Multilib|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+

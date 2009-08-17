@@ -1,0 +1,961 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: usbpicprog 0.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-09 16:46+0100\n"
+"PO-Revision-Date: 2009-06-09 16:46+0100\n"
+"Last-Translator: Frans Schreuder <fransschreuder@lists.sourceforge.net>\n"
+"Language-Team: English <fransschreuder@users.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: ENGLISH\n"
+"X-Poedit-Country: USA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../src\n"
+
+#: ../src/main.cpp:75
+msgid "Cannot load XML PIC data."
+msgstr ""
+
+#: ../src/hexview.cpp:216
+msgid "Edit"
+msgstr "Editar"
+
+#: ../src/hexview.cpp:218
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../src/hexview.cpp:219
+msgid "Select All"
+msgstr "Selecionar Tudo"
+
+#: ../src/configview.cpp:135
+#, fuzzy
+msgid "Configuration Word:"
+msgstr "Marcadores de configuração"
+
+#: ../src/configview.cpp:142
+#, c-format
+msgid "Current value for the %d-th configuration word as derived from above configuration choices"
+msgstr ""
+
+#: ../src/configview.cpp:159
+#, c-format
+msgid "Location in memory: 0x%X"
+msgstr ""
+
+#: ../src/configview.cpp:163
+#, c-format
+msgid "Length: %d bits"
+msgstr ""
+
+#: ../src/configview.cpp:181
+#, c-format
+msgid "Word %d"
+msgstr ""
+
+#: ../src/preferences_base.cpp:19
+msgid "Global settings for Usbpicprog:"
+msgstr ""
+
+#: ../src/preferences_base.cpp:24
+msgid "Program options"
+msgstr ""
+
+#: ../src/preferences_base.cpp:26
+#, fuzzy
+msgid "Write code memory"
+msgstr "Escrita da memória de código OK"
+
+#: ../src/preferences_base.cpp:30
+#, fuzzy
+msgid "Write config memory"
+msgstr "Escrita da memória de configuração OK"
+
+#: ../src/preferences_base.cpp:34
+#, fuzzy
+msgid "Write data memory"
+msgstr "Escrita da memória de dados OK"
+
+#: ../src/preferences_base.cpp:38
+msgid "Erase before programming"
+msgstr "Apagar antes de programar"
+
+#: ../src/preferences_base.cpp:42
+#, fuzzy
+msgid "Verify after programming"
+msgstr "Apagar antes de programar"
+
+#: ../src/preferences_base.cpp:49
+#, fuzzy
+msgid "Verify options"
+msgstr "Verificar configuração"
+
+#: ../src/preferences_base.cpp:51
+#, fuzzy
+msgid "Verify code memory"
+msgstr "Verificar código"
+
+#: ../src/preferences_base.cpp:55
+#, fuzzy
+msgid "Verify config memory"
+msgstr "Verificar configuração"
+
+#: ../src/preferences_base.cpp:59
+#, fuzzy
+msgid "Verify data memory"
+msgstr "Verificar dados"
+
+#: ../src/preferences_base.cpp:66
+msgid "GUI options"
+msgstr ""
+
+#: ../src/preferences_base.cpp:68
+#, fuzzy
+msgid "Shows popups on connect etc..."
+msgstr "Mostrar popups na conexão, etc..."
+
+#: ../src/uppmainwindow.cpp:208
+msgid "&Program..."
+msgstr "&Programar..."
+
+#: ../src/uppmainwindow.cpp:209
+msgid "Program the PIC device"
+msgstr "Programa o dispositivo PIC"
+
+#: ../src/uppmainwindow.cpp:212
+msgid "&Read..."
+msgstr "&Ler"
+
+#: ../src/uppmainwindow.cpp:213
+msgid "Read the PIC device"
+msgstr "Lê o dispositivo PIC"
+
+#: ../src/uppmainwindow.cpp:216
+msgid "&Verify..."
+msgstr "&Verificar..."
+
+#: ../src/uppmainwindow.cpp:217
+msgid "Verify the PIC device"
+msgstr "Verifica o dispositivo PIC"
+
+#: ../src/uppmainwindow.cpp:220
+msgid "&Erase..."
+msgstr "&Apagar..."
+
+#: ../src/uppmainwindow.cpp:221
+msgid "Erase the PIC device"
+msgstr "Apaga o dispositivo PIC"
+
+#: ../src/uppmainwindow.cpp:224
+msgid "&Blankcheck..."
+msgstr "&Verificação de dispositivo vazio..."
+
+#: ../src/uppmainwindow.cpp:225
+msgid "Blankcheck the PIC device"
+msgstr "Verifica se o dispositivo PIC está vazio"
+
+#: ../src/uppmainwindow.cpp:228
+msgid "&Autodetect..."
+msgstr "&Detectar Automaticamente..."
+
+#: ../src/uppmainwindow.cpp:229
+msgid "Detect the type of the PIC device"
+msgstr "Detecta o tipo de dispositivo PIC"
+
+#: ../src/uppmainwindow.cpp:232
+msgid "&Connect..."
+msgstr "&Conectar..."
+
+#: ../src/uppmainwindow.cpp:233
+msgid "Connect to the programmer"
+msgstr "Conectar ao programador"
+
+#: ../src/uppmainwindow.cpp:236
+msgid "&Disconnect..."
+msgstr "&Disconectar..."
+
+#: ../src/uppmainwindow.cpp:237
+msgid "Disconnect from the programmer"
+msgstr "Disconectar do programador"
+
+#: ../src/uppmainwindow.cpp:267
+msgid "&Select PIC..."
+msgstr "&Selecionar PIC..."
+
+#: ../src/uppmainwindow.cpp:268
+msgid "Change the currently selected PIC"
+msgstr "Mudar o PIC selecionado"
+
+#: ../src/uppmainwindow.cpp:302
+msgid "&Actions"
+msgstr "&Acções"
+
+#: ../src/uppmainwindow.cpp:327
+msgid "new"
+msgstr "novo"
+
+#: ../src/uppmainwindow.cpp:329
+msgid "open"
+msgstr "abrir"
+
+#: ../src/uppmainwindow.cpp:331
+msgid "reload"
+msgstr "recarregar"
+
+#: ../src/uppmainwindow.cpp:333
+msgid "save"
+msgstr "salvar"
+
+#: ../src/uppmainwindow.cpp:335
+msgid "save as"
+msgstr "salvar como"
+
+#: ../src/uppmainwindow.cpp:338
+msgid "program"
+msgstr "programar"
+
+#: ../src/uppmainwindow.cpp:340
+msgid "read"
+msgstr "ler"
+
+#: ../src/uppmainwindow.cpp:342
+msgid "verify"
+msgstr "verificar"
+
+#: ../src/uppmainwindow.cpp:344
+msgid "erase"
+msgstr "apagar"
+
+#: ../src/uppmainwindow.cpp:346
+msgid "blankcheck"
+msgstr "verificação de dispositivo vazio"
+
+#: ../src/uppmainwindow.cpp:348
+msgid "autodetect"
+msgstr "detectar automaticamente"
+
+#: ../src/uppmainwindow.cpp:353
+msgid "currently selected PIC type"
+msgstr "tipo de PIC selecionado"
+
+#: ../src/uppmainwindow.cpp:436
+#, c-format
+msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "O ficheiro HEX '%s' não foi guardado...o seu conteúdo será perdido; continuar?"
+
+#: ../src/uppmainwindow.cpp:439
+msgid "Please confirm"
+msgstr "Confirme por favor"
+
+#: ../src/uppmainwindow.cpp:458
+#: ../src/uppmainwindow.cpp:495
+#: ../src/uppmainwindow.cpp:501
+#: ../src/uppmainwindow.cpp:507
+msgid "Your firmware is too old; please consider upgrading it"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:466
+#: ../src/uppmainwindow.cpp:475
+#: ../src/uppmainwindow.cpp:484
+msgid "Firmware probably too new"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:490
+msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:522
+msgid "Usbpicprog rev: "
+msgstr "Revisão do Usbpicprog:"
+
+#: ../src/uppmainwindow.cpp:524
+msgid "Usbpicprog: "
+msgstr "Usbpicprog:"
+
+#: ../src/uppmainwindow.cpp:528
+msgid "untitled"
+msgstr "sem titulo"
+
+#: ../src/uppmainwindow.cpp:557
+#, c-format
+msgid "%s datasheet"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:563
+#, c-format
+msgid ""
+"Programming voltage (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:566
+#, c-format
+msgid ""
+"Supply voltage (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:568
+#, c-format
+msgid ""
+"Frequency range:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:569
+#, c-format
+msgid "Device ID: 0x%X"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:570
+#, c-format
+msgid "Code memory size: %d bytes"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:571
+#, c-format
+msgid "Data memory size: %d bytes"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:572
+#, c-format
+msgid "Type: %d-bit microcontroller"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:582
+#, c-format
+msgid "%s [%d pins]"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:665
+msgid "Please wait until the operations are completed:\n"
+msgstr "Por favor aguarde enquanto todas as operações são completadas:\n"
+
+#: ../src/uppmainwindow.cpp:680
+msgid "Operations aborted"
+msgstr "Operações abortadas"
+
+#: ../src/uppmainwindow.cpp:720
+#: ../src/uppmainwindow.cpp:724
+msgid "All operations completed"
+msgstr "Todas as operações completas"
+
+#: ../src/uppmainwindow.cpp:726
+msgid "Operations completed with errors/warnings"
+msgstr "Operações completas com erros/avisos"
+
+#: ../src/uppmainwindow.cpp:826
+msgid "Erasing before programming..."
+msgstr "A apagar antes de programar..."
+
+#: ../src/uppmainwindow.cpp:831
+msgid "Erase OK"
+msgstr "Apagamento OK"
+
+#: ../src/uppmainwindow.cpp:834
+#: ../src/uppmainwindow.cpp:1035
+msgid "Error erasing the device"
+msgstr "Erro ao apagar"
+
+#: ../src/uppmainwindow.cpp:843
+msgid "Programming the code area of the PIC..."
+msgstr "A programar a área de código da PIC..."
+
+#: ../src/uppmainwindow.cpp:847
+msgid "Write Code memory OK"
+msgstr "Escrita da memória de código OK"
+
+#: ../src/uppmainwindow.cpp:850
+#: ../src/uppmainwindow.cpp:882
+#: ../src/uppmainwindow.cpp:912
+msgid "The hardware should say OK"
+msgstr "O hardware deveria dizer OK"
+
+#: ../src/uppmainwindow.cpp:853
+#: ../src/uppmainwindow.cpp:885
+#: ../src/uppmainwindow.cpp:915
+msgid "The hardware should ask for next block"
+msgstr "O hardware deveria pedir o próximo bloco"
+
+#: ../src/uppmainwindow.cpp:856
+msgid "Write code not implemented for current PIC"
+msgstr "Escrita de código não implementada para a PIC actual"
+
+#: ../src/uppmainwindow.cpp:859
+msgid "Verify error while writing code memory"
+msgstr "Erro de verificação ao escrever memória de código"
+
+#: ../src/uppmainwindow.cpp:862
+#: ../src/uppmainwindow.cpp:891
+#: ../src/uppmainwindow.cpp:921
+msgid "USB error while writing code memory"
+msgstr "Erro de USB ao escrever memória de código"
+
+#: ../src/uppmainwindow.cpp:865
+msgid "Error programming code memory"
+msgstr "Erro ao programar memória de código"
+
+#: ../src/uppmainwindow.cpp:874
+msgid "Programming the data area of the PIC..."
+msgstr "A programar área de dados da PIC..."
+
+#: ../src/uppmainwindow.cpp:879
+msgid "Write Data memory OK"
+msgstr "Escrita da memória de dados OK"
+
+#: ../src/uppmainwindow.cpp:888
+msgid "Write data not implemented for current PIC"
+msgstr "Escrita de dados não implementada para a PIC actual"
+
+#: ../src/uppmainwindow.cpp:894
+msgid "Error programming data memory"
+msgstr "Erro ao programar memória de dados"
+
+#: ../src/uppmainwindow.cpp:904
+msgid "Programming configuration area of the PIC..."
+msgstr "A programar a área de configuração da PIC..."
+
+#: ../src/uppmainwindow.cpp:909
+msgid "Write Config memory OK"
+msgstr "Escrita da memória de configuração OK"
+
+#: ../src/uppmainwindow.cpp:918
+msgid "Write config not implemented for current PIC"
+msgstr "Escrita de configuração não implementada para a PIC actual"
+
+#: ../src/uppmainwindow.cpp:924
+msgid "Error programming config memory"
+msgstr "Erro ao programar a memória de configuração"
+
+#: ../src/uppmainwindow.cpp:943
+msgid "Reading the code area of the PIC..."
+msgstr "A ler a área de código da PIC..."
+
+#: ../src/uppmainwindow.cpp:946
+msgid "Error reading code memory"
+msgstr "Erro ao ler a memória de código"
+
+#: ../src/uppmainwindow.cpp:954
+msgid "Reading the data area of the PIC..."
+msgstr "A ler a área de dados da PIC..."
+
+#: ../src/uppmainwindow.cpp:957
+msgid "Error reading data memory"
+msgstr "Erro ao ler a memória de dados"
+
+#: ../src/uppmainwindow.cpp:965
+msgid "Reading the configuration area of the PIC..."
+msgstr "A ler a área de configuração da PIC..."
+
+#: ../src/uppmainwindow.cpp:968
+msgid "Error reading configuration memory"
+msgstr "Erro ao ler a memória de configuração"
+
+#: ../src/uppmainwindow.cpp:983
+msgid "Verifying all areas of the PIC..."
+msgstr "A verificar todas as área da PIC..."
+
+#: ../src/uppmainwindow.cpp:996
+msgid "Verify successful"
+msgstr "Verificação bem sucedida"
+
+#: ../src/uppmainwindow.cpp:1001
+msgid "Verify code"
+msgstr "Verificar código"
+
+#: ../src/uppmainwindow.cpp:1002
+msgid "Verify data"
+msgstr "Verificar dados"
+
+#: ../src/uppmainwindow.cpp:1003
+msgid "Verify config"
+msgstr "Verificar configuração"
+
+#: ../src/uppmainwindow.cpp:1004
+msgid "Verify unknown"
+msgstr "Verificar desconhecido"
+
+#: ../src/uppmainwindow.cpp:1006
+#, c-format
+msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "Falhou em 0x%X. Leitura: 0x%02X, Esperada: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:1013
+msgid "USB error during verify"
+msgstr "Erro de USB durante a verificação"
+
+#: ../src/uppmainwindow.cpp:1016
+msgid "Unknown error during verify"
+msgstr "Erro desconhecido durante a verificação"
+
+#: ../src/uppmainwindow.cpp:1019
+#: ../src/uppmainwindow.cpp:1083
+msgid "I'm sorry for being stupid"
+msgstr "Desculpa por ser estúpido"
+
+#: ../src/uppmainwindow.cpp:1031
+msgid "Erasing all areas of the PIC..."
+msgstr "A apagar todas as áreas da PIC..."
+
+#: ../src/uppmainwindow.cpp:1050
+msgid "Checking if the device is blank..."
+msgstr "A verificar se o dispositivo está vazio..."
+
+#: ../src/uppmainwindow.cpp:1058
+msgid "Device is blank"
+msgstr "O dispositivo está vazio"
+
+#: ../src/uppmainwindow.cpp:1069
+#, c-format
+msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "Verificação de dispositivo vazio falhou em 0x%X. Leitura: 0x%02X, Esperada: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:1074
+msgid "Device is not blank."
+msgstr "O dispositivo não está vazio."
+
+#: ../src/uppmainwindow.cpp:1077
+msgid "USB error during blankcheck"
+msgstr "Erro de USB durante a verificação de dispositivo vazio"
+
+#: ../src/uppmainwindow.cpp:1080
+msgid "Unknown error during blankcheck"
+msgstr "Erro desconhecido durante a verificação de dispositivo vazio"
+
+#: ../src/uppmainwindow.cpp:1103
+msgid "Progress dialog"
+msgstr "Diálogo de progresso"
+
+#: ../src/uppmainwindow.cpp:1104
+msgid "Initializing..."
+msgstr "A inicializar..."
+
+#: ../src/uppmainwindow.cpp:1128
+msgid "Could not create the worker thread!"
+msgstr "Impossível criar o thread de trabalho!"
+
+#: ../src/uppmainwindow.cpp:1134
+msgid "Could not run the worker thread!"
+msgstr "Impossível correr o thread de trabalho!"
+
+#: ../src/uppmainwindow.cpp:1170
+msgid "Open hexfile"
+msgstr "Abrir ficheiro hex"
+
+#: ../src/uppmainwindow.cpp:1186
+#: ../src/uppmainwindow.cpp:1187
+#: ../src/uppmainwindow.cpp:1214
+#: ../src/uppmainwindow.cpp:1215
+msgid "Unable to open file"
+msgstr "Impossível abrir ficheiro"
+
+#: ../src/uppmainwindow.cpp:1204
+#: ../src/uppmainwindow.cpp:1205
+msgid "No file to refresh"
+msgstr "Nenhum ficheiro para recarregar"
+
+#: ../src/uppmainwindow.cpp:1230
+#: ../src/uppmainwindow.cpp:1231
+#: ../src/uppmainwindow.cpp:1252
+#: ../src/uppmainwindow.cpp:1253
+msgid "Unable to save file"
+msgstr "Impossível salvar ficheiro"
+
+#: ../src/uppmainwindow.cpp:1242
+msgid "Save hexfile"
+msgstr "Salvar ficheiro hex"
+
+#: ../src/uppmainwindow.cpp:1283
+#: ../src/uppmainwindow.cpp:1295
+#: ../src/uppmainwindow.cpp:1312
+#: ../src/uppmainwindow.cpp:1324
+#: ../src/uppmainwindow.cpp:1341
+#: ../src/uppmainwindow.cpp:1353
+msgid "The programmer is not connected"
+msgstr "O programador não estã conectado"
+
+#: ../src/uppmainwindow.cpp:1378
+msgid "No PIC detected!"
+msgstr "Nenhuma PIC detectada!"
+
+#: ../src/uppmainwindow.cpp:1380
+#, c-format
+msgid "No PIC detected! Selecting the default PIC (%s)..."
+msgstr "Nenhuma PIC detectada! A selecionar a PIC padrão (%s)..."
+
+#: ../src/uppmainwindow.cpp:1385
+#, c-format
+msgid "Detected PIC model %s with device ID 0x%X"
+msgstr "Detectada PIC modelo %s com ID de dispositivo 0x%X"
+
+#: ../src/uppmainwindow.cpp:1410
+#: ../src/uppmainwindow.cpp:1411
+msgid "Unable to read firmware version"
+msgstr "Impossível ler versão da firmware"
+
+#: ../src/uppmainwindow.cpp:1415
+#: ../src/uppmainwindow.cpp:1418
+#: ../src/uppmainwindow.cpp:1443
+#: ../src/uppmainwindow.cpp:1445
+msgid " Connected"
+msgstr " Conectado"
+
+#: ../src/uppmainwindow.cpp:1438
+#: ../src/uppmainwindow.cpp:1439
+msgid "Unable to read version"
+msgstr "Impossível ler versão"
+
+#: ../src/uppmainwindow.cpp:1454
+#: ../src/uppmainwindow.cpp:1456
+msgid "Bootloader or programmer not found"
+msgstr "Boot ou programador não encontrados"
+
+#: ../src/uppmainwindow.cpp:1476
+#: ../src/uppmainwindow.cpp:1478
+#, fuzzy
+msgid "Disconnected"
+msgstr "&Disconectar..."
+
+#: ../src/uppmainwindow.cpp:1482
+#: ../src/uppmainwindow.cpp:1483
+#: ../src/uppmainwindow.cpp:1488
+#: ../src/uppmainwindow.cpp:1489
+msgid "Already disconnected"
+msgstr "Já estava disconectado"
+
+#: ../src/uppmainwindow.cpp:1516
+msgid "An open source USB pic programmer"
+msgstr "Um programador pic USB open source"
+
+#: ../src/uppmainwindow.cpp:1543
+#: ../src/uppmainwindow.cpp:1572
+#, fuzzy
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "Não pode selecionar um PIC diferente quando o bootloader está ligado!"
+
+#: ../src/uppmainwindow_base.cpp:23
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr "Vista Hexadecimal da área de código da PIC:"
+
+#: ../src/uppmainwindow_base.cpp:33
+msgid "Code"
+msgstr "Código"
+
+#: ../src/uppmainwindow_base.cpp:38
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr "Vista Hexadecimal da área de dados da PIC:"
+
+#: ../src/uppmainwindow_base.cpp:48
+msgid "Data"
+msgstr "Dados"
+
+#: ../src/uppmainwindow_base.cpp:53
+#, fuzzy
+msgid "Configuration flags for this PIC:"
+msgstr "Marcadores de configuração"
+
+#: ../src/uppmainwindow_base.cpp:63
+msgid "Configuration flags"
+msgstr "Marcadores de configuração"
+
+#: ../src/uppmainwindow_base.cpp:69
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:71
+#, fuzzy
+msgid "Datasheet"
+msgstr "Dados"
+
+#: ../src/uppmainwindow_base.cpp:74
+msgid ""
+"Programming voltage (Vpp):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:78
+msgid ""
+"Working voltages (Vdd):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:82
+msgid ""
+"Frequency range:\n"
+"   MIN\n"
+"   MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:86
+msgid "Device ID:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:90
+#, fuzzy
+msgid "Code memory size:"
+msgstr "Escrita da memória de código OK"
+
+#: ../src/uppmainwindow_base.cpp:94
+#, fuzzy
+msgid "Data memory size:"
+msgstr "Escrita da memória de dados OK"
+
+#: ../src/uppmainwindow_base.cpp:98
+msgid "Type:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:105
+msgid "Package"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:110
+msgid "Variants:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:123
+#: ../src/uppmainwindow_base.cpp:125
+msgid "Zoom in"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:130
+#: ../src/uppmainwindow_base.cpp:132
+msgid "Zoom out"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:137
+#: ../src/uppmainwindow_base.cpp:139
+msgid "Fit package drawing"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:148
+msgid "Note: red pins are (some of those) used in ICSP."
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:157
+msgid "PIC info"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:166
+msgid "&New"
+msgstr "&Novo"
+
+#: ../src/uppmainwindow_base.cpp:166
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "Limpar as áreas de código, configuração e dados do ficheiro HEX aberto"
+
+#: ../src/uppmainwindow_base.cpp:170
+msgid "&Open"
+msgstr "&Abrir"
+
+#: ../src/uppmainwindow_base.cpp:170
+msgid "Loads an HEX file for editing or programming..."
+msgstr "Lê um ficheiro HEX para edição ou programação..."
+
+#: ../src/uppmainwindow_base.cpp:174
+msgid "&Reload"
+msgstr "&Recarregar"
+
+#: ../src/uppmainwindow_base.cpp:174
+msgid "Reloads the current HEX file from disk"
+msgstr "Recarrega o ficheiro HEX actual do disco"
+
+#: ../src/uppmainwindow_base.cpp:178
+msgid "&Save"
+msgstr "&Salvar"
+
+#: ../src/uppmainwindow_base.cpp:178
+msgid "Saves the HEX file with the modified data"
+msgstr "Salva o ficheiro HEX com os dados alterados"
+
+#: ../src/uppmainwindow_base.cpp:182
+msgid "Save &As"
+msgstr "Salvar &Como"
+
+#: ../src/uppmainwindow_base.cpp:182
+msgid "Saves current code,config,data as a HEX file"
+msgstr "Salva o código, configuração, dados actuais como ficheiro HEX"
+
+#: ../src/uppmainwindow_base.cpp:186
+msgid "E&xit"
+msgstr "Sa&ir"
+
+#: ../src/uppmainwindow_base.cpp:186
+msgid "Exits the program"
+msgstr "Sai do programa"
+
+#: ../src/uppmainwindow_base.cpp:189
+msgid "&File"
+msgstr "&Ficheiro"
+
+#: ../src/uppmainwindow_base.cpp:193
+msgid "&Copy"
+msgstr "&Copiar"
+
+#: ../src/uppmainwindow_base.cpp:193
+msgid "Copies to the clipboard currently selected cells"
+msgstr "Copia as células actuais para a área de transferência"
+
+#: ../src/uppmainwindow_base.cpp:197
+msgid "Select &All"
+msgstr "Selecionar &Tudo"
+
+#: ../src/uppmainwindow_base.cpp:197
+msgid "Selects the entire grid currently shown"
+msgstr "Seleciona toda a grelha actual"
+
+#: ../src/uppmainwindow_base.cpp:203
+msgid "&Preferences"
+msgstr "&Preferências"
+
+#: ../src/uppmainwindow_base.cpp:203
+msgid "Shows the options for this program"
+msgstr "Mostra as opções para este programa"
+
+#: ../src/uppmainwindow_base.cpp:206
+msgid "&Edit"
+msgstr "&Editar"
+
+#: ../src/uppmainwindow_base.cpp:210
+#: ../src/uppmainwindow_base.cpp:219
+msgid "&Help"
+msgstr "&Ajuda"
+
+#: ../src/uppmainwindow_base.cpp:210
+msgid "Opens the Usbpicprog's website..."
+msgstr "Abre o site do Usbpicprog..."
+
+#: ../src/uppmainwindow_base.cpp:216
+msgid "&About"
+msgstr "&Acerca"
+
+#: ../src/uppmainwindow_base.cpp:216
+msgid "Shows informations about this program"
+msgstr "Mostra informação acerca deste programa"
+
+#: ../src/pictype.cpp:229
+msgid "Could not access the 'xml_data' folder."
+msgstr ""
+
+#: ../src/preferences_base.h:51
+msgid "Preferences"
+msgstr "Preferências"
+
+#: ../src/main.h:95
+#: ../src/main.h:111
+msgid "help"
+msgstr "ajuda"
+
+#: ../src/main.h:95
+#: ../src/main.h:111
+msgid "displays help on the command line parameters"
+msgstr "mostra a ajuda sobre os parâmetros da linha de comandos"
+
+#: ../src/main.h:96
+#: ../src/main.h:112
+msgid "version"
+msgstr "versão"
+
+#: ../src/main.h:96
+#: ../src/main.h:112
+msgid "displays version information of usbpicprog"
+msgstr "mostra a informação sobre a versão do usbpicprog"
+
+#: ../src/main.h:97
+#: ../src/main.h:113
+msgid "pictype"
+msgstr "pictype"
+
+#: ../src/main.h:97
+#: ../src/main.h:113
+msgid "specify the pic type (eg -p=P18F2550)"
+msgstr "especifique o pictype (ex -p=P18F2550)"
+
+#: ../src/main.h:98
+#: ../src/main.h:114
+msgid "silent"
+msgstr "silencioso"
+
+#: ../src/main.h:98
+#: ../src/main.h:114
+msgid "do not display the hex file"
+msgstr "não mostrar o ficheiro hex"
+
+#: ../src/main.h:99
+#: ../src/main.h:115
+msgid "write"
+msgstr "escrever"
+
+#: ../src/main.h:99
+#: ../src/main.h:115
+msgid "write the device"
+msgstr "escrever o dispositivo"
+
+#: ../src/main.h:100
+#: ../src/main.h:116
+msgid "read the device"
+msgstr "ler o dispositivo"
+
+#: ../src/main.h:101
+#: ../src/main.h:117
+msgid "verify the device"
+msgstr "verificar o dispositivo"
+
+#: ../src/main.h:102
+#: ../src/main.h:118
+msgid "bulk erase the device"
+msgstr "limpar o dispositivo"
+
+#: ../src/main.h:103
+#: ../src/main.h:119
+msgid "blankcheck the device"
+msgstr "verificar se o dispositivo está vazio"
+
+#: ../src/main.h:104
+#: ../src/main.h:120
+msgid "file"
+msgstr "ficheiro"
+
+#: ../src/main.h:104
+#: ../src/main.h:120
+msgid "hexfile"
+msgstr "ficheiro hex"
+
+#: ../src/uppmainwindow_base.h:100
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
+
+#~ msgid "Config"
+#~ msgstr "Configurar"
+#~ msgid "Verify"
+#~ msgstr "Verificar"
+#~ msgid "Gui"
+#~ msgstr "Gui"
+#~ msgid "Disconnected usbpicprog"
+#~ msgstr "usbpicprog disconectado"
+#~ msgid "Cannot select a PIC different when the bootloader is connected!"
+#~ msgstr ""
+#~ "Não pode selecionar um PIC diferente quando o bootloader está ligado!"
+#~ msgid "Hexadecimal view of the configuration fuses of the PIC:"
+#~ msgstr "Vista Hexadecimal da configuração da PIC:"
+

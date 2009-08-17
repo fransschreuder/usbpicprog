@@ -1,0 +1,1 @@
+Use InstallJammer to generate a windows installer using usbpicprog.mpi
