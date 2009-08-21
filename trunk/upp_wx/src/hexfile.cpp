@@ -123,7 +123,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         for (unsigned int i=0;i<byteCount;i++)
             sscanf(tempStr.c_str()+9+(i*2),"%02X",&lineData[i]);
 
-        // last two bytes are the checksum
+		// last two bytes are the checksum
         sscanf(tempStr.c_str()+9+(byteCount*2),"%02X",&checkSum);
         if (!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
         {
@@ -183,10 +183,10 @@ bool HexFile::open(PicType* picType, const char* filename)
                 }
                 else wxLogError("Data in hex file outside data memory of PIC");
             }
-            
             // is the address within the Code Memory range?
             if ((extAddress+address)<(picType->CodeSize))
             {
+				
                 if (m_codeMemory.size() < picType->CodeSize)
                 {
                     newSize = extAddress+address+lineData.size();
@@ -219,7 +219,21 @@ bool HexFile::open(PicType* picType, const char* filename)
     // make sure that the config memory array's size is always picType->ConfigSize
     m_configMemory.resize(picType->ConfigSize,0xFF);
     calcConfigMask(picType);    // update m_configMask
-    
+
+	if(picType->is24Bit())	//remove every 4th byte for 24 bit devices
+	{
+		for(int i=0;i<m_codeMemory.size();i+=4)
+		{
+			for(int j=0;j<4;j++)
+			{
+				if(j!=3)
+				{
+					m_codeMemory[((i/4)*3)+j]=m_codeMemory[i+j];
+				}
+			}
+		}
+		m_codeMemory.resize((m_codeMemory.size()/4)*3);
+	}
     trimData(picType);
     m_bModified = false;
 
@@ -276,26 +290,43 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 
     if (m_codeMemory.size()>0)
     {
+		vector<int>tempCodeMemory;
+		if(picType->is24Bit())
+		{
+			tempCodeMemory.resize((m_codeMemory.size()*4)/3);
+			for(unsigned int i=0;i<tempCodeMemory.size();i+=4)
+			{
+				for(unsigned int j=0;j<4;j++)
+				{
+					if(j<3)tempCodeMemory[i+j]=m_codeMemory[(i/4)*3+j];
+					else tempCodeMemory[i+j]=0;
+				}
+			}
+		}
+		else
+		{
+			tempCodeMemory=m_codeMemory;
+		}
         lineData.resize(2);
         //Put address 0x0000 in lineData
         lineData[0]=0x00;
         lineData[1]=0x00;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for (unsigned int i=0;i<m_codeMemory.size();i+=16)
+        for (unsigned int i=0;i<tempCodeMemory.size();i+=16)
         {
-            if (i+16<m_codeMemory.size())
+            if (i+16<tempCodeMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=m_codeMemory.size()-i;
+                lineSize=tempCodeMemory.size()-i;
             }
             lineData.resize(lineSize);
             for (int j=0;j<lineSize;j++)
             {
-                lineData[j]=m_codeMemory[i+j];
+                lineData[j]=tempCodeMemory[i+j];
             }
             makeLine(i,DATA,lineData,txt);
             fp<<txt<<endl;
@@ -334,6 +365,23 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
     
     if (m_configMemory.size()>0)
     {
+		vector<int>tempConfigMemory;
+		if(picType->is24Bit())
+		{
+			tempConfigMemory.resize((m_configMemory.size()*4)/3);
+			for(unsigned int i=0;i<tempConfigMemory.size();i+=4)
+			{
+				for(unsigned int j=0;j<4;j++)
+				{
+					if(j<3)tempConfigMemory[i+j]=m_configMemory[(i/4)*3+j];
+					else tempConfigMemory[i+j]=0;
+				}
+			}
+		}
+		else
+		{
+			tempConfigMemory=m_configMemory;
+		}
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->ConfigAddress;
@@ -342,20 +390,20 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for (unsigned int i=0;i<m_configMemory.size();i+=16)
+        for (unsigned int i=0;i<tempConfigMemory.size();i+=16)
         {
-            if (i+16<m_configMemory.size())
+            if (i+16<tempConfigMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=m_configMemory.size()-i;
+                lineSize=tempConfigMemory.size()-i;
             }
             lineData.resize(lineSize);
             for (int j=0;j<lineSize;j++)
             {
-                lineData[j]=m_configMemory[i+j];
+                lineData[j]=tempConfigMemory[i+j];
             }
             makeLine(i+(address&0xFFFF),DATA,lineData,txt);
             fp<<txt<<endl;
