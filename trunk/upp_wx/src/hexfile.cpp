@@ -202,6 +202,7 @@ bool HexFile::open(PicType* picType, const char* filename)
             
         case EXTADDR:
             extAddress=(lineData[0]<<24)|(lineData[1]<<16);
+			if(picType->is24Bit())extAddress/=2;
             break;
             
         case ENDOFFILE:
@@ -355,7 +356,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
             }
             lineData.resize(lineSize);
             for (int j=0;j<lineSize;j++)
-            {
+			{
                 lineData[j]=m_dataMemory[i+j];
             }
             makeLine(i+(address&0xFFFF),DATA,lineData,txt);
@@ -365,23 +366,6 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
     
     if (m_configMemory.size()>0)
     {
-		vector<int>tempConfigMemory;
-		if(picType->is24Bit())
-		{
-			tempConfigMemory.resize((m_configMemory.size()*4)/3);
-			for(unsigned int i=0;i<tempConfigMemory.size();i+=4)
-			{
-				for(unsigned int j=0;j<4;j++)
-				{
-					if(j<3)tempConfigMemory[i+j]=m_configMemory[(i/4)*3+j];
-					else tempConfigMemory[i+j]=0;
-				}
-			}
-		}
-		else
-		{
-			tempConfigMemory=m_configMemory;
-		}
         lineData.resize(2);
         //Put address DataAddress in lineData
         address=picType->ConfigAddress;
@@ -390,20 +374,20 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         lineData[1]=(address>>16)&0xFF;
         makeLine(0,EXTADDR,lineData,txt);
         fp<<txt<<endl;
-        for (unsigned int i=0;i<tempConfigMemory.size();i+=16)
+        for (unsigned int i=0;i<m_configMemory.size();i+=16)
         {
-            if (i+16<tempConfigMemory.size())
+            if (i+16<m_configMemory.size())
             {
                 lineSize=16;
             }
             else
             {
-                lineSize=tempConfigMemory.size()-i;
+                lineSize=m_configMemory.size()-i;
             }
             lineData.resize(lineSize);
             for (int j=0;j<lineSize;j++)
             {
-                lineData[j]=tempConfigMemory[i+j];
+                lineData[j]=m_configMemory[i+j];
             }
             makeLine(i+(address&0xFFFF),DATA,lineData,txt);
             fp<<txt<<endl;
