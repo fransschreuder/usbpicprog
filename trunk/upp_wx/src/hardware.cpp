@@ -1062,4 +1062,58 @@ void Hardware::tryToDetachDriver()
 #endif
 }
 
+int Hardware::debug(wxString debugData)
+{
+	if (m_handle == NULL) return -1;
+
+    statusCallBack (0);
+
+    if (m_hwCurrent == HW_UPP)
+	{
+		cout<<debugData.c_str()<<endl;
+		int debugCommand,debugValue;
+		sscanf(debugData.c_str(),"%1X%6X",&debugCommand,&debugValue);
+		cout<<"cmd: "<<debugCommand<<" val: "<<debugValue<<endl;
+		switch(debugCommand)
+		{
+			unsigned char msg[64];
+			msg[0]=0x90;
+			case 0:
+				msg[1]=0;
+				if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
+				if(readString(msg,64)<0)cout<<"Error reading string"<<endl;
+				cout<<msg<<endl;
+				cout<<"Response from hardware: 0x"<<std::hex<<(int)msg[0]<<endl;
+				break;
+			case 1:
+				msg[1]=1;
+				writeString(msg,2);
+				readString(msg,1);
+				cout<<msg<<endl;
+				cout<<"Response from hardware: 0x"<<std::hex<<(int)msg[0]<<endl;
+				break;
+			case 2:
+				msg[1]=2;
+				msg[2]=(unsigned char)debugValue;
+				msg[3]=(unsigned char)(debugValue>>8);
+				msg[4]=(unsigned char)(debugValue>>16);
+				writeString(msg,5);
+				readString(msg,1);
+				cout<<"Response from hardware: 0x"<<std::hex<<(int)msg[0]<<endl;
+				break;
+			case 3:
+				msg[1]=3;
+				writeString(msg,2);
+				readString(msg,2);
+				cout<<"Response from hardware: 0x"<<std::hex<<(int)msg[0]<<" "<<(int)msg[0]<<endl;
+				break;
+			case 4:
+				FirmwareVersion fw;
+				getFirmwareVersion(&fw);
+				cout<<"versionstring: "<<fw.versionString<<endl;
+		}
+	}
+	return 0;
+}
+
 

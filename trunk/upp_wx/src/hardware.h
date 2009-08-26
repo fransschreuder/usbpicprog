@@ -42,6 +42,7 @@
 #define CMD_WRITE_CONFIG 0x70
 #define CMD_SET_PICTYPE 0x80
 #define CMD_FIRMWARE_VERSION 0x90
+#define CMD_DEBUG 0xA0
 
 #define CMD_BOOT_FIRMWARE_VERSION 0x00
 #define CMD_BOOT_READ_CODE 0x01
@@ -274,6 +275,8 @@ public:
     /** Check if some supported hardware is successfully connected to the usb bus and initialized */
     bool connected() const
         { return m_handle != NULL; }
+
+	int debug(wxString debugData);
 
 private:
 
