@@ -342,6 +342,7 @@ unsigned int dspic_read_16_bits(void)
 {
 	char i;
 	unsigned int result;
+	PGD=0;
 	pic_send_n_bits(4,1);
 	result=0;
 	TRISPGD=1; //PGD = input
@@ -373,6 +374,7 @@ unsigned int dspic_read_16_bits(void)
 void dspic_send_24_bits(unsigned long payload)
 {
 	unsigned char i;
+	PGD=0;
 	for(i=0;i<4;i++)
 	{
 		PGC=1;

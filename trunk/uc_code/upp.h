@@ -30,6 +30,7 @@
 #define CMD_WRITE_CONFIG 0x70
 #define CMD_SET_PICTYPE 0x80
 #define CMD_FIRMWARE_VERSION 0x90
+#define CMD_DEBUG 0xA0
 
 #define LEDS_ON 0x04
 #define LEDS_RD 0x02

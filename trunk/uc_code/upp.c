@@ -31,6 +31,7 @@
 #include "upp.h"
 #include <string.h>
 #include "prog.h"
+#include "prog_lolvl.h"
 #include "svn_revision.h"
 
 
@@ -234,6 +235,35 @@ void ProcessIO(void)
 				strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 				counter=18;
 				setLeds(LEDS_ON);
+				break;
+			case CMD_DEBUG:
+				setLeds(LEDS_ON | LEDS_WR | LEDS_RD);
+				switch(input_buffer[1])
+				{
+					case 0:
+						set_vdd_vpp(dsP30F, dsPIC30, 1);
+						output_buffer[0]=1;
+						counter=1;	
+						break;
+					case 1:
+						set_vdd_vpp(dsP30F, dsPIC30, 0);
+						output_buffer[0]=1;
+						counter=1;	
+						break;
+					case 2:
+						dspic_send_24_bits(((unsigned long)input_buffer[2])|
+								((unsigned long)input_buffer[3])<<8|
+								((unsigned long)input_buffer[4])<<16);
+						output_buffer[0]=1;
+						counter=1;
+						break;
+					case 3:
+						address = (unsigned long) dspic_read_16_bits();
+						output_buffer[0]=(unsigned char)address;
+						output_buffer[1]=(unsigned char)(address>>8);
+						break;
+						
+				}
 				break;
 		}
 	}
