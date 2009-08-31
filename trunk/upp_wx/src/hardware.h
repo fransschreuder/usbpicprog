@@ -276,7 +276,7 @@ public:
     bool connected() const
         { return m_handle != NULL; }
 
-	int debug(wxString debugData);
+	int debug();
 
 private:
 

@@ -241,12 +241,12 @@ void ProcessIO(void)
 				switch(input_buffer[1])
 				{
 					case 0:
-						set_vdd_vpp(dsP30F, dsPIC30, 1);
+						//set_vdd_vpp(dsP30F, dsPIC30, 1);
 						output_buffer[0]=1;
 						counter=1;	
 						break;
 					case 1:
-						set_vdd_vpp(dsP30F, dsPIC30, 0);
+						//set_vdd_vpp(dsP30F, dsPIC30, 0);
 						output_buffer[0]=1;
 						counter=1;	
 						break;
@@ -258,9 +258,10 @@ void ProcessIO(void)
 						counter=1;
 						break;
 					case 3:
-						address = (unsigned long) dspic_read_16_bits();
-						output_buffer[0]=(unsigned char)address;
-						output_buffer[1]=(unsigned char)(address>>8);
+						nBytes =  dspic_read_16_bits();
+						output_buffer[0]=(unsigned char)nBytes;
+						output_buffer[1]=(unsigned char)(nBytes>>8);
+						counter=2;
 						break;
 						
 				}

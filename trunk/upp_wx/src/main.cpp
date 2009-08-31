@@ -135,7 +135,7 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
         !parser.Found(("e")) &&
         !parser.Found(("b")) &&
         !parser.Found(("f"), &tmp)&&
-        !parser.Found(("d"), &tmp))
+        !parser.Found(("d")))
     {
         m_console = false;
     }
@@ -208,10 +208,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         cout<<(string)picType->Name<<endl;
     }
 
-		wxString debugData;
-	if(parser.Found("d",&debugData))
+	if(parser.Found("d"))
 	{
-		hardware->debug(debugData);
+		hardware->debug();
 		exit( 0 );
 	}
 
@@ -311,11 +310,11 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(("v")))
     {
         cout<<"Verify..."<<endl;
-        if(parser.GetParamCount()==0){cerr<<"Please specify a filename"<<endl;}
+        if(!parser.Found(("f"),&filename)){cerr<<"Please specify a filename"<<endl;}
         else
         {
             hexFile=new HexFile();
-            if(!hexFile->open(picType,parser.GetParam(0).mb_str(wxConvUTF8)))
+            if(!hexFile->open(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to open file"<<endl;
             if(!silent_mode)
             {

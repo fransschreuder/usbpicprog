@@ -101,9 +101,9 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
     { wxCMD_LINE_SWITCH, "v", _("verify"),     _("verify the device") },
     { wxCMD_LINE_SWITCH, "e", _("erase"),      _("bulk erase the device") },
     { wxCMD_LINE_SWITCH, "b", _("blankcheck"), _("blankcheck the device") },
+	{ wxCMD_LINE_SWITCH, "d", _("debug"),       _("debug the hardware") },
     { wxCMD_LINE_OPTION, "f", _("file"),       _("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
-	{ wxCMD_LINE_OPTION, "d", _("debug"),       _("debug"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
-
+	
     { wxCMD_LINE_NONE }
 };
 #else
@@ -118,8 +118,8 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
     { wxCMD_LINE_SWITCH, wxT("v"), _("verify"),     _("verify the device") },
     { wxCMD_LINE_SWITCH, wxT("e"), _("erase"),      _("bulk erase the device") },
     { wxCMD_LINE_SWITCH, wxT("b"), _("blankcheck"), _("blankcheck the device") },
+	{ wxCMD_LINE_SWITCH, wxT("d"), _("debug"),       _("debug the hardware") },
     { wxCMD_LINE_OPTION, wxT("f"), _("file"),       _("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
-    { wxCMD_LINE_OPTION, wxT("d"), _("debug"),       _("debug"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
 
     { wxCMD_LINE_NONE }
 };
