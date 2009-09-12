@@ -73,6 +73,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				VPP=1;
+				VPP_RST=1;
 				_asm
 				nop
 				nop
@@ -120,8 +121,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				nop
 				nop
 				nop
-				nop
 				_endasm
+				VPP_RST=0;
 				VPP=0;
 				break;
 			default:
