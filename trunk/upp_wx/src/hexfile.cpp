@@ -233,9 +233,9 @@ bool HexFile::open(PicType* picType, const char* filename)
     m_configMemory.resize(picType->ConfigSize,0xFF);
     calcConfigMask(picType);    // update m_configMask
 
-	if(picType->is24Bit())	//remove every 4th byte for 24 bit devices
+	if(picType->is24Bit())	// remove every 4th byte for 24 bit devices
 	{
-		for(int i=0;i<m_codeMemory.size();i+=4)
+		for(unsigned int i=0;i<m_codeMemory.size();i+=4)
 		{
 			for(int j=0;j<4;j++)
 			{
@@ -246,8 +246,9 @@ bool HexFile::open(PicType* picType, const char* filename)
 			}
 		}
 		m_codeMemory.resize((m_codeMemory.size()/4)*3);
-		//now scramble the bytes into the "packed data format"
-		for(int i=0;i<m_codeMemory.size();i+=6)
+
+		// now scramble the bytes into the "packed data format"
+		for(unsigned int i=0;i<m_codeMemory.size();i+=6)
 		{
 			int tempByte1,tempByte2;
 			m_codeMemory[i]=m_codeMemory[i];
@@ -259,7 +260,8 @@ bool HexFile::open(PicType* picType, const char* filename)
 			m_codeMemory[i+4]=tempByte1;
 			m_codeMemory[i+5]=tempByte2;
 		}
-		for(int i=0;i<m_configMemory.size();i+=4)
+
+		for(unsigned int i=0;i<m_configMemory.size();i+=4)
 		{
 			for(int j=0;j<4;j++)
 			{
@@ -625,9 +627,13 @@ vector<int>& HexFile::getMemory(MemoryType type)
 {
 	switch(type)
 	{
-		case TYPE_CODE:return m_codeMemory;
-		case TYPE_DATA:return m_dataMemory;
-		case TYPE_CONFIG:return m_configMemory;
+		case TYPE_CODE: return m_codeMemory;
+		case TYPE_DATA: return m_dataMemory;
+		case TYPE_CONFIG: return m_configMemory;
+
+        default: 
+            wxFAIL_MSG("Invalid memory type!");
+            return m_codeMemory;        // just to avoid warnings from MSVC
 	}
 }
 
@@ -650,6 +656,10 @@ int HexFile::getMemory(MemoryType type, int address) const
 				return m_configMemory[address];
 			else
 				return 0;
+
+        default: 
+            wxFAIL_MSG("Invalid memory type!");
+            return 0;        // just to avoid warnings from MSVC
 	}			
 }
 
@@ -657,12 +667,13 @@ void HexFile::print(wxString* output,PicType *picType)
 {
     int lineSize;
     char txt[256];
+
     output->append("Code Memory\n");
-    for (int i=0;i<(signed)getMemory(TYPE_CODE).size();i+=16)
+    for (unsigned int i=0; i<getMemory(TYPE_CODE).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
         output->append(txt);
-        if (i+16<(signed)getMemory(TYPE_CODE).size())
+        if (i+16<getMemory(TYPE_CODE).size())
         {
             lineSize=16;
         }
@@ -677,12 +688,13 @@ void HexFile::print(wxString* output,PicType *picType)
         }
         output->append("\n");
     }
+
     output->append("\nConfig Memory\n");
-    for (int i=0;i<(signed)getMemory(TYPE_CONFIG).size();i+=16)
+    for (unsigned int i=0; i<getMemory(TYPE_CONFIG).size(); i+=16)
     {
         sprintf(txt,"%08X::",i+picType->ConfigAddress);
         output->append(txt);
-        if (i+16<(signed)getMemory(TYPE_CONFIG).size())
+        if (i+16<getMemory(TYPE_CONFIG).size())
         {
             lineSize=16;
         }
@@ -697,12 +709,13 @@ void HexFile::print(wxString* output,PicType *picType)
         }
         output->append("\n");
     }
+
     output->append("\nData Memory\n");
-    for (int i=0;i<(signed)getMemory(TYPE_DATA).size();i+=16)
+    for (unsigned int i=0; i<getMemory(TYPE_DATA).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
         output->append(txt);
-        if (i+16<(signed)getMemory(TYPE_DATA).size())
+        if (i+16<getMemory(TYPE_DATA).size())
         {
             lineSize=16;
         }
