@@ -139,7 +139,7 @@ public:
     void trimData(PicType* picType);
 
     const char* getFileName() const { return m_filename.c_str(); }
-    bool hasFileName() const { return m_filename[0] != '\0'; }
+    bool hasFileName() const { return !m_filename.empty(); }
     
     /**
         Returns true if any memory byte was modified (through the putXXXMemory functions)
