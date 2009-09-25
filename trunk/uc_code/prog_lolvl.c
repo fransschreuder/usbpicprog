@@ -67,62 +67,15 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				clock_delay();
 				VPP=0;
 				lasttick=tick;
-				while((tick-lasttick)<25)continue;
+				while((tick-lasttick)<26)continue;
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				VPP=1;
 				VPP_RST=1;
-				_asm
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				nop
-				_endasm
 				VPP_RST=0;
+				for(i=0;i<1;i++)continue;
 				VPP=0;
 				break;
 			default:
@@ -137,7 +90,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		VPP=1; //low, (inverted)
 		VPP_RST=1; //hard reset, low (inverted)
 		lasttick=tick;
-		while((tick-lasttick)<20)continue;
+		while((tick-lasttick)<40)continue;
 		VPP_RST=0; //hard reset, high (inverted)
 		VDD=1; //low, (inverted)
 		TRISPGD =1;    //PGD input
@@ -344,27 +297,33 @@ unsigned int dspic_read_16_bits(void)
 	char i;
 	unsigned int result;
 	PGD=0;
-	pic_send_n_bits(4,1);
+	PGD=1;	//send 1
+	PGC=1;	//clock pulse
+	PGC=0;
+	PGD=0;	//send 3 zeroes
+	for(i=0;i<3;i++)
+	{
+		PGC=1;
+		PGC=0;
+	}
+	//pic_send_n_bits(4,1);
 	result=0;
+	for(i=0;i<8;i++)
+	{
+		PGC=1;
+		PGC=0;
+	}
+	//pic_send_n_bits(8,0);
 	TRISPGD=1; //PGD = input
-	pic_send_n_bits(8,0);
 	clock_delay();
 	for(i=0;i<16;i++)
 	{
 		PGC=1;
 		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
 		result|=((unsigned int)PGD_READ)<<i;
 		PGC=0;
 		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
 	}
-	
 	TRISPGD=0; //PGD = output
 	PGD=0;
 	clock_delay();
@@ -380,48 +339,17 @@ void dspic_send_24_bits(unsigned long payload)
 	{
 		PGC=1;
 		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
 		PGC=0;
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
 		clock_delay();
 	}
 	for(i=0;i<24;i++)
 	{
-
-		PGC=1;
-		clock_delay();
+		
 		if(payload&1)PGD=1;
 		else PGD=0;
 		payload>>=1;
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
+		PGC=1;
 		PGC=0;
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
-		clock_delay();
 	}
 }
 
