@@ -20,7 +20,9 @@
 
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
+
 #include <wx/defs.h>
+
 
 #include <wx/artprov.h>
 #include <wx/toolbar.h>
@@ -411,7 +413,9 @@ void UppMainWindow::CompleteGUICreation()
     // this is to be sure that the package-view window gets updated by our upp_size_changed()
     // event handler to reflect the effective window size
     // (this somehow doesn't happen on wxGTK; probably because of deferred top-window resizing)
+	#if wxCHECK_VERSION(2,9,0)	
     PostSizeEvent();
+	#endif
 }
 
 UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
@@ -550,10 +554,15 @@ void UppMainWindow::UpdatePicInfo()
     const vector<ChipPackage>& pkg = m_picType.Package;
 
     // update the misc infos
-
+#if wxCHECK_VERSION(2,9,0)	
     m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str())));
     m_pDatasheetLink->SetURL(
         wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(m_picType.GetExtName().c_str())));
+#else
+    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str()).c_str()));
+    m_pDatasheetLink->SetURL(
+        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(m_picType.GetExtName().c_str()).c_str()));
+#endif                       
     m_pDatasheetLink->SetVisited(false);
 
     m_pVPPText->SetLabel(
@@ -575,8 +584,13 @@ void UppMainWindow::UpdatePicInfo()
     // update the package variants combobox
     m_pPackageVariants->Clear();
     for (unsigned int i=0; i<pkg.size(); i++)
+#if wxCHECK_VERSION(2,9,0)	                         
         m_pPackageVariants->Append(
             wxString::Format(_("%s [%d pins]"), pkg[i].GetName(), pkg[i].GetPinCount()));
+#else
+                         m_pPackageVariants->Append(
+            wxString::Format(_("%s [%d pins]"), pkg[i].GetName().c_str(), pkg[i].GetPinCount()));
+#endif                        
     m_pPackageVariants->SetSelection(0);
 
     // let's update the bitmap and the pin names:

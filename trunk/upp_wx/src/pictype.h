@@ -309,7 +309,13 @@ public:
         for (unsigned int i=0; i<Values.size(); i++)
         {
             if (includeValues)
-                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, Values[i].Value));
+			{
+#if wxCHECK_VERSION(2,9,0)				
+                ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, (unsigned int) Values[i].Value));
+#else
+				ret.Add(wxString::Format("%s [0x%X]", Values[i].Name.c_str(), (unsigned int) Values[i].Value));
+#endif
+			}
             else
                 ret.Add(Values[i].Name);
         }
@@ -651,6 +657,15 @@ private:    // utilities
         @c UPP_INVALID_PICFAMILY on error.
     */
     static PicFamily GetFamilyFromString(const wxString& str);
+
+	
 };
+
+#if wxCHECK_VERSION(2,9,0)
+#else	//this function is only implemented in wxWidgets 2.9.0, for 2.8.x compatibility, implement it here...
+	wxArrayString wxSplit(const wxString& str,
+                                       const wxChar sep,
+                                       const wxChar escape = wxT('\\'));
+#endif	
 
 #endif  //PICTYPE_H

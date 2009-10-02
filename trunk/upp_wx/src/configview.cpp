@@ -71,12 +71,17 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         for (unsigned int j=0; j<word.Masks.size(); j++)
         {
             const ConfigMask& mask = word.Masks[j];
-
+#if wxCHECK_VERSION(2,9,0)
             sz->Add(new wxStaticText(panel, wxID_ANY, 
                                      wxString::Format("<b>%s</b> [%d bits]:", mask.Name, mask.GetBitSize()),
                                      wxDefaultPosition, wxDefaultSize, wxST_MARKUP),
                     0, wxLEFT|wxALIGN_CENTER, 5);
-
+#else
+            sz->Add(new wxStaticText(panel, wxID_ANY, 
+                                     wxString::Format("%s [%d bits]:", mask.Name.c_str(), mask.GetBitSize()),
+                                     wxDefaultPosition, wxDefaultSize, 0),
+                    0, wxLEFT|wxALIGN_CENTER, 5);			
+#endif		
             // NOTE: we give each wxChoice we build the name of the mask it controls;
             //       in this way from OnChoiceChange() we can easily find out which object
             //       is sending the notification
@@ -141,12 +146,12 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
 		if(m_pic.is16Bit())
 		{
 			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format("%02X", ConfigWord));	
-			tc->SetMaxLength(wxString::Format("%02X", word.GetMask()).size());
+			tc->SetMaxLength(wxString::Format("%02X", (unsigned int)word.GetMask()).size());
 		}
 		else
 		{
 			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format("%04X", ConfigWord));
-			tc->SetMaxLength(wxString::Format("%04X", word.GetMask()).size());
+			tc->SetMaxLength(wxString::Format("%04X", (unsigned int)word.GetMask()).size());
 		}
         tc->SetToolTip(
             wxString::Format(_("Current value for the %d-th configuration word as derived from above configuration choices"), i));
@@ -290,8 +295,8 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
         // NOTE: we use %04X because even for 8 bit devices the configuration words
         //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
-		if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%02X", ConfigWordInt));
-		else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", ConfigWordInt));
+		if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%02X", (unsigned int)ConfigWordInt));
+		else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", (unsigned int)ConfigWordInt));
     }
     else
     {
