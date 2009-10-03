@@ -47,7 +47,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		{		
 			case dsP30F:
 				break;
-			
+			case P12F629:
 			case P12F6XX:
 				VPP=0;
 				break;
@@ -59,6 +59,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		while((tick-lasttick)<100)continue;
 		switch(pictype)
 		{
+			case P12F629:
 			case P12F6XX:
 				VDD=0;
 				break;
@@ -349,6 +350,7 @@ void dspic_send_24_bits(unsigned long payload)
 		else PGD=0;
 		payload>>=1;
 		PGC=1;
+		clock_delay();
 		PGC=0;
 	}
 }

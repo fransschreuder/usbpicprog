@@ -357,6 +357,8 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case dsP30F:
 			if((address%96)==0)
 			{
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x000000);	//NOP
 				//Step 1: Exit the Reset vector.
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
@@ -700,6 +702,8 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	{
 		case dsP30F:
 			//Step 1: Exit the Reset vector.
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x000000);	//NOP
@@ -861,6 +865,8 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 	{
 		case dsP30F:
 			//Step 1: Exit the Reset vector.
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x000000);	//NOP
