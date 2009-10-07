@@ -936,10 +936,7 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
             wxLogError("Usb Error");
             delete [] tmpmsg;
             return nBytes;
-        }
-		/*for(int i=0;i<size+6;i++)
-			cout<<std::hex<<(int)tmpmsg[i]<<" ";
-		cout<<endl;*/
+		}
 
         memcpy(msg,tmpmsg+5,nBytes);
         delete [] tmpmsg;

@@ -1114,6 +1114,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
+				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 2: Initialize TBLPAG and the read pointer (W6) for TBLRD instruction.
 				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #<SourceAddress23:16>, W0
@@ -1121,7 +1122,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				dspic_send_24_bits(0x200006|((address&0x00FFFF)<<4));	//MOV #<SourceAddress15:0>, W6
 				//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
 				dspic_send_24_bits(0xEB0380);	//CLR W7
-				//dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xBA1B96);	//TBLRDL [W6], [W7++]
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
