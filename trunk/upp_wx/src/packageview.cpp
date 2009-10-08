@@ -44,7 +44,7 @@ UppPackageViewWindow::UppPackageViewWindow(wxWindow* parent, wxWindowID id)
 #else
 	: wxPanel( parent, id, wxDefaultPosition, wxDefaultSize,                        
 #endif                      
-                        wxHSCROLL|wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, "packageview" )
+                        wxHSCROLL|wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, _("packageview") )
 {
     //SetBackgroundStyle(wxBG_STYLE_COLOUR);
     SetBackgroundColour(*wxWHITE);
@@ -69,13 +69,13 @@ void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
 	#if wxCHECK_VERSION(2,9,0)
     if (!m_bmp.Create(sz))
     {
-        wxLogError("Can't create the package bitmap!");
+        wxLogError(_("Can't create the package bitmap!"));
         return;
     }
 	#else
 	if (!m_bmp.Create(sz.GetWidth(), sz.GetHeight()))
     {
-        wxLogError("Can't create the package bitmap!");
+        wxLogError(_("Can't create the package bitmap!"));
         return;
     }
 	#endif
@@ -83,7 +83,7 @@ void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
     wxMemoryDC dc(m_bmp);
     if (!dc.IsOk())
     {
-        wxLogError("Can't draw the PIC package!");
+        wxLogError(_("Can't draw the PIC package!"));
         return;
     }
 

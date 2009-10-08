@@ -53,6 +53,11 @@ class wxDC;
 
 #define UPP_INVALID_PIC         (PicType())
 
+#if wxCHECK_VERSION(2,8,10)		
+#define _uT
+#else
+#define _uT wxT
+#endif
 
 // enums:
 
@@ -148,6 +153,7 @@ public:
     */
     bool IsICSPPin(unsigned int idx) const
     {
+ #if wxCHECK_VERSION(2,8,10)			
         if (PinNames[idx].Contains("VDD") ||
             PinNames[idx].Contains("VSS") ||
             PinNames[idx].Contains("GND") ||
@@ -155,6 +161,15 @@ public:
             PinNames[idx].Contains("MCLR") ||
             PinNames[idx].Contains("PGC") ||
             PinNames[idx].Contains("PGD"))
+#else			
+		if (PinNames[idx].Contains(wxT("VDD")) ||
+            PinNames[idx].Contains(wxT("VSS")) ||
+            PinNames[idx].Contains(wxT("GND")) ||
+            PinNames[idx].Contains(wxT("ICSP")) ||
+            PinNames[idx].Contains(wxT("MCLR")) ||
+            PinNames[idx].Contains(wxT("PGC")) ||
+            PinNames[idx].Contains(wxT("PGD")))			
+#endif			
             return true;
         return false;
     }
@@ -310,10 +325,10 @@ public:
         {
             if (includeValues)
 			{
-#if wxCHECK_VERSION(2,9,0)				
+#if wxCHECK_VERSION(2,8,10)				
                 ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, (unsigned int) Values[i].Value));
 #else
-				ret.Add(wxString::Format("%s [0x%X]", Values[i].Name.c_str(), (unsigned int) Values[i].Value));
+				ret.Add(wxString::Format(wxT("%s [0x%X]"), Values[i].Name.c_str(), (unsigned int) Values[i].Value));
 #endif
 			}
             else
@@ -524,21 +539,37 @@ public:
 
     /** Returns true if the PIC is a 14bit device (e.g. Pic12, PIC16). */
     bool is14Bit() const
+ #if wxCHECK_VERSION(2,8,10)			
         { return (Name.find("P10")==0)||(Name.find("P12")==0)||(Name.find("P16")==0); }
+#else	
+		{ return (Name.find(wxT("P10"))==0)||(Name.find(wxT("P12"))==0)||(Name.find(wxT("P16"))==0); }
+#endif	
 
     /** Returns true if the PIC is a 16bit device (e.g. Pic18). */
     bool is16Bit() const
+#if wxCHECK_VERSION(2,8,10)			
         { return (Name.find("P18F")==0); }
+#else
+		{ return (Name.find(wxT("P18F"))==0); }
+#endif	
 
 	    /** Returns true if the PIC is a 24bit device (e.g. dsPIC). */
     bool is24Bit() const
+#if wxCHECK_VERSION(2,8,10)		
         { return (Name.find("P30F")==0); }
+#else	
+		{ return (Name.find(wxT("P30F"))==0); }
+#endif	
 	
     /** Returns the PIC name which starts with "PIC" instead of "P". */
     wxString GetExtName() const
         {
             if (Name.empty()) return Name;
+#if wxCHECK_VERSION(2,8,10)				
             return "PIC" + Name.substr(1); 
+#else
+			return wxT("PIC") + Name.substr(1); 
+#endif			
         }
         
     /** Returns the current PIC name as a wxString. */

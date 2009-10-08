@@ -66,14 +66,14 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     EnableDragColSize( false );
     SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
     for(int i=0;i<GetNumberCols();i++)
-        SetColLabelValue(i,wxString::Format(wxT("%02X"),i));
+        SetColLabelValue(i,wxString::Format(_uT("%02X"),i));
 
     // Rows
     EnableDragRowSize( false );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
     // set in the first row a dummy label just to enable correct row auto-sizing
-    SetRowLabelValue(0, wxT("FFFFFF"));
+    SetRowLabelValue(0, _uT("FFFFFF"));
     AutoSize();     // let wxGrid auto-resize our columns and our row
 
     // Connect Events

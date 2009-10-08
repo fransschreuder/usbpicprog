@@ -130,7 +130,8 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_hwCurrent = (HardwareType)hwtype;
 #ifndef __WXMSW__
     if (usb_reset(m_handle) < 0)
-        wxLogError("Couldn't reset interface");
+		
+        wxLogError(_("Couldn't reset interface"));
 
     usb_close(m_handle);
     m_handle = usb_open(dev);
@@ -166,7 +167,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     const usb_config_descriptor &configd = dev->config[i];
     if ( usb_set_configuration(m_handle, _config)<0 )
     {
-        wxLogError("Error setting configuration");
+        wxLogError(_("Error setting configuration"));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -181,7 +182,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         int old = m_nInterfaceNumber;
         i = 0;
         m_nInterfaceNumber = configd.interface[i].altsetting[0].bInterfaceNumber;
-        wxLogError("Interface %d not present: using %d", old, m_nInterfaceNumber);
+        wxLogError(_("Interface %d not present: using %d"), old, m_nInterfaceNumber);
     }
 
     m_interface = &(configd.interface[i].altsetting[0]);
@@ -191,7 +192,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 
     if ( usb_claim_interface(m_handle, m_nInterfaceNumber)<0 )
     {
-        wxLogError("Error claiming interface");
+        wxLogError(_("Error claiming interface"));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -256,7 +257,7 @@ int Hardware::setPicType(PicType* picType)
     int nBytes = readString(msg,1);
     if (nBytes < 0)
     {
-        wxLogError("Usb Error");
+        wxLogError(_("Usb Error"));
         return nBytes;
     }
 
@@ -287,7 +288,7 @@ int Hardware::bulkErase(PicType* picType)
         int nBytes = readString(msg,1);
         if (nBytes < 0)
         {
-            wxLogError("Usb Error");
+            wxLogError(_("Usb Error"));
             return nBytes;
         }
 
@@ -363,7 +364,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC;
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC_READ;
 				else blockSizeHW=BLOCKSIZE_CODE;
 			}
 			break;
@@ -372,7 +373,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC;
+				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC_READ;
 				else blockSizeHW=BLOCKSIZE_DATA;
 			}
 			break;
@@ -426,7 +427,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
                 mem[blockcounter+i]=((int)(dataBlock[i]&0xFF));
             else
             {
-                wxLogError("Trying to read memory outside allowed area: bc+i=%d; memory size=%d", 
+                wxLogError(_("Trying to read memory outside allowed area: bc+i=%d; memory size=%d"), 
                            blockcounter+i, memorySize);
                 // return -1;
             }
@@ -608,7 +609,7 @@ VerifyResult Hardware::verify(HexFile *hexData, PicType *picType, bool doCode, b
         hexData->getMemory(TYPE_CONFIG).size())==0) 
     {
         // there should be at least some data in the file
-        wxLogWarning("No data to verify");
+        wxLogWarning(_("No data to verify"));
 
         res.Result=VERIFY_OTHER_ERROR;
         return res;
@@ -660,13 +661,12 @@ int Hardware::autoDetectDevice()
 
     if (m_hwCurrent == HW_BOOTLOADER)
 	{
-		PicType picBoot = PicType::FindPIC("P18F2550");
+		PicType picBoot = PicType::FindPIC(_uT("P18F2550"));
 		cout<<"Bootloader Devid: "<<std::hex<<picBoot.DevId<<endl;
 		return picBoot.DevId;
 	}
      
-
-	PicType pic16 = PicType::FindPIC("P16F628A");
+	PicType pic16 = PicType::FindPIC(_uT("P16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
 
@@ -685,7 +685,7 @@ int Hardware::autoDetectDevice()
 	{
 	
 		// need to set hardware to PIC18, no matter which one
-		PicType pic18 = PicType::FindPIC("P18F2550");
+		PicType pic18 = PicType::FindPIC(_uT("P18F2550"));
 		if (setPicType(&pic18) < 0)
 			return -1;
 
@@ -702,7 +702,7 @@ int Hardware::autoDetectDevice()
 		else
 		{
 			// try PIC16: the specific PIC16 device doesn't matter
-			PicType pic30 = PicType::FindPIC("P30F1010");
+			PicType pic30 = PicType::FindPIC(_uT("P30F1010"));
 			if (setPicType(&pic30) < 0)
 				return -1;
 
@@ -732,7 +732,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
         msg[0]=CMD_FIRMWARE_VERSION;
         if (writeString(msg,1) < 0)
 		{
-			firmwareVersion->versionString="";
+			firmwareVersion->versionString=_uT("");
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
 			firmwareVersion->release=0;
@@ -742,26 +742,40 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
         int nBytes = readString(msg,64);
         if (nBytes < 0)
 		{
-			firmwareVersion->versionString="";
+			firmwareVersion->versionString=_uT("");
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
 			firmwareVersion->release=0;
 			return nBytes;
 		}
+#if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
+#else
+		firmwareVersion->versionString.assign((const wxChar*)msg);
+#endif
 		wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
 		firmwareVersion->stableRelease=(strippedVersion.size()==5);
 		if(firmwareVersion->stableRelease)
 		{
+#if wxCHECK_VERSION(2,8,10)			
 			firmwareVersion->major=atoi(strippedVersion.substr(0,1).c_str());
 			firmwareVersion->minor=atoi(strippedVersion.substr(2,1).c_str());
 			firmwareVersion->release=atoi(strippedVersion.substr(4,1).c_str());
+#else
+			firmwareVersion->major=atoi(wxString(strippedVersion.substr(0,1)).mb_str(wxConvUTF8));
+			firmwareVersion->minor=atoi(wxString(strippedVersion.substr(2,1)).mb_str(wxConvUTF8));
+			firmwareVersion->release=atoi(wxString(strippedVersion.substr(4,1)).mb_str(wxConvUTF8));
+#endif			
 		}
 		else
 		{
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
+#if wxCHECK_VERSION(2,8,10)				
 			firmwareVersion->release=atoi(strippedVersion.c_str());
+#else
+			firmwareVersion->release=atoi(wxString(strippedVersion).mb_str(wxConvUTF8));
+#endif			
 		}
 		//cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
         statusCallBack (100);
@@ -793,7 +807,12 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 		firmwareVersion->minor=msg[2];
 		firmwareVersion->release=0;
         sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
+#if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
+#else		
+		firmwareVersion->versionString.assign((const wxChar*)msg);
+#endif		
+		
 		firmwareVersion->stableRelease=true;
         return nBytes;
     }
@@ -816,7 +835,7 @@ int Hardware::readString(unsigned char* msg, int size) const
 
     if (nBytes < 0)
     {
-        wxLogError("Usb Error while reading: %s", usb_strerror());
+        wxLogError(_("Usb Error while reading: %s"), usb_strerror());
         return -1;
     }
 
@@ -835,8 +854,8 @@ int Hardware::writeString(const unsigned char* msg, int size) const
 
     if (nBytes < size)
     {
-        wxLogError("Usb Error while writing to device: %d bytes, errCode: %d", size, nBytes);
-        wxLogError("%s", usb_strerror());
+        wxLogError(_("Usb Error while writing to device: %d bytes, errCode: %d"), size, nBytes);
+		wxLogError(_uT("%s"), usb_strerror());
         return -1;
     }
 
@@ -933,17 +952,20 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         nBytes = readString(tmpmsg,size+5) - 5;
         if (nBytes < 0)
         {
-            wxLogError("Usb Error");
+            wxLogError(_("Usb Error"));
             delete [] tmpmsg;
             return nBytes;
-		}
+        }
+		/*for(int i=0;i<size+6;i++)
+			cout<<std::hex<<(int)tmpmsg[i]<<" ";
+		cout<<endl;*/
 
         memcpy(msg,tmpmsg+5,nBytes);
         delete [] tmpmsg;
     }
 
     if (nBytes < 0)
-        wxLogError("Usb Error");
+        wxLogError(_("Usb Error"));
     return nBytes;
 }
 
@@ -993,7 +1015,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
 
         nBytes = readString(resp_msg,1);
         if (nBytes < 0)
-            wxLogError("Usb Error");
+            wxLogError(_("Usb Error"));
         // cout<<"Response message: "<<(int)resp_msg[0]<<endl;
         return (int)resp_msg[0];
     }

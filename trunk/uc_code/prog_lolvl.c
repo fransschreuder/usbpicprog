@@ -323,11 +323,9 @@ unsigned int dspic_read_16_bits(void)
 		clock_delay();
 		result|=((unsigned int)PGD_READ)<<i;
 		PGC=0;
-		clock_delay();
 	}
 	TRISPGD=0; //PGD = output
 	PGD=0;
-	clock_delay();
 	return result;
 }
 
@@ -339,9 +337,7 @@ void dspic_send_24_bits(unsigned long payload)
 	for(i=0;i<4;i++)
 	{
 		PGC=1;
-		clock_delay();
 		PGC=0;
-		clock_delay();
 	}
 	for(i=0;i<24;i++)
 	{
@@ -349,6 +345,7 @@ void dspic_send_24_bits(unsigned long payload)
 		if(payload&1)PGD=1;
 		else PGD=0;
 		payload>>=1;
+		clock_delay();
 		PGC=1;
 		clock_delay();
 		PGC=0;

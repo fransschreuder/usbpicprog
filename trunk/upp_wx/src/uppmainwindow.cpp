@@ -362,9 +362,15 @@ void UppMainWindow::CompleteGUICreation()
 
     // set bitmaps on the bitmap buttons
 #ifdef __WXGTK__
+	#if wxCHECK_VERSION(2,8,10)	
     m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-in"));
     m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-out"));
     m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-fit"));
+	#else
+	m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-in")));
+    m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-out")));
+    m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-fit")));
+	#endif
 #else
     m_pZoomInButton->SetBitmapLabel( wxBitmap(zoomin_xpm) );
     m_pZoomOutButton->SetBitmapLabel( wxBitmap(zoomout_xpm) );
@@ -481,14 +487,18 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
         {
             // check release digit
             wxString stableFirmwareVersion;
+#if wxCHECK_VERSION(2,8,10)
 			stableFirmwareVersion.Printf("%i.%i.%i", STABLE_VERSION_MAJOR, STABLE_VERSION_MINOR, STABLE_VERSION_RELEASE);
+#else
+			stableFirmwareVersion.Printf(wxT("%i.%i.%i"), STABLE_VERSION_MAJOR, STABLE_VERSION_MINOR, STABLE_VERSION_RELEASE);
+#endif			
             if (firmwareVersion.release>STABLE_VERSION_RELEASE)
             {
                 wxLogMessage(_("Firmware probably too new")); 
                 return;
             }
             else if (firmwareVersion.release==STABLE_VERSION_RELEASE && 
-                     (wxString(SVN_REVISION)!=stableFirmwareVersion))
+                     (wxT(SVN_REVISION)!=stableFirmwareVersion))
             {
                 wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware")); 
                 return;
@@ -561,7 +571,7 @@ void UppMainWindow::UpdatePicInfo()
 #else
     m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str()).c_str()));
     m_pDatasheetLink->SetURL(
-        wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(m_picType.GetExtName().c_str()).c_str()));
+        wxString::Format(wxT("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com"), wxString(m_picType.GetExtName().c_str()).c_str()));
 #endif                       
     m_pDatasheetLink->SetVisited(false);
 
@@ -1071,10 +1081,17 @@ bool UppMainWindow::upp_thread_blankcheck()
     case VERIFY_MISMATCH:
         switch (res.DataType)
         {
+#if wxCHECK_VERSION(2,8,10)
             case TYPE_CODE: typeText="code";break;
             case TYPE_DATA: typeText="data";break;
             case TYPE_CONFIG: typeText="config";break;
             default: typeText="unknown";break;
+#else
+			case TYPE_CODE: typeText=wxT("code");break;
+            case TYPE_DATA: typeText=wxT("data");break;
+            case TYPE_CONFIG: typeText=wxT("config");break;
+            default: typeText=wxT("unknown");break;			
+#endif			
         }
 
         verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
@@ -1375,7 +1392,11 @@ bool UppMainWindow::upp_autodetect()
     // if devId is not a valid device ID, select the default PIC
 	if((!m_picType.ok())&&(devId==-1))
 	{
+#if wxCHECK_VERSION(2,8,10)
 		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
+#else		
+		m_picType = PicType::FindPIC(wxT(UPP_DEFAULT_PIC));
+#endif		
     	wxASSERT(m_picType.ok());
     	m_hardware->setPicType(&m_picType);
 	}
@@ -1464,7 +1485,12 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
+#if wxCHECK_VERSION(2,8,10)			
             m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
+#else			
+			m_picType=PicType::FindPIC(wxT(UPP_DEFAULT_PIC));     // select default PIC
+#endif			
+			
             m_hardware->setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 

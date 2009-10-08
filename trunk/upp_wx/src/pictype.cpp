@@ -44,6 +44,7 @@
 #endif
 
 
+
 // statics
 vector<PicType::PicIndexInfo> PicType::s_arrSupported;
 PicType::PicIndexInfo PicType::s_default;
@@ -90,16 +91,16 @@ PicType PicType::FindPIC(wxString picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
-        if (picTypeStr.compare("P" + s_arrSupported[i].name)==0)
+        if (picTypeStr.compare(_uT("P") + s_arrSupported[i].name)==0)
         {
             // this is a supported PIC!
 
             PicType ret;
             if (!ret.LoadPIC(s_arrSupported[i]))
 #if wxCHECK_VERSION(2,9,0)			
-                wxLogError("Could not load data for PIC '%s'.", picTypeStr);
+                wxLogError(_("Could not load data for PIC '%s'."), picTypeStr);
 #else
-				wxLogError("Could not load data for PIC '%s'.", picTypeStr.c_str());
+				wxLogError(_("Could not load data for PIC '%s'."), picTypeStr.c_str());
 #endif			
             // we either failed or successfully loaded the PIC data...
             return ret;
@@ -121,9 +122,9 @@ PicType PicType::FindPIC(unsigned int devId)
             PicType ret;
             if (!ret.LoadPIC(s_arrSupported[i]))
 #if wxCHECK_VERSION(2,9,0)					
-                wxLogError("Could not load data for PIC '%s'.", s_arrSupported[i].name);
+                wxLogError(_("Could not load data for PIC '%s'."), s_arrSupported[i].name);
 #else			
-				wxLogError("Could not load data for PIC '%s'.", s_arrSupported[i].name.c_str());
+				wxLogError(_("Could not load data for PIC '%s'."), s_arrSupported[i].name.c_str());
 #endif			
             // we either failed or successfully loaded the PIC data...
             return ret;
@@ -143,7 +144,7 @@ const wxArrayString& PicType::getSupportedPicNames()
         // cache the array with the names of supported PICs
         picNames.Alloc(s_arrSupported.size());
         for(unsigned int i=0;i<s_arrSupported.size();i++)
-            picNames.Add("P" + s_arrSupported[i].name);
+            picNames.Add(_uT("P") + s_arrSupported[i].name);
 
         picNames.Sort();
     }
@@ -163,24 +164,24 @@ bool PicType::Init()
     wxXmlDocument idx;
     if (!idx.Load(UPP_INDEX_PATH + UPP_INDEX_FILE))
     {
-        wxLogError("Cannot load '%s'.", UPP_INDEX_FILE);
+        wxLogError(_("Cannot load '%s'."), UPP_INDEX_FILE);
         return false;
     }
 
-    if (idx.GetRoot()->GetName() != "upp")
+    if (idx.GetRoot()->GetName() != _uT("upp"))
     {
-        wxLogError("Invalid '%s' file.", UPP_INDEX_FILE);
+        wxLogError(_("Invalid '%s' file."), UPP_INDEX_FILE);
         return false;
     }
 
     wxXmlNode *child = idx.GetRoot()->GetChildren();
     while (child)
     {
-        if (child->GetName() == "pic" && 
-            child->HasAttribute("name") &&
-            child->HasAttribute("upp_family") &&
-            child->HasAttribute("upp_devidmask") &&
-            child->HasAttribute("upp_devid"))
+        if (child->GetName() == _uT("pic") && 
+            child->HasAttribute(_uT("name")) &&
+            child->HasAttribute(_uT("upp_family")) &&
+            child->HasAttribute(_uT("upp_devidmask")) &&
+            child->HasAttribute(_uT("upp_devid")))
         {
             PicType::PicIndexInfo info;
             wxString str;
@@ -188,29 +189,29 @@ bool PicType::Init()
 
             info.pic = NULL;
 #if wxCHECK_VERSION(2,9,0)	
-            info.name = child->GetAttribute("name");
-            info.picFamily = GetFamilyFromString(child->GetAttribute("upp_family"));
+            info.name = child->GetAttribute(_uT("name"));
+            info.picFamily = GetFamilyFromString(child->GetAttribute(_uT("upp_family")));
 #else
-			child->GetPropVal("name",&wx2_8_tempStr);
+			child->GetPropVal(_uT("name"),&wx2_8_tempStr);
 			info.name = wx2_8_tempStr;
-			child->GetPropVal("upp_family",&wx2_8_tempStr);
+			child->GetPropVal(_uT("upp_family"),&wx2_8_tempStr);
             info.picFamily = GetFamilyFromString(wx2_8_tempStr);
 #endif
             if (info.picFamily == UPP_INVALID_PICFAMILY)
             {
 #if wxCHECK_VERSION(2,9,0)									
-                wxLogError("Invalid PIC family for PIC '%s'.", info.name);
+                wxLogError(_("Invalid PIC family for PIC '%s'."), info.name);
 #else				
-				wxLogError("Invalid PIC family for PIC '%s'.", info.name.c_str());
+				wxLogError(_("Invalid PIC family for PIC '%s'."), info.name.c_str());
 #endif				
                 return false;
             }
 
-            child->GetAttribute("upp_devid", &str);
+            child->GetAttribute(_uT("upp_devid"), &str);
             if (str.ToLong(&num, 0))
                 info.devId = num;
 
-            child->GetAttribute("upp_devidmask", &str);
+            child->GetAttribute(_uT("upp_devidmask"), &str);
             if (str.ToLong(&num, 0))
                 info.devIdMask = num;
 
@@ -230,7 +231,7 @@ bool PicType::Init()
     // at the very least we need a valid default PIC type
     if (s_default.name.empty())
     {
-        wxLogError("Could not load the data for the PIC '%s'.", UPP_DEFAULT_PIC_MODEL);
+        wxLogError(_("Could not load the data for the PIC '%s'."), UPP_DEFAULT_PIC_MODEL);
         return false;
     }
     
@@ -283,11 +284,11 @@ int PicType::GetRange(const wxXmlNode* p)
 {
     wxString temp;
     long start = 1, end = 0;
-    if (!p->GetAttribute("start", &temp) ||
+    if (!p->GetAttribute(_uT("start"), &temp) ||
         !temp.ToLong(&start, 0))
         return -1;
 
-    if (!p->GetAttribute("end", &temp) ||
+    if (!p->GetAttribute(_uT("end"), &temp) ||
         !temp.ToLong(&end, 0))
         return -1;
 
@@ -299,13 +300,13 @@ PicType PicType::LoadPiklabXML(const wxString& picName)
 {
     wxString prefix = UPP_INDEX_PATH;
 #ifdef __WXMSW__
-    prefix += "xml_data";
+    prefix += _uT("xml_data");
     prefix += wxFileName::GetPathSeparator();
 #endif
 
-    PicType ret = LoadPiklabXMLFile(prefix + picName + ".xml");
-	if (wxString(ret.Name.c_str()) != "P" + picName)  // PIC name should match picName
-        {cout<<"error: PIC name should match picName: "<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
+    PicType ret = LoadPiklabXMLFile(prefix + picName + _uT(".xml"));
+	if (wxString(ret.Name.c_str()) != _uT("P") + picName)  // PIC name should match picName
+        {cout<<_("error: PIC name should match picName: ")<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
     
     return ret;
 }
@@ -324,85 +325,85 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     
     if (!doc.Load(fileName))
         {cout<<"could not loade fileName"<<endl;return UPP_INVALID_PIC;}
-    if (doc.GetRoot()->GetName() != "device")
+    if (doc.GetRoot()->GetName() != _uT("device"))
         {cout<<"name differs from Device"<<endl;return UPP_INVALID_PIC;}
 
     // load the name of the PIC:
-    if (!doc.GetRoot()->GetAttribute("name", &str))
+    if (!doc.GetRoot()->GetAttribute(_uT("name"), &str))
         {cout<<"name attribute not found"<<endl;return UPP_INVALID_PIC;}
-    p.Name = "P" + str;
+    p.Name = _uT("P") + str;
 
     // load the device ID of the PIC
     // NOTE: PIC of the 10F family do not have a device ID (no autodetection is possible)
     wxString t = wxString(p.Name.substr(0,4).c_str());
 	wxString t2 = wxString(p.Name.substr(0,5).c_str());
-    if ((t.compare("P10F") != 0)&&(t2.compare("P16F5") != 0) &&
-        (!doc.GetRoot()->GetAttribute("id", &str) ||
+    if ((t.compare(_uT("P10F")) != 0)&&(t2.compare(_uT("P16F5")) != 0) &&
+        (!doc.GetRoot()->GetAttribute(_uT("id"), &str) ||
         !str.ToLong(&num, 0)))
-        {cout<<"device ID not found"<<endl;return UPP_INVALID_PIC;}
+        {cout<<_("device ID not found")<<endl;return UPP_INVALID_PIC;}
 
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
     while (child)
     {
-        if (child->GetName() == "memory")
+        if (child->GetName() == _uT("memory"))
         {
             wxString name;
 
-            if (!child->GetAttribute("name", &name))
-                {cout<<"name attribute in memory not found"<<endl;return UPP_INVALID_PIC;}
-            if (name == "code")
+            if (!child->GetAttribute(_uT("name"), &name))
+                {cout<<_("name attribute in memory not found")<<endl;return UPP_INVALID_PIC;}
+            if (name == _uT("code"))
                 p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
-            else if (name == "config")
+            else if (name == _uT("config"))
             {
                 p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
-                if (!child->GetAttribute("start", &str) ||
+                if (!child->GetAttribute(_uT("start"), &str) ||
                     !str.ToLong(&num, 0))
-                    {cout<<"start attribute in config memory not found"<<endl;return UPP_INVALID_PIC;}
+                    {cout<<_("start attribute in config memory not found")<<endl;return UPP_INVALID_PIC;}
                 p.ConfigAddress = num;
             }
-            else if (name == "eeprom")
+            else if (name == _uT("eeprom"))
             {
                 p.DataSize = GetRange(child)+1;
 
-                if (!child->GetAttribute("hexfile_offset", &str) ||
+                if (!child->GetAttribute(_uT("hexfile_offset"), &str) ||
                     !str.ToLong(&num, 0))
-					{if(!child->GetAttribute("start", &str) ||
+					{if(!child->GetAttribute(_uT("start"), &str) ||
                     !str.ToLong(&num, 0))						
-						{cout<<"start attribute in hexfile_offset not found"<<endl;return UPP_INVALID_PIC;}}
+						{cout<<_("start attribute in hexfile_offset not found")<<endl;return UPP_INVALID_PIC;}}
                 p.DataAddress = num;
             }
         }
-        else if (child->GetName() == "voltages")
+        else if (child->GetName() == _uT("voltages"))
         {
             for (VoltageType i=(VoltageType)0; i<VOLTAGE_TYPE_MAX; i=VoltageType(i+1))
             {
                 wxString attr;
-                if (i == MINIMUM) attr = "min";
-                else if (i == NOMINAL) attr = "nominal";
-                else if (i == MAXIMUM) attr = "max";
+                if (i == MINIMUM) attr = _uT("min");
+                else if (i == NOMINAL) attr = _uT("nominal");
+                else if (i == MAXIMUM) attr = _uT("max");
 
                 double val;
 #if wxCHECK_VERSION(2,9,0)
                 if (child->GetAttribute(attr).ToCDouble(&val))
                 {
-                    if (child->GetAttribute("name") == "vpp")
+                    if (child->GetAttribute(_uT("name"))== _uT("vpp"))
                         p.ProgVoltages[i] = val;
-                    else if (child->GetAttribute("name") == "vdd_prog")
+                    else if (child->GetAttribute(_uT("name")) == _uT("vdd_prog"))
                         p.WorkVoltages[i] = val;
-                    else if (child->GetAttribute("name") == "vdd_prog_write")
+                    else if (child->GetAttribute(_uT("name")) == _uT("vdd_prog_write"))
 						p.WorkVoltages[i] = val;
 #else
 				child->GetAttribute(attr,& wx2_8_tempStr);
 				if (wx2_8_tempStr.ToDouble(&val))
                 {
-					child->GetAttribute("name",& wx2_8_tempStr);
+					child->GetAttribute(_uT("name"),& wx2_8_tempStr);
 					
-                    if (wx2_8_tempStr == "vpp")
+                    if (wx2_8_tempStr == _uT("vpp"))
                         p.ProgVoltages[i] = val;
-                    else if (wx2_8_tempStr == "vdd_prog")
+                    else if (wx2_8_tempStr == _uT("vdd_prog"))
                         p.WorkVoltages[i] = val;
-                    else if (wx2_8_tempStr == "vdd_prog_write")
+                    else if (wx2_8_tempStr == _uT("vdd_prog_write"))
 						p.WorkVoltages[i] = val;					   
 #endif						
                     else
@@ -410,24 +411,24 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 }
             }
         }
-        else if (child->GetName() == "frequency_range")
+        else if (child->GetName() == _uT("frequency_range"))
         {
             wxXmlNode *freqNode = child->GetChildren();
             while (freqNode)
             {
-                if (freqNode->GetName() == "frequency")
+                if (freqNode->GetName() == _uT("frequency"))
                 {
                     double val;
 #if wxCHECK_VERSION(2,9,0)
-                    if (freqNode->GetAttribute("start").ToCDouble(&val))
+                    if (freqNode->GetAttribute(_uT("start")).ToCDouble(&val))
                         p.MinFreq = std::min(p.MinFreq, (float)val);
-                    if (freqNode->GetAttribute("end").ToCDouble(&val))
+                    if (freqNode->GetAttribute(_uT("end")).ToCDouble(&val))
                         p.MaxFreq = std::max(p.MaxFreq, (float)val);
 #else
-					freqNode->GetAttribute("start",&wx2_8_tempStr);
+					freqNode->GetAttribute(_uT("start"),&wx2_8_tempStr);
 					if (wx2_8_tempStr.ToDouble(&val))
                         p.MinFreq = std::min(p.MinFreq, (float)val);
-					freqNode->GetAttribute("end",&wx2_8_tempStr);
+					freqNode->GetAttribute(_uT("end"),&wx2_8_tempStr);
                     if (wx2_8_tempStr.ToDouble(&val))
                         p.MaxFreq = std::max(p.MaxFreq, (float)val);
 #endif					
@@ -436,55 +437,55 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 freqNode = freqNode->GetNext();
             }
         }
-        else if (child->GetName() == "config")
+        else if (child->GetName() == _uT("config"))
         {
             ConfigWord block;
 #if wxCHECK_VERSION(2,9,0)			
-            block.Name = child->GetAttribute("name");
-            if (!child->GetAttribute("offset").ToULong(&block.Offset, 0))
-                {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
+            block.Name = child->GetAttribute(_uT("name"));
+            if (!child->GetAttribute(_uT("offset")).ToULong(&block.Offset, 0))
+                {cout<<_("error getting attribute config -> name -> offset")<<endl;return UPP_INVALID_PIC;}
 #else
-			child->GetAttribute("name",&wx2_8_tempStr);
+			child->GetAttribute(_uT("name"),&wx2_8_tempStr);
 			block.Name =wx2_8_tempStr;
-			child->GetAttribute("offset",&wx2_8_tempStr);
+			child->GetAttribute(_uT("offset"),&wx2_8_tempStr);
             if (!wx2_8_tempStr.ToULong(&block.Offset, 0))
-                {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
+                {cout<<_("error getting attribute config -> name -> offset")<<endl;return UPP_INVALID_PIC;}
 #endif			
             // load the ConfigMask objects belonging to this word
             wxXmlNode *maskNode = child->GetChildren();
             while (maskNode)
             {
-                if (maskNode->GetName() == "mask")
+                if (maskNode->GetName() == _uT("mask"))
                 {
                     ConfigMask mask;
 #if wxCHECK_VERSION(2,9,0)					
                     mask.Name = maskNode->GetAttribute("name");
 #else
-					maskNode->GetAttribute("name",&wx2_8_tempStr);
+					maskNode->GetAttribute(_uT("name"),&wx2_8_tempStr);
 					mask.Name = wx2_8_tempStr;
 #endif					
                     // load the ConfigValue objects belonging to this mask
                     wxXmlNode *valueNode = maskNode->GetChildren();
                     while (valueNode)
                     {
-                        if (valueNode->GetName() == "value")
+                        if (valueNode->GetName() == _uT("value"))
                         {
                             ConfigValue value;
 #if wxCHECK_VERSION(2,9,0)							
-                            value.Name = valueNode->GetAttribute("name");
-							if (valueNode->GetAttribute("value") != "default")
+                            value.Name = valueNode->GetAttribute(_uT("name"));
+							if (valueNode->GetAttribute(_uT("value")) != _uT("default"))
                             {
-                                if (!valueNode->GetAttribute("value").ToULong(&value.Value, 0))								
+                                if (!valueNode->GetAttribute(_uT("value")).ToULong(&value.Value, 0))								
 #else	
-							valueNode->GetAttribute("name",&wx2_8_tempStr);							
+							valueNode->GetAttribute(_uT("name"),&wx2_8_tempStr);							
                             value.Name = wx2_8_tempStr;							
-							valueNode->GetAttribute("value",&wx2_8_tempStr);							
-							if (wx2_8_tempStr != "default")
+							valueNode->GetAttribute(_uT("value"),&wx2_8_tempStr);							
+							if (wx2_8_tempStr != _uT("default"))
                             {
-								valueNode->GetAttribute("value",&wx2_8_tempStr);
+								valueNode->GetAttribute(_uT("value"),&wx2_8_tempStr);
                                 if (!wx2_8_tempStr.ToULong(&value.Value, 0))							
 #endif								
-                                    {cout<<"couldn't find attribute value in mask"<<endl;return UPP_INVALID_PIC;}
+                                    {cout<<_("couldn't find attribute value in mask")<<endl;return UPP_INVALID_PIC;}
 
                                 mask.Values.push_back(value);
                             }
@@ -502,23 +503,23 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 
             p.ConfigWords.push_back(block);
         }
-        else if (child->GetName() == "package")
+        else if (child->GetName() == _uT("package"))
         {
 #if wxCHECK_VERSION(2,9,0)			
-            wxArrayString types = wxSplit(child->GetAttribute("types"), ' ');
+            wxArrayString types = wxSplit(child->GetAttribute(_uT("types")), ' ');
 #else			
-			child->GetAttribute("types",&wx2_8_tempStr);
+			child->GetAttribute(_uT("types"),&wx2_8_tempStr);
 			wxArrayString types;
 			types = wxSplit(wx2_8_tempStr, ' ');
 #endif			
             unsigned long npins;
 #if wxCHECK_VERSION(2,9,0)				
-            if (!child->GetAttribute("nb_pins").ToULong(&npins))
+            if (!child->GetAttribute(_uT("nb_pins")).ToULong(&npins))
 #else
-			child->GetAttribute("nb_pins",&wx2_8_tempStr);
+			child->GetAttribute(_uT("nb_pins"),&wx2_8_tempStr);
 			if (!wx2_8_tempStr.ToULong(&npins))
 #endif			
-                {cout<<"nb_pins not found in package"<<endl;return UPP_INVALID_PIC;}
+                {cout<<_("nb_pins not found in package")<<endl;return UPP_INVALID_PIC;}
 
             wxArrayString names;
             names.Add(wxEmptyString, npins);
@@ -527,16 +528,16 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             while (pin)
             {
                 wxString name;
-				pin->GetAttribute("name",&name);
+				pin->GetAttribute(_uT("name"),&name);
 
                 unsigned long idx;
 #if wxCHECK_VERSION(2,9,0)					
-                if (pin->GetAttribute("index").ToULong(&idx) &&
+                if (pin->GetAttribute(_uT("index")).ToULong(&idx) &&
                     idx >= 1 && idx <= npins &&
                     !name.IsEmpty())
                     names[idx-1] = name;
 #else
-				pin->GetAttribute("index",&wx2_8_tempStr);
+				pin->GetAttribute(_uT("index"),&wx2_8_tempStr);
 				if (wx2_8_tempStr.ToULong(&idx) &&
                     idx >= 1 && idx <= npins &&
                     !name.IsEmpty())
@@ -560,48 +561,48 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 p.Package.push_back(pkg);
             }
         }
-		else if (child->GetName() == "checksums")
+		else if (child->GetName() == _uT("checksums"))
         {
             wxXmlNode *checksumsNode = child->GetChildren();
             while (checksumsNode)
             {
 
                 unsigned long val;
-				if (checksumsNode->GetName() == "checksum")
+				if (checksumsNode->GetName() == _uT("checksum"))
                 {
 #if wxCHECK_VERSION(2,9,0)					
-		            if (checksumsNode->GetAttribute("protected")=="Off")
+		            if (checksumsNode->GetAttribute(_uT("protected"))==_uT("Off"))
 					{
-						if (checksumsNode->GetAttribute("bchecksum").AfterFirst('x').ToULong(&val,16))
+						if (checksumsNode->GetAttribute(_uT("bchecksum")).AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.bChecksumCpOff=(unsigned int) val;
-						if (checksumsNode->GetAttribute("cchecksum").AfterFirst('x').ToULong(&val,16))
+						if (checksumsNode->GetAttribute(_uT("cchecksum")).AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.cChecksumCpOff=(unsigned int) val;
 					}
-					if (checksumsNode->GetAttribute("protected")=="All")
+					if (checksumsNode->GetAttribute(_uT("protected"))==_uT("All"))
 					{
-						if (checksumsNode->GetAttribute("bchecksum").AfterFirst('x').ToULong(&val,16))
+						if (checksumsNode->GetAttribute(_uT("bchecksum")).AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.bChecksumCpAll=(unsigned int) val;
-						if (checksumsNode->GetAttribute("cchecksum").AfterFirst('x').ToULong(&val,16))
+						if (checksumsNode->GetAttribute(_uT("cchecksum")).AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.cChecksumCpAll=(unsigned int) val;
 					}
 #else
-					checksumsNode->GetAttribute("protected",&wx2_8_tempStr);
-					if (wx2_8_tempStr=="Off")
+					checksumsNode->GetAttribute(_uT("protected"),&wx2_8_tempStr);
+					if (wx2_8_tempStr==_uT("Off"))
 					{
-						checksumsNode->GetAttribute("bchecksum",&wx2_8_tempStr);
+						checksumsNode->GetAttribute(_uT("bchecksum"),&wx2_8_tempStr);
 						if (wx2_8_tempStr.AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.bChecksumCpOff=(unsigned int) val;
-						checksumsNode->GetAttribute("cchecksum",&wx2_8_tempStr);
+						checksumsNode->GetAttribute(_uT("cchecksum"),&wx2_8_tempStr);
 						if (wx2_8_tempStr.AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.cChecksumCpOff=(unsigned int) val;
 					}
-					checksumsNode->GetAttribute("protected",&wx2_8_tempStr);
-					if (wx2_8_tempStr=="All")
+					checksumsNode->GetAttribute(_uT("protected"),&wx2_8_tempStr);
+					if (wx2_8_tempStr==_uT("All"))
 					{
-						checksumsNode->GetAttribute("bchecksum",&wx2_8_tempStr);
+						checksumsNode->GetAttribute(_uT("bchecksum"),&wx2_8_tempStr);
 						if (wx2_8_tempStr.AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.bChecksumCpAll=(unsigned int) val;
-						checksumsNode->GetAttribute("cchecksum",&wx2_8_tempStr);
+						checksumsNode->GetAttribute(_uT("cchecksum"),&wx2_8_tempStr);
 						if (wx2_8_tempStr.AfterFirst('x').ToULong(&val,16))
 							p.CheckSums.cChecksumCpAll=(unsigned int) val;
 					}
@@ -620,10 +621,18 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 /* static */
 PicFamily PicType::GetFamilyFromString(const wxString& str)
 {
+
+#if wxCHECK_VERSION(2,8,10)
 #define FAMILY(x)           \
     if (str == #x)          \
         return x;
-
+#else
+#define FAMILY(x)           \
+    if (str == wxT(	\
+	#x) )     \
+	\
+        return x;
+#endif
     FAMILY(P18F2XXX);
     FAMILY(P18FXX2);
     FAMILY(P16F87XA);
@@ -683,11 +692,19 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 /* static */
 PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 {
+
+#if wxCHECK_VERSION(2,8,10)	
 #define PACKAGE(x)                       \
     if (str.CmpNoCase(#x) == 0)          \
         return x;
+#else
+#define PACKAGE(x)                       \
+    if (str.CmpNoCase(wxT(	\
+	#x) )== 0)          \
+        return x;
+#endif
 
-    PACKAGE(PDIP);
+	PACKAGE(PDIP);
     PACKAGE(SOIC);
     PACKAGE(SSOP);
     PACKAGE(MQFP);
@@ -700,10 +717,18 @@ PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 /* static */
 wxString ChipPackage::GetStringFromPackageType(PackageType type)
 {
+#if wxCHECK_VERSION(2,8,10)		
 #undef PACKAGE
 #define PACKAGE(x)          \
     if (type == x)          \
         return wxString(#x);
+#else
+#undef PACKAGE
+#define PACKAGE(x)          \
+    if (type == x)          \
+        return wxString( wxT(	\
+	#x ));
+#endif
 
     PACKAGE(PDIP);
     PACKAGE(SOIC);
@@ -797,7 +822,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
 
             // print the pin number
             dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
-            dc.DrawText(wxString::Format("%d", i+1), PinNumberX, PinNumberY);
+            dc.DrawText(wxString::Format(_uT("%d"), i+1), PinNumberX, PinNumberY);
 
             // print the pin name
             dc.DrawText(PinNames[i], pinLabelX, pinLabelY);
@@ -840,7 +865,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
 
             // print the pin number
             dc.SetTextForeground(IsICSPPin(i) ? *wxRED : *wxBLACK);
-            dc.DrawRotatedText(wxString::Format("%d", i+1), PinNumberX, PinNumberY, -90);
+            dc.DrawRotatedText(wxString::Format(_uT("%d"), i+1), PinNumberX, PinNumberY, -90);
 
             // print the pin name
             dc.DrawRotatedText(PinNames[i], pinLabelX, pinLabelY, -90);
@@ -849,7 +874,7 @@ void ChipPackage::DrawPins(wxDC& dc, const wxPoint& pt, unsigned int PackageLen,
         }
     }
     else
-        wxLogWarning("Invalid direction");
+        wxLogWarning(_("Invalid direction"));
 }
 
 void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
@@ -869,7 +894,7 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             const unsigned int PinPerSide = GetPinCount()/2;
             if ((GetPinCount()%2) != 0)
             {
-                wxLogWarning("Invalid odd pin count: %d", GetPinCount());
+                wxLogWarning(_("Invalid odd pin count: %d"), GetPinCount());
                 return;
             }
 
@@ -924,7 +949,7 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             const unsigned int PinPerSide = GetPinCount()/4;
             if ((GetPinCount()%4) != 0)
             {
-                wxLogWarning("Invalid pin count: %d", GetPinCount());
+                wxLogWarning(_("Invalid pin count: %d"), GetPinCount());
                 return;
             }
 

@@ -21,7 +21,7 @@
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
-
+#include <wx/wx.h>
 #include <wx/log.h>
 #include <wx/string.h>
 
@@ -93,11 +93,11 @@ bool HexFile::open(PicType* picType, const char* filename)
 
     if (fp==NULL)
     {
-        wxLogError("Could not open Hex file...");
+        wxLogError(_("Could not open Hex file..."));
         return false;
     }
             
-    m_filename = wxString(filename);
+    m_filename = wxString((const wxChar*)filename);
 
 
     // parse the file
@@ -111,7 +111,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         sscanf(tempStr.c_str(),":%02X",&byteCount);
         if ((((byteCount+5)*2)+1)!=(signed)tempStr.size())
         {
-            wxLogError("Failure in hex file...");
+            wxLogError(_("Failure in hex file..."));
             return false;
         }
 
@@ -127,7 +127,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         sscanf(tempStr.c_str()+9+(byteCount*2),"%02X",&checkSum);
         if (!calcCheckSum(byteCount,address,recordType,lineData,checkSum))
         {
-            wxLogError("Error in checksum...");
+            wxLogError(_("Error in checksum..."));
             return false;
         }
         switch (recordType)
@@ -151,7 +151,7 @@ bool HexFile::open(PicType* picType, const char* filename)
                         m_configMemory[extAddress+address+i-configAddress]=lineData[i];
 					}
                 }
-                else wxLogError("Data in hex file outside config memory of PIC");
+                else wxLogError(_("Data in hex file outside config memory of PIC"));
             }
             
             // is the address within the Eeprom Data Memory range?
@@ -194,7 +194,7 @@ bool HexFile::open(PicType* picType, const char* filename)
 						}
 					}
                 }
-                else wxLogError("Data in hex file outside data memory of PIC");
+                else wxLogError(_("Data in hex file outside data memory of PIC"));
             }
             // is the address within the Code Memory range?
             if ((extAddress+address)<(picType->CodeSize))
@@ -209,7 +209,7 @@ bool HexFile::open(PicType* picType, const char* filename)
                     for (unsigned int i=0;i<lineData.size();i++)
                         m_codeMemory[extAddress+address+i]=lineData[i];
                 }
-                else wxLogError("Data in hex file outside code memory of PIC");
+                else wxLogError(_("Data in hex file outside code memory of PIC"));
             }
             break;
             
@@ -221,7 +221,7 @@ bool HexFile::open(PicType* picType, const char* filename)
             break;
             
         default:
-            wxLogError("unknown record type: %d", recordType);
+            wxLogError(_("unknown record type: %d"), recordType);
             return false;
             break;
         }
@@ -308,7 +308,11 @@ void HexFile::trimData(PicType* picType)
 
 bool HexFile::reload(PicType* picType)
 {
+#if wxCHECK_VERSION(2,8,10)
     return open(picType, m_filename.c_str());
+#else	
+	return open(picType, m_filename.mb_str(wxConvUTF8));
+#endif	
 }
 
 bool HexFile::saveAs(PicType* picType, const char* filename)
@@ -321,11 +325,11 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 
     if (fp==NULL)
     {
-        wxLogError("Could not open Hex file for writing...");
+        wxLogError(_("Could not open Hex file for writing..."));
         return false;
     }
 
-    m_filename = wxString(filename);
+    m_filename = wxString((const wxChar*)filename);
 
     if (m_codeMemory.size()>0)
     {
@@ -486,7 +490,11 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 
 bool HexFile::save(PicType* picType)
 {
-    return saveAs(picType, m_filename.c_str());
+#if wxCHECK_VERSION(2,8,10)
+	return saveAs(picType, m_filename.c_str());
+#else
+	return saveAs(picType, m_filename.mb_str(wxConvUTF8));
+#endif
 }
 
 void HexFile::putMemory(MemoryType type, const vector<int>& mem, const PicType* picType)
@@ -668,11 +676,11 @@ void HexFile::print(wxString* output,PicType *picType)
     int lineSize;
     char txt[256];
 
-    output->append("Code Memory\n");
+    output->append(_("Code Memory\n"));
     for (unsigned int i=0; i<getMemory(TYPE_CODE).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
-        output->append(txt);
+        output->append((const wxChar*)txt);
         if (i+16<getMemory(TYPE_CODE).size())
         {
             lineSize=16;
@@ -684,16 +692,16 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_CODE)[i+j]);
-            output->append(txt);
+            output->append((const wxChar*)txt);
         }
-        output->append("\n");
+        output->append(_uT("\n"));
     }
 
-    output->append("\nConfig Memory\n");
+    output->append(_uT("\nConfig Memory\n"));
     for (unsigned int i=0; i<getMemory(TYPE_CONFIG).size(); i+=16)
     {
         sprintf(txt,"%08X::",i+picType->ConfigAddress);
-        output->append(txt);
+        output->append((const wxChar*)txt);
         if (i+16<getMemory(TYPE_CONFIG).size())
         {
             lineSize=16;
@@ -705,16 +713,16 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_CONFIG)[i+j]);
-            output->append(txt);
+            output->append((const wxChar*)txt);
         }
-        output->append("\n");
+        output->append(_uT("\n"));
     }
 
-    output->append("\nData Memory\n");
+    output->append(_uT("\nData Memory\n"));
     for (unsigned int i=0; i<getMemory(TYPE_DATA).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
-        output->append(txt);
+        output->append((const wxChar*)txt);
         if (i+16<getMemory(TYPE_DATA).size())
         {
             lineSize=16;
@@ -726,9 +734,9 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_DATA)[i+j]);
-            output->append(txt);
+            output->append((const wxChar*)txt);
         }
-        output->append("\n");
+        output->append(_uT("\n"));
     }
 }
 

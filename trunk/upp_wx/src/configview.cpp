@@ -78,7 +78,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
                     0, wxLEFT|wxALIGN_CENTER, 5);
 #else
             sz->Add(new wxStaticText(panel, wxID_ANY, 
-                                     wxString::Format("%s [%d bits]:", mask.Name.c_str(), mask.GetBitSize()),
+                                     wxString::Format(_uT("%s [%d bits]:"), mask.Name.c_str(), mask.GetBitSize()),
                                      wxDefaultPosition, wxDefaultSize, 0),
                     0, wxLEFT|wxALIGN_CENTER, 5);			
 #endif		
@@ -127,7 +127,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         }
 
         if (word.Masks.size() == 0)
-            sz->Add(new wxStaticText(panel, wxID_ANY, "No available configuration choices for this configuration word."), 
+            sz->Add(new wxStaticText(panel, wxID_ANY, _uT("No available configuration choices for this configuration word.")), 
                     0, wxALL|wxALIGN_CENTER, 5);
 
         
@@ -145,13 +145,13 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         wxTextCtrl* tc;
 		if(m_pic.is16Bit())
 		{
-			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format("%02X", ConfigWord));	
-			tc->SetMaxLength(wxString::Format("%02X", (unsigned int)word.GetMask()).size());
+			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format(_uT("%02X"), ConfigWord));	
+			tc->SetMaxLength(wxString::Format(_uT("%02X"), (unsigned int)word.GetMask()).size());
 		}
 		else
 		{
-			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format("%04X", ConfigWord));
-			tc->SetMaxLength(wxString::Format("%04X", (unsigned int)word.GetMask()).size());
+			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format(_uT("%04X"), ConfigWord));
+			tc->SetMaxLength(wxString::Format(_uT("%04X"), (unsigned int)word.GetMask()).size());
 		}
         tc->SetToolTip(
             wxString::Format(_("Current value for the %d-th configuration word as derived from above configuration choices"), i));
@@ -244,8 +244,8 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
     // set the new value in the textctrl for the selected configuration word:
     // NOTE: we use %04X because even for 8 bit devices the configuration words
     //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
-    if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%02X", ConfigWord));
-	else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", ConfigWord));
+    if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(_uT("%02X"), ConfigWord));
+	else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(_uT("%04X"), ConfigWord));
     // save the new value back in the HEX file, too:
     if (m_pic.is16Bit())
     {
@@ -295,8 +295,8 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
         // NOTE: we use %04X because even for 8 bit devices the configuration words
         //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
-		if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%02X", (unsigned int)ConfigWordInt));
-		else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format("%04X", (unsigned int)ConfigWordInt));
+		if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(_uT("%02X"), (unsigned int)ConfigWordInt));
+		else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(_uT("%04X"), (unsigned int)ConfigWordInt));
     }
     else
     {

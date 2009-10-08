@@ -53,18 +53,18 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x040100);	//GOTO 0x100
 			dspic_send_24_bits(0x000000);	//NOP
+			//step 2
+			dspic_send_24_bits(0x24008A);	//MOV #0x4008, W10
+			dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
+			//step 3
+			dspic_send_24_bits(0x200F80);	//MOV #0xF8, W0
+			dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
+			dspic_send_24_bits(0x200067);	//MOV #0x6, W7
+			//step 4
+			dspic_send_24_bits(0xEB0300);	//CLR W6
+			dspic_send_24_bits(0x000000);	//NOP
 			for(i=0;i<2;i++)
-			{
-				//step 2
-				dspic_send_24_bits(0x24008A);	//MOV #0x4008, W10
-				dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
-				//step 3
-				dspic_send_24_bits(0x200F80);	//MOV #0xF8, W0
-				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
-				dspic_send_24_bits(0x200067);	//MOV #0x6, W7
-				//step 4
-				dspic_send_24_bits(0xEB0300);	//CLR W6
-				dspic_send_24_bits(0x000000);	//NOP
+			{				
 				//step 5
 				dspic_send_24_bits(0xBB1B86);	//TBLWTL W6, [W7++]
 				//step 6
@@ -76,11 +76,11 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 				dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
-				DelayMs(200);			//Externally time 200ms
+				DelayMs(201);			//Externally time 200ms
 				dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
-			}//step 8: repeat step 2-7
+			}//step 8: repeat step 5-7
 			//step 9
 			dspic_send_24_bits(0x2407FA);	//MOV #0x407F, W10
 			dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
@@ -93,7 +93,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
-			DelayMs(2);			//Externally time 2 msec
+			DelayMs(3);			//Externally time 2 msec
 			dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
@@ -355,8 +355,8 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	switch(pictype)
 	{
 		case dsP30F:
-			if((address%96)==0)
-			{
+			//if((address%96)==0)
+			//{
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 1: Exit the Reset vector.
@@ -366,13 +366,13 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//Step 2: Set the NVMCON to program 32 instruction words.
 				dspic_send_24_bits(0x24001A);	//MOV #0x4001, W10
 				dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
-			}
+			//}
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=12)
 			{
 				//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
-				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #<DestinationAddress23:16>, W0
+				dspic_send_24_bits(0x200000|(((((blockcounter+address)*2)/3)&0xFF0000)>>12));	//MOV #<DestinationAddress23:16>, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
-				dspic_send_24_bits(0x200007|((address&0x00FFFF)<<4));	//MOV #<DestinationAddress15:0>, W7
+				dspic_send_24_bits(0x200007|(((((blockcounter+address)*2)/3)&0x00FFFF)<<4));	//MOV #<DestinationAddress15:0>, W7
 				//Step 4: Initialize the read pointer (W6) and load W0:W5 with the next 4 instruction words to program.
 				for(i=0;i<6;i++)
 				{
@@ -417,8 +417,8 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 			}//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.	
-			if((address%96)==0)
-			{
+			//if((address%96)==64)
+			//{
 				//Step 7: Unlock the NVMCON for writing.
 				dspic_send_24_bits(0x200558);	//MOV #0x55, W8
 				dspic_send_24_bits(0x883B38);	//MOV W8, NVMKEY
@@ -428,7 +428,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
-				DelayMs(2);						//Externally time 2 msec
+				DelayMs(3);						//Externally time 2 msec
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
@@ -437,7 +437,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//Step 9: Reset device internal PC.
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
-			}
+			//}
 			break;
 		case P18F2XXX:
 			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
@@ -700,7 +700,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	if((pictype==P10F200)||(pictype==P10F202))return 3;	//these devices have no data memory.
 	switch(picfamily)
 	{
-		case dsP30F:
+		case dsPIC30:
 			//Step 1: Exit the Reset vector.
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
@@ -713,9 +713,9 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8)
 			{
 				//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
-				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #0x7F, W0
+				dspic_send_24_bits(0x200000|((blockcounter+address&0xFF0000)>>12));	//MOV #0x7F, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
-				dspic_send_24_bits(0x200007|((address&0xFFFF)<<4));	//MOV #<DestinationAddress15:0>, W7
+				dspic_send_24_bits(0x200007|((blockcounter+address&0xFFFF)<<4));	//MOV #<DestinationAddress15:0>, W7
 				//Step 4: Load W0:W3 with the next 4 data words to program.
 			
 				for(i=0;i<4;i++)
@@ -744,7 +744,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
-			DelayMs(2);						//Externally time 2 msec
+			DelayMs(3);						//Externally time 2 msec
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
@@ -880,7 +880,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				dspic_send_24_bits(0x24008A);	//MOV #0x4008, W10
 				dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
 				//Step 4: Initialize the TBLPAG register.
-				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #0xF8, W0
+				dspic_send_24_bits(0x200000|((blockcounter+address&0xFF0000)>>12));	//MOV #0xF8, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
 				//Step 5: Load the Configuration register data to W6.
 				payload=(((unsigned int)data[blockcounter])|(((unsigned int)data[blockcounter+1])<<8));
@@ -899,7 +899,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
-				DelayMs(2);						//Externally time 2 msec
+				DelayMs(3);						//Externally time 2 msec
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xA9E761);	//BCLR NVMCON, #WR
@@ -1086,7 +1086,8 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				//Step 2: Initialize TBLPAG, and the read pointer (W6) and the write pointer (W7) for TBLRD instruction.
 				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #0xF8, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
-				dspic_send_24_bits(0xEB0300);	//CLR W6
+				dspic_send_24_bits(0x200006|((address&0x00FFFF)<<4));	//MOV #<SourceAddress15:0>, W6
+				//dspic_send_24_bits(0xEB0300);	//CLR W6
 				dspic_send_24_bits(0xEB0380);	//CLR W7
 				dspic_send_24_bits(0x000000);	//NOP
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
@@ -1114,15 +1115,14 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
-				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 2: Initialize TBLPAG and the read pointer (W6) for TBLRD instruction.
-				dspic_send_24_bits(0x200000|((address&0xFF0000)>>12));	//MOV #<SourceAddress23:16>, W0
+				dspic_send_24_bits(0x200000|(((((address)*2)/3)&0xFF0000)>>12));	//MOV #<SourceAddress23:16>, W0
 				dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
-				dspic_send_24_bits(0x200006|((address&0x00FFFF)<<4));	//MOV #<SourceAddress15:0>, W6
+				dspic_send_24_bits(0x200006|(((((address)*2)/3)&0x00FFFF)<<4));	//MOV #<SourceAddress15:0>, W6
 				//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
 				dspic_send_24_bits(0xEB0380);	//CLR W7
-				dspic_send_24_bits(0x000000);	//NOP
+				//dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0xBA1B96);	//TBLRDL [W6], [W7++]
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
