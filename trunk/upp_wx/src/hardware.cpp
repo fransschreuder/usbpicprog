@@ -359,6 +359,11 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 	switch(type)
 	{
 		case TYPE_CONFIG:
+			if(picType->is24Bit())
+			{
+				blockSizeHW=BLOCKSIZE_CONFIG_DSPIC_READ;
+				break;
+			}
 		case TYPE_CODE:
 			if (m_hwCurrent == HW_BOOTLOADER)
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
@@ -419,7 +424,6 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 			cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;*/
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
-
         // move read data in the temporary array
         for (unsigned int i=0; i<blocksize; i++)
         {
@@ -503,7 +507,8 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 			}
 			break;
 		case TYPE_CONFIG:
-			blockSizeHW=BLOCKSIZE_CONFIG;
+			if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CONFIG_DSPIC;
+			else blockSizeHW=BLOCKSIZE_CONFIG;
 			break;
 	}
 

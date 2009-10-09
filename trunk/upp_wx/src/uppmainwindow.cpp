@@ -962,6 +962,7 @@ bool UppMainWindow::upp_thread_read()
     m_hexFile.newFile(&m_picType);
 
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
+
     if (m_hardware->read(TYPE_CODE, &m_hexFile, &m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));

@@ -353,10 +353,15 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             if (!child->GetAttribute(_uT("name"), &name))
                 {cout<<_("name attribute in memory not found")<<endl;return UPP_INVALID_PIC;}
             if (name == _uT("code"))
-                p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
+			{
+                
+				if(p.is24Bit()) p.CodeSize = ((GetRange(child)+1)*3)/2;   // times 1.5 because Microchip had the crazy idea that for every 3 bytes, the address increases with 2
+				else p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
+			}
             else if (name == _uT("config"))
             {
-                p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
+                if(p.is24Bit()) p.ConfigSize = (GetRange(child)+1); 
+				else p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
                 if (!child->GetAttribute(_uT("start"), &str) ||
                     !str.ToLong(&num, 0))
                     {cout<<_("start attribute in config memory not found")<<endl;return UPP_INVALID_PIC;}

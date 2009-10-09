@@ -170,7 +170,7 @@ bool HexFile::open(PicType* picType, const char* filename)
                         newSize = extAddress+address+lineData.size()/2 - dataAddress;
 					else if(picType->is24Bit())
 						newSize = (extAddress+address+lineData.size() - dataAddress)/2;
-					cout<<"newSize: "<<hex<<newSize<<endl;
+					//cout<<"newSize: "<<hex<<newSize<<endl;
 
                     
                     if (m_dataMemory.size()<newSize)
@@ -229,9 +229,7 @@ bool HexFile::open(PicType* picType, const char* filename)
 
     fp.close();
 
-    // make sure that the config memory array's size is always picType->ConfigSize
-    m_configMemory.resize(picType->ConfigSize,0xFF);
-    calcConfigMask(picType);    // update m_configMask
+    
 
 	if(picType->is24Bit())	// remove every 4th byte for 24 bit devices
 	{
@@ -271,8 +269,13 @@ bool HexFile::open(PicType* picType, const char* filename)
 				}
 			}
 		}
-		m_configMemory.resize(m_configMemory.size()/2);
+		m_configMemory.resize(picType->ConfigSize);
 	}
+
+	// make sure that the config memory array's size is always picType->ConfigSize
+    m_configMemory.resize(picType->ConfigSize,0xFF);
+    calcConfigMask(picType);    // update m_configMask
+	
     trimData(picType);
     m_bModified = false;
 
