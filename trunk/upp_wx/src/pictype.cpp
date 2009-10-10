@@ -306,7 +306,7 @@ PicType PicType::LoadPiklabXML(const wxString& picName)
 
     PicType ret = LoadPiklabXMLFile(prefix + picName + _uT(".xml"));
 	if (wxString(ret.Name.c_str()) != _uT("P") + picName)  // PIC name should match picName
-        {cout<<_("error: PIC name should match picName: ")<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
+        {cout<<"error: PIC name should match picName: "<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
     
     return ret;
 }
@@ -340,7 +340,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     if ((t.compare(_uT("P10F")) != 0)&&(t2.compare(_uT("P16F5")) != 0) &&
         (!doc.GetRoot()->GetAttribute(_uT("id"), &str) ||
         !str.ToLong(&num, 0)))
-        {cout<<_("device ID not found")<<endl;return UPP_INVALID_PIC;}
+        {cout<<"device ID not found"<<endl;return UPP_INVALID_PIC;}
 
     p.DevId = num;
     wxXmlNode *child = doc.GetRoot()->GetChildren();
@@ -351,7 +351,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
             wxString name;
 
             if (!child->GetAttribute(_uT("name"), &name))
-                {cout<<_("name attribute in memory not found")<<endl;return UPP_INVALID_PIC;}
+                {cout<<"name attribute in memory not found"<<endl;return UPP_INVALID_PIC;}
             if (name == _uT("code"))
 			{
                 
@@ -364,7 +364,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 				else p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
                 if (!child->GetAttribute(_uT("start"), &str) ||
                     !str.ToLong(&num, 0))
-                    {cout<<_("start attribute in config memory not found")<<endl;return UPP_INVALID_PIC;}
+                    {cout<<"start attribute in config memory not found"<<endl;return UPP_INVALID_PIC;}
                 p.ConfigAddress = num;
             }
             else if (name == _uT("eeprom"))
@@ -375,7 +375,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                     !str.ToLong(&num, 0))
 					{if(!child->GetAttribute(_uT("start"), &str) ||
                     !str.ToLong(&num, 0))						
-						{cout<<_("start attribute in hexfile_offset not found")<<endl;return UPP_INVALID_PIC;}}
+						{cout<<"start attribute in hexfile_offset not found"<<endl;return UPP_INVALID_PIC;}}
                 p.DataAddress = num;
             }
         }
@@ -448,13 +448,13 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 #if wxCHECK_VERSION(2,9,0)			
             block.Name = child->GetAttribute(_uT("name"));
             if (!child->GetAttribute(_uT("offset")).ToULong(&block.Offset, 0))
-                {cout<<_("error getting attribute config -> name -> offset")<<endl;return UPP_INVALID_PIC;}
+                {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
 #else
 			child->GetAttribute(_uT("name"),&wx2_8_tempStr);
 			block.Name =wx2_8_tempStr;
 			child->GetAttribute(_uT("offset"),&wx2_8_tempStr);
             if (!wx2_8_tempStr.ToULong(&block.Offset, 0))
-                {cout<<_("error getting attribute config -> name -> offset")<<endl;return UPP_INVALID_PIC;}
+                {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
 #endif			
             // load the ConfigMask objects belonging to this word
             wxXmlNode *maskNode = child->GetChildren();
@@ -490,7 +490,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 								valueNode->GetAttribute(_uT("value"),&wx2_8_tempStr);
                                 if (!wx2_8_tempStr.ToULong(&value.Value, 0))							
 #endif								
-                                    {cout<<_("couldn't find attribute value in mask")<<endl;return UPP_INVALID_PIC;}
+                                    {cout<<"couldn't find attribute value in mask"<<endl;return UPP_INVALID_PIC;}
 
                                 mask.Values.push_back(value);
                             }
@@ -524,7 +524,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 			child->GetAttribute(_uT("nb_pins"),&wx2_8_tempStr);
 			if (!wx2_8_tempStr.ToULong(&npins))
 #endif			
-                {cout<<_("nb_pins not found in package")<<endl;return UPP_INVALID_PIC;}
+                {cout<<"nb_pins not found in package"<<endl;return UPP_INVALID_PIC;}
 
             wxArrayString names;
             names.Add(wxEmptyString, npins);
