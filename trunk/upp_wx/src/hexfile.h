@@ -150,6 +150,11 @@ public:
     */
     bool wasModified() const { return m_bModified; }
 
+	/**
+	 Two registers, OscCal and Bandgap are backed up during erase. Using this function they can be substituted into the hex file.
+	 */
+	void putOscCalBandGap(PicType *picType);
+
 private:
     wxString m_filename;
     bool m_bModified;

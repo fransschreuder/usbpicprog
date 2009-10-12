@@ -17,7 +17,7 @@
     <checksum protected="All" bchecksum="0xBF7F" cchecksum="0x8B4D" />
   </checksums>
 
-<!--* Operating characteristics ********************************************-->
+<!--* Operat10F200.xmling characteristics ********************************************-->
   <frequency_range name="commercial" >
     <frequency start="0"  end="4"  vdd_min="2"   vdd_max="5.5" special="AD off" />
     <frequency start="0"  end="4"  vdd_min="2.2" vdd_max="5.5" special="AD on"  />
@@ -35,7 +35,7 @@
   <voltages name="vdd_prog" min="4.5"   max="5.5"  nominal="5"  />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"         start="0x0000" end="0x03FE" />
+  <memory name="code"         start="0x0000" end="0x03FF" />
   <memory name="calibration"  start="0x03FF" end="0x03FF" cal_opmask="0x3C00"     cal_opcode="0x3400" />
   <memory name="user_ids"     start="0x2000" end="0x2003" rmask="0x007F"          />
   <memory name="device_id"    start="0x2006" end="0x2006" />

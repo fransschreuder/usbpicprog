@@ -214,6 +214,11 @@ public:
     */
     int bulkErase(PicType *picType);
 
+	/**
+	 Backs up two calibration registers (OscCal and BandGap) for PIC12F629 and similar devices and puts it in the corresponding variables of *picType
+	 */
+	int backupOscCalBandGap(PicType *picType);
+	
     /**
         Reads the code/config/data memory from the PIC into *hexData.
         If the device is a PIC16 and type==TYPE_CONFIG, then the user ID is read, too.

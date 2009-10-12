@@ -610,7 +610,8 @@ void UppMainWindow::UpdatePicInfo()
 void UppMainWindow::Reset()
 {
     m_hexFile.newFile(&m_picType);
-
+	m_hardware->backupOscCalBandGap(&m_picType);
+	m_hexFile.putOscCalBandGap (&m_picType);
     UpdatePicInfo();
     UpdateTitle();
 }
@@ -737,7 +738,7 @@ void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
     m_arrLog.clear();
     m_arrLogLevel.clear();
     m_arrLogTimes.clear();
-
+	
     SetStatusText(_("All operations completed"), STATUS_FIELD_OTHER);
     if (m_cfg.ConfigShowPopups)
     {
@@ -812,6 +813,7 @@ wxThread::ExitCode UppMainWindow::Entry()
     wxThread::Sleep(500);
 #endif
 
+	
     // signal the main thread we've completed our task; this will result
     // in a call to UppMainWindow::OnThreadCompleted done in the primary
     // thread context:
@@ -957,19 +959,15 @@ bool UppMainWindow::upp_thread_read()
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
-
     // reset current contents:
     m_hexFile.newFile(&m_picType);
-
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
-
     if (m_hardware->read(TYPE_CODE, &m_hexFile, &m_picType)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
         m_hexFile.trimData(&m_picType);
         return false;
     }
-
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
@@ -1218,6 +1216,8 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
     else
     {
+		m_hardware->backupOscCalBandGap(&m_picType);
+		m_hexFile.putOscCalBandGap (&m_picType);
         UpdatePicInfo();
         UpdateTitle();
         m_history.AddFileToHistory(path);

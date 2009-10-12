@@ -97,7 +97,7 @@ bool HexFile::open(PicType* picType, const char* filename)
         return false;
     }
             
-    m_filename = wxString((const wxChar*)filename);
+    m_filename =  wxString::FromAscii((const char*)filename);
 
 
     // parse the file
@@ -332,7 +332,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
         return false;
     }
 
-    m_filename = wxString((const wxChar*)filename);
+    m_filename =  wxString::FromAscii((const char*)filename);
 
     if (m_codeMemory.size()>0)
     {
@@ -683,7 +683,7 @@ void HexFile::print(wxString* output,PicType *picType)
     for (unsigned int i=0; i<getMemory(TYPE_CODE).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
-        output->append((const wxChar*)txt);
+        output->append( wxString::FromAscii(txt));
         if (i+16<getMemory(TYPE_CODE).size())
         {
             lineSize=16;
@@ -695,7 +695,7 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_CODE)[i+j]);
-            output->append((const wxChar*)txt);
+            output->append( wxString::FromAscii(txt));
         }
         output->append(_uT("\n"));
     }
@@ -704,7 +704,7 @@ void HexFile::print(wxString* output,PicType *picType)
     for (unsigned int i=0; i<getMemory(TYPE_CONFIG).size(); i+=16)
     {
         sprintf(txt,"%08X::",i+picType->ConfigAddress);
-        output->append((const wxChar*)txt);
+        output->append( wxString::FromAscii(txt));
         if (i+16<getMemory(TYPE_CONFIG).size())
         {
             lineSize=16;
@@ -716,7 +716,7 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_CONFIG)[i+j]);
-            output->append((const wxChar*)txt);
+            output->append( wxString::FromAscii(txt));
         }
         output->append(_uT("\n"));
     }
@@ -725,7 +725,7 @@ void HexFile::print(wxString* output,PicType *picType)
     for (unsigned int i=0; i<getMemory(TYPE_DATA).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
-        output->append((const wxChar*)txt);
+        output->append( wxString::FromAscii(txt));
         if (i+16<getMemory(TYPE_DATA).size())
         {
             lineSize=16;
@@ -737,7 +737,7 @@ void HexFile::print(wxString* output,PicType *picType)
         for (int j=0;j<lineSize;j++)
         {
             sprintf(txt,"%02X",getMemory(TYPE_DATA)[i+j]);
-            output->append((const wxChar*)txt);
+            output->append( wxString::FromAscii(txt));
         }
         output->append(_uT("\n"));
     }
@@ -822,4 +822,16 @@ void HexFile::makeLine(int address, RecordType recordType, const vector<int>& li
 }
 
 
-
+void HexFile::putOscCalBandGap(PicType *picType)
+{
+	if(picType->picFamily==P12F629)
+	{
+		if(m_codeMemory.size()>=0x800)
+		{
+			m_codeMemory[0x7FE]=(picType->OscCal&0xFF);
+			m_codeMemory[0x7FF]=((picType->OscCal>>8)&0xFF);
+		}
+		m_configMemory[1]&=0x0F;
+		m_configMemory[1]|=(picType->BandGap>>8)&0x30;
+	}
+}

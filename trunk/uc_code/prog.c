@@ -37,10 +37,9 @@ extern long tick;
 /**
 Bulk erases the whole device
 */
-unsigned int osccal,bandgap; //for P12F629 devices...
-
 char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 {
+	unsigned int osccal,bandgap; //for P12F629 devices...
 	unsigned int i;
 	unsigned char temp[2];
 	set_vdd_vpp(pictype,picfamily,1);
@@ -244,6 +243,14 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			pic_send_n_bits(6,0x0B);//e) Execute Bulk Erase Data Memory (001011).
 			DelayMs(Tera);//f) Wait TERA.
 			//h) Restore OSCCAL and BG bits.*/
+			set_vdd_vpp(pictype, picfamily,0);
+			DelayMs(10);
+			temp[0]=(unsigned char)(osccal&0xFF);
+			temp[1]=(unsigned char)((osccal>>8)&0xFF);
+			write_code(picfamily, pictype, 0x3FF, temp,2 ,3);
+			temp[0]=0xFF;
+			temp[1]=(unsigned char)((bandgap>>8)|0xF);
+			write_config_bits(picfamily, pictype, 0x2007, temp,2 ,3);
 			break;
 		case P12F61X:
 		case P16F84A:	//same as P16F62XA
@@ -501,6 +508,10 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case P16F62X:
 		case P12F629:
 		case P12F61X:
+			if((lastblock&1)&&(address>0))
+			{
+				set_address(picfamily, address); //set the initial address
+			}
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
@@ -525,9 +536,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					DelayMs(10);		//wait a while
 					set_address(picfamily, address+(blockcounter>>1)); //go back to the address where it was
 				
-					if(pictype==P12F629&&((address+(blockcounter>>1))==0x3FF))
+					/*if(pictype==P12F629&&((address+(blockcounter>>1))==0x3FF))
 						pic_send_14_bits(6,0x02,osccal);
-					else
+					else*/
 						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 							(((unsigned int)data[blockcounter+1])<<8));//LSB
 					switch(pictype)
@@ -550,7 +561,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				}
 				pic_send_n_bits(6,0x06);	//increment address
 			}
-			if(pictype==P12F629&&((lastblock&2)&&((address+blocksize)<0x3FF))) //restore osccal register
+			/*if(pictype==P12F629&&((lastblock&2)&&((address+blocksize)<0x3FF))) //restore osccal register
 			{
 				for(i=0;i<(0x3FF-(address+blocksize));i++)
 								pic_send_n_bits(6,0x06);	//increment address
@@ -558,7 +569,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x08);    //begin programming, internally timed
 				DelayMs(8);
 				//pic_send_n_bits(6,0x0A); 	//end programming
-			}
+			}*/
 			break;
 		case P16F72:
 		case P16F7X:
@@ -958,7 +969,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 			}
 			break;
 		case P12F629:
-			if(lastblock&1)
+			/*if(lastblock&1)
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 				for(i=0;i<((char)address);i++)pic_send_n_bits(6,0x06);   //increment address until ADDRESS is reached
@@ -984,7 +995,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				//read data from program memory (to verify) not yet impl...
 				pic_send_n_bits(6,0x06);	//increment address
 			}
-			break;
+			break;*/
 		case P16F785:
 		case P16F87:
 		case P16F88X:

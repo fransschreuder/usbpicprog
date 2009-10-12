@@ -523,6 +523,8 @@ public:
     /// The minimum & maximum frequencies for this PIC.
     float MinFreq, MaxFreq;
 
+	/// Two backup calibration registers for 12F629 devices
+	unsigned int OscCal, BandGap;
 
 	struct CheckSumType
     {

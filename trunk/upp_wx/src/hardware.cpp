@@ -292,6 +292,7 @@ int Hardware::bulkErase(PicType* picType)
             return nBytes;
         }
 
+		//backupOscCalBandGap(picType);
         statusCallBack (100);
         return (int)msg[0];
     }
@@ -325,6 +326,20 @@ int Hardware::bulkErase(PicType* picType)
 
         return 1;   // OK
     }
+}
+
+
+int Hardware::backupOscCalBandGap(PicType *picType)
+{
+	unsigned char msg[64];
+	if(picType->picFamily==P12F629)	//back up osccal and bandgap registers for those devices
+	{
+		readBlock(TYPE_CODE, msg , 0x3ff, 2, 3);
+		picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
+		readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 );			 
+		picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
+	}
+	return 1;
 }
 
 int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes, HexFile *verifyData)
@@ -383,9 +398,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 			}
 			break;
 	}
-			
     statusCallBack (0);
-
     if (type == TYPE_DATA && m_hwCurrent == HW_BOOTLOADER)
         return 0;   // TODO implement readData for bootloader
     if (type == TYPE_CONFIG && m_hwCurrent == HW_BOOTLOADER)
@@ -462,7 +475,6 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 
     // finally save the data we've just read into the hexfile:
     hexData->putMemory(type, mem, picType);
-
     return nBytes;
 }
 
@@ -756,7 +768,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 #if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
 #else
-		firmwareVersion->versionString.assign((const wxChar*)msg);
+		firmwareVersion->versionString = wxString::FromAscii((const char*)msg);
 #endif
 		wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
 		firmwareVersion->stableRelease=(strippedVersion.size()==5);
@@ -815,7 +827,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 #if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
 #else		
-		firmwareVersion->versionString.assign((const wxChar*)msg);
+		firmwareVersion->versionString= wxString::FromAscii((const char*)msg);
 #endif		
 		
 		firmwareVersion->stableRelease=true;

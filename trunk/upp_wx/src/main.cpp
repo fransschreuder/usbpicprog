@@ -362,6 +362,11 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 				cout<<(string)output.mb_str(wxConvUTF8)<<endl;
 #endif				
             }
+			if(picType->picFamily==P12F629)
+			{
+				hardware->backupOscCalBandGap(picType);
+				hexFile->putOscCalBandGap (picType);
+			}
             if(hardware->write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
             if(hardware->write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
             if(hardware->write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
