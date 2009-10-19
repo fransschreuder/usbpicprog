@@ -1,5 +1,5 @@
 EESchema Schematic File Version 2
-LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,contrib,valves,.\zif_socket.cache
+LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,contrib,valves
 EELAYER 23  0
 EELAYER END
 $Descr A4 11700 8267
@@ -13,8 +13,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 4900 4500 0    60   ~
-PGDdsPIC18
+Wire Wire Line
+	4600 5200 4900 5200
 Wire Wire Line
 	4600 4500 4900 4500
 Wire Wire Line
@@ -34,8 +34,6 @@ Wire Wire Line
 Wire Wire Line
 	4600 3900 4900 3900
 Wire Wire Line
-	3900 4600 3600 4600
-Wire Wire Line
 	3900 4100 3600 4100
 Wire Wire Line
 	3900 3800 3600 3800
@@ -43,8 +41,6 @@ Wire Wire Line
 	3900 3900 3600 3900
 Wire Wire Line
 	3900 4200 3600 4200
-Wire Wire Line
-	3900 4500 3600 4500
 Wire Wire Line
 	4600 3800 4900 3800
 Wire Wire Line
@@ -121,6 +117,10 @@ Wire Wire Line
 	7650 1550 8100 1550
 Wire Wire Line
 	7650 1750 8100 1750
+Wire Wire Line
+	4600 5300 4900 5300
+Text Label 4900 4500 0    60   ~
+PGDdsPIC18
 Text Label 8100 2850 0    60   ~
 VDD18
 Text Label 8100 2950 0    60   ~
@@ -267,9 +267,9 @@ Text Label 4900 4800 0    60   ~
 PGCdsPIC28
 Text Label 4900 4900 0    60   ~
 PGDdsPIC28
-Text Label 3600 4600 0    60   ~
+Text Label 4900 5300 0    60   ~
 PGDdsPIC40
-Text Label 3600 4500 0    60   ~
+Text Label 4900 5200 0    60   ~
 PGCdsPIC40
 Text Label 3600 4200 0    60   ~
 GND18
