@@ -1,18 +1,18 @@
 array set info {
 AllowLanguageSelection
-Yes
+{Yes}
 
 AppName
-usbpicprog
+{usbpicprog}
 
 ApplicationID
-D6D5438B-D9B3-4550-A88D-C12713D885FB
+{D6D5438B-D9B3-4550-A88D-C12713D885FB}
 
 ApplicationURL
-http://usbpicprog.org
+{http://usbpicprog.org}
 
 AutoRefreshFiles
-Yes
+{Yes}
 
 BuildFailureAction
 {Fail (recommended)}
@@ -21,88 +21,115 @@ CancelledInstallAction
 {Rollback and Stop}
 
 CleanupCancelledInstall
-Yes
+{Yes}
 
 CommandLineFailureAction
 {Fail (recommended)}
 
 Company
-usbpicprog.org
+{usbpicprog.org}
 
 CompressionLevel
-6
+{6}
 
 CompressionMethod
-zlib
+{zlib}
 
 Copyright
 {(c) Frans Schreuder}
 
 CreateDesktopShortcut
-Yes
+{Yes}
 
 CreateQuickLaunchShortcut
-Yes
+{Yes}
 
 DefaultDirectoryLocation
 {}
 
 DefaultLanguage
-English
+{English}
+
+DefaultToSystemLanguage
+{Yes}
+
+EnableResponseFiles
+{Yes}
 
 Ext
-.exe
+{.exe}
 
 ExtractSolidArchivesOnStartup
-No
+{No}
 
 Icon
-Modern/Small/SetupModernSmall01.gif
+{Modern/Small/SetupModernSmall01.gif}
+
+IgnoreDirectories
+{}
+
+IgnoreFiles
+{}
 
 Image
-Modern/SetupModern01.gif
+{Modern/SetupModern01.gif}
 
 IncludeDebugging
-Yes
+{Yes}
 
 InstallPassword
 {}
 
 InstallVersion
-0.3.0.0
+{0.3.0.0}
+
+Language,ca
+{Yes}
+
+Language,cs
+{Yes}
 
 Language,de
-No
+{No}
 
 Language,en
-Yes
+{Yes}
 
 Language,es
-Yes
+{Yes}
 
 Language,fr
-Yes
+{Yes}
 
 Language,hu
-No
+{No}
 
 Language,it
-Yes
+{Yes}
+
+Language,lt
+{Yes}
 
 Language,nl
-Yes
+{Yes}
 
 Language,pl
-No
+{No}
 
 Language,pt_br
-No
+{No}
 
 Language,ru
-No
+{No}
+
+LastIgnoreDirectories
+{}
+
+LastIgnoreFiles
+{}
 
 LaunchApplication
-Yes
+{Yes}
 
 PackageDescription
 {}
@@ -114,67 +141,67 @@ PackageMaintainer
 {}
 
 PackageName
-<%ShortAppName%>
+{<%ShortAppName%>-<%Version%>-i386}
 
 PackagePackager
 {}
 
 PackageRelease
-<%PatchVersion%>
+{<%PatchVersion%>}
 
 PackageSummary
 {}
 
 PackageVersion
-<%MajorVersion%>.<%MinorVersion%>
+{<%MajorVersion%>.<%MinorVersion%>}
 
 PreserveFileAttributes
-Yes
+{Yes}
 
 PreserveFilePermissions
-Yes
+{Yes}
 
 ProjectID
-29AA9E52-EB4D-4E01-BD76-A3AC46FE60F6
+{29AA9E52-EB4D-4E01-BD76-A3AC46FE60F6}
 
 ProjectVersion
-1.2.9.0
+{1.2.14.1}
 
 SaveOnlyToplevelDirs
-No
+{No}
 
 ScriptExt
-.bat
+{.bat}
 
 ShortAppName
-Usbpicprog
+{Usbpicprog}
 
 SkipUnusedFileGroups
-Yes
+{Yes}
 
 SystemLanguage
-en_us
+{en_us}
 
 Theme
-Modern_Wizard
+{Modern_Wizard}
 
 ThemeDir
-Modern_Wizard
+{Modern_Wizard}
 
 ThemeVersion
-1
+{1}
 
 UpgradeApplicationID
 {}
 
 Version
-0.3.0
+{0.3.0}
 
 WizardHeight
-365
+{365}
 
 WizardWidth
-500
+{500}
 
 }
 
@@ -206,7 +233,7 @@ test
 {Testing Switch Yes No {} {run uninstaller without uninstalling any files}}
 
 }
-FileGroup ::7676B4E0-8F5A-4296-9C58-3267487DF41D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows TarArchive ZipArchive} -name {Program Files} -parent FileGroups
+FileGroup ::7676B4E0-8F5A-4296-9C58-3267487DF41D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows TarArchive ZipArchive FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 Linux-x86_64 Solaris-x86} -name {Program Files} -parent FileGroups
 File ::CD6D49CC-BE71-41B3-A5DD-512DB679B685 -type dir -name ../po -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::1E5D1089-DA9B-4292-B713-5AFC0800A619 -directory <%InstallDir%>/po/ar/LC_MESSAGES/ -targetfilename usbpicprog.mo -name ar.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::33166F78-4080-4EA3-8731-A1E9CC2D3233 -directory <%InstallDir%>/po/es/LC_MESSAGES/ -targetfilename usbpicprog.mo -name es.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
@@ -278,8 +305,8 @@ File ::4E54CD28-67B9-4878-B565-E5BC97DFB90E -name POTFILES.in -active 0 -parent 
 File ::58AA24BB-37CD-46E9-BDC4-8983AAC5496E -name pt.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::87A2A7DF-A9F5-4E41-B436-1151AB7AE632 -name usbpicprog.pot -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::7FE106E0-EB5B-442D-94E8-CCEC262AE2EC -name usbpicprog.mo -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
-File ::576CCCD6-A75A-4774-90FA-76A7A7DC8E1C -directory <%InstallDir%>/po/uk/LC_MESSAGES/ -targetfilename usbpicprog.mo -name uk.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
-File ::A184947D-2ED5-4B92-AC0C-B482373556FF -name uk.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
+File ::C874E6AB-CB36-48D7-A2D8-82FB4F90793F -directory <%InstallDir%>/po/uk/LC_MESSAGES/ -targetfilename usbpicprog.mo -name uk.mo -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
+File ::C605181D-6C94-4130-ACD2-0B6880AC54A6 -name uk.po -active 0 -parent CD6D49CC-BE71-41B3-A5DD-512DB679B685
 File ::CF0B11F2-5051-4AA5-8541-F74DCF9E7051 -type dir -directory <%InstallDir%>/xml_data -name ../xml_data -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::855B165F-D7C2-4D2B-8397-43C991587A1B -name 10F200.xml -parent CF0B11F2-5051-4AA5-8541-F74DCF9E7051
 File ::8209174C-BF7F-4597-84F8-37F83065FADE -name 10F202.xml -parent CF0B11F2-5051-4AA5-8541-F74DCF9E7051
@@ -711,44 +738,44 @@ File ::4710E292-3F4B-4649-954A-D3490D847AC6 -name C:/usbpicprog/trunk/upp_wx/win
 File ::E17F049C-54AC-4CB9-88B5-1F926BB103FE -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.dll -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::70E0BF62-2E53-4991-B56F-4FC13F3795C3 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.sys -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::2DEB2C1E-12EB-432B-9CE3-13D11F681123 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0_x64.dll -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::C6F5363D-A01C-4D57-A439-D7E1BDD27C7C -type dir -name C:/usbpicprog/trunk/upp_wx/windows_driver -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::E4854215-7494-4742-87A8-6CB274B3C0F7 -name libusb0.dll -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::841185C9-0199-4222-87EC-2B8E04924075 -name libusb0.sys -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::026038FD-1339-4A09-AED7-5ABC408D0A90 -name libusb0_x64.dll -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::6B29B4FE-2182-435D-BD7A-6F3CCDC2FA23 -name libusb0_x64.sys -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::E30FF985-C47D-4C44-AC5F-762A453CF0C6 -name {Microchip FS USB.cat} -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::F2F83028-9CBA-4C78-93AF-5D77EF9CA82D -name {Microchip FS USB.inf} -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::B2129DD0-2684-4F54-8CDB-BA0A19E34BBA -name {Microchip FS USB_x64.cat} -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::AC60F402-896F-4DA7-BE48-5FF4D640144C -name usbpicprog.cat -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::97B3A662-B4A5-453D-98FE-49B358E8BB88 -name usbpicprog.inf -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::0B6C0861-7A08-4FDE-B4F1-838C3BA70A3C -name usbpicprog_x64.cat -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::69D8B312-64CA-44ED-A90F-085195968ACF -type dir -name .svn -active 0 -parent C6F5363D-A01C-4D57-A439-D7E1BDD27C7C
-File ::4FCCA5C4-6A76-409C-B29C-9C9DDCB5DE66 -name all-wcprops -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::8DB29F7E-014C-4827-8F50-4B3871F029CC -name entries -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::91D69B43-A2B0-4393-9FAC-CB71B45CA57C -type dir -name prop-base -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::7DAD809E-4D0F-4C62-A195-784A91DC369B -name libusb0.dll.svn-base -parent 91D69B43-A2B0-4393-9FAC-CB71B45CA57C
-File ::A059CFB5-1A11-4280-A9E4-5592A18B8929 -name libusb0.sys.svn-base -parent 91D69B43-A2B0-4393-9FAC-CB71B45CA57C
-File ::B5446F0F-858D-4DDC-8160-C5ABE9F8B109 -name libusb0_x64.dll.svn-base -parent 91D69B43-A2B0-4393-9FAC-CB71B45CA57C
-File ::C12B2F57-37C1-4AAB-9AE6-FD1ACEF5CF01 -name libusb0_x64.sys.svn-base -parent 91D69B43-A2B0-4393-9FAC-CB71B45CA57C
-File ::721EA546-0B3B-4DA1-A80A-E619DD8D824E -type dir -name props -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::CD070EA5-9512-41B5-96C9-D85CDBB0DBED -type dir -name text-base -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::43E650AD-C747-4ABC-BCEA-5ECD7E2D708B -name libusb0.dll.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::E075BA3D-C480-43BF-ACFE-E71A8E587922 -name libusb0.sys.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::92FC0881-E205-4C02-B084-E16A10994FF5 -name libusb0_x64.dll.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::A2BEFB4A-E461-4678-AB29-1768F5C36459 -name libusb0_x64.sys.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::5E1705B0-CB64-4E8B-A1D1-0D67C8C0AEE2 -name {Microchip FS USB.cat.svn-base} -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::CC4F98DC-FFFE-4F6E-BA3C-4303E91CE958 -name {Microchip FS USB.inf.svn-base} -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::757162B7-DC0B-4A5A-8F2F-5D8207169CD8 -name {Microchip FS USB_x64.cat.svn-base} -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::26C6EBEA-F2E7-4C51-9630-73E345DC91EF -name usbpicprog.cat.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::60220E44-1CF1-490E-A929-A7D9BEA8618B -name usbpicprog.inf.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::33B9AA58-0097-4B64-995B-591135EE45F5 -name usbpicprog_x64.cat.svn-base -parent CD070EA5-9512-41B5-96C9-D85CDBB0DBED
-File ::A9E749E8-EA72-420F-89DB-A0D46CD65C8C -type dir -name tmp -parent 69D8B312-64CA-44ED-A90F-085195968ACF
-File ::7F87BDAE-463D-4F5E-B24D-92CCD20B9BAC -type dir -name prop-base -parent A9E749E8-EA72-420F-89DB-A0D46CD65C8C
-File ::153E24FE-1751-4C83-80F6-412806582C75 -type dir -name props -parent A9E749E8-EA72-420F-89DB-A0D46CD65C8C
-File ::DDB924E3-9E2D-49F6-A4EF-27951B8625DB -type dir -name text-base -parent A9E749E8-EA72-420F-89DB-A0D46CD65C8C
-Component ::C41EF465-5503-42F9-A53A-A7954CDE469C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
-SetupType ::4F7975A2-07BF-4638-B3F5-01F86679744C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
-SetupType ::C3970F63-BF05-4C83-B458-ECD160F1E772 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
+File ::E5A0250D-6BE2-4BA7-A453-8B8031E588CA -type dir -name C:/usbpicprog/trunk/upp_wx/windows_driver -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
+File ::61B1DE7C-E616-4F48-99BA-A7F7F2472796 -name libusb0.dll -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::932F917D-5FB9-417F-9990-63DDF8DC5D55 -name libusb0.sys -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::17C9DF60-EAB4-4A77-BF09-B86C48FC592B -name libusb0_x64.dll -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::290966CE-59DF-4B08-9BD6-F3FF3EF7BAA4 -name libusb0_x64.sys -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::A7EC2D24-E49D-4E2A-9D9C-888524C14799 -name {Microchip FS USB.cat} -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::438F5FE8-05BA-4E86-89EC-7080B694AC83 -name {Microchip FS USB.inf} -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::5732CF9E-D1FE-4B28-8E2B-EDC7B6D6C128 -name {Microchip FS USB_x64.cat} -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::A06DC665-52ED-4AAE-A748-4FFA4D074F1B -name usbpicprog.cat -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::F81443F0-9DA7-4FF8-B947-3B4BFDB6B54E -name usbpicprog.inf -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::E372000C-AD5A-4225-ADCB-708C87B7CB87 -name usbpicprog_x64.cat -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::05520BC4-E551-4341-ABDD-DF99D07ECF82 -type dir -name .svn -active 0 -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
+File ::594A218B-6047-409D-B757-0A5B1E76E88C -name all-wcprops -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::E9B40337-49AC-488E-B62D-159A944DEEE4 -name entries -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::896CAF55-8962-45A5-AD06-B89D70060A05 -type dir -name prop-base -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::279CBE0B-7579-4556-B162-4929E041EBE4 -name libusb0.dll.svn-base -parent 896CAF55-8962-45A5-AD06-B89D70060A05
+File ::FF72D888-2222-4C85-988E-DD75607E1798 -name libusb0.sys.svn-base -parent 896CAF55-8962-45A5-AD06-B89D70060A05
+File ::DF1B9322-E515-4691-B7F1-0871D2D19484 -name libusb0_x64.dll.svn-base -parent 896CAF55-8962-45A5-AD06-B89D70060A05
+File ::65B49877-7D96-41ED-9050-9918EE119E9B -name libusb0_x64.sys.svn-base -parent 896CAF55-8962-45A5-AD06-B89D70060A05
+File ::40C82CA2-CD84-4825-A5DD-BB3A4A20EB15 -type dir -name props -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946 -type dir -name text-base -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::EFA9472F-D132-4B06-8CED-0BD930BD5DBE -name libusb0.dll.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::DD0FE00F-4886-4860-979C-E4C7E391A44A -name libusb0.sys.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::8C7573BA-A944-42FF-86F5-1E54ACC12676 -name libusb0_x64.dll.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::41A688B8-AA51-46F9-9FB7-6ED1EF84626F -name libusb0_x64.sys.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::3859D455-8051-4448-8EF7-CAA760B142A9 -name {Microchip FS USB.cat.svn-base} -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::33D293D3-4F0B-48DA-B663-3B237B3374CA -name {Microchip FS USB.inf.svn-base} -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::6D34409F-BB7C-4501-B18A-89A09F263F27 -name {Microchip FS USB_x64.cat.svn-base} -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::AC9BB172-8BC6-4F3A-8E01-12AAE869B21C -name usbpicprog.cat.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::D417C4FA-BFCF-46DD-BEDD-AC5C080EE857 -name usbpicprog.inf.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::8F65E854-AC8D-421F-A5C5-97F085205C6B -name usbpicprog_x64.cat.svn-base -parent B2DC3950-88AF-4F6F-A7B0-AD3FD1BBF946
+File ::4CE7828D-5EAC-44C4-9DBB-A7B9AFF164EC -type dir -name tmp -parent 05520BC4-E551-4341-ABDD-DF99D07ECF82
+File ::88567F2C-10D4-4B1F-A324-6C73170D383A -type dir -name prop-base -parent 4CE7828D-5EAC-44C4-9DBB-A7B9AFF164EC
+File ::011DEC34-BCE7-46E0-82F0-4EC215BFA144 -type dir -name props -parent 4CE7828D-5EAC-44C4-9DBB-A7B9AFF164EC
+File ::48CF31BF-4CB0-4B9E-A1B8-604433907BCD -type dir -name text-base -parent 4CE7828D-5EAC-44C4-9DBB-A7B9AFF164EC
+Component ::C41EF465-5503-42F9-A53A-A7954CDE469C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 Linux-x86_64 Solaris-x86} -name {Default Component} -parent Components
+SetupType ::4F7975A2-07BF-4638-B3F5-01F86679744C -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 Linux-x86_64 Solaris-x86} -name Typical -parent SetupTypes
+SetupType ::C3970F63-BF05-4C83-B458-ECD160F1E772 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows FreeBSD-5-x86 FreeBSD-6-x86 FreeBSD-7-x86 Linux-x86_64 Solaris-x86} -name Custom -parent SetupTypes
 
 InstallComponent 0CF36AF0-79CB-4AAD-8A52-803C279158A5 -setup Install -type pane -title {Welcome Screen} -component Welcome -active Yes -parent StandardInstall
 InstallComponent 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859 -setup Install -type pane -conditions {5C8AD412-880D-4C51-8041-2AED63C24AA9 0A778449-8F8F-45E0-ABD2-71851404663A} -title {Select Destination} -component SelectDestination -command insert -active Yes -parent StandardInstall
@@ -852,166 +879,166 @@ InstallComponent 429EB5DF-0C4A-4F43-AB1B-AB8FBE025CC9 -setup Uninstall -type act
 
 array set Properties {
 00553530-309C-4F95-BBEE-8EA1F109C340,Prompt
-<%ConsoleSelectDestinationText%>
+{<%ConsoleSelectDestinationText%>}
 
 00553530-309C-4F95-BBEE-8EA1F109C340,VirtualText
-InstallDir
+{InstallDir}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Background
-white
+{white}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Conditions
 {2 conditions}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Text,subst
-1
+{1}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Type
-checkbutton
+{checkbutton}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,VirtualText
-CreateDesktopShortcut
+{CreateDesktopShortcut}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,X
-185
+{185}
 
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Y
-180
+{180}
 
 01C77DC0-E9B1-46C4-9518-76E95BA6FFFA,Comment
 {Ask the user if they want to proceed with the install.}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,BackButton,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,CancelButton,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,Caption,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,FileLabel,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,Message,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,NextButton,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,ProgressValue,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,Subtitle,subst
-1
+{1}
 
 090DD951-43A1-47A1-A3A2-4F8EC14AC79C,Title,subst
-1
+{1}
 
 0A778449-8F8F-45E0-ABD2-71851404663A,CheckCondition
 {Before Next Pane is Displayed}
 
 0A778449-8F8F-45E0-ABD2-71851404663A,FailureMessage
-<%DirectoryPermissionText%>
+{<%DirectoryPermissionText%>}
 
 0A778449-8F8F-45E0-ABD2-71851404663A,Filename
-<%InstallDir%>
+{<%InstallDir%>}
 
 0A778449-8F8F-45E0-ABD2-71851404663A,Permission
 {can create}
 
 0BB2D209-C1E9-4539-A65F-7D7239D86FA2,BackButton,subst
-1
+{1}
 
 0BB2D209-C1E9-4539-A65F-7D7239D86FA2,CancelButton,subst
-1
+{1}
 
 0BB2D209-C1E9-4539-A65F-7D7239D86FA2,Caption,subst
-1
+{1}
 
 0BB2D209-C1E9-4539-A65F-7D7239D86FA2,Message,subst
-1
+{1}
 
 0BB2D209-C1E9-4539-A65F-7D7239D86FA2,NextButton,subst
-1
+{1}
 
 0CE69D67-5FC8-4634-8D02-9EDC5C3474E1,CheckCondition
 {Before Action is Executed}
 
 0CE69D67-5FC8-4634-8D02-9EDC5C3474E1,Operator
-false
+{false}
 
 0CE69D67-5FC8-4634-8D02-9EDC5C3474E1,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,BackButton,subst
-1
+{1}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,CancelButton,subst
-1
+{1}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,Caption,subst
-1
+{1}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,Conditions
 {0 conditions}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,Message,subst
-1
+{1}
 
 0CF36AF0-79CB-4AAD-8A52-803C279158A5,NextButton,subst
-1
+{1}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,Background
-white
+{white}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,Text,subst
-1
+{1}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,Type
-checkbutton
+{checkbutton}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,VirtualText
-LaunchApplication
+{LaunchApplication}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,X
-185
+{185}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,Y
-160
+{160}
 
 118C06DE-5613-4DF1-800A-91FF0C2C8625,CheckCondition
 {Before Action is Executed}
 
 118C06DE-5613-4DF1-800A-91FF0C2C8625,String
-<%GuiMode%>
+{<%GuiMode%>}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,Background
-white
+{white}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,Text,subst
-1
+{1}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,Type
-checkbutton
+{checkbutton}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,VirtualText
-CreateQuickLaunchShortcut
+{CreateQuickLaunchShortcut}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,X
-185
+{185}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,Y
-200
+{200}
 
 13A0E20A-EF9B-4DA3-BDD5-95256CD5CECB,CheckCondition
 {Before Action is Executed}
 
 13A0E20A-EF9B-4DA3-BDD5-95256CD5CECB,Operator
-false
+{false}
 
 13A0E20A-EF9B-4DA3-BDD5-95256CD5CECB,String
-<%UpgradeInstall%>
+{<%UpgradeInstall%>}
 
 187C3EF3-3EED-4FC9-A9DF-2F77787C54F8,Action
 {Uninstall Actions}
@@ -1020,46 +1047,46 @@ false
 {Before Action is Executed}
 
 1B274F68-406A-4EB2-8B0F-09D875A6F671,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 1C30B36A-7EC6-4B35-B5A5-0EF056AAB586,CheckCondition
 {Before Action is Executed}
 
 1C30B36A-7EC6-4B35-B5A5-0EF056AAB586,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message,subst
-1
+{1}
 
 27CD1156-7FF3-4061-B28F-26FAB29E633C,ExitType
-Finish
+{Finish}
 
 34B1F82F-F782-44AC-9B72-51720D55C56F,Conditions
 {2 conditions}
 
 34B1F82F-F782-44AC-9B72-51720D55C56F,ShortcutName
-<%AppName%>
+{<%AppName%>}
 
 34B1F82F-F782-44AC-9B72-51720D55C56F,TargetFileName
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 34B1F82F-F782-44AC-9B72-51720D55C56F,WorkingDirectory
-<%InstallDir%>
+{<%InstallDir%>}
 
 358576FD-ED4A-4C9D-800F-F42D61121BB8,CheckCondition
 {Before Action is Executed}
 
 358576FD-ED4A-4C9D-800F-F42D61121BB8,Operator
-false
+{false}
 
 358576FD-ED4A-4C9D-800F-F42D61121BB8,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 3669AEC8-666E-41FE-AD79-0173290668F5,Conditions
 {0 conditions}
 
 3669AEC8-666E-41FE-AD79-0173290668F5,State
-disabled
+{disabled}
 
 3669AEC8-666E-41FE-AD79-0173290668F5,Widget
 {Back Button;Next Button}
@@ -1068,112 +1095,115 @@ disabled
 {Before Action is Executed}
 
 36A886CB-DA09-4EB7-ABE1-D5B4E422CF17,Operator
-false
+{false}
 
 36A886CB-DA09-4EB7-ABE1-D5B4E422CF17,String
-<%UpgradeInstall%>
+{<%UpgradeInstall%>}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,CheckCondition
 {Before Action is Executed}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,Message,subst
-1
+{1}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,Title,subst
-1
+{1}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,TrueValue
-No
+{No}
 
 429EB5DF-0C4A-4F43-AB1B-AB8FBE025CC9,Alias
 {Cancel Actions}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,BackButton,subst
-1
+{1}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,CancelButton,subst
-1
+{1}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,Caption,subst
-1
+{1}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,Conditions
 {0 conditions}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,Message,subst
-1
+{1}
 
 43A36558-88D6-4FB2-9AEA-FC0115D5AEE9,NextButton,subst
-1
+{1}
 
 45BC55A6-E988-4661-96F1-3732BC561C5A,CheckCondition
 {Before Action is Executed}
 
 45BC55A6-E988-4661-96F1-3732BC561C5A,Operator
-false
+{false}
 
 45BC55A6-E988-4661-96F1-3732BC561C5A,String
-<%Answer%>
+{<%Answer%>}
 
 4775266C-8DDF-42C1-B59B-A292A28DE676,CheckCondition
 {Before Action is Executed}
 
 4775266C-8DDF-42C1-B59B-A292A28DE676,Operator
-false
+{false}
 
 4775266C-8DDF-42C1-B59B-A292A28DE676,String
-<%UpgradeInstall%>
+{<%UpgradeInstall%>}
 
 4A0D7D53-8078-497A-8FBB-0F87F5462EFC,CheckCondition
 {Before Action is Executed}
 
 4A0D7D53-8078-497A-8FBB-0F87F5462EFC,String
-<%CreateQuickLaunchShortcut%>
+{<%CreateQuickLaunchShortcut%>}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,BackButton,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,BrowseButton,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,BrowseText,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,CancelButton,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Caption,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Conditions
 {2 conditions}
 
+4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Destination,subst
+{1}
+
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,DestinationLabel,subst
-0
+{0}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Message,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,NextButton,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Subtitle,subst
-1
+{1}
 
 4B32490D-B4A7-47D7-86C1-BDCEFDE9C859,Title,subst
-1
+{1}
 
 4F7975A2-07BF-4638-B3F5-01F86679744C,Components
-C41EF465-5503-42F9-A53A-A7954CDE469C
+{C41EF465-5503-42F9-A53A-A7954CDE469C}
 
 4F7975A2-07BF-4638-B3F5-01F86679744C,Description,subst
-1
+{1}
 
 4F7975A2-07BF-4638-B3F5-01F86679744C,DisplayName,subst
-1
+{1}
 
 4F7975A2-07BF-4638-B3F5-01F86679744C,Name
-Typical
+{Typical}
 
 50E796AD-8842-4084-BC86-7B4BE34F7146,Alias
 {Setup Actions}
@@ -1182,22 +1212,22 @@ Typical
 {Before Action is Executed}
 
 54838453-6788-4060-BEFD-120108AEB74A,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 5BEEF8C7-2D4C-4F70-B7BB-AF94A8AF16AA,BackButton,subst
-1
+{1}
 
 5BEEF8C7-2D4C-4F70-B7BB-AF94A8AF16AA,CancelButton,subst
-1
+{1}
 
 5BEEF8C7-2D4C-4F70-B7BB-AF94A8AF16AA,Caption,subst
-1
+{1}
 
 5BEEF8C7-2D4C-4F70-B7BB-AF94A8AF16AA,Message,subst
-1
+{1}
 
 5BEEF8C7-2D4C-4F70-B7BB-AF94A8AF16AA,NextButton,subst
-1
+{1}
 
 5C8AD412-880D-4C51-8041-2AED63C24AA9,Comment
 {Do not display this pane if this is an upgrade install unless there is more than one installation present}
@@ -1212,22 +1242,22 @@ Typical
 {Uninstall Actions}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message,subst
-1
+{1}
 
 60E0624A-09CD-490B-81DF-262742AAA29B,ShortcutName
-<%AppName%>
+{<%AppName%>}
 
 60E0624A-09CD-490B-81DF-262742AAA29B,TargetFileName
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 60E0624A-09CD-490B-81DF-262742AAA29B,WorkingDirectory
-<%InstallDir%>
+{<%InstallDir%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message,subst
-1
+{1}
 
 66656D19-2B94-40B9-B99E-C716B4529B1C,State
-disabled
+{disabled}
 
 66656D19-2B94-40B9-B99E-C716B4529B1C,Widget
 {NextButton; CancelButton}
@@ -1236,64 +1266,64 @@ disabled
 {Before Action is Executed}
 
 67A23B04-3117-4B35-87B2-1C0391712D7C,Platform
-Windows
+{Windows}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,BackButton,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,CancelButton,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Caption,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Conditions
 {1 condition}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Message,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,NextButton,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Subtitle,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Text,subst
-1
+{1}
 
 6F6AF0F9-F800-4AC7-A9A9-AF58F9D38A16,Title,subst
-1
+{1}
 
 711A4626-DDF9-425B-8B61-22C013AD119D,CheckCondition
 {Before Action is Executed}
 
 711A4626-DDF9-425B-8B61-22C013AD119D,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,CheckCondition
 {Before Action is Executed}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,Message,subst
-1
+{1}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,Title,subst
-1
+{1}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,TrueValue
-No
+{No}
 
 7624C256-F58E-49FF-89E9-12ADF4A0A418,CheckCondition
 {Before Action is Executed}
 
 7624C256-F58E-49FF-89E9-12ADF4A0A418,Platform
-Windows
+{Windows}
 
 7676B4E0-8F5A-4296-9C58-3267487DF41D,Destination
-<%InstallDir%>
+{<%InstallDir%>}
 
 7676B4E0-8F5A-4296-9C58-3267487DF41D,FileSize
-18898324
+{19054766}
 
 7676B4E0-8F5A-4296-9C58-3267487DF41D,Name
 {Program Files}
@@ -1305,10 +1335,10 @@ Windows
 {Before Action is Executed}
 
 77A773AA-A875-4521-AA93-0B48843808BA,String
-<%LaunchApplication%>
+{<%LaunchApplication%>}
 
 788C1B8F-82F1-4ABD-90A3-221AA0640626,ExitType
-Finish
+{Finish}
 
 7A875FD5-772F-45FC-A74A-A5A2AA76FBDF,Action
 {Install Actions}
@@ -1320,61 +1350,61 @@ Finish
 {Before Action is Executed}
 
 7BC4F7A2-5AF1-48D4-B3D9-5FE1FF4664CF,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 7DCD52BC-8E0B-4D25-996B-6878B61090D4,FileName
-<%ShortAppName%>-uninstall
+{<%ShortAppName%>-uninstall}
 
 7DCD52BC-8E0B-4D25-996B-6878B61090D4,ShortcutName
 {Uninstall <%AppName%>}
 
 7DCD52BC-8E0B-4D25-996B-6878B61090D4,TargetFileName
-<%Uninstaller%>
+{<%Uninstaller%>}
 
 7DCD52BC-8E0B-4D25-996B-6878B61090D4,WorkingDirectory
-<%InstallDir%>
+{<%InstallDir%>}
 
 803EB50B-912B-4A28-8EE2-18487624F10C,ExitType
-Finish
+{Finish}
 
 80A01698-CD90-4F63-8A39-D2D87F444CFE,Conditions
 {2 conditions}
 
 80A01698-CD90-4F63-8A39-D2D87F444CFE,ShortcutDirectory
-<%QUICK_LAUNCH%>
+{<%QUICK_LAUNCH%>}
 
 80A01698-CD90-4F63-8A39-D2D87F444CFE,ShortcutName
-<%AppName%>
+{<%AppName%>}
 
 80A01698-CD90-4F63-8A39-D2D87F444CFE,TargetFileName
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 80A01698-CD90-4F63-8A39-D2D87F444CFE,WorkingDirectory
-<%InstallDir%>
+{<%InstallDir%>}
 
 812ECFFD-0C8A-4267-8810-295C810263AE,CheckCondition
 {Before Action is Executed}
 
 812ECFFD-0C8A-4267-8810-295C810263AE,String
-<%GuiMode%>
+{<%GuiMode%>}
 
 8781D854-ECEC-4F96-BCEC-5C6125A7D3DE,ExitType
-Finish
+{Finish}
 
 8B5DD9C7-7883-4C91-A791-64C8BBCBC33D,CheckCondition
 {Before Action is Executed}
 
 8B5DD9C7-7883-4C91-A791-64C8BBCBC33D,String
-<%CreateDesktopShortcut%>
+{<%CreateDesktopShortcut%>}
 
 924EB0C3-D9AE-400A-8A04-0950798C8B22,CheckCondition
 {Before Next Action is Executed}
 
 924EB0C3-D9AE-400A-8A04-0950798C8B22,FailureMessage
-<%DirectoryPermissionText%>
+{<%DirectoryPermissionText%>}
 
 924EB0C3-D9AE-400A-8A04-0950798C8B22,Filename
-<%InstallDir%>
+{<%InstallDir%>}
 
 924EB0C3-D9AE-400A-8A04-0950798C8B22,Permission
 {can create}
@@ -1383,76 +1413,76 @@ Finish
 {Before Action is Executed}
 
 9424F4F7-202F-4E72-8199-AEC662F29AE6,Operator
-false
+{false}
 
 9424F4F7-202F-4E72-8199-AEC662F29AE6,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 95DEF26B-56A1-4E2C-9889-3581BB40A968,CheckCondition
 {Before Action is Executed}
 
 95DEF26B-56A1-4E2C-9889-3581BB40A968,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,BackButton,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,CancelButton,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Caption,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Conditions
 {0 conditions}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Message,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,NextButton,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Subtitle,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Text,subst
-1
+{1}
 
 9DC57A71-48CE-4517-A2A6-5C019BA21F94,Title,subst
-1
+{1}
 
 9DF7F139-BED7-4E23-A1CE-5AA7D3E0C5CF,Action
 {Uninstall Actions}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Background
-white
+{white}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Conditions
 {3 conditions}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Text,subst
-1
+{1}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Type
-checkbutton
+{checkbutton}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,VirtualText
-CreateQuickLaunchShortcut
+{CreateQuickLaunchShortcut}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,X
-185
+{185}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Y
-200
+{200}
 
 A0930D85-7B3C-48FF-93B4-706AD5C4B88D,Alias
 {Install Actions}
 
 A2F53B09-9F33-46EE-935B-BD562CDC0DF0,Default
-Yes
+{Yes}
 
 A2F53B09-9F33-46EE-935B-BD562CDC0DF0,Prompt
-<%InstallStartupText%>
+{<%InstallStartupText%>}
 
 A3C6273D-68A2-4AF5-8368-106265AD5A2E,Action
 {Install Actions}
@@ -1461,79 +1491,79 @@ AD79EF6B-33C8-49C1-ACD9-5DC810CAB24D,CheckCondition
 {Before Action is Executed}
 
 AD79EF6B-33C8-49C1-ACD9-5DC810CAB24D,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 AIX-ppc,Active
-No
+{No}
 
 AIX-ppc,BuildSeparateArchives
-No
+{No}
 
 AIX-ppc,DefaultDirectoryPermission
-0755
+{0755}
 
 AIX-ppc,DefaultFilePermission
-0755
+{0755}
 
 AIX-ppc,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 AIX-ppc,FallBackToConsole
-Yes
+{Yes}
 
 AIX-ppc,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 AIX-ppc,InstallMode
-Standard
+{Standard}
 
 AIX-ppc,InstallType
-Typical
+{Typical}
 
 AIX-ppc,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 AIX-ppc,ProgramFolderAllUsers
-No
+{No}
 
 AIX-ppc,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 AIX-ppc,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 AIX-ppc,ProgramName
 {}
 
 AIX-ppc,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 AIX-ppc,PromptForRoot
-Yes
+{Yes}
 
 AIX-ppc,RequireRoot
-No
+{No}
 
 AIX-ppc,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message,subst
-1
+{1}
 
 B7A008B7-1458-40DF-A305-E147EC7EC492,CheckCondition
 {Before Action is Executed}
 
 B7A008B7-1458-40DF-A305-E147EC7EC492,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 B8DCF0F6-57C5-4811-B769-CEF2C665F9B2,CheckCondition
 {Before Action is Executed}
 
 B8DCF0F6-57C5-4811-B769-CEF2C665F9B2,Operator
-false
+{false}
 
 B8DCF0F6-57C5-4811-B769-CEF2C665F9B2,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 B9D412F3-8754-42E2-89C8-20C3181D0D69,Action
 {Install Actions}
@@ -1542,16 +1572,16 @@ BAB518B2-522E-4291-87CE-F05B69404714,CheckCondition
 {Before Action is Executed}
 
 BAB518B2-522E-4291-87CE-F05B69404714,Operator
-false
+{false}
 
 BAB518B2-522E-4291-87CE-F05B69404714,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 BC80FF45-C3B2-42A7-BD17-D0F707276CD6,CheckCondition
 {Before Action is Executed}
 
 BC80FF45-C3B2-42A7-BD17-D0F707276CD6,Filename
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 BD6D8296-2D66-4E96-90B4-6B9BA96430CE,Alias
 {Finish Actions}
@@ -1560,37 +1590,37 @@ BD6D8296-2D66-4E96-90B4-6B9BA96430CE,Conditions
 {0 conditions}
 
 C3970F63-BF05-4C83-B458-ECD160F1E772,Components
-C41EF465-5503-42F9-A53A-A7954CDE469C
+{C41EF465-5503-42F9-A53A-A7954CDE469C}
 
 C3970F63-BF05-4C83-B458-ECD160F1E772,Description,subst
-1
+{1}
 
 C3970F63-BF05-4C83-B458-ECD160F1E772,DisplayName,subst
-1
+{1}
 
 C3970F63-BF05-4C83-B458-ECD160F1E772,Name
-Custom
+{Custom}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,Description,subst
-1
+{1}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,DisplayName,subst
-1
+{1}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,FileGroups
-7676B4E0-8F5A-4296-9C58-3267487DF41D
+{7676B4E0-8F5A-4296-9C58-3267487DF41D}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,Name
 {Default Component}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,RequiredComponent
-Yes
+{Yes}
 
 C5849990-7270-48B7-8CAA-C70B15BE7AAE,Default
-Yes
+{Yes}
 
 C5849990-7270-48B7-8CAA-C70B15BE7AAE,Prompt
-<%UninstallStartupText%>
+{<%UninstallStartupText%>}
 
 C5D8D12C-E209-4EB2-A578-16E6ABF907CB,Conditions
 {0 conditions}
@@ -1602,154 +1632,154 @@ C88DCC2F-585C-46E6-8FD5-0C12BDC84794,CheckCondition
 {Before Action is Executed}
 
 C88DCC2F-585C-46E6-8FD5-0C12BDC84794,Operator
-false
+{false}
 
 C88DCC2F-585C-46E6-8FD5-0C12BDC84794,String
-<%Answer%>
+{<%Answer%>}
 
 C8A09CBF-FFF0-488F-8E87-64C46C6DF69C,Alias
 {Uninstall Actions}
 
 CCBF961C-33EE-4775-828D-CAD3B50203C3,State
-disabled
+{disabled}
 
 CCBF961C-33EE-4775-828D-CAD3B50203C3,Widget
 {Back Button;Next Button}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,BackButton,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,CancelButton,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,Caption,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,Conditions
 {0 conditions}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,FileValue,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,Message,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,NextButton,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,ProgressValue,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,Subtitle,subst
-1
+{1}
 
 D6D6DE85-FE8B-4C0A-B387-19AB724AE4C0,Title,subst
-1
+{1}
 
 DB893DA1-D645-4FAC-95AB-9B142102D02B,CheckCondition
 {Before Action is Executed}
 
 DB893DA1-D645-4FAC-95AB-9B142102D02B,Operator
-false
+{false}
 
 DB893DA1-D645-4FAC-95AB-9B142102D02B,String
-<%InstallStopped%>
+{<%InstallStopped%>}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Background
-white
+{white}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Conditions
 {2 conditions}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Text,subst
-1
+{1}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Type
-checkbutton
+{checkbutton}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,VirtualText
-LaunchApplication
+{LaunchApplication}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,X
-185
+{185}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Y
-160
+{160}
 
 DF2074C3-830D-4194-B96E-E6833178CD40,Alias
 {Startup Actions}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,BackButton,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,CancelButton,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,Caption,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,Conditions
 {0 conditions}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,FileLabel,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,Message,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,NextButton,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,ProgressValue,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,Subtitle,subst
-1
+{1}
 
 DF3D7B6F-027C-4353-9A0A-4B73BC0B6B32,Title,subst
-1
+{1}
 
 E1A854DC-8257-468D-9B0B-BFE0EFEFD9B9,Conditions
 {3 conditions}
 
 E1A854DC-8257-468D-9B0B-BFE0EFEFD9B9,ProgramCommandLine
-<%ProgramExecutable%>
+{<%ProgramExecutable%>}
 
 E1A854DC-8257-468D-9B0B-BFE0EFEFD9B9,WaitForProgram
-No
+{No}
 
 E1A854DC-8257-468D-9B0B-BFE0EFEFD9B9,WorkingDirectory
-<%InstallDir%>
+{<%InstallDir%>}
 
 E3430F0C-6FFE-4587-AC55-DE572D438685,CheckCondition
 {Before Action is Executed}
 
 E3430F0C-6FFE-4587-AC55-DE572D438685,Operator
-false
+{false}
 
 E3430F0C-6FFE-4587-AC55-DE572D438685,String
-<%UpgradeInstall%>
+{<%UpgradeInstall%>}
 
 E3B2CC6B-A679-47FD-A033-9B0CEC5A8E2A,String
-<%ErrorsOccurred%>
+{<%ErrorsOccurred%>}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,Background
-white
+{white}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,Text,subst
-1
+{1}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,Type
-checkbutton
+{checkbutton}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,VirtualText
-CreateDesktopShortcut
+{CreateDesktopShortcut}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,X
-185
+{185}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,Y
-180
+{180}
 
 EC0E2E1C-3FEF-464D-950B-7C0A67B73288,Alias
 {Startup Actions}
@@ -1764,445 +1794,724 @@ FC84B5CF-9749-4F4A-B1F4-71425862235B,CheckCondition
 {Before Action is Executed}
 
 FC84B5CF-9749-4F4A-B1F4-71425862235B,String
-<%GuiMode%>
+{<%GuiMode%>}
 
 FreeBSD-4-x86,Active
-No
+{No}
 
 FreeBSD-4-x86,BuildSeparateArchives
-No
+{No}
 
 FreeBSD-4-x86,DefaultDirectoryPermission
-0755
+{0755}
 
 FreeBSD-4-x86,DefaultFilePermission
-0755
+{0755}
 
 FreeBSD-4-x86,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 FreeBSD-4-x86,FallBackToConsole
-Yes
+{Yes}
 
 FreeBSD-4-x86,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 FreeBSD-4-x86,InstallMode
-Standard
+{Standard}
 
 FreeBSD-4-x86,InstallType
-Typical
+{Typical}
 
 FreeBSD-4-x86,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 FreeBSD-4-x86,ProgramFolderAllUsers
-No
+{No}
 
 FreeBSD-4-x86,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 FreeBSD-4-x86,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 FreeBSD-4-x86,ProgramName
 {}
 
 FreeBSD-4-x86,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 FreeBSD-4-x86,PromptForRoot
-Yes
+{Yes}
 
 FreeBSD-4-x86,RequireRoot
-No
+{No}
 
 FreeBSD-4-x86,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
+
+FreeBSD-5-x86,Active
+{No}
+
+FreeBSD-5-x86,BuildSeparateArchives
+{No}
+
+FreeBSD-5-x86,DefaultDirectoryPermission
+{0755}
+
+FreeBSD-5-x86,DefaultFilePermission
+{0755}
+
+FreeBSD-5-x86,Executable
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
+
+FreeBSD-5-x86,FallBackToConsole
+{Yes}
+
+FreeBSD-5-x86,InstallDir
+{<%Home%>/<%ShortAppName%>}
+
+FreeBSD-5-x86,InstallMode
+{Standard}
+
+FreeBSD-5-x86,InstallType
+{Typical}
+
+FreeBSD-5-x86,ProgramExecutable
+{}
+
+FreeBSD-5-x86,ProgramFolderAllUsers
+{No}
+
+FreeBSD-5-x86,ProgramFolderName
+{<%AppName%>}
+
+FreeBSD-5-x86,ProgramLicense
+{<%InstallDir%>/LICENSE.txt}
+
+FreeBSD-5-x86,ProgramName
+{}
+
+FreeBSD-5-x86,ProgramReadme
+{<%InstallDir%>/README.txt}
+
+FreeBSD-5-x86,PromptForRoot
+{Yes}
+
+FreeBSD-5-x86,RequireRoot
+{No}
+
+FreeBSD-5-x86,RootInstallDir
+{/usr/local/<%ShortAppName%>}
+
+FreeBSD-6-x86,Active
+{No}
+
+FreeBSD-6-x86,BuildSeparateArchives
+{No}
+
+FreeBSD-6-x86,DefaultDirectoryPermission
+{0755}
+
+FreeBSD-6-x86,DefaultFilePermission
+{0755}
+
+FreeBSD-6-x86,Executable
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
+
+FreeBSD-6-x86,FallBackToConsole
+{Yes}
+
+FreeBSD-6-x86,InstallDir
+{<%Home%>/<%ShortAppName%>}
+
+FreeBSD-6-x86,InstallMode
+{Standard}
+
+FreeBSD-6-x86,InstallType
+{Typical}
+
+FreeBSD-6-x86,ProgramExecutable
+{}
+
+FreeBSD-6-x86,ProgramFolderAllUsers
+{No}
+
+FreeBSD-6-x86,ProgramFolderName
+{<%AppName%>}
+
+FreeBSD-6-x86,ProgramLicense
+{<%InstallDir%>/LICENSE.txt}
+
+FreeBSD-6-x86,ProgramName
+{}
+
+FreeBSD-6-x86,ProgramReadme
+{<%InstallDir%>/README.txt}
+
+FreeBSD-6-x86,PromptForRoot
+{Yes}
+
+FreeBSD-6-x86,RequireRoot
+{No}
+
+FreeBSD-6-x86,RootInstallDir
+{/usr/local/<%ShortAppName%>}
+
+FreeBSD-7-x86,Active
+{No}
+
+FreeBSD-7-x86,BuildSeparateArchives
+{No}
+
+FreeBSD-7-x86,DefaultDirectoryPermission
+{0755}
+
+FreeBSD-7-x86,DefaultFilePermission
+{0755}
+
+FreeBSD-7-x86,Executable
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
+
+FreeBSD-7-x86,FallBackToConsole
+{Yes}
+
+FreeBSD-7-x86,InstallDir
+{<%Home%>/<%ShortAppName%>}
+
+FreeBSD-7-x86,InstallMode
+{Standard}
+
+FreeBSD-7-x86,InstallType
+{Typical}
+
+FreeBSD-7-x86,ProgramExecutable
+{}
+
+FreeBSD-7-x86,ProgramFolderAllUsers
+{No}
+
+FreeBSD-7-x86,ProgramFolderName
+{<%AppName%>}
+
+FreeBSD-7-x86,ProgramLicense
+{<%InstallDir%>/LICENSE.txt}
+
+FreeBSD-7-x86,ProgramName
+{}
+
+FreeBSD-7-x86,ProgramReadme
+{<%InstallDir%>/README.txt}
+
+FreeBSD-7-x86,PromptForRoot
+{Yes}
+
+FreeBSD-7-x86,RequireRoot
+{No}
+
+FreeBSD-7-x86,RootInstallDir
+{/usr/local/<%ShortAppName%>}
 
 FreeBSD-x86,Active
-No
+{No}
 
 FreeBSD-x86,BuildSeparateArchives
-No
+{No}
 
 FreeBSD-x86,DefaultDirectoryPermission
-0755
+{0755}
 
 FreeBSD-x86,DefaultFilePermission
-0755
+{0755}
 
 FreeBSD-x86,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 FreeBSD-x86,FallBackToConsole
-Yes
+{Yes}
 
 FreeBSD-x86,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 FreeBSD-x86,InstallMode
-Standard
+{Standard}
 
 FreeBSD-x86,InstallType
-Typical
+{Typical}
 
 FreeBSD-x86,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 FreeBSD-x86,ProgramFolderAllUsers
-No
+{No}
 
 FreeBSD-x86,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 FreeBSD-x86,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 FreeBSD-x86,ProgramName
 {}
 
 FreeBSD-x86,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 FreeBSD-x86,PromptForRoot
-Yes
+{Yes}
 
 FreeBSD-x86,RequireRoot
-No
+{No}
 
 FreeBSD-x86,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
 
 HPUX-hppa,Active
-No
+{No}
 
 HPUX-hppa,BuildSeparateArchives
-No
+{No}
 
 HPUX-hppa,DefaultDirectoryPermission
-0755
+{0755}
 
 HPUX-hppa,DefaultFilePermission
-0755
+{0755}
 
 HPUX-hppa,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 HPUX-hppa,FallBackToConsole
-Yes
+{Yes}
 
 HPUX-hppa,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 HPUX-hppa,InstallMode
-Standard
+{Standard}
 
 HPUX-hppa,InstallType
-Typical
+{Typical}
 
 HPUX-hppa,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 HPUX-hppa,ProgramFolderAllUsers
-No
+{No}
 
 HPUX-hppa,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 HPUX-hppa,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 HPUX-hppa,ProgramName
 {}
 
 HPUX-hppa,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 HPUX-hppa,PromptForRoot
-Yes
+{Yes}
 
 HPUX-hppa,RequireRoot
-No
+{No}
 
 HPUX-hppa,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
 
 Linux-x86,Active
-No
+{No}
 
 Linux-x86,BuildSeparateArchives
-No
+{No}
 
 Linux-x86,DefaultDirectoryPermission
-0755
+{0755}
 
 Linux-x86,DefaultFilePermission
-0755
+{0755}
 
 Linux-x86,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 Linux-x86,FallBackToConsole
-Yes
+{Yes}
 
 Linux-x86,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 Linux-x86,InstallMode
-Standard
+{Standard}
 
 Linux-x86,InstallType
-Typical
+{Typical}
 
 Linux-x86,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 Linux-x86,ProgramFolderAllUsers
-No
+{No}
 
 Linux-x86,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 Linux-x86,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 Linux-x86,ProgramName
 {}
 
 Linux-x86,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 Linux-x86,PromptForRoot
-Yes
+{Yes}
 
 Linux-x86,RequireRoot
-No
+{No}
 
 Linux-x86,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
+
+Linux-x86_64,Active
+{No}
+
+Linux-x86_64,BuildSeparateArchives
+{No}
+
+Linux-x86_64,DefaultDirectoryPermission
+{0755}
+
+Linux-x86_64,DefaultFilePermission
+{0755}
+
+Linux-x86_64,Executable
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
+
+Linux-x86_64,FallBackToConsole
+{Yes}
+
+Linux-x86_64,InstallDir
+{<%Home%>/<%ShortAppName%>}
+
+Linux-x86_64,InstallMode
+{Standard}
+
+Linux-x86_64,InstallType
+{Typical}
+
+Linux-x86_64,ProgramExecutable
+{}
+
+Linux-x86_64,ProgramFolderAllUsers
+{No}
+
+Linux-x86_64,ProgramFolderName
+{<%AppName%>}
+
+Linux-x86_64,ProgramLicense
+{<%InstallDir%>/LICENSE.txt}
+
+Linux-x86_64,ProgramName
+{}
+
+Linux-x86_64,ProgramReadme
+{<%InstallDir%>/README.txt}
+
+Linux-x86_64,PromptForRoot
+{Yes}
+
+Linux-x86_64,RequireRoot
+{No}
+
+Linux-x86_64,RootInstallDir
+{/usr/local/<%ShortAppName%>}
 
 Solaris-sparc,Active
-No
+{No}
 
 Solaris-sparc,BuildSeparateArchives
-No
+{No}
 
 Solaris-sparc,DefaultDirectoryPermission
-0755
+{0755}
 
 Solaris-sparc,DefaultFilePermission
-0755
+{0755}
 
 Solaris-sparc,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 Solaris-sparc,FallBackToConsole
-Yes
+{Yes}
 
 Solaris-sparc,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 Solaris-sparc,InstallMode
-Standard
+{Standard}
 
 Solaris-sparc,InstallType
-Typical
+{Typical}
 
 Solaris-sparc,ProgramExecutable
-<%InstallDir%>/usbpicprog
+{<%InstallDir%>/usbpicprog}
 
 Solaris-sparc,ProgramFolderAllUsers
-No
+{No}
 
 Solaris-sparc,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 Solaris-sparc,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 Solaris-sparc,ProgramName
 {}
 
 Solaris-sparc,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 Solaris-sparc,PromptForRoot
-Yes
+{Yes}
 
 Solaris-sparc,RequireRoot
-No
+{No}
 
 Solaris-sparc,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
+
+Solaris-x86,Active
+{No}
+
+Solaris-x86,BuildSeparateArchives
+{No}
+
+Solaris-x86,DefaultDirectoryPermission
+{0755}
+
+Solaris-x86,DefaultFilePermission
+{0755}
+
+Solaris-x86,Executable
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
+
+Solaris-x86,FallBackToConsole
+{Yes}
+
+Solaris-x86,InstallDir
+{<%Home%>/<%ShortAppName%>}
+
+Solaris-x86,InstallMode
+{Standard}
+
+Solaris-x86,InstallType
+{Typical}
+
+Solaris-x86,ProgramExecutable
+{}
+
+Solaris-x86,ProgramFolderAllUsers
+{No}
+
+Solaris-x86,ProgramFolderName
+{<%AppName%>}
+
+Solaris-x86,ProgramLicense
+{<%InstallDir%>/LICENSE.txt}
+
+Solaris-x86,ProgramName
+{}
+
+Solaris-x86,ProgramReadme
+{<%InstallDir%>/README.txt}
+
+Solaris-x86,PromptForRoot
+{Yes}
+
+Solaris-x86,RequireRoot
+{No}
+
+Solaris-x86,RootInstallDir
+{/usr/local/<%ShortAppName%>}
 
 TarArchive,Active
-No
+{No}
 
 TarArchive,BuildSeparateArchives
-No
+{No}
 
 TarArchive,CompressionLevel
-6
+{6}
 
 TarArchive,DefaultDirectoryPermission
-0755
+{0755}
 
 TarArchive,DefaultFilePermission
-0755
+{0755}
 
 TarArchive,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 TarArchive,FallBackToConsole
-Yes
+{Yes}
 
 TarArchive,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 TarArchive,InstallMode
-Standard
+{Standard}
 
 TarArchive,InstallType
-Typical
+{Typical}
 
 TarArchive,OutputFileName
-<%ShortAppName%>-<%Version%>.tar.gz
+{<%ShortAppName%>-<%Version%>.tar.gz}
 
 TarArchive,ProgramExecutable
 {}
 
 TarArchive,ProgramFolderAllUsers
-No
+{No}
 
 TarArchive,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 TarArchive,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 TarArchive,ProgramName
 {}
 
 TarArchive,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 TarArchive,PromptForRoot
-Yes
+{Yes}
 
 TarArchive,RequireRoot
-No
+{No}
 
 TarArchive,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
 
 TarArchive,VirtualTextMap
 {<%InstallDir%> <%ShortAppName%>}
 
 Windows,Active
-Yes
+{Yes}
 
 Windows,BuildSeparateArchives
-No
+{No}
 
 Windows,Executable
-<%AppName%>-<%Version%><%Ext%>
+{<%AppName%>-<%Version%><%Ext%>}
 
 Windows,FileDescription
 {<%AppName%> <%Version%> Setup}
 
 Windows,IncludeTWAPI
-No
+{No}
 
 Windows,InstallDir
-<%PROGRAM_FILES%>/<%AppName%>
+{<%PROGRAM_FILES%>/<%AppName%>}
 
 Windows,InstallMode
-Standard
+{Standard}
 
 Windows,InstallType
-Typical
+{Typical}
+
+Windows,LastRequireAdministrator
+{Yes}
 
 Windows,ProgramExecutable
-<%InstallDir%>/usbpicprog.exe
+{<%InstallDir%>/usbpicprog.exe}
 
 Windows,ProgramFolderAllUsers
-No
+{No}
 
 Windows,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 Windows,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 Windows,ProgramName
 {}
 
 Windows,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
+
+Windows,RequireAdministrator
+{Yes}
+
+Windows,UseUncompressedBinaries
+{No}
 
 Windows,WindowsIcon
 {Setup Blue Screen.ico}
 
 ZipArchive,Active
-No
+{No}
 
 ZipArchive,BuildSeparateArchives
-No
+{No}
 
 ZipArchive,CompressionLevel
-6
+{6}
 
 ZipArchive,DefaultDirectoryPermission
-0755
+{0755}
 
 ZipArchive,DefaultFilePermission
-0755
+{0755}
 
 ZipArchive,Executable
-<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>
+{<%AppName%>-<%Version%>-<%Platform%>-Install<%Ext%>}
 
 ZipArchive,FallBackToConsole
-Yes
+{Yes}
 
 ZipArchive,InstallDir
-<%Home%>/<%ShortAppName%>
+{<%Home%>/<%ShortAppName%>}
 
 ZipArchive,InstallMode
-Standard
+{Standard}
 
 ZipArchive,InstallType
-Typical
+{Typical}
 
 ZipArchive,OutputFileName
-<%ShortAppName%>-<%Version%>.zip
+{<%ShortAppName%>-<%Version%>.zip}
 
 ZipArchive,ProgramExecutable
 {}
 
 ZipArchive,ProgramFolderAllUsers
-No
+{No}
 
 ZipArchive,ProgramFolderName
-<%AppName%>
+{<%AppName%>}
 
 ZipArchive,ProgramLicense
-<%InstallDir%>/LICENSE.txt
+{<%InstallDir%>/LICENSE.txt}
 
 ZipArchive,ProgramName
 {}
 
 ZipArchive,ProgramReadme
-<%InstallDir%>/README.txt
+{<%InstallDir%>/README.txt}
 
 ZipArchive,PromptForRoot
-Yes
+{Yes}
 
 ZipArchive,RequireRoot
-No
+{No}
 
 ZipArchive,RootInstallDir
-/usr/local/<%ShortAppName%>
+{/usr/local/<%ShortAppName%>}
 
 ZipArchive,VirtualTextMap
 {<%InstallDir%> <%ShortAppName%>}
@@ -2211,181 +2520,181 @@ ZipArchive,VirtualTextMap
 
 ::msgcat::mcmset de {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset en {
 00698581-CDC1-45C7-91C9-07B6E407FB0F,Text
-<%CreateDesktopShortcutText%>
+{<%CreateDesktopShortcutText%>}
 
 10EB1F0C-9F3F-45B1-92CB-7E7979B0C2D5,Text
-<%LaunchApplicationText%>
+{<%LaunchApplicationText%>}
 
 138946EE-45FD-436F-A419-C9210B1DCE83,Text
-<%CreateQuickLaunchShortcutText%>
+{<%CreateQuickLaunchShortcutText%>}
 
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,Message
-<%UninstallStartupText%>
+{<%UninstallStartupText%>}
 
 3E92EB42-9B16-448E-9072-AA07476CA0C4,Title
-<%UninstallApplicationText%>
+{<%UninstallApplicationText%>}
 
 4F7975A2-07BF-4638-B3F5-01F86679744C,Description
-<%TypicalInstallDescription%>
+{<%TypicalInstallDescription%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,Message
-<%InstallStartupText%>
+{<%InstallStartupText%>}
 
 71AC205F-032F-4E76-AF61-75A83910A1A1,Title
-<%InstallApplicationText%>
+{<%InstallApplicationText%>}
 
 9FDF949C-7D96-4C41-9938-59759DAAA70A,Text
-<%CreateQuickLaunchShortcutText%>
+{<%CreateQuickLaunchShortcutText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 C3970F63-BF05-4C83-B458-ECD160F1E772,Description
-<%CustomInstallDescription%>
+{<%CustomInstallDescription%>}
 
 C41EF465-5503-42F9-A53A-A7954CDE469C,Description
-<%ProgramFilesDescription%>
+{<%ProgramFilesDescription%>}
 
 DC59F090-EEC5-4A33-83A0-AF2B0D0214E0,Text
-<%LaunchApplicationText%>
+{<%LaunchApplicationText%>}
 
 EAA90D28-0716-4175-8DBB-E58500F831F2,Text
-<%CreateDesktopShortcutText%>
+{<%CreateDesktopShortcutText%>}
 
 }
 ::msgcat::mcmset es {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset fr {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset hu {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset it {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset nl {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset pl {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset pt_br {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 ::msgcat::mcmset ru {
 27A07802-CB54-44ED-9D66-A57F2BA3A2AE,Message
-<%UninstallCompleteText%>
+{<%UninstallCompleteText%>}
 
 5FBAA611-08D3-4D3D-8F4E-CBEFAEA8E398,Message
-<%InstallationCompleteText%>
+{<%InstallationCompleteText%>}
 
 648C3BBC-1AB7-4F2D-9785-81745A38D1BD,Message
-<%UninstallingApplicationText%>
+{<%UninstallingApplicationText%>}
 
 B063A188-D52C-4723-A4A7-3C3EE4846C55,Message
-<%InstallingApplicationText%>
+{<%InstallingApplicationText%>}
 
 }
 
