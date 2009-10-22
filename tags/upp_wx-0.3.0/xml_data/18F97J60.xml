@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Alan Page                                         *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="18F97J60" document="026439" status="IP" memory_technology="FLASH" architecture="18J" id="0x1FA0" >
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="41.6667" vdd_min="2.7" vdd_max="3.6" />
+  </frequency_range>
+  <frequency_range name="industrial" special="low_power" >
+    <frequency start="0" end="4" vdd_min="2.0" vdd_max="2.7" />
+    <frequency start="4" end="41.6667" vdd_min="2.35" vdd_max="2.7" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="3"   max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog"       min="3" max="3.6"   nominal="3.3"  />
+  <voltages name="vdd_prog_write" min="3"   max="3.6"   nominal="3.3"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"      start="0x000000" end="0x01FFF7" word_write_align="32" word_erase_align="512" />
+  <memory name="config"       start="0x01FFF8" end="0x01FFFF" />
+  <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0xE1" >
+    <mask name="WDT"  value="0x01" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x01" name="On"  cname="" />
+    </mask>
+    <mask name="STVREN" value="0x20" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x20" name="On"  cname="" />
+    </mask>
+    <mask name="XINST" value="0x40" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x40" name="On"  cname="" />
+    </mask>
+    <mask name="DEBUG" value="0x80" >
+      <value value="0x00" name="On" cname="" />
+      <value value="0x80" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x1" name="CONFIG1H" wmask="0xF7" bvalue="0x04" >
+    <mask name="CP" value="0x04" >
+      <value value="0x00" name="All" cname="" />
+      <value value="0x04" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CONFIG2L" wmask="0xFF" bvalue="0xC7" >
+    <mask name="FOSC"   value="0x03" >
+      <value value="0x00" name="HS"           cname=""    />
+      <value value="0x01" name="HSPLL"        cname=""    />
+      <value value="0x02" name="EC"           cname=""    />
+      <value value="0x03" name="ECPLL_IO"     cname=""    />
+    </mask>
+    <mask name="FOSC2"  value="0x04" >
+      <value value="0x00" name="FOSC1:FOSC0"  cname=""    />
+      <value value="0x04" name="INTRC"        cname=""    />
+    </mask>
+    <mask name="FCMEN"  value="0x40" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x40" name="Off"  cname=""    />
+    </mask>
+    <mask name="IESO"  value="0x80" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x80" name="Off"  cname=""    />
+     </mask>
+  </config>
+
+  <config offset="0x3" name="CONFIG2H" wmask="0xFF" bvalue="0x0F" >
+    <mask name="WDTPS" value="0x0F" >
+      <value value="0x00" name="1:1"     cname=""   />
+      <value value="0x01" name="1:2"     cname=""   />
+      <value value="0x02" name="1:4"     cname=""   />
+      <value value="0x03" name="1:8"     cname=""   />
+      <value value="0x04" name="1:16"    cname=""  />
+      <value value="0x05" name="1:32"    cname=""  />
+      <value value="0x06" name="1:64"    cname=""  />
+      <value value="0x07" name="1:128"   cname="" />
+      <value value="0x08" name="1:256"   cname="" />
+      <value value="0x09" name="1:512"   cname="" />
+      <value value="0x0A" name="1:1024"  cname=""  />
+      <value value="0x0B" name="1:2048"  cname=""  />
+      <value value="0x0C" name="1:4096"  cname=""  />
+      <value value="0x0D" name="1:8192"  cname=""  />
+      <value value="0x0E" name="1:16384" cname="" />
+      <value value="0x0F" name="1:32768" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="CONFIG3L" wmask="0xFF" bvalue="0xF8" >
+    <mask name="WAIT" value="0x80" >
+      <value value="0x00" name="On" cname="" />
+      <value value="0x80" name="Off" cname="" />
+    </mask>
+    <mask name="BW" value="0x40" >
+      <value value="0x00" name="8" cname="" />
+      <value value="0x40" name="16" cname="" />
+    </mask>
+    <mask name="EMB" value="0x30" >
+      <value value="0x00" name="Disabled" cname="" />
+      <value value="0x10" name="12BIT" cname="" />
+      <value value="0x20" name="16BIT" cname="" />
+      <value value="0x30" name="20BIT" cname="" />
+    </mask>
+    <mask name="EASHFT" value="0x08" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x08" name="On" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x07" >
+    <mask name="ETHLED" value="0x01" >
+      <value value="0x00" name="Off"  cname=""  />
+      <value value="0x01" name="On"   cname="" />
+    </mask>
+    <mask name="ECCPMX" value="0x02" >
+      <value value="0x00" name="RH7-RH4"     cname="" />
+      <value value="0x02" name="RE6-RE3"     cname=""  />
+    </mask>
+    <mask name="CCP2MX"  value="0x04" >
+      <value value="0x00" name="RE7" cname="" />
+      <value value="0x04" name="RC1" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="CONFIG4L" wmask="0xFF" bvalue="0x00" >
+  </config>
+
+  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0x00" >
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="tqfp" nb_pins="64" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+    <pin index="21" name="" />
+    <pin index="22" name="" />
+    <pin index="23" name="" />
+    <pin index="24" name="" />
+    <pin index="25" name="" />
+    <pin index="26" name="" />
+    <pin index="27" name="" />
+    <pin index="28" name="" />
+    <pin index="29" name="" />
+    <pin index="30" name="" />
+    <pin index="31" name="" />
+    <pin index="32" name="" />
+    <pin index="33" name="" />
+    <pin index="34" name="" />
+    <pin index="35" name="" />
+    <pin index="36" name="" />
+    <pin index="37" name="" />
+    <pin index="38" name="" />
+    <pin index="39" name="" />
+    <pin index="40" name="" />
+    <pin index="41" name="" />
+    <pin index="42" name="" />
+    <pin index="43" name="" />
+    <pin index="44" name="" />
+    <pin index="45" name="" />
+    <pin index="46" name="" />
+    <pin index="47" name="" />
+    <pin index="48" name="" />
+    <pin index="49" name="" />
+    <pin index="50" name="" />
+    <pin index="51" name="" />
+    <pin index="52" name="" />
+    <pin index="53" name="" />
+    <pin index="54" name="" />
+    <pin index="55" name="" />
+    <pin index="56" name="" />
+    <pin index="57" name="" />
+    <pin index="58" name="" />
+    <pin index="59" name="" />
+    <pin index="60" name="" />
+    <pin index="61" name="" />
+    <pin index="62" name="" />
+    <pin index="63" name="" />
+    <pin index="64" name="" />
+  </package>
+
+</device>
+
