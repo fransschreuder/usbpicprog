@@ -45,8 +45,14 @@ echo restoring language files...
 mv ../*.mo po
 rm -rf m4
 rm -rf autom4te.cache
+if [ "$RELEASE" = "0.3.0" ]; then
+( echo '// generated file';
+    echo '#define UPP_VERSION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
+else
 ( echo '// generated file';
     echo '#define SVN_REVISION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
+fi
+
 cd ..
 echo creating source archive...
 tar -zcvhf usbpicprog-$RELEASE.tar.gz usbpicprog-$RELEASE

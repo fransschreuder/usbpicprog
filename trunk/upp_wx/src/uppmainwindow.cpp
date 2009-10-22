@@ -454,72 +454,31 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
     // don't continue!
     return false;
 }
-#ifndef SVN_REVISION
-#define SVN_REVISION UPP_VERSION
-#endif
 
 void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {
     if (!firmwareVersion.stableRelease)
     {
+		#ifdef UPP_VERSION
+			wxLogMessage(_("You are using the a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
+		#else
         if (firmwareVersion.release<DEV_VERSION)
             wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+		#endif
         return;
     }
     
     // check major digit
-    
-    if (firmwareVersion.major>STABLE_VERSION_MAJOR)
-    {
-        wxLogMessage(_("Firmware probably too new")); 
-        return;
-    }
-    else if (firmwareVersion.major==STABLE_VERSION_MAJOR)
-    {
-        // check minor digit
-        
-        if (firmwareVersion.minor>STABLE_VERSION_MINOR)
-        {
-            wxLogMessage(_("Firmware probably too new")); 
-            return;
-        }
-        else if (firmwareVersion.minor==STABLE_VERSION_MINOR)
-        {
-            // check release digit
-            wxString stableFirmwareVersion;
-#if wxCHECK_VERSION(2,8,10)
-			stableFirmwareVersion.Printf("%i.%i.%i", STABLE_VERSION_MAJOR, STABLE_VERSION_MINOR, STABLE_VERSION_RELEASE);
-#else
-			stableFirmwareVersion.Printf(wxT("%i.%i.%i"), STABLE_VERSION_MAJOR, STABLE_VERSION_MINOR, STABLE_VERSION_RELEASE);
-#endif			
-            if (firmwareVersion.release>STABLE_VERSION_RELEASE)
-            {
-                wxLogMessage(_("Firmware probably too new")); 
-                return;
-            }
-            else if (firmwareVersion.release==STABLE_VERSION_RELEASE && 
-                     (wxT(SVN_REVISION)!=stableFirmwareVersion))
-            {
-                wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware")); 
-                return;
-            }
-            else
-            {
-                wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
-                return;
-            }
-        }
-        else
-        {
-            wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
-            return; 
-        }
-    }
-    else
-    {
-        wxLogMessage(_("Your firmware is too old; please consider upgrading it"));  
-        return; 
-    }
+    double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
+    double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
+
+	#ifdef UPP_VERSION
+    if(stableVersion<stableFirmwareVersion)wxLogMessage(_("Firmware probably too new")); 
+    if(stableVersion>stableFirmwareVersion)wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+    #else
+    wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
+    #endif
+
 }
 
 

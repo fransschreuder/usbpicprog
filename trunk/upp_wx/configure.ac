@@ -21,7 +21,7 @@ dnl ***************************************************************************
 
 
 
-AC_INIT(usbpicprog, 0.1.2)
+AC_INIT(usbpicprog, 0.3.0)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
