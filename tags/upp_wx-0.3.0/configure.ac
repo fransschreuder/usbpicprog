@@ -70,7 +70,7 @@ dnl ***************************************************************************
 #
 # check for wxWidgets
 #
-WX_CONFIG_CHECK([2.8.0], [has_wxWin=1])
+WX_CONFIG_CHECK([2.9.0], [has_wxWin=1])
 if test "$has_wxWin" != 1; then
     AC_MSG_ERROR([
        wxWidgets must be installed on your system
@@ -79,7 +79,7 @@ if test "$has_wxWin" != 1; then
        Please check that wx-config is in path, the directory
        where wxWidgets libraries are installed (returned by
       'wx-config --libs' command) is in LD_LIBRARY_PATH or
-       equivalent variable and wxWidgets version is 2.8.0 or above.
+       equivalent variable and wxWidgets version is 2.9.0 or above.
     ])
 fi
 

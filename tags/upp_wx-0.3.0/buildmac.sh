@@ -14,7 +14,8 @@ mkdir -p src/usbpicprog.app/Contents/Resources
 mkdir -p src/usbpicprog.app/Contents/SharedSupport
 mkdir -p src/usbpicprog.app/Contents/MacOS/output
 
-./configure CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0 --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output
+#./configure CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0 --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output
+./configure --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output
 make -j 2
 make install
 
