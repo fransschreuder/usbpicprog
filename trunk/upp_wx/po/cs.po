@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_cz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-10 12:19+0100\n"
-"PO-Revision-Date: 2009-10-10 12:19+0100\n"
-"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
+"POT-Creation-Date: 2009-11-04 08:22+0100\n"
+"PO-Revision-Date: 2009-11-04 08:22+0100\n"
+"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: K15 <k15@mail.klfree.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,66 +17,840 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/configview.cpp:140
+#: ../src/tmp/configview.cpp:140
 msgid "Configuration Word:"
 msgstr "Konfigurační slovo:"
 
 #: ../src/configview.cpp:157
+#: ../src/tmp/configview.cpp:157
 #, c-format
 msgid "Current value for the %d-th configuration word as derived from above configuration choices"
 msgstr "Aktuální hodnota %d. konfiguračního slova odvozená ze zvolených konfiguračních možností "
 
 #: ../src/configview.cpp:172
+#: ../src/tmp/configview.cpp:172
 #, c-format
 msgid "Location in memory: 0x%X"
 msgstr "Pozice v paměti: 0x%X"
 
 #: ../src/configview.cpp:176
+#: ../src/tmp/configview.cpp:176
 #, c-format
 msgid "Length: %d bits"
 msgstr "Délka: %d bitů"
 
 #: ../src/configview.cpp:194
+#: ../src/tmp/configview.cpp:194
 #, c-format
 msgid "Word %d"
 msgstr "Slovo %d"
 
-#: ../src/main.cpp:84
-msgid "Cannot load XML PIC data."
-msgstr "Nelze načíst XML data PICu."
+#: ../src/hardware.cpp:134
+#: ../src/tmp/hardware.cpp:134
+msgid "Couldn't reset interface"
+msgstr ""
+
+#: ../src/hardware.cpp:170
+#: ../src/tmp/hardware.cpp:170
+#, fuzzy
+msgid "Error setting configuration"
+msgstr "Chyba čtení konfigurační paměti"
+
+#: ../src/hardware.cpp:185
+#: ../src/tmp/hardware.cpp:185
+#, c-format
+msgid "Interface %d not present: using %d"
+msgstr ""
+
+#: ../src/hardware.cpp:195
+#: ../src/tmp/hardware.cpp:195
+#, fuzzy
+msgid "Error claiming interface"
+msgstr "Chyba při mazání součástky"
+
+#: ../src/hardware.cpp:260
+#: ../src/hardware.cpp:291
+#: ../src/hardware.cpp:972
+#: ../src/hardware.cpp:985
+#: ../src/hardware.cpp:1035
+#: ../src/tmp/hardware.cpp:260
+#: ../src/tmp/hardware.cpp:291
+#: ../src/tmp/hardware.cpp:955
+#: ../src/tmp/hardware.cpp:968
+#: ../src/tmp/hardware.cpp:1018
+msgid "Usb Error"
+msgstr ""
+
+#: ../src/hardware.cpp:447
+#: ../src/tmp/hardware.cpp:430
+#, c-format
+msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
+msgstr ""
+
+#: ../src/hardware.cpp:629
+#: ../src/tmp/hardware.cpp:612
+msgid "No data to verify"
+msgstr ""
+
+#: ../src/hardware.cpp:855
+#: ../src/tmp/hardware.cpp:838
+#, c-format
+msgid "Usb Error while reading: %s"
+msgstr ""
+
+#: ../src/hardware.cpp:874
+#: ../src/tmp/hardware.cpp:857
+#, c-format
+msgid "Usb Error while writing to device: %d bytes, errCode: %d"
+msgstr ""
+
+#: ../src/hexview.cpp:216
+#: ../src/tmp/hexview.cpp:216
+msgid "Edit"
+msgstr "Upravit"
+
+#: ../src/hexview.cpp:218
+#: ../src/tmp/hexview.cpp:218
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: ../src/hexview.cpp:219
+#: ../src/tmp/hexview.cpp:219
+msgid "Select All"
+msgstr "Vybrat vše"
+
+#: ../src/uppmainwindow.cpp:211
+#: ../src/tmp/uppmainwindow.cpp:211
+msgid "&Program..."
+msgstr "&Programovat..."
+
+#: ../src/uppmainwindow.cpp:212
+#: ../src/tmp/uppmainwindow.cpp:212
+msgid "Program the PIC device"
+msgstr "Naprogramuje PIC součástku"
+
+#: ../src/uppmainwindow.cpp:215
+#: ../src/tmp/uppmainwindow.cpp:215
+msgid "&Read..."
+msgstr "&Číst"
+
+#: ../src/uppmainwindow.cpp:216
+#: ../src/tmp/uppmainwindow.cpp:216
+msgid "Read the PIC device"
+msgstr "Přečte PIC součástku"
+
+#: ../src/uppmainwindow.cpp:219
+#: ../src/tmp/uppmainwindow.cpp:219
+msgid "&Verify..."
+msgstr "&Zkontrolovat"
+
+#: ../src/uppmainwindow.cpp:220
+#: ../src/tmp/uppmainwindow.cpp:220
+msgid "Verify the PIC device"
+msgstr "Zkontroluje naprogramování PIC součástky"
+
+#: ../src/uppmainwindow.cpp:223
+#: ../src/tmp/uppmainwindow.cpp:223
+msgid "&Erase..."
+msgstr "&Vymazat"
+
+#: ../src/uppmainwindow.cpp:224
+#: ../src/tmp/uppmainwindow.cpp:224
+msgid "Erase the PIC device"
+msgstr "Vymaže PIC součástku"
+
+#: ../src/uppmainwindow.cpp:227
+#: ../src/tmp/uppmainwindow.cpp:227
+msgid "&Blankcheck..."
+msgstr "&Kontrola vymazání"
+
+#: ../src/uppmainwindow.cpp:228
+#: ../src/tmp/uppmainwindow.cpp:228
+msgid "Blankcheck the PIC device"
+msgstr "Zkontroluje vymazání PIC součástky"
+
+#: ../src/uppmainwindow.cpp:231
+#: ../src/tmp/uppmainwindow.cpp:231
+msgid "&Autodetect..."
+msgstr "&Autodetekce"
+
+#: ../src/uppmainwindow.cpp:232
+#: ../src/tmp/uppmainwindow.cpp:232
+msgid "Detect the type of the PIC device"
+msgstr "Detekuje typ PIC součástky"
+
+#: ../src/uppmainwindow.cpp:235
+#: ../src/tmp/uppmainwindow.cpp:235
+msgid "&Connect..."
+msgstr "&Připojit"
+
+#: ../src/uppmainwindow.cpp:236
+#: ../src/tmp/uppmainwindow.cpp:236
+msgid "Connect to the programmer"
+msgstr "Připojí se k programátoru"
+
+#: ../src/uppmainwindow.cpp:239
+#: ../src/tmp/uppmainwindow.cpp:239
+msgid "&Disconnect..."
+msgstr "&Odpojit"
+
+#: ../src/uppmainwindow.cpp:240
+#: ../src/tmp/uppmainwindow.cpp:240
+msgid "Disconnect from the programmer"
+msgstr "Odpojí se od programátoru"
+
+#: ../src/uppmainwindow.cpp:270
+#: ../src/tmp/uppmainwindow.cpp:270
+msgid "&Select PIC..."
+msgstr "&Vybrat PIC..."
+
+#: ../src/uppmainwindow.cpp:271
+#: ../src/tmp/uppmainwindow.cpp:271
+msgid "Change the currently selected PIC"
+msgstr "Změň aktuálně vybraný PIC"
+
+#: ../src/uppmainwindow.cpp:305
+#: ../src/tmp/uppmainwindow.cpp:305
+msgid "&Actions"
+msgstr "&Příkazy"
+
+#: ../src/uppmainwindow.cpp:330
+#: ../src/tmp/uppmainwindow.cpp:330
+msgid "new"
+msgstr "nový"
+
+#: ../src/uppmainwindow.cpp:332
+#: ../src/tmp/uppmainwindow.cpp:332
+msgid "open"
+msgstr "otevřít"
+
+#: ../src/uppmainwindow.cpp:334
+#: ../src/tmp/uppmainwindow.cpp:334
+msgid "reload"
+msgstr "obnovit"
+
+#: ../src/uppmainwindow.cpp:336
+#: ../src/tmp/uppmainwindow.cpp:336
+msgid "save"
+msgstr "uložit"
+
+#: ../src/uppmainwindow.cpp:338
+#: ../src/tmp/uppmainwindow.cpp:338
+msgid "save as"
+msgstr "uložit jako..."
+
+#: ../src/uppmainwindow.cpp:341
+#: ../src/tmp/uppmainwindow.cpp:341
+msgid "program"
+msgstr "programovat"
+
+#: ../src/uppmainwindow.cpp:343
+#: ../src/tmp/uppmainwindow.cpp:343
+msgid "read"
+msgstr "číst"
+
+#: ../src/uppmainwindow.cpp:345
+#: ../src/tmp/uppmainwindow.cpp:345
+msgid "verify"
+msgstr "zkontrolovat"
+
+#: ../src/uppmainwindow.cpp:347
+#: ../src/tmp/uppmainwindow.cpp:347
+msgid "erase"
+msgstr "vymazat"
+
+#: ../src/uppmainwindow.cpp:349
+#: ../src/tmp/uppmainwindow.cpp:349
+msgid "blankcheck"
+msgstr "zkontrolovat vymazání"
+
+#: ../src/uppmainwindow.cpp:351
+#: ../src/tmp/uppmainwindow.cpp:351
+msgid "autodetect"
+msgstr "detekovat typ"
+
+#: ../src/uppmainwindow.cpp:356
+#: ../src/tmp/uppmainwindow.cpp:356
+msgid "currently selected PIC type"
+msgstr "aktuálně vybraný typ PICu"
+
+#: ../src/uppmainwindow.cpp:447
+#: ../src/tmp/uppmainwindow.cpp:447
+#, c-format
+msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "HEX soubor '%s' není uložen. Provedené změny budou ztraceny. Pokračovat?"
+
+#: ../src/uppmainwindow.cpp:450
+#: ../src/tmp/uppmainwindow.cpp:450
+msgid "Please confirm"
+msgstr "Potvrď"
+
+#: ../src/uppmainwindow.cpp:463
+#, fuzzy
+msgid "You are using the a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
+msgstr "Používáte stabilní vydání firmware s vývojovou verzí software. Uvažte aktualizaci firmware"
+
+#: ../src/uppmainwindow.cpp:466
+#: ../src/uppmainwindow.cpp:477
+#: ../src/tmp/uppmainwindow.cpp:466
+#: ../src/tmp/uppmainwindow.cpp:508
+#: ../src/tmp/uppmainwindow.cpp:514
+#: ../src/tmp/uppmainwindow.cpp:520
+msgid "Your firmware is too old; please consider upgrading it"
+msgstr "Váš firmware je příliš starý"
+
+#: ../src/uppmainwindow.cpp:476
+#: ../src/tmp/uppmainwindow.cpp:474
+#: ../src/tmp/uppmainwindow.cpp:483
+#: ../src/tmp/uppmainwindow.cpp:497
+msgid "Firmware probably too new"
+msgstr "Firmware je asi příliš nový"
+
+#: ../src/uppmainwindow.cpp:479
+#: ../src/tmp/uppmainwindow.cpp:503
+msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
+msgstr "Používáte stabilní vydání firmware s vývojovou verzí software. Uvažte aktualizaci firmware"
+
+#: ../src/uppmainwindow.cpp:494
+#: ../src/tmp/uppmainwindow.cpp:535
+msgid "Usbpicprog rev: "
+msgstr "Usbpicprog verze:"
+
+#: ../src/uppmainwindow.cpp:496
+#: ../src/tmp/uppmainwindow.cpp:537
+msgid "Usbpicprog: "
+msgstr "Usbpicprog:"
+
+#: ../src/uppmainwindow.cpp:500
+#: ../src/tmp/uppmainwindow.cpp:541
+msgid "untitled"
+msgstr "bez názvu"
+
+#: ../src/uppmainwindow.cpp:527
+#: ../src/uppmainwindow.cpp:531
+#: ../src/tmp/uppmainwindow.cpp:568
+#: ../src/tmp/uppmainwindow.cpp:572
+#, c-format
+msgid "%s datasheet"
+msgstr "%s katalogový list"
+
+#: ../src/uppmainwindow.cpp:538
+#: ../src/tmp/uppmainwindow.cpp:579
+#, c-format
+msgid ""
+"Programming voltage (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+"Programovací napětí (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+
+#: ../src/uppmainwindow.cpp:541
+#: ../src/tmp/uppmainwindow.cpp:582
+#, c-format
+msgid ""
+"Supply voltage (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+"Napájecí napětí (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+
+#: ../src/uppmainwindow.cpp:543
+#: ../src/tmp/uppmainwindow.cpp:584
+#, c-format
+msgid ""
+"Frequency range:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
+msgstr ""
+"Kmitočtový rozsah:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
+
+#: ../src/uppmainwindow.cpp:544
+#: ../src/tmp/uppmainwindow.cpp:585
+#, c-format
+msgid "Device ID: 0x%X"
+msgstr "ID součástky: 0x%X"
+
+#: ../src/uppmainwindow.cpp:545
+#: ../src/tmp/uppmainwindow.cpp:586
+#, c-format
+msgid "Code memory size: %d bytes"
+msgstr "Velikost paměti kódu: %d bytů"
+
+#: ../src/uppmainwindow.cpp:546
+#: ../src/tmp/uppmainwindow.cpp:587
+#, c-format
+msgid "Data memory size: %d bytes"
+msgstr "Velikost datové paměti: %d bytů"
+
+#: ../src/uppmainwindow.cpp:547
+#: ../src/tmp/uppmainwindow.cpp:588
+#, c-format
+msgid "Type: %d-bit microcontroller"
+msgstr "Typ: %d-bitový mikrokontrolér"
+
+#: ../src/uppmainwindow.cpp:558
+#: ../src/uppmainwindow.cpp:561
+#: ../src/tmp/uppmainwindow.cpp:599
+#: ../src/tmp/uppmainwindow.cpp:602
+#, c-format
+msgid "%s [%d pins]"
+msgstr "%s [%d pinů]"
+
+#: ../src/uppmainwindow.cpp:646
+#: ../src/tmp/uppmainwindow.cpp:686
+msgid "Please wait until the operations are completed:\n"
+msgstr "Počkejte na dokončení prováděných operací:\n"
+
+#: ../src/uppmainwindow.cpp:661
+#: ../src/tmp/uppmainwindow.cpp:701
+msgid "Operations aborted"
+msgstr "Operace zrušena"
+
+#: ../src/uppmainwindow.cpp:701
+#: ../src/uppmainwindow.cpp:705
+#: ../src/tmp/uppmainwindow.cpp:741
+#: ../src/tmp/uppmainwindow.cpp:745
+msgid "All operations completed"
+msgstr "Všechny operace dokončeny"
+
+#: ../src/uppmainwindow.cpp:707
+#: ../src/tmp/uppmainwindow.cpp:747
+msgid "Operations completed with errors/warnings"
+msgstr "Operace skončily s chybami/varováním"
+
+#: ../src/uppmainwindow.cpp:808
+#: ../src/tmp/uppmainwindow.cpp:847
+msgid "Erasing before programming..."
+msgstr "Mažu před programováním..."
+
+#: ../src/uppmainwindow.cpp:813
+#: ../src/tmp/uppmainwindow.cpp:852
+msgid "Erase OK"
+msgstr "Vymazání OK"
+
+#: ../src/uppmainwindow.cpp:816
+#: ../src/uppmainwindow.cpp:1014
+#: ../src/tmp/uppmainwindow.cpp:855
+#: ../src/tmp/uppmainwindow.cpp:1056
+msgid "Error erasing the device"
+msgstr "Chyba při mazání součástky"
+
+#: ../src/uppmainwindow.cpp:825
+#: ../src/tmp/uppmainwindow.cpp:864
+msgid "Programming the code area of the PIC..."
+msgstr "Zapisuji kódovou oblast PICu..."
+
+#: ../src/uppmainwindow.cpp:829
+#: ../src/tmp/uppmainwindow.cpp:868
+msgid "Write Code memory OK"
+msgstr "Zápis kódové paměti OK"
+
+#: ../src/uppmainwindow.cpp:832
+#: ../src/uppmainwindow.cpp:864
+#: ../src/uppmainwindow.cpp:894
+#: ../src/tmp/uppmainwindow.cpp:871
+#: ../src/tmp/uppmainwindow.cpp:903
+#: ../src/tmp/uppmainwindow.cpp:933
+msgid "The hardware should say OK"
+msgstr "Hardware by měl vrátit OK"
+
+#: ../src/uppmainwindow.cpp:835
+#: ../src/uppmainwindow.cpp:867
+#: ../src/uppmainwindow.cpp:897
+#: ../src/tmp/uppmainwindow.cpp:874
+#: ../src/tmp/uppmainwindow.cpp:906
+#: ../src/tmp/uppmainwindow.cpp:936
+msgid "The hardware should ask for next block"
+msgstr "Hardware by měl požádat o další blok "
+
+#: ../src/uppmainwindow.cpp:838
+#: ../src/tmp/uppmainwindow.cpp:877
+msgid "Write code not implemented for current PIC"
+msgstr "Zápis kódu není pro aktuálně vybraný typ součástky implementován."
+
+#: ../src/uppmainwindow.cpp:841
+#: ../src/tmp/uppmainwindow.cpp:880
+msgid "Verify error while writing code memory"
+msgstr "Chyba kontroly během zápisu kódové paměti"
+
+#: ../src/uppmainwindow.cpp:844
+#: ../src/uppmainwindow.cpp:873
+#: ../src/uppmainwindow.cpp:903
+#: ../src/tmp/uppmainwindow.cpp:883
+#: ../src/tmp/uppmainwindow.cpp:912
+#: ../src/tmp/uppmainwindow.cpp:942
+msgid "USB error while writing code memory"
+msgstr "USB chyba během zápisu kódové paměti"
+
+#: ../src/uppmainwindow.cpp:847
+#: ../src/tmp/uppmainwindow.cpp:886
+msgid "Error programming code memory"
+msgstr "Chyba zápisu kódové paměti "
+
+#: ../src/uppmainwindow.cpp:856
+#: ../src/tmp/uppmainwindow.cpp:895
+msgid "Programming the data area of the PIC..."
+msgstr "Zapisuji datovou oblast PICu..."
+
+#: ../src/uppmainwindow.cpp:861
+#: ../src/tmp/uppmainwindow.cpp:900
+msgid "Write Data memory OK"
+msgstr "Zápis datové oblasti OK"
+
+#: ../src/uppmainwindow.cpp:870
+#: ../src/tmp/uppmainwindow.cpp:909
+msgid "Write data not implemented for current PIC"
+msgstr "Zápis dat není pro aktuálně vybraný typ součástky implementován"
+
+#: ../src/uppmainwindow.cpp:876
+#: ../src/tmp/uppmainwindow.cpp:915
+msgid "Error programming data memory"
+msgstr "Chyba zápisu datové paměti"
+
+#: ../src/uppmainwindow.cpp:886
+#: ../src/tmp/uppmainwindow.cpp:925
+msgid "Programming configuration area of the PIC..."
+msgstr "Zapisuji konfigurační oblast PICu... "
+
+#: ../src/uppmainwindow.cpp:891
+#: ../src/tmp/uppmainwindow.cpp:930
+msgid "Write Config memory OK"
+msgstr "Zápis konfigurační oblasti OK"
+
+#: ../src/uppmainwindow.cpp:900
+#: ../src/tmp/uppmainwindow.cpp:939
+msgid "Write config not implemented for current PIC"
+msgstr "Zápis konfigurace není pro aktuálně vybraný typ součástky implementován"
+
+#: ../src/uppmainwindow.cpp:906
+#: ../src/tmp/uppmainwindow.cpp:945
+msgid "Error programming config memory"
+msgstr "Chyba zápisu konfigurační paměti"
+
+#: ../src/uppmainwindow.cpp:923
+#: ../src/tmp/uppmainwindow.cpp:964
+msgid "Reading the code area of the PIC..."
+msgstr "Čtu programovou oblast PICu..."
+
+#: ../src/uppmainwindow.cpp:926
+#: ../src/tmp/uppmainwindow.cpp:967
+msgid "Error reading code memory"
+msgstr "Chyba čtení kódové paměti"
+
+#: ../src/uppmainwindow.cpp:933
+#: ../src/tmp/uppmainwindow.cpp:975
+msgid "Reading the data area of the PIC..."
+msgstr "Čtu datovou oblast PICu..."
+
+#: ../src/uppmainwindow.cpp:936
+#: ../src/tmp/uppmainwindow.cpp:978
+msgid "Error reading data memory"
+msgstr "Chyba čtení datové paměti"
+
+#: ../src/uppmainwindow.cpp:944
+#: ../src/tmp/uppmainwindow.cpp:986
+msgid "Reading the configuration area of the PIC..."
+msgstr "Čtu konfigurační oblast PICu..."
+
+#: ../src/uppmainwindow.cpp:947
+#: ../src/tmp/uppmainwindow.cpp:989
+msgid "Error reading configuration memory"
+msgstr "Chyba čtení konfigurační paměti"
+
+#: ../src/uppmainwindow.cpp:962
+#: ../src/tmp/uppmainwindow.cpp:1004
+msgid "Verifying all areas of the PIC..."
+msgstr "Kontroluji všechny oblasti PICu..."
+
+#: ../src/uppmainwindow.cpp:975
+#: ../src/tmp/uppmainwindow.cpp:1017
+msgid "Verify successful"
+msgstr "Kontrola proběhla úspěšně"
+
+#: ../src/uppmainwindow.cpp:980
+#: ../src/tmp/uppmainwindow.cpp:1022
+msgid "Verify code"
+msgstr "Kontrola kódu"
+
+#: ../src/uppmainwindow.cpp:981
+#: ../src/tmp/uppmainwindow.cpp:1023
+msgid "Verify data"
+msgstr "Kontrola dat"
+
+#: ../src/uppmainwindow.cpp:982
+#: ../src/tmp/uppmainwindow.cpp:1024
+msgid "Verify config"
+msgstr "Kontrola konfigurace"
+
+#: ../src/uppmainwindow.cpp:983
+#: ../src/tmp/uppmainwindow.cpp:1025
+msgid "Verify unknown"
+msgstr "Výsledek kontroly není znám"
+
+#: ../src/uppmainwindow.cpp:985
+#: ../src/tmp/uppmainwindow.cpp:1027
+#, c-format
+msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr " - chyba na adrese 0x%X. přečteno: 0x%02X, očekáváno: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:992
+#: ../src/tmp/uppmainwindow.cpp:1034
+msgid "USB error during verify"
+msgstr "USB chyba během kontroly"
+
+#: ../src/uppmainwindow.cpp:995
+#: ../src/tmp/uppmainwindow.cpp:1037
+msgid "Unknown error during verify"
+msgstr "Neznámá chyba během kontroly"
+
+#: ../src/uppmainwindow.cpp:998
+#: ../src/uppmainwindow.cpp:1069
+#: ../src/tmp/uppmainwindow.cpp:1040
+#: ../src/tmp/uppmainwindow.cpp:1111
+msgid "I'm sorry for being stupid"
+msgstr "Promiňte mi moji blbost :-)"
+
+#: ../src/uppmainwindow.cpp:1010
+#: ../src/tmp/uppmainwindow.cpp:1052
+msgid "Erasing all areas of the PIC..."
+msgstr "Mažu všechny oblasti PICu..."
+
+#: ../src/uppmainwindow.cpp:1029
+#: ../src/tmp/uppmainwindow.cpp:1071
+msgid "Checking if the device is blank..."
+msgstr "Kontroluji vymazání součástky..."
+
+#: ../src/uppmainwindow.cpp:1037
+#: ../src/tmp/uppmainwindow.cpp:1079
+msgid "Device is blank"
+msgstr "Součástka je vymazaná"
+
+#: ../src/uppmainwindow.cpp:1055
+#: ../src/tmp/uppmainwindow.cpp:1097
+#, c-format
+msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "Kontrola vymazání selhala na adrese 0x%X. přečteno: 0x%02X, očekáváno: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:1060
+#: ../src/tmp/uppmainwindow.cpp:1102
+msgid "Device is not blank."
+msgstr "Součástka není vymazaná"
+
+#: ../src/uppmainwindow.cpp:1063
+#: ../src/tmp/uppmainwindow.cpp:1105
+msgid "USB error during blankcheck"
+msgstr "USB chyba během kontroly vymazání"
+
+#: ../src/uppmainwindow.cpp:1066
+#: ../src/tmp/uppmainwindow.cpp:1108
+msgid "Unknown error during blankcheck"
+msgstr "Neznámá chyba během kontroly vymazání"
+
+#: ../src/uppmainwindow.cpp:1089
+#: ../src/tmp/uppmainwindow.cpp:1131
+msgid "Progress dialog"
+msgstr "Okno průběhu"
+
+#: ../src/uppmainwindow.cpp:1090
+#: ../src/tmp/uppmainwindow.cpp:1132
+msgid "Initializing..."
+msgstr "Inicializuji..."
+
+#: ../src/uppmainwindow.cpp:1114
+#: ../src/tmp/uppmainwindow.cpp:1156
+msgid "Could not create the worker thread!"
+msgstr "Nepodařilo se vytvořit pracovní thread!"
+
+#: ../src/uppmainwindow.cpp:1120
+#: ../src/tmp/uppmainwindow.cpp:1162
+msgid "Could not run the worker thread!"
+msgstr "Nepodařilo se spustit pracovní thread!"
+
+#: ../src/uppmainwindow.cpp:1156
+#: ../src/tmp/uppmainwindow.cpp:1198
+msgid "Open hexfile"
+msgstr "Otevřít HEX soubor"
+
+#: ../src/uppmainwindow.cpp:1172
+#: ../src/uppmainwindow.cpp:1173
+#: ../src/uppmainwindow.cpp:1202
+#: ../src/uppmainwindow.cpp:1203
+#: ../src/tmp/uppmainwindow.cpp:1214
+#: ../src/tmp/uppmainwindow.cpp:1215
+#: ../src/tmp/uppmainwindow.cpp:1242
+#: ../src/tmp/uppmainwindow.cpp:1243
+msgid "Unable to open file"
+msgstr "Soubor se nepodařilo otevřít"
+
+#: ../src/uppmainwindow.cpp:1192
+#: ../src/uppmainwindow.cpp:1193
+#: ../src/tmp/uppmainwindow.cpp:1232
+#: ../src/tmp/uppmainwindow.cpp:1233
+msgid "No file to refresh"
+msgstr "Není otevřen žádný soubor pro obnovení"
+
+#: ../src/uppmainwindow.cpp:1218
+#: ../src/uppmainwindow.cpp:1219
+#: ../src/uppmainwindow.cpp:1240
+#: ../src/uppmainwindow.cpp:1241
+#: ../src/tmp/uppmainwindow.cpp:1258
+#: ../src/tmp/uppmainwindow.cpp:1259
+#: ../src/tmp/uppmainwindow.cpp:1280
+#: ../src/tmp/uppmainwindow.cpp:1281
+msgid "Unable to save file"
+msgstr "Soubor se nepodařilo uložit"
+
+#: ../src/uppmainwindow.cpp:1230
+#: ../src/tmp/uppmainwindow.cpp:1270
+msgid "Save hexfile"
+msgstr "Uložit HEX soubor"
+
+#: ../src/uppmainwindow.cpp:1271
+#: ../src/uppmainwindow.cpp:1283
+#: ../src/uppmainwindow.cpp:1300
+#: ../src/uppmainwindow.cpp:1312
+#: ../src/uppmainwindow.cpp:1329
+#: ../src/uppmainwindow.cpp:1341
+#: ../src/tmp/uppmainwindow.cpp:1311
+#: ../src/tmp/uppmainwindow.cpp:1323
+#: ../src/tmp/uppmainwindow.cpp:1340
+#: ../src/tmp/uppmainwindow.cpp:1352
+#: ../src/tmp/uppmainwindow.cpp:1369
+#: ../src/tmp/uppmainwindow.cpp:1381
+msgid "The programmer is not connected"
+msgstr "Programátor není připojen"
+
+#: ../src/uppmainwindow.cpp:1376
+#: ../src/tmp/uppmainwindow.cpp:1416
+msgid "No PIC detected!"
+msgstr "Žádný PIC nebyl nalezen!"
+
+#: ../src/uppmainwindow.cpp:1378
+#: ../src/tmp/uppmainwindow.cpp:1418
+#, c-format
+msgid "No PIC detected! Selecting the default PIC (%s)..."
+msgstr "Žádný PIC nebyl nalezen! Volím defaultní PIC (%s)..."
+
+#: ../src/uppmainwindow.cpp:1383
+#: ../src/tmp/uppmainwindow.cpp:1423
+#, c-format
+msgid "Detected PIC model %s with device ID 0x%X"
+msgstr "Nalezen PIC model %s s device ID 0x%X"
+
+#: ../src/uppmainwindow.cpp:1408
+#: ../src/uppmainwindow.cpp:1409
+#: ../src/tmp/uppmainwindow.cpp:1448
+#: ../src/tmp/uppmainwindow.cpp:1449
+msgid "Unable to read firmware version"
+msgstr "Nepodařilo se přečíst verzi firmware"
+
+#: ../src/uppmainwindow.cpp:1413
+#: ../src/uppmainwindow.cpp:1416
+#: ../src/uppmainwindow.cpp:1441
+#: ../src/uppmainwindow.cpp:1443
+#: ../src/tmp/uppmainwindow.cpp:1453
+#: ../src/tmp/uppmainwindow.cpp:1456
+#: ../src/tmp/uppmainwindow.cpp:1481
+#: ../src/tmp/uppmainwindow.cpp:1483
+msgid " Connected"
+msgstr " - připojen"
+
+#: ../src/uppmainwindow.cpp:1436
+#: ../src/uppmainwindow.cpp:1437
+#: ../src/tmp/uppmainwindow.cpp:1476
+#: ../src/tmp/uppmainwindow.cpp:1477
+msgid "Unable to read version"
+msgstr "Nepodařilo se přečíst verzi"
+
+#: ../src/uppmainwindow.cpp:1457
+#: ../src/uppmainwindow.cpp:1459
+#: ../src/tmp/uppmainwindow.cpp:1497
+#: ../src/tmp/uppmainwindow.cpp:1499
+msgid "Bootloader or programmer not found"
+msgstr "nenalezen bootloader ani programátor"
+
+#: ../src/uppmainwindow.cpp:1479
+#: ../src/uppmainwindow.cpp:1481
+#: ../src/tmp/uppmainwindow.cpp:1519
+#: ../src/tmp/uppmainwindow.cpp:1521
+msgid "Disconnected"
+msgstr "Odpojeno"
+
+#: ../src/uppmainwindow.cpp:1485
+#: ../src/uppmainwindow.cpp:1486
+#: ../src/uppmainwindow.cpp:1491
+#: ../src/uppmainwindow.cpp:1492
+#: ../src/tmp/uppmainwindow.cpp:1525
+#: ../src/tmp/uppmainwindow.cpp:1526
+#: ../src/tmp/uppmainwindow.cpp:1531
+#: ../src/tmp/uppmainwindow.cpp:1532
+msgid "Already disconnected"
+msgstr "již odpojen"
+
+#: ../src/uppmainwindow.cpp:1519
+#: ../src/tmp/uppmainwindow.cpp:1559
+msgid "An open source USB pic programmer"
+msgstr "Open source USB PIC programátor"
+
+#: ../src/uppmainwindow.cpp:1546
+#: ../src/uppmainwindow.cpp:1575
+#: ../src/tmp/uppmainwindow.cpp:1586
+#: ../src/tmp/uppmainwindow.cpp:1615
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "Hexadecimální zobrazení kódové paměti PICu:"
 
 #: ../src/uppmainwindow_base.cpp:23
+#: ../src/tmp/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
 msgstr "Hexadecimální zobrazení kódové paměti PICu:"
 
 #: ../src/uppmainwindow_base.cpp:33
+#: ../src/tmp/uppmainwindow_base.cpp:33
 msgid "Code"
 msgstr "Kód"
 
 #: ../src/uppmainwindow_base.cpp:38
+#: ../src/tmp/uppmainwindow_base.cpp:38
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Hexadecimální zobrazení datové paměti PICu:"
 
 #: ../src/uppmainwindow_base.cpp:48
+#: ../src/tmp/uppmainwindow_base.cpp:48
 msgid "Data"
 msgstr "Data"
 
 #: ../src/uppmainwindow_base.cpp:53
+#: ../src/tmp/uppmainwindow_base.cpp:53
 msgid "Configuration flags for this PIC:"
 msgstr "Konfigurační flagy pro tento PIC:"
 
 #: ../src/uppmainwindow_base.cpp:63
+#: ../src/tmp/uppmainwindow_base.cpp:63
 msgid "Configuration flags"
 msgstr "Konfigurační flagy"
 
 #: ../src/uppmainwindow_base.cpp:69
+#: ../src/tmp/uppmainwindow_base.cpp:69
 msgid "Miscellaneous"
 msgstr "Různé"
 
 #: ../src/uppmainwindow_base.cpp:71
+#: ../src/tmp/uppmainwindow_base.cpp:71
 msgid "Datasheet"
 msgstr "Katalogový list"
 
 #: ../src/uppmainwindow_base.cpp:74
+#: ../src/tmp/uppmainwindow_base.cpp:74
 msgid ""
 "Programming voltage (Vpp):\n"
 "    MIN\n"
@@ -91,6 +865,7 @@ msgstr ""
 "_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:78
+#: ../src/tmp/uppmainwindow_base.cpp:78
 msgid ""
 "Working voltages (Vdd):\n"
 "    MIN\n"
@@ -105,6 +880,7 @@ msgstr ""
 "_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:82
+#: ../src/tmp/uppmainwindow_base.cpp:82
 msgid ""
 "Frequency range:\n"
 "   MIN\n"
@@ -117,795 +893,191 @@ msgstr ""
 "_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:86
+#: ../src/tmp/uppmainwindow_base.cpp:86
 msgid "Device ID:"
 msgstr "ID součástky:"
 
 #: ../src/uppmainwindow_base.cpp:90
+#: ../src/tmp/uppmainwindow_base.cpp:90
 msgid "Code memory size:"
 msgstr "Velikost kódové paměti:"
 
 #: ../src/uppmainwindow_base.cpp:94
+#: ../src/tmp/uppmainwindow_base.cpp:94
 msgid "Data memory size:"
 msgstr "Velikost datové paměti:"
 
 #: ../src/uppmainwindow_base.cpp:98
+#: ../src/tmp/uppmainwindow_base.cpp:98
 msgid "Type:"
 msgstr "Typ:"
 
 #: ../src/uppmainwindow_base.cpp:105
+#: ../src/tmp/uppmainwindow_base.cpp:105
 msgid "Package"
 msgstr "Pouzdro"
 
 #: ../src/uppmainwindow_base.cpp:110
+#: ../src/tmp/uppmainwindow_base.cpp:110
 msgid "Variants:"
 msgstr "Varianty:"
 
 #: ../src/uppmainwindow_base.cpp:123
 #: ../src/uppmainwindow_base.cpp:125
+#: ../src/tmp/uppmainwindow_base.cpp:123
+#: ../src/tmp/uppmainwindow_base.cpp:125
 msgid "Zoom in"
 msgstr "Zvětšit"
 
 #: ../src/uppmainwindow_base.cpp:130
 #: ../src/uppmainwindow_base.cpp:132
+#: ../src/tmp/uppmainwindow_base.cpp:130
+#: ../src/tmp/uppmainwindow_base.cpp:132
 msgid "Zoom out"
 msgstr "Zmenšit"
 
 #: ../src/uppmainwindow_base.cpp:137
 #: ../src/uppmainwindow_base.cpp:139
+#: ../src/tmp/uppmainwindow_base.cpp:137
+#: ../src/tmp/uppmainwindow_base.cpp:139
 msgid "Fit package drawing"
 msgstr "Připojit obrázek pouzdra"
 
 #: ../src/uppmainwindow_base.cpp:148
+#: ../src/tmp/uppmainwindow_base.cpp:148
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Poznámka: červené piny jsou (některé z nich) použity při ICSP."
 
 #: ../src/uppmainwindow_base.cpp:157
+#: ../src/tmp/uppmainwindow_base.cpp:157
 msgid "PIC info"
 msgstr "PIC info"
 
 #: ../src/uppmainwindow_base.cpp:166
+#: ../src/tmp/uppmainwindow_base.cpp:166
 msgid "&New"
 msgstr "&Nový"
 
 #: ../src/uppmainwindow_base.cpp:166
+#: ../src/tmp/uppmainwindow_base.cpp:166
 msgid "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "Resetuje programovou, konfigurační a datovou oblast nyní otevřeného HEX souboru"
 
 #: ../src/uppmainwindow_base.cpp:170
+#: ../src/tmp/uppmainwindow_base.cpp:170
 msgid "&Open"
 msgstr "&Otevřít"
 
 #: ../src/uppmainwindow_base.cpp:170
+#: ../src/tmp/uppmainwindow_base.cpp:170
 msgid "Loads an HEX file for editing or programming..."
 msgstr "Načítá HEX soubor pro editaci nebo programování"
 
 #: ../src/uppmainwindow_base.cpp:174
+#: ../src/tmp/uppmainwindow_base.cpp:174
 msgid "&Reload"
 msgstr "Obnovit"
 
 #: ../src/uppmainwindow_base.cpp:174
+#: ../src/tmp/uppmainwindow_base.cpp:174
 msgid "Reloads the current HEX file from disk"
 msgstr "Obnovuje aktuální HEX soubor z disku"
 
 #: ../src/uppmainwindow_base.cpp:178
+#: ../src/tmp/uppmainwindow_base.cpp:178
 msgid "&Save"
 msgstr "Uložit"
 
 #: ../src/uppmainwindow_base.cpp:178
+#: ../src/tmp/uppmainwindow_base.cpp:178
 msgid "Saves the HEX file with the modified data"
 msgstr "Ukládá změny v HEX souboru na disk"
 
 #: ../src/uppmainwindow_base.cpp:182
+#: ../src/tmp/uppmainwindow_base.cpp:182
 msgid "Save &As"
 msgstr "Uložit &jako..."
 
 #: ../src/uppmainwindow_base.cpp:182
+#: ../src/tmp/uppmainwindow_base.cpp:182
 msgid "Saves current code,config,data as a HEX file"
 msgstr "Ukládá program, data a konfigurační pojistky do HEX souboru"
 
 #: ../src/uppmainwindow_base.cpp:186
+#: ../src/tmp/uppmainwindow_base.cpp:186
 msgid "E&xit"
 msgstr "Konec"
 
 #: ../src/uppmainwindow_base.cpp:186
+#: ../src/tmp/uppmainwindow_base.cpp:186
 msgid "Exits the program"
 msgstr "Ukončuje program"
 
 #: ../src/uppmainwindow_base.cpp:189
+#: ../src/tmp/uppmainwindow_base.cpp:189
 msgid "&File"
 msgstr "Soubor"
 
 #: ../src/uppmainwindow_base.cpp:193
+#: ../src/tmp/uppmainwindow_base.cpp:193
 msgid "&Copy"
 msgstr "Kopírovat"
 
 #: ../src/uppmainwindow_base.cpp:193
+#: ../src/tmp/uppmainwindow_base.cpp:193
 msgid "Copies to the clipboard currently selected cells"
 msgstr "Kopíruje vybrané buňky do schránky"
 
 #: ../src/uppmainwindow_base.cpp:197
+#: ../src/tmp/uppmainwindow_base.cpp:197
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
 #: ../src/uppmainwindow_base.cpp:197
+#: ../src/tmp/uppmainwindow_base.cpp:197
 msgid "Selects the entire grid currently shown"
 msgstr "Vybere celou zobrazenou oblast"
 
 #: ../src/uppmainwindow_base.cpp:203
+#: ../src/tmp/uppmainwindow_base.cpp:203
 msgid "&Preferences"
 msgstr "Nastavení"
 
 #: ../src/uppmainwindow_base.cpp:203
+#: ../src/tmp/uppmainwindow_base.cpp:203
 msgid "Shows the options for this program"
 msgstr "Zobrazí nastavení programu"
 
 #: ../src/uppmainwindow_base.cpp:206
+#: ../src/tmp/uppmainwindow_base.cpp:206
 msgid "&Edit"
 msgstr "Upravit"
 
 #: ../src/uppmainwindow_base.cpp:210
 #: ../src/uppmainwindow_base.cpp:219
+#: ../src/tmp/uppmainwindow_base.cpp:210
+#: ../src/tmp/uppmainwindow_base.cpp:219
 msgid "&Help"
 msgstr "Nápověda"
 
 #: ../src/uppmainwindow_base.cpp:210
+#: ../src/tmp/uppmainwindow_base.cpp:210
 msgid "Opens the Usbpicprog's website..."
 msgstr "Otevírá webovou stránku Usbpicprog..."
 
 #: ../src/uppmainwindow_base.cpp:216
+#: ../src/tmp/uppmainwindow_base.cpp:216
 msgid "&About"
 msgstr "O programu"
 
 #: ../src/uppmainwindow_base.cpp:216
+#: ../src/tmp/uppmainwindow_base.cpp:216
 msgid "Shows informations about this program"
 msgstr "Zobrazí informace o tomto programu"
 
-#: ../src/hexview.cpp:216
-msgid "Edit"
-msgstr "Upravit"
-
-#: ../src/hexview.cpp:218
-msgid "Copy"
-msgstr "Kopírovat"
-
-#: ../src/hexview.cpp:219
-msgid "Select All"
-msgstr "Vybrat vše"
-
-#: ../src/packageview.cpp:47
-#, fuzzy
-msgid "packageview"
-msgstr "Pouzdro"
-
-#: ../src/packageview.cpp:72
-#: ../src/packageview.cpp:78
-#, fuzzy
-msgid "Can't create the package bitmap!"
-msgstr "Nepodařilo se vytvořit pracovní thread!"
-
-#: ../src/packageview.cpp:86
-msgid "Can't draw the PIC package!"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:211
-msgid "&Program..."
-msgstr "&Programovat..."
-
-#: ../src/uppmainwindow.cpp:212
-msgid "Program the PIC device"
-msgstr "Naprogramuje PIC součástku"
-
-#: ../src/uppmainwindow.cpp:215
-msgid "&Read..."
-msgstr "&Číst"
-
-#: ../src/uppmainwindow.cpp:216
-msgid "Read the PIC device"
-msgstr "Přečte PIC součástku"
-
-#: ../src/uppmainwindow.cpp:219
-msgid "&Verify..."
-msgstr "&Zkontrolovat"
-
-#: ../src/uppmainwindow.cpp:220
-msgid "Verify the PIC device"
-msgstr "Zkontroluje naprogramování PIC součástky"
-
-#: ../src/uppmainwindow.cpp:223
-msgid "&Erase..."
-msgstr "&Vymazat"
-
-#: ../src/uppmainwindow.cpp:224
-msgid "Erase the PIC device"
-msgstr "Vymaže PIC součástku"
-
-#: ../src/uppmainwindow.cpp:227
-msgid "&Blankcheck..."
-msgstr "&Kontrola vymazání"
-
-#: ../src/uppmainwindow.cpp:228
-msgid "Blankcheck the PIC device"
-msgstr "Zkontroluje vymazání PIC součástky"
-
-#: ../src/uppmainwindow.cpp:231
-msgid "&Autodetect..."
-msgstr "&Autodetekce"
-
-#: ../src/uppmainwindow.cpp:232
-msgid "Detect the type of the PIC device"
-msgstr "Detekuje typ PIC součástky"
-
-#: ../src/uppmainwindow.cpp:235
-msgid "&Connect..."
-msgstr "&Připojit"
-
-#: ../src/uppmainwindow.cpp:236
-msgid "Connect to the programmer"
-msgstr "Připojí se k programátoru"
-
-#: ../src/uppmainwindow.cpp:239
-msgid "&Disconnect..."
-msgstr "&Odpojit"
-
-#: ../src/uppmainwindow.cpp:240
-msgid "Disconnect from the programmer"
-msgstr "Odpojí se od programátoru"
-
-#: ../src/uppmainwindow.cpp:270
-msgid "&Select PIC..."
-msgstr "&Vybrat PIC..."
-
-#: ../src/uppmainwindow.cpp:271
-msgid "Change the currently selected PIC"
-msgstr "Změň aktuálně vybraný PIC"
-
-#: ../src/uppmainwindow.cpp:305
-msgid "&Actions"
-msgstr "&Příkazy"
-
-#: ../src/uppmainwindow.cpp:330
-msgid "new"
-msgstr "nový"
-
-#: ../src/uppmainwindow.cpp:332
-msgid "open"
-msgstr "otevřít"
-
-#: ../src/uppmainwindow.cpp:334
-msgid "reload"
-msgstr "obnovit"
-
-#: ../src/uppmainwindow.cpp:336
-msgid "save"
-msgstr "uložit"
-
-#: ../src/uppmainwindow.cpp:338
-msgid "save as"
-msgstr "uložit jako..."
-
-#: ../src/uppmainwindow.cpp:341
-msgid "program"
-msgstr "programovat"
-
-#: ../src/uppmainwindow.cpp:343
-msgid "read"
-msgstr "číst"
-
-#: ../src/uppmainwindow.cpp:345
-msgid "verify"
-msgstr "zkontrolovat"
-
-#: ../src/uppmainwindow.cpp:347
-msgid "erase"
-msgstr "vymazat"
-
-#: ../src/uppmainwindow.cpp:349
-msgid "blankcheck"
-msgstr "zkontrolovat vymazání"
-
-#: ../src/uppmainwindow.cpp:351
-msgid "autodetect"
-msgstr "detekovat typ"
-
-#: ../src/uppmainwindow.cpp:356
-msgid "currently selected PIC type"
-msgstr "aktuálně vybraný typ PICu"
-
-#: ../src/uppmainwindow.cpp:447
-#, c-format
-msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
-msgstr "HEX soubor '%s' není uložen. Provedené změny budou ztraceny. Pokračovat?"
-
-#: ../src/uppmainwindow.cpp:450
-msgid "Please confirm"
-msgstr "Potvrď"
-
-#: ../src/uppmainwindow.cpp:466
-#: ../src/uppmainwindow.cpp:508
-#: ../src/uppmainwindow.cpp:514
-#: ../src/uppmainwindow.cpp:520
-msgid "Your firmware is too old; please consider upgrading it"
-msgstr "Váš firmware je příliš starý"
-
-#: ../src/uppmainwindow.cpp:474
-#: ../src/uppmainwindow.cpp:483
-#: ../src/uppmainwindow.cpp:497
-msgid "Firmware probably too new"
-msgstr "Firmware je asi příliš nový"
-
-#: ../src/uppmainwindow.cpp:503
-msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
-msgstr "Používáte stabilní vydání firmware s vývojovou verzí software. Uvažte aktualizaci firmware"
-
-#: ../src/uppmainwindow.cpp:535
-msgid "Usbpicprog rev: "
-msgstr "Usbpicprog verze:"
-
-#: ../src/uppmainwindow.cpp:537
-msgid "Usbpicprog: "
-msgstr "Usbpicprog:"
-
-#: ../src/uppmainwindow.cpp:541
-msgid "untitled"
-msgstr "bez názvu"
-
-#: ../src/uppmainwindow.cpp:568
-#: ../src/uppmainwindow.cpp:572
-#, c-format
-msgid "%s datasheet"
-msgstr "%s katalogový list"
-
-#: ../src/uppmainwindow.cpp:579
-#, c-format
-msgid ""
-"Programming voltage (Vpp):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-msgstr ""
-"Programovací napětí (Vpp):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-
-#: ../src/uppmainwindow.cpp:582
-#, c-format
-msgid ""
-"Supply voltage (Vdd):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-msgstr ""
-"Napájecí napětí (Vdd):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-
-#: ../src/uppmainwindow.cpp:584
-#, c-format
-msgid ""
-"Frequency range:\n"
-"   Min=%.2fMhz\n"
-"   Max=%.2fMhz"
-msgstr ""
-"Kmitočtový rozsah:\n"
-"   Min=%.2fMhz\n"
-"   Max=%.2fMhz"
-
-#: ../src/uppmainwindow.cpp:585
-#, c-format
-msgid "Device ID: 0x%X"
-msgstr "ID součástky: 0x%X"
-
-#: ../src/uppmainwindow.cpp:586
-#, c-format
-msgid "Code memory size: %d bytes"
-msgstr "Velikost paměti kódu: %d bytů"
-
-#: ../src/uppmainwindow.cpp:587
-#, c-format
-msgid "Data memory size: %d bytes"
-msgstr "Velikost datové paměti: %d bytů"
-
-#: ../src/uppmainwindow.cpp:588
-#, c-format
-msgid "Type: %d-bit microcontroller"
-msgstr "Typ: %d-bitový mikrokontrolér"
-
-#: ../src/uppmainwindow.cpp:599
-#: ../src/uppmainwindow.cpp:602
-#, c-format
-msgid "%s [%d pins]"
-msgstr "%s [%d pinů]"
-
-#: ../src/uppmainwindow.cpp:686
-msgid "Please wait until the operations are completed:\n"
-msgstr "Počkejte na dokončení prováděných operací:\n"
-
-#: ../src/uppmainwindow.cpp:701
-msgid "Operations aborted"
-msgstr "Operace zrušena"
-
-#: ../src/uppmainwindow.cpp:741
-#: ../src/uppmainwindow.cpp:745
-msgid "All operations completed"
-msgstr "Všechny operace dokončeny"
-
-#: ../src/uppmainwindow.cpp:747
-msgid "Operations completed with errors/warnings"
-msgstr "Operace skončily s chybami/varováním"
-
-#: ../src/uppmainwindow.cpp:847
-msgid "Erasing before programming..."
-msgstr "Mažu před programováním..."
-
-#: ../src/uppmainwindow.cpp:852
-msgid "Erase OK"
-msgstr "Vymazání OK"
-
-#: ../src/uppmainwindow.cpp:855
-#: ../src/uppmainwindow.cpp:1057
-msgid "Error erasing the device"
-msgstr "Chyba při mazání součástky"
-
-#: ../src/uppmainwindow.cpp:864
-msgid "Programming the code area of the PIC..."
-msgstr "Zapisuji kódovou oblast PICu..."
-
-#: ../src/uppmainwindow.cpp:868
-msgid "Write Code memory OK"
-msgstr "Zápis kódové paměti OK"
-
-#: ../src/uppmainwindow.cpp:871
-#: ../src/uppmainwindow.cpp:903
-#: ../src/uppmainwindow.cpp:933
-msgid "The hardware should say OK"
-msgstr "Hardware by měl vrátit OK"
-
-#: ../src/uppmainwindow.cpp:874
-#: ../src/uppmainwindow.cpp:906
-#: ../src/uppmainwindow.cpp:936
-msgid "The hardware should ask for next block"
-msgstr "Hardware by měl požádat o další blok "
-
-#: ../src/uppmainwindow.cpp:877
-msgid "Write code not implemented for current PIC"
-msgstr "Zápis kódu není pro aktuálně vybraný typ součástky implementován."
-
-#: ../src/uppmainwindow.cpp:880
-msgid "Verify error while writing code memory"
-msgstr "Chyba kontroly během zápisu kódové paměti"
-
-#: ../src/uppmainwindow.cpp:883
-#: ../src/uppmainwindow.cpp:912
-#: ../src/uppmainwindow.cpp:942
-msgid "USB error while writing code memory"
-msgstr "USB chyba během zápisu kódové paměti"
-
-#: ../src/uppmainwindow.cpp:886
-msgid "Error programming code memory"
-msgstr "Chyba zápisu kódové paměti "
-
-#: ../src/uppmainwindow.cpp:895
-msgid "Programming the data area of the PIC..."
-msgstr "Zapisuji datovou oblast PICu..."
-
-#: ../src/uppmainwindow.cpp:900
-msgid "Write Data memory OK"
-msgstr "Zápis datové oblasti OK"
-
-#: ../src/uppmainwindow.cpp:909
-msgid "Write data not implemented for current PIC"
-msgstr "Zápis dat není pro aktuálně vybraný typ součástky implementován"
-
-#: ../src/uppmainwindow.cpp:915
-msgid "Error programming data memory"
-msgstr "Chyba zápisu datové paměti"
-
-#: ../src/uppmainwindow.cpp:925
-msgid "Programming configuration area of the PIC..."
-msgstr "Zapisuji konfigurační oblast PICu... "
-
-#: ../src/uppmainwindow.cpp:930
-msgid "Write Config memory OK"
-msgstr "Zápis konfigurační oblasti OK"
-
-#: ../src/uppmainwindow.cpp:939
-msgid "Write config not implemented for current PIC"
-msgstr "Zápis konfigurace není pro aktuálně vybraný typ součástky implementován"
-
-#: ../src/uppmainwindow.cpp:945
-msgid "Error programming config memory"
-msgstr "Chyba zápisu konfigurační paměti"
-
-#: ../src/uppmainwindow.cpp:964
-msgid "Reading the code area of the PIC..."
-msgstr "Čtu programovou oblast PICu..."
-
-#: ../src/uppmainwindow.cpp:968
-msgid "Error reading code memory"
-msgstr "Chyba čtení kódové paměti"
-
-#: ../src/uppmainwindow.cpp:976
-msgid "Reading the data area of the PIC..."
-msgstr "Čtu datovou oblast PICu..."
-
-#: ../src/uppmainwindow.cpp:979
-msgid "Error reading data memory"
-msgstr "Chyba čtení datové paměti"
-
-#: ../src/uppmainwindow.cpp:987
-msgid "Reading the configuration area of the PIC..."
-msgstr "Čtu konfigurační oblast PICu..."
-
-#: ../src/uppmainwindow.cpp:990
-msgid "Error reading configuration memory"
-msgstr "Chyba čtení konfigurační paměti"
-
-#: ../src/uppmainwindow.cpp:1005
-msgid "Verifying all areas of the PIC..."
-msgstr "Kontroluji všechny oblasti PICu..."
-
-#: ../src/uppmainwindow.cpp:1018
-msgid "Verify successful"
-msgstr "Kontrola proběhla úspěšně"
-
-#: ../src/uppmainwindow.cpp:1023
-msgid "Verify code"
-msgstr "Kontrola kódu"
-
-#: ../src/uppmainwindow.cpp:1024
-msgid "Verify data"
-msgstr "Kontrola dat"
-
-#: ../src/uppmainwindow.cpp:1025
-msgid "Verify config"
-msgstr "Kontrola konfigurace"
-
-#: ../src/uppmainwindow.cpp:1026
-msgid "Verify unknown"
-msgstr "Výsledek kontroly není znám"
-
-#: ../src/uppmainwindow.cpp:1028
-#, c-format
-msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr " - chyba na adrese 0x%X. přečteno: 0x%02X, očekáváno: 0x%02X"
-
-#: ../src/uppmainwindow.cpp:1035
-msgid "USB error during verify"
-msgstr "USB chyba během kontroly"
-
-#: ../src/uppmainwindow.cpp:1038
-msgid "Unknown error during verify"
-msgstr "Neznámá chyba během kontroly"
-
-#: ../src/uppmainwindow.cpp:1041
-#: ../src/uppmainwindow.cpp:1112
-msgid "I'm sorry for being stupid"
-msgstr "Promiňte mi moji blbost :-)"
-
-#: ../src/uppmainwindow.cpp:1053
-msgid "Erasing all areas of the PIC..."
-msgstr "Mažu všechny oblasti PICu..."
-
-#: ../src/uppmainwindow.cpp:1072
-msgid "Checking if the device is blank..."
-msgstr "Kontroluji vymazání součástky..."
-
-#: ../src/uppmainwindow.cpp:1080
-msgid "Device is blank"
-msgstr "Součástka je vymazaná"
-
-#: ../src/uppmainwindow.cpp:1098
-#, c-format
-msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Kontrola vymazání selhala na adrese 0x%X. přečteno: 0x%02X, očekáváno: 0x%02X"
-
-#: ../src/uppmainwindow.cpp:1103
-msgid "Device is not blank."
-msgstr "Součástka není vymazaná"
-
-#: ../src/uppmainwindow.cpp:1106
-msgid "USB error during blankcheck"
-msgstr "USB chyba během kontroly vymazání"
-
-#: ../src/uppmainwindow.cpp:1109
-msgid "Unknown error during blankcheck"
-msgstr "Neznámá chyba během kontroly vymazání"
-
-#: ../src/uppmainwindow.cpp:1132
-msgid "Progress dialog"
-msgstr "Okno průběhu"
-
-#: ../src/uppmainwindow.cpp:1133
-msgid "Initializing..."
-msgstr "Inicializuji..."
-
-#: ../src/uppmainwindow.cpp:1157
-msgid "Could not create the worker thread!"
-msgstr "Nepodařilo se vytvořit pracovní thread!"
-
-#: ../src/uppmainwindow.cpp:1163
-msgid "Could not run the worker thread!"
-msgstr "Nepodařilo se spustit pracovní thread!"
-
-#: ../src/uppmainwindow.cpp:1199
-msgid "Open hexfile"
-msgstr "Otevřít HEX soubor"
-
-#: ../src/uppmainwindow.cpp:1215
-#: ../src/uppmainwindow.cpp:1216
-#: ../src/uppmainwindow.cpp:1243
-#: ../src/uppmainwindow.cpp:1244
-msgid "Unable to open file"
-msgstr "Soubor se nepodařilo otevřít"
-
-#: ../src/uppmainwindow.cpp:1233
-#: ../src/uppmainwindow.cpp:1234
-msgid "No file to refresh"
-msgstr "Není otevřen žádný soubor pro obnovení"
-
-#: ../src/uppmainwindow.cpp:1259
-#: ../src/uppmainwindow.cpp:1260
-#: ../src/uppmainwindow.cpp:1281
-#: ../src/uppmainwindow.cpp:1282
-msgid "Unable to save file"
-msgstr "Soubor se nepodařilo uložit"
-
-#: ../src/uppmainwindow.cpp:1271
-msgid "Save hexfile"
-msgstr "Uložit HEX soubor"
-
-#: ../src/uppmainwindow.cpp:1312
-#: ../src/uppmainwindow.cpp:1324
-#: ../src/uppmainwindow.cpp:1341
-#: ../src/uppmainwindow.cpp:1353
-#: ../src/uppmainwindow.cpp:1370
-#: ../src/uppmainwindow.cpp:1382
-msgid "The programmer is not connected"
-msgstr "Programátor není připojen"
-
-#: ../src/uppmainwindow.cpp:1417
-msgid "No PIC detected!"
-msgstr "Žádný PIC nebyl nalezen!"
-
-#: ../src/uppmainwindow.cpp:1419
-#, c-format
-msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "Žádný PIC nebyl nalezen! Volím defaultní PIC (%s)..."
-
-#: ../src/uppmainwindow.cpp:1424
-#, c-format
-msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "Nalezen PIC model %s s device ID 0x%X"
-
-#: ../src/uppmainwindow.cpp:1449
-#: ../src/uppmainwindow.cpp:1450
-msgid "Unable to read firmware version"
-msgstr "Nepodařilo se přečíst verzi firmware"
-
-#: ../src/uppmainwindow.cpp:1454
-#: ../src/uppmainwindow.cpp:1457
-#: ../src/uppmainwindow.cpp:1482
-#: ../src/uppmainwindow.cpp:1484
-msgid " Connected"
-msgstr " - připojen"
-
-#: ../src/uppmainwindow.cpp:1477
-#: ../src/uppmainwindow.cpp:1478
-msgid "Unable to read version"
-msgstr "Nepodařilo se přečíst verzi"
-
-#: ../src/uppmainwindow.cpp:1498
-#: ../src/uppmainwindow.cpp:1500
-msgid "Bootloader or programmer not found"
-msgstr "nenalezen bootloader ani programátor"
-
-#: ../src/uppmainwindow.cpp:1520
-#: ../src/uppmainwindow.cpp:1522
-msgid "Disconnected"
-msgstr "Odpojeno"
-
-#: ../src/uppmainwindow.cpp:1526
-#: ../src/uppmainwindow.cpp:1527
-#: ../src/uppmainwindow.cpp:1532
-#: ../src/uppmainwindow.cpp:1533
-msgid "Already disconnected"
-msgstr "již odpojen"
-
-#: ../src/uppmainwindow.cpp:1560
-msgid "An open source USB pic programmer"
-msgstr "Open source USB PIC programátor"
-
-#: ../src/uppmainwindow.cpp:1587
-#: ../src/uppmainwindow.cpp:1616
-msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr "Hexadecimální zobrazení kódové paměti PICu:"
-
-#: ../src/hexfile.cpp:96
-#, fuzzy
-msgid "Could not open Hex file..."
-msgstr "nezobrazuj HEX soubor"
-
-#: ../src/hexfile.cpp:114
-msgid "Failure in hex file..."
-msgstr ""
-
-#: ../src/hexfile.cpp:130
-msgid "Error in checksum..."
-msgstr ""
-
-#: ../src/hexfile.cpp:154
-msgid "Data in hex file outside config memory of PIC"
-msgstr ""
-
-#: ../src/hexfile.cpp:197
-msgid "Data in hex file outside data memory of PIC"
-msgstr ""
-
-#: ../src/hexfile.cpp:212
-msgid "Data in hex file outside code memory of PIC"
-msgstr ""
-
-#: ../src/hexfile.cpp:224
-#, c-format
-msgid "unknown record type: %d"
-msgstr ""
-
-#: ../src/hexfile.cpp:331
-msgid "Could not open Hex file for writing..."
-msgstr ""
-
-#: ../src/hexfile.cpp:682
-#, fuzzy
-msgid "Code Memory\n"
-msgstr "Velikost kódové paměti:"
-
-#: ../src/hardware.cpp:134
-msgid "Couldn't reset interface"
-msgstr ""
-
-#: ../src/hardware.cpp:170
-#, fuzzy
-msgid "Error setting configuration"
-msgstr "Chyba čtení konfigurační paměti"
-
-#: ../src/hardware.cpp:185
-#, c-format
-msgid "Interface %d not present: using %d"
-msgstr ""
-
-#: ../src/hardware.cpp:195
-#, fuzzy
-msgid "Error claiming interface"
-msgstr "Chyba při mazání součástky"
-
-#: ../src/hardware.cpp:260
-#: ../src/hardware.cpp:291
-#: ../src/hardware.cpp:960
-#: ../src/hardware.cpp:973
-#: ../src/hardware.cpp:1023
-msgid "Usb Error"
-msgstr ""
-
-#: ../src/hardware.cpp:434
-#, c-format
-msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
-msgstr ""
-
-#: ../src/hardware.cpp:617
-msgid "No data to verify"
-msgstr ""
-
-#: ../src/hardware.cpp:843
-#, c-format
-msgid "Usb Error while reading: %s"
-msgstr ""
-
-#: ../src/hardware.cpp:862
-#, c-format
-msgid "Usb Error while writing to device: %d bytes, errCode: %d"
-msgstr ""
+#: ../src/main.cpp:84
+msgid "Cannot load XML PIC data."
+msgstr "Nelze načíst XML data PICu."
 
 #: ../src/pictype.cpp:101
 #: ../src/pictype.cpp:103
@@ -953,6 +1125,60 @@ msgstr ""
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr ""
+
+#: ../src/packageview.cpp:47
+#, fuzzy
+msgid "packageview"
+msgstr "Pouzdro"
+
+#: ../src/packageview.cpp:72
+#: ../src/packageview.cpp:78
+#, fuzzy
+msgid "Can't create the package bitmap!"
+msgstr "Nepodařilo se vytvořit pracovní thread!"
+
+#: ../src/packageview.cpp:86
+msgid "Can't draw the PIC package!"
+msgstr ""
+
+#: ../src/hexfile.cpp:96
+#, fuzzy
+msgid "Could not open Hex file..."
+msgstr "nezobrazuj HEX soubor"
+
+#: ../src/hexfile.cpp:114
+msgid "Failure in hex file..."
+msgstr ""
+
+#: ../src/hexfile.cpp:130
+msgid "Error in checksum..."
+msgstr ""
+
+#: ../src/hexfile.cpp:154
+msgid "Data in hex file outside config memory of PIC"
+msgstr ""
+
+#: ../src/hexfile.cpp:197
+msgid "Data in hex file outside data memory of PIC"
+msgstr ""
+
+#: ../src/hexfile.cpp:212
+msgid "Data in hex file outside code memory of PIC"
+msgstr ""
+
+#: ../src/hexfile.cpp:224
+#, c-format
+msgid "unknown record type: %d"
+msgstr ""
+
+#: ../src/hexfile.cpp:331
+msgid "Could not open Hex file for writing..."
+msgstr ""
+
+#: ../src/hexfile.cpp:682
+#, fuzzy
+msgid "Code Memory\n"
+msgstr "Velikost kódové paměti:"
 
 #: ../src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
@@ -1006,9 +1232,39 @@ msgstr "Nastavení uživatelského rozhraní"
 msgid "Shows popups on connect etc..."
 msgstr "Zobraz informaci při připojení atd..."
 
-#: ../src/uppmainwindow_base.h:100
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
+#: ../src/tmp/pictype.cpp:309
+msgid "error: PIC name should match picName: "
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:343
+#, fuzzy
+msgid "device ID not found"
+msgstr "Součástka není vymazaná"
+
+#: ../src/tmp/pictype.cpp:354
+msgid "name attribute in memory not found"
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:362
+msgid "start attribute in config memory not found"
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:373
+msgid "start attribute in hexfile_offset not found"
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:446
+#: ../src/tmp/pictype.cpp:452
+msgid "error getting attribute config -> name -> offset"
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:488
+msgid "couldn't find attribute value in mask"
+msgstr ""
+
+#: ../src/tmp/pictype.cpp:522
+msgid "nb_pins not found in package"
+msgstr ""
 
 #: ../src/preferences_base.h:51
 msgid "Preferences"
@@ -1103,6 +1359,10 @@ msgstr "file"
 #: ../src/main.h:122
 msgid "hexfile"
 msgstr "HEX soubor"
+
+#: ../src/uppmainwindow_base.h:100
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
 
 #~ msgid "Config"
 #~ msgstr "Konfiguraci"
