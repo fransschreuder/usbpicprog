@@ -1020,7 +1020,9 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
                         for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				//load data for config memory
-				if(((((char)address)+(blockcounter>>1))<4)||((((char)address)+(blockcounter>>1))==7))
+				if(((((char)address)+(blockcounter>>1))<4)||
+					((((char)address)+(blockcounter>>1))==7)||
+					(((((char)address)+(blockcounter>>1))==8)&&((pictype==P16F87)|(pictype==P16F7X7)|(pictype==P16F88X))))
 				{
 					payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
 					pic_send_14_bits(6,0x02,payload); //load data for programming
