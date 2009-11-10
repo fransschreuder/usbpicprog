@@ -157,19 +157,17 @@ bool HexFile::open(PicType* picType, const char* filename)
             // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
             if (picType->is14Bit()||picType->is24Bit())
-                dataAddress*=2;
+                dataAddress*=2; //data Address should be in bytes...
 				
             if (((extAddress+address)>=(dataAddress))&&
-                ((extAddress+address)<(dataAddress+picType->DataSize*(picType->is24Bit()+1))))
+                ((extAddress+address)<(dataAddress+picType->DataSize*((picType->is24Bit()|picType->is14Bit())+1))))
             {
-                if (m_dataMemory.size() < picType->DataSize*(picType->is24Bit()+1))
+                if (m_dataMemory.size() < picType->DataSize*((picType->is24Bit()|picType->is14Bit())+1))
                 {
                     if (picType->is16Bit())
                         newSize = extAddress+address+lineData.size() - dataAddress;
-                    else if(picType->is14Bit())
-                        newSize = extAddress+address+lineData.size()/2 - dataAddress;
-					else if(picType->is24Bit())
-						newSize = (extAddress+address+lineData.size() - dataAddress)/2;
+                    else if(picType->is14Bit()||picType->is24Bit())
+                        newSize = (extAddress+address+lineData.size() - dataAddress)/2;
 					//cout<<"newSize: "<<hex<<newSize<<endl;
 
                     
@@ -400,6 +398,15 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 					if(j<2)tempDataMemory[i+j]=m_dataMemory[(i/2)+j];
 					else tempDataMemory[i+j]=0;
 				}
+			}
+		}
+		else if(picType->is14Bit())
+		{
+			tempDataMemory.resize(m_dataMemory.size()*2);
+			for(unsigned int i=0;i<tempDataMemory.size();i+=2)
+			{
+				tempDataMemory[i]=m_dataMemory[(i/2)];
+				tempDataMemory[i+1]=0;
 			}
 		}
 		else
