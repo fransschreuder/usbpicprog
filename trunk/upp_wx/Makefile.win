@@ -1,16 +1,16 @@
 # Project: usbpicprog
 # Compiler: Default GCC compiler
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ 7.0 on 22-10-09 20:42
+# Makefile created by wxDev-C++ 7.0 on 10/11/09 14:55
 
 CPP       = g++.exe
 CC        = gcc.exe
 WINDRES   = "windres.exe"
 OBJ       = Objects/MingW/hardware.o Objects/MingW/main.o Objects/MingW/pictype.o Objects/MingW/uppmainwindow_base.o Objects/MingW/uppmainwindow.o Objects/MingW/hexview.o Objects/MingW/preferences.o Objects/MingW/hexfile.o Objects/MingW/configview.o Objects/MingW/packageview.o Objects/MingW/preferences_base.o Objects/MingW/usbpicprog_private.res
 LINKOBJ   = Objects/MingW/hardware.o Objects/MingW/main.o Objects/MingW/pictype.o Objects/MingW/uppmainwindow_base.o Objects/MingW/uppmainwindow.o Objects/MingW/hexview.o Objects/MingW/preferences.o Objects/MingW/hexfile.o Objects/MingW/configview.o Objects/MingW/packageview.o Objects/MingW/preferences_base.o Objects/MingW/usbpicprog_private.res
-LIBS      = -L"C:/Program Files/Dev-Cpp/lib" -L"C:/Program Files/LibUSB-Win32/lib/gcc" -L"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/lib" -L"C:/Program Files/LibUSB-Win32/lib/gcc" -mwindows  -lwx_mswu_xrc-2.9 -lwx_mswu_html-2.9 -lwx_mswu_qa-2.9 -lwx_mswu_adv-2.9 -lwx_mswu_core-2.9 -lwx_baseu_xml-2.9 -lwx_baseu_net-2.9 -lwx_baseu-2.9 -lwxregexu-2.9  -lwxexpat-2.9  -lwxtiff-2.9  -lwxjpeg-2.9  -lwxpng-2.9  -lwxzlib-2.9  -lrpcrt4  -loleaut32  -lole32  -luuid  -lwinspool  -lwinmm  -lshell32  -lcomctl32  -lcomdlg32  -lctl3d32  -ladvapi32  -lwsock32  -lgdi32   -lusb   -g3 
+LIBS      = -L"C:/Program Files/Dev-Cpp/Lib" -L"C:/Program Files/LibUSB-Win32/lib/gcc" -L"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/lib" -L"C:/Program Files/LibUSB-Win32/lib/gcc" -mwindows  -lwx_mswu_xrc-2.9 -lwx_mswu_html-2.9 -lwx_mswu_qa-2.9 -lwx_mswu_adv-2.9 -lwx_mswu_core-2.9 -lwx_baseu_xml-2.9 -lwx_baseu_net-2.9 -lwx_baseu-2.9 -lwxregexu-2.9  -lwxexpat-2.9  -lwxtiff-2.9  -lwxjpeg-2.9  -lwxpng-2.9  -lwxzlib-2.9  -lrpcrt4  -loleaut32  -lole32  -luuid  -lwinspool  -lwinmm  -lshell32  -lcomctl32  -lcomdlg32  -lctl3d32  -ladvapi32  -lwsock32  -lgdi32   -lusb   -g3 
 INCS      = -I"C:/Program Files/Dev-Cpp/Include" -I"C:/Program Files/LibUSB-Win32/include" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/include/wx" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/lib/wx/include/msw-unicode-release-static-2.9"
-CXXINCS   = -I"C:/Program Files/Dev-Cpp/include" -I"C:/Program Files/Dev-Cpp/include/c++" -I"C:/Program Files/LibUSB-Win32/include" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/include/wx" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/lib/wx/include/msw-unicode-release-static-2.9"
+CXXINCS   = -I"C:/Program Files/Dev-Cpp/lib/gcc/mingw32/3.4.5/include" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.5/backward" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.5/mingw32" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.5" -I"C:/Program Files/Dev-Cpp/include" -I"C:/Program Files/Dev-Cpp/" -I"C:/Program Files/Dev-Cpp/include/common/wx/msw" -I"C:/Program Files/Dev-Cpp/include/common/wx/generic" -I"C:/Program Files/Dev-Cpp/include/common/wx/html" -I"C:/Program Files/Dev-Cpp/include/common/wx/protocol" -I"C:/Program Files/Dev-Cpp/include/common/wx/xml" -I"C:/Program Files/Dev-Cpp/include/common/wx/xrc" -I"C:/Program Files/Dev-Cpp/include/common/wx" -I"C:/Program Files/Dev-Cpp/include/common" -I"C:/Program Files/LibUSB-Win32/include" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/include/wx" -I"C:/Program Files/Dev-Cpp/wxWidgets-2.9.0-msw-static/lib/wx/include/msw-unicode-release-static-2.9"
 RCINCS    = --include-dir "C:/PROGRA~1/Dev-Cpp/include/common"
 BIN       = Output/MingW/usbpicprog.exe
 DEFINES   = -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__
@@ -18,7 +18,7 @@ CXXFLAGS  = $(CXXINCS) $(DEFINES) -fno-exceptions -fno-pcc-struct-return -fstric
 CFLAGS    = $(INCS) $(DEFINES) -fno-exceptions -fno-pcc-struct-return -fstrict-aliasing -Wall -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__   -fexpensive-optimizations -O3 -g3
 GPROF     = gprof.exe
 RM        = rm -f
-WXLIBNAME = wxmsw29
+WXLIBNAME = wxmsw28
 LINK      = g++.exe
 
 .PHONY: all all-before all-after clean clean-custom
