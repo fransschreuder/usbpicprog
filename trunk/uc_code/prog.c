@@ -34,10 +34,12 @@
 extern long lasttick;
 extern long tick;
 
+
+#define NORESTORE 0xAA
 /**
 Bulk erases the whole device
 */
-char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
+char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 {
 	unsigned int osccal,bandgap; //for P12F629 devices...
 	unsigned int i;
@@ -245,6 +247,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype)
 			//h) Restore OSCCAL and BG bits.*/
 			set_vdd_vpp(pictype, picfamily,0);
 			DelayMs(10);
+			if(doRestore==NORESTORE)break;	//do not restore bandgap and osccal registers
 			temp[0]=(unsigned char)(osccal&0xFF);
 			temp[1]=(unsigned char)((osccal>>8)&0xFF);
 			write_code(picfamily, pictype, 0x3FF, temp,2 ,3);

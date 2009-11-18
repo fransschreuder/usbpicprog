@@ -38,7 +38,7 @@ typedef enum _PICTYPE{
 }PICTYPE;
 
 
-char bulk_erase(PICFAMILY picfamily, PICTYPE pictype);
+char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore);
 
 char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
                 unsigned char* data,char blocksize,char lastblock);

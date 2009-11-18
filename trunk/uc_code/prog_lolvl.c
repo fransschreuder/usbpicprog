@@ -135,11 +135,9 @@ void pic_send_n_bits(char cmd_size, char command)
 	PGD=0;
 	for(i=0;i<cmd_size;i++)
 	{
-
-		PGC=1;
-		clock_delay();
 		if(command&1)PGD=1;
 		else PGD=0;
+		PGC=1;		
 		command>>=1;
 		clock_delay();
 		PGC=0;
@@ -154,16 +152,13 @@ void pic_send_word(unsigned int payload)
 	char i;
 	for(i=0;i<16;i++)
 	{
-
-		PGC=1;
-		clock_delay();
 		if(payload&1)PGD=1;
 		else PGD=0;
+		PGC=1;
 		payload>>=1;
 		clock_delay();
 		PGC=0;
 		clock_delay();
-
 	}
 	clock_delay();
 }
@@ -171,28 +166,26 @@ void pic_send_word(unsigned int payload)
 void pic_send_word_14_bits(unsigned int payload)
 {
 	char i;
-	PGC=1;
-	clock_delay();
 	PGD=0;
+	clock_delay();
+	PGC=1;
 	clock_delay();
 	PGC=0;
 	clock_delay();
 	for(i=0;i<14;i++)
 	{
-
-		PGC=1;
-		clock_delay();
 		if(payload&1)PGD=1;
 		else PGD=0;
+		PGC=1;		
 		payload>>=1;
 		clock_delay();
 		PGC=0;
 		clock_delay();
 
 	}
-	PGC=1;
-	clock_delay();
 	PGD=0;
+	clock_delay();
+	PGC=1;
 	clock_delay();
 	PGC=0;
 	clock_delay();
@@ -265,10 +258,9 @@ char pic_read_byte2(char cmd_size, char command)
 //	for(i=0;i<80;i++)continue;	//wait at least 1us
 	for(i=0;i<8;i++)
 	{
-
-		PGC=1;
-		clock_delay();
 		PGD=0;
+		clock_delay();
+		PGC=1;
 		clock_delay();
 		PGC=0;
 		clock_delay();

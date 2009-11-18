@@ -159,7 +159,7 @@ void ProcessIO(void)
 		{
 			case CMD_BULK_ERASE:
 				setLeds(LEDS_ON | LEDS_WR);
-				output_buffer[0]=bulk_erase(picfamily,pictype);
+				output_buffer[0]=bulk_erase(picfamily,pictype,input_buffer[1]);
 				counter=1;
 				setLeds(LEDS_ON);
 				break;

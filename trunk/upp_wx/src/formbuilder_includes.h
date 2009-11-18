@@ -45,9 +45,10 @@ enum
     wxID_CONNECT,
     //wxID_CONNECT_BOOT,
     wxID_DISCONNECT,
-
+    wxID_RESTORE,
     wxID_PIC_CHOICE_COMBO,
     wxID_PIC_CHOICE_MENU
+
 };
 
 #endif //FORMBUILDER_INCLUDES_H

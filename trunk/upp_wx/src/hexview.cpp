@@ -133,27 +133,18 @@ void UppHexViewGrid::SetHexFile(HexFile* hexFile)
     // append new rows and set grid contents
     AppendRows(((data->size()%n)>0)+data->size()/n, false);
 
-#if wxCHECK_VERSION(2,9,0)
     wxStringCharType value[3];
     value[2] = (wxStringCharType)'\0';
-#else
-    wxString value;
-#endif
 
     for(unsigned int i=0; i<data->size(); i++)
     {
         int number = (*data)[i];
         wxASSERT(number >= 0 && number <= 255);
-#if wxCHECK_VERSION(2,9,0)
+
         // code for fast decimal=>hex conversion
         value[1] = g_digits[number%16];
         number = number/16;
         value[0] = g_digits[number%16];
-#else
-        // standard code for decimal=>hex conversion (slower)
-        //wxSnprintf(value, 3, wxT("%02X"), number);
-        value = wxString::Format(wxT("%02X"), number);
-#endif
 
         // NOTE: we don't use directly wxGrid::SetTable() since it's slower
         //       than GetTable()->SetValue because it also cares about
@@ -165,7 +156,7 @@ void UppHexViewGrid::SetHexFile(HexFile* hexFile)
 
     // set column and row labels now
     for(int i=0;i<GetNumberRows();i++)
-        SetRowLabelValue(i,wxString::Format(wxT("%06X"), i*n));
+        SetRowLabelValue(i,wxString::Format("%06X", i*n));
 
     Refresh();
 }
@@ -184,13 +175,13 @@ void UppHexViewGrid::Copy()
         for(int r=topLeftRow;r<=bottomRightRow;r++)
         {
             datastr.Append(GetRowLabelValue(r));
-            datastr.Append(wxT(": "));
+            datastr.Append(": ");
             for(int c=topLeftCol;c<=bottomRightCol;c++)
             {
                 datastr.Append(GetCellValue(r,c));
-                datastr.Append(wxT(" "));
+                datastr.Append(" ");
             }
-            datastr.Append(wxT("\n"));
+            datastr.Append("\n");
         }
     }
 
@@ -237,11 +228,11 @@ void UppHexViewGrid::OnCellChanged (wxGridEvent& event )
         {
             case HEXVIEW_CODE:
                 m_hexFile->putMemory(TYPE_CODE, position, cellData, NULL);
-                cellDataStr.Printf(wxT("%02X"), m_hexFile->getMemory(TYPE_CODE, position));
+                cellDataStr.Printf("%02X", m_hexFile->getMemory(TYPE_CODE, position));
                 break;
             case HEXVIEW_DATA:
                 m_hexFile->putMemory(TYPE_DATA, position, cellData, NULL);
-                cellDataStr.Printf(wxT("%02X"), m_hexFile->getMemory(TYPE_DATA, position));
+                cellDataStr.Printf("%02X", m_hexFile->getMemory(TYPE_DATA, position));
                 break;
         }
 

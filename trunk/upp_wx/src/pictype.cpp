@@ -627,18 +627,12 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 PicFamily PicType::GetFamilyFromString(const wxString& str)
 {
 
-#if wxCHECK_VERSION(2,8,10)
+
 #define FAMILY(x)           \
     if (str == #x)          \
         return x;
-#else
-#define FAMILY(x)           \
-    if (str == wxT(	\
-	#x) )     \
-	\
-        return x;
-#endif
-    FAMILY(P18F2XXX);
+
+	FAMILY(P18F2XXX);
     FAMILY(P18FXX2);
     FAMILY(P16F87XA);
     FAMILY(P16F62XA);
@@ -698,16 +692,10 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 {
 
-#if wxCHECK_VERSION(2,8,10)	
 #define PACKAGE(x)                       \
     if (str.CmpNoCase(#x) == 0)          \
         return x;
-#else
-#define PACKAGE(x)                       \
-    if (str.CmpNoCase(wxT(	\
-	#x) )== 0)          \
-        return x;
-#endif
+
 
 	PACKAGE(PDIP);
     PACKAGE(SOIC);
@@ -722,18 +710,10 @@ PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
 /* static */
 wxString ChipPackage::GetStringFromPackageType(PackageType type)
 {
-#if wxCHECK_VERSION(2,8,10)		
 #undef PACKAGE
 #define PACKAGE(x)          \
     if (type == x)          \
         return wxString(#x);
-#else
-#undef PACKAGE
-#define PACKAGE(x)          \
-    if (type == x)          \
-        return wxString( wxT(	\
-	#x ));
-#endif
 
     PACKAGE(PDIP);
     PACKAGE(SOIC);
@@ -1011,7 +991,7 @@ wxArrayString wxSplit(const wxString& str, const wxChar sep, const wxChar escape
 {
     wxArrayString ret;
     wxString curr;
-    wxChar prev = wxT('\0');
+    wxChar prev = '\0';
 
     for ( wxString::const_iterator i = str.begin(),
                                  end = str.end();

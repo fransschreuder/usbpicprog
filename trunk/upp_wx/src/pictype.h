@@ -39,8 +39,8 @@ class wxDC;
 
 // constants:
 
-#define UPP_UNKNOWN_BITMAP_FILE wxT("unknown.png")
-#define UPP_INDEX_FILE          wxT("index.xml")
+#define UPP_UNKNOWN_BITMAP_FILE ("unknown.png")
+#define UPP_INDEX_FILE          ("index.xml")
 
 #ifdef __WXMAC__
 #define UPP_INDEX_PATH (((wxStandardPaths &)wxStandardPaths::Get()).GetExecutablePath() + _T("/xml_data/"))
@@ -48,7 +48,7 @@ class wxDC;
 #define UPP_INDEX_PATH (wxStandardPaths::Get().GetDataDir() + wxFileName::GetPathSeparator())
 #endif
 
-#define UPP_DEFAULT_PIC_MODEL   wxT("18F2550")
+#define UPP_DEFAULT_PIC_MODEL   ("18F2550")
 #define UPP_DEFAULT_PIC         "P18F2550"
 
 #define UPP_INVALID_PIC         (PicType())
@@ -71,6 +71,7 @@ typedef enum {
     P16C6XX,P16C55X,P16C7XX,P16C64X,P14000,P16C50X,P16C432,P17CXX,P17C7XX,
     P18FXX39,P18F6X2X,P18FXX80,P18F8410,P18F6XJXX,P18F45J10,P18F97J60,P18F1X30,P18FXX23,
     P18FXXK20,P24FJXXXGA0XX,P24FJXXXGA1,dsP30F,dsP33F,P24H,P10F200,P10F202,P12F61X,P16F716,
+	P12F629_NORESTORE,
     UPP_INVALID_PICFAMILY
 
     // VERY IMPORTANT: when adding/removing enumeration values here, please
@@ -153,7 +154,7 @@ public:
     */
     bool IsICSPPin(unsigned int idx) const
     {
- #if wxCHECK_VERSION(2,8,10)			
+			
         if (PinNames[idx].Contains("VDD") ||
             PinNames[idx].Contains("VSS") ||
             PinNames[idx].Contains("GND") ||
@@ -161,15 +162,7 @@ public:
             PinNames[idx].Contains("MCLR") ||
             PinNames[idx].Contains("PGC") ||
             PinNames[idx].Contains("PGD"))
-#else			
-		if (PinNames[idx].Contains(wxT("VDD")) ||
-            PinNames[idx].Contains(wxT("VSS")) ||
-            PinNames[idx].Contains(wxT("GND")) ||
-            PinNames[idx].Contains(wxT("ICSP")) ||
-            PinNames[idx].Contains(wxT("MCLR")) ||
-            PinNames[idx].Contains(wxT("PGC")) ||
-            PinNames[idx].Contains(wxT("PGD")))			
-#endif			
+	
             return true;
         return false;
     }
@@ -325,11 +318,7 @@ public:
         {
             if (includeValues)
 			{
-#if wxCHECK_VERSION(2,8,10)				
                 ret.Add(wxString::Format("%s [0x%X]", Values[i].Name, (unsigned int) Values[i].Value));
-#else
-				ret.Add(wxString::Format(wxT("%s [0x%X]"), Values[i].Name.c_str(), (unsigned int) Values[i].Value));
-#endif
 			}
             else
                 ret.Add(Values[i].Name);
@@ -541,37 +530,21 @@ public:
 
     /** Returns true if the PIC is a 14bit device (e.g. Pic12, PIC16). */
     bool is14Bit() const
- #if wxCHECK_VERSION(2,8,10)			
         { return (Name.find("P10")==0)||(Name.find("P12")==0)||(Name.find("P16")==0); }
-#else	
-		{ return (Name.find(wxT("P10"))==0)||(Name.find(wxT("P12"))==0)||(Name.find(wxT("P16"))==0); }
-#endif	
 
     /** Returns true if the PIC is a 16bit device (e.g. Pic18). */
     bool is16Bit() const
-#if wxCHECK_VERSION(2,8,10)			
         { return (Name.find("P18F")==0); }
-#else
-		{ return (Name.find(wxT("P18F"))==0); }
-#endif	
 
 	    /** Returns true if the PIC is a 24bit device (e.g. dsPIC). */
     bool is24Bit() const
-#if wxCHECK_VERSION(2,8,10)		
         { return (Name.find("P30F")==0); }
-#else	
-		{ return (Name.find(wxT("P30F"))==0); }
-#endif	
 	
     /** Returns the PIC name which starts with "PIC" instead of "P". */
     wxString GetExtName() const
         {
             if (Name.empty()) return Name;
-#if wxCHECK_VERSION(2,8,10)				
             return "PIC" + Name.substr(1); 
-#else
-			return wxT("PIC") + Name.substr(1); 
-#endif			
         }
         
     /** Returns the current PIC name as a wxString. */
@@ -693,12 +666,5 @@ private:    // utilities
 
 	
 };
-
-#if wxCHECK_VERSION(2,9,0)
-#else	//this function is only implemented in wxWidgets 2.9.0, for 2.8.x compatibility, implement it here...
-	wxArrayString wxSplit(const wxString& str,
-                                       const wxChar sep,
-                                       const wxChar escape = wxT('\\'));
-#endif	
 
 #endif  //PICTYPE_H

@@ -22,7 +22,7 @@
 //       it's important to include wx/defs.h before STL headers
 
 #include <wx/defs.h>
-
+#include <wx/wx.h>
 
 #include <wx/artprov.h>
 #include <wx/toolbar.h>
@@ -97,30 +97,30 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
     m_history(4)
 {
-    SetName(wxT("UppMainWindow"));
+    SetName("UppMainWindow");
 
     // load settings from config file or set a default value
     wxConfigBase* pCfg = wxConfig::Get();
-    pCfg->SetPath(wxT("/"));
-    if ( !pCfg->Read(wxT("m_defaultPath"), &m_defaultPath) )
-        m_defaultPath=wxT("");
-    if ( !pCfg->Read(wxT("ConfigProgramCode"), &m_cfg.ConfigProgramCode))
+    pCfg->SetPath(("/"));
+    if ( !pCfg->Read(("m_defaultPath"), &m_defaultPath) )
+        m_defaultPath=("");
+    if ( !pCfg->Read(("ConfigProgramCode"), &m_cfg.ConfigProgramCode))
         m_cfg.ConfigProgramCode=true;
-    if ( !pCfg->Read(wxT("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig))
+    if ( !pCfg->Read(("ConfigProgramConfig"), &m_cfg.ConfigProgramConfig))
         m_cfg.ConfigProgramConfig=true;
-    if ( !pCfg->Read(wxT("ConfigProgramData"), &m_cfg.ConfigProgramData))
+    if ( !pCfg->Read(("ConfigProgramData"), &m_cfg.ConfigProgramData))
         m_cfg.ConfigProgramData=true;
-    if ( !pCfg->Read(wxT("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode))
+    if ( !pCfg->Read(("ConfigVerifyCode"), &m_cfg.ConfigVerifyCode))
         m_cfg.ConfigVerifyCode=true;
-    if ( !pCfg->Read(wxT("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig))
+    if ( !pCfg->Read(("ConfigVerifyConfig"), &m_cfg.ConfigVerifyConfig))
         m_cfg.ConfigVerifyConfig=true;
-    if ( !pCfg->Read(wxT("ConfigVerifyData"), &m_cfg.ConfigVerifyData))
+    if ( !pCfg->Read(("ConfigVerifyData"), &m_cfg.ConfigVerifyData))
         m_cfg.ConfigVerifyData=true;
-    if ( !pCfg->Read(wxT("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming))
+    if ( !pCfg->Read(("ConfigEraseBeforeProgramming"), &m_cfg.ConfigEraseBeforeProgramming))
         m_cfg.ConfigEraseBeforeProgramming=true;
-    if ( !pCfg->Read(wxT("ConfigVerifyAfterProgramming"), &m_cfg.ConfigVerifyAfterProgramming))
+    if ( !pCfg->Read(("ConfigVerifyAfterProgramming"), &m_cfg.ConfigVerifyAfterProgramming))
         m_cfg.ConfigShowPopups=false;
-    if ( !pCfg->Read(wxT("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
+    if ( !pCfg->Read(("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
         m_cfg.ConfigShowPopups=false;
     m_history.Load(*pCfg);
 
@@ -135,14 +135,13 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     // find the hardware connected to the PC, if any:
     upp_connect();
 
-#if wxCHECK_VERSION(2,9,0)
     // if upp_connect() didn't find a PIC device, load the last chosen PIC
     if (!m_hardware->connected())
     {
         // NOTE: select a PIC reading the last used one which was saved in wxConfig
         //       or just use the first one (0-th) as pCfg->Read() default value
         long lastPic=0;
-        if ((lastPic=pCfg->Read(wxT("SelectedPIC"), (long)0)) >= 0 && 
+        if ((lastPic=pCfg->Read(("SelectedPIC"), (long)0)) >= 0 && 
             lastPic < (int)m_arrPICName.size())
         {
             m_picType = PicType::FindPIC(m_arrPICName[lastPic]);
@@ -154,7 +153,6 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
             Reset();
         }
     }
-#endif
 }
 
 UppMainWindow::~UppMainWindow()
@@ -167,32 +165,26 @@ UppMainWindow::~UppMainWindow()
 
     // save settings
     wxConfigBase* pCfg = wxConfig::Get();
-    pCfg->SetPath(wxT("/"));
-    pCfg->Write(wxT("m_defaultPath"), m_defaultPath);
-    pCfg->Write(wxT("ConfigProgramCode"), m_cfg.ConfigProgramCode);
-    pCfg->Write(wxT("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
-    pCfg->Write(wxT("ConfigProgramData"), m_cfg.ConfigProgramData);
-    pCfg->Write(wxT("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
-    pCfg->Write(wxT("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
-    pCfg->Write(wxT("ConfigVerifyData"), m_cfg.ConfigVerifyData);
-    pCfg->Write(wxT("ConfigVerifyAfterProgramming"), m_cfg.ConfigVerifyAfterProgramming);
-    pCfg->Write(wxT("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
-    pCfg->Write(wxT("ConfigShowPopups"), m_cfg.ConfigShowPopups);
-    pCfg->Write(wxT("SelectedPIC"), m_pPICChoice->GetSelection());
+    pCfg->SetPath(("/"));
+    pCfg->Write(("m_defaultPath"), m_defaultPath);
+    pCfg->Write(("ConfigProgramCode"), m_cfg.ConfigProgramCode);
+    pCfg->Write(("ConfigProgramConfig"), m_cfg.ConfigProgramConfig);
+    pCfg->Write(("ConfigProgramData"), m_cfg.ConfigProgramData);
+    pCfg->Write(("ConfigVerifyCode"), m_cfg.ConfigVerifyCode);
+    pCfg->Write(("ConfigVerifyConfig"), m_cfg.ConfigVerifyConfig);
+    pCfg->Write(("ConfigVerifyData"), m_cfg.ConfigVerifyData);
+    pCfg->Write(("ConfigVerifyAfterProgramming"), m_cfg.ConfigVerifyAfterProgramming);
+    pCfg->Write(("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
+    pCfg->Write(("ConfigShowPopups"), m_cfg.ConfigShowPopups);
+    pCfg->Write(("SelectedPIC"), m_pPICChoice->GetSelection());
     m_history.Save(*pCfg);
 }
 
 wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
     wxImage tmp(xpm_data);
-
-#if wxCHECK_VERSION(2,9,0)
     wxSize sz = wxArtProvider::GetNativeSizeHint(wxART_MENU);
     tmp.Rescale(sz.GetWidth(), sz.GetHeight());
-#else
-    tmp.Rescale(16,16);
-#endif
-
     return wxBitmap(tmp);
 }
 
@@ -208,11 +200,11 @@ void UppMainWindow::CompleteGUICreation()
     wxMenu* pMenuActions = new wxMenu();
 
     wxMenuItem* pMenuProgram;
-    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + wxT('\t') + wxT("F7"),
+    pMenuProgram = new wxMenuItem( pMenuActions, wxID_PROGRAM, wxString( _("&Program...") ) + ('\t') + ("F7"),
                                 _("Program the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuRead;
-    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + wxT('\t') + wxT("F8"),
+    pMenuRead = new wxMenuItem( pMenuActions, wxID_READ, wxString( _("&Read...") ) + ('\t') + ("F8"),
                                 _("Read the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuVerify;
@@ -222,8 +214,13 @@ void UppMainWindow::CompleteGUICreation()
     wxMenuItem* pMenuErase;
     pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
                                 _("Erase the PIC device"), wxITEM_NORMAL );
+//This menuItem must be enabled / disabled, so let's make it global...
+//	wxMenuItem* pMenuRestoreCal;
+	
+	m_pMenuRestoreCal = new wxMenuItem( pMenuActions, wxID_RESTORE, wxString( _("Restore Cal regs...") ),
+                                _("Restore PIC's calibration registers"), wxITEM_NORMAL );
 
-    wxMenuItem* pMenuBlankCheck;
+	wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
                                     _("Blankcheck the PIC device"), wxITEM_NORMAL );
 
@@ -253,14 +250,15 @@ void UppMainWindow::CompleteGUICreation()
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
 
-    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-connect"), wxART_MENU));
-    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(wxT("gtk-disconnect"), wxART_MENU));
+    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-connect"), wxART_MENU));
+    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-disconnect"), wxART_MENU));
 #endif
 
     pMenuActions->Append( pMenuProgram );
     pMenuActions->Append( pMenuRead );
     pMenuActions->Append( pMenuVerify );
     pMenuActions->Append( pMenuErase );
+    pMenuActions->Append( m_pMenuRestoreCal );
     pMenuActions->Append( pMenuBlankCheck );
     pMenuActions->Append( pMenuAutoDetect );
     pMenuActions->AppendSeparator();
@@ -308,6 +306,7 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_READ, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_read ) );
     this->Connect( wxID_VERIFY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_verify ) );
     this->Connect( wxID_ERASE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_erase ) );
+    this->Connect( wxID_RESTORE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_restore ) );
     this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
     this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
@@ -362,15 +361,9 @@ void UppMainWindow::CompleteGUICreation()
 
     // set bitmaps on the bitmap buttons
 #ifdef __WXGTK__
-	#if wxCHECK_VERSION(2,8,10)	
     m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-in"));
     m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-out"));
     m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap("gtk-zoom-fit"));
-	#else
-	m_pZoomInButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-in")));
-    m_pZoomOutButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-out")));
-    m_pZoomFitButton->SetBitmapLabel(wxArtProvider::GetBitmap(wxT("gtk-zoom-fit")));
-	#endif
 #else
     m_pZoomInButton->SetBitmapLabel( wxBitmap(zoomin_xpm) );
     m_pZoomOutButton->SetBitmapLabel( wxBitmap(zoomout_xpm) );
@@ -393,24 +386,17 @@ void UppMainWindow::CompleteGUICreation()
     this->SetIcon(wxIcon( usbpicprog_xpm ));
     this->SetSizerAndFit(m_pSizer);
 
-#if wxCHECK_VERSION(2,9,0)
     // eventually load position&size of this window from the wxConfig object:
     wxPersistenceManager::Get().RegisterAndRestore(this);
-#endif
 
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
     this->Connect( wxEVT_SIZE, wxSizeEventHandler( UppMainWindow::on_size ) );
     this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
-#if wxCHECK_VERSION(2,9,0)
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
-#else
-    this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxCommandEventHandler( UppMainWindow::OnThreadUpdate ) );
-    this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxCommandEventHandler( UppMainWindow::OnThreadCompleted ) );
-#endif
 
-    // set default title name
+	// set default title name
     UpdateTitle();
 
     // show default stuff
@@ -419,9 +405,7 @@ void UppMainWindow::CompleteGUICreation()
     // this is to be sure that the package-view window gets updated by our upp_size_changed()
     // event handler to reflect the effective window size
     // (this somehow doesn't happen on wxGTK; probably because of deferred top-window resizing)
-	#if wxCHECK_VERSION(2,9,0)	
     PostSizeEvent();
-	#endif
 }
 
 UppHexViewGrid* UppMainWindow::GetCurrentGrid() const
@@ -497,14 +481,14 @@ void UppMainWindow::UpdateTitle()
     #endif
 
     if (!m_hexFile.hasFileName())
-        str += wxT(" - [") + wxString(_("untitled"));
+        str += (" - [") + wxString(_("untitled"));
     else
-        str += wxT(" - [") + wxString::FromAscii(m_hexFile.getFileName());
+        str += (" - [") + wxString::FromAscii(m_hexFile.getFileName());
 
     if (m_hexFile.wasModified())
-        str += wxT(" *");
+        str += (" *");
 
-    SetTitle(str + wxT("]"));
+    SetTitle(str + ("]"));
 }
 
 void UppMainWindow::UpdatePicInfo()
@@ -523,15 +507,9 @@ void UppMainWindow::UpdatePicInfo()
     const vector<ChipPackage>& pkg = m_picType.Package;
 
     // update the misc infos
-#if wxCHECK_VERSION(2,9,0)	
     m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str())));
     m_pDatasheetLink->SetURL(
         wxString::Format("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com", wxString(m_picType.GetExtName().c_str())));
-#else
-    m_pDatasheetLink->SetLabel(wxString::Format(_("%s datasheet"), wxString(m_picType.GetExtName().c_str()).c_str()));
-    m_pDatasheetLink->SetURL(
-        wxString::Format(wxT("http://www.google.com/search?q=%s%%2Bdatasheet&as_sitesearch=microchip.com"), wxString(m_picType.GetExtName().c_str()).c_str()));
-#endif                       
     m_pDatasheetLink->SetVisited(false);
 
     m_pVPPText->SetLabel(
@@ -553,17 +531,18 @@ void UppMainWindow::UpdatePicInfo()
     // update the package variants combobox
     m_pPackageVariants->Clear();
     for (unsigned int i=0; i<pkg.size(); i++)
-#if wxCHECK_VERSION(2,9,0)	                         
         m_pPackageVariants->Append(
             wxString::Format(_("%s [%d pins]"), pkg[i].GetName(), pkg[i].GetPinCount()));
-#else
-                         m_pPackageVariants->Append(
-            wxString::Format(_("%s [%d pins]"), pkg[i].GetName().c_str(), pkg[i].GetPinCount()));
-#endif                        
     m_pPackageVariants->SetSelection(0);
 
     // let's update the bitmap and the pin names:
     upp_package_variant_changed();
+
+	if(m_picType.picFamily==P12F629) 
+		    m_pMenuRestoreCal->Enable(true);
+	else
+		    m_pMenuRestoreCal->Enable(false);
+		    
 }
 
 void UppMainWindow::Reset()
@@ -807,7 +786,7 @@ bool UppMainWindow::upp_thread_program()
     {
         LogFromThread(wxLOG_Message, _("Erasing before programming..."));
 
-        switch(m_hardware->bulkErase(&m_picType))
+        switch(m_hardware->bulkErase(&m_picType,true))
         {
         case 1:
             LogFromThread(wxLOG_Message, _("Erase OK"));
@@ -1009,7 +988,7 @@ bool UppMainWindow::upp_thread_erase()
 
     LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
 
-    if (m_hardware->bulkErase(&m_picType)<0)
+    if (m_hardware->bulkErase(&m_picType,true)<0)
     {
         LogFromThread(wxLOG_Error, _("Error erasing the device"));
         return false;
@@ -1039,17 +1018,11 @@ bool UppMainWindow::upp_thread_blankcheck()
     case VERIFY_MISMATCH:
         switch (res.DataType)
         {
-#if wxCHECK_VERSION(2,8,10)
             case TYPE_CODE: typeText="code";break;
             case TYPE_DATA: typeText="data";break;
             case TYPE_CONFIG: typeText="config";break;
             default: typeText="unknown";break;
-#else
-			case TYPE_CODE: typeText=wxT("code");break;
-            case TYPE_DATA: typeText=wxT("data");break;
-            case TYPE_CONFIG: typeText=wxT("config");break;
-            default: typeText=wxT("unknown");break;			
-#endif			
+			
         }
 
         verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
@@ -1153,7 +1126,7 @@ void UppMainWindow::upp_open()
         return;
 
     wxFileDialog* openFileDialog =
-        new wxFileDialog( this, _("Open hexfile"), m_defaultPath, wxT(""),
+        new wxFileDialog( this, _("Open hexfile"), m_defaultPath, (""),
                         FILETYPES, wxFD_OPEN, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
@@ -1227,7 +1200,7 @@ void UppMainWindow::upp_save()
 void UppMainWindow::upp_save_as()
 {
     wxFileDialog* openFileDialog =
-        new wxFileDialog( this, _("Save hexfile"), m_defaultPath, wxT(""),
+        new wxFileDialog( this, _("Save hexfile"), m_defaultPath, (""),
                         FILETYPES, wxFD_SAVE, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )
@@ -1322,6 +1295,60 @@ void UppMainWindow::upp_erase()
     RunThread(THREAD_ERASE);
 }
 
+
+void UppMainWindow::upp_restore()
+{
+	if(m_picType.picFamily!=P12F629)
+	{   
+		wxLogError(_("Only valid for PIC12F629 and similar devices..."));
+        return;
+	}
+    if (m_hardware == NULL || !m_hardware->connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
+    // this command overwrites current code/config/data HEX... so ask to the user
+    // before proceeding:
+    if (!ShouldContinueIfUnsaved())
+        return;
+
+//    RunThread(THREAD_ERASE);
+
+//	wxLogMessage(_("
+
+	wxString selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [3400 - 37FF]"), 
+	    _("Specify a new Osccal Value"), "3400", this);
+
+	if(selectedOscCal.length()==0)return;
+	int iSelectedOscCal;
+	sscanf(selectedOscCal.c_str(),"%4X",&iSelectedOscCal);
+	if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
+    {
+		wxLogError(_("Please specify an Oscal Value between 3400 and 37FF"));
+		return;
+	}
+	
+	wxArrayString bgChoices;
+	bgChoices.Alloc(4);
+	for(int i=0;i<4;i++)
+	{
+		bgChoices.Add("");
+		bgChoices[i].Printf("%i",i);
+	}
+	int selectedBandGap = wxGetSingleChoiceIndex(_("Please specify a bandgap value"),	_("Specify a bandgap value"), bgChoices,this);
+	if(selectedBandGap == -1) return;
+	
+	/**TODO Place these commands into a wxThread
+	 */
+
+	if (m_hardware->bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
+	if (m_hardware->restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
+	Reset();
+}
+
+
 void UppMainWindow::upp_blankcheck()
 {
     if (m_hardware == NULL || !m_hardware->connected())
@@ -1352,11 +1379,7 @@ bool UppMainWindow::upp_autodetect()
     // if devId is not a valid device ID, select the default PIC
 	if((!m_picType.ok())&&(devId==-1))
 	{
-#if wxCHECK_VERSION(2,8,10)
-		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
-#else		
-		m_picType = PicType::FindPIC(wxT(UPP_DEFAULT_PIC));
-#endif		
+		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);	
     	wxASSERT(m_picType.ok());
     	m_hardware->setPicType(&m_picType);
 	}
@@ -1445,12 +1468,7 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
-#if wxCHECK_VERSION(2,8,10)			
             m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
-#else			
-			m_picType=PicType::FindPIC(wxT(UPP_DEFAULT_PIC));     // select default PIC
-#endif			
-			
             m_hardware->setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
@@ -1504,24 +1522,24 @@ void UppMainWindow::upp_preferences()
 
 void UppMainWindow::upp_help()
 {
-    wxLaunchDefaultBrowser(wxT("http://usbpicprog.org/"));
+    wxLaunchDefaultBrowser(("http://usbpicprog.org/"));
 }
 
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;
-    aboutInfo.SetName(wxT("Usbpicprog"));
+    aboutInfo.SetName(("Usbpicprog"));
     #ifndef UPP_VERSION
-    aboutInfo.SetVersion(wxString(wxT("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+    aboutInfo.SetVersion(wxString(("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
     #else
     aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
     #endif
     aboutInfo.SetDescription(_("An open source USB pic programmer"));
     //aboutInfo.SetCopyright("(C) 2008");
-    aboutInfo.SetWebSite(wxT("http://usbpicprog.org/"));
-    aboutInfo.AddDeveloper(wxT("Frans Schreuder"));
-    aboutInfo.AddDeveloper(wxT("Jan Paul Posma"));
-    aboutInfo.AddDeveloper(wxT("Francesco Montorsi"));
+    aboutInfo.SetWebSite(("http://usbpicprog.org/"));
+    aboutInfo.AddDeveloper(("Frans Schreuder"));
+    aboutInfo.AddDeveloper(("Jan Paul Posma"));
+    aboutInfo.AddDeveloper(("Francesco Montorsi"));
 
     wxAboutBox(aboutInfo);
 }

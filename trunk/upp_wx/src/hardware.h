@@ -208,16 +208,19 @@ public:
     */
     int setPicType(PicType* picType);
 
+
     /** 
         Erases all the contents (code, data and config) of the PIC memory.
         Returns the reply code from the attached hardware or a negative value if there was an error.
     */
-    int bulkErase(PicType *picType);
+    int bulkErase(PicType *picType, bool doRestoreCalRegs);
 
 	/**
 	 Backs up two calibration registers (OscCal and BandGap) for PIC12F629 and similar devices and puts it in the corresponding variables of *picType
 	 */
 	int backupOscCalBandGap(PicType *picType);
+
+	int restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap);
 	
     /**
         Reads the code/config/data memory from the PIC into *hexData.

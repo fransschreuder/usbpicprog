@@ -182,6 +182,7 @@ protected:     // event handlers
     void on_read( wxCommandEvent& event ){upp_read(); EVENT_FIX}
     void on_verify( wxCommandEvent& event ){upp_verify(); EVENT_FIX}
     void on_erase( wxCommandEvent& event ){upp_erase(); EVENT_FIX}
+    void on_restore( wxCommandEvent& event ){upp_restore(); EVENT_FIX}
     void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX}
     void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX}
     void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
@@ -267,6 +268,9 @@ private:    // real event handlers
     
     /** Perform a bulk-erase on the current PIC */
     void upp_erase();
+
+	/** Restore OSCCAL and BANDGAP registers of PIC12F629 and similar devices */
+    void upp_restore();
     
     /** Check if the device is erased successfully */
     void upp_blankcheck();
@@ -329,6 +333,8 @@ private:   // variables related to the threaded operations:
     /// @note Since the main thread reads/writes this var only when the
     ///       secondary thread has ended, there's no need for critical section.
     UppMainWindowThreadMode m_mode;
+
+	wxMenuItem* m_pMenuRestoreCal;
 };
 
 #endif   // UPPMAINWINDOW_H

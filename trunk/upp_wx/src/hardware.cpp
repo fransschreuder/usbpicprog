@@ -265,11 +265,12 @@ int Hardware::setPicType(PicType* picType)
     return (int)msg[0];
 }
 
-int Hardware::bulkErase(PicType* picType)
+
+int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
 {
     unsigned char msg[64];
 
-    if (!picType->ok()) return -1;
+    
     if (m_handle == NULL) return -1;
 
     statusCallBack (0);
@@ -281,7 +282,14 @@ int Hardware::bulkErase(PicType* picType)
 
         // send the command
         msg[0]=CMD_ERASE;
-        if (writeString(msg,1) < 0)
+		if(doRestoreCalRegs)
+			msg[1]=0x00;
+		else 
+			msg[1]=0xAA;
+		
+		
+		
+        if (writeString(msg,2) < 0)
             return 0;
 
         // read back the reply
@@ -298,6 +306,7 @@ int Hardware::bulkErase(PicType* picType)
     }
     else // hardware is HW_BOOTLOADER
     {
+		if (!picType->ok()) return -1;
         HexFile hf(picType);
         if (write(TYPE_DATA, &hf, picType) < 0)
             return -1;
@@ -339,7 +348,26 @@ int Hardware::backupOscCalBandGap(PicType *picType)
 		readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 );			 
 		picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
 	}
+	else return -1;
 	return 1;
+}
+
+
+int Hardware::restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap)
+{
+	unsigned char msg[64];
+	if(picType->picFamily==P12F629)	//back up osccal and bandgap registers for those devices
+	{
+		msg[0]=(unsigned char)(OscCal&0xFF);
+		msg[1]=(unsigned char)((OscCal>>8)&0xFF);
+		writeBlock(TYPE_CODE, msg, 0x3ff, 2, 3);
+		msg[0]=0xFF;
+		msg[1]=(unsigned char)((BandGap&0x03)<<4)|0x0F;
+		writeBlock(TYPE_CONFIG, msg, 0x2007, 2, 3);
+	}
+	else return -1;
+	return 1;
+	
 }
 
 int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes, HexFile *verifyData)
@@ -538,7 +566,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             if (memory->size() > (blockcounter+i))
                 dataBlock[i]=(*memory)[blockcounter+i];
             else
-                dataBlock[i]=0;
+                dataBlock[i]=0xFF;
         }
 
         // set the type of this block
