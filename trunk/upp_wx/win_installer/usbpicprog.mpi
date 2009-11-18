@@ -736,10 +736,10 @@ File ::34A6A888-D7C0-480C-A4B9-49954FC78E17 -name 18F4458.xml -parent CF0B11F2-5
 File ::39745C5E-92B7-4F07-B8CB-1ACA8E28592B -name 18F4553.xml -parent CF0B11F2-5051-4AA5-8541-F74DCF9E7051
 File ::91161A26-DF46-4006-A4F4-8E344A49AC4D -directory <%InstallDir%> -name ../index.xml -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::763841BF-8E4D-4DD2-AE3C-575D03A85850 -name C:/usbpicprog/trunk/upp_wx/Output/MingW/usbpicprog.exe -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::4710E292-3F4B-4649-954A-D3490D847AC6 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0_x64.sys -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::E17F049C-54AC-4CB9-88B5-1F926BB103FE -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.dll -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::70E0BF62-2E53-4991-B56F-4FC13F3795C3 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.sys -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
-File ::2DEB2C1E-12EB-432B-9CE3-13D11F681123 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0_x64.dll -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
+File ::4710E292-3F4B-4649-954A-D3490D847AC6 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0_x64.sys -active 0 -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
+File ::E17F049C-54AC-4CB9-88B5-1F926BB103FE -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.dll -active 0 -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
+File ::70E0BF62-2E53-4991-B56F-4FC13F3795C3 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0.sys -active 0 -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
+File ::2DEB2C1E-12EB-432B-9CE3-13D11F681123 -name C:/usbpicprog/trunk/upp_wx/windows_driver/libusb0_x64.dll -active 0 -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::E5A0250D-6BE2-4BA7-A453-8B8031E588CA -type dir -name C:/usbpicprog/trunk/upp_wx/windows_driver -parent 7676B4E0-8F5A-4296-9C58-3267487DF41D
 File ::61B1DE7C-E616-4F48-99BA-A7F7F2472796 -name libusb0.dll -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
 File ::932F917D-5FB9-417F-9990-63DDF8DC5D55 -name libusb0.sys -parent E5A0250D-6BE2-4BA7-A453-8B8031E588CA
