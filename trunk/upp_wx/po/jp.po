@@ -5,74 +5,71 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: usbpicprog 0.2.0\n"
+"Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 10:15+0100\n"
-"PO-Revision-Date: 2009-11-23 10:15+0100\n"
+"POT-Creation-Date: 2009-11-23 10:11+0100\n"
+"PO-Revision-Date: 2009-11-23 10:12+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
-"Language-Team: English <fransschreuder@users.sourceforge.net>\n"
+"Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: ENGLISH\n"
-"X-Poedit-Country: USA\n"
-"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: Japan\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/configview.cpp:140
 #: ../src/tmp/configview.cpp:140
-#, fuzzy
 msgid "Configuration Word:"
-msgstr "Σημαίες διαμόρφωσης "
+msgstr "コンフィグレーション ワード:"
 
 #: ../src/configview.cpp:157
 #: ../src/tmp/configview.cpp:157
 #, c-format
 msgid "Current value for the %d-th configuration word as derived from above configuration choices"
-msgstr ""
+msgstr "現在の値 %d-th は、コンフィグレーションワードから選択しました"
 
 #: ../src/configview.cpp:172
 #: ../src/tmp/configview.cpp:172
 #, c-format
 msgid "Location in memory: 0x%X"
-msgstr ""
+msgstr "メモリの位置: 0x%X"
 
 #: ../src/configview.cpp:176
 #: ../src/tmp/configview.cpp:176
 #, c-format
 msgid "Length: %d bits"
-msgstr ""
+msgstr "長さ: %d ビット"
 
 #: ../src/configview.cpp:194
 #: ../src/tmp/configview.cpp:194
 #, c-format
 msgid "Word %d"
-msgstr ""
+msgstr "ワード %d"
 
 #: ../src/hardware.cpp:134
 #: ../src/tmp/hardware.cpp:134
 msgid "Couldn't reset interface"
-msgstr ""
+msgstr "インタフェースをリセットできませんでした"
 
 #: ../src/hardware.cpp:170
 #: ../src/tmp/hardware.cpp:170
-#, fuzzy
 msgid "Error setting configuration"
-msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
+msgstr "コンフィグレーション設定が異常です"
 
 #: ../src/hardware.cpp:185
 #: ../src/tmp/hardware.cpp:185
 #, c-format
 msgid "Interface %d not present: using %d"
-msgstr ""
+msgstr "インタフェース %d は以下を提示しません: %dを使用します。"
 
 #: ../src/hardware.cpp:195
 #: ../src/tmp/hardware.cpp:195
-#, fuzzy
 msgid "Error claiming interface"
-msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
+msgstr "インタフェース要求が異常です"
 
 #: ../src/hardware.cpp:260
 #: ../src/hardware.cpp:299
@@ -85,85 +82,85 @@ msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
 #: ../src/tmp/hardware.cpp:968
 #: ../src/tmp/hardware.cpp:1018
 msgid "Usb Error"
-msgstr ""
+msgstr "USB エラー"
 
 #: ../src/hardware.cpp:475
 #: ../src/tmp/hardware.cpp:430
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
-msgstr ""
+msgstr "許可されていないメモリ領域を読み込もうとしました: bc+i=%d; メモリサイズ=%d"
 
 #: ../src/hardware.cpp:657
 #: ../src/tmp/hardware.cpp:612
 msgid "No data to verify"
-msgstr ""
+msgstr "ベリファイするデータがありません"
 
 #: ../src/hardware.cpp:883
 #: ../src/tmp/hardware.cpp:838
 #, c-format
 msgid "Usb Error while reading: %s"
-msgstr ""
+msgstr "読み込む際、USBエラーが発生しました: %s"
 
 #: ../src/hardware.cpp:902
 #: ../src/tmp/hardware.cpp:857
 #, c-format
 msgid "Usb Error while writing to device: %d bytes, errCode: %d"
-msgstr ""
+msgstr "デバイスに書き込む際、USBでエラーが発生しました: %dバイト, エラーコード: %d"
 
 #: ../src/hexview.cpp:207
 #: ../src/tmp/hexview.cpp:216
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr "編集"
 
 #: ../src/hexview.cpp:209
 #: ../src/tmp/hexview.cpp:218
 msgid "Copy"
-msgstr "Αντιγραφή"
+msgstr "コピー"
 
 #: ../src/hexview.cpp:210
 #: ../src/tmp/hexview.cpp:219
 msgid "Select All"
-msgstr "Επιλογή όλων"
+msgstr "全て選択"
 
 #: ../src/uppmainwindow.cpp:203
 #: ../src/tmp/uppmainwindow.cpp:211
 msgid "&Program..."
-msgstr "&Προγραμμάτησε..."
+msgstr "&書き込み"
 
 #: ../src/uppmainwindow.cpp:204
 #: ../src/tmp/uppmainwindow.cpp:212
 msgid "Program the PIC device"
-msgstr "Προγραμμάτησε την PIC συσκευή"
+msgstr "PICデバイスに書き込みます"
 
 #: ../src/uppmainwindow.cpp:207
 #: ../src/tmp/uppmainwindow.cpp:215
 msgid "&Read..."
-msgstr "&Διαβασε"
+msgstr "&読み込み"
 
 #: ../src/uppmainwindow.cpp:208
 #: ../src/tmp/uppmainwindow.cpp:216
 msgid "Read the PIC device"
-msgstr "Διάβασε την PIC συσκευή"
+msgstr "PICデバイスから読み込みます"
 
 #: ../src/uppmainwindow.cpp:211
 #: ../src/tmp/uppmainwindow.cpp:219
 msgid "&Verify..."
-msgstr "&Επιβεβαίωση  ..."
+msgstr "&ベリファイ"
 
 #: ../src/uppmainwindow.cpp:212
 #: ../src/tmp/uppmainwindow.cpp:220
 msgid "Verify the PIC device"
-msgstr "Επιβεβαιώσε τη συσκευή PIC"
+msgstr "PICデバイスをベリファイします"
 
 #: ../src/uppmainwindow.cpp:215
 #: ../src/tmp/uppmainwindow.cpp:223
 msgid "&Erase..."
-msgstr "&Διαγραφή ..."
+msgstr "&消去"
 
 #: ../src/uppmainwindow.cpp:216
 #: ../src/tmp/uppmainwindow.cpp:224
 msgid "Erase the PIC device"
-msgstr "Διαγραφή της PIC συσκευής"
+msgstr "PICデバイスを消去します"
 
 #: ../src/uppmainwindow.cpp:220
 msgid "Restore Cal regs..."
@@ -176,132 +173,133 @@ msgstr ""
 #: ../src/uppmainwindow.cpp:224
 #: ../src/tmp/uppmainwindow.cpp:227
 msgid "&Blankcheck..."
-msgstr "&Άδειος έλενχος"
+msgstr "&ブランクチェック"
 
 #: ../src/uppmainwindow.cpp:225
 #: ../src/tmp/uppmainwindow.cpp:228
 msgid "Blankcheck the PIC device"
-msgstr "Αδειος έλενχος της PIC συσκευής"
+msgstr "PICデバイスのブランクチェックをします"
 
 #: ../src/uppmainwindow.cpp:228
 #: ../src/tmp/uppmainwindow.cpp:231
 msgid "&Autodetect..."
-msgstr "&Αυτο ανίχνευση"
+msgstr "&自動検出"
 
 #: ../src/uppmainwindow.cpp:229
 #: ../src/tmp/uppmainwindow.cpp:232
 msgid "Detect the type of the PIC device"
-msgstr "Ανιχνεύσε τον τύπο της συσκευής PIC"
+msgstr "PICデバイスを自動検出します"
 
 #: ../src/uppmainwindow.cpp:232
 #: ../src/tmp/uppmainwindow.cpp:235
 msgid "&Connect..."
-msgstr "&Σύνδεση..."
+msgstr "&接続"
 
 #: ../src/uppmainwindow.cpp:233
 #: ../src/tmp/uppmainwindow.cpp:236
 msgid "Connect to the programmer"
-msgstr "Συνδεθείτε με το προγραμματιστή"
+msgstr "プログラマを接続します"
 
 #: ../src/uppmainwindow.cpp:236
 #: ../src/tmp/uppmainwindow.cpp:239
 msgid "&Disconnect..."
-msgstr "&Αποσύνδεση ..."
+msgstr "&取り外し"
 
 #: ../src/uppmainwindow.cpp:237
 #: ../src/tmp/uppmainwindow.cpp:240
 msgid "Disconnect from the programmer"
-msgstr "Αποσύνδεση από τον προγραμματιστή"
+msgstr "プログラマを取り外します"
 
 #: ../src/uppmainwindow.cpp:268
 #: ../src/tmp/uppmainwindow.cpp:270
 msgid "&Select PIC..."
-msgstr "&Επιλέξτε PIC..."
+msgstr "&PIC選択"
 
 #: ../src/uppmainwindow.cpp:269
 #: ../src/tmp/uppmainwindow.cpp:271
 msgid "Change the currently selected PIC"
-msgstr "Αλλάξτε την τρέχουσα επιλεγμένη PIC"
+msgstr "PICを変更します"
 
 #: ../src/uppmainwindow.cpp:303
 #: ../src/tmp/uppmainwindow.cpp:305
 msgid "&Actions"
-msgstr "&Δράσεις"
+msgstr "&実行"
 
 #: ../src/uppmainwindow.cpp:329
 #: ../src/tmp/uppmainwindow.cpp:330
 msgid "new"
-msgstr "νέο"
+msgstr "新規"
 
 #: ../src/uppmainwindow.cpp:331
 #: ../src/tmp/uppmainwindow.cpp:332
 msgid "open"
-msgstr "άνοιξε"
+msgstr "開く"
 
 #: ../src/uppmainwindow.cpp:333
 #: ../src/tmp/uppmainwindow.cpp:334
 msgid "reload"
-msgstr "επαναφορτώσετε"
+msgstr "再ロード"
 
 #: ../src/uppmainwindow.cpp:335
 #: ../src/tmp/uppmainwindow.cpp:336
 msgid "save"
-msgstr "αποθήκευση "
+msgstr "保存"
 
 #: ../src/uppmainwindow.cpp:337
 #: ../src/tmp/uppmainwindow.cpp:338
 msgid "save as"
-msgstr "αποθήκευση ως"
+msgstr "名前を付けて保存"
 
 #: ../src/uppmainwindow.cpp:340
 #: ../src/tmp/uppmainwindow.cpp:341
 msgid "program"
-msgstr "πρόγραμμα"
+msgstr "書き込み"
 
 #: ../src/uppmainwindow.cpp:342
 #: ../src/tmp/uppmainwindow.cpp:343
 msgid "read"
-msgstr "διαβάζω"
+msgstr "読み込み"
 
 #: ../src/uppmainwindow.cpp:344
 #: ../src/tmp/uppmainwindow.cpp:345
 msgid "verify"
-msgstr "επαληθεύσε"
+msgstr "ベリファイ"
 
 #: ../src/uppmainwindow.cpp:346
 #: ../src/tmp/uppmainwindow.cpp:347
 msgid "erase"
-msgstr "διαγραφή"
+msgstr "消去"
 
 #: ../src/uppmainwindow.cpp:348
 #: ../src/tmp/uppmainwindow.cpp:349
 msgid "blankcheck"
-msgstr "άδειος έλενχος"
+msgstr "ブランクチェック"
 
 #: ../src/uppmainwindow.cpp:350
 #: ../src/tmp/uppmainwindow.cpp:351
 msgid "autodetect"
-msgstr "αυτο εντοπισμος"
+msgstr "自動検出"
 
 #: ../src/uppmainwindow.cpp:355
 #: ../src/tmp/uppmainwindow.cpp:356
 msgid "currently selected PIC type"
-msgstr "επιλεγμένος τύπος PIC"
+msgstr "選択しているPIC"
 
 #: ../src/uppmainwindow.cpp:431
 #: ../src/tmp/uppmainwindow.cpp:447
 #, c-format
 msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
-msgstr "Το HEX αρχείο '%s' δεν έχει αποθηκευτεί ... το περιεχόμενό του θα χαθει; συνέχεια;"
+msgstr "「%s」はまだ保存されていません。続行すると内容が失われます。よろしいですか？"
 
 #: ../src/uppmainwindow.cpp:434
 #: ../src/tmp/uppmainwindow.cpp:450
 msgid "Please confirm"
-msgstr "Παρακαλώ επιβεβαιώστε"
+msgstr "どうぞ、確認して下さい"
 
 #: ../src/uppmainwindow.cpp:447
+#, fuzzy
 msgid "You are using the a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
-msgstr ""
+msgstr "このソフト、ファームウェアは開発中のバージョンです。安定版がリリースされたら、アップグレードする必要があります。"
 
 #: ../src/uppmainwindow.cpp:450
 #: ../src/uppmainwindow.cpp:461
@@ -310,24 +308,24 @@ msgstr ""
 #: ../src/tmp/uppmainwindow.cpp:514
 #: ../src/tmp/uppmainwindow.cpp:520
 msgid "Your firmware is too old; please consider upgrading it"
-msgstr ""
+msgstr "古いファームウェアを使用しています。最新のファームウェアにアップグレードして下さい。"
 
 #: ../src/uppmainwindow.cpp:460
 #: ../src/tmp/uppmainwindow.cpp:474
 #: ../src/tmp/uppmainwindow.cpp:483
 #: ../src/tmp/uppmainwindow.cpp:497
 msgid "Firmware probably too new"
-msgstr ""
+msgstr "最新のファームウェアです"
 
 #: ../src/uppmainwindow.cpp:463
 #: ../src/tmp/uppmainwindow.cpp:503
 msgid "You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
-msgstr ""
+msgstr "このソフト、ファームウェアは開発中のバージョンです。安定版がリリースされたら、アップグレードする必要があります。"
 
 #: ../src/uppmainwindow.cpp:478
 #: ../src/tmp/uppmainwindow.cpp:535
 msgid "Usbpicprog rev: "
-msgstr "Usbpicprog rev: "
+msgstr "Usbpicprog 回転:"
 
 #: ../src/uppmainwindow.cpp:480
 #: ../src/tmp/uppmainwindow.cpp:537
@@ -337,14 +335,14 @@ msgstr "Usbpicprog: "
 #: ../src/uppmainwindow.cpp:484
 #: ../src/tmp/uppmainwindow.cpp:541
 msgid "untitled"
-msgstr "χωρίς τίτλο"
+msgstr "新規"
 
 #: ../src/uppmainwindow.cpp:510
 #: ../src/tmp/uppmainwindow.cpp:568
 #: ../src/tmp/uppmainwindow.cpp:572
-#, fuzzy, c-format
+#, c-format
 msgid "%s datasheet"
-msgstr "Δεδομένα"
+msgstr "%s データーシート"
 
 #: ../src/uppmainwindow.cpp:516
 #: ../src/tmp/uppmainwindow.cpp:579
@@ -355,6 +353,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"プログラム電圧 (Vpp):\n"
+"    最小=%.2fV\n"
+"    標準=%.2fV\n"
+"    最大=%.2fV"
 
 #: ../src/uppmainwindow.cpp:519
 #: ../src/tmp/uppmainwindow.cpp:582
@@ -365,6 +367,10 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
+"動作電圧 (Vdd):\n"
+"    最小=%.2fV\n"
+"    標準=%.2fV\n"
+"    最大=%.2fV"
 
 #: ../src/uppmainwindow.cpp:521
 #: ../src/tmp/uppmainwindow.cpp:584
@@ -374,69 +380,72 @@ msgid ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
+"周波数帯:\n"
+"   最小=%.2fMhz\n"
+"   最大=%.2fMhz"
 
 #: ../src/uppmainwindow.cpp:522
 #: ../src/tmp/uppmainwindow.cpp:585
 #, c-format
 msgid "Device ID: 0x%X"
-msgstr ""
+msgstr "デバイス ID: 0x%X"
 
 #: ../src/uppmainwindow.cpp:523
 #: ../src/tmp/uppmainwindow.cpp:586
-#, fuzzy, c-format
+#, c-format
 msgid "Code memory size: %d bytes"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+msgstr "コード領域サイズ: %d バイト"
 
 #: ../src/uppmainwindow.cpp:524
 #: ../src/tmp/uppmainwindow.cpp:587
-#, fuzzy, c-format
+#, c-format
 msgid "Data memory size: %d bytes"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+msgstr "データ領域サイズ: %d バイト"
 
 #: ../src/uppmainwindow.cpp:525
 #: ../src/tmp/uppmainwindow.cpp:588
 #, c-format
 msgid "Type: %d-bit microcontroller"
-msgstr ""
+msgstr "形状: %d-ビット マイコン"
 
 #: ../src/uppmainwindow.cpp:535
 #: ../src/tmp/uppmainwindow.cpp:599
 #: ../src/tmp/uppmainwindow.cpp:602
 #, c-format
 msgid "%s [%d pins]"
-msgstr ""
+msgstr "%s [%d ピン]"
 
 #: ../src/uppmainwindow.cpp:625
 #: ../src/tmp/uppmainwindow.cpp:686
 msgid "Please wait until the operations are completed:\n"
-msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθούν οι εργασίες:\n"
+msgstr "操作が完了するまで、しばらくお待ち下さい:\n"
 
 #: ../src/uppmainwindow.cpp:640
 #: ../src/tmp/uppmainwindow.cpp:701
 msgid "Operations aborted"
-msgstr "Οι δράσεις  ματαιώθηκαν"
+msgstr "操作を中止しました"
 
 #: ../src/uppmainwindow.cpp:680
 #: ../src/uppmainwindow.cpp:684
 #: ../src/tmp/uppmainwindow.cpp:741
 #: ../src/tmp/uppmainwindow.cpp:745
 msgid "All operations completed"
-msgstr "Όλες οι δράσεις έχουν ολοκληρωθεί"
+msgstr "操作が全て完了しました"
 
 #: ../src/uppmainwindow.cpp:686
 #: ../src/tmp/uppmainwindow.cpp:747
 msgid "Operations completed with errors/warnings"
-msgstr "Οι δράσεις ολοκληρώθηκαν με λάθη / προειδοποιήσεις"
+msgstr "エラーか警告によって操作が完了しました"
 
 #: ../src/uppmainwindow.cpp:787
 #: ../src/tmp/uppmainwindow.cpp:847
 msgid "Erasing before programming..."
-msgstr "Διαγραφή πριν από τον προγραμματισμό ..."
+msgstr "消去してから書き込んでいます..."
 
 #: ../src/uppmainwindow.cpp:792
 #: ../src/tmp/uppmainwindow.cpp:852
 msgid "Erase OK"
-msgstr "Διαγραφή εντάξει"
+msgstr "消去しました"
 
 #: ../src/uppmainwindow.cpp:795
 #: ../src/uppmainwindow.cpp:993
@@ -445,17 +454,17 @@ msgstr "Διαγραφή εντάξει"
 #: ../src/tmp/uppmainwindow.cpp:855
 #: ../src/tmp/uppmainwindow.cpp:1056
 msgid "Error erasing the device"
-msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
+msgstr "デバイス消去に失敗しました"
 
 #: ../src/uppmainwindow.cpp:804
 #: ../src/tmp/uppmainwindow.cpp:864
 msgid "Programming the code area of the PIC..."
-msgstr "Πογραμματισμός του κωδικα περιοχής του PIC..."
+msgstr "PICにコード領域を書き込んでいます..."
 
 #: ../src/uppmainwindow.cpp:808
 #: ../src/tmp/uppmainwindow.cpp:868
 msgid "Write Code memory OK"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+msgstr "コードメモリを書き込みました"
 
 #: ../src/uppmainwindow.cpp:811
 #: ../src/uppmainwindow.cpp:843
@@ -464,7 +473,7 @@ msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
 #: ../src/tmp/uppmainwindow.cpp:903
 #: ../src/tmp/uppmainwindow.cpp:933
 msgid "The hardware should say OK"
-msgstr "Το υλικό θα πρέπει να πει εντάξει"
+msgstr "ハードウェアからOKが出ました"
 
 #: ../src/uppmainwindow.cpp:814
 #: ../src/uppmainwindow.cpp:846
@@ -473,17 +482,17 @@ msgstr "Το υλικό θα πρέπει να πει εντάξει"
 #: ../src/tmp/uppmainwindow.cpp:906
 #: ../src/tmp/uppmainwindow.cpp:936
 msgid "The hardware should ask for next block"
-msgstr "Το υλικό θα πρέπει να ρωτήσει για το επόμενο μπλοκ"
+msgstr "ハードウェアは次のブロックを要求しています"
 
 #: ../src/uppmainwindow.cpp:817
 #: ../src/tmp/uppmainwindow.cpp:877
 msgid "Write code not implemented for current PIC"
-msgstr "Κώδικας εγγραφης δεν υλοποιείται για την τρέχουσα PIC"
+msgstr "PICにコードを書き込めませんでした"
 
 #: ../src/uppmainwindow.cpp:820
 #: ../src/tmp/uppmainwindow.cpp:880
 msgid "Verify error while writing code memory"
-msgstr "Επιβεβαιώθηκε σφάλμα κατά τη σύνταξη κώδικα μνήμης"
+msgstr "コードメモリのベリファイに失敗しました"
 
 #: ../src/uppmainwindow.cpp:823
 #: ../src/uppmainwindow.cpp:852
@@ -492,196 +501,196 @@ msgstr "Επιβεβαιώθηκε σφάλμα κατά τη σύνταξη κ�
 #: ../src/tmp/uppmainwindow.cpp:912
 #: ../src/tmp/uppmainwindow.cpp:942
 msgid "USB error while writing code memory"
-msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
+msgstr "コードメモリを書き込み中にエラーが発生しました"
 
 #: ../src/uppmainwindow.cpp:826
 #: ../src/tmp/uppmainwindow.cpp:886
 msgid "Error programming code memory"
-msgstr "Σφάλμα κώδικα προγραμματισμού μνήμης"
+msgstr "コードメモリが書き込めません"
 
 #: ../src/uppmainwindow.cpp:835
 #: ../src/tmp/uppmainwindow.cpp:895
 msgid "Programming the data area of the PIC..."
-msgstr "Προγραμματισμός των δεδομένων της περιοχής της PIC..."
+msgstr "PICにデータ領域を書き込んでいます..."
 
 #: ../src/uppmainwindow.cpp:840
 #: ../src/tmp/uppmainwindow.cpp:900
 msgid "Write Data memory OK"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+msgstr "データメモリを書き込みました"
 
 #: ../src/uppmainwindow.cpp:849
 #: ../src/tmp/uppmainwindow.cpp:909
 msgid "Write data not implemented for current PIC"
-msgstr "Γράψτε τα στοιχεία τα οποία δεν υλοποιούνται για την τρέχουσα PIC"
+msgstr "PICにデータを書き込みませんでした"
 
 #: ../src/uppmainwindow.cpp:855
 #: ../src/tmp/uppmainwindow.cpp:915
 msgid "Error programming data memory"
-msgstr "Σφάλμα προγραμματισμού δεδομένων μνήμης"
+msgstr "データメモリが書き込めません"
 
 #: ../src/uppmainwindow.cpp:865
 #: ../src/tmp/uppmainwindow.cpp:925
 msgid "Programming configuration area of the PIC..."
-msgstr "Προγραμματισμός διαμόρφωσης χώρου της PIC..."
+msgstr "PICにコンフィグレーション領域を書き込んでいます..."
 
 #: ../src/uppmainwindow.cpp:870
 #: ../src/tmp/uppmainwindow.cpp:930
 msgid "Write Config memory OK"
-msgstr "Γράψιμο της μνήμης διαμόρφωσης εντάξει"
+msgstr "コンフィグレーションメモリを書き込みました"
 
 #: ../src/uppmainwindow.cpp:879
 #: ../src/tmp/uppmainwindow.cpp:939
 msgid "Write config not implemented for current PIC"
-msgstr "Η διαμόρφωση δεν υλοποιήτε για την τρέχουσα PIC"
+msgstr "PICにコンフィグレーションを書き込みませんでした"
 
 #: ../src/uppmainwindow.cpp:885
 #: ../src/tmp/uppmainwindow.cpp:945
 msgid "Error programming config memory"
-msgstr "Σφάλμα προγραμματισμού της διαμόρφωσης μνήμης"
+msgstr "コンフィグレーションメモリを書き込めません"
 
 #: ../src/uppmainwindow.cpp:902
 #: ../src/tmp/uppmainwindow.cpp:964
 msgid "Reading the code area of the PIC..."
-msgstr "Διαβάσμα του κωδικού της περιοχής του PIC..."
+msgstr "PICのコード領域を読み込んでいます..."
 
 #: ../src/uppmainwindow.cpp:905
 #: ../src/tmp/uppmainwindow.cpp:967
 msgid "Error reading code memory"
-msgstr "Λάθος ανάγνωσης κώδικα μνήμης"
+msgstr "コードメモリを読み込めません"
 
 #: ../src/uppmainwindow.cpp:912
 #: ../src/tmp/uppmainwindow.cpp:975
 msgid "Reading the data area of the PIC..."
-msgstr "Ανάγνωση των δεδομένων της περιοχής του PIC..."
+msgstr "PICのデータ領域を読み込んでいます..."
 
 #: ../src/uppmainwindow.cpp:915
 #: ../src/tmp/uppmainwindow.cpp:978
 msgid "Error reading data memory"
-msgstr "Σφάλμα ανάγνωσης δεδομένων μνήμης"
+msgstr "データメモリを読み込めません"
 
 #: ../src/uppmainwindow.cpp:923
 #: ../src/tmp/uppmainwindow.cpp:986
 msgid "Reading the configuration area of the PIC..."
-msgstr "Διαβάζοντας τις διαμόρφωμενες περιοχές του PIC..."
+msgstr "PICのコンフィグレーション領域を読み込んでいます..."
 
 #: ../src/uppmainwindow.cpp:926
 #: ../src/tmp/uppmainwindow.cpp:989
 msgid "Error reading configuration memory"
-msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
+msgstr "コンフィグレーションメモリからの読み込みができません"
 
 #: ../src/uppmainwindow.cpp:941
 #: ../src/tmp/uppmainwindow.cpp:1004
 msgid "Verifying all areas of the PIC..."
-msgstr "Επαλήθευση όλων των περιοχών του PIC..."
+msgstr "PICの全領域をベリファイします..."
 
 #: ../src/uppmainwindow.cpp:954
 #: ../src/tmp/uppmainwindow.cpp:1017
 msgid "Verify successful"
-msgstr "Η επιβεβαίωση  ειναι επιτυχής"
+msgstr "ベリファイに成功しました"
 
 #: ../src/uppmainwindow.cpp:959
 #: ../src/tmp/uppmainwindow.cpp:1022
 msgid "Verify code"
-msgstr "Επιβεβαίωσε τον κώδικα"
+msgstr "コードのベリファイ"
 
 #: ../src/uppmainwindow.cpp:960
 #: ../src/tmp/uppmainwindow.cpp:1023
 msgid "Verify data"
-msgstr "Επιβεβαίωσε δεδομένα"
+msgstr "データのベリファイ"
 
 #: ../src/uppmainwindow.cpp:961
 #: ../src/tmp/uppmainwindow.cpp:1024
 msgid "Verify config"
-msgstr "Επιβεβαίωσε τις ρυθμίσεις"
+msgstr "コンフィグレーションのベリファイ"
 
 #: ../src/uppmainwindow.cpp:962
 #: ../src/tmp/uppmainwindow.cpp:1025
 msgid "Verify unknown"
-msgstr "Επιβεβαίωση άγνωστη"
+msgstr "未知のベリファイ"
 
 #: ../src/uppmainwindow.cpp:964
 #: ../src/tmp/uppmainwindow.cpp:1027
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "αποτυχία σε 0x%X. Διαβάσε: 0x%02X, Αναμενόμενα: 0x%02X"
+msgstr "0x%X で失敗しました。 読み込んだ値: 0x%02X、予想の値: 0x%02X"
 
 #: ../src/uppmainwindow.cpp:971
 #: ../src/tmp/uppmainwindow.cpp:1034
 msgid "USB error during verify"
-msgstr "USB σφάλμα κατά τη διάρκεια της επαλήθευσεις"
+msgstr "ベリファイ時にUSBエラーが発生しました"
 
 #: ../src/uppmainwindow.cpp:974
 #: ../src/tmp/uppmainwindow.cpp:1037
 msgid "Unknown error during verify"
-msgstr "Άγνωστο σφάλμα κατά τη διάρκεια της επαλήθευσεις"
+msgstr "ベリファイ時に未知のエラーが発生しました"
 
 #: ../src/uppmainwindow.cpp:977
 #: ../src/uppmainwindow.cpp:1042
 #: ../src/tmp/uppmainwindow.cpp:1040
 #: ../src/tmp/uppmainwindow.cpp:1111
 msgid "I'm sorry for being stupid"
-msgstr "Λυπάμαι που ήμουν ηλίθιος"
+msgstr "しばらくお待ち下さい"
 
 #: ../src/uppmainwindow.cpp:989
 #: ../src/tmp/uppmainwindow.cpp:1052
 msgid "Erasing all areas of the PIC..."
-msgstr "Διαγραφή όλων των περιοχών του PIC..."
+msgstr "PICのすべての領域を消去します..."
 
 #: ../src/uppmainwindow.cpp:1008
 #: ../src/tmp/uppmainwindow.cpp:1071
 msgid "Checking if the device is blank..."
-msgstr "Έλεγχος εάν η συσκευή είναι κενή…"
+msgstr "デバイスがブランクかどうかチェックします..."
 
 #: ../src/uppmainwindow.cpp:1016
 #: ../src/tmp/uppmainwindow.cpp:1079
 msgid "Device is blank"
-msgstr "Συσκευή είναι κενή"
+msgstr "デバイスはブランク（空）です。"
 
 #: ../src/uppmainwindow.cpp:1028
 #: ../src/tmp/uppmainwindow.cpp:1097
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Ο έλενχος απέτυχε στο 0x%X. Που διαβάστηκε: 0x%02X, Αναμενόμενα: 0x%02X"
+msgstr "ブランクチェックは 0x%X で失敗しました。 読み込んだ値: 0x%02X、予想の値: 0x%02X"
 
 #: ../src/uppmainwindow.cpp:1033
 #: ../src/tmp/uppmainwindow.cpp:1102
 msgid "Device is not blank."
-msgstr "Συσκευή δεν είναι κενή."
+msgstr "デバイスはブランク（空）ではありません。"
 
 #: ../src/uppmainwindow.cpp:1036
 #: ../src/tmp/uppmainwindow.cpp:1105
 msgid "USB error during blankcheck"
-msgstr "USB σφάλμα κατά τη διάρκεια του ελένχου της συσκευής"
+msgstr "ブランクチェックでUSBエラーが発生しました"
 
 #: ../src/uppmainwindow.cpp:1039
 #: ../src/tmp/uppmainwindow.cpp:1108
 msgid "Unknown error during blankcheck"
-msgstr "Άγνωστο λάθος κατά τη διάρκεια του ελένχου της συσκευής"
+msgstr "ブランクチェックで未知のエラーが発生しました"
 
 #: ../src/uppmainwindow.cpp:1062
 #: ../src/tmp/uppmainwindow.cpp:1131
 msgid "Progress dialog"
-msgstr "Πρόοδος διαλόγου"
+msgstr "進捗画面"
 
 #: ../src/uppmainwindow.cpp:1063
 #: ../src/tmp/uppmainwindow.cpp:1132
 msgid "Initializing..."
-msgstr "Αρχικοποίηση ..."
+msgstr "初期化中..."
 
 #: ../src/uppmainwindow.cpp:1087
 #: ../src/tmp/uppmainwindow.cpp:1156
 msgid "Could not create the worker thread!"
-msgstr "Δεν ήταν δυνατή η δημιουργία του εργαζομένου νήματος!"
+msgstr "処理を作成できません！"
 
 #: ../src/uppmainwindow.cpp:1093
 #: ../src/tmp/uppmainwindow.cpp:1162
 msgid "Could not run the worker thread!"
-msgstr "Δεν ήταν δυνατή η εκτέλεση του εργαζομένου νήματος!"
+msgstr "処理が実行できません！"
 
 #: ../src/uppmainwindow.cpp:1129
 #: ../src/tmp/uppmainwindow.cpp:1198
 msgid "Open hexfile"
-msgstr "Άνοιξε το δκαεξαδικό αρχείο"
+msgstr "HEXファイルを開く"
 
 #: ../src/uppmainwindow.cpp:1145
 #: ../src/uppmainwindow.cpp:1146
@@ -692,14 +701,14 @@ msgstr "Άνοιξε το δκαεξαδικό αρχείο"
 #: ../src/tmp/uppmainwindow.cpp:1242
 #: ../src/tmp/uppmainwindow.cpp:1243
 msgid "Unable to open file"
-msgstr "Αδύνατο το άνοιγμα του αρχείου"
+msgstr "ファイルを開けません"
 
 #: ../src/uppmainwindow.cpp:1165
 #: ../src/uppmainwindow.cpp:1166
 #: ../src/tmp/uppmainwindow.cpp:1232
 #: ../src/tmp/uppmainwindow.cpp:1233
 msgid "No file to refresh"
-msgstr "Δεν υπάρχει αρχείο για να ανανεώσετε"
+msgstr "リフレッシュするファイルがありません"
 
 #: ../src/uppmainwindow.cpp:1191
 #: ../src/uppmainwindow.cpp:1192
@@ -710,12 +719,12 @@ msgstr "Δεν υπάρχει αρχείο για να ανανεώσετε"
 #: ../src/tmp/uppmainwindow.cpp:1280
 #: ../src/tmp/uppmainwindow.cpp:1281
 msgid "Unable to save file"
-msgstr "Αδυνατη η αποθήκευση του αρχείου"
+msgstr "ファイルを保存することができません"
 
 #: ../src/uppmainwindow.cpp:1203
 #: ../src/tmp/uppmainwindow.cpp:1270
 msgid "Save hexfile"
-msgstr "Αποθήκευση δκαεξαδικού αρχείου"
+msgstr "HEXファイルを保存します"
 
 #: ../src/uppmainwindow.cpp:1244
 #: ../src/uppmainwindow.cpp:1256
@@ -731,7 +740,7 @@ msgstr "Αποθήκευση δκαεξαδικού αρχείου"
 #: ../src/tmp/uppmainwindow.cpp:1369
 #: ../src/tmp/uppmainwindow.cpp:1381
 msgid "The programmer is not connected"
-msgstr "Ο προγραμματιστής δεν είναι συνδεμένος"
+msgstr "プログラマは接続されていません"
 
 #: ../src/uppmainwindow.cpp:1303
 msgid "Only valid for PIC12F629 and similar devices..."
@@ -762,31 +771,31 @@ msgstr ""
 #: ../src/main.cpp:237
 #, fuzzy
 msgid "Error restoring Calibration Registers"
-msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
+msgstr "コンフィグレーションメモリからの読み込みができません"
 
 #: ../src/uppmainwindow.cpp:1399
 #: ../src/tmp/uppmainwindow.cpp:1416
 msgid "No PIC detected!"
-msgstr "Δεν διαπιστώθηκαν PIC!"
+msgstr "PICが検出出来ません！"
 
 #: ../src/uppmainwindow.cpp:1401
 #: ../src/tmp/uppmainwindow.cpp:1418
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "Δεν διαπιστώθηκαν PIC! Επιλέγοντας τις προεπιλογές PIC (%s) ..."
+msgstr "PICが検出出来ません！デフォルトのPICを選択します (%s)"
 
 #: ../src/uppmainwindow.cpp:1406
 #: ../src/tmp/uppmainwindow.cpp:1423
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "Εντοπίστηκε PIC μοντέλο % s με ID συσκευής 0x%X"
+msgstr "検出されたPICモデル %s のデバイスID 0x%X"
 
 #: ../src/uppmainwindow.cpp:1431
 #: ../src/uppmainwindow.cpp:1432
 #: ../src/tmp/uppmainwindow.cpp:1448
 #: ../src/tmp/uppmainwindow.cpp:1449
 msgid "Unable to read firmware version"
-msgstr "Αδύνατη η ανάγνωση της firmware έκδοσης"
+msgstr "ファームウェアバージョンを読むことができません"
 
 #: ../src/uppmainwindow.cpp:1436
 #: ../src/uppmainwindow.cpp:1439
@@ -797,29 +806,28 @@ msgstr "Αδύνατη η ανάγνωση της firmware έκδοσης"
 #: ../src/tmp/uppmainwindow.cpp:1481
 #: ../src/tmp/uppmainwindow.cpp:1483
 msgid " Connected"
-msgstr " Συνδέθηκε"
+msgstr "接続"
 
 #: ../src/uppmainwindow.cpp:1459
 #: ../src/uppmainwindow.cpp:1460
 #: ../src/tmp/uppmainwindow.cpp:1476
 #: ../src/tmp/uppmainwindow.cpp:1477
 msgid "Unable to read version"
-msgstr "Αδύνατη η ανάγνωση της έκδοσης"
+msgstr "バージョンが読めません"
 
 #: ../src/uppmainwindow.cpp:1475
 #: ../src/uppmainwindow.cpp:1477
 #: ../src/tmp/uppmainwindow.cpp:1497
 #: ../src/tmp/uppmainwindow.cpp:1499
 msgid "Bootloader or programmer not found"
-msgstr "Πρόγραμμα εκκίνησης ή προγραμματιστής δεν βρέθηκε"
+msgstr "ブートローダーかプログラマが存在しません"
 
 #: ../src/uppmainwindow.cpp:1497
 #: ../src/uppmainwindow.cpp:1499
 #: ../src/tmp/uppmainwindow.cpp:1519
 #: ../src/tmp/uppmainwindow.cpp:1521
-#, fuzzy
 msgid "Disconnected"
-msgstr "&Αποσύνδεση ..."
+msgstr "切り離されました"
 
 #: ../src/uppmainwindow.cpp:1503
 #: ../src/uppmainwindow.cpp:1504
@@ -830,62 +838,59 @@ msgstr "&Αποσύνδεση ..."
 #: ../src/tmp/uppmainwindow.cpp:1531
 #: ../src/tmp/uppmainwindow.cpp:1532
 msgid "Already disconnected"
-msgstr "Ήδη αποσυνδέμενο"
+msgstr "既に切断されます"
 
 #: ../src/uppmainwindow.cpp:1537
 #: ../src/tmp/uppmainwindow.cpp:1559
 msgid "An open source USB pic programmer"
-msgstr "Προγραμματιστής του open source USB pic"
+msgstr "オープンソースUSB PIC プログラマ"
 
 #: ../src/uppmainwindow.cpp:1564
 #: ../src/uppmainwindow.cpp:1593
 #: ../src/tmp/uppmainwindow.cpp:1586
 #: ../src/tmp/uppmainwindow.cpp:1615
-#, fuzzy
 msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr "Μπορούμε να επιλέξουμε μια PIC διαφορετική όταν η bootloader συνδέεται! "
+msgstr "ブートローダーが接続される時には、違うPICを選ぶことができません！"
 
 #: ../src/uppmainwindow_base.cpp:23
 #: ../src/tmp/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "Δεκαεξαδική προβολή του κώδικα της περιοχής του PIC:"
+msgstr "PICのコード領域（プログラム）の内容:"
 
 #: ../src/uppmainwindow_base.cpp:33
 #: ../src/tmp/uppmainwindow_base.cpp:33
 msgid "Code"
-msgstr "Κωδικας"
+msgstr "コード"
 
 #: ../src/uppmainwindow_base.cpp:38
 #: ../src/tmp/uppmainwindow_base.cpp:38
 msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "Δεκαεξαδική προβολή των δεδομένων της περιοχής PIC:"
+msgstr "PICのデータ領域(EEPROM)の内容:"
 
 #: ../src/uppmainwindow_base.cpp:48
 #: ../src/tmp/uppmainwindow_base.cpp:48
 msgid "Data"
-msgstr "Δεδομένα"
+msgstr "データ"
 
 #: ../src/uppmainwindow_base.cpp:53
 #: ../src/tmp/uppmainwindow_base.cpp:53
-#, fuzzy
 msgid "Configuration flags for this PIC:"
-msgstr "Σημαίες διαμόρφωσης "
+msgstr "PICのコンフィグレーション フラグ:"
 
 #: ../src/uppmainwindow_base.cpp:63
 #: ../src/tmp/uppmainwindow_base.cpp:63
 msgid "Configuration flags"
-msgstr "Σημαίες διαμόρφωσης "
+msgstr "コンフィグレーション"
 
 #: ../src/uppmainwindow_base.cpp:69
 #: ../src/tmp/uppmainwindow_base.cpp:69
 msgid "Miscellaneous"
-msgstr ""
+msgstr "デバイス情報"
 
 #: ../src/uppmainwindow_base.cpp:71
 #: ../src/tmp/uppmainwindow_base.cpp:71
-#, fuzzy
 msgid "Datasheet"
-msgstr "Δεδομένα"
+msgstr "データーシート"
 
 #: ../src/uppmainwindow_base.cpp:74
 #: ../src/tmp/uppmainwindow_base.cpp:74
@@ -896,6 +901,11 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"プログラム電圧 (Vpp):\n"
+"    最小\n"
+"    標準\n"
+"    最大\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:78
 #: ../src/tmp/uppmainwindow_base.cpp:78
@@ -906,6 +916,11 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"動作電圧 (Vdd):\n"
+"    最小\n"
+"    標準\n"
+"    最大\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:82
 #: ../src/tmp/uppmainwindow_base.cpp:82
@@ -915,195 +930,197 @@ msgid ""
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"周波数帯:\n"
+"   最小\n"
+"   最大\n"
+"_dontTranslateThis_"
 
 #: ../src/uppmainwindow_base.cpp:86
 #: ../src/tmp/uppmainwindow_base.cpp:86
 msgid "Device ID:"
-msgstr ""
+msgstr "デバイス ID:"
 
 #: ../src/uppmainwindow_base.cpp:90
 #: ../src/tmp/uppmainwindow_base.cpp:90
-#, fuzzy
 msgid "Code memory size:"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+msgstr "コード記憶容量:"
 
 #: ../src/uppmainwindow_base.cpp:94
 #: ../src/tmp/uppmainwindow_base.cpp:94
-#, fuzzy
 msgid "Data memory size:"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+msgstr "データー記憶容量:"
 
 #: ../src/uppmainwindow_base.cpp:98
 #: ../src/tmp/uppmainwindow_base.cpp:98
 msgid "Type:"
-msgstr ""
+msgstr "タイプ:"
 
 #: ../src/uppmainwindow_base.cpp:105
 #: ../src/tmp/uppmainwindow_base.cpp:105
 msgid "Package"
-msgstr ""
+msgstr "パッケージ:"
 
 #: ../src/uppmainwindow_base.cpp:110
 #: ../src/tmp/uppmainwindow_base.cpp:110
 msgid "Variants:"
-msgstr ""
+msgstr "形状:"
 
 #: ../src/uppmainwindow_base.cpp:123
 #: ../src/uppmainwindow_base.cpp:125
 #: ../src/tmp/uppmainwindow_base.cpp:123
 #: ../src/tmp/uppmainwindow_base.cpp:125
 msgid "Zoom in"
-msgstr ""
+msgstr "拡大"
 
 #: ../src/uppmainwindow_base.cpp:130
 #: ../src/uppmainwindow_base.cpp:132
 #: ../src/tmp/uppmainwindow_base.cpp:130
 #: ../src/tmp/uppmainwindow_base.cpp:132
 msgid "Zoom out"
-msgstr ""
+msgstr "縮小"
 
 #: ../src/uppmainwindow_base.cpp:137
 #: ../src/uppmainwindow_base.cpp:139
 #: ../src/tmp/uppmainwindow_base.cpp:137
 #: ../src/tmp/uppmainwindow_base.cpp:139
 msgid "Fit package drawing"
-msgstr ""
+msgstr "画面サイズに合わせる"
 
 #: ../src/uppmainwindow_base.cpp:148
 #: ../src/tmp/uppmainwindow_base.cpp:148
 msgid "Note: red pins are (some of those) used in ICSP."
-msgstr ""
+msgstr "注： ICSPにおいて赤いピン（それらのうちのいくつか）を使用します。"
 
 #: ../src/uppmainwindow_base.cpp:157
 #: ../src/tmp/uppmainwindow_base.cpp:157
 msgid "PIC info"
-msgstr ""
+msgstr "PIC 情報"
 
 #: ../src/uppmainwindow_base.cpp:166
 #: ../src/tmp/uppmainwindow_base.cpp:166
 msgid "&New"
-msgstr "&Νέο"
+msgstr "&新規"
 
 #: ../src/uppmainwindow_base.cpp:166
 #: ../src/tmp/uppmainwindow_base.cpp:166
 msgid "Resets the code, configuration and data areas of the currently open HEX file"
-msgstr "Επαναφέρει τον κώδικα, την διάταξη και περιοχές  δεδομένων του τρεχόντως ανοιχτού HEX αρχείου"
+msgstr "現在のデータをクリアします"
 
 #: ../src/uppmainwindow_base.cpp:170
 #: ../src/tmp/uppmainwindow_base.cpp:170
 msgid "&Open"
-msgstr "&Άνοιξε"
+msgstr "&開く"
 
 #: ../src/uppmainwindow_base.cpp:170
 #: ../src/tmp/uppmainwindow_base.cpp:170
 msgid "Loads an HEX file for editing or programming..."
-msgstr "Φορτώνει ένα HEX αρχείο για επεξεργασία ή προγραμματισμό ..."
+msgstr "HEXファイルを開きます。"
 
 #: ../src/uppmainwindow_base.cpp:174
 #: ../src/tmp/uppmainwindow_base.cpp:174
 msgid "&Reload"
-msgstr "&Επαναφόρτωση"
+msgstr "&再ロード"
 
 #: ../src/uppmainwindow_base.cpp:174
 #: ../src/tmp/uppmainwindow_base.cpp:174
 msgid "Reloads the current HEX file from disk"
-msgstr "Επαναφορτώνει το τρέχοντος HEX αρχείο από το δίσκο"
+msgstr "HEXファイルを再ロードします。"
 
 #: ../src/uppmainwindow_base.cpp:178
 #: ../src/tmp/uppmainwindow_base.cpp:178
 msgid "&Save"
-msgstr "&Αποθήκευση"
+msgstr "&保存"
 
 #: ../src/uppmainwindow_base.cpp:178
 #: ../src/tmp/uppmainwindow_base.cpp:178
 msgid "Saves the HEX file with the modified data"
-msgstr "Αποθηκεύει το HEX αρχείο με τα τροποποιημένα στοιχεία"
+msgstr "HEXファイルを上書き保存します。"
 
 #: ../src/uppmainwindow_base.cpp:182
 #: ../src/tmp/uppmainwindow_base.cpp:182
 msgid "Save &As"
-msgstr "Αποθήκευση &Ως"
+msgstr "&名前を付けて保存"
 
 #: ../src/uppmainwindow_base.cpp:182
 #: ../src/tmp/uppmainwindow_base.cpp:182
 msgid "Saves current code,config,data as a HEX file"
-msgstr "Αποθηκεύει τον τρέχοντα κώδικα, διαμόρφωση, δεδομένα ως αρχείο HEX"
+msgstr "HEXファイルを、名前を付けて保存します。"
 
 #: ../src/uppmainwindow_base.cpp:186
 #: ../src/tmp/uppmainwindow_base.cpp:186
 msgid "E&xit"
-msgstr "Ε&χιτ"
+msgstr "&終了"
 
 #: ../src/uppmainwindow_base.cpp:186
 #: ../src/tmp/uppmainwindow_base.cpp:186
 msgid "Exits the program"
-msgstr "Τερματίζει το πρόγραμμα"
+msgstr "プログラムを終了します"
 
 #: ../src/uppmainwindow_base.cpp:189
 #: ../src/tmp/uppmainwindow_base.cpp:189
 msgid "&File"
-msgstr "&Αρχείο"
+msgstr "&ファイル"
 
 #: ../src/uppmainwindow_base.cpp:193
 #: ../src/tmp/uppmainwindow_base.cpp:193
 msgid "&Copy"
-msgstr "&Αντιγραφή"
+msgstr "&コピー"
 
 #: ../src/uppmainwindow_base.cpp:193
 #: ../src/tmp/uppmainwindow_base.cpp:193
 msgid "Copies to the clipboard currently selected cells"
-msgstr "Αντίγραφει στο πρόχειρο τα επιλεγμένα κελιά"
+msgstr "クリップボードにコピーします"
 
 #: ../src/uppmainwindow_base.cpp:197
 #: ../src/tmp/uppmainwindow_base.cpp:197
 msgid "Select &All"
-msgstr "Επιλέξε &Όλο"
+msgstr "&全て選択"
 
 #: ../src/uppmainwindow_base.cpp:197
 #: ../src/tmp/uppmainwindow_base.cpp:197
 msgid "Selects the entire grid currently shown"
-msgstr "Επιλέγει το σύνολο του δικτύου που εμφανίζεται "
+msgstr "領域を全て選択"
 
 #: ../src/uppmainwindow_base.cpp:203
 #: ../src/tmp/uppmainwindow_base.cpp:203
 msgid "&Preferences"
-msgstr "&Προτιμήσεις"
+msgstr "&設定"
 
 #: ../src/uppmainwindow_base.cpp:203
 #: ../src/tmp/uppmainwindow_base.cpp:203
 msgid "Shows the options for this program"
-msgstr "Εμφανίζει τις επιλογές για αυτό το πρόγραμμα"
+msgstr "usbpicprogの設定画面を表示"
 
 #: ../src/uppmainwindow_base.cpp:206
 #: ../src/tmp/uppmainwindow_base.cpp:206
 msgid "&Edit"
-msgstr "&Επεξεργασία"
+msgstr "&編集"
 
 #: ../src/uppmainwindow_base.cpp:210
 #: ../src/uppmainwindow_base.cpp:219
 #: ../src/tmp/uppmainwindow_base.cpp:210
 #: ../src/tmp/uppmainwindow_base.cpp:219
 msgid "&Help"
-msgstr "&Βοήθεια"
+msgstr "&ヘルプ"
 
 #: ../src/uppmainwindow_base.cpp:210
 #: ../src/tmp/uppmainwindow_base.cpp:210
 msgid "Opens the Usbpicprog's website..."
-msgstr "Ανοίγει την ιστοσελίδα του Usbpicprog..."
+msgstr "ヘルプの表示（Usbpicprog Webサイトへ）"
 
 #: ../src/uppmainwindow_base.cpp:216
 #: ../src/tmp/uppmainwindow_base.cpp:216
 msgid "&About"
-msgstr "&Σχετικά"
+msgstr "&このプログラムについて"
 
 #: ../src/uppmainwindow_base.cpp:216
 #: ../src/tmp/uppmainwindow_base.cpp:216
 msgid "Shows informations about this program"
-msgstr "Εμφανίζει πληροφορίες σχετικά με αυτό το πρόγραμμα"
+msgstr "このプログラムの情報を表示します"
 
 #: ../src/main.cpp:75
 msgid "Cannot load XML PIC data."
-msgstr ""
+msgstr "XML PICデータをロードできません。"
 
 #: ../src/main.cpp:233
 msgid "Please specify a BandGap Value between 0 and 3"
@@ -1115,160 +1132,148 @@ msgstr ""
 #: ../src/pictype.cpp:127
 #, c-format
 msgid "Could not load data for PIC '%s'."
-msgstr ""
+msgstr "PIC  '%s' のデータを読み込めません。"
 
 #: ../src/pictype.cpp:167
 #, c-format
 msgid "Cannot load '%s'."
-msgstr ""
+msgstr "「%s」を開けません。"
 
 #: ../src/pictype.cpp:173
 #, c-format
 msgid "Invalid '%s' file."
-msgstr ""
+msgstr "無効の「%s」ファイル。"
 
 #: ../src/pictype.cpp:203
 #: ../src/pictype.cpp:205
 #, c-format
 msgid "Invalid PIC family for PIC '%s'."
-msgstr ""
+msgstr "無効なPICファミリ '%s'."
 
 #: ../src/pictype.cpp:234
 #, c-format
 msgid "Could not load the data for the PIC '%s'."
-msgstr ""
+msgstr "'PIC'%s'でデータを開けませんでした。"
 
 #: ../src/pictype.cpp:255
 msgid "Could not access the 'xml_data' folder."
-msgstr ""
+msgstr "「xml_data」フォルダーにアクセスできませんでした。"
 
 #: ../src/pictype.cpp:862
 msgid "Invalid direction"
-msgstr ""
+msgstr "無効の方向"
 
 #: ../src/pictype.cpp:882
 #, c-format
 msgid "Invalid odd pin count: %d"
-msgstr ""
+msgstr "無効でおかしなピン数: %d"
 
 #: ../src/pictype.cpp:937
 #, c-format
 msgid "Invalid pin count: %d"
-msgstr ""
+msgstr "無効なピン数: %d"
 
 #: ../src/packageview.cpp:47
 msgid "packageview"
-msgstr ""
+msgstr "パッケージ ビュー"
 
 #: ../src/packageview.cpp:72
 #: ../src/packageview.cpp:78
-#, fuzzy
 msgid "Can't create the package bitmap!"
-msgstr "Δεν ήταν δυνατή η δημιουργία του εργαζομένου νήματος!"
+msgstr "パッケージのビットマップを作成できません！"
 
 #: ../src/packageview.cpp:86
 msgid "Can't draw the PIC package!"
-msgstr ""
+msgstr "PICパッケージを描画する事ができません！"
 
 #: ../src/hexfile.cpp:96
-#, fuzzy
 msgid "Could not open Hex file..."
-msgstr "να μην εμφανιστεί το δκαεξαδικό αρχείο"
+msgstr "HEXファイルを開くことができませんでした。"
 
 #: ../src/hexfile.cpp:114
 msgid "Failure in hex file..."
-msgstr ""
+msgstr "HEXファイルの読み込みに失敗しました。"
 
 #: ../src/hexfile.cpp:130
 msgid "Error in checksum..."
-msgstr ""
+msgstr "チェックサムが異常です。"
 
 #: ../src/hexfile.cpp:154
 msgid "Data in hex file outside config memory of PIC"
-msgstr ""
+msgstr "HEXファイルのデータは、PICのコンフィグレーション領域を外れています"
 
 #: ../src/hexfile.cpp:195
 msgid "Data in hex file outside data memory of PIC"
-msgstr ""
+msgstr "HEXファイルのデータは、PICのデータ領域を外れています"
 
 #: ../src/hexfile.cpp:210
 msgid "Data in hex file outside code memory of PIC"
-msgstr ""
+msgstr "HEXファイルのデータは、PICのコード領域を外れています"
 
 #: ../src/hexfile.cpp:222
 #, c-format
 msgid "unknown record type: %d"
-msgstr ""
+msgstr "未知のレコード種類: %d"
 
 #: ../src/hexfile.cpp:329
 msgid "Could not open Hex file for writing..."
-msgstr ""
+msgstr "書き込みの為のHEXファイルを開けません。"
 
 #: ../src/hexfile.cpp:689
-#, fuzzy
 msgid "Code Memory\n"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+msgstr "コード領域\n"
 
 #: ../src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
-msgstr ""
+msgstr "Usbpicprogのためのグローバルな設定："
 
 #: ../src/preferences_base.cpp:24
 msgid "Program options"
-msgstr ""
+msgstr "書込オプション"
 
 #: ../src/preferences_base.cpp:26
-#, fuzzy
 msgid "Write code memory"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+msgstr "コード領域を書き込みます"
 
 #: ../src/preferences_base.cpp:30
-#, fuzzy
 msgid "Write config memory"
-msgstr "Γράψιμο της μνήμης διαμόρφωσης εντάξει"
+msgstr "コンフィグ領域を書き込みます"
 
 #: ../src/preferences_base.cpp:34
-#, fuzzy
 msgid "Write data memory"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+msgstr "データ領域を書き込みます"
 
 #: ../src/preferences_base.cpp:38
 msgid "Erase before programming"
-msgstr "Διεγράψτε πριν τον προγραμματισμό"
+msgstr "書込前に消去します"
 
 #: ../src/preferences_base.cpp:42
-#, fuzzy
 msgid "Verify after programming"
-msgstr "Διεγράψτε πριν τον προγραμματισμό"
+msgstr "書込後ベリファイします"
 
 #: ../src/preferences_base.cpp:49
-#, fuzzy
 msgid "Verify options"
-msgstr "Επιβεβαίωσε τις ρυθμίσεις"
+msgstr "ベリファイ オプション"
 
 #: ../src/preferences_base.cpp:51
-#, fuzzy
 msgid "Verify code memory"
-msgstr "Επιβεβαίωσε τον κώδικα"
+msgstr "コード領域をベリファイします"
 
 #: ../src/preferences_base.cpp:55
-#, fuzzy
 msgid "Verify config memory"
-msgstr "Επιβεβαίωσε τις ρυθμίσεις"
+msgstr "コンフィグ領域をベリファイします"
 
 #: ../src/preferences_base.cpp:59
-#, fuzzy
 msgid "Verify data memory"
-msgstr "Επιβεβαίωσε δεδομένα"
+msgstr "データ領域をベリファイします"
 
 #: ../src/preferences_base.cpp:66
 msgid "GUI options"
-msgstr ""
+msgstr "操作オプション"
 
 #: ../src/preferences_base.cpp:68
-#, fuzzy
 msgid "Shows popups on connect etc..."
-msgstr "Δείτε popups για τη σύνδεση κλπ..."
+msgstr "接続等に表示します"
 
 #: ../src/tmp/pictype.cpp:309
 msgid "error: PIC name should match picName: "
@@ -1277,7 +1282,7 @@ msgstr ""
 #: ../src/tmp/pictype.cpp:343
 #, fuzzy
 msgid "device ID not found"
-msgstr "Συσκευή δεν είναι κενή."
+msgstr "デバイスはブランク（空）ではありません。"
 
 #: ../src/tmp/pictype.cpp:354
 msgid "name attribute in memory not found"
@@ -1306,79 +1311,79 @@ msgstr ""
 
 #: ../src/preferences_base.h:51
 msgid "Preferences"
-msgstr "Προτιμήσεις"
+msgstr "設定"
 
 #: ../src/main.h:93
 msgid "help"
-msgstr "βοήθεια"
+msgstr "ヘルプ"
 
 #: ../src/main.h:93
 msgid "displays help on the command line parameters"
-msgstr "εμφανίζει βοήθεια πάνω στις παραμέτρους της γραμής εντολών "
+msgstr "画面のヘルプにコマンドラインパラメータがあります"
 
 #: ../src/main.h:94
 msgid "version"
-msgstr "έκδοση"
+msgstr "バージョン"
 
 #: ../src/main.h:94
 msgid "displays version information of usbpicprog"
-msgstr "εμφανίζει πληροφορίες της έκδοσης του usbpicprog"
+msgstr "usbpicprogのバージョン情報を表示します。"
 
 #: ../src/main.h:95
 msgid "pictype"
-msgstr "τύπος PIC"
+msgstr "PICタイプ"
 
 #: ../src/main.h:95
 msgid "specify the pic type (eg -p=P18F2550)"
-msgstr "καθορίστε το τύπο PIC  (π.χ. -p = P18F2550)"
+msgstr "写真タイプを指定してください (eg -p=P18F2550)"
 
 #: ../src/main.h:96
 msgid "silent"
-msgstr "σιωπηλό"
+msgstr "静か"
 
 #: ../src/main.h:96
 msgid "do not display the hex file"
-msgstr "να μην εμφανιστεί το δκαεξαδικό αρχείο"
+msgstr "HEXファイルを表示しないで下さい"
 
 #: ../src/main.h:97
 msgid "write"
-msgstr "γράψε "
+msgstr "書込"
 
 #: ../src/main.h:97
 msgid "write the device"
-msgstr "γράψε στη συσκευή"
+msgstr "デバイスに書き込みます"
 
 #: ../src/main.h:98
 msgid "read the device"
-msgstr "διάβασε την συσκευή"
+msgstr "デバイスを読み込みます"
 
 #: ../src/main.h:99
 msgid "verify the device"
-msgstr "επαλήθευσε την συσκευή"
+msgstr "デバイスをベリファイします"
 
 #: ../src/main.h:100
 msgid "bulk erase the device"
-msgstr "bulk erase την συσκευή"
+msgstr "デバイスを消去します"
 
 #: ../src/main.h:101
 msgid "blankcheck the device"
-msgstr "Ελέγξτε τη συσκευή"
+msgstr "デバイスをブランクチェックします"
 
 #: ../src/main.h:102
 msgid "debug"
-msgstr ""
+msgstr "デバッグ"
 
 #: ../src/main.h:102
 msgid "debug the hardware"
-msgstr ""
+msgstr "ハードウェアをデバッグしてください"
 
 #: ../src/main.h:103
 msgid "file"
-msgstr "αρχείο"
+msgstr "ファイル"
 
 #: ../src/main.h:103
 msgid "hexfile"
-msgstr "δκαεξαδικό αρχείο"
+msgstr "HEXファイル"
 
 #: ../src/main.h:104
 msgid "restore-osccal"
@@ -1399,18 +1404,4 @@ msgstr ""
 #: ../src/uppmainwindow_base.h:100
 msgid "Usbpicprog"
 msgstr "Usbpicprog"
-
-#~ msgid "Config"
-#~ msgstr "Διαμόρφωση"
-#~ msgid "Verify"
-#~ msgstr "Βεβαιώστε"
-#~ msgid "Gui"
-#~ msgstr "Gui"
-#~ msgid "Disconnected usbpicprog"
-#~ msgstr "Αποσυνδέθηκε usbpicprog"
-#~ msgid "Cannot select a PIC different when the bootloader is connected!"
-#~ msgstr ""
-#~ "Μπορούμε να επιλέξουμε μια PIC διαφορετική όταν η bootloader συνδέεται! "
-#~ msgid "Hexadecimal view of the configuration fuses of the PIC:"
-#~ msgstr "Δεκαεξαδική προβολή της διαμόρφωσης τήξης του PIC:"
 
