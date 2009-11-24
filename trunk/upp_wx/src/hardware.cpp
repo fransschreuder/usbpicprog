@@ -1126,6 +1126,26 @@ void Hardware::tryToDetachDriver()
 #endif
 }
 
+
+double Hardware::getVppVoltage()
+{
+	int iValue;
+    if (m_hwCurrent != HW_UPP) return -1;
+    if (m_handle == NULL) return -1;
+    unsigned char msg[64];
+	msg[0]=CMD_GET_PIN_STATUS;
+	msg[1]=SUBCMD_PIN_VPP_VOLTAGE;
+	writeString(msg,2);
+	cout<<readString(msg,64);
+	iValue = ((int)msg[0])+(((int)msg[1])<<8);
+
+	float fValue = ((float)iValue)*(147.0/47.0)*(5.0/1024.0);
+
+	cout<<"ADC Value: "<<iValue<<" "<<fValue<<" [V]"<<endl;
+    return fValue;
+
+}
+
 int Hardware::debug()
 {
 	if (m_handle == NULL) return -1;

@@ -1527,6 +1527,7 @@ void UppMainWindow::upp_help()
 
 void UppMainWindow::upp_about()
 {
+	m_hardware->getVppVoltage();
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetName(("Usbpicprog"));
     #ifndef UPP_VERSION

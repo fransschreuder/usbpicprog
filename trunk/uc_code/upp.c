@@ -59,10 +59,34 @@ void setLeds(char n);
 #ifndef SDCC
 #pragma code
 #endif
+
+
+void InitAdc(void)
+{
+	ADCON0 = 0x09; 			//Enable AD converter to Channel AN2 (measure VPP);
+	ADCON2 = 0xC1;	//0x88		//Right justified, 2TAD, Fosc/2
+	ADCON1 = 0x0F; 			//All signals to Digital
+	TRISAbits.TRISA2 = 1;		//Input;
+}
+
+
+void ReadAdc(unsigned char* data)
+{
+	char i;
+	i=0;
+	ADCON1 = 0x0C; //channel AN2 .. AN0 to analog
+	ADCON0bits.GO = 1;
+	while (ADCON0bits.GO||(i++<100))continue;
+	data[0]=ADRESL;
+	data[1]=ADRESH;
+	ADCON1 = 0xFF; //back to digital...
+}
+
 void UserInit(void)
 {
 	mInitAllLEDs();
 	mInitAllSwitches();
+	InitAdc();
 	old_sw2 = sw2;
 	Pump1tris = 0;
 	Pump2tris = 0;
@@ -157,13 +181,13 @@ void ProcessIO(void)
 	{
 		switch(input_buffer[0])
 		{
-			case CMD_BULK_ERASE:
+			case CMD_ERASE:
 				setLeds(LEDS_ON | LEDS_WR);
 				output_buffer[0]=bulk_erase(picfamily,pictype,input_buffer[1]);
 				counter=1;
 				setLeds(LEDS_ON);
 				break;
-			case CMD_GET_ID:
+			case CMD_READ_ID:
 				setLeds(LEDS_ON | LEDS_RD);
 				switch(picfamily)
 				{
@@ -264,6 +288,21 @@ void ProcessIO(void)
 						counter=2;
 						break;
 						
+				}
+				break;
+			case CMD_GET_PIN_STATUS:
+				switch(input_buffer[1])
+				{
+					case SUBCMD_PIN_VPP_VOLTAGE:
+						set_vdd_vpp(pictype, picfamily, 1);
+						ReadAdc(output_buffer);
+						counter=2;
+						set_vdd_vpp(pictype, picfamily, 0);
+						break;
+					default:
+						output_buffer[0]=3;
+						counter=1;
+						break;
 				}
 				break;
 		}
