@@ -64,7 +64,7 @@ void setLeds(char n);
 void InitAdc(void)
 {
 	ADCON0 = 0x09; 			//Enable AD converter to Channel AN2 (measure VPP);
-	ADCON2 = 0xC1;	//0x88		//Right justified, 2TAD, Fosc/2
+	ADCON2 = 0xA6;	//0x88		//Right justified, 2TAD, Fosc/2
 	ADCON1 = 0x0F; 			//All signals to Digital
 	TRISAbits.TRISA2 = 1;		//Input;
 }
@@ -76,7 +76,7 @@ void ReadAdc(unsigned char* data)
 	i=0;
 	ADCON1 = 0x0C; //channel AN2 .. AN0 to analog
 	ADCON0bits.GO = 1;
-	while (ADCON0bits.GO||(i++<100))continue;
+	while (ADCON0bits.GO)continue;//||(i++<100))continue;
 	data[0]=ADRESL;
 	data[1]=ADRESH;
 	ADCON1 = 0xFF; //back to digital...
