@@ -293,17 +293,180 @@ void ProcessIO(void)
 			case CMD_GET_PIN_STATUS:
 				switch(input_buffer[1])
 				{
+					case SUBCMD_PIN_PGC:
+						if((!TRISPGC_LOW)&&(!PGC_LOW)) //3.3V levels
+						{
+							if(PGC) output_buffer[0] = PIN_STATE_3_3V;
+							else output_buffer[0] = PIN_STATE_0V;
+						}
+						else	//5V levels
+						{
+							if(PGC) output_buffer[0] = PIN_STATE_5V;
+							else output_buffer[0] = PIN_STATE_0V;
+						}
+						counter=1;
+						break;
+					case SUBCMD_PIN_PGD:
+						if(TRISPGD)//PGD is input
+						{
+							if(PGD_READ) output_buffer[0] = PIN_STATE_5V;
+							else output_buffer[0] = PIN_STATE_0V;
+						}
+						else
+						{							
+							if((!TRISPGD_LOW)&&(!PGD_LOW)) //3.3V levels
+							{
+								if(PGD) output_buffer[0] = PIN_STATE_3_3V;
+								else output_buffer[0] = PIN_STATE_0V;
+							}
+							else	//5V levels
+							{
+								if(PGD) output_buffer[0] = PIN_STATE_5V;
+								else output_buffer[0] = PIN_STATE_0V;
+							}
+						}
+						counter=1;
+						break;
+					case SUBCMD_PIN_VDD:
+						if(VDD) output_buffer[0] = PIN_STATE_FLOAT;
+						else output_buffer[0] = PIN_STATE_5V;
+						counter = 1;
+						break;
+					case SUBCMD_PIN_VPP:
+						counter=1;
+						if(!VPP){output_buffer[0] = PIN_STATE_12V;break;}
+						if(VPP_RST){output_buffer[0] = PIN_STATE_0V;break;}
+						if(VPP_RUN){output_buffer[0] = PIN_STATE_5V;break;}
+						output_buffer[0] = PIN_STATE_FLOAT;
+						break;
 					case SUBCMD_PIN_VPP_VOLTAGE:
-						set_vdd_vpp(pictype, picfamily, 1);
 						ReadAdc(output_buffer);
 						counter=2;
-						set_vdd_vpp(pictype, picfamily, 0);
 						break;
 					default:
 						output_buffer[0]=3;
 						counter=1;
 						break;
 				}
+				break;
+			case CMD_SET_PIN_STATUS:
+				switch(input_buffer[1])
+				{
+					case SUBCMD_PIN_PGC:
+						switch(input_buffer[2])
+						{
+							case PIN_STATE_0V:
+								TRISPGC = 0;
+								PGC = 0;
+								TRISPGC_LOW = 1;
+								PGC_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_3_3V:
+								TRISPGC = 0;
+								PGC = 1;
+								TRISPGC_LOW = 0;
+								PGC_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_5V:
+								TRISPGC = 0;
+								PGC = 1;
+								TRISPGC_LOW = 1;
+								PGC_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							default:
+								output_buffer[0]=3;
+								break;
+						}
+						break;
+					case SUBCMD_PIN_PGD:
+						switch(input_buffer[2])
+						{
+							case PIN_STATE_0V:
+								TRISPGD = 0;
+								PGD = 0;
+								TRISPGD_LOW = 1;
+								PGD_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_3_3V:
+								TRISPGD = 0;
+								PGD = 1;
+								TRISPGD_LOW = 0;
+								PGD_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_5V:
+								TRISPGD = 0;
+								PGD = 1;
+								TRISPGD_LOW = 1;
+								PGD_LOW = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_INPUT:
+								TRISPGD_LOW = 1;
+								TRISPGD = 1;
+								output_buffer[0]=1;//ok
+								break;
+							default:
+								output_buffer[0]=3;
+								break;
+						}
+						break;
+					case SUBCMD_PIN_VDD:
+						switch(input_buffer[2])
+						{
+							case PIN_STATE_5V:
+								VDD = 0;
+								output_buffer[0]=1;
+								break;
+							case PIN_STATE_FLOAT:
+								VDD = 1;
+								output_buffer[0]=1;
+								break;
+							default:
+								output_buffer[0]=3;
+								break;
+						}
+						break;
+					case SUBCMD_PIN_VPP:
+						switch(input_buffer[2])
+						{
+							case PIN_STATE_0V:
+								VPP = 1;
+								VPP_RST = 1;
+								VPP_RUN = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_5V:
+								VPP = 1;
+								VPP_RST = 0;
+								VPP_RUN = 1;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_12V:
+								VPP = 0;
+								VPP_RST = 0;
+								VPP_RUN = 0;
+								output_buffer[0]=1;//ok
+								break;
+							case PIN_STATE_FLOAT:
+								VPP = 1;
+								VPP_RST = 0;
+								VPP_RUN = 0;
+								output_buffer[0]=1;//ok
+								break;
+							default:
+								output_buffer[0]=3;
+								break;
+						}
+						break;
+					default:
+						output_buffer[0]=3;
+				}
+				counter=1;
 				break;
 		}
 	}

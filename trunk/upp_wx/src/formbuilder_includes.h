@@ -46,6 +46,7 @@ enum
     //wxID_CONNECT_BOOT,
     wxID_DISCONNECT,
     wxID_RESTORE,
+	wxID_TIMER,
     wxID_PIC_CHOICE_COMBO,
     wxID_PIC_CHOICE_MENU
 

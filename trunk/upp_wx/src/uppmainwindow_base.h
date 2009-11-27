@@ -39,6 +39,7 @@
 ///////////////////////////////////////////////////////////////////////////
 
 #define wxID_PACKAGE_VARIANT 1000
+#define wxID_IO_TEST 1001
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindowBase
@@ -79,6 +80,7 @@ class UppMainWindowBase : public wxFrame
 		wxMenuBar* m_pMenuBar;
 		wxMenu* m_pMenuFile;
 		wxMenu* m_pMenuEdit;
+		wxMenu* m_pMenuOptions;
 		wxMenu* m_pMenuHelp;
 		wxStatusBar* m_pStatusBar;
 		
@@ -92,6 +94,7 @@ class UppMainWindowBase : public wxFrame
 		virtual void on_copy( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_selectall( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_preferences( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_io_test( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
 		

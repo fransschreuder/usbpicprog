@@ -45,6 +45,7 @@
 #include "hexview.h"
 #include "packageview.h"
 #include "configview.h"
+#include "io_test.h"
 #include "../svn_revision.h"
 #include "../firmwareinfo.h"
 
@@ -1527,7 +1528,6 @@ void UppMainWindow::upp_help()
 
 void UppMainWindow::upp_about()
 {
-	m_hardware->getVppVoltage();
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetName(("Usbpicprog"));
     #ifndef UPP_VERSION
@@ -1543,6 +1543,12 @@ void UppMainWindow::upp_about()
     aboutInfo.AddDeveloper(("Francesco Montorsi"));
 
     wxAboutBox(aboutInfo);
+}
+
+
+void UppMainWindow::upp_io_test()
+{
+	IOTest(m_hardware, this);
 }
 
 void UppMainWindow::upp_pic_choice_changed()

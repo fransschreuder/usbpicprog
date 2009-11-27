@@ -1136,14 +1136,40 @@ double Hardware::getVppVoltage()
 	msg[0]=CMD_GET_PIN_STATUS;
 	msg[1]=SUBCMD_PIN_VPP_VOLTAGE;
 	writeString(msg,2);
-	cout<<readString(msg,64);
+	readString(msg,64);
 	iValue = ((int)msg[0])+(((int)msg[1])<<8);
 
 	float fValue = ((float)iValue)*(147.0/47.0)*(5.0/1024.0);
 
-	cout<<"ADC Value: "<<iValue<<" "<<fValue<<" [V]"<<endl;
+	//cout<<"ADC Value: "<<iValue<<" "<<fValue<<" [V]"<<endl;
     return fValue;
 
+}
+
+
+PIN_STATE Hardware::getPinState(SUBCMD_PIN pin)
+{
+	if (m_hwCurrent != HW_UPP) return PIN_STATE_INVALID;
+    if (m_handle == NULL) return PIN_STATE_INVALID;
+	unsigned char msg[64];
+	msg[0]=CMD_GET_PIN_STATUS;
+	msg[1]=pin;
+	writeString(msg,2);
+	readString(msg,64);
+	return (PIN_STATE) msg[0];
+}
+
+int Hardware::setPinState(SUBCMD_PIN pin, PIN_STATE state)
+{
+	if (m_hwCurrent != HW_UPP) return -1;
+    if (m_handle == NULL) return -1;
+	unsigned char msg[64];
+	msg[0]=CMD_SET_PIN_STATUS;
+	msg[1]=pin;
+	msg[2]=state;
+	writeString(msg,3);
+	readString(msg,64);
+	return (int) msg[0];
 }
 
 int Hardware::debug()

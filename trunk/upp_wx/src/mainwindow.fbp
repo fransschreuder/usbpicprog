@@ -1667,9 +1667,11 @@
                         <event name="OnMenuSelection">on_selectall</event>
                         <event name="OnUpdateUI"></event>
                     </object>
-                    <object class="separator" expanded="1">
-                        <property name="permission">none</property>
-                    </object>
+                </object>
+                <object class="wxMenu" expanded="1">
+                    <property name="label">&amp;Options</property>
+                    <property name="name">m_pMenuOptions</property>
+                    <property name="permission">protected</property>
                     <object class="wxMenuItem" expanded="1">
                         <property name="bitmap"></property>
                         <property name="checked">0</property>
@@ -1678,11 +1680,26 @@
                         <property name="id">wxID_PREFERENCES</property>
                         <property name="kind">wxITEM_NORMAL</property>
                         <property name="label">&amp;Preferences</property>
-                        <property name="name">uppMenuOptions</property>
+                        <property name="name">uppMenuOptions1</property>
                         <property name="permission">none</property>
                         <property name="shortcut"></property>
                         <property name="unchecked_bitmap"></property>
                         <event name="OnMenuSelection">on_preferences</event>
+                        <event name="OnUpdateUI"></event>
+                    </object>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help">Shows the options for this program</property>
+                        <property name="id">wxID_IO_TEST</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">&amp;IO Test</property>
+                        <property name="name">uppMenuOptionsIoTest</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">on_io_test</event>
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>

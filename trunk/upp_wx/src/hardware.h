@@ -46,7 +46,8 @@ typedef enum
     CMD_FIRMWARE_VERSION = 0x90,
     CMD_DEBUG = 0xA0,
     CMD_GET_PIN_STATUS = 0xB0,
-    CMD_SET_PIN_STATUS = 0xC0
+    CMD_SET_PIN_STATUS = 0xC0,
+	CMD_INVALID
 }CMD_UPP;
 
 typedef enum
@@ -55,8 +56,20 @@ typedef enum
     SUBCMD_PIN_PGD = 0x02,
     SUBCMD_PIN_VDD = 0x03,
     SUBCMD_PIN_VPP = 0x04,
-    SUBCMD_PIN_VPP_VOLTAGE = 0x05
+    SUBCMD_PIN_VPP_VOLTAGE = 0x05,
+	SUBCMD_PIN_INVALID
 }SUBCMD_PIN;
+
+typedef enum
+{
+	PIN_STATE_0V = 0x01,
+	PIN_STATE_3_3V = 0x02,
+	PIN_STATE_5V = 0x03,
+	PIN_STATE_12V = 0x04,
+	PIN_STATE_FLOAT = 0x05,
+	PIN_STATE_INPUT = 0x06,
+	PIN_STATE_INVALID
+}PIN_STATE;
 
 typedef enum 
 {
@@ -307,6 +320,9 @@ public:
 
     /** read the AD converter and return it as a double voltage*/
     double getVppVoltage();
+
+	PIN_STATE getPinState(SUBCMD_PIN pin);
+	int setPinState(SUBCMD_PIN pin, PIN_STATE state);
 
     /** Just to debug the usbpicprog hardware / firmware, not for debugging the target PIC!*/
 	int debug();

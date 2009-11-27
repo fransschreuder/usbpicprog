@@ -46,6 +46,16 @@ typedef enum
 	SUBCMD_PIN_VPP_VOLTAGE = 0x05
 }SUBCMD_PIN;
 
+typedef enum
+{
+	PIN_STATE_0V = 0x01,
+	PIN_STATE_3_3V = 0x02,
+	PIN_STATE_5V = 0x03,
+	PIN_STATE_12V = 0x04,
+	PIN_STATE_FLOAT = 0x05,
+	PIN_STATE_INPUT = 0x06
+}PIN_STATE;
+
 #define LEDS_ON 0x04
 #define LEDS_RD 0x02
 #define LEDS_WR 0x01

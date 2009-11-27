@@ -197,13 +197,18 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) , _("Selects the entire grid currently shown"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuSelectAll );
 	
-	m_pMenuEdit->AppendSeparator();
-	
-	wxMenuItem* uppMenuOptions;
-	uppMenuOptions = new wxMenuItem( m_pMenuEdit, wxID_PREFERENCES, wxString( _("&Preferences") ) , _("Shows the options for this program"), wxITEM_NORMAL );
-	m_pMenuEdit->Append( uppMenuOptions );
-	
 	m_pMenuBar->Append( m_pMenuEdit, _("&Edit") );
+	
+	m_pMenuOptions = new wxMenu();
+	wxMenuItem* uppMenuOptions1;
+	uppMenuOptions1 = new wxMenuItem( m_pMenuOptions, wxID_PREFERENCES, wxString( _("&Preferences") ) , _("Shows the options for this program"), wxITEM_NORMAL );
+	m_pMenuOptions->Append( uppMenuOptions1 );
+	
+	wxMenuItem* uppMenuOptionsIoTest;
+	uppMenuOptionsIoTest = new wxMenuItem( m_pMenuOptions, wxID_IO_TEST, wxString( _("&IO Test") ) , _("Shows the options for this program"), wxITEM_NORMAL );
+	m_pMenuOptions->Append( uppMenuOptionsIoTest );
+	
+	m_pMenuBar->Append( m_pMenuOptions, _("&Options") );
 	
 	m_pMenuHelp = new wxMenu();
 	wxMenuItem* uppMenuItemHelp;
@@ -231,7 +236,8 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	this->Connect( uppMenuExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_exit ) );
 	this->Connect( uppMenuCopy->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_copy ) );
 	this->Connect( uppMenuSelectAll->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_selectall ) );
-	this->Connect( uppMenuOptions->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_preferences ) );
+	this->Connect( uppMenuOptions1->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_preferences ) );
+	this->Connect( uppMenuOptionsIoTest->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_io_test ) );
 	this->Connect( uppMenuItemHelp->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_help ) );
 	this->Connect( uppMenuAbout->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_about ) );
 }
@@ -248,6 +254,7 @@ UppMainWindowBase::~UppMainWindowBase()
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_copy ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_selectall ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_preferences ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_io_test ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_help ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_about ) );
 }

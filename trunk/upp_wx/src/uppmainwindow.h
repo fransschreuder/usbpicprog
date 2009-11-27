@@ -188,6 +188,7 @@ protected:     // event handlers
     void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
     void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX}
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
+    void on_io_test( wxCommandEvent& event ){upp_io_test(); EVENT_FIX}
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX}
     void on_about( wxCommandEvent& event ){upp_about(); EVENT_FIX}
     void on_pic_choice_changed( wxCommandEvent& event ){upp_pic_choice_changed(); EVENT_FIX}
@@ -223,6 +224,9 @@ private:    // real event handlers
 
     /** Show preferences dialog */
     void upp_preferences();
+
+	/** Show the IO Test dialog */
+	void upp_io_test();
     
     /** Load a browser with the usbpicprog website */
     void upp_help();

@@ -36,7 +36,11 @@ usbpicprog_SOURCES = \
 	preferences_base.cpp \
 	preferences_base.h \
 	preferences.cpp \
-	preferences.h
+	preferences.h \
+	io_test_base.cpp \
+	io_test_base.h \
+	io_test.cpp \
+	io_test.h
 
 usbpicprog_LDFLAGS =
 
