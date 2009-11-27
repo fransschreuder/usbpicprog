@@ -716,9 +716,6 @@ int Hardware::autoDetectDevice()
 		return -1;
 
 	int devId=readId();
-
-
-	
 	if(devId<0)
 		return -1;
 
@@ -773,6 +770,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
     {
         statusCallBack (0);
 		firmwareVersion->isBootloader=false;
+        
         // send the command
         msg[0]=CMD_FIRMWARE_VERSION;
         if (writeString(msg,1) < 0)
@@ -783,6 +781,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 			firmwareVersion->release=0;
 			return -1;
 		}
+        
         // read back the reply
         int nBytes = readString(msg,64);
         if (nBytes < 0)

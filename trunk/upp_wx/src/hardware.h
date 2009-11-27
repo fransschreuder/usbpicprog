@@ -119,19 +119,21 @@ class UppMainWindow;
 struct usb_dev_handle;
 struct usb_interface_descriptor;
 
-
+/**
+    Structure to pass/transport easily a firmware version for the programmer hardware.
+*/
 typedef struct
 {
-	wxString versionString;
-	int major;
-	int minor;
-	int release;
-	bool stableRelease;
-	bool isBootloader;
-}FirmwareVersion;
+    wxString versionString;
+    int major;
+    int minor;
+    int release;
+    bool stableRelease;
+    bool isBootloader;
+} FirmwareVersion;
 
 /** 
-    UppPackage is the data header which is sent to the programmer hardware
+    UppPackage is the data header which is sent to the programmer hardware.
 */
 typedef union
 {

@@ -1434,10 +1434,12 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
-            SetStatusText(firmwareVersion.versionString.Trim().Append(_(" Connected")),
-                          STATUS_FIELD_HARDWARE);
+            wxString tmp = firmwareVersion.versionString;
+            tmp.Trim().Append(_(" Connected"));
+            
+            SetStatusText(tmp, STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups)
-                wxLogMessage(firmwareVersion.versionString.Trim().Append(_(" Connected")));
+                wxLogMessage(tmp);
 
             if (!firmwareVersion.isBootloader)
                 checkFirmwareVersion(firmwareVersion);
