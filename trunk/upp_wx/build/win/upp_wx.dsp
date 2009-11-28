@@ -268,6 +268,14 @@ SOURCE=..\..\src\hexview.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\io_test.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\io_test_base.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\main.cpp
 # End Source File
 # Begin Source File
@@ -321,6 +329,14 @@ SOURCE=..\..\src\hexfile.h
 # Begin Source File
 
 SOURCE=..\..\src\hexview.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\io_test.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\io_test_base.h
 # End Source File
 # Begin Source File
 
