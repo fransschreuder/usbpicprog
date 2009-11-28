@@ -248,10 +248,15 @@ public:
     int bulkErase(PicType *picType, bool doRestoreCalRegs);
 
 	/**
-	 Backs up two calibration registers (OscCal and BandGap) for PIC12F629 and similar devices and puts it in the corresponding variables of *picType
-	 */
+		Backs up two calibration registers (OscCal and BandGap) for PIC12F629 and similar devices and 
+		puts them in the corresponding variable @a picType.
+	*/
 	int backupOscCalBandGap(PicType *picType);
 
+	/**
+		Restores the two calibration registers for PIC12F629 and similar devices.
+		See backupOscCalBandGap().
+	*/
 	int restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap);
 	
     /**
@@ -260,7 +265,8 @@ public:
 
         Returns the number of bytes read or a negative value if an error occurred.
     */
-    int read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes=0, HexFile *verifyData=NULL);
+    int read(MemoryType type, HexFile *hexData, PicType *picType, 
+			 unsigned int numberOfBytes=0, HexFile *verifyData=NULL);
 
     /**
         Writes the code/config/data memory from *hexData into the PIC.

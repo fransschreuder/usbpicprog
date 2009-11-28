@@ -370,7 +370,7 @@ int Hardware::restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap)
 	
 }
 
-int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numberOfBytes, HexFile *verifyData)
+int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned int numberOfBytes, HexFile *verifyData)
 {
     if (!picType->ok()) return -1;
     if (m_handle == NULL) return -1;
@@ -388,7 +388,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, int numb
 		case TYPE_CONFIG: memorySize = picType->ConfigSize; break;
     }
 
-	if((numberOfBytes>0)&&(numberOfBytes<memorySize))memorySize=numberOfBytes;
+	if (numberOfBytes<memorySize)
+		memorySize=numberOfBytes;
 	
     if (memorySize==0)
         return 0;       // no code/config/data to read
