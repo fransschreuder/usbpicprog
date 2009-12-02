@@ -198,6 +198,7 @@ void ProcessIO(void)
 						read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 						break;
 					case PIC16:
+						set_vdd_vpp(picfamily, pictype, 0);
 						read_code(picfamily,pictype,0x2006,(unsigned char*)output_buffer,2,3);  //devid is at location 0x2006  for PIC16 devices
 						break;
 				}
