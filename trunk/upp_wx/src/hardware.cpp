@@ -542,7 +542,6 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 				    picType->Name.IsSameAs("P18F4321")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2221;
 				else if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC;
 				else blockSizeHW=BLOCKSIZE_CODE;
-				cout<<blockSizeHW<<endl;
 			}
 			break;
 		case TYPE_DATA:
