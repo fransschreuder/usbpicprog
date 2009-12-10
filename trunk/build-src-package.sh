@@ -5,7 +5,8 @@ if [ $# -ne 0 ]
 then
   RELEASE=$1
 else
-  RELEASE=$(svnversion -n)-$(date +%Y%m%d)
+  RELEASE=$(svnversion -n)
+#-$(date +%Y%m%d)
 fi
 echo Building release: $RELEASE
 #ARCHITECTURE=$(uname -m)
