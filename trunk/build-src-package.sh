@@ -57,15 +57,15 @@ tar -zcvhf usbpicprog_$RELEASE.orig.tar.gz usbpicprog-$RELEASE
 rm -rf usbpicprog-$RELEASE
 tar -zxvf usbpicprog_$RELEASE.orig.tar.gz
 cd usbpicprog-$RELEASE
-dh_make -e fransschreuder@gmail.com -s
+#dh_make -e fransschreuder@gmail.com -s
 
-cp debian-src/* debian
-cd debian
-#dch changelog
-gedit changelog
-rm *.ex
-rm *.EX
-rm README.Debian
-cd ..
+#cp debian-src/* debian
+dch -D karmic -v $RELEASE
+#cd debian
+#gedit debian/changelog
+#rm *.ex
+#rm *.EX
+#rm README.Debian
+#cd ..
 debuild -S -k8AD5905E
 

@@ -19,7 +19,7 @@ usbpicprogdir = ${prefix}/share/usbpicprog
 usbpicprog_DATA = \
 	index.xml
 
-Applicationsdir = ${prefix}/share/usbpicprog/applications
+Applicationsdir = ${prefix}/share/applications
 Applications_DATA = Usbpicprog.desktop
 
 usbpicprogrulesdir = /etc/udev/rules.d
