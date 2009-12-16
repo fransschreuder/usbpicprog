@@ -1,3 +1,10 @@
+usbpicprog (776) karmic; urgency=low
+
+  * Now possible to resize the mainwindow for smaller laptop screens
+    (e.g. mini notebooks)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 16 Dec 2009 10:59:38 +0100
+
 usbpicprog (775) karmic; urgency=low
 
   * Fixed location of .desktop (launcher)

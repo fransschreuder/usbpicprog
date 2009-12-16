@@ -6,11 +6,14 @@ then
   RELEASE=$1
 else
   RELEASE=$(svnversion -n)
+  RELEASE=${RELEASE:0:3}
 #-$(date +%Y%m%d)
 fi
+
 echo Building release: $RELEASE
-#ARCHITECTURE=$(uname -m)
-#echo Building for architecture: $ARCHITECTURE
+
+LASTLOGMESSAGE=$(svn log -r $RELEASE | sed '$d' |sed '$d'| sed '1d' | sed '1d')
+echo $LASTLOGMESSAGE
 
 if [ -d release ]
 then
@@ -60,7 +63,7 @@ cd usbpicprog-$RELEASE
 #dh_make -e fransschreuder@gmail.com -s
 
 #cp debian-src/* debian
-dch -D karmic -m -v $RELEASE
+dch -D karmic -m -v $RELEASE $LASTLOGMESSAGE
 cp debian/changelog ../../upp_wx/debian
 #cd debian
 #gedit debian/changelog
