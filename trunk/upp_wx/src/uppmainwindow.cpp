@@ -385,7 +385,8 @@ void UppMainWindow::CompleteGUICreation()
     m_pPICChoice->Append(m_arrPICName);
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
-    this->SetSizerAndFit(m_pSizer);
+//    this->SetSizerAndFit(m_pSizer);
+    this->SetSizer(m_pSizer);
 
     // eventually load position&size of this window from the wxConfig object:
     wxPersistenceManager::Get().RegisterAndRestore(this);

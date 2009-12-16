@@ -60,7 +60,8 @@ cd usbpicprog-$RELEASE
 #dh_make -e fransschreuder@gmail.com -s
 
 #cp debian-src/* debian
-dch -D karmic -v $RELEASE
+dch -D karmic -m -v $RELEASE
+cp debian/changelog ../../upp_wx/debian
 #cd debian
 #gedit debian/changelog
 #rm *.ex
