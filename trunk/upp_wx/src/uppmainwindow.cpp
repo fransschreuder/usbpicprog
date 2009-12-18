@@ -856,7 +856,7 @@ bool UppMainWindow::upp_thread_read()
     // reset current contents:
     m_hexFile.newFile(&m_picType);
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
-    if (m_hardware->read(TYPE_CODE, &m_hexFile, &m_picType)<0)
+    if (m_hardware->read(TYPE_CODE, &m_hexFile, &m_picType, m_picType.CodeSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
         m_hexFile.trimData(&m_picType);
@@ -866,7 +866,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
-    if (m_hardware->read(TYPE_DATA, &m_hexFile, &m_picType)<0)
+    if (m_hardware->read(TYPE_DATA, &m_hexFile, &m_picType, m_picType.DataSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading data memory"));
         m_hexFile.trimData(&m_picType);
@@ -877,7 +877,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
-    if (m_hardware->read(TYPE_CONFIG, &m_hexFile, &m_picType)<0)
+    if (m_hardware->read(TYPE_CONFIG, &m_hexFile, &m_picType, m_picType.ConfigSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
         m_hexFile.trimData(&m_picType);

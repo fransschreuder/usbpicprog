@@ -268,7 +268,7 @@ public:
         Returns the number of bytes read or a negative value if an error occurred.
     */
     int read(MemoryType type, HexFile *hexData, PicType *picType, 
-			 unsigned int numberOfBytes=0, HexFile *verifyData=NULL);
+			 unsigned int numberOfBytes, HexFile *verifyData=NULL);
 
     /**
         Writes the code/config/data memory from *hexData into the PIC.

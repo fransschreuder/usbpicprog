@@ -326,9 +326,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
-            if(hardware->read(TYPE_CODE,hexFile,picType)<0)cerr<<"Error reading Code"<<endl;
-            if(hardware->read(TYPE_DATA,hexFile,picType)<0)cerr<<"Error reading Data"<<endl;
-            if(hardware->read(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error reading Config"<<endl;
+            if(hardware->read(TYPE_CODE,hexFile,picType,picType->CodeSize)<0)cerr<<"Error reading Code"<<endl;
+            if(hardware->read(TYPE_DATA,hexFile,picType,picType->DataSize)<0)cerr<<"Error reading Data"<<endl;
+            if(hardware->read(TYPE_CONFIG,hexFile,picType,picType->ConfigSize)<0)cerr<<"Error reading Config"<<endl;
             hexFile->trimData(picType);
             if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to save file"<<endl;
