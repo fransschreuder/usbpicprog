@@ -137,11 +137,7 @@ public:
         respectively for 16 and 8 bit devices.
     */
     void trimData(PicType* picType);
-#if wxCHECK_VERSION(2,8,10)
     const char* getFileName() const { return m_filename.c_str(); }
-#else
-	const char* getFileName() const { return m_filename.mb_str(wxConvUTF8); }
-#endif
     bool hasFileName() const { return !m_filename.empty(); }
     
     /**

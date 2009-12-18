@@ -32,11 +32,9 @@
 #include "uppmainwindow.h"
 
 
-#if wxCHECK_VERSION(2,9,0)
 // array used for fast decimal=>hex conversion in ShowHexFile()
 static wxStringCharType g_digits[] =
     { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
-#endif
 
 
 // ----------------------------------------------------------------------------
@@ -53,9 +51,7 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     //       row is always _required_
 
     CreateGrid( 1, 24 );
-#if wxCHECK_VERSION(2,9,0)
     SetUseNativeColLabels( true );      // makes the control look more native
-#endif
     EnableEditing( true );
     EnableGridLines( false );
     EnableDragGridSize( false );
@@ -66,14 +62,14 @@ UppHexViewGrid::UppHexViewGrid(wxWindow* parent, wxWindowID id, UppHexViewType t
     EnableDragColSize( false );
     SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
     for(int i=0;i<GetNumberCols();i++)
-        SetColLabelValue(i,wxString::Format(_uT("%02X"),i));
+        SetColLabelValue(i,wxString::Format(("%02X"),i));
 
     // Rows
     EnableDragRowSize( false );
     SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 
     // set in the first row a dummy label just to enable correct row auto-sizing
-    SetRowLabelValue(0, _uT("FFFFFF"));
+    SetRowLabelValue(0, ("FFFFFF"));
     AutoSize();     // let wxGrid auto-resize our columns and our row
 
     // Connect Events

@@ -39,22 +39,13 @@
 // ----------------------------------------------------------------------------
 
 UppPackageViewWindow::UppPackageViewWindow(wxWindow* parent, wxWindowID id)
-#if wxCHECK_VERSION(2,9,0)
-    : wxScrolledCanvas( parent, id, wxDefaultPosition, wxDefaultSize, 
-#else
-	: wxPanel( parent, id, wxDefaultPosition, wxDefaultSize,                        
-#endif                      
-                        wxHSCROLL|wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, _("packageview") )
+    : wxScrolledCanvas( parent, id, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL|wxFULL_REPAINT_ON_RESIZE, _("packageview") )
 {
     //SetBackgroundStyle(wxBG_STYLE_COLOUR);
     SetBackgroundColour(*wxWHITE);
-#if wxCHECK_VERSION(2,9,0)	
     SetScrollRate(20,20);
-#endif	
-
     Connect(wxEVT_PAINT, wxPaintEventHandler(UppPackageViewWindow::OnPaint), NULL, this);
     Connect(wxEVT_SIZE, wxSizeEventHandler(UppPackageViewWindow::OnSize), NULL, this);
-    
     m_fitting = false;
 }
 
@@ -66,20 +57,11 @@ wxSize UppPackageViewWindow::DoGetBestSize() const
 void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
 {
     // initialize the bitmap
-	#if wxCHECK_VERSION(2,9,0)
     if (!m_bmp.Create(sz))
     {
         wxLogError(_("Can't create the package bitmap!"));
         return;
     }
-	#else
-	if (!m_bmp.Create(sz.GetWidth(), sz.GetHeight()))
-    {
-        wxLogError(_("Can't create the package bitmap!"));
-        return;
-    }
-	#endif
-
     wxMemoryDC dc(m_bmp);
     if (!dc.IsOk())
     {
@@ -101,14 +83,10 @@ void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
         //       and thus our OnSize() would be called with an outdated
         //       m_fitting variable; to avoid this we temporarily block
         //       event generation
-#if wxCHECK_VERSION(2,9,0)		
         wxEventBlocker nul(this);
-#endif		
         SetVirtualSize(sz);
     }
-#if wxCHECK_VERSION(2,9,0)		
     AdjustScrollbars();
-#endif	
     Refresh();
 }
 
@@ -119,14 +97,14 @@ void UppPackageViewWindow::UpdateBitmap(const wxSize& sz)
 
 void UppPackageViewWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
 {
-    wxPaintDC dc(this);
-#if wxCHECK_VERSION(2,9,0)			
+    wxPaintDC dc(this);			
     DoPrepareDC(dc);
-#endif
     // should always be valid:
     wxASSERT(m_bmp.IsOk());
-
-    dc.DrawBitmap(m_bmp, 0, 0);
+	wxSize dcSize = dc.GetSize();
+	wxSize bmpSize = m_bmp.GetSize();
+	
+    dc.DrawBitmap(m_bmp, (dcSize.GetWidth() - bmpSize.GetWidth())/2, (dcSize.GetHeight() - bmpSize.GetHeight())/2);
 }
 
 void UppPackageViewWindow::OnSize(wxSizeEvent& WXUNUSED(event))
@@ -142,13 +120,8 @@ void UppPackageViewWindow::OnZoomIn(wxCommandEvent& WXUNUSED(event))
         return;     // zooming into the bitmap consumes memory; without this limit
                     // the app would crash at some point (depending on the user's system)
                     // because of some malloc() call returning NULL...
- #if wxCHECK_VERSION(2,9,0)		
     UpdateBitmap(m_bmp.GetSize()*1.5);
 	m_fitting = m_bmp.GetSize() == GetClientSize();
-#else	
-	UpdateBitmap(wxSize(m_bmp.GetWidth()*1.5,m_bmp.GetHeight()*1.5));
-	m_fitting = wxSize(m_bmp.GetWidth(),m_bmp.GetHeight()) == GetClientSize();
-#endif  
 }
 
 void UppPackageViewWindow::OnZoomOut(wxCommandEvent& WXUNUSED(event))
@@ -157,13 +130,8 @@ void UppPackageViewWindow::OnZoomOut(wxCommandEvent& WXUNUSED(event))
         return;     // zooming out of the bitmap makes the bitmap smaller and smaller;
                     // when reaching an invalid size (width/height == 0) an assert
                     // would fail in UpdateBitmap(); avoid it
- #if wxCHECK_VERSION(2,9,0)	        
     UpdateBitmap(m_bmp.GetSize()*(1.0/1.5));
 	m_fitting = m_bmp.GetSize() == GetClientSize();	
-#else	
-	UpdateBitmap(wxSize(m_bmp.GetWidth()/1.5,m_bmp.GetHeight()/1.5));
-	m_fitting = wxSize(m_bmp.GetWidth(),m_bmp.GetHeight()) == GetClientSize();	
-#endif
 }
 
 void UppPackageViewWindow::OnZoomFit(wxCommandEvent& WXUNUSED(event))

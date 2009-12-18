@@ -309,11 +309,7 @@ void HexFile::trimData(PicType* picType)
 
 bool HexFile::reload(PicType* picType)
 {
-#if wxCHECK_VERSION(2,8,10)
     return open(picType, m_filename.c_str());
-#else	
-	return open(picType, m_filename.mb_str(wxConvUTF8));
-#endif	
 }
 
 bool HexFile::saveAs(PicType* picType, const char* filename)
@@ -500,11 +496,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 
 bool HexFile::save(PicType* picType)
 {
-#if wxCHECK_VERSION(2,8,10)
 	return saveAs(picType, m_filename.c_str());
-#else
-	return saveAs(picType, m_filename.mb_str(wxConvUTF8));
-#endif
 }
 
 void HexFile::putMemory(MemoryType type, const vector<int>& mem, const PicType* picType)
@@ -704,10 +696,10 @@ void HexFile::print(wxString* output,PicType *picType)
             sprintf(txt,"%02X",getMemory(TYPE_CODE)[i+j]);
             output->append( wxString::FromAscii(txt));
         }
-        output->append(_uT("\n"));
+        output->append(("\n"));
     }
 
-    output->append(_uT("\nConfig Memory\n"));
+    output->append(("\nConfig Memory\n"));
     for (unsigned int i=0; i<getMemory(TYPE_CONFIG).size(); i+=16)
     {
         sprintf(txt,"%08X::",i+picType->ConfigAddress);
@@ -725,10 +717,10 @@ void HexFile::print(wxString* output,PicType *picType)
             sprintf(txt,"%02X",getMemory(TYPE_CONFIG)[i+j]);
             output->append( wxString::FromAscii(txt));
         }
-        output->append(_uT("\n"));
+        output->append(("\n"));
     }
 
-    output->append(_uT("\nData Memory\n"));
+    output->append(("\nData Memory\n"));
     for (unsigned int i=0; i<getMemory(TYPE_DATA).size(); i+=16)
     {
         sprintf(txt,"%08X::",i);
@@ -746,7 +738,7 @@ void HexFile::print(wxString* output,PicType *picType)
             sprintf(txt,"%02X",getMemory(TYPE_DATA)[i+j]);
             output->append( wxString::FromAscii(txt));
         }
-        output->append(_uT("\n"));
+        output->append(("\n"));
     }
 }
 

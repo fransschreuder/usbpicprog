@@ -156,16 +156,11 @@ protected:      // internal thread-related functions
 
     // functions which are executed in the primary thread context:
     bool RunThread(UppMainWindowThreadMode mode);
-#if wxCHECK_VERSION(2,9,0)
     /** Handles an update from the secondary thread */
     void OnThreadUpdate(wxThreadEvent& evt);
 
     /** Handles the notification about the secondary thread just finishing */
     void OnThreadCompleted(wxThreadEvent& evt);
-#else
-    void OnThreadUpdate(wxCommandEvent& evt);
-    void OnThreadCompleted(wxCommandEvent& evt);
-#endif
 
 protected:     // event handlers
     void on_mru( wxCommandEvent& event );

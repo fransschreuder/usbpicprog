@@ -27,11 +27,7 @@
 /**
     A simple window showing the package of a PIC.
 */
-#if wxCHECK_VERSION(2,9,0)	
 class UppPackageViewWindow : public wxScrolledCanvas
-#else
-class UppPackageViewWindow : public wxPanel
-#endif
 {
 public:
     UppPackageViewWindow(wxWindow* parent, wxWindowID id);

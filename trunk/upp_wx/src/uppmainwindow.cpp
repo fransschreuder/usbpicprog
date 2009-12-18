@@ -35,10 +35,8 @@
 #include <wx/dataview.h>
 #include <wx/dcmemory.h>
 
-#if wxCHECK_VERSION(2,9,0)
 #include <wx/persist/toplevel.h>
 #include <wx/evtloop.h>
-#endif
 
 #include "uppmainwindow_base.h"
 #include "uppmainwindow.h"
@@ -77,16 +75,9 @@ static const wxChar *FILETYPES = _T(
     "Hex files|*.hex;*.HEX|All files|*.*"
 );
 
-#if wxCHECK_VERSION(2,9,0)
+
 wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEvent );
 wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEvent );
-#else
-extern const wxEventType wxEVT_COMMAND_THREAD_UPDATE;
-extern const wxEventType wxEVT_COMMAND_THREAD_COMPLETE;
-DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_UPDATE);
-DEFINE_EVENT_TYPE(wxEVT_COMMAND_THREAD_COMPLETE);
-#endif
-
 
 
 // ----------------------------------------------------------------------------
@@ -594,25 +585,15 @@ void UppMainWindow::updateProgress(int value)
 
     // the following line will result in a call to UppMainWindow::OnThreadUpdate()
     // in the primary thread context
-#if wxCHECK_VERSION(2,9,0)
     if (wxEventLoopBase::GetActive() == NULL)
         return;     // this may happen at startup, when the Hardware class is initialized
 
     wxThreadEvent* ev = new wxThreadEvent(wxEVT_COMMAND_THREAD_UPDATE);
     ev->SetInt(value);
     wxQueueEvent(this, ev);
-#else
-    wxCommandEvent ev(wxEVT_COMMAND_THREAD_UPDATE);
-    ev.SetInt(value);
-    wxPostEvent(this, ev);
-#endif
 }
 
-#if wxCHECK_VERSION(2,9,0)
 void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
-#else
-void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
-#endif
 {
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
@@ -622,7 +603,6 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
         wxCriticalSectionLocker lock(m_arrLogCS);
 
         bool continueOperation =
-#if wxCHECK_VERSION(2,9,0)
             m_dlgProgress->Update(evt.GetInt(),
                                 _("Please wait until the operations are completed:\n") +
                                 wxJoin(m_arrLog, '\n'));
@@ -632,9 +612,6 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
 
         // make sure the focused window is the progress dialog:
         m_dlgProgress->SetFocus();
-#else
-            m_dlgProgress->Update(evt.GetInt());
-#endif
         if (!continueOperation &&               // user clicked "abort"?
             !m_hardware->operationsAborted())   // is the hardware already aborting?
         {
@@ -644,11 +621,7 @@ void UppMainWindow::OnThreadUpdate(wxCommandEvent& evt)
     }
 }
 
-#if wxCHECK_VERSION(2,9,0)
 void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
-#else
-void UppMainWindow::OnThreadCompleted(wxCommandEvent&)
-#endif
 {
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
@@ -741,30 +714,11 @@ wxThread::ExitCode UppMainWindow::Entry()
         wxFAIL;
     }
 
-#if !wxCHECK_VERSION(2,9,0)
-    // NOTE: since wx2.9.0 thanks to the selective Yield() behaviour,
-    //       we are sure that the order of the wxEVT_COMMAND_THREAD_UPDATE
-    //       and wxEVT_COMMAND_THREAD_COMPLETE events will be respected.
-    //       I.e. the "update" one will always be processed before the "complete" one.
-    //       Previous wx2.9 this was not granted since wxProgressDialog::Update
-    //       called wxYieldIfNeeded(), thus we use a Sleep(500) to (try to)
-    //       ensure that "complete" will be processed after the "update" event.
-    //       See ticket #10320 in wxWidgets for more info.
-    wxThread::Sleep(500);
-#endif
-
-	
     // signal the main thread we've completed our task; this will result
     // in a call to UppMainWindow::OnThreadCompleted done in the primary
     // thread context:
 
-#if wxCHECK_VERSION(2,9,0)
     wxQueueEvent(this, new wxThreadEvent(wxEVT_COMMAND_THREAD_COMPLETE));
-#else
-    wxCommandEvent ev(wxEVT_COMMAND_THREAD_COMPLETE);
-    wxPostEvent(this, ev);
-#endif
-
     return (wxThread::ExitCode)exitCode;
 }
 
@@ -1080,11 +1034,7 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     // note that the thread is not running yet so there's no need for a critical section:
     m_mode = mode;
 
-#if wxCHECK_VERSION(2,9,0)
     if (CreateThread(wxTHREAD_JOINABLE) != wxTHREAD_NO_ERROR)
-#else
-    if (wxThreadHelper::Create() != wxTHREAD_NO_ERROR)
-#endif
     {
         wxLogError(_("Could not create the worker thread!"));
         return false;

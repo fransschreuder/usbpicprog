@@ -713,12 +713,12 @@ int Hardware::autoDetectDevice()
 
     if (m_hwCurrent == HW_BOOTLOADER)
 	{
-		PicType picBoot = PicType::FindPIC(_uT("P18F2550"));
+		PicType picBoot = PicType::FindPIC(("P18F2550"));
 		cout<<"Bootloader Devid: "<<std::hex<<picBoot.DevId<<endl;
 		return picBoot.DevId;
 	}
      
-	PicType pic16 = PicType::FindPIC(_uT("P16F628A"));
+	PicType pic16 = PicType::FindPIC(("P16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
 
@@ -734,7 +734,7 @@ int Hardware::autoDetectDevice()
 	{
 	
 		// need to set hardware to PIC18, no matter which one
-		PicType pic18 = PicType::FindPIC(_uT("P18F2550"));
+		PicType pic18 = PicType::FindPIC(("P18F2550"));
 		if (setPicType(&pic18) < 0)
 			return -1;
 
@@ -751,7 +751,7 @@ int Hardware::autoDetectDevice()
 		else
 		{
 			// try PIC16: the specific PIC16 device doesn't matter
-			PicType pic30 = PicType::FindPIC(_uT("P30F1010"));
+			PicType pic30 = PicType::FindPIC(("P30F1010"));
 			if (setPicType(&pic30) < 0)
 				return -1;
 
@@ -782,7 +782,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
         msg[0]=CMD_FIRMWARE_VERSION;
         if (writeString(msg,1) < 0)
 		{
-			firmwareVersion->versionString=_uT("");
+			firmwareVersion->versionString=("");
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
 			firmwareVersion->release=0;
@@ -793,40 +793,26 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
         int nBytes = readString(msg,64);
         if (nBytes < 0)
 		{
-			firmwareVersion->versionString=_uT("");
+			firmwareVersion->versionString=("");
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
 			firmwareVersion->release=0;
 			return nBytes;
 		}
-#if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
-#else
-		firmwareVersion->versionString = wxString::FromAscii((const char*)msg);
-#endif
 		wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
 		firmwareVersion->stableRelease=(strippedVersion.size()==5);
 		if(firmwareVersion->stableRelease)
 		{
-#if wxCHECK_VERSION(2,8,10)			
 			firmwareVersion->major=atoi(strippedVersion.substr(0,1).c_str());
 			firmwareVersion->minor=atoi(strippedVersion.substr(2,1).c_str());
 			firmwareVersion->release=atoi(strippedVersion.substr(4,1).c_str());
-#else
-			firmwareVersion->major=atoi(wxString(strippedVersion.substr(0,1)).mb_str(wxConvUTF8));
-			firmwareVersion->minor=atoi(wxString(strippedVersion.substr(2,1)).mb_str(wxConvUTF8));
-			firmwareVersion->release=atoi(wxString(strippedVersion.substr(4,1)).mb_str(wxConvUTF8));
-#endif			
 		}
 		else
 		{
 			firmwareVersion->major=0;
 			firmwareVersion->minor=0;
-#if wxCHECK_VERSION(2,8,10)				
 			firmwareVersion->release=atoi(strippedVersion.c_str());
-#else
-			firmwareVersion->release=atoi(wxString(strippedVersion).mb_str(wxConvUTF8));
-#endif			
 		}
 		//cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
         statusCallBack (100);
@@ -858,12 +844,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 		firmwareVersion->minor=msg[2];
 		firmwareVersion->release=0;
         sprintf((char*)msg, "Bootloader v%d.%d", msg[3], msg[2]);
-#if wxCHECK_VERSION(2,8,10)			
 		firmwareVersion->versionString.assign((const char*)msg);
-#else		
-		firmwareVersion->versionString= wxString::FromAscii((const char*)msg);
-#endif		
-		
 		firmwareVersion->stableRelease=true;
         return nBytes;
     }
@@ -906,7 +887,7 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     if (nBytes < size)
     {
         wxLogError(_("Usb Error while writing to device: %d bytes, errCode: %d"), size, nBytes);
-		wxLogError(_uT("%s"), usb_strerror());
+		wxLogError(("%s"), usb_strerror());
         return -1;
     }
 

@@ -53,12 +53,6 @@ class wxDC;
 
 #define UPP_INVALID_PIC         (PicType())
 
-#if wxCHECK_VERSION(2,8,10)		
-#define _uT
-#else
-#define _uT wxT
-#endif
-
 // enums:
 
 /**
