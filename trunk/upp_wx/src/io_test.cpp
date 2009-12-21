@@ -36,7 +36,7 @@ IOTest::~IOTest()
 
 void IOTest::upp_vpp()
 {
-	PIN_STATE state;
+	PIN_STATE state=PIN_STATE_0V;
 	if(m_radioVPP12->GetValue())state = PIN_STATE_12V;
 	if(m_radioVPP5->GetValue())state = PIN_STATE_5V;
 	if(m_radioVPPFLOAT->GetValue())state = PIN_STATE_FLOAT;
@@ -47,7 +47,7 @@ void IOTest::upp_vpp()
 
 void IOTest::upp_vdd()
 {
-	PIN_STATE state;
+	PIN_STATE state=PIN_STATE_FLOAT;
 	if(m_radioVDD5->GetValue())state = PIN_STATE_5V;
 	if(m_radioVDDFLOAT->GetValue())state = PIN_STATE_FLOAT;
 	m_hardware->setPinState(SUBCMD_PIN_VDD, state);
@@ -56,7 +56,7 @@ void IOTest::upp_vdd()
 
 void IOTest::upp_pgd()
 {
-	PIN_STATE state;
+	PIN_STATE state=PIN_STATE_0V;
 	if(m_radioPGD5->GetValue())state = PIN_STATE_5V;
 	if(m_radioPGD3_3->GetValue())state = PIN_STATE_3_3V;
 	if(m_radioPGD0->GetValue())state = PIN_STATE_0V;
@@ -67,7 +67,7 @@ void IOTest::upp_pgd()
 
 void IOTest::upp_pgc()
 {
-	PIN_STATE state;
+	PIN_STATE state=PIN_STATE_0V;
 	if(m_radioPGC5->GetValue())state = PIN_STATE_5V;
 	if(m_radioPGC3_3->GetValue())state = PIN_STATE_3_3V;
 	if(m_radioPGC0->GetValue())state = PIN_STATE_0V;

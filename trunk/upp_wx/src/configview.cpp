@@ -320,7 +320,7 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
             const vector<wxChoice*>& choices = m_ctrl[SelectedWord].choiceArray;
 
             // find the wxChoice for the i-th configuration mask:
-            wxChoice *choice;
+            wxChoice *choice=NULL;
             for (unsigned int j=0; j<choices.size(); j++)
             {
                 if (mask.Name == choices[j]->GetName())

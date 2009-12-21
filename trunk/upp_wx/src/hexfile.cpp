@@ -78,7 +78,7 @@ bool HexFile::open(PicType* picType, const char* filename)
     unsigned int byteCount;
     unsigned int checkSum;
     unsigned int configAddress,dataAddress;
-    unsigned int newSize;
+    unsigned int newSize=0;
     string tempStr;
     RecordType recordType;
 	ifstream fp(filename);
@@ -109,7 +109,7 @@ bool HexFile::open(PicType* picType, const char* filename)
 
         // first 2 digits are the byte count
         sscanf(tempStr.c_str(),":%02X",&byteCount);
-        if ((((byteCount+5)*2)+1)!=(signed)tempStr.size())
+        if ((((byteCount+5)*2)+1)!=tempStr.size())
         {
             wxLogError(_("Failure in hex file..."));
             return false;
@@ -572,6 +572,9 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other,bool skipBoot
         arrThis=&m_configMemory; 
         arrOther=&other->m_configMemory; 
         break;
+    default:
+        arrThis=NULL;
+        arrOther=NULL;
     }
 
     // ensure that in the loop below we won't exceed any array bound
@@ -598,6 +601,8 @@ VerifyResult HexFile::verify(MemoryType type, const HexFile* other,bool skipBoot
 					return res;
 				}
 				break;
+            default:
+                break;
 		}
     }
     /*

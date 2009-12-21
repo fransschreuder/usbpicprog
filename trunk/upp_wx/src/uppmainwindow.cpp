@@ -445,11 +445,12 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
         return;
     }
     
-    // check major digit
-    double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
-    double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
+    
 
 	#ifdef UPP_VERSION
+	// check major digit
+    double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
+    double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
     if(stableVersion<stableFirmwareVersion)wxLogMessage(_("Firmware probably too new")); 
     if(stableVersion>stableFirmwareVersion)wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
     #else
@@ -672,6 +673,8 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
 
     case THREAD_ERASE:
         Reset();
+        break;
+    default:
         break;
     }
 

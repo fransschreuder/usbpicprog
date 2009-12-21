@@ -561,7 +561,6 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
     statusCallBack (0);
 
-    int nBytes=0;
     for (unsigned int blockcounter=0; blockcounter<memory->size(); blockcounter+=blockSizeHW)
     {
         statusCallBack (blockcounter*100/memory->size());
@@ -1077,6 +1076,9 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             break;
         case TYPE_DATA:
             bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_DATA;
+            break;
+        default:
+            //nothing to do for CONFIG
             break;
         }
 

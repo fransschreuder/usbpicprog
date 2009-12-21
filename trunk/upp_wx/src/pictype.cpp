@@ -53,6 +53,15 @@ PicType::PicIndexInfo PicType::s_default;
 // PicType
 // ----------------------------------------------------------------------------
 
+
+PicType::PicType() : CodeSize(0), ConfigAddress(0), DataSize(0), DataAddress(0), ConfigSize(0), 
+                picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
+{
+    for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
+        WorkVoltages[i] = ProgVoltages[i] = 0.0;
+}
+
+
 bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
 {
     if (indexInfo.pic)
@@ -762,7 +771,7 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
             // - make best use of the available space
             // - avoid drawing package excessively big
             const unsigned int BoxW = sz.GetWidth()/3;
-            const unsigned int BoxH = sz.GetHeight()*0.8;
+            const unsigned int BoxH = (unsigned int)((double)sz.GetHeight()*0.8);
             const unsigned int BoxX = (sz.GetWidth()-BoxW)/2;
             const unsigned int BoxY = (sz.GetHeight()-BoxH)/2;
             const unsigned int R = BoxW/6;

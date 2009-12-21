@@ -454,12 +454,7 @@ public:
         To make a PicType instance valid (so that ok() return true) initialize
         a PicType assigning it the return value of FindPIC() function.
     */
-    PicType() : CodeSize(0), ConfigAddress(0), DataAddress(0), DataSize(0), ConfigSize(0), 
-                picFamily(UPP_INVALID_PICFAMILY), DevId(0), DevIdMask(0), MinFreq(0), MaxFreq(0)
-    {
-        for (unsigned int i=0; i<VOLTAGE_TYPE_MAX; i++)
-            WorkVoltages[i] = ProgVoltages[i] = 0.0;
-    }
+    PicType();
 
     // public members to avoid lots of getters/setters:
 
@@ -469,18 +464,18 @@ public:
 
     /// Size of the code memory area (in word units??)
     unsigned int CodeSize;
-
-    /// Size of the configuration memory area (in word units??)
-    unsigned int ConfigSize;
-
-    /// Size of the data memory area (in word units??)
-    unsigned int DataSize;
-
+    
     /// Address for the configuration memory area (in word units??)
     unsigned int ConfigAddress;
 
+    /// Size of the data memory area (in word units??)
+    unsigned int DataSize;
+        
     /// Address for the data memory area (in word units??)
     unsigned int DataAddress;
+
+    /// Size of the configuration memory area (in word units??)
+    unsigned int ConfigSize;
 
     /// The family to which this PIC belongs.
     PicFamily picFamily;
