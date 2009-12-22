@@ -1,3 +1,10 @@
+usbpicprog (778) karmic; urgency=low
+
+  * some code cleanup, removed debian package from release.sh (this will
+    now only create a .tar.gz from software and firmware
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 18 Dec 2009 13:22:08 +0100
+
 usbpicprog (776) karmic; urgency=low
 
   * Now possible to resize the mainwindow for smaller laptop screens
