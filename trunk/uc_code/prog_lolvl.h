@@ -32,6 +32,17 @@
 */
 #define clock_delay() Nop()
 
+#define I2C_delay() Nop(); \
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop();\
+	Nop()
+
 
 
 /**
@@ -91,16 +102,26 @@ unsigned int dspic_read_16_bits(void);
 */
 void dspic_send_24_bits(unsigned long payload);
 
-/**
-   Writes a 16 bit word to a dsPic device
-*/
-//void dspic_send(unsigned int payload);
 
 /**
-  Reads a 16 bit word from a dsPic device
+I2C Start
 */
-//unsigned int dspic_read(void);
-		
+void I2C_start();
+
+/**
+I2C Stop
+*/
+void I2C_stop();
+
+
+/** 
+returns ack
+*/
+unsigned char I2C_Write_byte(unsigned char d);
+
+
+unsigned char I2C_Read_byte(unsigned char ack);
+
 
 
 #endif // PROG_LOLVL_H

@@ -533,6 +533,7 @@ unsigned char set_pictype(unsigned char* data)
 		case P24FJXXXGA1:picfamily=PIC24;break;
 		case dsP30F:picfamily=dsPIC30;break;
 		case dsP33F:picfamily=dsPIC33;break;
+		case I2C_EE:picfamily=I2C;break;
    		default: pictype=P18F2XXX;picfamily=PIC18;return 3;break;
 	}
 	return 1;	

@@ -328,8 +328,8 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 {cout<<"name attribute in memory not found"<<endl;return UPP_INVALID_PIC;}
             if (name == ("code"))
 			{
-                
-				if(p.is24Bit()) p.CodeSize = ((GetRange(child)+1)*3)/2;   // times 1.5 because Microchip had the crazy idea that for every 3 bytes, the address increases with 2
+                if(p.isI2C())p.CodeSize = (GetRange(child)+1);
+				else if(p.is24Bit()) p.CodeSize = ((GetRange(child)+1)*3)/2;   // times 1.5 because Microchip had the crazy idea that for every 3 bytes, the address increases with 2
 				else p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
 			}
             else if (name == ("config"))
@@ -567,6 +567,7 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 	FAMILY(P16F716);
 	FAMILY(P18FXX31);
 	FAMILY(P18FX220);
+	FAMILY(I2C_EE);
 
     return UPP_INVALID_PICFAMILY;
 }

@@ -1,3 +1,10 @@
+usbpicprog (783) karmic; urgency=low
+
+  * added an extra delay between programming (one word) and readback.
+    This sometimes caused errors during programming
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 31 Dec 2009 14:27:13 +0100
+
 usbpicprog (782) karmic; urgency=low
 
   * implemented 18FXX31 and 18FX220

@@ -40,11 +40,21 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	{
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
-		PGD =0;        // initial value for programming mode
-		PGC =0;        // initial value for programming mode
+		if(pictype==I2C_EE)
+		{
+			PGD = 1;
+			PGC = 1;
+		}
+		else
+		{
+			PGD =0;        // initial value for programming mode
+			PGC =0;        // initial value for programming mode
+		}
 		clock_delay();    // dummy tempo
 		switch(pictype)
-		{		
+		{	
+			case I2C_EE:
+				VDD=0; //no VPP needed	
 			case dsP30F:
 				break;
 			case P12F629:
@@ -59,6 +69,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		while((tick-lasttick)<100)continue;
 		switch(pictype)
 		{
+			case I2C_EE:
+				break;
 			case P12F629:
 			case P12F6XX:
 				VDD=0;
@@ -342,6 +354,74 @@ void dspic_send_24_bits(unsigned long payload)
 		clock_delay();
 		PGC=0;
 	}
+}
+
+
+
+void I2C_start()
+{
+	//initial condition
+	PGD = 1;
+	PGC = 1;
+	I2C_delay();
+	PGD = 0;
+	I2C_delay();
+	PGC = 0;
+	I2C_delay();
+}
+
+void I2C_stop()
+{
+	PGC = 1;
+	I2C_delay();
+	PGD = 1;
+	I2C_delay();
+}
+
+unsigned char I2C_Write_byte(unsigned char d)
+{
+	unsigned char i;
+	for(i=0;i<8;i++)
+	{
+		if((d&0x80)==0x80)PGD=1;
+		else PGD = 0;
+		d<<=1;
+		PGC = 1;
+		I2C_delay();
+		PGC = 0;
+		I2C_delay();
+	}
+	TRISPGD = 1;
+	PGC=1;
+	I2C_delay();
+	i=(unsigned char)PGD_READ;
+	PGC=0;
+	I2C_delay();
+	TRISPGD = 0;
+	return i;
+}
+
+unsigned char I2C_Read_byte(unsigned char ack)
+{
+	unsigned char i,d;
+	TRISPGD=1;
+	d=0;
+	for(i=0;i<8;i++)
+	{
+		PGC=1;
+		I2C_delay();
+		d<<=1;
+		if(PGD_READ)d|=0x01;
+		PGC=0;
+		I2C_delay();
+	}
+	TRISPGD=0;
+	PGD = ack;
+	PGC = 1;
+	I2C_delay();
+	PGC = 0;
+	I2C_delay();
+	return d;
 }
 
 

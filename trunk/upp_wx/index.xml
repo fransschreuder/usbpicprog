@@ -180,4 +180,5 @@
     <pic name="30F6014A" upp_family="dsP30F" upp_devid="0x202C3" upp_devidmask="0x3FFFF"/>
     <pic name="30F6014" upp_family="dsP30F" upp_devid="0x20198" upp_devidmask="0x3FFFF"/>
     <pic name="30F6015" upp_family="dsP30F" upp_devid="0x20280" upp_devidmask="0x3FFFF"/>
+    <pic name="24C512" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
 </upp>
