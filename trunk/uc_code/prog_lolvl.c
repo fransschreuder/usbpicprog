@@ -358,7 +358,7 @@ void dspic_send_24_bits(unsigned long payload)
 
 
 
-void I2C_start()
+void I2C_start(void)
 {
 	//initial condition
 	PGD = 1;
@@ -370,7 +370,7 @@ void I2C_start()
 	I2C_delay();
 }
 
-void I2C_stop()
+void I2C_stop(void)
 {
 	PGC = 1;
 	I2C_delay();
@@ -378,7 +378,7 @@ void I2C_stop()
 	I2C_delay();
 }
 
-unsigned char I2C_Write_byte(unsigned char d)
+unsigned char I2C_write(unsigned char d)
 {
 	unsigned char i;
 	for(i=0;i<8;i++)
@@ -401,7 +401,7 @@ unsigned char I2C_Write_byte(unsigned char d)
 	return i;
 }
 
-unsigned char I2C_Read_byte(unsigned char ack)
+unsigned char I2C_read(unsigned char ack)
 {
 	unsigned char i,d;
 	TRISPGD=1;

@@ -368,12 +368,12 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	{
 		case I2C_EE:
 			I2C_start();
-			I2C_Write_byte(0xA0); //Device Address + 0=write
-			I2C_Write_byte((unsigned char)((address&0xFF00)>>8)); //MSB
-			I2C_Write_byte((unsigned char)((address&0x00FF))); //LSB
+			I2C_write(0xA0); //Device Address + 0=write
+			I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
+			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				I2C_Write_byte(data[blockcounter]);
+				I2C_write(data[blockcounter]);
 			}
 			I2C_stop();
 			break;
@@ -1121,14 +1121,14 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	{
 		case I2C_EE:
 			I2C_start();
-			I2C_Write_byte(0xA0); //Device Address + 0=write
-			I2C_Write_byte((unsigned char)((address&0xFF00)>>8)); //MSB
-			I2C_Write_byte((unsigned char)((address&0x00FF))); //LSB
+			I2C_write(0xA0); //Device Address + 0=write
+			I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
+			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			I2C_start();
-			I2C_Write_byte(0xA1); //Device Address + 1=read
+			I2C_write(0xA1); //Device Address + 1=read
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				data[blockcounter] = I2C_Read_byte((unsigned char)(blockcounter==(blocksize-1)));
+				data[blockcounter] = I2C_read((unsigned char)(blockcounter==(blocksize-1)));
 			}
 			I2C_stop();
 			break;

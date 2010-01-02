@@ -32,16 +32,7 @@
 */
 #define clock_delay() Nop()
 
-#define I2C_delay() Nop(); \
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop();\
-	Nop()
+#define I2C_delay() Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop()
 
 
 
@@ -106,21 +97,21 @@ void dspic_send_24_bits(unsigned long payload);
 /**
 I2C Start
 */
-void I2C_start();
+void I2C_start(void);
 
 /**
 I2C Stop
 */
-void I2C_stop();
+void I2C_stop(void);
 
 
 /** 
 returns ack
 */
-unsigned char I2C_Write_byte(unsigned char d);
+unsigned char I2C_write(unsigned char d);
 
 
-unsigned char I2C_Read_byte(unsigned char ack);
+unsigned char I2C_read(unsigned char ack);
 
 
 
