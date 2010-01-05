@@ -49,7 +49,7 @@ class wxDC;
 #endif
 
 #define UPP_DEFAULT_PIC_MODEL   ("18F2550")
-#define UPP_DEFAULT_PIC         "P18F2550"
+#define UPP_DEFAULT_PIC         "18F2550"
 
 #define UPP_INVALID_PIC         (PicType())
 
@@ -65,7 +65,7 @@ typedef enum {
     P16C6XX,P16C55X,P16C7XX,P16C64X,P14000,P16C50X,P16C432,P17CXX,P17C7XX,
     P18FXX39,P18F6X2X,P18FXX80,P18F8410,P18F6XJXX,P18F45J10,P18F97J60,P18F1X30,P18FXX23,
     P18FXXK20,P24FJXXXGA0XX,P24FJXXXGA1,dsP30F,dsP33F,P24H,P10F200,P10F202,P12F61X,P16F716,
-	P18FXX31,P18FX220,I2C_EE,
+	P18FXX31,P18FX220,I2C_EE_1,I2C_EE_2,
     UPP_INVALID_PICFAMILY
 
     // VERY IMPORTANT: when adding/removing enumeration values here, please
@@ -517,27 +517,20 @@ public:
         { 	return !Name.empty() && picFamily != UPP_INVALID_PICFAMILY; 
             /* TODO: check for more members to be non-NULL */ }
 
-    /** Returns true if the PIC is a 14bit device (e.g. Pic12, PIC16). */
-    bool is14Bit() const
-        { return (Name.find("P10")==0)||(Name.find("P12")==0)||(Name.find("P16")==0); }
-
-    /** Returns true if the PIC is a 16bit device (e.g. Pic18). */
-    bool is16Bit() const
-        { return (Name.find("P18F")==0); }
-
-	    /** Returns true if the PIC is a 24bit device (e.g. dsPIC). */
-    bool is24Bit() const
-        { return (Name.find("P30F")==0); }
-
-		    /** Returns true if the PIC is an I2C Eeprom device. */
-    bool isI2C() const
-        { return (Name.find("P24C")==0); }
+	int bitsPerWord() const
+		{
+			if((Name.find("10F")==0)||(Name.find("12F")==0)||(Name.find("16F")==0))return 14;
+			if(Name.find("18F")==0)return 16;
+			if(Name.find("30F")==0)return 24;
+			if(Name.find("24XX")==0)return 8;
+		}
+			
 	
-    /** Returns the PIC name which starts with "PIC" instead of "P". */
+    /** Returns the PIC name which starts with "PIC". */
     wxString GetExtName() const
         {
-            if (Name.empty()) return Name;
-            return "PIC" + Name.substr(1); 
+            if (Name.empty()||(Name.find("24XX")==0)) return Name;
+            return "PIC" + Name; 
         }
         
     /** Returns the current PIC name as a wxString. */

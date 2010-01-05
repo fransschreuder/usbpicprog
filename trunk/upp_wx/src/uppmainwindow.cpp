@@ -266,7 +266,9 @@ void UppMainWindow::CompleteGUICreation()
     {
         bool bFamilyFound = false;
         // the first 4 characters of the PIC name are the family:
-        wxString family(m_arrPICName[i].substr(0, 4).c_str());
+		wxString family;
+		if(m_arrPICName[i].substr(0, 4)=="24XX") family = wxString("I2C Eeprom");
+        else family = wxString("PIC"+m_arrPICName[i].substr(0, 2));
 
         // is there a menu for this PIC family?
         for(map<wxString,wxMenu*>::const_iterator j=menus.begin();j!=menus.end();j++)
@@ -516,7 +518,7 @@ void UppMainWindow::UpdatePicInfo()
     m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), m_picType.DevId&0xFFFF));
     m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), m_picType.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), m_picType.DataSize));
-    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.is16Bit() ? 16 : 14));
+    m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.bitsPerWord()));
 
     m_pInfoPanel->Layout();
         // size may have changed: relayout the panel which is the parent of the windows

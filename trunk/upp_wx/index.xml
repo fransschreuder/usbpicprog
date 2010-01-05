@@ -180,16 +180,16 @@
     <pic name="30F6014A" upp_family="dsP30F" upp_devid="0x202C3" upp_devidmask="0x3FFFF"/>
     <pic name="30F6014" upp_family="dsP30F" upp_devid="0x20198" upp_devidmask="0x3FFFF"/>
     <pic name="30F6015" upp_family="dsP30F" upp_devid="0x20280" upp_devidmask="0x3FFFF"/>
-    <pic name="24C00" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C01" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C02" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C04" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C08" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C16" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C32" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C64" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C128" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C256" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    <pic name="24C512" upp_family="I2C_EE" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-    
+    <pic name="24XX00" upp_family="I2C_EE_1" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX01" upp_family="I2C_EE_1" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX02" upp_family="I2C_EE_1" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX04" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX08" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX16" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX32" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX64" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX128" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX256" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX512" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
+    <pic name="24XX1025" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
 </upp>

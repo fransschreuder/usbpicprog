@@ -403,7 +403,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
 	switch(type)
 	{
 		case TYPE_CONFIG:
-			if(picType->is24Bit())
+			if(picType->bitsPerWord()==24)
 			{
 				blockSizeHW=BLOCKSIZE_CONFIG_DSPIC_READ;
 				break;
@@ -413,8 +413,15 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC_READ;
-				else blockSizeHW=BLOCKSIZE_CODE;
+				switch(picType->bitsPerWord())
+				{
+					case 24:
+						blockSizeHW=BLOCKSIZE_CODE_DSPIC_READ;
+						break;
+					default:
+						blockSizeHW=BLOCKSIZE_CODE;
+						break;
+				}
 			}
 			break;
 		case TYPE_DATA:
@@ -422,8 +429,15 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC_READ;
-				else blockSizeHW=BLOCKSIZE_DATA;
+				switch(picType->bitsPerWord())
+				{
+					case 24:
+						blockSizeHW=BLOCKSIZE_DATA_DSPIC_READ;
+						break;
+					default:
+						blockSizeHW=BLOCKSIZE_DATA;
+						break;
+				}
 			}
 			break;
 	}
@@ -451,7 +465,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
 
 		
         unsigned int currentBlockCounter = blockcounter;
-        if (picType->is14Bit())
+        if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
 		if (type==TYPE_CONFIG)
 			currentBlockCounter+=picType->ConfigAddress;
@@ -534,14 +548,21 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->Name.IsSameAs("P18F2450")||
-				    picType->Name.IsSameAs("P18F4450")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2450;
-				else if(picType->Name.IsSameAs("P18F2221")||
-				    picType->Name.IsSameAs("P18F2321")||
-				    picType->Name.IsSameAs("P18F4221")||
-				    picType->Name.IsSameAs("P18F4321")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2221;
-				else if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CODE_DSPIC;
-				else blockSizeHW=BLOCKSIZE_CODE;
+				if(picType->Name.IsSameAs("18F2450")||
+				    picType->Name.IsSameAs("18F4450")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2450;
+				else if(picType->Name.IsSameAs("18F2221")||
+				    picType->Name.IsSameAs("18F2321")||
+				    picType->Name.IsSameAs("18F4221")||
+				    picType->Name.IsSameAs("18F4321")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2221;
+				switch(picType->bitsPerWord())
+				{
+					case 24:
+						blockSizeHW=BLOCKSIZE_CODE_DSPIC;
+						break;
+					default:
+						blockSizeHW=BLOCKSIZE_CODE;
+						break;
+				}
 			}
 			break;
 		case TYPE_DATA:
@@ -549,13 +570,27 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 				blockSizeHW=BLOCKSIZE_BOOTLOADER;
 			else 
 			{
-				if(picType->is24Bit())blockSizeHW=BLOCKSIZE_DATA_DSPIC;
-				else blockSizeHW=BLOCKSIZE_DATA;
+				switch(picType->bitsPerWord())
+				{
+					case 24:
+						blockSizeHW=BLOCKSIZE_DATA_DSPIC;
+						break;
+					default:
+						blockSizeHW=BLOCKSIZE_DATA;
+						break;
+				}
 			}
 			break;
 		case TYPE_CONFIG:
-			if(picType->is24Bit())blockSizeHW=BLOCKSIZE_CONFIG_DSPIC;
-			else blockSizeHW=BLOCKSIZE_CONFIG;
+			switch(picType->bitsPerWord())
+			{
+				case 24:
+					blockSizeHW=BLOCKSIZE_CONFIG_DSPIC;
+					break;
+				default:
+					blockSizeHW=BLOCKSIZE_CONFIG;
+					break;
+			}
 			break;
 	}
 
@@ -587,7 +622,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 		   
 
         unsigned int currentBlockCounter=blockcounter;
-        if (picType->is14Bit())
+        if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
 		if(type==TYPE_CONFIG)
 			currentBlockCounter+=picType->ConfigAddress;
@@ -712,12 +747,12 @@ int Hardware::autoDetectDevice()
 
     if (m_hwCurrent == HW_BOOTLOADER)
 	{
-		PicType picBoot = PicType::FindPIC(("P18F2550"));
+		PicType picBoot = PicType::FindPIC(("18F2550"));
 		cout<<"Bootloader Devid: "<<std::hex<<picBoot.DevId<<endl;
 		return picBoot.DevId;
 	}
      
-	PicType pic16 = PicType::FindPIC(("P16F628A"));
+	PicType pic16 = PicType::FindPIC(("16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
 
@@ -733,7 +768,7 @@ int Hardware::autoDetectDevice()
 	{
 	
 		// need to set hardware to PIC18, no matter which one
-		PicType pic18 = PicType::FindPIC(("P18F2550"));
+		PicType pic18 = PicType::FindPIC(("18F2550"));
 		if (setPicType(&pic18) < 0)
 			return -1;
 

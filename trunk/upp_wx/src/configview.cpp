@@ -83,14 +83,14 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
             // set the configuration word
-            if (m_pic.is16Bit())
+            if (m_pic.bitsPerWord()==15)
             {
                 if ((i+1) <= hex->getMemory(TYPE_CONFIG).size())
                 {
                     ConfigWord = hex->getMemory(TYPE_CONFIG)[i];
                 }
             }
-            else        // 8 bit PIC
+            else        // 14 or 24 bit PIC
             {
                 if ((2*i+1) <= hex->getMemory(TYPE_CONFIG).size())
                 {
@@ -136,7 +136,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         // NOTE: we use %04X because even for 8 bit devices the configuration words
         //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
         wxTextCtrl* tc;
-		if(m_pic.is16Bit())
+		if(m_pic.bitsPerWord()==16)
 		{
 			tc=new wxTextCtrl(panel, wxID_ANY, wxString::Format(("%02X"), ConfigWord));	
 			tc->SetMaxLength(wxString::Format(("%02X"), (unsigned int)word.GetMask()).size());
@@ -215,7 +215,7 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
 
     // get the current value of the configuration word from the HEX file
     int ConfigWord = 0; 
-    if (m_pic.is16Bit())
+    if (m_pic.bitsPerWord()==16)
     {
         if ((SelectedWord+1) <= m_hexFile->getMemory(TYPE_CONFIG).size())
             ConfigWord = m_hexFile->getMemory(TYPE_CONFIG)[SelectedWord];
@@ -237,10 +237,10 @@ void UppConfigViewBook::OnChoiceChange(wxCommandEvent& event)
     // set the new value in the textctrl for the selected configuration word:
     // NOTE: we use %04X because even for 8 bit devices the configuration words
     //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
-    if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%02X"), ConfigWord));
+    if(m_pic.bitsPerWord()==16)m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%02X"), ConfigWord));
 	else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%04X"), ConfigWord));
     // save the new value back in the HEX file, too:
-    if (m_pic.is16Bit())
+    if (m_pic.bitsPerWord()==16)
     {
         m_hexFile->putMemory(TYPE_CONFIG, SelectedWord, ConfigWord&0xFF, &m_pic);
     }
@@ -270,7 +270,7 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
         // inside the text ctrl; in this case restore the default value for the affected
         // configuration word reading it from the HEX file config memory area
 
-        if (m_pic.is16Bit())
+        if (m_pic.bitsPerWord()==16)
         {
             if ((unsigned)(SelectedWord+1) <= m_hexFile->getMemory(TYPE_CONFIG).size())
             {
@@ -288,20 +288,20 @@ void UppConfigViewBook::OnConfigWordDirectChange(wxCommandEvent& event)
 
         // NOTE: we use %04X because even for 8 bit devices the configuration words
         //       are typically more than 8 bits wide (they usually are in the 14-16 bits range)
-		if(m_pic.is16Bit())m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%02X"), (unsigned int)ConfigWordInt));
+		if(m_pic.bitsPerWord()==16)m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%02X"), (unsigned int)ConfigWordInt));
 		else m_ctrl[SelectedWord].textCtrl->ChangeValue(wxString::Format(("%04X"), (unsigned int)ConfigWordInt));
     }
     else
     {
         // the user entered a valid integer; put the value into the hexfile
-        if (m_pic.is16Bit())
+        if (m_pic.bitsPerWord()==16)
         {
             ConfigWordInt &= 0xFF;
             m_hexFile->putMemory(TYPE_CONFIG, SelectedWord, ConfigWordInt&0xFF, &m_pic);
         }
         else
         {
-            if(m_pic.is14Bit()) ConfigWordInt &= 0x3FFF; // for 14 bit devices, we need a mask
+            if(m_pic.bitsPerWord()==14) ConfigWordInt &= 0x3FFF; // for 14 bit devices, we need a mask
             m_hexFile->putMemory(TYPE_CONFIG, SelectedWord*2, ConfigWordInt&0xFF, &m_pic);
             m_hexFile->putMemory(TYPE_CONFIG, SelectedWord*2+1, (ConfigWordInt&0xFF00)>>8, &m_pic);
         }

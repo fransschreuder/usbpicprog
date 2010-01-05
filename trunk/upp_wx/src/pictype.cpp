@@ -92,7 +92,7 @@ PicType PicType::FindPIC(wxString picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
-        if (picTypeStr.compare(("P") + s_arrSupported[i].name)==0)
+		if (picTypeStr.compare(s_arrSupported[i].name)==0)
         {
             // this is a supported PIC!
 
@@ -137,7 +137,7 @@ const wxArrayString& PicType::getSupportedPicNames()
         // cache the array with the names of supported PICs
         picNames.Alloc(s_arrSupported.size());
         for(unsigned int i=0;i<s_arrSupported.size();i++)
-            picNames.Add(("P") + s_arrSupported[i].name);
+            picNames.Add(s_arrSupported[i].name);
 
         picNames.Sort();
     }
@@ -283,7 +283,7 @@ PicType PicType::LoadPiklabXML(const wxString& picName)
 #endif
 
     PicType ret = LoadPiklabXMLFile(prefix + picName + (".xml"));
-	if (wxString(ret.Name.c_str()) != ("P") + picName)  // PIC name should match picName
+	if (wxString(ret.Name.c_str()) != picName)  // PIC name should match picName
         {cout<<"error: PIC name should match picName: "<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
     
     return ret;
@@ -305,13 +305,13 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     // load the name of the PIC:
     if (!doc.GetRoot()->GetAttribute(("name"), &str))
         {cout<<"name attribute not found"<<endl;return UPP_INVALID_PIC;}
-    p.Name = ("P") + str;
+    p.Name = str;
 
     // load the device ID of the PIC
     // NOTE: PIC of the 10F family do not have a device ID (no autodetection is possible)
-    wxString t = wxString(p.Name.substr(0,4).c_str());
-	wxString t2 = wxString(p.Name.substr(0,5).c_str());
-    if ((t.compare(("P10F")) != 0)&&(t2.compare(("P16F5")) != 0) &&
+    wxString t = wxString(p.Name.substr(0,3).c_str());
+	wxString t2 = wxString(p.Name.substr(0,4).c_str());
+    if ((t.compare(("10F")) != 0)&&(t2.compare(("16F5")) != 0) &&
         (!doc.GetRoot()->GetAttribute(("id"), &str) ||
         !str.ToLong(&num, 0)))
         {cout<<"device ID not found"<<endl;return UPP_INVALID_PIC;}
@@ -328,14 +328,39 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                 {cout<<"name attribute in memory not found"<<endl;return UPP_INVALID_PIC;}
             if (name == ("code"))
 			{
-                if(p.isI2C())p.CodeSize = (GetRange(child)+1);
-				else if(p.is24Bit()) p.CodeSize = ((GetRange(child)+1)*3)/2;   // times 1.5 because Microchip had the crazy idea that for every 3 bytes, the address increases with 2
-				else p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
+				switch(p.bitsPerWord())
+				{
+					case 8:
+					case 16:
+						p.CodeSize = (GetRange(child)+1);
+						break;
+					case 14:
+						p.CodeSize = (GetRange(child)+1)*2;   // times 2 because this is in word units
+						break;
+					case 24:
+						p.CodeSize = ((GetRange(child)+1)*3)/2;   // times 1.5 because Microchip had the crazy idea that for every 3 bytes, the address increases with 2
+						break;
+					default:
+						p.CodeSize = (GetRange(child)+1);
+						
+				}
 			}
             else if (name == ("config"))
             {
-                if(p.is24Bit()) p.ConfigSize = (GetRange(child)+1); 
-				else p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units
+				switch(p.bitsPerWord())
+				{
+					case 8:
+						p.ConfigSize = 0;
+					case 14:
+					case 16:
+						p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units		
+						break;
+	                case 24:
+						p.ConfigSize = (GetRange(child)+1); 
+						break;
+					default:
+						p.ConfigSize = 0;
+				}
                 if (!child->GetAttribute(("start"), &str) ||
                     !str.ToLong(&num, 0))
                     {cout<<"start attribute in config memory not found"<<endl;return UPP_INVALID_PIC;}
@@ -567,8 +592,8 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 	FAMILY(P16F716);
 	FAMILY(P18FXX31);
 	FAMILY(P18FX220);
-	FAMILY(I2C_EE);
-
+	FAMILY(I2C_EE_1);
+	FAMILY(I2C_EE_2);
     return UPP_INVALID_PICFAMILY;
 }
 

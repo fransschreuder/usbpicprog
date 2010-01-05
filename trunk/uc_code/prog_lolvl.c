@@ -40,7 +40,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	{
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
-		if(pictype==I2C_EE)
+		if((pictype==I2C_EE_1)||(pictype==I2C_EE_2))
 		{
 			PGD = 1;
 			PGC = 1;
@@ -53,8 +53,10 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		clock_delay();    // dummy tempo
 		switch(pictype)
 		{	
-			case I2C_EE:
+			case I2C_EE_1:
+			case I2C_EE_2:
 				VDD=0; //no VPP needed	
+				break;
 			case dsP30F:
 				break;
 			case P12F629:
@@ -69,7 +71,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		while((tick-lasttick)<100)continue;
 		switch(pictype)
 		{
-			case I2C_EE:
+			case I2C_EE_1:
+			case I2C_EE_2:
 				break;
 			case P12F629:
 			case P12F6XX:

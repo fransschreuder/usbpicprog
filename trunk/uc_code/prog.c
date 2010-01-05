@@ -366,16 +366,26 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(pictype)
 	{
-		case I2C_EE:
+		case I2C_EE_1:
+		case I2C_EE_2:
 			I2C_start();
-			I2C_write(0xA0); //Device Address + 0=write
-			I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
+			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
+			
+			if(picfamily==I2C_EE_2)
+				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
 			I2C_write((unsigned char)((address&0x00FF))); //LSB
+			
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				I2C_write(data[blockcounter]);
+				i=(unsigned int)I2C_write(data[blockcounter]);
+				if(i==1)
+				{
+					I2C_stop();
+					return 2;
+				}
 			}
 			I2C_stop();
+			DelayMs(10);
 			break;
 		case dsP30F:
 			//if((address%96)==0)
@@ -1119,13 +1129,15 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
-		case I2C_EE:
+		case I2C_EE_1:
+		case I2C_EE_2:
 			I2C_start();
-			I2C_write(0xA0); //Device Address + 0=write
-			I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
+			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
+			if(picfamily==I2C_EE_2)
+				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
 			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			I2C_start();
-			I2C_write(0xA1); //Device Address + 1=read
+			I2C_write(0xA1|((unsigned char)((address&&0x10000)>>13))); //Device Address + 1=read
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
 				data[blockcounter] = I2C_read((unsigned char)(blockcounter==(blocksize-1)));

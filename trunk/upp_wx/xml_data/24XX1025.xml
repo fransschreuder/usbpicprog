@@ -7,14 +7,14 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="24C128" document="24C128" status="IP" memory_technology="FLASH" self_write="no" architecture="24C" id="0x0000">
+<device name="24XX1025" document="24XX1025" status="IP" memory_technology="FLASH" self_write="no" architecture="24XX" id="0x0000">
 
 
   <voltages name="vpp"      min="0" max="0" nominal="0" />
   <voltages name="vdd_prog" min="2.7"   max="5.5"  nominal="5"  />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"      start="0x0000" end="0x3FFF" /> 
+  <memory name="code"      start="0x0000" end="0x1FFFF" /> 
 
 <!--* Packages *************************************************************-->
   <package types="pdip soic ssop" nb_pins="8" >
