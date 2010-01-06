@@ -32,8 +32,8 @@
 */
 #define clock_delay() Nop()
 
-#define I2C_delay() Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop()
-
+//#define I2C_delay() Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop()
+void I2C_delay();
 
 
 /**

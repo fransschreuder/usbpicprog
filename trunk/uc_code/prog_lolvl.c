@@ -33,6 +33,12 @@
 extern long tick;
 extern long lasttick;
 
+void I2C_delay()
+{
+	char i;
+	for(i=0;i<10;i++)continue;
+}
+
 void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 {
 	unsigned int i;
@@ -383,12 +389,14 @@ void I2C_stop(void)
 
 unsigned char I2C_write(unsigned char d)
 {
-	unsigned char i;
+	unsigned char i,j;
+	j=d;
 	for(i=0;i<8;i++)
 	{
-		if((d&0x80)==0x80)PGD=1;
+		if((j&0x80)==0x80)PGD=1;
 		else PGD = 0;
-		d<<=1;
+		j<<=1;
+		I2C_delay();
 		PGC = 1;
 		I2C_delay();
 		PGC = 0;
@@ -419,7 +427,9 @@ unsigned char I2C_read(unsigned char ack)
 		I2C_delay();
 	}
 	TRISPGD=0;
-	PGD = ack;
+	I2C_delay();
+	if(ack==1)PGD = 1;
+	else PGD = 0;
 	PGC = 1;
 	I2C_delay();
 	PGC = 0;

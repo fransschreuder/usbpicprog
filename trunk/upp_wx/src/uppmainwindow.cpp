@@ -124,27 +124,23 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     // GUI init:
     CompleteGUICreation();    // also loads the saved pos&size of this frame
 
+    // NOTE: select a PIC reading the last used one which was saved in wxConfig
+    //       or just use the first one (0-th) as pCfg->Read() default value
+    long lastPic=0;
+    if ((lastPic=pCfg->Read(("SelectedPIC"), (long)0)) >= 0 && 
+        lastPic < (int)m_arrPICName.size())
+    {
+        m_picType = PicType::FindPIC(m_arrPICName[lastPic]);
+
+        // keep the choice box synchronized
+        m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
+
+        // PIC changed; reset the code/config/data grids
+        Reset();
+    }
+	
     // find the hardware connected to the PC, if any:
     upp_connect();
-
-    // if upp_connect() didn't find a PIC device, load the last chosen PIC
-    if (!m_hardware->connected())
-    {
-        // NOTE: select a PIC reading the last used one which was saved in wxConfig
-        //       or just use the first one (0-th) as pCfg->Read() default value
-        long lastPic=0;
-        if ((lastPic=pCfg->Read(("SelectedPIC"), (long)0)) >= 0 && 
-            lastPic < (int)m_arrPICName.size())
-        {
-            m_picType = PicType::FindPIC(m_arrPICName[lastPic]);
-
-            // keep the choice box synchronized
-            m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
-
-            // PIC changed; reset the code/config/data grids
-            Reset();
-        }
-    }
 }
 
 UppMainWindow::~UppMainWindow()
@@ -1337,15 +1333,14 @@ bool UppMainWindow::upp_autodetect()
 	if((!m_picType.ok())&&(devId==-1))
 	{
 		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);	
-    	wxASSERT(m_picType.ok());
-    	m_hardware->setPicType(&m_picType);
-	}
+    }
 	if (devId != -1)
 	{
-        m_picType = PicType::FindPIC(devId);
-    	wxASSERT(m_picType.ok());
-    	m_hardware->setPicType(&m_picType);
+        m_picType = PicType::FindPIC(devId);	
 	}
+
+	wxASSERT(m_picType.ok());
+    m_hardware->setPicType(&m_picType);
 
     // sync the choicebox with m_picType
     wxString picName=m_picType.getPicName();
@@ -1529,13 +1524,11 @@ void UppMainWindow::upp_pic_choice_changed()
             wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
         }
-
-        m_hardware->setPicType(&m_picType);
     }
     
     // update the pic type
     m_picType = PicType::FindPIC(m_pPICChoice->GetStringSelection());
-    
+    if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
     // PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -1557,14 +1550,14 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
             // do not change PIC selection
             wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
-        }
-
-        m_hardware->setPicType(&m_picType);
+		}    
     }
 
     // update the pic type
     m_picType = PicType::FindPIC(m_arrPICName[id]);
 
+	if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
+	
     // keep the choice box synchronized
     m_pPICChoice->SetStringSelection(m_arrPICName[id]);
 

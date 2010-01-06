@@ -47,6 +47,9 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 	set_vdd_vpp(pictype,picfamily,1);
 	switch(pictype)
 	{
+		case I2C_EE_1:
+		case I2C_EE_2:
+			break;
 		case dsP30F:
 			//bulk erase program memory
 			//step 1
@@ -371,7 +374,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			I2C_start();
 			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
 			
-			if(picfamily==I2C_EE_2)
+			if(pictype==I2C_EE_2)
 				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
 			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			
@@ -1129,18 +1132,17 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
-		case I2C_EE_1:
-		case I2C_EE_2:
+		case I2C:
 			I2C_start();
 			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
-			if(picfamily==I2C_EE_2)
+			if(pictype==I2C_EE_2)
 				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
 			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			I2C_start();
 			I2C_write(0xA1|((unsigned char)((address&&0x10000)>>13))); //Device Address + 1=read
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
-				data[blockcounter] = I2C_read((unsigned char)(blockcounter==(blocksize-1)));
+				data[blockcounter] = I2C_read(0);
 			}
 			I2C_stop();
 			break;

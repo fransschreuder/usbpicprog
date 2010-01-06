@@ -242,7 +242,6 @@ int Hardware::setPicType(PicType* picType)
     if (!picType->ok()) return -1;
     if (m_hwCurrent == HW_BOOTLOADER) return -1;
     if (m_handle == NULL) return -1;
-
     statusCallBack (0);
 
     unsigned char msg[64];
