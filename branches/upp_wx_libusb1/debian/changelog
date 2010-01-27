@@ -1,0 +1,38 @@
+usbpicprog (783) karmic; urgency=low
+
+  * added an extra delay between programming (one word) and readback.
+    This sometimes caused errors during programming
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 31 Dec 2009 14:27:13 +0100
+
+usbpicprog (782) karmic; urgency=low
+
+  * implemented 18FXX31 and 18FX220
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 24 Dec 2009 13:42:49 +0100
+
+usbpicprog (778) karmic; urgency=low
+
+  * some code cleanup, removed debian package from release.sh (this will
+    now only create a .tar.gz from software and firmware
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 18 Dec 2009 13:22:08 +0100
+
+usbpicprog (776) karmic; urgency=low
+
+  * Now possible to resize the mainwindow for smaller laptop screens
+    (e.g. mini notebooks)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 16 Dec 2009 10:59:38 +0100
+
+usbpicprog (775) karmic; urgency=low
+
+  * Fixed location of .desktop (launcher)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 14 Dec 2009 15:56:01 +0100
+
+usbpicprog (774-3) karmic; urgency=low
+
+  * depends on libusb-0.1-4 (>0.1.12)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 14 Dec 2009 14:01:00 +0100
