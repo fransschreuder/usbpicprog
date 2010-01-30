@@ -38,7 +38,7 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Hardware
 // ----------------------------------------------------------------------------
-const char* libusb_strerror(enum libusb_error errcode)
+/*const char* libusb_strerror(enum libusb_error errcode)
 {
     switch (errcode)
     {
@@ -74,7 +74,7 @@ const char* libusb_strerror(enum libusb_error errcode)
         default:
             return "Unknown error";
     }
-}
+}*/
 
 Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 {
@@ -135,7 +135,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     // we've found some hardware!
 
     m_hwCurrent = hwtype;
-#if 1                    // FIXME: why is this needed??
+#if 0                    // FIXME: why is this needed??
     if ( (retcode=libusb_reset_device(m_handle)) != LIBUSB_SUCCESS )
     {
         wxLogError(_("Couldn't reset interface: %s"), libusb_strerror((libusb_error)retcode));
@@ -246,10 +246,7 @@ int Hardware::setPicType(PicType* picType)
     // read back the reply
     int nBytes = readString(msg,1);
     if (nBytes < 0)
-    {
-        wxLogError(_("USB error"));
         return nBytes;
-    }
 
     statusCallBack (100);
     return (int)msg[0];
@@ -285,10 +282,7 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
         // read back the reply
         int nBytes = readString(msg,1);
         if (nBytes < 0)
-        {
-            wxLogError(_("USB error"));
             return nBytes;
-        }
 
         //backupOscCalBandGap(picType);
         statusCallBack (100);
@@ -1008,7 +1002,6 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         nBytes = readString(tmpmsg,size+5) - 5;
         if (nBytes < 0)
         {
-            wxLogError(_("USB error"));
             delete [] tmpmsg;
             return nBytes;
         }
@@ -1020,8 +1013,6 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         delete [] tmpmsg;
     }
 
-    if (nBytes < 0)
-        wxLogError(_("USB error"));
     return nBytes;
 }
 
@@ -1070,9 +1061,8 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             return nBytes;
 
         nBytes = readString(resp_msg,1);
-        if (nBytes < 0)
-            wxLogError(_("USB error"));
-        // cout<<"Response message: "<<(int)resp_msg[0]<<endl;
+
+		// cout<<"Response message: "<<(int)resp_msg[0]<<endl;
         return (int)resp_msg[0];
     }
     else
