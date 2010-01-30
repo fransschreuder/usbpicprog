@@ -321,37 +321,44 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
     }
 }
 
-
 int Hardware::backupOscCalBandGap(PicType *picType)
 {
     unsigned char msg[64];
-    if(picType->picFamily==P12F629)	//back up osccal and bandgap registers for those devices
-    {
-        readBlock(TYPE_CODE, msg , 0x3ff, 2, 3);
-        picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
-        readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 );			 
-        picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
-    }
-    else return -1;
+    if(picType->picFamily!=P12F629)	//back up osccal and bandgap registers for those devices
+        return -1;
+
+    if (readBlock(TYPE_CODE, msg , 0x3ff, 2, 3) <= 0)
+        return -1;
+
+    picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
+    
+    if (readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 ) <= 0)
+        return -1;
+
+    picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
+
     return 1;
 }
-
 
 int Hardware::restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap)
 {
     unsigned char msg[64];
-    if(picType->picFamily==P12F629)	//back up osccal and bandgap registers for those devices
-    {
-        msg[0]=(unsigned char)(OscCal&0xFF);
-        msg[1]=(unsigned char)((OscCal>>8)&0xFF);
-        writeBlock(TYPE_CODE, msg, 0x3ff, 2, 3);
-        msg[0]=0xFF;
-        msg[1]=(unsigned char)((BandGap&0x03)<<4)|0x0F;
-        writeBlock(TYPE_CONFIG, msg, 0x2007, 2, 3);
-    }
-    else return -1;
-    return 1;
+    if(picType->picFamily!=P12F629)	//back up osccal and bandgap registers for those devices
+        return -1;
+
+    msg[0]=(unsigned char)(OscCal&0xFF);
+    msg[1]=(unsigned char)((OscCal>>8)&0xFF);
     
+    if (writeBlock(TYPE_CODE, msg, 0x3ff, 2, 3) <= 0)
+        return -1;
+
+    msg[0]=0xFF;
+    msg[1]=(unsigned char)((BandGap&0x03)<<4)|0x0F;
+    
+    if (writeBlock(TYPE_CONFIG, msg, 0x2007, 2, 3) <= 0)
+        return -1;
+
+    return 1;
 }
 
 int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned int numberOfBytes, HexFile *verifyData)
@@ -432,7 +439,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         return 0;   // Better write no configuration words in bootloader;
                     // it's unsafe: you might destroy the bootloader
 
-    int nBytes=0;
+    int nBytes=0, ret;
     for(unsigned int blockcounter=0; blockcounter<memorySize; blockcounter+=blockSizeHW)
     {
         statusCallBack (blockcounter*100/memorySize);
@@ -445,8 +452,6 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
             blocktype |= BLOCKTYPE_LAST;
         if (m_abortOperations)
             blocktype |= BLOCKTYPE_LAST;
-
-
         
         unsigned int currentBlockCounter = blockcounter;
         if (picType->bitsPerWord()==14)
@@ -463,7 +468,11 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         /*if(type==TYPE_CONFIG)
             cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;*/
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-        nBytes += readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype);
+        if ((ret = readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype)) <= 0)
+            return -1;      // failed reading this block; stop here
+        
+        nBytes += ret;
+
         // move read data in the temporary array
         for (unsigned int i=0; i<blocksize; i++)
         {
@@ -627,7 +636,10 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             // retCode == 1 means "OK, all finished"; retCode == 2 means "OK, waiting for next block"
         }
 
-        if (m_abortOperations&&((blocktype&BLOCKTYPE_LAST)==BLOCKTYPE_LAST))
+        if (retCode <= 0)
+            return -1;          // generic error (e.g. failed USB communication)
+
+        if (m_abortOperations && (blocktype&BLOCKTYPE_LAST)==BLOCKTYPE_LAST)
             break;
     }
 
@@ -904,8 +916,8 @@ int Hardware::writeString(const unsigned char* msg, int size) const
 
     if (retcode != LIBUSB_SUCCESS || nBytes < size)
     {
-        wxLogError(_("USB error while writing to device: %d bytes, errCode: %d"), size, nBytes);
-        wxLogError(("%s"), libusb_strerror((libusb_error)retcode));
+        wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
+                   libusb_strerror((libusb_error)retcode));
         return -1;
     }
 

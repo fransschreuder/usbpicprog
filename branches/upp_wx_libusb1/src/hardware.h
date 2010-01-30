@@ -362,13 +362,17 @@ private:
 
     /** 
         Read a block of a memory area sending the correct command to the hardware and reading
-        back its reply. 
+        back its reply.
+        
+        Returns the number of bytes read or -1 on error.
     */
     int readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
 
     /** 
         Writes a block of a memory area sending the correct command to the hardware and reading
         back its reply. 
+        
+        Returns the number of bytes read or -1 on error.
     */
     int writeBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
 
