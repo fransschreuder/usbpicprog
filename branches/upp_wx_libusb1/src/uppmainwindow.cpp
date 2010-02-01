@@ -23,7 +23,6 @@
 
 #include <wx/defs.h>
 #include <wx/wx.h>
-
 #include <wx/artprov.h>
 #include <wx/toolbar.h>
 #include <wx/choice.h>
@@ -69,6 +68,10 @@
     #include "../icons/win/zoomin.xpm"
     #include "../icons/win/zoomout.xpm"
     #include "../icons/win/zoomfit.xpm"
+#endif
+
+#ifdef __WXMSW__
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
 #endif
 
 static const wxChar *FILETYPES = _T(

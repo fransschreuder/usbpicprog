@@ -21,7 +21,6 @@
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
-
 #include <wx/clipbrd.h>
 #include <wx/dcclient.h>
 #include <wx/dcmemory.h>
@@ -30,6 +29,10 @@
 #include <wx/artprov.h>
 
 #include "packageview.h"
+
+#ifdef __WXMSW__
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
+#endif
 
 #define MAX_SIZE        5000
 #define MIN_SIZE        50
