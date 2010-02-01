@@ -21,18 +21,21 @@
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
-
 #include <wx/stdpaths.h>
 
 #include "main.h"
 #include "../svn_revision.h"
 
-using namespace std;
-IMPLEMENT_APP(UsbPicProg)
+// NOW we can include the <usb.h> header without compiling problems
+#include <libusb.h>
 
 #ifdef __WXMSW__
-#include <windows.h>
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
+    #include <windows.h>
 #endif
+
+using namespace std;
+IMPLEMENT_APP(UsbPicProg)
 
 
 // ----------------------------------------------------------------------------
@@ -59,11 +62,11 @@ bool UsbPicProg::OnInit()
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
     m_locale->AddCatalog(("usbpicprog"));
+
     // init the PNG handler
     wxImage::AddHandler( new wxPNGHandler );
 
     // we're not interested to timestamps; they only take away space in the log dialog
-
     wxLog::DisableTimestamp();
 
 #if !defined(__WXMSW__) && !defined(__WXMAC__)
@@ -83,6 +86,14 @@ bool UsbPicProg::OnInit()
         delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
         return false;
     }
+
+    // init libusb library
+    if (libusb_init(NULL) != LIBUSB_SUCCESS)
+    {
+        wxLogError(_("Could not initialize libusb!"));
+        return false;
+    }
+
     SetVendorName(("UsbPicProgrammer"));
     if (!m_console)
     {
@@ -104,6 +115,8 @@ int UsbPicProg::OnExit()
     delete m_locale;
     
     PicType::CleanUp();
+
+    libusb_exit(NULL);
 
     return wxApp::OnExit();
 }

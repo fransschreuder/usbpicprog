@@ -21,15 +21,19 @@
 // NOTE: to avoid lots of warnings with MSVC 2008 about deprecated CRT functions
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
-#include <wx/log.h>
 
 // IMPORTANT: first include wxWidgets headers (indirectly)
+#include <wx/log.h>
 #include "hardware.h"
 #include "uppmainwindow.h"
 
 // NOW we can include the <usb.h> header without compiling problems
 #include <libusb.h>
 #include <iostream>
+
+#ifdef __WXMSW__
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
+#endif
 
 using namespace std;
 // #define USB_DEBUG 2
@@ -38,43 +42,6 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Hardware
 // ----------------------------------------------------------------------------
-/*const char* libusb_strerror(enum libusb_error errcode)
-{
-    switch (errcode)
-    {
-        case LIBUSB_SUCCESS:
-            return "Success";
-        case LIBUSB_ERROR_IO:
-            return "Input/output error";
-        case LIBUSB_ERROR_INVALID_PARAM:
-            return "Invalid parameter";
-        case LIBUSB_ERROR_ACCESS:
-            return "Access denied (insufficient permissions)";
-        case LIBUSB_ERROR_NO_DEVICE:
-            return "No such device (it may have been disconnected)";
-        case LIBUSB_ERROR_NOT_FOUND:
-            return "Entity not found";
-        case LIBUSB_ERROR_BUSY:
-            return "Resource busy";
-        case LIBUSB_ERROR_TIMEOUT:
-            return "Operation timed out";
-        case LIBUSB_ERROR_OVERFLOW:
-            return "Overflow";
-        case LIBUSB_ERROR_PIPE:
-            return "Pipe error";
-        case LIBUSB_ERROR_INTERRUPTED:
-            return "System call interrupted (perhaps due to signal)";
-        case LIBUSB_ERROR_NO_MEM:
-            return "Insufficient memory";
-        case LIBUSB_ERROR_NOT_SUPPORTED:
-            return "Operation not supported or unimplemented on this platform";
-        case LIBUSB_ERROR_OTHER:
-            return "Other error";
-
-        default:
-            return "Unknown error";
-    }
-}*/
 
 Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 {
@@ -84,7 +51,6 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_handle=NULL;
     m_pCallBack=CB;
 
-    libusb_init(NULL);
 #ifdef USB_DEBUG
     cout<<"USB debug enabled, remove '#define USB_DEBUG 2' in hardware.cpp to disable it"<<endl;
     usb_set_debug(USB_DEBUG);
