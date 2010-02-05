@@ -38,6 +38,45 @@
 using namespace std;
 // #define USB_DEBUG 2
 
+#ifdef __WXGTK__
+const char* libusb_strerror(enum libusb_error errcode)
+{
+    switch (errcode)
+    {
+        case LIBUSB_SUCCESS:
+            return "Success";
+        case LIBUSB_ERROR_IO:
+            return "Input/output error";
+        case LIBUSB_ERROR_INVALID_PARAM:
+            return "Invalid parameter";
+        case LIBUSB_ERROR_ACCESS:
+            return "Access denied (insufficient permissions)";
+        case LIBUSB_ERROR_NO_DEVICE:
+            return "No such device (it may have been disconnected)";
+        case LIBUSB_ERROR_NOT_FOUND:
+            return "Entity not found";
+        case LIBUSB_ERROR_BUSY:
+            return "Resource busy";
+        case LIBUSB_ERROR_TIMEOUT:
+            return "Operation timed out";
+        case LIBUSB_ERROR_OVERFLOW:
+            return "Overflow";
+        case LIBUSB_ERROR_PIPE:
+            return "Pipe error";
+        case LIBUSB_ERROR_INTERRUPTED:
+            return "System call interrupted (perhaps due to signal)";
+        case LIBUSB_ERROR_NO_MEM:
+            return "Insufficient memory";
+        case LIBUSB_ERROR_NOT_SUPPORTED:
+            return "Operation not supported or unimplemented on this platform";
+        case LIBUSB_ERROR_OTHER:
+            return "Other error";
+
+        default:
+            return "Unknown error";
+    }
+} 
+#endif
 
 // ----------------------------------------------------------------------------
 // Hardware
