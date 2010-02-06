@@ -1,3 +1,9 @@
+usbpicprog (787) karmic; urgency=low
+
+  * another step towards I2C eeprom
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 05 Jan 2010 20:58:04 +0100
+
 usbpicprog (783) karmic; urgency=low
 
   * added an extra delay between programming (one word) and readback.
