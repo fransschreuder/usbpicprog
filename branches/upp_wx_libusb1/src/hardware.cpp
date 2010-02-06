@@ -36,7 +36,7 @@
 #endif
 
 using namespace std;
-// #define USB_DEBUG 2
+#define USB_DEBUG 3
 
 #ifdef __WXGTK__
 const char* libusb_strerror(enum libusb_error errcode)
@@ -92,7 +92,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 
 #ifdef USB_DEBUG
     cout<<"USB debug enabled, remove '#define USB_DEBUG 2' in hardware.cpp to disable it"<<endl;
-    usb_set_debug(USB_DEBUG);
+    libusb_set_debug(NULL,USB_DEBUG);
 #endif
     if (hwtype == HW_UPP)
     {
@@ -388,8 +388,9 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         memorySize=numberOfBytes;
     
     if (memorySize==0)
+	{
         return 0;       // no code/config/data to read
-
+	}
     // create a temporary array to store read data
     vector<int> mem;
     mem.resize(memorySize, 0xFF);
@@ -474,8 +475,9 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
             cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;*/
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
         if ((ret = readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype)) <= 0)
-            return -1;      // failed reading this block; stop here
-        
+		{
+			return -1;      // failed reading this block; stop here
+		}
         nBytes += ret;
 
         // move read data in the temporary array
@@ -902,10 +904,10 @@ int Hardware::readString(unsigned char* msg, int size) const
 
     if (retcode != LIBUSB_SUCCESS)
     {
+		cout<<"Usb error while reading: " <<libusb_strerror((libusb_error)retcode)<<endl;
         wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
         return -1;
     }
-
     return nBytes;
 }
 
@@ -915,9 +917,9 @@ int Hardware::writeString(const unsigned char* msg, int size) const
 
     int nBytes, retcode;
     if ( endpointMode(WRITE_ENDPOINT)==Interrupt )
-        retcode = libusb_interrupt_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT/10);
+        retcode = libusb_interrupt_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
     else 
-        retcode = libusb_bulk_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT/10);
+        retcode = libusb_bulk_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
     if (retcode != LIBUSB_SUCCESS || nBytes < size)
     {
@@ -980,8 +982,9 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         // send the command
         nBytes = writeString(uppPackage.data,6);
         if (nBytes < 0)
+		{
             return nBytes;
-
+		}
         // read back the bytes
         nBytes = readString(msg,size);
     }
@@ -1029,7 +1032,6 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         memcpy(msg,tmpmsg+5,nBytes);
         delete [] tmpmsg;
     }
-
     return nBytes;
 }
 
