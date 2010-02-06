@@ -143,7 +143,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 #if 0                    // FIXME: why is this needed??
     if ( (retcode=libusb_reset_device(m_handle)) != LIBUSB_SUCCESS )
     {
-        wxLogError(_("Couldn't reset interface: %s"), libusb_strerror((libusb_error)retcode));
+        wxLogError(_("Couldn't reset the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -166,7 +166,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     //       see the CFG01.bCfgValue in uc_code/usbdsc.c
     if ( (retcode=libusb_set_configuration(m_handle, 1)) != LIBUSB_SUCCESS )
     {
-        wxLogError(_("Error setting configuration: %s"), libusb_strerror((libusb_error)retcode));
+        wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;
@@ -177,7 +177,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_nInterfaceNumber = 0;
     if ( (retcode=libusb_claim_interface(m_handle, m_nInterfaceNumber)) != LIBUSB_SUCCESS )
     {
-        wxLogError(_("Error claiming interface: %s"), libusb_strerror((libusb_error)retcode));
+        wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
         return;

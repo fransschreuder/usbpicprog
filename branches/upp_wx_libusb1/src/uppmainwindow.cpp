@@ -438,7 +438,7 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
     if (!firmwareVersion.stableRelease)
     {
         #ifdef UPP_VERSION
-            wxLogMessage(_("You are using the a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
+            wxLogMessage(_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
         #else
         if (firmwareVersion.release<DEV_VERSION)
             wxLogMessage(_("Your firmware is too old (latest version is %d); please consider upgrading it"),
@@ -457,7 +457,7 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
         wxLogMessage(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
                     STABLE_VERSION_MAJOR,STABLE_VERSION_MINOR,STABLE_VERSION_RELEASE);
     #else
-    wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
+    wxLogMessage(_("You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
     #endif
 }
 
