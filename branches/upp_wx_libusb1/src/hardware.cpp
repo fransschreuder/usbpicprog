@@ -91,8 +91,8 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_pCallBack=CB;
 
 #ifdef USB_DEBUG
-    cout<<"USB debug enabled, remove '#define USB_DEBUG 2' in hardware.cpp to disable it"<<endl;
-    libusb_set_debug(NULL,USB_DEBUG);
+    cout<<"USB debug enabled, remove the '#define USB_DEBUG 3' line in hardware.cpp to disable it"<<endl;
+    libusb_set_debug(NULL, USB_DEBUG);
 #endif
     if (hwtype == HW_UPP)
     {
@@ -173,9 +173,9 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     }
 
     // claim the USB interface
-    
-    m_nInterfaceNumber = 0;
-    if ( (retcode=libusb_claim_interface(m_handle, m_nInterfaceNumber)) != LIBUSB_SUCCESS )
+    // NOTE: the firmware in the UPP has a single interface with index #0:
+    //       see the CFG01.bInterfaceNumber in uc_code/usbdsc.c
+    if ( (retcode=libusb_claim_interface(m_handle, 0)) != LIBUSB_SUCCESS )
     {
         wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
@@ -185,8 +185,34 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     
     // TODO: as libusb-1.0 docs in the "caveats" page say we should check here that the interface we claimed
     //       still has the same configuration we set previously...
-    
 
+    // now save the endpoint mode for both the READ_ENDPOINT and the WRITE_ENDPOINT
+#if 0
+    if ( (retcode=libusb_get_descriptor(m_handle, LIBUSB_DT_ENDPOINT, ENDPOINT_INDEX, (unsigned char*)&ed, sizeof(ed))) != LIBUSB_SUCCESS )
+    {
+        wxLogError(_("Error getting USB endpoint descriptor: %s"), libusb_strerror((libusb_error)retcode));
+        m_hwCurrent = HW_NONE;
+        m_handle = NULL;
+        return;
+    }
+    
+    m_modeReadEndpoint = ed.bmAttributes & LIBUSB_TRANSFER_TYPE_MASK;
+    
+    if ( (retcode=libusb_get_descriptor(m_handle, LIBUSB_DT_ENDPOINT, WRITE_ENDPOINT, (unsigned char*)&ed, sizeof(ed))) != LIBUSB_SUCCESS )
+    {
+        wxLogError(_("Error getting USB endpoint descriptor: %s"), libusb_strerror((libusb_error)retcode));
+        m_hwCurrent = HW_NONE;
+        m_handle = NULL;
+        return;
+    }
+    
+    m_modeWriteEndpoint = ed.bmAttributes & LIBUSB_TRANSFER_TYPE_MASK;
+#else
+    // IMPORTANT: currently the firmware does not support retrieving the endpoint descriptors so we have to hardcode
+    //            the type of the endpoints here:
+    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
+#endif    
+    
     // everything completed successfully:
 
     wxASSERT(m_handle != NULL && m_hwCurrent != HW_NONE);
@@ -196,41 +222,19 @@ Hardware::~Hardware()
 {
     if (m_handle)
     {
-        libusb_release_interface(m_handle, m_nInterfaceNumber);
+        libusb_release_interface(m_handle, 0);
         libusb_close(m_handle);
 
-        m_handle=NULL;
+        m_handle = NULL;
     }
         
-    m_hwCurrent=HW_NONE;
+    m_hwCurrent = HW_NONE;
 }
 
 void Hardware::statusCallBack(int value) const
 {
     if (m_pCallBack)
         m_pCallBack->updateProgress(value);
-}
-
-Hardware::EndpointMode Hardware::endpointMode(int ep) const
-{
-    libusb_interface_descriptor id;
-    if ( libusb_get_descriptor( m_handle, LIBUSB_DT_INTERFACE, 0, (unsigned char*)&id, sizeof(id) ) != LIBUSB_SUCCESS )
-        return Nb_EndpointModes;
-
-    if ( ep >= id.bNumEndpoints)
-        return Nb_EndpointModes;
-    
-//    int index = ep & USB_ENDPOINT_ADDRESS_MASK;
-//    const libusb_endpoint_descriptor *ued = id.endpoint[ep];
-    switch (id.endpoint[ep].bmAttributes & LIBUSB_TRANSFER_TYPE_MASK)
-    {
-        case LIBUSB_TRANSFER_TYPE_BULK: return Bulk;
-        case LIBUSB_TRANSFER_TYPE_INTERRUPT: return Interrupt;
-        case LIBUSB_TRANSFER_TYPE_ISOCHRONOUS: return Isochronous;
-        case LIBUSB_TRANSFER_TYPE_CONTROL: return Control;
-        default: break;
-    }
-    return Nb_EndpointModes;
 }
 
 int Hardware::setPicType(PicType* picType)
@@ -257,14 +261,12 @@ int Hardware::setPicType(PicType* picType)
     return (int)msg[0];
 }
 
-
 int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
 {
     unsigned char msg[64];
-
     
+    if (!picType->ok()) return -1;
     if (m_handle == NULL) return -1;
-
     statusCallBack (0);
 
     if (m_hwCurrent == HW_UPP)
@@ -278,8 +280,6 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
             msg[1]=0x00;
         else 
             msg[1]=0xAA;
-        
-        
         
         if (writeString(msg,2) < 0)
             return 0;
@@ -897,14 +897,13 @@ int Hardware::readString(unsigned char* msg, int size) const
     if (m_handle == NULL) return -1;
 
     int nBytes, retcode;
-    if ( endpointMode(READ_ENDPOINT)==Interrupt )  
+    if (m_modeReadEndpoint == LIBUSB_TRANSFER_TYPE_INTERRUPT)  
         retcode = libusb_interrupt_transfer(m_handle, READ_ENDPOINT, msg, size, &nBytes, USB_OPERATION_TIMEOUT);
     else
         retcode = libusb_bulk_transfer(m_handle, READ_ENDPOINT, msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
     if (retcode != LIBUSB_SUCCESS)
     {
-		cout<<"Usb error while reading: " <<libusb_strerror((libusb_error)retcode)<<endl;
         wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
         return -1;
     }
@@ -916,7 +915,7 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     if (m_handle == NULL) return -1;
 
     int nBytes, retcode;
-    if ( endpointMode(WRITE_ENDPOINT)==Interrupt )
+    if (m_modeWriteEndpoint == LIBUSB_TRANSFER_TYPE_INTERRUPT)
         retcode = libusb_interrupt_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
     else 
         retcode = libusb_bulk_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
@@ -1138,12 +1137,12 @@ void Hardware::tryToDetachDriver()
 #if defined(LIBUSB_HAS_GET_DRIVER_NP) && LIBUSB_HAS_GET_DRIVER_NP
     //  log(Log::DebugLevel::Extra, "find if there is already an installed driver");
     char dname[256] = "";
-    if ( usb_get_driver_np(m_handle, m_nInterfaceNumber, dname, 255)<0 ) return;
+    if ( usb_get_driver_np(m_handle, 0, dname, 255)<0 ) return;
     //  log(Log::DebugLevel::Normal, QString("  a driver \"%1\" is already installed...").arg(dname));
 #if defined(LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP) && LIBUSB_HAS_DETACH_KERNEL_DRIVER_NP
-    usb_detach_kernel_driver_np(m_handle, m_nInterfaceNumber);
+    usb_detach_kernel_driver_np(m_handle, 0);
     // log(Log::DebugLevel::Normal, "  try to detach it...");
-    if ( usb_get_driver_np(m_handle, m_nInterfaceNumber, dname, 255)<0 ) return;
+    if ( usb_get_driver_np(m_handle, 0, dname, 255)<0 ) return;
     // log(Log::DebugLevel::Normal, "  failed to detach it");
 #endif
 #endif
