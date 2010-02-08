@@ -24,9 +24,6 @@
 /* Define if your <locale.h> file defines LC_MESSAGES. */
 #undef HAVE_LC_MESSAGES
 
-/* defined if libusb is available */
-#undef HAVE_LIBUSB
-
 /* Define to 1 if you have the <locale.h> header file. */
 #undef HAVE_LOCALE_H
 
@@ -53,9 +50,6 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
-
-/* Define to 1 if you have the `usb_create_match' function. */
-#undef HAVE_USB_CREATE_MATCH
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

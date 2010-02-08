@@ -83,34 +83,15 @@ if test "$has_wxWin" != 1; then
     ])
 fi
 
-# CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
-# CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
-# CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
-# LIBS="$LIBS $WX_LIBS"
-
 #
 # check for libusb
 #
-AC_CHECK_LIB(usb, usb_bulk_write,
-             [
-               has_libusb=1
-               LIBUSB_LIBS="$LIBUSB_LIBS -lusb"
-               AC_DEFINE(HAVE_LIBUSB,1,
-                         [defined if libusb is available])
-             ])
-if test "$has_libusb" != 1; then
-    AC_MSG_ERROR([
-        Libusb 0.1.x is required.
-        
-        Please install it from your package manager.
-    ])
-fi
+#AC_CHECK_HEADER([libusb-1.0/libusb.h],,
+#                [AC_MSG_ERROR([cannot find headers for libusb-1.0])])
 
-AC_SUBST(LIBUSB_LIBS)
-AC_CHECK_FUNCS(usb_create_match)
+PKG_CHECK_MODULES([LIBUSB], [libusb-1.0 >= 1.0.0], have_libusb_1_0=yes, have_libusb_1_0=no)
 
-AC_SUBST(LIBUSB_CFLAGS)
-#AC_SUBST(LIBUSB_LIBS)
+
 AC_SUBST(USBPICPROG_CFLAGS)
 AC_SUBST(USBPICPROG_LIBS)
 
