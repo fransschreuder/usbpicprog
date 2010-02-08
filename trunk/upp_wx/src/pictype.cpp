@@ -36,6 +36,10 @@
 
 #include "pictype.h"
 
+#ifdef __WXMSW__
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
+#endif
+
 
 // statics
 vector<PicType::PicIndexInfo> PicType::s_arrSupported;
@@ -209,7 +213,7 @@ bool PicType::Init()
     // at the very least we need a valid default PIC type
     if (s_default.name.empty())
     {
-        wxLogError(_("Could not load the data for the PIC '%s'."), UPP_DEFAULT_PIC_MODEL);
+        wxLogError(_("Could not load data for PIC '%s'."), UPP_DEFAULT_PIC_MODEL);
         return false;
     }
     

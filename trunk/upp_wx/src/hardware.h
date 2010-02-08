@@ -106,20 +106,26 @@ typedef enum
 #define BLOCKSIZE_MAXSIZE 128
     // only used when allocating temporary buffers
 
-#define ENDPOINT 1
-#define READ_ENDPOINT (ENDPOINT|USB_ENDPOINT_IN)
-#define WRITE_ENDPOINT (ENDPOINT|USB_ENDPOINT_OUT)
+//! The index of the endpoint used for communication.
+#define ENDPOINT_INDEX          1
 
-#define OPERATION_ABORTED 2
+//! The endpoint used for reading data from UPP bootloader/programmer.
+#define READ_ENDPOINT           (ENDPOINT_INDEX|LIBUSB_ENDPOINT_IN)
 
-#define USB_OPERATION_TIMEOUT 5000
-    // timeout in milliseconds for USB operations
+//! The endpoint used for writing data to the UPP bootloader/programmer.
+#define WRITE_ENDPOINT          (ENDPOINT_INDEX|LIBUSB_ENDPOINT_OUT)
+
+//! Timeout in milliseconds for USB operations.
+#define USB_OPERATION_TIMEOUT   5000
+
+//! Return code for the Hardware class' functions when the operations have been aborted.
+#define OPERATION_ABORTED       2
 
 
 // forward declaration:
 class UppMainWindow;
-struct usb_dev_handle;
-struct usb_interface_descriptor;
+struct libusb_device_handle;
+
 
 /**
     Structure to pass/transport easily a firmware version for the programmer hardware.
@@ -204,19 +210,6 @@ typedef enum
 class Hardware
 {
 public:
-    /**
-        The possible operation modes for an USB endpoint.
-    */
-    enum EndpointMode { 
-        Bulk = 0, 
-        Interrupt, 
-        Control, 
-        Isochronous, 
-
-        /// An invalid endpoint mode.
-        Nb_EndpointModes 
-    };
-
     /** 
         Default constructor.
 
@@ -294,9 +287,6 @@ public:
     */
     int autoDetectDevice();
 
-    /** Returns the current mode of the USB endpoint */
-    EndpointMode endpointMode(int ep) const;
-
     /** 
         Reads the firmware version of the connected hardware. 
 
@@ -358,13 +348,17 @@ private:
 
     /** 
         Read a block of a memory area sending the correct command to the hardware and reading
-        back its reply. 
+        back its reply.
+        
+        Returns the number of bytes read or -1 on error.
     */
     int readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
 
     /** 
         Writes a block of a memory area sending the correct command to the hardware and reading
         back its reply. 
+        
+        Returns the number of bytes read or -1 on error.
     */
     int writeBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
 
@@ -394,13 +388,23 @@ private:
 private:    // libusb-related members
 
     /** Device handle containing information about Usbpicprog when it's connected */
-    usb_dev_handle* m_handle;
-
-    /** USB interface number. */
-    int m_nInterfaceNumber;
-
-    /** Libusb interface descriptor. */
-    const usb_interface_descriptor *m_interface;
+    libusb_device_handle* m_handle;
+    
+    /** 
+        The mode (interrupt or bulk) of the endpoint used for UPP->SW communications.
+        Note that this variable should be of type "enum libusb_transfer_type" but 
+        hardware.h doesn't include libusb.h directly so that the definition of that 
+        enum is not available to the compiler here. Thus a generic int is used instead.
+    */
+    int m_modeReadEndpoint;
+    
+    /** 
+        The mode (interrupt or bulk) of the endpoint used for SW->UPP communications.
+        Note that this variable should be of type "enum libusb_transfer_type" but 
+        hardware.h doesn't include libusb.h directly so that the definition of that 
+        enum is not available to the compiler here. Thus a generic int is used instead.
+    */
+    int m_modeWriteEndpoint;
 };
 
 #endif //HARDWARE_H

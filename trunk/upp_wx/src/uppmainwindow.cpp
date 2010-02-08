@@ -23,7 +23,6 @@
 
 #include <wx/defs.h>
 #include <wx/wx.h>
-
 #include <wx/artprov.h>
 #include <wx/toolbar.h>
 #include <wx/choice.h>
@@ -69,6 +68,10 @@
     #include "../icons/win/zoomin.xpm"
     #include "../icons/win/zoomout.xpm"
     #include "../icons/win/zoomfit.xpm"
+#endif
+
+#ifdef __WXMSW__
+    #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
 #endif
 
 static const wxChar *FILETYPES = _T(
@@ -138,7 +141,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         // PIC changed; reset the code/config/data grids
         Reset();
     }
-	
+    
     // find the hardware connected to the PC, if any:
     upp_connect();
 }
@@ -204,11 +207,11 @@ void UppMainWindow::CompleteGUICreation()
                                 _("Erase the PIC device"), wxITEM_NORMAL );
 //This menuItem must be enabled / disabled, so let's make it global...
 //	wxMenuItem* pMenuRestoreCal;
-	
-	m_pMenuRestoreCal = new wxMenuItem( pMenuActions, wxID_RESTORE, wxString( _("Restore Cal regs...") ),
+    
+    m_pMenuRestoreCal = new wxMenuItem( pMenuActions, wxID_RESTORE, wxString( _("Restore Cal regs...") ),
                                 _("Restore PIC's calibration registers"), wxITEM_NORMAL );
 
-	wxMenuItem* pMenuBlankCheck;
+    wxMenuItem* pMenuBlankCheck;
     pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
                                     _("Blankcheck the PIC device"), wxITEM_NORMAL );
 
@@ -262,8 +265,8 @@ void UppMainWindow::CompleteGUICreation()
     {
         bool bFamilyFound = false;
         // the first 4 characters of the PIC name are the family:
-		wxString family;
-		if(m_arrPICName[i].substr(0, 4)=="24XX") family = wxString("I2C Eeprom");
+        wxString family;
+        if(m_arrPICName[i].substr(0, 4)=="24XX") family = wxString("I2C Eeprom");
         else family = wxString("PIC"+m_arrPICName[i].substr(0, 2));
 
         // is there a menu for this PIC family?
@@ -387,7 +390,7 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
 
-	// set default title name
+    // set default title name
     UpdateTitle();
 
     // show default stuff
@@ -434,27 +437,28 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {
     if (!firmwareVersion.stableRelease)
     {
-		#ifdef UPP_VERSION
-			wxLogMessage(_("You are using the a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
-		#else
+        #ifdef UPP_VERSION
+            wxLogMessage(_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
+        #else
         if (firmwareVersion.release<DEV_VERSION)
-            wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
-		#endif
+            wxLogMessage(_("Your firmware is too old (latest version is %d); please consider upgrading it"),
+                         DEV_VERSION);
+        #endif
         return;
     }
-    
-    
 
-	#ifdef UPP_VERSION
-	// check major digit
+    #ifdef UPP_VERSION
+    // check major digit
     double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
     double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
-    if(stableVersion<stableFirmwareVersion)wxLogMessage(_("Firmware probably too new")); 
-    if(stableVersion>stableFirmwareVersion)wxLogMessage(_("Your firmware is too old; please consider upgrading it")); 
+    if (stableVersion<stableFirmwareVersion)
+        wxLogMessage(_("Firmware probably too new")); 
+    if (stableVersion>stableFirmwareVersion)
+        wxLogMessage(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
+                    STABLE_VERSION_MAJOR,STABLE_VERSION_MINOR,STABLE_VERSION_RELEASE);
     #else
-    wxLogMessage(_("You are using the a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
+    wxLogMessage(_("You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
     #endif
-
 }
 
 
@@ -491,7 +495,7 @@ void UppMainWindow::UpdatePicInfo()
 
     // reset config listbook contents
     m_pConfigListbook->SetHexFile(&m_hexFile, m_picType);
-	
+    
     // reset the PIC info page
     if (!m_picType.ok())
         return;
@@ -530,18 +534,18 @@ void UppMainWindow::UpdatePicInfo()
     // let's update the bitmap and the pin names:
     upp_package_variant_changed();
 
-	if(m_picType.picFamily==P12F629) 
-		    m_pMenuRestoreCal->Enable(true);
-	else
-		    m_pMenuRestoreCal->Enable(false);
-		    
+    if(m_picType.picFamily==P12F629) 
+            m_pMenuRestoreCal->Enable(true);
+    else
+            m_pMenuRestoreCal->Enable(false);
+            
 }
 
 void UppMainWindow::Reset()
 {
     m_hexFile.newFile(&m_picType);
-	m_hardware->backupOscCalBandGap(&m_picType);
-	m_hexFile.putOscCalBandGap (&m_picType);
+    m_hardware->backupOscCalBandGap(&m_picType);
+    m_hexFile.putOscCalBandGap (&m_picType);
     UpdatePicInfo();
     UpdateTitle();
 }
@@ -650,7 +654,7 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
     m_arrLog.clear();
     m_arrLogLevel.clear();
     m_arrLogTimes.clear();
-	
+    
     SetStatusText(_("All operations completed"), STATUS_FIELD_OTHER);
     if (m_cfg.ConfigShowPopups)
     {
@@ -979,7 +983,7 @@ bool UppMainWindow::upp_thread_blankcheck()
             case TYPE_DATA: typeText="data";break;
             case TYPE_CONFIG: typeText="config";break;
             default: typeText="unknown";break;
-			
+            
         }
 
         verifyText.Printf(_("Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"),
@@ -1101,8 +1105,8 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
     else
     {
-		m_hardware->backupOscCalBandGap(&m_picType);
-		m_hexFile.putOscCalBandGap (&m_picType);
+        m_hardware->backupOscCalBandGap(&m_picType);
+        m_hexFile.putOscCalBandGap (&m_picType);
         UpdatePicInfo();
         UpdateTitle();
         m_history.AddFileToHistory(path);
@@ -1251,11 +1255,11 @@ void UppMainWindow::upp_erase()
 
 void UppMainWindow::upp_restore()
 {
-	if(m_picType.picFamily!=P12F629)
-	{   
-		wxLogError(_("Only valid for PIC12F629 and similar devices..."));
+    if(m_picType.picFamily!=P12F629)
+    {   
+        wxLogError(_("Only valid for PIC12F629 and similar devices..."));
         return;
-	}
+    }
     if (m_hardware == NULL || !m_hardware->connected())
     {
         wxLogError(_("The programmer is not connected"));
@@ -1271,34 +1275,34 @@ void UppMainWindow::upp_restore()
 
 //	wxLogMessage(_("
 
-	wxString selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [3400 - 37FF]"), 
-	    _("Specify a new Osccal Value"), "3400", this);
+    wxString selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [3400 - 37FF]"), 
+        _("Specify a new Osccal Value"), "3400", this);
 
-	if(selectedOscCal.length()==0)return;
-	int iSelectedOscCal;
-	sscanf(selectedOscCal.c_str(),"%4X",&iSelectedOscCal);
-	if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
+    if(selectedOscCal.length()==0)return;
+    int iSelectedOscCal;
+    sscanf(selectedOscCal.c_str(),"%4X",&iSelectedOscCal);
+    if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
     {
-		wxLogError(_("Please specify an Oscal Value between 3400 and 37FF"));
-		return;
-	}
-	
-	wxArrayString bgChoices;
-	bgChoices.Alloc(4);
-	for(int i=0;i<4;i++)
-	{
-		bgChoices.Add("");
-		bgChoices[i].Printf("%i",i);
-	}
-	int selectedBandGap = wxGetSingleChoiceIndex(_("Please specify a bandgap value"),	_("Specify a bandgap value"), bgChoices,this);
-	if(selectedBandGap == -1) return;
-	
-	/**TODO Place these commands into a wxThread
-	 */
+        wxLogError(_("Please specify an Oscal Value between 3400 and 37FF"));
+        return;
+    }
+    
+    wxArrayString bgChoices;
+    bgChoices.Alloc(4);
+    for(int i=0;i<4;i++)
+    {
+        bgChoices.Add("");
+        bgChoices[i].Printf("%i",i);
+    }
+    int selectedBandGap = wxGetSingleChoiceIndex(_("Please specify a bandgap value"),	_("Specify a bandgap value"), bgChoices,this);
+    if(selectedBandGap == -1) return;
+    
+    /**TODO Place these commands into a wxThread
+    */
 
-	if (m_hardware->bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
-	if (m_hardware->restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
-	Reset();
+    if (m_hardware->bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
+    if (m_hardware->restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
+    Reset();
 }
 
 
@@ -1330,16 +1334,16 @@ bool UppMainWindow::upp_autodetect()
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
     // if devId is not a valid device ID, select the default PIC
-	if((!m_picType.ok())&&(devId==-1))
-	{
-		m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);	
+    if((!m_picType.ok())&&(devId==-1))
+    {
+        m_picType = PicType::FindPIC(UPP_DEFAULT_PIC);
     }
-	if (devId != -1)
-	{
-        m_picType = PicType::FindPIC(devId);	
-	}
+    if (devId != -1)
+    {
+        m_picType = PicType::FindPIC(devId);
+    }
 
-	wxASSERT(m_picType.ok());
+    wxASSERT(m_picType.ok());
     m_hardware->setPicType(&m_picType);
 
     // sync the choicebox with m_picType
@@ -1351,12 +1355,12 @@ bool UppMainWindow::upp_autodetect()
         SetStatusText(_("No PIC detected!"),STATUS_FIELD_HARDWARE);
         if (m_cfg.ConfigShowPopups)
             wxLogMessage(_("No PIC detected! Selecting the default PIC (%s)..."),
-                        picName.Mid(1).c_str());
+                        picName.c_str());
     }
     else
     {
         wxString msg = wxString::Format(_("Detected PIC model %s with device ID 0x%X"),
-                                        picName.Mid(1).c_str(), devId);
+                                        picName.c_str(), devId);
         SetStatusText(msg,STATUS_FIELD_HARDWARE);
         if (m_cfg.ConfigShowPopups)
             wxLogMessage(msg);
@@ -1501,7 +1505,7 @@ void UppMainWindow::upp_about()
 
 void UppMainWindow::upp_io_test()
 {
-	IOTest(m_hardware, this);
+    IOTest(m_hardware, this);
 }
 
 void UppMainWindow::upp_pic_choice_changed()
@@ -1550,14 +1554,14 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
             // do not change PIC selection
             wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
             return;
-		}    
+        }    
     }
 
     // update the pic type
     m_picType = PicType::FindPIC(m_arrPICName[id]);
 
-	if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
-	
+    if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
+    
     // keep the choice box synchronized
     m_pPICChoice->SetStringSelection(m_arrPICName[id]);
 
