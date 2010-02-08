@@ -210,7 +210,10 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
 #else
     // IMPORTANT: currently the firmware does not support retrieving the endpoint descriptors so we have to hardcode
     //            the type of the endpoints here:
-    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
+	if(m_hwCurrent==HW_UPP)
+	    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
+	else 
+		m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_BULK;
 #endif    
     
     // everything completed successfully:
