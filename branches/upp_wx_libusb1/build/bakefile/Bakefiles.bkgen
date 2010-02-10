@@ -9,7 +9,12 @@
         borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
     </add-formats>
 
-    <add-flags>-I $(envvar('WXWIN'))/build/bakefiles/wxpresets</add-flags>
+    <add-flags>-I F:/wxWidgets/build/bakefiles/wxpresets</add-flags>
+    
+    <!-- Enable win64 compilation by MSVC IDE: -->
+    <add-flags formats="msvs2005prj,msvs2008prj">
+        -DMSVS_PLATFORMS=win32,win64
+    </add-flags>
 
     <!-- Directories where the files go: -->
     <add-flags formats="autoconf">
@@ -35,13 +40,13 @@
         -o../win/upp_wx.dsw
     </add-flags>
     <add-flags formats="msvs2003prj">
-        -o../win/upp_wx_vc7.sln
+        -o../win/upp_wx_vc2003.sln
     </add-flags>
     <add-flags formats="msvs2005prj">
-        -o../win/upp_wx_vc8.sln
+        -o../win/upp_wx_vc2005.sln
     </add-flags>
     <add-flags formats="msvs2008prj">
-        -o../win/upp_wx_vc9.sln
+        -o../win/upp_wx_vc2008.sln
     </add-flags>
     
 </bakefile-gen>

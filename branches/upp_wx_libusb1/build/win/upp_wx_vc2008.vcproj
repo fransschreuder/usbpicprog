@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="upp_wx"
-	ProjectGUID="{43CF840D-0130-5D6E-99B2-E1204F4A3278}"
+	ProjectGUID="{0F288A80-2A10-5001-80BF-C351FC0852D6}"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -41,13 +41,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -65,7 +65,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -73,11 +73,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu\usbpicprog.pdb"
 				SubSystem="2"
@@ -95,7 +95,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu\upp_wx_vc9.bsc"
+				OutputFile="vcmswu\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -109,8 +109,8 @@
 		</Configuration>
 		<Configuration
 			Name="Static Release Multilib|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswu"
+			IntermediateDirectory="vcmswu\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -131,14 +131,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -156,7 +155,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -164,11 +163,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu\usbpicprog.pdb"
 				SubSystem="2"
@@ -186,7 +185,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu\upp_wx_vc9.bsc"
+				OutputFile="vcmswu\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -222,13 +221,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -246,7 +245,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -254,11 +253,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu\usbpicprog.pdb"
 				SubSystem="2"
@@ -276,7 +275,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu\upp_wx_vc9.bsc"
+				OutputFile="vcmswu\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -290,8 +289,8 @@
 		</Configuration>
 		<Configuration
 			Name="Static Release Monolithic|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswu"
+			IntermediateDirectory="vcmswu\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -312,14 +311,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -337,7 +335,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -345,11 +343,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu\usbpicprog.pdb"
 				SubSystem="2"
@@ -367,7 +365,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu\upp_wx_vc9.bsc"
+				OutputFile="vcmswu\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -403,13 +401,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -429,7 +427,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -437,11 +435,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud\usbpicprog.pdb"
@@ -460,7 +458,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud\upp_wx_vc9.bsc"
+				OutputFile="vcmswud\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -474,8 +472,8 @@
 		</Configuration>
 		<Configuration
 			Name="Static Debug Multilib|x64"
-			OutputDirectory="vcmswud_x64"
-			IntermediateDirectory="vcmswud_x64"
+			OutputDirectory="vcmswud"
+			IntermediateDirectory="vcmswud\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -496,25 +494,23 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;F:\libusb-pbatard\libusb"
-				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG;OS_WINDOWS"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
-				ObjectFile="vcmswud_x64\upp_wx\"
-				ProgramDataBaseFileName="vcmswud_x64\usbpicprog.pdb"
+				ObjectFile="vcmswud\upp_wx\"
+				ProgramDataBaseFileName="vcmswud\usbpicprog.pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -524,7 +520,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -532,11 +528,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb-1.0_debug.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="vcmswud_x64\usbpicprog.exe"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				OutputFile="vcmswud\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_lib;F:\libusb-pbatard\x64\Debug\dll"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud\usbpicprog.pdb"
@@ -555,7 +551,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud_x64\upp_wx_vc9.bsc"
+				OutputFile="vcmswud\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -591,13 +587,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -617,7 +613,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -625,11 +621,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud\usbpicprog.pdb"
@@ -648,7 +644,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud\upp_wx_vc9.bsc"
+				OutputFile="vcmswud\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -662,8 +658,8 @@
 		</Configuration>
 		<Configuration
 			Name="Static Debug Monolithic|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswud"
+			IntermediateDirectory="vcmswud\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -684,14 +680,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -711,7 +706,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -719,11 +714,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_lib;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud\usbpicprog.pdb"
@@ -742,7 +737,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud\upp_wx_vc9.bsc"
+				OutputFile="vcmswud\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -778,13 +773,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -802,7 +797,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -810,11 +805,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu_dll\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu_dll\usbpicprog.pdb"
 				SubSystem="2"
@@ -832,7 +827,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswu_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -846,8 +841,8 @@
 		</Configuration>
 		<Configuration
 			Name="DLL Release Multilib|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswu_dll"
+			IntermediateDirectory="vcmswu_dll\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -868,14 +863,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -893,7 +887,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -901,11 +895,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29u_adv.lib wxbase29u_xml.lib wxmsw29u_core.lib wxbase29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu_dll\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu_dll\usbpicprog.pdb"
 				SubSystem="2"
@@ -923,7 +917,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswu_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -959,13 +953,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -983,7 +977,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -991,11 +985,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu_dll\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu_dll\usbpicprog.pdb"
 				SubSystem="2"
@@ -1013,7 +1007,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswu_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -1027,8 +1021,8 @@
 		</Configuration>
 		<Configuration
 			Name="DLL Release Monolithic|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswu_dll"
+			IntermediateDirectory="vcmswu_dll\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -1049,14 +1043,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -1074,7 +1067,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -1082,11 +1075,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregexu.lib wxexpat.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswu_dll\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				ProgramDatabaseFile="vcmswu_dll\usbpicprog.pdb"
 				SubSystem="2"
@@ -1104,7 +1097,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswu_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswu_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -1140,13 +1133,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -1166,7 +1159,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -1174,11 +1167,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud_dll\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud_dll\usbpicprog.pdb"
@@ -1197,7 +1190,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswud_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -1211,8 +1204,8 @@
 		</Configuration>
 		<Configuration
 			Name="DLL Debug Multilib|x64"
-			OutputDirectory="vcmswud_amd64_dll"
-			IntermediateDirectory="vcmswud_amd64_dll"
+			OutputDirectory="vcmswud_dll"
+			IntermediateDirectory="vcmswud_dll\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -1233,22 +1226,21 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)"
-				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG;_CRTDBG_MAP_ALLOC"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
-				ObjectFile="vcmswud_amd64_dll\upp_wx\"
-				ProgramDataBaseFileName="vcmswud_amd64_dll\usbpicprog.pdb"
+				ObjectFile="vcmswud_dll\upp_wx\"
+				ProgramDataBaseFileName="vcmswud_dll\usbpicprog.pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -1260,7 +1252,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -1268,14 +1260,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="setupapi.lib libusb-1.0.lib pthreadVC2_x64.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
-				OutputFile="usbpicprog.exe"
-				LinkIncremental="1"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib wxmsw29ud_adv.lib wxbase29ud_xml.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				OutputFile="vcmswud_dll\usbpicprog.exe"
+				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_dll;F:\libusb-pbatard\x64\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="vcmswud_amd64_dll\usbpicprog.pdb"
+				ProgramDatabaseFile="vcmswud_dll\usbpicprog.pdb"
 				SubSystem="2"
 				TargetMachine="17"
 			/>
@@ -1291,7 +1283,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud_amd64_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswud_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -1327,13 +1319,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -1353,7 +1345,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -1361,11 +1353,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud_dll\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud_dll\usbpicprog.pdb"
@@ -1384,7 +1376,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswud_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -1398,8 +1390,8 @@
 		</Configuration>
 		<Configuration
 			Name="DLL Debug Monolithic|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="vcmswud_dll"
+			IntermediateDirectory="vcmswud_dll\upp_wx"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -1420,14 +1412,13 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
-				TargetEnvironment="3"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -1447,7 +1438,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\include"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_amd64_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -1455,11 +1446,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=""
-				AdditionalDependencies="libusb.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib    wxmsw29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib"
 				OutputFile="vcmswud_dll\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\lib\msvc"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_amd64_dll;$(LIBUSB)\x64\Debug\lib;$(LIBUSB)\x86\Debug\lib"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="vcmswud_dll\usbpicprog.pdb"
@@ -1478,7 +1469,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile="vcmswud_dll\upp_wx_vc9.bsc"
+				OutputFile="vcmswud_dll\upp_wx_vc2008.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"

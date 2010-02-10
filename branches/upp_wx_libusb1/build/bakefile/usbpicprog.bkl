@@ -11,13 +11,16 @@
     <set-srcdir>../..</set-srcdir>
     <set-wxlike-builddir/>
     
+    <!-- no x64 support before bakefile 0.2.9: -->
+    <requires version="0.2.8"/>
+    
     
     <!-- this option allows to specify the libUSB installation folder -->
     <set var="LIBUSB_DIR_DEFAULT">$(DOLLAR)(LIBUSB)</set>
     <option name="LIBUSB_DIR" category="path" never_empty="1">
         <default-value>$(LIBUSB_DIR_DEFAULT)</default-value>
         <description>
-            The directory where libusb library is installed
+            The directory where the libusb-1.x library is installed
         </description>
     </option>
         
@@ -30,10 +33,17 @@
         <win32-res>icons/win/upp_wx.rc</win32-res>
         
         <include>$(SRCDIR)/src</include>
-        <include>$(LIBUSB_DIR)/include</include>
+        <include>$(LIBUSB_DIR)/libusb</include>
 
-        <lib-path>$(LIBUSB_DIR)/lib/msvc</lib-path>
-        <sys-lib>libusb</sys-lib>
+        <!-- we assume the user only builds one of the two architectures of libusb: x86 OR x64 -->
+        <lib-path>$(LIBUSB_DIR)/x64/Debug/lib</lib-path>
+        <lib-path>$(LIBUSB_DIR)/x86/Debug/lib</lib-path>
+        <sys-lib>libusb-1.0</sys-lib>
+        
+        <!-- libs required by libusb-1.0: -->
+        <sys-lib>pthreadVC2_x64</sys-lib>
+        <sys-lib>setupapi</sys-lib>
+        
         <wx-lib>adv</wx-lib>
         <wx-lib>xml</wx-lib>
         <wx-lib>core</wx-lib>

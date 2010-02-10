@@ -27,7 +27,7 @@ LDFLAGS =
 #   1 - DLL
 WX_SHARED = 0
 
-# Use debug build of wxWidgets (define __WXDEBUG__)? [0,1]
+# Use debug build of wxWidgets (linked with debug CRT)? [0,1]
 #   0 - Release
 #   1 - Debug
 WX_DEBUG = 1
@@ -43,7 +43,13 @@ WX_MONOLITHIC = 0
 # The directory where wxWidgets library is installed 
 WX_DIR = $(WXWIN)
 
-# The directory where libusb library is installed 
+# Architecture of the CPU for which to build the executables and libraries [X86,AMD64,IA64]
+#   X86 - i386-compatible
+#   AMD64 - AMD 64 bit
+#   IA64 - Itanium 64 bit
+CPU = X86
+
+# The directory where the libusb-1.x library is installed 
 LIBUSB_DIR = $(LIBUSB)
 
 
@@ -54,34 +60,41 @@ LIBUSB_DIR = $(LIBUSB)
 
 ### Variables: ###
 
+COMPILER_PREFIX = vc
 UPP_WX_CXXFLAGS = /MD$(____upp_wx__DEBUGINFO_9) /DWIN32 $(____WX_SHARED_2_p) \
 	/D_UNICODE $(__WXDEBUG_DEFINE_p) /D__WXMSW__ \
-	/I$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /I$(WX_DIR)\include /D_WINDOWS \
-	$(____upp_wx__OPT_5) $(____upp_wx__DEBUGINFO_6) \
-	$(______upp_wx__DEBUGINFO_8_p) \
-	/Fdvcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb \
-	/I..\..\src /I$(LIBUSB_DIR)\include /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
+	/I$(WX_DIR)$(__WXLIBPATH_FILENAMES)\msw$(WXLIBPOSTFIX) \
+	/I$(WX_DIR)\include /D_WINDOWS $(____upp_wx__OPT_5) \
+	$(____upp_wx__DEBUGINFO_6) $(______upp_wx__DEBUGINFO_8_p) \
+	/Fd$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb \
+	/I..\..\src /I$(LIBUSB_DIR)\libusb /GR /EHsc $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test_base.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test_base.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj \
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj
 UPP_WX_RESOURCES =  \
-	vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
+	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 
 ### Conditionally set variables: ###
 
 !if "$(WX_DEBUG)" == "1"
 WX3RDPARTYLIBPOSTFIX = d
+!endif
+!if "$(WX_SHARED)" == "0"
+WXLIBPATH = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
+!endif
+!if "$(WX_SHARED)" == "1"
+WXLIBPATH = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
 !endif
 !if "$(WX_SHARED)" == "0"
 _BUILDDIR_SHARED_SUFFIX = 
@@ -106,6 +119,24 @@ __WXDEBUG_DEFINE_p = /D__WXDEBUG__
 !endif
 !if "$(WX_DEBUG)" == "1"
 __WXDEBUG_DEFINE_p_1 = /d __WXDEBUG__
+!endif
+!if "$(WX_SHARED)" == "0"
+__WXLIBPATH_FILENAMES = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
+!endif
+!if "$(WX_SHARED)" == "1"
+__WXLIBPATH_FILENAMES = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
+!endif
+!if "$(WX_SHARED)" == "0"
+__WXLIBPATH_FILENAMES_1 = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
+!endif
+!if "$(WX_SHARED)" == "1"
+__WXLIBPATH_FILENAMES_1 = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
+!endif
+!if "$(WX_SHARED)" == "0"
+__WXLIBPATH_FILENAMES_2 = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
+!endif
+!if "$(WX_SHARED)" == "1"
+__WXLIBPATH_FILENAMES_2 = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
 !endif
 !if "$(WX_DEBUG)" == "0"
 ____upp_wx__OPT_5 = /O2
@@ -176,29 +207,29 @@ WXLIBPOSTFIX = u
 !if "$(WX_DEBUG)" == "1"
 WXLIBPOSTFIX = ud
 !endif
-!if "$(WX_SHARED)" == "0"
-WXLIBPATH = \lib\vc_lib
+!if "$(CPU)" == "AMD64"
+WXCPU = _amd64
 !endif
-!if "$(WX_SHARED)" == "1"
-WXLIBPATH = \lib\vc_dll
+!if "$(CPU)" == "IA64"
+WXCPU = _ia64
 !endif
 
 
-all: vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX):
-	-if not exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX) mkdir vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)
+all: $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX):
+	-if not exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX) mkdir $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)
 
 ### Targets: ###
 
-all: test_for_selected_wxbuild vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
+all: test_for_selected_wxbuild $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
 
 clean: 
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.ilk del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.ilk
-	-if exist vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb del vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.obj
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.res
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\*.pch
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.ilk del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.ilk
+	-if exist $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb del $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb
 
 test_for_selected_wxbuild: 
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
@@ -212,50 +243,50 @@ test_for_selected_wxbuild:
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	exit 1
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe: $(UPP_WX_OBJECTS) vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
-	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(WXLIBPATH) /SUBSYSTEM:WINDOWS $(____upp_wx__DEBUGINFO_7) /pdb:"vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb" $(____upp_wx__DEBUGINFO_11) /LIBPATH:$(LIBUSB_DIR)\lib\msvc $(LDFLAGS) @<<
-	$(UPP_WX_OBJECTS) $(UPP_WX_RESOURCES)  libusb.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.exe: $(UPP_WX_OBJECTS) $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
+	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(__WXLIBPATH_FILENAMES_2) /SUBSYSTEM:WINDOWS $(____upp_wx__DEBUGINFO_7) /pdb:"$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\usbpicprog.pdb" $(____upp_wx__DEBUGINFO_11) /LIBPATH:$(LIBUSB_DIR)\x64\Debug\lib /LIBPATH:$(LIBUSB_DIR)\x86\Debug\lib $(LDFLAGS) @<<
+	$(UPP_WX_OBJECTS) $(UPP_WX_RESOURCES)  libusb-1.0.lib pthreadVC2_x64.lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
 <<
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj: ..\..\src\configview.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj: ..\..\src\configview.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\configview.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj: ..\..\src\hardware.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj: ..\..\src\hardware.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\hardware.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj: ..\..\src\hexfile.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexfile.obj: ..\..\src\hexfile.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\hexfile.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj: ..\..\src\hexview.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hexview.obj: ..\..\src\hexview.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\hexview.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test.obj: ..\..\src\io_test.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test.obj: ..\..\src\io_test.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\io_test.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test_base.obj: ..\..\src\io_test_base.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_io_test_base.obj: ..\..\src\io_test_base.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\io_test_base.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj: ..\..\src\main.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_main.obj: ..\..\src\main.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\main.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj: ..\..\src\packageview.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_packageview.obj: ..\..\src\packageview.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\packageview.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj: ..\..\src\pictype.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_pictype.obj: ..\..\src\pictype.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\pictype.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj: ..\..\src\preferences.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences.obj: ..\..\src\preferences.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\preferences.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj: ..\..\src\preferences_base.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_preferences_base.obj: ..\..\src\preferences_base.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\preferences_base.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj: ..\..\src\uppmainwindow.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow.obj: ..\..\src\uppmainwindow.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj: ..\..\src\uppmainwindow_base.cpp
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwindow_base.obj: ..\..\src\uppmainwindow_base.cpp
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow_base.cpp
 
-vcmsw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res: ..\..\icons\win\upp_wx.rc
-	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) /d _UNICODE $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i $(LIBUSB_DIR)\include ..\..\icons\win\upp_wx.rc
+$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res: ..\..\icons\win\upp_wx.rc
+	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) /d _UNICODE $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(__WXLIBPATH_FILENAMES_1)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i $(LIBUSB_DIR)\libusb ..\..\icons\win\upp_wx.rc
 
