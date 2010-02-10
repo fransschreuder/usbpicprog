@@ -46,11 +46,11 @@
     <set var="PTHREAD_SUFFIX_HELPER">
         <!-- for makefiles: -->
         <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X86'"></if>
-        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X64'">x64</if>
+        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X64'">_x64</if>
 
         <!-- for IDE projects: -->
         <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'"></if>
-        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">x64</if>
+        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">_x64</if>
     </set>
     
     

@@ -83,6 +83,10 @@ WX3RDPARTYLIBPOSTFIX =
 !ifeq WX_DEBUG 1
 WX3RDPARTYLIBPOSTFIX = d
 !endif
+WXMACHINE_FLAG =
+!ifeq TARGET_CPU AMD64
+WXMACHINE_FLAG = /MACHINE:AMD64
+!endif
 WXLIBPATH =
 !ifeq WX_SHARED 0
 WXLIBPATH = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
@@ -99,7 +103,7 @@ _BUILDDIR_SHARED_SUFFIX = _dll
 !endif
 PTHREAD_SUFFIX_HELPER =
 !ifeq TARGET_CPU X64
-PTHREAD_SUFFIX_HELPER = x64
+PTHREAD_SUFFIX_HELPER = _x64
 !endif
 !ifeq TARGET_CPU X86
 PTHREAD_SUFFIX_HELPER = 
@@ -254,7 +258,7 @@ test_for_selected_wxbuild :
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option quiet
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc name $^@
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option caseexact
-	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(__WXLIBPATH_FILENAMES_2) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath $(LIBUSB_DIR)\$(__LIBUSB_LIBPATH_HELPER_FILENAMES)\Debug\lib $(LDFLAGS)
+	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath $(LIBUSB_DIR)\$(__LIBUSB_LIBPATH_HELPER_FILENAMES)\Debug\lib $(LDFLAGS)
 	@for %i in ($(UPP_WX_OBJECTS)) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc file %i
 	@for %i in ( libusb-1.0.lib pthreadVC2$(PTHREAD_SUFFIX_HELPER).lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc library %i
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option resource=$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
