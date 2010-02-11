@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<dpInst>
+    <language code="0x0409">
+        <dpinstTitle>UsbPicProg Device Installer</dpinstTitle>
+    
+        <welcomeTitle>Welcome to the UsbPicProg hardware driver installer!</welcomeTitle>
+        <welcomeIntro>This wizard will walk you through installating/updating the drivers for your UsbPicProg device.</welcomeIntro>
+    
+        <installHeaderTitle>Installing the software for your UsbPicProg device...</installHeaderTitle>
+
+        <finishTitle>Congratulations! You are finished installing your UsbPicProg device.</finishTitle>
+        <finishText>Enjoy using UsbPicProg.</finishText>
+    </language>
+    <icon>..\..\usbpicprog.ico</icon>
+
+    <!-- we want DPinst utility to install the drivers for both the bootloader and the real programmer: -->
+    <package path="bootloader.inf" />
+    <package path="upp.inf" />
+    <installAllOrNone />
+</dpInst>
