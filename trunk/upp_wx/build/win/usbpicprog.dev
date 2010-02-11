@@ -11,7 +11,7 @@ ProfileIndex=0
 Folders=
 
 [Unit1]
-FileName=src\uppmainwindow.h
+FileName=..\..\src\uppmainwindow.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -21,7 +21,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=src\hardware.cpp
+FileName=..\..\src\hardware.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -31,7 +31,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=src\hardware.h
+FileName=..\..\src\hardware.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -41,7 +41,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=src\main.cpp
+FileName=..\..\src\main.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -51,7 +51,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=src\main.h
+FileName=..\..\src\main.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -61,7 +61,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=src\pictype.cpp
+FileName=..\..\src\pictype.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit7]
-FileName=src\pictype.h
+FileName=..\..\src\pictype.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -81,7 +81,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=src\uppmainwindow_base.cpp
+FileName=..\..\src\uppmainwindow_base.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -91,7 +91,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=src\uppmainwindow_base.h
+FileName=..\..\src\uppmainwindow_base.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -101,7 +101,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=src\uppmainwindow.cpp
+FileName=..\..\src\uppmainwindow.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -111,7 +111,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit12]
-FileName=src\hexview.h
+FileName=..\..\src\hexview.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -121,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=src\preferences.h
+FileName=..\..\src\preferences.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -131,7 +131,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit14]
-FileName=src\preferences.cpp
+FileName=..\..\src\preferences.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=src\hexfile.h
+FileName=..\..\src\hexfile.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -225,7 +225,7 @@ CompilerSet=1
 CompilerType=1
 
 [Unit11]
-FileName=src\hexview.cpp
+FileName=..\..\src\hexview.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -235,7 +235,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
-FileName=src\hexfile.cpp
+FileName=..\..\src\hexfile.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -245,7 +245,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit19]
-FileName=src\configview.h
+FileName=..\..\src\configview.h
 Folder=usbpicprog
 Compile=1
 Link=1
@@ -255,7 +255,7 @@ BuildCmd=
 CompileCpp=1
 
 [Unit17]
-FileName=src\preferences_base.h
+FileName=..\..\src\preferences_base.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -265,7 +265,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
-FileName=src\configview.cpp
+FileName=..\..\src\configview.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -275,7 +275,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit20]
-FileName=src\formbuilder_includes.h
+FileName=..\..\src\formbuilder_includes.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -285,7 +285,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit21]
-FileName=src\packageview.cpp
+FileName=..\..\src\packageview.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -295,7 +295,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit22]
-FileName=src\packageview.h
+FileName=..\..\src\packageview.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -305,7 +305,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit23]
-FileName=src\preferences_base.cpp
+FileName=..\..\src\preferences_base.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -315,7 +315,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit24]
-FileName=src\io_test_base.h
+FileName=..\..\src\io_test_base.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -325,7 +325,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit25]
-FileName=src\io_test.cpp
+FileName=..\..\src\io_test.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -335,7 +335,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit26]
-FileName=src\io_test.h
+FileName=..\..\src\io_test.h
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
@@ -345,7 +345,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit27]
-FileName=src\io_test_base.cpp
+FileName=..\..\src\io_test_base.cpp
 CompileCpp=1
 Folder=usbpicprog
 Compile=1
