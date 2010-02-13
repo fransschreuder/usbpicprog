@@ -22,6 +22,7 @@
 //       it's important to include wx/defs.h before STL headers
 #include <wx/defs.h>
 #include <wx/stdpaths.h>
+#include <wx/utils.h>
 
 #include "main.h"
 #include "../svn_revision.h"
@@ -59,6 +60,7 @@ bool UsbPicProg::OnInit()
 	wxLocale::AddCatalogLookupPathPrefix(((wxStandardPaths &)wxStandardPaths::Get()).GetExecutablePath() + _T("/po"));
     //wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
 #endif
+
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
     m_locale->AddCatalog(("usbpicprog"));
@@ -70,8 +72,17 @@ bool UsbPicProg::OnInit()
     wxLog::DisableTimestamp();
 
 #if !defined(__WXMSW__) && !defined(__WXMAC__)
-		((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
+    ((wxStandardPaths&)wxStandardPaths::Get()).SetInstallPrefix(PACKAGE_PREFIX);
 #endif
+#if defined(__WXMSW__) && !defined(_WIN64)
+    if (wxIsPlatform64Bit())
+    {
+        wxLogError(_("This is a 32bit application running under a 64bit Window version. UsbPicProg won't be able to connect to the hardware!\nPlease uninstall this program and download the UsbPicProg installer for 64bit operating systems."));
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
+        return false;
+    }
+#endif
+
     // init the supported PIC types
     if (!PicType::Init())
     {

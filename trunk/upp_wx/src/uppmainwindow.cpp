@@ -1486,12 +1486,15 @@ void UppMainWindow::upp_help()
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;
+    wxString ver;
+
     aboutInfo.SetName(("Usbpicprog"));
     #ifndef UPP_VERSION
-    aboutInfo.SetVersion(wxString(("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION)));
+    ver = wxString(("(SVN) ")).Append(wxString::FromAscii(SVN_REVISION));
     #else
-    aboutInfo.SetVersion(wxString::FromAscii(UPP_VERSION));
+    ver = wxString::FromAscii(UPP_VERSION);
     #endif
+    aboutInfo.SetVersion(ver + " - " + wxPlatformInfo().Get().GetArchName());
     aboutInfo.SetDescription(_("An open source USB pic programmer"));
     //aboutInfo.SetCopyright("(C) 2008");
     aboutInfo.SetWebSite(("http://usbpicprog.org/"));

@@ -19,12 +19,12 @@
 ;   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ; *************************************************************************
 
-; ---------------------
+; -------------------------------------------------------------------------------------------------
 ; Include Modern UI
 
   !include "MUI.nsh"
 
-; --------------------------------
+; -------------------------------------------------------------------------------------------------
 ; General
 
   ; NOTE: the version should be the same as the one in svn_revision.sh (see the UPP_VERSION #define)
@@ -34,7 +34,7 @@
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
-  !define ARCH                    "x86"
+  !define ARCH                    "amd64"
 
   ; Name and file
   Name "UsbPicProg ${PRODUCT_VERSION} ${ARCH} Installer"
@@ -42,14 +42,15 @@
   Icon "..\..\usbpicprog.ico"
 
   ; Default installation folder
-  InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
-  
-  ; Vista redirects $SMPROGRAMS to all users without this
-  ;RequestExecutionLevel admin
+  !if "${ARCH}" == "amd64"
+    InstallDir "$PROGRAMFILES64\${PRODUCT_NAME}"
+  !else
+    InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
+  !endif
   
   LicenseData "gnugpl.txt"
 
-; --------------------------------
+; -------------------------------------------------------------------------------------------------
 ; Pages
 
   !insertmacro MUI_PAGE_LICENSE "gnugpl.txt"
@@ -59,12 +60,12 @@
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
   
-; --------------------------------
+; -------------------------------------------------------------------------------------------------
 ; Interface Settings
 
   !define MUI_ABORTWARNING
   
-; --------------------------------
+; -------------------------------------------------------------------------------------------------
 ; Languages
  
   !insertmacro MUI_LANGUAGE "English"
@@ -73,6 +74,23 @@
 ; Installer Sections
 
 Section "" ; No components page, name is not important
+
+  ; check if the architecture of the currently-running system is OK
+  
+  GetVersion::WindowsPlatformArchitecture
+  Pop $R0
+  DetailPrint "Detected a $R0 bit Windows architecture"
+  !if "${ARCH}" == "amd64"
+    StrCmp "$R0" "64" proceed
+    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for AMD64 platforms but has detected a 32bit operating system?!?"
+    Quit
+  !else
+    StrCmp "$R0" "32" proceed
+    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for 32bit Window versions but has detected a 64bit operating system! Please download the AMD64 version of this installer."
+    Quit
+  !endif
+  
+proceed:
 
   ; Set files to be extracted in the user-chosen installation path:
 
@@ -87,22 +105,24 @@ Section "" ; No components page, name is not important
 
   SetOutPath "$INSTDIR\driver"
   File ..\..\win\driver\*.inf
-  File ..\..\win\driver\dpinst.exe
+  File ..\..\win\driver\${ARCH}\dpinst.exe
   File ..\..\win\driver\dpinst.xml
 
-  SetOutPath "$INSTDIR\driver\amd64"
-  File ..\..\win\driver\amd64\*.dll
-
-  SetOutPath "$INSTDIR\driver\x86"
-  File ..\..\win\driver\x86\*.dll
+  SetOutPath "$INSTDIR\driver\${ARCH}"
+  File ..\..\win\driver\${ARCH}\*.dll
 
   ; Store installation folder
   ;WriteRegStr HKLM "Software\UsbPicProg" "Path" "$INSTDIR"
+
+  ; Create shortcuts
+  CreateDirectory "$SMPROGRAMS\UsbPicProg"
+  CreateShortCut "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
+  CreateShortCut "$SMPROGRAMS\UsbPicProg\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
   ; Create uninstaller
   WriteUninstaller "$INSTDIR\uninstall.exe"
   
-  ; run the Microsoft driver installer redistributable
+  ; Last, run the Microsoft driver installer redistributable
   ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
    
   ; check the higher byte of the return value of DPINST; it can assume the values:
@@ -117,21 +137,20 @@ Section "" ; No components page, name is not important
   IntCmp $1 0x80 install_failed
   IntCmp $1 0xC0 install_failed
 installed_ok_need_reboot:
-  ;MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation Do you wish to reboot the system?" IDNO +2
-  ;Reboot
+  ; NOTE: with the current dpinst.xml file, it's dpinst's task to ask to the user if he
+  ;       wants to reboot or not...
+  MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation finished but requires a system reboot. Do you wish to reboot now?" IDNO +2
+  Reboot
   Goto installed_ok
 install_failed:
-  Abort "Couldn't install the programmer's drivers"
+  MessageBox MB_OK|MB_ICONEXCLAMATION "Couldn't install the programmer's drivers!"
+  Abort "Couldn't install the programmer's drivers!"
 installed_ok:
-
-  ; Create shortcuts
-  CreateDirectory "$SMPROGRAMS\UsbPicProg"
-  CreateShortCut "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
-  CreateShortCut "$SMPROGRAMS\UsbPicProg\Uninstall.lnk" "$INSTDIR\uninstall.exe"
+  ; do nothing
 
 SectionEnd
 
-; --------------------------------
+; -------------------------------------------------------------------------------------------------
 ; Uninstaller Section
 
 Section "Uninstall"
@@ -147,11 +166,9 @@ Section "Uninstall"
   Delete "$INSTDIR\driver\*.inf"
   Delete "$INSTDIR\driver\dpinst.exe"
   Delete "$INSTDIR\driver\dpinst.xml"
-  Delete "$INSTDIR\driver\amd64\*.dll"
-  Delete "$INSTDIR\driver\x86\*.dll"
+  Delete "$INSTDIR\driver\${ARCH}\*.dll"
   RMDir "$INSTDIR\xml_data"
-  RMDir "$INSTDIR\driver\amd64"
-  RMDir "$INSTDIR\driver\x86"
+  RMDir "$INSTDIR\driver\${ARCH}"
   RMDir "$INSTDIR\driver"
   RMDir "$INSTDIR"
 
@@ -161,7 +178,7 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk"
   RMDir "$SMPROGRAMS\UsbPicProg"
   
-  ;DeleteRegKey /ifempty HKLM "Software\EmfPrinter"
+  ;DeleteRegKey /ifempty HKLM "Software\UsbPicProg"
 
 SectionEnd
 
