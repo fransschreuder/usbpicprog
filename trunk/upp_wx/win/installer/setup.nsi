@@ -82,11 +82,11 @@ Section "" ; No components page, name is not important
   DetailPrint "Detected a $R0 bit Windows architecture"
   !if "${ARCH}" == "amd64"
     StrCmp "$R0" "64" proceed
-    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for AMD64 platforms but has detected a 32bit operating system?!?"
+    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for 64bit Windows versions but has detected a 32bit operating system! Please download the X86 version of this installer."
     Quit
   !else
     StrCmp "$R0" "32" proceed
-    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for 32bit Window versions but has detected a 64bit operating system! Please download the AMD64 version of this installer."
+    MessageBox MB_OK|MB_ICONEXCLAMATION "This installer is for 32bit Windows versions but has detected a 64bit operating system! Please download the AMD64 version of this installer."
     Quit
   !endif
   
@@ -97,8 +97,12 @@ proceed:
   SetOutPath "$INSTDIR"
   File gnugpl.txt
   File ..\..\index.xml
+  File ..\..\usbpicprog.ico    ; used by the DPINST utility
   File ${ARCH}\usbpicprog.exe
   File ..\..\win\deps\${ARCH}\*.dll
+  
+  SetOutPath "$INSTDIR\po"
+  File ..\..\po\*.mo
   
   SetOutPath "$INSTDIR\xml_data"
   File ..\..\xml_data\*.xml
@@ -160,13 +164,16 @@ Section "Uninstall"
   Delete "$INSTDIR\uninstall.exe"
   Delete "$INSTDIR\gnugpl.txt"
   Delete "$INSTDIR\index.xml"
+  Delete "$INSTDIR\usbpicprog.ico"
   Delete "$INSTDIR\usbpicprog.exe"
   Delete "$INSTDIR\*.dll"
+  Delete "$INSTDIR\po\*.mo"
   Delete "$INSTDIR\xml_data\*.xml"
   Delete "$INSTDIR\driver\*.inf"
   Delete "$INSTDIR\driver\dpinst.exe"
   Delete "$INSTDIR\driver\dpinst.xml"
   Delete "$INSTDIR\driver\${ARCH}\*.dll"
+  RMDir "$INSTDIR\po"
   RMDir "$INSTDIR\xml_data"
   RMDir "$INSTDIR\driver\${ARCH}"
   RMDir "$INSTDIR\driver"
