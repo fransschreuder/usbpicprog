@@ -34,7 +34,15 @@
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
-  !define ARCH                    "amd64"
+  !ifndef ARCH                     ; see build_installers.bat
+    !define ARCH                    "amd64"
+  !else
+    !if "${ARCH}" != "amd64" 
+      !if "${ARCH}" != "x86"
+        !error "Invalid value for the ARCH define"
+      !endif
+    !endif
+  !endif
 
   ; Name and file
   Name "UsbPicProg ${PRODUCT_VERSION} ${ARCH} Installer"
@@ -49,6 +57,7 @@
   !endif
   
   LicenseData "gnugpl.txt"
+  SetCompressor /SOLID lzma    ; this was found to be the best compressor
 
 ; -------------------------------------------------------------------------------------------------
 ; Pages
@@ -56,6 +65,7 @@
   !insertmacro MUI_PAGE_LICENSE "gnugpl.txt"
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
+  !insertmacro MUI_PAGE_FINISH
   
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
@@ -127,6 +137,7 @@ proceed:
   WriteUninstaller "$INSTDIR\uninstall.exe"
   
   ; Last, run the Microsoft driver installer redistributable
+  DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
   ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
    
   ; check the higher byte of the return value of DPINST; it can assume the values:
@@ -141,16 +152,17 @@ proceed:
   IntCmp $1 0x80 install_failed
   IntCmp $1 0xC0 install_failed
 installed_ok_need_reboot:
-  ; NOTE: with the current dpinst.xml file, it's dpinst's task to ask to the user if he
-  ;       wants to reboot or not...
+  DetailPrint "Drivers were installed successfully but require a reboot"
   MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation finished but requires a system reboot. Do you wish to reboot now?" IDNO +2
   Reboot
   Goto installed_ok
 install_failed:
-  MessageBox MB_OK|MB_ICONEXCLAMATION "Couldn't install the programmer's drivers!"
-  Abort "Couldn't install the programmer's drivers!"
+  DetailPrint "Drivers could not be installed! Check %SYSTEMROOT%\DPINST.LOG for more info."
+  MessageBox MB_OK|MB_ICONEXCLAMATION "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
+  Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
 installed_ok:
   ; do nothing
+  DetailPrint "Drivers were installed successfully."
 
 SectionEnd
 

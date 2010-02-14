@@ -1,19 +1,33 @@
 <?xml version="1.0"?>
 <dpInst>
-    <language code="0x0409">
-        <dpinstTitle>UsbPicProg Device Installer</dpinstTitle>
+    <!-- Configuration file for the UsbPicProg driver installation performed through the DPINST utility 
+         NOTE: the DPINST utility leaves a log file in %SystemRoot%\DPINST.LOG which helps to debug
+               installation problems.
+    -->
     
-        <welcomeTitle>Welcome to the UsbPicProg hardware driver installer!</welcomeTitle>
-        <welcomeIntro>This wizard will walk you through installating/updating the drivers for your UsbPicProg device.</welcomeIntro>
+    <!-- the following tag tells DPINST to enable also the languages not represented
+          by a <language> tag; if this tag is not present, then DPINST will abort
+          the driver installation (with failure) on those localized Window versions
+          for which we didn't provide a translation! -->
+    <enableNotListedLanguages/>
     
-        <installHeaderTitle>Installing the software for your UsbPicProg device...</installHeaderTitle>
+    <!-- by default, DPINST installs only signed driver packages; with this tag we can
+         tell DPINST to not abort if the CAT files of the drive rsignature are missing: -->
+    <legacyMode/>
+    
+    <!-- configure DPINST to suppress the addition of entries to "Programs and Features"
+         in Control Panel: the NSIS installer already adds one entry for "UsbPicProg": -->
+    <suppressAddRemovePrograms/>
+    
+    <!-- do not require user interaction for the installation of the drivers; this also
+         gives us the advantage that we don't need to translate the messages which otherwise
+         would be shown by DPINST: -->
+    <suppressWizard/>
+    <quietInstall/>
+    
+    <icon>usbpicprog.ico</icon>
 
-        <finishTitle>Congratulations! You are finished installing your UsbPicProg device.</finishTitle>
-        <finishText>Enjoy using UsbPicProg.</finishText>
-    </language>
-    <icon>..\..\usbpicprog.ico</icon>
-
-    <!-- we want DPinst utility to install the drivers for both the bootloader and the real programmer: -->
+    <!-- we want DPINST utility to install the drivers for both the bootloader and the real programmer: -->
     <package path="bootloader.inf" />
     <package path="upp.inf" />
     <installAllOrNone />
