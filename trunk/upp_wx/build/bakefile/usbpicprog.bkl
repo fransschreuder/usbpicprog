@@ -52,6 +52,15 @@
         <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'"></if>
         <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">_x64</if>
     </set>
+    <set var="DEPS_SUBFOLDER_HELPER">
+        <!-- for makefiles: -->
+        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X86'">x86</if>
+        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X64'">amd64</if>
+
+        <!-- for IDE projects: -->
+        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'">x86</if>
+        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">amd64</if>
+    </set>
     
     
     <!--                                                            -->
@@ -67,9 +76,14 @@
         <win32-res>icons/win/upp_wx.rc</win32-res>
         
         <include>$(SRCDIR)/src</include>
-        <include>$(LIBUSB_DIR)/libusb</include>
-
-        <lib-path>$(LIBUSB_DIR)/$(LIBUSB_LIBPATH_HELPER)/Debug/lib</lib-path>
+        
+        <!-- at least until libusb.org doesn't provide an official release with the win backend
+             do not use LIBUSB_DIR but rather our "win/deps" folder: -->
+        <!-- <include>$(LIBUSB_DIR)/libusb</include> 
+        <lib-path>$(LIBUSB_DIR)/$(LIBUSB_LIBPATH_HELPER)/Debug/lib</lib-path> -->
+        <include>$(SRCDIR)/win/deps</include> 
+        <lib-path>$(SRCDIR)/win/deps/$(DEPS_SUBFOLDER_HELPER)</lib-path>
+        
         <sys-lib>libusb-1.0</sys-lib>
         
         <!-- libs required by libusb-1.0: -->

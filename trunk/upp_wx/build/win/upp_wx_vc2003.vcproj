@@ -27,7 +27,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -47,14 +47,14 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\..\win\deps\x86"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -65,7 +65,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -88,7 +88,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -108,14 +108,14 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\..\win\deps\x86"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -126,7 +126,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -149,7 +149,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="TRUE"
@@ -172,7 +172,7 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\..\win\deps\x86"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
@@ -180,7 +180,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -191,7 +191,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -214,7 +214,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="TRUE"
@@ -237,7 +237,7 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_lib;..\..\win\deps\x86"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
@@ -245,7 +245,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -256,7 +256,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -279,7 +279,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -299,14 +299,14 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\..\win\deps\x86"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -317,7 +317,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -340,7 +340,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
@@ -360,14 +360,14 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\..\win\deps\x86"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -378,7 +378,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXMSW__;_WINDOWS"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswu;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -401,7 +401,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="TRUE"
@@ -424,7 +424,7 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\..\win\deps\x86"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
@@ -432,7 +432,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -443,7 +443,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -466,7 +466,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="TRUE"
@@ -489,7 +489,7 @@
 				OutputFile="..\..\usbpicprog.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(LIBUSB)\Win32\Debug\lib"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;..\..\win\deps\x86"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\..\usbpicprog.pdb"
 				SubSystem="2"
@@ -497,7 +497,7 @@
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="WIN32;WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -508,7 +508,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WXUSINGDLL;_UNICODE;__WXDEBUG__;__WXMSW__;_WINDOWS;_DEBUG"
 				Culture="1033"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;$(LIBUSB)\libusb"/>
+				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_dll\mswud;$(WXWIN)\include;..\..\src;..\..\win\deps"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool

@@ -49,9 +49,6 @@ WX_DIR = $(WXWIN)
 #   IA64 - Itanium 64 bit
 TARGET_CPU = X86
 
-# The directory where the libusb-1.x library is installed 
-LIBUSB_DIR = $(LIBUSB)
-
 
 
 # -------------------------------------------------------------------------
@@ -66,8 +63,8 @@ UPP_WX_CXXFLAGS = /MD$(____upp_wx__DEBUGINFO_9) /DWIN32 $(____WX_SHARED_2_p) \
 	/I$(WX_DIR)$(__WXLIBPATH_FILENAMES)\msw$(WXLIBPOSTFIX) \
 	/I$(WX_DIR)\include /D_WINDOWS $(____upp_wx__OPT_5) \
 	$(____upp_wx__DEBUGINFO_6) $(______upp_wx__DEBUGINFO_8_p) \
-	/Fd..\..\usbpicprog.pdb /I..\..\src /I$(LIBUSB_DIR)\libusb /GR /EHsc \
-	$(CPPFLAGS) $(CXXFLAGS)
+	/Fd..\..\usbpicprog.pdb /I..\..\src /I..\..\win\deps /GR /EHsc $(CPPFLAGS) \
+	$(CXXFLAGS)
 UPP_WX_OBJECTS =  \
 	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj \
 	$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_hardware.obj \
@@ -196,10 +193,10 @@ ____upp_wx__DEBUGINFO_11 =
 ____upp_wx__DEBUGINFO_11 = $(____upp_wx__DEBUGINFO_10)
 !endif
 !if "$(TARGET_CPU)" == "X64"
-__LIBUSB_LIBPATH_HELPER_FILENAMES = x64
+__DEPS_SUBFOLDER_HELPER_FILENAMES = amd64
 !endif
 !if "$(TARGET_CPU)" == "X86"
-__LIBUSB_LIBPATH_HELPER_FILENAMES = Win32
+__DEPS_SUBFOLDER_HELPER_FILENAMES = x86
 !endif
 !if "$(WX_MONOLITHIC)" == "0"
 __WXLIB_ADV_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv.lib
@@ -259,7 +256,7 @@ test_for_selected_wxbuild:
 	exit 1
 
 ..\..\usbpicprog.exe: $(UPP_WX_OBJECTS) $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
-	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) /SUBSYSTEM:WINDOWS $(____upp_wx__DEBUGINFO_7) /pdb:"..\..\usbpicprog.pdb" $(____upp_wx__DEBUGINFO_11) /LIBPATH:$(LIBUSB_DIR)\$(__LIBUSB_LIBPATH_HELPER_FILENAMES)\Debug\lib $(LDFLAGS) @<<
+	link /NOLOGO /OUT:$@  /LIBPATH:$(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) /SUBSYSTEM:WINDOWS $(____upp_wx__DEBUGINFO_7) /pdb:"..\..\usbpicprog.pdb" $(____upp_wx__DEBUGINFO_11) /LIBPATH:..\..\win\deps\$(__DEPS_SUBFOLDER_HELPER_FILENAMES) $(LDFLAGS) @<<
 	$(UPP_WX_OBJECTS) $(UPP_WX_RESOURCES)  libusb-1.0.lib pthreadVC2$(PTHREAD_SUFFIX_HELPER).lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib
 <<
 
@@ -303,5 +300,5 @@ $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwin
 	$(CXX) /c /nologo /TP /Fo$@ $(UPP_WX_CXXFLAGS) ..\..\src\uppmainwindow_base.cpp
 
 $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res: ..\..\icons\win\upp_wx.rc
-	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) /d _UNICODE $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(__WXLIBPATH_FILENAMES_1)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i $(LIBUSB_DIR)\libusb ..\..\icons\win\upp_wx.rc
+	rc /fo$@  /d WIN32 $(____WX_SHARED_2_p_1) /d _UNICODE $(__WXDEBUG_DEFINE_p_1) /d __WXMSW__ /i $(WX_DIR)$(__WXLIBPATH_FILENAMES_1)\msw$(WXLIBPOSTFIX) /i $(WX_DIR)\include /d _WINDOWS $(______upp_wx__DEBUGINFO_8_p_1) /i ..\..\src /i ..\..\win\deps ..\..\icons\win\upp_wx.rc
 
