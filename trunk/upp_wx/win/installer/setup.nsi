@@ -58,7 +58,7 @@
   
   LicenseData "gnugpl.txt"
   SetCompressor /SOLID lzma    ; this was found to be the best compressor
-
+  
 ; -------------------------------------------------------------------------------------------------
 ; Pages
 
@@ -80,7 +80,24 @@
  
   !insertmacro MUI_LANGUAGE "English"
 
-; --------------------------------
+  !macro UPP_INSTALL_LANG langID
+    SetOutPath "$INSTDIR\po\${langID}\LC_MESSAGES"
+    File /oname=usbpicprog.mo ..\..\po\${langID}.mo
+  !macroend
+  
+; -------------------------------------------------------------------------------------------------
+; Additional info (will appear in the "details" tab of the properties window for the installer)
+
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName"      "UsbPicProg"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments"         ""
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName"      "UsbPicProg Team"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalTrademarks"  "Application released under the GNU GPL"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright"   "© UsbPicProg Team"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription"  "USB PIC Programmer"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion"      "${PRODUCT_VERSION}"
+  VIProductVersion                                         "${PRODUCT_VERSION}.0" 
+
+; -------------------------------------------------------------------------------------------------
 ; Installer Sections
 
 Section "" ; No components page, name is not important
@@ -111,8 +128,19 @@ proceed:
   File ${ARCH}\usbpicprog.exe
   File ..\..\win\deps\${ARCH}\*.dll
   
-  SetOutPath "$INSTDIR\po"
-  File ..\..\po\*.mo
+  ; Install the *.mo files
+  !insertmacro UPP_INSTALL_LANG ar
+  !insertmacro UPP_INSTALL_LANG cs
+  !insertmacro UPP_INSTALL_LANG de
+  !insertmacro UPP_INSTALL_LANG el
+  !insertmacro UPP_INSTALL_LANG es
+  !insertmacro UPP_INSTALL_LANG fr
+  !insertmacro UPP_INSTALL_LANG it
+  !insertmacro UPP_INSTALL_LANG ja
+  !insertmacro UPP_INSTALL_LANG nl
+  !insertmacro UPP_INSTALL_LANG pa
+  !insertmacro UPP_INSTALL_LANG pt
+  !insertmacro UPP_INSTALL_LANG uk
   
   SetOutPath "$INSTDIR\xml_data"
   File ..\..\xml_data\*.xml
@@ -130,6 +158,7 @@ proceed:
 
   ; Create shortcuts
   CreateDirectory "$SMPROGRAMS\UsbPicProg"
+  SetOutPath "$INSTDIR"         ; this will be the working directory for the shortcuts created below
   CreateShortCut "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
   CreateShortCut "$SMPROGRAMS\UsbPicProg\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
@@ -179,13 +208,13 @@ Section "Uninstall"
   Delete "$INSTDIR\usbpicprog.ico"
   Delete "$INSTDIR\usbpicprog.exe"
   Delete "$INSTDIR\*.dll"
-  Delete "$INSTDIR\po\*.mo"
+  ;Delete "$INSTDIR\po\*\LC_MESSAGES\usbpicprog.mo"    ; doesn't seem to work unfortunately
   Delete "$INSTDIR\xml_data\*.xml"
   Delete "$INSTDIR\driver\*.inf"
   Delete "$INSTDIR\driver\dpinst.exe"
   Delete "$INSTDIR\driver\dpinst.xml"
   Delete "$INSTDIR\driver\${ARCH}\*.dll"
-  RMDir "$INSTDIR\po"
+  RMDir /r "$INSTDIR\po"
   RMDir "$INSTDIR\xml_data"
   RMDir "$INSTDIR\driver\${ARCH}"
   RMDir "$INSTDIR\driver"
