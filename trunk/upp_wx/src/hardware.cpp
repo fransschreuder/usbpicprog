@@ -36,7 +36,7 @@
 #endif
 
 using namespace std;
-#define USB_DEBUG 3
+//#define USB_DEBUG 3
 
 #ifdef __WXGTK__
 const char* libusb_strerror(enum libusb_error errcode)
@@ -185,6 +185,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     
     // TODO: as libusb-1.0 docs in the "caveats" page say we should check here that the interface we claimed
     //       still has the same configuration we set previously...
+	// 		 but anyway, usbpicprog will never switch 
 
     // now save the endpoint mode for both the READ_ENDPOINT and the WRITE_ENDPOINT
 #if 0
