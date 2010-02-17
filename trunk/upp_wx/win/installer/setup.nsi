@@ -31,11 +31,13 @@
   !define PRODUCT_NAME            "UsbPicProg"
   !define PRODUCT_VERSION         "0.3.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
+  !define SVN_TEST_RELEASE        1     ; is this a SVN test?
+  !define SVN_REVISION            821
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
   !ifndef ARCH                     ; see build_installers.bat
-    !define ARCH                    "amd64"
+    !define ARCH                  "amd64"
   !else
     !if "${ARCH}" != "amd64" 
       !if "${ARCH}" != "x86"
@@ -46,7 +48,11 @@
 
   ; Name and file
   Name "UsbPicProg ${PRODUCT_VERSION} ${ARCH} Installer"
-  OutFile "${PRODUCT_NAME}-${ARCH}-${PRODUCT_VERSION}.exe"
+  !if ${SVN_TEST_RELEASE}
+    OutFile "${PRODUCT_NAME}-${ARCH}-r${SVN_REVISION}.exe"
+  !else
+    OutFile "${PRODUCT_NAME}-${ARCH}-${PRODUCT_VERSION}.exe"
+  !endif
   Icon "..\..\usbpicprog.ico"
 
   ; Default installation folder
@@ -176,10 +182,17 @@ proceed:
   ; or a combination of them (the only possible one in this case is 0xC0)
   ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
   IntOp $1 $0 & 0xFF000000
+  IntOp $1 $1 >> 24
   IntCmp $1 0x00 installed_ok
   IntCmp $1 0x40 installed_ok_need_reboot
   IntCmp $1 0x80 install_failed
   IntCmp $1 0xC0 install_failed
+  
+  ; unhandled return code ?!?
+  DetailPrint "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
+  MessageBox MB_OK|MB_ICONEXCLAMATION "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
+  Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
+  
 installed_ok_need_reboot:
   DetailPrint "Drivers were installed successfully but require a reboot"
   MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation finished but requires a system reboot. Do you wish to reboot now?" IDNO +2
