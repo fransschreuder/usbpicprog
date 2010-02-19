@@ -312,6 +312,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send_n_bits(6,0x0E); //end programming
 			DelayMs(1);
 			break;
+		case P12F508:
 		case P16F59:
 		case P16F57:
 		case P16F54:
@@ -682,6 +683,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P12F508:
 		case P16F54:
 		case P16F57:
 		case P16F59:
@@ -1091,6 +1093,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
+		case P12F508:
 		case P16F54:
 		case P16F57:
 		case P16F59:

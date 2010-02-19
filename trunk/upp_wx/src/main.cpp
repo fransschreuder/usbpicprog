@@ -241,7 +241,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	/* if -RO and -RB are both passed, restore those registers to P12F629 devices */
 	wxString BandGap, OscCal;
 	
-	if(parser.Found(("RB"), &BandGap)&&parser.Found(("RO"), &OscCal))
+	if((parser.Found(("RB"), &BandGap)||(picType->picFamily==P12F508))&&parser.Found(("RO"), &OscCal))
 	{
 		int iSelectedOscCal;
 		sscanf(OscCal.c_str(),"%4X",&iSelectedOscCal);
@@ -250,20 +250,24 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 			cout<<_("Please specify an Oscal Value between 3400 and 37FF")<<endl;
 			exit ( -1 );
 		}
-		int iSelectedBandGap;
-		sscanf(BandGap.c_str(),"%4X",&iSelectedBandGap);
-		if((iSelectedBandGap<0x0)|(iSelectedBandGap>0x3))
-    	{
-			cout<<_("Please specify a BandGap Value between 0 and 3")<<endl;
-			exit ( -1 );
+		int iSelectedBandGap=0;
+		if(picType->picFamily==P12F629)
+		{
+			sscanf(BandGap.c_str(),"%4X",&iSelectedBandGap);
+			if((iSelectedBandGap<0x0)|(iSelectedBandGap>0x3))
+    		{
+				cout<<_("Please specify a BandGap Value between 0 and 3")<<endl;
+				exit ( -1 );
+			}
 		}
 		if (hardware->bulkErase(picType,false)<0)cout<<_("Error erasing the device")<<endl;
 		if (hardware->restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers")<<endl;
 		
 	}
-
-	if((parser.Found(("RB"), &BandGap)&&(!parser.Found(("RO"), &OscCal)))||
-	    (!(parser.Found(("RB"), &BandGap))&&(parser.Found(("RO"), &OscCal))))
+	
+	if(picType->picFamily==P12F629&&
+		((parser.Found(("RB"), &BandGap)&&(!parser.Found(("RO"), &OscCal)))||
+	    (!(parser.Found(("RB"), &BandGap))&&(parser.Found(("RO"), &OscCal)))))
 	    {
 			cout<<"-RB must be passed together with RO"<<endl;
 			exit( -1 );
@@ -330,7 +334,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 hexFile->print(&output,picType);
                 cout<<(string)output<<endl;
             }
-			if(picType->picFamily==P12F629)
+			if((picType->picFamily==P12F629)||(picType->picFamily==P12F508))
 			{
 				hardware->backupOscCalBandGap(picType);
 				hexFile->putOscCalBandGap (picType);

@@ -332,42 +332,56 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
 
 int Hardware::backupOscCalBandGap(PicType *picType)
 {
-    unsigned char msg[64];
-    if(picType->picFamily!=P12F629)	//back up osccal and bandgap registers for those devices
+	unsigned char msg[64]={0,0};
+    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508))	//back up osccal and bandgap registers for those devices
         return -1;
 
-    if (readBlock(TYPE_CODE, msg , 0x3ff, 2, 3) <= 0)
-        return -1;
+	int OscCalAddress=0x3FF;
+	
+	if(picType->Name.Contains("12F508"))OscCalAddress=0x204;
+	if(picType->Name.Contains("12F509"))OscCalAddress=0x404;
+	if(picType->picFamily==P12F629)OscCalAddress=0x3FF;
+	if (readBlock(TYPE_CODE, msg , OscCalAddress, 2, 3) <= 0)
+		return -1;
 
-    picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
+	picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
     
-    if (readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 ) <= 0)
-        return -1;
+	if(picType->picFamily==P12F629)
+	{
+		if (readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 ) <= 0)
+			return -1;
 
-    picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
-
+		picType->BandGap = ((((unsigned int)msg[1])<<8)&0x3000);
+	}
+	else picType->BandGap = 0;
     return 1;
 }
 
 int Hardware::restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap)
 {
     unsigned char msg[64];
-    if(picType->picFamily!=P12F629)	//back up osccal and bandgap registers for those devices
+    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508))	//back up osccal and bandgap registers for those devices
         return -1;
+	
+	int address=0;
+	if(picType->Name.Contains("12F508"))address = 0x1ff;
+	else if(picType->Name.Contains("12F509"))address = 0x3ff;
+	else if(picType->picFamily==P12F629)address = 0x3ff;
 
-    msg[0]=(unsigned char)(OscCal&0xFF);
-    msg[1]=(unsigned char)((OscCal>>8)&0xFF);
-    
-    if (writeBlock(TYPE_CODE, msg, 0x3ff, 2, 3) <= 0)
-        return -1;
 
-    msg[0]=0xFF;
-    msg[1]=(unsigned char)((BandGap&0x03)<<4)|0x0F;
-    
-    if (writeBlock(TYPE_CONFIG, msg, 0x2007, 2, 3) <= 0)
-        return -1;
-
-    return 1;
+	msg[0]=(unsigned char)(OscCal&0xFF);
+	msg[1]=(unsigned char)((OscCal>>8)&0xFF);
+	if (writeBlock(TYPE_CODE, msg, address, 2, 3) <= 0)
+		return -1;
+	if(picType->picFamily==P12F629)
+	{
+		msg[0]=0xFF;
+		msg[1]=(unsigned char)((BandGap&0x03)<<4)|0x0F;
+	    
+		if (writeBlock(TYPE_CONFIG, msg, 0x2007, 2, 3) <= 0)
+			return -1;
+	}
+	return 1;
 }
 
 int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned int numberOfBytes, HexFile *verifyData)
@@ -953,7 +967,7 @@ int Hardware::readId()
 
     // success
     statusCallBack (100);
-    return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF);
+    return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF); 
 }
 
 int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock)

@@ -485,7 +485,8 @@ unsigned char set_pictype(unsigned char* data)
 	pictype=data[0];
 	switch(pictype)
 	{
-        	case P10F200:
+        case P12F508:
+		case P10F200:
 		case P10F202:
 		case P16F54:
 		case P16F57:

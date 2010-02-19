@@ -138,12 +138,12 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
         // keep the choice box synchronized
         m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
 
-        // PIC changed; reset the code/config/data grids
-        Reset();
+        
     }
-    
     // find the hardware connected to the PC, if any:
     upp_connect();
+	// PIC changed; reset the code/config/data grids
+    Reset();
 }
 
 UppMainWindow::~UppMainWindow()
@@ -548,6 +548,7 @@ void UppMainWindow::Reset()
     m_hexFile.putOscCalBandGap (&m_picType);
     UpdatePicInfo();
     UpdateTitle();
+	
 }
 
 
@@ -1255,9 +1256,9 @@ void UppMainWindow::upp_erase()
 
 void UppMainWindow::upp_restore()
 {
-    if(m_picType.picFamily!=P12F629)
+    if((m_picType.picFamily!=P12F629)&&(m_picType.picFamily!=P12F508))
     {   
-        wxLogError(_("Only valid for PIC12F629 and similar devices..."));
+        wxLogError(_("Only valid for PIC12F629, PIC12F508 and similar devices..."));
         return;
     }
     if (m_hardware == NULL || !m_hardware->connected())
@@ -1286,17 +1287,19 @@ void UppMainWindow::upp_restore()
         wxLogError(_("Please specify an Oscal Value between 3400 and 37FF"));
         return;
     }
-    
-    wxArrayString bgChoices;
-    bgChoices.Alloc(4);
-    for(int i=0;i<4;i++)
-    {
-        bgChoices.Add("");
-        bgChoices[i].Printf("%i",i);
-    }
-    int selectedBandGap = wxGetSingleChoiceIndex(_("Please specify a bandgap value"),	_("Specify a bandgap value"), bgChoices,this);
-    if(selectedBandGap == -1) return;
-    
+    int selectedBandGap=0;
+	if(m_picType.picFamily==P12F629)
+	{
+		wxArrayString bgChoices;
+		bgChoices.Alloc(4);
+		for(int i=0;i<4;i++)
+		{
+			bgChoices.Add("");
+			bgChoices[i].Printf("%i",i);
+		}
+		selectedBandGap = wxGetSingleChoiceIndex(_("Please specify a bandgap value"),	_("Specify a bandgap value"), bgChoices,this);
+		if(selectedBandGap == -1) return;
+	}
     /**TODO Place these commands into a wxThread
     */
 
