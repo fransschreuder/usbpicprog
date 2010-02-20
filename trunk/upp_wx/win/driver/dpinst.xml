@@ -23,7 +23,19 @@
          gives us the advantage that we don't need to translate the messages which otherwise
          would be shown by DPINST: -->
     <suppressWizard/>
-    <quietInstall/>
+    
+    <!-- IMPORTANT: we do not want to use the <quietInstall/> tag because as MSDN says:
+         "If DPInst is running in quiet-install mode and Windows requires a user interaction to complete 
+          an installation, the installation will fail."
+         Also, MSDN adds that "two typical situations that require user interaction are if Windows prompts 
+         a user before installing an unsigned driver package or if Windows prompts a user for the location 
+         of missing files."
+         I.e. in our case, since we're delivering an unsigned driver package we need to allow Windows to 
+         prompt the user about the fact that he's installing an unsigned driver, otherwise dpinst will fail
+         leaving in the log file a message like:
+            INFO:   RETURN: DriverPackagePreinstallW  (0xE000022F)
+         which means "The third-party INF does not contain digital signature information."
+    -->
     
     <icon>usbpicprog.ico</icon>
 

@@ -32,7 +32,7 @@
   !define PRODUCT_VERSION         "0.3.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define SVN_TEST_RELEASE        1     ; is this a SVN test?
-  !define SVN_REVISION            821
+  !define SVN_REVISION            "824"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
@@ -181,8 +181,7 @@ proceed:
   ; 0x00 if everything was ok
   ; or a combination of them (the only possible one in this case is 0xC0)
   ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
-  IntOp $1 $0 & 0xFF000000
-  IntOp $1 $1 >> 24
+  IntOp $1 $0 / 0x1000000                  ; fast way to keep only the higher byte
   IntCmp $1 0x00 installed_ok
   IntCmp $1 0x40 installed_ok_need_reboot
   IntCmp $1 0x80 install_failed
@@ -213,6 +212,11 @@ SectionEnd
 
 Section "Uninstall"
 
+  ; note that uninstalling the drivers installed by dpinst.exe is not easy 
+  ; and currently it seems to be supported only through the "Add Programs and Features"
+  ; panel of Control panel (see http://msdn.microsoft.com/en-us/library/ms791069.aspx),
+  ; which we disable in dpinst.xml!
+
   ; clean installation folder
 
   Delete "$INSTDIR\uninstall.exe"
@@ -221,7 +225,7 @@ Section "Uninstall"
   Delete "$INSTDIR\usbpicprog.ico"
   Delete "$INSTDIR\usbpicprog.exe"
   Delete "$INSTDIR\*.dll"
-  ;Delete "$INSTDIR\po\*\LC_MESSAGES\usbpicprog.mo"    ; doesn't seem to work unfortunately
+  ;Delete "$INSTDIR\po\*\LC_MESSAGES\usbpicprog.mo"    ; doesn't seem to work unfortunately; we'll use /r later then
   Delete "$INSTDIR\xml_data\*.xml"
   Delete "$INSTDIR\driver\*.inf"
   Delete "$INSTDIR\driver\dpinst.exe"
