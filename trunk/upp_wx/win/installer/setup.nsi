@@ -174,6 +174,8 @@ proceed:
   ; Last, run the Microsoft driver installer redistributable
   DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
   ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
+  IntFmt $2 "0x%08X" $0
+  DetailPrint "Return code was $2"
    
   ; check the higher byte of the return value of DPINST; it can assume the values:
   ; 0x80 if a driver package could NOT be installed
@@ -182,6 +184,8 @@ proceed:
   ; or a combination of them (the only possible one in this case is 0xC0)
   ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
   IntOp $1 $0 / 0x1000000                  ; fast way to keep only the higher byte
+  IntFmt $2 "0x%X" $1
+  DetailPrint "The higher byte of the return code was $2"
   IntCmp $1 0x00 installed_ok
   IntCmp $1 0x40 installed_ok_need_reboot
   IntCmp $1 0x80 install_failed
