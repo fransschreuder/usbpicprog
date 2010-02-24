@@ -17,8 +17,11 @@
 	../src/preferences_base.h \
 	../src/preferences.cpp \
 	../src/preferences.h \
-	../src/statbox_children.patch \
 	../src/uppmainwindow_base.cpp \
 	../src/uppmainwindow_base.h \
 	../src/uppmainwindow.cpp \
-	../src/uppmainwindow.h
+	../src/uppmainwindow.h \
+	../src/io_test_base.cpp \
+	../src/io_test_base.h \
+	../src/io_test.cpp \
+	../src/io_test.h
