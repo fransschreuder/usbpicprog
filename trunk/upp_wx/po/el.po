@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 15:45+0100\n"
-"PO-Revision-Date: 2010-02-21 15:45+0100\n"
-"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
+"POT-Creation-Date: 2010-02-24 08:17+0100\n"
+"PO-Revision-Date: 2010-02-24 08:18+0100\n"
+"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: English <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,15 +20,6 @@ msgstr ""
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
-
-#: ../src/io_test.cpp:90
-#: ../src/io_test.cpp:100
-#: ../src/io_test.cpp:110
-#: ../src/io_test.cpp:120
-#: ../src/io_test_base.cpp:49
-#: ../src/io_test_base.cpp:82
-msgid "FLOAT"
-msgstr ""
 
 #: ../src/configview.cpp:137
 #, fuzzy
@@ -55,106 +46,640 @@ msgstr ""
 msgid "Word %d"
 msgstr ""
 
-#: ../src/main.cpp:80
+#: ../src/hardware.cpp:146
+#, c-format
+msgid "Couldn't reset the USB device interface: %s"
+msgstr ""
+
+#: ../src/hardware.cpp:169
+#, fuzzy, c-format
+msgid "Error setting configuration of the USB device: %s"
+msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
+
+#: ../src/hardware.cpp:180
+#, fuzzy, c-format
+msgid "Error claiming the USB device interface: %s"
+msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
+
+#: ../src/hardware.cpp:194
+#: ../src/hardware.cpp:204
+#, c-format
+msgid "Error getting USB endpoint descriptor: %s"
+msgstr ""
+
+#: ../src/hardware.cpp:508
+#, c-format
+msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
+msgstr ""
+
+#: ../src/hardware.cpp:719
+msgid "No data to verify"
+msgstr ""
+
+#: ../src/hardware.cpp:925
+#, fuzzy, c-format
+msgid "USB error while reading: %s"
+msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
+
+#: ../src/hardware.cpp:943
+#, fuzzy, c-format
+msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
+msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
+
+#: ../src/io_test.cpp:90
+#: ../src/io_test.cpp:100
+#: ../src/io_test.cpp:110
+#: ../src/io_test.cpp:120
+#: ../src/io_test_base.cpp:49
+#: ../src/io_test_base.cpp:82
+msgid "FLOAT"
+msgstr ""
+
+#: ../src/hexview.cpp:207
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: ../src/hexview.cpp:209
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+#: ../src/hexview.cpp:210
+msgid "Select All"
+msgstr "Επιλογή όλων"
+
+#: ../src/uppmainwindow.cpp:194
+msgid "&Program..."
+msgstr "&Προγραμμάτησε..."
+
+#: ../src/uppmainwindow.cpp:195
+msgid "Program the PIC device"
+msgstr "Προγραμμάτησε την PIC συσκευή"
+
+#: ../src/uppmainwindow.cpp:198
+msgid "&Read..."
+msgstr "&Διαβασε"
+
+#: ../src/uppmainwindow.cpp:199
+msgid "Read the PIC device"
+msgstr "Διάβασε την PIC συσκευή"
+
+#: ../src/uppmainwindow.cpp:202
+msgid "&Verify..."
+msgstr "&Επιβεβαίωση  ..."
+
+#: ../src/uppmainwindow.cpp:203
+msgid "Verify the PIC device"
+msgstr "Επιβεβαιώσε τη συσκευή PIC"
+
+#: ../src/uppmainwindow.cpp:206
+msgid "&Erase..."
+msgstr "&Διαγραφή ..."
+
+#: ../src/uppmainwindow.cpp:207
+msgid "Erase the PIC device"
+msgstr "Διαγραφή της PIC συσκευής"
+
+#: ../src/uppmainwindow.cpp:211
+msgid "Restore Cal regs..."
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:212
+msgid "Restore PIC's calibration registers"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:215
+msgid "&Blankcheck..."
+msgstr "&Άδειος έλενχος"
+
+#: ../src/uppmainwindow.cpp:216
+msgid "Blankcheck the PIC device"
+msgstr "Αδειος έλενχος της PIC συσκευής"
+
+#: ../src/uppmainwindow.cpp:219
+msgid "&Autodetect..."
+msgstr "&Αυτο ανίχνευση"
+
+#: ../src/uppmainwindow.cpp:220
+msgid "Detect the type of the PIC device"
+msgstr "Ανιχνεύσε τον τύπο της συσκευής PIC"
+
+#: ../src/uppmainwindow.cpp:223
+msgid "&Connect..."
+msgstr "&Σύνδεση..."
+
+#: ../src/uppmainwindow.cpp:224
+msgid "Connect to the programmer"
+msgstr "Συνδεθείτε με το προγραμματιστή"
+
+#: ../src/uppmainwindow.cpp:227
+msgid "&Disconnect..."
+msgstr "&Αποσύνδεση ..."
+
+#: ../src/uppmainwindow.cpp:228
+msgid "Disconnect from the programmer"
+msgstr "Αποσύνδεση από τον προγραμματιστή"
+
+#: ../src/uppmainwindow.cpp:259
+msgid "&Select PIC..."
+msgstr "&Επιλέξτε PIC..."
+
+#: ../src/uppmainwindow.cpp:260
+msgid "Change the currently selected PIC"
+msgstr "Αλλάξτε την τρέχουσα επιλεγμένη PIC"
+
+#: ../src/uppmainwindow.cpp:296
+msgid "&Actions"
+msgstr "&Δράσεις"
+
+#: ../src/uppmainwindow.cpp:322
+msgid "new"
+msgstr "νέο"
+
+#: ../src/uppmainwindow.cpp:324
+msgid "open"
+msgstr "άνοιξε"
+
+#: ../src/uppmainwindow.cpp:326
+msgid "reload"
+msgstr "επαναφορτώσετε"
+
+#: ../src/uppmainwindow.cpp:328
+msgid "save"
+msgstr "αποθήκευση "
+
+#: ../src/uppmainwindow.cpp:330
+msgid "save as"
+msgstr "αποθήκευση ως"
+
+#: ../src/uppmainwindow.cpp:333
+msgid "program"
+msgstr "πρόγραμμα"
+
+#: ../src/uppmainwindow.cpp:335
+#: ../src/main.h:98
+msgid "read"
+msgstr "διαβάζω"
+
+#: ../src/uppmainwindow.cpp:337
+#: ../src/main.h:99
+msgid "verify"
+msgstr "επαληθεύσε"
+
+#: ../src/uppmainwindow.cpp:339
+#: ../src/main.h:100
+msgid "erase"
+msgstr "διαγραφή"
+
+#: ../src/uppmainwindow.cpp:341
+#: ../src/main.h:101
+msgid "blankcheck"
+msgstr "άδειος έλενχος"
+
+#: ../src/uppmainwindow.cpp:343
+msgid "autodetect"
+msgstr "αυτο εντοπισμος"
+
+#: ../src/uppmainwindow.cpp:348
+msgid "currently selected PIC type"
+msgstr "επιλεγμένος τύπος PIC"
+
+#: ../src/uppmainwindow.cpp:425
+#, c-format
+msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "Το HEX αρχείο '%s' δεν έχει αποθηκευτεί ... το περιεχόμενό του θα χαθει; συνέχεια;"
+
+#: ../src/uppmainwindow.cpp:428
+msgid "Please confirm"
+msgstr "Παρακαλώ επιβεβαιώστε"
+
+#: ../src/uppmainwindow.cpp:441
+msgid "You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:444
+#, c-format
+msgid "Your firmware is too old (latest version is %d); please consider upgrading it"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:455
+msgid "Firmware probably too new"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:457
+#, c-format
+msgid "Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:460
+msgid "You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:474
+msgid "Usbpicprog rev: "
+msgstr "Usbpicprog rev: "
+
+#: ../src/uppmainwindow.cpp:476
+msgid "Usbpicprog: "
+msgstr "Usbpicprog: "
+
+#: ../src/uppmainwindow.cpp:480
+msgid "untitled"
+msgstr "χωρίς τίτλο"
+
+#: ../src/uppmainwindow.cpp:506
+#, fuzzy, c-format
+msgid "%s datasheet"
+msgstr "Δεδομένα"
+
+#: ../src/uppmainwindow.cpp:512
+#, c-format
 msgid ""
-"This is a 32bit application running under a 64bit Window version. UsbPicProg won't be able to connect to the hardware!\n"
-"Please uninstall this program and download the UsbPicProg installer for 64bit operating systems."
+"Programming voltage (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
 msgstr ""
 
-#: ../src/main.cpp:89
-msgid "Cannot load XML PIC data."
+#: ../src/uppmainwindow.cpp:515
+#, c-format
+msgid ""
+"Supply voltage (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
 msgstr ""
 
-#: ../src/main.cpp:104
-msgid "Could not initialize libusb!"
+#: ../src/uppmainwindow.cpp:517
+#, c-format
+msgid ""
+"Frequency range:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
 msgstr ""
 
-#: ../src/main.cpp:250
-#: ../src/uppmainwindow.cpp:1286
-msgid "Please specify an Oscal Value between 3400 and 37FF"
+#: ../src/uppmainwindow.cpp:518
+#, c-format
+msgid "Device ID: 0x%X"
 msgstr ""
 
-#: ../src/main.cpp:257
-msgid "Please specify a BandGap Value between 0 and 3"
+#: ../src/uppmainwindow.cpp:519
+#, fuzzy, c-format
+msgid "Code memory size: %d bytes"
+msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+
+#: ../src/uppmainwindow.cpp:520
+#, fuzzy, c-format
+msgid "Data memory size: %d bytes"
+msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+
+#: ../src/uppmainwindow.cpp:521
+#, c-format
+msgid "Type: %d-bit microcontroller"
 msgstr ""
 
-#: ../src/main.cpp:260
-#: ../src/uppmainwindow.cpp:756
-#: ../src/uppmainwindow.cpp:954
-#: ../src/uppmainwindow.cpp:1303
+#: ../src/uppmainwindow.cpp:531
+#, c-format
+msgid "%s [%d pins]"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:611
+msgid "Please wait until the operations are completed:\n"
+msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθούν οι εργασίες:\n"
+
+#: ../src/uppmainwindow.cpp:623
+msgid "Operations aborted"
+msgstr "Οι δράσεις  ματαιώθηκαν"
+
+#: ../src/uppmainwindow.cpp:659
+#: ../src/uppmainwindow.cpp:663
+msgid "All operations completed"
+msgstr "Όλες οι δράσεις έχουν ολοκληρωθεί"
+
+#: ../src/uppmainwindow.cpp:665
+msgid "Operations completed with errors/warnings"
+msgstr "Οι δράσεις ολοκληρώθηκαν με λάθη / προειδοποιήσεις"
+
+#: ../src/uppmainwindow.cpp:749
+msgid "Erasing before programming..."
+msgstr "Διαγραφή πριν από τον προγραμματισμό ..."
+
+#: ../src/uppmainwindow.cpp:754
+msgid "Erase OK"
+msgstr "Διαγραφή εντάξει"
+
+#: ../src/uppmainwindow.cpp:757
+#: ../src/uppmainwindow.cpp:955
+#: ../src/uppmainwindow.cpp:1306
+#: ../src/main.cpp:263
 msgid "Error erasing the device"
 msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
 
-#: ../src/main.cpp:261
-#: ../src/uppmainwindow.cpp:1304
+#: ../src/uppmainwindow.cpp:766
+msgid "Programming the code area of the PIC..."
+msgstr "Πογραμματισμός του κωδικα περιοχής του PIC..."
+
+#: ../src/uppmainwindow.cpp:770
+msgid "Write Code memory OK"
+msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
+
+#: ../src/uppmainwindow.cpp:773
+#: ../src/uppmainwindow.cpp:805
+#: ../src/uppmainwindow.cpp:835
+msgid "The hardware should say OK"
+msgstr "Το υλικό θα πρέπει να πει εντάξει"
+
+#: ../src/uppmainwindow.cpp:776
+#: ../src/uppmainwindow.cpp:808
+#: ../src/uppmainwindow.cpp:838
+msgid "The hardware should ask for next block"
+msgstr "Το υλικό θα πρέπει να ρωτήσει για το επόμενο μπλοκ"
+
+#: ../src/uppmainwindow.cpp:779
+msgid "Write code not implemented for current PIC"
+msgstr "Κώδικας εγγραφης δεν υλοποιείται για την τρέχουσα PIC"
+
+#: ../src/uppmainwindow.cpp:782
+msgid "Verify error while writing code memory"
+msgstr "Επιβεβαιώθηκε σφάλμα κατά τη σύνταξη κώδικα μνήμης"
+
+#: ../src/uppmainwindow.cpp:785
+#: ../src/uppmainwindow.cpp:814
+#: ../src/uppmainwindow.cpp:844
+msgid "USB error while writing code memory"
+msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
+
+#: ../src/uppmainwindow.cpp:788
+msgid "Error programming code memory"
+msgstr "Σφάλμα κώδικα προγραμματισμού μνήμης"
+
+#: ../src/uppmainwindow.cpp:797
+msgid "Programming the data area of the PIC..."
+msgstr "Προγραμματισμός των δεδομένων της περιοχής της PIC..."
+
+#: ../src/uppmainwindow.cpp:802
+msgid "Write Data memory OK"
+msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
+
+#: ../src/uppmainwindow.cpp:811
+msgid "Write data not implemented for current PIC"
+msgstr "Γράψτε τα στοιχεία τα οποία δεν υλοποιούνται για την τρέχουσα PIC"
+
+#: ../src/uppmainwindow.cpp:817
+msgid "Error programming data memory"
+msgstr "Σφάλμα προγραμματισμού δεδομένων μνήμης"
+
+#: ../src/uppmainwindow.cpp:827
+msgid "Programming configuration area of the PIC..."
+msgstr "Προγραμματισμός διαμόρφωσης χώρου της PIC..."
+
+#: ../src/uppmainwindow.cpp:832
+msgid "Write Config memory OK"
+msgstr "Γράψιμο της μνήμης διαμόρφωσης εντάξει"
+
+#: ../src/uppmainwindow.cpp:841
+msgid "Write config not implemented for current PIC"
+msgstr "Η διαμόρφωση δεν υλοποιήτε για την τρέχουσα PIC"
+
+#: ../src/uppmainwindow.cpp:847
+msgid "Error programming config memory"
+msgstr "Σφάλμα προγραμματισμού της διαμόρφωσης μνήμης"
+
+#: ../src/uppmainwindow.cpp:864
+msgid "Reading the code area of the PIC..."
+msgstr "Διαβάσμα του κωδικού της περιοχής του PIC..."
+
+#: ../src/uppmainwindow.cpp:867
+msgid "Error reading code memory"
+msgstr "Λάθος ανάγνωσης κώδικα μνήμης"
+
+#: ../src/uppmainwindow.cpp:874
+msgid "Reading the data area of the PIC..."
+msgstr "Ανάγνωση των δεδομένων της περιοχής του PIC..."
+
+#: ../src/uppmainwindow.cpp:877
+msgid "Error reading data memory"
+msgstr "Σφάλμα ανάγνωσης δεδομένων μνήμης"
+
+#: ../src/uppmainwindow.cpp:885
+msgid "Reading the configuration area of the PIC..."
+msgstr "Διαβάζοντας τις διαμόρφωμενες περιοχές του PIC..."
+
+#: ../src/uppmainwindow.cpp:888
+msgid "Error reading configuration memory"
+msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
+
+#: ../src/uppmainwindow.cpp:903
+msgid "Verifying all areas of the PIC..."
+msgstr "Επαλήθευση όλων των περιοχών του PIC..."
+
+#: ../src/uppmainwindow.cpp:916
+msgid "Verify successful"
+msgstr "Η επιβεβαίωση  ειναι επιτυχής"
+
+#: ../src/uppmainwindow.cpp:921
+msgid "Verify code"
+msgstr "Επιβεβαίωσε τον κώδικα"
+
+#: ../src/uppmainwindow.cpp:922
+msgid "Verify data"
+msgstr "Επιβεβαίωσε δεδομένα"
+
+#: ../src/uppmainwindow.cpp:923
+msgid "Verify config"
+msgstr "Επιβεβαίωσε τις ρυθμίσεις"
+
+#: ../src/uppmainwindow.cpp:924
+msgid "Verify unknown"
+msgstr "Επιβεβαίωση άγνωστη"
+
+#: ../src/uppmainwindow.cpp:926
+#, c-format
+msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "αποτυχία σε 0x%X. Διαβάσε: 0x%02X, Αναμενόμενα: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:933
+msgid "USB error during verify"
+msgstr "USB σφάλμα κατά τη διάρκεια της επαλήθευσεις"
+
+#: ../src/uppmainwindow.cpp:936
+msgid "Unknown error during verify"
+msgstr "Άγνωστο σφάλμα κατά τη διάρκεια της επαλήθευσεις"
+
+#: ../src/uppmainwindow.cpp:939
+#: ../src/uppmainwindow.cpp:1004
+msgid "I'm sorry for being stupid"
+msgstr "Λυπάμαι που ήμουν ηλίθιος"
+
+#: ../src/uppmainwindow.cpp:951
+msgid "Erasing all areas of the PIC..."
+msgstr "Διαγραφή όλων των περιοχών του PIC..."
+
+#: ../src/uppmainwindow.cpp:970
+msgid "Checking if the device is blank..."
+msgstr "Έλεγχος εάν η συσκευή είναι κενή…"
+
+#: ../src/uppmainwindow.cpp:978
+msgid "Device is blank"
+msgstr "Συσκευή είναι κενή"
+
+#: ../src/uppmainwindow.cpp:990
+#, c-format
+msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "Ο έλενχος απέτυχε στο 0x%X. Που διαβάστηκε: 0x%02X, Αναμενόμενα: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:995
+msgid "Device is not blank."
+msgstr "Συσκευή δεν είναι κενή."
+
+#: ../src/uppmainwindow.cpp:998
+msgid "USB error during blankcheck"
+msgstr "USB σφάλμα κατά τη διάρκεια του ελένχου της συσκευής"
+
+#: ../src/uppmainwindow.cpp:1001
+msgid "Unknown error during blankcheck"
+msgstr "Άγνωστο λάθος κατά τη διάρκεια του ελένχου της συσκευής"
+
+#: ../src/uppmainwindow.cpp:1024
+msgid "Progress dialog"
+msgstr "Πρόοδος διαλόγου"
+
+#: ../src/uppmainwindow.cpp:1025
+msgid "Initializing..."
+msgstr "Αρχικοποίηση ..."
+
+#: ../src/uppmainwindow.cpp:1045
+msgid "Could not create the worker thread!"
+msgstr "Δεν ήταν δυνατή η δημιουργία του εργαζομένου νήματος!"
+
+#: ../src/uppmainwindow.cpp:1051
+msgid "Could not run the worker thread!"
+msgstr "Δεν ήταν δυνατή η εκτέλεση του εργαζομένου νήματος!"
+
+#: ../src/uppmainwindow.cpp:1087
+msgid "Open hexfile"
+msgstr "Άνοιξε το δκαεξαδικό αρχείο"
+
+#: ../src/uppmainwindow.cpp:1103
+#: ../src/uppmainwindow.cpp:1104
+#: ../src/uppmainwindow.cpp:1133
+#: ../src/uppmainwindow.cpp:1134
+msgid "Unable to open file"
+msgstr "Αδύνατο το άνοιγμα του αρχείου"
+
+#: ../src/uppmainwindow.cpp:1123
+#: ../src/uppmainwindow.cpp:1124
+msgid "No file to refresh"
+msgstr "Δεν υπάρχει αρχείο για να ανανεώσετε"
+
+#: ../src/uppmainwindow.cpp:1149
+#: ../src/uppmainwindow.cpp:1150
+#: ../src/uppmainwindow.cpp:1171
+#: ../src/uppmainwindow.cpp:1172
+msgid "Unable to save file"
+msgstr "Αδυνατη η αποθήκευση του αρχείου"
+
+#: ../src/uppmainwindow.cpp:1161
+msgid "Save hexfile"
+msgstr "Αποθήκευση δκαεξαδικού αρχείου"
+
+#: ../src/uppmainwindow.cpp:1202
+#: ../src/uppmainwindow.cpp:1214
+#: ../src/uppmainwindow.cpp:1231
+#: ../src/uppmainwindow.cpp:1243
+#: ../src/uppmainwindow.cpp:1266
+#: ../src/uppmainwindow.cpp:1316
+#: ../src/uppmainwindow.cpp:1328
+msgid "The programmer is not connected"
+msgstr "Ο προγραμματιστής δεν είναι συνδεμένος"
+
+#: ../src/uppmainwindow.cpp:1261
+msgid "Only valid for PIC12F629, PIC12F508 and similar devices..."
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1279
+msgid "Please specify a new Osccal Value [3400 - 37FF]"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1280
+msgid "Specify a new Osccal Value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1287
+#: ../src/main.cpp:250
+msgid "Please specify an Oscal Value between 3400 and 37FF"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1300
+msgid "Please specify a bandgap value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1300
+msgid "Specify a bandgap value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1307
+#: ../src/main.cpp:264
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
 
-#: ../src/io_test_base.cpp:28
-msgid "VPP"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1358
+msgid "No PIC detected!"
+msgstr "Δεν διαπιστώθηκαν PIC!"
 
-#: ../src/io_test_base.cpp:35
-msgid "12V"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1360
+#, c-format
+msgid "No PIC detected! Selecting the default PIC (%s)..."
+msgstr "Δεν διαπιστώθηκαν PIC! Επιλέγοντας τις προεπιλογές PIC (%s) ..."
 
-#: ../src/io_test_base.cpp:38
-msgid "Voltage:"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1365
+#, c-format
+msgid "Detected PIC model %s with device ID 0x%X"
+msgstr "Εντοπίστηκε PIC μοντέλο % s με ID συσκευής 0x%X"
 
-#: ../src/io_test_base.cpp:42
-#: ../src/io_test_base.cpp:75
-#: ../src/io_test_base.cpp:101
-#: ../src/io_test_base.cpp:141
-msgid "5V"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1390
+#: ../src/uppmainwindow.cpp:1391
+msgid "Unable to read firmware version"
+msgstr "Αδύνατη η ανάγνωση της firmware έκδοσης"
 
-#: ../src/io_test_base.cpp:45
-#: ../src/io_test_base.cpp:85
-#: ../src/io_test_base.cpp:111
-#: ../src/io_test_base.cpp:115
-#: ../src/io_test_base.cpp:151
-#: ../src/io_test_base.cpp:155
-msgid "0V"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1396
+#: ../src/uppmainwindow.cpp:1425
+#: ../src/uppmainwindow.cpp:1427
+msgid " Connected"
+msgstr " Συνδέθηκε"
 
-#: ../src/io_test_base.cpp:52
-#: ../src/io_test_base.cpp:78
-#: ../src/io_test_base.cpp:104
-#: ../src/io_test_base.cpp:144
-msgid "State:"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1420
+#: ../src/uppmainwindow.cpp:1421
+msgid "Unable to read version"
+msgstr "Αδύνατη η ανάγνωση της έκδοσης"
 
-#: ../src/io_test_base.cpp:56
-msgid "RESET"
-msgstr ""
+#: ../src/uppmainwindow.cpp:1436
+#: ../src/uppmainwindow.cpp:1438
+msgid "Bootloader or programmer not found"
+msgstr "Πρόγραμμα εκκίνησης ή προγραμματιστής δεν βρέθηκε"
 
-#: ../src/io_test_base.cpp:68
-msgid "VDD"
-msgstr ""
-
-#: ../src/io_test_base.cpp:94
-msgid "PGD"
-msgstr ""
-
-#: ../src/io_test_base.cpp:108
-#: ../src/io_test_base.cpp:148
-msgid "3.3V"
-msgstr ""
-
-#: ../src/io_test_base.cpp:122
-msgid "INPUT"
-msgstr ""
-
-#: ../src/io_test_base.cpp:134
-msgid "PGC"
-msgstr ""
-
-#: ../src/io_test_base.cpp:178
+#: ../src/uppmainwindow.cpp:1458
+#: ../src/uppmainwindow.cpp:1460
 #, fuzzy
-msgid "&Close"
-msgstr "Κωδικας"
+msgid "Disconnected"
+msgstr "&Αποσύνδεση ..."
+
+#: ../src/uppmainwindow.cpp:1464
+#: ../src/uppmainwindow.cpp:1465
+#: ../src/uppmainwindow.cpp:1470
+#: ../src/uppmainwindow.cpp:1471
+msgid "Already disconnected"
+msgstr "Ήδη αποσυνδέμενο"
+
+#: ../src/uppmainwindow.cpp:1501
+msgid "An open source USB pic programmer"
+msgstr "Προγραμματιστής του open source USB pic"
+
+#: ../src/uppmainwindow.cpp:1534
+#: ../src/uppmainwindow.cpp:1561
+#, fuzzy
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "Μπορούμε να επιλέξουμε μια PIC διαφορετική όταν η bootloader συνδέεται! "
 
 #: ../src/uppmainwindow_base.cpp:23
 msgid "Hexadecimal view of the code area of the PIC:"
@@ -372,17 +897,128 @@ msgstr "&Σχετικά"
 msgid "Shows informations about this program"
 msgstr "Εμφανίζει πληροφορίες σχετικά με αυτό το πρόγραμμα"
 
-#: ../src/hexview.cpp:207
-msgid "Edit"
-msgstr "Επεξεργασία"
+#: ../src/io_test_base.cpp:28
+msgid "VPP"
+msgstr ""
 
-#: ../src/hexview.cpp:209
-msgid "Copy"
-msgstr "Αντιγραφή"
+#: ../src/io_test_base.cpp:35
+msgid "12V"
+msgstr ""
 
-#: ../src/hexview.cpp:210
-msgid "Select All"
-msgstr "Επιλογή όλων"
+#: ../src/io_test_base.cpp:38
+msgid "Voltage:"
+msgstr ""
+
+#: ../src/io_test_base.cpp:42
+#: ../src/io_test_base.cpp:75
+#: ../src/io_test_base.cpp:101
+#: ../src/io_test_base.cpp:141
+msgid "5V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:45
+#: ../src/io_test_base.cpp:85
+#: ../src/io_test_base.cpp:111
+#: ../src/io_test_base.cpp:115
+#: ../src/io_test_base.cpp:151
+#: ../src/io_test_base.cpp:155
+msgid "0V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:52
+#: ../src/io_test_base.cpp:78
+#: ../src/io_test_base.cpp:104
+#: ../src/io_test_base.cpp:144
+msgid "State:"
+msgstr ""
+
+#: ../src/io_test_base.cpp:56
+msgid "RESET"
+msgstr ""
+
+#: ../src/io_test_base.cpp:68
+msgid "VDD"
+msgstr ""
+
+#: ../src/io_test_base.cpp:94
+msgid "PGD"
+msgstr ""
+
+#: ../src/io_test_base.cpp:108
+#: ../src/io_test_base.cpp:148
+msgid "3.3V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:122
+msgid "INPUT"
+msgstr ""
+
+#: ../src/io_test_base.cpp:134
+msgid "PGC"
+msgstr ""
+
+#: ../src/io_test_base.cpp:178
+#, fuzzy
+msgid "&Close"
+msgstr "Κωδικας"
+
+#: ../src/main.cpp:80
+msgid ""
+"This is a 32bit application running under a 64bit Window version. UsbPicProg won't be able to connect to the hardware!\n"
+"Please uninstall this program and download the UsbPicProg installer for 64bit operating systems."
+msgstr ""
+
+#: ../src/main.cpp:89
+msgid "Cannot load XML PIC data."
+msgstr ""
+
+#: ../src/main.cpp:104
+msgid "Could not initialize libusb!"
+msgstr ""
+
+#: ../src/main.cpp:259
+msgid "Please specify a BandGap Value between 0 and 3"
+msgstr ""
+
+#: ../src/pictype.cpp:105
+#: ../src/pictype.cpp:125
+#: ../src/pictype.cpp:216
+#, c-format
+msgid "Could not load data for PIC '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:160
+#, c-format
+msgid "Cannot load '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:166
+#, c-format
+msgid "Invalid '%s' file."
+msgstr ""
+
+#: ../src/pictype.cpp:188
+#, c-format
+msgid "Invalid PIC family for PIC '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:237
+msgid "Could not access the 'xml_data' folder."
+msgstr ""
+
+#: ../src/pictype.cpp:779
+msgid "Invalid direction"
+msgstr ""
+
+#: ../src/pictype.cpp:799
+#, c-format
+msgid "Invalid odd pin count: %d"
+msgstr ""
+
+#: ../src/pictype.cpp:849
+#, c-format
+msgid "Invalid pin count: %d"
+msgstr ""
 
 #: ../src/packageview.cpp:45
 msgid "packageview"
@@ -396,558 +1032,6 @@ msgstr "Δεν ήταν δυνατή η δημιουργία του εργαζο
 #: ../src/packageview.cpp:71
 msgid "Can't draw the PIC package!"
 msgstr ""
-
-#: ../src/uppmainwindow.cpp:194
-msgid "&Program..."
-msgstr "&Προγραμμάτησε..."
-
-#: ../src/uppmainwindow.cpp:195
-msgid "Program the PIC device"
-msgstr "Προγραμμάτησε την PIC συσκευή"
-
-#: ../src/uppmainwindow.cpp:198
-msgid "&Read..."
-msgstr "&Διαβασε"
-
-#: ../src/uppmainwindow.cpp:199
-msgid "Read the PIC device"
-msgstr "Διάβασε την PIC συσκευή"
-
-#: ../src/uppmainwindow.cpp:202
-msgid "&Verify..."
-msgstr "&Επιβεβαίωση  ..."
-
-#: ../src/uppmainwindow.cpp:203
-msgid "Verify the PIC device"
-msgstr "Επιβεβαιώσε τη συσκευή PIC"
-
-#: ../src/uppmainwindow.cpp:206
-msgid "&Erase..."
-msgstr "&Διαγραφή ..."
-
-#: ../src/uppmainwindow.cpp:207
-msgid "Erase the PIC device"
-msgstr "Διαγραφή της PIC συσκευής"
-
-#: ../src/uppmainwindow.cpp:211
-msgid "Restore Cal regs..."
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:212
-msgid "Restore PIC's calibration registers"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:215
-msgid "&Blankcheck..."
-msgstr "&Άδειος έλενχος"
-
-#: ../src/uppmainwindow.cpp:216
-msgid "Blankcheck the PIC device"
-msgstr "Αδειος έλενχος της PIC συσκευής"
-
-#: ../src/uppmainwindow.cpp:219
-msgid "&Autodetect..."
-msgstr "&Αυτο ανίχνευση"
-
-#: ../src/uppmainwindow.cpp:220
-msgid "Detect the type of the PIC device"
-msgstr "Ανιχνεύσε τον τύπο της συσκευής PIC"
-
-#: ../src/uppmainwindow.cpp:223
-msgid "&Connect..."
-msgstr "&Σύνδεση..."
-
-#: ../src/uppmainwindow.cpp:224
-msgid "Connect to the programmer"
-msgstr "Συνδεθείτε με το προγραμματιστή"
-
-#: ../src/uppmainwindow.cpp:227
-msgid "&Disconnect..."
-msgstr "&Αποσύνδεση ..."
-
-#: ../src/uppmainwindow.cpp:228
-msgid "Disconnect from the programmer"
-msgstr "Αποσύνδεση από τον προγραμματιστή"
-
-#: ../src/uppmainwindow.cpp:259
-msgid "&Select PIC..."
-msgstr "&Επιλέξτε PIC..."
-
-#: ../src/uppmainwindow.cpp:260
-msgid "Change the currently selected PIC"
-msgstr "Αλλάξτε την τρέχουσα επιλεγμένη PIC"
-
-#: ../src/uppmainwindow.cpp:296
-msgid "&Actions"
-msgstr "&Δράσεις"
-
-#: ../src/uppmainwindow.cpp:322
-msgid "new"
-msgstr "νέο"
-
-#: ../src/uppmainwindow.cpp:324
-msgid "open"
-msgstr "άνοιξε"
-
-#: ../src/uppmainwindow.cpp:326
-msgid "reload"
-msgstr "επαναφορτώσετε"
-
-#: ../src/uppmainwindow.cpp:328
-msgid "save"
-msgstr "αποθήκευση "
-
-#: ../src/uppmainwindow.cpp:330
-msgid "save as"
-msgstr "αποθήκευση ως"
-
-#: ../src/uppmainwindow.cpp:333
-msgid "program"
-msgstr "πρόγραμμα"
-
-#: ../src/uppmainwindow.cpp:335
-msgid "read"
-msgstr "διαβάζω"
-
-#: ../src/uppmainwindow.cpp:337
-msgid "verify"
-msgstr "επαληθεύσε"
-
-#: ../src/uppmainwindow.cpp:339
-msgid "erase"
-msgstr "διαγραφή"
-
-#: ../src/uppmainwindow.cpp:341
-msgid "blankcheck"
-msgstr "άδειος έλενχος"
-
-#: ../src/uppmainwindow.cpp:343
-msgid "autodetect"
-msgstr "αυτο εντοπισμος"
-
-#: ../src/uppmainwindow.cpp:348
-msgid "currently selected PIC type"
-msgstr "επιλεγμένος τύπος PIC"
-
-#: ../src/uppmainwindow.cpp:425
-#, c-format
-msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
-msgstr "Το HEX αρχείο '%s' δεν έχει αποθηκευτεί ... το περιεχόμενό του θα χαθει; συνέχεια;"
-
-#: ../src/uppmainwindow.cpp:428
-msgid "Please confirm"
-msgstr "Παρακαλώ επιβεβαιώστε"
-
-#: ../src/uppmainwindow.cpp:441
-msgid "You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:444
-#, c-format
-msgid "Your firmware is too old (latest version is %d); please consider upgrading it"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:455
-msgid "Firmware probably too new"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:457
-#, c-format
-msgid "Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:460
-msgid "You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:474
-msgid "Usbpicprog rev: "
-msgstr "Usbpicprog rev: "
-
-#: ../src/uppmainwindow.cpp:476
-msgid "Usbpicprog: "
-msgstr "Usbpicprog: "
-
-#: ../src/uppmainwindow.cpp:480
-msgid "untitled"
-msgstr "χωρίς τίτλο"
-
-#: ../src/uppmainwindow.cpp:506
-#, fuzzy, c-format
-msgid "%s datasheet"
-msgstr "Δεδομένα"
-
-#: ../src/uppmainwindow.cpp:512
-#, c-format
-msgid ""
-"Programming voltage (Vpp):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:515
-#, c-format
-msgid ""
-"Supply voltage (Vdd):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:517
-#, c-format
-msgid ""
-"Frequency range:\n"
-"   Min=%.2fMhz\n"
-"   Max=%.2fMhz"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:518
-#, c-format
-msgid "Device ID: 0x%X"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:519
-#, fuzzy, c-format
-msgid "Code memory size: %d bytes"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
-
-#: ../src/uppmainwindow.cpp:520
-#, fuzzy, c-format
-msgid "Data memory size: %d bytes"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
-
-#: ../src/uppmainwindow.cpp:521
-#, c-format
-msgid "Type: %d-bit microcontroller"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:531
-#, c-format
-msgid "%s [%d pins]"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:610
-msgid "Please wait until the operations are completed:\n"
-msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθούν οι εργασίες:\n"
-
-#: ../src/uppmainwindow.cpp:622
-msgid "Operations aborted"
-msgstr "Οι δράσεις  ματαιώθηκαν"
-
-#: ../src/uppmainwindow.cpp:658
-#: ../src/uppmainwindow.cpp:662
-msgid "All operations completed"
-msgstr "Όλες οι δράσεις έχουν ολοκληρωθεί"
-
-#: ../src/uppmainwindow.cpp:664
-msgid "Operations completed with errors/warnings"
-msgstr "Οι δράσεις ολοκληρώθηκαν με λάθη / προειδοποιήσεις"
-
-#: ../src/uppmainwindow.cpp:748
-msgid "Erasing before programming..."
-msgstr "Διαγραφή πριν από τον προγραμματισμό ..."
-
-#: ../src/uppmainwindow.cpp:753
-msgid "Erase OK"
-msgstr "Διαγραφή εντάξει"
-
-#: ../src/uppmainwindow.cpp:765
-msgid "Programming the code area of the PIC..."
-msgstr "Πογραμματισμός του κωδικα περιοχής του PIC..."
-
-#: ../src/uppmainwindow.cpp:769
-msgid "Write Code memory OK"
-msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
-
-#: ../src/uppmainwindow.cpp:772
-#: ../src/uppmainwindow.cpp:804
-#: ../src/uppmainwindow.cpp:834
-msgid "The hardware should say OK"
-msgstr "Το υλικό θα πρέπει να πει εντάξει"
-
-#: ../src/uppmainwindow.cpp:775
-#: ../src/uppmainwindow.cpp:807
-#: ../src/uppmainwindow.cpp:837
-msgid "The hardware should ask for next block"
-msgstr "Το υλικό θα πρέπει να ρωτήσει για το επόμενο μπλοκ"
-
-#: ../src/uppmainwindow.cpp:778
-msgid "Write code not implemented for current PIC"
-msgstr "Κώδικας εγγραφης δεν υλοποιείται για την τρέχουσα PIC"
-
-#: ../src/uppmainwindow.cpp:781
-msgid "Verify error while writing code memory"
-msgstr "Επιβεβαιώθηκε σφάλμα κατά τη σύνταξη κώδικα μνήμης"
-
-#: ../src/uppmainwindow.cpp:784
-#: ../src/uppmainwindow.cpp:813
-#: ../src/uppmainwindow.cpp:843
-msgid "USB error while writing code memory"
-msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
-
-#: ../src/uppmainwindow.cpp:787
-msgid "Error programming code memory"
-msgstr "Σφάλμα κώδικα προγραμματισμού μνήμης"
-
-#: ../src/uppmainwindow.cpp:796
-msgid "Programming the data area of the PIC..."
-msgstr "Προγραμματισμός των δεδομένων της περιοχής της PIC..."
-
-#: ../src/uppmainwindow.cpp:801
-msgid "Write Data memory OK"
-msgstr "Γράψιμο των δεδομένων μνήμης εντάξει"
-
-#: ../src/uppmainwindow.cpp:810
-msgid "Write data not implemented for current PIC"
-msgstr "Γράψτε τα στοιχεία τα οποία δεν υλοποιούνται για την τρέχουσα PIC"
-
-#: ../src/uppmainwindow.cpp:816
-msgid "Error programming data memory"
-msgstr "Σφάλμα προγραμματισμού δεδομένων μνήμης"
-
-#: ../src/uppmainwindow.cpp:826
-msgid "Programming configuration area of the PIC..."
-msgstr "Προγραμματισμός διαμόρφωσης χώρου της PIC..."
-
-#: ../src/uppmainwindow.cpp:831
-msgid "Write Config memory OK"
-msgstr "Γράψιμο της μνήμης διαμόρφωσης εντάξει"
-
-#: ../src/uppmainwindow.cpp:840
-msgid "Write config not implemented for current PIC"
-msgstr "Η διαμόρφωση δεν υλοποιήτε για την τρέχουσα PIC"
-
-#: ../src/uppmainwindow.cpp:846
-msgid "Error programming config memory"
-msgstr "Σφάλμα προγραμματισμού της διαμόρφωσης μνήμης"
-
-#: ../src/uppmainwindow.cpp:863
-msgid "Reading the code area of the PIC..."
-msgstr "Διαβάσμα του κωδικού της περιοχής του PIC..."
-
-#: ../src/uppmainwindow.cpp:866
-msgid "Error reading code memory"
-msgstr "Λάθος ανάγνωσης κώδικα μνήμης"
-
-#: ../src/uppmainwindow.cpp:873
-msgid "Reading the data area of the PIC..."
-msgstr "Ανάγνωση των δεδομένων της περιοχής του PIC..."
-
-#: ../src/uppmainwindow.cpp:876
-msgid "Error reading data memory"
-msgstr "Σφάλμα ανάγνωσης δεδομένων μνήμης"
-
-#: ../src/uppmainwindow.cpp:884
-msgid "Reading the configuration area of the PIC..."
-msgstr "Διαβάζοντας τις διαμόρφωμενες περιοχές του PIC..."
-
-#: ../src/uppmainwindow.cpp:887
-msgid "Error reading configuration memory"
-msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
-
-#: ../src/uppmainwindow.cpp:902
-msgid "Verifying all areas of the PIC..."
-msgstr "Επαλήθευση όλων των περιοχών του PIC..."
-
-#: ../src/uppmainwindow.cpp:915
-msgid "Verify successful"
-msgstr "Η επιβεβαίωση  ειναι επιτυχής"
-
-#: ../src/uppmainwindow.cpp:920
-msgid "Verify code"
-msgstr "Επιβεβαίωσε τον κώδικα"
-
-#: ../src/uppmainwindow.cpp:921
-msgid "Verify data"
-msgstr "Επιβεβαίωσε δεδομένα"
-
-#: ../src/uppmainwindow.cpp:922
-msgid "Verify config"
-msgstr "Επιβεβαίωσε τις ρυθμίσεις"
-
-#: ../src/uppmainwindow.cpp:923
-msgid "Verify unknown"
-msgstr "Επιβεβαίωση άγνωστη"
-
-#: ../src/uppmainwindow.cpp:925
-#, c-format
-msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "αποτυχία σε 0x%X. Διαβάσε: 0x%02X, Αναμενόμενα: 0x%02X"
-
-#: ../src/uppmainwindow.cpp:932
-msgid "USB error during verify"
-msgstr "USB σφάλμα κατά τη διάρκεια της επαλήθευσεις"
-
-#: ../src/uppmainwindow.cpp:935
-msgid "Unknown error during verify"
-msgstr "Άγνωστο σφάλμα κατά τη διάρκεια της επαλήθευσεις"
-
-#: ../src/uppmainwindow.cpp:938
-#: ../src/uppmainwindow.cpp:1003
-msgid "I'm sorry for being stupid"
-msgstr "Λυπάμαι που ήμουν ηλίθιος"
-
-#: ../src/uppmainwindow.cpp:950
-msgid "Erasing all areas of the PIC..."
-msgstr "Διαγραφή όλων των περιοχών του PIC..."
-
-#: ../src/uppmainwindow.cpp:969
-msgid "Checking if the device is blank..."
-msgstr "Έλεγχος εάν η συσκευή είναι κενή…"
-
-#: ../src/uppmainwindow.cpp:977
-msgid "Device is blank"
-msgstr "Συσκευή είναι κενή"
-
-#: ../src/uppmainwindow.cpp:989
-#, c-format
-msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Ο έλενχος απέτυχε στο 0x%X. Που διαβάστηκε: 0x%02X, Αναμενόμενα: 0x%02X"
-
-#: ../src/uppmainwindow.cpp:994
-msgid "Device is not blank."
-msgstr "Συσκευή δεν είναι κενή."
-
-#: ../src/uppmainwindow.cpp:997
-msgid "USB error during blankcheck"
-msgstr "USB σφάλμα κατά τη διάρκεια του ελένχου της συσκευής"
-
-#: ../src/uppmainwindow.cpp:1000
-msgid "Unknown error during blankcheck"
-msgstr "Άγνωστο λάθος κατά τη διάρκεια του ελένχου της συσκευής"
-
-#: ../src/uppmainwindow.cpp:1023
-msgid "Progress dialog"
-msgstr "Πρόοδος διαλόγου"
-
-#: ../src/uppmainwindow.cpp:1024
-msgid "Initializing..."
-msgstr "Αρχικοποίηση ..."
-
-#: ../src/uppmainwindow.cpp:1044
-msgid "Could not create the worker thread!"
-msgstr "Δεν ήταν δυνατή η δημιουργία του εργαζομένου νήματος!"
-
-#: ../src/uppmainwindow.cpp:1050
-msgid "Could not run the worker thread!"
-msgstr "Δεν ήταν δυνατή η εκτέλεση του εργαζομένου νήματος!"
-
-#: ../src/uppmainwindow.cpp:1086
-msgid "Open hexfile"
-msgstr "Άνοιξε το δκαεξαδικό αρχείο"
-
-#: ../src/uppmainwindow.cpp:1102
-#: ../src/uppmainwindow.cpp:1103
-#: ../src/uppmainwindow.cpp:1132
-#: ../src/uppmainwindow.cpp:1133
-msgid "Unable to open file"
-msgstr "Αδύνατο το άνοιγμα του αρχείου"
-
-#: ../src/uppmainwindow.cpp:1122
-#: ../src/uppmainwindow.cpp:1123
-msgid "No file to refresh"
-msgstr "Δεν υπάρχει αρχείο για να ανανεώσετε"
-
-#: ../src/uppmainwindow.cpp:1148
-#: ../src/uppmainwindow.cpp:1149
-#: ../src/uppmainwindow.cpp:1170
-#: ../src/uppmainwindow.cpp:1171
-msgid "Unable to save file"
-msgstr "Αδυνατη η αποθήκευση του αρχείου"
-
-#: ../src/uppmainwindow.cpp:1160
-msgid "Save hexfile"
-msgstr "Αποθήκευση δκαεξαδικού αρχείου"
-
-#: ../src/uppmainwindow.cpp:1201
-#: ../src/uppmainwindow.cpp:1213
-#: ../src/uppmainwindow.cpp:1230
-#: ../src/uppmainwindow.cpp:1242
-#: ../src/uppmainwindow.cpp:1265
-#: ../src/uppmainwindow.cpp:1313
-#: ../src/uppmainwindow.cpp:1325
-msgid "The programmer is not connected"
-msgstr "Ο προγραμματιστής δεν είναι συνδεμένος"
-
-#: ../src/uppmainwindow.cpp:1260
-msgid "Only valid for PIC12F629 and similar devices..."
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:1278
-msgid "Please specify a new Osccal Value [3400 - 37FF]"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:1279
-msgid "Specify a new Osccal Value"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:1297
-msgid "Please specify a bandgap value"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:1297
-msgid "Specify a bandgap value"
-msgstr ""
-
-#: ../src/uppmainwindow.cpp:1355
-msgid "No PIC detected!"
-msgstr "Δεν διαπιστώθηκαν PIC!"
-
-#: ../src/uppmainwindow.cpp:1357
-#, c-format
-msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "Δεν διαπιστώθηκαν PIC! Επιλέγοντας τις προεπιλογές PIC (%s) ..."
-
-#: ../src/uppmainwindow.cpp:1362
-#, c-format
-msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "Εντοπίστηκε PIC μοντέλο % s με ID συσκευής 0x%X"
-
-#: ../src/uppmainwindow.cpp:1387
-#: ../src/uppmainwindow.cpp:1388
-msgid "Unable to read firmware version"
-msgstr "Αδύνατη η ανάγνωση της firmware έκδοσης"
-
-#: ../src/uppmainwindow.cpp:1393
-#: ../src/uppmainwindow.cpp:1422
-#: ../src/uppmainwindow.cpp:1424
-msgid " Connected"
-msgstr " Συνδέθηκε"
-
-#: ../src/uppmainwindow.cpp:1417
-#: ../src/uppmainwindow.cpp:1418
-msgid "Unable to read version"
-msgstr "Αδύνατη η ανάγνωση της έκδοσης"
-
-#: ../src/uppmainwindow.cpp:1433
-#: ../src/uppmainwindow.cpp:1435
-msgid "Bootloader or programmer not found"
-msgstr "Πρόγραμμα εκκίνησης ή προγραμματιστής δεν βρέθηκε"
-
-#: ../src/uppmainwindow.cpp:1455
-#: ../src/uppmainwindow.cpp:1457
-#, fuzzy
-msgid "Disconnected"
-msgstr "&Αποσύνδεση ..."
-
-#: ../src/uppmainwindow.cpp:1461
-#: ../src/uppmainwindow.cpp:1462
-#: ../src/uppmainwindow.cpp:1467
-#: ../src/uppmainwindow.cpp:1468
-msgid "Already disconnected"
-msgstr "Ήδη αποσυνδέμενο"
-
-#: ../src/uppmainwindow.cpp:1498
-msgid "An open source USB pic programmer"
-msgstr "Προγραμματιστής του open source USB pic"
-
-#: ../src/uppmainwindow.cpp:1531
-#: ../src/uppmainwindow.cpp:1558
-#, fuzzy
-msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr "Μπορούμε να επιλέξουμε μια PIC διαφορετική όταν η bootloader συνδέεται! "
 
 #: ../src/hexfile.cpp:101
 #, fuzzy
@@ -987,86 +1071,6 @@ msgstr ""
 #, fuzzy
 msgid "Code Memory\n"
 msgstr "Εγγραμενος κωδικας μνήμης εντάξει"
-
-#: ../src/hardware.cpp:146
-#, c-format
-msgid "Couldn't reset the USB device interface: %s"
-msgstr ""
-
-#: ../src/hardware.cpp:169
-#, fuzzy, c-format
-msgid "Error setting configuration of the USB device: %s"
-msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
-
-#: ../src/hardware.cpp:180
-#, fuzzy, c-format
-msgid "Error claiming the USB device interface: %s"
-msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
-
-#: ../src/hardware.cpp:193
-#: ../src/hardware.cpp:203
-#, c-format
-msgid "Error getting USB endpoint descriptor: %s"
-msgstr ""
-
-#: ../src/hardware.cpp:493
-#, c-format
-msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
-msgstr ""
-
-#: ../src/hardware.cpp:704
-msgid "No data to verify"
-msgstr ""
-
-#: ../src/hardware.cpp:910
-#, fuzzy, c-format
-msgid "USB error while reading: %s"
-msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
-
-#: ../src/hardware.cpp:928
-#, fuzzy, c-format
-msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
-msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
-
-#: ../src/pictype.cpp:105
-#: ../src/pictype.cpp:125
-#: ../src/pictype.cpp:216
-#, c-format
-msgid "Could not load data for PIC '%s'."
-msgstr ""
-
-#: ../src/pictype.cpp:160
-#, c-format
-msgid "Cannot load '%s'."
-msgstr ""
-
-#: ../src/pictype.cpp:166
-#, c-format
-msgid "Invalid '%s' file."
-msgstr ""
-
-#: ../src/pictype.cpp:188
-#, c-format
-msgid "Invalid PIC family for PIC '%s'."
-msgstr ""
-
-#: ../src/pictype.cpp:237
-msgid "Could not access the 'xml_data' folder."
-msgstr ""
-
-#: ../src/pictype.cpp:778
-msgid "Invalid direction"
-msgstr ""
-
-#: ../src/pictype.cpp:798
-#, c-format
-msgid "Invalid odd pin count: %d"
-msgstr ""
-
-#: ../src/pictype.cpp:848
-#, c-format
-msgid "Invalid pin count: %d"
-msgstr ""
 
 #: ../src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
@@ -1128,10 +1132,6 @@ msgstr ""
 #, fuzzy
 msgid "Shows popups on connect etc..."
 msgstr "Δείτε popups για τη σύνδεση κλπ..."
-
-#: ../src/uppmainwindow_base.h:103
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
 
 #: ../src/preferences_base.h:51
 msgid "Preferences"
@@ -1225,6 +1225,10 @@ msgstr ""
 msgid "Restore BandGap Register"
 msgstr ""
 
+#: ../src/uppmainwindow_base.h:103
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
+
 #: ../src/io_test.h:53
 #, fuzzy
 msgid "Usbpicprog IO Test"
@@ -1233,22 +1237,17 @@ msgstr "Usbpicprog: "
 #, fuzzy
 #~ msgid "device ID not found"
 #~ msgstr "Συσκευή δεν είναι κενή."
-
 #~ msgid "Config"
 #~ msgstr "Διαμόρφωση"
-
 #~ msgid "Verify"
 #~ msgstr "Βεβαιώστε"
-
 #~ msgid "Gui"
 #~ msgstr "Gui"
-
 #~ msgid "Disconnected usbpicprog"
 #~ msgstr "Αποσυνδέθηκε usbpicprog"
-
 #~ msgid "Cannot select a PIC different when the bootloader is connected!"
 #~ msgstr ""
 #~ "Μπορούμε να επιλέξουμε μια PIC διαφορετική όταν η bootloader συνδέεται! "
-
 #~ msgid "Hexadecimal view of the configuration fuses of the PIC:"
 #~ msgstr "Δεκαεξαδική προβολή της διαμόρφωσης τήξης του PIC:"
+
