@@ -288,7 +288,7 @@ PicType PicType::LoadPiklabXML(const wxString& picName)
 
     PicType ret = LoadPiklabXMLFile(prefix + picName + (".xml"));
 	if (wxString(ret.Name.c_str()) != picName)  // PIC name should match picName
-        {cout<<"error: PIC name should match picName: "<<ret.Name<<", "<<picName<<endl;return UPP_INVALID_PIC;}
+        {cout<<"error: PIC name should match picName: "<<ret.Name.mb_str(wxConvUTF8)<<", "<<picName.mb_str(wxConvUTF8)<<endl;return UPP_INVALID_PIC;}
     
     return ret;
 }

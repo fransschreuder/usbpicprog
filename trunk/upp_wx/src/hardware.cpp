@@ -38,7 +38,7 @@
 using namespace std;
 //#define USB_DEBUG 3
 
-#ifdef __WXGTK__
+#ifndef __WXMSW__
 const char* libusb_strerror(enum libusb_error errcode)
 {
     switch (errcode)

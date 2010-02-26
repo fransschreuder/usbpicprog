@@ -247,7 +247,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 		sscanf(OscCal.c_str(),"%4X",&iSelectedOscCal);
 		if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
     	{
-			cout<<_("Please specify an Oscal Value between 3400 and 37FF")<<endl;
+			cout<<_("Please specify an Oscal Value between 3400 and 37FF").mb_str(wxConvUTF8)<<endl;
 			exit ( -1 );
 		}
 		int iSelectedBandGap=0;
@@ -256,12 +256,12 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 			sscanf(BandGap.c_str(),"%4X",&iSelectedBandGap);
 			if((iSelectedBandGap<0x0)|(iSelectedBandGap>0x3))
     		{
-				cout<<_("Please specify a BandGap Value between 0 and 3")<<endl;
+				cout<<_("Please specify a BandGap Value between 0 and 3").mb_str(wxConvUTF8)<<endl;
 				exit ( -1 );
 			}
 		}
-		if (hardware->bulkErase(picType,false)<0)cout<<_("Error erasing the device")<<endl;
-		if (hardware->restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers")<<endl;
+		if (hardware->bulkErase(picType,false)<0)cout<<_("Error erasing the device").mb_str(wxConvUTF8)<<endl;
+		if (hardware->restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers").mb_str(wxConvUTF8)<<endl;
 		
 	}
 	

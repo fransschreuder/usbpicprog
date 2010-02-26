@@ -2,7 +2,9 @@
 
 OUTPUTPATH=$(pwd)
 
-cp -R osx/* .
+#cp -R osx/* .
+
+cp Makefile.in.osx Makefile.in
 
 make clean
 
@@ -30,11 +32,12 @@ cp index.xml src/usbpicprog.app/xml_data
 rm -rf src/usbpicprog.app/Contents/MacOS/output
 
 EXECFILE="src/usbpicprog.app/Contents/MacOS/usbpicprog"
-LIBPATH="libs/"
+LIBPATH="libs"
 NEWLIBPATH="@executable_path/../SharedSupport"
 
 # space separated list of libraries
-TARGETS="libusb.dylib"
+TARGETS="libusb-1.0.dylib "\
+"libwx_osx_carbonu-2.9.dylib"
 for TARGET in ${TARGETS} ; do
 LIBFILE=${LIBPATH}/${TARGET}
 cp ${LIBFILE} src/usbpicprog.app/Contents/SharedSupport
