@@ -118,12 +118,6 @@ _BUILDDIR_SHARED_SUFFIX =
 !if "$(WX_SHARED)" == "1"
 _BUILDDIR_SHARED_SUFFIX = _dll
 !endif
-!if "$(TARGET_CPU)" == "X64"
-PTHREAD_SUFFIX_HELPER = _x64
-!endif
-!if "$(TARGET_CPU)" == "X86"
-PTHREAD_SUFFIX_HELPER = 
-!endif
 !if "$(WX_SHARED)" == "0"
 ____WX_SHARED_0_p = 
 !endif
@@ -240,7 +234,7 @@ test_for_selected_wxbuild:
 
 ..\..\usbpicprog.exe: $(UPP_WX_OBJECTS)  $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 	ilink32 -Tpe -q  -L$(BCCDIR)\lib -L$(BCCDIR)\lib\psdk -L$(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) -aa $(____upp_wx__DEBUGINFO) -L..\..\win\deps\$(__DEPS_SUBFOLDER_HELPER_FILENAMES) $(LDFLAGS) @&&|
-	c0w32.obj $(UPP_WX_OBJECTS),$@,, libusb-1.0.lib pthreadVC2$(PTHREAD_SUFFIX_HELPER).lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib ole2w32.lib oleacc.lib import32.lib cw32.lib,, $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
+	c0w32.obj $(UPP_WX_OBJECTS),$@,, libusb-1.0.lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib ole2w32.lib oleacc.lib import32.lib cw32.lib,, $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 |
 
 $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_configview.obj: ..\..\src\configview.cpp

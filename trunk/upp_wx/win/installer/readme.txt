@@ -11,3 +11,8 @@ Steps for releasing UsbPicProg on Windows
    They should install and work fine on both 32bit and 64bit versions of Windows XP, Windows Vista,
    Windows Server 2003, Windows 7 (and higher).
 
+IMPORTANT: when compiling the 32bit versions of UsbPicProg with MS Visual Studio 2008 Express/Professional
+           you may incur in the following bug (which makes the final .exe unable to run):
+             https://connect.microsoft.com/VisualStudio/feedback/details/361682/vc9-sp1-generates-manifests-with-the-wrong-version-number?wa=wsignin1.0
+           The solution is to tell MSVC to NOT embed the manifest XML file in the final EXE and then manually
+           edit and fix the version in the .manifest file before running NSIS.

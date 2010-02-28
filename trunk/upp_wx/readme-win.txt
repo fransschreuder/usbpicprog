@@ -8,13 +8,13 @@ By Francesco Montorsi
    You can compile upp_wx with a variety of tools: command-like make programs (see build\win\makefile*),
    MSVC project files (see build\win\*sln) and wxDevCpp (see build\win\upp_wx_devcpp.dev).
    
-   In the "win\deps" folder you can find the precompiled binaries for the libusb dependencies of upp_wx:
-   pthread-win32 and libusb itself. Note that you'll also need to compile wxWidgets before you can start
-   compiling upp_wx (since it's another dependency - although it's not provided in "win\deps" given its size).
+   In the "win\deps" folder you can find the precompiled binaries of libusb (a dependency of upp_wx). 
+   Note that you'll also need to compile wxWidgets before you can start compiling upp_wx 
+   (since it's another dependency - although it's not provided in "win\deps" given its size).
    
    Once you're done with all the dependencies, you can compile upp_wx.
-   It supports both 32bit and 64bit build modes. In fact to be able to use an USB device under 64bit
-   versions of MS Windows you will need a 64bit application.
+   It supports both 32bit and 64bit build modes (the 64bit version is needed because in order to be 
+   able to use an USB device under 64bit versions of MS Windows you will need a 64bit application!).
    
    The easiest way to compile upp_wx is probably to download and install the MSVC++ Express Edition
    (which is provided for free by Microsoft) and use the MSVC project files.
