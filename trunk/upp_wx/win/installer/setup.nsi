@@ -32,7 +32,7 @@
   !define PRODUCT_VERSION         "0.3.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define SVN_TEST_RELEASE        1     ; is this a SVN test?
-  !define SVN_REVISION            "832"
+  !define SVN_REVISION            "834"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
