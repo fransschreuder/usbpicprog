@@ -3,6 +3,12 @@
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
+// 
+// NOTE: despite the above warning this file was edited by hand to fix 
+//       layouting problems otherwise occurring because of the GUI
+//       additions done later in UppMainWindow::CompleteGUICreation().
+//       The hand-edited places are marked with the string "EDITED-BY-HAND".
+// 
 ///////////////////////////////////////////////////////////////////////////
 
 #include "uppmainwindow_base.h"
@@ -11,7 +17,9 @@
 
 UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+// EDITED-BY-HAND:
+//  this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+// not necessary!
 	
 	m_pSizer = new wxBoxSizer( wxVERTICAL );
 	
@@ -158,8 +166,11 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	
 	m_pSizer->Add( m_pNotebook, 1, wxEXPAND | wxALL, 5 );
 	
-	this->SetSizer( m_pSizer );
-	this->Layout();
+// EDITED-BY-HAND:
+//	this->SetSizerAndFit( m_pSizer );
+//	this->Layout();
+// done later in UppMainWindow::CompleteGUICreation()
+
 	m_pMenuBar = new wxMenuBar( 0 );
 	m_pMenuFile = new wxMenu();
 	wxMenuItem* uppMenuNew;
@@ -225,7 +236,8 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	
 	this->SetMenuBar( m_pMenuBar );
 	
-	m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZEGRIP, wxID_ANY );
+// EDITED-BY-HAND: use wxSTB_DEFAULT_STYLE instead of wxST_SIZE_GRIP
+    m_pStatusBar = this->CreateStatusBar( 2, wxSTB_DEFAULT_STYLE, wxID_ANY );
 	
 	// Connect Events
 	this->Connect( uppMenuNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_new ) );

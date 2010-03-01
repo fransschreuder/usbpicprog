@@ -377,8 +377,12 @@ void UppMainWindow::CompleteGUICreation()
     m_pPICChoice->Append(m_arrPICName);
 
     this->SetIcon(wxIcon( usbpicprog_xpm ));
-//    this->SetSizerAndFit(m_pSizer);
-    this->SetSizer(m_pSizer);
+
+    // NOTE: these operations are normally done by code automatically generated
+    //       by wxFormBuilder in UppMainWindowBase ctor; however because of the
+    //       toolbar creation done above we have to do these operations here.
+    this->SetSizerAndFit( m_pSizer );
+	this->Layout();
 
     // eventually load position&size of this window from the wxConfig object:
     wxPersistenceManager::Get().RegisterAndRestore(this);
