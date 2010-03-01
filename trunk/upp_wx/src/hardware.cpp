@@ -89,7 +89,6 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     m_abortOperations=false;
     m_handle=NULL;
     m_pCallBack=CB;
-
 #ifdef USB_DEBUG
     cout<<"USB debug enabled, remove the '#define USB_DEBUG 3' line in hardware.cpp to disable it"<<endl;
     libusb_set_debug(NULL, USB_DEBUG);
@@ -312,11 +311,11 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
                 return OPERATION_ABORTED;
 
             BootloaderPackage bootloaderPackage;
-            bootloaderPackage.fields.cmd=CMD_BOOT_ERASE;
-            bootloaderPackage.fields.size=1; // only one block of 64 bytes supported by bootloader
-            bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-            bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-            bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_ERASE;
+            bootloaderPackage.data[bp_size]=1; // only one block of 64 bytes supported by bootloader
+            bootloaderPackage.data[bp_addrU]=(unsigned char)((address>>16)&0xFF);
+            bootloaderPackage.data[bp_addrH]=(unsigned char)((address>>8)&0xFF);
+            bootloaderPackage.data[bp_addrL]=(unsigned char)(address&0xFF);
 
             if (writeString(bootloaderPackage.data,5) < 0)
                 return -1;
@@ -613,7 +612,6 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
     }
 
     statusCallBack (0);
-
     for (unsigned int blockcounter=0; blockcounter<memory->size(); blockcounter+=blockSizeHW)
     {
         statusCallBack (blockcounter*100/memory->size());
@@ -984,17 +982,17 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         case TYPE_CODE:
         case TYPE_CONFIG:
             //cout<<"Read code or config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.fields.cmd=CMD_READ_CODE;
+            uppPackage.data[up_cmd]=CMD_READ_CODE;
             break;
         case TYPE_DATA:
-            uppPackage.fields.cmd=CMD_READ_DATA;
+            uppPackage.data[up_cmd]=CMD_READ_DATA;
             break;
         }
-        uppPackage.fields.size=size;
-        uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-        uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-        uppPackage.fields.addrL=(unsigned char)(address&0xFF);
-        uppPackage.fields.blocktype=(unsigned char)lastblock;
+        uppPackage.data[up_size]=size;
+        uppPackage.data[up_addrU]=(unsigned char)((address>>16)&0xFF);
+        uppPackage.data[up_addrH]=(unsigned char)((address>>8)&0xFF);
+        uppPackage.data[up_addrL]=(unsigned char)(address&0xFF);
+        uppPackage.data[up_blocktype]=(unsigned char)lastblock;
 
         // send the command
         nBytes = writeString(uppPackage.data,6);
@@ -1012,20 +1010,20 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         switch (type)
         {
         case TYPE_CODE:
-            bootloaderPackage.fields.cmd=CMD_BOOT_READ_CODE;
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_READ_CODE;
             break;
         case TYPE_CONFIG:
-            bootloaderPackage.fields.cmd=CMD_BOOT_READ_CONFIG;
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_READ_CONFIG;
             break;
         case TYPE_DATA:
-            bootloaderPackage.fields.cmd=CMD_BOOT_READ_DATA;
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_READ_DATA;
             break;
         }
 
-        bootloaderPackage.fields.size=size;
-        bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-        bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-        bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
+        bootloaderPackage.data[bp_size]=size;
+        bootloaderPackage.data[bp_addrU]=(unsigned char)((address>>16)&0xFF);
+        bootloaderPackage.data[bp_addrH]=(unsigned char)((address>>8)&0xFF);
+        bootloaderPackage.data[bp_addrL]=(unsigned char)(address&0xFF);
 
         // send the command
         // FIXME: define the constant 5 as the sizeof() of the relevant portion of
@@ -1064,23 +1062,23 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
         {
         case TYPE_CODE:
             //cout<<"Write code block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.fields.cmd=CMD_WRITE_CODE;
+            uppPackage.data[up_cmd]=CMD_WRITE_CODE;
             break;
         case TYPE_CONFIG:
             //cout<<"Write config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.fields.cmd=CMD_WRITE_CONFIG;
+            uppPackage.data[up_cmd]=CMD_WRITE_CONFIG;
             break;
         case TYPE_DATA:
             //cout<<"Write data block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.fields.cmd=CMD_WRITE_DATA;
+            uppPackage.data[up_cmd]=CMD_WRITE_DATA;
             break;
         }
-        uppPackage.fields.size=size;
-        uppPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-        uppPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-        uppPackage.fields.addrL=(unsigned char)(address&0xFF);
-        uppPackage.fields.blocktype=(unsigned char)lastblock;
-        memcpy(uppPackage.fields.dataField,msg,size);
+        uppPackage.data[up_size]=size;
+        uppPackage.data[up_addrU]=(unsigned char)((address>>16)&0xFF);
+        uppPackage.data[up_addrH]=(unsigned char)((address>>8)&0xFF);
+        uppPackage.data[up_addrL]=(unsigned char)(address&0xFF);
+        uppPackage.data[up_blocktype]=(unsigned char)lastblock;
+        memcpy(uppPackage.data+up_data,msg,size);
 
         /*if (address==0)
         {
@@ -1123,21 +1121,21 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
         switch (type)
         {
         case TYPE_CODE:
-            bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_CODE;
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_WRITE_CODE;
             break;
         case TYPE_DATA:
-            bootloaderPackage.fields.cmd=CMD_BOOT_WRITE_DATA;
+            bootloaderPackage.data[bp_cmd]=CMD_BOOT_WRITE_DATA;
             break;
         default:
             //nothing to do for CONFIG
             break;
         }
 
-        bootloaderPackage.fields.size=size;
-        bootloaderPackage.fields.addrU=(unsigned char)((address>>16)&0xFF);
-        bootloaderPackage.fields.addrH=(unsigned char)((address>>8)&0xFF);
-        bootloaderPackage.fields.addrL=(unsigned char)(address&0xFF);
-        memcpy(bootloaderPackage.fields.dataField,msg,size);
+        bootloaderPackage.data[bp_size]=size;
+        bootloaderPackage.data[bp_addrU]=((address>>16)&0xFF);
+        bootloaderPackage.data[bp_addrH]=((address>>8)&0xFF);
+        bootloaderPackage.data[bp_addrL]=(address&0xFF);
+        memcpy(bootloaderPackage.data + bp_data ,msg,size);
 
         if (writeString(bootloaderPackage.data,5+size) < 0)
             return -1;

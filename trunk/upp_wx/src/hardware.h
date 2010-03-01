@@ -140,12 +140,23 @@ typedef struct
     bool isBootloader;
 } FirmwareVersion;
 
+
+typedef enum 
+{
+	up_cmd,
+	up_size,
+	up_addrL,
+	up_addrH,
+	up_addrU,
+	up_blocktype,
+	up_data
+}UPP_INDEX;
 /** 
     UppPackage is the data header which is sent to the programmer hardware.
 */
-typedef union
+typedef struct
 {
-    struct
+    /*struct
     {
         unsigned cmd:8;   /// One of the CMD_ defines above
         unsigned size:8;  /// Size of the datafield
@@ -154,26 +165,36 @@ typedef union
         unsigned addrL:8;
         unsigned blocktype:8; /// The blocktype can be middle, first or last (or first|last)
         unsigned char dataField[32];
-    } fields;
+    } fields;*/
     unsigned char data[38];
 } UppPackage;
 
+
+typedef enum 
+{
+	bp_cmd,
+	bp_size,
+	bp_addrL,
+	bp_addrH,
+	bp_addrU,
+	bp_data
+}BOOT_INDEX;
 /** 
     BootloaderPackage is the data header which is sent to the bootloader of
     the programmer hardware.
 */
-typedef union
+typedef struct
 {
-    struct
+    /*struct
     {
         unsigned cmd:8;   /// One of the CMD_ defines above
         unsigned size:8;  /// Size of the datafield
         unsigned addrL:8; /// Little-endian order
         unsigned addrH:8;
         unsigned addrU:8;
-        unsigned char dataField[32];
-    } fields;
-    unsigned char data[37];
+		unsigned char dataField[32];
+    } fields;*/
+	unsigned char data[37];
 } BootloaderPackage;
 
 /** 
