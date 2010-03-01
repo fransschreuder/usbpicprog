@@ -8,6 +8,9 @@
 //       layouting problems otherwise occurring because of the GUI
 //       additions done later in UppMainWindow::CompleteGUICreation().
 //       The hand-edited places are marked with the string "EDITED-BY-HAND".
+//       To avoid forgetting about the modifications when this file is regenerated
+//       we define a symbol which is then checked by later code:
+int g_handModificationsTrickSymbol;
 // 
 ///////////////////////////////////////////////////////////////////////////
 

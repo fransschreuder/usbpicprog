@@ -1,5 +1,5 @@
 /***************************************************************************
-*   Copyright (C) 2008-2009 by Frans Schreuder, Francesco Montorsi        *
+*   Copyright (C) 2008-2010 by Frans Schreuder, Francesco Montorsi        *
 *   usbpicprog.sourceforge.net                                            *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -78,6 +78,8 @@ static const wxChar *FILETYPES = _T(
     "Hex files|*.hex;*.HEX|All files|*.*"
 );
 
+// see uppmainwindow_base.cpp
+extern int g_handModificationsTrickSymbol;
 
 wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEvent );
 wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEvent );
@@ -383,6 +385,13 @@ void UppMainWindow::CompleteGUICreation()
     //       toolbar creation done above we have to do these operations here.
     this->SetSizerAndFit( m_pSizer );
 	this->Layout();
+
+    // NOTE2: because of the code above, we need to make sure that the hand modifications
+    //        of uppmainwindow_base.cpp are preserved; we do it with a small trick which will
+    //        trigger a linker error if the hand modifications get lost:
+    g_handModificationsTrickSymbol = 1;
+        // if you get a linker error about this symbol, please make sure to re-apply the
+        // required hand modifications to uppmainwindow_base.cpp
 
     // eventually load position&size of this window from the wxConfig object:
     wxPersistenceManager::Get().RegisterAndRestore(this);
