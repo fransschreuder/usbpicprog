@@ -35,11 +35,6 @@ WX_DEBUG = 1
 # Version of the wx library to build against. 
 WX_VERSION = 29
 
-# Use monolithic build of wxWidgets? [0,1]
-#   0 - Multilib
-#   1 - Monolithic
-WX_MONOLITHIC = 0
-
 # The directory where wxWidgets library is installed 
 WX_DIR = $(%WXWIN)
 
@@ -140,31 +135,19 @@ ____upp_wx__DEBUGINFO_4 =
 !ifeq WX_DEBUG 1
 ____upp_wx__DEBUGINFO_4 = debug all
 !endif
+__DEPS_DEBUGRELEASE_HELPER_FILENAMES =
+!ifeq WX_DEBUG 0
+__DEPS_DEBUGRELEASE_HELPER_FILENAMES = release
+!endif
+!ifeq WX_DEBUG 1
+__DEPS_DEBUGRELEASE_HELPER_FILENAMES = debug
+!endif
 __DEPS_SUBFOLDER_HELPER_FILENAMES =
 !ifeq TARGET_CPU X64
 __DEPS_SUBFOLDER_HELPER_FILENAMES = amd64
 !endif
 !ifeq TARGET_CPU X86
 __DEPS_SUBFOLDER_HELPER_FILENAMES = x86
-!endif
-__WXLIB_ADV_NAME_p =
-!ifeq WX_MONOLITHIC 0
-__WXLIB_ADV_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv.lib
-!endif
-__WXLIB_XML_NAME_p =
-!ifeq WX_MONOLITHIC 0
-__WXLIB_XML_NAME_p = wxbase$(WX_VERSION)$(WXLIBPOSTFIX)_xml.lib
-!endif
-__WXLIB_CORE_NAME_p =
-!ifeq WX_MONOLITHIC 0
-__WXLIB_CORE_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_core.lib
-!endif
-__WXLIB_BASE_NAME_p =
-!ifeq WX_MONOLITHIC 0
-__WXLIB_BASE_NAME_p = wxbase$(WX_VERSION)$(WXLIBPOSTFIX).lib
-!endif
-!ifeq WX_MONOLITHIC 1
-__WXLIB_BASE_NAME_p = wxmsw$(WX_VERSION)$(WXLIBPOSTFIX).lib
 !endif
 ____WX_SHARED_0_p =
 !ifeq WX_SHARED 0
@@ -248,9 +231,9 @@ test_for_selected_wxbuild :
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option quiet
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc name $^@
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option caseexact
-	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath ..\..\win\deps\$(__DEPS_SUBFOLDER_HELPER_FILENAMES) $(LDFLAGS)
+	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath ..\..\win\deps\$(__DEPS_DEBUGRELEASE_HELPER_FILENAMES)\$(__DEPS_SUBFOLDER_HELPER_FILENAMES) $(LDFLAGS)
 	@for %i in ($(UPP_WX_OBJECTS)) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc file %i
-	@for %i in ( libusb-1.0.lib setupapi.lib $(__WXLIB_ADV_NAME_p) $(__WXLIB_XML_NAME_p) $(__WXLIB_CORE_NAME_p) $(__WXLIB_BASE_NAME_p) wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc library %i
+	@for %i in ( libusb-1.0.lib setupapi.lib wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv.lib wxbase$(WX_VERSION)$(WXLIBPOSTFIX)_xml.lib wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_core.lib wxbase$(WX_VERSION)$(WXLIBPOSTFIX).lib wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc library %i
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option resource=$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
 	@for %i in () do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option stack=%i
 	wlink @$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc

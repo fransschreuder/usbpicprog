@@ -32,7 +32,7 @@
   !define PRODUCT_VERSION         "0.3.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define SVN_TEST_RELEASE        1     ; is this a SVN test?
-  !define SVN_REVISION            "834"
+  !define SVN_REVISION            "836"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
@@ -133,8 +133,8 @@ proceed:
   File ..\..\usbpicprog.ico    ; used by the DPINST utility
   File ${ARCH}\usbpicprog.exe
   File /nonfatal ${ARCH}\usbpicprog.exe.manifest        ; in case the manifest was not embedded in the .exe file
-  File ..\..\win\deps\${ARCH}\*.dll
-  File ..\..\win\deps\${ARCH}\*.manifest                ; CRT manifests always need to be copied to allow installations on WinXP systems
+  File ..\..\win\deps\release\${ARCH}\*.dll
+  File ..\..\win\deps\release\${ARCH}\*.manifest                ; CRT manifests always need to be copied to allow installations on WinXP systems
   
   ; Install the *.mo files
   !insertmacro UPP_INSTALL_LANG ar

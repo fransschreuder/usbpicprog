@@ -8,8 +8,9 @@
     <!--                     GLOBAL SETTINGS                        -->
     <!--                                                            -->
 
-    <set var="WX_VERSION_DEFAULT">29</set>
-    <set var="WX_UNICODE">1</set>
+    <set var="WX_VERSION_DEFAULT">29</set>      <!-- required for many features -->
+    <set var="WX_UNICODE">1</set>               <!-- wx29 is always built in Unicode mode -->
+    <set var="WX_MONOLITHIC">0</set>            <!-- we never want to link against a huge wx lib -->
 
     <include file="presets/wx.bkl"/>
     
@@ -33,7 +34,7 @@
             The directory where the libusb-1.x library is installed
         </description>
     </option>
-    
+
     <set var="LIBUSB_LIBPATH_HELPER">
         <!-- for makefiles: -->
         <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X86'">Win32</if>
@@ -52,6 +53,10 @@
         <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'">x86</if>
         <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">amd64</if>
     </set>
+    <set var="DEPS_DEBUGRELEASE_HELPER">
+        <if cond="WX_DEBUG=='1'">debug</if>
+        <if cond="WX_DEBUG=='0'">release</if>
+    </set>
     
     
     <!--                                                            -->
@@ -60,7 +65,7 @@
     
     <exe id="upp_wx" template="wxgui,wxlike">
         <exename>usbpicprog</exename>
-        <dirname>../..</dirname>
+        <dirname>../..</dirname>        <!-- output folder for the executable: in this way it will find the "xml_data" folder without troubles -->
     
         <sources>$(fileList('src/*.cpp'))</sources>
         <headers>$(fileList('src/*.h'))</headers>
@@ -73,7 +78,7 @@
         <!-- <include>$(LIBUSB_DIR)/libusb</include> 
         <lib-path>$(LIBUSB_DIR)/$(LIBUSB_LIBPATH_HELPER)/Debug/lib</lib-path> -->
         <include>$(SRCDIR)/win/deps</include> 
-        <lib-path>$(SRCDIR)/win/deps/$(DEPS_SUBFOLDER_HELPER)</lib-path>
+        <lib-path>$(SRCDIR)/win/deps/$(DEPS_DEBUGRELEASE_HELPER)/$(DEPS_SUBFOLDER_HELPER)</lib-path>
         
         <sys-lib>libusb-1.0</sys-lib>
         
