@@ -239,8 +239,13 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	
 	this->SetMenuBar( m_pMenuBar );
 	
-// EDITED-BY-HAND: use wxSTB_DEFAULT_STYLE instead of wxST_SIZE_GRIP
+// EDITED-BY-HAND: use wxSTB_DEFAULT_STYLE=wxSTB_SIZEGRIP|wxSTB_ELLIPSIZE_END|wxSTB_SHOW_TIPS
+//                 instead of wxST_SIZE_GRIP if it's available (i.e. if wx >= 2.9.1)
+#ifdef wxSTB_DEFAULT_STYLE
     m_pStatusBar = this->CreateStatusBar( 2, wxSTB_DEFAULT_STYLE, wxID_ANY );
+#else
+    m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZE_GRIP, wxID_ANY );
+#endif
 	
 	// Connect Events
 	this->Connect( uppMenuNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_new ) );
