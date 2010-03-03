@@ -244,7 +244,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 #ifdef wxSTB_DEFAULT_STYLE
     m_pStatusBar = this->CreateStatusBar( 2, wxSTB_DEFAULT_STYLE, wxID_ANY );
 #else
-    m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZE_GRIP, wxID_ANY );
+    m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZEGRIP, wxID_ANY );
 #endif
 	
 	// Connect Events

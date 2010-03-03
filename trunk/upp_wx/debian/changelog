@@ -1,3 +1,11 @@
+usbpicprog (839) karmic; urgency=low
+
+  * update installer, project files and makefiles after the previous
+    commit which modified the win\deps folder structure (now debug
+    binaries are provided, too).
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 02 Mar 2010 09:02:30 +0100
+
 usbpicprog (829) karmic; urgency=low
 
   * updated some strings in the spanish translation file, thanks to
