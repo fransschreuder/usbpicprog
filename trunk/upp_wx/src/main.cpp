@@ -28,7 +28,7 @@
 #include "../svn_revision.h"
 
 // NOW we can include the <usb.h> header without compiling problems
-#include <libusb.h>
+//#include <libusb.h>
 
 #ifdef __WXMSW__
     #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
@@ -98,12 +98,7 @@ bool UsbPicProg::OnInit()
         return false;
     }
 
-    // init libusb library
-    if (libusb_init(NULL) != LIBUSB_SUCCESS)
-    {
-        wxLogError(_("Could not initialize libusb!"));
-        return false;
-    }
+   
 
     SetVendorName(("UsbPicProgrammer"));
     if (!m_console)
@@ -124,11 +119,7 @@ bool UsbPicProg::OnInit()
 int UsbPicProg::OnExit()
 {
     delete m_locale;
-    
     PicType::CleanUp();
-
-    libusb_exit(NULL);
-
     return wxApp::OnExit();
 }
 

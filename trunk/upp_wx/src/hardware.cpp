@@ -93,6 +93,14 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     cout<<"USB debug enabled, remove the '#define USB_DEBUG 3' line in hardware.cpp to disable it"<<endl;
     libusb_set_debug(NULL, USB_DEBUG);
 #endif
+
+ // init libusb library
+    if (libusb_init(NULL) != LIBUSB_SUCCESS)
+    {
+        wxLogError(_("Could not initialize libusb!"));
+        return;
+    }
+
     if (hwtype == HW_UPP)
     {
         // search first the UPP and then, if no UPP is found, the bootloader
@@ -227,7 +235,7 @@ Hardware::~Hardware()
     {
         libusb_release_interface(m_handle, 0);
         libusb_close(m_handle);
-
+        libusb_exit(NULL);
         m_handle = NULL;
     }
         
