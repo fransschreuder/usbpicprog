@@ -1,3 +1,9 @@
+usbpicprog (842) karmic; urgency=low
+
+  * moved libusb_init and libusb_exit from main.cpp to hardware.cpp
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 04 Mar 2010 09:08:55 +0100
+
 usbpicprog (841) karmic; urgency=low
 
   * you forgot an underscore Francesco!

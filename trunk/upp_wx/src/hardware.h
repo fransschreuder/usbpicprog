@@ -243,12 +243,18 @@ public:
             If no hardware of the given type is found, then the other types of supported
             hardwares are searched.
     */
-    Hardware(UppMainWindow* CB=NULL, HardwareType hwtype=HW_UPP);
+    Hardware();
 
     /**
         Releases the USB interface acquired in the ctor.
     */
     ~Hardware();
+    
+    
+    int connect(UppMainWindow* CB=NULL, HardwareType hwtype=HW_UPP);
+    
+    
+    int disconnect();
 
     /** 
         Gives the hardware the command to switch to a certain PIC programming algorithm.

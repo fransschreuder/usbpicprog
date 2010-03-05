@@ -82,13 +82,8 @@ const char* libusb_strerror(enum libusb_error errcode)
 // Hardware
 // ----------------------------------------------------------------------------
 
-Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
+Hardware::Hardware()
 {
-    int retcode;
-
-    m_abortOperations=false;
-    m_handle=NULL;
-    m_pCallBack=CB;
 #ifdef USB_DEBUG
     cout<<"USB debug enabled, remove the '#define USB_DEBUG 3' line in hardware.cpp to disable it"<<endl;
     libusb_set_debug(NULL, USB_DEBUG);
@@ -100,6 +95,30 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Could not initialize libusb!"));
         return;
     }
+}
+
+Hardware::~Hardware()
+{
+cout<<"Hardware destructor start"<<endl;
+    if (m_handle)
+    {
+        libusb_release_interface(m_handle, 0);
+        libusb_close(m_handle);
+        m_handle = NULL;
+    }
+    m_hwCurrent = HW_NONE;
+    libusb_exit(NULL);
+cout<<"Hardware destructor end"<<endl;    
+}
+
+
+int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
+{
+    int retcode;
+
+    m_abortOperations=false;
+    m_handle=NULL;
+    m_pCallBack=CB;
 
     if (hwtype == HW_UPP)
     {
@@ -141,7 +160,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     if (m_handle==NULL)
     {
         m_hwCurrent = HW_NONE;
-        return;
+        return -1;
     }
 
     // we've found some hardware!
@@ -176,7 +195,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return;
+        return -1;
     }
 
     // claim the USB interface
@@ -187,7 +206,7 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return;
+        return -1;
     }
     
     // TODO: as libusb-1.0 docs in the "caveats" page say we should check here that the interface we claimed
@@ -229,16 +248,14 @@ Hardware::Hardware(UppMainWindow* CB, HardwareType hwtype)
     wxASSERT(m_handle != NULL && m_hwCurrent != HW_NONE);
 }
 
-Hardware::~Hardware()
+int Hardware::disconnect()
 {
     if (m_handle)
     {
         libusb_release_interface(m_handle, 0);
         libusb_close(m_handle);
-        libusb_exit(NULL);
         m_handle = NULL;
     }
-        
     m_hwCurrent = HW_NONE;
 }
 

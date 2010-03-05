@@ -89,13 +89,13 @@ wxDEFINE_EVENT( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEvent );
 // UppMainWindow
 // ----------------------------------------------------------------------------
 
-UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
+UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id)
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
-    m_history(4)
+    m_history(4),
+    m_hardware(hardware)
 {
     SetName("UppMainWindow");
-
     // load settings from config file or set a default value
     wxConfigBase* pCfg = wxConfig::Get();
     pCfg->SetPath(("/"));
@@ -122,7 +122,7 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
     m_history.Load(*pCfg);
 
     // non-GUI init:
-    m_hardware=NULL;      // upp_connect() will allocate it
+    //m_hardware=NULL;      // upp_connect() will allocate it
     m_dlgProgress=NULL;   // will be created when needed
     m_arrPICName=PicType::getSupportedPicNames();
 
@@ -150,10 +150,10 @@ UppMainWindow::UppMainWindow(wxWindow* parent, wxWindowID id)
 
 UppMainWindow::~UppMainWindow()
 {
-    if (m_hardware)
+    cout<<"uppMainwindow destructor"<<endl;
+    if (m_hardware.connected())
     {
-        delete m_hardware;
-        m_hardware = NULL;
+        m_hardware.disconnect();
     }
 
     // save settings
@@ -557,7 +557,7 @@ void UppMainWindow::UpdatePicInfo()
 void UppMainWindow::Reset()
 {
     m_hexFile.newFile(&m_picType);
-    m_hardware->backupOscCalBandGap(&m_picType);
+    m_hardware.backupOscCalBandGap(&m_picType);
     m_hexFile.putOscCalBandGap (&m_picType);
     UpdatePicInfo();
     UpdateTitle();
@@ -630,9 +630,9 @@ void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
         // make sure the focused window is the progress dialog:
         m_dlgProgress->SetFocus();
         if (!continueOperation &&               // user clicked "abort"?
-            !m_hardware->operationsAborted())   // is the hardware already aborting?
+            !m_hardware.operationsAborted())   // is the hardware already aborting?
         {
-            m_hardware->abortOperations(true);
+            m_hardware.abortOperations(true);
             wxLogWarning(_("Operations aborted"));
         }
     }
@@ -644,7 +644,7 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
     wxASSERT(wxThread::IsMain());
 
     // reset abort flag:
-    m_hardware->abortOperations(false);
+    m_hardware.abortOperations(false);
 
     if (m_dlgProgress)
     {
@@ -761,7 +761,7 @@ bool UppMainWindow::upp_thread_program()
     {
         LogFromThread(wxLOG_Message, _("Erasing before programming..."));
 
-        switch(m_hardware->bulkErase(&m_picType,true))
+        switch(m_hardware.bulkErase(&m_picType,true))
         {
         case 1:
             LogFromThread(wxLOG_Message, _("Erase OK"));
@@ -777,7 +777,7 @@ bool UppMainWindow::upp_thread_program()
     if (m_cfg.ConfigProgramCode)
     {
         LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
-        switch(m_hardware->write(TYPE_CODE, &m_hexFile, &m_picType))
+        switch(m_hardware.write(TYPE_CODE, &m_hexFile, &m_picType))
         {
         case 1:
             LogFromThread(wxLOG_Message, _("Write Code memory OK"));
@@ -809,7 +809,7 @@ bool UppMainWindow::upp_thread_program()
     {
         LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
 
-        switch(m_hardware->write(TYPE_DATA, &m_hexFile, &m_picType))
+        switch(m_hardware.write(TYPE_DATA, &m_hexFile, &m_picType))
         {
         case 1:
             LogFromThread(wxLOG_Message, _("Write Data memory OK"));
@@ -839,7 +839,7 @@ bool UppMainWindow::upp_thread_program()
     {
         LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
 
-        switch(m_hardware->write(TYPE_CONFIG, &m_hexFile, &m_picType))
+        switch(m_hardware.write(TYPE_CONFIG, &m_hexFile, &m_picType))
         {
         case 1:
             LogFromThread(wxLOG_Message, _("Write Config memory OK"));
@@ -875,7 +875,7 @@ bool UppMainWindow::upp_thread_read()
     // reset current contents:
     m_hexFile.newFile(&m_picType);
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
-    if (m_hardware->read(TYPE_CODE, &m_hexFile, &m_picType, m_picType.CodeSize)<0)
+    if (m_hardware.read(TYPE_CODE, &m_hexFile, &m_picType, m_picType.CodeSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading code memory"));
         m_hexFile.trimData(&m_picType);
@@ -885,7 +885,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
-    if (m_hardware->read(TYPE_DATA, &m_hexFile, &m_picType, m_picType.DataSize)<0)
+    if (m_hardware.read(TYPE_DATA, &m_hexFile, &m_picType, m_picType.DataSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading data memory"));
         m_hexFile.trimData(&m_picType);
@@ -896,7 +896,7 @@ bool UppMainWindow::upp_thread_read()
         return false;   // stop the operation...
 
     LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
-    if (m_hardware->read(TYPE_CONFIG, &m_hexFile, &m_picType, m_picType.ConfigSize)<0)
+    if (m_hardware.read(TYPE_CONFIG, &m_hexFile, &m_picType, m_picType.ConfigSize)<0)
     {
         LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
         m_hexFile.trimData(&m_picType);
@@ -920,7 +920,7 @@ bool UppMainWindow::upp_thread_verify()
 
     // do the verify operation:
     VerifyResult res =
-        m_hardware->verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
+        m_hardware.verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
                         m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
 
     switch(res.Result)
@@ -963,7 +963,7 @@ bool UppMainWindow::upp_thread_erase()
 
     LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
 
-    if (m_hardware->bulkErase(&m_picType,true)<0)
+    if (m_hardware.bulkErase(&m_picType,true)<0)
     {
         LogFromThread(wxLOG_Error, _("Error erasing the device"));
         return false;
@@ -983,7 +983,7 @@ bool UppMainWindow::upp_thread_blankcheck()
     LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
 
     // do the blankcheck:
-    VerifyResult res = m_hardware->blankCheck(&m_picType);
+    VerifyResult res = m_hardware.blankCheck(&m_picType);
 
     switch (res.Result)
     {
@@ -1119,7 +1119,7 @@ bool UppMainWindow::upp_open_file(const wxString& path)
     }
     else
     {
-        m_hardware->backupOscCalBandGap(&m_picType);
+        m_hardware.backupOscCalBandGap(&m_picType);
         m_hexFile.putOscCalBandGap (&m_picType);
         UpdatePicInfo();
         UpdateTitle();
@@ -1210,7 +1210,7 @@ void UppMainWindow::upp_selectall()
 
 void UppMainWindow::upp_program()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if (!m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1222,7 +1222,7 @@ void UppMainWindow::upp_program()
 
 void UppMainWindow::upp_read()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if (!m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1239,7 +1239,7 @@ void UppMainWindow::upp_read()
 
 void UppMainWindow::upp_verify()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if ( !m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1251,7 +1251,7 @@ void UppMainWindow::upp_verify()
 
 void UppMainWindow::upp_erase()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if ( !m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1274,7 +1274,7 @@ void UppMainWindow::upp_restore()
         wxLogError(_("Only valid for PIC12F629, PIC12F508 and similar devices..."));
         return;
     }
-    if (m_hardware == NULL || !m_hardware->connected())
+    if ( !m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1316,15 +1316,15 @@ void UppMainWindow::upp_restore()
     /**TODO Place these commands into a wxThread
     */
 
-    if (m_hardware->bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
-    if (m_hardware->restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
+    if (m_hardware.bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
+    if (m_hardware.restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
     Reset();
 }
 
 
 void UppMainWindow::upp_blankcheck()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if (!m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return;
@@ -1336,7 +1336,7 @@ void UppMainWindow::upp_blankcheck()
 
 bool UppMainWindow::upp_autodetect()
 {
-    if (m_hardware == NULL || !m_hardware->connected())
+    if (!m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return false;
@@ -1346,7 +1346,7 @@ bool UppMainWindow::upp_autodetect()
     if (!ShouldContinueIfUnsaved())
         return false;
 
-    int devId=m_hardware->autoDetectDevice();
+    int devId=m_hardware.autoDetectDevice();
     cout<<"Autodetected PIC ID: 0x"<<hex<<devId<<dec<<endl;
 
     // if devId is not a valid device ID, select the default PIC
@@ -1360,7 +1360,7 @@ bool UppMainWindow::upp_autodetect()
     }
 
     wxASSERT(m_picType.ok());
-    m_hardware->setPicType(&m_picType);
+    m_hardware.setPicType(&m_picType);
 
     // sync the choicebox with m_picType
     wxString picName=m_picType.getPicName();
@@ -1390,15 +1390,15 @@ bool UppMainWindow::upp_autodetect()
 bool UppMainWindow::upp_connect()
 {
     // recreate the hw class
-    if (m_hardware != NULL) delete m_hardware;
-    m_hardware=new Hardware(this, HW_UPP);
+    if (m_hardware.connected()) m_hardware.disconnect();
+    m_hardware.connect(this, HW_UPP);
 
-    if (m_hardware->connected())
+    if (m_hardware.connected())
     {
         upp_autodetect();       // already calls upp_new();
 
         FirmwareVersion firmwareVersion;
-        if (m_hardware->getFirmwareVersion(&firmwareVersion)<0)
+        if (m_hardware.getFirmwareVersion(&firmwareVersion)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
             wxLogMessage(_("Unable to read firmware version"));
@@ -1419,16 +1419,15 @@ bool UppMainWindow::upp_connect()
     else
     {
         // try to connect to the UPP bootloader since there are no UPP programmers...
+        if (m_hardware.connected()) m_hardware.disconnect();
+        m_hardware.connect(this, HW_BOOTLOADER);
 
-        delete m_hardware;
-        m_hardware=new Hardware(this, HW_BOOTLOADER);
-
-        if (m_hardware->connected())
+        if (m_hardware.connected())
         {
             upp_autodetect();       // already calls upp_new();
 
             FirmwareVersion firmwareVersion;
-            if (m_hardware->getFirmwareVersion(&firmwareVersion)<0)
+            if (m_hardware.getFirmwareVersion(&firmwareVersion)<0)
             {
                 SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
                 wxLogMessage(_("Unable to read version"));
@@ -1443,7 +1442,7 @@ bool UppMainWindow::upp_connect()
         else
         {
             m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
-            m_hardware->setPicType(&m_picType);
+            m_hardware.setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
@@ -1454,29 +1453,20 @@ bool UppMainWindow::upp_connect()
         }
     }
 
-    wxASSERT(m_hardware);
+    //wxASSERT(m_hardware);
 
-    return m_hardware->connected();
+    return m_hardware.connected();
 }
 
 void UppMainWindow::upp_disconnect()
 {
-    if (m_hardware != NULL)
+    if (m_hardware.connected())
     {
-        if (m_hardware->connected())
-        {
-            delete m_hardware;
-            m_hardware = NULL;
+        m_hardware.disconnect();
 
-            SetStatusText(_("Disconnected"),STATUS_FIELD_HARDWARE);
-            if (m_cfg.ConfigShowPopups)
-                wxLogMessage(_("Disconnected"));
-        }
-        else
-        {
-            SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Already disconnected"));
-        }
+        SetStatusText(_("Disconnected"),STATUS_FIELD_HARDWARE);
+        if (m_cfg.ConfigShowPopups)
+            wxLogMessage(_("Disconnected"));
     }
     else
     {
@@ -1524,7 +1514,7 @@ void UppMainWindow::upp_about()
 
 void UppMainWindow::upp_io_test()
 {
-    IOTest(m_hardware, this);
+    IOTest(&m_hardware, this);
 }
 
 void UppMainWindow::upp_pic_choice_changed()
@@ -1538,9 +1528,9 @@ void UppMainWindow::upp_pic_choice_changed()
         m_pPICChoice->SetStringSelection(m_picType.getPicName());
         return;
     }
-    if (m_hardware != NULL)
+    if (m_hardware.connected())
     {
-        if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
+        if (m_hardware.getCurrentHardware()==HW_BOOTLOADER)
         {
             // revert selection to the previous type
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
@@ -1551,7 +1541,7 @@ void UppMainWindow::upp_pic_choice_changed()
     
     // update the pic type
     m_picType = PicType::FindPIC(m_pPICChoice->GetStringSelection());
-    if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
+    if(m_hardware.connected()) m_hardware.setPicType(&m_picType);
     // PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -1566,9 +1556,9 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
         return;     // do not change PIC selection
     }
 
-    if (m_hardware != NULL)
+    if (m_hardware.connected())
     {
-        if (m_hardware->getCurrentHardware()==HW_BOOTLOADER)
+        if (m_hardware.getCurrentHardware()==HW_BOOTLOADER)
         {
             // do not change PIC selection
             wxLogError(_("Cannot select a different PIC when the bootloader is connected!"));
@@ -1579,7 +1569,7 @@ void UppMainWindow::upp_pic_choice_changed_bymenu(int id)
     // update the pic type
     m_picType = PicType::FindPIC(m_arrPICName[id]);
 
-    if(m_hardware != NULL) m_hardware->setPicType(&m_picType);
+    if(m_hardware.connected()) m_hardware.setPicType(&m_picType);
     
     // keep the choice box synchronized
     m_pPICChoice->SetStringSelection(m_arrPICName[id]);

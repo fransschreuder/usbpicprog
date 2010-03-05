@@ -82,6 +82,10 @@ private:        // stuff common to both GUI and command-line modes
 
     /** Application locale */
     wxLocale* m_locale;
+    
+    /** Class which connects the hardware and does all the communication through libusb*/
+    Hardware m_hardware;
+    
 };
 
 DECLARE_APP(UsbPicProg)

@@ -104,7 +104,7 @@ bool UsbPicProg::OnInit()
     if (!m_console)
     {
         // start a GUI app
-        UppMainWindow *uppMainWindow = new UppMainWindow((wxFrame *)NULL, wxID_ANY);
+        UppMainWindow *uppMainWindow = new UppMainWindow(m_hardware, (wxFrame *)NULL, wxID_ANY);
         SetTopWindow(uppMainWindow);
 
         uppMainWindow->Show(true);
@@ -170,7 +170,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     bool silent_mode = false;
     HexFile* hexFile = NULL;
     PicType* picType = NULL;
-    Hardware* hardware = NULL;
+    //Hardware* hardware = NULL;
 
     wxString output;
     wxString filename;
@@ -196,8 +196,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	
     //command line -s or --silent passed?
     silent_mode = parser.Found(("s"));
-    hardware = new Hardware();
-    if(!hardware->connected())
+//    hardware = new Hardware();
+    m_hardware.connect();
+    if(!m_hardware.connected())
     {
         cerr<<"Usbpicprog not found"<<endl;
         exit(-1);
@@ -211,13 +212,13 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(("p"),&picTypeStr))
 	{
         picType=new PicType(PicType::FindPIC(picTypeStr));
-		hardware->setPicType(picType);
+		m_hardware.setPicType(picType);
 	}
     else
     {
-        int devId=hardware->autoDetectDevice();
+        int devId=m_hardware.autoDetectDevice();
         picType=new PicType(PicType::FindPIC(devId));
-        hardware->setPicType(picType);
+        m_hardware.setPicType(picType);
         if(devId>0)cout<<"Detected: ";
         else cerr<<"Detection failed, setting picType to default: ";
         cout<<(string)picType->Name<<endl;
@@ -225,7 +226,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
 	if(parser.Found("d"))
 	{
-		hardware->debug();
+		m_hardware.debug();
 		exit( 0 );
 	}
 
@@ -251,8 +252,8 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 				exit ( -1 );
 			}
 		}
-		if (hardware->bulkErase(picType,false)<0)cout<<_("Error erasing the device").mb_str(wxConvUTF8)<<endl;
-		if (hardware->restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers").mb_str(wxConvUTF8)<<endl;
+		if (m_hardware.bulkErase(picType,false)<0)cout<<_("Error erasing the device").mb_str(wxConvUTF8)<<endl;
+		if (m_hardware.restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers").mb_str(wxConvUTF8)<<endl;
 		
 	}
 	
@@ -267,7 +268,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     if(parser.Found(("e")))
     {
         cout<<"Bulk erase..."<<endl;
-        if(hardware->bulkErase(picType, true)<0)cerr<<"Error during erase"<<endl;
+        if(m_hardware.bulkErase(picType, true)<0)cerr<<"Error during erase"<<endl;
     }
 
     /* if -b is passed, check if the device is blank*/
@@ -275,7 +276,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     {
         cout<<"Blankcheck..."<<endl;
         wxString typeText,tempStr;
-        VerifyResult res=hardware->blankCheck(picType);
+        VerifyResult res=m_hardware.blankCheck(picType);
         switch(res.Result)
         {
             case VERIFY_SUCCESS:
@@ -327,12 +328,12 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             }
 			if((picType->picFamily==P12F629)||(picType->picFamily==P12F508))
 			{
-				hardware->backupOscCalBandGap(picType);
+				m_hardware.backupOscCalBandGap(picType);
 				hexFile->putOscCalBandGap (picType);
 			}
-            if(hardware->write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
-            if(hardware->write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
-            if(hardware->write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
+            if(m_hardware.write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
+            if(m_hardware.write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
+            if(m_hardware.write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
             delete hexFile;
         }
     }
@@ -345,9 +346,9 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
-            if(hardware->read(TYPE_CODE,hexFile,picType,picType->CodeSize)<0)cerr<<"Error reading Code"<<endl;
-            if(hardware->read(TYPE_DATA,hexFile,picType,picType->DataSize)<0)cerr<<"Error reading Data"<<endl;
-            if(hardware->read(TYPE_CONFIG,hexFile,picType,picType->ConfigSize)<0)cerr<<"Error reading Config"<<endl;
+            if(m_hardware.read(TYPE_CODE,hexFile,picType,picType->CodeSize)<0)cerr<<"Error reading Code"<<endl;
+            if(m_hardware.read(TYPE_DATA,hexFile,picType,picType->DataSize)<0)cerr<<"Error reading Data"<<endl;
+            if(m_hardware.read(TYPE_CONFIG,hexFile,picType,picType->ConfigSize)<0)cerr<<"Error reading Config"<<endl;
             hexFile->trimData(picType);
             if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to save file"<<endl;
@@ -376,7 +377,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 cout<<(string)output<<endl;
             }
             wxString typeText,tempStr;
-            VerifyResult res=hardware->verify(hexFile,picType);
+            VerifyResult res=m_hardware.verify(hexFile,picType);
             switch(res.Result)
             {
                 case VERIFY_SUCCESS:
@@ -412,6 +413,6 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
-
+    m_hardware.disconnect();
     exit(0);
 }

@@ -96,7 +96,7 @@ typedef std::vector<time_t> wxArrayTime;
 class UppMainWindow : public UppMainWindowBase, public wxThreadHelper
 {
 public:
-    UppMainWindow(wxWindow* parent, wxWindowID id = wxID_ANY);
+    UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id = wxID_ANY);
     ~UppMainWindow();
 
     /** Open a hexfile by filename */
@@ -296,8 +296,8 @@ private:    // member variables
     /** Contains all the info about the current PIC model selected in this window. */
     PicType m_picType;
 
-    /** Manages communication to the real hardware. */
-    Hardware* m_hardware;
+    /** Manages communication to the real hardware, it's a reference - the real m_hardware is in main.cpp */
+    Hardware &m_hardware;
 
     /** The names of all supported PICs. */
     wxArrayString m_arrPICName;
