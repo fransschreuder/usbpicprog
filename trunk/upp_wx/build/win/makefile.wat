@@ -38,12 +38,6 @@ WX_VERSION = 29
 # The directory where wxWidgets library is installed 
 WX_DIR = $(%WXWIN)
 
-# Architecture of the CPU for which to build the executables and libraries [X86,AMD64,IA64]
-#   X86 - i386-compatible
-#   AMD64 - AMD 64 bit
-#   IA64 - Itanium 64 bit
-TARGET_CPU = X86
-
 
 
 # -------------------------------------------------------------------------
@@ -75,44 +69,12 @@ WX3RDPARTYLIBPOSTFIX =
 !ifeq WX_DEBUG 1
 WX3RDPARTYLIBPOSTFIX = d
 !endif
-WXMACHINE_FLAG =
-!ifeq TARGET_CPU AMD64
-WXMACHINE_FLAG = /MACHINE:AMD64
-!endif
-WXLIBPATH =
-!ifeq WX_SHARED 0
-WXLIBPATH = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
-!endif
-!ifeq WX_SHARED 1
-WXLIBPATH = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
-!endif
 _BUILDDIR_SHARED_SUFFIX =
 !ifeq WX_SHARED 0
 _BUILDDIR_SHARED_SUFFIX = 
 !endif
 !ifeq WX_SHARED 1
 _BUILDDIR_SHARED_SUFFIX = _dll
-!endif
-__WXLIBPATH_FILENAMES =
-!ifeq WX_SHARED 0
-__WXLIBPATH_FILENAMES = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
-!endif
-!ifeq WX_SHARED 1
-__WXLIBPATH_FILENAMES = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
-!endif
-__WXLIBPATH_FILENAMES_1 =
-!ifeq WX_SHARED 0
-__WXLIBPATH_FILENAMES_1 = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
-!endif
-!ifeq WX_SHARED 1
-__WXLIBPATH_FILENAMES_1 = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
-!endif
-__WXLIBPATH_FILENAMES_2 =
-!ifeq WX_SHARED 0
-__WXLIBPATH_FILENAMES_2 = \lib\$(COMPILER_PREFIX)$(WXCPU)_lib
-!endif
-!ifeq WX_SHARED 1
-__WXLIBPATH_FILENAMES_2 = \lib\$(COMPILER_PREFIX)$(WXCPU)_dll
 !endif
 ____upp_wx__OPT_2 =
 !ifeq WX_DEBUG 0
@@ -142,13 +104,6 @@ __DEPS_DEBUGRELEASE_HELPER_FILENAMES = release
 !ifeq WX_DEBUG 1
 __DEPS_DEBUGRELEASE_HELPER_FILENAMES = debug
 !endif
-__DEPS_SUBFOLDER_HELPER_FILENAMES =
-!ifeq TARGET_CPU X64
-__DEPS_SUBFOLDER_HELPER_FILENAMES = amd64
-!endif
-!ifeq TARGET_CPU X86
-__DEPS_SUBFOLDER_HELPER_FILENAMES = x86
-!endif
 ____WX_SHARED_0_p =
 !ifeq WX_SHARED 0
 ____WX_SHARED_0_p = 
@@ -167,19 +122,19 @@ WXLIBPOSTFIX = u
 !ifeq WX_DEBUG 1
 WXLIBPOSTFIX = ud
 !endif
-WXCPU =
-!ifeq TARGET_CPU AMD64
-WXCPU = _amd64
+WXLIBPATH =
+!ifeq WX_SHARED 0
+WXLIBPATH = \lib\$(COMPILER_PREFIX)_lib
 !endif
-!ifeq TARGET_CPU IA64
-WXCPU = _ia64
+!ifeq WX_SHARED 1
+WXLIBPATH = \lib\$(COMPILER_PREFIX)_dll
 !endif
 
 ### Variables: ###
 
 COMPILER_PREFIX = wat
 UPP_WX_CXXFLAGS = $(____WX_SHARED_0_p) -d_UNICODE $(__WXDEBUG_DEFINE_p) &
-	-d__WXMSW__ -i=$(WX_DIR)$(__WXLIBPATH_FILENAMES)\msw$(WXLIBPOSTFIX) &
+	-d__WXMSW__ -i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) &
 	-i=$(WX_DIR)\include $(____upp_wx__OPT_2) $(____upp_wx__DEBUGINFO_3) &
 	-i=..\..\src -i=..\..\win\deps $(CPPFLAGS) $(CXXFLAGS)
 UPP_WX_OBJECTS =  &
@@ -231,7 +186,7 @@ test_for_selected_wxbuild :
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option quiet
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc name $^@
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option caseexact
-	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(__WXLIBPATH_FILENAMES_2) $(WXMACHINE_FLAG) system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath ..\..\win\deps\$(__DEPS_DEBUGRELEASE_HELPER_FILENAMES)\$(__DEPS_SUBFOLDER_HELPER_FILENAMES) $(LDFLAGS)
+	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc  libpath $(WX_DIR)$(WXLIBPATH)  system nt_win ref '_WinMain@16' $(____upp_wx__DEBUGINFO_4) libpath ..\..\win\deps\$(__DEPS_DEBUGRELEASE_HELPER_FILENAMES)\x86 $(LDFLAGS)
 	@for %i in ($(UPP_WX_OBJECTS)) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc file %i
 	@for %i in ( libusb-1.0.lib setupapi.lib wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_adv.lib wxbase$(WX_VERSION)$(WXLIBPOSTFIX)_xml.lib wxmsw$(WX_VERSION)$(WXLIBPOSTFIX)_core.lib wxbase$(WX_VERSION)$(WXLIBPOSTFIX).lib wxtiff$(WX3RDPARTYLIBPOSTFIX).lib wxjpeg$(WX3RDPARTYLIBPOSTFIX).lib wxpng$(WX3RDPARTYLIBPOSTFIX).lib wxzlib$(WX3RDPARTYLIBPOSTFIX).lib wxregex$(WXLIBPOSTFIX).lib wxexpat$(WX3RDPARTYLIBPOSTFIX).lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib) do @%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc library %i
 	@%append $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx.lbc option resource=$(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res
@@ -278,5 +233,5 @@ $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_uppmainwin
 	$(CXX) -bt=nt -zq -fo=$^@ $(UPP_WX_CXXFLAGS) $<
 
 $(COMPILER_PREFIX)msw$(WXLIBPOSTFIX)$(_BUILDDIR_SHARED_SUFFIX)\upp_wx_upp_wx.res :  .AUTODEPEND ..\..\icons\win\upp_wx.rc
-	wrc -q -ad -bt=nt -r -fo=$^@  $(____WX_SHARED_0_p) -d_UNICODE $(__WXDEBUG_DEFINE_p) -d__WXMSW__ -i=$(WX_DIR)$(__WXLIBPATH_FILENAMES_1)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include -i=..\..\src -i=..\..\win\deps $<
+	wrc -q -ad -bt=nt -r -fo=$^@  $(____WX_SHARED_0_p) -d_UNICODE $(__WXDEBUG_DEFINE_p) -d__WXMSW__ -i=$(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX) -i=$(WX_DIR)\include -i=..\..\src -i=..\..\win\deps $<
 

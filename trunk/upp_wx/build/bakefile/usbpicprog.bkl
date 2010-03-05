@@ -36,22 +36,14 @@
     </option>
 
     <set var="LIBUSB_LIBPATH_HELPER">
-        <!-- for makefiles: -->
-        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X86'">Win32</if>
-        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X64'">x64</if>
-
-        <!-- for IDE projects: -->
-        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'">Win32</if>
-        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">x64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='X86'">Win32</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='AMD64'">x64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='0'">Win32</if>   <!-- default to Win32 -->
     </set>
     <set var="DEPS_SUBFOLDER_HELPER">
-        <!-- for makefiles: -->
-        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X86'">x86</if>
-        <if cond="not isdefined('MSVS_PLATFORM') and TARGET_CPU=='X64'">amd64</if>
-
-        <!-- for IDE projects: -->
-        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win32'">x86</if>
-        <if cond="isdefined('MSVS_PLATFORM') and MSVS_PLATFORM=='win64'">amd64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='X86'">x86</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='AMD64'">amd64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='0'">x86</if>     <!-- default to x86 -->
     </set>
     <set var="DEPS_DEBUGRELEASE_HELPER">
         <if cond="WX_DEBUG=='1'">debug</if>
