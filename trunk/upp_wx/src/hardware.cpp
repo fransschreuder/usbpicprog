@@ -89,7 +89,14 @@ Hardware::Hardware()
     libusb_set_debug(NULL, USB_DEBUG);
 #endif
 
- // init libusb library
+    // init all internal variables
+    m_handle = NULL;
+    m_pCallBack = NULL;
+    m_hwCurrent = HW_NONE;
+    m_abortOperations = false;
+    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
+
+    // init libusb library
     if (libusb_init(NULL) != LIBUSB_SUCCESS)
     {
         wxLogError(_("Could not initialize libusb!"));
@@ -99,20 +106,13 @@ Hardware::Hardware()
 
 Hardware::~Hardware()
 {
-cout<<"Hardware destructor start"<<endl;
-    if (m_handle)
-    {
-        libusb_release_interface(m_handle, 0);
-        libusb_close(m_handle);
-        m_handle = NULL;
-    }
-    m_hwCurrent = HW_NONE;
+    disconnect();
+
+    // cleanup libusb
     libusb_exit(NULL);
-cout<<"Hardware destructor end"<<endl;    
 }
 
-
-int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
+bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
 {
     int retcode;
 
@@ -160,7 +160,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     if (m_handle==NULL)
     {
         m_hwCurrent = HW_NONE;
-        return -1;
+        return false;
     }
 
     // we've found some hardware!
@@ -172,7 +172,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Couldn't reset the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return;
+        return false;
     }
 
     libusb_close(m_handle);
@@ -184,7 +184,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     if (!m_handle)
     {
         m_hwCurrent = HW_NONE;
-        return;
+        return false;
     }
 #endif
     
@@ -195,7 +195,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return -1;
+        return false;
     }
 
     // claim the USB interface
@@ -206,7 +206,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return -1;
+        return false;
     }
     
     // TODO: as libusb-1.0 docs in the "caveats" page say we should check here that the interface we claimed
@@ -220,7 +220,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error getting USB endpoint descriptor: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return;
+        return false;
     }
     
     m_modeReadEndpoint = ed.bmAttributes & LIBUSB_TRANSFER_TYPE_MASK;
@@ -230,7 +230,7 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         wxLogError(_("Error getting USB endpoint descriptor: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_handle = NULL;
-        return;
+        return false;
     }
     
     m_modeWriteEndpoint = ed.bmAttributes & LIBUSB_TRANSFER_TYPE_MASK;
@@ -246,17 +246,23 @@ int Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     // everything completed successfully:
 
     wxASSERT(m_handle != NULL && m_hwCurrent != HW_NONE);
+
+    return true;
 }
 
-int Hardware::disconnect()
+bool Hardware::disconnect()
 {
+    bool success = true;
+
     if (m_handle)
     {
-        libusb_release_interface(m_handle, 0);
+        success &= libusb_release_interface(m_handle, 0) == LIBUSB_SUCCESS;
         libusb_close(m_handle);
         m_handle = NULL;
     }
     m_hwCurrent = HW_NONE;
+
+    return success;
 }
 
 void Hardware::statusCallBack(int value) const

@@ -232,8 +232,19 @@ class Hardware
 {
 public:
     /** 
-        Default constructor.
+        Default constructor: only initializes libusb.
+        Before using an Hardware instance you'll need to call connect() yourself.
+    */
+    Hardware();
 
+    /**
+        Calls disconnect() and then cleans up libusb.
+    */
+    ~Hardware();
+    
+    /**
+        Attempts to connect to the specified hardware type.
+        
         @param CB
             Links this instance with the parent UppMainWindow window; this link is used 
             for updating the progress bar.
@@ -243,18 +254,12 @@ public:
             If no hardware of the given type is found, then the other types of supported
             hardwares are searched.
     */
-    Hardware();
-
+    bool connect(UppMainWindow* CB=NULL, HardwareType hwtype=HW_UPP);
+    
     /**
-        Releases the USB interface acquired in the ctor.
+        Disconnects from the hardware currently attached, if there's any.
     */
-    ~Hardware();
-    
-    
-    int connect(UppMainWindow* CB=NULL, HardwareType hwtype=HW_UPP);
-    
-    
-    int disconnect();
+    bool disconnect();
 
     /** 
         Gives the hardware the command to switch to a certain PIC programming algorithm.
