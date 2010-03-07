@@ -21,8 +21,7 @@
 #ifndef FORMBUILDER_INCLUDES_H
 #define FORMBUILDER_INCLUDES_H
 
-/*These icons are placed on the icon toolbar, usbpicprog.xpm is the main program icon.*/
-
+// These icons are placed on the icon toolbar, usbpicprog.xpm is the main program icon.
 extern const char* refresh_xpm[];
 extern const char* blankcheck_xpm[];
 extern const char* program_xpm[];
@@ -30,7 +29,6 @@ extern const char* erase_xpm[];
 extern const char* read_xpm[];
 extern const char* verify_xpm[];
 extern const char* usbpicprog_xpm[];
-
 
 // IDs for the toolbuttons in the toolbar and for the menu items of the actions menu
 enum
@@ -51,5 +49,12 @@ enum
     wxID_PIC_CHOICE_MENU
 
 };
+
+// Utility macro used in various event handlers
+#ifdef __WXMAC__
+    #define EVENT_FIX
+#else //__WXMAC__
+    #define EVENT_FIX event.Skip();
+#endif //__WXMAC__
 
 #endif //FORMBUILDER_INCLUDES_H

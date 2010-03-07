@@ -42,13 +42,6 @@ using namespace std;
 #include "hexfile.h"
 #include "preferences.h"
 
-#ifdef __WXMAC__
-    #define EVENT_FIX
-#else //__WXMAC__
-    #define EVENT_FIX event.Skip();
-#endif //__WXMAC__
-
-
 /// More readable names for the various fields of the status bar
 enum UppMainWindowStatusBar
 {

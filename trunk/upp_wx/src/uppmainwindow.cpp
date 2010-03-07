@@ -96,6 +96,7 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
     m_hardware(hardware)
 {
     SetName("UppMainWindow");
+
     // load settings from config file or set a default value
     wxConfigBase* pCfg = wxConfig::Get();
     pCfg->SetPath(("/"));
@@ -122,7 +123,6 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
     m_history.Load(*pCfg);
 
     // non-GUI init:
-    //m_hardware=NULL;      // upp_connect() will allocate it
     m_dlgProgress=NULL;   // will be created when needed
     m_arrPICName=PicType::getSupportedPicNames();
 
@@ -139,11 +139,11 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
 
         // keep the choice box synchronized
         m_pPICChoice->SetStringSelection(m_arrPICName[lastPic]);
-
-        
     }
+
     // find the hardware connected to the PC, if any:
     upp_connect();
+
 	// PIC changed; reset the code/config/data grids
     Reset();
 }
@@ -266,6 +266,7 @@ void UppMainWindow::CompleteGUICreation()
     for(unsigned int i=0;i<m_arrPICName.size();i++)
     {
         bool bFamilyFound = false;
+
         // the first 4 characters of the PIC name are the family:
         wxString family;
         if(m_arrPICName[i].substr(0, 4)=="24XX") family = wxString("I2C Eeprom");
@@ -872,6 +873,7 @@ bool UppMainWindow::upp_thread_read()
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
+
     // reset current contents:
     m_hexFile.newFile(&m_picType);
     LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
@@ -1453,8 +1455,6 @@ bool UppMainWindow::upp_connect()
         }
     }
 
-    //wxASSERT(m_hardware);
-
     return m_hardware.connected();
 }
 
@@ -1511,10 +1511,10 @@ void UppMainWindow::upp_about()
     wxAboutBox(aboutInfo);
 }
 
-
 void UppMainWindow::upp_io_test()
 {
-    IOTest(&m_hardware, this);
+    IOTestDialog dlg(&m_hardware, this);
+    dlg.ShowModal();
 }
 
 void UppMainWindow::upp_pic_choice_changed()
@@ -1542,6 +1542,7 @@ void UppMainWindow::upp_pic_choice_changed()
     // update the pic type
     m_picType = PicType::FindPIC(m_pPICChoice->GetStringSelection());
     if(m_hardware.connected()) m_hardware.setPicType(&m_picType);
+
     // PIC changed; reset the code/config/data grids
     Reset();
 }
