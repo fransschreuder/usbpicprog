@@ -232,13 +232,13 @@ class Hardware
 {
 public:
     /** 
-        Default constructor: only initializes libusb.
+        Default constructor.
         Before using an Hardware instance you'll need to call connect() yourself.
     */
     Hardware();
 
     /**
-        Calls disconnect() and then cleans up libusb.
+        Calls disconnect().
     */
     ~Hardware();
     

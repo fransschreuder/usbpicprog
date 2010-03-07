@@ -45,37 +45,65 @@ class UsbPicProg : public wxApp
 public:
 
     /**
-        This is the wxWidgets initialization function, but we only use it to call
-        wxWidgets our own OnInit(), because OnInitCmdLine () is being used.
+        Called by wxWidgets to initialize the application: here we initialize
+        libusb, the locale, the PIC database and a few other details.
+
+        Note that this function calls OnCmdLineParsed(); see OnCmdLineParsed()
+        docs for more info about the console mode.
+
+        If this function is successful, wxWidgets calls OnRun().
     */
     virtual bool OnInit();
 
     /**
-        Called by WxWidgets to clean up some stuff when the program exits.
+        Called by wxWidgets to clean up the stuff initialized by OnInit(): 
+        libusb, locale, etc.
     */
     virtual int OnExit();
 
     /**
-        Initialization function if command line is being used.
+        Initialization function for the command-line parser.
+        Called by wxApp::OnInit().
     */
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
 
     /**
-        After command line is being processed, this function is being called
-        by wxWidgets, even if no arguments are given. This is the actual function
-        in which the real application initializes.
+        After processing of the command line (i.e. the creation of a wxCmdLineParser object), 
+        this function is called by wxWidgets, even if no arguments are given. 
+
+        Note that if the user provided command-line options, this function will call
+        our CmdLineMain() private function which is the main() of the console mode.
+        After CmdLineMain() execution the return code is saved and execution continues.
     */
     virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
+    
+    /**
+        Runs the application in GUI mode if #m_console is false.
+
+        If the application did run in console mode during OnCmdLineParsed() execution, then
+        this function just returns the #m_nRetCode value.
+    */
+    virtual int OnRun();
 
     /**
         Open the given file (mac specific).
     */
     virtual void MacOpenFile(const wxString &fileName);
 
-private:        // stuff common to both GUI and command-line modes
+private:        // only for the command-line mode
 
-    /** The main() of the command line application */
-    bool CmdLineMain(wxCmdLineParser& parser);
+    /** 
+        The main() of the command line application. This function is called by OnCmdLineParsed()
+        if command-line options were passed.
+
+        It stores the return code in #m_nRetCode.
+    */
+    void CmdLineMain(wxCmdLineParser& parser);
+
+    /** Return code of the CmdLineMain() function. */
+    int m_nRetCode;
+
+private:        // stuff common to both GUI and command-line modes
 
     /** Did we start as a console-only app? */
     bool m_console;
@@ -83,7 +111,10 @@ private:        // stuff common to both GUI and command-line modes
     /** Application locale */
     wxLocale* m_locale;
     
-    /** Class which connects the hardware and does all the communication through libusb*/
+    /** 
+        Instance of the class which connects the hardware and manages the 
+        communication between this program and the real hardware through libusb
+    */
     Hardware m_hardware;
     
 };

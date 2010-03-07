@@ -23,16 +23,21 @@
 #include <wx/defs.h>
 #include <wx/stdpaths.h>
 #include <wx/utils.h>
+#include <wx/apptrait.h>
 
 #include "main.h"
 #include "../svn_revision.h"
 
 // NOW we can include the <usb.h> header without compiling problems
-//#include <libusb.h>
+#include <libusb.h>
 
 #ifdef __WXMSW__
     #include <wx/msw/msvcrt.h>      // useful to catch memory leaks when compiling under MSVC 
     #include <windows.h>
+#endif
+
+#ifndef __WXMSW__
+extern const char* libusb_strerror(enum libusb_error errcode);
 #endif
 
 using namespace std;
@@ -43,14 +48,11 @@ IMPLEMENT_APP(UsbPicProg)
 // UsbPicProg
 // ----------------------------------------------------------------------------
 
-/*Mac-specific open file function*/
 void UsbPicProg::MacOpenFile(const wxString &fileName)
 {
     static_cast<UppMainWindow*>(GetTopWindow())->upp_open_file(fileName);
 }
 
-/*This is the wxWidgets initialization function, but we only use it to call
-*wxWidgets own OnInit(), because OnInitCmdLine () is being used*/
 bool UsbPicProg::OnInit()
 {
 #ifdef __WXMSW__
@@ -63,7 +65,7 @@ bool UsbPicProg::OnInit()
 
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
-    m_locale->AddCatalog(("usbpicprog"));
+    m_locale->AddCatalog("usbpicprog");
 
     // init the PNG handler
     wxImage::AddHandler( new wxPNGHandler );
@@ -82,6 +84,14 @@ bool UsbPicProg::OnInit()
         return false;
     }
 #endif
+#if defined(__WXMSW__)
+    if (wxGetOsVersion() != wxOS_WINDOWS_NT)    // wxOS_WINDOWS_NT includes XP, Vista, 7
+    {
+        wxLogError(_("Unsupported Windows version. UsbPicProg runs only on Windows XP or later."));
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
+        return false;
+    }
+#endif
 
     // init the supported PIC types
     if (!PicType::Init())
@@ -91,16 +101,38 @@ bool UsbPicProg::OnInit()
         return false;
     }
 	
-    // wxApp::OnInit() will call UsbPicProg::OnInitCmdLine and UsbPicProg::OnCmdLineParsed
-    if (!wxApp::OnInit())
+    // init libusb library
+    // IMPORTANT: this should be done _before_ OnCmdLineParsed() (and possibly CmdLineMain())
+    //            is called!
+    int err;
+    if ((err=libusb_init(NULL)) != LIBUSB_SUCCESS)
     {
+        
+#ifdef __WXMSW__
+        if (err == LIBUSB_ERROR_OTHER)
+            wxLogError(_("Could not initialize libusb. This may happen because of:\n1) an incorrect installation of the UsbPicProg driver; check if this is the case running the Windows Device Manager with the programmer attached;\n2) An incorrect installation of cfgmgr32.dll, winusb.dll or hid.dll;\n\nPlease re-install UsbPicProg and ensure that Windows recognizes the UsbPicProg hardware when it's attached to the USB bus. If Windows asks for a driver please point it to the 'UsbPicProg\\driver' directory which has been installed in your Programs folder. If you still have problems please drop a mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which is located in your 'Windows\\System32' folder)."));
+        else    // avoid multiple wxLogError() calls to avoid the message gets ellipsized
+#endif
+        wxLogError(_("Could not initialize libusb: %s"), libusb_strerror((libusb_error)err));
+
         delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
         return false;
     }
 
-   
+    // wxApp::OnInit() will call UsbPicProg::OnInitCmdLine() and UsbPicProg::OnCmdLineParsed()
+    if (!wxApp::OnInit())
+    {
+        delete m_locale;  // OnExit() won't be called if we fail inside OnInit()
+        return false;
+    }   
 
     SetVendorName(("UsbPicProgrammer"));
+
+    return true;        // wxWidgets will now call OnRun()
+}
+
+int UsbPicProg::OnRun()
+{
     if (!m_console)
     {
         // start a GUI app
@@ -108,35 +140,36 @@ bool UsbPicProg::OnInit()
         SetTopWindow(uppMainWindow);
 
         uppMainWindow->Show(true);
-    }
-    //else: the console app was started in OnCmdLineParsed() where we have a
-    //      reference to the command line parser
 
-    return true;
+        // let wxWidgets start the main loop event handler and proceed in GUI mode:
+        return wxApp::OnRun();
+    }
+    else
+    {
+        // the console app was started in OnCmdLineParsed(); here we only need to
+        // return the code computed there
+        return m_nRetCode;
+    }
 }
 
-/*Called by WxWidgets to clean up some stuff when the program exits*/
 int UsbPicProg::OnExit()
 {
+    // cleanup everything was initialized by OnInit()
     delete m_locale;
     PicType::CleanUp();
+    libusb_exit(NULL);
+
     return wxApp::OnExit();
 }
 
-/*Initialization function if command line is being used*/
 void UsbPicProg::OnInitCmdLine(wxCmdLineParser& parser)
 {
     parser.SetDesc (g_cmdLineDesc);
     parser.SetSwitchChars (("-"));
 }
 
-/*After command line is being processed, this function is being called
-by wxWidgets, even if no arguments are given. */
 bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-    /*If no command line arguments are passed, we open the main window  *
-     *Else, a command line application is started.						*
-     *Only the filename may be passed to the gui						*/
     wxString tmp;
     if (!parser.Found(("h")) &&
         !parser.Found(("V")) &&
@@ -152,32 +185,34 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
 	    !parser.Found(("RO"), &tmp)&&
 	    !parser.Found(("RB"), &tmp))
     {
+        // no command line arguments (except maybe the filename with option "-f")
+        // were given: open the main window
         m_console = false;
     }
-    else    //start a command line app
+    else    // start a command line app
     {
         m_console = true;
 
-        return CmdLineMain(parser);
-            // CmdLineMain() calls exit() itself
+        // NOTE: the console app is started from here and not from OnInit()
+        //       (which would be a more natural place!) because here we have
+        //       a reference to the wxCmdLineParser instance:
+        CmdLineMain(parser);
     }
 
     return true;
 }
 
-bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
+void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 {
     bool silent_mode = false;
     HexFile* hexFile = NULL;
     PicType* picType = NULL;
-    //Hardware* hardware = NULL;
-
     wxString output;
     wxString filename;
-    /*when using Windows, wxWidgets takes over the terminal, *
-    *but we want to have it for cout and cerr                */
+
 #ifdef __WXMSW__
-    if( AttachConsole((DWORD)-1) )
+    // when using Windows, wxWidgets takes over the terminal but we want to have it for cout and cerr
+    if(AttachConsole(ATTACH_PARENT_PROCESS))
     {
         freopen( "CON", "w", stdout );
         freopen( "CON", "w", stderr );
@@ -191,24 +226,25 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 #else
         cerr<<"usbpicprog "<<(UPP_VERSION)<<endl;
 #endif
-        return EXIT_SUCCESS;
+        m_nRetCode = 0;
+        return;
     }
 	
-    //command line -s or --silent passed?
-    silent_mode = parser.Found(("s"));
-//    hardware = new Hardware();
+    // before proceeding, test if the Hardware class is able to connect to
+    // the hardware interface:
     m_hardware.connect();
     if(!m_hardware.connected())
     {
         cerr<<"Usbpicprog not found"<<endl;
-        exit(-1);
+        m_nRetCode = -1;
+        return;
     }
-    wxString picTypeStr;
 
-
+    // command line option -s or --silent passed?
+    silent_mode = parser.Found(("s"));
 	
-    /* check if -p <str> is passed, else autodetect the device
-    */
+    // check if -p <str> was given, else autodetect the device
+    wxString picTypeStr;
     if(parser.Found(("p"),&picTypeStr))
 	{
         picType=new PicType(PicType::FindPIC(picTypeStr));
@@ -227,12 +263,12 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	if(parser.Found("d"))
 	{
 		m_hardware.debug();
-		exit( 0 );
+		m_nRetCode = 0;
+        return;
 	}
 
-	/* if -RO and -RB are both passed, restore those registers to P12F629 devices */
-	wxString BandGap, OscCal;
-	
+	// if -RO and -RB are both passed, restore those registers to P12F629 devices
+	wxString BandGap, OscCal;	
 	if((parser.Found(("RB"), &BandGap)||(picType->picFamily==P12F508))&&parser.Found(("RO"), &OscCal))
 	{
 		int iSelectedOscCal;
@@ -252,26 +288,29 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 				exit ( -1 );
 			}
 		}
-		if (m_hardware.bulkErase(picType,false)<0)cout<<_("Error erasing the device").mb_str(wxConvUTF8)<<endl;
-		if (m_hardware.restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)cout<<_("Error restoring Calibration Registers").mb_str(wxConvUTF8)<<endl;
-		
+		if (m_hardware.bulkErase(picType,false)<0)
+            cout<<_("Error erasing the device").mb_str(wxConvUTF8)<<endl;
+		if (m_hardware.restoreOscCalBandGap(picType, iSelectedOscCal, iSelectedBandGap)<0)
+            cout<<_("Error restoring Calibration Registers").mb_str(wxConvUTF8)<<endl;
 	}
 	
 	if(picType->picFamily==P12F629&&
 		((parser.Found(("RB"), &BandGap)&&(!parser.Found(("RO"), &OscCal)))||
 	    (!(parser.Found(("RB"), &BandGap))&&(parser.Found(("RO"), &OscCal)))))
-	    {
-			cout<<"-RB must be passed together with RO"<<endl;
-			exit( -1 );
-		}
-    /* if -e is passed, bulk erase the entire pic*/
+    {
+		cout<<"-RB must be passed together with RO"<<endl;
+		m_nRetCode = -1;
+        return;
+	}
+
+    // if -e is passed, bulk erase the entire pic
     if(parser.Found(("e")))
     {
         cout<<"Bulk erase..."<<endl;
         if(m_hardware.bulkErase(picType, true)<0)cerr<<"Error during erase"<<endl;
     }
 
-    /* if -b is passed, check if the device is blank*/
+    // if -b is passed, check if the device is blank
     if(parser.Found(("b")))
     {
         cout<<"Blankcheck..."<<endl;
@@ -311,7 +350,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         }
     }
 
-    /* if -w is passed, open the hexFile and write it to the pic */
+    // if -w is passed, open the hexFile and write it to the pic
     if(parser.Found(("w")))
     {
         cout<<"Write..."<<endl;
@@ -338,7 +377,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         }
     }
 
-    /* if -r is passed, read it to the pic and save it to the hexFile    */
+    // if -r is passed, read it to the pic and save it to the hexFile
     if(parser.Found(("r")))
     {
         cout<<"Read..."<<endl;
@@ -361,7 +400,7 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         }
     }
 
-    /* if -v is passed, open the hexFile, read it and compare the results*/
+    // if -v is passed, open the hexFile, read it and compare the results
     if(parser.Found(("v")))
     {
         cout<<"Verify..."<<endl;
@@ -414,5 +453,6 @@ bool UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         }
     }
     m_hardware.disconnect();
-    exit(0);
+
+    m_nRetCode = 0;
 }

@@ -95,21 +95,11 @@ Hardware::Hardware()
     m_hwCurrent = HW_NONE;
     m_abortOperations = false;
     m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
-
-    // init libusb library
-    if (libusb_init(NULL) != LIBUSB_SUCCESS)
-    {
-        wxLogError(_("Could not initialize libusb!"));
-        return;
-    }
 }
 
 Hardware::~Hardware()
 {
     disconnect();
-
-    // cleanup libusb
-    libusb_exit(NULL);
 }
 
 bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
