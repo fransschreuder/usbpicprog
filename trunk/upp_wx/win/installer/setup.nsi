@@ -31,8 +31,9 @@
   !define PRODUCT_NAME            "UsbPicProg"
   !define PRODUCT_VERSION         "0.3.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
-  !define SVN_TEST_RELEASE        1     ; is this a SVN test?
-  !define SVN_REVISION            "836"
+  !define INSTALLER_MODE          "release"     ; choose between "debug" and "release"
+  !define SVN_TEST_INSTALLER      1           ; is this a SVN test?
+  !define SVN_REVISION            "848"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
@@ -48,8 +49,8 @@
 
   ; Name and file
   Name "UsbPicProg ${PRODUCT_VERSION} ${ARCH} Installer"
-  !if ${SVN_TEST_RELEASE}
-    OutFile "${PRODUCT_NAME}-${ARCH}-r${SVN_REVISION}.exe"
+  !if ${SVN_TEST_INSTALLER}
+    OutFile "${PRODUCT_NAME}-${ARCH}-r${SVN_REVISION}-${INSTALLER_MODE}.exe"
   !else
     OutFile "${PRODUCT_NAME}-${ARCH}-${PRODUCT_VERSION}.exe"
   !endif
@@ -132,9 +133,10 @@ proceed:
   File ..\..\index.xml
   File ..\..\usbpicprog.ico    ; used by the DPINST utility
   File ${ARCH}\usbpicprog.exe
-  File /nonfatal ${ARCH}\usbpicprog.exe.manifest        ; in case the manifest was not embedded in the .exe file
-  File ..\..\win\deps\release\${ARCH}\*.dll
-  File ..\..\win\deps\release\${ARCH}\*.manifest                ; CRT manifests always need to be copied to allow installations on WinXP systems
+  File /nonfatal ${ARCH}\usbpicprog.exe.manifest        ; in case the manifest was not embedded in the .exe file, use /nonfatal
+  File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.dll
+  File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.manifest
+    ; CRT manifests always need to be copied to allow installations on WinXP systems
   
   ; Install the *.mo files
   !insertmacro UPP_INSTALL_LANG ar
