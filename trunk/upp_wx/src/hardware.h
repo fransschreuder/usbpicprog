@@ -350,13 +350,16 @@ public:
     bool connected() const
         { return m_handle != NULL; }
 
-    /** read the AD converter and return it as a double voltage*/
+    /** Reads the A/D-converted analog voltage of the VPP pin and returns it as a double voltage */
     double getVppVoltage();
 
+    /** Returns the pin status for the given pin */
 	PIN_STATE getPinState(SUBCMD_PIN pin);
+
+    /** Sends a command to the hardware to set a specific pin into the given status  */
 	int setPinState(SUBCMD_PIN pin, PIN_STATE state);
 
-    /** Just to debug the usbpicprog hardware / firmware, not for debugging the target PIC!*/
+    /** Just to debug the usbpicprog hardware / firmware, not for debugging the target PIC! */
 	int debug();
 
 private:

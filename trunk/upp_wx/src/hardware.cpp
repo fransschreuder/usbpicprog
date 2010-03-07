@@ -924,6 +924,117 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
     }
 }
 
+double Hardware::getVppVoltage()
+{
+    int iValue;
+    unsigned char msg[64];
+
+    if (m_hwCurrent != HW_UPP) return -1;
+    if (m_handle == NULL) return -1;
+
+    msg[0]=CMD_GET_PIN_STATUS;
+    msg[1]=SUBCMD_PIN_VPP_VOLTAGE;
+    writeString(msg,2);
+    readString(msg,64);
+    iValue = ((int)msg[0])+(((int)msg[1])<<8);
+
+    float fValue = ((float)iValue)*(147.0/47.0)*(5.0/1024.0);
+
+    //cout<<"ADC Value: "<<iValue<<" "<<fValue<<" [V]"<<endl;
+    return fValue;
+}
+
+PIN_STATE Hardware::getPinState(SUBCMD_PIN pin)
+{
+    unsigned char msg[64];
+
+    if (m_hwCurrent != HW_UPP) return PIN_STATE_INVALID;
+    if (m_handle == NULL) return PIN_STATE_INVALID;
+
+    msg[0]=CMD_GET_PIN_STATUS;
+    msg[1]=pin;
+    writeString(msg,2);
+    readString(msg,64);
+
+    return (PIN_STATE) msg[0];
+}
+
+int Hardware::setPinState(SUBCMD_PIN pin, PIN_STATE state)
+{
+    unsigned char msg[64];
+
+    if (m_hwCurrent != HW_UPP) return -1;
+    if (m_handle == NULL) return -1;
+
+    msg[0]=CMD_SET_PIN_STATUS;
+    msg[1]=pin;
+    msg[2]=state;
+    writeString(msg,3);
+    readString(msg,64);
+
+    return (int) msg[0];
+}
+
+int Hardware::debug()
+{
+    if (m_handle == NULL) return -1;
+
+    statusCallBack (0);
+
+    if (m_hwCurrent == HW_UPP)
+    {
+        cout<<"usage\ncat debugfile | src/usbpicprog -d\n\nwith the in the debugfile:\ndcccccc"<<endl;
+        while(1)
+        {
+            cout<<"> ";
+            string debugData;
+            cin>>debugData;
+            if(debugData.length()==0)break;
+            int debugCommand,debugValue;
+            sscanf(debugData.c_str(),"%1X%6X",&debugCommand,&debugValue);
+            unsigned char msg[64];
+            msg[0]=0xA0;
+            switch(debugCommand)
+            {	
+                case 0:
+                    msg[1]=0;
+                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
+                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
+                    cout<<"Set VPP to HIGH: ";
+                    if(msg[0]==1)cout<<"Ok"<<endl;
+                    else cout <<"fail"<<endl;
+                    break;
+                case 1:
+                    msg[1]=1;
+                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
+                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
+                    cout<<"Set VPP to LOW: ";
+                    if(msg[0]==1)cout<<"Ok"<<endl;
+                    else cout <<"fail"<<endl;
+                    break;
+                case 2:
+                    msg[1]=2;
+                    msg[2]=(unsigned char)debugValue;
+                    msg[3]=(unsigned char)(debugValue>>8);
+                    msg[4]=(unsigned char)(debugValue>>16);
+                    if(writeString(msg,5)<0)cout<<"Error writing string"<<endl;
+                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
+                    cout<<"Sending command: 0x"<<std::hex<<debugValue<<", ";
+                    if(msg[0]==1)cout<<"Ok"<<endl;
+                    else cout <<"fail"<<endl;
+                    break;
+                case 3:
+                    msg[1]=3;
+                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
+                    if(readString(msg,2)<0)cout<<"Error reading string"<<endl;
+                    cout<<"Read from dsPIC: 0x"<<std::hex<<(int)msg[0]<<" "<<(int)msg[1]<<endl;
+                    break;
+            }
+        }
+    }
+    return 0;
+}
+
 
 // ----------------------------------------------------------------------------
 // Hardware - private functions
@@ -1185,110 +1296,5 @@ void Hardware::tryToDetachDriver()
 #endif
 }
 
-
-double Hardware::getVppVoltage()
-{
-    int iValue;
-    if (m_hwCurrent != HW_UPP) return -1;
-    if (m_handle == NULL) return -1;
-    unsigned char msg[64];
-    msg[0]=CMD_GET_PIN_STATUS;
-    msg[1]=SUBCMD_PIN_VPP_VOLTAGE;
-    writeString(msg,2);
-    readString(msg,64);
-    iValue = ((int)msg[0])+(((int)msg[1])<<8);
-
-    float fValue = ((float)iValue)*(147.0/47.0)*(5.0/1024.0);
-
-    //cout<<"ADC Value: "<<iValue<<" "<<fValue<<" [V]"<<endl;
-    return fValue;
-
-}
-
-
-PIN_STATE Hardware::getPinState(SUBCMD_PIN pin)
-{
-    if (m_hwCurrent != HW_UPP) return PIN_STATE_INVALID;
-    if (m_handle == NULL) return PIN_STATE_INVALID;
-    unsigned char msg[64];
-    msg[0]=CMD_GET_PIN_STATUS;
-    msg[1]=pin;
-    writeString(msg,2);
-    readString(msg,64);
-    return (PIN_STATE) msg[0];
-}
-
-int Hardware::setPinState(SUBCMD_PIN pin, PIN_STATE state)
-{
-    if (m_hwCurrent != HW_UPP) return -1;
-    if (m_handle == NULL) return -1;
-    unsigned char msg[64];
-    msg[0]=CMD_SET_PIN_STATUS;
-    msg[1]=pin;
-    msg[2]=state;
-    writeString(msg,3);
-    readString(msg,64);
-    return (int) msg[0];
-}
-
-int Hardware::debug()
-{
-    if (m_handle == NULL) return -1;
-
-    statusCallBack (0);
-
-    if (m_hwCurrent == HW_UPP)
-    {
-        cout<<"usage\ncat debugfile | src/usbpicprog -d\n\nwith the in the debugfile:\ndcccccc"<<endl;
-        while(1)
-        {
-            cout<<"> ";
-            string debugData;
-            cin>>debugData;
-            if(debugData.length()==0)break;
-            int debugCommand,debugValue;
-            sscanf(debugData.c_str(),"%1X%6X",&debugCommand,&debugValue);
-            unsigned char msg[64];
-            msg[0]=0xA0;
-            switch(debugCommand)
-            {	
-                case 0:
-                    msg[1]=0;
-                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
-                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
-                    cout<<"Set VPP to HIGH: ";
-                    if(msg[0]==1)cout<<"Ok"<<endl;
-                    else cout <<"fail"<<endl;
-                    break;
-                case 1:
-                    msg[1]=1;
-                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
-                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
-                    cout<<"Set VPP to LOW: ";
-                    if(msg[0]==1)cout<<"Ok"<<endl;
-                    else cout <<"fail"<<endl;
-                    break;
-                case 2:
-                    msg[1]=2;
-                    msg[2]=(unsigned char)debugValue;
-                    msg[3]=(unsigned char)(debugValue>>8);
-                    msg[4]=(unsigned char)(debugValue>>16);
-                    if(writeString(msg,5)<0)cout<<"Error writing string"<<endl;
-                    if(readString(msg,1)<0)cout<<"Error reading string"<<endl;
-                    cout<<"Sending command: 0x"<<std::hex<<debugValue<<", ";
-                    if(msg[0]==1)cout<<"Ok"<<endl;
-                    else cout <<"fail"<<endl;
-                    break;
-                case 3:
-                    msg[1]=3;
-                    if(writeString(msg,2)<0)cout<<"Error writing string"<<endl;
-                    if(readString(msg,2)<0)cout<<"Error reading string"<<endl;
-                    cout<<"Read from dsPIC: 0x"<<std::hex<<(int)msg[0]<<" "<<(int)msg[1]<<endl;
-                    break;
-            }
-        }
-    }
-    return 0;
-}
 
 
