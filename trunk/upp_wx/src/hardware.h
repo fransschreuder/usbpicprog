@@ -327,7 +327,7 @@ public:
 
         Returns the number of bytes read or a negative value if an error occurred.
     */
-    int getFirmwareVersion(FirmwareVersion* firmwareVersion) const;
+    int getFirmwareVersion(FirmwareVersion* firmwareVersion);
 
     /** Returns the type of the hardware which we are currently attached to. */
     HardwareType getCurrentHardware() const 

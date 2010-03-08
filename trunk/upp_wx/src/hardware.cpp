@@ -274,12 +274,18 @@ int Hardware::setPicType(PicType* picType)
 
     // send the command to the hw
     if (writeString(msg,2) < 0)
+    {
+        disconnect();
         return -1;       // failure
+    }
 
     // read back the reply
     int nBytes = readString(msg,1);
     if (nBytes < 0)
+    {
+        disconnect();
         return nBytes;
+    }
 
     statusCallBack (100);
     return (int)msg[0];
@@ -306,12 +312,17 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
             msg[1]=0xAA;
         
         if (writeString(msg,2) < 0)
+        {
+            disconnect();
             return 0;
-
+        }
         // read back the reply
         int nBytes = readString(msg,1);
         if (nBytes < 0)
+        {
+            disconnect();
             return nBytes;
+        }
 
         //backupOscCalBandGap(picType);
         statusCallBack (100);
@@ -339,9 +350,15 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
             bootloaderPackage.data[bp_addrL]=(unsigned char)(address&0xFF);
 
             if (writeString(bootloaderPackage.data,5) < 0)
+            {
+                disconnect();
                 return -1;
+            }
             if (readString(msg,5) < 0)
+            {
+                disconnect();
                 return -1;
+            }
 
             statusCallBack(100);
         }
@@ -842,7 +859,7 @@ int Hardware::autoDetectDevice()
     return -1;
 }
 
-int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
+int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 {
     unsigned char msg[64];
     if (m_handle == NULL) return -1;
@@ -860,6 +877,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
             firmwareVersion->major=0;
             firmwareVersion->minor=0;
             firmwareVersion->release=0;
+            disconnect();
             return -1;
         }
         
@@ -871,6 +889,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
             firmwareVersion->major=0;
             firmwareVersion->minor=0;
             firmwareVersion->release=0;
+            disconnect();
             return nBytes;
         }
         firmwareVersion->versionString.assign((const char*)msg);
@@ -907,11 +926,16 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
         statusCallBack (0);
 
         if (writeString(msg,5) < 0)
+        {
+            disconnect();
             return -1;
-
+        }
         nBytes = readString(msg,64);
         if (nBytes < 0)
+        {
+            disconnect();
             return nBytes;
+        }
 
         statusCallBack (100);
         firmwareVersion->major=msg[3];
@@ -926,7 +950,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion) const
 
 double Hardware::getVppVoltage()
 {
-    int iValue;
+    int iValue, nBytes;
     unsigned char msg[64];
 
     if (m_hwCurrent != HW_UPP) return -1;
@@ -934,8 +958,18 @@ double Hardware::getVppVoltage()
 
     msg[0]=CMD_GET_PIN_STATUS;
     msg[1]=SUBCMD_PIN_VPP_VOLTAGE;
-    writeString(msg,2);
-    readString(msg,64);
+    nBytes = writeString(msg,2);
+    if(nBytes < 0)
+    {
+        disconnect();
+        return -1;
+    }
+    nBytes = readString(msg,64);
+    if(nBytes < 0)
+    {
+        disconnect();
+        return -1;
+    }
     iValue = ((int)msg[0])+(((int)msg[1])<<8);
 
     float fValue = ((float)iValue)*(147.0/47.0)*(5.0/1024.0);
@@ -946,6 +980,7 @@ double Hardware::getVppVoltage()
 
 PIN_STATE Hardware::getPinState(SUBCMD_PIN pin)
 {
+    int nBytes;
     unsigned char msg[64];
 
     if (m_hwCurrent != HW_UPP) return PIN_STATE_INVALID;
@@ -953,14 +988,25 @@ PIN_STATE Hardware::getPinState(SUBCMD_PIN pin)
 
     msg[0]=CMD_GET_PIN_STATUS;
     msg[1]=pin;
-    writeString(msg,2);
-    readString(msg,64);
+    nBytes = writeString(msg,2);
+    if(nBytes<0)
+    {
+        disconnect();
+        return PIN_STATE_0V;
+    }
+    nBytes = readString(msg,64);
+    if(nBytes<0)
+    {
+        disconnect();
+        return PIN_STATE_0V;
+    }
 
     return (PIN_STATE) msg[0];
 }
 
 int Hardware::setPinState(SUBCMD_PIN pin, PIN_STATE state)
 {
+    int nBytes;
     unsigned char msg[64];
 
     if (m_hwCurrent != HW_UPP) return -1;
@@ -969,8 +1015,18 @@ int Hardware::setPinState(SUBCMD_PIN pin, PIN_STATE state)
     msg[0]=CMD_SET_PIN_STATUS;
     msg[1]=pin;
     msg[2]=state;
-    writeString(msg,3);
-    readString(msg,64);
+    nBytes = writeString(msg,3);
+    if(nBytes<0)
+    {
+        disconnect();
+        return -1;
+    }
+    nBytes = readString(msg,64);
+    if(nBytes<0)
+    {
+        disconnect();
+        return -1;
+    }
 
     return (int) msg[0];
 }
@@ -1053,7 +1109,6 @@ int Hardware::readString(unsigned char* msg, int size) const
     if (retcode != LIBUSB_SUCCESS)
     {
         wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
-        disconnect();
         return -1;
     }
     return nBytes;
@@ -1073,7 +1128,6 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     {
         wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
                    libusb_strerror((libusb_error)retcode));
-        disconnect();
         return -1;
     }
 
@@ -1090,12 +1144,18 @@ int Hardware::readId()
     unsigned char msg[64];
     msg[0]=CMD_READ_ID;
     if (writeString(msg,1) < 0)
+    {
+        disconnect();
         return -1;
+    }
 
     // read from the hardware the reply
     int nBytes = readString(msg,2);
     if (nBytes < 0)
+    {
+        disconnect();
         return -1;
+    }
 
     // success
     statusCallBack (100);
@@ -1132,10 +1192,15 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         nBytes = writeString(uppPackage.data,6);
         if (nBytes < 0)
 		{
+		    disconnect();
             return nBytes;
 		}
         // read back the bytes
         nBytes = readString(msg,size);
+        if(nBytes < 0)
+        {
+            disconnect();
+        }
     }
     else
     {
@@ -1164,13 +1229,16 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         //        the bootloader package instead of hardcoding it
         nBytes = writeString(bootloaderPackage.data,5);
         if (nBytes < 0)
+        {
+            disconnect();
             return nBytes;
-
+        }
         // read back the bytes
         unsigned char* tmpmsg = new unsigned char[size+5];
         nBytes = readString(tmpmsg,size+5) - 5;
         if (nBytes < 0)
         {
+            disconnect();
             delete [] tmpmsg;
             return nBytes;
         }
@@ -1226,10 +1294,16 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             
         int nBytes = writeString(uppPackage.data,size+6);
         if (nBytes < 0)
+        {
+            disconnect ();
             return nBytes;
-
+        }
         nBytes = readString(resp_msg,1);
-
+        if(nBytes<0)
+        {
+            disconnect();
+            return -1;
+        }
 		// cout<<"Response message: "<<(int)resp_msg[0]<<endl;
         return (int)resp_msg[0];
     }
@@ -1272,10 +1346,15 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
         memcpy(bootloaderPackage.data + bp_data ,msg,size);
 
         if (writeString(bootloaderPackage.data,5+size) < 0)
+       {
+            disconnect();
             return -1;
-
+        }
         if (readString(resp_msg,5+size) < 0)
+        {
+            disconnect();
             return -1;
+        }
 
         return OkOrLastblock;
     }
