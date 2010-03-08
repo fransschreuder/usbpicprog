@@ -4,7 +4,14 @@
 if [ $# -ne 0 ]
 then
   RELEASE=$1
+  if [ $# -ne 1 ]
+  then
+    DISTS=$2
+  else
+    DISTS="jaunty karmic lucid"
+  fi
 else
+  DISTS="jaunty karmic lucid"
   RELEASE=$(svnversion -n)
   RELEASE=${RELEASE:0:3}
 #-$(date +%Y%m%d)
@@ -46,7 +53,7 @@ cd release/usbpicprog-$RELEASE
 make distclean
 rm -rf m4
 rm -rf autom4te.cache
-if [ "$RELEASE" = "0.3.0" ]; then
+if [ ${RELEASE:0:2} = "0." ]; then
 ( echo '// generated file';
     echo '#define UPP_VERSION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
 else
@@ -63,13 +70,12 @@ cd usbpicprog-$RELEASE
 #dh_make -e fransschreuder@gmail.com -s
 
 #cp debian-src/* debian
-dch -D karmic -m -v $RELEASE $LASTLOGMESSAGE
-cp debian/changelog ../../upp_wx/debian
-#cd debian
-#gedit debian/changelog
-#rm *.ex
-#rm *.EX
-#rm README.Debian
-#cd ..
-debuild -S -k8AD5905E
+for DIST in ${DISTS} ; do
+	COUNT=$(($COUNT-1))
+	cp ../../upp_wx/debian/changelog debian/changelog
+	dch -D $DIST -m -v $RELEASE$COUNT $LASTLOGMESSAGE -b
+	cp debian/changelog ../../upp_wx/debian
+	debuild -S -k8AD5905E
+	
+done
 

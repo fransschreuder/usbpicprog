@@ -22,7 +22,7 @@ usbpicprog_DATA = \
 Applicationsdir = ${prefix}/share/applications
 Applications_DATA = Usbpicprog.desktop
 
-usbpicprogrulesdir = /etc/udev/rules.d
+usbpicprogrulesdir = /lib/udev/rules.d
 usbpicprogrules_DATA = 26-microchip.rules
 
 usbpicprogicondir = ${prefix}/share/pixmaps

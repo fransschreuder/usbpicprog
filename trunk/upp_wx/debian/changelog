@@ -1,3 +1,73 @@
+usbpicprog (849-3) lucid; urgency=low
+
+  * move public functions above the private functions section, in the public se$
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other class$
+  * reorganize application flow by placing the 'main' code in OnRun() instead o$
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware c$
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware c$
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 09:00:47 +0100
+
+usbpicprog (849-2) karmic; urgency=low
+
+  * move public functions above the private functions section, in the public section...
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other classes - ...
+  * reorganize application flow by placing the 'main' code in OnRun() instead of OnI...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:58:02 +0100
+
+usbpicprog (849-1) jaunty; urgency=low
+
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other classes
+  * reorganize application flow by placing the 'main' code in OnRun() instead of OnI...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:59 +0100
+
+usbpicprog (843-3) lucid; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:13 +0100
+
+usbpicprog (843-2) karmic; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:11 +0100
+
+usbpicprog (843-1) jaunty; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:09 +0100
+
+usbpicprog (0.3.1-beta-3) lucid; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:32:15 +0100
+
+usbpicprog (0.3.1-beta-2) karmic; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:32:08 +0100
+
+usbpicprog (0.3.1-beta-1) jaunty; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:31:59 +0100
+
 usbpicprog (842) karmic; urgency=low
 
   * moved libusb_init and libusb_exit from main.cpp to hardware.cpp

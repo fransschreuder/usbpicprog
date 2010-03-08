@@ -113,6 +113,7 @@ void IOTestDialog::upp_pgc()
 
 void IOTestDialog::upp_update_hw_status()
 {
+    if(!m_hardware->connected())return;
 	double VppVoltage = m_hardware->getVppVoltage();
 	m_labelVPPVoltage->SetLabel(wxString::Format("%2.2fV",VppVoltage));
 

@@ -1053,6 +1053,7 @@ int Hardware::readString(unsigned char* msg, int size) const
     if (retcode != LIBUSB_SUCCESS)
     {
         wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
+        disconnect();
         return -1;
     }
     return nBytes;
@@ -1072,6 +1073,7 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     {
         wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
                    libusb_strerror((libusb_error)retcode));
+        disconnect();
         return -1;
     }
 
