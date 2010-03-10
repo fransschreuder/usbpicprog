@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Tue 09 Mar 2010 02:45:41 PM CET
+# EESchema Netlist Version 1.1 created  Wed 10 Mar 2010 10:49:46 AM CET
 (
  ( /48F84F4A DIP-40__600_ELL P1 DIL40
   ( 1 /MCLR40 )
@@ -98,5 +98,28 @@
   ( 4 /PGD40 )
   ( 5 ? )
  )
+ ( /4B976ADF SM0805 R1 10k
+  ( 1 /PGD40 )
+  ( 2 /PGD10F )
+ )
+ ( /4B976AE4 SM0805 R2 10k
+  ( 1 /PGD40 )
+  ( 2 /PGC12F )
+ )
 )
 *
+{ Allowed footprints by component:
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$endfootprintlist
+}

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 09 Mar 2010 02:40:06 PM CET
+EESchema Schematic File Version 2  date Wed 10 Mar 2010 10:49:23 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
 Title "usbpicprog zif socket"
-Date "9 mar 2010"
+Date "10 mar 2010"
 Rev "0.3.1"
 Comp "usbpicprog.org"
 Comment1 "Frans Schreuder"
@@ -43,33 +43,28 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L CONN_5 P9
-U 1 1 4B964DFC
-P 7250 6250
-F 0 "P9" V 7200 6250 50  0000 C CNN
-F 1 "I2C_EE" V 7300 6250 50  0000 C CNN
-	1    7250 6250
-	-1   0    0    1   
-$EndComp
-Text Label 8100 6450 0    60   ~ 0
-MCLR12F
-Text Label 8100 6350 0    60   ~ 0
-PGC12F
-Text Label 8100 6250 0    60   ~ 0
-PGD10F
-Text Label 8100 6150 0    60   ~ 0
-PGD40
 Wire Wire Line
-	7650 6350 8100 6350
+	9850 6350 9850 6450
+Wire Wire Line
+	9850 6450 9250 6450
+Wire Wire Line
+	9250 6350 9250 6450
+Wire Wire Line
+	7650 6350 9250 6350
+Connection ~ 9600 5700
+Connection ~ 7950 6150
+Wire Wire Line
+	7950 6150 7950 5950
+Wire Wire Line
+	7950 5950 8750 5950
+Wire Wire Line
+	8750 5950 8750 5700
+Wire Wire Line
+	8750 5700 9850 5700
 Wire Wire Line
 	7650 6150 8100 6150
 Wire Wire Line
-	7650 6250 8100 6250
-Wire Wire Line
 	7650 6450 8100 6450
-Text Label 3600 3900 0    60   ~ 0
-VDD10F
 Wire Wire Line
 	4600 5200 4900 5200
 Wire Wire Line
@@ -176,6 +171,53 @@ Wire Wire Line
 	7650 1750 8100 1750
 Wire Wire Line
 	4600 5300 4900 5300
+Wire Wire Line
+	9850 5700 9850 5850
+Wire Wire Line
+	9600 5700 9600 5850
+Wire Wire Line
+	7650 6250 9350 6250
+Wire Wire Line
+	9350 6250 9350 6350
+Wire Wire Line
+	9350 6350 9600 6350
+$Comp
+L R R2
+U 1 1 4B976AE4
+P 9850 6100
+F 0 "R2" V 9930 6100 50  0000 C CNN
+F 1 "10k" V 9850 6100 50  0000 C CNN
+	1    9850 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 4B976ADF
+P 9600 6100
+F 0 "R1" V 9680 6100 50  0000 C CNN
+F 1 "10k" V 9600 6100 50  0000 C CNN
+	1    9600 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P9
+U 1 1 4B964DFC
+P 7250 6250
+F 0 "P9" V 7200 6250 50  0000 C CNN
+F 1 "I2C_EE" V 7300 6250 50  0000 C CNN
+	1    7250 6250
+	-1   0    0    1   
+$EndComp
+Text Label 8100 6450 0    60   ~ 0
+MCLR12F
+Text Label 8100 6350 0    60   ~ 0
+PGC12F
+Text Label 8100 6250 0    60   ~ 0
+PGD10F
+Text Label 8100 6150 0    60   ~ 0
+PGD40
+Text Label 3600 3900 0    60   ~ 0
+VDD10F
 Text Label 4900 4500 0    60   ~ 0
 PGDdsPIC18
 Text Label 8100 2850 0    60   ~ 0
