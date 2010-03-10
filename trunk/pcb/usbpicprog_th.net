@@ -1,258 +1,281 @@
-# EESchema Netlist Version 1.1 created  30/6/2009-11:56:16
+# EESchema Netlist Version 1.1 created  Tue 09 Mar 2010 01:57:01 PM CET
 (
- ( /466D32C2 Cuni C1 100n
-  ( 1 VDD )
-  ( 2 VSS )
+ ( /4A447726 $noname  D10 1n4148 {Lib=DIODE}
+  (    1 N-000036 )
+  (    2 /VPP )
  )
- ( /466D33F3 C1 C2 22p
-  ( 1 N-000027 )
-  ( 2 VSS )
+ ( /4A17C51E $noname  R16 470k {Lib=R}
+  (    1 VSS )
+  (    2 N-000037 )
  )
- ( /466D33F6 C1 C3 22p
-  ( 1 N-000028 )
-  ( 2 VSS )
+ ( /4A17C513 $noname  R15 1M {Lib=R}
+  (    1 N-000037 )
+  (    2 /VPP )
  )
- ( /466D3877 Cuni C4 100n
-  ( 1 VDD )
-  ( 2 VSS )
+ ( /49E8D2DB $noname  R14 1k {Lib=R}
+  (    1 N-000008 )
+  (    2 N-000036 )
  )
- ( /466D387A Cuni C5 100n
-  ( 1 VDD )
-  ( 2 VSS )
+ ( /49E8D1CA $noname  R13 NA {Lib=R}
+  (    1 VSS )
+  (    2 /VPP )
  )
- ( /466D3880 Cuni C6 100n
-  ( 1 VDD )
-  ( 2 VSS )
+ ( /49E8D15B $noname  R12 100k {Lib=R}
+  (    1 N-000043 )
+  (    2 N-000042 )
  )
- ( /466D3885 Cuni C7 100n
-  ( 1 N-000036 )
-  ( 2 VSS )
+ ( /49E8D0F9 $noname  Q4 BS170 {Lib=FET_N}
+  (    D N-000042 )
+  (    G N-000043 )
+  (    S N-000041 )
  )
- ( /466D17CF C1V5 C8 1u
-  ( 1 N-000025 )
-  ( 2 /Pump1 )
+ ( /49096B01 $noname  R11 1k {Lib=R}
+  (    1 N-000035 )
+  (    2 N-000029 )
  )
- ( /466D17D7 C1V5 C9 1u
-  ( 1 N-000024 )
-  ( 2 /Pump2 )
+ ( /49096ACD $noname  R10 1k {Lib=R}
+  (    1 N-000028 )
+  (    2 N-000040 )
  )
- ( /466D17D9 C1V5 C10 10u
-  ( 1 N-000023 )
-  ( 2 VSS )
+ ( /49096A85 $noname  R9 1k {Lib=R}
+  (    1 /VDD_CTL )
+  (    2 N-000038 )
  )
- ( /46F5402C Cuni C11 100n
-  ( 1 VSS )
-  ( 2 N-000026 )
+ ( /471DF3F8 $noname  D9 1n4148 {Lib=DIODE}
+  (    1 N-000039 )
+  (    2 N-000045 )
  )
- ( /466D15FB D D1 1n4148
-  ( 1 VDD )
-  ( 2 N-000025 )
+ ( /471DF338 $noname  Q3 BS250 {Lib=FET_P}
+  (    D N-000039 )
+  (    G N-000038 )
+  (    S VDD )
  )
- ( /466D15FE D D2 1n4148
-  ( 1 N-000025 )
-  ( 2 N-000024 )
+ ( /46F5402C $noname  C11 100n {Lib=C}
+  (    1 VSS )
+  (    2 N-000033 )
  )
- ( /466D1601 D D3 1n4148
-  ( 1 N-000024 )
-  ( 2 N-000023 )
+ ( /466D58A1 $noname  Q2 BS170 {Lib=FET_N}
+  (    D /VPP )
+  (    G N-000006 )
+  (    S VSS )
  )
- ( /466D1864 D D4 1n4148
-  ( 1 N-000038 )
-  ( 2 /VPP )
+ ( /466D589C $noname  Q1 BS170 {Lib=FET_N}
+  (    D N-000043 )
+  (    G N-000012 )
+  (    S VSS )
  )
- ( /466D3654 LED D5 WR
-  ( 1 N-000019 )
-  ( 2 /LED1 )
+ ( /466D3885 $noname  C7 100n {Lib=C}
+  (    1 N-000045 )
+  (    2 VSS )
  )
- ( /466D3665 LED D6 RD
-  ( 1 N-000030 )
-  ( 2 /LED2 )
+ ( /466D3880 $noname  C6 100n {Lib=C}
+  (    1 VDD )
+  (    2 VSS )
  )
- ( /466D3669 LED D7 ON
-  ( 1 N-000018 )
-  ( 2 /LED3 )
+ ( /466D387A $noname  C5 100n {Lib=C}
+  (    1 VDD )
+  (    2 VSS )
  )
- ( /466D1803 D D8 12V
-  ( 1 VSS )
-  ( 2 /VPP )
+ ( /466D3877 $noname  C4 100n {Lib=C}
+  (    1 VDD )
+  (    2 VSS )
  )
- ( /471DF3F8 D D9 1n4148
-  ( 1 N-000008 )
-  ( 2 N-000036 )
+ ( /466D36FB $noname  P2 CONN_5 {Lib=CONN_5}
+  (    1 VSS )
+  (    2 /PGC_SELF )
+  (    3 /PGD_SELF )
+  (    4 VDD )
+  (    5 /VPP_SELF )
  )
- ( /4A447726 D D10 1n4148
-  ( 1 N-000003 )
-  ( 2 /VPP )
+ ( /466D3678 $noname  R8 470 {Lib=R}
+  (    1 N-000004 )
+  (    2 VDD )
  )
- ( /466D15AB CONN_USB-B J1 USB_CONN
-  ( 1 VDD )
-  ( 2 /D- )
-  ( 3 /D+ )
-  ( 4 VSS )
-  ( 5 VSS )
-  ( 6 VSS )
+ ( /466D3677 $noname  R7 470 {Lib=R}
+  (    1 N-000002 )
+  (    2 VDD )
  )
- ( /466D177C SIL-5 P1 CONN_5
-  ( 1 VSS )
-  ( 2 N-000013 )
-  ( 3 N-000006 )
-  ( 4 N-000036 )
-  ( 5 /VPP )
+ ( /466D3676 $noname  R6 470 {Lib=R}
+  (    1 VDD )
+  (    2 N-000001 )
  )
- ( /466D36FB SIL-5 P2 CONN_5
-  ( 1 VSS )
-  ( 2 /PGC_SELF )
-  ( 3 /PGD_SELF )
-  ( 4 VDD )
-  ( 5 /VPP_SELF )
+ ( /466D3669 $noname  D7 ON {Lib=LED}
+  (    1 N-000004 )
+  (    2 /LED3 )
  )
- ( /466D589C TO92DGS Q1 BS170
-  ( D N-000004 )
-  ( G N-000010 )
-  ( S VSS )
+ ( /466D3665 $noname  D6 RD {Lib=LED}
+  (    1 N-000002 )
+  (    2 /LED2 )
  )
- ( /466D58A1 TO92DGS Q2 BS170
-  ( D /VPP )
-  ( G N-000034 )
-  ( S VSS )
+ ( /466D3654 $noname  D5 WR {Lib=LED}
+  (    1 N-000001 )
+  (    2 /LED1 )
  )
- ( /471DF338 TO92DGS Q3 BS250
-  ( D N-000008 )
-  ( G N-000040 )
-  ( S VDD )
+ ( /466D33F6 $noname  C3 22p {Lib=C}
+  (    1 N-000044 )
+  (    2 VSS )
  )
- ( /49E8D0F9 TO92DGS Q4 BS170
-  ( D N-000005 )
-  ( G N-000004 )
-  ( S N-000038 )
+ ( /466D33F3 $noname  C2 22p {Lib=C}
+  (    1 N-000032 )
+  (    2 VSS )
  )
- ( /466D1610 R R1 2k2
-  ( 1 N-000005 )
-  ( 2 N-000023 )
+ ( /466D33EC $noname  X1 8MHz {Lib=CRYSTAL}
+  (    1 N-000032 )
+  (    2 N-000044 )
  )
- ( /466D1650 R R2 1k
-  ( 1 /VPP_CTL )
-  ( 2 N-000010 )
+ ( /466D32C2 $noname  C1 100n {Lib=C}
+  (    1 VDD )
+  (    2 VSS )
  )
- ( /466D1654 R R3 1k
-  ( 1 /VPP_CTL_RST )
-  ( 2 N-000034 )
+ ( /466D1864 $noname  D4 1n4148 {Lib=DIODE}
+  (    1 N-000041 )
+  (    2 /VPP )
  )
- ( /466D175A R R4 470
-  ( 1 N-000006 )
-  ( 2 /PGD )
+ ( /466D1803 $noname  D8 12V {Lib=ZENER}
+  (    1 VSS )
+  (    2 /VPP )
  )
- ( /466D175B R R5 470
-  ( 1 N-000013 )
-  ( 2 /PGC )
+ ( /466D17D9 $noname  C10 10u {Lib=CAPAPOL}
+  (    1 N-000031 )
+  (    2 VSS )
  )
- ( /466D3676 R R6 470
-  ( 1 VDD )
-  ( 2 N-000019 )
+ ( /466D17D7 $noname  C9 1u {Lib=CAPAPOL}
+  (    1 N-000030 )
+  (    2 /Pump2 )
  )
- ( /466D3677 R R7 470
-  ( 1 N-000030 )
-  ( 2 VDD )
+ ( /466D17CF $noname  C8 1u {Lib=CAPAPOL}
+  (    1 N-000034 )
+  (    2 /Pump1 )
  )
- ( /466D3678 R R8 470
-  ( 1 N-000018 )
-  ( 2 VDD )
+ ( /466D177C $noname  P1 CONN_5 {Lib=CONN_5}
+  (    1 VSS )
+  (    2 N-000029 )
+  (    3 N-000040 )
+  (    4 N-000045 )
+  (    5 /VPP )
  )
- ( /49096A85 R R9 1k
-  ( 1 /VDD_CTL )
-  ( 2 N-000040 )
+ ( /466D175B $noname  R5 470 {Lib=R}
+  (    1 N-000029 )
+  (    2 /PGC )
  )
- ( /49096ACD R R10 1k
-  ( 1 N-000037 )
-  ( 2 N-000006 )
+ ( /466D175A $noname  R4 470 {Lib=R}
+  (    1 N-000040 )
+  (    2 /PGD )
  )
- ( /49096B01 R R11 1k
-  ( 1 N-000007 )
-  ( 2 N-000013 )
+ ( /466D1654 $noname  R3 1k {Lib=R}
+  (    1 /VPP_CTL_RST )
+  (    2 N-000006 )
  )
- ( /49E8D15B R R12 100k
-  ( 1 N-000004 )
-  ( 2 N-000005 )
+ ( /466D1650 $noname  R2 1k {Lib=R}
+  (    1 /VPP_CTL )
+  (    2 N-000012 )
  )
- ( /49E8D1CA R R13 100k
-  ( 1 VSS )
-  ( 2 /VPP )
+ ( /466D1610 $noname  R1 2k2 {Lib=R}
+  (    1 N-000042 )
+  (    2 N-000031 )
  )
- ( /49E8D2DB R R14 1k
-  ( 1 N-000041 )
-  ( 2 N-000003 )
+ ( /466D1601 $noname  D3 1n4148 {Lib=DIODE}
+  (    1 N-000030 )
+  (    2 N-000031 )
  )
- ( /4A17C513 R R15 100k
-  ( 1 N-000042 )
-  ( 2 /VPP )
+ ( /466D15FE $noname  D2 1n4148 {Lib=DIODE}
+  (    1 N-000034 )
+  (    2 N-000030 )
  )
- ( /4A17C51E R R16 47k
-  ( 1 VSS )
-  ( 2 N-000042 )
+ ( /466D15FB $noname  D1 1n4148 {Lib=DIODE}
+  (    1 VDD )
+  (    2 N-000034 )
  )
- ( /466D1515 28DIP-ELL300 U1 PIC18F2550
-  ( 1 /VPP_SELF )
-  ( 2 /Pump2 )
-  ( 3 /Pump1 )
-  ( 4 N-000042 )
-  ( 5 N-000041 )
-  ( 6 N-000037 )
-  ( 7 N-000007 )
-  ( 8 VSS )
-  ( 9 N-000028 )
-  ( 10 N-000027 )
-  ( 11 /LED1 )
-  ( 12 /LED2 )
-  ( 13 /LED3 )
-  ( 14 N-000026 )
-  ( 15 /D- )
-  ( 16 /D+ )
-  ( 17 ? )
-  ( 18 ? )
-  ( 19 VSS )
-  ( 20 VDD )
-  ( 21 /PGD )
-  ( 22 /PGC )
-  ( 23 /VDD_CTL )
-  ( 24 /VPP_CTL )
-  ( 25 ? )
-  ( 26 /VPP_CTL_RST )
-  ( 27 /PGC_SELF )
-  ( 28 /PGD_SELF )
- )
- ( /466D33EC HC-18UV X1 8MHz
-  ( 1 N-000027 )
-  ( 2 N-000028 )
+ ( /466D1515 $noname  U1 PIC18F2550 {Lib=PIC18F2550}
+  (    1 /VPP_SELF )
+  (    2 /Pump2 )
+  (    3 /Pump1 )
+  (    4 N-000037 )
+  (    5 N-000008 )
+  (    6 N-000028 )
+  (    7 N-000035 )
+  (    8 VSS )
+  (    9 N-000044 )
+  (   10 N-000032 )
+  (   11 /LED1 )
+  (   12 /LED2 )
+  (   13 /LED3 )
+  (   14 N-000033 )
+  (   15 ? )
+  (   16 ? )
+  (   17 ? )
+  (   18 ? )
+  (   19 VSS )
+  (   20 VDD )
+  (   21 /PGD )
+  (   22 /PGC )
+  (   23 /VDD_CTL )
+  (   24 /VPP_CTL )
+  (   25 ? )
+  (   26 /VPP_CTL_RST )
+  (   27 /PGC_SELF )
+  (   28 /PGD_SELF )
  )
 )
 *
 { Allowed footprints by component:
-$component C1
- SM*
- C?
- C1-1
+$component D10
+ D?
+ S*
 $endlist
-$component C2
- SM*
- C?
- C1-1
+$component R16
+ R?
+ SM0603
+ SM0805
+ R?-*
 $endlist
-$component C3
- SM*
- C?
- C1-1
+$component R15
+ R?
+ SM0603
+ SM0805
+ R?-*
 $endlist
-$component C4
- SM*
- C?
- C1-1
+$component R14
+ R?
+ SM0603
+ SM0805
+ R?-*
 $endlist
-$component C5
- SM*
- C?
- C1-1
+$component R13
+ R?
+ SM0603
+ SM0805
+ R?-*
 $endlist
-$component C6
+$component R12
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component D9
+ D?
+ S*
+$endlist
+$component C11
  SM*
  C?
  C1-1
@@ -262,34 +285,80 @@ $component C7
  C?
  C1-1
 $endlist
-$component C8
- CP*
- SM*
-$endlist
-$component C9
- CP*
- SM*
-$endlist
-$component C10
- CP*
- SM*
-$endlist
-$component C11
+$component C6
  SM*
  C?
  C1-1
 $endlist
-$component D1
- D?
- S*
+$component C5
+ SM*
+ C?
+ C1-1
 $endlist
-$component D2
- D?
- S*
+$component C4
+ SM*
+ C?
+ C1-1
 $endlist
-$component D3
- D?
- S*
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component D7
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D6
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D5
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
 $endlist
 $component D4
  D?
@@ -300,93 +369,223 @@ $component D8
  SO*
  SM*
 $endlist
-$component D9
- D?
- S*
+$component C10
+ CP*
+ SM*
 $endlist
-$component D10
- D?
- S*
+$component C9
+ CP*
+ SM*
 $endlist
-$component R1
- R?
- SM0603
- SM0805
-$endlist
-$component R2
- R?
- SM0603
- SM0805
-$endlist
-$component R3
- R?
- SM0603
- SM0805
-$endlist
-$component R4
- R?
- SM0603
- SM0805
+$component C8
+ CP*
+ SM*
 $endlist
 $component R5
  R?
  SM0603
  SM0805
+ R?-*
 $endlist
-$component R6
+$component R4
  R?
  SM0603
  SM0805
+ R?-*
 $endlist
-$component R7
+$component R3
  R?
  SM0603
  SM0805
+ R?-*
 $endlist
-$component R8
+$component R2
  R?
  SM0603
  SM0805
+ R?-*
 $endlist
-$component R9
+$component R1
  R?
  SM0603
  SM0805
+ R?-*
 $endlist
-$component R10
- R?
- SM0603
- SM0805
+$component D3
+ D?
+ S*
 $endlist
-$component R11
- R?
- SM0603
- SM0805
+$component D2
+ D?
+ S*
 $endlist
-$component R12
- R?
- SM0603
- SM0805
-$endlist
-$component R13
- R?
- SM0603
- SM0805
-$endlist
-$component R14
- R?
- SM0603
- SM0805
-$endlist
-$component R15
- R?
- SM0603
- SM0805
-$endlist
-$component R16
- R?
- SM0603
- SM0805
+$component D1
+ D?
+ S*
 $endlist
 $endfootprintlist
 }
+{ Pin List by Nets
+Net 1 "" ""
+ D5 1
+ R6 2
+Net 2 "" ""
+ D6 1
+ R7 1
+Net 3 "VDD" "VDD"
+ C5 1
+ C4 1
+ Q3 S
+ C6 1
+ P2 4
+ U1 20
+ R6 1
+ R7 2
+ R8 2
+ C1 1
+ D1 1
+Net 4 "" ""
+ R8 1
+ D7 1
+Net 5 "/LED1" "LED1"
+ D5 2
+ U1 11
+Net 6 "" ""
+ R3 2
+ Q2 G
+Net 7 "/VPP" "VPP"
+ D10 2
+ P1 5
+ R13 2
+ D4 2
+ Q2 D
+ D8 2
+ R15 2
+Net 8 "" ""
+ R14 1
+ U1 5
+Net 9 "/Pump1" "Pump1"
+ U1 3
+ C8 2
+Net 10 "/Pump2" "Pump2"
+ C9 2
+ U1 2
+Net 11 "/VPP_SELF" "VPP_SELF"
+ U1 1
+ P2 5
+Net 12 "" ""
+ R2 2
+ Q1 G
+Net 13 "/PGD_SELF" "PGD_SELF"
+ P2 3
+ U1 28
+Net 15 "/PGC_SELF" "PGC_SELF"
+ P2 2
+ U1 27
+Net 17 "/VPP_CTL_RST" "VPP_CTL_RST"
+ R3 1
+ U1 26
+Net 21 "/VPP_CTL" "VPP_CTL"
+ R2 1
+ U1 24
+Net 22 "/VDD_CTL" "VDD_CTL"
+ R9 1
+ U1 23
+Net 23 "/LED3" "LED3"
+ D7 2
+ U1 13
+Net 24 "/PGC" "PGC"
+ R5 2
+ U1 22
+Net 25 "/LED2" "LED2"
+ D6 2
+ U1 12
+Net 26 "/PGD" "PGD"
+ U1 21
+ R4 2
+Net 27 "VSS" "VSS"
+ R16 1
+ C11 1
+ R13 1
+ C1 2
+ P1 1
+ C10 2
+ C5 2
+ C4 2
+ P2 1
+ Q2 S
+ Q1 S
+ C7 2
+ U1 19
+ C6 2
+ U1 8
+ C2 2
+ D8 1
+ C3 2
+Net 28 "" ""
+ R10 1
+ U1 6
+Net 29 "" ""
+ R11 2
+ P1 2
+ R5 1
+Net 30 "" ""
+ D2 2
+ C9 1
+ D3 1
+Net 31 "" ""
+ C10 1
+ D3 2
+ R1 2
+Net 32 "" ""
+ C2 1
+ X1 1
+ U1 10
+Net 33 "" ""
+ U1 14
+ C11 2
+Net 34 "" ""
+ C8 1
+ D2 1
+ D1 2
+Net 35 "" ""
+ R11 1
+ U1 7
+Net 36 "" ""
+ D10 1
+ R14 2
+Net 37 "" ""
+ R16 2
+ R15 1
+ U1 4
+Net 38 "" ""
+ Q3 G
+ R9 2
+Net 39 "" ""
+ Q3 D
+ D9 1
+Net 40 "" ""
+ R10 2
+ P1 3
+ R4 1
+Net 41 "" ""
+ Q4 S
+ D4 1
+Net 42 "" ""
+ Q4 D
+ R12 2
+ R1 1
+Net 43 "" ""
+ Q1 D
+ R12 1
+ Q4 G
+Net 44 "" ""
+ C3 1
+ U1 9
+ X1 2
+Net 45 "" ""
+ P1 4
+ D9 2
+ C7 1
+}
+#End

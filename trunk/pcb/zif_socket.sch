@@ -1,6 +1,7 @@
-EESchema Schematic File Version 2  date Fri 19 Feb 2010 11:43:12 PM CET
+EESchema Schematic File Version 2  date Tue 09 Mar 2010 02:40:06 PM CET
 LIBS:power
 LIBS:device
+LIBS:transistors
 LIBS:conn
 LIBS:linear
 LIBS:regul
@@ -24,21 +25,49 @@ LIBS:philips
 LIBS:display
 LIBS:cypress
 LIBS:siliconi
+LIBS:opto
+LIBS:atmel
 LIBS:contrib
 LIBS:valves
-EELAYER 23  0
+LIBS:zif_socket-cache
+EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 1
-Title "noname.sch"
-Date "19 feb 2010"
-Rev ""
-Comp ""
-Comment1 ""
+Title "usbpicprog zif socket"
+Date "9 mar 2010"
+Rev "0.3.1"
+Comp "usbpicprog.org"
+Comment1 "Frans Schreuder"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_5 P9
+U 1 1 4B964DFC
+P 7250 6250
+F 0 "P9" V 7200 6250 50  0000 C CNN
+F 1 "I2C_EE" V 7300 6250 50  0000 C CNN
+	1    7250 6250
+	-1   0    0    1   
+$EndComp
+Text Label 8100 6450 0    60   ~ 0
+MCLR12F
+Text Label 8100 6350 0    60   ~ 0
+PGC12F
+Text Label 8100 6250 0    60   ~ 0
+PGD10F
+Text Label 8100 6150 0    60   ~ 0
+PGD40
+Wire Wire Line
+	7650 6350 8100 6350
+Wire Wire Line
+	7650 6150 8100 6150
+Wire Wire Line
+	7650 6250 8100 6250
+Wire Wire Line
+	7650 6450 8100 6450
 Text Label 3600 3900 0    60   ~ 0
 VDD10F
 Wire Wire Line
@@ -303,8 +332,6 @@ Text Label 3600 4200 0    60   ~ 0
 GND18
 Text Label 3600 4100 0    60   ~ 0
 MCLR12F
-Text Label 4400 3200 0    60   ~ 0
-GND10F
 Text Label 3600 3800 0    60   ~ 0
 MCLR40
 $Comp

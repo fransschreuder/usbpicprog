@@ -1,3 +1,24 @@
+usbpicprog (851-3) lucid; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:21 +0100
+
+usbpicprog (851-2) karmic; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:16 +0100
+
+usbpicprog (851-1) jaunty; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:07 +0100
+
 usbpicprog (849-3) lucid; urgency=low
 
   * move public functions above the private functions section, in the public se$
