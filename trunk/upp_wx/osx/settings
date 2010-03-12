@@ -1,0 +1,24 @@
+#!/opt/local/bin/bash
+# This file contains the settings so that the different scripts use
+# the same paths etc.
+#
+# Created by Gustav Johansson 2010-03-11
+#
+
+#################################
+## SETTINGS, CHANGE STUFF HERE ##
+#################################
+
+# This is were we will be working from
+WORKDIR="$HOME/projects"
+# This is where the ppc version of wxWidgets will be installed.
+PREFIX_ppc="$WORKDIR/sw/ppc"
+# This is where the i386 version of wxWidgets will be installed.
+PREFIX_i386="$WORKDIR/sw/i386"
+# This is were the final app will be placed
+PREFIX_app="$HOME/Temporary"
+
+#################################
+##   END OF SETTINGS, DO NOT   ##
+##   CHANGE STUFF AFTER THIS   ##
+#################################
