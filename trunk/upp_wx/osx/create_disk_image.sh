@@ -12,5 +12,5 @@ RELEASE=`svnversion -n`
 cd "$CURR_DIR"
 
 # Create the disk image 
-hdiutil create -srcfolder build/src/usbpicprog.app "$PREFIX_app/usbpicprog_Build-$RELEASE.dmg"
+hdiutil create -srcfolder build/src/usbpicprog.app "$PREFIX_app/UsbPicProg-OSX-r$RELEASE.dmg"
 
