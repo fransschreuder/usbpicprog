@@ -54,7 +54,7 @@ cd build-mac
 # WHEN BUILDING!
 arch_flags="-arch ppc"
 ../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_ppc"
-make 
+make -j 2
 make install
 make clean
 # Configure for i386 
@@ -65,6 +65,6 @@ make clean
 # WHEN BUILDING!
 arch_flags="-arch i386"
 ../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_i386"
-make
+make -j 2
 make install
 make clean

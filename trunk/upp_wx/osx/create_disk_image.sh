@@ -3,14 +3,14 @@
 # Get our settings
 source settings
 
+# Save current dir
+CURR_DIR=`pwd`
+
 # Get the release
-REL=`pwd`
-arr=$(echo $REL |sed -e 's/usbpicprog-/ /g' )
+cd ../..
+RELEASE=`svnversion -n`
+cd "$CURR_DIR"
 
-for x in $arr 
-do
-    RELEASE=`echo $x`
-done
-
-hdiutil create -srcfolder src/usbpicprog.app "$PREFIX_app/usbpicprog_Build-$RELEASE.dmg"
+# Create the disk image 
+hdiutil create -srcfolder build/src/usbpicprog.app "$PREFIX_app/usbpicprog_Build-$RELEASE.dmg"
 
