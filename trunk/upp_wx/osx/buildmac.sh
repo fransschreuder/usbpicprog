@@ -18,19 +18,10 @@ cd build
 # Export path so that we use the correct version of wxWidgets
 export PATH="$PREFIX_i386"/bin:"$PREFIX_i386"/sbin:$PATH
 
+# Copy the Makefile
 cp ../../Makefile.in.osx ../../Makefile.in
 
-# Run autogen.sh
-../../autogen.sh
-
-# Copy stuff to the builddir
-#cp -r ../../src .
-#cp ../../index.xml .
-#cp -r ../../icons .
-
-
-make clean
-
+# Cleanup before building (for consecutive builds)
 rm -rf src/usbpicprog.app
 mkdir -p src/usbpicprog.app
 mkdir -p src/usbpicprog.app/Contents
@@ -38,13 +29,6 @@ mkdir -p src/usbpicprog.app/Contents/MacOS
 mkdir -p src/usbpicprog.app/Contents/Resources
 mkdir -p src/usbpicprog.app/Contents/SharedSupport
 mkdir -p src/usbpicprog.app/Contents/MacOS/output
-
-#./configure CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0 --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output
-#./configure --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output
-
-##############################################################
-# Edited from usbpicprog source to allow for universal build #
-##############################################################
 
 # Copy in the universal library libusb
 mkdir libs
@@ -84,11 +68,7 @@ lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 -create -output 
 rm "$PREFIX_app"/usbpicprog_ppc 
 rm "$PREFIX_app"/usbpicprog_i386
 
-##############################################################
-#                        Done editing!                       #
-##############################################################
-
-
+# Make an app of everything
 cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po
 cp ../../src/Info.plist src/usbpicprog.app/Contents
 cp ../../icons/usbpicprog.icns src/usbpicprog.app/Contents/Resources
@@ -96,6 +76,7 @@ echo -n "APPL????" > src/usbpicprog.app/Contents/PkgInfo
 cp -R ../../xml_data src/usbpicprog.app/xml_data
 cp ../../index.xml src/usbpicprog.app/xml_data
 
+# Cleanup
 rm -rf src/usbpicprog.app/Contents/MacOS/output
 
 EXECFILE="src/usbpicprog.app/Contents/MacOS/usbpicprog"
@@ -104,8 +85,6 @@ NEWLIBPATH="@executable_path/../SharedSupport"
 
 # space separated list of libraries
 TARGETS="libusb-1.0.dylib "
-#\
-#"libwx_osx_carbonu-2.9.dylib"
 for TARGET in ${TARGETS} ; do
 	LIBFILE=${LIBPATH}/${TARGET}
 	cp ${LIBFILE} src/usbpicprog.app/Contents/SharedSupport
