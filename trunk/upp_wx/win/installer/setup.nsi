@@ -48,7 +48,7 @@
   !endif
 
   ; Name and file
-  Name "UsbPicProg ${PRODUCT_VERSION} ${ARCH} Installer"
+  Name "${PRODUCT_NAME} ${PRODUCT_VERSION} ${ARCH} Installer"
   !if ${SVN_TEST_INSTALLER}
     OutFile "${PRODUCT_NAME}-${ARCH}-r${SVN_REVISION}-${INSTALLER_MODE}.exe"
   !else
@@ -65,6 +65,9 @@
   
   LicenseData "gnugpl.txt"
   SetCompressor /SOLID lzma    ; this was found to be the best compressor
+  
+  ; see http://nsis.sourceforge.net/Shortcuts_removal_fails_on_Windows_Vista for more info:
+  RequestExecutionLevel admin
   
 ; -------------------------------------------------------------------------------------------------
 ; Pages
@@ -95,11 +98,11 @@
 ; -------------------------------------------------------------------------------------------------
 ; Additional info (will appear in the "details" tab of the properties window for the installer)
 
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName"      "UsbPicProg"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName"      "${PRODUCT_NAME}"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments"         ""
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName"      "UsbPicProg Team"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName"      "${PRODUCT_NAME} Team"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalTrademarks"  "Application released under the GNU GPL"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright"   "© UsbPicProg Team"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright"   "© ${PRODUCT_NAME} Team"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription"  "USB PIC Programmer"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion"      "${PRODUCT_VERSION}"
   VIProductVersion                                         "${PRODUCT_VERSION}.0" 
@@ -162,18 +165,40 @@ proceed:
 
   SetOutPath "$INSTDIR\driver\${ARCH}"
   File ..\..\win\driver\${ARCH}\*.dll
-
-  ; Store installation folder
-  ;WriteRegStr HKLM "Software\UsbPicProg" "Path" "$INSTDIR"
-
-  ; Create shortcuts
-  CreateDirectory "$SMPROGRAMS\UsbPicProg"
-  SetOutPath "$INSTDIR"         ; this will be the working directory for the shortcuts created below
-  CreateShortCut "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
-  CreateShortCut "$SMPROGRAMS\UsbPicProg\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
   ; Create uninstaller
   WriteUninstaller "$INSTDIR\uninstall.exe"
+  
+  ; Select correct registry view before using WriteRegStr
+  !if "${ARCH}" == "amd64"
+    SetRegView 64
+  !else
+    SetRegView 32
+  !endif
+  
+  ; Add the uninstaller to the list of programs accessible from "Control Panel -> Programs and Features"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "DisplayName" "${PRODUCT_NAME}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "DisplayIcon" "$\"$INSTDIR\usbpicprog.ico$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "URLInfoAbout" "http://usbpicprog.org"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                   "Publisher" "${PRODUCT_PUBLISHER}"
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+                     "EstimatedSize" 13312
+                     ; the estimated must be expressed in Kb; for us it's about 13 MB!
+
+  ; Create shortcuts
+  SetShellVarContext all        ; see http://nsis.sourceforge.net/Shortcuts_removal_fails_on_Windows_Vista
+  SetOutPath "$INSTDIR"         ; this will be the working directory for the shortcuts created below
+  CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
   ; Last, run the Microsoft driver installer redistributable
   DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
@@ -224,9 +249,24 @@ Section "Uninstall"
   ; and currently it seems to be supported only through the "Add Programs and Features"
   ; panel of Control panel (see http://msdn.microsoft.com/en-us/library/ms791069.aspx),
   ; which we disable in dpinst.xml!
+  
+  ; Select correct registry view before using DeleteRegKey
+  !if "${ARCH}" == "amd64"
+    SetRegView 64
+  !else
+    SetRegView 32
+  !endif
+  
+  ; clean the list accessible from "Control Panel -> Programs and Features"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+
+  ; clean start menu
+  SetShellVarContext all
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk"
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\UsbPicProg.lnk"
+  RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
 
   ; clean installation folder
-
   Delete "$INSTDIR\uninstall.exe"
   Delete "$INSTDIR\gnugpl.txt"
   Delete "$INSTDIR\index.xml"
@@ -245,14 +285,6 @@ Section "Uninstall"
   RMDir "$INSTDIR\driver\${ARCH}"
   RMDir "$INSTDIR\driver"
   RMDir "$INSTDIR"
-
-  ; clean start menu
-
-  Delete "$SMPROGRAMS\UsbPicProg\Uninstall.lnk"
-  Delete "$SMPROGRAMS\UsbPicProg\UsbPicProg.lnk"
-  RMDir "$SMPROGRAMS\UsbPicProg"
-  
-  ;DeleteRegKey /ifempty HKLM "Software\UsbPicProg"
 
 SectionEnd
 
