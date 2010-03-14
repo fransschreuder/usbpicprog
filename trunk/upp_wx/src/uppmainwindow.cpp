@@ -1513,6 +1513,12 @@ void UppMainWindow::upp_about()
 
 void UppMainWindow::upp_io_test()
 {
+    if ( !m_hardware.connected())
+    {
+        wxLogError(_("The programmer is not connected"));
+        return;
+    }
+
     IOTestDialog dlg(&m_hardware, this);
     dlg.ShowModal();
 }
