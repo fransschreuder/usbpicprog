@@ -143,13 +143,13 @@ typedef struct
 
 typedef enum 
 {
-	up_cmd,
-	up_size,
-	up_addrL,
-	up_addrH,
-	up_addrU,
-	up_blocktype,
-	up_data
+	up_cmd=0,
+	up_size=1,
+	up_addrU=2,
+	up_addrH=3,
+	up_addrL=4,
+	up_blocktype=5,
+	up_data=6
 }UPP_INDEX;
 /** 
     UppPackage is the data header which is sent to the programmer hardware.
