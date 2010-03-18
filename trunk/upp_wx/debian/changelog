@@ -1,3 +1,21 @@
+usbpicprog (866-3) lucid; urgency=low
+
+  * changes for hardy build
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:51:01 +0100
+
+usbpicprog (866-2) karmic; urgency=low
+
+  * changes for Hardy build
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:50:34 +0100
+
+usbpicprog (866-1) hardy; urgency=low
+
+  * changed debhelper build dependency from >7 to >6 for Hardy
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:49:57 +0100
+
 usbpicprog (865-3) lucid; urgency=low
 
   * changed SYSFS in ATTR in udev rules (this is the new way since
