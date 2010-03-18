@@ -46,25 +46,30 @@ tar xzf wxWidgets-2.9.0.tar.gz
 cd wxWidgets-2.9.0
 mkdir build-mac
 cd build-mac
+
+# Setup without QT (doesn't exist for x86_64) and no libtiff as it is buggy
+qt_flags="--enable-mediactrl=no --enable-sound=no --with-libtiff=no"
+
 # Configure for ppc  
 # NOTE: This is the magic line to make it work:
 # --with-libiconv-prefix=/opt/local/
 # This forces wxWidgets to use the MacPorts installation of libiconv and
 # not the one bundled with Apple. THIS IS NECESSARY OR usbpicprog WILL FAIL
 # WHEN BUILDING!
-arch_flags="-arch ppc"
-../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_ppc"
+arch_flags="-arch ppc $sdk_flags"
+../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_ppc" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install
 make clean
+
 # Configure for i386 
 # NOTE: This is the magic line to make it work:
 # --with-libiconv-prefix=/opt/local/
 # This forces wxWidgets to use the MacPorts installation of libiconv and
 # not the one bundled with Apple. THIS IS NECESSARY OR usbpicprog WILL FAIL
 # WHEN BUILDING!
-arch_flags="-arch i386"
-../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_i386"
+arch_flags="-arch i386 $sdk_flags"
+../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_i386" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install
 make clean

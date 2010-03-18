@@ -16,7 +16,7 @@ fi
 cd build
 
 # Export path so that we use the correct version of wxWidgets
-export PATH="$PREFIX_i386"/bin:"$PREFIX_i386"/sbin:$PATH
+export PATH="$PREFIX_i386_cocoa"/bin:"$PREFIX_i386_cocoa"/sbin:$PATH
 
 # Copy the Makefile
 cp ../../Makefile.in.osx ../../Makefile.in
@@ -35,7 +35,7 @@ mkdir libs
 cp /opt/local/lib/libusb-1.0.dylib libs
 
 # Export path so that we use the correct version of wxWidgets
-export PATH="$PREFIX_ppc"/bin:"$PREFIX_ppc"/sbin:$PATH
+export PATH="$PREFIX_ppc_cocoa"/bin:"$PREFIX_ppc_cocoa"/sbin:$PATH
 arch_flags="-arch ppc $sdk_flags"
 ../../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 
@@ -44,13 +44,30 @@ make -j 2
 make install
 
 # Copy the ppc version to the target dir.
-cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_ppc
+cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_ppc_cocoa
 
 # Cleanup before building again
 make clean
+make distclean
 
 # Export path so that we use the correct version of wxWidgets
-export PATH="$PREFIX_i386"/bin:"$PREFIX_i386"/sbin:$PATH
+export PATH="$PREFIX_x86_64_cocoa"/bin:"$PREFIX_x86_64_cocoa"/sbin:$PATH
+arch_flags="-arch x86_64 $sdk_flags"
+../../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
+
+# Build and install for x86_64
+make -j 2
+make install
+
+# Copy the ppc version to the target dir.
+cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_x86_64_cocoa
+
+# Cleanup before building again
+make clean
+make distclean
+
+# Export path so that we use the correct version of wxWidgets
+export PATH="$PREFIX_i386_cocoa"/bin:"$PREFIX_i386_cocoa"/sbin:$PATH
 arch_flags="-arch i386 $sdk_flags"
 ../../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 
@@ -59,14 +76,15 @@ make -j 2
 make install
 
 # Copy the ppc version to the target dir.
-cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_i386
+cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_i386_cocoa
 
 # Create the universal binary, everything else is "universal" anyways...
-lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
+lipo "$PREFIX_app"/usbpicprog_ppc_cocoa "$PREFIX_app"/usbpicprog_i386_cocoa "$PREFIX_app"/usbpicprog_x86_64_cocoa -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
 
 # Cleanup
-rm "$PREFIX_app"/usbpicprog_ppc 
-rm "$PREFIX_app"/usbpicprog_i386
+rm "$PREFIX_app"/usbpicprog_ppc_cocoa
+rm "$PREFIX_app"/usbpicprog_i386_cocoa
+rm "$PREFIX_app"/usbpicprog_x86_64_cocoa
 
 # Make an app of everything
 cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po

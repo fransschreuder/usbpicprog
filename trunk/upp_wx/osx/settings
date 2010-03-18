@@ -15,8 +15,17 @@ WORKDIR="$HOME/projects"
 PREFIX_ppc="$WORKDIR/sw/ppc"
 # This is where the i386 version of wxWidgets will be installed.
 PREFIX_i386="$WORKDIR/sw/i386"
+# This is where the ppc version of wxWidgets will be installed.
+PREFIX_ppc_cocoa="$WORKDIR/sw/ppc_cocoa"
+# This is where the i386 version of wxWidgets will be installed.
+PREFIX_i386_cocoa="$WORKDIR/sw/i386_cocoa"
+# This is where the i386 version of wxWidgets will be installed.
+PREFIX_x86_64_cocoa="$WORKDIR/sw/x86_64_cocoa"
 # This is were the final app will be placed
 PREFIX_app="$HOME/Temporary"
+# Setup which platform we need to support.
+# NOTE: You have to have the right SDK installed!
+sdk_flags=" -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.4"
 
 #################################
 ##   END OF SETTINGS, DO NOT   ##

@@ -1,5 +1,8 @@
 These instructions will allow you to build "usbpicprog" as a universal app.
-That means PPC and Intel 32-bit. Created by Gustav Johansson 2010-03-11
+That means PPC and Intel 32-bit. You can also build a Cocoa-version which
+also is x86_64 compatible. OS X version compability is 10.5+
+
+Created by Gustav Johansson 2010-03-11
 
 
 1. CONTENTS
@@ -54,5 +57,7 @@ a universal app by combining the builds internally.
 
 Run the create_disk_image.sh to create a disk image of the app.
 
-All done!
+All scripts with a "cocoa" in it is for Cocoa-build... NOTE: Cocoa is
+EXPERIMENTAL in wxWidgets!
 
+All done!
