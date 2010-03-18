@@ -1,3 +1,39 @@
+usbpicprog (868M-3) lucid; urgency=low
+
+  * karmic only
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:37:27 +0100
+
+usbpicprog (868M-2) karmic; urgency=low
+
+  * kamic only
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:37:15 +0100
+
+usbpicprog (868M-1) hardy; urgency=low
+
+  * dh_prep -> dh_clean -k in order to build on karmic
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:36:45 +0100
+
+usbpicprog (868-3) lucid; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:52 +0100
+
+usbpicprog (868-2) karmic; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:47 +0100
+
+usbpicprog (868-1) hardy; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:36 +0100
+
 usbpicprog (866-3) lucid; urgency=low
 
   * changes for hardy build
