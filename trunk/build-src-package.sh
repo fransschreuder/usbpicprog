@@ -8,10 +8,10 @@ then
   then
     DISTS=$2
   else
-    DISTS="karmic lucid"
+    DISTS="hardy karmic lucid"
   fi
 else
-  DISTS="karmic lucid"
+  DISTS="hardy karmic lucid"
   RELEASE=$(svnversion -n)
   RELEASE=${RELEASE:0:3}
 #-$(date +%Y%m%d)

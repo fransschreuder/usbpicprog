@@ -1,3 +1,53 @@
+usbpicprog (865-3) lucid; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:19 +0100
+
+usbpicprog (865-2) karmic; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:14 +0100
+
+usbpicprog (865-1) hardy; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:09 +0100
+
+usbpicprog (864-2) lucid; urgency=low
+
+  * I am sorry, I messed up uppPackage since r834. The addresses were
+    totally messed up, so any programming would fail... Fixed it now by
+    exchanging AddrU and AddrL (wrong order)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:18:14 +0100
+
+usbpicprog (864-1) karmic; urgency=low
+
+  * I am sorry, I messed up uppPackage since r834. The addresses were
+    totally messed up, so any programming would fail... Fixed it now by
+    exchanging AddrU and AddrL (wrong order)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:18:09 +0100
+
+usbpicprog (863-2) lucid; urgency=low
+
+  * Fixed messed up addressing in UppPackage (addrH and AddrL were exchanged since 834)
+
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:16:25 +0100
+
+usbpicprog (863-1) karmic; urgency=low
+
+  * Fixed messed up addressing in UppPackage (addrH and AddrL were exchanged since 834)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:15:05 +0100
+
 usbpicprog (851-3) lucid; urgency=low
 
   * call disconnect() after every USB read / write error, to avoid
