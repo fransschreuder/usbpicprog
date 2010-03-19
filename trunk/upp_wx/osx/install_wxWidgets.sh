@@ -68,7 +68,7 @@ arch_flags="-arch ppc $sdk_flags"
 ../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_ppc" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install
-make clean
+make distclean
 
 # Configure for i386 
 # NOTE: This is the magic line to make it work:
@@ -80,4 +80,4 @@ arch_flags="-arch i386 $sdk_flags"
 ../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_i386" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install
-make clean
+make distclean
