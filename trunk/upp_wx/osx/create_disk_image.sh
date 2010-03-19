@@ -7,7 +7,7 @@ source settings
 CURR_DIR=`pwd`
 
 # Get the release
-cd ../../..
+cd ../..
 RELEASE=`svnversion -n`
 cd "$CURR_DIR"
 
