@@ -33,6 +33,7 @@ mkdir -p src/usbpicprog.app/Contents/MacOS/output
 # Copy in the universal library libusb
 mkdir libs
 cp /opt/local/lib/libusb-1.0.dylib libs
+cp /opt/local/lib/libiconv.dylib libs
 
 # Export path so that we use the correct version of wxWidgets
 export PATH="$PREFIX_ppc_cocoa"/bin:"$PREFIX_ppc_cocoa"/sbin:$PATH
