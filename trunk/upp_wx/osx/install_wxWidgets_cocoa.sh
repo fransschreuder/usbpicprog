@@ -86,7 +86,12 @@ make clean
 # This forces wxWidgets to use the MacPorts installation of libiconv and
 # not the one bundled with Apple. THIS IS NECESSARY OR usbpicprog WILL FAIL
 # WHEN BUILDING!
-arch_flags="-arch x86_64 $sdk_flags"
+
+#Note: cocoa does not seem to work for 10.4, so we must use 10.5 here.
+unset MACOSX_DEPLOYMENT_TARGET
+export MACOSX_DEPLOYMENT_TARGET=10.5
+
+arch_flags="-arch x86_64 $sdk_flags_x86"
 ../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_x86_64_cocoa" --with-osx_cocoa CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install

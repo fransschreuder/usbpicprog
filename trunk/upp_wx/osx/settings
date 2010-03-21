@@ -28,6 +28,7 @@ PREFIX_app="$HOME/Temporary"
 # NOTE: You have to have the right SDK installed!
 export MACOSX_DEPLOYMENT_TARGET=10.4
 sdk_flags=" -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+sdk_flags_x86=" -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5"
 
 #################################
 ##   END OF SETTINGS, DO NOT   ##
