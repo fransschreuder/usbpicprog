@@ -36,8 +36,6 @@ cp /opt/local/lib/libusb-1.0.dylib libs
 cp /opt/local/lib/libiconv.dylib libs
 
 # Export path so that we use the correct version of wxWidgets
-export MACOSX_DEPLOYMENT_TARGET=10.4
-export CC="gcc-4.0" 
 export PATH="$PREFIX_ppc"/bin:"$PREFIX_ppc"/sbin:$PATH
 arch_flags="-arch ppc $sdk_flags"
 ../../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
@@ -87,7 +85,7 @@ LIBPATH="libs"
 NEWLIBPATH="@executable_path/../SharedSupport"
 
 # space separated list of libraries
-TARGETS="libusb-1.0.dylib libiconv.dylib"
+TARGETS="libusb-1.0.dylib libiconv.dylib "
 for TARGET in ${TARGETS} ; do
 	LIBFILE=${LIBPATH}/${TARGET}
 	cp ${LIBFILE} src/usbpicprog.app/Contents/SharedSupport

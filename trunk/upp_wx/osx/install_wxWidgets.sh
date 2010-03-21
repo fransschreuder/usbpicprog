@@ -62,8 +62,6 @@ qt_flags="--enable-mediactrl=no --enable-sound=no --with-libtiff=no"
 # This forces wxWidgets to use the MacPorts installation of libiconv and
 # not the one bundled with Apple. THIS IS NECESSARY OR usbpicprog WILL FAIL
 # WHEN BUILDING!
-export MACOSX_DEPLOYMENT_TARGET=10.4
-export CC="gcc-4.0"
 arch_flags="-arch ppc $sdk_flags"
 ../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_ppc" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2

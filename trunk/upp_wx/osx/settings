@@ -23,9 +23,11 @@ PREFIX_i386_cocoa="$WORKDIR/sw/i386_cocoa"
 PREFIX_x86_64_cocoa="$WORKDIR/sw/x86_64_cocoa"
 # This is were the final app will be placed
 PREFIX_app="$HOME/Temporary"
+
 # Setup which platform we need to support.
 # NOTE: You have to have the right SDK installed!
-sdk_flags=" -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.4"
+export MACOSX_DEPLOYMENT_TARGET=10.4
+sdk_flags=" -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
 
 #################################
 ##   END OF SETTINGS, DO NOT   ##

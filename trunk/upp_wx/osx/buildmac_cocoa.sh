@@ -103,7 +103,7 @@ LIBPATH="libs"
 NEWLIBPATH="@executable_path/../SharedSupport"
 
 # space separated list of libraries
-TARGETS="libusb-1.0.dylib "
+TARGETS="libusb-1.0.dylib libiconv.dylib "
 for TARGET in ${TARGETS} ; do
 	LIBFILE=${LIBPATH}/${TARGET}
 	cp ${LIBFILE} src/usbpicprog.app/Contents/SharedSupport
