@@ -42,7 +42,7 @@
 // ----------------------------------------------------------------------------
 
 UppConfigViewBook::UppConfigViewBook(wxWindow* parent, wxWindowID id)
-    : wxListbook( parent, id, wxDefaultPosition, wxDefaultSize, wxLB_DEFAULT )
+    : wxListbook( parent, id, wxDefaultPosition, wxDefaultSize, wxLB_LEFT )
 {
 }
 
