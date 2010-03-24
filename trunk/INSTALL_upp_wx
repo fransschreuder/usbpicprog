@@ -2,8 +2,9 @@
 Compilation In Linux
 --------------------
 
-Get the latest version of wxWidgets (development version) and libusb (development version)
+Get the latest version of wxWidgets-2.9 (development version) and libusb-1.0 (development version)
 Run the following commands.
+You might also want to have libglib2.0-dev, automake, autoconf, intltool and some other packages
 
 ./autogen.sh
 ./configure
@@ -13,8 +14,14 @@ make install
 Compilation in Windows
 ----------------------
 
-Get wxDevCpp and libusb-win32
-Open usbpicprog.dev in wxDevCpp and compile.
+-download and extract wxWidgets-2.9.0
+-download and install MS visual studio 2008
+-start the "ms Visual Studio 2008 command prompt" which is in fact just cmd.exe with some environment variables set
+-cd wxWidgets\build\msw
+-nmake -f makefile.vc
+-set an environment variable WXWIN with the value c:\wxWidgets-2.9.0 (or wherever you have compiled it) and don't forget to reboot afterwards
+-now open the right usbpicprog project (usbpicprog\trunk\upp_wx\build\win\upp_wx_vc2008.vcproj)
+-you might have to set some include directories, or move around with some files if it doesn't compile right away, but in fact it should compile now!
 
 
 
