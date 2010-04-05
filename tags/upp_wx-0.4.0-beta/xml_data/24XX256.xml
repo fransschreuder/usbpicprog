@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2010 Frans Schreuder <info@usbpicprog.org>             *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24XX256" document="24XX256" status="IP" memory_technology="FLASH" self_write="no" architecture="24XX" id="0x0000">
+
+
+  <voltages name="vpp"      min="0" max="0" nominal="0" />
+  <voltages name="vdd_prog" min="2.7"   max="5.5"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"      start="0x0000" end="0x7FFF" /> 
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic ssop" nb_pins="8" >
+    <pin index="1" name="A0"                  />
+    <pin index="2" name="A1" />
+    <pin index="3" name="A2"  />
+    <pin index="4" name="GND"         />
+    <pin index="5" name="SDA/PGD"   />
+    <pin index="6" name="SCL/PGC"     />
+    <pin index="7" name="WP"     />
+    <pin index="8" name="VCC/VDD"                  />
+  </package>
+
+</device>

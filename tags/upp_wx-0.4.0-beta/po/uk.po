@@ -1,0 +1,1205 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: usbpicprog 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-01 10:05+0100\n"
+"PO-Revision-Date: 2010-02-24 08:23+0100\n"
+"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
+"Language-Team: Ukrainian <usbpicprog-technical@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Ukrainian\n"
+"X-Poedit-Country: UKRAINE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../src\n"
+
+#: src/uppmainwindow.cpp:1396 src/uppmainwindow.cpp:1425
+#: src/uppmainwindow.cpp:1427
+msgid " Connected"
+msgstr " З'єднаний"
+
+#: src/uppmainwindow.cpp:926
+#, c-format
+msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr " збій в 0x%X. Прочитано: 0x%02X, Очікувалось: 0x%02X"
+
+#: src/uppmainwindow.cpp:531
+#, c-format
+msgid "%s [%d pins]"
+msgstr "%s [%d pins]"
+
+#: src/uppmainwindow.cpp:506
+#, c-format
+msgid "%s datasheet"
+msgstr "спеціфікація %s"
+
+#: src/uppmainwindow_base.cpp:221
+msgid "&About"
+msgstr "Про програму"
+
+#: src/uppmainwindow.cpp:296
+msgid "&Actions"
+msgstr "Дії"
+
+#: src/uppmainwindow.cpp:219
+msgid "&Autodetect..."
+msgstr "Автовизначення..."
+
+#: src/uppmainwindow.cpp:215
+msgid "&Blankcheck..."
+msgstr "Перевірка на \"чистоту\"..."
+
+#: src/io_test_base.cpp:178
+#, fuzzy
+msgid "&Close"
+msgstr "Код"
+
+#: src/uppmainwindow.cpp:223
+msgid "&Connect..."
+msgstr "З'єднатись..."
+
+#: src/uppmainwindow_base.cpp:193
+msgid "&Copy"
+msgstr "Копіювати"
+
+#: src/uppmainwindow.cpp:227
+msgid "&Disconnect..."
+msgstr "Роз'єднатись..."
+
+#: src/uppmainwindow_base.cpp:200
+msgid "&Edit"
+msgstr "Правка"
+
+#: src/uppmainwindow.cpp:206
+msgid "&Erase..."
+msgstr "Очистити..."
+
+#: src/uppmainwindow_base.cpp:189
+msgid "&File"
+msgstr "Файл"
+
+#: src/uppmainwindow_base.cpp:215 src/uppmainwindow_base.cpp:224
+msgid "&Help"
+msgstr "Допомога"
+
+#: src/uppmainwindow_base.cpp:208
+msgid "&IO Test"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:166
+msgid "&New"
+msgstr "Новий"
+
+#: src/uppmainwindow_base.cpp:170
+msgid "&Open"
+msgstr "Відкрити"
+
+#: src/uppmainwindow_base.cpp:211
+#, fuzzy
+msgid "&Options"
+msgstr "Дії"
+
+#: src/uppmainwindow_base.cpp:204
+msgid "&Preferences"
+msgstr "Уподобання"
+
+#: src/uppmainwindow.cpp:194
+msgid "&Program..."
+msgstr "Запрограмувати..."
+
+#: src/uppmainwindow.cpp:198
+msgid "&Read..."
+msgstr "Прочитати..."
+
+#: src/uppmainwindow_base.cpp:174
+msgid "&Reload"
+msgstr "Перечитати"
+
+#: src/uppmainwindow_base.cpp:178
+msgid "&Save"
+msgstr "Зберегти"
+
+#: src/uppmainwindow.cpp:259
+msgid "&Select PIC..."
+msgstr "Вибрати PIC..."
+
+#: src/uppmainwindow.cpp:202
+msgid "&Verify..."
+msgstr "Перевірити..."
+
+#: src/io_test_base.cpp:45 src/io_test_base.cpp:85 src/io_test_base.cpp:111
+#: src/io_test_base.cpp:115 src/io_test_base.cpp:151 src/io_test_base.cpp:155
+msgid "0V"
+msgstr ""
+
+#: src/io_test_base.cpp:35
+msgid "12V"
+msgstr ""
+
+#: src/io_test_base.cpp:108 src/io_test_base.cpp:148
+msgid "3.3V"
+msgstr ""
+
+#: src/io_test_base.cpp:42 src/io_test_base.cpp:75 src/io_test_base.cpp:101
+#: src/io_test_base.cpp:141
+msgid "5V"
+msgstr ""
+
+#: src/uppmainwindow.cpp:659 src/uppmainwindow.cpp:663
+msgid "All operations completed"
+msgstr "Всі операції завершено"
+
+#: src/uppmainwindow.cpp:1464 src/uppmainwindow.cpp:1465
+#: src/uppmainwindow.cpp:1470 src/uppmainwindow.cpp:1471
+msgid "Already disconnected"
+msgstr "Вже відключений"
+
+#: src/uppmainwindow.cpp:1501
+msgid "An open source USB pic programmer"
+msgstr "USB програматор з відкритим кодом для пристроїв PIC"
+
+#: src/uppmainwindow.cpp:990
+#, c-format
+msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr ""
+"Збій перевірки на чистоту в 0x%X. Прочитано: 0x%02X, Очікувалось: 0x%02X"
+
+#: src/uppmainwindow.cpp:216
+msgid "Blankcheck the PIC device"
+msgstr "Перевірити пристрій PIC на порожні значення"
+
+#: src/uppmainwindow.cpp:1436 src/uppmainwindow.cpp:1438
+msgid "Bootloader or programmer not found"
+msgstr "Завантажувач або програматор не виявлено"
+
+#: src/packageview.cpp:65
+#, fuzzy
+msgid "Can't create the package bitmap!"
+msgstr "Неможливо створити робочий тред!"
+
+#: src/packageview.cpp:71
+msgid "Can't draw the PIC package!"
+msgstr ""
+
+#: src/pictype.cpp:160
+#, fuzzy, c-format
+msgid "Cannot load '%s'."
+msgstr "Неможливо прочитати XML-дані PIC"
+
+#: src/main.cpp:89
+msgid "Cannot load XML PIC data."
+msgstr "Неможливо прочитати XML-дані PIC"
+
+#: src/uppmainwindow.cpp:1534 src/uppmainwindow.cpp:1561
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "Не можу вибрати інший PIC коли приєднаний завантажувач!"
+
+#: src/uppmainwindow.cpp:260
+msgid "Change the currently selected PIC"
+msgstr "Вибрати інший PIC"
+
+#: src/uppmainwindow.cpp:970
+msgid "Checking if the device is blank..."
+msgstr "Перевіряю чи пристрій чистий..."
+
+#: src/uppmainwindow_base.cpp:33
+msgid "Code"
+msgstr "Код"
+
+#: src/hexfile.cpp:701
+#, fuzzy
+msgid "Code Memory\n"
+msgstr "Об'єм пам'яті коду:"
+
+#: src/uppmainwindow_base.cpp:90
+msgid "Code memory size:"
+msgstr "Об'єм пам'яті коду:"
+
+#: src/uppmainwindow.cpp:519
+#, c-format
+msgid "Code memory size: %d bytes"
+msgstr "Об'єм пам'яті коду: %d байтів"
+
+#: src/configview.cpp:137
+msgid "Configuration Word:"
+msgstr "Слово конфігурації:"
+
+#: src/uppmainwindow_base.cpp:63
+msgid "Configuration flags"
+msgstr "Прапори конфігурації"
+
+#: src/uppmainwindow_base.cpp:53
+msgid "Configuration flags for this PIC:"
+msgstr "Прапори конфігурації пристрою PIC:"
+
+#: src/uppmainwindow.cpp:224
+msgid "Connect to the programmer"
+msgstr "З'єднатись з програматором"
+
+#: src/uppmainwindow_base.cpp:193
+msgid "Copies to the clipboard currently selected cells"
+msgstr "Копіює вибрані комірки в кишеню"
+
+#: src/hexview.cpp:209
+msgid "Copy"
+msgstr "Копіювати"
+
+#: src/pictype.cpp:237
+msgid "Could not access the 'xml_data' folder."
+msgstr "Неможливо отримати доступ до папки 'xml_data'."
+
+#: src/uppmainwindow.cpp:1045
+msgid "Could not create the worker thread!"
+msgstr "Неможливо створити робочий тред!"
+
+#: src/main.cpp:104
+msgid "Could not initialize libusb!"
+msgstr ""
+
+#: src/pictype.cpp:105 src/pictype.cpp:125 src/pictype.cpp:216
+#, c-format
+msgid "Could not load data for PIC '%s'."
+msgstr ""
+
+#: src/hexfile.cpp:339
+msgid "Could not open Hex file for writing..."
+msgstr ""
+
+#: src/hexfile.cpp:101
+#, fuzzy
+msgid "Could not open Hex file..."
+msgstr "не виводити HEX-файл"
+
+#: src/uppmainwindow.cpp:1051
+msgid "Could not run the worker thread!"
+msgstr "Неможливо виконати робочий тред!"
+
+#: src/hardware.cpp:146
+#, c-format
+msgid "Couldn't reset the USB device interface: %s"
+msgstr ""
+
+#: src/configview.cpp:154
+#, c-format
+msgid ""
+"Current value for the %d-th configuration word as derived from above "
+"configuration choices"
+msgstr ""
+"Поточне значення %d-го слова конфігурації згідно опцій конфігурації вгорі"
+
+#: src/uppmainwindow_base.cpp:48
+msgid "Data"
+msgstr "Дані"
+
+#: src/hexfile.cpp:223
+msgid "Data in hex file outside code memory of PIC"
+msgstr ""
+
+#: src/hexfile.cpp:159
+msgid "Data in hex file outside config memory of PIC"
+msgstr ""
+
+#: src/hexfile.cpp:208
+msgid "Data in hex file outside data memory of PIC"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:94
+msgid "Data memory size:"
+msgstr "Об'єм пам'яті даних:"
+
+#: src/uppmainwindow.cpp:520
+#, c-format
+msgid "Data memory size: %d bytes"
+msgstr "Об'єм пам'яті даних: %d байтів"
+
+#: src/uppmainwindow_base.cpp:71
+msgid "Datasheet"
+msgstr "Спеціфікації"
+
+#: src/uppmainwindow.cpp:220
+msgid "Detect the type of the PIC device"
+msgstr "Визначити тип пристрою PIC"
+
+#: src/uppmainwindow.cpp:1365
+#, c-format
+msgid "Detected PIC model %s with device ID 0x%X"
+msgstr "Виявлена модель PIC %s із ID пристрою 0x%X"
+
+#: src/uppmainwindow_base.cpp:86
+msgid "Device ID:"
+msgstr "ID пристрою:"
+
+#: src/uppmainwindow.cpp:518
+#, c-format
+msgid "Device ID: 0x%X"
+msgstr "ID Пристрою: 0x%X"
+
+#: src/uppmainwindow.cpp:978
+msgid "Device is blank"
+msgstr "Пристрій чистий"
+
+#: src/uppmainwindow.cpp:995
+msgid "Device is not blank."
+msgstr "Пристрій не чистий."
+
+#: src/uppmainwindow.cpp:228
+msgid "Disconnect from the programmer"
+msgstr "Від'єднатись від програматора"
+
+#: src/uppmainwindow.cpp:1458 src/uppmainwindow.cpp:1460
+msgid "Disconnected"
+msgstr "Відключений"
+
+#: src/uppmainwindow_base.cpp:186
+msgid "E&xit"
+msgstr "Вихід"
+
+#: src/hexview.cpp:207
+msgid "Edit"
+msgstr "Правка"
+
+#: src/uppmainwindow.cpp:754
+msgid "Erase OK"
+msgstr "Очищено вдало"
+
+#: src/preferences_base.cpp:38
+msgid "Erase before programming"
+msgstr "Очистити перед записом"
+
+#: src/uppmainwindow.cpp:207
+msgid "Erase the PIC device"
+msgstr "Очистити пристрій PIC"
+
+#: src/uppmainwindow.cpp:951
+msgid "Erasing all areas of the PIC..."
+msgstr "Очищаю всі області пристрою..."
+
+#: src/uppmainwindow.cpp:749
+msgid "Erasing before programming..."
+msgstr "Очистити перед записом..."
+
+#: src/hardware.cpp:180
+#, fuzzy, c-format
+msgid "Error claiming the USB device interface: %s"
+msgstr "Помилка під час очистки пристрою"
+
+#: src/main.cpp:263 src/uppmainwindow.cpp:757 src/uppmainwindow.cpp:955
+#: src/uppmainwindow.cpp:1306
+msgid "Error erasing the device"
+msgstr "Помилка під час очистки пристрою"
+
+#: src/hardware.cpp:194 src/hardware.cpp:204
+#, c-format
+msgid "Error getting USB endpoint descriptor: %s"
+msgstr ""
+
+#: src/hexfile.cpp:135
+msgid "Error in checksum..."
+msgstr ""
+
+#: src/uppmainwindow.cpp:788
+msgid "Error programming code memory"
+msgstr "Помилка програмування пам'яті коду"
+
+#: src/uppmainwindow.cpp:847
+msgid "Error programming config memory"
+msgstr "Помилка програмування пам'яті конфігурації"
+
+#: src/uppmainwindow.cpp:817
+msgid "Error programming data memory"
+msgstr "Помилка запису пам'яті даних"
+
+#: src/uppmainwindow.cpp:867
+msgid "Error reading code memory"
+msgstr "Помилка читання пам'яті коду"
+
+#: src/uppmainwindow.cpp:888
+msgid "Error reading configuration memory"
+msgstr "Помилка читання пам'яті конфігурації"
+
+#: src/uppmainwindow.cpp:877
+msgid "Error reading data memory"
+msgstr "Помилка читання пам'яті даних"
+
+#: src/main.cpp:264 src/uppmainwindow.cpp:1307
+#, fuzzy
+msgid "Error restoring Calibration Registers"
+msgstr "Помилка читання пам'яті конфігурації"
+
+#: src/hardware.cpp:169
+#, fuzzy, c-format
+msgid "Error setting configuration of the USB device: %s"
+msgstr "Помилка читання пам'яті конфігурації"
+
+#: src/uppmainwindow_base.cpp:186
+msgid "Exits the program"
+msgstr "Виходить в програми"
+
+#: src/io_test_base.cpp:49 src/io_test_base.cpp:82 src/io_test.cpp:90
+#: src/io_test.cpp:100 src/io_test.cpp:110 src/io_test.cpp:120
+msgid "FLOAT"
+msgstr ""
+
+#: src/hexfile.cpp:119
+msgid "Failure in hex file..."
+msgstr ""
+
+#: src/uppmainwindow.cpp:455
+msgid "Firmware probably too new"
+msgstr "Прошивка надто нова"
+
+#: src/uppmainwindow_base.cpp:137 src/uppmainwindow_base.cpp:139
+msgid "Fit package drawing"
+msgstr "По розміру корпуса"
+
+#: src/uppmainwindow_base.cpp:82
+msgid ""
+"Frequency range:\n"
+"   MIN\n"
+"   MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: src/uppmainwindow.cpp:517
+#, c-format
+msgid ""
+"Frequency range:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
+msgstr ""
+"Частотний діапазон:\n"
+"   Мінімальна=%.2fМГц\n"
+"   Максимальна=%.2fМГц"
+
+#: src/preferences_base.cpp:66
+msgid "GUI options"
+msgstr "Опції GUI"
+
+#: src/preferences_base.cpp:19
+msgid "Global settings for Usbpicprog:"
+msgstr "Глобальні налаштування для Usbpicprog:"
+
+#: src/uppmainwindow_base.cpp:23
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr "Шістнадцятковий вигляд області коду пристрою PIC:"
+
+#: src/uppmainwindow_base.cpp:38
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr "Шістнадцятковий вигляд області даних пристрою PIC:"
+
+#: src/uppmainwindow.cpp:939 src/uppmainwindow.cpp:1004
+msgid "I'm sorry for being stupid"
+msgstr "Вибачайте шо дурний"
+
+#: src/io_test_base.cpp:122
+msgid "INPUT"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1025
+msgid "Initializing..."
+msgstr "Починаю..."
+
+#: src/pictype.cpp:166
+#, c-format
+msgid "Invalid '%s' file."
+msgstr ""
+
+#: src/pictype.cpp:188
+#, c-format
+msgid "Invalid PIC family for PIC '%s'."
+msgstr ""
+
+#: src/pictype.cpp:779
+msgid "Invalid direction"
+msgstr ""
+
+#: src/pictype.cpp:799
+#, c-format
+msgid "Invalid odd pin count: %d"
+msgstr ""
+
+#: src/pictype.cpp:849
+#, c-format
+msgid "Invalid pin count: %d"
+msgstr ""
+
+#: src/configview.cpp:173
+#, c-format
+msgid "Length: %d bits"
+msgstr "Довжина: %d біт"
+
+#: src/uppmainwindow_base.cpp:170
+msgid "Loads an HEX file for editing or programming..."
+msgstr "Завантажує HEX-файл для редагування чи програмування..."
+
+#: src/configview.cpp:169
+#, c-format
+msgid "Location in memory: 0x%X"
+msgstr "Положення в пам'яті: 0x%X"
+
+#: src/uppmainwindow_base.cpp:69
+msgid "Miscellaneous"
+msgstr "Різне"
+
+#: src/uppmainwindow.cpp:1358
+msgid "No PIC detected!"
+msgstr "Не знайдено пристрій PIC!"
+
+#: src/uppmainwindow.cpp:1360
+#, c-format
+msgid "No PIC detected! Selecting the default PIC (%s)..."
+msgstr "Не виявлено PIC! Вибираю PIC за замовчуванням (%s)..."
+
+#: src/hardware.cpp:719
+msgid "No data to verify"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1123 src/uppmainwindow.cpp:1124
+msgid "No file to refresh"
+msgstr "Нічого оновлювати"
+
+#: src/uppmainwindow_base.cpp:148
+msgid "Note: red pins are (some of those) used in ICSP."
+msgstr "Увага: червоні ніжки використовуються для ICSP."
+
+#: src/uppmainwindow.cpp:1261
+msgid "Only valid for PIC12F629, PIC12F508 and similar devices..."
+msgstr ""
+
+#: src/uppmainwindow.cpp:1087
+msgid "Open hexfile"
+msgstr "Відкрити HEX-файл"
+
+#: src/uppmainwindow_base.cpp:215
+msgid "Opens the Usbpicprog's website..."
+msgstr "Відкриває сайт Usbpicprog..."
+
+#: src/uppmainwindow.cpp:623
+msgid "Operations aborted"
+msgstr "Операції скасовано"
+
+#: src/uppmainwindow.cpp:665
+msgid "Operations completed with errors/warnings"
+msgstr "Операції завершено з помилками/попередженнями"
+
+#: src/io_test_base.cpp:134
+msgid "PGC"
+msgstr ""
+
+#: src/io_test_base.cpp:94
+msgid "PGD"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:157
+msgid "PIC info"
+msgstr "відомості про PIC"
+
+#: src/uppmainwindow_base.cpp:105
+msgid "Package"
+msgstr "Корпус"
+
+#: src/uppmainwindow.cpp:428
+msgid "Please confirm"
+msgstr "Будь-ласка підтвердіть"
+
+#: src/main.cpp:259
+msgid "Please specify a BandGap Value between 0 and 3"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1300
+msgid "Please specify a bandgap value"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1279
+msgid "Please specify a new Osccal Value [3400 - 37FF]"
+msgstr ""
+
+#: src/main.cpp:250 src/uppmainwindow.cpp:1287
+msgid "Please specify an Oscal Value between 3400 and 37FF"
+msgstr ""
+
+#: src/uppmainwindow.cpp:611
+msgid "Please wait until the operations are completed:\n"
+msgstr "Будь-ласка дочекайтесь закінчення всіх операцій:\n"
+
+#: src/preferences_base.h:51
+msgid "Preferences"
+msgstr "Уподобання"
+
+#: src/preferences_base.cpp:24
+msgid "Program options"
+msgstr "Опції програми"
+
+#: src/uppmainwindow.cpp:195
+msgid "Program the PIC device"
+msgstr "Запрограмувати пристрій PIC"
+
+#: src/uppmainwindow.cpp:827
+msgid "Programming configuration area of the PIC..."
+msgstr "Програмую область конфігурації пристрою..."
+
+#: src/uppmainwindow.cpp:766
+msgid "Programming the code area of the PIC..."
+msgstr "Програмую область коду пристрою..."
+
+#: src/uppmainwindow.cpp:797
+msgid "Programming the data area of the PIC..."
+msgstr "Програмую область даних пристрою..."
+
+#: src/uppmainwindow_base.cpp:74
+msgid ""
+"Programming voltage (Vpp):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: src/uppmainwindow.cpp:512
+#, c-format
+msgid ""
+"Programming voltage (Vpp):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+"Напруга програмування (Vpp):\n"
+"   Мінімальна=%.2fV\n"
+"   Номінальна=%.2fV\n"
+"   Максимальна=%.2fV"
+
+#: src/uppmainwindow.cpp:1024
+msgid "Progress dialog"
+msgstr "Діалог поступу"
+
+#: src/io_test_base.cpp:56
+msgid "RESET"
+msgstr ""
+
+#: src/uppmainwindow.cpp:199
+msgid "Read the PIC device"
+msgstr "Прочитати пристрій PIC"
+
+#: src/uppmainwindow.cpp:864
+msgid "Reading the code area of the PIC..."
+msgstr "Читаю область коду пристрою..."
+
+#: src/uppmainwindow.cpp:885
+msgid "Reading the configuration area of the PIC..."
+msgstr "Читаю область конфігурації пристрою..."
+
+#: src/uppmainwindow.cpp:874
+msgid "Reading the data area of the PIC..."
+msgstr "Читаю область даних пристрою..."
+
+#: src/uppmainwindow_base.cpp:174
+msgid "Reloads the current HEX file from disk"
+msgstr "Перечитує поточний HEX-файл з диску"
+
+#: src/uppmainwindow_base.cpp:166
+msgid ""
+"Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "Очищає області коду, конфігурації та даних поточного HEX-файлу"
+
+#: src/main.h:105
+msgid "Restore BandGap Register"
+msgstr ""
+
+#: src/uppmainwindow.cpp:211
+msgid "Restore Cal regs..."
+msgstr ""
+
+#: src/main.h:104
+msgid "Restore Osccal Register"
+msgstr ""
+
+#: src/uppmainwindow.cpp:212
+msgid "Restore PIC's calibration registers"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:182
+msgid "Save &As"
+msgstr "Зберегти як"
+
+#: src/uppmainwindow.cpp:1161
+msgid "Save hexfile"
+msgstr "Зберегти HEX-файл"
+
+#: src/uppmainwindow_base.cpp:182
+msgid "Saves current code,config,data as a HEX file"
+msgstr "Зберігає поточний код, конфігурацію та дані у HEX-файл"
+
+#: src/uppmainwindow_base.cpp:178
+msgid "Saves the HEX file with the modified data"
+msgstr "Зберігає змінені дані у HEX-файл"
+
+#: src/uppmainwindow_base.cpp:197
+msgid "Select &All"
+msgstr "Вибрати все"
+
+#: src/hexview.cpp:210
+msgid "Select All"
+msgstr "Вибрати все"
+
+#: src/uppmainwindow_base.cpp:197
+msgid "Selects the entire grid currently shown"
+msgstr "Вибирає всю відображену сітку"
+
+#: src/uppmainwindow_base.cpp:221
+msgid "Shows informations about this program"
+msgstr "Показує інформацію про цю програму"
+
+#: src/preferences_base.cpp:68
+msgid "Shows popups on connect etc..."
+msgstr "Показує сповіщення при з'єднанні і т.п."
+
+#: src/uppmainwindow_base.cpp:204 src/uppmainwindow_base.cpp:208
+msgid "Shows the options for this program"
+msgstr "Показує опції програми"
+
+#: src/uppmainwindow.cpp:1300
+msgid "Specify a bandgap value"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1280
+msgid "Specify a new Osccal Value"
+msgstr ""
+
+#: src/io_test_base.cpp:52 src/io_test_base.cpp:78 src/io_test_base.cpp:104
+#: src/io_test_base.cpp:144
+msgid "State:"
+msgstr ""
+
+#: src/uppmainwindow.cpp:515
+#, c-format
+msgid ""
+"Supply voltage (Vdd):\n"
+"   Min=%.2fV\n"
+"   Nom=%.2fV\n"
+"   Max=%.2fV"
+msgstr ""
+"Напруга живлення (Vdd):\n"
+"   Мінімальна=%.2fV\n"
+"   Номінальна=%.2fV\n"
+"   Максимальна=%.2fV"
+
+#: src/uppmainwindow.cpp:425
+#, c-format
+msgid ""
+"The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "HEX-файл '%s' не збережено... його вміст буде втрачено; продовжити?"
+
+#: src/uppmainwindow.cpp:776 src/uppmainwindow.cpp:808
+#: src/uppmainwindow.cpp:838
+msgid "The hardware should ask for next block"
+msgstr "Залізо повинно запитати наступний блок"
+
+#: src/uppmainwindow.cpp:773 src/uppmainwindow.cpp:805
+#: src/uppmainwindow.cpp:835
+msgid "The hardware should say OK"
+msgstr "Залізо повинно сказати \"Гаразд\""
+
+#: src/uppmainwindow.cpp:1202 src/uppmainwindow.cpp:1214
+#: src/uppmainwindow.cpp:1231 src/uppmainwindow.cpp:1243
+#: src/uppmainwindow.cpp:1266 src/uppmainwindow.cpp:1316
+#: src/uppmainwindow.cpp:1328
+msgid "The programmer is not connected"
+msgstr "Програматор не приєднано"
+
+#: src/main.cpp:80
+msgid ""
+"This is a 32bit application running under a 64bit Window version. UsbPicProg "
+"won't be able to connect to the hardware!\n"
+"Please uninstall this program and download the UsbPicProg installer for "
+"64bit operating systems."
+msgstr ""
+
+#: src/hardware.cpp:508
+#, c-format
+msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:98
+msgid "Type:"
+msgstr "Тип:"
+
+#: src/uppmainwindow.cpp:521
+#, c-format
+msgid "Type: %d-bit microcontroller"
+msgstr "Тип: мікроконтролер %d-біт"
+
+#: src/uppmainwindow.cpp:998
+msgid "USB error during blankcheck"
+msgstr "Помилка USB при перевірці на чистоту"
+
+#: src/uppmainwindow.cpp:933
+msgid "USB error during verify"
+msgstr "помилка USB при перевірці"
+
+#: src/hardware.cpp:925
+#, fuzzy, c-format
+msgid "USB error while reading: %s"
+msgstr "помилка USB під час запису пам'яті коду"
+
+#: src/uppmainwindow.cpp:785 src/uppmainwindow.cpp:814
+#: src/uppmainwindow.cpp:844
+msgid "USB error while writing code memory"
+msgstr "помилка USB під час запису пам'яті коду"
+
+#: src/hardware.cpp:943
+#, fuzzy, c-format
+msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
+msgstr "помилка USB під час запису пам'яті коду"
+
+#: src/uppmainwindow.cpp:1103 src/uppmainwindow.cpp:1104
+#: src/uppmainwindow.cpp:1133 src/uppmainwindow.cpp:1134
+msgid "Unable to open file"
+msgstr "Неможливо відкрити файл"
+
+#: src/uppmainwindow.cpp:1390 src/uppmainwindow.cpp:1391
+msgid "Unable to read firmware version"
+msgstr "Неможливо прочитати версію прошивки"
+
+#: src/uppmainwindow.cpp:1420 src/uppmainwindow.cpp:1421
+msgid "Unable to read version"
+msgstr "Неможливо прочитати версію"
+
+#: src/uppmainwindow.cpp:1149 src/uppmainwindow.cpp:1150
+#: src/uppmainwindow.cpp:1171 src/uppmainwindow.cpp:1172
+msgid "Unable to save file"
+msgstr "Неможливо зберегти файл"
+
+#: src/uppmainwindow.cpp:1001
+msgid "Unknown error during blankcheck"
+msgstr "Невідома помилка при перевірці на чистоту"
+
+#: src/uppmainwindow.cpp:936
+msgid "Unknown error during verify"
+msgstr "Невідома помилка при перевірці"
+
+#: src/uppmainwindow_base.h:103
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
+
+#: src/io_test.h:53
+#, fuzzy
+msgid "Usbpicprog IO Test"
+msgstr "Usbpicprog: "
+
+#: src/uppmainwindow.cpp:474
+msgid "Usbpicprog rev: "
+msgstr "Usbpicprog rev: "
+
+#: src/uppmainwindow.cpp:476
+msgid "Usbpicprog: "
+msgstr "Usbpicprog: "
+
+#: src/io_test_base.cpp:68
+msgid "VDD"
+msgstr ""
+
+#: src/io_test_base.cpp:28
+msgid "VPP"
+msgstr ""
+
+#: src/uppmainwindow_base.cpp:110
+msgid "Variants:"
+msgstr "Варіанти:"
+
+#: src/preferences_base.cpp:42
+msgid "Verify after programming"
+msgstr "Перевірити після запису"
+
+#: src/uppmainwindow.cpp:921
+msgid "Verify code"
+msgstr "Перевірка коду"
+
+#: src/preferences_base.cpp:51
+msgid "Verify code memory"
+msgstr "Перевірити пам'ять коду"
+
+#: src/uppmainwindow.cpp:923
+msgid "Verify config"
+msgstr "Перевірка конфігурації"
+
+#: src/preferences_base.cpp:55
+msgid "Verify config memory"
+msgstr "Перевірити пам'ять конфігурації"
+
+#: src/uppmainwindow.cpp:922
+msgid "Verify data"
+msgstr "Перевірка даних"
+
+#: src/preferences_base.cpp:59
+msgid "Verify data memory"
+msgstr "Перевірити пам'ять даних"
+
+#: src/uppmainwindow.cpp:782
+msgid "Verify error while writing code memory"
+msgstr "Помилка перевірки під час запису пам'яті коду"
+
+#: src/preferences_base.cpp:49
+msgid "Verify options"
+msgstr "Опції перевірки"
+
+#: src/uppmainwindow.cpp:916
+msgid "Verify successful"
+msgstr "Перевірено успішно"
+
+#: src/uppmainwindow.cpp:203
+msgid "Verify the PIC device"
+msgstr "Перевірити пристрій PIC"
+
+#: src/uppmainwindow.cpp:924
+msgid "Verify unknown"
+msgstr "Перевірко невідомо"
+
+#: src/uppmainwindow.cpp:903
+msgid "Verifying all areas of the PIC..."
+msgstr "Перевіряю всі області пристрою..."
+
+#: src/io_test_base.cpp:38
+msgid "Voltage:"
+msgstr ""
+
+#: src/configview.cpp:191
+#, c-format
+msgid "Word %d"
+msgstr "Слово %d"
+
+#: src/uppmainwindow_base.cpp:78
+msgid ""
+"Working voltages (Vdd):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: src/uppmainwindow.cpp:770
+msgid "Write Code memory OK"
+msgstr "Запис пам'яті коду вдалий"
+
+#: src/uppmainwindow.cpp:832
+msgid "Write Config memory OK"
+msgstr "Запис пам'яті конфігурації вдалий"
+
+#: src/uppmainwindow.cpp:802
+msgid "Write Data memory OK"
+msgstr "Запис пам'яті даних вдалий"
+
+#: src/preferences_base.cpp:26
+msgid "Write code memory"
+msgstr "Записати пам'ять коду"
+
+#: src/uppmainwindow.cpp:779
+msgid "Write code not implemented for current PIC"
+msgstr "Запис коду для даного пристрою PIC не втілено"
+
+#: src/preferences_base.cpp:30
+msgid "Write config memory"
+msgstr "Записати пам'ять конфігурації"
+
+#: src/uppmainwindow.cpp:841
+msgid "Write config not implemented for current PIC"
+msgstr "Запис конфігурації для даної моделі пристрою PIC не втілено"
+
+#: src/preferences_base.cpp:34
+msgid "Write data memory"
+msgstr "Записати пам'ять даних"
+
+#: src/uppmainwindow.cpp:811
+msgid "Write data not implemented for current PIC"
+msgstr "Запис даних для даної моделі пристрою PIC не втілено"
+
+#: src/uppmainwindow.cpp:441
+#, fuzzy
+msgid ""
+"You are using a development release of the firmware with a stable version of "
+"the software. Consider upgrading your firmware"
+msgstr ""
+"Ви використовуєте стабільну версію прошивки з бета-версією програми. Оновіть "
+"свою прошивку"
+
+#: src/uppmainwindow.cpp:460
+#, fuzzy
+msgid ""
+"You are using a stable release of the firmware with a development version of "
+"the software. Consider upgrading your firmware"
+msgstr ""
+"Ви використовуєте стабільну версію прошивки з бета-версією програми. Оновіть "
+"свою прошивку"
+
+#: src/uppmainwindow.cpp:444
+#, fuzzy, c-format
+msgid ""
+"Your firmware is too old (latest version is %d); please consider upgrading it"
+msgstr "Ваша прошивка застаріла; будь-ласка, оновіть її"
+
+#: src/uppmainwindow.cpp:457
+#, fuzzy, c-format
+msgid ""
+"Your firmware is too old (latest version is %d.%d.%d); please consider "
+"upgrading it"
+msgstr "Ваша прошивка застаріла; будь-ласка, оновіть її"
+
+#: src/uppmainwindow_base.cpp:123 src/uppmainwindow_base.cpp:125
+msgid "Zoom in"
+msgstr "Збільшити"
+
+#: src/uppmainwindow_base.cpp:130 src/uppmainwindow_base.cpp:132
+msgid "Zoom out"
+msgstr "Зменшити"
+
+#: src/uppmainwindow.cpp:343
+msgid "autodetect"
+msgstr "autodetect"
+
+#: src/main.h:101 src/uppmainwindow.cpp:341
+msgid "blankcheck"
+msgstr "blankcheck"
+
+#: src/main.h:101
+msgid "blankcheck the device"
+msgstr "перевірити на порожні значення"
+
+#: src/main.h:100
+msgid "bulk erase the device"
+msgstr "очистити пристрій"
+
+#: src/uppmainwindow.cpp:348
+msgid "currently selected PIC type"
+msgstr "поточний тип пристрою PIC"
+
+#: src/main.h:102
+msgid "debug"
+msgstr ""
+
+#: src/main.h:102
+msgid "debug the hardware"
+msgstr ""
+
+#: src/main.h:93
+msgid "displays help on the command line parameters"
+msgstr "показує допомогу з параметрів командного рядку"
+
+#: src/main.h:94
+msgid "displays version information of usbpicprog"
+msgstr "показує відомості про версію usbpicprog"
+
+#: src/main.h:96
+msgid "do not display the hex file"
+msgstr "не виводити HEX-файл"
+
+#: src/main.h:100 src/uppmainwindow.cpp:339
+msgid "erase"
+msgstr "erase"
+
+#: src/main.h:103
+msgid "file"
+msgstr "file"
+
+#: src/main.h:93
+msgid "help"
+msgstr "help"
+
+#: src/main.h:103
+msgid "hexfile"
+msgstr "hexfile"
+
+#: src/uppmainwindow.cpp:322
+msgid "new"
+msgstr "new"
+
+#: src/uppmainwindow.cpp:324
+msgid "open"
+msgstr "open"
+
+#: src/packageview.cpp:45
+#, fuzzy
+msgid "packageview"
+msgstr "Корпус"
+
+#: src/main.h:95
+msgid "pictype"
+msgstr "pictype"
+
+#: src/uppmainwindow.cpp:333
+msgid "program"
+msgstr "program"
+
+#: src/main.h:98 src/uppmainwindow.cpp:335
+msgid "read"
+msgstr "read"
+
+#: src/main.h:98
+msgid "read the device"
+msgstr "прочитати пристрій"
+
+#: src/uppmainwindow.cpp:326
+msgid "reload"
+msgstr "reload"
+
+#: src/main.h:105
+msgid "restore-bandgap"
+msgstr ""
+
+#: src/main.h:104
+msgid "restore-osccal"
+msgstr ""
+
+#: src/uppmainwindow.cpp:328
+msgid "save"
+msgstr "save"
+
+#: src/uppmainwindow.cpp:330
+msgid "save as"
+msgstr "save as"
+
+#: src/main.h:96
+msgid "silent"
+msgstr "silent"
+
+#: src/main.h:95
+msgid "specify the pic type (eg -p=P18F2550)"
+msgstr "вказати тип пристрою PIC (наприклад, -p=P18F2550)"
+
+#: src/hexfile.cpp:235
+#, c-format
+msgid "unknown record type: %d"
+msgstr ""
+
+#: src/uppmainwindow.cpp:480
+msgid "untitled"
+msgstr "Без назви"
+
+#: src/main.h:99 src/uppmainwindow.cpp:337
+msgid "verify"
+msgstr "verify"
+
+#: src/main.h:99
+msgid "verify the device"
+msgstr "перевірити запис"
+
+#: src/main.h:94
+msgid "version"
+msgstr "version"
+
+#: src/main.h:97
+msgid "write"
+msgstr "write"
+
+#: src/main.h:97
+msgid "write the device"
+msgstr "записати пристрій"
+
+#, fuzzy
+#~ msgid "Could not load the data for the PIC '%s'."
+#~ msgstr "Неможливо отримати доступ до папки 'xml_data'."
+
+#, fuzzy
+#~ msgid "device ID not found"
+#~ msgstr "Пристрій не чистий."

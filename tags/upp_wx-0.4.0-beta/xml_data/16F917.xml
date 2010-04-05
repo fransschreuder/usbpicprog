@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="16F917" status="IP" memory_technology="FLASH" self_write="no" architecture="16X" id="0x1380" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="020202" datasheet="41250" progsheet="41244" erratas="80238" />
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Off" bchecksum="0xFFFF" cchecksum="0xCBCD" />
+    <checksum protected="All" bchecksum="0x1FBE" cchecksum="0xEB8C" />
+  </checksums>
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="extended" >
+    <frequency start="0"  end="4"  vdd_min="2"   vdd_max="5.5" />
+    <frequency start="4"  end="10" vdd_min="3"   vdd_max="5.5" />
+    <frequency start="10" end="20" vdd_min="4.5" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="10"  max="13"  nominal="11.5" />
+  <voltages name="vdd_prog"       min="4.5" max="5.5" nominal="5"    />
+  <voltages name="vdd_prog_write" min="2"   max="5.5" nominal="5"    />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"      start="0x0000" end="0x1FFF" />
+  <memory name="calibration"  start="0x2008" end="0x2009" cal_opmask="0x0000"     cal_opcode="0x0000" />
+  <memory name="user_ids"     start="0x2000" end="0x2003" rmask="0x007F"          />
+  <memory name="device_id"    start="0x2006" end="0x2006" />
+  <memory name="config"       start="0x2007" end="0x2007" />
+  <memory name="eeprom"       start="0x0000" end="0x00FF" hexfile_offset="0x2100" />
+  <memory name="debug_vector" start="0x2004" end="0x2004" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG" wmask="0x3FFF" bvalue="0x1FFF" >
+    <mask name="FOSC"  value="0x0007" >
+      <value value="0x0000" name="LP"           cname="_LP_OSC"             />
+      <value value="0x0001" name="XT"           cname="_XT_OSC"             />
+      <value value="0x0002" name="HS"           cname="_HS_OSC"             />
+      <value value="0x0003" name="EC_IO"        cname="_EC_OSC"             />
+      <value value="0x0004" name="INTRC_IO"     cname="_INTRC_OSC_NOCLKOUT" ecnames="_INTOSCIO" />
+      <value value="0x0005" name="INTRC_CLKOUT" cname="_INTRC_OSC_CLKOUT"   ecnames="_INTOSC"   />
+      <value value="0x0006" name="EXTRC_IO"     cname="_EXTRC_OSC_NOCLKOUT" ecnames="_EXTRCIO"  />
+      <value value="0x0007" name="EXTRC_CLKOUT" cname="_EXTRC_OSC_CLKOUT"   ecnames="_EXTRC"    />
+    </mask>
+    <mask name="WDT"   value="0x0008" >
+      <value value="0x0000" name="Off" cname="_WDT_OFF" />
+      <value value="0x0008" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="PWRTE" value="0x0010" >
+      <value value="0x0000" name="On"  cname="_PWRTE_ON"  />
+      <value value="0x0010" name="Off" cname="_PWRTE_OFF" />
+    </mask>
+    <mask name="MCLRE" value="0x0020" >
+      <value value="0x0000" name="Internal" cname="_MCLRE_OFF" />
+      <value value="0x0020" name="External" cname="_MCLRE_ON"  />
+    </mask>
+    <mask name="CP"    value="0x0040" >
+      <value value="0x0000" name="All" cname="_CP_ON"  />
+      <value value="0x0040" name="Off" cname="_CP_OFF" />
+    </mask>
+    <mask name="CPD"   value="0x0080" >
+      <value value="0x0000" name="All" cname="_CPD_ON"  />
+      <value value="0x0080" name="Off" cname="_CPD_OFF" />
+    </mask>
+    <mask name="BODEN" value="0x0300" >
+      <value value="0x0000" name="Off"      cname="_BOD_OFF"    />
+      <value value="0x0100" name="Software" cname="_BOD_SBODEN" />
+      <value value="0x0200" name="On_run"   cname="_BOD_NSLEEP" />
+      <value value="0x0300" name="On"       cname="_BOD_ON"     />
+    </mask>
+    <mask name="IESO"  value="0x0400" >
+      <value value="0x0000" name="Off" cname="_IESO_OFF" />
+      <value value="0x0400" name="On"  cname="_IESO_ON"  />
+    </mask>
+    <mask name="FCMEN" value="0x0800" >
+      <value value="0x0000" name="Off" cname="_FCMEN_OFF" />
+      <value value="0x0800" name="On"  cname="_FCMEN_ON"  />
+    </mask>
+    <mask name="DEBUG" value="0x1000" >
+      <value value="0x0000" name="On"  cname="_DEBUG_ON"  />
+      <value value="0x1000" name="Off" cname="_DEBUG_OFF" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="qfn"  nb_pins="44" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+    <pin index="21" name="" />
+    <pin index="22" name="" />
+    <pin index="23" name="" />
+    <pin index="24" name="" />
+    <pin index="25" name="" />
+    <pin index="26" name="" />
+    <pin index="27" name="" />
+    <pin index="28" name="" />
+    <pin index="29" name="" />
+    <pin index="30" name="" />
+    <pin index="31" name="" />
+    <pin index="32" name="" />
+    <pin index="33" name="" />
+    <pin index="34" name="" />
+    <pin index="35" name="" />
+    <pin index="36" name="" />
+    <pin index="37" name="" />
+    <pin index="38" name="" />
+    <pin index="39" name="" />
+    <pin index="40" name="" />
+    <pin index="41" name="" />
+    <pin index="42" name="" />
+    <pin index="43" name="" />
+    <pin index="44" name="" />
+  </package>
+
+  <package types="tqfp" nb_pins="44" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+    <pin index="21" name="" />
+    <pin index="22" name="" />
+    <pin index="23" name="" />
+    <pin index="24" name="" />
+    <pin index="25" name="" />
+    <pin index="26" name="" />
+    <pin index="27" name="" />
+    <pin index="28" name="" />
+    <pin index="29" name="" />
+    <pin index="30" name="" />
+    <pin index="31" name="" />
+    <pin index="32" name="" />
+    <pin index="33" name="" />
+    <pin index="34" name="" />
+    <pin index="35" name="" />
+    <pin index="36" name="" />
+    <pin index="37" name="" />
+    <pin index="38" name="" />
+    <pin index="39" name="" />
+    <pin index="40" name="" />
+    <pin index="41" name="" />
+    <pin index="42" name="" />
+    <pin index="43" name="" />
+    <pin index="44" name="" />
+  </package>
+
+</device>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="16C621" document="010138" status="NR" alternative="16C621A" memory_technology="EPROM" architecture="16X"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Off"     bchecksum="0x3B7F" cchecksum="0x074D" />
+    <checksum protected="200:3FF" bchecksum="0x4EDE" cchecksum="0x0093" />
+    <checksum protected="All"     bchecksum="0x3BCE" cchecksum="0x079C" />
+  </checksums>
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="commercial" >
+    <frequency start="0"  end="10" vdd_min="3" vdd_max="6" />
+    <frequency start="10" end="20" vdd_min="3" vdd_max="6" vdd_min_end="4.5" />
+  </frequency_range>
+  <frequency_range name="industrial" special="low_power" >
+    <frequency start="0" end="4" vdd_min="2.5" vdd_max="6" />
+  </frequency_range>
+  <frequency_range name="extended"   >
+    <frequency start="0" end="4"  vdd_min="3"   vdd_max="6" />
+    <frequency start="4" end="20" vdd_min="4.5" vdd_max="6" />
+  </frequency_range>
+
+  <voltages name="vpp"      min="12.75" max="13.25" nominal="13" />
+  <voltages name="vdd_prog" min="4.75"  max="5.25"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"  start="0x0000" end="0x03FF" />
+  <memory name="user_ids" start="0x2000" end="0x2003" rmask="0x007F" />
+  <memory name="config"   start="0x2007" end="0x2007" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0x3FFF" bvalue="0x3F7F" >
+    <mask name="FOSC"  value="0x0003" >
+      <value value="0x0000" name="LP"           cname="_LP_OSC" />
+      <value value="0x0001" name="XT"           cname="_XT_OSC" />
+      <value value="0x0002" name="HS"           cname="_HS_OSC" />
+      <value value="0x0003" name="EXTRC_CLKOUT" cname="_RC_OSC" />
+    </mask>
+    <mask name="WDT"   value="0x0004" >
+      <value value="0x0000" name="Off" cname="_WDT_OFF" />
+      <value value="0x0004" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="PWRTE" value="0x0008" >
+      <value value="0x0000" name="On"  cname="_PWRTE_ON"  />
+      <value value="0x0008" name="Off" cname="_PWRTE_OFF" />
+    </mask>
+    <mask name="BODEN" value="0x0040" >
+      <value value="0x0000" name="Off" cname="_BODEN_OFF" />
+      <value value="0x0040" name="On"  cname="_BODEN_ON"  />
+    </mask>
+    <mask name="CP"    value="0x3F30" >
+      <value value="0x0000" name="All"     cname="_CP_ALL" />
+      <value value="0x1510" name="200:3FF" cname="_CP_50"  />
+      <value value="0x3F30" name="Off"     cname="_CP_OFF" />
+      <value value="default" name="invalid" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic" nb_pins="18" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+  </package>
+
+  <package types="ssop"      nb_pins="20" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+  </package>
+
+</device>
