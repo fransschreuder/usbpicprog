@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 10:05+0100\n"
-"PO-Revision-Date: 2010-02-24 08:22+0100\n"
+"POT-Creation-Date: 2010-04-09 12:55+0100\n"
+"PO-Revision-Date: 2010-04-09 12:55+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Kanwaljit Singh <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,651 +21,543 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1396 src/uppmainwindow.cpp:1425
-#: src/uppmainwindow.cpp:1427
-msgid " Connected"
-msgstr "ਕਨੇਕਟਡ"
-
-#: src/uppmainwindow.cpp:926
-#, c-format
-msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "0x%X ਤੇ ਫੇਲ ਹੋਇਆ, ਪੜਿਆ:  0x%02X, ਚਾਹਿਦਾ ਸੀ: 0x%02X"
-
-#: src/uppmainwindow.cpp:531
-#, c-format
-msgid "%s [%d pins]"
-msgstr ""
-
-#: src/uppmainwindow.cpp:506
-#, c-format
-msgid "%s datasheet"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:221
-msgid "&About"
-msgstr "ਬਾਰੇ(&A)"
-
-#: src/uppmainwindow.cpp:296
-msgid "&Actions"
-msgstr "ਐਕਸ਼ਨ(&A)"
-
-#: src/uppmainwindow.cpp:219
-msgid "&Autodetect..."
-msgstr "ਆਪਣੇ ਆਪ ਲਭੋ(&A)"
-
-#: src/uppmainwindow.cpp:215
-msgid "&Blankcheck..."
-msgstr "ਖਾਲੀਚੈਕ(&B)"
-
-#: src/io_test_base.cpp:178
-#, fuzzy
-msgid "&Close"
-msgstr "ਕੋਡ"
-
-#: src/uppmainwindow.cpp:223
-msgid "&Connect..."
-msgstr "ਜੁੜੋ(&C)"
-
-#: src/uppmainwindow_base.cpp:193
-msgid "&Copy"
-msgstr "ਨਕਲ(&C)"
-
-#: src/uppmainwindow.cpp:227
-msgid "&Disconnect..."
-msgstr "ਕਨੇਕਸ਼ਨ ਕਟੋ(&D)"
-
-#: src/uppmainwindow_base.cpp:200
-msgid "&Edit"
-msgstr "ਸੋਧ(&E)"
-
-#: src/uppmainwindow.cpp:206
-msgid "&Erase..."
-msgstr "ਮਿਟਾਉ(&E)"
-
-#: src/uppmainwindow_base.cpp:189
-msgid "&File"
-msgstr "ਫਾਇਲ(&F)"
-
-#: src/uppmainwindow_base.cpp:215 src/uppmainwindow_base.cpp:224
-msgid "&Help"
-msgstr "ਮਦਦ(&H)"
-
-#: src/uppmainwindow_base.cpp:208
-msgid "&IO Test"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:166
-msgid "&New"
-msgstr "ਨਵਾਂ(&N)"
-
-#: src/uppmainwindow_base.cpp:170
-msgid "&Open"
-msgstr "ਖੋਲੋ(&O)"
-
-#: src/uppmainwindow_base.cpp:211
-#, fuzzy
-msgid "&Options"
-msgstr "ਐਕਸ਼ਨ(&A)"
-
-#: src/uppmainwindow_base.cpp:204
-msgid "&Preferences"
-msgstr "ਸੈਟਿਂਗ(&P)"
-
-#: src/uppmainwindow.cpp:194
-msgid "&Program..."
-msgstr "ਪਰੋਗਰਾਮ(&P)"
-
-#: src/uppmainwindow.cpp:198
-msgid "&Read..."
-msgstr "ਪੜੋ(&R)..."
-
-#: src/uppmainwindow_base.cpp:174
-msgid "&Reload"
-msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ(&R)"
-
-#: src/uppmainwindow_base.cpp:178
-msgid "&Save"
-msgstr "ਸੰਭਾਲੋ(&S)"
-
-#: src/uppmainwindow.cpp:259
-msgid "&Select PIC..."
-msgstr " PIC ਚੁਣੋ(&S)..."
-
-#: src/uppmainwindow.cpp:202
-msgid "&Verify..."
-msgstr "ਸਪਸ਼ਟ ਕਰੋ(&V)"
-
-#: src/io_test_base.cpp:45 src/io_test_base.cpp:85 src/io_test_base.cpp:111
-#: src/io_test_base.cpp:115 src/io_test_base.cpp:151 src/io_test_base.cpp:155
-msgid "0V"
-msgstr ""
-
-#: src/io_test_base.cpp:35
-msgid "12V"
-msgstr ""
-
-#: src/io_test_base.cpp:108 src/io_test_base.cpp:148
-msgid "3.3V"
-msgstr ""
-
-#: src/io_test_base.cpp:42 src/io_test_base.cpp:75 src/io_test_base.cpp:101
-#: src/io_test_base.cpp:141
-msgid "5V"
-msgstr ""
-
-#: src/uppmainwindow.cpp:659 src/uppmainwindow.cpp:663
-msgid "All operations completed"
-msgstr "ਸਾਰੇ ਓਪਰੇਸ਼ਨ ਪੁਰੇ"
-
-#: src/uppmainwindow.cpp:1464 src/uppmainwindow.cpp:1465
-#: src/uppmainwindow.cpp:1470 src/uppmainwindow.cpp:1471
-msgid "Already disconnected"
-msgstr "ਕਨੇਕਸਨ ਪਹਿਲਾਂ ਹੀ ਬੰਦ ਹੈ"
-
-#: src/uppmainwindow.cpp:1501
-msgid "An open source USB pic programmer"
-msgstr "ਇਕ ਖੁਲੇ ਕੋਡ ਵਾਲਾ USB pic ਪਰੋਗਰਾਮਰ"
-
-#: src/uppmainwindow.cpp:990
-#, c-format
-msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "ਬਲੈਂਕ 0x%X ਤੇ ਫੇਲ ਹੋਇਆ, ਪੜਿਆ:  0x%02X, ਚਾਹਿਦਾ ਸੀ: 0x%02X"
-
-#: src/uppmainwindow.cpp:216
-msgid "Blankcheck the PIC device"
-msgstr " PIC ਜੰਤਰ ਨੂੰ ਖਾਲੀਚੈਕ ਕਰੋ"
-
-#: src/uppmainwindow.cpp:1436 src/uppmainwindow.cpp:1438
-msgid "Bootloader or programmer not found"
-msgstr "ਬੂਟਲੋਡਰ ਜਾਂ ਪਰੋਗਰਾਮਰ ਨਹੀਂ ਮਿਲਿਆ"
-
-#: src/packageview.cpp:65
-#, fuzzy
-msgid "Can't create the package bitmap!"
-msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਨਹੀਂ ਬਣ ਸਕਿਆ!"
-
-#: src/packageview.cpp:71
-msgid "Can't draw the PIC package!"
-msgstr ""
-
-#: src/pictype.cpp:160
-#, c-format
-msgid "Cannot load '%s'."
-msgstr ""
-
-#: src/main.cpp:89
-msgid "Cannot load XML PIC data."
-msgstr ""
-
-#: src/uppmainwindow.cpp:1534 src/uppmainwindow.cpp:1561
-#, fuzzy
-msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr "ਜਦ ਬੁਟਲੋਡਰ ਕਨੇਕਟ ਹੋਵੇ ਤਾਂ ਹੋਰ PIC  ਨਹੀਂ ਚੁਣ ਸਕਦੇ!"
-
-#: src/uppmainwindow.cpp:260
-msgid "Change the currently selected PIC"
-msgstr "ਚੁਣੇ ਹੋਏ  PIC ਨੂੰ ਬਦਲੋ"
-
-#: src/uppmainwindow.cpp:970
-msgid "Checking if the device is blank..."
-msgstr "ਦੇਖ ਰਹੇ ਹਾਂ ਕਿ ਕਿਤੇ ਜੰਤਰ ਖਾਲੀ ਤਾਂ ਨੀ"
-
-#: src/uppmainwindow_base.cpp:33
-msgid "Code"
-msgstr "ਕੋਡ"
-
-#: src/hexfile.cpp:701
-#, fuzzy
-msgid "Code Memory\n"
-msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
-
-#: src/uppmainwindow_base.cpp:90
-#, fuzzy
-msgid "Code memory size:"
-msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
-
-#: src/uppmainwindow.cpp:519
-#, c-format
-msgid "Code memory size: %d bytes"
-msgstr ""
-
-#: src/configview.cpp:137
+#: ../src/configview.cpp:137
 #, fuzzy
 msgid "Configuration Word:"
 msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
 
-#: src/uppmainwindow_base.cpp:63
-msgid "Configuration flags"
-msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
-
-#: src/uppmainwindow_base.cpp:53
-#, fuzzy
-msgid "Configuration flags for this PIC:"
-msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
-
-#: src/uppmainwindow.cpp:224
-msgid "Connect to the programmer"
-msgstr "ਪਰੋਗਰਾਮਰ ਨਾਲ ਜੁੜੋ"
-
-#: src/uppmainwindow_base.cpp:193
-msgid "Copies to the clipboard currently selected cells"
-msgstr "ਕਲਿਪਬੋਰਡ ਨੂੰ ਛੁਣੇ ਹੋਏ ਸੈਲਾਂ ਦੀ ਨਕਲ ਕਰੋ"
-
-#: src/hexview.cpp:209
-msgid "Copy"
-msgstr "ਨਕਲ"
-
-#: src/pictype.cpp:237
-msgid "Could not access the 'xml_data' folder."
-msgstr ""
-
-#: src/uppmainwindow.cpp:1045
-msgid "Could not create the worker thread!"
-msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਨਹੀਂ ਬਣ ਸਕਿਆ!"
-
-#: src/main.cpp:104
-msgid "Could not initialize libusb!"
-msgstr ""
-
-#: src/pictype.cpp:105 src/pictype.cpp:125 src/pictype.cpp:216
+#: ../src/configview.cpp:154
 #, c-format
-msgid "Could not load data for PIC '%s'."
+msgid "Current value for the %d-th configuration word as derived from above configuration choices"
 msgstr ""
 
-#: src/hexfile.cpp:339
-msgid "Could not open Hex file for writing..."
-msgstr ""
-
-#: src/hexfile.cpp:101
-#, fuzzy
-msgid "Could not open Hex file..."
-msgstr "ਹੈਕਸਫਾਇਲ ਨੂੰ ਨਾ ਦਿਖਾਓ"
-
-#: src/uppmainwindow.cpp:1051
-msgid "Could not run the worker thread!"
-msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਚਾਲੂ ਨਹੀਂ ਹੋ ਸਕਿਆ"
-
-#: src/hardware.cpp:146
-#, c-format
-msgid "Couldn't reset the USB device interface: %s"
-msgstr ""
-
-#: src/configview.cpp:154
-#, c-format
-msgid ""
-"Current value for the %d-th configuration word as derived from above "
-"configuration choices"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:48
-msgid "Data"
-msgstr "ਡਾਟਾ"
-
-#: src/hexfile.cpp:223
-msgid "Data in hex file outside code memory of PIC"
-msgstr ""
-
-#: src/hexfile.cpp:159
-msgid "Data in hex file outside config memory of PIC"
-msgstr ""
-
-#: src/hexfile.cpp:208
-msgid "Data in hex file outside data memory of PIC"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:94
-#, fuzzy
-msgid "Data memory size:"
-msgstr "ਲਿਖਣਜੋਗ ਡਾਟਾ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
-
-#: src/uppmainwindow.cpp:520
-#, c-format
-msgid "Data memory size: %d bytes"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:71
-#, fuzzy
-msgid "Datasheet"
-msgstr "ਡਾਟਾ"
-
-#: src/uppmainwindow.cpp:220
-msgid "Detect the type of the PIC device"
-msgstr "PIC ਜੰਤਰ ਨੂੰ ਪਛਾਣੋ"
-
-#: src/uppmainwindow.cpp:1365
-#, c-format
-msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "PIC ਮੋਡਲ %s ਜੰਤਰ ਪਛਾਣ  0x%X ਲਭਾ ਹੈ"
-
-#: src/uppmainwindow_base.cpp:86
-msgid "Device ID:"
-msgstr ""
-
-#: src/uppmainwindow.cpp:518
-#, c-format
-msgid "Device ID: 0x%X"
-msgstr ""
-
-#: src/uppmainwindow.cpp:978
-msgid "Device is blank"
-msgstr "ਜੰਤਰ ਖਾਲੀ ਹੈ"
-
-#: src/uppmainwindow.cpp:995
-msgid "Device is not blank."
-msgstr "ਜੰਤਰ ਖਾਲੀ ਨਹੀ ਹੈ"
-
-#: src/uppmainwindow.cpp:228
-msgid "Disconnect from the programmer"
-msgstr "ਪਰੋਗਰਾਮਰ ਤੋਂ ਕਨੇਕਸ਼ਨ ਕਟੋ"
-
-#: src/uppmainwindow.cpp:1458 src/uppmainwindow.cpp:1460
-#, fuzzy
-msgid "Disconnected"
-msgstr "ਕਨੇਕਸ਼ਨ ਕਟੋ(&D)"
-
-#: src/uppmainwindow_base.cpp:186
-msgid "E&xit"
-msgstr "ਨਿਕਲੋ(&x)"
-
-#: src/hexview.cpp:207
-msgid "Edit"
-msgstr "ਸੋ਼ਧ"
-
-#: src/uppmainwindow.cpp:754
-msgid "Erase OK"
-msgstr "ਸਹੀ ਮਿਟਿਆ"
-
-#: src/preferences_base.cpp:38
-msgid "Erase before programming"
-msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
-
-#: src/uppmainwindow.cpp:207
-msgid "Erase the PIC device"
-msgstr "PIC ਜੰਤਰ ਨੂੰ ਮਿਟਾਉ"
-
-#: src/uppmainwindow.cpp:951
-msgid "Erasing all areas of the PIC..."
-msgstr " PIC ਦੇ ਸਾਰੇ ਖੇਤਰ ਮਿਟਾਉ..."
-
-#: src/uppmainwindow.cpp:749
-msgid "Erasing before programming..."
-msgstr "ਪਰੋਗਰਾਮਿਂਗ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਓ..."
-
-#: src/hardware.cpp:180
-#, fuzzy, c-format
-msgid "Error claiming the USB device interface: %s"
-msgstr "ਜੰਤਰ ਮਿਟਾਉਣ 'ਚ ਨੁਕਸ਼"
-
-#: src/main.cpp:263 src/uppmainwindow.cpp:757 src/uppmainwindow.cpp:955
-#: src/uppmainwindow.cpp:1306
-msgid "Error erasing the device"
-msgstr "ਜੰਤਰ ਮਿਟਾਉਣ 'ਚ ਨੁਕਸ਼"
-
-#: src/hardware.cpp:194 src/hardware.cpp:204
-#, c-format
-msgid "Error getting USB endpoint descriptor: %s"
-msgstr ""
-
-#: src/hexfile.cpp:135
-msgid "Error in checksum..."
-msgstr ""
-
-#: src/uppmainwindow.cpp:788
-msgid "Error programming code memory"
-msgstr "ਕੋਡ ਮੈਮਰੀ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:847
-msgid "Error programming config memory"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:817
-msgid "Error programming data memory"
-msgstr "ਡਾਟਾ ਮੈਮਰੀ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਨ 'ਚ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:867
-msgid "Error reading code memory"
-msgstr "ਕੋਡ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:888
-msgid "Error reading configuration memory"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:877
-msgid "Error reading data memory"
-msgstr "ਡਾਟਾ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/main.cpp:264 src/uppmainwindow.cpp:1307
-#, fuzzy
-msgid "Error restoring Calibration Registers"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/hardware.cpp:169
-#, fuzzy, c-format
-msgid "Error setting configuration of the USB device: %s"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
-
-#: src/uppmainwindow_base.cpp:186
-msgid "Exits the program"
-msgstr "ਪਰੋਗਰਾਮ ਤੋਂ ਨਿਕਲੋ"
-
-#: src/io_test_base.cpp:49 src/io_test_base.cpp:82 src/io_test.cpp:90
-#: src/io_test.cpp:100 src/io_test.cpp:110 src/io_test.cpp:120
-msgid "FLOAT"
-msgstr ""
-
-#: src/hexfile.cpp:119
-msgid "Failure in hex file..."
-msgstr ""
-
-#: src/uppmainwindow.cpp:455
-msgid "Firmware probably too new"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:137 src/uppmainwindow_base.cpp:139
-msgid "Fit package drawing"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:82
-msgid ""
-"Frequency range:\n"
-"   MIN\n"
-"   MAX\n"
-"_dontTranslateThis_"
-msgstr ""
-
-#: src/uppmainwindow.cpp:517
-#, c-format
-msgid ""
-"Frequency range:\n"
-"   Min=%.2fMhz\n"
-"   Max=%.2fMhz"
-msgstr ""
-
-#: src/preferences_base.cpp:66
-msgid "GUI options"
-msgstr ""
-
-#: src/preferences_base.cpp:19
-msgid "Global settings for Usbpicprog:"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:23
-msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: src/uppmainwindow_base.cpp:38
-msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "PIC ਦੇ ਡਾਟਾ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
-
-#: src/uppmainwindow.cpp:939 src/uppmainwindow.cpp:1004
-msgid "I'm sorry for being stupid"
-msgstr "ਮੈਂ ਬੇਵਕੁਫੀ ਦੀ ਮਾਫੀ ਚਾਹੁਨਾ "
-
-#: src/io_test_base.cpp:122
-msgid "INPUT"
-msgstr ""
-
-#: src/uppmainwindow.cpp:1025
-msgid "Initializing..."
-msgstr "ਸ਼ੁਰੁਆਤ..."
-
-#: src/pictype.cpp:166
-#, c-format
-msgid "Invalid '%s' file."
-msgstr ""
-
-#: src/pictype.cpp:188
-#, c-format
-msgid "Invalid PIC family for PIC '%s'."
-msgstr ""
-
-#: src/pictype.cpp:779
-msgid "Invalid direction"
-msgstr ""
-
-#: src/pictype.cpp:799
-#, c-format
-msgid "Invalid odd pin count: %d"
-msgstr ""
-
-#: src/pictype.cpp:849
-#, c-format
-msgid "Invalid pin count: %d"
-msgstr ""
-
-#: src/configview.cpp:173
-#, c-format
-msgid "Length: %d bits"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:170
-msgid "Loads an HEX file for editing or programming..."
-msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਸੋਧ ਜਾਂ ਪਰੋਗਰਾਮਿਗਂ ਲਈ ਲੋਡ ਕਰਦਾ ਹੈ..."
-
-#: src/configview.cpp:169
+#: ../src/configview.cpp:169
 #, c-format
 msgid "Location in memory: 0x%X"
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:69
-msgid "Miscellaneous"
+#: ../src/configview.cpp:173
+#, c-format
+msgid "Length: %d bits"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1358
-msgid "No PIC detected!"
-msgstr "ਕੋਈ PIC ਨਹੀਂ ਲਭਾ!"
-
-#: src/uppmainwindow.cpp:1360
+#: ../src/configview.cpp:191
 #, c-format
-msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "ਕੋਈ PIC ਨਹੀਂ ਲਭਾ! default PIC (%s) ਚੁਣਦੇ ਹੋਏ..."
+msgid "Word %d"
+msgstr ""
 
-#: src/hardware.cpp:719
+#: ../src/hardware.cpp:162
+#, c-format
+msgid "Couldn't reset the USB device interface: %s"
+msgstr ""
+
+#: ../src/hardware.cpp:185
+#, fuzzy, c-format
+msgid "Error setting configuration of the USB device: %s"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/hardware.cpp:196
+#, fuzzy, c-format
+msgid "Error claiming the USB device interface: %s"
+msgstr "ਜੰਤਰ ਮਿਟਾਉਣ 'ਚ ਨੁਕਸ਼"
+
+#: ../src/hardware.cpp:210
+#: ../src/hardware.cpp:220
+#, c-format
+msgid "Error getting USB endpoint descriptor: %s"
+msgstr ""
+
+#: ../src/hardware.cpp:545
+#, c-format
+msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
+msgstr ""
+
+#: ../src/hardware.cpp:755
 msgid "No data to verify"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1123 src/uppmainwindow.cpp:1124
-msgid "No file to refresh"
-msgstr "ਰਿਫਰੈਸ਼ ਲਈ ਕੋਈ ਫਾਇਲ ਨਹੀਂ"
+#: ../src/hardware.cpp:1111
+#, fuzzy, c-format
+msgid "USB error while reading: %s"
+msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
 
-#: src/uppmainwindow_base.cpp:148
-msgid "Note: red pins are (some of those) used in ICSP."
+#: ../src/hardware.cpp:1129
+#, fuzzy, c-format
+msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
+msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
+
+#: ../src/hexfile.cpp:101
+#, fuzzy
+msgid "Could not open Hex file..."
+msgstr "ਹੈਕਸਫਾਇਲ ਨੂੰ ਨਾ ਦਿਖਾਓ"
+
+#: ../src/hexfile.cpp:119
+msgid "Failure in hex file..."
 msgstr ""
 
-#: src/uppmainwindow.cpp:1261
-msgid "Only valid for PIC12F629, PIC12F508 and similar devices..."
+#: ../src/hexfile.cpp:135
+msgid "Error in checksum..."
 msgstr ""
 
-#: src/uppmainwindow.cpp:1087
-msgid "Open hexfile"
-msgstr "ਹੈਕਸ ਫਾਇਲ ਖੋਲੋ"
-
-#: src/uppmainwindow_base.cpp:215
-msgid "Opens the Usbpicprog's website..."
-msgstr "Usbpicprog's ਦੀ ਵੈਬਸਾਇਟ ਖੋਲੋ"
-
-#: src/uppmainwindow.cpp:623
-msgid "Operations aborted"
-msgstr "ਓਪਰੇਸ਼ਨ ਰੋਕ ਦਿਤਾ ਗਿਆ"
-
-#: src/uppmainwindow.cpp:665
-msgid "Operations completed with errors/warnings"
-msgstr "ਕੰਮ ਨੁਕਸ਼ਾਂ/ਚੇਤਾਵਨਿਆਂ ਨਾਲ ਪੁਰਾ ਹੋਇਆ"
-
-#: src/io_test_base.cpp:134
-msgid "PGC"
+#: ../src/hexfile.cpp:159
+msgid "Data in hex file outside config memory of PIC"
 msgstr ""
 
-#: src/io_test_base.cpp:94
-msgid "PGD"
+#: ../src/hexfile.cpp:208
+msgid "Data in hex file outside data memory of PIC"
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:157
-msgid "PIC info"
+#: ../src/hexfile.cpp:223
+msgid "Data in hex file outside code memory of PIC"
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:105
-msgid "Package"
+#: ../src/hexfile.cpp:235
+#, c-format
+msgid "unknown record type: %d"
 msgstr ""
 
-#: src/uppmainwindow.cpp:428
-msgid "Please confirm"
-msgstr "ਕਿਰਪਾ ਕਨਫਰਮ ਕਰੋ"
-
-#: src/main.cpp:259
-msgid "Please specify a BandGap Value between 0 and 3"
+#: ../src/hexfile.cpp:339
+msgid "Could not open Hex file for writing..."
 msgstr ""
 
-#: src/uppmainwindow.cpp:1300
-msgid "Please specify a bandgap value"
+#: ../src/hexfile.cpp:701
+#, fuzzy
+msgid "Code Memory\n"
+msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
+
+#: ../src/hexview.cpp:207
+msgid "Edit"
+msgstr "ਸੋ਼ਧ"
+
+#: ../src/hexview.cpp:209
+msgid "Copy"
+msgstr "ਨਕਲ"
+
+#: ../src/hexview.cpp:210
+msgid "Select All"
+msgstr "ਸਾਰੇ ਚੁਣੋ"
+
+#: ../src/io_test.cpp:128
+#: ../src/io_test.cpp:138
+#: ../src/io_test.cpp:148
+#: ../src/io_test.cpp:158
+#: ../src/io_test_base.cpp:51
+#: ../src/io_test_base.cpp:87
+msgid "FLOAT"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1279
-msgid "Please specify a new Osccal Value [3400 - 37FF]"
+#: ../src/io_test_base.cpp:19
+msgid ""
+"In this dialog you can test the UsbPicProg hardware by sending requests to set a specific voltage on a specific output pin.\n"
+"The real voltage of the VPP pin and the other pins' statuses are updated once per second and are reported in bold below."
 msgstr ""
 
-#: src/main.cpp:250 src/uppmainwindow.cpp:1287
+#: ../src/io_test_base.cpp:27
+msgid "VPP pin"
+msgstr ""
+
+#: ../src/io_test_base.cpp:35
+msgid "12V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:38
+msgid "Current HW voltage:"
+msgstr ""
+
+#: ../src/io_test_base.cpp:42
+#: ../src/io_test_base.cpp:80
+#: ../src/io_test_base.cpp:109
+#: ../src/io_test_base.cpp:150
+msgid "5V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:45
+#: ../src/io_test_base.cpp:61
+#: ../src/io_test_base.cpp:90
+#: ../src/io_test_base.cpp:119
+#: ../src/io_test_base.cpp:125
+#: ../src/io_test_base.cpp:160
+#: ../src/io_test_base.cpp:166
+msgid "0V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:54
+#: ../src/io_test_base.cpp:83
+#: ../src/io_test_base.cpp:112
+#: ../src/io_test_base.cpp:153
+msgid "Current HW state:"
+msgstr ""
+
+#: ../src/io_test_base.cpp:58
+msgid "RESET"
+msgstr ""
+
+#: ../src/io_test_base.cpp:72
+msgid "VDD pin"
+msgstr ""
+
+#: ../src/io_test_base.cpp:101
+msgid "PGD pin"
+msgstr ""
+
+#: ../src/io_test_base.cpp:116
+#: ../src/io_test_base.cpp:157
+msgid "3.3V"
+msgstr ""
+
+#: ../src/io_test_base.cpp:131
+msgid "INPUT"
+msgstr ""
+
+#: ../src/io_test_base.cpp:142
+msgid "PGC pin"
+msgstr ""
+
+#: ../src/main.cpp:82
+msgid ""
+"This is a 32bit application running under a 64bit Window version. UsbPicProg won't be able to connect to the hardware!\n"
+"Please uninstall this program and download the UsbPicProg installer for 64bit operating systems."
+msgstr ""
+
+#: ../src/main.cpp:90
+msgid "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
+msgstr ""
+
+#: ../src/main.cpp:99
+msgid "Cannot load XML PIC data."
+msgstr ""
+
+#: ../src/main.cpp:113
+msgid ""
+"Could not initialize libusb. This may happen because of:\n"
+"1) an incorrect installation of the UsbPicProg driver; check if this is the case running the Windows Device Manager with the programmer attached;\n"
+"2) An incorrect installation of cfgmgr32.dll, winusb.dll or hid.dll;\n"
+"\n"
+"Please re-install UsbPicProg and ensure that Windows recognizes the UsbPicProg hardware when it's attached to the USB bus. If Windows asks for a driver please point it to the 'UsbPicProg\\driver' directory which has been installed in your Programs folder. If you still have problems please drop a mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which is located in your 'Windows\\System32' folder)."
+msgstr ""
+
+#: ../src/main.cpp:116
+#, c-format
+msgid "Could not initialize libusb: %s"
+msgstr ""
+
+#: ../src/main.cpp:278
+#: ../src/uppmainwindow.cpp:1302
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr ""
 
-#: src/uppmainwindow.cpp:611
-msgid "Please wait until the operations are completed:\n"
-msgstr "ਕਿਰਪਾ ਕੰਮ ਪੁਰੇ ਹੋਣ ਤਕ ਰੁਕੋ:\n"
+#: ../src/main.cpp:287
+msgid "Please specify a BandGap Value between 0 and 3"
+msgstr ""
 
-#: src/preferences_base.h:51
-msgid "Preferences"
-msgstr "ਸੈਟਿਂਗ"
+#: ../src/main.cpp:292
+#: ../src/uppmainwindow.cpp:771
+#: ../src/uppmainwindow.cpp:970
+#: ../src/uppmainwindow.cpp:1321
+msgid "Error erasing the device"
+msgstr "ਜੰਤਰ ਮਿਟਾਉਣ 'ਚ ਨੁਕਸ਼"
 
-#: src/preferences_base.cpp:24
+#: ../src/main.cpp:294
+#: ../src/uppmainwindow.cpp:1322
+#, fuzzy
+msgid "Error restoring Calibration Registers"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/packageview.cpp:45
+msgid "packageview"
+msgstr ""
+
+#: ../src/packageview.cpp:65
+#, fuzzy
+msgid "Can't create the package bitmap!"
+msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਨਹੀਂ ਬਣ ਸਕਿਆ!"
+
+#: ../src/packageview.cpp:71
+msgid "Can't draw the PIC package!"
+msgstr ""
+
+#: ../src/pictype.cpp:105
+#: ../src/pictype.cpp:125
+#: ../src/pictype.cpp:216
+#, c-format
+msgid "Could not load data for PIC '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:160
+#, c-format
+msgid "Cannot load '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:166
+#, c-format
+msgid "Invalid '%s' file."
+msgstr ""
+
+#: ../src/pictype.cpp:188
+#, c-format
+msgid "Invalid PIC family for PIC '%s'."
+msgstr ""
+
+#: ../src/pictype.cpp:237
+msgid "Could not access the 'xml_data' folder."
+msgstr ""
+
+#: ../src/pictype.cpp:779
+msgid "Invalid direction"
+msgstr ""
+
+#: ../src/pictype.cpp:799
+#, c-format
+msgid "Invalid odd pin count: %d"
+msgstr ""
+
+#: ../src/pictype.cpp:849
+#, c-format
+msgid "Invalid pin count: %d"
+msgstr ""
+
+#: ../src/preferences_base.cpp:19
+msgid "Global settings for Usbpicprog:"
+msgstr ""
+
+#: ../src/preferences_base.cpp:24
 msgid "Program options"
 msgstr ""
 
-#: src/uppmainwindow.cpp:195
+#: ../src/preferences_base.cpp:26
+#, fuzzy
+msgid "Write code memory"
+msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
+
+#: ../src/preferences_base.cpp:30
+#, fuzzy
+msgid "Write config memory"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਸਹੀ ਲਿਖੀ ਗਈ"
+
+#: ../src/preferences_base.cpp:34
+#, fuzzy
+msgid "Write data memory"
+msgstr "ਲਿਖਣਜੋਗ ਡਾਟਾ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
+
+#: ../src/preferences_base.cpp:38
+msgid "Erase before programming"
+msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
+
+#: ../src/preferences_base.cpp:42
+#, fuzzy
+msgid "Verify after programming"
+msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
+
+#: ../src/preferences_base.cpp:49
+#, fuzzy
+msgid "Verify options"
+msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/preferences_base.cpp:51
+#, fuzzy
+msgid "Verify code memory"
+msgstr "ਸਪਸ਼ਟਿਕਰਨ ਕੋਡ"
+
+#: ../src/preferences_base.cpp:55
+#, fuzzy
+msgid "Verify config memory"
+msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/preferences_base.cpp:59
+#, fuzzy
+msgid "Verify data memory"
+msgstr "ਡਾਟਾ ਸਪਸ਼ਟੀਕਰਨ"
+
+#: ../src/preferences_base.cpp:66
+msgid "GUI options"
+msgstr ""
+
+#: ../src/preferences_base.cpp:68
+#, fuzzy
+msgid "Shows popups on connect etc..."
+msgstr "ਜੁੜਣ ਇਤਿਆਦ ਤੇ ਪੋਪਅਪ ਵਿਖਾਉ"
+
+#: ../src/uppmainwindow.cpp:196
+msgid "&Program..."
+msgstr "ਪਰੋਗਰਾਮ(&P)"
+
+#: ../src/uppmainwindow.cpp:197
 msgid "Program the PIC device"
 msgstr "PIC ਜੰਤਰ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰੋ"
 
-#: src/uppmainwindow.cpp:827
-msgid "Programming configuration area of the PIC..."
-msgstr " PIC ਦੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ..."
+#: ../src/uppmainwindow.cpp:200
+msgid "&Read..."
+msgstr "ਪੜੋ(&R)..."
 
-#: src/uppmainwindow.cpp:766
-msgid "Programming the code area of the PIC..."
-msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦੀ ਪਰੋਗਰਾਮਿਂਗ ਕਰਦੇ ਹੋਏ..."
+#: ../src/uppmainwindow.cpp:201
+msgid "Read the PIC device"
+msgstr "PIC ਜੰਤਰ ਪੜੋ"
 
-#: src/uppmainwindow.cpp:797
-msgid "Programming the data area of the PIC..."
-msgstr "PIC ਦਾ ਡਾਟਾ ਖੇਤਰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ..."
+#: ../src/uppmainwindow.cpp:204
+msgid "&Verify..."
+msgstr "ਸਪਸ਼ਟ ਕਰੋ(&V)"
 
-#: src/uppmainwindow_base.cpp:74
-msgid ""
-"Programming voltage (Vpp):\n"
-"    MIN\n"
-"    NOM\n"
-"    MAX\n"
-"_dontTranslateThis_"
+#: ../src/uppmainwindow.cpp:205
+msgid "Verify the PIC device"
+msgstr "PIC ਜੰਤਰ ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:208
+msgid "&Erase..."
+msgstr "ਮਿਟਾਉ(&E)"
+
+#: ../src/uppmainwindow.cpp:209
+msgid "Erase the PIC device"
+msgstr "PIC ਜੰਤਰ ਨੂੰ ਮਿਟਾਉ"
+
+#: ../src/uppmainwindow.cpp:213
+msgid "Restore Cal regs..."
 msgstr ""
 
-#: src/uppmainwindow.cpp:512
+#: ../src/uppmainwindow.cpp:214
+msgid "Restore PIC's calibration registers"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:217
+msgid "&Blankcheck..."
+msgstr "ਖਾਲੀਚੈਕ(&B)"
+
+#: ../src/uppmainwindow.cpp:218
+msgid "Blankcheck the PIC device"
+msgstr " PIC ਜੰਤਰ ਨੂੰ ਖਾਲੀਚੈਕ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:221
+msgid "&Autodetect..."
+msgstr "ਆਪਣੇ ਆਪ ਲਭੋ(&A)"
+
+#: ../src/uppmainwindow.cpp:222
+msgid "Detect the type of the PIC device"
+msgstr "PIC ਜੰਤਰ ਨੂੰ ਪਛਾਣੋ"
+
+#: ../src/uppmainwindow.cpp:225
+msgid "&Connect..."
+msgstr "ਜੁੜੋ(&C)"
+
+#: ../src/uppmainwindow.cpp:226
+msgid "Connect to the programmer"
+msgstr "ਪਰੋਗਰਾਮਰ ਨਾਲ ਜੁੜੋ"
+
+#: ../src/uppmainwindow.cpp:229
+msgid "&Disconnect..."
+msgstr "ਕਨੇਕਸ਼ਨ ਕਟੋ(&D)"
+
+#: ../src/uppmainwindow.cpp:230
+msgid "Disconnect from the programmer"
+msgstr "ਪਰੋਗਰਾਮਰ ਤੋਂ ਕਨੇਕਸ਼ਨ ਕਟੋ"
+
+#: ../src/uppmainwindow.cpp:261
+msgid "&Select PIC..."
+msgstr " PIC ਚੁਣੋ(&S)..."
+
+#: ../src/uppmainwindow.cpp:262
+msgid "Change the currently selected PIC"
+msgstr "ਚੁਣੇ ਹੋਏ  PIC ਨੂੰ ਬਦਲੋ"
+
+#: ../src/uppmainwindow.cpp:299
+msgid "&Actions"
+msgstr "ਐਕਸ਼ਨ(&A)"
+
+#: ../src/uppmainwindow.cpp:325
+msgid "new"
+msgstr "ਨਵਾਂ"
+
+#: ../src/uppmainwindow.cpp:327
+msgid "open"
+msgstr "ਖੋਲੋ"
+
+#: ../src/uppmainwindow.cpp:329
+msgid "reload"
+msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:331
+msgid "save"
+msgstr "ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow.cpp:333
+msgid "save as"
+msgstr "ਇੰਜ ਸੰਭਾਲੋ..."
+
+#: ../src/uppmainwindow.cpp:336
+msgid "program"
+msgstr "ਪਰੋਗਰਾਮ"
+
+#: ../src/uppmainwindow.cpp:338
+msgid "read"
+msgstr "ਪੜੋ"
+
+#: ../src/uppmainwindow.cpp:340
+msgid "verify"
+msgstr "ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:342
+msgid "erase"
+msgstr "ਮਿਟਾਉ"
+
+#: ../src/uppmainwindow.cpp:344
+msgid "blankcheck"
+msgstr "ਖਾਲੀਚੈਕ"
+
+#: ../src/uppmainwindow.cpp:346
+msgid "autodetect"
+msgstr "ਆਪਣੇ ਆਪ ਲਭੋ"
+
+#: ../src/uppmainwindow.cpp:351
+msgid "currently selected PIC type"
+msgstr "ਹੁਣ ਚੁਣਆ ਹੋਆ PIC ਟਾਇਪ"
+
+#: ../src/uppmainwindow.cpp:439
+#, c-format
+msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "ਹੈਕਸ਼ ਫਾਇਲ '%s' ਸੰਭਾਲੀ ਨਹੀਂ ਗਈ ਹੈ... ਇਸਦੀ ਜਾਣਕਾਰੀ ਖੋ ਜਾਵੇਗੀ; ਫੇਰ ਵੀ ਕਰੋ?"
+
+#: ../src/uppmainwindow.cpp:442
+msgid "Please confirm"
+msgstr "ਕਿਰਪਾ ਕਨਫਰਮ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:455
+msgid "You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:458
+#, c-format
+msgid "Your firmware is too old (latest version is %d); please consider upgrading it"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:469
+msgid "Firmware probably too new"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:471
+#, c-format
+msgid "Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:474
+msgid "You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:488
+msgid "Usbpicprog rev: "
+msgstr "Usbpicprog rev: "
+
+#: ../src/uppmainwindow.cpp:490
+msgid "Usbpicprog: "
+msgstr "Usbpicprog: "
+
+#: ../src/uppmainwindow.cpp:494
+msgid "untitled"
+msgstr "ਬੇਨਾਮ"
+
+#: ../src/uppmainwindow.cpp:520
+#, c-format
+msgid "%s datasheet"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:526
 #, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
@@ -674,110 +566,7 @@ msgid ""
 "   Max=%.2fV"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1024
-msgid "Progress dialog"
-msgstr "ਪਰੋਸੈਸ ਬਕਸਾ"
-
-#: src/io_test_base.cpp:56
-msgid "RESET"
-msgstr ""
-
-#: src/uppmainwindow.cpp:199
-msgid "Read the PIC device"
-msgstr "PIC ਜੰਤਰ ਪੜੋ"
-
-#: src/uppmainwindow.cpp:864
-msgid "Reading the code area of the PIC..."
-msgstr "PIC ਦਾ ਕੋਡ ਖੇਤਰ ਪੜਦੇ ਹੋਏ"
-
-#: src/uppmainwindow.cpp:885
-msgid "Reading the configuration area of the PIC..."
-msgstr "PIC ਦਾ ਸੈਟਿਂਗ ਖੇਤਰ ਪੜਦੇ ਹੋਏ..."
-
-#: src/uppmainwindow.cpp:874
-msgid "Reading the data area of the PIC..."
-msgstr " PIC ਦਾ ਡਾਟਾ ਖੇਤਰ ਪੜਦੇ ਹੋਏ..."
-
-#: src/uppmainwindow_base.cpp:174
-msgid "Reloads the current HEX file from disk"
-msgstr "ਇਸ  HEX ਫਾਇਲ ਨੂੰ ਡਿਸਕ ਤੋਂ ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
-
-#: src/uppmainwindow_base.cpp:166
-msgid ""
-"Resets the code, configuration and data areas of the currently open HEX file"
-msgstr "ਖੁਲੀ ਹੋਈ ਹੈਕਸ ਫਾਇਲ ਦੇ ਕੋਡ, ਡਾਟਾ ਤੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਰਿਸੈਟ ਕਰੋ"
-
-#: src/main.h:105
-msgid "Restore BandGap Register"
-msgstr ""
-
-#: src/uppmainwindow.cpp:211
-msgid "Restore Cal regs..."
-msgstr ""
-
-#: src/main.h:104
-msgid "Restore Osccal Register"
-msgstr ""
-
-#: src/uppmainwindow.cpp:212
-msgid "Restore PIC's calibration registers"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:182
-msgid "Save &As"
-msgstr "ਇੰਜ ਸੰਭਾਲੋ(&A)..."
-
-#: src/uppmainwindow.cpp:1161
-msgid "Save hexfile"
-msgstr "ਹੈਕਸਫਾਇਲ ਸੰਭਾਲੋ"
-
-#: src/uppmainwindow_base.cpp:182
-msgid "Saves current code,config,data as a HEX file"
-msgstr "ਹੁਣ ਦੇ ਕੋਡ, ਸੈਟਿਂਗ, ਡਾਟਾ ਨੂੰ ਹੈਕਸ ਫਾਇਲ 'ਚ ਸੰਭਾਲੋ"
-
-#: src/uppmainwindow_base.cpp:178
-msgid "Saves the HEX file with the modified data"
-msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਬਦਲੇ ਹੋਏ ਡਾਟਾ ਨਾਲ ਸੰਭਾਲੋ"
-
-#: src/uppmainwindow_base.cpp:197
-msgid "Select &All"
-msgstr "ਸਾਰੇ ਚੁਣੋ(&A)"
-
-#: src/hexview.cpp:210
-msgid "Select All"
-msgstr "ਸਾਰੇ ਚੁਣੋ"
-
-#: src/uppmainwindow_base.cpp:197
-msgid "Selects the entire grid currently shown"
-msgstr "ਹੁਣ ਵਿਖਾਇਆ ਜਾ ਰਿਹਾ ਸਾਰਾ ਗਰਿਡ ਚੁਣੋ"
-
-#: src/uppmainwindow_base.cpp:221
-msgid "Shows informations about this program"
-msgstr "ਏਸ ਪਰੋਗਰਾਮ ਬਾਰੇ ਜਾਣਕਾਰੀ"
-
-#: src/preferences_base.cpp:68
-#, fuzzy
-msgid "Shows popups on connect etc..."
-msgstr "ਜੁੜਣ ਇਤਿਆਦ ਤੇ ਪੋਪਅਪ ਵਿਖਾਉ"
-
-#: src/uppmainwindow_base.cpp:204 src/uppmainwindow_base.cpp:208
-msgid "Shows the options for this program"
-msgstr "ਇਸ ਪਰੋਗਰਾਮ ਦੀ ਆਪਸ਼ਨ ਵਿਖਾਓ"
-
-#: src/uppmainwindow.cpp:1300
-msgid "Specify a bandgap value"
-msgstr ""
-
-#: src/uppmainwindow.cpp:1280
-msgid "Specify a new Osccal Value"
-msgstr ""
-
-#: src/io_test_base.cpp:52 src/io_test_base.cpp:78 src/io_test_base.cpp:104
-#: src/io_test_base.cpp:144
-msgid "State:"
-msgstr ""
-
-#: src/uppmainwindow.cpp:515
+#: ../src/uppmainwindow.cpp:529
 #, c-format
 msgid ""
 "Supply voltage (Vdd):\n"
@@ -786,196 +575,403 @@ msgid ""
 "   Max=%.2fV"
 msgstr ""
 
-#: src/uppmainwindow.cpp:425
+#: ../src/uppmainwindow.cpp:531
 #, c-format
 msgid ""
-"The HEX file '%s' has not been saved... its content will be lost; continue?"
-msgstr "ਹੈਕਸ਼ ਫਾਇਲ '%s' ਸੰਭਾਲੀ ਨਹੀਂ ਗਈ ਹੈ... ਇਸਦੀ ਜਾਣਕਾਰੀ ਖੋ ਜਾਵੇਗੀ; ਫੇਰ ਵੀ ਕਰੋ?"
-
-#: src/uppmainwindow.cpp:776 src/uppmainwindow.cpp:808
-#: src/uppmainwindow.cpp:838
-msgid "The hardware should ask for next block"
-msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ ਅਗਲੇ ਬਲਾਕ ਬਾਰੇ ਪੁਛਣਾ ਚਾਹਿਦਾ ਹੈ"
-
-#: src/uppmainwindow.cpp:773 src/uppmainwindow.cpp:805
-#: src/uppmainwindow.cpp:835
-msgid "The hardware should say OK"
-msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ 'ਸਹੀ' ਕਹਿਣਾ ਚਾਹਿਦਾ ਹੈ"
-
-#: src/uppmainwindow.cpp:1202 src/uppmainwindow.cpp:1214
-#: src/uppmainwindow.cpp:1231 src/uppmainwindow.cpp:1243
-#: src/uppmainwindow.cpp:1266 src/uppmainwindow.cpp:1316
-#: src/uppmainwindow.cpp:1328
-msgid "The programmer is not connected"
-msgstr "ਪਰੋਗਰਾਮਰ ਕਨੈਕਟ ਨਹੀਂ ਹੈ"
-
-#: src/main.cpp:80
-msgid ""
-"This is a 32bit application running under a 64bit Window version. UsbPicProg "
-"won't be able to connect to the hardware!\n"
-"Please uninstall this program and download the UsbPicProg installer for "
-"64bit operating systems."
+"Frequency range:\n"
+"   Min=%.2fMhz\n"
+"   Max=%.2fMhz"
 msgstr ""
 
-#: src/hardware.cpp:508
+#: ../src/uppmainwindow.cpp:532
 #, c-format
-msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
+msgid "Device ID: 0x%X"
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:98
-msgid "Type:"
+#: ../src/uppmainwindow.cpp:533
+#, c-format
+msgid "Code memory size: %d bytes"
 msgstr ""
 
-#: src/uppmainwindow.cpp:521
+#: ../src/uppmainwindow.cpp:534
+#, c-format
+msgid "Data memory size: %d bytes"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:535
 #, c-format
 msgid "Type: %d-bit microcontroller"
 msgstr ""
 
-#: src/uppmainwindow.cpp:998
-msgid "USB error during blankcheck"
-msgstr "ਬਲੈਂਕ ਚੈਕ ਦੋਰਾਨ USB ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:933
-msgid "USB error during verify"
-msgstr "ਸਪਸ਼ਟੀਕਰਨ ਦੋਰਾਨ USB ਨੁਕਸ਼"
-
-#: src/hardware.cpp:925
-#, fuzzy, c-format
-msgid "USB error while reading: %s"
-msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:785 src/uppmainwindow.cpp:814
-#: src/uppmainwindow.cpp:844
-msgid "USB error while writing code memory"
-msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
-
-#: src/hardware.cpp:943
-#, fuzzy, c-format
-msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
-msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:1103 src/uppmainwindow.cpp:1104
-#: src/uppmainwindow.cpp:1133 src/uppmainwindow.cpp:1134
-msgid "Unable to open file"
-msgstr "ਫਾਇਲ ਨਹੀਂ ਖੋਲ ਸਕੇ"
-
-#: src/uppmainwindow.cpp:1390 src/uppmainwindow.cpp:1391
-msgid "Unable to read firmware version"
-msgstr "ਫਰਮਵੇਰ ਵਰਜਨ ਨਹੀਂ ਪੜ ਸਕੇ"
-
-#: src/uppmainwindow.cpp:1420 src/uppmainwindow.cpp:1421
-msgid "Unable to read version"
-msgstr "ਵਰਜਨ ਨਹੀਂ ਪੜ ਸਕੇ"
-
-#: src/uppmainwindow.cpp:1149 src/uppmainwindow.cpp:1150
-#: src/uppmainwindow.cpp:1171 src/uppmainwindow.cpp:1172
-msgid "Unable to save file"
-msgstr "ਫਾਇਲ ਨਹੀਂ ਸਭਾਲੀ ਜਾ ਸਕੀ"
-
-#: src/uppmainwindow.cpp:1001
-msgid "Unknown error during blankcheck"
-msgstr "ਬਲੈਂਕ ਚੈਕ ਦੋਰਾਨ ਅਣਪਛਾਤਾ ਨੁਕਸ਼"
-
-#: src/uppmainwindow.cpp:936
-msgid "Unknown error during verify"
-msgstr "ਸਪਸ਼ਟਿਕਰਨ 'ਚ ਅਣਪਛਾਤਾ ਨੁਕਸ਼"
-
-#: src/uppmainwindow_base.h:103
-msgid "Usbpicprog"
-msgstr "Usbpicprog"
-
-#: src/io_test.h:53
-#, fuzzy
-msgid "Usbpicprog IO Test"
-msgstr "Usbpicprog: "
-
-#: src/uppmainwindow.cpp:474
-msgid "Usbpicprog rev: "
-msgstr "Usbpicprog rev: "
-
-#: src/uppmainwindow.cpp:476
-msgid "Usbpicprog: "
-msgstr "Usbpicprog: "
-
-#: src/io_test_base.cpp:68
-msgid "VDD"
+#: ../src/uppmainwindow.cpp:545
+#, c-format
+msgid "%s [%d pins]"
 msgstr ""
 
-#: src/io_test_base.cpp:28
-msgid "VPP"
-msgstr ""
+#: ../src/uppmainwindow.cpp:625
+msgid "Please wait until the operations are completed:\n"
+msgstr "ਕਿਰਪਾ ਕੰਮ ਪੁਰੇ ਹੋਣ ਤਕ ਰੁਕੋ:\n"
 
-#: src/uppmainwindow_base.cpp:110
-msgid "Variants:"
-msgstr ""
+#: ../src/uppmainwindow.cpp:637
+msgid "Operations aborted"
+msgstr "ਓਪਰੇਸ਼ਨ ਰੋਕ ਦਿਤਾ ਗਿਆ"
 
-#: src/preferences_base.cpp:42
-#, fuzzy
-msgid "Verify after programming"
-msgstr "ਪਰੋਗਰਾਮ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਉ"
+#: ../src/uppmainwindow.cpp:673
+#: ../src/uppmainwindow.cpp:677
+msgid "All operations completed"
+msgstr "ਸਾਰੇ ਓਪਰੇਸ਼ਨ ਪੁਰੇ"
 
-#: src/uppmainwindow.cpp:921
-msgid "Verify code"
-msgstr "ਸਪਸ਼ਟਿਕਰਨ ਕੋਡ"
+#: ../src/uppmainwindow.cpp:679
+msgid "Operations completed with errors/warnings"
+msgstr "ਕੰਮ ਨੁਕਸ਼ਾਂ/ਚੇਤਾਵਨਿਆਂ ਨਾਲ ਪੁਰਾ ਹੋਇਆ"
 
-#: src/preferences_base.cpp:51
-#, fuzzy
-msgid "Verify code memory"
-msgstr "ਸਪਸ਼ਟਿਕਰਨ ਕੋਡ"
+#: ../src/uppmainwindow.cpp:763
+msgid "Erasing before programming..."
+msgstr "ਪਰੋਗਰਾਮਿਂਗ ਤੋਂ ਪਹਿਲਾਂ ਮਿਟਾਓ..."
 
-#: src/uppmainwindow.cpp:923
-msgid "Verify config"
-msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+#: ../src/uppmainwindow.cpp:768
+msgid "Erase OK"
+msgstr "ਸਹੀ ਮਿਟਿਆ"
 
-#: src/preferences_base.cpp:55
-#, fuzzy
-msgid "Verify config memory"
-msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+#: ../src/uppmainwindow.cpp:780
+msgid "Programming the code area of the PIC..."
+msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦੀ ਪਰੋਗਰਾਮਿਂਗ ਕਰਦੇ ਹੋਏ..."
 
-#: src/uppmainwindow.cpp:922
-msgid "Verify data"
-msgstr "ਡਾਟਾ ਸਪਸ਼ਟੀਕਰਨ"
+#: ../src/uppmainwindow.cpp:784
+msgid "Write Code memory OK"
+msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
 
-#: src/preferences_base.cpp:59
-#, fuzzy
-msgid "Verify data memory"
-msgstr "ਡਾਟਾ ਸਪਸ਼ਟੀਕਰਨ"
+#: ../src/uppmainwindow.cpp:787
+#: ../src/uppmainwindow.cpp:819
+#: ../src/uppmainwindow.cpp:849
+msgid "The hardware should say OK"
+msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ 'ਸਹੀ' ਕਹਿਣਾ ਚਾਹਿਦਾ ਹੈ"
 
-#: src/uppmainwindow.cpp:782
+#: ../src/uppmainwindow.cpp:790
+#: ../src/uppmainwindow.cpp:822
+#: ../src/uppmainwindow.cpp:852
+msgid "The hardware should ask for next block"
+msgstr "ਹਾਰਡਵੇਅਰ ਨੂੰ ਅਗਲੇ ਬਲਾਕ ਬਾਰੇ ਪੁਛਣਾ ਚਾਹਿਦਾ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:793
+msgid "Write code not implemented for current PIC"
+msgstr "ਏਸ PIC ਕੋਡ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
+
+#: ../src/uppmainwindow.cpp:796
 msgid "Verify error while writing code memory"
 msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, ਸਪਸ਼ਟੀਕਰਨ 'ਚ ਨੁਕਸ਼"
 
-#: src/preferences_base.cpp:49
-#, fuzzy
-msgid "Verify options"
-msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+#: ../src/uppmainwindow.cpp:799
+#: ../src/uppmainwindow.cpp:828
+#: ../src/uppmainwindow.cpp:858
+msgid "USB error while writing code memory"
+msgstr "ਕੋਡ ਮੈਮਰੀ ਲਿਖਦੇ ਹੋਏ, USB ਨੁਕਸ਼"
 
-#: src/uppmainwindow.cpp:916
-msgid "Verify successful"
-msgstr "ਸਪਸ਼ਟੀਕਰਨ ਕਾਮਯਾਬ"
+#: ../src/uppmainwindow.cpp:802
+msgid "Error programming code memory"
+msgstr "ਕੋਡ ਮੈਮਰੀ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ ਨੁਕਸ਼"
 
-#: src/uppmainwindow.cpp:203
-msgid "Verify the PIC device"
-msgstr "PIC ਜੰਤਰ ਸਪਸ਼ਟ ਕਰੋ"
+#: ../src/uppmainwindow.cpp:811
+msgid "Programming the data area of the PIC..."
+msgstr "PIC ਦਾ ਡਾਟਾ ਖੇਤਰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ..."
 
-#: src/uppmainwindow.cpp:924
-msgid "Verify unknown"
-msgstr "ਅਣਪਛਾਤਾ ਸਪਸ਼ਟੀਕਰਨ"
+#: ../src/uppmainwindow.cpp:816
+msgid "Write Data memory OK"
+msgstr "ਲਿਖਣਜੋਗ ਡਾਟਾ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
 
-#: src/uppmainwindow.cpp:903
+#: ../src/uppmainwindow.cpp:825
+msgid "Write data not implemented for current PIC"
+msgstr "ਏਸ PIC ਡਾਟਾ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
+
+#: ../src/uppmainwindow.cpp:831
+msgid "Error programming data memory"
+msgstr "ਡਾਟਾ ਮੈਮਰੀ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਨ 'ਚ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:841
+msgid "Programming configuration area of the PIC..."
+msgstr " PIC ਦੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਪਰੋਗਰਾਮ ਕਰਦੇ ਹੋਏ..."
+
+#: ../src/uppmainwindow.cpp:846
+msgid "Write Config memory OK"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਸਹੀ ਲਿਖੀ ਗਈ"
+
+#: ../src/uppmainwindow.cpp:855
+msgid "Write config not implemented for current PIC"
+msgstr "ਏਸ PIC ਸੈਟਿਂਗ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
+
+#: ../src/uppmainwindow.cpp:861
+msgid "Error programming config memory"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:879
+msgid "Reading the code area of the PIC..."
+msgstr "PIC ਦਾ ਕੋਡ ਖੇਤਰ ਪੜਦੇ ਹੋਏ"
+
+#: ../src/uppmainwindow.cpp:882
+msgid "Error reading code memory"
+msgstr "ਕੋਡ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:889
+msgid "Reading the data area of the PIC..."
+msgstr " PIC ਦਾ ਡਾਟਾ ਖੇਤਰ ਪੜਦੇ ਹੋਏ..."
+
+#: ../src/uppmainwindow.cpp:892
+msgid "Error reading data memory"
+msgstr "ਡਾਟਾ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:900
+msgid "Reading the configuration area of the PIC..."
+msgstr "PIC ਦਾ ਸੈਟਿਂਗ ਖੇਤਰ ਪੜਦੇ ਹੋਏ..."
+
+#: ../src/uppmainwindow.cpp:903
+msgid "Error reading configuration memory"
+msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਪੜਨ ਵੇਲੇ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:918
 msgid "Verifying all areas of the PIC..."
 msgstr "PIC ਦੇ ਸਾਰੇ ਖੇਤਰ ਸਪਸ਼ਟ ਕਰੋ"
 
-#: src/io_test_base.cpp:38
-msgid "Voltage:"
-msgstr ""
+#: ../src/uppmainwindow.cpp:931
+msgid "Verify successful"
+msgstr "ਸਪਸ਼ਟੀਕਰਨ ਕਾਮਯਾਬ"
 
-#: src/configview.cpp:191
+#: ../src/uppmainwindow.cpp:936
+msgid "Verify code"
+msgstr "ਸਪਸ਼ਟਿਕਰਨ ਕੋਡ"
+
+#: ../src/uppmainwindow.cpp:937
+msgid "Verify data"
+msgstr "ਡਾਟਾ ਸਪਸ਼ਟੀਕਰਨ"
+
+#: ../src/uppmainwindow.cpp:938
+msgid "Verify config"
+msgstr "ਸੈਟਿਂਗ ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/uppmainwindow.cpp:939
+msgid "Verify unknown"
+msgstr "ਅਣਪਛਾਤਾ ਸਪਸ਼ਟੀਕਰਨ"
+
+#: ../src/uppmainwindow.cpp:941
 #, c-format
-msgid "Word %d"
+msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "0x%X ਤੇ ਫੇਲ ਹੋਇਆ, ਪੜਿਆ:  0x%02X, ਚਾਹਿਦਾ ਸੀ: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:948
+msgid "USB error during verify"
+msgstr "ਸਪਸ਼ਟੀਕਰਨ ਦੋਰਾਨ USB ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:951
+msgid "Unknown error during verify"
+msgstr "ਸਪਸ਼ਟਿਕਰਨ 'ਚ ਅਣਪਛਾਤਾ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:954
+#: ../src/uppmainwindow.cpp:1019
+msgid "I'm sorry for being stupid"
+msgstr "ਮੈਂ ਬੇਵਕੁਫੀ ਦੀ ਮਾਫੀ ਚਾਹੁਨਾ "
+
+#: ../src/uppmainwindow.cpp:966
+msgid "Erasing all areas of the PIC..."
+msgstr " PIC ਦੇ ਸਾਰੇ ਖੇਤਰ ਮਿਟਾਉ..."
+
+#: ../src/uppmainwindow.cpp:985
+msgid "Checking if the device is blank..."
+msgstr "ਦੇਖ ਰਹੇ ਹਾਂ ਕਿ ਕਿਤੇ ਜੰਤਰ ਖਾਲੀ ਤਾਂ ਨੀ"
+
+#: ../src/uppmainwindow.cpp:993
+msgid "Device is blank"
+msgstr "ਜੰਤਰ ਖਾਲੀ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:1005
+#, c-format
+msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
+msgstr "ਬਲੈਂਕ 0x%X ਤੇ ਫੇਲ ਹੋਇਆ, ਪੜਿਆ:  0x%02X, ਚਾਹਿਦਾ ਸੀ: 0x%02X"
+
+#: ../src/uppmainwindow.cpp:1010
+msgid "Device is not blank."
+msgstr "ਜੰਤਰ ਖਾਲੀ ਨਹੀ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:1013
+msgid "USB error during blankcheck"
+msgstr "ਬਲੈਂਕ ਚੈਕ ਦੋਰਾਨ USB ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:1016
+msgid "Unknown error during blankcheck"
+msgstr "ਬਲੈਂਕ ਚੈਕ ਦੋਰਾਨ ਅਣਪਛਾਤਾ ਨੁਕਸ਼"
+
+#: ../src/uppmainwindow.cpp:1039
+msgid "Progress dialog"
+msgstr "ਪਰੋਸੈਸ ਬਕਸਾ"
+
+#: ../src/uppmainwindow.cpp:1040
+msgid "Initializing..."
+msgstr "ਸ਼ੁਰੁਆਤ..."
+
+#: ../src/uppmainwindow.cpp:1060
+msgid "Could not create the worker thread!"
+msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਨਹੀਂ ਬਣ ਸਕਿਆ!"
+
+#: ../src/uppmainwindow.cpp:1066
+msgid "Could not run the worker thread!"
+msgstr "ਕੰਮ ਕਰਨ ਵਾਲਾ ਥਰੈਡ ਚਾਲੂ ਨਹੀਂ ਹੋ ਸਕਿਆ"
+
+#: ../src/uppmainwindow.cpp:1102
+msgid "Open hexfile"
+msgstr "ਹੈਕਸ ਫਾਇਲ ਖੋਲੋ"
+
+#: ../src/uppmainwindow.cpp:1118
+#: ../src/uppmainwindow.cpp:1119
+#: ../src/uppmainwindow.cpp:1148
+#: ../src/uppmainwindow.cpp:1149
+msgid "Unable to open file"
+msgstr "ਫਾਇਲ ਨਹੀਂ ਖੋਲ ਸਕੇ"
+
+#: ../src/uppmainwindow.cpp:1138
+#: ../src/uppmainwindow.cpp:1139
+msgid "No file to refresh"
+msgstr "ਰਿਫਰੈਸ਼ ਲਈ ਕੋਈ ਫਾਇਲ ਨਹੀਂ"
+
+#: ../src/uppmainwindow.cpp:1164
+#: ../src/uppmainwindow.cpp:1165
+#: ../src/uppmainwindow.cpp:1186
+#: ../src/uppmainwindow.cpp:1187
+msgid "Unable to save file"
+msgstr "ਫਾਇਲ ਨਹੀਂ ਸਭਾਲੀ ਜਾ ਸਕੀ"
+
+#: ../src/uppmainwindow.cpp:1176
+msgid "Save hexfile"
+msgstr "ਹੈਕਸਫਾਇਲ ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow.cpp:1217
+#: ../src/uppmainwindow.cpp:1229
+#: ../src/uppmainwindow.cpp:1246
+#: ../src/uppmainwindow.cpp:1258
+#: ../src/uppmainwindow.cpp:1281
+#: ../src/uppmainwindow.cpp:1331
+#: ../src/uppmainwindow.cpp:1343
+#: ../src/uppmainwindow.cpp:1519
+msgid "The programmer is not connected"
+msgstr "ਪਰੋਗਰਾਮਰ ਕਨੈਕਟ ਨਹੀਂ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:1276
+msgid "Only valid for PIC12F629, PIC12F508 and similar devices..."
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:78
+#: ../src/uppmainwindow.cpp:1294
+msgid "Please specify a new Osccal Value [3400 - 37FF]"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1295
+msgid "Specify a new Osccal Value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1315
+msgid "Please specify a bandgap value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1315
+msgid "Specify a bandgap value"
+msgstr ""
+
+#: ../src/uppmainwindow.cpp:1373
+msgid "No PIC detected!"
+msgstr "ਕੋਈ PIC ਨਹੀਂ ਲਭਾ!"
+
+#: ../src/uppmainwindow.cpp:1375
+#, c-format
+msgid "No PIC detected! Selecting the default PIC (%s)..."
+msgstr "ਕੋਈ PIC ਨਹੀਂ ਲਭਾ! default PIC (%s) ਚੁਣਦੇ ਹੋਏ..."
+
+#: ../src/uppmainwindow.cpp:1380
+#, c-format
+msgid "Detected PIC model %s with device ID 0x%X"
+msgstr "PIC ਮੋਡਲ %s ਜੰਤਰ ਪਛਾਣ  0x%X ਲਭਾ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:1405
+#: ../src/uppmainwindow.cpp:1406
+msgid "Unable to read firmware version"
+msgstr "ਫਰਮਵੇਰ ਵਰਜਨ ਨਹੀਂ ਪੜ ਸਕੇ"
+
+#: ../src/uppmainwindow.cpp:1411
+#: ../src/uppmainwindow.cpp:1439
+#: ../src/uppmainwindow.cpp:1441
+msgid " Connected"
+msgstr "ਕਨੇਕਟਡ"
+
+#: ../src/uppmainwindow.cpp:1434
+#: ../src/uppmainwindow.cpp:1435
+msgid "Unable to read version"
+msgstr "ਵਰਜਨ ਨਹੀਂ ਪੜ ਸਕੇ"
+
+#: ../src/uppmainwindow.cpp:1450
+#: ../src/uppmainwindow.cpp:1452
+msgid "Bootloader or programmer not found"
+msgstr "ਬੂਟਲੋਡਰ ਜਾਂ ਪਰੋਗਰਾਮਰ ਨਹੀਂ ਮਿਲਿਆ"
+
+#: ../src/uppmainwindow.cpp:1467
+#: ../src/uppmainwindow.cpp:1469
+#, fuzzy
+msgid "Disconnected"
+msgstr "ਕਨੇਕਸ਼ਨ ਕਟੋ(&D)"
+
+#: ../src/uppmainwindow.cpp:1473
+#: ../src/uppmainwindow.cpp:1474
+msgid "Already disconnected"
+msgstr "ਕਨੇਕਸਨ ਪਹਿਲਾਂ ਹੀ ਬੰਦ ਹੈ"
+
+#: ../src/uppmainwindow.cpp:1504
+msgid "An open source USB pic programmer"
+msgstr "ਇਕ ਖੁਲੇ ਕੋਡ ਵਾਲਾ USB pic ਪਰੋਗਰਾਮਰ"
+
+#: ../src/uppmainwindow.cpp:1544
+#: ../src/uppmainwindow.cpp:1572
+#, fuzzy
+msgid "Cannot select a different PIC when the bootloader is connected!"
+msgstr "ਜਦ ਬੁਟਲੋਡਰ ਕਨੇਕਟ ਹੋਵੇ ਤਾਂ ਹੋਰ PIC  ਨਹੀਂ ਚੁਣ ਸਕਦੇ!"
+
+#: ../src/uppmainwindow_base.cpp:34
+msgid "Hexadecimal view of the code area of the PIC:"
+msgstr "PIC ਦੇ ਕੋਡ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
+
+#: ../src/uppmainwindow_base.cpp:44
+msgid "Code"
+msgstr "ਕੋਡ"
+
+#: ../src/uppmainwindow_base.cpp:49
+msgid "Hexadecimal view of the data area of the PIC:"
+msgstr "PIC ਦੇ ਡਾਟਾ ਖੇਤਰ ਦਾ ਹੈਕਸਾਡੈਸੀਮਲ ਰੂਪ:"
+
+#: ../src/uppmainwindow_base.cpp:59
+msgid "Data"
+msgstr "ਡਾਟਾ"
+
+#: ../src/uppmainwindow_base.cpp:64
+#, fuzzy
+msgid "Configuration flags for this PIC:"
+msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
+
+#: ../src/uppmainwindow_base.cpp:74
+msgid "Configuration flags"
+msgstr "ਸੈਟਿਂਗ ਨਿਸ਼ਾਨਿਆਂ"
+
+#: ../src/uppmainwindow_base.cpp:80
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:82
+#, fuzzy
+msgid "Datasheet"
+msgstr "ਡਾਟਾ"
+
+#: ../src/uppmainwindow_base.cpp:85
+msgid ""
+"Programming voltage (Vpp):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:89
 msgid ""
 "Working voltages (Vdd):\n"
 "    MIN\n"
@@ -984,218 +980,277 @@ msgid ""
 "_dontTranslateThis_"
 msgstr ""
 
-#: src/uppmainwindow.cpp:770
-msgid "Write Code memory OK"
+#: ../src/uppmainwindow_base.cpp:93
+msgid ""
+"Frequency range:\n"
+"   MIN\n"
+"   MAX\n"
+"_dontTranslateThis_"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:97
+msgid "Device ID:"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:101
+#, fuzzy
+msgid "Code memory size:"
 msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
 
-#: src/uppmainwindow.cpp:832
-msgid "Write Config memory OK"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਸਹੀ ਲਿਖੀ ਗਈ"
-
-#: src/uppmainwindow.cpp:802
-msgid "Write Data memory OK"
+#: ../src/uppmainwindow_base.cpp:105
+#, fuzzy
+msgid "Data memory size:"
 msgstr "ਲਿਖਣਜੋਗ ਡਾਟਾ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
 
-#: src/preferences_base.cpp:26
-#, fuzzy
-msgid "Write code memory"
-msgstr "ਲਿਖਣਜੋਗ ਕੋਡ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
-
-#: src/uppmainwindow.cpp:779
-msgid "Write code not implemented for current PIC"
-msgstr "ਏਸ PIC ਕੋਡ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
-
-#: src/preferences_base.cpp:30
-#, fuzzy
-msgid "Write config memory"
-msgstr "ਸੈਟਿਂਗ ਮੈਮਰੀ ਸਹੀ ਲਿਖੀ ਗਈ"
-
-#: src/uppmainwindow.cpp:841
-msgid "Write config not implemented for current PIC"
-msgstr "ਏਸ PIC ਸੈਟਿਂਗ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
-
-#: src/preferences_base.cpp:34
-#, fuzzy
-msgid "Write data memory"
-msgstr "ਲਿਖਣਜੋਗ ਡਾਟਾ ਯਾਦਆਸਤ ਠੀਕ ਹੈ"
-
-#: src/uppmainwindow.cpp:811
-msgid "Write data not implemented for current PIC"
-msgstr "ਏਸ PIC ਡਾਟਾ ਲਿਖਣਾ ਉਪਲਬਦ ਨਹੀਂ"
-
-#: src/uppmainwindow.cpp:441
-msgid ""
-"You are using a development release of the firmware with a stable version of "
-"the software. Consider upgrading your firmware"
+#: ../src/uppmainwindow_base.cpp:109
+msgid "Type:"
 msgstr ""
 
-#: src/uppmainwindow.cpp:460
-msgid ""
-"You are using a stable release of the firmware with a development version of "
-"the software. Consider upgrading your firmware"
+#: ../src/uppmainwindow_base.cpp:116
+msgid "Package"
 msgstr ""
 
-#: src/uppmainwindow.cpp:444
-#, c-format
-msgid ""
-"Your firmware is too old (latest version is %d); please consider upgrading it"
+#: ../src/uppmainwindow_base.cpp:121
+msgid "Variants:"
 msgstr ""
 
-#: src/uppmainwindow.cpp:457
-#, c-format
-msgid ""
-"Your firmware is too old (latest version is %d.%d.%d); please consider "
-"upgrading it"
-msgstr ""
-
-#: src/uppmainwindow_base.cpp:123 src/uppmainwindow_base.cpp:125
+#: ../src/uppmainwindow_base.cpp:134
+#: ../src/uppmainwindow_base.cpp:136
 msgid "Zoom in"
 msgstr ""
 
-#: src/uppmainwindow_base.cpp:130 src/uppmainwindow_base.cpp:132
+#: ../src/uppmainwindow_base.cpp:141
+#: ../src/uppmainwindow_base.cpp:143
 msgid "Zoom out"
 msgstr ""
 
-#: src/uppmainwindow.cpp:343
-msgid "autodetect"
-msgstr "ਆਪਣੇ ਆਪ ਲਭੋ"
-
-#: src/main.h:101 src/uppmainwindow.cpp:341
-msgid "blankcheck"
-msgstr "ਖਾਲੀਚੈਕ"
-
-#: src/main.h:101
-msgid "blankcheck the device"
-msgstr "ਜੰਤਰ ਨੂੰ ਬਲੈਂਕਚੈਕ ਕਰੋ"
-
-#: src/main.h:100
-msgid "bulk erase the device"
-msgstr "ਜੰਤਰ ਨੂੰ ਇਕਠਾ ਮਿਟਾਉ"
-
-#: src/uppmainwindow.cpp:348
-msgid "currently selected PIC type"
-msgstr "ਹੁਣ ਚੁਣਆ ਹੋਆ PIC ਟਾਇਪ"
-
-#: src/main.h:102
-msgid "debug"
+#: ../src/uppmainwindow_base.cpp:148
+#: ../src/uppmainwindow_base.cpp:150
+msgid "Fit package drawing"
 msgstr ""
 
-#: src/main.h:102
-msgid "debug the hardware"
+#: ../src/uppmainwindow_base.cpp:159
+msgid "Note: red pins are (some of those) used in ICSP."
 msgstr ""
 
-#: src/main.h:93
-msgid "displays help on the command line parameters"
-msgstr "ਕੰਮਾਡ ਰੇਖਾ ਤੇ ਮਦਦ ਵਿਖਾਉਦਾਂ ਹੈ"
+#: ../src/uppmainwindow_base.cpp:168
+msgid "PIC info"
+msgstr ""
 
-#: src/main.h:94
-msgid "displays version information of usbpicprog"
-msgstr "usbpicprog ਦਾ ਵਰਸਨ ਵਿਖਾਉ"
+#: ../src/uppmainwindow_base.cpp:180
+msgid "&New"
+msgstr "ਨਵਾਂ(&N)"
 
-#: src/main.h:96
-msgid "do not display the hex file"
-msgstr "ਹੈਕਸਫਾਇਲ ਨੂੰ ਨਾ ਦਿਖਾਓ"
+#: ../src/uppmainwindow_base.cpp:180
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "ਖੁਲੀ ਹੋਈ ਹੈਕਸ ਫਾਇਲ ਦੇ ਕੋਡ, ਡਾਟਾ ਤੇ ਸੈਟਿਂਗ ਖੇਤਰ ਨੂੰ ਰਿਸੈਟ ਕਰੋ"
 
-#: src/main.h:100 src/uppmainwindow.cpp:339
-msgid "erase"
-msgstr "ਮਿਟਾਉ"
+#: ../src/uppmainwindow_base.cpp:184
+msgid "&Open"
+msgstr "ਖੋਲੋ(&O)"
 
-#: src/main.h:103
-msgid "file"
-msgstr "ਫਾਇਲ"
+#: ../src/uppmainwindow_base.cpp:184
+msgid "Loads an HEX file for editing or programming..."
+msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਸੋਧ ਜਾਂ ਪਰੋਗਰਾਮਿਗਂ ਲਈ ਲੋਡ ਕਰਦਾ ਹੈ..."
 
-#: src/main.h:93
+#: ../src/uppmainwindow_base.cpp:188
+msgid "&Reload"
+msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ(&R)"
+
+#: ../src/uppmainwindow_base.cpp:188
+msgid "Reloads the current HEX file from disk"
+msgstr "ਇਸ  HEX ਫਾਇਲ ਨੂੰ ਡਿਸਕ ਤੋਂ ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
+
+#: ../src/uppmainwindow_base.cpp:192
+msgid "&Save"
+msgstr "ਸੰਭਾਲੋ(&S)"
+
+#: ../src/uppmainwindow_base.cpp:192
+msgid "Saves the HEX file with the modified data"
+msgstr "ਹੈਕਸ ਫਾਇਲ ਨੂੰ ਬਦਲੇ ਹੋਏ ਡਾਟਾ ਨਾਲ ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:196
+msgid "Save &As"
+msgstr "ਇੰਜ ਸੰਭਾਲੋ(&A)..."
+
+#: ../src/uppmainwindow_base.cpp:196
+msgid "Saves current code,config,data as a HEX file"
+msgstr "ਹੁਣ ਦੇ ਕੋਡ, ਸੈਟਿਂਗ, ਡਾਟਾ ਨੂੰ ਹੈਕਸ ਫਾਇਲ 'ਚ ਸੰਭਾਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:200
+msgid "E&xit"
+msgstr "ਨਿਕਲੋ(&x)"
+
+#: ../src/uppmainwindow_base.cpp:200
+msgid "Exits the program"
+msgstr "ਪਰੋਗਰਾਮ ਤੋਂ ਨਿਕਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:203
+msgid "&File"
+msgstr "ਫਾਇਲ(&F)"
+
+#: ../src/uppmainwindow_base.cpp:207
+msgid "&Copy"
+msgstr "ਨਕਲ(&C)"
+
+#: ../src/uppmainwindow_base.cpp:207
+msgid "Copies to the clipboard currently selected cells"
+msgstr "ਕਲਿਪਬੋਰਡ ਨੂੰ ਛੁਣੇ ਹੋਏ ਸੈਲਾਂ ਦੀ ਨਕਲ ਕਰੋ"
+
+#: ../src/uppmainwindow_base.cpp:211
+msgid "Select &All"
+msgstr "ਸਾਰੇ ਚੁਣੋ(&A)"
+
+#: ../src/uppmainwindow_base.cpp:211
+msgid "Selects the entire grid currently shown"
+msgstr "ਹੁਣ ਵਿਖਾਇਆ ਜਾ ਰਿਹਾ ਸਾਰਾ ਗਰਿਡ ਚੁਣੋ"
+
+#: ../src/uppmainwindow_base.cpp:214
+msgid "&Edit"
+msgstr "ਸੋਧ(&E)"
+
+#: ../src/uppmainwindow_base.cpp:218
+msgid "&Preferences"
+msgstr "ਸੈਟਿਂਗ(&P)"
+
+#: ../src/uppmainwindow_base.cpp:218
+#: ../src/uppmainwindow_base.cpp:222
+msgid "Shows the options for this program"
+msgstr "ਇਸ ਪਰੋਗਰਾਮ ਦੀ ਆਪਸ਼ਨ ਵਿਖਾਓ"
+
+#: ../src/uppmainwindow_base.cpp:222
+msgid "&IO Test"
+msgstr ""
+
+#: ../src/uppmainwindow_base.cpp:225
+#, fuzzy
+msgid "&Options"
+msgstr "ਐਕਸ਼ਨ(&A)"
+
+#: ../src/uppmainwindow_base.cpp:229
+#: ../src/uppmainwindow_base.cpp:238
+msgid "&Help"
+msgstr "ਮਦਦ(&H)"
+
+#: ../src/uppmainwindow_base.cpp:229
+msgid "Opens the Usbpicprog's website..."
+msgstr "Usbpicprog's ਦੀ ਵੈਬਸਾਇਟ ਖੋਲੋ"
+
+#: ../src/uppmainwindow_base.cpp:235
+msgid "&About"
+msgstr "ਬਾਰੇ(&A)"
+
+#: ../src/uppmainwindow_base.cpp:235
+msgid "Shows informations about this program"
+msgstr "ਏਸ ਪਰੋਗਰਾਮ ਬਾਰੇ ਜਾਣਕਾਰੀ"
+
+#: ../src/io_test_base.h:76
+msgid "Input/output test"
+msgstr ""
+
+#: ../src/main.h:128
 msgid "help"
 msgstr "ਮਦਦ"
 
-#: src/main.h:103
-msgid "hexfile"
-msgstr "ਹੈਕਸਫਾਇਲ"
+#: ../src/main.h:128
+msgid "displays help on the command line parameters"
+msgstr "ਕੰਮਾਡ ਰੇਖਾ ਤੇ ਮਦਦ ਵਿਖਾਉਦਾਂ ਹੈ"
 
-#: src/uppmainwindow.cpp:322
-msgid "new"
-msgstr "ਨਵਾਂ"
-
-#: src/uppmainwindow.cpp:324
-msgid "open"
-msgstr "ਖੋਲੋ"
-
-#: src/packageview.cpp:45
-msgid "packageview"
-msgstr ""
-
-#: src/main.h:95
-msgid "pictype"
-msgstr "pictype"
-
-#: src/uppmainwindow.cpp:333
-msgid "program"
-msgstr "ਪਰੋਗਰਾਮ"
-
-#: src/main.h:98 src/uppmainwindow.cpp:335
-msgid "read"
-msgstr "ਪੜੋ"
-
-#: src/main.h:98
-msgid "read the device"
-msgstr "ਜੰਤਰ ਨੂਂ ਪੜੋ"
-
-#: src/uppmainwindow.cpp:326
-msgid "reload"
-msgstr "ਦੋਬਾਰਾ ਲੋਡ ਕਰੋ"
-
-#: src/main.h:105
-msgid "restore-bandgap"
-msgstr ""
-
-#: src/main.h:104
-msgid "restore-osccal"
-msgstr ""
-
-#: src/uppmainwindow.cpp:328
-msgid "save"
-msgstr "ਸੰਭਾਲੋ"
-
-#: src/uppmainwindow.cpp:330
-msgid "save as"
-msgstr "ਇੰਜ ਸੰਭਾਲੋ..."
-
-#: src/main.h:96
-msgid "silent"
-msgstr "ਸਾਂਤ"
-
-#: src/main.h:95
-msgid "specify the pic type (eg -p=P18F2550)"
-msgstr " pic type ਚੁਣੋ (ਜਿਵੇਂ p=P18F2550)"
-
-#: src/hexfile.cpp:235
-#, c-format
-msgid "unknown record type: %d"
-msgstr ""
-
-#: src/uppmainwindow.cpp:480
-msgid "untitled"
-msgstr "ਬੇਨਾਮ"
-
-#: src/main.h:99 src/uppmainwindow.cpp:337
-msgid "verify"
-msgstr "ਸਪਸ਼ਟ ਕਰੋ"
-
-#: src/main.h:99
-msgid "verify the device"
-msgstr "ਜੰਤਰ ਨੂਂ ਸਪਸ਼ਟ ਕਰੋ"
-
-#: src/main.h:94
+#: ../src/main.h:129
 msgid "version"
 msgstr "ਵਰਜਨ"
 
-#: src/main.h:97
+#: ../src/main.h:129
+msgid "displays version information of usbpicprog"
+msgstr "usbpicprog ਦਾ ਵਰਸਨ ਵਿਖਾਉ"
+
+#: ../src/main.h:130
+msgid "pictype"
+msgstr "pictype"
+
+#: ../src/main.h:130
+msgid "specify the pic type (eg -p=P18F2550)"
+msgstr " pic type ਚੁਣੋ (ਜਿਵੇਂ p=P18F2550)"
+
+#: ../src/main.h:131
+msgid "silent"
+msgstr "ਸਾਂਤ"
+
+#: ../src/main.h:131
+msgid "do not display the hex file"
+msgstr "ਹੈਕਸਫਾਇਲ ਨੂੰ ਨਾ ਦਿਖਾਓ"
+
+#: ../src/main.h:132
 msgid "write"
 msgstr "ਸੰਭਾਲੋ"
 
-#: src/main.h:97
+#: ../src/main.h:132
 msgid "write the device"
 msgstr "ਜੰਤਰ ਨੂਂ ਸੰਭਾਲੋ"
+
+#: ../src/main.h:133
+msgid "read the device"
+msgstr "ਜੰਤਰ ਨੂਂ ਪੜੋ"
+
+#: ../src/main.h:134
+msgid "verify the device"
+msgstr "ਜੰਤਰ ਨੂਂ ਸਪਸ਼ਟ ਕਰੋ"
+
+#: ../src/main.h:135
+msgid "bulk erase the device"
+msgstr "ਜੰਤਰ ਨੂੰ ਇਕਠਾ ਮਿਟਾਉ"
+
+#: ../src/main.h:136
+msgid "blankcheck the device"
+msgstr "ਜੰਤਰ ਨੂੰ ਬਲੈਂਕਚੈਕ ਕਰੋ"
+
+#: ../src/main.h:137
+msgid "debug"
+msgstr ""
+
+#: ../src/main.h:137
+msgid "debug the hardware"
+msgstr ""
+
+#: ../src/main.h:138
+msgid "file"
+msgstr "ਫਾਇਲ"
+
+#: ../src/main.h:138
+msgid "hexfile"
+msgstr "ਹੈਕਸਫਾਇਲ"
+
+#: ../src/main.h:139
+msgid "restore-osccal"
+msgstr ""
+
+#: ../src/main.h:139
+msgid "Restore Osccal Register"
+msgstr ""
+
+#: ../src/main.h:140
+msgid "restore-bandgap"
+msgstr ""
+
+#: ../src/main.h:140
+msgid "Restore BandGap Register"
+msgstr ""
+
+#: ../src/preferences_base.h:51
+msgid "Preferences"
+msgstr "ਸੈਟਿਂਗ"
+
+#: ../src/uppmainwindow_base.h:103
+msgid "Usbpicprog"
+msgstr "Usbpicprog"
+
+#, fuzzy
+#~ msgid "&Close"
+#~ msgstr "ਕੋਡ"
+
+#, fuzzy
+#~ msgid "Usbpicprog IO Test"
+#~ msgstr "Usbpicprog: "
 
 #, fuzzy
 #~ msgid "device ID not found"
