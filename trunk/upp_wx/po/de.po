@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 11:22+0200\n"
-"PO-Revision-Date: 2010-04-09 12:55+0100\n"
-"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
+"POT-Creation-Date: 2010-04-12 08:34+0200\n"
+"PO-Revision-Date: 2010-04-12 07:08+0100\n"
+"Last-Translator: Bernd Kernbaum <bernd.kernbaum@t-online.de>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: USA\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
@@ -266,6 +266,17 @@ msgid ""
 "mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which "
 "is located in your 'Windows\\System32' folder)."
 msgstr ""
+"Konnte die Bibliothek libusb nicht inittialisieren. Es kann sein:\n"
+"1) nicht korrekte Installation der USBPICPROG Treiber; Prüfe in diesem Fall "
+"den Windows Geräte Manager mit angeschlossenem Programmer;\n"
+"2) Nicht korrekte Installation von cfgmgr32.dll, winusb.dll oder hid.dll;\n"
+"\n"
+"Bitte USBPICPROG erneut installieren. Windows muss das Anstecken von "
+"USBPICPROG erkennen. Wenn Windows nach einem Treiber fragt auf das "
+"Verzeichnis  'UsbPicProg\\driver' verweisen welches im Programme Verzeichnis "
+"installiert wurde. Sollte es Probleme geben sende eine E-Mail an die "
+"USBPICPROG Mail Liste mit der 'DPINST.LOG' Datei (zu finden im 'Windows"
+"\\System32' Ordner)."
 
 #: src/main.cpp:116
 #, c-format
@@ -297,11 +308,11 @@ msgstr "Konnte das USB Gerät: %s nicht zurücksetzen."
 #: src/io_test_base.cpp:54 src/io_test_base.cpp:83 src/io_test_base.cpp:112
 #: src/io_test_base.cpp:153
 msgid "Current HW state:"
-msgstr ""
+msgstr "Aktuelle HW Status:"
 
 #: src/io_test_base.cpp:38
 msgid "Current HW voltage:"
-msgstr ""
+msgstr "Aktuelle HW Spannung:"
 
 #: src/configview.cpp:154
 #, c-format
@@ -483,6 +494,10 @@ msgid ""
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Frequency range:\n"
+"   MIN\n"
+"   MAX\n"
+"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:531
 #, c-format
@@ -526,6 +541,10 @@ msgid ""
 "The real voltage of the VPP pin and the other pins' statuses are updated "
 "once per second and are reported in bold below."
 msgstr ""
+"In diesem Dialog kann die USBPICPROG Hardware getestet werden. Es werden "
+"Kommandos gesendet, die die Ausgabe Pins setzen.\n"
+"Die tatsächliche Spannung des VPP Pin und der Status der anderen Pins wird "
+"einmal pro Sekunde erneuert und in fetter Schrift ausgegeben. "
 
 #: src/uppmainwindow.cpp:1040
 msgid "Initializing..."
@@ -533,7 +552,7 @@ msgstr "Initialisiere ..."
 
 #: src/io_test_base.h:76
 msgid "Input/output test"
-msgstr ""
+msgstr "Ein-/Ausgabetest"
 
 #: src/pictype.cpp:166
 #, c-format
@@ -690,6 +709,11 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Programming voltage (Vpp):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:526
 #, c-format
@@ -923,6 +947,8 @@ msgstr "Unbekannter Fehler beim Vergleichen"
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""
+"Nicht unterstützte Windows Version. USBPICPROG läuft nur unter Windows XP "
+"oder späteren Versionen."
 
 #: src/uppmainwindow_base.h:103
 msgid "Usbpicprog"
@@ -1013,6 +1039,11 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
+"Working voltages (Vdd):\n"
+"    MIN\n"
+"    NOM\n"
+"    MAX\n"
+"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:784
 msgid "Write Code memory OK"
