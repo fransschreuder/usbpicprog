@@ -155,6 +155,9 @@ proceed:
   !insertmacro UPP_INSTALL_LANG pt
   !insertmacro UPP_INSTALL_LANG uk
   
+  SetOutPath "$INSTDIR"
+  File /r /x .svn ..\..\examples
+  
   SetOutPath "$INSTDIR\xml_data"
   File ..\..\xml_data\*.xml
 
