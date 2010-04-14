@@ -29,11 +29,11 @@
 
   ; NOTE: the version should be the same as the one in svn_revision.sh (see the UPP_VERSION #define)
   !define PRODUCT_NAME            "UsbPicProg"
-  !define PRODUCT_VERSION         "0.3.0"
+  !define PRODUCT_VERSION         "0.4.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define INSTALLER_MODE          "release"     ; choose between "debug" and "release"
-  !define SVN_TEST_INSTALLER      1           ; is this a SVN test?
-  !define SVN_REVISION            "848"
+  !define SVN_TEST_INSTALLER      0           ; is this a SVN test?
+  !define SVN_REVISION            "877"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
