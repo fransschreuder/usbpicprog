@@ -160,6 +160,7 @@ protected:     // event handlers
     void on_close( wxCloseEvent& event );
     void on_new( wxCommandEvent& event ){upp_new(); EVENT_FIX}
     void on_open( wxCommandEvent& event ){upp_open(); EVENT_FIX}
+	void on_examples( wxCommandEvent& event ){upp_examples(); EVENT_FIX}
     void on_refresh( wxCommandEvent& event ){upp_refresh(); EVENT_FIX}
     void on_save( wxCommandEvent& event ){upp_save(); EVENT_FIX}
     void on_save_as( wxCommandEvent& event ){upp_save_as(); EVENT_FIX}
@@ -191,6 +192,10 @@ private:    // real event handlers
 
     /** Open a hexfile using a file dialog */
     void upp_open();
+
+
+	/** Open a hexfile from the examples directory */
+    void upp_examples();
 
     /** Re-open the hexfile */
     void upp_refresh();

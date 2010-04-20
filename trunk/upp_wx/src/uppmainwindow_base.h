@@ -39,7 +39,8 @@
 ///////////////////////////////////////////////////////////////////////////
 
 #define wxID_PACKAGE_VARIANT 1000
-#define wxID_IO_TEST 1001
+#define wxID_EXAMPLES 1001
+#define wxID_IO_TEST 1002
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class UppMainWindowBase
@@ -87,6 +88,7 @@ class UppMainWindowBase : public wxFrame
 		// Virtual event handlers, overide them in your derived class
 		virtual void on_new( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_open( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_examples( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_refresh( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_save( wxCommandEvent& event ){ event.Skip(); }
 		virtual void on_save_as( wxCommandEvent& event ){ event.Skip(); }

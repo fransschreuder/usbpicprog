@@ -33,6 +33,7 @@
 #include <wx/debug.h>
 #include <wx/dataview.h>
 #include <wx/dcmemory.h>
+#include <wx/stdpaths.h>
 
 #include <wx/persist/toplevel.h>
 #include <wx/evtloop.h>
@@ -1100,6 +1101,24 @@ void UppMainWindow::upp_open()
 
     wxFileDialog* openFileDialog =
         new wxFileDialog( this, _("Open hexfile"), m_defaultPath, (""),
+                        FILETYPES, wxFD_OPEN, wxDefaultPosition);
+
+    if ( openFileDialog->ShowModal() == wxID_OK )
+    {
+        // get the folder of the opened file, without the name&extension
+        m_defaultPath=wxFileName(openFileDialog->GetPath()).GetPath();
+
+        upp_open_file(openFileDialog->GetPath());
+    }
+}
+
+void UppMainWindow::upp_examples()
+{
+    if (!ShouldContinueIfUnsaved())
+        return;
+	wxString examplepath = ((wxStandardPaths &)wxStandardPaths::Get()).GetDataDir()+wxT("/examples");
+    wxFileDialog* openFileDialog =
+        new wxFileDialog( this, _("Open hexfile"), examplepath, (""),
                         FILETYPES, wxFD_OPEN, wxDefaultPosition);
 
     if ( openFileDialog->ShowModal() == wxID_OK )

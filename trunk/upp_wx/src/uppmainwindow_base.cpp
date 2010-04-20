@@ -20,6 +20,7 @@ int g_handModificationsTrickSymbol;
 
 UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
+
 // EDITED-BY-HAND:
 //  this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 // not necessary!
@@ -173,7 +174,6 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 //	this->SetSizerAndFit( m_pSizer );
 //	this->Layout();
 // done later in UppMainWindow::CompleteGUICreation()
-
 	m_pMenuBar = new wxMenuBar( 0 );
 	m_pMenuFile = new wxMenu();
 	wxMenuItem* uppMenuNew;
@@ -183,6 +183,10 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	wxMenuItem* uppMenuOpen;
 	uppMenuOpen = new wxMenuItem( m_pMenuFile, wxID_OPEN, wxString( _("&Open") ) , _("Loads an HEX file for editing or programming..."), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuOpen );
+	
+	wxMenuItem* uppMenuExamples;
+	uppMenuExamples = new wxMenuItem( m_pMenuFile, wxID_EXAMPLES, wxString( _("Examples") ) , _("Loads a HEX file from the examples folder"), wxITEM_NORMAL );
+	m_pMenuFile->Append( uppMenuExamples );
 	
 	wxMenuItem* uppMenuRefresh;
 	uppMenuRefresh = new wxMenuItem( m_pMenuFile, wxID_REFRESH, wxString( _("&Reload") ) + wxT('\t') + wxT("CTRL+R"), _("Reloads the current HEX file from disk"), wxITEM_NORMAL );
@@ -246,10 +250,12 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 #else
     m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZEGRIP, wxID_ANY );
 #endif
+
 	
 	// Connect Events
 	this->Connect( uppMenuNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_new ) );
 	this->Connect( uppMenuOpen->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_open ) );
+	this->Connect( uppMenuExamples->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_examples ) );
 	this->Connect( uppMenuRefresh->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_refresh ) );
 	this->Connect( uppMenuSave->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_save ) );
 	this->Connect( uppMenuSaveAs->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_save_as ) );
@@ -267,6 +273,7 @@ UppMainWindowBase::~UppMainWindowBase()
 	// Disconnect Events
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_new ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_open ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_examples ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_refresh ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_save ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_save_as ) );
