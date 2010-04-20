@@ -43,7 +43,7 @@ echo restoring language files...
 mv ../*.mo po
 rm -rf m4
 rm -rf autom4te.cache
-if [ "$RELEASE" = "0.3.0" ]; then
+if [  ${RELEASE:0:2} = "0."  ]; then
 ( echo '// generated file';
     echo '#define UPP_VERSION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
 else
