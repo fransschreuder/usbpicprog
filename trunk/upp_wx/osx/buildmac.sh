@@ -9,6 +9,8 @@ source settings
 # Create a build dir
 if [ -d "build" ]; then
 	echo "'build' dir exists!"
+	rm -rf build
+	mkdir build
 else 	
 	echo "Creating 'build' dir..."
 	mkdir build
@@ -71,6 +73,7 @@ rm "$PREFIX_app"/usbpicprog_i386
 
 # Make an app of everything
 cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po
+cp -r src/usbpicprog.app/Contents/MacOS/output/share/usbpicprog/examples src/usbpicprog.app/Contents/SharedSupport
 cp ../../src/Info.plist src/usbpicprog.app/Contents
 cp ../../icons/usbpicprog.icns src/usbpicprog.app/Contents/Resources
 echo -n "APPL????" > src/usbpicprog.app/Contents/PkgInfo
