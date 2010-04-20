@@ -105,5 +105,12 @@ AC_OUTPUT([
     Makefile
     src/Makefile
     xml_data/Makefile
+    examples/Makefile
+    examples/blinking_led_pic18f4553/Makefile
+    examples/blinking_led_12F_16F/Makefile
+    examples/dice_for_12F6XX/Makefile
+    examples/dice_for_12F6XX/gerber/Makefile
+    examples/dice_for_12F6XX/kicad/Makefile
+    examples/dice_for_12F6XX/code/Makefile
     po/Makefile.in
 ])

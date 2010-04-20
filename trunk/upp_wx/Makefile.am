@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 ## Created by Anjuta
 
-SUBDIRS = src po xml_data
+SUBDIRS = src po xml_data examples
 ACLOCAL_AMFLAGS =  -I m4
 
 
