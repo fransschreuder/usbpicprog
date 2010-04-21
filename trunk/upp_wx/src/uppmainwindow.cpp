@@ -151,7 +151,6 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
 
 UppMainWindow::~UppMainWindow()
 {
-    cout<<"uppMainwindow destructor"<<endl;
     if (m_hardware.connected())
     {
         m_hardware.disconnect();
