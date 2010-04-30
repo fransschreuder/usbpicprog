@@ -143,6 +143,7 @@ proceed:
   
   ; Install the *.mo files
   !insertmacro UPP_INSTALL_LANG ar
+  !insertmacro UPP_INSTALL_LANG bs
   !insertmacro UPP_INSTALL_LANG cs
   !insertmacro UPP_INSTALL_LANG de
   !insertmacro UPP_INSTALL_LANG el
