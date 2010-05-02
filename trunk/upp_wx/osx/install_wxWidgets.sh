@@ -37,6 +37,12 @@ else
 	mkdir -p "$WORKDIR"
 fi
 
+#Create the links to make the libtool(-ize) use glibtool(-ize) instead!
+ln -s /opt/local/bin/glibtool "$PREFIX_ppc"/bin/libtool
+ln -s /opt/local/bin/glibtoolize "$PREFIX_ppc"/bin/libtoolize
+ln -s /opt/local/bin/glibtool "$PREFIX_i386"/bin/libtool
+ln -s /opt/local/bin/glibtoolize "$PREFIX_i386"/bin/libtoolize
+
 # Download wxWidgets
 cd "$WORKDIR"
 if [ -f wxWidgets-2.9.0.tar.gz ]; then

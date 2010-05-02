@@ -43,6 +43,14 @@ else
 	mkdir -p "$WORKDIR"
 fi
 
+#Create the links to make the libtool(-ize) use glibtool(-ize) instead!
+ln -s /opt/local/bin/glibtool "$PREFIX_ppc_cocoa"/bin/libtool
+ln -s /opt/local/bin/glibtoolize "$PREFIX_ppc_cocoa"/bin/libtoolize
+ln -s /opt/local/bin/glibtool "$PREFIX_i386_cocoa"/bin/libtool
+ln -s /opt/local/bin/glibtoolize "$PREFIX_i386_cocoa"/bin/libtoolize
+ln -s /opt/local/bin/glibtool "$PREFIX_x86_64_cocoa"/bin/libtool
+ln -s /opt/local/bin/glibtoolize "$PREFIX_x86_64_cocoa"/bin/libtoolize
+
 # Download wxWidgets
 cd "$WORKDIR"
 # Get in there and create a builddir
