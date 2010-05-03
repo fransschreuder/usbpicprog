@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Usbpicprog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:04+0200\n"
+"POT-Creation-Date: 2010-05-03 20:14+0200\n"
 "PO-Revision-Date: 2010-04-09 12:56+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Arabic <fransschreuder@lists.sourceforge.net>\n"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Cannot load '%s'."
 msgstr "لا يمكن تحميل معطيات الـPIC من ملف الـXML"
 
-#: src/main.cpp:99
+#: src/main.cpp:118
 msgid "Cannot load XML PIC data."
 msgstr "لا يمكن تحميل معطيات الـPIC من ملف الـXML"
 
@@ -256,7 +256,7 @@ msgstr "لا يمكن الوصول إلى المجلد 'xml_data'"
 msgid "Could not create the worker thread!"
 msgstr "تعذر إنشاء خيط العمل (worker thread) !"
 
-#: src/main.cpp:113
+#: src/main.cpp:132
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -271,7 +271,7 @@ msgid ""
 "is located in your 'Windows\\System32' folder)."
 msgstr ""
 
-#: src/main.cpp:116
+#: src/main.cpp:135
 #, c-format
 msgid "Could not initialize libusb: %s"
 msgstr ""
@@ -413,7 +413,7 @@ msgstr "مسح قبل البرمجة"
 msgid "Error claiming the USB device interface: %s"
 msgstr "حدث خطأ أثناء مسح العنصر"
 
-#: src/main.cpp:292 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "حدث خطأ أثناء مسح العنصر"
@@ -451,7 +451,7 @@ msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
 msgid "Error reading data memory"
 msgstr "حدث خطأ أثناء قراءة ذاكرة المعطيات"
 
-#: src/main.cpp:294 src/uppmainwindow.cpp:1340
+#: src/main.cpp:313 src/uppmainwindow.cpp:1340
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
@@ -660,7 +660,7 @@ msgstr "التعليبة"
 msgid "Please confirm"
 msgstr "الرجاء، قم بالتأكيد"
 
-#: src/main.cpp:287
+#: src/main.cpp:306
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr ""
 
@@ -672,7 +672,7 @@ msgstr ""
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr ""
 
-#: src/main.cpp:278 src/uppmainwindow.cpp:1320
+#: src/main.cpp:297 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr ""
 
@@ -865,7 +865,7 @@ msgstr "يجب أن يستجيب العتاد المادي إيجابياَ"
 msgid "The programmer is not connected"
 msgstr "المبرمجة ليست على اتصال"
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
@@ -936,7 +936,7 @@ msgstr "حدث خطأ غير معروف أثناء فحص الخلو"
 msgid "Unknown error during verify"
 msgstr "حدث خطأ غير معروف أثناء التفحص"
 
-#: src/main.cpp:90
+#: src/main.cpp:109
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""

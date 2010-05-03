@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:04+0200\n"
+"POT-Creation-Date: 2010-05-03 20:14+0200\n"
 "PO-Revision-Date: 2010-04-29 00:49+0100\n"
 "Last-Translator: Igor Prša <akiro.ip@gmail.com>\n"
 "Language-Team: akiro <akiro.ip@gmail.com>\n"
@@ -187,7 +187,7 @@ msgstr "Ne mogu nacrtati PIC pakovanje!"
 msgid "Cannot load '%s'."
 msgstr "Ne mogu učitati '%s'."
 
-#: src/main.cpp:99
+#: src/main.cpp:118
 msgid "Cannot load XML PIC data."
 msgstr "Ne mogu učitati XML podatke za PIC."
 
@@ -252,7 +252,7 @@ msgstr "Ne mogu pristupiti 'xml_data' direktoriju."
 msgid "Could not create the worker thread!"
 msgstr "Ne mogu stvoriti radnu nit!"
 
-#: src/main.cpp:113
+#: src/main.cpp:132
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -279,7 +279,7 @@ msgstr ""
 "molimo pošaljite mail na UsbPicProg mailing listu zajedno sa 'DPINST.LOG' "
 "datotekom (koja se nalazi u vašem 'Windows\\System32' direktoriju)."
 
-#: src/main.cpp:116
+#: src/main.cpp:135
 #, c-format
 msgid "Could not initialize libusb: %s"
 msgstr "Ne mogu pokrenuti libusb: %s"
@@ -420,7 +420,7 @@ msgstr "Brišem prije porgramiranja..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Pogreška tokom traženja sučelja USB uređaja: %s"
 
-#: src/main.cpp:292 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "Pogreška tokom brisanja uređaja"
@@ -458,7 +458,7 @@ msgstr "Pogreška u čitanju konfiguracijske memorije"
 msgid "Error reading data memory"
 msgstr "Pogreška u čitanju memorije podataka"
 
-#: src/main.cpp:294 src/uppmainwindow.cpp:1340
+#: src/main.cpp:313 src/uppmainwindow.cpp:1340
 msgid "Error restoring Calibration Registers"
 msgstr "Pogreška u vraćanju vrijednosti kalibracijskih registara "
 
@@ -666,7 +666,7 @@ msgstr "Pakovanje"
 msgid "Please confirm"
 msgstr "Molim potvrdite"
 
-#: src/main.cpp:287
+#: src/main.cpp:306
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Navedite BandGap vrijednost između 0 i 3"
 
@@ -678,7 +678,7 @@ msgstr "Navedite bangap vrijednost"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Navedite novu Osccal vrijednost [3400 - 37FF]"
 
-#: src/main.cpp:278 src/uppmainwindow.cpp:1320
+#: src/main.cpp:297 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr "Navedite Oscal vrijednost između 3400 i 37FF"
 
@@ -874,7 +874,7 @@ msgstr "Hardvera treba reći OK"
 msgid "The programmer is not connected"
 msgstr "Programator nije povezan"
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
@@ -951,7 +951,7 @@ msgstr "Nepoznata greška prilikom provjere na prazno"
 msgid "Unknown error during verify"
 msgstr "Nepoznata greška prilikom provjere"
 
-#: src/main.cpp:90
+#: src/main.cpp:109
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:04+0200\n"
+"POT-Creation-Date: 2010-05-03 20:14+0200\n"
 "PO-Revision-Date: 2010-04-20 10:45+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
@@ -186,7 +186,7 @@ msgstr "Kan de PIC package niet tekenen!"
 msgid "Cannot load '%s'."
 msgstr "Kan '%s' niet laden"
 
-#: src/main.cpp:99
+#: src/main.cpp:118
 msgid "Cannot load XML PIC data."
 msgstr "Kan XML data niet openen"
 
@@ -251,7 +251,7 @@ msgstr "Kan de 'xml_data' directory niet vinden."
 msgid "Could not create the worker thread!"
 msgstr "Fout bij het maken van de thread!"
 
-#: src/main.cpp:113
+#: src/main.cpp:132
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -277,7 +277,7 @@ msgstr ""
 "een mail naar de usbpicprog mailing list met als bijlage 'DPINST.LOG'. (in "
 "Windows\\System32)."
 
-#: src/main.cpp:116
+#: src/main.cpp:135
 #, c-format
 msgid "Could not initialize libusb: %s"
 msgstr "Kan libusb niet initialiseren: %s"
@@ -418,7 +418,7 @@ msgstr "Wissen voor programmeren..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Fout tijdens claimen van de interface: %s"
 
-#: src/main.cpp:292 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "Fout bij het wissen"
@@ -456,7 +456,7 @@ msgstr "Code"
 msgid "Error reading data memory"
 msgstr "Fout tijdens lezen van Data geheugen"
 
-#: src/main.cpp:294 src/uppmainwindow.cpp:1340
+#: src/main.cpp:313 src/uppmainwindow.cpp:1340
 msgid "Error restoring Calibration Registers"
 msgstr "Fout bij terugzetten Calibratie Registers"
 
@@ -664,7 +664,7 @@ msgstr "Behuizing"
 msgid "Please confirm"
 msgstr "Weet U het zeker?"
 
-#: src/main.cpp:287
+#: src/main.cpp:306
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Geef een bandgap waarde op tussen 0 en 3"
 
@@ -676,7 +676,7 @@ msgstr "Geef een bandgap waarde op"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Geef een nieuwe waarde op voor Osccal [3400 - 37FF]"
 
-#: src/main.cpp:278 src/uppmainwindow.cpp:1320
+#: src/main.cpp:297 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr "Geef een Osccal waarde op tussen 3400 en 37FF"
 
@@ -871,7 +871,7 @@ msgstr "De hardware hoort OK te zeggen"
 msgid "The programmer is not connected"
 msgstr "De programmer is niet verbonden"
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
@@ -948,7 +948,7 @@ msgstr "Onbekende fout tijdens blankcheck"
 msgid "Unknown error during verify"
 msgstr "Onbekende fout tijdens verificatie"
 
-#: src/main.cpp:90
+#: src/main.cpp:109
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""

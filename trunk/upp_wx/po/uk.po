@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:04+0200\n"
+"POT-Creation-Date: 2010-05-03 20:14+0200\n"
 "PO-Revision-Date: 2010-04-09 12:54+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Ukrainian <usbpicprog-technical@lists.sourceforge.net>\n"
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Cannot load '%s'."
 msgstr "Неможливо прочитати XML-дані PIC"
 
-#: src/main.cpp:99
+#: src/main.cpp:118
 msgid "Cannot load XML PIC data."
 msgstr "Неможливо прочитати XML-дані PIC"
 
@@ -250,7 +250,7 @@ msgstr "Неможливо отримати доступ до папки 'xml_da
 msgid "Could not create the worker thread!"
 msgstr "Неможливо створити робочий тред!"
 
-#: src/main.cpp:113
+#: src/main.cpp:132
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -265,7 +265,7 @@ msgid ""
 "is located in your 'Windows\\System32' folder)."
 msgstr ""
 
-#: src/main.cpp:116
+#: src/main.cpp:135
 #, c-format
 msgid "Could not initialize libusb: %s"
 msgstr ""
@@ -406,7 +406,7 @@ msgstr "Очистити перед записом..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Помилка під час очистки пристрою"
 
-#: src/main.cpp:292 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "Помилка під час очистки пристрою"
@@ -444,7 +444,7 @@ msgstr "Помилка читання пам'яті конфігурації"
 msgid "Error reading data memory"
 msgstr "Помилка читання пам'яті даних"
 
-#: src/main.cpp:294 src/uppmainwindow.cpp:1340
+#: src/main.cpp:313 src/uppmainwindow.cpp:1340
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "Помилка читання пам'яті конфігурації"
@@ -646,7 +646,7 @@ msgstr "Корпус"
 msgid "Please confirm"
 msgstr "Будь-ласка підтвердіть"
 
-#: src/main.cpp:287
+#: src/main.cpp:306
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr ""
 
@@ -658,7 +658,7 @@ msgstr ""
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr ""
 
-#: src/main.cpp:278 src/uppmainwindow.cpp:1320
+#: src/main.cpp:297 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgstr "Залізо повинно сказати \"Гаразд\""
 msgid "The programmer is not connected"
 msgstr "Програматор не приєднано"
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
@@ -916,7 +916,7 @@ msgstr "Невідома помилка при перевірці на чист�
 msgid "Unknown error during verify"
 msgstr "Невідома помилка при перевірці"
 
-#: src/main.cpp:90
+#: src/main.cpp:109
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""

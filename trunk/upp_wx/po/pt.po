@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 17:04+0200\n"
+"POT-Creation-Date: 2010-05-03 20:14+0200\n"
 "PO-Revision-Date: 2010-04-20 10:52+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: lucas azevedo <lucasazevedo9@gmail.com>\n"
@@ -189,7 +189,7 @@ msgstr "Não é possível desenhar o pacote PIC!"
 msgid "Cannot load '%s'."
 msgstr "Não é possível carregar '%s'."
 
-#: src/main.cpp:99
+#: src/main.cpp:118
 msgid "Cannot load XML PIC data."
 msgstr "Não é possível carregar os dados XML para o PIC."
 
@@ -256,7 +256,7 @@ msgstr "Não foi possível acessar a pasta 'xml_data'."
 msgid "Could not create the worker thread!"
 msgstr "Impossível criar o thread de trabalho!"
 
-#: src/main.cpp:113
+#: src/main.cpp:132
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -283,7 +283,7 @@ msgstr ""
 "incluindo o arquivo 'DPINST.LOG' (que Está localizado na pasta 'Windows"
 "\\System32')."
 
-#: src/main.cpp:116
+#: src/main.cpp:135
 #, c-format
 msgid "Could not initialize libusb: %s"
 msgstr "Não foi possível inicializar libusb: %s"
@@ -424,7 +424,7 @@ msgstr "Apagando antes de programar..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Erro ao tentar utilizar interface: %s"
 
-#: src/main.cpp:292 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "Erro ao apagar o dispositivo"
@@ -462,7 +462,7 @@ msgstr "Erro ao ler a memória de configuração"
 msgid "Error reading data memory"
 msgstr "Erro ao ler a memória de dados"
 
-#: src/main.cpp:294 src/uppmainwindow.cpp:1340
+#: src/main.cpp:313 src/uppmainwindow.cpp:1340
 msgid "Error restoring Calibration Registers"
 msgstr "Erro ao restaurar a memória de configuração"
 
@@ -672,7 +672,7 @@ msgstr "Pacote"
 msgid "Please confirm"
 msgstr "Confirme por favor"
 
-#: src/main.cpp:287
+#: src/main.cpp:306
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Por favor especifique um Valor BandGap entre 0 e 3"
 
@@ -684,7 +684,7 @@ msgstr "Por favor especifique um valor BandGap"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Por favor especifique um novo valor Osccal [3400 - 37FF]"
 
-#: src/main.cpp:278 src/uppmainwindow.cpp:1320
+#: src/main.cpp:297 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr "Por favor especifique um valor Osccal entre 3400 e 37FF"
 
@@ -877,7 +877,7 @@ msgstr "O hardware deveria dizer OK"
 msgid "The programmer is not connected"
 msgstr "O programador não estã conectado"
 
-#: src/main.cpp:82
+#: src/main.cpp:101
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
@@ -954,7 +954,7 @@ msgstr "Erro desconhecido durante a verificação de dispositivo vazio"
 msgid "Unknown error during verify"
 msgstr "Erro desconhecido durante a verificação"
 
-#: src/main.cpp:90
+#: src/main.cpp:109
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""
