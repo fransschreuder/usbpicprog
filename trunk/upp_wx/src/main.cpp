@@ -63,8 +63,27 @@ bool UsbPicProg::OnInit()
     //wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
 #endif
 
+	struct 
+#ifdef __WIN32__
+	WXDLLEXPORT
+#endif
+	wxLanguageInfo Bosnian=
+	{
+		wxLANGUAGE_USER_DEFINED +1,                   // wxLanguage id
+		"bs",         // Canonical name, e.g. fr_FR
+#ifdef __WIN32__
+		0,0,//WinLang, WinSublang,   // Win32 language identifiers
+		                                // (LANG_xxxx, SUBLANG_xxxx)
+#endif
+		"Bosnian"           // human-readable name of the language
+	};
+
+
+	
+	wxLocale::AddLanguage(Bosnian);
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
+
     m_locale->AddCatalog("usbpicprog");
 
     // init the PNG handler
