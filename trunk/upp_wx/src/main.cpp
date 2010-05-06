@@ -63,24 +63,29 @@ bool UsbPicProg::OnInit()
     //wxLocale::AddCatalogLookupPathPrefix(wxString(wxApp::argv[0]).BeforeLast('/') + _T("/po"));
 #endif
 
+
+//Bosnian language not defined (at least not in wxWidgets 2.9.0), added this ticket for it: http://trac.wxwidgets.org/ticket/12016
+//Hopefully, Bosnian will be added in 2.9.1, in that case the following lines can be removed.
+#if wxCHECK_VERSION(2, 9, 1)
+#else // replacement code for old version
+#define wxLANGUAGE_BOSNIAN (wxLANGUAGE_USER_DEFINED+1)
 	struct 
 #ifdef __WIN32__
 	WXDLLEXPORT
 #endif
 	wxLanguageInfo Bosnian=
 	{
-		wxLANGUAGE_USER_DEFINED +1,                   // wxLanguage id
+		wxLANGUAGE_BOSNIAN,                   // wxLanguage id
 		"bs",         // Canonical name, e.g. fr_FR
 #ifdef __WIN32__
-		0,0,//WinLang, WinSublang,   // Win32 language identifiers
+		LANG_BOSNIAN, SUBLANG_BOSNIAN_BOSNIA_HERZEGOVINA_LATIN,
 		                                // (LANG_xxxx, SUBLANG_xxxx)
 #endif
 		"Bosnian"           // human-readable name of the language
 	};
-
-
-	
 	wxLocale::AddLanguage(Bosnian);
+#endif //wxCHECK_VERSION(2,9,1)
+
     // init the locale
     m_locale = new wxLocale(wxLANGUAGE_DEFAULT);
 
