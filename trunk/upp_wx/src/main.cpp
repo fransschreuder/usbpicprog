@@ -256,8 +256,10 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	
     // before proceeding, test if the Hardware class is able to connect to
     // the hardware interface:
-    m_hardware.connect();
-    if(!m_hardware.connected())
+    m_hardware.connect(NULL, HW_UPP);
+	if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
+		m_hardware.connect(NULL, HW_BOOTLOADER); 
+    if(!m_hardware.connected()) //no bootloader found either...
     {
         cerr<<"Usbpicprog not found"<<endl;
         m_nRetCode = -1;

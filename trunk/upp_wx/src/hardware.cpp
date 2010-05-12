@@ -118,33 +118,41 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
         if (m_handle)
         {
             // found the UPP programmer
-            hwtype=HW_UPP;
+            m_hwCurrent=HW_UPP;
         }
-        else
+        /*else
         {
-            // failed to open this device, choose the next one
+		    // failed to open this device, choose the next one
             m_handle = libusb_open_device_with_vid_pid(NULL, BOOTLOADER_VENDOR, BOOTLOADER_PRODUCT);
             if (m_handle)
-                hwtype=HW_BOOTLOADER;       // found the UPP bootloader
-        }
+                m_hwCurrent=HW_BOOTLOADER;       // found the UPP bootloader
+        }*/
     }
     else
     {
         // search first the bootloader and then, if no bootloader is found, the UPP
 
         m_handle = libusb_open_device_with_vid_pid(NULL, BOOTLOADER_VENDOR, BOOTLOADER_PRODUCT);
+		/*if ( (retcode=libusb_reset_device(m_handle)) != LIBUSB_SUCCESS )
+		{
+			wxLogError(_("Couldn't reset the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
+			m_hwCurrent = HW_NONE;
+			m_handle = NULL;
+			return false;
+		}*/
         if (m_handle)
         {
             // found the UPP bootloader
-            hwtype=HW_BOOTLOADER;
+            m_hwCurrent=HW_BOOTLOADER;
         }
-        else
+        /*else
         {
+			disconnect();`
             // failed to open this device, choose the next one
             m_handle = libusb_open_device_with_vid_pid(NULL, UPP_VENDOR, UPP_PRODUCT);
             if (m_handle)
-                hwtype=HW_UPP;       // found the UPP
-        }
+                m_hwCurrent=HW_UPP;       // found the UPP
+        }*/
     }
 
     if (m_handle==NULL)
@@ -155,7 +163,6 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
 
     // we've found some hardware!
 
-    m_hwCurrent = hwtype;
 #if 0                    // FIXME: why is this needed??
     if ( (retcode=libusb_reset_device(m_handle)) != LIBUSB_SUCCESS )
     {
@@ -166,7 +173,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     }
 
     libusb_close(m_handle);
-    if (hwtype == HW_UPP)
+    if (m_hwCurrent == HW_UPP)
         m_handle = libusb_open_device_with_vid_pid(NULL, UPP_VENDOR, UPP_PRODUCT);
     else
         m_handle = libusb_open_device_with_vid_pid(NULL, BOOTLOADER_VENDOR, BOOTLOADER_PRODUCT);
@@ -246,6 +253,9 @@ bool Hardware::disconnect()
 
     if (m_handle)
     {
+		//unsigned char msg[64];
+		//msg[0]=CMD_BOOT_RESET;
+		//if(m_hwCurrent==HW_BOOTLOADER)writeString(msg,1);
         success &= libusb_release_interface(m_handle, 0) == LIBUSB_SUCCESS;
         libusb_close(m_handle);
         m_handle = NULL;
@@ -927,14 +937,21 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 
         if (writeString(msg,5) < 0)
         {
-            disconnect();
+		    disconnect();
             return -1;
         }
         nBytes = readString(msg,64);
         if (nBytes < 0)
         {
-            disconnect();
-            return nBytes;
+		//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
+		#ifndef __WIN32__
+			disconnect();
+			return nBytes;
+		#else
+			nBytes=0;
+			msg[3]=1;
+			msg[2]=0;
+		#endif
         }
 
         statusCallBack (100);
@@ -1108,7 +1125,10 @@ int Hardware::readString(unsigned char* msg, int size) const
 
     if (retcode != LIBUSB_SUCCESS)
     {
+	//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
+	#ifndef __WIN32__
         wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
+	#endif
         return -1;
     }
     return nBytes;
