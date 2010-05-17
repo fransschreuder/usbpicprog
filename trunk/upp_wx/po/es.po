@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-03 20:14+0200\n"
-"PO-Revision-Date: 2010-04-09 12:54+0100\n"
+"POT-Creation-Date: 2010-05-17 14:14+0200\n"
+"PO-Revision-Date: 2010-05-17 14:14+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -187,7 +187,7 @@ msgstr "No se puede dibujar el encapsulado del PIC"
 msgid "Cannot load '%s'."
 msgstr "No se puede cargar '%s'"
 
-#: src/main.cpp:118
+#: src/main.cpp:123
 msgid "Cannot load XML PIC data."
 msgstr "No se puede cargar los datos XML del PIC"
 
@@ -254,7 +254,7 @@ msgstr "No se pudo acceder a la carpeta 'xml_data'"
 msgid "Could not create the worker thread!"
 msgstr "¡No se pudo crear el hilo de trabajo!"
 
-#: src/main.cpp:132
+#: src/main.cpp:137
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
 "1) an incorrect installation of the UsbPicProg driver; check if this is the "
@@ -268,11 +268,23 @@ msgid ""
 "mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which "
 "is located in your 'Windows\\System32' folder)."
 msgstr ""
+"No se pudo inicializar libusb. Esto podría ocurrir por:\n"
+"1) Una incorrecta instalación del driver de UsbPicProg; compruebe si es este "
+"caso abriendo el Administrador de Dispositivos de Windows con el programador "
+"conectado;\n"
+"2) Una incorrecta instalación de cfgmgr32.dll, winusb.dll o hid.dll;\n"
+"\n"
+"Por favor reinstale UsbPicProg y asegúrese de que Windows reconoce el "
+"hardware UsbPicProg cuando está conectado al bus USB. Si Windows pide un "
+"driver por favor seleccione la carpeta 'UsbPicProg\\driver', la cual ha sido "
+"instalada su carpeta de programas. Si sigue teniendo problemas por favor "
+"envíe un email a la lista de correo de UsbPicProg incluyendo tu archivo "
+"'DPINST.LOG' (el cual se encuentra en su carpeta 'Windows\\System32')."
 
-#: src/main.cpp:135
-#, fuzzy, c-format
+#: src/main.cpp:140
+#, c-format
 msgid "Could not initialize libusb: %s"
-msgstr "¡No se pudo inicializar libusb!"
+msgstr "No se pudo inicializar libusb: %s"
 
 #: src/pictype.cpp:105 src/pictype.cpp:125 src/pictype.cpp:216
 #, c-format
@@ -291,7 +303,7 @@ msgstr "No se pudo abrir el archivo hex"
 msgid "Could not run the worker thread!"
 msgstr "¡No se pudo ejecutar el hilo de trabajo!"
 
-#: src/hardware.cpp:162
+#: src/hardware.cpp:169
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "No se pudo resetear el interfaz: %s"
@@ -299,11 +311,11 @@ msgstr "No se pudo resetear el interfaz: %s"
 #: src/io_test_base.cpp:54 src/io_test_base.cpp:83 src/io_test_base.cpp:112
 #: src/io_test_base.cpp:153
 msgid "Current HW state:"
-msgstr ""
+msgstr "Estado de HW actual:"
 
 #: src/io_test_base.cpp:38
 msgid "Current HW voltage:"
-msgstr ""
+msgstr "Voltaje de HW actual:"
 
 #: src/configview.cpp:154
 #, c-format
@@ -405,17 +417,17 @@ msgstr "Borrando todas las áreas del PIC..."
 msgid "Erasing before programming..."
 msgstr "Borrar antes de programar..."
 
-#: src/hardware.cpp:196
+#: src/hardware.cpp:203
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Error solicitando el interfaz: %s"
 
-#: src/main.cpp:311 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
+#: src/main.cpp:318 src/uppmainwindow.cpp:771 src/uppmainwindow.cpp:970
 #: src/uppmainwindow.cpp:1339
 msgid "Error erasing the device"
 msgstr "Error borrando el dispositivo"
 
-#: src/hardware.cpp:210 src/hardware.cpp:220
+#: src/hardware.cpp:217 src/hardware.cpp:227
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Error obteniendo el descriptor de endpoint del USB: %s"
@@ -448,18 +460,18 @@ msgstr "Error de lectura la memoria de configuración"
 msgid "Error reading data memory"
 msgstr "Error de lectura la memoria de datos"
 
-#: src/main.cpp:313 src/uppmainwindow.cpp:1340
+#: src/main.cpp:320 src/uppmainwindow.cpp:1340
 msgid "Error restoring Calibration Registers"
 msgstr "Error restaurando los Registros de Calibración"
 
-#: src/hardware.cpp:185
+#: src/hardware.cpp:192
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Error estableciendo la configuración: %s"
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Examples"
-msgstr ""
+msgstr "Ejemplos"
 
 #: src/uppmainwindow_base.cpp:204
 msgid "Exits the program"
@@ -536,6 +548,11 @@ msgid ""
 "The real voltage of the VPP pin and the other pins' statuses are updated "
 "once per second and are reported in bold below."
 msgstr ""
+"En este diálogo puede probar el hardware UsbPicProg mediante el envío de "
+"peticiones para establecer un voltaje específico en un pin de salida "
+"específico.\n"
+"El voltaje real del pin VPP y los estados de los otros pines se actualizan "
+"una vez por segundo y son reportados en negrita debajo."
 
 #: src/uppmainwindow.cpp:1040
 msgid "Initializing..."
@@ -543,7 +560,7 @@ msgstr "Inicializando..."
 
 #: src/io_test_base.h:76
 msgid "Input/output test"
-msgstr ""
+msgstr "Test de entrada/salida"
 
 #: src/pictype.cpp:166
 #, c-format
@@ -576,7 +593,7 @@ msgstr "Longitud: %d bits"
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Loads a HEX file from the examples folder"
-msgstr ""
+msgstr "Carga un archivo HEX de la carpeta de ejemplos"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
@@ -601,7 +618,7 @@ msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr ""
 "¡No se ha detectado ningún PIC! Seleccionando el PIC por defecto (%s)..."
 
-#: src/hardware.cpp:755
+#: src/hardware.cpp:765
 msgid "No data to verify"
 msgstr "No hay datos que verificar"
 
@@ -634,14 +651,12 @@ msgid "Operations completed with errors/warnings"
 msgstr "Operaciones completadas con errores/advertencias"
 
 #: src/io_test_base.cpp:142
-#, fuzzy
 msgid "PGC pin"
-msgstr "Información del PIC"
+msgstr "Pin PGC"
 
 #: src/io_test_base.cpp:101
-#, fuzzy
 msgid "PGD pin"
-msgstr "PGD"
+msgstr "Pin PGD"
 
 #: src/uppmainwindow_base.cpp:169
 msgid "PIC info"
@@ -655,7 +670,7 @@ msgstr "Encapsulado"
 msgid "Please confirm"
 msgstr "Por favor confirme"
 
-#: src/main.cpp:306
+#: src/main.cpp:313
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Por favor especifique un valor de Bandgap entre 0 y 3"
 
@@ -667,7 +682,7 @@ msgstr "Por favor, especifique un valor de bandgap"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Por favor especifique un nuevo valor de Osccal [3400 - 37FF]"
 
-#: src/main.cpp:297 src/uppmainwindow.cpp:1320
+#: src/main.cpp:304 src/uppmainwindow.cpp:1320
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr "Por favor especifique un valor de Osccal entre 3400 y 37FF"
 
@@ -861,20 +876,19 @@ msgstr "El hardware debería decir OK"
 msgid "The programmer is not connected"
 msgstr "El programador no está conectado"
 
-#: src/main.cpp:101
-#, fuzzy
+#: src/main.cpp:106
 msgid ""
 "This is a 32bit application running under a 64bit Window version. UsbPicProg "
 "won't be able to connect to the hardware!\n"
 "Please uninstall this program and download the UsbPicProg installer for "
 "64bit operating systems."
 msgstr ""
-"Esta es una aplicación de 32 bits sobre una versión de Windows de 64 bits. "
-"¡UsbPicProg no podrá conectar con el hardware!\n"
+"Esta es una aplicación de 32 bits ejecutándose en una versión de Windows de "
+"64 bits. ¡UsbPicProg no podrá conectar con el hardware!\n"
 "Por favor desinstale este programa y descargue el instalador de UsbPicProg "
 "para sistemas operativos de 64 bits."
 
-#: src/hardware.cpp:545
+#: src/hardware.cpp:555
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -898,7 +912,7 @@ msgstr "Error de USB durante el vaciado del dispositivo"
 msgid "USB error during verify"
 msgstr "Error de USB durante la verificación"
 
-#: src/hardware.cpp:1111
+#: src/hardware.cpp:1130
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Error de usb mientras se leía: %s"
@@ -908,7 +922,7 @@ msgstr "Error de usb mientras se leía: %s"
 msgid "USB error while writing code memory"
 msgstr "Error de USB mientras se escribía en la memoria de código"
 
-#: src/hardware.cpp:1129
+#: src/hardware.cpp:1149
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr ""
@@ -940,10 +954,12 @@ msgstr "Error desconocido durante la comprobación de vaciado"
 msgid "Unknown error during verify"
 msgstr "Error desconocido durante la verificación"
 
-#: src/main.cpp:109
+#: src/main.cpp:114
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""
+"Version de Windows no soportada. UsbPicProg sólo funciona en Windows XP o "
+"posterior."
 
 #: src/uppmainwindow_base.h:105
 msgid "Usbpicprog"
@@ -958,14 +974,12 @@ msgid "Usbpicprog: "
 msgstr "Usbpicprog: "
 
 #: src/io_test_base.cpp:72
-#, fuzzy
 msgid "VDD pin"
-msgstr "VDD"
+msgstr "Pin VDD"
 
 #: src/io_test_base.cpp:27
-#, fuzzy
 msgid "VPP pin"
-msgstr "VPP"
+msgstr "Pin VPP"
 
 #: src/uppmainwindow_base.cpp:122
 msgid "Variants:"
