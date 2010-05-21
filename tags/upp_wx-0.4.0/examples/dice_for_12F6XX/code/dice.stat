@@ -1,0 +1,7 @@
+// SourceBoost Linker Function Resource Usage Dump
+
+#GLOBAL:"global",line = 0,ram = 10.0,rom = 0;
+main(void):"Z:\home\frans\Dropbox\sample_projects\dice for 12F6XX\code\dice.c",line = 16,ram = 3.0,rom = 45;
+delay_ms(unsigned char):"NoSourceFile",line = 0,ram = 0.0,rom = 20;
+_startup(void):"NoSourceFile",line = 0,ram = 0.0,rom = 24;
+#HEAP_BLOCK: 0, 78, 50;

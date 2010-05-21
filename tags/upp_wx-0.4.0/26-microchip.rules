@@ -1,0 +1,12 @@
+#PICKit 1
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="0032", MODE="0660",GROUP="plugdev"
+#PICKit 2
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="0033", MODE="0660",GROUP="plugdev"
+#ICD2
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="8000", MODE="0660",GROUP="plugdev"
+#ICD21
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="8001", MODE="0660",GROUP="plugdev"
+#PICDEM FS USB Bootloader
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="000b", MODE="0660",GROUP="plugdev"
+#USBPICPROG
+ATTR{idVendor}=="04d8", ATTR{idProduct}=="000e", MODE="0660",GROUP="plugdev"

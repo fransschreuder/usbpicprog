@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="17C42" document="010245" status="EOL" alternatives="17C42A" memory_technology="EPROM" architecture="17C" >
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Microprocessor"                              constant="0xFFA0" bchecksum="0xF7FF" cchecksum="0x79BD" />
+    <checksum protected="Microcontroller"                             constant="0xFFA0" bchecksum="0xF7EF" cchecksum="0x79AD" />
+    <checksum protected="Extended microcontroller"                    constant="0xFFA0" bchecksum="0xF7BF" cchecksum="0x797D" />
+    <checksum protected="Code-protected microcontroller" type="XNOR8" constant="0xFFA0" bchecksum="0xF7AF" cchecksum="0xBB73" />
+  </checksums>
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="25" vdd_min="4.5" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"      min="12.75" max="13.25" nominal="13" />
+  <voltages name="vdd_prog" min="4.75"  max="5.25"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code" start="0x0000" end="0x07FF" />
+  <memory name="config"  start="0xFE00" end="0xFE00" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0xFFFF" bvalue="0x005F" >
+    <mask name="FOSC"  value="0x0003" >
+      <value value="0x0000" name="LP"           cname="_LF_OSC" />
+      <value value="0x0001" name="EXTRC_CLKOUT" cname="_RC_OSC" />
+      <value value="0x0002" name="XT"           cname="_XT_OSC" />
+      <value value="0x0003" name="EC"           cname="_EC_OSC" />
+    </mask>
+    <mask name="WDTPS" value="0x000C" >
+      <value value="0x0000" name="Disabled" cname="_WDT_OFF" ecnames="_WDT_NORM" />
+      <value value="0x0004" name="1:128"    cname="_WDT_64"  />
+      <value value="0x0008" name="1:512"    cname="_WDT_256" />
+      <value value="0x000C" name="1:1"      cname="_WDT_1"   />
+    </mask>
+    <mask name="PM"    value="0x0050" >
+      <value value="0x0000" name="Code-protected microcontroller" cname="_PMC_MODE" />
+      <value value="0x0010" name="Extended microcontroller"       cname="_XMC_MODE" />
+      <value value="0x0040" name="Microcontroller"                cname="_MC_MODE"  />
+      <value value="0x0050" name="Microprocessor"                 cname="_MP_MODE"  />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip"      nb_pins="40" >
+    <pin index="1"  name="VDD"			/>
+    <pin index="2"  name="RC0/AD0"		/>
+    <pin index="3"  name="RC1/AD1"		/>
+    <pin index="4"  name="RC2/AD2"		/>
+    <pin index="5"  name="RC3/AD3"		/>
+    <pin index="6"  name="RC4/AD4"		/>
+    <pin index="7"  name="RC5/AD5"		/>
+    <pin index="8"  name="RC6/AD6"		/>
+    <pin index="9"  name="RC7/AD7"		/>
+    <pin index="10" name="VSS"			/>
+    <pin index="11" name="RB0/CAP1"		/>
+    <pin index="12" name="RB1/CAP2"		/>
+    <pin index="13" name="RB2/PWM1"		/>
+    <pin index="14" name="RB3/PWM2"		/>
+    <pin index="15" name="RB4/TCLK2"		/>
+    <pin index="16" name="RB5/TCLK3"		/>
+    <pin index="17" name="RB6"			/>
+    <pin index="18" name="RB7"			/>
+    <pin index="19" name="OSC1/CLKIN"		/>
+    <pin index="20" name="OSC2/CLKOUT"		/>
+    <pin index="21" name="RA5/TX/CK"		/>
+    <pin index="22" name="RA4/RX/DT"		/>
+    <pin index="23" name="RA3"			/>
+    <pin index="24" name="RA2"			/>
+    <pin index="25" name="RA1/T0CKL"		/>
+    <pin index="26" name="RA0/INT"		/>
+    <pin index="27" name="TEST"			/>
+    <pin index="28" name="RE2/WR"		/>
+    <pin index="29" name="RE1/OE"		/>
+    <pin index="30" name="RE0/ALE"		/>
+    <pin index="31" name="VSS"			/>
+    <pin index="32" name="MCLR/VPP"		/>
+    <pin index="33" name="RD7/AD15"		/>
+    <pin index="34" name="RD6/AD14"		/>
+    <pin index="35" name="RD5/AD13"		/>
+    <pin index="36" name="RD4/AD12"		/>
+    <pin index="37" name="RD3/AD11"		/>
+    <pin index="38" name="RD2/AD10"		/>
+    <pin index="39" name="RD1/AD9"		/>
+    <pin index="40" name="RD0/AD8"		/>
+  </package>
+
+  <package types="plcc"      nb_pins="44" >
+    <pin index="1"  name="VDD"			/>
+    <pin index="2"  name="NC"			/>
+    <pin index="3"  name="RC0/AD0"		/>
+    <pin index="4"  name="RC1/AD1"		/>
+    <pin index="5"  name="RC2/AD2"		/>
+    <pin index="6"  name="RC3/AD3"		/>
+    <pin index="7"  name="RC4/AD4"		/>
+    <pin index="8"  name="RC5/AD5"		/>
+    <pin index="9"  name="RC6/AD6"		/>
+    <pin index="10" name="RC7/AD7"		/>
+    <pin index="11" name="VSS"			/>
+    <pin index="12" name="VSS"			/>
+    <pin index="13" name="RB0/CAP1"		/>
+    <pin index="14" name="RB1/CAP2"		/>
+    <pin index="15" name="RB2/PWM1"		/>
+    <pin index="16" name="RB3/PWM2"		/>
+    <pin index="17" name="RB4/TCLK2"		/>
+    <pin index="18" name="RB5/TCLK3"		/>
+    <pin index="19" name="RB6"			/>
+    <pin index="20" name="RB7"			/>
+    <pin index="21" name="OSC1/CLKIN"		/>
+    <pin index="22" name="OSC2/CLKOUT"		/>
+    <pin index="23" name="RA5/TX/CK"		/>
+    <pin index="24" name="RA4/RX/DT"		/>
+    <pin index="25" name="RA3"			/>
+    <pin index="26" name="RA2"			/>
+    <pin index="27" name="RA1/T0CKL"		/>
+    <pin index="28" name="RA0/INT"		/>
+    <pin index="29" name="TEST"			/>
+    <pin index="30" name="RE2/WR"		/>
+    <pin index="31" name="RE1/OE"		/>
+    <pin index="32" name="RE0/ALE"		/>
+    <pin index="33" name="VSS"			/>
+    <pin index="34" name="VSS"			/>
+    <pin index="35" name="MCLR/VPP"		/>
+    <pin index="36" name="RD7/AD15"		/>
+    <pin index="37" name="RD6/AD14"		/>
+    <pin index="38" name="RD5/AD13"		/>
+    <pin index="39" name="RD4/AD12"		/>
+    <pin index="40" name="RD3/AD11"		/>
+    <pin index="41" name="RD2/AD10"		/>
+    <pin index="42" name="RD1/AD9"		/>
+    <pin index="43" name="RD0/AD8"		/>
+    <pin index="44" name="VDD"			/>
+  </package>
+
+  <package types="mqfp tqfp" nb_pins="44" >
+    <pin index="1"  name="" />
+    <pin index="2"  name="" />
+    <pin index="3"  name="" />
+    <pin index="4"  name="" />
+    <pin index="5"  name="" />
+    <pin index="6"  name="" />
+    <pin index="7"  name="" />
+    <pin index="8"  name="" />
+    <pin index="9"  name="" />
+    <pin index="10" name="" />
+    <pin index="11" name="" />
+    <pin index="12" name="" />
+    <pin index="13" name="" />
+    <pin index="14" name="" />
+    <pin index="15" name="" />
+    <pin index="16" name="" />
+    <pin index="17" name="" />
+    <pin index="18" name="" />
+    <pin index="19" name="" />
+    <pin index="20" name="" />
+    <pin index="21" name="" />
+    <pin index="22" name="" />
+    <pin index="23" name="" />
+    <pin index="24" name="" />
+    <pin index="25" name="" />
+    <pin index="26" name="" />
+    <pin index="27" name="" />
+    <pin index="28" name="" />
+    <pin index="29" name="" />
+    <pin index="30" name="" />
+    <pin index="31" name="" />
+    <pin index="32" name="" />
+    <pin index="33" name="" />
+    <pin index="34" name="" />
+    <pin index="35" name="" />
+    <pin index="36" name="" />
+    <pin index="37" name="" />
+    <pin index="38" name="" />
+    <pin index="39" name="" />
+    <pin index="40" name="" />
+    <pin index="41" name="" />
+    <pin index="42" name="" />
+    <pin index="43" name="" />
+    <pin index="44" name="" />
+  </package>
+
+</device>

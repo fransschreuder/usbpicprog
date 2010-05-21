@@ -1,0 +1,102 @@
+;/////////////////////////////////////////////////////////////////////////////////
+;// Code Generator: BoostC Compiler - http://www.sourceboost.com
+;// Version       : 6.96
+;// License Type  : Lite License (Unregistered)
+;// Limitations   : PIC12,PIC16 max code size:2048 words, max RAM banks:2, Non commercial use only
+;/////////////////////////////////////////////////////////////////////////////////
+
+
+Map File
+
+Program Memory usage
+====================
+
+Address  Length   Unique Name      Name
+-------  ------   -----------      ----
+00000000:00000004 _resetvector     _resetvector  
+00000004:0000000C _interruptVector _interruptVector  
+00000010:0000000C delay_ms_00000   delay_ms(unsigned char)  
+0000001C:00000014 main             main(void)  
+00000030:00000003 _startup_00000   _startup(void)  
+00000033:0000000B interrupt        interrupt(void)  
+0000003E:00001FC2 *Unused Block 
+
+Register usage
+==============
+
+Address  Bit Lengh Bit Mask   Unique Name                      Name
+-------  --------- --------   -----------                      ----
+00000000:00000008             gbl_indf                         indf
+00000001:00000008             gbl_tmr0                         tmr0
+00000002:00000008             gbl_pcl                          pcl
+00000003:00000008             gbl_status                       status
+00000004:00000008             gbl_fsr                          fsr
+00000005:00000008             gbl_porta                        porta
+00000006:00000008             gbl_portb                        portb
+00000007:00000008             gbl_portc                        portc
+00000008:00000008             gbl_portd                        portd
+00000009:00000008             gbl_porte                        porte
+0000000A:00000008             gbl_pclath                       pclath
+0000000B:00000008             gbl_intcon                       intcon
+0000000C:00000008             gbl_pir1                         pir1
+0000000D:00000008             gbl_pir2                         pir2
+0000000E:00000008             gbl_tmr1l                        tmr1l
+0000000F:00000008             gbl_tmr1h                        tmr1h
+00000010:00000008             gbl_t1con                        t1con
+00000011:00000008             gbl_tmr2                         tmr2
+00000012:00000008             gbl_t2con                        t2con
+00000013:00000008             gbl_sspbuf                       sspbuf
+00000014:00000008             gbl_sspcon                       sspcon
+00000015:00000008             gbl_ccpr1l                       ccpr1l
+00000016:00000008             gbl_ccpr1h                       ccpr1h
+00000017:00000008             gbl_ccp1con                      ccp1con
+00000018:00000008             gbl_rcsta                        rcsta
+00000019:00000008             gbl_txreg                        txreg
+0000001A:00000008             gbl_rcreg                        rcreg
+0000001B:00000008             gbl_ccpr2l                       ccpr2l
+0000001C:00000008             gbl_ccpr2h                       ccpr2h
+0000001D:00000008             gbl_ccp2con                      ccp2con
+0000001E:00000008             gbl_adresh                       adresh
+0000001F:00000008             gbl_adcon0                       adcon0
+00000020:00000018             Int1BContext                     Int1BContext
+00000023:00000008             delay_ms_00000_arg_del           del
+0000007F:00000008             Int1Context                      Int1Context
+00000081:00000008             gbl_option_reg                   option_reg
+00000085:00000008             gbl_trisa                        trisa
+00000086:00000008             gbl_trisb                        trisb
+00000087:00000008             gbl_trisc                        trisc
+00000088:00000008             gbl_trisd                        trisd
+00000089:00000008             gbl_trise                        trise
+0000008C:00000008             gbl_pie1                         pie1
+0000008D:00000008             gbl_pie2                         pie2
+0000008E:00000008             gbl_pcon                         pcon
+0000008F:00000008             gbl_osccon                       osccon
+00000090:00000008             gbl_osctune                      osctune
+00000091:00000008             gbl_sspcon2                      sspcon2
+00000092:00000008             gbl_pr2                          pr2
+00000093:00000008             gbl_sspadd                       sspadd
+00000094:00000008             gbl_sspstat                      sspstat
+00000095:00000008             gbl_ccpr3l                       ccpr3l
+00000096:00000008             gbl_ccpr3h                       ccpr3h
+00000097:00000008             gbl_ccp3con                      ccp3con
+00000098:00000008             gbl_txsta                        txsta
+00000099:00000008             gbl_spbrg                        spbrg
+0000009B:00000008             gbl_adcon2                       adcon2
+0000009C:00000008             gbl_cmcon                        cmcon
+0000009D:00000008             gbl_cvrcon                       cvrcon
+0000009E:00000008             gbl_adresl                       adresl
+0000009F:00000008             gbl_adcon1                       adcon1
+00000105:00000008             gbl_wdtcon                       wdtcon
+00000109:00000008             gbl_lvdcon                       lvdcon
+0000010C:00000008             gbl_pmdata                       pmdata
+0000010D:00000008             gbl_pmadr                        pmadr
+0000010E:00000008             gbl_pmdath                       pmdath
+0000010F:00000008             gbl_pmadrh                       pmadrh
+0000018C:00000008             gbl_pmcon1                       pmcon1
+
+
+Memory Usage Report
+===================
+RAM available:368 bytes, used:5 bytes (1.4%), free:363 bytes (98.6%), 
+Heap size:171 bytes, Heap max single alloc:94 bytes
+ROM available:8192 words, used:62 words (0.8%), free:8130 words (99.2%)

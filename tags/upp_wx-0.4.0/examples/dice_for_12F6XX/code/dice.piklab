@@ -1,0 +1,12 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>12F609</device>
+    <tool>boostc16</tool>
+    <files>
+      <item>dice.c</item>
+      <item>dice.h</item>
+    </files>
+  </general>
+  <editors/>
+</piklab>

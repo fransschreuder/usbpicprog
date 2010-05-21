@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<!-- $Id$ -->
+
+<bakefile-gen xmlns="http://www.bakefile.org/schema/bakefile-gen">
+    <input>usbpicprog.bkl</input>
+
+    <!-- List of output formats to generate: -->
+    <add-formats>
+        borland,mingw,msvc,watcom,msvc6prj,msvs2003prj,msvs2005prj,msvs2008prj
+    </add-formats>
+
+    <add-flags>-I $(envvar('WXWIN'))/build/bakefiles/wxpresets</add-flags>
+    
+    <!-- Enable win64 compilation for MSVC IDE: -->
+    <add-flags formats="msvs2005prj,msvs2008prj">
+        -DMSVS_PLATFORMS=win32,win64
+    </add-flags>
+
+    <!-- Directories where the files go: -->
+    <add-flags formats="autoconf">
+        -o../../Makefile.in
+    </add-flags>
+    <add-flags formats="autoconf">
+        -DAUTOCONF_MACROS_FILE=../../autoconf_inc.m4
+    </add-flags>
+    
+    <add-flags formats="borland">
+        -o../win/makefile.bcc
+    </add-flags>
+    <add-flags formats="mingw">
+        -o../win/makefile.mingw
+    </add-flags>
+    <add-flags formats="msvc">
+        -o../win/makefile.vc
+    </add-flags>
+    <add-flags formats="watcom">
+        -o../win/makefile.wat
+    </add-flags>
+    <add-flags formats="msvc6prj">
+        -o../win/upp_wx.dsw
+    </add-flags>
+    <add-flags formats="msvs2003prj">
+        -o../win/upp_wx_vc2003.sln
+    </add-flags>
+    <add-flags formats="msvs2005prj">
+        -o../win/upp_wx_vc2005.sln
+    </add-flags>
+    <add-flags formats="msvs2008prj">
+        -o../win/upp_wx_vc2008.sln
+    </add-flags>
+    
+</bakefile-gen>

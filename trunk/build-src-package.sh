@@ -8,7 +8,7 @@ then
   then
     DISTS=$2
   else
-    DISTS="hardy karmic lucid"
+    DISTS="jaunty karmic lucid"
   fi
 else
   DISTS="hardy karmic lucid"

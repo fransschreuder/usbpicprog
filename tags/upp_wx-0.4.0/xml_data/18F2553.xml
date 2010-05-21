@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="18F2553" document="010280" status="IP" memory_technology="FLASH" self_write="yes" architecture="18F" id="0x2A40" >
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="48" vdd_min="4.2" vdd_max="5.5" />
+  </frequency_range>
+  <frequency_range name="industrial" special="low_power" >
+    <frequency start="0"  end="4"  vdd_min="2" vdd_max="5.5" />
+    <frequency start="4"  end="16" vdd_min="3" vdd_max="5.5" />
+    <frequency start="16" end="25"  vdd_min="4" vdd_max="5.5" />
+    <frequency start="25"  end="48" vdd_min="4.2" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="9" max="13.25" nominal="13" />
+  <voltages name="vdd_prog"       min="3" max="5.5"   nominal="5"  />
+  <voltages name="vdd_prog_write" min="2" max="5.5"   nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"      start="0x000000" end="0x007FFF" word_write_align="16" word_erase_align="32" />
+  <memory name="user_ids"     start="0x200000" end="0x200007" rmask="0x0F"              />
+  <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+  <memory name="config"       start="0x300000" end="0x30000D" />
+  <memory name="eeprom"       start="0x000000" end="0x0000FF" hexfile_offset="0xF00000" />
+  <memory name="debug_vector" start="0x200028" end="0x200037" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0x00" >
+    <mask name="PLLDIV" value="0x07" >
+      <value value="0x00" name="1"  cname="_PLLDIV_1"  sdcc_cname="_PLLDIV_NO_DIVIDE__4MHZ_INPUT_" />
+      <value value="0x01" name="2"  cname="_PLLDIV_2"  sdcc_cname="_PLLDIV_DIVIDE_BY_2__8MHZ_INPUT_" />
+      <value value="0x02" name="3"  cname="_PLLDIV_3"  sdcc_cname="_PLLDIV_DIVIDE_BY_3__12MHZ_INPUT_" />
+      <value value="0x03" name="4"  cname="_PLLDIV_4"  sdcc_cname="_PLLDIV_DIVIDE_BY_4__16MHZ_INPUT_" />
+      <value value="0x04" name="5"  cname="_PLLDIV_5"  sdcc_cname="_PLLDIV_DIVIDE_BY_5__20MHZ_INPUT_" />
+      <value value="0x05" name="6"  cname="_PLLDIV_6"  sdcc_cname="_PLLDIV_DIVIDE_BY_6__24MHZ_INPUT_" />
+      <value value="0x06" name="10" cname="_PLLDIV_10" sdcc_cname="_PLLDIV_DIVIDE_BY_10__40MHZ_INPUT_" />
+      <value value="0x07" name="12" cname="_PLLDIV_12" sdcc_cname="_PLLDIV_DIVIDE_BY_12__48MHZ_INPUT_" />
+    </mask>
+    <mask name="CPUDIV" value="0x18" >
+      <value value="0x00" name="1" cname="_CPUDIV_OSC1_PLL2" sdcc_cname="_CPUDIV__OSC1_OSC2_SRC___1__96MHZ_PLL_SRC___2_" />
+      <value value="0x08" name="2" cname="_CPUDIV_OSC2_PLL3" sdcc_cname="_CPUDIV__OSC1_OSC2_SRC___2__96MHZ_PLL_SRC___3_" />
+      <value value="0x10" name="3" cname="_CPUDIV_OSC3_PLL4" sdcc_cname="_CPUDIV__OSC1_OSC2_SRC___3__96MHZ_PLL_SRC___4_" />
+      <value value="0x18" name="4" cname="_CPUDIV_OSC4_PLL6" sdcc_cname="_CPUDIV__OSC1_OSC2_SRC___4__96MHZ_PLL_SRC___6_" />
+    </mask>
+    <mask name="USBDIV" value="0x20" >
+      <value value="0x00" name="1" cname="_USBDIV_1" sdcc_cname="_USBPLL_CLOCK_SRC_FROM_OSC1_OSC2" />
+      <value value="0x20" name="2" cname="_USBDIV_2" sdcc_cname="_USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2" />
+    </mask>
+  </config>
+
+  <config offset="0x1" name="CONFIG1H" wmask="0xFF" bvalue="0x05" >
+    <mask name="FOSC"  value="0x0F" >
+      <value value="0x00" name="XT"           cname="_FOSC_XT_XT"       sdcc_cname="_OSC_XT__USB_XT" />
+      <value value="0x01" name="XT"           cname="_FOSC_XT_XT"       sdcc_cname="_OSC_XT__USB_XT" />
+      <value value="0x02" name="XTPLL"        cname="_FOSC_XTPLL"       sdcc_cname="_OSC_XT__XT_PLL__USB_XT" />
+      <value value="0x03" name="XTPLL"        cname="_FOSC_XTPLL_XT"    sdcc_cname="_OSC_XT__XT_PLL__USB_XT" />
+      <value value="0x04" name="EC_IO"        cname="_FOSC_ECIO_EC"     sdcc_cname="_OSC_EC__EC_RA6__USB_EC" />
+      <value value="0x05" name="EC_CLKOUT"    cname="_FOSC_EC_EC"       sdcc_cname="_OSC_EC__EC_CLKO_RA6___USB_EC" />
+      <value value="0x06" name="ECPLL_IO"     cname="_FOSC_ECPLLIO_EC"  sdcc_cname="_OSC_EC__EC_PLL__EC_PLL_RA6__USB_EC" />
+      <value value="0x07" name="ECPLL_CLKOUT" cname="_FOSC_ECPLL_EC"    sdcc_cname="_OSC_EC__EC_PLL__EC_PLL_CLKO_RA6___USB_EC" />
+      <value value="0x08" name="INTRC_IO"     cname="_FOSC_INTOSCIO_EC" sdcc_cname="_OSC_INTOSC__INTOSC_RA6__USB_EC" />
+      <value value="0x09" name="INTRC_CLKOUT" cname="_FOSC_INTOSC_EC"   sdcc_cname="_OSC_INTOSC__INTOSC_CLK0_RA6___USB_EC" />
+      <value value="0x0A" name="INTXT"        cname="_FOSC_INTOSC_XT"   sdcc_cname="_OSC_INTOSC__USB_XT" />
+      <value value="0x0B" name="INTHS"        cname="_FOSC_INTOSC_HS"   sdcc_cname="_OSC_INTOSC__USB_HS" />
+      <value value="0x0C" name="HS"           cname="_FOSC_HS"          sdcc_cname="_OSC_HS__USB_HS" />
+      <value value="0x0D" name="HS"           cname="_FOSC_HS"          sdcc_cname="_OSC_HS__USB_HS" />
+      <value value="0x0E" name="HSPLL"        cname="_FOSC_HSPLL_HS"    sdcc_cname="_OSC_HS__HS_PLL__USB_HS" />
+      <value value="0x0F" name="HSPLL"        cname="_FOSC_HSPLL_HS"    sdcc_cname="_OSC_HS__HS_PLL__USB_HS" />
+    </mask>
+    <mask name="FCMEN" value="0x40" >
+      <value value="0x00" name="Off" cname="_FCMEM_OFF" sdcc_cname="_FCMEN_OFF" />
+      <value value="0x40" name="On"  cname="_FCMEM_ON"  sdcc_cname="_FCMEN_ON" />
+    </mask>
+    <mask name="IESO"  value="0x80" >
+      <value value="0x00" name="Off" cname="_IESO_OFF" />
+      <value value="0x80" name="On"  cname="_IESO_ON"  />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CONFIG2L" wmask="0xFF" bvalue="0x1F" >
+    <mask name="PWRTE"  value="0x01" >
+      <value value="0x00" name="On"  cname="_PWRT_ON"  sdcc_cname="_PUT_ON" />
+      <value value="0x01" name="Off" cname="_PWRT_OFF" sdcc_cname="_PUT_OFF" />
+    </mask>
+    <mask name="BODEN"  value="0x06" >
+      <value value="0x00" name="Off"      cname="_BOR_OFF"       sdcc_cname="_BODEN_OFF" />
+      <value value="0x02" name="Software" cname="_BOR_SOFT"      sdcc_cname="_BODEN_CONTROLLED_WITH_SBOREN_BIT" />
+      <value value="0x04" name="On_run"   cname="_BOR_ON_ACTIVE" sdcc_cname="_BODEN_ON_WHILE_ACTIVE" />
+      <value value="0x06" name="On"       cname="_BOR_ON"        sdcc_cname="_BODEN_ON" />
+    </mask>
+    <mask name="BORV"   value="0x18" >
+      <value value="0x00" name="4.5" cname="_BORV_0" sdcc_cname="_BODENV_4_5V" />
+      <value value="0x08" name="4.2" cname="_BORV_1" sdcc_cname="_BODENV_4_2V" />
+      <value value="0x10" name="2.7" cname="_BORV_2" sdcc_cname="_BODENV_2_7V" />
+      <value value="0x18" name="2.0" cname="_BORV_3" sdcc_cname="_BODENV_2_0V" />
+    </mask>
+    <mask name="VREGEN" value="0x20" >
+      <value value="0x00" name="Off" cname="_VREGEN_OFF" />
+      <value value="0x20" name="On"  cname="_VREGEN_ON"  />
+    </mask>
+  </config>
+
+  <config offset="0x3" name="CONFIG2H" wmask="0xFF" bvalue="0x1F" >
+    <mask name="WDT"   value="0x01" >
+      <value value="0x00" name="Off" cname="_WDT_OFF" sdcc_cname="_WDT_DISABLED_CONTROLLED" />
+      <value value="0x01" name="On"  cname="_WDT_ON"  sdcc_cname="_WDT_ON" />
+    </mask>
+    <mask name="WDTPS" value="0x1E" >
+      <value value="0x00" name="1:1"     cname="_WDTPS_1"     sdcc_cname="_WDTPS_1_1" />
+      <value value="0x02" name="1:2"     cname="_WDTPS_2"     sdcc_cname="_WDTPS_1_2" />
+      <value value="0x04" name="1:4"     cname="_WDTPS_4"     sdcc_cname="_WDTPS_1_4" />
+      <value value="0x06" name="1:8"     cname="_WDTPS_8"     sdcc_cname="_WDTPS_1_8" />
+      <value value="0x08" name="1:16"    cname="_WDTPS_16"    sdcc_cname="_WDTPS_1_16" />
+      <value value="0x0A" name="1:32"    cname="_WDTPS_32"    sdcc_cname="_WDTPS_1_32" />
+      <value value="0x0C" name="1:64"    cname="_WDTPS_64"    sdcc_cname="_WDTPS_1_64" />
+      <value value="0x0E" name="1:128"   cname="_WDTPS_128"   sdcc_cname="_WDTPS_1_128" />
+      <value value="0x10" name="1:256"   cname="_WDTPS_256"   sdcc_cname="_WDTPS_1_256" />
+      <value value="0x12" name="1:512"   cname="_WDTPS_512"   sdcc_cname="_WDTPS_1_512" />
+      <value value="0x14" name="1:1024"  cname="_WDTPS_1024"  sdcc_cname="_WDTPS_1_1024" />
+      <value value="0x16" name="1:2048"  cname="_WDTPS_2048"  sdcc_cname="_WDTPS_1_2048" />
+      <value value="0x18" name="1:4096"  cname="_WDTPS_4096"  sdcc_cname="_WDTPS_1_4096" />
+      <value value="0x1A" name="1:8192"  cname="_WDTPS_8192"  sdcc_cname="_WDTPS_1_8192" />
+      <value value="0x1C" name="1:16384" cname="_WDTPS_16384" sdcc_cname="_WDTPS_1_16384" />
+      <value value="0x1E" name="1:32768" cname="_WDTPS_32768" sdcc_cname="_WDTPS_1_32768" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="CONFIG3L" wmask="0xFF" bvalue="0x00" />
+
+  <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x83" cmask="0x01" >
+    <mask name="CCP2MX"  value="0x01" >
+      <value value="0x00" name="RB3" cname="_CCP2MX_OFF" sdcc_cname="_CCP2MUX_RB3" />
+      <value value="0x01" name="RC1" cname="_CCP2MX_ON"  sdcc_cname="_CCP2MUX_RC1" />
+    </mask>
+    <mask name="PBADEN"  value="0x02" >
+      <value value="0x00" name="digital" cname="_PBADEN_OFF" sdcc_cname="_PBADEN_PORTB_4_0__CONFIGURED_AS_DIGITAL_I_O_ON_RESET" />
+      <value value="0x02" name="analog"  cname="_PBADEN_ON"  sdcc_cname="_PBADEN_PORTB_4_0__CONFIGURED_AS_ANALOG_INPUTS_ON_RESET" />
+    </mask>
+    <mask name="LPT1OSC" value="0x04" >
+      <value value="0x00" name="Off" cname="_LPT1OSC_OFF" />
+      <value value="0x04" name="On"  cname="_LPT1OSC_ON"  />
+    </mask>
+    <mask name="MCLRE"   value="0x80" >
+      <value value="0x00" name="Internal" cname="_MCLRE_OFF" sdcc_cname="_MCLRE_MCLR_OFF_RE3_ON" />
+      <value value="0x80" name="External" cname="_MCLRE_ON"  sdcc_cname="_MCLRE_MCLR_ON_RE3_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="CONFIG4L" wmask="0xDF" bvalue="0x85" >
+    <mask name="STVREN" value="0x01" >
+      <value value="0x00" name="Off" cname="_STVREN_OFF" sdcc_cname="_STVR_OFF" />
+      <value value="0x01" name="On"  cname="_STVREN_ON"  sdcc_cname="_STVR_ON" />
+    </mask>
+    <mask name="LVP"    value="0x04" >
+      <value value="0x00" name="Off" cname="_LVP_OFF" />
+      <value value="0x04" name="On"  cname="_LVP_ON"  />
+    </mask>
+    <mask name="XINST"  value="0x40" >
+      <value value="0x00" name="Off" cname="_XINST_OFF" sdcc_cname="_ENHCPU_OFF" />
+      <value value="0x40" name="On"  cname="_XINST_ON"  sdcc_cname="_ENHCPU_ON" />
+    </mask>
+    <mask name="DEBUG"  value="0x80" >
+      <value value="0x00" name="On"  cname="_DEBUG_ON"  sdcc_cname="_BACKBUG_ON" />
+      <value value="0x80" name="Off" cname="_DEBUG_OFF" sdcc_cname="_BACKBUG_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0x00" />
+
+  <config offset="0x8" name="CONFIG5L" wmask="0xFF" bvalue="0x0F" >
+    <mask name="CP_0" value="0x01" >
+      <value value="0x00" name="0800:1FFF" cname="_CP0_ON"  sdcc_cname="_CP_0_ON" />
+      <value value="0x01" name="Off"       cname="_CP0_OFF" sdcc_cname="_CP_0_OFF" />
+    </mask>
+    <mask name="CP_1" value="0x02" >
+      <value value="0x00" name="2000:3FFF" cname="_CP1_ON"  sdcc_cname="_CP_1_ON" />
+      <value value="0x02" name="Off"       cname="_CP1_OFF" sdcc_cname="_CP_1_OFF" />
+    </mask>
+    <mask name="CP_2" value="0x04" >
+      <value value="0x00" name="4000:5FFF" cname="_CP2_ON"  sdcc_cname="_CP_2_ON" />
+      <value value="0x04" name="Off"       cname="_CP2_OFF" sdcc_cname="_CP_2_OFF" />
+    </mask>
+    <mask name="CP_3" value="0x08" >
+      <value value="0x00" name="6000:7FFF" cname="_CP3_ON"  sdcc_cname="_CP_3_ON" />
+      <value value="0x08" name="Off"       cname="_CP3_OFF" sdcc_cname="_CP_3_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0x9" name="CONFIG5H" wmask="0xFF" bvalue="0x40" >
+    <mask name="CPB" value="0x40" >
+      <value value="0x00" name="0000:07FF" cname="_CPB_ON"  />
+      <value value="0x40" name="Off"       cname="_CPB_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0xA" name="CONFIG6L" wmask="0xFF" bvalue="0x0F" >
+    <mask name="WRT_0" value="0x01" >
+      <value value="0x00" name="0800:1FFF" cname="_WRT0_ON"  sdcc_cname="_WRT_0_ON" />
+      <value value="0x01" name="Off"       cname="_WRT0_OFF" sdcc_cname="_WRT_0_OFF" />
+    </mask>
+    <mask name="WRT_1" value="0x02" >
+      <value value="0x00" name="2000:3FFF" cname="_WRT1_ON"  sdcc_cname="_WRT_1_ON" />
+      <value value="0x02" name="Off"       cname="_WRT1_OFF" sdcc_cname="_WRT_1_OFF" />
+    </mask>
+    <mask name="WRT_2" value="0x04" >
+      <value value="0x00" name="4000:5FFF" cname="_WRT2_ON"  sdcc_cname="_WRT_2_ON" />
+      <value value="0x04" name="Off"       cname="_WRT2_OFF" sdcc_cname="_WRT_2_OFF" />
+    </mask>
+    <mask name="WRT_3" value="0x08" >
+      <value value="0x00" name="6000:7FFF" cname="_WRT3_ON"  sdcc_cname="_WRT_3_ON" />
+      <value value="0x08" name="Off"       cname="_WRT3_OFF" sdcc_cname="_WRT_3_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0xB" name="CONFIG6H" wmask="0xFF" bvalue="0x60" cmask="0x40" >
+    <mask name="WRTC" value="0x20" >
+      <value value="0x00" name="All" cname="_WRTC_ON"  />
+      <value value="0x20" name="Off" cname="_WRTC_OFF" />
+    </mask>
+    <mask name="WRTB" value="0x40" >
+      <value value="0x00" name="0000:07FF" cname="_WRTB_ON"  />
+      <value value="0x40" name="Off"       cname="_WRTB_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0xC" name="CONFIG7L" wmask="0xFF" bvalue="0x0F" >
+    <mask name="EBTR_0" value="0x01" >
+      <value value="0x00" name="0800:1FFF" cname="_EBTR0_ON"  sdcc_cname="_EBTR_0_ON" />
+      <value value="0x01" name="Off"       cname="_EBTR0_OFF" sdcc_cname="_EBTR_0_OFF" />
+    </mask>
+    <mask name="EBTR_1" value="0x02" >
+      <value value="0x00" name="2000:3FFF" cname="_EBTR1_ON"  sdcc_cname="_EBTR_1_ON" />
+      <value value="0x02" name="Off"       cname="_EBTR1_OFF" sdcc_cname="_EBTR_1_OFF" />
+    </mask>
+    <mask name="EBTR_2" value="0x04" >
+      <value value="0x00" name="4000:5FFF" cname="_EBTR2_ON"  sdcc_cname="_EBTR_2_ON" />
+      <value value="0x04" name="Off"       cname="_EBTR2_OFF" sdcc_cname="_EBTR_2_OFF" />
+    </mask>
+    <mask name="EBTR_3" value="0x08" >
+      <value value="0x00" name="6000:7FFF" cname="_EBTR3_ON"  sdcc_cname="_EBTR_3_ON" />
+      <value value="0x08" name="Off"       cname="_EBTR3_OFF" sdcc_cname="_EBTR_3_OFF" />
+    </mask>
+  </config>
+
+  <config offset="0xD" name="CONFIG7H" wmask="0xFF" bvalue="0x40" >
+    <mask name="EBTRB" value="0x40" >
+      <value value="0x00" name="0000:07FF" cname="_EBTRB_ON"  />
+      <value value="0x40" name="Off"       cname="_EBTRB_OFF" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="sdip soic" nb_pins="28" >
+    <pin index="1"  name="MCLR/VPP/RE3" />
+    <pin index="2"  name="RA0/AN0" />
+    <pin index="3"  name="RA1/AN1" />
+    <pin index="4"  name="RA2/AN2/VREFM/CVREF" />
+    <pin index="5"  name="RA3/AN3/VREFP" />
+    <pin index="6"  name="RA4/TOCKI/C1OUT/RCV" />
+    <pin index="7"  name="RA5/AN4/SS/HLVDIN/C2OUT" />
+    <pin index="8"  name="VSS" />
+    <pin index="9"  name="OSC1/CLKI" />
+    <pin index="10" name="OSC2/CLKO/RA6" />
+    <pin index="11" name="RC0/T1OSO/T13CKI" />
+    <pin index="12" name="RC1/T1OSI/CCP2/UOE" />
+    <pin index="13" name="RC2/CCP1" />
+    <pin index="14" name="VUSB" />
+    <pin index="15" name="RC4/DM/VM" />
+    <pin index="16" name="RC5/DP/VP" />
+    <pin index="17" name="RC6/TX/CK" />
+    <pin index="18" name="RC7/RX/DT/SDO" />
+    <pin index="19" name="VSS" />
+    <pin index="20" name="VDD" />
+    <pin index="21" name="RB0/AN12/INT0/FLT0/SDI/SDA" />
+    <pin index="22" name="RB1/AN10/INT1/SCK/SCL" />
+    <pin index="23" name="RB2/AN8/INT2/VMO" />
+    <pin index="24" name="RB3/AN9/CCP2/VPO" />
+    <pin index="25" name="RB4/AN11/KBIO" />
+    <pin index="26" name="RB5/KBI1/PGM" />
+    <pin index="27" name="RB6/KBI2/PGC" />
+    <pin index="28" name="RB7/KBI3/PGD" />
+  </package>
+
+</device>

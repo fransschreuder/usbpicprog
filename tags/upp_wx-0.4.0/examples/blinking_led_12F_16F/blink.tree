@@ -1,0 +1,8 @@
+// SourceBoost Linker Call Tree Dump
+
+_startup:"NoSourceFile",line = 0
+{  main:"Z:\home\frans\Dropbox\sample_projects\blink\blink.c",line = 16
+  {    delay_ms:"NoSourceFile",line = 0
+    {    }    delay_ms:"NoSourceFile",line = 0
+    {    }  }}interrupt:"Z:\home\frans\Dropbox\sample_projects\blink\blink.c",line = 11
+{}
