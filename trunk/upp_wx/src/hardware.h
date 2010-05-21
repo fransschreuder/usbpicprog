@@ -116,7 +116,7 @@ typedef enum
 #define WRITE_ENDPOINT          (ENDPOINT_INDEX|LIBUSB_ENDPOINT_OUT)
 
 //! Timeout in milliseconds for USB operations.
-#define USB_OPERATION_TIMEOUT   5000
+#define USB_OPERATION_TIMEOUT   1000
 
 //! Return code for the Hardware class' functions when the operations have been aborted.
 #define OPERATION_ABORTED       2
