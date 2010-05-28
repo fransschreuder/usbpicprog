@@ -32,6 +32,7 @@
 #include <wx/progdlg.h>
 #include <wx/log.h>
 #include <wx/aboutdlg.h>
+#include <wx/html/helpctrl.h>
 
 #include <iostream>
 using namespace std;
@@ -332,6 +333,8 @@ private:   // variables related to the threaded operations:
     UppMainWindowThreadMode m_mode;
 
 	wxMenuItem* m_pMenuRestoreCal;
+
+	wxHtmlHelpController* m_HelpController;
 };
 
 #endif   // UPPMAINWINDOW_H
