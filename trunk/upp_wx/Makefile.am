@@ -17,7 +17,8 @@ usbpicprogdoc_DATA = \
 
 usbpicprogdir = ${prefix}/share/usbpicprog
 usbpicprog_DATA = \
-	index.xml
+	index.xml \
+	help/usbpicprog.htb
 
 Applicationsdir = ${prefix}/share/applications
 Applications_DATA = Usbpicprog.desktop

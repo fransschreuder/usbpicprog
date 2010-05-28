@@ -1,2 +1,2 @@
 // generated file
-#define UPP_VERSION "0.4.0"
+#define SVN_REVISION "910M"
