@@ -46,6 +46,29 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	{
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
+
+		if(picfamily==PIC18J)
+		{
+			TRISPGD_LOW = 0;
+			PGD_LOW = 0;	//PGD and PGC to 3.3V mode (output)
+			TRISPGC_LOW = 0;
+			PGC_LOW = 0;
+			
+			VDD=0;	//VDD high,
+			clock_delay();	//P13 = 100ns min
+			VPP_RUN=1;	//VPP to 4.5V
+			VPP_RUN=0;	//and immediately back to 0...
+			clock_delay();	//P19 = 40ns min
+			//write 0x4D43, high to low, other than the rest of the commands which are low to high...
+			//0x3D43 => 0100 1101 0100 0011
+			//from low to high => 1100 0010 1011 0010
+			//0xC2B2	
+			pic_send_word(0xC2B2);
+			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
+			pic_send_word(0x0A12);
+			VPP_RUN=1;	
+			return;
+		}
 		if((pictype==I2C_EE_1)||(pictype==I2C_EE_2))
 		{
 			PGD = 1;
@@ -110,11 +133,14 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	else
 	{
 		VPP=1; //low, (inverted)
+		VPP_RUN=0;
 		VPP_RST=1; //hard reset, low (inverted)
 		lasttick=tick;
 		while((tick-lasttick)<40)continue;
 		VPP_RST=0; //hard reset, high (inverted)
 		VDD=1; //low, (inverted)
+		TRISPGD_LOW = 1; //input
+		TRISPGC_LOW = 1; //input
 		TRISPGD =1;    //PGD input
 		TRISPGC =1;    //PGC input
 		lasttick=tick;
@@ -128,6 +154,7 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 	switch(picfamily)
 	{
 		case PIC18:
+		case PIC18J:
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>16)&0xFF))); //MOVLW Addr [23:16]
 			pic_send(4,0x00,0x6EF8); //MOVWF TBLPTRU
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
@@ -287,6 +314,7 @@ char pic_read_byte2(char cmd_size, char command)
 		clock_delay();
 	}
 	TRISPGD=1; //PGD = input
+	TRISPGD_LOW=1;
 	for(i=0;i<10;i++)continue;
 	result=0;
 	for(i=0;i<8;i++)

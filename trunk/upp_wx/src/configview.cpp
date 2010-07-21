@@ -87,7 +87,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
                              mask.GetStringValues(), 0, wxDefaultValidator, mask.Name);
 
             // set the configuration word
-            if (m_pic.bitsPerWord()==15)
+            if (m_pic.bitsPerWord()==16)
             {
                 if ((i+1) <= hex->getMemory(TYPE_CONFIG).size())
                 {

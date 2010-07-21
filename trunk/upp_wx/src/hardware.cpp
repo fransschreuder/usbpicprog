@@ -619,7 +619,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
                     picType->Name.IsSameAs("18F2321")||
                     picType->Name.IsSameAs("18F4221")||
                     picType->Name.IsSameAs("18F4321")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2221;
-                switch(picType->bitsPerWord())
+				else switch(picType->bitsPerWord())
                 {
                     case 24:
                         blockSizeHW=BLOCKSIZE_CODE_DSPIC;
@@ -647,7 +647,9 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             }
             break;
         case TYPE_CONFIG:
-            switch(picType->bitsPerWord())
+			if(picType->picFamily==P18F45J10)
+				blockSizeHW=BLOCKSIZE_CODE;
+			else switch(picType->bitsPerWord())
             {
                 case 24:
                     blockSizeHW=BLOCKSIZE_CONFIG_DSPIC;
@@ -666,13 +668,39 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
         // fill in a new datablock packet
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-        for (unsigned int i=0; i<blockSizeHW; i++)
-        {
-            if (memory->size() > (blockcounter+i))
-                dataBlock[i]=(*memory)[blockcounter+i];
-            else
-                dataBlock[i]=0xFF;
-        }
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10))
+		{
+			vector<int>* _CodeMemory = NULL;
+		    _CodeMemory = &hexData->getMemory(TYPE_CODE);
+			for (unsigned int i=0; i<(blockSizeHW*2); i++)
+			{
+				if(i<56) //substitute last part of code memory
+				{
+					if(_CodeMemory->size() > ((picType->ConfigAddress-56)+blockcounter+i))
+					    dataBlock[i]=(*_CodeMemory)[(picType->ConfigAddress-56)+blockcounter+i];
+				    else
+					    dataBlock[i]=0xFF;
+					
+				}
+				else	//the actual config bytes go here
+				{
+					if(memory->size() > ((blockcounter+i)-56))
+						dataBlock[i] = (*memory)[(blockcounter+i)-56];
+					else
+						dataBlock[i] = 0xFF;
+				}
+			}
+		}
+		else
+		{
+		    for (unsigned int i=0; i<blockSizeHW; i++)
+		    {
+		        if (memory->size() > (blockcounter+i))
+		            dataBlock[i]=(*memory)[blockcounter+i];
+		        else
+		            dataBlock[i]=0xFF;
+		    }
+		}
 
         // set the type of this block
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
@@ -688,11 +716,21 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         unsigned int currentBlockCounter=blockcounter;
         if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
-        if(type==TYPE_CONFIG)
-            currentBlockCounter+=picType->ConfigAddress;
-        
-        // do write the block
-        int retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
+		int retCode;
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10))
+		{
+			currentBlockCounter+=(picType->ConfigAddress-56);
+		    retCode = writeBlock(TYPE_CODE, dataBlock, currentBlockCounter, blockSizeHW, BLOCKTYPE_FIRST);
+		    retCode = writeBlock(TYPE_CODE, dataBlock+32, currentBlockCounter+32, blockSizeHW, BLOCKTYPE_LAST);
+		}
+		else
+		{
+		    if(type==TYPE_CONFIG)
+		        currentBlockCounter+=picType->ConfigAddress;
+		    
+		    // do write the block
+		    retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
+		}
         if (m_hwCurrent == HW_UPP)
         {
             if (retCode==3) 

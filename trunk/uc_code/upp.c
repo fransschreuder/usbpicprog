@@ -195,6 +195,7 @@ void ProcessIO(void)
 						read_code(picfamily,pictype,0xFF0000,(unsigned char*)output_buffer,2,3);
 						break;
 					case PIC18:
+					case PIC18J:
 						read_code(picfamily,pictype,0x3FFFFE,(unsigned char*)output_buffer,2,3);  //devid is at location 0x3ffffe   for PIC18 devices
 						break;
 					case PIC16:
@@ -523,12 +524,12 @@ unsigned char set_pictype(unsigned char* data)
 		case P18F6X2X:
 		case P18FXX80:
 		case P18F8410:
-		case P18F6XJXX:
-		case P18F45J10:
-		case P18F97J60:
 		case P18F1X30:
 		case P18FXX23:
 		case P18FXXK20:picfamily=PIC18;break;
+		case P18F97J60:
+		case P18F6XJXX:
+		case P18F45J10:picfamily=PIC18J;break;
 		case P24FJXXXGA0XX:
 		case P24H:
 		case P24FJXXXGA1:picfamily=PIC24;break;

@@ -165,6 +165,16 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P18F45J10:
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0101); //Write 0101h to 3C0005h
+			set_address(picfamily, 0x3C0004);
+			pic_send(4,0x0C,0x8080); //Write 8080h to 3C0004h
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(400);
+			break;
 		case P16F716:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			//no break... continue with 17F72.
@@ -493,6 +503,49 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_word(0x0000);
 				pic_read_byte2(4,0x09);	//perform 2 reads to increase the address by 2
 				pic_read_byte2(4,0x09);
+			}
+			break;
+		case P18F45J10:
+			if(!(address&0x20)) 
+			{
+				pic_send(4,0x00,0x84A6); //BSF EECON1, WREN
+				set_address(picfamily, address); //blocks of 64 bytes, but divided into two chunks
+			}	
+			for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+			{
+				//write 2 bytes and post increment by 2
+				//				MSB				LSB
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
+						(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			//write last 2 bytes of the block and start programming
+			if(address&0x20)
+			{
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(10);
+				PGC=0;
+				DelayMs(1);
+				pic_send_word(0x0000);
+			}
+			else
+			{
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+				if(lastblock&2)	//if the last block is the first half of 64 bytes, it needs to be finished with a dummy block to finish.
+				{
+					for(blockcounter=0;blockcounter<30;blockcounter+=2)
+						pic_send(4,0x0D,0xFFFF);
+					pic_send(4,0x0F,0xFFFF);
+					pic_send_n_bits(3, 0);
+					lasttick=tick;
+					PGC=1;	//hold PGC high for P9 and low for P10
+					DelayMs(10);
+					PGC=0;
+					DelayMs(1);
+					pic_send_word(0x0000);
+				}
 			}
 			break;
 		case P16F87X:	//same as P16F62X
@@ -1196,10 +1249,14 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				dspic_send_24_bits(0x000000);	//NOP
 			}
 			break;
+		case PIC18J:
 		case PIC18:
 			set_address(picfamily, address);
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+			{
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
+				if(picfamily==PIC18J)TRISPGD_LOW=0;	//switch to 3.3V again
+			}
 			break;
 		case PIC16:
 			if(address>=0x2000) //read configuration memory
