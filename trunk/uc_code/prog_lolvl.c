@@ -190,7 +190,6 @@ void pic_send_n_bits(char cmd_size, char command)
 		clock_delay();
 		PGC=0;
 		clock_delay();
-
 	}
 	for(i=0;i<10;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
 }
@@ -266,7 +265,8 @@ unsigned int pic_read_14_bits(char cmd_size, char command)
 	char i;
 	unsigned int result;
 	pic_send_n_bits(cmd_size,command);
-//	for(i=0;i<80;i++)continue;	//wait at least 1us
+	//for(i=0;i<80;i++)continue;	//wait at least 1us 
+					///PIC10 only...
 	TRISPGD=1; //PGD = input
 	for(i=0;i<10;i++)continue;
 	result=0;

@@ -30,7 +30,7 @@
     Would one Nop() cycle be enough delay for all PIC's?
     It works for PIC18F2550
 */
-#define clock_delay() Nop()
+#define clock_delay() Nop();Nop()
 
 //#define I2C_delay() Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop()
 void I2C_delay();

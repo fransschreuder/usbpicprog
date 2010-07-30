@@ -222,6 +222,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				pic_send_n_bits(6,0x01);	//6. Execute a Bulk Erase Setup1 command (000001)
 				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
 			}
+			break;
 		case P16F785:
 		case P16F88X:
 		case P16F91X:
@@ -240,6 +241,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			DelayMs(10);
 			pic_send_n_bits(6,0x0B); //bulk erase data memory
 			DelayMs(6);		//wait terase
+			break;
 		case P16F87:
 		case P16F81X:
 		case P16F87XA:
@@ -1315,16 +1317,25 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			{
 				if(lastblock&1)
 				{
-					pic_send_n_bits(6,0x06);	//increment address
 					pic_read_14_bits(6,0x04); //read code memory
-					for(i=0;i<(unsigned int)address;i++)pic_send_n_bits(6,0x06);	//increment address
+					pic_send_n_bits(6,0x06);	//increment address
+					for(i=0;i<10;i++);
+					pic_read_14_bits(6,0x04); //read code memory
+					for(i=0;i<10;i++);
+					for(i=0;i<(unsigned int)address;i++)
+					{
+						pic_send_n_bits(6,0x06);	//increment address
+						for(i=0;i<10;i++);
+					}
 				}
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 				{
 					payload=pic_read_14_bits(6,0x04); //read code memory
+					for(i=0;i<10;i++);
 					data[blockcounter+1]=(char)(payload>>8);
 					data[blockcounter]=(char)payload;
 					pic_send_n_bits(6,0x06);	//increment address
+					for(i=0;i<10;i++);
 				}
 			}
 		default:
