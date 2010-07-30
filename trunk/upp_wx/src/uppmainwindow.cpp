@@ -554,8 +554,7 @@ void UppMainWindow::UpdatePicInfo()
 
     // let's update the bitmap and the pin names:
     upp_package_variant_changed();
-
-    if(m_picType.picFamily==P12F629) 
+    if((m_picType.picFamily==P12F629)||(m_picType.picFamily==P12F508)||(m_picType.picFamily==P10F200)||(m_picType.picFamily==P10F202))
             m_pMenuRestoreCal->Enable(true);
     else
             m_pMenuRestoreCal->Enable(false);
@@ -1296,9 +1295,9 @@ void UppMainWindow::upp_erase()
 
 void UppMainWindow::upp_restore()
 {
-    if((m_picType.picFamily!=P12F629)&&(m_picType.picFamily!=P12F508))
+    if((m_picType.picFamily!=P12F629)&&(m_picType.picFamily!=P12F508)&&(m_picType.picFamily!=P10F200)&&(m_picType.picFamily!=P10F202))
     {   
-        wxLogError(_("Only valid for PIC12F629, PIC12F508 and similar devices..."));
+        wxLogError(_("Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."));
         return;
     }
     if ( !m_hardware.connected())

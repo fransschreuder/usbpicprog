@@ -220,7 +220,8 @@ void ProcessIO(void)
 				address=((unsigned long)input_buffer[2])<<16|
 						((unsigned long)input_buffer[3])<<8|
 						((unsigned long)input_buffer[4]);
-				read_code(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
+				PIN=read_code(picfamily,pictype,address,(unsigned char*)output_buffer,input_buffer[1],input_buffer[5]);
+				if(PIN==3)output_buffer[0]=0x3;
 				counter=input_buffer[1];
 				setLeds(LEDS_ON);
 				break;
@@ -261,6 +262,7 @@ void ProcessIO(void)
 				strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 				counter=18;
 				setLeds(LEDS_ON);
+
 				break;
 			case CMD_DEBUG:
 				setLeds(LEDS_ON | LEDS_WR | LEDS_RD);
@@ -486,7 +488,7 @@ unsigned char set_pictype(unsigned char* data)
 	pictype=data[0];
 	switch(pictype)
 	{
-        case P12F508:
+	        case P12F508:
 		case P10F200:
 		case P10F202:
 		case P16F54:

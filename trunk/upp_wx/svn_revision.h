@@ -1,2 +1,2 @@
 // generated file
-#define SVN_REVISION "917"
+#define SVN_REVISION "918M"

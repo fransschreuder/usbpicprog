@@ -380,11 +380,12 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
 int Hardware::backupOscCalBandGap(PicType *picType)
 {
 	unsigned char msg[64]={0,0};
-    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508))	//back up osccal and bandgap registers for those devices
+    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508)&&(picType->picFamily!=P10F200)&&(picType->picFamily!=P10F202))	//back up osccal and bandgap registers for those devices
         return -1;
 
 	int OscCalAddress=0x3FF;
-	
+	if(picType->picFamily==P10F200)OscCalAddress=0x104;
+	if(picType->picFamily==P10F202)OscCalAddress=0x204;
 	if(picType->Name.Contains("12F508"))OscCalAddress=0x204;
 	if(picType->Name.Contains("12F509"))OscCalAddress=0x404;
 	if(picType->picFamily==P12F629)OscCalAddress=0x3FF;
@@ -392,7 +393,7 @@ int Hardware::backupOscCalBandGap(PicType *picType)
 		return -1;
 
 	picType->OscCal = (((unsigned int)msg[0]&0xFF)|((((unsigned int)msg[1])<<8)&0x3F00));
-    
+    cout<< "OscCal: "<<std::hex<<picType->OscCal<<endl;
 	if(picType->picFamily==P12F629)
 	{
 		if (readBlock(TYPE_CONFIG, msg , 0x2007, 2, 3 ) <= 0)
@@ -407,13 +408,16 @@ int Hardware::backupOscCalBandGap(PicType *picType)
 int Hardware::restoreOscCalBandGap(PicType *picType, int OscCal, int BandGap)
 {
     unsigned char msg[64];
-    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508))	//back up osccal and bandgap registers for those devices
+    if((picType->picFamily!=P12F629)&&(picType->picFamily!=P12F508)&&(picType->picFamily!=P10F200)&&(picType->picFamily!=P10F202))	//back up osccal and bandgap registers for those devices
         return -1;
+	
 	
 	int address=0;
 	if(picType->Name.Contains("12F508"))address = 0x1ff;
 	else if(picType->Name.Contains("12F509"))address = 0x3ff;
 	else if(picType->picFamily==P12F629)address = 0x3ff;
+	else if(picType->picFamily==P10F200)address = 0x104;
+	else if(picType->picFamily==P10F202)address = 0x204;
 
 
 	msg[0]=(unsigned char)(OscCal&0xFF);

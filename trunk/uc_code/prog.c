@@ -705,23 +705,24 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			if(lastblock&1)	
 			{
 				pic_send_n_bits(6,0x06);//increment address to go from 1FF / 3FF to 0
-				pic_send_n_bits(6,0x09);//bulk erase, which is necessary anyway...
-				DelayMs(20);
+				//pic_send_n_bits(6,0x09);//bulk erase, which is necessary anyway...
+				//DelayMs(20);
 			}
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 			{
 				pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
 						(((unsigned int)data[blockcounter+1])<<8));//LSB
+				DelayMs(1);
 				pic_send_n_bits(6,0x08);    //begin programming
 				DelayMs(3);
 				pic_send_n_bits(6,0x0E);	//end programming
-				DelayMs(2);
-				payload=pic_read_14_bits(6,0x04); //read code memory
-				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
-				{ 
-					set_vdd_vpp(pictype,picfamily,0);
-					return 4;//verify error.
-				}
+				DelayMs(1);
+				//payload=pic_read_14_bits(6,0x04); //read code memory
+				//if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
+				//{ 
+				//	set_vdd_vpp(pictype,picfamily,0);
+				//	return 4;//verify error.
+				//}
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
@@ -1110,12 +1111,15 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 		case P16F59:
 		case P10F200:
 		case P10F202:
-			payload=(((unsigned int)data[0]))|(((unsigned int)data[1])<<8);
-			pic_send_14_bits(6,0x02,payload); //load data for programming
-			pic_send_n_bits(6,0x08);    //begin programming
-			DelayMs(3);
-			pic_send_n_bits(6,0x0E);	//end programming
-			DelayMs(1);
+                        for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
+			{
+				payload=(((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8);
+				pic_send_14_bits(6,0x02,payload); //load data for programming
+				pic_send_n_bits(6,0x08);    //begin programming
+				DelayMs(Tprog);
+				pic_send_n_bits(6,0x0E);    //end programming
+				pic_send_n_bits(6,0x06);	//increment address
+			}
 			break;
 			
 		default:
@@ -1137,7 +1141,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 /**
 read_program will read program memory, id's and configuration bits
 **/
-void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize, char lastblock)
+char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {
 	unsigned int configAddress=0;
 	unsigned int i;
@@ -1308,7 +1312,7 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 					break;
 			}
 			if(address==configAddress)
-			{					
+			{			
 				payload=pic_read_14_bits(6,0x04); //read config memory
 				data[1]=(char)(payload>>8);
 				data[0]=(char)payload;
@@ -1317,27 +1321,28 @@ void read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			{
 				if(lastblock&1)
 				{
-					pic_read_14_bits(6,0x04); //read code memory
+					//pic_read_14_bits(6,0x04); //read code memory
 					pic_send_n_bits(6,0x06);	//increment address
-					for(i=0;i<10;i++);
-					pic_read_14_bits(6,0x04); //read code memory
-					for(i=0;i<10;i++);
+		//			for(i=0;i<10;i++);
+					//pic_read_14_bits(6,0x04); //read code memory
+		//			for(i=0;i<10;i++);
 					for(i=0;i<(unsigned int)address;i++)
 					{
 						pic_send_n_bits(6,0x06);	//increment address
-						for(i=0;i<10;i++);
+		//				for(i=0;i<10;i++);
 					}
 				}
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 				{
 					payload=pic_read_14_bits(6,0x04); //read code memory
-					for(i=0;i<10;i++);
+		//			for(i=0;i<10;i++);
 					data[blockcounter+1]=(char)(payload>>8);
 					data[blockcounter]=(char)payload;
 					pic_send_n_bits(6,0x06);	//increment address
-					for(i=0;i<10;i++);
+		//			for(i=0;i<10;i++);
 				}
 			}
+			break;
 		default:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)         //fill with zeros
 				*(data+blockcounter)=0;
