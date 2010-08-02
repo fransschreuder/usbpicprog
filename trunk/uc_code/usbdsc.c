@@ -266,11 +266,11 @@ struct{byte bLength;byte bDscType;word string[33];}sd002={
  ' ',' ',' ',' ',' '};
 #endif
 #ifndef SDCC
-rom const unsigned char *rom USB_CD_Ptr[]={&cfg01,&cfg01};
+rom const unsigned char *rom USB_CD_Ptr[]={(rom const unsigned char *rom)&cfg01,(rom const unsigned char *rom)&cfg01};
 #else
 rom const unsigned char *rom USB_CD_Ptr[]={&CFG01,&CFG01};
 #endif
-rom const unsigned char *rom USB_SD_Ptr[]={&sd000,&sd001,&sd002};
+rom const unsigned char *rom USB_SD_Ptr[]={(rom const unsigned char *rom)&sd000,(rom const unsigned char *rom)&sd001,(rom const unsigned char *rom)&sd002};
 
 #ifndef SDCC
 #pragma code

@@ -27,8 +27,11 @@ all: $(TARGET)
 
 ## Cleanup all object and generated files ##
 clean:
-	rm *.o
-	rm *.hex
+	rm -f *.o
+	rm -f *.hex
+	rm -f *.map
+	rm -f *.cof
+	rm -f *.err
 
 ## Make all nonfile/folder targets phony to prevent conflict ##
 .phony: clean all
