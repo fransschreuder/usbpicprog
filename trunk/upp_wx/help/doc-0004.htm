@@ -12,3 +12,8 @@ The most common way to connect the programmer to the target, is through In Circu
 <tr><td>PGC</td><td>PGC, mostly RB6</td><td>Programming Clock pin</td></tr>
 <tr><td>GND</td><td>VSS or GND</td><td>Ground pin, 0V</td></tr>
 </table>
+<br>
+<H2>Connection of low voltage (18FxxJxx / 18FxxKxx) devices</H2>
+Low voltage devices accept input voltages of 5V on their digital pins, however the power signal needs to be regulated to 3.3V. Also the VDDCore pin needs a capacitor.
+Connect these devices as in the schematic below:<br><br>
+<img src="18fxxjxx_connection.gif">

@@ -1,3 +1,21 @@
+usbpicprog (0.4.0-1-3) lucid; urgency=low
+
+  * Increased USB timout delay to 5000ms (as it was in 0.4.0-beta)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 08:24:54 +0200
+
+usbpicprog (0.4.0-1-2) karmic; urgency=low
+
+  * Increased USB timout delay to 5000ms (as it was in 0.4.0-beta)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 08:24:40 +0200
+
+usbpicprog (0.4.0-1-1) jaunty; urgency=low
+
+  * Increased USB timout delay to 5000ms (as it was in 0.4.0-beta)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 08:23:58 +0200
+
 usbpicprog (0.4.0-3) lucid; urgency=low
 
   * released 0.4.0
