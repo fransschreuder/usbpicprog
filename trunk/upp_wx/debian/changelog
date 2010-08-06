@@ -1,3 +1,39 @@
+usbpicprog (922-3) marverick; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:45 +0200
+
+usbpicprog (922-2) lucid; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:41 +0200
+
+usbpicprog (922-1) karmic; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:37 +0200
+
+usbpicprog (922-3) lucid; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:59:09 +0200
+
+usbpicprog (922-2) karmic; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:59:05 +0200
+
+usbpicprog (922-1) hardy; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:58:57 +0200
+
 usbpicprog (916-3) lucid; urgency=low
 
   * implemented PIC18F24J10, 25J10, 44J10 and 45J10 devices. Also fixed

@@ -166,7 +166,7 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         // add a few more details about the location of current config word in PIC memory
 
         boxSz->AddStretchSpacer(1);
-        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format(_("Location in memory: 0x%X"), m_pic.ConfigAddress + word.Offset)),
+        boxSz->Add(new wxStaticText(panel, wxID_ANY, wxString::Format(_("Location in memory: 0x%X"), m_pic.ConfigAddress +(int) word.Offset)),
                 0, wxLEFT|wxALIGN_CENTER, 5);
                 
         boxSz->AddStretchSpacer(1);
