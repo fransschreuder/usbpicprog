@@ -645,6 +645,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case P16F91X:
 		case P16F81X:
 		case P12F6XX:
+		case P16F88X:
 			//4 word programming
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=8) //4 words of data = 8 bytes
 			{
@@ -656,6 +657,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				}
 				switch(pictype)
 				{
+					case P16F88X:
 					case P16F785:
 						pic_send_n_bits(6,0x18);    //begin programming
 						DelayMs(Tprog);
@@ -680,7 +682,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			break;
-		case P16F88X:
 		case P16F87XA:
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=16) //8 words of data = 16 bytes
 			{
