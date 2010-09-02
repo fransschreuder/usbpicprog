@@ -14,6 +14,8 @@ Usage: usbpicprog [-h] [-V] [-p &lt;str&gt;] [-s] [-w] [-r] [-v] [-e] [-b] [-d] 
 <tr><td>-e</td><td>--erase</td><td>bulk erase the device</td></tr>
 <tr><td>-b</td><td>--blankcheck</td><td>blankcheck the device</td></tr>
 <tr><td>-d</td><td>--debug</td><td>debug the hardware (development purposes only)</td></tr>
+<tr><td>-RT</td><td>--run</td><td>run target device</td></tr>
+<tr><td>-ST</td><td>--stop</td><td>stop target device</td></tr>
 <tr><td>-f</td><td>--file=&lt;str&gt;</td><td>hexfile</td></tr>
 <tr><td>-RO</td><td>--restore-osccal=&lt;str&gt;</td><td>Restore Osccal Register</td></tr>
 <tr><td>-RB</td><td>--restore-bandgap=&lt;str&gt;</td><td>Restore BandGap Register</td></tr>
