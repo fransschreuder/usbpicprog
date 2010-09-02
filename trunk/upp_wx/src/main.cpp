@@ -207,7 +207,9 @@ bool UsbPicProg::OnCmdLineParsed(wxCmdLineParser& parser)
         !parser.Found(("f"), &tmp)&&
         !parser.Found(("d"))&&
 	    !parser.Found(("RO"), &tmp)&&
-	    !parser.Found(("RB"), &tmp))
+	    !parser.Found(("RB"), &tmp)&&
+	    !parser.Found(("RT"))&&
+	    !parser.Found(("ST")))
     {
         // no command line arguments (except maybe the filename with option "-f")
         // were given: open the main window
@@ -268,6 +270,24 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
     // command line option -s or --silent passed?
     silent_mode = parser.Found(("s"));
+    
+    // Run Target Device
+    if(parser.Found(("RT")))
+    {
+        cout<<"Running target device"<<endl;
+        if(!m_hardware.runTarget())cout<<"Unable to run target device"<<endl;
+        m_hardware.disconnect();
+        return;
+    }
+	
+	// Stop Target Device
+    if(parser.Found(("ST")))
+    {
+        cout<<"Stopping target device"<<endl;
+        if(!m_hardware.stopTarget())cout<<"Unable to stop target device"<<endl;
+        m_hardware.disconnect();
+        return;
+    }
 	
     // check if -p <str> was given, else autodetect the device
     wxString picTypeStr;
