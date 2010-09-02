@@ -872,7 +872,7 @@ int Hardware::autoDetectDevice()
     PicType picType = PicType::FindPIC(0x10000|devId);
 
     if(picType.ok())
-        return devId; 
+        return devId|0x10000; 
     else
 	{
 	

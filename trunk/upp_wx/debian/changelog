@@ -1,3 +1,21 @@
+usbpicprog (924-3) maverick; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:34 +0200
+
+usbpicprog (924-2) lucid; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:23 +0200
+
+usbpicprog (924-1) karmic; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:04 +0200
+
 usbpicprog (922-3) marverick; urgency=low
 
   * removed warnings aboud suspicous pointer conversions from usbdsc.c
