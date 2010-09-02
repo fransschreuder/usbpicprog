@@ -1,3 +1,21 @@
+usbpicprog (925-3) maverick; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:38 +0200
+
+usbpicprog (925-2) lucid; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:28 +0200
+
+usbpicprog (925-1) karmic; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:18 +0200
+
 usbpicprog (924-3) maverick; urgency=low
 
   * fixed bug for programming 16F88X, 4 word programming in stead of 8

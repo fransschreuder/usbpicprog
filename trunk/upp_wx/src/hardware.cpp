@@ -927,6 +927,28 @@ int Hardware::autoDetectDevice()
     return -1;
 }
 
+
+bool Hardware::runTarget()
+{
+    if(m_hwCurrent != HW_UPP)return false;
+    if(setPinState(SUBCMD_PIN_VPP, PIN_STATE_5V)<0)return false;
+    if(setPinState(SUBCMD_PIN_VDD, PIN_STATE_5V)<0)return false;
+	if(setPinState(SUBCMD_PIN_PGD, PIN_STATE_INPUT)<0)return false;
+	if(setPinState(SUBCMD_PIN_PGC, PIN_STATE_0V)<0)return false;
+    return true;
+}
+
+
+bool Hardware::stopTarget()
+{
+    if(m_hwCurrent != HW_UPP)return false;
+    if(setPinState(SUBCMD_PIN_VPP, PIN_STATE_FLOAT)<0)return false;
+    if(setPinState(SUBCMD_PIN_VDD, PIN_STATE_FLOAT)<0)return false;
+	if(setPinState(SUBCMD_PIN_PGD, PIN_STATE_INPUT)<0)return false;
+	if(setPinState(SUBCMD_PIN_PGC, PIN_STATE_0V)<0)return false;
+    return true;
+}
+
 int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 {
     unsigned char msg[64];

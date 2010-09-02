@@ -175,6 +175,8 @@ protected:     // event handlers
     void on_restore( wxCommandEvent& event ){upp_restore(); EVENT_FIX}
     void on_blankcheck( wxCommandEvent& event ){upp_blankcheck(); EVENT_FIX}
     void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX}
+    void on_run_target( wxCommandEvent& event ){upp_run_target(); EVENT_FIX}
+    void on_stop_target( wxCommandEvent& event ){upp_stop_target(); EVENT_FIX}
     void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
     void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX}
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
@@ -275,6 +277,13 @@ private:    // real event handlers
     
     /** Detect which PIC is connected and select it in the choicebox and the m_hardware */
     bool upp_autodetect();
+    
+    /** Set MCLR to +5V to run the target device */
+    bool upp_run_target();
+    
+    /** Set MCLR to 0V to stop the target device */
+    bool upp_stop_target();
+    
 
 	void checkFirmwareVersion(FirmwareVersion firmwareVersion);
 	

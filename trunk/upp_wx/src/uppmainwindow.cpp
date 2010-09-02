@@ -58,6 +58,8 @@
     #include "../icons/program.xpm"
     #include "../icons/erase.xpm"
     #include "../icons/read.xpm"
+    #include "../icons/play.xpm"
+    #include "../icons/stop.xpm"
     #include "../icons/verify.xpm"
     #include "../icons/usbpicprog.xpm"
 #else   /*Icons for Windows and Mac*/
@@ -66,6 +68,8 @@
     #include "../icons/win/program.xpm"
     #include "../icons/win/erase.xpm"
     #include "../icons/win/read.xpm"
+    #include "../icons/win/play.xpm"
+    #include "../icons/win/stop.xpm"
     #include "../icons/win/verify.xpm"
     #include "../icons/win/usbpicprog.xpm"
     #include "../icons/win/zoomin.xpm"
@@ -227,7 +231,16 @@ void UppMainWindow::CompleteGUICreation()
     wxMenuItem* pMenuAutoDetect;
     pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
                                     _("Detect the type of the PIC device"), wxITEM_NORMAL );
+                                    
 
+    wxMenuItem* pMenuRunTarget;
+    pMenuRunTarget = new wxMenuItem( pMenuActions, wxID_RUN_TARGET, wxString(_("Run Target")),
+                                    _("Set 5V to MCLR to run the target controller"), wxITEM_NORMAL );
+
+    wxMenuItem* pMenuStopTarget;
+    pMenuStopTarget = new wxMenuItem( pMenuActions, wxID_STOP_TARGET, wxString(_("Stop Target")),
+                                    _("Set 0V to MCLR to stop the target controller"), wxITEM_NORMAL );
+                                    
     wxMenuItem* pMenuConnect;
     pMenuConnect = new wxMenuItem( pMenuActions, wxID_CONNECT, wxString( _("&Connect...") ),
                                     _("Connect to the programmer"), wxITEM_NORMAL );
@@ -249,6 +262,9 @@ void UppMainWindow::CompleteGUICreation()
     pMenuErase->SetBitmap(GetMenuBitmap( erase_xpm ));
     pMenuBlankCheck->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
     pMenuAutoDetect->SetBitmap(GetMenuBitmap( blankcheck_xpm ));
+    
+    pMenuRunTarget->SetBitmap(GetMenuBitmap( play_xpm ));
+    pMenuStopTarget->SetBitmap(GetMenuBitmap( stop_xpm ));
 
     pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-connect"), wxART_MENU));
     pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-disconnect"), wxART_MENU));
@@ -260,14 +276,15 @@ void UppMainWindow::CompleteGUICreation()
     pMenuActions->Append( pMenuErase );
     pMenuActions->Append( m_pMenuRestoreCal );
     pMenuActions->Append( pMenuBlankCheck );
-    pMenuActions->Append( pMenuAutoDetect );
+    pMenuActions->Append( pMenuAutoDetect );                             
+    pMenuActions->Append( pMenuRunTarget );
+    pMenuActions->Append( pMenuStopTarget );
     pMenuActions->AppendSeparator();
     pMenuActions->Append( pMenuConnect );
     pMenuActions->Append( pMenuDisconnect );
     pMenuActions->AppendSeparator();
     pMenuActions->AppendSubMenu( pMenuSelectPIC, wxString( _("&Select PIC...") ),
                                 _("Change the currently selected PIC") );
-
     // create a menu-item for each PIC
     map<wxString,wxMenu*> menus;
     for(unsigned int i=0;i<m_arrPICName.size();i++)
@@ -312,6 +329,8 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_RESTORE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_restore ) );
     this->Connect( wxID_BLANKCHECK, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_blankcheck ) );
     this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
+    this->Connect( wxID_RUN_TARGET, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_run_target ) );
+    this->Connect( wxID_STOP_TARGET, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_stop_target ) );
     this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
     this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
 
@@ -352,6 +371,12 @@ void UppMainWindow::CompleteGUICreation()
                     GetMenuBar()->FindItem(wxID_BLANKCHECK)->GetHelp() );
     toolbar->AddTool( wxID_AUTODETECT, _("autodetect"), wxIcon( blankcheck_xpm ), wxNullBitmap, wxITEM_NORMAL, _("autodetect"),
                     GetMenuBar()->FindItem(wxID_AUTODETECT)->GetHelp() );
+    toolbar->AddSeparator();
+    toolbar->AddTool( wxID_RUN_TARGET, _("Run Target"), wxIcon( play_xpm ), wxNullBitmap, wxITEM_NORMAL, _("Run Target"),
+                    GetMenuBar()->FindItem(wxID_RUN_TARGET)->GetHelp() );
+    toolbar->AddTool( wxID_STOP_TARGET, _("Stop Target"), wxIcon( stop_xpm ), wxNullBitmap, wxITEM_NORMAL, _("Stop Target"),
+                    GetMenuBar()->FindItem(wxID_STOP_TARGET)->GetHelp() );
+                    
     toolbar->AddSeparator();
 
     m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE_COMBO, wxDefaultPosition, wxSize(120,-1));
@@ -1411,6 +1436,18 @@ bool UppMainWindow::upp_autodetect()
     Reset();
 
     return (devId>1);
+}
+
+
+
+bool UppMainWindow::upp_run_target()
+{
+    if(!m_hardware.runTarget()) wxLogError(_("Unable to run target"));
+}
+
+bool UppMainWindow::upp_stop_target()
+{
+    if(!m_hardware.stopTarget()) wxLogError(_("Unable to stop target"));
 }
 
 bool UppMainWindow::upp_connect()

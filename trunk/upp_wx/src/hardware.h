@@ -319,6 +319,12 @@ public:
     */
     int autoDetectDevice();
 
+    /** Set MCLR to +5V to run target device*/
+    bool runTarget();
+    
+    /** Set MCLR to 0V to stop target device*/
+    bool stopTarget();
+
     /** 
         Reads the firmware version of the connected hardware. 
 

@@ -27,6 +27,8 @@ extern const char* blankcheck_xpm[];
 extern const char* program_xpm[];
 extern const char* erase_xpm[];
 extern const char* read_xpm[];
+extern const char* play_xpm[];
+extern const char* stop_xpm[];
 extern const char* verify_xpm[];
 extern const char* usbpicprog_xpm[];
 
@@ -39,6 +41,8 @@ enum
     wxID_ERASE,
     wxID_BLANKCHECK,
     wxID_AUTODETECT,
+    wxID_RUN_TARGET,
+    wxID_STOP_TARGET,
 
     wxID_CONNECT,
     //wxID_CONNECT_BOOT,
