@@ -1442,12 +1442,14 @@ bool UppMainWindow::upp_autodetect()
 
 bool UppMainWindow::upp_run_target()
 {
-    if(!m_hardware.runTarget()) wxLogError(_("Unable to run target"));
+    if(!m_hardware.runTarget()) {wxLogError(_("Unable to run target"));return false;}
+	return true;
 }
 
 bool UppMainWindow::upp_stop_target()
 {
-    if(!m_hardware.stopTarget()) wxLogError(_("Unable to stop target"));
+    if(!m_hardware.stopTarget()) {wxLogError(_("Unable to stop target"));return false;}
+	return true;
 }
 
 bool UppMainWindow::upp_connect()
