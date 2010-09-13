@@ -1,0 +1,119 @@
+;/////////////////////////////////////////////////////////////////////////////////
+;// Code Generator: BoostC Compiler - http://www.sourceboost.com
+;// Version       : 6.96
+;// License Type  : Lite License (Unregistered)
+;// Limitations   : PIC12,PIC16 max code size:2048 words, max RAM banks:2, Non commercial use only
+;/////////////////////////////////////////////////////////////////////////////////
+
+	ORG 0x00000000
+0000  2845  	GOTO	_startup
+	ORG 0x00000004
+0004        delay_ms_00000
+0004        ; { delay_ms ; function begin
+0004  08CD  	MOVF delay_ms_00000_arg_del, F
+0005  1D03  	BTFSS STATUS,Z
+0006  2808  	GOTO	label1
+0007  0008  	RETURN
+0008        label1
+0008  30F9  	MOVLW 0xF9
+0009        label2
+0009  0000  	NOP
+000A  0000  	NOP
+000B  0000  	NOP
+000C  0000  	NOP
+000D  3EFF  	ADDLW 0xFF
+000E  1D03  	BTFSS STATUS,Z
+000F  2809  	GOTO	label2
+0010  0000  	NOP
+0011  0000  	NOP
+0012  0000  	NOP
+0013  0000  	NOP
+0014  0000  	NOP
+0015  0BCD  	DECFSZ delay_ms_00000_arg_del, F
+0016  2808  	GOTO	label1
+0017  0008  	RETURN
+0018        ; } delay_ms function end
+
+	ORG 0x00000018
+0018        main
+0018        ; { main ; function begin
+0018  1283  	BCF STATUS, RP0
+0019  01CA  	CLRF main_1_a
+001A  3028  	MOVLW 0x28
+001B  1683  	BSF STATUS, RP0
+001C  0085  	MOVWF gbl_trisio
+001D  3017  	MOVLW 0x17
+001E  1283  	BCF STATUS, RP0
+001F  0085  	MOVWF gbl_gpio
+0020        label3
+0020  0ACA  	INCF main_1_a, F
+0021  084A  	MOVF main_1_a, W
+0022  3C05  	SUBLW 0x05
+0023  1C03  	BTFSS STATUS,C
+0024  01CA  	CLRF main_1_a
+0025  1A85  	BTFSC gbl_gpio,5
+0026  2820  	GOTO	label3
+0027  01CC  	CLRF main_1_c
+0028        label4
+0028  3005  	MOVLW 0x05
+0029  024C  	SUBWF main_1_c, W
+002A  1803  	BTFSC STATUS,C
+002B  283E  	GOTO	label7
+002C  01CB  	CLRF main_1_b
+002D        label5
+002D  3004  	MOVLW 0x04
+002E  024B  	SUBWF main_1_b, W
+002F  1803  	BTFSC STATUS,C
+0030  283C  	GOTO	label6
+0031  3046  	MOVLW LOW(gbl_turn+D'0')
+0032  0084  	MOVWF FSR
+0033  084B  	MOVF main_1_b, W
+0034  0784  	ADDWF FSR, F
+0035  0800  	MOVF INDF, W
+0036  0085  	MOVWF gbl_gpio
+0037  3064  	MOVLW 0x64
+0038  00CD  	MOVWF delay_ms_00000_arg_del
+0039  2004  	CALL delay_ms_00000
+003A  0ACB  	INCF main_1_b, F
+003B  282D  	GOTO	label5
+003C        label6
+003C  0ACC  	INCF main_1_c, F
+003D  2828  	GOTO	label4
+003E        label7
+003E  3040  	MOVLW LOW(gbl_numbers+D'0')
+003F  0084  	MOVWF FSR
+0040  084A  	MOVF main_1_a, W
+0041  0784  	ADDWF FSR, F
+0042  0800  	MOVF INDF, W
+0043  0085  	MOVWF gbl_gpio
+0044  2820  	GOTO	label3
+0045        ; } main function end
+
+	ORG 0x00000045
+0045        _startup
+0045  3010  	MOVLW 0x10
+0046  1283  	BCF STATUS, RP0
+0047  00C0  	MOVWF gbl_numbers
+0048  3001  	MOVLW 0x01
+0049  00C1  	MOVWF gbl_numbers+D'1'
+004A  3011  	MOVLW 0x11
+004B  00C2  	MOVWF gbl_numbers+D'2'
+004C  3005  	MOVLW 0x05
+004D  00C3  	MOVWF gbl_numbers+D'3'
+004E  3015  	MOVLW 0x15
+004F  00C4  	MOVWF gbl_numbers+D'4'
+0050  3007  	MOVLW 0x07
+0051  00C5  	MOVWF gbl_numbers+D'5'
+0052  3001  	MOVLW 0x01
+0053  00C6  	MOVWF gbl_turn
+0054  3002  	MOVLW 0x02
+0055  00C7  	MOVWF gbl_turn+D'1'
+0056  3004  	MOVLW 0x04
+0057  00C8  	MOVWF gbl_turn+D'2'
+0058  3010  	MOVLW 0x10
+0059  00C9  	MOVWF gbl_turn+D'3'
+005A  118A  	BCF PCLATH,3
+005B  120A  	BCF PCLATH,4
+005C  2818  	GOTO	main
+	ORG 0x00002007
+2007  3FC4  	DW 0x3FC4

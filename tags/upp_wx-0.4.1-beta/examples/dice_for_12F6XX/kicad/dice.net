@@ -1,0 +1,123 @@
+# EESchema Netlist Version 1.1 created  9/3/2008-14:07:33
+(
+ ( 47D3E052 BAT BT1 BATTERY
+  ( 1 N-000001 )
+  ( 2 VSS )
+ )
+ ( 47D3E062 Cuni C1 100nF
+  ( 1 N-000008 )
+  ( 2 VSS )
+ )
+ ( 47D3E07B Cuni C2 100nF
+  ( 1 VDD )
+  ( 2 VSS )
+ )
+ ( 47D3E137 LED D1 LED
+  ( 1 N-000006 )
+  ( 2 VSS )
+ )
+ ( 47D3E141 LED D2 LED
+  ( 1 N-000006 )
+  ( 2 VSS )
+ )
+ ( 47D3E152 LED D3 LED
+  ( 1 N-000011 )
+  ( 2 VSS )
+ )
+ ( 47D3E166 LED D4 LED
+  ( 1 N-000011 )
+  ( 2 VSS )
+ )
+ ( 47D3E194 LED D5 LED
+  ( 1 N-000012 )
+  ( 2 VSS )
+ )
+ ( 47D3E19B LED D6 LED
+  ( 1 N-000003 )
+  ( 2 VSS )
+ )
+ ( 47D3E1A1 LED D7 LED
+  ( 1 N-000003 )
+  ( 2 VSS )
+ )
+ ( 47D3E4E0 D D8 DIODE
+  ( 1 N-000001 )
+  ( 2 N-000008 )
+ )
+ ( 47D3E0F8 R R1 1k
+  ( 1 N-000007 )
+  ( 2 VDD )
+ )
+ ( 47D3E1C2 R R2 150R
+  ( 1 N-000006 )
+  ( 2 N-000010 )
+ )
+ ( 47D3E1DF R R3 150R
+  ( 1 N-000011 )
+  ( 2 N-000005 )
+ )
+ ( 47D3E2A6 R R4 150R
+  ( 1 N-000003 )
+  ( 2 N-000002 )
+ )
+ ( 47D3E221 R R5 270R
+  ( 1 N-000012 )
+  ( 2 N-000004 )
+ )
+ ( 47D3E0E8 PUSH SW1 SW_PUSH
+  ( 1 VSS )
+  ( 2 N-000007 )
+ )
+ ( 47D3E044 78L05 U1 78L05
+  ( GND VSS )
+  ( VI N-000008 )
+  ( VO VDD )
+ )
+ ( 47D3E00B 8DIP-ELL300 U2 PIC12F629
+  ( 1 VDD )
+  ( 2 N-000007 )
+  ( 3 N-000004 )
+  ( 4 ? )
+  ( 5 N-000005 )
+  ( 6 N-000010 )
+  ( 7 N-000002 )
+  ( 8 VSS )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ C?
+ SM*
+$endlist
+$component C2
+ C?
+ SM*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+$endlist
+$endfootprintlist
+}

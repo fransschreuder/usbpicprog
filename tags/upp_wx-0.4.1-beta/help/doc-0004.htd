@@ -1,0 +1,18 @@
+<H1>Connection of usbpicprog to the target controller</H1>
+The usbpicprog hardware is equipped with 2 5-pin headers. 1 is being used to program the bootloader into the usbpicprog hardware's main controller; this has to happen only once. When the bootloader has been loaded, this connector (P2) will be used to put jumpers to switch from bootloader mode to usbpicprog mode.<br><br>
+The other connector (P1) is the most important connector on the usbpicprog hardware, it has to be connected to the target processor (the one that is going to be programmed). <br><br>
+The connection from Usbpicprog to the target board can be done in two ways; The PIC can be connected directly to the programmer, using a so-called ZIF socket. (In the download section of usbpicprog.org, you fill find a PCB for the ZIF socket).<br>
+The most common way to connect the programmer to the target, is through In Circuit Serial Programming (ICSP). This way, a 5-pin header has to be connected to the corresponding pins on the target board, having the following connections:<br><br>
+<table border="1">
+<tr><td>Pin on Usbpicprog</td><td>Pin on target board</td><td>Description</td></tr>
+<tr><td>VPP</td><td>MCLR</td><td>The programming voltage, 12V = programming, 5V = run, 0V = reset</td></tr>
+<tr><td>VDD</td><td>VDD, +5V</td><td>5V power supply, can be left open if the target is self-powered.</td></tr>
+<tr><td>PGD</td><td>PGD, mostly RB7 </td><td>Programming Data pin</td></tr>
+<tr><td>PGC</td><td>PGC, mostly RB6</td><td>Programming Clock pin</td></tr>
+<tr><td>GND</td><td>VSS or GND</td><td>Ground pin, 0V</td></tr>
+</table>
+<br>
+<H2>Connection of low voltage (18FxxJxx / 18FxxKxx) devices</H2>
+Low voltage devices accept input voltages of 5V on their digital pins, however the power signal needs to be regulated to 3.3V. Also the VDDCore pin needs a capacitor.
+Connect these devices as in the schematic below:<br><br>
+<img src="18fxxjxx_connection.gif">

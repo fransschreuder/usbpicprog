@@ -1,0 +1,31 @@
+# List of source files containing translatable strings.
+# Update this copying and pasting the output of 'ls -1 src/*cpp src/*h'
+
+src/configview.cpp
+src/configview.h
+src/formbuilder_includes.h
+src/hardware.cpp
+src/hardware.h
+src/hexfile.cpp
+src/hexfile.h
+src/hexview.cpp
+src/hexview.h
+src/main.cpp
+src/main.h
+src/packageview.cpp
+src/packageview.h
+src/pictype.cpp
+src/pictype.h
+src/preferences_base.cpp
+src/preferences_base.h
+src/preferences.cpp
+src/preferences.h
+src/uppmainwindow_base.cpp
+src/uppmainwindow_base.h
+src/uppmainwindow.cpp
+src/uppmainwindow.h
+src/io_test_base.cpp
+src/io_test_base.h
+src/io_test.cpp
+src/io_test.h
+

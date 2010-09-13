@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Alan Page                                         *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="18F85J90" status="IP" memory_technology="FLASH" architecture="18J" id="0x38E0" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="026342" datasheet="39770" progsheet="39644" erratas="80286 80312" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="4" vdd_min="2.0" vdd_max="3.6" />
+    <frequency start="4" end="40" vdd_min="2.0" vdd_min_end="2.35" vdd_max="3.6" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="3" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog"       min="3" max="3.6" nominal="3.3"  />
+  <voltages name="vdd_prog_write" min="3" max="3.6" nominal="3.3"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"         start="0x000000" end="0x007FF7" word_write_align="32" word_erase_align="0" />
+  <memory name="config"       start="0x007FF8" end="0x007FFF" />
+  <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0xE1" >
+    <mask name="WDT"  value="0x01" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x01" name="On"  cname="" />
+    </mask>
+    <mask name="STVREN" value="0x20" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x20" name="On"  cname="" />
+    </mask>
+    <mask name="XINST" value="0x40" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x40" name="On"  cname="" />
+    </mask>
+    <mask name="DEBUG" value="0x80" >
+      <value value="0x00" name="On" cname="" />
+      <value value="0x80" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x1" name="CONFIG1H" wmask="0xF7" bvalue="0x04" >
+    <mask name="CP" value="0x04" >
+      <value value="0x00" name="All" cname="" />
+      <value value="0x04" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CONFIG2L" wmask="0xFF" bvalue="0xC7" >
+    <mask name="FOSC"   value="0x03" >
+      <value value="0x00" name="HS"           cname=""    />
+      <value value="0x01" name="HSPLL"        cname=""    />
+      <value value="0x02" name="EC"           cname=""    />
+      <value value="0x03" name="ECPLL_IO"     cname=""    />
+    </mask>
+    <mask name="FOSC2"  value="0x04" >
+      <value value="0x00" name="FOSC1:FOSC0"  cname=""    />
+      <value value="0x04" name="INTRC"        cname=""    />
+    </mask>
+    <mask name="FCMEN"  value="0x40" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x40" name="Off"  cname=""    />
+    </mask>
+    <mask name="IESO"  value="0x80" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x80" name="Off"  cname=""    />
+     </mask>
+  </config>
+
+  <config offset="0x3" name="CONFIG2H" wmask="0xFF" bvalue="0x0F" >
+    <mask name="WDTPS" value="0x0F" >
+      <value value="0x00" name="1:1"     cname=""   />
+      <value value="0x01" name="1:2"     cname=""   />
+      <value value="0x02" name="1:4"     cname=""   />
+      <value value="0x03" name="1:8"     cname=""   />
+      <value value="0x04" name="1:16"    cname=""  />
+      <value value="0x05" name="1:32"    cname=""  />
+      <value value="0x06" name="1:64"    cname=""  />
+      <value value="0x07" name="1:128"   cname="" />
+      <value value="0x08" name="1:256"   cname="" />
+      <value value="0x09" name="1:512"   cname="" />
+      <value value="0x0A" name="1:1024"  cname=""  />
+      <value value="0x0B" name="1:2048"  cname=""  />
+      <value value="0x0C" name="1:4096"  cname=""  />
+      <value value="0x0D" name="1:8192"  cname=""  />
+      <value value="0x0E" name="1:16384" cname="" />
+      <value value="0x0F" name="1:32768" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="CONFIG3L" wmask="0xFF" bvalue="0xF8" >
+    <mask name="EASHFT"  value="0x08" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x08" name="On"  cname="" />
+    </mask>
+    <mask name="EMB"  value="0x30" >
+      <value value="0x00" name="20BIT"    cname="" />
+      <value value="0x10" name="16BIT"    cname="" />
+      <value value="0x20" name="12BIT"    cname="" />
+      <value value="0x30" name="Disabled" cname="" />
+    </mask>
+    <mask name="BW"  value="0x40" >
+      <value value="0x00" name="8"  cname="" />
+      <value value="0x40" name="16" cname="" />
+    </mask>
+    <mask name="WAIT"  value="0x80" >
+      <value value="0x00" name="On"  cname="" />
+      <value value="0x80" name="Off" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x03" >
+    <mask name="CCP2MX" value="0x01" >
+      <value value="0x00" name="RB3"  cname=""  />
+      <value value="0x01" name="RC1"   cname="" />
+    </mask>
+    <mask name="ECCPMX" value="0x02" >
+      <value value="0x00" name="RH7-RH4"  cname=""  />
+      <value value="0x02" name="RE6-RE3"   cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="CONFIG4L" wmask="0xFF" bvalue="0x00" >
+  </config>
+
+  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0x00" >
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="tqfp" nb_pins="80" >
+  </package>
+
+</device>
+

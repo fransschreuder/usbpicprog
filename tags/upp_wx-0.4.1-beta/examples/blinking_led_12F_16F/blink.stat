@@ -1,0 +1,9 @@
+// SourceBoost Linker Function Resource Usage Dump
+
+#GLOBAL:"global",line = 0,ram = 4.0,rom = 0;
+interrupt(void):"Z:\home\frans\Dropbox\sample_projects\blink\blink.c",line = 13,ram = 0.0,rom = 11;
+main(void):"Z:\home\frans\Dropbox\sample_projects\blink\blink.c",line = 19,ram = 0.0,rom = 20;
+delay_ms(unsigned char):"NoSourceFile",line = 0,ram = 0.0,rom = 12;
+_startup(void):"NoSourceFile",line = 0,ram = 0.0,rom = 3;
+#HEAP_BLOCK: 0, 160, 95;
+#HEAP_BLOCK: 1, 36, 76;

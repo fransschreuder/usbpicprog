@@ -1,0 +1,6 @@
+// SourceBoost Linker Call Tree Dump
+
+_startup:"NoSourceFile",line = 0
+{  main:"Z:\home\frans\Dropbox\sample_projects\dice for 12F6XX\code\dice.c",line = 14
+  {    delay_ms:"NoSourceFile",line = 0
+    {    }  }}
