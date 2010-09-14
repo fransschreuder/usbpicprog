@@ -74,6 +74,8 @@ rm "$PREFIX_app"/usbpicprog_i386
 # Make an app of everything
 cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po
 cp -r src/usbpicprog.app/Contents/MacOS/output/share/usbpicprog/examples src/usbpicprog.app/Contents/SharedSupport
+cp src/usbpicprog.app/Contents/MacOS/output/share/usbpicprog/usbpicprog.htb src/usbpicprog.app/Contents/SharedSupport
+
 cp ../../src/Info.plist src/usbpicprog.app/Contents
 cp ../../icons/usbpicprog.icns src/usbpicprog.app/Contents/Resources
 echo -n "APPL????" > src/usbpicprog.app/Contents/PkgInfo

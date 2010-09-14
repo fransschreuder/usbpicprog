@@ -36,8 +36,7 @@ subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
-	config.guess config.sub depcomp install-sh ltmain.sh missing \
-	mkinstalldirs
+	depcomp install-sh ltmain.sh missing mkinstalldirs
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/wxwin.m4 \
 	$(top_srcdir)/configure.ac
@@ -79,11 +78,9 @@ am__nobase_list = $(am__nobase_strip_setup); \
 am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(Applicationsdir)" \
-	"$(DESTDIR)$(usbpicprogdir)" "$(DESTDIR)$(usbpicprogdocdir)" \
-	"$(DESTDIR)$(usbpicprogicondir)"
-DATA = $(Applications_DATA) $(usbpicprog_DATA) $(usbpicprogdoc_DATA) \
-	$(usbpicprogicon_DATA)
+am__installdirs = "$(DESTDIR)$(usbpicprogdir)" \
+	"$(DESTDIR)$(usbpicprogdocdir)"
+DATA = $(usbpicprog_DATA) $(usbpicprogdoc_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
@@ -273,13 +270,10 @@ usbpicprogdoc_DATA = \
 
 usbpicprogdir = ${prefix}/share/usbpicprog
 usbpicprog_DATA = \
-	index.xml
+	index.xml \
+	help/usbpicprog.htb
 
-Applicationsdir = ${prefix}/share/applications
-Applications_DATA = Usbpicprog.desktop
-usbpicprogicondir = ${prefix}/share/pixmaps
-usbpicprogicon_DATA = icons/usbpicprog.svg
-EXTRA_DIST = $(usbpicprogdoc_DATA) $(usbpicprog_DATA) $(Applications_DATA) $(usbpicprogicon_DATA)
+EXTRA_DIST = $(usbpicprogdoc_DATA) $(usbpicprog_DATA)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -335,26 +329,6 @@ $(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-install-ApplicationsDATA: $(Applications_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(Applicationsdir)" || $(MKDIR_P) "$(DESTDIR)$(Applicationsdir)"
-	@list='$(Applications_DATA)'; test -n "$(Applicationsdir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(Applicationsdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(Applicationsdir)" || exit $$?; \
-	done
-
-uninstall-ApplicationsDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(Applications_DATA)'; test -n "$(Applicationsdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(Applicationsdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(Applicationsdir)" && rm -f $$files
 install-usbpicprogDATA: $(usbpicprog_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(usbpicprogdir)" || $(MKDIR_P) "$(DESTDIR)$(usbpicprogdir)"
@@ -395,26 +369,6 @@ uninstall-usbpicprogdocDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(usbpicprogdocdir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(usbpicprogdocdir)" && rm -f $$files
-install-usbpicprogiconDATA: $(usbpicprogicon_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(usbpicprogicondir)" || $(MKDIR_P) "$(DESTDIR)$(usbpicprogicondir)"
-	@list='$(usbpicprogicon_DATA)'; test -n "$(usbpicprogicondir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(usbpicprogicondir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(usbpicprogicondir)" || exit $$?; \
-	done
-
-uninstall-usbpicprogiconDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(usbpicprogicon_DATA)'; test -n "$(usbpicprogicondir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(usbpicprogicondir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(usbpicprogicondir)" && rm -f $$files
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -734,7 +688,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(Applicationsdir)" "$(DESTDIR)$(usbpicprogdir)" "$(DESTDIR)$(usbpicprogdocdir)" "$(DESTDIR)$(usbpicprogicondir)"; do \
+	for dir in "$(DESTDIR)$(usbpicprogdir)" "$(DESTDIR)$(usbpicprogdocdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -783,8 +737,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-ApplicationsDATA install-usbpicprogDATA \
-	install-usbpicprogdocDATA install-usbpicprogiconDATA
+install-data-am: install-usbpicprogDATA install-usbpicprogdocDATA
 
 install-dvi: install-dvi-recursive
 
@@ -830,8 +783,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-ApplicationsDATA uninstall-usbpicprogDATA \
-	uninstall-usbpicprogdocDATA uninstall-usbpicprogiconDATA
+uninstall-am: uninstall-usbpicprogDATA uninstall-usbpicprogdocDATA
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all \
 	ctags-recursive install-am install-strip tags-recursive
@@ -842,19 +794,16 @@ uninstall-am: uninstall-ApplicationsDATA uninstall-usbpicprogDATA \
 	dist-hook dist-lzma dist-shar dist-tarZ dist-xz dist-zip \
 	distcheck distclean distclean-generic distclean-hdr \
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install \
-	install-ApplicationsDATA install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip install-usbpicprogDATA \
-	install-usbpicprogdocDATA install-usbpicprogiconDATA \
-	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-ApplicationsDATA uninstall-am \
-	uninstall-usbpicprogDATA uninstall-usbpicprogdocDATA \
-	uninstall-usbpicprogiconDATA
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	install-usbpicprogDATA install-usbpicprogdocDATA installcheck \
+	installcheck-am installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
+	uninstall-usbpicprogDATA uninstall-usbpicprogdocDATA
 
 
 # Copy all the spec files. Of cource, only one is actually used.
