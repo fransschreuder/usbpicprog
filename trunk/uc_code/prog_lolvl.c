@@ -53,11 +53,13 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			PGD_LOW = 0;	//PGD and PGC to 3.3V mode (output)
 			TRISPGC_LOW = 0;
 			PGC_LOW = 0;
-			
 			VDD=0;	//VDD high,
-			clock_delay();	//P13 = 100ns min
+			lasttick=tick;
+			while((tick-lasttick)<6)continue;
 			VPP_RUN=1;	//VPP to 4.5V
 			VPP_RUN=0;	//and immediately back to 0...
+			lasttick=tick;
+			while((tick-lasttick)<6)continue;
 			clock_delay();	//P19 = 40ns min
 			//write 0x4D43, high to low, other than the rest of the commands which are low to high...
 			//0x3D43 => 0100 1101 0100 0011
