@@ -57,10 +57,16 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			lasttick=tick;
 			while((tick-lasttick)<6)continue;
 			VPP_RUN=1;	//VPP to 4.5V
+			lasttick=tick;
+			while((tick-lasttick)<1)continue;
+			VPP_RST=1;
 			VPP_RUN=0;	//and immediately back to 0...
 			lasttick=tick;
+			while((tick-lasttick)<1)continue;
+			VPP_RST=0;
+			lasttick=tick;
 			while((tick-lasttick)<6)continue;
-			clock_delay();	//P19 = 40ns min
+			//clock_delay();	//P19 = 40ns min
 			//write 0x4D43, high to low, other than the rest of the commands which are low to high...
 			//0x3D43 => 0100 1101 0100 0011
 			//from low to high => 1100 0010 1011 0010
@@ -68,6 +74,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			pic_send_word(0xC2B2);
 			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 			pic_send_word(0x0A12);
+			lasttick=tick;
+			while((tick-lasttick)<6)continue;
 			VPP_RUN=1;	
 			return;
 		}
@@ -187,6 +195,7 @@ void pic_send_n_bits(char cmd_size, char command)
 	{
 		if(command&1)PGD=1;
 		else PGD=0;
+		clock_delay();
 		PGC=1;		
 		command>>=1;
 		clock_delay();
@@ -203,6 +212,7 @@ void pic_send_word(unsigned int payload)
 	{
 		if(payload&1)PGD=1;
 		else PGD=0;
+		clock_delay();
 		PGC=1;
 		payload>>=1;
 		clock_delay();

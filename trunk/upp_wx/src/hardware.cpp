@@ -862,6 +862,7 @@ int Hardware::autoDetectDevice()
     }
 
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
+	cout<<"PicFamily: "<<pic18J.picFamily<<endl;
     if(setPicType(&pic18J)<0)
         return -1;
 
