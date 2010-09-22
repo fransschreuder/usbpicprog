@@ -235,6 +235,7 @@ void pic_send_word_14_bits(unsigned int payload)
 	{
 		if(payload&1)PGD=1;
 		else PGD=0;
+		clock_delay();
 		PGC=1;		
 		payload>>=1;
 		clock_delay();
