@@ -161,8 +161,6 @@
     </mask>        
    </config>
  
-  </config>
-
   <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x09" >
     <mask name="MSSPMSK" value="0x08" >
       <value value="0x00" name="0"  cname=""  />
