@@ -1572,6 +1572,7 @@ void UppMainWindow::upp_about()
     aboutInfo.AddDeveloper(("Jan Paul Posma"));
     aboutInfo.AddDeveloper(("Francesco Montorsi"));
     aboutInfo.AddDeveloper(("Gustav Johansson"));
+    aboutInfo.AddDeveloper(("Patrick Nies"));
 
     wxAboutBox(aboutInfo);
 }
