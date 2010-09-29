@@ -171,66 +171,66 @@
 
   </config>
 <!--* Packages *************************************************************-->
-  <package types="pdip soic ssop" nb_pins="28" >
-    <pin index="1"  name="" />
-    <pin index="2"  name="" />
-    <pin index="3"  name="" />
-    <pin index="4"  name="" />
-    <pin index="5"  name="" />
-    <pin index="6"  name="" />
-    <pin index="7"  name="" />
-    <pin index="8"  name="" />
-    <pin index="9"  name="" />
-    <pin index="10" name="" />
-    <pin index="11" name="" />
-    <pin index="12" name="" />
-    <pin index="13" name="" />
-    <pin index="14" name="" />
-    <pin index="15" name="" />
-    <pin index="16" name="" />
-    <pin index="17" name="" />
-    <pin index="18" name="" />
-    <pin index="19" name="" />
-    <pin index="20" name="" />
-    <pin index="21" name="" />
-    <pin index="22" name="" />
-    <pin index="23" name="" />
-    <pin index="24" name="" />
-    <pin index="25" name="" />
-    <pin index="26" name="" />
-    <pin index="27" name="" />
-    <pin index="28" name="" />
+ <package types="pdip soic ssop" nb_pins="28" >
+    <pin index="1"  name="MCLR" />
+    <pin index="2"  name="RA0/AN0/C1INA/ULPWU/RP0" />
+    <pin index="3"  name="RA1/AN1/C2INA/RP1" />
+    <pin index="4"  name="RA2/AN2/VREF-/CVREF/C2INB" />
+    <pin index="5"  name="RA3/AN3/VREF+/C1INB" />
+    <pin index="6"  name="VDDCORE/VCAP(2)" />
+    <pin index="7"  name="RA5/AN4/SS1/HLVDIN/RP2" />
+    <pin index="8"  name="VSS" />
+    <pin index="9"  name="OSC1/CLKI/RA7" />
+    <pin index="10" name="OSC2/CLKO/RA6" />
+    <pin index="11" name="RC0/T1OSO/T1CKI/RP11" />
+    <pin index="12" name="RC1/T1OSI/RP12" />
+    <pin index="13" name="RC2/AN11/CTPLS/RP13" />
+    <pin index="14" name="RC3/SCK1/SCL1/RP14" />
+    <pin index="15" name="RC4/SDI1/SDA1/RP15" />
+    <pin index="16" name="RC5/SDO1/RP16" />
+    <pin index="17" name="RC6/TX1/CK1/RP17" />
+    <pin index="18" name="RC7/RX1/DT1/RP18" />
+    <pin index="19" name="VSS" />
+    <pin index="20" name="VDD" />
+    <pin index="21" name="RB0/AN12/INT0/RP3" />
+    <pin index="22" name="RB1/AN10/RTCC/RP4" />
+    <pin index="23" name="RB2/AN8/CTEDG1/REFO/RP5" />
+    <pin index="24" name="RB3/AN9/CTEDG2/RP6" />
+    <pin index="25" name="RB4/KBI0/RP7" />
+    <pin index="26" name="RB5/KBI1/RP8" />
+    <pin index="27" name="RB6/KBI2/PGC/RP9" />
+    <pin index="28" name="RB7/KBI3/PGD/RP10" />
   </package>
 
   <package types="qfn" nb_pins="28" >
-    <pin index="1"  name="" />
-    <pin index="2"  name="" />
-    <pin index="3"  name="" />
-    <pin index="4"  name="" />
-    <pin index="5"  name="" />
-    <pin index="6"  name="" />
-    <pin index="7"  name="" />
-    <pin index="8"  name="" />
-    <pin index="9"  name="" />
-    <pin index="10" name="" />
-    <pin index="11" name="" />
-    <pin index="12" name="" />
-    <pin index="13" name="" />
-    <pin index="14" name="" />
-    <pin index="15" name="" />
-    <pin index="16" name="" />
-    <pin index="17" name="" />
-    <pin index="18" name="" />
-    <pin index="19" name="" />
-    <pin index="20" name="" />
-    <pin index="21" name="" />
-    <pin index="22" name="" />
-    <pin index="23" name="" />
-    <pin index="24" name="" />
-    <pin index="25" name="" />
-    <pin index="26" name="" />
-    <pin index="27" name="" />
-    <pin index="28" name="" />
+    <pin index="1"  name="RA2/AN2/VREF-/CVREF/C2INB" />
+    <pin index="2"  name="RA3/AN3/VREF+/C1INB" />
+    <pin index="3"  name="VDDCORE/VCAP(2)" />
+    <pin index="4"  name="RA5/AN4/SS1/HLVDIN/RP2" />
+    <pin index="5"  name="VSS" />
+    <pin index="6"  name="OSC1/CLKI/RA7" />
+    <pin index="7"  name="OSC2/CLKO/RA6" />
+    <pin index="8"  name="RC0/T1OSO/T1CKI/RP11" />
+    <pin index="9"  name="RC1/T1OSI/RP12" />
+    <pin index="10" name="RC2/AN11/CTPLS/RP13" />
+    <pin index="11" name="RC3/SCK1/SCL1/RP14" />
+    <pin index="12" name="RC4/SDI1/SDA1/RP15" />
+    <pin index="13" name="RC5/SDO1/RP16" />
+    <pin index="14" name="RC6/TX1/CK1/RP17" />
+    <pin index="15" name="RC7/RX1/DT1/RP18" />
+    <pin index="16" name="VSS" />
+    <pin index="17" name="VDD" />
+    <pin index="18" name="RB0/AN12/INT0/RP3" />
+    <pin index="19" name="RB1/AN10/RTCC/RP4" />
+    <pin index="20" name="RB2/AN8/CTEDG1/REFO/RP5" />
+    <pin index="21" name="RB3/AN9/CTEDG2/RP6" />
+    <pin index="22" name="RB4/KBI0/RP7" />
+    <pin index="23" name="RB5/KBI1/RP8" />
+    <pin index="24" name="RB6/KBI2/PGC/RP9" />
+    <pin index="25" name="RB7/KBI3/PGD/RP10" />
+    <pin index="26" name="MCLR" />
+    <pin index="27" name="RA0/AN0/C1INA/ULPWU/RP0" />
+    <pin index="28" name="RA1/AN1/C2INA/RP1" />
   </package>
 
 </device>
