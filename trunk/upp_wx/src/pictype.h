@@ -81,6 +81,7 @@ typedef enum {
     SSOP,
     MQFP,
     TQFP,
+	QFN,
     PLCC,
     UPP_INVALID_PACKAGETYPE
 

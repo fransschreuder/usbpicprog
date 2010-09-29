@@ -621,6 +621,7 @@ PackageType ChipPackage::GetPackageTypeFromString(const wxString& str)
     PACKAGE(SSOP);
     PACKAGE(MQFP);
     PACKAGE(TQFP);
+	PACKAGE(QFN);
     PACKAGE(PLCC);
 
     return UPP_INVALID_PACKAGETYPE;
@@ -639,6 +640,7 @@ wxString ChipPackage::GetStringFromPackageType(PackageType type)
     PACKAGE(SSOP);
     PACKAGE(MQFP);
     PACKAGE(TQFP);
+	PACKAGE(QFN);
     PACKAGE(PLCC);
 
     return wxEmptyString;
@@ -839,6 +841,7 @@ void ChipPackage::Draw(wxDC& dc, const wxSize& sz, const wxString& chipModel)
     case MQFP:
     case TQFP:
     case PLCC:
+	case QFN:
         {
             // some drawing constants:
 
