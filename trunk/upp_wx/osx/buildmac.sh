@@ -79,8 +79,8 @@ cp src/usbpicprog.app/Contents/MacOS/output/share/usbpicprog/usbpicprog.htb src/
 cp ../../src/Info.plist src/usbpicprog.app/Contents
 cp ../../icons/usbpicprog.icns src/usbpicprog.app/Contents/Resources
 echo -n "APPL????" > src/usbpicprog.app/Contents/PkgInfo
-cp -R ../../xml_data src/usbpicprog.app/xml_data
-cp ../../index.xml src/usbpicprog.app/xml_data
+cp -R ../../xml_data src/usbpicprog.app/Contents/SharedSupport/xml_data
+cp ../../index.xml src/usbpicprog.app/Contents/SharedSupport/xml_data
 
 # Cleanup
 rm -rf src/usbpicprog.app/Contents/MacOS/output

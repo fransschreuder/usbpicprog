@@ -43,7 +43,7 @@ class wxDC;
 #define UPP_INDEX_FILE          ("index.xml")
 
 #ifdef __WXMAC__
-#define UPP_INDEX_PATH (((wxStandardPaths &)wxStandardPaths::Get()).GetExecutablePath() + _T("/xml_data/"))
+	#define UPP_INDEX_PATH (((wxStandardPaths &)wxStandardPaths::Get()).GetDataDir() + _T("/xml_data/"))	
 #else
 #define UPP_INDEX_PATH (wxStandardPaths::Get().GetDataDir() + wxFileName::GetPathSeparator())
 #endif

@@ -638,7 +638,10 @@ void UppMainWindow::updateProgress(int value)
         return;     // this may happen at startup, when the Hardware class is initialized
 
     wxThreadEvent* ev = new wxThreadEvent(wxEVT_COMMAND_THREAD_UPDATE);
-    ev->SetInt(value);
+#ifdef __WXMAC__
+	if(value>99)value=99;
+#endif
+	ev->SetInt(value);
     wxQueueEvent(this, ev);
 }
 
@@ -651,11 +654,19 @@ void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
     {
         wxCriticalSectionLocker lock(m_arrLogCS);
 
-        bool continueOperation =
-            m_dlgProgress->Update(evt.GetInt(),
-                                _("Please wait until the operations are completed:\n") +
-                                wxJoin(m_arrLog, '\n'));
 
+
+#ifdef __WXMAC__
+		bool continueOperation =
+		m_dlgProgress->Pulse( _("Please wait until the operations are completed:\n") +
+							  wxJoin(m_arrLog, '\n'));
+#else
+		bool continueOperation =
+		m_dlgProgress->Update(evt.GetInt(),
+							  _("Please wait until the operations are completed:\n") +
+							  wxJoin(m_arrLog, '\n'));
+#endif
+		
         // update to the new label size
         m_dlgProgress->Fit();
 
@@ -665,7 +676,7 @@ void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
             !m_hardware.operationsAborted())   // is the hardware already aborting?
         {
             m_hardware.abortOperations(true);
-            wxLogWarning(_("Operations aborted"));
+			wxLogWarning(_("Operations aborted"));
         }
     }
 }
@@ -675,6 +686,7 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
     // NOTE: this function is executed in the primary thread's context!
     wxASSERT(wxThread::IsMain());
 
+	
     // reset abort flag:
     m_hardware.abortOperations(false);
 
@@ -710,6 +722,7 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
             wxLogWarning(_("Operations completed with errors/warnings"));
     }
 
+	
     // some of the operations performed by the secondary thread
     // require updating the title or the grids:
     switch (m_mode)
@@ -770,6 +783,7 @@ wxThread::ExitCode UppMainWindow::Entry()
     // thread context:
 
     wxQueueEvent(this, new wxThreadEvent(wxEVT_COMMAND_THREAD_COMPLETE));
+	
     return (wxThread::ExitCode)exitCode;
 }
 
@@ -936,8 +950,8 @@ bool UppMainWindow::upp_thread_read()
         return false;
     }
 
+	
     m_hexFile.trimData(&m_picType);
-
     return true;
 }
 
@@ -1068,18 +1082,23 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
     m_dlgProgress = new wxProgressDialog
                     (
                         _("Progress dialog"),
-                        _("Initializing..."),
-                        101,
+                        _("Initializing...")
+#ifdef __WXMAC__
+					 +"                                                      " //due to a bug in wxmac 2.9, the dialog text doesn't resize well if this string is too short
+#endif
+					 , 101,
                         this,
                         // NOTE: it's very important to give the wxPD_AUTO_HIDE
                         //       style to wxProgressDialog otherwise we may get
                         //       unwanted reentrancies (see wx docs)
                         wxPD_AUTO_HIDE |
                         wxPD_CAN_ABORT |
-                        wxPD_APP_MODAL |
-                        wxPD_ELAPSED_TIME |
-                        wxPD_ESTIMATED_TIME |
+                        wxPD_APP_MODAL | 
+						wxPD_ELAPSED_TIME
+#ifndef __WXMAC__
+						| wxPD_ESTIMATED_TIME |
                         wxPD_REMAINING_TIME
+#endif
                     );
 
     // inform the thread about which operation it must perform;
