@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-12 15:20+0200\n"
+"POT-Creation-Date: 2010-10-05 19:23+0200\n"
 "PO-Revision-Date: 2010-04-29 00:49+0100\n"
 "Last-Translator: Igor Prša <akiro.ip@gmail.com>\n"
 "Language-Team: akiro <akiro.ip@gmail.com>\n"
@@ -21,12 +21,12 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1474 src/uppmainwindow.cpp:1502
-#: src/uppmainwindow.cpp:1504
+#: src/uppmainwindow.cpp:1493 src/uppmainwindow.cpp:1521
+#: src/uppmainwindow.cpp:1523
 msgid " Connected"
 msgstr "Povezan"
 
-#: src/uppmainwindow.cpp:972
+#: src/uppmainwindow.cpp:986
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr "neuspjeh na 0x%X. Pročitano: 0x%02X, Očekivano: 0x%02X"
@@ -148,19 +148,19 @@ msgstr "3,3V"
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:704 src/uppmainwindow.cpp:708
+#: src/uppmainwindow.cpp:716 src/uppmainwindow.cpp:720
 msgid "All operations completed"
 msgstr "Sve operacije završene"
 
-#: src/uppmainwindow.cpp:1536 src/uppmainwindow.cpp:1537
+#: src/uppmainwindow.cpp:1555 src/uppmainwindow.cpp:1556
 msgid "Already disconnected"
 msgstr "Već isključen"
 
-#: src/uppmainwindow.cpp:1568
+#: src/uppmainwindow.cpp:1587
 msgid "An open source USB pic programmer"
 msgstr "USB pic programator otvorenog koda"
 
-#: src/uppmainwindow.cpp:1036
+#: src/uppmainwindow.cpp:1050
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Blankcheck the PIC device"
 msgstr "Provjera na prazno PIC uređaja"
 
-#: src/uppmainwindow.cpp:1513 src/uppmainwindow.cpp:1515
+#: src/uppmainwindow.cpp:1532 src/uppmainwindow.cpp:1534
 msgid "Bootloader or programmer not found"
 msgstr "Nije pronađen Bootloader ili programator"
 
@@ -191,7 +191,7 @@ msgstr "Ne mogu učitati '%s'."
 msgid "Cannot load XML PIC data."
 msgstr "Ne mogu učitati XML podatke za PIC."
 
-#: src/uppmainwindow.cpp:1608 src/uppmainwindow.cpp:1636
+#: src/uppmainwindow.cpp:1628 src/uppmainwindow.cpp:1656
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "Ne mogu odabrati drugi PIC dok je bootloader povezan!"
 
@@ -199,7 +199,7 @@ msgstr "Ne mogu odabrati drugi PIC dok je bootloader povezan!"
 msgid "Change the currently selected PIC"
 msgstr "Promjeni trenutno odabrani PIC"
 
-#: src/uppmainwindow.cpp:1016
+#: src/uppmainwindow.cpp:1030
 msgid "Checking if the device is blank..."
 msgstr "Provjeri da li je uređaj prazan..."
 
@@ -248,7 +248,7 @@ msgstr "Kopiraj"
 msgid "Could not access the 'xml_data' folder."
 msgstr "Ne mogu pristupiti 'xml_data' direktoriju."
 
-#: src/uppmainwindow.cpp:1091
+#: src/uppmainwindow.cpp:1110
 msgid "Could not create the worker thread!"
 msgstr "Ne mogu stvoriti radnu nit!"
 
@@ -297,7 +297,7 @@ msgstr "Ne mogu otvoriti Hex datoteku za pisanje..."
 msgid "Could not open Hex file..."
 msgstr "Ne mogu otvoriti Hex datoteku..."
 
-#: src/uppmainwindow.cpp:1097
+#: src/uppmainwindow.cpp:1116
 msgid "Could not run the worker thread!"
 msgstr "Ne mogu pokrenuti radnu nit!"
 
@@ -357,7 +357,7 @@ msgstr "Datasheet"
 msgid "Detect the type of the PIC device"
 msgstr "Prepoznaj tip PIC uređaja"
 
-#: src/uppmainwindow.cpp:1429
+#: src/uppmainwindow.cpp:1448
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "Otkriven je PIC model %s sa ID uređaja 0x%X"
@@ -371,11 +371,11 @@ msgstr "ID uređaja:"
 msgid "Device ID: 0x%X"
 msgstr "ID uređaja: 0x%X"
 
-#: src/uppmainwindow.cpp:1024
+#: src/uppmainwindow.cpp:1038
 msgid "Device is blank"
 msgstr "Uređaj je prazan"
 
-#: src/uppmainwindow.cpp:1041
+#: src/uppmainwindow.cpp:1055
 msgid "Device is not blank."
 msgstr "Uređaj nije prazan."
 
@@ -383,7 +383,7 @@ msgstr "Uređaj nije prazan."
 msgid "Disconnect from the programmer"
 msgstr "Odspoji se od programatora"
 
-#: src/uppmainwindow.cpp:1530 src/uppmainwindow.cpp:1532
+#: src/uppmainwindow.cpp:1549 src/uppmainwindow.cpp:1551
 msgid "Disconnected"
 msgstr "Odspojen"
 
@@ -395,7 +395,7 @@ msgstr "&Izlaz"
 msgid "Edit"
 msgstr "Uredi"
 
-#: src/uppmainwindow.cpp:799
+#: src/uppmainwindow.cpp:813
 msgid "Erase OK"
 msgstr "Brisanje OK"
 
@@ -407,11 +407,11 @@ msgstr "Obriši prije programiranja"
 msgid "Erase the PIC device"
 msgstr "Obriši PIC uređaj"
 
-#: src/uppmainwindow.cpp:997
+#: src/uppmainwindow.cpp:1011
 msgid "Erasing all areas of the PIC..."
 msgstr "Obriši sve dijelove PIC-a..."
 
-#: src/uppmainwindow.cpp:794
+#: src/uppmainwindow.cpp:808
 msgid "Erasing before programming..."
 msgstr "Brišem prije porgramiranja..."
 
@@ -420,8 +420,8 @@ msgstr "Brišem prije porgramiranja..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Pogreška tokom traženja sučelja USB uređaja: %s"
 
-#: src/main.cpp:338 src/uppmainwindow.cpp:802 src/uppmainwindow.cpp:1001
-#: src/uppmainwindow.cpp:1370
+#: src/main.cpp:338 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1015
+#: src/uppmainwindow.cpp:1389
 msgid "Error erasing the device"
 msgstr "Pogreška tokom brisanja uređaja"
 
@@ -434,31 +434,31 @@ msgstr "Pogreška u traženju USB endpoint deskriptora. %s"
 msgid "Error in checksum..."
 msgstr "Pogreška u cheksumi..."
 
-#: src/uppmainwindow.cpp:833
+#: src/uppmainwindow.cpp:847
 msgid "Error programming code memory"
 msgstr "Pogreška u programiranju memorije koda"
 
-#: src/uppmainwindow.cpp:892
+#: src/uppmainwindow.cpp:906
 msgid "Error programming config memory"
 msgstr "Pogreška u programiranju konfiguracijske memorije"
 
-#: src/uppmainwindow.cpp:862
+#: src/uppmainwindow.cpp:876
 msgid "Error programming data memory"
 msgstr "Pogreška u programiranju memorije podataka"
 
-#: src/uppmainwindow.cpp:913
+#: src/uppmainwindow.cpp:927
 msgid "Error reading code memory"
 msgstr "Pogreška u čitanju memorije koda"
 
-#: src/uppmainwindow.cpp:934
+#: src/uppmainwindow.cpp:948
 msgid "Error reading configuration memory"
 msgstr "Pogreška u čitanju konfiguracijske memorije"
 
-#: src/uppmainwindow.cpp:923
+#: src/uppmainwindow.cpp:937
 msgid "Error reading data memory"
 msgstr "Pogreška u čitanju memorije podataka"
 
-#: src/main.cpp:340 src/uppmainwindow.cpp:1371
+#: src/main.cpp:340 src/uppmainwindow.cpp:1390
 msgid "Error restoring Calibration Registers"
 msgstr "Pogreška u vraćanju vrijednosti kalibracijskih registara "
 
@@ -531,7 +531,7 @@ msgstr "Hexadecimalni pogled na područje programskog koda PIC-a:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Hexadecimalni pogled na područje podataka PIC-a:"
 
-#: src/uppmainwindow.cpp:985 src/uppmainwindow.cpp:1050
+#: src/uppmainwindow.cpp:999 src/uppmainwindow.cpp:1064
 msgid "I'm sorry for being stupid"
 msgstr "Žao mi je što sam glup"
 
@@ -551,7 +551,7 @@ msgstr ""
 "Stvarni napon VPP pina i stanje ostalih pinova se osvježava jednom u "
 "sekundi, a prikazuju se podebljano ispod. "
 
-#: src/uppmainwindow.cpp:1071
+#: src/uppmainwindow.cpp:1085
 msgid "Initializing..."
 msgstr "Pokreće se..."
 
@@ -569,16 +569,16 @@ msgstr "Neispravna '%s' datoteka."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Neispravna PIC familija za PIC '%s'."
 
-#: src/pictype.cpp:779
+#: src/pictype.cpp:781
 msgid "Invalid direction"
 msgstr "Neispravan pravac"
 
-#: src/pictype.cpp:799
+#: src/pictype.cpp:801
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Neispravan neparan broj pinova: %d"
 
-#: src/pictype.cpp:849
+#: src/pictype.cpp:852
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Neispravan broj pinova: %d"
@@ -605,11 +605,11 @@ msgstr "Lokacija u memoriji: 0x%X"
 msgid "Miscellaneous"
 msgstr "Razno"
 
-#: src/uppmainwindow.cpp:1422
+#: src/uppmainwindow.cpp:1441
 msgid "No PIC detected!"
 msgstr "Nije otkriven PIC!"
 
-#: src/uppmainwindow.cpp:1424
+#: src/uppmainwindow.cpp:1443
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Nije otkriven PIC! Odabir zadanog PIC (%s)..."
@@ -618,7 +618,7 @@ msgstr "Nije otkriven PIC! Odabir zadanog PIC (%s)..."
 msgid "No data to verify"
 msgstr "Nema podataka za provjeru"
 
-#: src/uppmainwindow.cpp:1187 src/uppmainwindow.cpp:1188
+#: src/uppmainwindow.cpp:1206 src/uppmainwindow.cpp:1207
 msgid "No file to refresh"
 msgstr "Nema datoteka za osvježenje"
 
@@ -626,12 +626,12 @@ msgstr "Nema datoteka za osvježenje"
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Napomena: crveni pinovi (neki od njih) se koriste za ICSP."
 
-#: src/uppmainwindow.cpp:1325
+#: src/uppmainwindow.cpp:1344
 #, fuzzy
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr "Vrijedi samo za PIC12F629, PIC12F508 i slične uređaje..."
 
-#: src/uppmainwindow.cpp:1133 src/uppmainwindow.cpp:1151
+#: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
 msgstr "Otvori hex datoteku"
 
@@ -639,11 +639,11 @@ msgstr "Otvori hex datoteku"
 msgid "Opens the Usbpicprog's website..."
 msgstr "Otvara Usbpicprog internet stranicu..."
 
-#: src/uppmainwindow.cpp:668
+#: src/uppmainwindow.cpp:679
 msgid "Operations aborted"
 msgstr "Operacije prekinute"
 
-#: src/uppmainwindow.cpp:710
+#: src/uppmainwindow.cpp:722
 msgid "Operations completed with errors/warnings"
 msgstr "Operacija završile sa greškama/upozorenjima"
 
@@ -671,19 +671,19 @@ msgstr "Molim potvrdite"
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Navedite BandGap vrijednost između 0 i 3"
 
-#: src/uppmainwindow.cpp:1364
+#: src/uppmainwindow.cpp:1383
 msgid "Please specify a bandgap value"
 msgstr "Navedite bangap vrijednost"
 
-#: src/uppmainwindow.cpp:1343
+#: src/uppmainwindow.cpp:1362
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Navedite novu Osccal vrijednost [3400 - 37FF]"
 
-#: src/main.cpp:324 src/uppmainwindow.cpp:1351
+#: src/main.cpp:324 src/uppmainwindow.cpp:1370
 msgid "Please specify an Oscal Value between 3400 and 37FF"
 msgstr "Navedite Oscal vrijednost između 3400 i 37FF"
 
-#: src/uppmainwindow.cpp:656
+#: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
 msgstr "Molimo pričekajte dok se operacije završe:\n"
 
@@ -699,15 +699,15 @@ msgstr "Opcije programiranja"
 msgid "Program the PIC device"
 msgstr "Programiraj PIC uređaj"
 
-#: src/uppmainwindow.cpp:872
+#: src/uppmainwindow.cpp:886
 msgid "Programming configuration area of the PIC..."
 msgstr "Programiram konfiguracijsko područje PIC-a..."
 
-#: src/uppmainwindow.cpp:811
+#: src/uppmainwindow.cpp:825
 msgid "Programming the code area of the PIC..."
 msgstr "Programiram područje programskog koda PIC-a..."
 
-#: src/uppmainwindow.cpp:842
+#: src/uppmainwindow.cpp:856
 msgid "Programming the data area of the PIC..."
 msgstr "Programiram područje podataka PIC-a..."
 
@@ -738,7 +738,7 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
-#: src/uppmainwindow.cpp:1070
+#: src/uppmainwindow.cpp:1084
 msgid "Progress dialog"
 msgstr "Dijalog napredka"
 
@@ -750,15 +750,15 @@ msgstr "RESET"
 msgid "Read the PIC device"
 msgstr "Pročitaj PIC uređaj"
 
-#: src/uppmainwindow.cpp:910
+#: src/uppmainwindow.cpp:924
 msgid "Reading the code area of the PIC..."
 msgstr "Čitanje područja programskog koda PIC-a..."
 
-#: src/uppmainwindow.cpp:931
+#: src/uppmainwindow.cpp:945
 msgid "Reading the configuration area of the PIC..."
 msgstr "Čitanje konfiguracijskog područja PIC-a..."
 
-#: src/uppmainwindow.cpp:920
+#: src/uppmainwindow.cpp:934
 msgid "Reading the data area of the PIC..."
 msgstr "Čitanje područja podataka PIC-a..."
 
@@ -797,7 +797,7 @@ msgstr ""
 msgid "Save &As"
 msgstr "Spremi k&ao"
 
-#: src/uppmainwindow.cpp:1225
+#: src/uppmainwindow.cpp:1244
 msgid "Save hexfile"
 msgstr "Spremi hex datoteku"
 
@@ -841,11 +841,11 @@ msgstr "Prikazuje informacije prilikom povezivanja itd..."
 msgid "Shows the options for this program"
 msgstr "Prikazuje opcije za ovaj program"
 
-#: src/uppmainwindow.cpp:1364
+#: src/uppmainwindow.cpp:1383
 msgid "Specify a bandgap value"
 msgstr "Navedite bandgap vrijednost"
 
-#: src/uppmainwindow.cpp:1344
+#: src/uppmainwindow.cpp:1363
 msgid "Specify a new Osccal Value"
 msgstr "Navedite novu Osccal vrijednost"
 
@@ -874,20 +874,20 @@ msgstr ""
 "HEX datoteka '%s' nije spremljena... njen sadržaj će biti izgubljen; "
 "nastaviti?"
 
-#: src/uppmainwindow.cpp:821 src/uppmainwindow.cpp:853
-#: src/uppmainwindow.cpp:883
+#: src/uppmainwindow.cpp:835 src/uppmainwindow.cpp:867
+#: src/uppmainwindow.cpp:897
 msgid "The hardware should ask for next block"
 msgstr "Hardver mora tražiti sljedeći blok"
 
-#: src/uppmainwindow.cpp:818 src/uppmainwindow.cpp:850
-#: src/uppmainwindow.cpp:880
+#: src/uppmainwindow.cpp:832 src/uppmainwindow.cpp:864
+#: src/uppmainwindow.cpp:894
 msgid "The hardware should say OK"
 msgstr "Hardvera treba reći OK"
 
-#: src/uppmainwindow.cpp:1266 src/uppmainwindow.cpp:1278
-#: src/uppmainwindow.cpp:1295 src/uppmainwindow.cpp:1307
-#: src/uppmainwindow.cpp:1330 src/uppmainwindow.cpp:1380
-#: src/uppmainwindow.cpp:1392 src/uppmainwindow.cpp:1583
+#: src/uppmainwindow.cpp:1285 src/uppmainwindow.cpp:1297
+#: src/uppmainwindow.cpp:1314 src/uppmainwindow.cpp:1326
+#: src/uppmainwindow.cpp:1349 src/uppmainwindow.cpp:1399
+#: src/uppmainwindow.cpp:1411 src/uppmainwindow.cpp:1603
 msgid "The programmer is not connected"
 msgstr "Programator nije povezan"
 
@@ -919,62 +919,62 @@ msgstr "Tip:"
 msgid "Type: %d-bit microcontroller"
 msgstr "Tip: %d-bitni mikrokontroler"
 
-#: src/uppmainwindow.cpp:1044
+#: src/uppmainwindow.cpp:1058
 msgid "USB error during blankcheck"
 msgstr "USB greška prilikom provjere na prazno"
 
-#: src/uppmainwindow.cpp:979
+#: src/uppmainwindow.cpp:993
 msgid "USB error during verify"
 msgstr "USB greška prilikom provjere"
 
-#: src/hardware.cpp:1210
+#: src/hardware.cpp:1211
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "USB greška prilikom čitanja: %s"
 
-#: src/uppmainwindow.cpp:830 src/uppmainwindow.cpp:859
-#: src/uppmainwindow.cpp:889
+#: src/uppmainwindow.cpp:844 src/uppmainwindow.cpp:873
+#: src/uppmainwindow.cpp:903
 msgid "USB error while writing code memory"
 msgstr "USB grešaka prilikom pisanja memorije programskog koda"
 
-#: src/hardware.cpp:1229
+#: src/hardware.cpp:1230
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "USB greška prilikom pisanja na uređaj: %d bajtova, kod greške: %d; %s"
 
-#: src/uppmainwindow.cpp:1167 src/uppmainwindow.cpp:1168
-#: src/uppmainwindow.cpp:1197 src/uppmainwindow.cpp:1198
+#: src/uppmainwindow.cpp:1186 src/uppmainwindow.cpp:1187
+#: src/uppmainwindow.cpp:1216 src/uppmainwindow.cpp:1217
 msgid "Unable to open file"
 msgstr "Ne mogu otvoriti datoteku"
 
-#: src/uppmainwindow.cpp:1468 src/uppmainwindow.cpp:1469
+#: src/uppmainwindow.cpp:1487 src/uppmainwindow.cpp:1488
 msgid "Unable to read firmware version"
 msgstr "Ne mogu pročitati firmware verziju"
 
-#: src/uppmainwindow.cpp:1497 src/uppmainwindow.cpp:1498
+#: src/uppmainwindow.cpp:1516 src/uppmainwindow.cpp:1517
 msgid "Unable to read version"
 msgstr "Ne mogu pročitati verziju"
 
-#: src/uppmainwindow.cpp:1445
+#: src/uppmainwindow.cpp:1464
 #, fuzzy
 msgid "Unable to run target"
 msgstr "Ne mogu otvoriti datoteku"
 
-#: src/uppmainwindow.cpp:1213 src/uppmainwindow.cpp:1214
-#: src/uppmainwindow.cpp:1235 src/uppmainwindow.cpp:1236
+#: src/uppmainwindow.cpp:1232 src/uppmainwindow.cpp:1233
+#: src/uppmainwindow.cpp:1254 src/uppmainwindow.cpp:1255
 msgid "Unable to save file"
 msgstr "Ne mogu spremiti datoteku"
 
-#: src/uppmainwindow.cpp:1451
+#: src/uppmainwindow.cpp:1470
 #, fuzzy
 msgid "Unable to stop target"
 msgstr "Ne mogu otvoriti datoteku"
 
-#: src/uppmainwindow.cpp:1047
+#: src/uppmainwindow.cpp:1061
 msgid "Unknown error during blankcheck"
 msgstr "Nepoznata greška prilikom provjere na prazno"
 
-#: src/uppmainwindow.cpp:982
+#: src/uppmainwindow.cpp:996
 msgid "Unknown error during verify"
 msgstr "Nepoznata greška prilikom provjere"
 
@@ -1012,7 +1012,7 @@ msgstr "Varijante:"
 msgid "Verify after programming"
 msgstr "Provjeri nakon programiranja"
 
-#: src/uppmainwindow.cpp:967
+#: src/uppmainwindow.cpp:981
 msgid "Verify code"
 msgstr "Provjeri kod"
 
@@ -1020,7 +1020,7 @@ msgstr "Provjeri kod"
 msgid "Verify code memory"
 msgstr "Provjeri memoriju koda"
 
-#: src/uppmainwindow.cpp:969
+#: src/uppmainwindow.cpp:983
 msgid "Verify config"
 msgstr "Provjeri konfiguraciju"
 
@@ -1028,7 +1028,7 @@ msgstr "Provjeri konfiguraciju"
 msgid "Verify config memory"
 msgstr "Provjeri memoriju konfiguracije"
 
-#: src/uppmainwindow.cpp:968
+#: src/uppmainwindow.cpp:982
 msgid "Verify data"
 msgstr "Provjeri podatke"
 
@@ -1036,7 +1036,7 @@ msgstr "Provjeri podatke"
 msgid "Verify data memory"
 msgstr "Provjeri memoriju podataka"
 
-#: src/uppmainwindow.cpp:827
+#: src/uppmainwindow.cpp:841
 msgid "Verify error while writing code memory"
 msgstr "Provjeri pogrešku prilikom pisanja memorije koda"
 
@@ -1044,7 +1044,7 @@ msgstr "Provjeri pogrešku prilikom pisanja memorije koda"
 msgid "Verify options"
 msgstr "Provjeri opcije"
 
-#: src/uppmainwindow.cpp:962
+#: src/uppmainwindow.cpp:976
 msgid "Verify successful"
 msgstr "Provjera uspješna"
 
@@ -1052,11 +1052,11 @@ msgstr "Provjera uspješna"
 msgid "Verify the PIC device"
 msgstr "Provjeri PIC uređaj"
 
-#: src/uppmainwindow.cpp:970
+#: src/uppmainwindow.cpp:984
 msgid "Verify unknown"
 msgstr "Provjera nepoznatog"
 
-#: src/uppmainwindow.cpp:949
+#: src/uppmainwindow.cpp:963
 msgid "Verifying all areas of the PIC..."
 msgstr "Provjeri sva područja PIC-a..."
 
@@ -1079,15 +1079,15 @@ msgstr ""
 "    MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:815
+#: src/uppmainwindow.cpp:829
 msgid "Write Code memory OK"
 msgstr "Upis memorije koda OK"
 
-#: src/uppmainwindow.cpp:877
+#: src/uppmainwindow.cpp:891
 msgid "Write Config memory OK"
 msgstr "Upis memorije konfiguracije OK"
 
-#: src/uppmainwindow.cpp:847
+#: src/uppmainwindow.cpp:861
 msgid "Write Data memory OK"
 msgstr "Upis memorije podataka OK"
 
@@ -1095,7 +1095,7 @@ msgstr "Upis memorije podataka OK"
 msgid "Write code memory"
 msgstr "Upiši u programsku memoriju"
 
-#: src/uppmainwindow.cpp:824
+#: src/uppmainwindow.cpp:838
 msgid "Write code not implemented for current PIC"
 msgstr "Upis programskog koda nije dostupan za trenutni PIC"
 
@@ -1103,7 +1103,7 @@ msgstr "Upis programskog koda nije dostupan za trenutni PIC"
 msgid "Write config memory"
 msgstr "Upiši u konfiguracijsku memoriju"
 
-#: src/uppmainwindow.cpp:886
+#: src/uppmainwindow.cpp:900
 msgid "Write config not implemented for current PIC"
 msgstr "Upis konfiguracije nije dostupan za trenutni PIC"
 
@@ -1111,7 +1111,7 @@ msgstr "Upis konfiguracije nije dostupan za trenutni PIC"
 msgid "Write data memory"
 msgstr "Upiši u memoriju podataka"
 
-#: src/uppmainwindow.cpp:856
+#: src/uppmainwindow.cpp:870
 msgid "Write data not implemented for current PIC"
 msgstr "Upis podataka nije dostupan za trenutni PIC"
 
