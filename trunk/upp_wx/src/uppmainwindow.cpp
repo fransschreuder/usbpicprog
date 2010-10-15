@@ -1358,16 +1358,30 @@ void UppMainWindow::upp_restore()
 //    RunThread(THREAD_ERASE);
 
 //	wxLogMessage(_("
+	wxString selectedOscCal;
+	int minOscCal, maxOscCal;
+	if(m_picType.picFamily==P10F200 || m_picType.picFamily==P10F202)
+	{
+    	selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [0xC00 - 0xCFF]"), 
+        	_("Specify a new Osccal Value"), "C00", this);
+		minOscCal = 0xC00;
+		maxOscCal = 0xCFF;
+	}
+	else
+	{
+    	selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [3400 - 37FF]"), 
+        	_("Specify a new Osccal Value"), "3400", this);
+		minOscCal = 0x3400;
+		maxOscCal = 0x37FF;
+	}
 
-    wxString selectedOscCal = wxGetTextFromUser(_("Please specify a new Osccal Value [3400 - 37FF]"), 
-        _("Specify a new Osccal Value"), "3400", this);
-
+	
     if(selectedOscCal.length()==0)return;
     int iSelectedOscCal;
     sscanf(selectedOscCal.c_str(),"%4X",&iSelectedOscCal);
-    if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
+    if((iSelectedOscCal<minOscCal)|(iSelectedOscCal>maxOscCal))
     {
-        wxLogError(_("Please specify an Oscal Value between 3400 and 37FF"));
+        wxLogError(_("Please specify an Oscal Value between %X and %X"), minOscCal, maxOscCal);
         return;
     }
     int selectedBandGap=0;

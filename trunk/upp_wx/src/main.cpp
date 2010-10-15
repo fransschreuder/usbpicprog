@@ -315,13 +315,26 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
 	// if -RO and -RB are both passed, restore those registers to P12F629 devices
 	wxString BandGap, OscCal;	
-	if((parser.Found(("RB"), &BandGap)||(picType->picFamily==P12F508))&&parser.Found(("RO"), &OscCal))
+	if((parser.Found(("RB"), &BandGap)||(picType->picFamily==P12F508)
+	    ||(picType->picFamily==P10F200)
+	    ||(picType->picFamily==P10F202))&&parser.Found(("RO"), &OscCal))
 	{
 		int iSelectedOscCal;
 		sscanf(OscCal.c_str(),"%4X",&iSelectedOscCal);
-		if((iSelectedOscCal<0x3400)|(iSelectedOscCal>0x37FF))
+		int minOscCal, maxOscCal;
+		if(picType->picFamily==P10F200||picType->picFamily==P10F202)
+		{
+			minOscCal = 0xC00;
+			maxOscCal = 0xCFF;
+		}
+		else
+		{
+			minOscCal = 0x3400;
+			maxOscCal = 0x37FF;
+		}
+		if((iSelectedOscCal<minOscCal)|(iSelectedOscCal>maxOscCal))
     	{
-			cout<<_("Please specify an Oscal Value between 3400 and 37FF").mb_str(wxConvUTF8)<<endl;
+			cout<<wxString(_("Please specify an Oscal Value between ")+wxString::Format("%X",minOscCal)+_(" and ")+ wxString::Format("%X",maxOscCal)).mb_str(wxConvUTF8)<<endl;
 			exit ( -1 );
 		}
 		int iSelectedBandGap=0;

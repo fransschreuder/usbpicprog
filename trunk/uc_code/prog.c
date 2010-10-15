@@ -307,10 +307,33 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send_n_bits(6,0x09); //begin programming
 			DelayMs(20);
 			break;
-		case P10F200:
-		case P10F202:
+		case P10F200:	//resets at 0x1FF
 			pic_send_n_bits(6,0x06);//increment address
 			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
+			DelayMs(10);
+			if(doRestore==NORESTORE)break;	//do not restore bandgap and osccal registers
+			DelayMs(10);
+			set_address(picfamily, 0x104);
+			osccal=pic_read_14_bits(6,0x04);
+			set_vdd_vpp(pictype, picfamily,0);
+			temp[0]=(unsigned char)(osccal&0xFF);
+			temp[1]=(unsigned char)((osccal>>8)&0xFF);
+			write_code(picfamily, pictype, 0xFF, temp,2 ,3);
+			DelayMs(10);
+			break;
+			
+		case P10F202:	//resets at 0x3FF
+			pic_send_n_bits(6,0x06);//increment address
+			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
+			DelayMs(10);
+			if(doRestore==NORESTORE)break;	//do not restore bandgap and osccal registers
+			set_address(picfamily, 0x204);
+			osccal=pic_read_14_bits(6,0x04);
+			set_vdd_vpp(pictype, picfamily,0);
+			DelayMs(10);
+			temp[0]=(unsigned char)(osccal&0xFF);
+			temp[1]=(unsigned char)((osccal>>8)&0xFF);
+			write_code(picfamily, pictype, 0x1FF, temp,2 ,3);
 			DelayMs(10);
 			break;
 		default:
@@ -706,6 +729,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			if(lastblock&1)	
 			{
 				pic_send_n_bits(6,0x06);//increment address to go from 1FF / 3FF to 0
+				set_address(picfamily, address); //set the initial address
 				//pic_send_n_bits(6,0x09);//bulk erase, which is necessary anyway...
 				//DelayMs(20);
 			}
