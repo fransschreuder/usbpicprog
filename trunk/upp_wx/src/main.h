@@ -127,7 +127,7 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
     { wxCMD_LINE_SWITCH, "h", _("help"),       _("displays help on the command line parameters"), wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
     { wxCMD_LINE_SWITCH, "V", _("version"),    _("displays version information of usbpicprog") },
-    { wxCMD_LINE_OPTION, "p", _("pictype"),    _("specify the pic type (eg -p=P18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+    { wxCMD_LINE_OPTION, "p", _("pictype"),    _("specify the pic type (eg -p=18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
     { wxCMD_LINE_SWITCH, "s", _("silent"),     _("do not display the hex file") },
     { wxCMD_LINE_SWITCH, "w", _("write"),      _("write the device") },
     { wxCMD_LINE_SWITCH, "r", _("read"),       _("read the device") },

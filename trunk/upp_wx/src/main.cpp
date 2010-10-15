@@ -315,7 +315,8 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
 	// if -RO and -RB are both passed, restore those registers to P12F629 devices
 	wxString BandGap, OscCal;	
-	if((parser.Found(("RB"), &BandGap)||(picType->picFamily==P12F508)
+	if((parser.Found(("RB"), &BandGap)
+	    ||(picType->picFamily==P12F508)
 	    ||(picType->picFamily==P10F200)
 	    ||(picType->picFamily==P10F202))&&parser.Found(("RO"), &OscCal))
 	{

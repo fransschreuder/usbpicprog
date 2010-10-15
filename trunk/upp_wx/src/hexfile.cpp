@@ -845,14 +845,32 @@ void HexFile::makeLine(int address, RecordType recordType, const vector<int>& li
 
 void HexFile::putOscCalBandGap(PicType *picType)
 {
-	if(picType->picFamily==P12F629)
+	switch(picType->picFamily)
 	{
-		if(m_codeMemory.size()>=0x800)
-		{
-			m_codeMemory[0x7FE]=(picType->OscCal&0xFF);
-			m_codeMemory[0x7FF]=((picType->OscCal>>8)&0xFF);
-		}
-		m_configMemory[1]&=0x0F;
-		m_configMemory[1]|=(picType->BandGap>>8)&0x30;
+		case P12F629:
+			if(m_codeMemory.size()>=0x800)
+			{
+				m_codeMemory[0x7FE]=(picType->OscCal&0xFF);
+				m_codeMemory[0x7FF]=((picType->OscCal>>8)&0xFF);
+			}
+			m_configMemory[1]&=0x0F;
+			m_configMemory[1]|=(picType->BandGap>>8)&0x30;
+			break;
+		case P10F200:
+			if(m_codeMemory.size()>=0x200)
+			{
+				m_codeMemory[0x1FE]=(picType->OscCal&0xFF);
+				m_codeMemory[0x1FF]=((picType->OscCal>>8)&0xFF);
+			}
+			break;
+		case P12F508:
+		case P10F202:
+			if(m_codeMemory.size()>=0x400)
+			{
+				m_codeMemory[0x3FE]=(picType->OscCal&0xFF);
+				m_codeMemory[0x3FF]=((picType->OscCal>>8)&0xFF);
+			}
+			break;
 	}
+	
 }

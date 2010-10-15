@@ -299,7 +299,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			break;
 		case P16F62X:
 			break;
-		case P12F508:
 		case P16F59:
 		case P16F57:
 		case P16F54:
@@ -308,6 +307,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			DelayMs(20);
 			break;
 		case P10F200:	//resets at 0x1FF
+			if(doRestore==NORESTORE)set_address(picfamily,0x100); //erase backup osccal as well
 			pic_send_n_bits(6,0x06);//increment address
 			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
 			DelayMs(10);
@@ -321,8 +321,9 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			write_code(picfamily, pictype, 0xFF, temp,2 ,3);
 			DelayMs(10);
 			break;
-			
+		case P12F508:			
 		case P10F202:	//resets at 0x3FF
+			if(doRestore==NORESTORE)set_address(picfamily,0x200); //erase backup osccal as well
 			pic_send_n_bits(6,0x06);//increment address
 			pic_send_n_bits(6,0x09);//c) Execute Bulk Erase Program Memory (001001).
 			DelayMs(10);
