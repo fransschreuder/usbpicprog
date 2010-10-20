@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-05 19:23+0200\n"
+"POT-Creation-Date: 2010-10-20 10:09+0200\n"
 "PO-Revision-Date: 2010-04-09 12:54+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: English <fransschreuder@users.sourceforge.net>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,10 +22,14 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1493 src/uppmainwindow.cpp:1521
-#: src/uppmainwindow.cpp:1523
+#: src/uppmainwindow.cpp:1507 src/uppmainwindow.cpp:1535
+#: src/uppmainwindow.cpp:1537
 msgid " Connected"
 msgstr " Συνδέθηκε"
+
+#: src/main.cpp:338
+msgid " and "
+msgstr ""
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -153,11 +158,11 @@ msgstr ""
 msgid "All operations completed"
 msgstr "Όλες οι δράσεις έχουν ολοκληρωθεί"
 
-#: src/uppmainwindow.cpp:1555 src/uppmainwindow.cpp:1556
+#: src/uppmainwindow.cpp:1569 src/uppmainwindow.cpp:1570
 msgid "Already disconnected"
 msgstr "Ήδη αποσυνδέμενο"
 
-#: src/uppmainwindow.cpp:1587
+#: src/uppmainwindow.cpp:1601
 msgid "An open source USB pic programmer"
 msgstr "Προγραμματιστής του open source USB pic"
 
@@ -171,7 +176,7 @@ msgstr ""
 msgid "Blankcheck the PIC device"
 msgstr "Αδειος έλενχος της PIC συσκευής"
 
-#: src/uppmainwindow.cpp:1532 src/uppmainwindow.cpp:1534
+#: src/uppmainwindow.cpp:1546 src/uppmainwindow.cpp:1548
 msgid "Bootloader or programmer not found"
 msgstr "Πρόγραμμα εκκίνησης ή προγραμματιστής δεν βρέθηκε"
 
@@ -193,7 +198,7 @@ msgstr ""
 msgid "Cannot load XML PIC data."
 msgstr ""
 
-#: src/uppmainwindow.cpp:1628 src/uppmainwindow.cpp:1656
+#: src/uppmainwindow.cpp:1642 src/uppmainwindow.cpp:1670
 #, fuzzy
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr ""
@@ -354,7 +359,7 @@ msgstr "Δεδομένα"
 msgid "Detect the type of the PIC device"
 msgstr "Ανιχνεύσε τον τύπο της συσκευής PIC"
 
-#: src/uppmainwindow.cpp:1448
+#: src/uppmainwindow.cpp:1462
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "Εντοπίστηκε PIC μοντέλο % s με ID συσκευής 0x%X"
@@ -380,7 +385,7 @@ msgstr "Συσκευή δεν είναι κενή."
 msgid "Disconnect from the programmer"
 msgstr "Αποσύνδεση από τον προγραμματιστή"
 
-#: src/uppmainwindow.cpp:1549 src/uppmainwindow.cpp:1551
+#: src/uppmainwindow.cpp:1563 src/uppmainwindow.cpp:1565
 #, fuzzy
 msgid "Disconnected"
 msgstr "&Αποσύνδεση ..."
@@ -418,8 +423,8 @@ msgstr "Διαγραφή πριν από τον προγραμματισμό ...
 msgid "Error claiming the USB device interface: %s"
 msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
 
-#: src/main.cpp:338 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1015
-#: src/uppmainwindow.cpp:1389
+#: src/main.cpp:352 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1015
+#: src/uppmainwindow.cpp:1403
 msgid "Error erasing the device"
 msgstr "Σφάλμα κατά τη διαγραφή της συσκευής"
 
@@ -456,7 +461,7 @@ msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνή�
 msgid "Error reading data memory"
 msgstr "Σφάλμα ανάγνωσης δεδομένων μνήμης"
 
-#: src/main.cpp:340 src/uppmainwindow.cpp:1390
+#: src/main.cpp:354 src/uppmainwindow.cpp:1404
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "Λάθος στην ανάγνωση της διαμόρφωση μνήμης"
@@ -593,11 +598,11 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1441
+#: src/uppmainwindow.cpp:1455
 msgid "No PIC detected!"
 msgstr "Δεν διαπιστώθηκαν PIC!"
 
-#: src/uppmainwindow.cpp:1443
+#: src/uppmainwindow.cpp:1457
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Δεν διαπιστώθηκαν PIC! Επιλέγοντας τις προεπιλογές PIC (%s) ..."
@@ -654,20 +659,29 @@ msgstr ""
 msgid "Please confirm"
 msgstr "Παρακαλώ επιβεβαιώστε"
 
-#: src/main.cpp:333
+#: src/main.cpp:347
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1383
+#: src/uppmainwindow.cpp:1397
 msgid "Please specify a bandgap value"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1362
+#: src/uppmainwindow.cpp:1365
+msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr ""
 
-#: src/main.cpp:324 src/uppmainwindow.cpp:1370
-msgid "Please specify an Oscal Value between 3400 and 37FF"
+#: src/main.cpp:338
+msgid "Please specify an Oscal Value between "
+msgstr ""
+
+#: src/uppmainwindow.cpp:1384
+#, c-format
+msgid "Please specify an Oscal Value between %X and %X"
 msgstr ""
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
@@ -820,11 +834,11 @@ msgstr "Δείτε popups για τη σύνδεση κλπ..."
 msgid "Shows the options for this program"
 msgstr "Εμφανίζει τις επιλογές για αυτό το πρόγραμμα"
 
-#: src/uppmainwindow.cpp:1383
+#: src/uppmainwindow.cpp:1397
 msgid "Specify a bandgap value"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1363
+#: src/uppmainwindow.cpp:1366 src/uppmainwindow.cpp:1373
 msgid "Specify a new Osccal Value"
 msgstr ""
 
@@ -861,8 +875,8 @@ msgstr "Το υλικό θα πρέπει να πει εντάξει"
 
 #: src/uppmainwindow.cpp:1285 src/uppmainwindow.cpp:1297
 #: src/uppmainwindow.cpp:1314 src/uppmainwindow.cpp:1326
-#: src/uppmainwindow.cpp:1349 src/uppmainwindow.cpp:1399
-#: src/uppmainwindow.cpp:1411 src/uppmainwindow.cpp:1603
+#: src/uppmainwindow.cpp:1349 src/uppmainwindow.cpp:1413
+#: src/uppmainwindow.cpp:1425 src/uppmainwindow.cpp:1617
 msgid "The programmer is not connected"
 msgstr "Ο προγραμματιστής δεν είναι συνδεμένος"
 
@@ -916,15 +930,15 @@ msgstr "Σφάλμα USB κατά τη σύνταξη κώδικα μνήμης"
 msgid "Unable to open file"
 msgstr "Αδύνατο το άνοιγμα του αρχείου"
 
-#: src/uppmainwindow.cpp:1487 src/uppmainwindow.cpp:1488
+#: src/uppmainwindow.cpp:1501 src/uppmainwindow.cpp:1502
 msgid "Unable to read firmware version"
 msgstr "Αδύνατη η ανάγνωση της firmware έκδοσης"
 
-#: src/uppmainwindow.cpp:1516 src/uppmainwindow.cpp:1517
+#: src/uppmainwindow.cpp:1530 src/uppmainwindow.cpp:1531
 msgid "Unable to read version"
 msgstr "Αδύνατη η ανάγνωση της έκδοσης"
 
-#: src/uppmainwindow.cpp:1464
+#: src/uppmainwindow.cpp:1478
 #, fuzzy
 msgid "Unable to run target"
 msgstr "Αδύνατο το άνοιγμα του αρχείου"
@@ -934,7 +948,7 @@ msgstr "Αδύνατο το άνοιγμα του αρχείου"
 msgid "Unable to save file"
 msgstr "Αδυνατη η αποθήκευση του αρχείου"
 
-#: src/uppmainwindow.cpp:1470
+#: src/uppmainwindow.cpp:1484
 #, fuzzy
 msgid "Unable to stop target"
 msgstr "Αδύνατο το άνοιγμα του αρχείου"
@@ -1237,7 +1251,8 @@ msgid "silent"
 msgstr "σιωπηλό"
 
 #: src/main.h:130
-msgid "specify the pic type (eg -p=P18F2550)"
+#, fuzzy
+msgid "specify the pic type (eg -p=18F2550)"
 msgstr "καθορίστε το τύπο PIC  (π.χ. -p = P18F2550)"
 
 #: src/main.h:139
