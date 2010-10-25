@@ -99,6 +99,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				break;
 			case dsP30F:
 				break;
+			case P16F62X:	//VPP first
+			case P16F62XA:
 			case P12F629:
 			case P12F6XX:
 				VPP=0;
@@ -114,6 +116,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			case I2C_EE_1:
 			case I2C_EE_2:
 				break;
+			case P16F62X:
+			case P16F62XA:				
 			case P12F629:
 			case P12F6XX:
 				VDD=0;

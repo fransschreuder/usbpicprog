@@ -223,6 +223,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				pic_send_n_bits(6,0x07);	//7. Execute a Bulk Erase Setup2 command (000111)
 			}
 			break;
+		case P16F62X:
 		case P16F785:
 		case P16F88X:
 		case P16F91X:
@@ -296,8 +297,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			DelayMs(Tera);
 			PGD=0;
-			break;
-		case P16F62X:
 			break;
 		case P16F59:
 		case P16F57:
