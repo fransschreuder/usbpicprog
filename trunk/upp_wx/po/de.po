@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 10:55+0200\n"
-"PO-Revision-Date: 2010-10-20 10:37+0100\n"
-"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
+"POT-Creation-Date: 2010-10-27 08:43+0200\n"
+"PO-Revision-Date: 2010-10-27 06:51+0100\n"
+"Last-Translator: Bernd Kernbaum <bernd.kernbaum@t-online.de>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -970,7 +970,7 @@ msgstr "Version ist nicht lesbar"
 
 #: src/uppmainwindow.cpp:1478
 msgid "Unable to run target"
-msgstr ""
+msgstr "Das Zielsystem kann nicht gestartet werden."
 
 #: src/uppmainwindow.cpp:1232 src/uppmainwindow.cpp:1233
 #: src/uppmainwindow.cpp:1254 src/uppmainwindow.cpp:1255
@@ -979,7 +979,7 @@ msgstr "Das Speichern ist nicht möglich"
 
 #: src/uppmainwindow.cpp:1484
 msgid "Unable to stop target"
-msgstr ""
+msgstr "Das Zielsystem kann nicht gestoppt werden."
 
 #: src/uppmainwindow.cpp:1061
 msgid "Unknown error during blankcheck"
@@ -1271,7 +1271,7 @@ msgstr "Start"
 
 #: src/main.h:138
 msgid "run target device"
-msgstr ""
+msgstr "Starte Zielbaugruppe"
 
 #: src/uppmainwindow.cpp:357
 msgid "save"
@@ -1295,7 +1295,7 @@ msgstr "Stop"
 
 #: src/main.h:139
 msgid "stop target device"
-msgstr ""
+msgstr "Stoppe Zielbaugruppe"
 
 #: src/hexfile.cpp:235
 #, c-format

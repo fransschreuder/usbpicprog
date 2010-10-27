@@ -1,3 +1,21 @@
+usbpicprog (953-3) maverick; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:28 +0200
+
+usbpicprog (953-2) lucid; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:23 +0200
+
+usbpicprog (953-1) karmic; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:15 +0200
+
 usbpicprog (948-3) maverick; urgency=low
 
   * fixed 10F20X /12F508 calibration register restore
