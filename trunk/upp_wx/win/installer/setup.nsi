@@ -137,8 +137,9 @@ proceed:
   File ..\..\usbpicprog.ico    ; used by the DPINST utility
   File ${ARCH}\usbpicprog.exe
   File /nonfatal ${ARCH}\usbpicprog.exe.manifest        ; in case the manifest was not embedded in the .exe file, use /nonfatal
+  File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.exe
   File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.dll
-  File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.manifest
+  ;File ..\..\win\deps\${INSTALLER_MODE}\${ARCH}\*.manifest
     ; CRT manifests always need to be copied to allow installations on WinXP systems
   
   ; Install the *.mo files
@@ -214,6 +215,7 @@ proceed:
   IntFmt $2 "0x%08X" $0
   DetailPrint "Return code was $2"
    
+   
   ; check the higher byte of the return value of DPINST; it can assume the values:
   ; 0x80 if a driver package could NOT be installed
   ; 0x40 if a computer restart is necessary
@@ -246,6 +248,12 @@ installed_ok:
   ; do nothing
   DetailPrint "Drivers were installed successfully."
 
+; Last, run the Microsoft driver installer redistributable
+  DetailPrint "Installing the VC redistributable files"
+  ExecWait '"$INSTDIR\vcredist_${ARCH}"' $0
+  IntFmt $2 "0x%08X" $0
+  DetailPrint "Return code was $2"
+  
 SectionEnd
 
 ; -------------------------------------------------------------------------------------------------
