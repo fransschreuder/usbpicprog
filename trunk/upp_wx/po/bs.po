@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-04-29 00:49+0100\n"
-"Last-Translator: Igor Prša <akiro.ip@gmail.com>\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:25+0100\n"
+"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: akiro <akiro.ip@gmail.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Povezan"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr " i "
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -632,9 +632,8 @@ msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Napomena: crveni pinovi (neki od njih) se koriste za ICSP."
 
 #: src/uppmainwindow.cpp:1344
-#, fuzzy
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "Vrijedi samo za PIC12F629, PIC12F508 i slične uređaje..."
+msgstr "Vrijedi samo za PIC12F629, PIC12F508, 10F20X i slične uređaje..."
 
 #: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
@@ -681,23 +680,21 @@ msgid "Please specify a bandgap value"
 msgstr "Navedite bangap vrijednost"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Navedite novu Osccal vrijednost [3400 - 37FF]"
+msgstr "Navedite novu Osccal vrijednost [0xC00 - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Navedite novu Osccal vrijednost [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "Navedite Oscal vrijednost između 3400 i 37FF"
+msgstr "Navedite Oscal vrijednost između "
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Navedite Oscal vrijednost između 3400 i 37FF"
+msgstr "Navedite Oscal vrijednost između %X i %X"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1289,9 +1286,8 @@ msgid "silent"
 msgstr "tiho"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "odredi tip pic-a (npr. -p=P18F2550)"
+msgstr "odredi tip pic-a (npr. -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

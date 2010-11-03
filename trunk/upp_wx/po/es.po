@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-10-05 19:23+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:07+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "Language: es\n"
@@ -29,7 +29,7 @@ msgstr " Conectado"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr " y "
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -685,23 +685,21 @@ msgid "Please specify a bandgap value"
 msgstr "Por favor, especifique un valor de bandgap"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Por favor especifique un nuevo valor de Osccal [3400 - 37FF]"
+msgstr "Por favor especifique un nuevo valor de Osccal [0xC00 - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Por favor especifique un nuevo valor de Osccal [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "Por favor especifique un valor de Osccal entre 3400 y 37FF"
+msgstr "Por favor especifique un valor de Osccal entre "
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Por favor especifique un valor de Osccal entre 3400 y 37FF"
+msgstr "Por favor especifique un valor de Osccal entre %X y %X"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1291,9 +1289,8 @@ msgid "silent"
 msgstr "silencioso"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "Especificar el tipo de pic (e. g. -p=P18F2550)"
+msgstr "Especificar el tipo de pic (e. g. -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

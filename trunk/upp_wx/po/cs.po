@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_cz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-04-09 12:55+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:05+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: K15 <k15@mail.klfree.net>\n"
 "Language: \n"
@@ -1264,9 +1264,8 @@ msgid "silent"
 msgstr "silent"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "zadejte typ PICu (např. -p=P18F2550)"
+msgstr "zadejte typ PICu (např. -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

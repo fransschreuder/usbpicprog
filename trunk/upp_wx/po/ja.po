@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-05-04 10:22+0100\n"
-"Last-Translator: Frans Schreuder <fransschreuder@users.sourceforge.net>\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:29+0100\n"
+"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "接続"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr "と"
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -631,9 +631,8 @@ msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "注： ICSPにおいて赤いピン（それらのうちのいくつか）を使用します。"
 
 #: src/uppmainwindow.cpp:1344
-#, fuzzy
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "PIC12F629とPIC12F508の類似品だけに有効です…"
+msgstr "PIC12F629とPIC12F508とPIC10F20Xの類似品だけに有効です…"
 
 #: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
@@ -680,23 +679,21 @@ msgid "Please specify a bandgap value"
 msgstr "禁止帯の値を指定してください"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
+msgstr "新しいOsccal値を指定してください [0xC00 - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "3400と37FFの間のOscal値を指定してください。"
+msgstr "の間のOscal値を指定してください。"
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "3400と37FFの間のOscal値を指定してください。"
+msgstr "%Xと%Xの間のOscal値を指定してください。"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1288,9 +1285,8 @@ msgid "silent"
 msgstr "静か"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "PICタイプを指定してください (eg -p=P18F2550)"
+msgstr "PICタイプを指定してください (eg -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

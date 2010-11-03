@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-10-20 10:50+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:04+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
 "Language: nl\n"
@@ -679,7 +679,7 @@ msgstr "Geef een bandgap waarde op"
 
 #: src/uppmainwindow.cpp:1365
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Geef een nieuwe waarde op voor Osccal [0xC00 - 0xCFF]"
+msgstr "Geef een nieuwe waarde op voor Osccal [0xC00 -0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"

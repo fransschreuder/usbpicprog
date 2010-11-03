@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-04-20 10:52+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:30+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: lucas azevedo <lucasazevedo9@gmail.com>\n"
 "Language: \n"
@@ -29,7 +29,7 @@ msgstr " Conectado"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr " i "
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -638,9 +638,8 @@ msgstr ""
 "Programming)."
 
 #: src/uppmainwindow.cpp:1344
-#, fuzzy
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "Somente valido para PIC12F628, PIC12F508 e similares..."
+msgstr "Somente valido para PIC12F628, PIC12F508, 10F20X e similares..."
 
 #: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
@@ -687,23 +686,21 @@ msgid "Please specify a bandgap value"
 msgstr "Por favor especifique um valor BandGap"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Por favor especifique um novo valor Osccal [3400 - 37FF]"
+msgstr "Por favor especifique um novo valor Osccal [0XC00 - 0XCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Por favor especifique um novo valor Osccal [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "Por favor especifique um valor Osccal entre 3400 e 37FF"
+msgstr "Por favor especifique um valor Osccal entre "
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Por favor especifique um valor Osccal entre 3400 e 37FF"
+msgstr "Por favor especifique um valor Osccal entre %X e %X"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1296,9 +1293,8 @@ msgid "silent"
 msgstr "silencioso"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "especifique o tipo do pic (ex -p=P18F2550)"
+msgstr "especifique o tipo do pic (ex -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

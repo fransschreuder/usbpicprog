@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-10-21 09:29+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:32+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "Language: \n"
@@ -29,7 +29,7 @@ msgstr "Соединено"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr " и "
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -686,23 +686,21 @@ msgid "Please specify a bandgap value"
 msgstr "Пожалуйста, укажите значение bandgap"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Пожалуйста, укажите новое значение Osccal [3400 - 37FF]"
+msgstr "Пожалуйста, укажите новое значение Osccal [0xCFF - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Пожалуйста, укажите новое значение Osccal [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "Пожалуйста, укажите значение Oscal между 3400 и 37FF"
+msgstr "Пожалуйста, укажите значение Oscal между "
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Пожалуйста, укажите значение Oscal между 3400 и 37FF"
+msgstr "Пожалуйста, укажите значение Oscal между %X и %X"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1288,9 +1286,8 @@ msgid "silent"
 msgstr "тихо"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "укажите тип PIC (напр. -p=P18F2550)"
+msgstr "укажите тип PIC (напр. -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-04-09 12:54+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:06+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: English <fransschreuder@users.sourceforge.net>\n"
 "Language: en\n"
@@ -1251,9 +1251,8 @@ msgid "silent"
 msgstr "σιωπηλό"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "καθορίστε το τύπο PIC  (π.χ. -p = P18F2550)"
+msgstr "καθορίστε το τύπο PIC  (π.χ. -p = 18F2550)"
 
 #: src/main.h:139
 msgid "stop"

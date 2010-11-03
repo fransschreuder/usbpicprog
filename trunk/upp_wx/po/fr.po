@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 08:43+0200\n"
-"PO-Revision-Date: 2010-04-20 10:44+0100\n"
+"POT-Creation-Date: 2010-11-03 20:32+0100\n"
+"PO-Revision-Date: 2010-11-03 20:09+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Patrick Nies <fransschreuder@users.sourceforge.net>\n"
 "Language: \n"
@@ -28,7 +28,7 @@ msgstr " Connecté"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr " et "
 
 #: src/uppmainwindow.cpp:986
 #, c-format
@@ -633,9 +633,9 @@ msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Note: les broches en rouge sont (pour certaines) utilisées par l'ICSP."
 
 #: src/uppmainwindow.cpp:1344
-#, fuzzy
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "Seulement valable pour PIC12F629, PIC12F508 et circuits similaires..."
+msgstr ""
+"Seulement valable pour PIC12F629, PIC12F508, 10F20X et circuits similaires..."
 
 #: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
@@ -682,23 +682,21 @@ msgid "Please specify a bandgap value"
 msgstr "SVP, spécifiez une valeur de Bandgap"
 
 #: src/uppmainwindow.cpp:1365
-#, fuzzy
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "SVP, spécifiez une nouvelle valeur OscCal [3400 - 37FF]"
+msgstr "SVP, spécifiez une nouvelle valeur OscCal [0xC00 - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "SVP, spécifiez une nouvelle valeur OscCal [3400 - 37FF]"
 
 #: src/main.cpp:338
-#, fuzzy
 msgid "Please specify an Oscal Value between "
-msgstr "SVP, spécifiez une valeur OscCal entre 3400 et 37FF"
+msgstr "SVP, spécifiez une valeur OscCal entre "
 
 #: src/uppmainwindow.cpp:1384
-#, fuzzy, c-format
+#, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "SVP, spécifiez une valeur OscCal entre 3400 et 37FF"
+msgstr "SVP, spécifiez une valeur OscCal entre %X et %X"
 
 #: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
@@ -1291,9 +1289,8 @@ msgid "silent"
 msgstr "Silencieux"
 
 #: src/main.h:130
-#, fuzzy
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "Spécifie le type de PIC (ex: -p=P18F2550)"
+msgstr "Spécifie le type de PIC (ex: -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"
