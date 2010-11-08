@@ -152,6 +152,7 @@ proceed:
   !insertmacro UPP_INSTALL_LANG fr
   !insertmacro UPP_INSTALL_LANG it
   !insertmacro UPP_INSTALL_LANG ja
+  !insertmacro UPP_INSTALL_LANG ms
   !insertmacro UPP_INSTALL_LANG nl
   !insertmacro UPP_INSTALL_LANG pa
   !insertmacro UPP_INSTALL_LANG pt
@@ -191,6 +192,7 @@ proceed:
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
                    "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
+
                    "DisplayIcon" "$\"$INSTDIR\usbpicprog.ico$\""
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
                    "URLInfoAbout" "http://usbpicprog.org"

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: usbpicprog 0.4.0\n"
+"Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-08 13:18+0100\n"
-"PO-Revision-Date: 2010-11-03 20:27+0100\n"
+"PO-Revision-Date: 2010-11-08 13:20+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "Language: \n"
@@ -17,125 +17,131 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"X-Poedit-Language: Malay\n"
+"X-Poedit-Country: MALAYSIA\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1507 src/uppmainwindow.cpp:1535
+#: src/uppmainwindow.cpp:1507
+#: src/uppmainwindow.cpp:1535
 #: src/uppmainwindow.cpp:1537
 msgid " Connected"
-msgstr "Verbunden"
+msgstr "Tersambung"
 
 #: src/main.cpp:338
 msgid " and "
-msgstr ""
+msgstr "dan"
 
 #: src/uppmainwindow.cpp:986
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Erfolglos bei  0x%X. Gelesen: 0x%02X, Erwartet: 0x%02X"
+msgstr "gagal pada 0x%X. Read: 0x%02X, Expected: 0x%02X"
 
 #: src/uppmainwindow.cpp:577
 #, c-format
 msgid "%s [%d pins]"
-msgstr "%s [%d Pins]"
+msgstr "%s [%d pins]"
 
 #: src/uppmainwindow.cpp:552
 #, c-format
 msgid "%s datasheet"
-msgstr "%s Datenblatt"
+msgstr "%s datasheet"
 
 #: src/uppmainwindow_base.cpp:239
 msgid "&About"
-msgstr "&Über"
+msgstr "&Mengenai Kami"
 
 #: src/uppmainwindow.cpp:323
 msgid "&Actions"
-msgstr "&Aktionen"
+msgstr "&Tindakkan"
 
 #: src/uppmainwindow.cpp:232
 msgid "&Autodetect..."
-msgstr "&Autoerkennen ..."
+msgstr "&Pengesanan Auto..."
 
 #: src/uppmainwindow.cpp:228
 msgid "&Blankcheck..."
-msgstr "L&eertest ..."
+msgstr "&Pastikan Memori Kosong..."
 
 #: src/uppmainwindow.cpp:245
 msgid "&Connect..."
-msgstr "&Verbinden ..."
+msgstr "&Menyambungkan..."
 
 #: src/uppmainwindow_base.cpp:211
 msgid "&Copy"
-msgstr "&Kopieren"
+msgstr "&Salin"
 
 #: src/uppmainwindow.cpp:249
 msgid "&Disconnect..."
-msgstr "&Trennen ..."
+msgstr "&Terputus..."
 
 #: src/uppmainwindow_base.cpp:218
 msgid "&Edit"
-msgstr "&Bearbeiten"
+msgstr "&Sunting"
 
 #: src/uppmainwindow.cpp:219
 msgid "&Erase..."
-msgstr "&Löschen ..."
+msgstr "&Memadamkan..."
 
 #: src/uppmainwindow_base.cpp:207
 msgid "&File"
-msgstr "&Datei"
+msgstr "&Fail"
 
-#: src/uppmainwindow_base.cpp:233 src/uppmainwindow_base.cpp:242
+#: src/uppmainwindow_base.cpp:233
+#: src/uppmainwindow_base.cpp:242
 msgid "&Help"
-msgstr "&Hilfe"
+msgstr "&Bantuan"
 
 #: src/uppmainwindow_base.cpp:226
 msgid "&IO Test"
-msgstr "&Ein/Ausgabe Test"
+msgstr "&Ujian IO"
 
 #: src/uppmainwindow_base.cpp:180
 msgid "&New"
-msgstr "&Neu"
+msgstr "&Baru"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "&Open"
-msgstr "&Öffnen"
+msgstr "&Buka"
 
 #: src/uppmainwindow_base.cpp:229
 msgid "&Options"
-msgstr "&Optionen"
+msgstr "&Pilihan"
 
 #: src/uppmainwindow_base.cpp:222
 msgid "&Preferences"
-msgstr "&Einstellungen"
+msgstr "&Aturan"
 
 #: src/uppmainwindow.cpp:207
 msgid "&Program..."
-msgstr "&Programmieren ..."
+msgstr "&Memuaturun Program..."
 
 #: src/uppmainwindow.cpp:211
 msgid "&Read..."
-msgstr "&Lesen ..."
+msgstr "&Baca..."
 
 #: src/uppmainwindow_base.cpp:192
 msgid "&Reload"
-msgstr "&Erneut laden"
+msgstr "&Muat Semula"
 
 #: src/uppmainwindow_base.cpp:196
 msgid "&Save"
-msgstr "&Speichern"
+msgstr "&Simpan"
 
 #: src/uppmainwindow.cpp:286
 msgid "&Select PIC..."
-msgstr "&Selektiere PIC ..."
+msgstr "&Pilih PIC..."
 
 #: src/uppmainwindow.cpp:215
 msgid "&Verify..."
-msgstr "&Vergleichen ..."
+msgstr "&Mengesahkan..."
 
-#: src/io_test_base.cpp:45 src/io_test_base.cpp:61 src/io_test_base.cpp:90
-#: src/io_test_base.cpp:119 src/io_test_base.cpp:125 src/io_test_base.cpp:160
+#: src/io_test_base.cpp:45
+#: src/io_test_base.cpp:61
+#: src/io_test_base.cpp:90
+#: src/io_test_base.cpp:119
+#: src/io_test_base.cpp:125
+#: src/io_test_base.cpp:160
 #: src/io_test_base.cpp:166
 msgid "0V"
 msgstr "0V"
@@ -144,357 +150,360 @@ msgstr "0V"
 msgid "12V"
 msgstr "12V"
 
-#: src/io_test_base.cpp:116 src/io_test_base.cpp:157
+#: src/io_test_base.cpp:116
+#: src/io_test_base.cpp:157
 msgid "3.3V"
 msgstr "3.3V"
 
-#: src/io_test_base.cpp:42 src/io_test_base.cpp:80 src/io_test_base.cpp:109
+#: src/io_test_base.cpp:42
+#: src/io_test_base.cpp:80
+#: src/io_test_base.cpp:109
 #: src/io_test_base.cpp:150
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:716 src/uppmainwindow.cpp:720
+#: src/uppmainwindow.cpp:716
+#: src/uppmainwindow.cpp:720
 msgid "All operations completed"
-msgstr "Alle Operationen sind abgeschlossen"
+msgstr "Semua operasi selesai"
 
-#: src/uppmainwindow.cpp:1569 src/uppmainwindow.cpp:1570
+#: src/uppmainwindow.cpp:1569
+#: src/uppmainwindow.cpp:1570
 msgid "Already disconnected"
-msgstr "Verbindung ist bereits getrennt"
+msgstr "Telah terputus"
 
 #: src/uppmainwindow.cpp:1601
 msgid "An open source USB pic programmer"
-msgstr "Ein Open Source USB PIC Programmer"
+msgstr "Sebuah USB pic programmer sumber terbuka"
 
 #: src/uppmainwindow.cpp:1050
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Leertestfehler bei 0x%X. Gelesen: 0x%02X, Erwartet: 0x%02X"
+msgstr "Kenalpasti memori kosong gagal pada 0x%X. Read: 0x%02X, Expected: 0x%02X"
 
 #: src/uppmainwindow.cpp:229
 msgid "Blankcheck the PIC device"
-msgstr "Leertest des PIC Controllers"
+msgstr "Kenalpasti Memori PIC kosong"
 
-#: src/uppmainwindow.cpp:1546 src/uppmainwindow.cpp:1548
+#: src/uppmainwindow.cpp:1546
+#: src/uppmainwindow.cpp:1548
 msgid "Bootloader or programmer not found"
-msgstr "Bootloader oder den Programmer nicht gefunden"
+msgstr "Bootloader atau programmer tidak dijumpai"
 
 #: src/packageview.cpp:65
 msgid "Can't create the package bitmap!"
-msgstr "Kann das Bitmap-Paket nicht erzeugen"
+msgstr "Dilarang mencipta pakej bitmap!"
 
 #: src/packageview.cpp:71
 msgid "Can't draw the PIC package!"
-msgstr "Kann das PIC-Paket nicht zeichnen"
+msgstr "Dilarang melakar pakej PIC!"
 
 #: src/pictype.cpp:160
 #, c-format
 msgid "Cannot load '%s'."
-msgstr "Kann  '%s' nicht laden."
+msgstr "Dilarang memuatkan '%s'."
 
 #: src/main.cpp:123
 msgid "Cannot load XML PIC data."
-msgstr "Kann die XML PIC Daten nicht laden."
+msgstr "Dilarang memuatkan maklumat XML PIC."
 
-#: src/uppmainwindow.cpp:1642 src/uppmainwindow.cpp:1670
+#: src/uppmainwindow.cpp:1642
+#: src/uppmainwindow.cpp:1670
 msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr ""
-"Kann keinen anderen PIC auswählen solange der Bootloader verbunden ist!"
+msgstr "Dilarang memilih PIC lain semasa bootloader masih tersambung!"
 
 #: src/uppmainwindow.cpp:287
 msgid "Change the currently selected PIC"
-msgstr "Ändern des aktuell selektierten PIC"
+msgstr "Tukar PIC"
 
 #: src/uppmainwindow.cpp:1030
 msgid "Checking if the device is blank..."
-msgstr "Prüfen ob der PIC leer ist ..."
+msgstr "Memeriksa jika memori peranti adalah kosong"
 
 #: src/uppmainwindow_base.cpp:45
 msgid "Code"
-msgstr "Code"
+msgstr "Kod"
 
 #: src/hexfile.cpp:701
 msgid "Code Memory\n"
-msgstr "Programmspeicher\n"
+msgstr "Memori Kod\n"
 
 #: src/uppmainwindow_base.cpp:102
 msgid "Code memory size:"
-msgstr "Größe des Programmspeichers:"
+msgstr "Saiz Memori Kod:"
 
 #: src/uppmainwindow.cpp:565
 #, c-format
 msgid "Code memory size: %d bytes"
-msgstr "Größe des Programmspeichers: %d Byte"
+msgstr "Saiz Memori Kod: %d bytes"
 
 #: src/configview.cpp:137
 msgid "Configuration Word:"
-msgstr "Konfigurationswort:"
+msgstr "Konfigurasi Perkataan:"
 
 #: src/uppmainwindow_base.cpp:75
 msgid "Configuration flags"
-msgstr "Konfigurationsflags"
+msgstr "Konfigurasi flags"
 
 #: src/uppmainwindow_base.cpp:65
 msgid "Configuration flags for this PIC:"
-msgstr "Konfigurationsflags für diesen PIC:"
+msgstr "Konfigurasi flags untuk PIC ini:"
 
 #: src/uppmainwindow.cpp:246
 msgid "Connect to the programmer"
-msgstr "Verbinden mit dem Programmer"
+msgstr "Menyambungkan programmer"
 
 #: src/uppmainwindow_base.cpp:211
 msgid "Copies to the clipboard currently selected cells"
-msgstr "Kopieren der ausgewählten Zellen in die Zwischenablage"
+msgstr "Salin sel-sel yang dipilih ke clipboard"
 
 #: src/hexview.cpp:209
 msgid "Copy"
-msgstr "Kopieren"
+msgstr "Salin"
 
 #: src/pictype.cpp:237
 msgid "Could not access the 'xml_data' folder."
-msgstr "Keinen Zugriff auf den \"xml_data\" Ordner"
+msgstr "Gagal mengakses folder 'xml'_data'"
 
 #: src/uppmainwindow.cpp:1110
 msgid "Could not create the worker thread!"
-msgstr "Kann das Programmteil nicht starten!"
+msgstr "Gagal mencipta 'worker thread'!"
 
 #: src/main.cpp:137
 msgid ""
 "Could not initialize libusb. This may happen because of:\n"
-"1) an incorrect installation of the UsbPicProg driver; check if this is the "
-"case running the Windows Device Manager with the programmer attached;\n"
+"1) an incorrect installation of the UsbPicProg driver; check if this is the case running the Windows Device Manager with the programmer attached;\n"
 "2) An incorrect installation of cfgmgr32.dll, winusb.dll or hid.dll;\n"
 "\n"
-"Please re-install UsbPicProg and ensure that Windows recognizes the "
-"UsbPicProg hardware when it's attached to the USB bus. If Windows asks for a "
-"driver please point it to the 'UsbPicProg\\driver' directory which has been "
-"installed in your Programs folder. If you still have problems please drop a "
-"mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which "
-"is located in your 'Windows\\System32' folder)."
+"Please re-install UsbPicProg and ensure that Windows recognizes the UsbPicProg hardware when it's attached to the USB bus. If Windows asks for a driver please point it to the 'UsbPicProg\\driver' directory which has been installed in your Programs folder. If you still have problems please drop a mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which is located in your 'Windows\\System32' folder)."
 msgstr ""
-"Konnte die Bibliothek libusb nicht inittialisieren. Es kann sein:\n"
-"1) nicht korrekte Installation der USBPICPROG Treiber; Prüfe in diesem Fall "
-"den Windows Geräte Manager mit angeschlossenem Programmer;\n"
-"2) Nicht korrekte Installation von cfgmgr32.dll, winusb.dll oder hid.dll;\n"
+"Gagal memulakan libusb. Ini mungkin kerana:1) Pemasangan driver UsbPicProg yang salah; Periksa jika adalah punca masalah, jalankan Windows Device Manager ketika programmer disambungkan pada USB;\n"
+"2)  Pemasangan cfgmgr32.dll yang salah, winusb.dll atau hid.dll;\n"
 "\n"
-"Bitte USBPICPROG erneut installieren. Windows muss das Anstecken von "
-"USBPICPROG erkennen. Wenn Windows nach einem Treiber fragt auf das "
-"Verzeichnis  'UsbPicProg\\driver' verweisen welches im Programme Verzeichnis "
-"installiert wurde. Sollte es Probleme geben sende eine E-Mail an die "
-"USBPICPROG Mail Liste mit der 'DPINST.LOG' Datei (zu finden im 'Windows"
-"\\System32' Ordner)."
+"Sila pasang semula UsbPicProg dan pastikan bahawa Windows mengenali hardware UsbPicProg apabila ia disambungkan pada USB. Jika Windows meminta driver, halakannya ke direktori/folder 'UsbPicProg\\driver' yang mana telah dipasangkan dalam folder Programs Files anda. Jika anda masih mengalami masalah, sila email Pencipta UsbPicProg fail log 'DPINST.LOG' (terdapat dalam folder 'Windows\\System32')."
 
 #: src/main.cpp:140
 #, c-format
 msgid "Could not initialize libusb: %s"
-msgstr "Kann die libusb nicht initialisieren: %s"
+msgstr "Gagal memulakan libusb: %s"
 
-#: src/pictype.cpp:105 src/pictype.cpp:125 src/pictype.cpp:216
+#: src/pictype.cpp:105
+#: src/pictype.cpp:125
+#: src/pictype.cpp:216
 #, c-format
 msgid "Could not load data for PIC '%s'."
-msgstr "Konnte die Daten '%'s für den PIC nicht laden."
+msgstr "Gagal memuaturun maklumat ke dalam PIC '%s'."
 
 #: src/hexfile.cpp:339
 msgid "Could not open Hex file for writing..."
-msgstr "Konnte die Hex-Datei zum Schreiben nicht öffnen ..."
+msgstr "Dilarang membuka fail Hex ketika memuaturun program..."
 
 #: src/hexfile.cpp:101
 msgid "Could not open Hex file..."
-msgstr "Konnte die Hex-Datei nicht öffnen ..."
+msgstr "Gagal membuka fail Hex..."
 
 #: src/uppmainwindow.cpp:1116
 msgid "Could not run the worker thread!"
-msgstr "Kann das Programmteil nicht starten!"
+msgstr "Gagal menjalankan 'worker thread'!"
 
 #: src/hardware.cpp:169
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
-msgstr "Konnte das USB Gerät: %s nicht zurücksetzen."
+msgstr "Gagal reset antaramuka peranti USB: '%s'"
 
-#: src/io_test_base.cpp:54 src/io_test_base.cpp:83 src/io_test_base.cpp:112
+#: src/io_test_base.cpp:54
+#: src/io_test_base.cpp:83
+#: src/io_test_base.cpp:112
 #: src/io_test_base.cpp:153
 msgid "Current HW state:"
-msgstr "Aktuelle HW Status:"
+msgstr "Keadaan semasa HW:"
 
 #: src/io_test_base.cpp:38
 msgid "Current HW voltage:"
-msgstr "Aktuelle HW Spannung:"
+msgstr "Nilai voltan semasa HW:"
 
 #: src/configview.cpp:154
 #, c-format
-msgid ""
-"Current value for the %d-th configuration word as derived from above "
-"configuration choices"
-msgstr ""
-"Der aktuelle Wert des %d ten Konfigurationswortes ist abgeleitet von der "
-"Konfigurationswahl "
+msgid "Current value for the %d-th configuration word as derived from above configuration choices"
+msgstr "Nilai semasa untuk konfigurasi 'word' ke %d adalah diterbitkan daripada pilihan konfigurasi di atas"
 
 #: src/uppmainwindow_base.cpp:60
 msgid "Data"
-msgstr "Daten"
+msgstr "Maklumat"
 
 #: src/hexfile.cpp:223
 msgid "Data in hex file outside code memory of PIC"
-msgstr "Daten in der Hex Datei außerhalb des Programmspeichers des PIC."
+msgstr "Maklumat dalam fail Hex tidak terkandung dalam kod memori PIC"
 
 #: src/hexfile.cpp:159
 msgid "Data in hex file outside config memory of PIC"
-msgstr "Daten in der Hex Datei außerhalb des Konfigurationsspeichers des PIC."
+msgstr "Maklumat dalam fail Hex tidak terkandung dalam konfigurasi memori PIC"
 
 #: src/hexfile.cpp:208
 msgid "Data in hex file outside data memory of PIC"
-msgstr "Daten in der Hex Datei außerhalb des Datenspeichers des PIC."
+msgstr "Maklumat dalam fail Hex tidak terkandung dalam data memori PIC"
 
 #: src/uppmainwindow_base.cpp:106
 msgid "Data memory size:"
-msgstr "Größe des Datenspeichers:"
+msgstr "Saiz memori maklumat:"
 
 #: src/uppmainwindow.cpp:566
 #, c-format
 msgid "Data memory size: %d bytes"
-msgstr "Größe des Datenspeichers: %d Byte"
+msgstr "Saiz memori maklumat: %d bytes"
 
 #: src/uppmainwindow_base.cpp:83
 msgid "Datasheet"
-msgstr "Datenblatt"
+msgstr "Datasheet"
 
 #: src/uppmainwindow.cpp:233
 msgid "Detect the type of the PIC device"
-msgstr "Erkennen des PIC Type"
+msgstr "Mengesan jenis PIC"
 
 #: src/uppmainwindow.cpp:1462
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "Erkannter PIC Type %s mit Geräte ID 0x%X"
+msgstr "Dikesan: model PIC %s dengan ID peranti 0x%X"
 
 #: src/uppmainwindow_base.cpp:98
 msgid "Device ID:"
-msgstr "Geräte ID:"
+msgstr "ID Peranti:"
 
 #: src/uppmainwindow.cpp:564
 #, c-format
 msgid "Device ID: 0x%X"
-msgstr "Geräte ID: 0x%X"
+msgstr "ID Peranti:: 0x%X"
 
 #: src/uppmainwindow.cpp:1038
 msgid "Device is blank"
-msgstr "Der PIC ist leer."
+msgstr "Peranti kosong."
 
 #: src/uppmainwindow.cpp:1055
 msgid "Device is not blank."
-msgstr "Der PIC ist nicht leer."
+msgstr "Peranti TIDAK kosong."
 
 #: src/uppmainwindow.cpp:250
 msgid "Disconnect from the programmer"
-msgstr "Trennen der Verbindung zum Programmer"
+msgstr "Sambungan ke programmer terputus"
 
-#: src/uppmainwindow.cpp:1563 src/uppmainwindow.cpp:1565
+#: src/uppmainwindow.cpp:1563
+#: src/uppmainwindow.cpp:1565
 msgid "Disconnected"
-msgstr "Getrennt"
+msgstr "Sambungan terputus"
 
 #: src/uppmainwindow_base.cpp:204
 msgid "E&xit"
-msgstr "E&xit"
+msgstr "&Keluar"
 
 #: src/hexview.cpp:207
 msgid "Edit"
-msgstr "Editieren"
+msgstr "Sunting"
 
 #: src/uppmainwindow.cpp:813
 msgid "Erase OK"
-msgstr "Löschen OK"
+msgstr "Berjaya memadam"
 
 #: src/preferences_base.cpp:38
 msgid "Erase before programming"
-msgstr "Löschen vor dem Programmieren"
+msgstr "Kosongkan sebelum memuaturun program"
 
 #: src/uppmainwindow.cpp:220
 msgid "Erase the PIC device"
-msgstr "Löschen des PIC Controllers"
+msgstr "Kosongkan PIC "
 
 #: src/uppmainwindow.cpp:1011
 msgid "Erasing all areas of the PIC..."
-msgstr "Lösche alle Speicher des PIC ..."
+msgstr "Memadamkan keseluruhan PIC..."
 
 #: src/uppmainwindow.cpp:808
 msgid "Erasing before programming..."
-msgstr "Löschen vor dem Programmieren"
+msgstr "Memadam sebelum memprogram..."
 
 #: src/hardware.cpp:203
 #, c-format
 msgid "Error claiming the USB device interface: %s"
-msgstr "Fehler bei USB Geräteanforderung: %s"
+msgstr "Ralat pada antaramuka peranti USB: %s"
 
-#: src/main.cpp:352 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1015
+#: src/main.cpp:352
+#: src/uppmainwindow.cpp:816
+#: src/uppmainwindow.cpp:1015
 #: src/uppmainwindow.cpp:1403
 msgid "Error erasing the device"
-msgstr "Fehler beim Löschen "
+msgstr "Ralat semasa mengosongkan peranti"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:217
+#: src/hardware.cpp:227
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
-msgstr "Fehler im erhaltenen USB Endpunktbezeichner: %s"
+msgstr "Ralat mendapatkan 'USB endpoint descriptor': %s"
 
 #: src/hexfile.cpp:135
 msgid "Error in checksum..."
-msgstr "Fehler in der Checksumme ..."
+msgstr "Ralat dalam semakan..."
 
 #: src/uppmainwindow.cpp:847
 msgid "Error programming code memory"
-msgstr "Fehler beim Programmieren des Programmspeichers"
+msgstr "Ralat memprogramkan kod memori..."
 
 #: src/uppmainwindow.cpp:906
 msgid "Error programming config memory"
-msgstr "Fehler beim Programmieren des Konfigurationsspeichers"
+msgstr "Ralat memprogramkan konfigurasi memori"
 
 #: src/uppmainwindow.cpp:876
 msgid "Error programming data memory"
-msgstr "Fehler beim Programmieren des Datenspeichers"
+msgstr "Ralat memprogramkan data memori"
 
 #: src/uppmainwindow.cpp:927
 msgid "Error reading code memory"
-msgstr "Fehler beim Lesen des Programmspeichers"
+msgstr "Ralat membaca kod memori"
 
 #: src/uppmainwindow.cpp:948
 msgid "Error reading configuration memory"
-msgstr "Fehler beim Lesen des Konfigurationsspeichers"
+msgstr "Ralat membaca konfigurasi memori"
 
 #: src/uppmainwindow.cpp:937
 msgid "Error reading data memory"
-msgstr "Fehler beim Lesen des Datenspeichers"
+msgstr "Ralat membaca data memori"
 
-#: src/main.cpp:354 src/uppmainwindow.cpp:1404
+#: src/main.cpp:354
+#: src/uppmainwindow.cpp:1404
 msgid "Error restoring Calibration Registers"
-msgstr "Fehler beim Rückspeichern des Kalibrationsregisters"
+msgstr "Ralat memulihkan 'Calibration Registers'"
 
 #: src/hardware.cpp:192
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
-msgstr "Fehler beim Setzen der Konfiguration des USB Gerätes: %s"
+msgstr "Ralat aturan konfigurasi pada peranti USB: %s"
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Examples"
-msgstr "Beispiele"
+msgstr "Contoh"
 
 #: src/uppmainwindow_base.cpp:204
 msgid "Exits the program"
-msgstr "Beendet das Programm"
+msgstr "Keluar dari program"
 
-#: src/io_test_base.cpp:51 src/io_test_base.cpp:87 src/io_test.cpp:128
-#: src/io_test.cpp:138 src/io_test.cpp:148 src/io_test.cpp:158
+#: src/io_test_base.cpp:51
+#: src/io_test_base.cpp:87
+#: src/io_test.cpp:128
+#: src/io_test.cpp:138
+#: src/io_test.cpp:148
+#: src/io_test.cpp:158
 msgid "FLOAT"
 msgstr "FLOAT"
 
 #: src/hexfile.cpp:119
 msgid "Failure in hex file..."
-msgstr "Fehler in der Hex Datei"
+msgstr "Kegagalan pada fail Hex..."
 
 #: src/uppmainwindow.cpp:501
 msgid "Firmware probably too new"
-msgstr "Die Firmware ist zu neu"
+msgstr "Kemungkinan Firmware terlebih baru"
 
-#: src/uppmainwindow_base.cpp:149 src/uppmainwindow_base.cpp:151
+#: src/uppmainwindow_base.cpp:149
+#: src/uppmainwindow_base.cpp:151
 msgid "Fit package drawing"
-msgstr "Gehäusezeichnung"
+msgstr "Pakej lakaran sesuai"
 
 #: src/uppmainwindow_base.cpp:94
 msgid ""
@@ -503,7 +512,7 @@ msgid ""
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Frequency range:\n"
+"Julat frekuensi:\n"
 "   MIN\n"
 "   MAX\n"
 "_dontTranslateThis_"
@@ -515,213 +524,213 @@ msgid ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
-"Frequenzbereich:\n"
+"Julat frekuensi:\n"
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 
 #: src/preferences_base.cpp:66
 msgid "GUI options"
-msgstr "GUI Optionen"
+msgstr "Pilihan GUI"
 
 #: src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
-msgstr "Globale Einstellungen für USBPICPROG:"
+msgstr "Aturan Utama Usbpicprog:"
 
 #: src/uppmainwindow_base.cpp:35
 msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "Hexadezimale Sicht auf den Programmbereich des PIC:"
+msgstr "Lihat 'code area' PIC dalam Hexadecimal:"
 
 #: src/uppmainwindow_base.cpp:50
 msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "Hexadezimale Sicht auf den Datenbereich des PIC:"
+msgstr "Lihat 'data area' PIC dalam Hexadecimal:"
 
-#: src/uppmainwindow.cpp:999 src/uppmainwindow.cpp:1064
+#: src/uppmainwindow.cpp:999
+#: src/uppmainwindow.cpp:1064
 msgid "I'm sorry for being stupid"
-msgstr "Tut mir leid"
+msgstr "Saya pohon maaf kerana macam bodoh"
 
 #: src/io_test_base.cpp:131
 msgid "INPUT"
-msgstr "Eingang"
+msgstr "INPUT"
 
 #: src/io_test_base.cpp:19
 msgid ""
-"In this dialog you can test the UsbPicProg hardware by sending requests to "
-"set a specific voltage on a specific output pin.\n"
-"The real voltage of the VPP pin and the other pins' statuses are updated "
-"once per second and are reported in bold below."
+"In this dialog you can test the UsbPicProg hardware by sending requests to set a specific voltage on a specific output pin.\n"
+"The real voltage of the VPP pin and the other pins' statuses are updated once per second and are reported in bold below."
 msgstr ""
-"In diesem Dialog kann die USBPICPROG Hardware getestet werden. Es werden "
-"Kommandos gesendet, die die Ausgabe Pins setzen.\n"
-"Die tatsächliche Spannung des VPP Pin und der Status der anderen Pins wird "
-"einmal pro Sekunde erneuert und in fetter Schrift ausgegeben. "
+"Dalam paparan ini, anda boleh menguji hardware UsbPicProg dengan menghantar permintaan untuk setkan voltan tertentu pada pin output tertentu.\n"
+"Voltan pada pin VPP dan pin-pin yang lain akan dikemaskini sekali setiap 1 saat dan di paparkan dengan tulisan Bold dibawah."
 
 #: src/uppmainwindow.cpp:1085
 msgid "Initializing..."
-msgstr "Initialisiere ..."
+msgstr "Memulakan..."
 
 #: src/io_test_base.h:76
 msgid "Input/output test"
-msgstr "Ein-/Ausgabetest"
+msgstr "Uji Input/Output"
 
 #: src/pictype.cpp:166
 #, c-format
 msgid "Invalid '%s' file."
-msgstr "Ungültige '%s' Datei."
+msgstr "Fail '%s' adalah fail yang salah"
 
 #: src/pictype.cpp:188
 #, c-format
 msgid "Invalid PIC family for PIC '%s'."
-msgstr "Ungültige PIC Familie für den PIC '%s'."
+msgstr "PIC family untuk PIC '%s' adalah salah"
 
 #: src/pictype.cpp:781
 msgid "Invalid direction"
-msgstr "Ungültige Richtung"
+msgstr "'Direction' tidak sah"
 
 #: src/pictype.cpp:801
 #, c-format
 msgid "Invalid odd pin count: %d"
-msgstr "Ungültige ungerade Pin Anzahl: %d"
+msgstr "'Odd pin count' tidak sah: %d"
 
 #: src/pictype.cpp:852
 #, c-format
 msgid "Invalid pin count: %d"
-msgstr "Ungültige Pin Anzahl: %d"
+msgstr "'Pin count' tidak sah: %d"
 
 #: src/configview.cpp:173
 #, c-format
 msgid "Length: %d bits"
-msgstr "Länge: %d Bit"
+msgstr "Kepanjangan: %d bits"
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Loads a HEX file from the examples folder"
-msgstr "Laden der Hex Datei vom Beispiele Ordner"
+msgstr "Memuatkan fail Hex dari folder contoh"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
-msgstr "Laden der Hex Datei zum Editieren oder Programmieren ..."
+msgstr "Memuatkan fail Hex untuk disunting atau diprogramkan..."
 
 #: src/configview.cpp:169
 #, c-format
 msgid "Location in memory: 0x%X"
-msgstr "Speicherstelle: 0x%X"
+msgstr "Lokasi dalam memori: 0x%X"
 
 #: src/uppmainwindow_base.cpp:81
 msgid "Miscellaneous"
-msgstr "Verschiedenes"
+msgstr "Pelbagai"
 
 #: src/uppmainwindow.cpp:1455
 msgid "No PIC detected!"
-msgstr "Kein PIC erkannt!"
+msgstr "Tiada PIC dikesan!"
 
 #: src/uppmainwindow.cpp:1457
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "Kein PIC erkannt! Auswahl des voreingestellten PIC (%s)..."
+msgstr "Tiada PIC dikesan! Memilih PIC yang default (%s)..."
 
 #: src/hardware.cpp:807
 msgid "No data to verify"
-msgstr "Keine Daten zum Vergleichen"
+msgstr "Tiada data untuk disahkan"
 
-#: src/uppmainwindow.cpp:1206 src/uppmainwindow.cpp:1207
+#: src/uppmainwindow.cpp:1206
+#: src/uppmainwindow.cpp:1207
 msgid "No file to refresh"
-msgstr "Keine Datei erneuert"
+msgstr "Tiada fail untuk dimuat semula"
 
 #: src/uppmainwindow_base.cpp:160
 msgid "Note: red pins are (some of those) used in ICSP."
-msgstr "Anmerkung: Die roten PINs werden für die ICSP benutzt."
+msgstr "Nota: Pin merah digunakan untuk ICSP (untuk kes-kes tertentu)."
 
 #: src/uppmainwindow.cpp:1344
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "Nur Gültig für PIC12F629, PIC12F508, 10F20X und ähnliche Geräte ..."
+msgstr "Hanya sah pada PIC12F629, PIC12F508, 10F20X dan peranti yang sewaktu dengannya..."
 
-#: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
+#: src/uppmainwindow.cpp:1152
+#: src/uppmainwindow.cpp:1170
 msgid "Open hexfile"
-msgstr "Öffne Hex Datei"
+msgstr "Buka fail Hex"
 
 #: src/uppmainwindow_base.cpp:233
 msgid "Opens the Usbpicprog's website..."
-msgstr "Öffne die USBPICPROG Webseite"
+msgstr "Buka laman sesawang Usbpicprog..."
 
 #: src/uppmainwindow.cpp:679
 msgid "Operations aborted"
-msgstr "Ausführung abgebrochen"
+msgstr "Operasi dibatalkan"
 
 #: src/uppmainwindow.cpp:722
 msgid "Operations completed with errors/warnings"
-msgstr "Ablauf ohne Fehler/Warnungen ausgeführt"
+msgstr "Operasi selesai dengan ralat/amaran"
 
 #: src/io_test_base.cpp:142
 msgid "PGC pin"
-msgstr "PGC pin"
+msgstr "Pin PGC"
 
 #: src/io_test_base.cpp:101
 msgid "PGD pin"
-msgstr "PGD pin"
+msgstr "Pin PGD"
 
 #: src/uppmainwindow_base.cpp:169
 msgid "PIC info"
-msgstr "PIC Informationen"
+msgstr "info PIC"
 
 #: src/uppmainwindow_base.cpp:117
 msgid "Package"
-msgstr "Gehäuse"
+msgstr "Pakej"
 
 #: src/uppmainwindow.cpp:474
 msgid "Please confirm"
-msgstr "Bitte bestätigen"
+msgstr "Sila pastikan"
 
 #: src/main.cpp:347
 msgid "Please specify a BandGap Value between 0 and 3"
-msgstr "Bitte einen BandGAB Wert zwischen 0 und 3 auswählen"
+msgstr "Sila tetapkan satu nilai BandGap dari 0 hingga 3"
 
 #: src/uppmainwindow.cpp:1397
 msgid "Please specify a bandgap value"
-msgstr "Bitte einen bandgab Wert auswählen"
+msgstr "Sila tetapkan satu nilai BandGap"
 
 #: src/uppmainwindow.cpp:1365
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Bitte einen neuen Osccal Wert [0xC00- 0xCFF] wählen"
+msgstr "Sila tetapkan semula nilai Osccal [0xC00 - 0xCFF]"
 
 #: src/uppmainwindow.cpp:1372
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
-msgstr "Bitte einen neuen Osccal Wert [3400 - 37FF] wählen"
+msgstr "Sila tetapkan semula nilai Osccal [3400 - 37FF]"
 
 #: src/main.cpp:338
 msgid "Please specify an Oscal Value between "
-msgstr "Bitte einen Osccal Wert zwischen "
+msgstr "Sila tetapkan semula nilai Osccal antara"
 
 #: src/uppmainwindow.cpp:1384
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Bitte einen Osccal Wert zwischen %X und %X  wählen"
+msgstr "Sila tetapkan semula nilai Osccal antara %X dan %X"
 
-#: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
+#: src/uppmainwindow.cpp:661
+#: src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
-msgstr "Bitte Warten bis alles beendet ist:\n"
+msgstr "Sila tunggu sehingga operasi selesai:\n"
 
 #: src/preferences_base.h:51
 msgid "Preferences"
-msgstr "Einstellungen"
+msgstr "Aturan"
 
 #: src/preferences_base.cpp:24
 msgid "Program options"
-msgstr "Programmieroptionen"
+msgstr "Pilihan Program"
 
 #: src/uppmainwindow.cpp:208
 msgid "Program the PIC device"
-msgstr "Programmieren des PIC Controllers"
+msgstr "Muaturun program PIC"
 
 #: src/uppmainwindow.cpp:886
 msgid "Programming configuration area of the PIC..."
-msgstr "Programmieren des Konfigurationsspeichers des PIC ..."
+msgstr "Muaturun PIC 'configuration area'"
 
 #: src/uppmainwindow.cpp:825
 msgid "Programming the code area of the PIC..."
-msgstr "Programmieren des Programmbereiches des PIC ..."
+msgstr "Muaturun PIC 'code area'"
 
 #: src/uppmainwindow.cpp:856
 msgid "Programming the data area of the PIC..."
-msgstr "Programmieren des Datenbereiches des PIC ..."
+msgstr "Muaturun PIC 'data area'"
 
 #: src/uppmainwindow_base.cpp:86
 msgid ""
@@ -745,126 +754,126 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
-"Programmierspannung (Vpp):\n"
+"Programming voltage (Vpp):\n"
 "   Min=%.2fV\n"
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
 #: src/uppmainwindow.cpp:1084
 msgid "Progress dialog"
-msgstr "Fortschrittsdialog"
+msgstr "paparan kemajuan proses"
 
 #: src/io_test_base.cpp:58
 msgid "RESET"
-msgstr "Rücksetzen"
+msgstr "RESET"
 
 #: src/uppmainwindow.cpp:212
 msgid "Read the PIC device"
-msgstr "Lesen des PIC Controllers"
+msgstr "Baca peranti PIC"
 
 #: src/uppmainwindow.cpp:924
 msgid "Reading the code area of the PIC..."
-msgstr "Lese den Programmbereich des PIC ..."
+msgstr "Membaca 'code area' PIC"
 
 #: src/uppmainwindow.cpp:945
 msgid "Reading the configuration area of the PIC..."
-msgstr "Lesen des Konfigurationsbereiches des PIC ..."
+msgstr "Membaca configuration area' PIC "
 
 #: src/uppmainwindow.cpp:934
 msgid "Reading the data area of the PIC..."
-msgstr "Lese den Datenbereich des PIC ..."
+msgstr "Membaca 'data area' PIC"
 
 #: src/uppmainwindow_base.cpp:192
 msgid "Reloads the current HEX file from disk"
-msgstr "Die aktuelle Hex Datei erneut laden"
+msgstr "Muatsemula fail HEX semasa dari cakera keras"
 
 #: src/uppmainwindow_base.cpp:180
-msgid ""
-"Resets the code, configuration and data areas of the currently open HEX file"
-msgstr ""
-"Rücksetzten  des Programm-, Configurations- und Datenbereiches der aktuellen "
-"HEX Datei "
+msgid "Resets the code, configuration and data areas of the currently open HEX file"
+msgstr "Reset 'code, configuration dan data areas' untuk fail Hex semasa"
 
 #: src/main.h:142
 msgid "Restore BandGap Register"
-msgstr "Rückspeichern des BandGap Register"
+msgstr "Pulihkan 'BandGap Register'"
 
 #: src/uppmainwindow.cpp:224
 msgid "Restore Cal regs..."
-msgstr "Rückspeichen der CAL regs ..."
+msgstr "Pulihkan 'Cal regs'..."
 
 #: src/main.h:141
 msgid "Restore Osccal Register"
-msgstr "Rückspeichern des Osccal Register"
+msgstr "Pulihkan 'Osccal Register'"
 
 #: src/uppmainwindow.cpp:225
 msgid "Restore PIC's calibration registers"
-msgstr "Rückspeichern des PIC Kalibrationsregisters"
+msgstr "Pulihkan 'PIC's calibration registers'"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237
+#: src/uppmainwindow.cpp:375
 msgid "Run Target"
-msgstr "Starte das Zielsystem"
+msgstr "Jalankan Mikropengawal"
 
 #: src/uppmainwindow_base.cpp:200
 msgid "Save &As"
-msgstr "Speichern &unter"
+msgstr "Simpan &Sebagai"
 
 #: src/uppmainwindow.cpp:1244
 msgid "Save hexfile"
-msgstr "Speichern der Hex Datei"
+msgstr "Simpan fail Hex"
 
 #: src/uppmainwindow_base.cpp:200
 msgid "Saves current code,config,data as a HEX file"
-msgstr ""
-"Speichern des aktuellen Code, der Konfiguration und Daten als Hex Datei"
+msgstr "Simpan kod,konfigurasi,data sekarang sebagai fail Hex"
 
 #: src/uppmainwindow_base.cpp:196
 msgid "Saves the HEX file with the modified data"
-msgstr "Speichern der Hex Datei mit den modifizierten Daten"
+msgstr "Simpan fail Hex bersama data yang telah dimodifikasi"
 
 #: src/uppmainwindow_base.cpp:215
 msgid "Select &All"
-msgstr "&Alles auswählen"
+msgstr "Pilih &Semua"
 
 #: src/hexview.cpp:210
 msgid "Select All"
-msgstr "Alles Auswählen"
+msgstr "Pilih Semua"
 
 #: src/uppmainwindow_base.cpp:215
 msgid "Selects the entire grid currently shown"
-msgstr "Auswählen der aktuellen Anzeige"
+msgstr "Pilih keseluruhan grid yang terpapar"
 
 #: src/uppmainwindow.cpp:242
 msgid "Set 0V to MCLR to stop the target controller"
-msgstr "MCLR auf 0V setzen um das Zielsystem zu stoppen"
+msgstr "Set 0V pada MCLR untuk mematikan mikropengawal"
 
 #: src/uppmainwindow.cpp:238
 msgid "Set 5V to MCLR to run the target controller"
-msgstr "MCLR auf 5V setzen um das Zielsystem zu starten"
+msgstr "Set 5V pada MCLR untuk menjalankan mikropengawal"
 
 #: src/uppmainwindow_base.cpp:239
 msgid "Shows informations about this program"
-msgstr "Informationen über das Programm anzeigen"
+msgstr "Papar informasi mengenai program ini"
 
 #: src/preferences_base.cpp:68
 msgid "Shows popups on connect etc..."
-msgstr "Anzeige über die Verbindung ..."
+msgstr "Papar pop-up ketika disambungkan..."
 
-#: src/uppmainwindow_base.cpp:222 src/uppmainwindow_base.cpp:226
+#: src/uppmainwindow_base.cpp:222
+#: src/uppmainwindow_base.cpp:226
 msgid "Shows the options for this program"
-msgstr "Anzeige der Programmoptionen"
+msgstr "Paparkan aturan untuk program ini"
 
 #: src/uppmainwindow.cpp:1397
 msgid "Specify a bandgap value"
-msgstr "Einen bandgab Wert bestimmen"
+msgstr "Tentukan nilai 'bandgap'"
 
-#: src/uppmainwindow.cpp:1366 src/uppmainwindow.cpp:1373
+#: src/uppmainwindow.cpp:1366
+#: src/uppmainwindow.cpp:1373
 msgid "Specify a new Osccal Value"
-msgstr "Einen neuen OSCCAL Wert bestimmen"
+msgstr "Tentukan nilai baru Osccal"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241
+#: src/uppmainwindow.cpp:377
 msgid "Stop Target"
-msgstr "Stoppe das Zielsystem"
+msgstr "Matikan Mikropengawal"
 
 #: src/uppmainwindow.cpp:561
 #, c-format
@@ -874,128 +883,128 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
-"Versorgungsspannung (Vdd):\n"
+"Voltan bekalan kuasa (Vdd):\n"
 "   Min=%.2fV\n"
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
 #: src/uppmainwindow.cpp:471
 #, c-format
-msgid ""
-"The HEX file '%s' has not been saved... its content will be lost; continue?"
-msgstr ""
-"Die Hex Datei '%s' wurde nicht gespeichert ... ihr Inhalt geht verloren; "
-"Weiter?"
+msgid "The HEX file '%s' has not been saved... its content will be lost; continue?"
+msgstr "Fail HEX '%s' tidak disimpan...segala kandungannya akan hilang; teruskan?"
 
-#: src/uppmainwindow.cpp:835 src/uppmainwindow.cpp:867
+#: src/uppmainwindow.cpp:835
+#: src/uppmainwindow.cpp:867
 #: src/uppmainwindow.cpp:897
 msgid "The hardware should ask for next block"
-msgstr "Die Hardware sollte den nächsten Block anfordern"
+msgstr "Hardware sepatutnya meminta blok seterusnya"
 
-#: src/uppmainwindow.cpp:832 src/uppmainwindow.cpp:864
+#: src/uppmainwindow.cpp:832
+#: src/uppmainwindow.cpp:864
 #: src/uppmainwindow.cpp:894
 msgid "The hardware should say OK"
-msgstr "Die Hardware sollte OK geben"
+msgstr "Hardware sepatutnya OK"
 
-#: src/uppmainwindow.cpp:1285 src/uppmainwindow.cpp:1297
-#: src/uppmainwindow.cpp:1314 src/uppmainwindow.cpp:1326
-#: src/uppmainwindow.cpp:1349 src/uppmainwindow.cpp:1413
-#: src/uppmainwindow.cpp:1425 src/uppmainwindow.cpp:1617
+#: src/uppmainwindow.cpp:1285
+#: src/uppmainwindow.cpp:1297
+#: src/uppmainwindow.cpp:1314
+#: src/uppmainwindow.cpp:1326
+#: src/uppmainwindow.cpp:1349
+#: src/uppmainwindow.cpp:1413
+#: src/uppmainwindow.cpp:1425
+#: src/uppmainwindow.cpp:1617
 msgid "The programmer is not connected"
-msgstr "Das Programmiergerät ist nicht angeschlossen"
+msgstr "Programmer tidak tersambung"
 
 #: src/main.cpp:106
 msgid ""
-"This is a 32bit application running under a 64bit Window version. UsbPicProg "
-"won't be able to connect to the hardware!\n"
-"Please uninstall this program and download the UsbPicProg installer for "
-"64bit operating systems."
+"This is a 32bit application running under a 64bit Window version. UsbPicProg won't be able to connect to the hardware!\n"
+"Please uninstall this program and download the UsbPicProg installer for 64bit operating systems."
 msgstr ""
-"Diese 32Bit Applikation läuft unter einer 64Bit  Version. USBPICPROG kann "
-"sich nicht mit der Hardware verbinden!\n"
-"Bitte dieses Programm deinstallieren und  USBPICPROG für 64 Bit OS "
-"herunterladen und installieren."
+"Ini adalah software 32-bit yang dijalankan di atas Windows versi 64-bit. UsbPicProg tidak dapat disambungkan dengan hardware!\n"
+"Sila buang software ini kemudian muat turun pemasang UsbPicProg untuk OS 64-bit."
 
 #: src/hardware.cpp:559
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
-msgstr ""
-"Lesen eines Speichers außerhalb des erlaubten Bereiches: bc+i=%d; memory "
-"size=%d"
+msgstr "Mencuba untuk membaca memori luar dari kawasan yang dibenarkan: bc+i=%d; saiz memori=%d"
 
 #: src/uppmainwindow_base.cpp:110
 msgid "Type:"
-msgstr "Type:"
+msgstr "Jenis:"
 
 #: src/uppmainwindow.cpp:567
 #, c-format
 msgid "Type: %d-bit microcontroller"
-msgstr "Type: %d-bit Microcontroller"
+msgstr "Jenis: Mikropengawal %d-bit"
 
 #: src/uppmainwindow.cpp:1058
 msgid "USB error during blankcheck"
-msgstr "USB Fehler während eines Leertestes"
+msgstr "Ralat USB ketika blankcheck"
 
 #: src/uppmainwindow.cpp:993
 msgid "USB error during verify"
-msgstr "USB Fehler beim Vergleichen"
+msgstr "Ralat USB ketika pengesahan"
 
 #: src/hardware.cpp:1211
 #, c-format
 msgid "USB error while reading: %s"
-msgstr "USB Fehler während des Lesens: %s"
+msgstr "Ralat USB ketika membaca: %s"
 
-#: src/uppmainwindow.cpp:844 src/uppmainwindow.cpp:873
+#: src/uppmainwindow.cpp:844
+#: src/uppmainwindow.cpp:873
 #: src/uppmainwindow.cpp:903
 msgid "USB error while writing code memory"
-msgstr "USB Fehler beim Schreiben des Programmspeichers"
+msgstr "Ralat USB ketika memuaturun kod memori"
 
 #: src/hardware.cpp:1230
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
-msgstr "USB Fehler während des Schreibens: %d bytes, errCode: %d; %s"
+msgstr "Ralat USB ketika memuaturun ke peranti: %d bytes, errCode: %d; %s"
 
-#: src/uppmainwindow.cpp:1186 src/uppmainwindow.cpp:1187
-#: src/uppmainwindow.cpp:1216 src/uppmainwindow.cpp:1217
+#: src/uppmainwindow.cpp:1186
+#: src/uppmainwindow.cpp:1187
+#: src/uppmainwindow.cpp:1216
+#: src/uppmainwindow.cpp:1217
 msgid "Unable to open file"
-msgstr "Datei öffnen ist nicht möglich"
+msgstr "Gagal membuka fail"
 
-#: src/uppmainwindow.cpp:1501 src/uppmainwindow.cpp:1502
+#: src/uppmainwindow.cpp:1501
+#: src/uppmainwindow.cpp:1502
 msgid "Unable to read firmware version"
-msgstr "Das Lesen der Firmwareversion ist nicht möglich"
+msgstr "Gagal membaca versi firmware"
 
-#: src/uppmainwindow.cpp:1530 src/uppmainwindow.cpp:1531
+#: src/uppmainwindow.cpp:1530
+#: src/uppmainwindow.cpp:1531
 msgid "Unable to read version"
-msgstr "Version ist nicht lesbar"
+msgstr "Gagal membaca versi"
 
 #: src/uppmainwindow.cpp:1478
-#, fuzzy
 msgid "Unable to run target"
-msgstr "Das Zielsystem kann nicht gestartet werden."
+msgstr "Gagal menjalankan mikropengawal"
 
-#: src/uppmainwindow.cpp:1232 src/uppmainwindow.cpp:1233
-#: src/uppmainwindow.cpp:1254 src/uppmainwindow.cpp:1255
+#: src/uppmainwindow.cpp:1232
+#: src/uppmainwindow.cpp:1233
+#: src/uppmainwindow.cpp:1254
+#: src/uppmainwindow.cpp:1255
 msgid "Unable to save file"
-msgstr "Das Speichern ist nicht möglich"
+msgstr "Gagal memnyimpan fail"
 
 #: src/uppmainwindow.cpp:1484
 msgid "Unable to stop target"
-msgstr ""
+msgstr "Gagal memberhentikan mikropengawal"
 
 #: src/uppmainwindow.cpp:1061
 msgid "Unknown error during blankcheck"
-msgstr "Unbekannter Fehler während des Leertestes"
+msgstr "Ralat yang tidak dikenali  ketika blankcheck"
 
 #: src/uppmainwindow.cpp:996
 msgid "Unknown error during verify"
-msgstr "Unbekannter Fehler beim Vergleichen"
+msgstr "Ralat yang tidak dikenali ketika pengesahan"
 
 #: src/main.cpp:114
-msgid ""
-"Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
-msgstr ""
-"Nicht unterstützte Windows Version. USBPICPROG läuft nur unter Windows XP "
-"oder späteren Versionen."
+msgid "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
+msgstr "Tidak menyokong versi Windows ini. UsbPicProg hanya beroperasi dengan Windows XP atau yang lebih baru."
 
 #: src/uppmainwindow_base.h:105
 msgid "Usbpicprog"
@@ -1003,80 +1012,80 @@ msgstr "Usbpicprog"
 
 #: src/uppmainwindow.cpp:520
 msgid "Usbpicprog rev: "
-msgstr "Usbpicprog rev: "
+msgstr "Usbpicprog rev:"
 
 #: src/uppmainwindow.cpp:522
 msgid "Usbpicprog: "
-msgstr "Usbpicprog: "
+msgstr "Usbpicprog:"
 
 #: src/io_test_base.cpp:72
 msgid "VDD pin"
-msgstr "VDD pin"
+msgstr "Pin VDD"
 
 #: src/io_test_base.cpp:27
 msgid "VPP pin"
-msgstr "VPP pin"
+msgstr "Pin VPP"
 
 #: src/uppmainwindow_base.cpp:122
 msgid "Variants:"
-msgstr "Varianten:"
+msgstr "Variants:"
 
 #: src/preferences_base.cpp:42
 msgid "Verify after programming"
-msgstr "Vergleich nach dem Programmieren"
+msgstr "Pengesahan selepas memprogram PIC"
 
 #: src/uppmainwindow.cpp:981
 msgid "Verify code"
-msgstr "Vergleiche den Programmcode"
+msgstr "Sahkan kod"
 
 #: src/preferences_base.cpp:51
 msgid "Verify code memory"
-msgstr "Vergleiche den Programmspeicher"
+msgstr "Sahkan kod memori"
 
 #: src/uppmainwindow.cpp:983
 msgid "Verify config"
-msgstr "Vergleiche die Konfiguration"
+msgstr "Sahkan konfigurasi"
 
 #: src/preferences_base.cpp:55
 msgid "Verify config memory"
-msgstr "Vergleiche den Konfigurationsspeicher"
+msgstr "Sahkan konfigurasi memori"
 
 #: src/uppmainwindow.cpp:982
 msgid "Verify data"
-msgstr "Vergleiche die Daten"
+msgstr "Sahkan data"
 
 #: src/preferences_base.cpp:59
 msgid "Verify data memory"
-msgstr "Vergleiche den Datenspeicher"
+msgstr "Sahkan memori data"
 
 #: src/uppmainwindow.cpp:841
 msgid "Verify error while writing code memory"
-msgstr "Fehler beim Schreiben des Programmspeichers"
+msgstr "Ralat pengesahan ketika memuaturun kod memori"
 
 #: src/preferences_base.cpp:49
 msgid "Verify options"
-msgstr "Vergleiche die Optionen"
+msgstr "Aturan Pengesahan"
 
 #: src/uppmainwindow.cpp:976
 msgid "Verify successful"
-msgstr "Vergleich erfolgreich"
+msgstr "Pengesahan Berjaya!"
 
 #: src/uppmainwindow.cpp:216
 msgid "Verify the PIC device"
-msgstr "Vergleichen mit dem PIC Controller"
+msgstr "Sahkan PIC"
 
 #: src/uppmainwindow.cpp:984
 msgid "Verify unknown"
-msgstr "Vergleich unbekannt"
+msgstr "Pengesahan unknown"
 
 #: src/uppmainwindow.cpp:963
 msgid "Verifying all areas of the PIC..."
-msgstr "Vergleiche alle Bereiche des PIC ..."
+msgstr "Sahkan keseluruhan PIC"
 
 #: src/configview.cpp:191
 #, c-format
 msgid "Word %d"
-msgstr "Wort %d"
+msgstr "Word %d"
 
 #: src/uppmainwindow_base.cpp:90
 msgid ""
@@ -1094,250 +1103,226 @@ msgstr ""
 
 #: src/uppmainwindow.cpp:829
 msgid "Write Code memory OK"
-msgstr "Schreiben des Programmspeichers ist OK"
+msgstr "Muaturun kod memori OK"
 
 #: src/uppmainwindow.cpp:891
 msgid "Write Config memory OK"
-msgstr "Schreiben des Konfigurationsspeichers ist OK"
+msgstr "Muaturun konfigurasi memori OK"
 
 #: src/uppmainwindow.cpp:861
 msgid "Write Data memory OK"
-msgstr "Schreiben des Datenspeichers ist OK"
+msgstr "Muaturun data memori OK"
 
 #: src/preferences_base.cpp:26
 msgid "Write code memory"
-msgstr "Schreibe den Programmspeicher"
+msgstr "Memuaturun kod memori"
 
 #: src/uppmainwindow.cpp:838
 msgid "Write code not implemented for current PIC"
-msgstr "Schreiben des Programmspeichers ist für diesen PIC nicht implementiert"
+msgstr "Kod yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 
 #: src/preferences_base.cpp:30
 msgid "Write config memory"
-msgstr "Schreibe den Konfigurationsspeicher"
+msgstr "Memuaturun konfigurasi memori"
 
 #: src/uppmainwindow.cpp:900
 msgid "Write config not implemented for current PIC"
-msgstr ""
-"Schreiben des Konfigurationsspeichers ist für diesen PIC nicht implementiert"
+msgstr "Konfigurasi yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 
 #: src/preferences_base.cpp:34
 msgid "Write data memory"
-msgstr "Schreibe den Datenspeicher"
+msgstr "Memuaturun data memori"
 
 #: src/uppmainwindow.cpp:870
 msgid "Write data not implemented for current PIC"
-msgstr "Schreiben des Datenspeichers ist für diesen PIC nicht implementiert"
+msgstr "Data yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 
 #: src/uppmainwindow.cpp:487
-msgid ""
-"You are using a development release of the firmware with a stable version of "
-"the software. Consider upgrading your firmware"
-msgstr ""
-"Sie benutzen eine Entwicklungsersion der Firmware mit einer stabilen Version "
-"der Software. Erwägen Sie die Erneuerung Ihrer Firmware."
+msgid "You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"
+msgstr "Anda sedang menggunakan versi firmware yang masih dalam pembangunan dengan software yang stabil. Sila naiktaraf firmware anda..."
 
 #: src/uppmainwindow.cpp:506
-msgid ""
-"You are using a stable release of the firmware with a development version of "
-"the software. Consider upgrading your firmware"
-msgstr ""
-"Sie benutzen eine stabile Version der Firmware mit einer Entwicklungsversion "
-"der Software. Erwägen Sie die Erneuerung Ihrer Firmware."
+msgid "You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"
+msgstr "Anda sedang menggunakan versi software yang masih dalam pembangunan dengan firmware yang stabil. Sila naiktaraf software anda..."
 
 #: src/uppmainwindow.cpp:490
 #, c-format
-msgid ""
-"Your firmware is too old (latest version is %d); please consider upgrading it"
-msgstr ""
-" Ihre Firmware ist zu alt (die letzte Version ist %d); Bitte erneuern Sie "
-"diese."
+msgid "Your firmware is too old (latest version is %d); please consider upgrading it"
+msgstr "Firmware anda telah usang (versi terbaru adalah %d); sila naiktaraf."
 
 #: src/uppmainwindow.cpp:503
 #, c-format
-msgid ""
-"Your firmware is too old (latest version is %d.%d.%d); please consider "
-"upgrading it"
-msgstr ""
-" Ihre Firmware ist zu alt (die letzte Version ist %d.%d.%d); Bitte erneuern "
-"Sie diese."
+msgid "Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"
+msgstr "Firmware anda telah usang (versi terbaru adalah %d.%d.%d); sila naiktaraf."
 
-#: src/uppmainwindow_base.cpp:135 src/uppmainwindow_base.cpp:137
+#: src/uppmainwindow_base.cpp:135
+#: src/uppmainwindow_base.cpp:137
 msgid "Zoom in"
-msgstr "Vergrößern"
+msgstr "Zum besarkan"
 
-#: src/uppmainwindow_base.cpp:142 src/uppmainwindow_base.cpp:144
+#: src/uppmainwindow_base.cpp:142
+#: src/uppmainwindow_base.cpp:144
 msgid "Zoom out"
-msgstr "Verkleinern"
+msgstr "Zum kecilkan"
 
 #: src/uppmainwindow.cpp:372
 msgid "autodetect"
-msgstr "Selbsterkennung"
+msgstr "automatik kesan"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136
+#: src/uppmainwindow.cpp:370
 msgid "blankcheck"
-msgstr "Leertest"
+msgstr "blankcheck"
 
 #: src/main.h:136
 msgid "blankcheck the device"
-msgstr "Prüfen ob der PIC leer ist"
+msgstr "blankcheck peranti"
 
 #: src/main.h:135
 msgid "bulk erase the device"
-msgstr "Löschen des gesamten PIC"
+msgstr "Padam peranti secara pukal"
 
 #: src/uppmainwindow.cpp:383
 msgid "currently selected PIC type"
-msgstr "gegenwärtig ausgewählte PIC Type"
+msgstr "Jenis PIC semasa"
 
 #: src/main.h:137
 msgid "debug"
-msgstr "Debug"
+msgstr "nyahpijat"
 
 #: src/main.h:137
 msgid "debug the hardware"
-msgstr "Debug die Hardware"
+msgstr "nyahpijat hardware"
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
-msgstr "Anzeige der Kommandozeilenparameter"
+msgstr "paparkan bantuan dengan command line"
 
 #: src/main.h:129
 msgid "displays version information of usbpicprog"
-msgstr "Versionsanzeige von usbpicprog"
+msgstr "paparkan informasi versi usbpicprog"
 
 #: src/main.h:131
 msgid "do not display the hex file"
-msgstr "Hex Datei nicht anzeigen"
+msgstr "Jangan papar fail Hex"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135
+#: src/uppmainwindow.cpp:368
 msgid "erase"
-msgstr "Löschen"
+msgstr "Padam"
 
 #: src/main.h:140
 msgid "file"
-msgstr "Datei"
+msgstr "Fail"
 
 #: src/main.h:128
 msgid "help"
-msgstr "Hilfe"
+msgstr "Bantuan"
 
 #: src/main.h:140
 msgid "hexfile"
-msgstr "Hex Datei"
+msgstr "Fail Hex"
 
 #: src/uppmainwindow.cpp:351
 msgid "new"
-msgstr "Neu"
+msgstr "Baru"
 
 #: src/uppmainwindow.cpp:353
 msgid "open"
-msgstr "Öffnen"
+msgstr "Buka"
 
 #: src/packageview.cpp:45
 msgid "packageview"
-msgstr "Gehäuseansicht"
+msgstr "packageview"
 
 #: src/main.h:130
 msgid "pictype"
-msgstr "PIC Type"
+msgstr "jenis PIC"
 
 #: src/uppmainwindow.cpp:362
 msgid "program"
-msgstr "Programm"
+msgstr "programkan"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133
+#: src/uppmainwindow.cpp:364
 msgid "read"
-msgstr "Lesen"
+msgstr "baca"
 
 #: src/main.h:133
 msgid "read the device"
-msgstr "Lesen des PIC"
+msgstr "baca peranti"
 
 #: src/uppmainwindow.cpp:355
 msgid "reload"
-msgstr "Erneut laden"
+msgstr "muat semula"
 
 #: src/main.h:142
 msgid "restore-bandgap"
-msgstr "Rückspeichern bandgap"
+msgstr "pulihkan-bandgap"
 
 #: src/main.h:141
 msgid "restore-osccal"
-msgstr "Rückspeichen OSCCAL"
+msgstr "pulihkan-osccal"
 
 #: src/main.h:138
 msgid "run"
-msgstr "Start"
+msgstr "jalankan"
 
 #: src/main.h:138
 msgid "run target device"
-msgstr ""
+msgstr "jalankan PIC"
 
 #: src/uppmainwindow.cpp:357
 msgid "save"
-msgstr "Speichern"
+msgstr "simpan"
 
 #: src/uppmainwindow.cpp:359
 msgid "save as"
-msgstr "Speichern unter"
+msgstr "simpan sebagai"
 
 #: src/main.h:131
 msgid "silent"
-msgstr "stille"
+msgstr "bisukan"
 
 #: src/main.h:130
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "Auswählen des PIC Types (z.B. -p=18F2550)"
+msgstr "tentukan jenis PIC (eg -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"
-msgstr "Stop"
+msgstr "hentikan"
 
 #: src/main.h:139
 msgid "stop target device"
-msgstr ""
+msgstr "hentikan PIC"
 
 #: src/hexfile.cpp:235
 #, c-format
 msgid "unknown record type: %d"
-msgstr "Unbekannter Record Type: %d"
+msgstr "unknown record type: %d"
 
 #: src/uppmainwindow.cpp:526
 msgid "untitled"
-msgstr "Ohne Titel"
+msgstr "TiadaTajuk"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134
+#: src/uppmainwindow.cpp:366
 msgid "verify"
-msgstr "Vergleichen"
+msgstr "sahkan"
 
 #: src/main.h:134
 msgid "verify the device"
-msgstr "Den PIC vergleichen"
+msgstr "sahkan peranti"
 
 #: src/main.h:129
 msgid "version"
-msgstr "Version"
+msgstr "versi"
 
 #: src/main.h:132
 msgid "write"
-msgstr "Schreiben"
+msgstr "muaturun"
 
 #: src/main.h:132
 msgid "write the device"
-msgstr "Den PIC schreiben "
+msgstr "muaturun peranti"
 
-#~ msgid "&Close"
-#~ msgstr "&Schließen"
-
-#~ msgid "PGC"
-#~ msgstr "PGC"
-
-#~ msgid "State:"
-#~ msgstr "Status:"
-
-#~ msgid "Usbpicprog IO Test"
-#~ msgstr "Usbpicprog Ein/Ausgabe Test"
-
-#~ msgid "Voltage:"
-#~ msgstr "Spannung:"
