@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-03 20:32+0100\n"
-"PO-Revision-Date: 2010-11-03 20:29+0100\n"
-"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
+"POT-Creation-Date: 2010-11-08 08:08+0100\n"
+"PO-Revision-Date: 2010-11-07 23:49+0900\n"
+"Last-Translator: Syuuki Taranari <taranari@358net.com>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -801,7 +801,7 @@ msgstr "PICの較正レジスタを回復してください"
 
 #: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
 msgid "Run Target"
-msgstr ""
+msgstr "ターゲット実行"
 
 #: src/uppmainwindow_base.cpp:200
 msgid "Save &As"
@@ -833,11 +833,11 @@ msgstr "領域を全て選択"
 
 #: src/uppmainwindow.cpp:242
 msgid "Set 0V to MCLR to stop the target controller"
-msgstr ""
+msgstr "ターゲットコントローラを停止する為に、MCLR ピンに0V をセットして下さい"
 
 #: src/uppmainwindow.cpp:238
 msgid "Set 5V to MCLR to run the target controller"
-msgstr ""
+msgstr "ターゲットコントローラを実行する為に、MCLR ピンに5V をセットして下さい"
 
 #: src/uppmainwindow_base.cpp:239
 msgid "Shows informations about this program"
@@ -861,7 +861,7 @@ msgstr "新しいOsccal値を指定"
 
 #: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
 msgid "Stop Target"
-msgstr ""
+msgstr "ターゲット停止"
 
 #: src/uppmainwindow.cpp:561
 #, c-format
@@ -966,9 +966,8 @@ msgid "Unable to read version"
 msgstr "バージョンが読めません"
 
 #: src/uppmainwindow.cpp:1478
-#, fuzzy
 msgid "Unable to run target"
-msgstr "ファイルを開けません"
+msgstr "ターゲットを実行することができません"
 
 #: src/uppmainwindow.cpp:1232 src/uppmainwindow.cpp:1233
 #: src/uppmainwindow.cpp:1254 src/uppmainwindow.cpp:1255
@@ -976,9 +975,8 @@ msgid "Unable to save file"
 msgstr "ファイルを保存することができません"
 
 #: src/uppmainwindow.cpp:1484
-#, fuzzy
 msgid "Unable to stop target"
-msgstr "ファイルを開けません"
+msgstr "ターゲットを停止することができません"
 
 #: src/uppmainwindow.cpp:1061
 msgid "Unknown error during blankcheck"
@@ -1265,12 +1263,11 @@ msgstr "Osscalの復元"
 
 #: src/main.h:138
 msgid "run"
-msgstr ""
+msgstr "実行"
 
 #: src/main.h:138
-#, fuzzy
 msgid "run target device"
-msgstr "デバイスを読み込みます"
+msgstr "ターゲットデバイスを実行します"
 
 #: src/uppmainwindow.cpp:357
 msgid "save"
@@ -1290,12 +1287,11 @@ msgstr "PICタイプを指定してください (eg -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"
-msgstr ""
+msgstr "停止"
 
 #: src/main.h:139
-#, fuzzy
 msgid "stop target device"
-msgstr "デバイスに書き込みます"
+msgstr "ターゲットデバイスを停止します"
 
 #: src/hexfile.cpp:235
 #, c-format
