@@ -111,14 +111,14 @@
 
 <!--* Packages *************************************************************-->
   <package types="pdip soic ssop" nb_pins="28" >
-    <pin index="1"  name="" />
+    <pin index="1"  name="MCLR/VPP" />
     <pin index="2"  name="" />
     <pin index="3"  name="" />
     <pin index="4"  name="" />
     <pin index="5"  name="" />
     <pin index="6"  name="" />
     <pin index="7"  name="" />
-    <pin index="8"  name="" />
+    <pin index="8"  name="VSS" />
     <pin index="9"  name="" />
     <pin index="10" name="" />
     <pin index="11" name="" />
@@ -129,16 +129,16 @@
     <pin index="16" name="" />
     <pin index="17" name="" />
     <pin index="18" name="" />
-    <pin index="19" name="" />
-    <pin index="20" name="" />
+    <pin index="19" name="VSS" />
+    <pin index="20" name="VDD" />
     <pin index="21" name="" />
     <pin index="22" name="" />
     <pin index="23" name="" />
     <pin index="24" name="" />
     <pin index="25" name="" />
     <pin index="26" name="" />
-    <pin index="27" name="" />
-    <pin index="28" name="" />
+    <pin index="27" name="PGC" />
+    <pin index="28" name="PGD" />
   </package>
 
   <package types="qfn"            nb_pins="28" >
@@ -146,7 +146,7 @@
     <pin index="2"  name="" />
     <pin index="3"  name="" />
     <pin index="4"  name="" />
-    <pin index="5"  name="" />
+    <pin index="5"  name="VSS" />
     <pin index="6"  name="" />
     <pin index="7"  name="" />
     <pin index="8"  name="" />
@@ -157,17 +157,17 @@
     <pin index="13" name="" />
     <pin index="14" name="" />
     <pin index="15" name="" />
-    <pin index="16" name="" />
-    <pin index="17" name="" />
+    <pin index="16" name="VSS" />
+    <pin index="17" name="VDD" />
     <pin index="18" name="" />
     <pin index="19" name="" />
     <pin index="20" name="" />
     <pin index="21" name="" />
     <pin index="22" name="" />
     <pin index="23" name="" />
-    <pin index="24" name="" />
-    <pin index="25" name="" />
-    <pin index="26" name="" />
+    <pin index="24" name="PGC" />
+    <pin index="25" name="PGD" />
+    <pin index="26" name="MCLR/VPP" />
     <pin index="27" name="" />
     <pin index="28" name="" />
   </package>

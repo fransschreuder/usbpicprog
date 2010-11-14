@@ -86,10 +86,10 @@
 
 <!--* Packages *************************************************************-->
   <package types="pdip soic tssop" nb_pins="14" >
-    <pin index="1"  name="" />
+    <pin index="1"  name="VDD" />
     <pin index="2"  name="" />
     <pin index="3"  name="" />
-    <pin index="4"  name="" />
+    <pin index="4"  name="MCLR/VPP" />
     <pin index="5"  name="" />
     <pin index="6"  name="" />
     <pin index="7"  name="" />
@@ -97,15 +97,15 @@
     <pin index="9"  name="" />
     <pin index="10" name="" />
     <pin index="11" name="" />
-    <pin index="12" name="" />
-    <pin index="13" name="" />
-    <pin index="14" name="" />
+    <pin index="12" name="PGC" />
+    <pin index="13" name="PGD" />
+    <pin index="14" name="VSS" />
   </package>
 
   <package types="qfn"       nb_pins="16" >
     <pin index="1"  name="" />
     <pin index="2"  name="" />
-    <pin index="3"  name="" />
+    <pin index="3"  name="MCLR/VPP" />
     <pin index="4"  name="" />
     <pin index="5"  name="" />
     <pin index="6"  name="" />
@@ -113,12 +113,12 @@
     <pin index="8"  name="" />
     <pin index="9"  name="" />
     <pin index="10" name="" />
-    <pin index="11" name="" />
-    <pin index="12" name="" />
-    <pin index="13" name="" />
+    <pin index="11" name="PGC" />
+    <pin index="12" name="PGD" />
+    <pin index="13" name="VSS" />
     <pin index="14" name="" />
     <pin index="15" name="" />
-    <pin index="16" name="" />
+    <pin index="16" name="VDD" />
   </package>
 
 </device>

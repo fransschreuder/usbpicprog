@@ -111,7 +111,7 @@
 
 <!--* Packages *************************************************************-->
   <package types="pdip" nb_pins="40" >
-    <pin index="1"  name="" />
+    <pin index="1"  name="MCLR/VPP" />
     <pin index="2"  name="" />
     <pin index="3"  name="" />
     <pin index="4"  name="" />
@@ -121,8 +121,8 @@
     <pin index="8"  name="" />
     <pin index="9"  name="" />
     <pin index="10" name="" />
-    <pin index="11" name="" />
-    <pin index="12" name="" />
+    <pin index="11" name="VDD" />
+    <pin index="12" name="VSS" />
     <pin index="13" name="" />
     <pin index="14" name="" />
     <pin index="15" name="" />
@@ -141,16 +141,16 @@
     <pin index="28" name="" />
     <pin index="29" name="" />
     <pin index="30" name="" />
-    <pin index="31" name="" />
-    <pin index="32" name="" />
+    <pin index="31" name="VSS" />
+    <pin index="32" name="VDD" />
     <pin index="33" name="" />
     <pin index="34" name="" />
     <pin index="35" name="" />
     <pin index="36" name="" />
     <pin index="37" name="" />
     <pin index="38" name="" />
-    <pin index="39" name="" />
-    <pin index="40" name="" />
+    <pin index="39" name="PGC" />
+    <pin index="40" name="PGD" />
   </package>
 
   <package types="qfn"  nb_pins="44" >
@@ -159,9 +159,9 @@
     <pin index="3"  name="" />
     <pin index="4"  name="" />
     <pin index="5"  name="" />
-    <pin index="6"  name="" />
-    <pin index="7"  name="" />
-    <pin index="8"  name="" />
+    <pin index="6"  name="VSS" />
+    <pin index="7"  name="VDD" />
+    <pin index="8"  name="VDD" />
     <pin index="9"  name="" />
     <pin index="10" name="" />
     <pin index="11" name="" />
@@ -169,9 +169,9 @@
     <pin index="13" name="" />
     <pin index="14" name="" />
     <pin index="15" name="" />
-    <pin index="16" name="" />
-    <pin index="17" name="" />
-    <pin index="18" name="" />
+    <pin index="16" name="PGC" />
+    <pin index="17" name="PGD" />
+    <pin index="18" name="MCLR/VPP" />
     <pin index="19" name="" />
     <pin index="20" name="" />
     <pin index="21" name="" />
@@ -181,10 +181,10 @@
     <pin index="25" name="" />
     <pin index="26" name="" />
     <pin index="27" name="" />
-    <pin index="28" name="" />
+    <pin index="28" name="VDD" />
     <pin index="29" name="" />
-    <pin index="30" name="" />
-    <pin index="31" name="" />
+    <pin index="30" name="VSS" />
+    <pin index="31" name="VSS" />
     <pin index="32" name="" />
     <pin index="33" name="" />
     <pin index="34" name="" />
@@ -206,8 +206,8 @@
     <pin index="3"  name="" />
     <pin index="4"  name="" />
     <pin index="5"  name="" />
-    <pin index="6"  name="" />
-    <pin index="7"  name="" />
+    <pin index="6"  name="VSS" />
+    <pin index="7"  name="VDD" />
     <pin index="8"  name="" />
     <pin index="9"  name="" />
     <pin index="10" name="" />
@@ -216,9 +216,9 @@
     <pin index="13" name="" />
     <pin index="14" name="" />
     <pin index="15" name="" />
-    <pin index="16" name="" />
-    <pin index="17" name="" />
-    <pin index="18" name="" />
+    <pin index="16" name="PGC" />
+    <pin index="17" name="PGD" />
+    <pin index="18" name="MCLR/VPP" />
     <pin index="19" name="" />
     <pin index="20" name="" />
     <pin index="21" name="" />
@@ -228,8 +228,8 @@
     <pin index="25" name="" />
     <pin index="26" name="" />
     <pin index="27" name="" />
-    <pin index="28" name="" />
-    <pin index="29" name="" />
+    <pin index="28" name="VDD" />
+    <pin index="29" name="VSS" />
     <pin index="30" name="" />
     <pin index="31" name="" />
     <pin index="32" name="" />
