@@ -1,0 +1,8 @@
+This folder contains the Piklab XML files used by UsbPicProg to store&load data about
+many PIC devices.
+
+Note that these files were taken from 
+ http://piklab.svn.sourceforge.net/viewvc/piklab/trunk/piklab/src/devices/pic/xml_data/
+
+The subset of the devices currently supported by UsbPicProg is stored into ../index.xml
+

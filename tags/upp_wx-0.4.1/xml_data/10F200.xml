@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="10F200" document="019863" status="IP" memory_technology="FLASH" architecture="10X" pc="9"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Off"     bchecksum="0xEF1D" cchecksum="0xDD65" />
+    <checksum protected="040:0FE" bchecksum="0xEEF1" cchecksum="0xD45D" />
+  </checksums>
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="extended" >
+    <frequency start="4" end="4" vdd_min="2" vdd_max="5.5" />
+  </frequency_range>
+
+  <voltages name="vpp"      min="12.5" max="13.5" nominal="13" />
+  <voltages name="vdd_prog" min="4.5"  max="5.5"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"            start="0x000" end="0x0FF" />
+  <memory name="calibration"        start="0x0FF" end="0x0FF" cal_opmask="0xF00"     cal_opcode="0xC00" />
+  <memory name="user_ids"           start="0x100" end="0x103" rmask="0x00F"          />
+  <memory name="config"             start="0x1FF" end="0x1FF" hexfile_offset="0xFFF" />
+  <memory name="calibration_backup" start="0x104" end="0x104" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="" wmask="0xFFF" bvalue="0x01F" cmask="0x01C" >
+    <mask name="FOSC"  value="0x003" >
+      <value value="default" name="invalid" />
+      <value value="0x003"   name="INTRC" cname="_IntRC_OSC" />
+    </mask>
+    <mask name="WDT"   value="0x004" >
+      <value value="0x000" name="Off" cname="_WDT_OFF" />
+      <value value="0x004" name="On"  cname="_WDT_ON"  />
+    </mask>
+    <mask name="CP"    value="0x008" >
+      <value value="0x000" name="040:0FE" cname="_CP_ON"  />
+      <value value="0x008" name="Off"     cname="_CP_OFF" />
+    </mask>
+    <mask name="MCLRE" value="0x010" >
+      <value value="0x000" name="Internal" cname="_MCLRE_OFF" />
+      <value value="0x010" name="External" cname="_MCLRE_ON"  />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip"  nb_pins="8" >
+    <pin index="1" name="N/C"             />
+    <pin index="2" name="VDD"             />
+    <pin index="3" name="GP2/T0CKI/FOSC4" />
+    <pin index="4" name="GP1/ICSPCLK"     />
+    <pin index="5" name="GP3/MCLR/VPP"    />
+    <pin index="6" name="VSS"             />
+    <pin index="7" name="N/C"             />
+    <pin index="8" name="GP0/ISCPDAT"     />
+  </package>
+
+  <package types="sot23" nb_pins="6" >
+    <pin index="1" name="" />
+    <pin index="2" name="" />
+    <pin index="3" name="" />
+    <pin index="4" name="" />
+    <pin index="5" name="" />
+    <pin index="6" name="" />
+  </package>
+
+</device>

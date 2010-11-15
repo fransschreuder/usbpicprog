@@ -1,0 +1,62 @@
+;/////////////////////////////////////////////////////////////////////////////////
+;// Code Generator: BoostC Compiler - http://www.sourceboost.com
+;// Version       : 6.96
+;// License Type  : Lite License (Unregistered)
+;// Limitations   : PIC12,PIC16 max code size:2048 words, max RAM banks:2, Non commercial use only
+;/////////////////////////////////////////////////////////////////////////////////
+
+
+Map File
+
+Program Memory usage
+====================
+
+Address  Length   Unique Name      Name
+-------  ------   -----------      ----
+00000000:00000004 _resetvector     _resetvector  
+00000004:00000014 delay_ms_00000   delay_ms(unsigned char)  
+00000018:0000002D main             main(void)  
+00000045:00000018 _startup_00000   _startup(void)  
+0000005D:000003A3 *Unused Block 
+
+Register usage
+==============
+
+Address  Bit Lengh Bit Mask   Unique Name                      Name
+-------  --------- --------   -----------                      ----
+00000000:00000008             gbl_indf                         indf
+00000001:00000008             gbl_tmr0                         tmr0
+00000002:00000008             gbl_pcl                          pcl
+00000003:00000008             gbl_status                       status
+00000004:00000008             gbl_fsr                          fsr
+00000005:00000008             gbl_porta                        porta
+0000000A:00000008             gbl_pclath                       pclath
+0000000B:00000008             gbl_intcon                       intcon
+0000000C:00000008             gbl_pir1                         pir1
+0000000E:00000008             gbl_tmr1l                        tmr1l
+0000000F:00000008             gbl_tmr1h                        tmr1h
+00000010:00000008             gbl_t1con                        t1con
+00000019:00000008             gbl_vrcon                        vrcon
+0000001A:00000008             gbl_cmcon0                       cmcon0
+0000001C:00000008             gbl_cmcon1                       cmcon1
+00000040:00000030             gbl_numbers                      numbers
+00000046:00000020             gbl_turn                         turn
+0000004A:00000008             main_1_a                         a
+0000004B:00000008             main_1_b                         b
+0000004C:00000008             main_1_c                         c
+0000004D:00000008             delay_ms_00000_arg_del           del
+00000081:00000008             gbl_option_reg                   option_reg
+00000085:00000008             gbl_trisa                        trisa
+0000008C:00000008             gbl_pie1                         pie1
+0000008E:00000008             gbl_pcon                         pcon
+00000090:00000008             gbl_osctune                      osctune
+00000095:00000008             gbl_wpua                         wpua
+00000096:00000008             gbl_ioca                         ioca
+0000009F:00000008             gbl_ansel                        ansel
+
+
+Memory Usage Report
+===================
+RAM available:64 bytes, used:14 bytes (21.9%), free:50 bytes (78.1%), 
+Heap size:50 bytes, Heap max single alloc:49 bytes
+ROM available:1024 words, used:93 words (9.1%), free:931 words (90.9%)

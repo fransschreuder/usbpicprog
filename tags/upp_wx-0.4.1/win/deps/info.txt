@@ -1,0 +1,8 @@
+This folder contains the debug & release versions of libusb with the Peter Batard's windows backend, 
+updated to the commit 1c727411238253a5d6f734c7c5c7ac3ca0054544 of the GIT repo)
+ 
+The files in the AMD64 folder have been built for native 64bit Window applications;
+the files in the X86 folder have been built for 32bit Window applications.
+
+All the .lib and .dll files have been compiled with the /MD switch.
+

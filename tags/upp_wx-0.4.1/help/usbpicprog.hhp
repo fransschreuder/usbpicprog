@@ -1,0 +1,25 @@
+[OPTIONS]
+Compatibility=1.1
+Full-text search=Yes
+Contents file=usbpicprog.hhc
+Compiled file=usbpicprog.chm
+Default Window=Help
+Default topic=doc-0003.htm
+Charset=utf-8
+Index file=usbpicprog.hhk
+Title=usbpicprog
+
+[WINDOWS]
+Help=,"usbpicprog.hhc","usbpicprog.hhk","doc-0003.htm",,,,,,0x2420,,0x380e,,,,,0,,,
+
+[FILES]
+doc-0003.htm
+doc-0004.htm
+doc-0008.htm
+doc-0014.htm
+
+[ALIAS]
+#include "usbpicprog_alias.h"
+
+[MAP]
+#include "usbpicprog_ids.h"

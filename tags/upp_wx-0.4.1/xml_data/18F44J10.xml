@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek                                   *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="18F44J10" status="IP" memory_technology="FLASH" architecture="18J" id="0x1D20" id_low_power="0x1D60">
+
+<!--* Documents ************************************************************-->
+  <documents webpage="024620" datasheet="39682" progsheet="39687" erratas="80265 80269" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0" end="40" vdd_min="2.7" vdd_max="3.6" />
+  </frequency_range>
+  <frequency_range name="industrial" special="low_power" >
+    <frequency start="0" end="4" vdd_min="2.0" vdd_max="2.7" />
+    <frequency start="4" end="40" vdd_min="2.35" vdd_max="2.7" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="2.7"   max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog"       min="2.7"   max="3.6" nominal="3.3"  />
+  <voltages name="vdd_prog_write" min="2.7"   max="3.6" nominal="3.3"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"         start="0x000000" end="0x003FF7" word_write_align="32" word_erase_align="512" />
+  <memory name="config"       start="0x003FF8" end="0x003FFF" />
+  <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0xE1" >
+    <mask name="WDT"  value="0x01" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x01" name="On"  cname="" />
+    </mask>
+    <mask name="STVREN" value="0x20" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x20" name="On"  cname="" />
+    </mask>
+    <mask name="XINST" value="0x40" >
+      <value value="0x00" name="Off" cname="" />
+      <value value="0x40" name="On"  cname="" />
+    </mask>
+    <mask name="DEBUG" value="0x80" >
+      <value value="0x00" name="On" cname="" />
+      <value value="0x80" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x1" name="CONFIG1H" wmask="0x7F" bvalue="0x04" >
+    <mask name="CP" value="0x04" >
+      <value value="0x00" name="All" cname="" />
+      <value value="0x04" name="Off"  cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CONFIG2L" wmask="0xFF" bvalue="0xC7" >
+    <mask name="FOSC"   value="0x03" >
+      <value value="0x00" name="HS"           cname=""    />
+      <value value="0x01" name="HSPLL"        cname=""    />
+      <value value="0x02" name="EC"           cname=""    />
+      <value value="0x03" name="ECPLL_IO"     cname=""    />
+    </mask>
+    <mask name="FOSC2"  value="0x04" >
+      <value value="0x00" name="FOSC1:FOSC0"  cname=""    />
+      <value value="0x04" name="INTRC"        cname=""    />
+    </mask>
+    <mask name="FCMEN"  value="0x40" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x40" name="Off"  cname=""    />
+    </mask>
+    <mask name="IESO"  value="0x80" >
+      <value value="0x00" name="On"   cname=""    />
+      <value value="0x80" name="Off"  cname=""    />
+     </mask>
+  </config>
+
+  <config offset="0x3" name="CONFIG2H" wmask="0xFF" bvalue="0x0F" >
+    <mask name="WDTPS" value="0x0F" >
+      <value value="0x00" name="1:1"     cname=""   />
+      <value value="0x01" name="1:2"     cname=""   />
+      <value value="0x02" name="1:4"     cname=""   />
+      <value value="0x03" name="1:8"     cname=""   />
+      <value value="0x04" name="1:16"    cname=""  />
+      <value value="0x05" name="1:32"    cname=""  />
+      <value value="0x06" name="1:64"    cname=""  />
+      <value value="0x07" name="1:128"   cname="" />
+      <value value="0x08" name="1:256"   cname="" />
+      <value value="0x09" name="1:512"   cname="" />
+      <value value="0x0A" name="1:1024"  cname=""  />
+      <value value="0x0B" name="1:2048"  cname=""  />
+      <value value="0x0C" name="1:4096"  cname=""  />
+      <value value="0x0D" name="1:8192"  cname=""  />
+      <value value="0x0E" name="1:16384" cname="" />
+      <value value="0x0F" name="1:32768" cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="CONFIG3L" wmask="0xFF" bvalue="0xF8" >
+  </config>
+
+  <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x07" >
+    <mask name="CCP2MX" value="0x01" >
+      <value value="0x00" name="RB3"  cname=""  />
+      <value value="0x01" name="RC1"   cname="" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="CONFIG4L" wmask="0xFF" bvalue="0xFF" >
+  </config>
+
+  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0xF8" >
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip" nb_pins="40" >
+    <pin index="1"  name="MCLR" />
+    <pin index="2"  name="RA0/AN0" />
+    <pin index="3"  name="RA1/AN1" />
+    <pin index="4"  name="RA2/AN2/VREF-/CVREF" />
+    <pin index="5"  name="RA3/AN3/VREF+" />
+    <pin index="6"  name="VDDCORE/VCAP" />
+    <pin index="7"  name="RA5/AN4/SS1/C2OUT" />
+    <pin index="8"  name="RE0/RD/AN5" />
+    <pin index="9"  name="RE1/WR/AN6" />
+    <pin index="10" name="RE2/CS/AN7" />
+    <pin index="11" name="VDD" />
+    <pin index="12" name="VSS" />
+    <pin index="13" name="OSC1/CLKI" />
+    <pin index="14" name="OSC2/CLKO" />
+    <pin index="15" name="RC0/T1OSO/T1CKI" />
+    <pin index="16" name="RC1/T1OSI/CCP2" />
+    <pin index="17" name="RC2/CCP1/P1A" />
+    <pin index="18" name="RC3/SCK1/SCL1" />
+    <pin index="19" name="RD0/PSP0/SCK2/SCL2" />
+    <pin index="20" name="RD1/PSP1/SDI2/SDA2" />
+    <pin index="21" name="RD2/PSP2/SDO2" />
+    <pin index="22" name="RD3/PSP3/SS2" />
+    <pin index="23" name="RC4/SDI1/SDA1" />
+    <pin index="24" name="RC5/SDO1" />
+    <pin index="25" name="RC6/TX/CK" />
+    <pin index="26" name="RC7/RX/DT" />
+    <pin index="27" name="RD4/PSP4" />
+    <pin index="28" name="RD5/PSP5/P1B" />
+    <pin index="29" name="RD6/PSP6/P1C" />    
+    <pin index="30" name="RD7/PSP7/P1D" />
+    <pin index="31" name="VSS" />
+    <pin index="32" name="VDD" />
+    <pin index="33" name="RB0/INT0/FLT0/AN12" />
+    <pin index="34" name="RB1/INT1/AN10" />
+    <pin index="35" name="RB2/INT2/AN8" />
+    <pin index="36" name="RB3/AN9/CCP2" />
+    <pin index="37" name="RB4/KBI0/AN11" />
+    <pin index="38" name="RB5/KBI1/T0CKI/C1OUT" />
+    <pin index="39" name="RB6/KBI2/PGC" />
+    <pin index="40" name="RB7/KBI3/PGD" />
+  </package>
+
+  <package types="qfn" nb_pins="44" >
+    <pin index="1"  name="RC7/RX/DT" />
+    <pin index="2"  name="RD4/PSP4" />
+    <pin index="3"  name="RD5/PSP5/P1B" />
+    <pin index="4"  name="RD6/PSP6/P1C" />
+    <pin index="5"  name="RD7/PSP7/P1D" />
+    <pin index="6"  name="VSS" />
+    <pin index="7"  name="AVDD" />
+    <pin index="8"  name="VDD" />
+    <pin index="9"  name="RB0/INT0/FLT0/AN12" />
+    <pin index="10" name="RB1/INT1/AN10" />
+    <pin index="11" name="RB2/INT2/AN8" />
+    <pin index="12" name="RB3/AN9/CCP2" />
+    <pin index="13" name="NC" />
+    <pin index="14" name="RB4/KBI0/AN11" />
+    <pin index="15" name="RB5/KBI1/T0CKI/C1OUT" />
+    <pin index="16" name="RB6/KBI2/PGC" />
+    <pin index="17" name="RB7/KBI3/PGD" />
+    <pin index="18" name="MCLR" />
+    <pin index="19" name="RA0/AN0" />
+    <pin index="20" name="RA1/AN1" />
+    <pin index="21" name="RA2/AN2/VREF-/CVREF" />
+    <pin index="22" name="RA3/AN3/VREF+" />
+    <pin index="23" name="VDDCORE/VCAP" />
+    <pin index="24" name="RA5/AN4/SS1/C2OUT" />
+    <pin index="25" name="RE0/RD/AN5" />
+    <pin index="26" name="RE1/WR/AN6" />
+    <pin index="27" name="RE2/CS/AN7" />
+    <pin index="28" name="AVDD" />
+    <pin index="29" name="VDD" />    
+    <pin index="30" name="AVSS" />
+    <pin index="31" name="VSS" />
+    <pin index="32" name="OSC1/CLKI" />
+    <pin index="33" name="OSC2/CLKO" />
+    <pin index="34" name="RC0/T1OSO/T1CKI" />
+    <pin index="35" name="RC1/T1OSI/CCP2" />
+    <pin index="36" name="RC2/CCP1/P1A" />
+    <pin index="37" name="RC3/SCK1/SCL1" />
+    <pin index="38" name="RD0/PSP0/SCK2/SCL2" />
+    <pin index="39" name="RD1/PSP1/SDI2/SDA2" />
+    <pin index="40" name="RD2/PSP2/SDO2" />
+    <pin index="41" name="RD3/PSP3/SS2" />
+    <pin index="42" name="RC4/SDI1/SDA1" />
+    <pin index="43" name="RC5/SDO1" />
+    <pin index="44" name="RC6/TX/CK" />
+  </package>
+
+  <package types="tqfp" nb_pins="44" >
+    <pin index="1"  name="RC7/RX/DT" />
+    <pin index="2"  name="RD4/PSP4" />
+    <pin index="3"  name="RD5/PSP5/P1B" />
+    <pin index="4"  name="RD6/PSP6/P1C" />
+    <pin index="5"  name="RD7/PSP7/P1D" />
+    <pin index="6"  name="VSS" />
+    <pin index="7"  name="VDD" />
+    <pin index="8"  name="RB0/INT0/FLT0/AN12" />
+    <pin index="9" name="RB1/INT1/AN10" />
+    <pin index="10" name="RB2/INT2/AN8" />
+    <pin index="11" name="RB3/AN9/CCP2" />
+    <pin index="12" name="NC" />
+    <pin index="13" name="NC" />
+    <pin index="14" name="RB4/KBI0/AN11" />
+    <pin index="15" name="RB5/KBI1/T0CKI/C1OUT" />
+    <pin index="16" name="RB6/KBI2/PGC" />
+    <pin index="17" name="RB7/KBI3/PGD" />
+    <pin index="18" name="MCLR" />
+    <pin index="19" name="RA0/AN0" />
+    <pin index="20" name="RA1/AN1" />
+    <pin index="21" name="RA2/AN2/VREF-/CVREF" />
+    <pin index="22" name="RA3/AN3/VREF+" />
+    <pin index="23" name="VDDCORE/VCAP" />
+    <pin index="24" name="RA5/AN4/SS1/C2OUT" />
+    <pin index="25" name="RE0/RD/AN5" />
+    <pin index="26" name="RE1/WR/AN6" />
+    <pin index="27" name="RE2/CS/AN7" />
+    <pin index="28" name="VDD" />
+    <pin index="29" name="VSS" />    
+    <pin index="30" name="OSC1/CLKI" />
+    <pin index="31" name="OSC2/CLKO" />
+    <pin index="32" name="RC0/T1OSO/T1CKI" />
+    <pin index="33" name="NC" />
+    <pin index="34" name="NC" />
+    <pin index="35" name="RC1/T1OSI/CCP2" />
+    <pin index="36" name="RC2/CCP1/P1A" />
+    <pin index="37" name="RC3/SCK1/SCL1" />
+    <pin index="38" name="RD0/PSP0/SCK2/SCL2" />
+    <pin index="39" name="RD1/PSP1/SDI2/SDA2" />
+    <pin index="40" name="RD2/PSP2/SDO2" />
+    <pin index="41" name="RD3/PSP3/SS2" />
+    <pin index="42" name="RC4/SDI1/SDA1" />
+    <pin index="43" name="RC5/SDO1" />
+    <pin index="44" name="RC6/TX/CK" />
+  </package>
+
+</device>
+
