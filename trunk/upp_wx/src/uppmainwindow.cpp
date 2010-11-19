@@ -333,7 +333,8 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_STOP_TARGET, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_stop_target ) );
     this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
     this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
-
+	this->Connect( wxID_PIC_CHOICE_COMBO, wxEVT_COMMAND_CHOICE_SELECTED,
+				  wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
     this->Connect( wxID_PIC_CHOICE_MENU, wxID_PIC_CHOICE_MENU+m_arrPICName.size(),
                 wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_pic_choice_changed_bymenu ) );
 
@@ -381,8 +382,7 @@ void UppMainWindow::CompleteGUICreation()
 
     m_pPICChoice = new wxChoice(toolbar, wxID_PIC_CHOICE_COMBO, wxDefaultPosition, wxSize(120,-1));
     m_pPICChoice->SetToolTip(_("currently selected PIC type"));
-    this->Connect( wxID_PIC_CHOICE_COMBO, wxEVT_COMMAND_CHOICE_SELECTED,
-                wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
+    
 
     toolbar->AddControl( m_pPICChoice );
     toolbar->Realize();
@@ -432,7 +432,7 @@ void UppMainWindow::CompleteGUICreation()
     // misc event handlers
     this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( UppMainWindow::on_close ) );
     this->Connect( wxEVT_SIZE, wxSizeEventHandler( UppMainWindow::on_size ) );
-    this->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
+    this->Connect( wxID_PACKAGE_VARIANT, wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( UppMainWindow::on_package_variant_changed ) );
     this->Connect( wxEVT_COMMAND_THREAD_UPDATE, wxThreadEventHandler( UppMainWindow::OnThreadUpdate ) );
     this->Connect( wxEVT_COMMAND_THREAD_COMPLETE, wxThreadEventHandler( UppMainWindow::OnThreadCompleted ) );
 
@@ -1704,5 +1704,10 @@ void UppMainWindow::upp_size_changed()
     {
         m_pPackageWin->FitBitmap();
         firsttime = false;
-    }
+	}
+#ifdef __WXMAC__
+	Layout();
+#endif
+	
+	
 }
