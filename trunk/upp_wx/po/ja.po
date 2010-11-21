@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-07 23:49+0900\n"
 "Last-Translator: Syuuki Taranari <taranari@358net.com>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -799,7 +799,7 @@ msgstr "Osccalレジスタを復元して下さい"
 msgid "Restore PIC's calibration registers"
 msgstr "PICの較正レジスタを回復してください"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr "ターゲット実行"
 
@@ -859,7 +859,7 @@ msgstr "禁止帯の値を指定"
 msgid "Specify a new Osccal Value"
 msgstr "新しいOsccal値を指定"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr "ターゲット停止"
 
@@ -1165,11 +1165,11 @@ msgstr "拡大"
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "自動検出"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "ブランクチェック"
 
@@ -1181,7 +1181,7 @@ msgstr "デバイスをブランクチェックします"
 msgid "bulk erase the device"
 msgstr "デバイスを消去します"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "選択しているPIC"
 
@@ -1205,7 +1205,7 @@ msgstr "usbpicprogのバージョン情報を表示します。"
 msgid "do not display the hex file"
 msgstr "HEXファイルを表示しないで下さい"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "消去"
 
@@ -1221,11 +1221,11 @@ msgstr "ヘルプ"
 msgid "hexfile"
 msgstr "HEXファイル"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "新規"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "開く"
 
@@ -1237,11 +1237,11 @@ msgstr "パッケージ ビュー"
 msgid "pictype"
 msgstr "PICタイプ"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "書き込み"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "読み込み"
 
@@ -1249,7 +1249,7 @@ msgstr "読み込み"
 msgid "read the device"
 msgstr "デバイスを読み込みます"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "再ロード"
 
@@ -1269,11 +1269,11 @@ msgstr "実行"
 msgid "run target device"
 msgstr "ターゲットデバイスを実行します"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "保存"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "名前を付けて保存"
 
@@ -1302,7 +1302,7 @@ msgstr "未知のレコード種類: %d"
 msgid "untitled"
 msgstr "新規"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "ベリファイ"
 

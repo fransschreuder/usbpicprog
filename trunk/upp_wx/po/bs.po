@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_bs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:25+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: akiro <akiro.ip@gmail.com>\n"
@@ -802,7 +802,7 @@ msgstr "Povrati Osccal registar"
 msgid "Restore PIC's calibration registers"
 msgstr "Vrati kalibracijske registare PIC-a"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr ""
 
@@ -862,7 +862,7 @@ msgstr "Navedite bandgap vrijednost"
 msgid "Specify a new Osccal Value"
 msgstr "Navedite novu Osccal vrijednost"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr ""
 
@@ -1168,11 +1168,11 @@ msgstr "Povećati"
 msgid "Zoom out"
 msgstr "Smanjiti"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "automatsko prepoznavanje"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "provjera na prazno"
 
@@ -1184,7 +1184,7 @@ msgstr "provjera na prazno uređaja"
 msgid "bulk erase the device"
 msgstr "grupno brisanje uređaja"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "trenutno odabran PIC tip"
 
@@ -1208,7 +1208,7 @@ msgstr "prikazuje informacije o verziji usbpicprog-a"
 msgid "do not display the hex file"
 msgstr "ne prikazuj hex datoteku"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "briši"
 
@@ -1224,11 +1224,11 @@ msgstr "pomoć"
 msgid "hexfile"
 msgstr "hex datoteka"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "novi"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "otvori"
 
@@ -1240,11 +1240,11 @@ msgstr "izgled pakovanja"
 msgid "pictype"
 msgstr "tip pic-a"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "program"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "čitaj"
 
@@ -1252,7 +1252,7 @@ msgstr "čitaj"
 msgid "read the device"
 msgstr "pročitaj uređaj"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "učitaj ponovo"
 
@@ -1273,11 +1273,11 @@ msgstr ""
 msgid "run target device"
 msgstr "pročitaj uređaj"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "sačuvaj"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "sačuvaj kao"
 
@@ -1307,7 +1307,7 @@ msgstr "nepoznati tip unosa: %d"
 msgid "untitled"
 msgstr "bez imena"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "provjeri"
 

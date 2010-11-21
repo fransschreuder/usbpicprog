@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Usbpicprog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-04-09 12:56+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Arabic <fransschreuder@lists.sourceforge.net>\n"
@@ -795,7 +795,7 @@ msgstr ""
 msgid "Restore PIC's calibration registers"
 msgstr ""
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr ""
 
@@ -855,7 +855,7 @@ msgstr ""
 msgid "Specify a new Osccal Value"
 msgstr ""
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr ""
 
@@ -1155,11 +1155,11 @@ msgstr "تكبير"
 msgid "Zoom out"
 msgstr "تصغير"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "كشف تلقائي"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "فحص الخلو"
 
@@ -1171,7 +1171,7 @@ msgstr "فحص خلو العنصر"
 msgid "bulk erase the device"
 msgstr "مسح شامل للعنصر"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "نمط الـPIC المختار"
 
@@ -1195,7 +1195,7 @@ msgstr "إظهار معلومات عن هذا الإصدار من usbpicprog"
 msgid "do not display the hex file"
 msgstr "عدم إظهار ملف الهيكسا"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "مسح"
 
@@ -1211,11 +1211,11 @@ msgstr "تعليمات"
 msgid "hexfile"
 msgstr "ملف الهيكسا"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "جديد"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "فتح"
 
@@ -1228,11 +1228,11 @@ msgstr "التعليبة"
 msgid "pictype"
 msgstr "نوع الـPIC"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "باشر البرمجة"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "قراءة"
 
@@ -1240,7 +1240,7 @@ msgstr "قراءة"
 msgid "read the device"
 msgstr "قراءة العنصر"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "إعادة تحميل"
 
@@ -1261,11 +1261,11 @@ msgstr ""
 msgid "run target device"
 msgstr "قراءة العنصر"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "حفظ"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "حفظ باسم"
 
@@ -1296,7 +1296,7 @@ msgstr ""
 msgid "untitled"
 msgstr "دون-عنوان"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "تفحص"
 

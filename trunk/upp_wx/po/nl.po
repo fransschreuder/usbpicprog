@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:04+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
@@ -799,7 +799,7 @@ msgstr "Osccal Register Terugzetten"
 msgid "Restore PIC's calibration registers"
 msgstr "PIC calibratie registers terugzetten"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr "Run Doel"
 
@@ -859,7 +859,7 @@ msgstr "Geef een bandgap waarde op"
 msgid "Specify a new Osccal Value"
 msgstr "Geef een nieuwe Osccal Waarde op"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr "Stop doel"
 
@@ -1164,11 +1164,11 @@ msgstr "Zoom in"
 msgid "Zoom out"
 msgstr "Zoom out"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "autodetect"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "blankcheck"
 
@@ -1180,7 +1180,7 @@ msgstr "controleer of de pic leeg is"
 msgid "bulk erase the device"
 msgstr "wis de hele pic"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "huidig geselecteerd PIC type"
 
@@ -1204,7 +1204,7 @@ msgstr "geeft de versie van usbpicprog weer"
 msgid "do not display the hex file"
 msgstr "geef het hex file niet weer"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "wis"
 
@@ -1220,11 +1220,11 @@ msgstr "help"
 msgid "hexfile"
 msgstr "hexbestand"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "nieuw"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "open"
 
@@ -1236,11 +1236,11 @@ msgstr "Chip weergave"
 msgid "pictype"
 msgstr "pictype"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "programmeer"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "lees"
 
@@ -1248,7 +1248,7 @@ msgstr "lees"
 msgid "read the device"
 msgstr "lees de pic"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "herlaad"
 
@@ -1268,11 +1268,11 @@ msgstr "run"
 msgid "run target device"
 msgstr "run doelprocessor"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "opslaan"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "opslaan als"
 
@@ -1301,7 +1301,7 @@ msgstr "onbekend veld type: %d"
 msgid "untitled"
 msgstr "naamloos"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "verifieer"
 

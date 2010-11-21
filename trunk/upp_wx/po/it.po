@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:10+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: \n"
@@ -800,7 +800,7 @@ msgstr "Ripristina registro Osccal"
 msgid "Restore PIC's calibration registers"
 msgstr "Ripristina registri calibrazione del PIC"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr "Avvia destinazione"
 
@@ -860,7 +860,7 @@ msgstr "Specifica un valore di bandgap"
 msgid "Specify a new Osccal Value"
 msgstr "Specifica un nuovo valore di Osccal"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr "Arresta destinazione"
 
@@ -1167,11 +1167,11 @@ msgstr "Ingrandisci"
 msgid "Zoom out"
 msgstr "Riduci"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "rileva automaticamente"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "verifica la cancellazione"
 
@@ -1183,7 +1183,7 @@ msgstr "verifica la cancellazione del dispositivo"
 msgid "bulk erase the device"
 msgstr "cancella il dispositivo"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "tipo PIC attualmente selezionato"
 
@@ -1207,7 +1207,7 @@ msgstr "mostra informazioni sulla versione di usbpicprog"
 msgid "do not display the hex file"
 msgstr "non mostrare il file hex"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "cancella"
 
@@ -1223,11 +1223,11 @@ msgstr "aiuto"
 msgid "hexfile"
 msgstr "file hex"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "nuovo"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "apri"
 
@@ -1239,11 +1239,11 @@ msgstr "vista package"
 msgid "pictype"
 msgstr "tipo PIC"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "programma"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "leggi"
 
@@ -1251,7 +1251,7 @@ msgstr "leggi"
 msgid "read the device"
 msgstr "leggi il dispositivo"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "ricarica"
 
@@ -1271,11 +1271,11 @@ msgstr "avvia"
 msgid "run target device"
 msgstr "avvia il dispositivo destinazione"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "salva"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "salva con nome"
 
@@ -1304,7 +1304,7 @@ msgstr "unknown record type: %d"
 msgid "untitled"
 msgstr "senza titolo"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "verifica"
 

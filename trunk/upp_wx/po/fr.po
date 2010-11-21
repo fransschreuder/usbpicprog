@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:09+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Patrick Nies <fransschreuder@users.sourceforge.net>\n"
@@ -803,7 +803,7 @@ msgstr "Restaure le registre OscCal"
 msgid "Restore PIC's calibration registers"
 msgstr "Restaure les registres de calibration du PIC"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr ""
 
@@ -863,7 +863,7 @@ msgstr "Spécifier une valeur de BandGap"
 msgid "Specify a new Osccal Value"
 msgstr "Spécifier une nouvelle valeur d'OscCal"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr ""
 
@@ -1171,11 +1171,11 @@ msgstr "Zoom avant"
 msgid "Zoom out"
 msgstr "Zoom arrière"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "Auto-détection"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "Contrôler l'effacement"
 
@@ -1187,7 +1187,7 @@ msgstr "Contrôle l'effacement du circuit"
 msgid "bulk erase the device"
 msgstr "Efface le circuit"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "Type de PIC sélectionné"
 
@@ -1211,7 +1211,7 @@ msgstr "Affiche les informations de version d'Usbpicprog"
 msgid "do not display the hex file"
 msgstr "N'affiche pas le fichier HEX"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "Effacer"
 
@@ -1227,11 +1227,11 @@ msgstr "Aide"
 msgid "hexfile"
 msgstr "Hexfile"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "Nouveau"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "Ouvrir"
 
@@ -1243,11 +1243,11 @@ msgstr "Boîtier"
 msgid "pictype"
 msgstr "Pictype"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "Programmer"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "Lire"
 
@@ -1255,7 +1255,7 @@ msgstr "Lire"
 msgid "read the device"
 msgstr "Lit le circuit"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "Recharger"
 
@@ -1276,11 +1276,11 @@ msgstr ""
 msgid "run target device"
 msgstr "Lit le circuit"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "Enregistrer"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "Enregistrer sous"
 
@@ -1310,7 +1310,7 @@ msgstr "Type d'enregistrement inconnu: %d"
 msgid "untitled"
 msgstr "Sans titre"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "Vérifier"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:32+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -806,7 +806,7 @@ msgstr "Восстановить регистры Osccal..."
 msgid "Restore PIC's calibration registers"
 msgstr "Восстановить регистры калибровки PIC"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr "Запустить цель"
 
@@ -866,7 +866,7 @@ msgstr "Указать значение bandgap"
 msgid "Specify a new Osccal Value"
 msgstr "Указать новое значение Osccal"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr "Остановить Цель"
 
@@ -1169,11 +1169,11 @@ msgstr "Приблизить"
 msgid "Zoom out"
 msgstr "Отдалить"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "автоопределение"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "проверка на \"чистоту\""
 
@@ -1185,7 +1185,7 @@ msgstr "проверить устройство на \"чистоту\""
 msgid "bulk erase the device"
 msgstr "стереть все устройство"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "выбранный тип PIC"
 
@@ -1209,7 +1209,7 @@ msgstr "отображает номер версии usbpicprog"
 msgid "do not display the hex file"
 msgstr "не отображать hex файл"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "Очистить"
 
@@ -1225,11 +1225,11 @@ msgstr "помощь"
 msgid "hexfile"
 msgstr "hex файл"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "новый"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "открыть"
 
@@ -1241,11 +1241,11 @@ msgstr ""
 msgid "pictype"
 msgstr ""
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "программа"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "прочесть"
 
@@ -1253,7 +1253,7 @@ msgstr "прочесть"
 msgid "read the device"
 msgstr "прочесть с устройства"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "перезагрузить"
 
@@ -1273,11 +1273,11 @@ msgstr "запустить"
 msgid "run target device"
 msgstr "запустить целевое устройство"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "сохранить"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "сохранить как"
 
@@ -1306,7 +1306,7 @@ msgstr "неизвестный тип записи: %d"
 msgid "untitled"
 msgstr "безымянный"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "проверка"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 13:18+0100\n"
+"POT-Creation-Date: 2010-11-21 16:56+0100\n"
 "PO-Revision-Date: 2010-11-03 20:07+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
@@ -806,7 +806,7 @@ msgstr "Restaurar el Registro Osccal"
 msgid "Restore PIC's calibration registers"
 msgstr "Restaurar los registros de calibración del PIC"
 
-#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:375
+#: src/uppmainwindow.cpp:237 src/uppmainwindow.cpp:376
 msgid "Run Target"
 msgstr "Ejecutar Destino"
 
@@ -866,7 +866,7 @@ msgstr "Especificar un valor de bandgap"
 msgid "Specify a new Osccal Value"
 msgstr "Especificar un nuevo valor de Osccal"
 
-#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:377
+#: src/uppmainwindow.cpp:241 src/uppmainwindow.cpp:378
 msgid "Stop Target"
 msgstr "Detener Destino"
 
@@ -1172,11 +1172,11 @@ msgstr "Agrandar"
 msgid "Zoom out"
 msgstr "Disminuir"
 
-#: src/uppmainwindow.cpp:372
+#: src/uppmainwindow.cpp:373
 msgid "autodetect"
 msgstr "autodetectar"
 
-#: src/main.h:136 src/uppmainwindow.cpp:370
+#: src/main.h:136 src/uppmainwindow.cpp:371
 msgid "blankcheck"
 msgstr "comprobación de borrado"
 
@@ -1188,7 +1188,7 @@ msgstr "comprobar si el dispositivo está vacío"
 msgid "bulk erase the device"
 msgstr "limpiar el dispositivo"
 
-#: src/uppmainwindow.cpp:383
+#: src/uppmainwindow.cpp:384
 msgid "currently selected PIC type"
 msgstr "tipo de pic actualmente seleccionado"
 
@@ -1212,7 +1212,7 @@ msgstr "muestra la información de versión de usbpicprog"
 msgid "do not display the hex file"
 msgstr "no mostrar el archivo HEX"
 
-#: src/main.h:135 src/uppmainwindow.cpp:368
+#: src/main.h:135 src/uppmainwindow.cpp:369
 msgid "erase"
 msgstr "borrar"
 
@@ -1228,11 +1228,11 @@ msgstr "ayuda"
 msgid "hexfile"
 msgstr "archivo HEX"
 
-#: src/uppmainwindow.cpp:351
+#: src/uppmainwindow.cpp:352
 msgid "new"
 msgstr "nuevo"
 
-#: src/uppmainwindow.cpp:353
+#: src/uppmainwindow.cpp:354
 msgid "open"
 msgstr "abrir"
 
@@ -1244,11 +1244,11 @@ msgstr "vistadeencapsulado"
 msgid "pictype"
 msgstr "Tipo de PIC"
 
-#: src/uppmainwindow.cpp:362
+#: src/uppmainwindow.cpp:363
 msgid "program"
 msgstr "programar"
 
-#: src/main.h:133 src/uppmainwindow.cpp:364
+#: src/main.h:133 src/uppmainwindow.cpp:365
 msgid "read"
 msgstr "leer"
 
@@ -1256,7 +1256,7 @@ msgstr "leer"
 msgid "read the device"
 msgstr "leer el dispositivo"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:356
 msgid "reload"
 msgstr "recargar"
 
@@ -1276,11 +1276,11 @@ msgstr "ejecutar"
 msgid "run target device"
 msgstr "correr el dispositivo de destino"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:358
 msgid "save"
 msgstr "guardar"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:360
 msgid "save as"
 msgstr "guardar como"
 
@@ -1309,7 +1309,7 @@ msgstr "tipo de registro desconocido: %d"
 msgid "untitled"
 msgstr "sin título"
 
-#: src/main.h:134 src/uppmainwindow.cpp:366
+#: src/main.h:134 src/uppmainwindow.cpp:367
 msgid "verify"
 msgstr "verificar"
 
