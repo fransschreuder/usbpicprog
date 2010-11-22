@@ -64,7 +64,6 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			VPP_RST=1;
 			lasttick=tick;
 			while((tick-lasttick)<4)continue;
-			VPP_RST=0;
 			lasttick=tick;
 			while((tick-lasttick)<6)continue;
 			//clock_delay();	//P19 = 40ns min
@@ -75,6 +74,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			pic_send_word(0xC2B2);
 			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 			pic_send_word(0x0A12);
+			VPP_RST=0; //release from reset
 			VPP_RUN=1;	
 			lasttick=tick;
 			while((tick-lasttick)<1)continue;
