@@ -53,6 +53,9 @@ cd release/usbpicprog-$RELEASE
 make distclean
 rm -rf m4
 rm -rf autom4te.cache
+rm -rf win
+rm -rf osx
+rm -rf build
 if [ ${RELEASE:0:2} = "0." ]; then
 ( echo '// generated file';
     echo '#define UPP_VERSION "usbpicprog '$RELEASE'"'; )> svn_revision.h;
