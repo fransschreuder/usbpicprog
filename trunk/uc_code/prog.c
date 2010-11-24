@@ -165,6 +165,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
+		case P18F97J60:
 		case P18F45J10:
 			set_address(picfamily, 0x3C0005);
 			pic_send(4,0x0C,0x0101); //Write 0101h to 3C0005h
@@ -530,6 +531,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_read_byte2(4,0x09);
 			}
 			break;
+		case P18F97J60:
 		case P18F45J10:
 			if(!(address&0x20)) 
 			{
