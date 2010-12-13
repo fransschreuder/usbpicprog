@@ -47,7 +47,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
 
-		if(picfamily==PIC18J)
+		if((picfamily==PIC18J)||(picfamily==PIC24))
 		{
 			VPP_RUN=0; //MCLR low 
 			VDD=0;
@@ -60,12 +60,15 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			lasttick=tick;
 			VPP_RUN=1;	//VPP to 4.5V
 			for(i=0;i<300;i++)continue; //aprox 0.5ms 
-			VPP_RUN=0;	//and immediately back to 0...
-			VPP_RST=1;
-			lasttick=tick;
-			while((tick-lasttick)<4)continue;
-			lasttick=tick;
-			while((tick-lasttick)<6)continue;
+			if(picfamily==PIC18J)
+			{
+				VPP_RUN=0;	//and immediately back to 0...
+				VPP_RST=1;
+				lasttick=tick;
+				while((tick-lasttick)<4)continue;
+				lasttick=tick;
+				while((tick-lasttick)<6)continue;
+			}
 			//clock_delay();	//P19 = 40ns min
 			//write 0x4D43, high to low, other than the rest of the commands which are low to high...
 			//0x3D43 => 0100 1101 0100 0011
@@ -73,11 +76,20 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			//0xC2B2	
 			pic_send_word(0xC2B2);
 			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
-			pic_send_word(0x0A12);
+			pic_send_word(0x0A12);	
 			VPP_RST=0; //release from reset
 			VPP_RUN=1;	
 			lasttick=tick;
 			while((tick-lasttick)<1)continue;
+			if(picfamily==PIC24)
+			{
+				lasttick=tick;
+				while((tick-lasttick)<1)continue;
+				pic_send_n_bits(5,0);
+				dspic_send_24_bits(0); //send a nop instruction with 5 additional databits
+				lasttick=tick;
+				while((tick-lasttick)<1)continue;
+			}
 			return;
 		}
 		if((pictype==I2C_EE_1)||(pictype==I2C_EE_2))

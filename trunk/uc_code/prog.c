@@ -42,13 +42,50 @@ Bulk erases the whole device
 char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 {
 	unsigned int osccal,bandgap; //for P12F629 devices...
-	unsigned int i;
+	unsigned int i,j;
 	unsigned char temp[2];
 	set_vdd_vpp(pictype,picfamily,1);
 	switch(pictype)
 	{
 		case I2C_EE_1:
 		case I2C_EE_2:
+			break;
+		case P24FXXKAXXX:
+			//bulk erase program memory
+			//step 1
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x040200);	//GOTO 0x200
+			dspic_send_24_bits(0x000000);	//NOP
+			//step 2
+			dspic_send_24_bits(0x24064A);	//MOV #0x4064, W10
+			dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
+			//step 3
+			dspic_send_24_bits(0x200000);	//MOV #<PAGEVAL>, W0
+			dspic_send_24_bits(0x880190);	//MOV W0, TBLPAG
+			dspic_send_24_bits(0x200000);	//MOV #000, W0
+			dspic_send_24_bits(0xBB0800);	//TBLWTL W0, [W0]
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
+			
+			//step 4
+			dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
+			dspic_send_24_bits(0x000000);	//NOP
+			dspic_send_24_bits(0x000000);	//NOP
+			for(i=0;i<200;i++)
+			{				
+				//step 5
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x040200);	//GOTO 0x200
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
+				dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
+				dspic_send_24_bits(0x000000);	//NOP
+				j=dspic_read_16_bits();
+				dspic_send_24_bits(0x000000);	//NOP
+				if((j&&0x8000)==0)break;	//programming completed
+				DelayMs(10);
+
+			}//step 8: repeat step 5-7
 			break;
 		case dsP30F:
 			//bulk erase program memory
@@ -385,9 +422,21 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			I2C_stop();
 			DelayMs(10);
 			break;
+		case P24FXXKAXXX:			
 		case dsP30F:
-			//if((address%96)==0)
-			//{
+			if(pictype==P24FXXKAXXX)
+			{
+				dspic_send_24_bits(0x000000);	//NOP
+				//Step 1: Exit the Reset vector.
+				dspic_send_24_bits(0x040200);	//GOTO 0x200
+				dspic_send_24_bits(0x000000);	//NOP
+				//Step 2: Set the NVMCON to program 32 instruction words.
+				dspic_send_24_bits(0x24004A);	//MOV #0x4004, W10
+				dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
+
+			}
+			else
+			{
 				dspic_send_24_bits(0x000000);	//NOP
 				dspic_send_24_bits(0x000000);	//NOP
 				//Step 1: Exit the Reset vector.
@@ -397,7 +446,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//Step 2: Set the NVMCON to program 32 instruction words.
 				dspic_send_24_bits(0x24001A);	//MOV #0x4001, W10
 				dspic_send_24_bits(0x883B0A);	//MOV W10, NVMCON
-			//}
+			}
 			for(blockcounter=0;blockcounter<blocksize;blockcounter+=12)
 			{
 				//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
@@ -450,6 +499,36 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			}//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.	
 			//if((address%96)==64)
 			//{
+			if(pictype==P24FXXKAXXX)
+			{
+				//Step 7: Unlock the NVMCON for writing.
+				dspic_send_24_bits(0xA8E761);	//BSET NVMCON, #WR
+				dspic_send_24_bits(0x000000);	//NOP
+				dspic_send_24_bits(0x000000);	//NOP
+				//Step 8: CHECK bit 15 of NVMCON
+
+				
+				for(i=0;i<20;i++)
+				{				
+					//step 5
+					dspic_send_24_bits(0x000000);	//NOP
+					dspic_send_24_bits(0x040200);	//GOTO 0x200
+					dspic_send_24_bits(0x000000);	//NOP
+					dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
+					dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
+					dspic_send_24_bits(0x000000);	//NOP
+					payload=dspic_read_16_bits();
+					dspic_send_24_bits(0x000000);	//NOP
+					if((payload&&0x8000)==0)break;	//programming completed
+					DelayMs(1);
+
+				}//step 8: repeat step 5-7
+				//Step 9: Reset device internal PC.
+				dspic_send_24_bits(0x040200);	//GOTO 0x200
+				dspic_send_24_bits(0x000000);	//NOP
+			}
+			else
+			{
 				//Step 7: Unlock the NVMCON for writing.
 				dspic_send_24_bits(0x200558);	//MOV #0x55, W8
 				dspic_send_24_bits(0x883B38);	//MOV W8, NVMKEY
@@ -468,6 +547,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//Step 9: Reset device internal PC.
 				dspic_send_24_bits(0x040100);	//GOTO 0x100
 				dspic_send_24_bits(0x000000);	//NOP
+			}
 			//}
 			break;
 		case P18F2XXX:
