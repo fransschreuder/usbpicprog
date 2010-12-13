@@ -1,3 +1,21 @@
+usbpicprog (970-3) maverick; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:29 +0100
+
+usbpicprog (970-2) lucid; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:20 +0100
+
+usbpicprog (970-1) karmic; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:08 +0100
+
 usbpicprog (969-3) maverick; urgency=low
 
   * implemented 18F66J60, 66J65, 67J65, 86J60, 86J65, 87J60, 96J60,
