@@ -7,7 +7,7 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="24F08KA101" status="IP" memory_technology="FLASH" architecture="24F" id="0x0D08" >
+<device name="24F08KA101" status="IP" memory_technology="FLASH" architecture="24F" id="0x0D01" >
 
 <!--* Documents ************************************************************-->
   <documents webpage="39927" datasheet="39927" progsheet="39927" erratas="39927 39927" />
@@ -21,7 +21,7 @@
   <voltages name="vdd_prog" min="2.0" max="3.6" nominal="3.3" />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"              start="0x000000" end="0x0015FE" />
+  <memory name="code"              start="0x000000" end="0x002BFE" />
   <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
   <memory name="config"            start="0xF80000" end="0xF80010" />
   <memory name="eeprom"       start="0x000000" end="0x0001FF" hexfile_offset="0x7FFE00" />  

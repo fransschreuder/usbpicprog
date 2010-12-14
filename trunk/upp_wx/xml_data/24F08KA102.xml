@@ -7,7 +7,7 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="24F08KA101" status="IP" memory_technology="FLASH" architecture="24F" id="0x0D08" >
+<device name="24F08KA101" status="IP" memory_technology="FLASH" architecture="24F" id="0x0D0A" >
 
 <!--* Documents ************************************************************-->
   <documents webpage="39927" datasheet="39927" progsheet="39927" erratas="39927 39927" />
@@ -218,10 +218,10 @@
 
 
 <!--* Packages *************************************************************-->
-  <package types="pdip soic ssop" nb_pins="20" >
+  <package types="pdip soic ssop" nb_pins="28" >
   </package>
 
-  <package types="qfn" nb_pins="20" >
+  <package types="qfn" nb_pins="28" >
   </package>
 
 </device>
