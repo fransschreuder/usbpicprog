@@ -861,69 +861,86 @@ int Hardware::autoDetectDevice()
         return picBoot.DevId;
     }
 
-	PicType pic18J = PicType::FindPIC(("18F45J10"));
-	cout<<"PicFamily: "<<pic18J.picFamily<<endl;
-    if(setPicType(&pic18J)<0)
+	PicType pic24F = PicType::FindPIC(("24F04KA200"));
+	cout<<"PicFamily: "<<pic24F.picFamily<<endl;
+    if(setPicType(&pic24F)<0)
         return -1;
 
     int devId=readId();
     if(devId<0)
         return -1;
-	cout<<"Pic18J id: "<<std::hex<< devId<<endl;
-    PicType picType = PicType::FindPIC(0x10000|devId);
+	cout<<"Pic24F id: "<<std::hex<< devId<<endl;
+    PicType picType = PicType::FindPIC(0x20000|devId);
 
     if(picType.ok())
-        return devId|0x10000; 
+        return devId|0x20000; 
     else
 	{
+
+	    PicType pic18J = PicType::FindPIC(("18F45J10"));
+	    cout<<"PicFamily: "<<pic18J.picFamily<<endl;
+        if(setPicType(&pic18J)<0)
+            return -1;
+
+        int devId=readId();
+        if(devId<0)
+            return -1;
+	    cout<<"Pic18J id: "<<std::hex<< devId<<endl;
+        PicType picType = PicType::FindPIC(0x10000|devId);
+
+        if(picType.ok())
+            return devId|0x10000; 
+        else
+	    {
 	
-		PicType pic16 = PicType::FindPIC(("16F628A"));
-		if(setPicType(&pic16)<0)
-		    return -1;
-
-		int devId=readId();
-		if(devId<0)
-		    return -1;
-
-		PicType picType = PicType::FindPIC(devId);
-
-		if(picType.ok())
-		    return devId; 
-		else
-		{
-		
-		    // need to set hardware to PIC18, no matter which one
-		    PicType pic18 = PicType::FindPIC(("18F2550"));
-		    if (setPicType(&pic18) < 0)
+		    PicType pic16 = PicType::FindPIC(("16F628A"));
+		    if(setPicType(&pic16)<0)
 		        return -1;
 
 		    int devId=readId();
-		    if (devId < 0)
+		    if(devId<0)
 		        return -1;
 
-		    PicType picType = PicType::FindPIC(0x10000|devId);
-		    if (picType.ok())
-		    {
-		        return devId|0x10000; 
-		            // add an extra bit to make the difference between 16F and 18F
-		    }
+		    PicType picType = PicType::FindPIC(devId);
+
+		    if(picType.ok())
+		        return devId; 
 		    else
 		    {
-		        // try PIC16: the specific PIC16 device doesn't matter
-		        PicType pic30 = PicType::FindPIC(("P30F1010"));
-		        if (setPicType(&pic30) < 0)
+		
+		        // need to set hardware to PIC18, no matter which one
+		        PicType pic18 = PicType::FindPIC(("18F2550"));
+		        if (setPicType(&pic18) < 0)
 		            return -1;
 
-		        devId=readId();
-		            cout<<"Devid PIC30: "<<std::hex<<(devId|0x20000)<<std::dec<<endl;
+		        int devId=readId();
 		        if (devId < 0)
 		            return -1;
-		        
-		        PicType picType = PicType::FindPIC(devId|0x20000);
+
+		        PicType picType = PicType::FindPIC(0x10000|devId);
 		        if (picType.ok())
-		            return devId|0x20000;
+		        {
+		            return devId|0x10000; 
+		                // add an extra bit to make the difference between 16F and 18F
+		        }
+		        else
+		        {
+		            // try PIC16: the specific PIC16 device doesn't matter
+		            PicType pic30 = PicType::FindPIC(("P30F1010"));
+		            if (setPicType(&pic30) < 0)
+		                return -1;
+
+		            devId=readId();
+		                cout<<"Devid PIC30: "<<std::hex<<(devId|0x20000)<<std::dec<<endl;
+		            if (devId < 0)
+		                return -1;
+		            
+		            PicType picType = PicType::FindPIC(devId|0x20000);
+		            if (picType.ok())
+		                return devId|0x20000;
+		        }
 		    }
-		}
+	    }
 	}
     return -1;
 }
