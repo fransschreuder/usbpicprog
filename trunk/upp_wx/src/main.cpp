@@ -235,6 +235,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     PicType* picType = NULL;
     wxString output;
     wxString filename;
+	VerifyResult res;
 
 #ifdef __WXMSW__
     // when using Windows, wxWidgets takes over the terminal but we want to have it for cout and cerr
@@ -409,7 +410,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 break;
         }
     }
-
+	res.Result=VERIFY_SUCCESS;
     // if -w is passed, open the hexFile and write it to the pic
     if(parser.Found(("w")))
     {
@@ -431,7 +432,12 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 				hexFile->putOscCalBandGap (picType);
 			}
             if(m_hardware.write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
+				
             if(m_hardware.write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
+			if(parser.Found(("v")))
+			{
+				res=m_hardware.verify(hexFile,picType, true, false, true); //verify code and data before programming config memory, due to possible code protection
+			}
             if(m_hardware.write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
             delete hexFile;
         }
@@ -476,7 +482,10 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                 cout<<(string)output<<endl;
             }
             wxString typeText,tempStr;
-            VerifyResult res=m_hardware.verify(hexFile,picType);
+			if(res.Result==VERIFY_SUCCESS)
+			{
+	            res=m_hardware.verify(hexFile,picType, !parser.Found("w"), true, !parser.Found("w")); //only verify code and data here if not programmed here. Else this has to be done before config due to possible code protection
+			}
             switch(res.Result)
             {
                 case VERIFY_SUCCESS:
@@ -492,7 +501,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
                     }
                     tempStr.Printf("Verify %s failed at 0x%X. Read: 0x%02X, Expected: 0x%02X",
                             typeText.c_str(),
-                            res.Address+((res.DataType==TYPE_CONFIG)+picType->ConfigAddress),
+                            res.Address+((res.DataType==TYPE_CONFIG)*picType->ConfigAddress),
                             res.Read,
                             res.Expected);
                     cerr<<(string)tempStr<<endl;						

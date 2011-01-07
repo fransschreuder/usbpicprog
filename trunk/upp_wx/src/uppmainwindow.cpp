@@ -763,7 +763,7 @@ wxThread::ExitCode UppMainWindow::Entry()
         break;
 
     case THREAD_VERIFY:
-        exitCode = upp_thread_verify();
+        exitCode = upp_thread_verify(true, true, true);
         break;
 
     case THREAD_ERASE:
@@ -851,6 +851,7 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
+
     if (m_cfg.ConfigProgramData)
     {
         LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
@@ -881,6 +882,11 @@ bool UppMainWindow::upp_thread_program()
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
+	if (m_cfg.ConfigVerifyAfterProgramming)
+    {
+        upp_thread_verify(true, true, false);
+    }
+
     if (m_cfg.ConfigProgramConfig)
     {
         LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
@@ -909,7 +915,7 @@ bool UppMainWindow::upp_thread_program()
     }
     if (m_cfg.ConfigVerifyAfterProgramming)
     {
-        upp_thread_verify();
+        upp_thread_verify(false, false, true);
     }
     return true;
 }
@@ -955,7 +961,7 @@ bool UppMainWindow::upp_thread_read()
     return true;
 }
 
-bool UppMainWindow::upp_thread_verify()
+bool UppMainWindow::upp_thread_verify(bool doCode, bool doData, bool doConfig)
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
@@ -967,8 +973,8 @@ bool UppMainWindow::upp_thread_verify()
 
     // do the verify operation:
     VerifyResult res =
-        m_hardware.verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode,
-                        m_cfg.ConfigVerifyConfig, m_cfg.ConfigVerifyData);
+        m_hardware.verify(&m_hexFile, &m_picType, m_cfg.ConfigVerifyCode&&doCode,
+                        m_cfg.ConfigVerifyConfig&&doConfig, m_cfg.ConfigVerifyData&&doData);
 
     switch(res.Result)
     {

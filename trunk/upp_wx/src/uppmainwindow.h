@@ -144,7 +144,7 @@ protected:      // internal thread-related functions
     void LogFromThread(wxLogLevel level, const wxString& str);
     bool upp_thread_program();
     bool upp_thread_read();
-    bool upp_thread_verify();
+    bool upp_thread_verify(bool doCode, bool doData, bool doConfig);
     bool upp_thread_erase();
     bool upp_thread_blankcheck();
 
