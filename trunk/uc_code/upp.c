@@ -191,6 +191,7 @@ void ProcessIO(void)
 				setLeds(LEDS_ON | LEDS_RD);
 				switch(picfamily)
 				{
+					case PIC24:
 					case dsPIC30:
 						read_code(picfamily,pictype,0xFF0000,(unsigned char*)output_buffer,2,3);
 						break;
@@ -534,7 +535,8 @@ unsigned char set_pictype(unsigned char* data)
 		case P18F45J10:picfamily=PIC18J;break;
 		case P24FJXXXGA0XX:
 		case P24H:
-		case P24FJXXXGA1:picfamily=PIC24;break;
+		case P24FJXXXGA1:
+		case P24FXXKAXXX:picfamily=PIC24;break;
 		case dsP30F:picfamily=dsPIC30;break;
 		case dsP33F:picfamily=dsPIC33;break;
 		case I2C_EE_1:

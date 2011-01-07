@@ -682,7 +682,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						break;
 				}
 				DelayMs(2);
-				payload=pic_read_14_bits(6,0x04); //read code memory
+				/*payload=pic_read_14_bits(6,0x04); //read code memory
 				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 				{
 					set_vdd_vpp(pictype, picfamily,0);	//do a hard reset to target processor
@@ -690,11 +690,8 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					DelayMs(10);		//wait a while
 					set_address(picfamily, address+(blockcounter>>1)); //go back to the address where it was
 				
-					/*if(pictype==P12F629&&((address+(blockcounter>>1))==0x3FF))
-						pic_send_14_bits(6,0x02,osccal);
-					else*/
-						pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-							(((unsigned int)data[blockcounter+1])<<8));//LSB
+					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
+						(((unsigned int)data[blockcounter+1])<<8));//LSB
 					switch(pictype)
 					{
 						case P12F61X:
@@ -710,9 +707,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					payload=pic_read_14_bits(6,0x04); //read code memory
 					if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 					{
-						if(i==9)return 4; //verify error
+						return 4; //verify error
 					}
-				}
+				}*/
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			/*if(pictype==P12F629&&((lastblock&2)&&((address+blocksize)<0x3FF))) //restore osccal register
