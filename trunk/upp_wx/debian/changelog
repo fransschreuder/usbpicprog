@@ -1,3 +1,24 @@
+usbpicprog (979-3) maverick; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:03:00 +0100
+
+usbpicprog (979-2) lucid; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:02:56 +0100
+
+usbpicprog (979-1) karmic; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:02:51 +0100
+
 usbpicprog (970-3) maverick; urgency=low
 
   * removed vcredist installers from debug
