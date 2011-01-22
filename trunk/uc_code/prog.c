@@ -262,6 +262,37 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			}
 			break;
 		case P16F62X:
+			pic_send_14_bits(6,0x00,0x3FFF);//Execute a Load Configuration command (dataword 0x3FFF) to set PC to 0x2000.
+			for(i=0;i<7;i++)pic_send_n_bits(6,0x06);//set PC to 0x2007
+			/*pic_send_14_bits(6,0x02,0x3FFF);*/
+			pic_send_n_bits(6,0x01);//,0x0000);//Execute Bulk Erase Setup 1 command.
+			pic_send_n_bits(6,0x07);//,0x0000);//Execute Bulk Erase Setup 2 command.
+			pic_send_n_bits(6,0x08);//, 0x0000);//Execute Begin Erase Programming command.
+			DelayMs(14);	//Wait Tera + Tprog.
+			pic_send_n_bits(6,0x01);//,0x0000);//Execute Bulk Erase Setup 1 command.
+			pic_send_n_bits(6,0x07);//,0x0000);//Execute Bulk Erase Setup 2 command.
+			DelayMs(14);
+			set_vdd_vpp(pictype, picfamily,0);//reset
+			DelayMs(10);
+			set_vdd_vpp(pictype, picfamily,1);
+			DelayMs(10);
+
+			pic_send_14_bits(6,0x00,0x3FFF);//Execute a Load Configuration command (dataword 0x0000) to set
+			/*pic_send_14_bits(6,0x02,0x3FFF);*/
+			pic_send_n_bits(6,0x09); //bulk erase program memory, userid and config memory
+			pic_send_n_bits(6,0x08);//Execute Begin Erase Programming command.
+			DelayMs(14);	//Wait Tera + Tprog.
+			set_vdd_vpp(pictype, picfamily,0);//reset
+			DelayMs(10);
+			set_vdd_vpp(pictype, picfamily,1);
+			DelayMs(10);
+			pic_send_14_bits(6,0x02,0x3FFF);
+			pic_send_n_bits(6,0x0B); //bulk erase data memory
+			pic_send_n_bits(6,0x08);//Execute Begin Erase Programming command.
+			DelayMs(6);		//wait terase
+
+			break;
+
 		case P16F785:
 		case P16F88X:
 		case P16F91X:
@@ -682,7 +713,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						break;
 				}
 				DelayMs(2);
-				payload=pic_read_14_bits(6,0x04); //read code memory
+				/*payload=pic_read_14_bits(6,0x04); //read code memory
 				if(payload!=((((unsigned int)data[blockcounter]))|(((unsigned int)data[blockcounter+1])<<8)))
 				{
 					set_vdd_vpp(pictype, picfamily,0);	//do a hard reset to target processor
@@ -709,7 +740,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					{
 						return 4; //verify error
 					}
-				}
+				}*/
 				pic_send_n_bits(6,0x06);	//increment address
 			}
 			/*if(pictype==P12F629&&((lastblock&2)&&((address+blocksize)<0x3FF))) //restore osccal register
