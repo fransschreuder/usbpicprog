@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<!-- $Id$ -->
+
+<makefile>
+
+
+    <!--                                                            -->
+    <!--                     GLOBAL SETTINGS                        -->
+    <!--                                                            -->
+
+    <set var="WX_VERSION_DEFAULT">29</set>      <!-- required for many features -->
+    <set var="WX_UNICODE">1</set>               <!-- wx29 is always built in Unicode mode -->
+    <set var="WX_MONOLITHIC">0</set>            <!-- we never want to link against a huge wx lib -->
+
+    <include file="presets/wx.bkl"/>
+    
+    <set-srcdir>../..</set-srcdir>
+    <set-wxlike-builddir/>
+    
+    <!-- no x64 support before bakefile 0.2.9: -->
+    <requires version="0.2.8"/>
+    
+
+
+    <!--                                                            -->
+    <!--                            OPTIONS                         -->
+    <!--                                                            -->
+    
+    <!-- this option allows to specify the libUSB installation folder -->
+    <set var="LIBUSB_DIR_DEFAULT">$(DOLLAR)(LIBUSB)</set>
+    <option name="LIBUSB_DIR" category="path" never_empty="1">
+        <default-value>$(LIBUSB_DIR_DEFAULT)</default-value>
+        <description>
+            The directory where the libusb-1.x library is installed
+        </description>
+    </option>
+
+    <set var="LIBUSB_LIBPATH_HELPER">
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='X86'">Win32</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='AMD64'">x64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='0'">Win32</if>   <!-- default to Win32 -->
+    </set>
+    <set var="DEPS_SUBFOLDER_HELPER">
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='X86'">x86</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='1' and TARGET_CPU=='AMD64'">amd64</if>
+        <if cond="FORMAT_SUPPORTS_MULTIPLE_ARCHITECTURES=='0'">x86</if>     <!-- default to x86 -->
+    </set>
+    <set var="DEPS_DEBUGRELEASE_HELPER">
+        <if cond="WX_DEBUG=='1'">debug</if>
+        <if cond="WX_DEBUG=='0'">release</if>
+    </set>
+    
+    
+    <!--                                                            -->
+    <!--                            UPP_WX                          -->
+    <!--                                                            -->
+    
+    <exe id="upp_wx" template="wxgui,wxlike">
+        <exename>usbpicprog</exename>
+        <dirname>../..</dirname>        <!-- output folder for the executable: in this way it will find the "xml_data" folder without troubles -->
+    
+        <sources>$(fileList('src/*.cpp'))</sources>
+        <headers>$(fileList('src/*.h'))</headers>
+        <win32-res>icons/win/upp_wx.rc</win32-res>
+        
+        <include>$(SRCDIR)/src</include>
+        
+        <!-- at least until libusb.org doesn't provide an official release with the win backend
+             do not use LIBUSB_DIR but rather our "win/deps" folder: -->
+        <!-- <include>$(LIBUSB_DIR)/libusb</include> 
+        <lib-path>$(LIBUSB_DIR)/$(LIBUSB_LIBPATH_HELPER)/Debug/lib</lib-path> -->
+        <include>$(SRCDIR)/win/deps</include> 
+        <lib-path>$(SRCDIR)/win/deps/$(DEPS_DEBUGRELEASE_HELPER)/$(DEPS_SUBFOLDER_HELPER)</lib-path>
+        
+        <sys-lib>libusb-1.0</sys-lib>
+        
+        <!-- libs required by libusb-1.0: -->
+        <sys-lib>setupapi</sys-lib>
+        
+        <wx-lib>adv</wx-lib>
+        <wx-lib>xml</wx-lib>
+        <wx-lib>core</wx-lib>
+        <wx-lib>base</wx-lib>
+		<wx-lib>html</wx-lib>
+    </exe>
+
+</makefile>

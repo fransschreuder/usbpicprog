@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<dpInst>
+    <!-- Configuration file for the UsbPicProg driver installation performed through the DPINST utility 
+         NOTE: the DPINST utility leaves a log file in %SystemRoot%\DPINST.LOG which helps to debug
+               installation problems.
+    -->
+    
+    <!-- the following tag tells DPINST to enable also the languages not represented
+          by a <language> tag; if this tag is not present, then DPINST will abort
+          the driver installation (with failure) on those localized Window versions
+          for which we didn't provide a translation! -->
+    <enableNotListedLanguages/>
+    
+    <!-- by default, DPINST installs only signed driver packages; with this tag we can
+         tell DPINST to not abort if the CAT files of the drive rsignature are missing: -->
+    <legacyMode/>
+    
+    <!-- configure DPINST to suppress the addition of entries to "Programs and Features"
+         in Control Panel: the NSIS installer already adds one entry for "UsbPicProg": -->
+    <suppressAddRemovePrograms/>
+    
+    <!-- do not require user interaction for the installation of the drivers; this also
+         gives us the advantage that we don't need to translate the messages which otherwise
+         would be shown by DPINST: -->
+    <suppressWizard/>
+    
+    <!-- IMPORTANT: we do not want to use the <quietInstall/> tag because as MSDN says:
+         "If DPInst is running in quiet-install mode and Windows requires a user interaction to complete 
+          an installation, the installation will fail."
+         Also, MSDN adds that "two typical situations that require user interaction are if Windows prompts 
+         a user before installing an unsigned driver package or if Windows prompts a user for the location 
+         of missing files."
+         I.e. in our case, since we're delivering an unsigned driver package we need to allow Windows to 
+         prompt the user about the fact that he's installing an unsigned driver, otherwise dpinst will fail
+         leaving in the log file a message like:
+            INFO:   RETURN: DriverPackagePreinstallW  (0xE000022F)
+         which means "The third-party INF does not contain digital signature information."
+    -->
+    
+    <icon>usbpicprog.ico</icon>
+
+    <!-- we want DPINST utility to install the drivers for both the bootloader and the real programmer: -->
+    <package path="bootloader.inf" />
+    <package path="upp.inf" />
+    <installAllOrNone />
+</dpInst>

@@ -1,0 +1,136 @@
+Cmp-Mod V01 Created by Cvpcb (2007-02-16) date = 9/3/2008-14:07:33
+
+BeginCmp
+TimeStamp = 47D3E052;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = BAT;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E062;
+Reference = C1;
+ValeurCmp = 100nF;
+IdModule  = Cuni;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E07B;
+Reference = C2;
+ValeurCmp = 100nF;
+IdModule  = Cuni;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E137;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E141;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E152;
+Reference = D3;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E166;
+Reference = D4;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E194;
+Reference = D5;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E19B;
+Reference = D6;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E1A1;
+Reference = D7;
+ValeurCmp = LED;
+IdModule  = LED;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E4E0;
+Reference = D8;
+ValeurCmp = DIODE;
+IdModule  = D;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E0F8;
+Reference = R1;
+ValeurCmp = 1k;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E1C2;
+Reference = R2;
+ValeurCmp = 150R;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E1DF;
+Reference = R3;
+ValeurCmp = 150R;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E2A6;
+Reference = R4;
+ValeurCmp = 150R;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E221;
+Reference = R5;
+ValeurCmp = 270R;
+IdModule  = R;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E0E8;
+Reference = SW1;
+ValeurCmp = SW_PUSH;
+IdModule  = PUSH;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E044;
+Reference = U1;
+ValeurCmp = 78L05;
+IdModule  = 78L05;
+EndCmp
+
+BeginCmp
+TimeStamp = 47D3E00B;
+Reference = U2;
+ValeurCmp = PIC12F629;
+IdModule  = 8DIP-ELL300;
+EndCmp
+
+EndListe

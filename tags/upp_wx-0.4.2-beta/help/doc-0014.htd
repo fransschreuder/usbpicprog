@@ -1,0 +1,28 @@
+<H1>Command line interface</H1>
+If a command line argument is being passed to the usbpicprog executable, it will not create a gui (Graphical User Interface), but it will run in command line mode.
+<br>
+
+Usage: usbpicprog [-h] [-V] [-p &lt;str&gt;] [-s] [-w] [-r] [-v] [-e] [-b] [-d] [-f &lt;str&gt;] [-RO &lt;str&gt;] [-RB &lt;str&gt;]<br>
+<table>
+<tr><td>-h</td><td>--help</td><td>displays help on the command line parameters</td></tr>
+<tr><td>-V</td><td>--version</td><td>displays version information of usbpicprog</td></tr>
+<tr><td>-p</td><td>--pictype=&lt;str&gt;</td><td>specify the pic type (eg -p=P18F2550)</td></tr>
+<tr><td>-s</td><td>--silent</td><td>do not display the hex file</td></tr>
+<tr><td>-w</td><td>--write</td><td>write the device</td></tr>
+<tr><td>-r</td><td>--read</td><td>read the device</td></tr>
+<tr><td>-v</td><td>--verify</td><td>verify the device</td></tr>
+<tr><td>-e</td><td>--erase</td><td>bulk erase the device</td></tr>
+<tr><td>-b</td><td>--blankcheck</td><td>blankcheck the device</td></tr>
+<tr><td>-d</td><td>--debug</td><td>debug the hardware (development purposes only)</td></tr>
+<tr><td>-RT</td><td>--run</td><td>run target device</td></tr>
+<tr><td>-ST</td><td>--stop</td><td>stop target device</td></tr>
+<tr><td>-f</td><td>--file=&lt;str&gt;</td><td>hexfile</td></tr>
+<tr><td>-RO</td><td>--restore-osccal=&lt;str&gt;</td><td>Restore Osccal Register</td></tr>
+<tr><td>-RB</td><td>--restore-bandgap=&lt;str&gt;</td><td>Restore BandGap Register</td></tr>
+</table>
+<br><br>
+<H2>Usbpicprog in Piklab</H2>
+Using the command line interface, usbpicprog can also be integrated into Piklab (piklab is an open source development environment for Linux, <a href="http://piklab.sourceforge.net">piklab.sourceforge.net</a>).<br><br>
+Using the following settings in piklab will nicely integrate usbpicprog into piklab.<br><br>
+
+<img src="usbpicprog-piklab.gif"><br>

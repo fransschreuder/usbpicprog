@@ -1,0 +1,32 @@
+/* XPM */
+static const char *zoomin_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"18 18 8 1",
+"  c black",
+". c navy",
+"X c #0000BF",
+"o c #808080",
+"O c #C0C0C0",
+"+ c gray100",
+"@ c black",
+"# c None",
+/* pixels */
+"##################",
+"######    ########",
+"####  OOOO  ######",
+"### o+++OOOo #####",
+"### +OO..OOO #####",
+"## O+OO..OOOO ####",
+"## O+......OO ####",
+"## OO......OO ####",
+"## OOOO..OOOO ####",
+"### OOO..OO+ #####",
+"### oOOOOO+o o####",
+"####  OOO+oXXX####",
+"######    XOXXX###",
+"###########XOXXX##",
+"############XOXXX#",
+"#############XOXX#",
+"##############XX##",
+"##################"
+};

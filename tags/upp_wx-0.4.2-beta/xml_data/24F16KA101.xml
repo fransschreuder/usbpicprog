@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek <hadacek@kde.org>                 *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24F16KA101" status="IP" memory_technology="FLASH" architecture="24F" id="0x0D01" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="39927" datasheet="39927" progsheet="39927" erratas="39927 39927" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"  end="32" vdd_min="2.0" vdd_max="2.75" />
+  </frequency_range>
+
+  <voltages name="vpp" min="2.0" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog" min="2.0" max="3.6" nominal="3.3" />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"              start="0x000000" end="0x002BFE" />
+  <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
+  <memory name="config"            start="0xF80000" end="0xF80010" />
+  <memory name="eeprom"       start="0x000000" end="0x0001FF" hexfile_offset="0x7FFE00" />  
+<!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
+  <memory name="debug_vector"      start="0x800000" end="0x800007" />
+  <memory name="program_executive" start="0x800000" end="0x8007EF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="FBS" wmask="0xFFFFFF" bvalue="0x00000F" >
+    <mask name="BSS" value="0x00000E" >
+	<value value="0x00000E" name="No boot program Flash segment" />
+	<value value="0x000006" name="Reserved" />
+	<value value="0x00000C" name="Standard security, boot program Flash segment starts at 200h, ends at 000AFEh" />
+	<value value="0x000004" name="High security boot program Flash segment starts at 200h, ends at 000AFEh" />
+	<value value="0x00000A" name="Standard security, boot program Flash segment starts at 200h, ends at 0015FEh(1)" />
+	<value value="0x000002" name="High security, boot program Flash segment starts at 200h, ends at 0015FEh(1)" />
+	<value value="0x000008" name="Reserved" />
+	<value value="0x000000" name="Reserved" />
+    </mask>
+    <mask name="BWRP" value="0x000001" >
+      <value value="0x000001" name="Boot segment may be written" />
+      <value value="0x000000" name="Boot segment is write-protected" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="FBS" wmask="0xFFFFFF" bvalue="0x000003" >
+    <mask name="GSS0" value="0x000002" >
+      <value value="0x000002" name="No Protection" />
+      <value value="0x000000" name="Standard security enabled" />
+    </mask>
+    <mask name="GWRP" value="0x000001" >
+      <value value="0x000001" name="General segment may be written" />
+      <value value="0x000000" name="General segment write-protected" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="FOSCSEL" wmask="0xFFFFFF" bvalue="0x000087" >
+    <mask name="IESO" value="0x000001" >
+      <value value="0x000080" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="FNOSC" value="0x000007" >
+	<value value="0x000000" name="Fast RC Osc" />
+	<value value="0x000001" name="Fast RC Osc Div N" />
+	<value value="0x000002" name="Pri Osc" />
+	<value value="0x000003" name="Pri Osc PLL" />
+	<value value="0x000004" name="Sec Osc" />
+	<value value="0x000005" name="LP RC Osc" />
+	<value value="0x000006" name="LPFRCDIV" />
+	<value value="0x000007" name="FRCDIV" />
+    </mask>
+  </config>
+
+<config offset="0x8" name="FOSC" wmask="0xFFFFFF" bvalue="0x0000FF" >
+    <mask name="FCKSM" value="0x0000C0" >
+      <value value="0x000080" name="CSDIS FSDIS" />
+      <value value="0x000040" name="CSEN FSDIS" />
+      <value value="0x000000" name="CSEN FSDIS" />
+    </mask>
+    <mask name="SOSCSEL" value="0x000020" >
+	<value value="0x000020" name="High Power" />
+	<value value="0x000000" name="Low Power" />
+    </mask>
+    <mask name="POSCFREQ" value="0x000018" >
+	<value value="0x000018" name="more than 8MHz" />
+	<value value="0x000010" name="100kHz-8MHz" />
+	<value value="0x000008" name="less than 100kHz" />
+	<value value="0x000000" name="reserved" />
+    </mask>
+    <mask name="OSCIOFNC" value="0x000004" >
+	<value value="0x000004" name="CLKO output enabled" />
+	<value value="0x000000" name="CLKO output disabled" />
+    </mask>
+    <mask name="POSCMD" value="0x000003" >
+	<value value="0x000003" name="disabled" />
+	<value value="0x000002" name="HS" />
+	<value value="0x000001" name="XT" />
+	<value value="0x000000" name="external" />
+    </mask>
+</config>
+
+<config offset="0xA" name="FWDT" wmask="0xFFFFFF" bvalue="0x0000DF" >
+    <mask name="FWDTEN" value="0x000080" >
+      <value value="0x000080" name="WDTEN" />
+      <value value="0x000000" name="WDTDIS" />
+    </mask>
+    <mask name="WINDIS" value="0x000040" >
+	<value value="0x000040" name="Windowed WDT Disabled" />
+	<value value="0x000000" name="Windowed WDT Enabled" />
+    </mask>
+    <mask name="FWPSA" value="0x000010" >
+	<value value="0x000010" name="1:128" />
+	<value value="0x000000" name="1:32" />
+    </mask>
+    <mask name="WDTPS" value="0x00000F" >
+	<value value="0x00000F" name="1:32768" />
+	<value value="0x00000E" name="1:16384" />
+	<value value="0x00000D" name="1:8192" />
+	<value value="0x00000C" name="1:4096" />
+	<value value="0x00000B" name="1:2048" />
+	<value value="0x00000A" name="1:1024" />
+	<value value="0x000009" name="1:512" />
+	<value value="0x000008" name="1:256" />
+	<value value="0x000007" name="1:128" />
+	<value value="0x000006" name="1:64" />
+	<value value="0x000005" name="1:32" />
+	<value value="0x000004" name="1:16" />
+	<value value="0x000003" name="1:8" />
+	<value value="0x000002" name="1:4" />
+	<value value="0x000001" name="1:2" />
+	<value value="0x000000" name="1:1" />
+    </mask>
+</config>
+
+<config offset="0xC" name="FPOR" wmask="0xFFFFFF" bvalue="0x0000FB" >
+    <mask name="MCLREN" value="0x000080" >
+      <value value="0x000080" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="BORV" value="0x000060" >
+	<value value="0x000060" name="BOR lowest" />
+	<value value="0x000040" name="BOR" />
+	<value value="0x000020" name="BOR highest" />
+	<value value="0x000000" name="BOR 2.0V" />
+    </mask>
+    <mask name="I2C1SEL" value="0x000010" >
+	<value value="0x000010" name="Default" />
+	<value value="0x000000" name="Alternate" />
+    </mask>
+    <mask name="PWRTEN" value="0x000008" >
+	<value value="0x000008" name="Enabled" />
+	<value value="0x000000" name="Disabled" />
+    </mask>
+
+    <mask name="BOREN" value="0x000003" >
+	<value value="0x000003" name="11" />
+	<value value="0x000002" name="10" />
+	<value value="0x000001" name="01" />
+	<value value="0x000000" name="00" />
+    </mask>
+</config>
+
+<config offset="0xE" name="FICD" wmask="0xFFFFFF" bvalue="0x000083" >
+    <mask name="DEBUG" value="0x000080" >
+      <value value="0x000080" name="Disabled" />
+      <value value="0x000000" name="Enabled" />
+    </mask>
+    <mask name="FICD" value="0x000003" >
+	<value value="0x000003" name="PGC1/PGD1" />
+	<value value="0x000002" name="PGC2/PGD2" />
+	<value value="0x000001" name="PGC3/PGD3" />
+	<value value="0x000000" name="reserved" />
+    </mask>
+</config>
+
+<config offset="0x10" name="FDS" wmask="0xFFFFFF" bvalue="0x0000FF" >
+    <mask name="DSWDTEN" value="0x000080" >
+      <value value="0x000080" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="DSLPBOR" value="0x000040" >
+      <value value="0x000040" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+
+    <mask name="RTCCKSEL" value="0x000020" >
+      <value value="0x000020" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="DSWCKSEL" value="0x000010" >
+      <value value="0x000010" name="SOSC" />
+      <value value="0x000000" name="LPRC" />
+    </mask>
+    <mask name="DSWDTPS" value="0x00000F" >
+      <value value="0x00000F" name="25.7 days" />
+      <value value="0x00000E" name="6.4 days" />
+      <value value="0x00000D" name="38.5 hours" />
+      <value value="0x00000C" name="9.6 hours" />
+      <value value="0x00000B" name="2.4 hours" />
+      <value value="0x00000A" name="36 minutes" />
+      <value value="0x000009" name="9 minutes" />
+      <value value="0x000008" name="135 sec" />
+      <value value="0x000007" name="34 sec" />
+      <value value="0x000006" name="8.5 sec" />
+      <value value="0x000005" name="2.1 sec" />
+      <value value="0x000004" name="528 ms" />
+      <value value="0x000003" name="132 ms" />
+      <value value="0x000002" name="33 ms" />
+      <value value="0x000001" name="8.3 ms" />
+      <value value="0x000000" name="2.1 ms" />
+    </mask>
+</config>
+
+
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic ssop" nb_pins="20" >
+  </package>
+
+  <package types="qfn" nb_pins="20" >
+  </package>
+
+</device>

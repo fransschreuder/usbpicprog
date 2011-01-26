@@ -1,0 +1,659 @@
+usbpicprog (979-3) maverick; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:03:00 +0100
+
+usbpicprog (979-2) lucid; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:02:56 +0100
+
+usbpicprog (979-1) karmic; urgency=low
+
+  * changed autodetection, added extra cycle for 16F devices (one for
+    VPP first, one for VDD first)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 07 Jan 2011 14:02:51 +0100
+
+usbpicprog (970-3) maverick; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:29 +0100
+
+usbpicprog (970-2) lucid; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:20 +0100
+
+usbpicprog (970-1) karmic; urgency=low
+
+  * removed vcredist installers from debug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 18:07:08 +0100
+
+usbpicprog (969-3) maverick; urgency=low
+
+  * implemented 18F66J60, 66J65, 67J65, 86J60, 86J65, 87J60, 96J60,
+    96J65, 97J60
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 17:55:35 +0100
+
+usbpicprog (969-2) lucid; urgency=low
+
+  * implemented 18F66J60, 66J65, 67J65, 86J60, 86J65, 87J60, 96J60,
+    96J65, 97J60
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 17:55:22 +0100
+
+usbpicprog (969-1) karmic; urgency=low
+
+  * implemented 18F66J60, 66J65, 67J65, 86J60, 86J65, 87J60, 96J60,
+    96J65, 97J60
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Nov 2010 17:55:01 +0100
+
+usbpicprog (0.4.1-3) maverick; urgency=low
+
+  * released 0.4.1
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Nov 2010 20:36:18 +0100
+
+usbpicprog (0.4.1-2) lucid; urgency=low
+
+  * released 0.4.1
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Nov 2010 20:35:59 +0100
+
+usbpicprog (0.4.1-1) karmic; urgency=low
+
+  * released 0.4.1
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Nov 2010 20:35:22 +0100
+
+usbpicprog (959-3) maverick; urgency=low
+
+  * Added Malay language file! Many thanks to Muhd Hafidzuddin!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Nov 2010 16:27:39 +0100
+
+usbpicprog (959-2) lucid; urgency=low
+
+  * Added Malay language file! Many thanks to Muhd Hafidzuddin!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Nov 2010 16:27:34 +0100
+
+usbpicprog (959-1) karmic; urgency=low
+
+  * Added Malay language file! Many thanks to Muhd Hafidzuddin!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Nov 2010 16:27:16 +0100
+
+usbpicprog (954-3) maverick; urgency=low
+
+  * updated German translation. Thanks to Bernd Kernbaum!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 27 Oct 2010 08:58:46 +0200
+
+usbpicprog (954-2) lucid; urgency=low
+
+  * updated German translation. Thanks to Bernd Kernbaum!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 27 Oct 2010 08:58:42 +0200
+
+usbpicprog (954-1) karmic; urgency=low
+
+  * updated German translation. Thanks to Bernd Kernbaum!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 27 Oct 2010 08:58:29 +0200
+
+usbpicprog (953-3) maverick; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:28 +0200
+
+usbpicprog (953-2) lucid; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:23 +0200
+
+usbpicprog (953-1) karmic; urgency=low
+
+  * built hex file for latest fix
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 25 Oct 2010 11:03:15 +0200
+
+usbpicprog (948-3) maverick; urgency=low
+
+  * fixed 10F20X /12F508 calibration register restore
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 15 Oct 2010 13:21:10 +0200
+
+usbpicprog (948-2) lucid; urgency=low
+
+  * fixed 10F20X /12F508 calibration register restore
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 15 Oct 2010 13:21:06 +0200
+
+usbpicprog (948-1) karmic; urgency=low
+
+  * fixed 10F20X /12F508 calibration register restore
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 15 Oct 2010 13:20:57 +0200
+
+usbpicprog (941-3) maverick; urgency=low
+
+  * fixed (and now working) 18F2XJXX devices! Many thanks to Patrick
+    Nies!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 23 Sep 2010 14:46:28 +0200
+
+usbpicprog (941-2) lucid; urgency=low
+
+  * fixed (and now working) 18F2XJXX devices! Many thanks to Patrick
+    Nies!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 23 Sep 2010 14:46:24 +0200
+
+usbpicprog (941-1) karmic; urgency=low
+
+  * fixed (and now working) 18F2XJXX devices! Many thanks to Patrick
+    Nies!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 23 Sep 2010 14:46:19 +0200
+
+usbpicprog (934-0.4.1-beta-3) maverick; urgency=low
+
+  * released 0.4.1-beta
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 13 Sep 2010 13:15:43 +0200
+
+usbpicprog (934-0.4.1-beta-2) lucid; urgency=low
+
+  * released 0.4.1-beta
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 13 Sep 2010 13:15:31 +0200
+
+usbpicprog (934-0.4.1-beta-1) karmic; urgency=low
+
+  * released 0.4.1-beta
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 13 Sep 2010 13:15:17 +0200
+
+usbpicprog (928-3) maverick; urgency=low
+
+  * updated command line interface in help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 21:59:45 +0200
+
+usbpicprog (928-2) lucid; urgency=low
+
+  * updated command line interface in help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 21:59:35 +0200
+
+usbpicprog (928-1) karmic; urgency=low
+
+  * updated command line interface in help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 21:59:17 +0200
+
+usbpicprog (925-3) maverick; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:38 +0200
+
+usbpicprog (925-2) lucid; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:28 +0200
+
+usbpicprog (925-1) karmic; urgency=low
+
+  * fixed autodetect for 18J (returning 16F value instead)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:10:18 +0200
+
+usbpicprog (924-3) maverick; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:34 +0200
+
+usbpicprog (924-2) lucid; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:23 +0200
+
+usbpicprog (924-1) karmic; urgency=low
+
+  * fixed bug for programming 16F88X, 4 word programming in stead of 8
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 02 Sep 2010 20:06:04 +0200
+
+usbpicprog (922-3) marverick; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:45 +0200
+
+usbpicprog (922-2) lucid; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:41 +0200
+
+usbpicprog (922-1) karmic; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 15:00:37 +0200
+
+usbpicprog (922-3) lucid; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:59:09 +0200
+
+usbpicprog (922-2) karmic; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:59:05 +0200
+
+usbpicprog (922-1) hardy; urgency=low
+
+  * removed warnings aboud suspicous pointer conversions from usbdsc.c
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 05 Aug 2010 14:58:57 +0200
+
+usbpicprog (916-3) lucid; urgency=low
+
+  * implemented PIC18F24J10, 25J10, 44J10 and 45J10 devices. Also fixed
+    a config select update bug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 21 Jul 2010 16:01:36 +0200
+
+usbpicprog (916-2) karmic; urgency=low
+
+  * implemented PIC18F24J10, 25J10, 44J10 and 45J10 devices. Also fixed
+    a config select update bug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 21 Jul 2010 16:01:32 +0200
+
+usbpicprog (916-1) hardy; urgency=low
+
+  * implemented PIC18F24J10, 25J10, 44J10 and 45J10 devices. Also fixed
+    a config select update bug
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 21 Jul 2010 16:01:25 +0200
+
+usbpicprog (914-3) lucid; urgency=low
+
+  * Added a help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 12:14:49 +0200
+
+usbpicprog (914-2) karmic; urgency=low
+
+  * Added a help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 12:14:36 +0200
+
+usbpicprog (914-1) hardy; urgency=low
+
+  * Added a help file
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 03 Jun 2010 12:14:12 +0200
+
+usbpicprog (0.4.0-3) lucid; urgency=low
+
+  * released 0.4.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 21 May 2010 21:36:29 +0200
+
+usbpicprog (0.4.0-2) karmic; urgency=low
+
+  * released 0.4.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 21 May 2010 21:36:14 +0200
+
+usbpicprog (0.4.0-1) jaunty; urgency=low
+
+  * released 0.4.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 21 May 2010 21:35:35 +0200
+
+usbpicprog (901-3) lucid; urgency=low
+
+  * added support for Bosnian translation (was missing in wxWidgets)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 04 May 2010 13:46:18 +0200
+
+usbpicprog (901-2) karmic; urgency=low
+
+  * added support for Bosnian translation (was missing in wxWidgets)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 04 May 2010 13:46:04 +0200
+
+usbpicprog (901-1) hardy; urgency=low
+
+  * added support for Bosnian translation (was missing in wxWidgets)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 04 May 2010 13:45:42 +0200
+
+usbpicprog (893-0.4.0-beta2-3) lucid; urgency=low
+
+  * added examples to the installer
+  * released 0.4.0-beta2
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 20 Apr 2010 21:17:55 +0200
+
+usbpicprog (893-0.4.0-beta2-2) karmic; urgency=low
+
+  * added examples to the installer
+  * released 0.4.0-beta2
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 20 Apr 2010 21:17:26 +0200
+
+usbpicprog (893-0.4.0-beta2-1) hardy; urgency=low
+
+  * added examples to the installer
+  * released 0.4.0-beta2
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 20 Apr 2010 21:16:30 +0200
+
+usbpicprog (880-0.4.0-beta-3) lucid; urgency=low
+
+  * released 0.4.0-beta
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 06 Apr 2010 20:13:26 +0200
+
+usbpicprog (868M-3) lucid; urgency=low
+
+  * karmic only
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:37:27 +0100
+
+usbpicprog (868M-2) karmic; urgency=low
+
+  * kamic only
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:37:15 +0100
+
+usbpicprog (868M-1) hardy; urgency=low
+
+  * dh_prep -> dh_clean -k in order to build on karmic
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:36:45 +0100
+
+usbpicprog (868-3) lucid; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:52 +0100
+
+usbpicprog (868-2) karmic; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:47 +0100
+
+usbpicprog (868-1) hardy; urgency=low
+
+  * changed compat to 6
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 14:07:36 +0100
+
+usbpicprog (866-3) lucid; urgency=low
+
+  * changes for hardy build
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:51:01 +0100
+
+usbpicprog (866-2) karmic; urgency=low
+
+  * changes for Hardy build
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:50:34 +0100
+
+usbpicprog (866-1) hardy; urgency=low
+
+  * changed debhelper build dependency from >7 to >6 for Hardy
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 18 Mar 2010 13:49:57 +0100
+
+usbpicprog (865-3) lucid; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:19 +0100
+
+usbpicprog (865-2) karmic; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:14 +0100
+
+usbpicprog (865-1) hardy; urgency=low
+
+  * changed SYSFS in ATTR in udev rules (this is the new way since
+    ubuntu 10.04)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 17 Mar 2010 15:48:09 +0100
+
+usbpicprog (864-2) lucid; urgency=low
+
+  * I am sorry, I messed up uppPackage since r834. The addresses were
+    totally messed up, so any programming would fail... Fixed it now by
+    exchanging AddrU and AddrL (wrong order)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:18:14 +0100
+
+usbpicprog (864-1) karmic; urgency=low
+
+  * I am sorry, I messed up uppPackage since r834. The addresses were
+    totally messed up, so any programming would fail... Fixed it now by
+    exchanging AddrU and AddrL (wrong order)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:18:09 +0100
+
+usbpicprog (863-2) lucid; urgency=low
+
+  * Fixed messed up addressing in UppPackage (addrH and AddrL were exchanged since 834)
+
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:16:25 +0100
+
+usbpicprog (863-1) karmic; urgency=low
+
+  * Fixed messed up addressing in UppPackage (addrH and AddrL were exchanged since 834)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 15 Mar 2010 16:15:05 +0100
+
+usbpicprog (851-3) lucid; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:21 +0100
+
+usbpicprog (851-2) karmic; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:16 +0100
+
+usbpicprog (851-1) jaunty; urgency=low
+
+  * call disconnect() after every USB read / write error, to avoid
+    unlimited loops of error messages
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 13:09:07 +0100
+
+usbpicprog (849-3) lucid; urgency=low
+
+  * move public functions above the private functions section, in the public se$
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other class$
+  * reorganize application flow by placing the 'main' code in OnRun() instead o$
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware c$
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware c$
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 09:00:47 +0100
+
+usbpicprog (849-2) karmic; urgency=low
+
+  * move public functions above the private functions section, in the public section...
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other classes - ...
+  * reorganize application flow by placing the 'main' code in OnRun() instead of OnI...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:58:02 +0100
+
+usbpicprog (849-1) jaunty; urgency=low
+
+  * clean up IOTest: - rename it to IOTestDialog for coherency with other classes
+  * reorganize application flow by placing the 'main' code in OnRun() instead of OnI...
+  * fix compilation under MSVC: - do not leave uninitialized vars in Hardware ctor (...
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:59 +0100
+
+usbpicprog (843-3) lucid; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:13 +0100
+
+usbpicprog (843-2) karmic; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:11 +0100
+
+usbpicprog (843-1) jaunty; urgency=low
+
+  * Hardware AUTHORS buildmac.sh debian docs makepo.sh src
+    svn_revision.h Usbpicprog.desktop xml_data m_hardware changed into
+    Hardware m_hardware, and only initialized once now.
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Mar 2010 08:54:09 +0100
+
+usbpicprog (0.3.1-beta-3) lucid; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:32:15 +0100
+
+usbpicprog (0.3.1-beta-2) karmic; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:32:08 +0100
+
+usbpicprog (0.3.1-beta-1) jaunty; urgency=low
+
+  * test
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 05 Mar 2010 11:31:59 +0100
+
+usbpicprog (842) karmic; urgency=low
+
+  * moved libusb_init and libusb_exit from main.cpp to hardware.cpp
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 04 Mar 2010 09:08:55 +0100
+
+usbpicprog (841) karmic; urgency=low
+
+  * you forgot an underscore Francesco!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 03 Mar 2010 09:45:45 +0100
+
+usbpicprog (839) karmic; urgency=low
+
+  * update installer, project files and makefiles after the previous
+    commit which modified the win\deps folder structure (now debug
+    binaries are provided, too).
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 02 Mar 2010 09:02:30 +0100
+
+usbpicprog (829) karmic; urgency=low
+
+  * updated some strings in the spanish translation file, thanks to
+    Diego Herranz!
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 24 Feb 2010 08:26:35 +0100
+
+usbpicprog (828) karmic; urgency=low
+
+  * updated Spanish and Dutch language files
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 23 Feb 2010 13:23:33 +0100
+
+usbpicprog (803) karmic; urgency=low
+
+  * missed configure.ac in merge
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 08 Feb 2010 10:59:45 +0100
+
+usbpicprog (787) karmic; urgency=low
+
+  * another step towards I2C eeprom
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 05 Jan 2010 20:58:04 +0100
+
+usbpicprog (783) karmic; urgency=low
+
+  * added an extra delay between programming (one word) and readback.
+    This sometimes caused errors during programming
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 31 Dec 2009 14:27:13 +0100
+
+usbpicprog (782) karmic; urgency=low
+
+  * implemented 18FXX31 and 18FX220
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 24 Dec 2009 13:42:49 +0100
+
+usbpicprog (778) karmic; urgency=low
+
+  * some code cleanup, removed debian package from release.sh (this will
+    now only create a .tar.gz from software and firmware
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 18 Dec 2009 13:22:08 +0100
+
+usbpicprog (776) karmic; urgency=low
+
+  * Now possible to resize the mainwindow for smaller laptop screens
+    (e.g. mini notebooks)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 16 Dec 2009 10:59:38 +0100
+
+usbpicprog (775) karmic; urgency=low
+
+  * Fixed location of .desktop (launcher)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 14 Dec 2009 15:56:01 +0100
+
+usbpicprog (774-3) karmic; urgency=low
+
+  * depends on libusb-0.1-4 (>0.1.12)
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 14 Dec 2009 14:01:00 +0100

@@ -1,0 +1,14 @@
+
+<H1>Introduction</H1>
+Usbpicprog is an USB in circuit programmer for Microchip PIC processors. The hardware is as simple as possible, the current version only contains one PIC18F2550, 4 mosfets, and besides the connectors a hand full of passive components.
+
+<H2>Components</H2>
+Usbpicprog consists of three main components which are all open source, and can be found on the download page of <a href="http://usbpicprog.org/">usbpicprog.org</a><br>
+<ul>
+    <li>Hardware - A PCB design which contains the necessary components to interface from the USB port to a Microchip ICSP (in circuit serial programming) header.</li>
+    <li>Firmware &#8211; The software that runs on the processor on the PCB. It contains the USB framework, and high and low level functions for PIC in circuit programming.The firmware can also be divided into two parts:</li>
+    <ul><li>The bootloader (Microchip Picdem bootloader) has to be loaded only once, after that this part of the firmware can be upgraded through the usbpicprog interface.</li>
+     <li>The usbpicprog part of the firmware contains the actual programming algorithms for all the implemented PIC devices.</li></ul>
+    <li>PC software &#8211; A wxWidgets based (cross platform) application to communicate with the usbpicprog hardware / firmware. This application is known to function well on Linux, Windows (XP or later) and Macosx.</li>
+</ul>
+
