@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20080825c) date = 30/6/2009-11:56:16
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = Fri 25 Feb 2011 10:02:01 AM CET
 
 BeginCmp
 TimeStamp = /466D32C2;
@@ -129,7 +129,7 @@ EndCmp
 BeginCmp
 TimeStamp = /466D1803;
 Reference = D8;
-ValeurCmp = 12V;
+ValeurCmp = 12V_or_NA;
 IdModule  = D;
 EndCmp
 
@@ -148,9 +148,9 @@ IdModule  = D;
 EndCmp
 
 BeginCmp
-TimeStamp = /466D15AB;
+TimeStamp = /4B964932;
 Reference = J1;
-ValeurCmp = USB_CONN;
+ValeurCmp = USB-B;
 IdModule  = CONN_USB-B;
 EndCmp
 
@@ -190,16 +190,16 @@ IdModule  = TO92DGS;
 EndCmp
 
 BeginCmp
-TimeStamp = /49E8D0F9;
+TimeStamp = /4D676F9C;
 Reference = Q4;
-ValeurCmp = BS170;
-IdModule  = TO92DGS;
+ValeurCmp = BC547;
+IdModule  = TO92-CBE;
 EndCmp
 
 BeginCmp
 TimeStamp = /466D1610;
 Reference = R1;
-ValeurCmp = 2k2;
+ValeurCmp = 1k;
 IdModule  = R;
 EndCmp
 
@@ -283,7 +283,7 @@ EndCmp
 BeginCmp
 TimeStamp = /49E8D1CA;
 Reference = R13;
-ValeurCmp = 100k;
+ValeurCmp = NA;
 IdModule  = R;
 EndCmp
 
@@ -297,14 +297,14 @@ EndCmp
 BeginCmp
 TimeStamp = /4A17C513;
 Reference = R15;
-ValeurCmp = 100k;
+ValeurCmp = 1M;
 IdModule  = R;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A17C51E;
 Reference = R16;
-ValeurCmp = 47k;
+ValeurCmp = 470k;
 IdModule  = R;
 EndCmp
 
