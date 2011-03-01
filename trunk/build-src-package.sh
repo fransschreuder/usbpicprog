@@ -12,8 +12,8 @@ then
   fi
 else
   DISTS="karmic lucid maverick"
-  RELEASE=$(svnversion -n)
-  RELEASE=${RELEASE:0:3}
+  RELEASE=$(date +"%y%m%d")
+  RELEASE=${RELEASE:0:6}
 #-$(date +%Y%m%d)
 fi
 
@@ -32,10 +32,11 @@ mkdir release
 #mkdir release/usbpicprog
 #mkdir release/firmware
 
-echo exporting svn tree...
+echo exporting git tree...
 #svn export uc_code release/firmware/firmware-$RELEASE
 #svn export boot release/firmware/boot1.0
-svn export upp_wx release/usbpicprog-$RELEASE
+cp -r upp_wx release/usbpicprog-$RELEASE
+#svn export upp_wx release/usbpicprog-$RELEASE
 
 #echo copy hexfiles...
 #cp release/firmware/firmware-$RELEASE/uc_code.hex release/firmware/firmware-$RELEASE.hex

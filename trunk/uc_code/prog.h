@@ -36,7 +36,7 @@ typedef enum _PICTYPE{
         P16C6XX,P16C55X,P16C7XX,P16C64x,P14000,P16C50X,P16C432,P17CXX,P17C7XX,
         P18FXX39,P18F6X2X,P18FXX80,P18F8410,P18F6XJXX,P18F45J10,P18F97J60,P18F1X30,P18FXX23,P18FXXK20,
 	P24FJXXXGA0XX,P24FJXXXGA1,dsP30F,dsP33F,P24H,P10F200,P10F202,P12F61X,P16F716,P18FXX31,P18FX220,
- 	I2C_EE_1,I2C_EE_2,P12F508,P24FXXKAXXX,
+ 	I2C_EE_1,I2C_EE_2,P12F508,P24FXXKAXXX,P18F4XK22,P18LF4XK22,
  	UPP_INVALID_PICTYPE
 }PICTYPE;
 
@@ -61,9 +61,11 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 
 // delay times according to programming specification for PIC18F:
 #define P9 2
+#define P9A 6
 #define P10 1
 #define P11 10
 #define P11A 5
+#define P11K 16
 
 // delay times according to programming specification for PIC16F:
 #define Tera 10

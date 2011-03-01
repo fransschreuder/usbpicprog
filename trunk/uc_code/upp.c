@@ -522,7 +522,9 @@ unsigned char set_pictype(unsigned char* data)
 		case P16F716:
 		case P17C7XX:picfamily=PIC16;break;
 		case P18F2XXX:
-		case P18FXX2:picfamily=PIC18;break;
+		case P18F4XK22:
+		case P18LF4XK22:
+		case P18FXX2:
 		case P18FXX39:
 		case P18F6X2X:
 		case P18FXX80:
