@@ -638,9 +638,9 @@ void UppMainWindow::updateProgress(int value)
         return;     // this may happen at startup, when the Hardware class is initialized
 
     wxThreadEvent* ev = new wxThreadEvent(wxEVT_COMMAND_THREAD_UPDATE);
-#ifdef __WXMAC__
+/*#ifdef __WXMAC__
 	if(value>99)value=99;
-#endif
+#endif*/
 	ev->SetInt(value);
     wxQueueEvent(this, ev);
 }
@@ -656,16 +656,16 @@ void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
 
 
 
-#ifdef __WXMAC__
+/*#ifdef __WXMAC__
 		bool continueOperation =
 		m_dlgProgress->Pulse( _("Please wait until the operations are completed:\n") +
 							  wxJoin(m_arrLog, '\n'));
-#else
+#else*/
 		bool continueOperation =
 		m_dlgProgress->Update(evt.GetInt(),
 							  _("Please wait until the operations are completed:\n") +
 							  wxJoin(m_arrLog, '\n'));
-#endif
+//#endif
 		
         // update to the new label size
         m_dlgProgress->Fit();
@@ -1101,10 +1101,10 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
                         wxPD_CAN_ABORT |
                         wxPD_APP_MODAL | 
 						wxPD_ELAPSED_TIME
-#ifndef __WXMAC__
+//#ifndef __WXMAC__
 						| wxPD_ESTIMATED_TIME |
                         wxPD_REMAINING_TIME
-#endif
+//#endif
                     );
 
     // inform the thread about which operation it must perform;
