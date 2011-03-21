@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 09:40+0100\n"
+"POT-Creation-Date: 2011-03-21 09:13+0100\n"
 "PO-Revision-Date: 2010-11-03 20:07+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
@@ -22,16 +22,16 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1507 src/uppmainwindow.cpp:1535
-#: src/uppmainwindow.cpp:1537
+#: src/uppmainwindow.cpp:1513 src/uppmainwindow.cpp:1541
+#: src/uppmainwindow.cpp:1543
 msgid " Connected"
 msgstr " Conectado"
 
-#: src/main.cpp:338
+#: src/main.cpp:339
 msgid " and "
 msgstr " y "
 
-#: src/uppmainwindow.cpp:986
+#: src/uppmainwindow.cpp:992
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr " falló en 0x%X. Leído: 0x%02X, Esperado: 0x%02X"
@@ -157,15 +157,15 @@ msgstr "5V"
 msgid "All operations completed"
 msgstr "Todas las operaciones completadas"
 
-#: src/uppmainwindow.cpp:1569 src/uppmainwindow.cpp:1570
+#: src/uppmainwindow.cpp:1575 src/uppmainwindow.cpp:1576
 msgid "Already disconnected"
 msgstr "Ya se ha desconectado"
 
-#: src/uppmainwindow.cpp:1601
+#: src/uppmainwindow.cpp:1607
 msgid "An open source USB pic programmer"
 msgstr "Programador de pic's por USB de código abierto"
 
-#: src/uppmainwindow.cpp:1050
+#: src/uppmainwindow.cpp:1056
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Blankcheck the PIC device"
 msgstr "Comprobar si el dispositivo PIC está vacío"
 
-#: src/uppmainwindow.cpp:1546 src/uppmainwindow.cpp:1548
+#: src/uppmainwindow.cpp:1552 src/uppmainwindow.cpp:1554
 msgid "Bootloader or programmer not found"
 msgstr "Bootloader o programador no encontrado"
 
@@ -196,7 +196,7 @@ msgstr "No se puede cargar '%s'"
 msgid "Cannot load XML PIC data."
 msgstr "No se puede cargar los datos XML del PIC"
 
-#: src/uppmainwindow.cpp:1642 src/uppmainwindow.cpp:1670
+#: src/uppmainwindow.cpp:1648 src/uppmainwindow.cpp:1676
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr ""
 "¡No se puede seleccionar un PIC diferente cuando el bootloader está "
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Change the currently selected PIC"
 msgstr "Cambiar el PIC seleccionado actualmente"
 
-#: src/uppmainwindow.cpp:1030
+#: src/uppmainwindow.cpp:1036
 msgid "Checking if the device is blank..."
 msgstr "Comprobando si el dispositivo está vacío..."
 
@@ -255,7 +255,7 @@ msgstr "Copiar"
 msgid "Could not access the 'xml_data' folder."
 msgstr "No se pudo acceder a la carpeta 'xml_data'"
 
-#: src/uppmainwindow.cpp:1110
+#: src/uppmainwindow.cpp:1116
 msgid "Could not create the worker thread!"
 msgstr "¡No se pudo crear el hilo de trabajo!"
 
@@ -304,7 +304,7 @@ msgstr "No se pudo abrir el archivo Hex para escritura..."
 msgid "Could not open Hex file..."
 msgstr "No se pudo abrir el archivo hex"
 
-#: src/uppmainwindow.cpp:1116
+#: src/uppmainwindow.cpp:1122
 msgid "Could not run the worker thread!"
 msgstr "¡No se pudo ejecutar el hilo de trabajo!"
 
@@ -364,7 +364,7 @@ msgstr "Hoja de características"
 msgid "Detect the type of the PIC device"
 msgstr "Detectar el tipo de dispositivo PIC"
 
-#: src/uppmainwindow.cpp:1462
+#: src/uppmainwindow.cpp:1468
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "Detectado modelo de PIC %s con ID de dispositivo 0x%X"
@@ -378,11 +378,11 @@ msgstr "ID de dispositivo:"
 msgid "Device ID: 0x%X"
 msgstr "ID de dispositivo: 0x%X"
 
-#: src/uppmainwindow.cpp:1038
+#: src/uppmainwindow.cpp:1044
 msgid "Device is blank"
 msgstr "El dispositivo está vacío"
 
-#: src/uppmainwindow.cpp:1055
+#: src/uppmainwindow.cpp:1061
 msgid "Device is not blank."
 msgstr "El dispositivo no está vacío."
 
@@ -390,7 +390,7 @@ msgstr "El dispositivo no está vacío."
 msgid "Disconnect from the programmer"
 msgstr "Desconectar del programador"
 
-#: src/uppmainwindow.cpp:1563 src/uppmainwindow.cpp:1565
+#: src/uppmainwindow.cpp:1569 src/uppmainwindow.cpp:1571
 msgid "Disconnected"
 msgstr "Desconectado"
 
@@ -414,7 +414,7 @@ msgstr "Borrar antes de programar"
 msgid "Erase the PIC device"
 msgstr "Borrar el dispositivo PIC"
 
-#: src/uppmainwindow.cpp:1011
+#: src/uppmainwindow.cpp:1017
 msgid "Erasing all areas of the PIC..."
 msgstr "Borrando todas las áreas del PIC..."
 
@@ -427,8 +427,8 @@ msgstr "Borrar antes de programar..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Error solicitando el interfaz: %s"
 
-#: src/main.cpp:352 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1015
-#: src/uppmainwindow.cpp:1403
+#: src/main.cpp:353 src/uppmainwindow.cpp:816 src/uppmainwindow.cpp:1021
+#: src/uppmainwindow.cpp:1409
 msgid "Error erasing the device"
 msgstr "Error borrando el dispositivo"
 
@@ -445,27 +445,27 @@ msgstr "Error en la suma de verificación..."
 msgid "Error programming code memory"
 msgstr "Error al programar la memória de código"
 
-#: src/uppmainwindow.cpp:906
+#: src/uppmainwindow.cpp:912
 msgid "Error programming config memory"
 msgstr "Error programando la memoria de configuración"
 
-#: src/uppmainwindow.cpp:876
+#: src/uppmainwindow.cpp:877
 msgid "Error programming data memory"
 msgstr "Error programando memoria de datos"
 
-#: src/uppmainwindow.cpp:927
+#: src/uppmainwindow.cpp:933
 msgid "Error reading code memory"
 msgstr "Error al leer la memoria de código"
 
-#: src/uppmainwindow.cpp:948
+#: src/uppmainwindow.cpp:954
 msgid "Error reading configuration memory"
 msgstr "Error de lectura la memoria de configuración"
 
-#: src/uppmainwindow.cpp:937
+#: src/uppmainwindow.cpp:943
 msgid "Error reading data memory"
 msgstr "Error de lectura la memoria de datos"
 
-#: src/main.cpp:354 src/uppmainwindow.cpp:1404
+#: src/main.cpp:355 src/uppmainwindow.cpp:1410
 msgid "Error restoring Calibration Registers"
 msgstr "Error restaurando los Registros de Calibración"
 
@@ -538,7 +538,7 @@ msgstr "Vista en Hexadecimal del área de código del PIC:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Vista en Hexadecimal del área de datos del PIC:"
 
-#: src/uppmainwindow.cpp:999 src/uppmainwindow.cpp:1064
+#: src/uppmainwindow.cpp:1005 src/uppmainwindow.cpp:1070
 msgid "I'm sorry for being stupid"
 msgstr "Lo siento por ser estúpido"
 
@@ -559,7 +559,7 @@ msgstr ""
 "El voltaje real del pin VPP y los estados de los otros pines se actualizan "
 "una vez por segundo y son reportados en negrita debajo."
 
-#: src/uppmainwindow.cpp:1085
+#: src/uppmainwindow.cpp:1091
 msgid "Initializing..."
 msgstr "Inicializando..."
 
@@ -577,16 +577,16 @@ msgstr "Archivo '%s' inválido"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Familia de PIC inválida para el PIC '%s'"
 
-#: src/pictype.cpp:781
+#: src/pictype.cpp:784
 msgid "Invalid direction"
 msgstr "Dirección inválida"
 
-#: src/pictype.cpp:801
+#: src/pictype.cpp:804
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Cuenta de pines impares inválida: %d"
 
-#: src/pictype.cpp:852
+#: src/pictype.cpp:855
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Cuenta de pines inválida: %d"
@@ -613,11 +613,11 @@ msgstr "Localización en memoria: 0x%X"
 msgid "Miscellaneous"
 msgstr "Misceláneo"
 
-#: src/uppmainwindow.cpp:1455
+#: src/uppmainwindow.cpp:1461
 msgid "No PIC detected!"
 msgstr "¡No se ha detectado ningún PIC!"
 
-#: src/uppmainwindow.cpp:1457
+#: src/uppmainwindow.cpp:1463
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr ""
@@ -627,7 +627,7 @@ msgstr ""
 msgid "No data to verify"
 msgstr "No hay datos que verificar"
 
-#: src/uppmainwindow.cpp:1206 src/uppmainwindow.cpp:1207
+#: src/uppmainwindow.cpp:1212 src/uppmainwindow.cpp:1213
 msgid "No file to refresh"
 msgstr "No hay archivo que refrescar"
 
@@ -635,12 +635,12 @@ msgstr "No hay archivo que refrescar"
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Nota: los pines rojos (algunos de ellos) son usados en ICSP"
 
-#: src/uppmainwindow.cpp:1344
+#: src/uppmainwindow.cpp:1350
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr ""
 "Sólo válido para PIC12F629, PIC12F508, 10F20X y dispositivos similares..."
 
-#: src/uppmainwindow.cpp:1152 src/uppmainwindow.cpp:1170
+#: src/uppmainwindow.cpp:1158 src/uppmainwindow.cpp:1176
 msgid "Open hexfile"
 msgstr "Abrir archivo HEX"
 
@@ -676,32 +676,32 @@ msgstr "Encapsulado"
 msgid "Please confirm"
 msgstr "Por favor confirme"
 
-#: src/main.cpp:347
+#: src/main.cpp:348
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Por favor especifique un valor de Bandgap entre 0 y 3"
 
-#: src/uppmainwindow.cpp:1397
+#: src/uppmainwindow.cpp:1403
 msgid "Please specify a bandgap value"
 msgstr "Por favor, especifique un valor de bandgap"
 
-#: src/uppmainwindow.cpp:1365
+#: src/uppmainwindow.cpp:1371
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
 msgstr "Por favor especifique un nuevo valor de Osccal [0xC00 - 0xCFF]"
 
-#: src/uppmainwindow.cpp:1372
+#: src/uppmainwindow.cpp:1378
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Por favor especifique un nuevo valor de Osccal [3400 - 37FF]"
 
-#: src/main.cpp:338
+#: src/main.cpp:339
 msgid "Please specify an Oscal Value between "
 msgstr "Por favor especifique un valor de Osccal entre "
 
-#: src/uppmainwindow.cpp:1384
+#: src/uppmainwindow.cpp:1390
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
 msgstr "Por favor especifique un valor de Osccal entre %X y %X"
 
-#: src/uppmainwindow.cpp:661 src/uppmainwindow.cpp:666
+#: src/uppmainwindow.cpp:666
 msgid "Please wait until the operations are completed:\n"
 msgstr "Por favor, espere hasta que las operaciones se hayan completado:\n"
 
@@ -717,7 +717,7 @@ msgstr "Opciones de programación"
 msgid "Program the PIC device"
 msgstr "Programar el dispositivo PIC"
 
-#: src/uppmainwindow.cpp:886
+#: src/uppmainwindow.cpp:892
 msgid "Programming configuration area of the PIC..."
 msgstr "Programando área de configuración del PIC..."
 
@@ -725,7 +725,7 @@ msgstr "Programando área de configuración del PIC..."
 msgid "Programming the code area of the PIC..."
 msgstr "Programando el área de código del PIC..."
 
-#: src/uppmainwindow.cpp:856
+#: src/uppmainwindow.cpp:857
 msgid "Programming the data area of the PIC..."
 msgstr "Programando el área de datos del PIC..."
 
@@ -756,7 +756,7 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Máx=%.2fV"
 
-#: src/uppmainwindow.cpp:1084
+#: src/uppmainwindow.cpp:1090
 msgid "Progress dialog"
 msgstr "Diálogo de progreso"
 
@@ -768,15 +768,15 @@ msgstr "RESET"
 msgid "Read the PIC device"
 msgstr "Leer el dispositivo PIC"
 
-#: src/uppmainwindow.cpp:924
+#: src/uppmainwindow.cpp:930
 msgid "Reading the code area of the PIC..."
 msgstr "Leyendo el área de código del PIC..."
 
-#: src/uppmainwindow.cpp:945
+#: src/uppmainwindow.cpp:951
 msgid "Reading the configuration area of the PIC..."
 msgstr "Leyendo el área de configuración del PIC..."
 
-#: src/uppmainwindow.cpp:934
+#: src/uppmainwindow.cpp:940
 msgid "Reading the data area of the PIC..."
 msgstr "Leyendo el área de datos del PIC..."
 
@@ -814,7 +814,7 @@ msgstr "Ejecutar Destino"
 msgid "Save &As"
 msgstr "Guardar &Como"
 
-#: src/uppmainwindow.cpp:1244
+#: src/uppmainwindow.cpp:1250
 msgid "Save hexfile"
 msgstr "Guardar archivo HEX"
 
@@ -858,11 +858,11 @@ msgstr "Muestra popups al conectar, etc..."
 msgid "Shows the options for this program"
 msgstr "Muestra las opciones para este programa"
 
-#: src/uppmainwindow.cpp:1397
+#: src/uppmainwindow.cpp:1403
 msgid "Specify a bandgap value"
 msgstr "Especificar un valor de bandgap"
 
-#: src/uppmainwindow.cpp:1366 src/uppmainwindow.cpp:1373
+#: src/uppmainwindow.cpp:1372 src/uppmainwindow.cpp:1379
 msgid "Specify a new Osccal Value"
 msgstr "Especificar un nuevo valor de Osccal"
 
@@ -890,20 +890,20 @@ msgid ""
 msgstr ""
 "El fichero HEX '%s' no se ha guardado... su contenido se perderá; ¿continuar?"
 
-#: src/uppmainwindow.cpp:835 src/uppmainwindow.cpp:867
-#: src/uppmainwindow.cpp:897
+#: src/uppmainwindow.cpp:835 src/uppmainwindow.cpp:868
+#: src/uppmainwindow.cpp:903
 msgid "The hardware should ask for next block"
 msgstr "El hardware debería preguntar por el siguiente bloque"
 
-#: src/uppmainwindow.cpp:832 src/uppmainwindow.cpp:864
-#: src/uppmainwindow.cpp:894
+#: src/uppmainwindow.cpp:832 src/uppmainwindow.cpp:865
+#: src/uppmainwindow.cpp:900
 msgid "The hardware should say OK"
 msgstr "El hardware debería decir OK"
 
-#: src/uppmainwindow.cpp:1285 src/uppmainwindow.cpp:1297
-#: src/uppmainwindow.cpp:1314 src/uppmainwindow.cpp:1326
-#: src/uppmainwindow.cpp:1349 src/uppmainwindow.cpp:1413
-#: src/uppmainwindow.cpp:1425 src/uppmainwindow.cpp:1617
+#: src/uppmainwindow.cpp:1291 src/uppmainwindow.cpp:1303
+#: src/uppmainwindow.cpp:1320 src/uppmainwindow.cpp:1332
+#: src/uppmainwindow.cpp:1355 src/uppmainwindow.cpp:1419
+#: src/uppmainwindow.cpp:1431 src/uppmainwindow.cpp:1623
 msgid "The programmer is not connected"
 msgstr "El programador no está conectado"
 
@@ -935,61 +935,61 @@ msgstr "Tipo:"
 msgid "Type: %d-bit microcontroller"
 msgstr "Tipo: microcontrolador de %d-bit"
 
-#: src/uppmainwindow.cpp:1058
+#: src/uppmainwindow.cpp:1064
 msgid "USB error during blankcheck"
 msgstr "Error de USB durante el vaciado del dispositivo"
 
-#: src/uppmainwindow.cpp:993
+#: src/uppmainwindow.cpp:999
 msgid "USB error during verify"
 msgstr "Error de USB durante la verificación"
 
-#: src/hardware.cpp:1211
+#: src/hardware.cpp:1227
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Error de usb mientras se leía: %s"
 
-#: src/uppmainwindow.cpp:844 src/uppmainwindow.cpp:873
-#: src/uppmainwindow.cpp:903
+#: src/uppmainwindow.cpp:844 src/uppmainwindow.cpp:874
+#: src/uppmainwindow.cpp:909
 msgid "USB error while writing code memory"
 msgstr "Error de USB mientras se escribía en la memoria de código"
 
-#: src/hardware.cpp:1230
+#: src/hardware.cpp:1246
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr ""
 "Error de usb mientras se escribía el dispositivo: %d bytes, codError: %d; %s"
 
-#: src/uppmainwindow.cpp:1186 src/uppmainwindow.cpp:1187
-#: src/uppmainwindow.cpp:1216 src/uppmainwindow.cpp:1217
+#: src/uppmainwindow.cpp:1192 src/uppmainwindow.cpp:1193
+#: src/uppmainwindow.cpp:1222 src/uppmainwindow.cpp:1223
 msgid "Unable to open file"
 msgstr "No se puede abrir el archivo"
 
-#: src/uppmainwindow.cpp:1501 src/uppmainwindow.cpp:1502
+#: src/uppmainwindow.cpp:1507 src/uppmainwindow.cpp:1508
 msgid "Unable to read firmware version"
 msgstr "No se puede leer la versión del firmware"
 
-#: src/uppmainwindow.cpp:1530 src/uppmainwindow.cpp:1531
+#: src/uppmainwindow.cpp:1536 src/uppmainwindow.cpp:1537
 msgid "Unable to read version"
 msgstr "No se puede leer la versión"
 
-#: src/uppmainwindow.cpp:1478
+#: src/uppmainwindow.cpp:1484
 msgid "Unable to run target"
 msgstr "No se puede ejecutar el destino"
 
-#: src/uppmainwindow.cpp:1232 src/uppmainwindow.cpp:1233
-#: src/uppmainwindow.cpp:1254 src/uppmainwindow.cpp:1255
+#: src/uppmainwindow.cpp:1238 src/uppmainwindow.cpp:1239
+#: src/uppmainwindow.cpp:1260 src/uppmainwindow.cpp:1261
 msgid "Unable to save file"
 msgstr "No se pudo guardar el archivo"
 
-#: src/uppmainwindow.cpp:1484
+#: src/uppmainwindow.cpp:1490
 msgid "Unable to stop target"
 msgstr "No se puede detener el destino"
 
-#: src/uppmainwindow.cpp:1061
+#: src/uppmainwindow.cpp:1067
 msgid "Unknown error during blankcheck"
 msgstr "Error desconocido durante la comprobación de vaciado"
 
-#: src/uppmainwindow.cpp:996
+#: src/uppmainwindow.cpp:1002
 msgid "Unknown error during verify"
 msgstr "Error desconocido durante la verificación"
 
@@ -1028,7 +1028,7 @@ msgstr "Variantes:"
 msgid "Verify after programming"
 msgstr "Verificar después de programar"
 
-#: src/uppmainwindow.cpp:981
+#: src/uppmainwindow.cpp:987
 msgid "Verify code"
 msgstr "Verificar código"
 
@@ -1036,7 +1036,7 @@ msgstr "Verificar código"
 msgid "Verify code memory"
 msgstr "Verificar memoria de código"
 
-#: src/uppmainwindow.cpp:983
+#: src/uppmainwindow.cpp:989
 msgid "Verify config"
 msgstr "Verificar configuración"
 
@@ -1044,7 +1044,7 @@ msgstr "Verificar configuración"
 msgid "Verify config memory"
 msgstr "Verificar memoria de configuración"
 
-#: src/uppmainwindow.cpp:982
+#: src/uppmainwindow.cpp:988
 msgid "Verify data"
 msgstr "Verificar datos"
 
@@ -1060,7 +1060,7 @@ msgstr "Error de verificación mientras se escribía en la memoria de código"
 msgid "Verify options"
 msgstr "Opciones de verificación"
 
-#: src/uppmainwindow.cpp:976
+#: src/uppmainwindow.cpp:982
 msgid "Verify successful"
 msgstr "Verificación realizada con éxito"
 
@@ -1068,11 +1068,11 @@ msgstr "Verificación realizada con éxito"
 msgid "Verify the PIC device"
 msgstr "Verificar el dispositivo PIC"
 
-#: src/uppmainwindow.cpp:984
+#: src/uppmainwindow.cpp:990
 msgid "Verify unknown"
 msgstr "Verificación desconocida"
 
-#: src/uppmainwindow.cpp:963
+#: src/uppmainwindow.cpp:969
 msgid "Verifying all areas of the PIC..."
 msgstr "Verificando todas las áreas del PIC..."
 
@@ -1099,11 +1099,11 @@ msgstr ""
 msgid "Write Code memory OK"
 msgstr "Escritura de la memoria de código OK"
 
-#: src/uppmainwindow.cpp:891
+#: src/uppmainwindow.cpp:897
 msgid "Write Config memory OK"
 msgstr "Escritura de la memoria de configuración OK"
 
-#: src/uppmainwindow.cpp:861
+#: src/uppmainwindow.cpp:862
 msgid "Write Data memory OK"
 msgstr "Escritura de la memoria de datos OK"
 
@@ -1119,7 +1119,7 @@ msgstr "Escritura de código no implementada para el PIC actual"
 msgid "Write config memory"
 msgstr "Escribir memoria de configuración"
 
-#: src/uppmainwindow.cpp:900
+#: src/uppmainwindow.cpp:906
 msgid "Write config not implemented for current PIC"
 msgstr "Escritura de configuración no implementada para el PIC actual"
 
@@ -1127,7 +1127,7 @@ msgstr "Escritura de configuración no implementada para el PIC actual"
 msgid "Write data memory"
 msgstr "Escribir memoria de datos"
 
-#: src/uppmainwindow.cpp:870
+#: src/uppmainwindow.cpp:871
 msgid "Write data not implemented for current PIC"
 msgstr "Escritura de datos no implementada para el PIC actual"
 

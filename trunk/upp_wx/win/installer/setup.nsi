@@ -150,6 +150,7 @@ proceed:
   !insertmacro UPP_INSTALL_LANG el
   !insertmacro UPP_INSTALL_LANG es
   !insertmacro UPP_INSTALL_LANG fr
+  !insertmacro UPP_INSTALL_LANG he
   !insertmacro UPP_INSTALL_LANG it
   !insertmacro UPP_INSTALL_LANG ja
   !insertmacro UPP_INSTALL_LANG ms
