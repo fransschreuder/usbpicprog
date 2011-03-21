@@ -5,7 +5,8 @@ if [ $# -ne 0 ]
 then
   RELEASE=$1
 else
-  RELEASE=$(svnversion -n)-$(date +%Y%m%d)
+  RELEASE=$(date +"%y%m%d")
+  RELEASE=${RELEASE:0:6}
 fi
 echo Building release: $RELEASE
 
@@ -14,15 +15,18 @@ then
 	echo Directory release exists, removing ...
 	rm -rf release
 fi
+
 echo making release directories release/usbpicprog and release/firmware...
 mkdir release
 mkdir release/usbpicprog
 mkdir release/firmware
 
-echo exporting svn tree...
-svn export uc_code release/firmware/firmware-$RELEASE
-svn export boot release/firmware/boot1.0
-svn export upp_wx release/usbpicprog/usbpicprog-$RELEASE
+echo exporting git tree...
+git clone ../ release/
+mv release/trunk/upp_wx release/usbpicprog-$RELEASE
+mv release/trunk/uc_code release/firmware-$RELEASE
+rm -r release/trunk
+rm -r release/README.md
 
 echo copy hexfiles...
 cp release/firmware/firmware-$RELEASE/uc_code.hex release/firmware/firmware-$RELEASE.hex

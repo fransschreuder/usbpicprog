@@ -8,10 +8,10 @@ then
   then
     DISTS=$2
   else
-    DISTS="karmic lucid maverick"
+    DISTS="lucid maverick natty"
   fi
 else
-  DISTS="karmic lucid maverick"
+  DISTS="lucid maverick natty"
   RELEASE=$(date +"%y%m%d")
   RELEASE=${RELEASE:0:6}
 #-$(date +%Y%m%d)
@@ -35,7 +35,10 @@ mkdir release
 echo exporting git tree...
 #svn export uc_code release/firmware/firmware-$RELEASE
 #svn export boot release/firmware/boot1.0
-cp -r upp_wx release/usbpicprog-$RELEASE
+git clone ../ release/
+mv release/trunk/upp_wx release/usbpicprog-$RELEASE
+rm -r release/trunk
+rm -r release/README.md
 #svn export upp_wx release/usbpicprog-$RELEASE
 
 #echo copy hexfiles...
