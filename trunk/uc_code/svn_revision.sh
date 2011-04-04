@@ -1,7 +1,9 @@
-if [ -d .svn ]; then
+DATE=$(date +"%y%m%d")
+DATE=${DATE:0:6}
+if [ 1 ]; then
   ( echo '// generated file';
   printf '#define SVN_REVISION "usbpicprog ';
-  (svnversion -n .);
+  echo -n $DATE;
   echo '"' ) > svn_revision.h.new;
   if [ ! -f svn_revision.h ]; then
     mv -f svn_revision.h.new svn_revision.h;
@@ -15,5 +17,5 @@ if [ -d .svn ]; then
 fi
 if [ ! -f svn_revision.h ]; then
   ( echo '// generated file';
-    echo '#define SVN_REVISION "usbpicprog 0.2.1"'; ) > svn_revision.h;
+    echo '#define SVN_REVISION "usbpicprog 0.4.2"'; ) > svn_revision.h;
 fi

@@ -18,13 +18,14 @@ fi
 
 echo making release directories release/usbpicprog and release/firmware...
 mkdir release
-mkdir release/usbpicprog
-mkdir release/firmware
+
 
 echo exporting git tree...
 git clone ../ release/
-mv release/trunk/upp_wx release/usbpicprog-$RELEASE
-mv release/trunk/uc_code release/firmware-$RELEASE
+mkdir release/usbpicprog
+mkdir release/firmware
+mv release/trunk/upp_wx release/usbpicprog/usbpicprog-$RELEASE
+mv release/trunk/uc_code release/firmware/firmware-$RELEASE
 rm -r release/trunk
 rm -r release/README.md
 

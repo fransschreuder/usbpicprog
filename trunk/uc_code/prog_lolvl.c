@@ -115,6 +115,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			case P16F62XA:
 			case P12F629:
 			case P12F6XX:
+		   case P16F87:
 				VPP=0;
 				break;
 			default:
@@ -132,6 +133,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			case P16F62XA:				
 			case P12F629:
 			case P12F6XX:
+		   case P16F87:			
 				VDD=0;
 				break;
 			case dsP30F:
