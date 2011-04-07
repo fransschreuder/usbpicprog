@@ -75,10 +75,17 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
         for (unsigned int j=0; j<word.Masks.size(); j++)
         {
             const ConfigMask& mask = word.Masks[j];
+#if wxCHECK_VERSION(2,9,2)
+			wxStaticText* tx = new wxStaticText(panel, wxID_ANY, "", wxDefaultPosition, wxDefaultSize);
+			tx->SetLabelMarkup(wxString::Format("<b>%s</b> [%d bits]:", mask.Name, mask.GetBitSize()));
+			sz->Add(tx,  0, wxLEFT|wxALIGN_CENTER, 5);
+#else
             sz->Add(new wxStaticText(panel, wxID_ANY, 
                                      wxString::Format("<b>%s</b> [%d bits]:", mask.Name, mask.GetBitSize()),
                                      wxDefaultPosition, wxDefaultSize, wxST_MARKUP),
                     0, wxLEFT|wxALIGN_CENTER, 5);
+#endif
+
             // NOTE: we give each wxChoice we build the name of the mask it controls;
             //       in this way from OnChoiceChange() we can easily find out which object
             //       is sending the notification
