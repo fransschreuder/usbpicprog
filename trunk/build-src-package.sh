@@ -8,10 +8,10 @@ then
   then
     DISTS=$2
   else
-    DISTS="lucid maverick natty"
+    DISTS="karmic lucid maverick natty"
   fi
 else
-  DISTS="lucid maverick natty"
+  DISTS="karmic lucid maverick natty"
   RELEASE=$(date +"%y%m%d")
   RELEASE=${RELEASE:0:6}
 #-$(date +%Y%m%d)
