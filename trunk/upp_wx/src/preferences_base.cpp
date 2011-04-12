@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 21 2009)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -24,23 +24,18 @@ UppPreferencesDialogBase::UppPreferencesDialogBase( wxWindow* parent, wxWindowID
 	sbSizer5 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Program options") ), wxVERTICAL );
 	
 	m_pCheckboxProgramCode = new wxCheckBox( this, wxID_ANY, _("Write code memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer5->Add( m_pCheckboxProgramCode, 0, wxALL, 5 );
 	
 	m_pCheckboxProgramConfig = new wxCheckBox( this, wxID_ANY, _("Write config memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer5->Add( m_pCheckboxProgramConfig, 0, wxALL, 5 );
 	
 	m_pCheckboxProgramData = new wxCheckBox( this, wxID_ANY, _("Write data memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer5->Add( m_pCheckboxProgramData, 0, wxALL, 5 );
 	
 	m_pCheckboxEraseBeforeProgramming = new wxCheckBox( this, wxID_ANY, _("Erase before programming"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer5->Add( m_pCheckboxEraseBeforeProgramming, 0, wxALL, 5 );
 	
 	m_pCheckboxVerifyAfterProgramming = new wxCheckBox( this, wxID_ANY, _("Verify after programming"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer5->Add( m_pCheckboxVerifyAfterProgramming, 0, wxALL, 5 );
 	
 	bSizer7->Add( sbSizer5, 0, wxALL|wxEXPAND, 10 );
@@ -49,15 +44,12 @@ UppPreferencesDialogBase::UppPreferencesDialogBase( wxWindow* parent, wxWindowID
 	sbSizer4 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Verify options") ), wxVERTICAL );
 	
 	m_pCheckboxVerifyCode = new wxCheckBox( this, wxID_ANY, _("Verify code memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer4->Add( m_pCheckboxVerifyCode, 0, wxALL, 5 );
 	
 	m_pCheckboxVerifyConfig = new wxCheckBox( this, wxID_ANY, _("Verify config memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer4->Add( m_pCheckboxVerifyConfig, 0, wxALL, 5 );
 	
 	m_pCheckboxVerifyData = new wxCheckBox( this, wxID_ANY, _("Verify data memory"), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer4->Add( m_pCheckboxVerifyData, 0, wxALL, 5 );
 	
 	bSizer7->Add( sbSizer4, 0, wxALL|wxEXPAND, 10 );
@@ -66,8 +58,10 @@ UppPreferencesDialogBase::UppPreferencesDialogBase( wxWindow* parent, wxWindowID
 	sbSizer3 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("GUI options") ), wxVERTICAL );
 	
 	m_pCheckboxShowPopups = new wxCheckBox( this, wxID_ANY, _("Shows popups on connect etc..."), wxDefaultPosition, wxDefaultSize, 0 );
-	
 	sbSizer3->Add( m_pCheckboxShowPopups, 0, wxALL, 5 );
+	
+	m_pcheckBoxLocalize = new wxCheckBox( this, wxID_ANY, _("Localize Usbpicprog in your System Language"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer3->Add( m_pcheckBoxLocalize, 0, wxALL, 5 );
 	
 	bSizer7->Add( sbSizer3, 0, wxALL|wxEXPAND, 10 );
 	

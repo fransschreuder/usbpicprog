@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 16 2008)
+// C++ code generated with wxFormBuilder (version Dec 21 2009)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -43,11 +43,13 @@ class UppPreferencesDialogBase : public wxDialog
 		wxCheckBox* m_pCheckboxVerifyConfig;
 		wxCheckBox* m_pCheckboxVerifyData;
 		wxCheckBox* m_pCheckboxShowPopups;
+		wxCheckBox* m_pcheckBoxLocalize;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
 	
 	public:
+		
 		UppPreferencesDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
 		~UppPreferencesDialogBase();
 	

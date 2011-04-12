@@ -127,6 +127,8 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
         m_cfg.ConfigShowPopups=false;
     if ( !pCfg->Read(("ConfigShowPopups"), &m_cfg.ConfigShowPopups))
         m_cfg.ConfigShowPopups=false;
+	if ( !pCfg->Read(("ConfigLocalize"), &m_cfg.ConfigLocalize))
+		m_cfg.ConfigLocalize=true;
     m_history.Load(*pCfg);
 
     // non-GUI init:
@@ -180,6 +182,7 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(("ConfigVerifyAfterProgramming"), m_cfg.ConfigVerifyAfterProgramming);
     pCfg->Write(("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
     pCfg->Write(("ConfigShowPopups"), m_cfg.ConfigShowPopups);
+    pCfg->Write(("ConfigLocalize"), m_cfg.ConfigLocalize);
     pCfg->Write(("SelectedPIC"), m_pPICChoice->GetSelection());
     m_history.Save(*pCfg);
 }
