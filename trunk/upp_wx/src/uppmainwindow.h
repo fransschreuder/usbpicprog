@@ -87,7 +87,7 @@ typedef std::vector<time_t> wxArrayTime;
     is used to do long operations (like read/program/erase/verify, etc) without
     blocking the GUI.
 */
-class UppMainWindow : public wxThreadHelper, public UppMainWindowBase
+class UppMainWindow : public UppMainWindowBase, public wxThreadHelper
 {
 public:
     UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id = wxID_ANY);
