@@ -1,3 +1,27 @@
+usbpicprog (110412-4) natty; urgency=low
+
+  * fixed an assertion fail at close
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 12 Apr 2011 11:34:29 +0200
+
+usbpicprog (110412-3) maverick; urgency=low
+
+  * fixed an assertion fail at close
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 12 Apr 2011 11:34:15 +0200
+
+usbpicprog (110412-2) lucid; urgency=low
+
+  * fixed an assertion fail at close
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 12 Apr 2011 11:34:03 +0200
+
+usbpicprog (110412-1) karmic; urgency=low
+
+  * fixed an assertion fail at close
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 12 Apr 2011 11:33:45 +0200
+
 usbpicprog (110411-4) natty; urgency=low
 
   * Some minor changes before releasing 0.4.2
