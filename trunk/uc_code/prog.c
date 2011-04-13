@@ -843,7 +843,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
                                         if(i<14)pic_send_n_bits(6,0x06);	//increment address
 				}
 				pic_send_n_bits(6,0x08);    //begin erase / programming
-				DelayMs(8);
+				DelayMs(16);
 				//pic_send_n_bits(5,0x17);    //end programming
 				pic_send_n_bits(6,0x06);	//increment address
 			}
