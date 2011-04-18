@@ -26,6 +26,7 @@ mkdir release/usbpicprog
 mkdir release/firmware
 mv release/trunk/upp_wx release/usbpicprog/usbpicprog-$RELEASE
 mv release/trunk/uc_code release/firmware/firmware-$RELEASE
+mv release/trunk/boot release/firmware/boot1.0
 rm -r release/trunk
 rm -r release/README.md
 
