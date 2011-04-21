@@ -27,7 +27,7 @@
   <voltages name="vdd_prog" min="4.5"  max="5.5"  nominal="5"  />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"            start="0x000" end="0x0FE" />
+  <memory name="code"            start="0x000" end="0x0FF" />
   <memory name="calibration"        start="0x0FF" end="0x0FF" cal_opmask="0xF00"     cal_opcode="0xC00" />
   <memory name="user_ids"           start="0x100" end="0x103" rmask="0x00F"          />
   <memory name="config"             start="0x1FF" end="0x1FF" hexfile_offset="0xFFF" />
