@@ -54,14 +54,22 @@ UppPreferencesDialogBase::UppPreferencesDialogBase( wxWindow* parent, wxWindowID
 	
 	bSizer7->Add( sbSizer4, 0, wxALL|wxEXPAND, 10 );
 	
+	wxStaticBoxSizer* sbSizer41;
+	sbSizer41 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Connect Options") ), wxVERTICAL );
+	
+	m_pCheckboxAutoDetect = new wxCheckBox( this, wxID_ANY, _("Autodetect on Connect"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer41->Add( m_pCheckboxAutoDetect, 0, wxALL, 5 );
+	
+	bSizer7->Add( sbSizer41, 1, wxALL|wxEXPAND, 10 );
+	
 	wxStaticBoxSizer* sbSizer3;
 	sbSizer3 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("GUI options") ), wxVERTICAL );
 	
 	m_pCheckboxShowPopups = new wxCheckBox( this, wxID_ANY, _("Shows popups on connect etc..."), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer3->Add( m_pCheckboxShowPopups, 0, wxALL, 5 );
 	
-	m_pcheckBoxLocalize = new wxCheckBox( this, wxID_ANY, _("Localize Usbpicprog in your System Language"), wxDefaultPosition, wxDefaultSize, 0 );
-	sbSizer3->Add( m_pcheckBoxLocalize, 0, wxALL, 5 );
+	m_pCheckboxLocalize = new wxCheckBox( this, wxID_ANY, _("Localize Usbpicprog in your System Language"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer3->Add( m_pCheckboxLocalize, 0, wxALL, 5 );
 	
 	bSizer7->Add( sbSizer3, 0, wxALL|wxEXPAND, 10 );
 	

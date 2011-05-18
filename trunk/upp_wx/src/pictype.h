@@ -469,6 +469,9 @@ public:
     /// Address for the configuration memory area (in word units??)
     unsigned int ConfigAddress;
 
+	/// Address for the configuration memory in the hex file (word units)
+	unsigned int ConfigAddressHexfile;
+
     /// Size of the data memory area (in word units??)
     unsigned int DataSize;
         

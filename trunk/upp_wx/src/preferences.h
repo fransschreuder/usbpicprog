@@ -37,6 +37,7 @@ typedef struct {
     bool ConfigProgramCode;
     bool ConfigShowPopups;
 	bool ConfigLocalize;
+	bool ConfigAutoDetect;
 } UppPreferences;
 
 /**

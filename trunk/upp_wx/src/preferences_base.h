@@ -42,8 +42,9 @@ class UppPreferencesDialogBase : public wxDialog
 		wxCheckBox* m_pCheckboxVerifyCode;
 		wxCheckBox* m_pCheckboxVerifyConfig;
 		wxCheckBox* m_pCheckboxVerifyData;
+		wxCheckBox* m_pCheckboxAutoDetect;
 		wxCheckBox* m_pCheckboxShowPopups;
-		wxCheckBox* m_pcheckBoxLocalize;
+		wxCheckBox* m_pCheckboxLocalize;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;

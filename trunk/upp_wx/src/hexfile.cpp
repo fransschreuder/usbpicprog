@@ -139,7 +139,10 @@ bool HexFile::open(PicType* picType, const char* filename)
         {
         case DATA:
             // is the address within the Config Memory range?
-            configAddress=picType->ConfigAddress;
+			if(picType->ConfigAddressHexfile != 0)
+					configAddress=picType->ConfigAddressHexfile;
+			else
+					configAddress=picType->ConfigAddress;
             if ((picType->bitsPerWord()==14)||(picType->bitsPerWord()==24))
                 configAddress*=2;
             if (((extAddress+address)>=(configAddress))&&
@@ -474,7 +477,11 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
 		}
         lineData.resize(2);
         //Put address DataAddress in lineData
-        address=picType->ConfigAddress;
+
+		if(picType->ConfigAddressHexfile != 0)
+			        address=picType->ConfigAddressHexfile;
+		else
+			        address=picType->ConfigAddress;
         if ((picType->bitsPerWord()==14)||(picType->bitsPerWord()==24))address*=2;
         lineData[0]=(address>>24)&0xFF;
         lineData[1]=(address>>16)&0xFF;

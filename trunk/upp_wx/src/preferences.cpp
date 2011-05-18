@@ -58,7 +58,8 @@ void UppPreferencesDialog::OnOk(wxCommandEvent& WXUNUSED(event))
     m_cfg.ConfigProgramCode=m_pCheckboxProgramCode->IsChecked();
     m_cfg.ConfigEraseBeforeProgramming=m_pCheckboxEraseBeforeProgramming->IsChecked();
     m_cfg.ConfigShowPopups=m_pCheckboxShowPopups->IsChecked();
-	m_cfg.ConfigLocalize=m_pcheckBoxLocalize->IsChecked();
+	m_cfg.ConfigLocalize=m_pCheckboxLocalize->IsChecked();
+	m_cfg.ConfigAutoDetect=m_pCheckboxAutoDetect->IsChecked();	
 
     EndModal(wxID_OK);
 }
@@ -75,5 +76,6 @@ void UppPreferencesDialog::SetConfigFields(const UppPreferences& cf)
     m_pCheckboxVerifyData->SetValue(cf.ConfigVerifyData);
     m_pCheckboxEraseBeforeProgramming->SetValue(cf.ConfigEraseBeforeProgramming);
     m_pCheckboxShowPopups->SetValue(cf.ConfigShowPopups);
-	m_pcheckBoxLocalize->SetValue(cf.ConfigLocalize);
+	m_pCheckboxLocalize->SetValue(cf.ConfigLocalize);
+	m_pCheckboxAutoDetect->SetValue(cf.ConfigAutoDetect);
 }

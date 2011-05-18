@@ -300,7 +300,8 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
     wxXmlDocument doc;
     wxString str;
     long num=0;
-    
+	p.ConfigAddressHexfile = 0; //not always in the xml file, let's make it 0 for safety.
+	
     if (!doc.Load(fileName))
         {cout<<"could not loade fileName"<<endl;return UPP_INVALID_PIC;}
     if (doc.GetRoot()->GetName() != ("device"))
@@ -369,6 +370,11 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                     !str.ToLong(&num, 0))
                     {cout<<"start attribute in config memory not found"<<endl;return UPP_INVALID_PIC;}
                 p.ConfigAddress = num;
+				if (child->GetAttribute(("hexfile_offset"), &str) && str.ToLong(&num, 0))
+				{
+					cout<<"pic contains hexfile offset "<<num<<endl;
+					p.ConfigAddressHexfile = num;
+				}
             }
             else if (name == ("eeprom"))
             {

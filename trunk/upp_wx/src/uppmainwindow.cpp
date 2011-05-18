@@ -129,6 +129,8 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
         m_cfg.ConfigShowPopups=false;
 	if ( !pCfg->Read(("ConfigLocalize"), &m_cfg.ConfigLocalize))
 		m_cfg.ConfigLocalize=true;
+	if ( !pCfg->Read(("AutoDetect"), &m_cfg.ConfigAutoDetect))
+		m_cfg.ConfigAutoDetect=true;
     m_history.Load(*pCfg);
 
     // non-GUI init:
@@ -183,6 +185,7 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(("ConfigEraseBeforeProgramming"), m_cfg.ConfigEraseBeforeProgramming);
     pCfg->Write(("ConfigShowPopups"), m_cfg.ConfigShowPopups);
     pCfg->Write(("ConfigLocalize"), m_cfg.ConfigLocalize);
+    pCfg->Write(("ConfigAutoDetect"), m_cfg.ConfigAutoDetect);
     pCfg->Write(("SelectedPIC"), m_pPICChoice->GetSelection());
     m_history.Save(*pCfg);
 }
@@ -1502,7 +1505,10 @@ bool UppMainWindow::upp_connect()
 
     if (m_hardware.connected())
     {
-        upp_autodetect();       // already calls upp_new();
+		if(m_cfg.ConfigAutoDetect)
+			upp_autodetect();       // already calls upp_new();
+		else
+			Reset();
 
         FirmwareVersion firmwareVersion;
         if (m_hardware.getFirmwareVersion(&firmwareVersion)<0)

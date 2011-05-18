@@ -1,3 +1,27 @@
+usbpicprog (110421-4) natty; urgency=low
+
+  * Added support for 10F220, 10F222
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 21 Apr 2011 16:00:18 +0200
+
+usbpicprog (110421-3) maverick; urgency=low
+
+  * Added support for 10F220, 10F222
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 21 Apr 2011 16:00:04 +0200
+
+usbpicprog (110421-2) lucid; urgency=low
+
+  * Added support for 10F220, 10F222
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 21 Apr 2011 15:59:52 +0200
+
+usbpicprog (110421-1) karmic; urgency=low
+
+  * Added support for 10F220, 10F222
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 21 Apr 2011 15:59:31 +0200
+
 usbpicprog (110412-4) natty; urgency=low
 
   * fixed an assertion fail at close
