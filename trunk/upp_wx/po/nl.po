@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-06 09:37+0200\n"
-"PO-Revision-Date: 2011-04-12 09:10+0100\n"
+"POT-Creation-Date: 2011-06-06 10:37+0200\n"
+"PO-Revision-Date: 2011-06-06 10:37+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
 "Language: nl\n"
@@ -167,7 +167,7 @@ msgstr "Een open source USB pic programmer"
 
 #: src/preferences_base.cpp:60
 msgid "Autodetect on Connect"
-msgstr ""
+msgstr "Autodetect bij verbinden"
 
 #: src/uppmainwindow.cpp:1062
 #, c-format
@@ -241,9 +241,8 @@ msgid "Configuration flags for this PIC:"
 msgstr "Configuratie flags voor deze PIC:"
 
 #: src/preferences_base.cpp:58
-#, fuzzy
 msgid "Connect Options"
-msgstr "Verbind Usbpicprog"
+msgstr "Verbindingsopties"
 
 #: src/uppmainwindow.cpp:252
 msgid "Connect to the programmer"
