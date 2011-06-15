@@ -138,10 +138,10 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
 	m_arrPICName=PicType::getSupportedPicNames();
 
 	wxFileSystem::AddHandler(new wxZipFSHandler);
-	m_HelpController =  new wxHtmlHelpController();
+	/*m_HelpController =  new wxHtmlHelpController();
 
 	m_HelpController->AddBook(((wxStandardPaths &)wxStandardPaths::Get()).GetDataDir()+wxT("/usbpicprog.htb"),true);
-	
+	*/
     // GUI init:
     CompleteGUICreation();    // also loads the saved pos&size of this frame
 
@@ -1598,6 +1598,13 @@ void UppMainWindow::upp_preferences()
 void UppMainWindow::upp_help()
 {
     //wxLaunchDefaultBrowser(("http://usbpicprog.org/"));
+	static bool helpshown=false;
+	if(!helpshown)
+	{
+		m_HelpController =  new wxHtmlHelpController();
+		m_HelpController->AddBook(((wxStandardPaths &)wxStandardPaths::Get()).GetDataDir()+wxT("/usbpicprog.htb"),true);
+	}
+	helpshown=true;
 	m_HelpController->Display("Introduction");
 }
 
