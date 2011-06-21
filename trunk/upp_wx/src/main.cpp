@@ -269,6 +269,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	
     // before proceeding, test if the Hardware class is able to connect to
     // the hardware interface:
+	cout<<"Connecting"<<endl;
     m_hardware.connect(NULL, HW_UPP);
 	if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
 		m_hardware.connect(NULL, HW_BOOTLOADER); 
@@ -278,6 +279,14 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         m_nRetCode = -1;
         return;
     }
+	FirmwareVersion fwv;
+	if(m_hardware.getFirmwareVersion (&fwv))
+	{
+		cout<<endl<<fwv.versionString<<" Connected"<<endl;
+	}
+	else
+	    cerr<<"Error reading firmware version"<<endl;
+			
 
     // command line option -s or --silent passed?
     silent_mode = parser.Found(("s"));
@@ -306,10 +315,13 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	{
         picType=new PicType(PicType::FindPIC(picTypeStr));
 		m_hardware.setPicType(picType);
+		cout<<"\b\b\b\b";
 	}
     else
     {
+		cout<<"Autodetecting: "<<endl;
         int devId=m_hardware.autoDetectDevice();
+		cout<<endl;
         picType=new PicType(PicType::FindPIC(devId));
         m_hardware.setPicType(picType);
         if(devId>0)cout<<"Detected: ";
@@ -379,6 +391,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     {
         cout<<"Bulk erase..."<<endl;
         if(m_hardware.bulkErase(picType, true)<0)cerr<<"Error during erase"<<endl;
+		cout<<endl;
     }
 
     // if -b is passed, check if the device is blank
@@ -387,6 +400,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         cout<<"Blankcheck..."<<endl;
         wxString typeText,tempStr;
         VerifyResult res=m_hardware.blankCheck(picType);
+		cout<<"\b\b\b\b100%"<<endl;
         switch(res.Result)
         {
             case VERIFY_SUCCESS:
@@ -441,14 +455,18 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 				m_hardware.backupOscCalBandGap(picType);
 				hexFile->putOscCalBandGap (picType);
 			}
+			cout<<"Write Code"<<endl;
             if(m_hardware.write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
-				
+			cout<<"\b\b\b\b100%"<<endl<<"Write Data"<<endl;
             if(m_hardware.write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
 			if(parser.Found(("v")))
 			{
+				cout<<"\b\b\b\b100%"<<endl<<"Verify Code and Data"<<endl;
 				res=m_hardware.verify(hexFile,picType, true, false, true); //verify code and data before programming config memory, due to possible code protection
 			}
+			cout<<"\b\b\b\b100%"<<endl<<"Write Config"<<endl;
             if(m_hardware.write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
+			cout<<"\b\b\b\b100%"<<endl;
             delete hexFile;
         }
     }
@@ -461,9 +479,13 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         else
         {
             hexFile=new HexFile();
+			cout<<"Read Code"<<endl;
             if(m_hardware.read(TYPE_CODE,hexFile,picType,picType->CodeSize)<0)cerr<<"Error reading Code"<<endl;
+			cout<<"\b\b\b\b100%"<<endl<<"Read Data"<<endl;
             if(m_hardware.read(TYPE_DATA,hexFile,picType,picType->DataSize)<0)cerr<<"Error reading Data"<<endl;
+			cout<<"\b\b\b\b100%"<<endl<<"Read Config"<<endl;
             if(m_hardware.read(TYPE_CONFIG,hexFile,picType,picType->ConfigSize)<0)cerr<<"Error reading Config"<<endl;
+			cout<<"\b\b\b\b100%"<<endl;
             hexFile->trimData(picType);
             if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to save file"<<endl;
@@ -495,6 +517,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 			if(res.Result==VERIFY_SUCCESS)
 			{
 	            res=m_hardware.verify(hexFile,picType, !parser.Found("w"), true, !parser.Found("w")); //only verify code and data here if not programmed here. Else this has to be done before config due to possible code protection
+				cout<<"\b\b\b\b100%"<<endl;
 			}
             switch(res.Result)
             {
