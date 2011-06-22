@@ -274,7 +274,7 @@ void Hardware::statusCallBack(int value) const
 	{
 		if(value!=oldvalue)
 		{
-			cout<<"\b\b\b";
+			cout<<"\r";
 			cout<<std::dec<<value<<"%"<<flush;
 			oldvalue=value;
 		}

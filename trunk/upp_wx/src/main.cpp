@@ -315,7 +315,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	{
         picType=new PicType(PicType::FindPIC(picTypeStr));
 		m_hardware.setPicType(picType);
-		cout<<"\b\b\b\b";
+		cout<<"\r";
 	}
     else
     {
@@ -400,7 +400,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
         cout<<"Blankcheck..."<<endl;
         wxString typeText,tempStr;
         VerifyResult res=m_hardware.blankCheck(picType);
-		cout<<"\b\b\b\b100%"<<endl;
+		cout<<"\r100%"<<endl;
         switch(res.Result)
         {
             case VERIFY_SUCCESS:
@@ -457,16 +457,16 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 			}
 			cout<<"Write Code"<<endl;
             if(m_hardware.write(TYPE_CODE,hexFile,picType)<0)cerr<<"Error writing Code"<<endl;
-			cout<<"\b\b\b\b100%"<<endl<<"Write Data"<<endl;
+			cout<<"\r100%"<<endl<<"Write Data"<<endl;
             if(m_hardware.write(TYPE_DATA,hexFile,picType)<0)cerr<<"Error writing Data"<<endl;
 			if(parser.Found(("v")))
 			{
-				cout<<"\b\b\b\b100%"<<endl<<"Verify Code and Data"<<endl;
+				cout<<"\r100%"<<endl<<"Verify Code and Data"<<endl;
 				res=m_hardware.verify(hexFile,picType, true, false, true); //verify code and data before programming config memory, due to possible code protection
 			}
-			cout<<"\b\b\b\b100%"<<endl<<"Write Config"<<endl;
+			cout<<"\r100%"<<endl<<"Write Config"<<endl;
             if(m_hardware.write(TYPE_CONFIG,hexFile,picType)<0)cerr<<"Error writing Config"<<endl;
-			cout<<"\b\b\b\b100%"<<endl;
+			cout<<"\r100%"<<endl;
             delete hexFile;
         }
     }
@@ -481,11 +481,11 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             hexFile=new HexFile();
 			cout<<"Read Code"<<endl;
             if(m_hardware.read(TYPE_CODE,hexFile,picType,picType->CodeSize)<0)cerr<<"Error reading Code"<<endl;
-			cout<<"\b\b\b\b100%"<<endl<<"Read Data"<<endl;
+			cout<<"\r100%"<<endl<<"Read Data"<<endl;
             if(m_hardware.read(TYPE_DATA,hexFile,picType,picType->DataSize)<0)cerr<<"Error reading Data"<<endl;
-			cout<<"\b\b\b\b100%"<<endl<<"Read Config"<<endl;
+			cout<<"\r100%"<<endl<<"Read Config"<<endl;
             if(m_hardware.read(TYPE_CONFIG,hexFile,picType,picType->ConfigSize)<0)cerr<<"Error reading Config"<<endl;
-			cout<<"\b\b\b\b100%"<<endl;
+			cout<<"\r100%"<<endl;
             hexFile->trimData(picType);
             if(!hexFile->saveAs(picType,filename.mb_str(wxConvUTF8)))
                 cerr<<"Unable to save file"<<endl;
@@ -517,7 +517,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 			if(res.Result==VERIFY_SUCCESS)
 			{
 	            res=m_hardware.verify(hexFile,picType, !parser.Found("w"), true, !parser.Found("w")); //only verify code and data here if not programmed here. Else this has to be done before config due to possible code protection
-				cout<<"\b\b\b\b100%"<<endl;
+				cout<<"\r100%"<<endl;
 			}
             switch(res.Result)
             {

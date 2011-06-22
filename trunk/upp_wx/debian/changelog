@@ -1,3 +1,27 @@
+usbpicprog (110622-4) natty; urgency=low
+
+  * Added feedback for the programming process in the command line interface
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 22 Jun 2011 15:47:41 +0200
+
+usbpicprog (110622-3) maverick; urgency=low
+
+  * Added feedback for the programming process in the command line interface
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 22 Jun 2011 15:46:46 +0200
+
+usbpicprog (110622-2) lucid; urgency=low
+
+  * Added feedback for the programming process in the command line interface
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 22 Jun 2011 15:46:34 +0200
+
+usbpicprog (110622-1) karmic; urgency=low
+
+  * Added feedback for the programming process in the command line interface
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 22 Jun 2011 13:39:33 +0200
+
 usbpicprog (110421-4) natty; urgency=low
 
   * Added support for 10F220, 10F222

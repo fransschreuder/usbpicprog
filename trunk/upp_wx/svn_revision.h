@@ -1,2 +1,2 @@
 // generated file
-#define UPP_VERSION "usbpicprog 0.4.2"
+#define UPP_VERSION "usbpicprog 110622"
