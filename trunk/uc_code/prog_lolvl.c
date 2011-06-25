@@ -494,5 +494,41 @@ unsigned char I2C_read(unsigned char ack)
 	return d;
 }
 
+#define pulseclock() PGC=1;PGC=0
+
+unsigned char jtag2w4p(unsigned char TDI, unsigned char TMS, unsigned char nbits)
+{
+	unsigned char res=0;
+	unsigned char orval=1<<(nbits-1);
+	for(i=0; i<nbits; i++)
+	{
+		res>>=1;
+		if(TDI&1)PGD=1; else PGD=0;
+		pulseclock();
+		if(TMS&1)PGD=1; else PGD=0;
+		pulseclock();
+		TRISPGD=1;
+		pulseclock();
+		PGC=1;
+		if(PGD_READ)res|=orval;
+		PGC=0;
+		TRISPGD=0;
+		TDI>>=1;
+		TMS>>=1;
+		
+	}
+	return res;
+}
+
+XferFastData()
+{
+//TMS header 100
+	unsigned char Ack;
+	Ack=jtag2w5p(0,0b001, 3);
+	///TODO: check Ack
+	
+	
+}
+
 
 
