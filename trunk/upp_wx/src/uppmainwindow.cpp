@@ -1597,10 +1597,10 @@ void UppMainWindow::upp_preferences()
 
 void UppMainWindow::upp_help()
 {
-    //wxLaunchDefaultBrowser(("http://usbpicprog.org/"));
+	//wxLaunchDefaultBrowser(("http://usbpicprog.org/"));
 	m_HelpController->Display("Introduction");
-}
 
+}
 void UppMainWindow::upp_about()
 {
     wxAboutDialogInfo aboutInfo;

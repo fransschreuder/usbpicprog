@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-12 09:14+0200\n"
+"POT-Creation-Date: 2011-06-06 10:37+0200\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1516 src/uppmainwindow.cpp:1544
-#: src/uppmainwindow.cpp:1546
+#: src/uppmainwindow.cpp:1522 src/uppmainwindow.cpp:1550
+#: src/uppmainwindow.cpp:1552
 msgid " Connected"
 msgstr "接続"
 
@@ -31,17 +31,17 @@ msgstr "接続"
 msgid " and "
 msgstr "と"
 
-#: src/uppmainwindow.cpp:995
+#: src/uppmainwindow.cpp:998
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr "0x%X で失敗しました。 読み込んだ値: 0x%02X、予想の値: 0x%02X"
 
-#: src/uppmainwindow.cpp:580
+#: src/uppmainwindow.cpp:583
 #, c-format
 msgid "%s [%d pins]"
 msgstr "%s [%d ピン]"
 
-#: src/uppmainwindow.cpp:555
+#: src/uppmainwindow.cpp:558
 #, c-format
 msgid "%s datasheet"
 msgstr "%s データーシート"
@@ -50,19 +50,19 @@ msgstr "%s データーシート"
 msgid "&About"
 msgstr "このプログラムについて(&A)"
 
-#: src/uppmainwindow.cpp:326
+#: src/uppmainwindow.cpp:329
 msgid "&Actions"
 msgstr "実行(&A)"
 
-#: src/uppmainwindow.cpp:235
+#: src/uppmainwindow.cpp:238
 msgid "&Autodetect..."
 msgstr "自動検出(&A)"
 
-#: src/uppmainwindow.cpp:231
+#: src/uppmainwindow.cpp:234
 msgid "&Blankcheck..."
 msgstr "ブランクチェック(&B)"
 
-#: src/uppmainwindow.cpp:248
+#: src/uppmainwindow.cpp:251
 msgid "&Connect..."
 msgstr "接続(&C)"
 
@@ -70,7 +70,7 @@ msgstr "接続(&C)"
 msgid "&Copy"
 msgstr "コピー(&C)"
 
-#: src/uppmainwindow.cpp:252
+#: src/uppmainwindow.cpp:255
 msgid "&Disconnect..."
 msgstr "取り外し(&D)"
 
@@ -78,7 +78,7 @@ msgstr "取り外し(&D)"
 msgid "&Edit"
 msgstr "編集(&E)"
 
-#: src/uppmainwindow.cpp:222
+#: src/uppmainwindow.cpp:225
 msgid "&Erase..."
 msgstr "消去(&E)"
 
@@ -110,11 +110,11 @@ msgstr "オプション(&O)"
 msgid "&Preferences"
 msgstr "設定(&P)"
 
-#: src/uppmainwindow.cpp:210
+#: src/uppmainwindow.cpp:213
 msgid "&Program..."
 msgstr "書き込み(&P)"
 
-#: src/uppmainwindow.cpp:214
+#: src/uppmainwindow.cpp:217
 msgid "&Read..."
 msgstr "読み込み(&R)"
 
@@ -126,11 +126,11 @@ msgstr "再ロード(&R)"
 msgid "&Save"
 msgstr "保存(&S)"
 
-#: src/uppmainwindow.cpp:289
+#: src/uppmainwindow.cpp:292
 msgid "&Select PIC..."
 msgstr "PIC選択(&S)"
 
-#: src/uppmainwindow.cpp:218
+#: src/uppmainwindow.cpp:221
 msgid "&Verify..."
 msgstr "ベリファイ(&V)"
 
@@ -153,30 +153,34 @@ msgstr "3.3V"
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:719 src/uppmainwindow.cpp:723
+#: src/uppmainwindow.cpp:722 src/uppmainwindow.cpp:726
 msgid "All operations completed"
 msgstr "操作はすべて終了しました"
 
-#: src/uppmainwindow.cpp:1578 src/uppmainwindow.cpp:1579
+#: src/uppmainwindow.cpp:1584 src/uppmainwindow.cpp:1585
 msgid "Already disconnected"
 msgstr "既に切断されています"
 
-#: src/uppmainwindow.cpp:1610
+#: src/uppmainwindow.cpp:1616
 msgid "An open source USB pic programmer"
 msgstr "オープンソースUSB PIC プログラマ"
 
-#: src/uppmainwindow.cpp:1059
+#: src/preferences_base.cpp:60
+msgid "Autodetect on Connect"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1062
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
 "ブランクチェックは 0x%X で失敗しました。 読み込んだ値: 0x%02X、予想の値: 0x"
 "%02X"
 
-#: src/uppmainwindow.cpp:232
+#: src/uppmainwindow.cpp:235
 msgid "Blankcheck the PIC device"
 msgstr "PICデバイスのブランクチェックをします"
 
-#: src/uppmainwindow.cpp:1555 src/uppmainwindow.cpp:1557
+#: src/uppmainwindow.cpp:1561 src/uppmainwindow.cpp:1563
 msgid "Bootloader or programmer not found"
 msgstr "ブートローダーかプログラマが存在しません"
 
@@ -197,15 +201,15 @@ msgstr "「%s」を開けません。"
 msgid "Cannot load XML PIC data."
 msgstr "XML PICデータをロードできません。"
 
-#: src/uppmainwindow.cpp:1651 src/uppmainwindow.cpp:1679
+#: src/uppmainwindow.cpp:1657 src/uppmainwindow.cpp:1685
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "ブートローダーが接続される時には、違うPICを選ぶことができません！"
 
-#: src/uppmainwindow.cpp:290
+#: src/uppmainwindow.cpp:293
 msgid "Change the currently selected PIC"
 msgstr "PICを変更します"
 
-#: src/uppmainwindow.cpp:1039
+#: src/uppmainwindow.cpp:1042
 msgid "Checking if the device is blank..."
 msgstr "デバイスがブランクかどうかチェックします..."
 
@@ -213,7 +217,7 @@ msgstr "デバイスがブランクかどうかチェックします..."
 msgid "Code"
 msgstr "コード"
 
-#: src/hexfile.cpp:701
+#: src/hexfile.cpp:708
 msgid "Code Memory\n"
 msgstr "コード領域\n"
 
@@ -221,7 +225,7 @@ msgstr "コード領域\n"
 msgid "Code memory size:"
 msgstr "コード記憶容量:"
 
-#: src/uppmainwindow.cpp:568
+#: src/uppmainwindow.cpp:571
 #, c-format
 msgid "Code memory size: %d bytes"
 msgstr "コード領域サイズ: %d バイト"
@@ -238,7 +242,12 @@ msgstr "コンフィグレーション"
 msgid "Configuration flags for this PIC:"
 msgstr "PICのコンフィグレーション フラグ:"
 
-#: src/uppmainwindow.cpp:249
+#: src/preferences_base.cpp:58
+#, fuzzy
+msgid "Connect Options"
+msgstr "オプション(&O)"
+
+#: src/uppmainwindow.cpp:252
 msgid "Connect to the programmer"
 msgstr "プログラマを接続します"
 
@@ -254,7 +263,7 @@ msgstr "コピー"
 msgid "Could not access the 'xml_data' folder."
 msgstr "「xml_data」フォルダーにアクセスできませんでした。"
 
-#: src/uppmainwindow.cpp:1119
+#: src/uppmainwindow.cpp:1122
 msgid "Could not create the worker thread!"
 msgstr "処理を作成できません！"
 
@@ -295,7 +304,7 @@ msgstr "libusbを初期化することができませんでした： %s"
 msgid "Could not load data for PIC '%s'."
 msgstr "PIC  '%s' のデータを読み込めません。"
 
-#: src/hexfile.cpp:339
+#: src/hexfile.cpp:342
 msgid "Could not open Hex file for writing..."
 msgstr "書き込みの為のHEXファイルを開けません。"
 
@@ -303,7 +312,7 @@ msgstr "書き込みの為のHEXファイルを開けません。"
 msgid "Could not open Hex file..."
 msgstr "HEXファイルを開くことができませんでした。"
 
-#: src/uppmainwindow.cpp:1125
+#: src/uppmainwindow.cpp:1128
 msgid "Could not run the worker thread!"
 msgstr "処理が実行できません！"
 
@@ -332,15 +341,15 @@ msgstr "現在の値 %d-th は、コンフィグレーションワードから�
 msgid "Data"
 msgstr "データ"
 
-#: src/hexfile.cpp:223
+#: src/hexfile.cpp:226
 msgid "Data in hex file outside code memory of PIC"
 msgstr "HEXファイルのデータは、PICのコード領域を外れています"
 
-#: src/hexfile.cpp:159
+#: src/hexfile.cpp:162
 msgid "Data in hex file outside config memory of PIC"
 msgstr "HEXファイルのデータは、PICのコンフィグレーション領域を外れています"
 
-#: src/hexfile.cpp:208
+#: src/hexfile.cpp:211
 msgid "Data in hex file outside data memory of PIC"
 msgstr "HEXファイルのデータは、PICのデータ領域を外れています"
 
@@ -348,7 +357,7 @@ msgstr "HEXファイルのデータは、PICのデータ領域を外れていま
 msgid "Data memory size:"
 msgstr "データー記憶容量:"
 
-#: src/uppmainwindow.cpp:569
+#: src/uppmainwindow.cpp:572
 #, c-format
 msgid "Data memory size: %d bytes"
 msgstr "データ領域サイズ: %d バイト"
@@ -357,11 +366,11 @@ msgstr "データ領域サイズ: %d バイト"
 msgid "Datasheet"
 msgstr "データーシート"
 
-#: src/uppmainwindow.cpp:236
+#: src/uppmainwindow.cpp:239
 msgid "Detect the type of the PIC device"
 msgstr "PICデバイスを自動検出します"
 
-#: src/uppmainwindow.cpp:1471
+#: src/uppmainwindow.cpp:1474
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "検出されたPICモデル %s のデバイスID 0x%X"
@@ -370,24 +379,24 @@ msgstr "検出されたPICモデル %s のデバイスID 0x%X"
 msgid "Device ID:"
 msgstr "デバイス ID:"
 
-#: src/uppmainwindow.cpp:567
+#: src/uppmainwindow.cpp:570
 #, c-format
 msgid "Device ID: 0x%X"
 msgstr "デバイス ID: 0x%X"
 
-#: src/uppmainwindow.cpp:1047
+#: src/uppmainwindow.cpp:1050
 msgid "Device is blank"
 msgstr "デバイスはブランク（空）です。"
 
-#: src/uppmainwindow.cpp:1064
+#: src/uppmainwindow.cpp:1067
 msgid "Device is not blank."
 msgstr "デバイスはブランク（空）ではありません。"
 
-#: src/uppmainwindow.cpp:253
+#: src/uppmainwindow.cpp:256
 msgid "Disconnect from the programmer"
 msgstr "プログラマを取り外します"
 
-#: src/uppmainwindow.cpp:1572 src/uppmainwindow.cpp:1574
+#: src/uppmainwindow.cpp:1578 src/uppmainwindow.cpp:1580
 msgid "Disconnected"
 msgstr "切り離されました"
 
@@ -399,7 +408,7 @@ msgstr "終了(&X)"
 msgid "Edit"
 msgstr "編集"
 
-#: src/uppmainwindow.cpp:816
+#: src/uppmainwindow.cpp:819
 msgid "Erase OK"
 msgstr "消去しました"
 
@@ -407,15 +416,15 @@ msgstr "消去しました"
 msgid "Erase before programming"
 msgstr "書込前に消去します"
 
-#: src/uppmainwindow.cpp:223
+#: src/uppmainwindow.cpp:226
 msgid "Erase the PIC device"
 msgstr "PICデバイスを消去します"
 
-#: src/uppmainwindow.cpp:1020
+#: src/uppmainwindow.cpp:1023
 msgid "Erasing all areas of the PIC..."
 msgstr "PICのすべての領域を消去します..."
 
-#: src/uppmainwindow.cpp:811
+#: src/uppmainwindow.cpp:814
 msgid "Erasing before programming..."
 msgstr "書き込むために消去しています..."
 
@@ -424,8 +433,8 @@ msgstr "書き込むために消去しています..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "USBデバイスのインタフェース要求が異常： %s"
 
-#: src/main.cpp:363 src/uppmainwindow.cpp:819 src/uppmainwindow.cpp:1024
-#: src/uppmainwindow.cpp:1412
+#: src/main.cpp:363 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "デバイス消去に失敗しました"
 
@@ -438,31 +447,31 @@ msgstr "USBエンドポイント記述子の取得エラーの： %s"
 msgid "Error in checksum..."
 msgstr "チェックサムが異常です。"
 
-#: src/uppmainwindow.cpp:850
+#: src/uppmainwindow.cpp:853
 msgid "Error programming code memory"
 msgstr "コードメモリが書き込めません"
 
-#: src/uppmainwindow.cpp:915
+#: src/uppmainwindow.cpp:918
 msgid "Error programming config memory"
 msgstr "コンフィグレーションメモリを書き込めません"
 
-#: src/uppmainwindow.cpp:880
+#: src/uppmainwindow.cpp:883
 msgid "Error programming data memory"
 msgstr "データメモリが書き込めません"
 
-#: src/uppmainwindow.cpp:936
+#: src/uppmainwindow.cpp:939
 msgid "Error reading code memory"
 msgstr "コードメモリを読み込めません"
 
-#: src/uppmainwindow.cpp:957
+#: src/uppmainwindow.cpp:960
 msgid "Error reading configuration memory"
 msgstr "コンフィグレーションメモリからの読み込みができません"
 
-#: src/uppmainwindow.cpp:946
+#: src/uppmainwindow.cpp:949
 msgid "Error reading data memory"
 msgstr "データメモリを読み込めません"
 
-#: src/main.cpp:365 src/uppmainwindow.cpp:1413
+#: src/main.cpp:365 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "較正レジスタの回復が異常です"
 
@@ -488,7 +497,7 @@ msgstr "浮動"
 msgid "Failure in hex file..."
 msgstr "HEXファイルの読み込みに失敗しました。"
 
-#: src/uppmainwindow.cpp:504
+#: src/uppmainwindow.cpp:507
 msgid "Firmware probably too new"
 msgstr "最新のファームウェアです"
 
@@ -508,7 +517,7 @@ msgstr ""
 "   最大\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:566
+#: src/uppmainwindow.cpp:569
 #, c-format
 msgid ""
 "Frequency range:\n"
@@ -519,7 +528,7 @@ msgstr ""
 "   最小=%.2fMhz\n"
 "   最大=%.2fMhz"
 
-#: src/preferences_base.cpp:58
+#: src/preferences_base.cpp:66
 msgid "GUI options"
 msgstr "操作オプション"
 
@@ -535,7 +544,7 @@ msgstr "PICのコード領域（プログラム）の内容:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "PICのデータ領域(EEPROM)の内容:"
 
-#: src/uppmainwindow.cpp:1008 src/uppmainwindow.cpp:1073
+#: src/uppmainwindow.cpp:1011 src/uppmainwindow.cpp:1076
 msgid "I'm sorry for being stupid"
 msgstr "しばらくお待ち下さい"
 
@@ -555,7 +564,7 @@ msgstr ""
 "VPP端子の本当の電圧および、その他のピンの状態が1秒ごとに更新され、以下の太字"
 "で報告されます。"
 
-#: src/uppmainwindow.cpp:1094
+#: src/uppmainwindow.cpp:1097
 msgid "Initializing..."
 msgstr "初期化中..."
 
@@ -573,16 +582,16 @@ msgstr "無効の「%s」ファイル。"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "無効なPICファミリ '%s'."
 
-#: src/pictype.cpp:784
+#: src/pictype.cpp:790
 msgid "Invalid direction"
 msgstr "無効の方向"
 
-#: src/pictype.cpp:804
+#: src/pictype.cpp:810
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "無効でおかしなピン数: %d"
 
-#: src/pictype.cpp:855
+#: src/pictype.cpp:861
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "無効なピン数: %d"
@@ -600,7 +609,7 @@ msgstr "見本のフォルダーからのHEXファイルをロードします。
 msgid "Loads an HEX file for editing or programming..."
 msgstr "HEXファイルを開きます。"
 
-#: src/preferences_base.cpp:63
+#: src/preferences_base.cpp:71
 msgid "Localize Usbpicprog in your System Language"
 msgstr "Localize Usbpicprog in your System Language"
 
@@ -613,11 +622,11 @@ msgstr "メモリの位置: 0x%X"
 msgid "Miscellaneous"
 msgstr "デバイス情報"
 
-#: src/uppmainwindow.cpp:1464
+#: src/uppmainwindow.cpp:1467
 msgid "No PIC detected!"
 msgstr "PICが検出できません！"
 
-#: src/uppmainwindow.cpp:1466
+#: src/uppmainwindow.cpp:1469
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "PICが検出できません！デフォルトのPICを選択します (%s)"
@@ -626,7 +635,7 @@ msgstr "PICが検出できません！デフォルトのPICを選択します (%
 msgid "No data to verify"
 msgstr "ベリファイするデータがありません"
 
-#: src/uppmainwindow.cpp:1215 src/uppmainwindow.cpp:1216
+#: src/uppmainwindow.cpp:1218 src/uppmainwindow.cpp:1219
 msgid "No file to refresh"
 msgstr "リフレッシュするファイルがありません"
 
@@ -634,11 +643,11 @@ msgstr "リフレッシュするファイルがありません"
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "注： ICSPにおいて赤いピン（それらのうちのいくつか）を使用します。"
 
-#: src/uppmainwindow.cpp:1353
+#: src/uppmainwindow.cpp:1356
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr "PIC12F629とPIC12F508とPIC10F20Xの類似品だけに有効です…"
 
-#: src/uppmainwindow.cpp:1161 src/uppmainwindow.cpp:1179
+#: src/uppmainwindow.cpp:1164 src/uppmainwindow.cpp:1182
 msgid "Open hexfile"
 msgstr "HEXファイルを開く"
 
@@ -646,11 +655,11 @@ msgstr "HEXファイルを開く"
 msgid "Opens the Usbpicprog's website..."
 msgstr "ヘルプの表示（Usbpicprog Webサイトへ）"
 
-#: src/uppmainwindow.cpp:682
+#: src/uppmainwindow.cpp:685
 msgid "Operations aborted"
 msgstr "操作を中止しました"
 
-#: src/uppmainwindow.cpp:725
+#: src/uppmainwindow.cpp:728
 msgid "Operations completed with errors/warnings"
 msgstr "エラーか警告によって操作が完了しました"
 
@@ -670,7 +679,7 @@ msgstr "PIC 情報"
 msgid "Package"
 msgstr "パッケージ:"
 
-#: src/uppmainwindow.cpp:477
+#: src/uppmainwindow.cpp:480
 msgid "Please confirm"
 msgstr "確認して下さい"
 
@@ -678,15 +687,15 @@ msgstr "確認して下さい"
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "0と3の間の禁止帯の値を指定してください"
 
-#: src/uppmainwindow.cpp:1406
+#: src/uppmainwindow.cpp:1409
 msgid "Please specify a bandgap value"
 msgstr "禁止帯の値を指定してください"
 
-#: src/uppmainwindow.cpp:1374
+#: src/uppmainwindow.cpp:1377
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
 msgstr "新しいOsccal値を指定してください [0xC00 - 0xCFF]"
 
-#: src/uppmainwindow.cpp:1381
+#: src/uppmainwindow.cpp:1384
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
 
@@ -694,16 +703,16 @@ msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
 msgid "Please specify an Oscal Value between "
 msgstr "の間のOscal値を指定してください。"
 
-#: src/uppmainwindow.cpp:1393
+#: src/uppmainwindow.cpp:1396
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
 msgstr "%Xと%Xの間のOscal値を指定してください。"
 
-#: src/uppmainwindow.cpp:669
+#: src/uppmainwindow.cpp:672
 msgid "Please wait until the operations are completed:\n"
 msgstr "操作が完了するまで、しばらくお待ち下さい:\n"
 
-#: src/preferences_base.h:53
+#: src/preferences_base.h:54
 msgid "Preferences"
 msgstr "設定"
 
@@ -711,19 +720,19 @@ msgstr "設定"
 msgid "Program options"
 msgstr "書込オプション"
 
-#: src/uppmainwindow.cpp:211
+#: src/uppmainwindow.cpp:214
 msgid "Program the PIC device"
 msgstr "PICデバイスに書き込みます"
 
-#: src/uppmainwindow.cpp:895
+#: src/uppmainwindow.cpp:898
 msgid "Programming configuration area of the PIC..."
 msgstr "PICにコンフィグレーション領域を書き込んでいます..."
 
-#: src/uppmainwindow.cpp:828
+#: src/uppmainwindow.cpp:831
 msgid "Programming the code area of the PIC..."
 msgstr "PICにコード領域を書き込んでいます..."
 
-#: src/uppmainwindow.cpp:860
+#: src/uppmainwindow.cpp:863
 msgid "Programming the data area of the PIC..."
 msgstr "PICにデータ領域を書き込んでいます..."
 
@@ -741,7 +750,7 @@ msgstr ""
 "    最大\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:561
+#: src/uppmainwindow.cpp:564
 #, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
@@ -754,7 +763,7 @@ msgstr ""
 "    標準=%.2fV\n"
 "    最大=%.2fV"
 
-#: src/uppmainwindow.cpp:1093
+#: src/uppmainwindow.cpp:1096
 msgid "Progress dialog"
 msgstr "進捗画面"
 
@@ -762,19 +771,19 @@ msgstr "進捗画面"
 msgid "RESET"
 msgstr "リセット"
 
-#: src/uppmainwindow.cpp:215
+#: src/uppmainwindow.cpp:218
 msgid "Read the PIC device"
 msgstr "PICデバイスから読み込みます"
 
-#: src/uppmainwindow.cpp:933
+#: src/uppmainwindow.cpp:936
 msgid "Reading the code area of the PIC..."
 msgstr "PICのコード領域を読み込んでいます..."
 
-#: src/uppmainwindow.cpp:954
+#: src/uppmainwindow.cpp:957
 msgid "Reading the configuration area of the PIC..."
 msgstr "PICのコンフィグレーション領域を読み込んでいます..."
 
-#: src/uppmainwindow.cpp:943
+#: src/uppmainwindow.cpp:946
 msgid "Reading the data area of the PIC..."
 msgstr "PICのデータ領域を読み込んでいます..."
 
@@ -791,7 +800,7 @@ msgstr "現在のデータをクリアします"
 msgid "Restore BandGap Register"
 msgstr "禁止帯レジスタを復元して下さい"
 
-#: src/uppmainwindow.cpp:227
+#: src/uppmainwindow.cpp:230
 msgid "Restore Cal regs..."
 msgstr "Cal regs を復元..."
 
@@ -799,11 +808,11 @@ msgstr "Cal regs を復元..."
 msgid "Restore Osccal Register"
 msgstr "Osccalレジスタを復元して下さい"
 
-#: src/uppmainwindow.cpp:228
+#: src/uppmainwindow.cpp:231
 msgid "Restore PIC's calibration registers"
 msgstr "PICの較正レジスタを回復してください"
 
-#: src/uppmainwindow.cpp:240 src/uppmainwindow.cpp:379
+#: src/uppmainwindow.cpp:243 src/uppmainwindow.cpp:382
 msgid "Run Target"
 msgstr "ターゲット実行"
 
@@ -811,7 +820,7 @@ msgstr "ターゲット実行"
 msgid "Save &As"
 msgstr "名前を付けて保存(&A)"
 
-#: src/uppmainwindow.cpp:1253
+#: src/uppmainwindow.cpp:1256
 msgid "Save hexfile"
 msgstr "HEXファイルを保存します"
 
@@ -835,11 +844,11 @@ msgstr "全て選択"
 msgid "Selects the entire grid currently shown"
 msgstr "領域を全て選択"
 
-#: src/uppmainwindow.cpp:245
+#: src/uppmainwindow.cpp:248
 msgid "Set 0V to MCLR to stop the target controller"
 msgstr "ターゲットコントローラを停止する為に、MCLR ピンに0V をセットして下さい"
 
-#: src/uppmainwindow.cpp:241
+#: src/uppmainwindow.cpp:244
 msgid "Set 5V to MCLR to run the target controller"
 msgstr "ターゲットコントローラを実行する為に、MCLR ピンに5V をセットして下さい"
 
@@ -847,7 +856,7 @@ msgstr "ターゲットコントローラを実行する為に、MCLR ピンに5
 msgid "Shows informations about this program"
 msgstr "このプログラムの情報を表示します"
 
-#: src/preferences_base.cpp:60
+#: src/preferences_base.cpp:68
 msgid "Shows popups on connect etc..."
 msgstr "接続、その他にメッセージを表示します"
 
@@ -855,19 +864,19 @@ msgstr "接続、その他にメッセージを表示します"
 msgid "Shows the options for this program"
 msgstr "usbpicprogの設定画面を表示"
 
-#: src/uppmainwindow.cpp:1406
+#: src/uppmainwindow.cpp:1409
 msgid "Specify a bandgap value"
 msgstr "禁止帯の値を指定"
 
-#: src/uppmainwindow.cpp:1375 src/uppmainwindow.cpp:1382
+#: src/uppmainwindow.cpp:1378 src/uppmainwindow.cpp:1385
 msgid "Specify a new Osccal Value"
 msgstr "新しいOsccal値を指定"
 
-#: src/uppmainwindow.cpp:244 src/uppmainwindow.cpp:381
+#: src/uppmainwindow.cpp:247 src/uppmainwindow.cpp:384
 msgid "Stop Target"
 msgstr "ターゲット停止"
 
-#: src/uppmainwindow.cpp:564
+#: src/uppmainwindow.cpp:567
 #, c-format
 msgid ""
 "Supply voltage (Vdd):\n"
@@ -880,27 +889,27 @@ msgstr ""
 "    標準=%.2fV\n"
 "    最大=%.2fV"
 
-#: src/uppmainwindow.cpp:474
+#: src/uppmainwindow.cpp:477
 #, c-format
 msgid ""
 "The HEX file '%s' has not been saved... its content will be lost; continue?"
 msgstr ""
 "「%s」はまだ保存されていません。続行すると内容が失われます。よろしいですか？"
 
-#: src/uppmainwindow.cpp:838 src/uppmainwindow.cpp:871
-#: src/uppmainwindow.cpp:906
+#: src/uppmainwindow.cpp:841 src/uppmainwindow.cpp:874
+#: src/uppmainwindow.cpp:909
 msgid "The hardware should ask for next block"
 msgstr "ハードウェアは次のブロックを要求しています"
 
-#: src/uppmainwindow.cpp:835 src/uppmainwindow.cpp:868
-#: src/uppmainwindow.cpp:903
+#: src/uppmainwindow.cpp:838 src/uppmainwindow.cpp:871
+#: src/uppmainwindow.cpp:906
 msgid "The hardware should say OK"
 msgstr "ハードウェアからOKが出ました"
 
-#: src/uppmainwindow.cpp:1294 src/uppmainwindow.cpp:1306
-#: src/uppmainwindow.cpp:1323 src/uppmainwindow.cpp:1335
-#: src/uppmainwindow.cpp:1358 src/uppmainwindow.cpp:1422
-#: src/uppmainwindow.cpp:1434 src/uppmainwindow.cpp:1626
+#: src/uppmainwindow.cpp:1297 src/uppmainwindow.cpp:1309
+#: src/uppmainwindow.cpp:1326 src/uppmainwindow.cpp:1338
+#: src/uppmainwindow.cpp:1361 src/uppmainwindow.cpp:1425
+#: src/uppmainwindow.cpp:1437 src/uppmainwindow.cpp:1632
 msgid "The programmer is not connected"
 msgstr "プログラマは接続されていません"
 
@@ -926,16 +935,16 @@ msgstr ""
 msgid "Type:"
 msgstr "タイプ:"
 
-#: src/uppmainwindow.cpp:570
+#: src/uppmainwindow.cpp:573
 #, c-format
 msgid "Type: %d-bit microcontroller"
 msgstr "形状: %d-ビット マイコン"
 
-#: src/uppmainwindow.cpp:1067
+#: src/uppmainwindow.cpp:1070
 msgid "USB error during blankcheck"
 msgstr "ブランクチェックでUSBエラーが発生しました"
 
-#: src/uppmainwindow.cpp:1002
+#: src/uppmainwindow.cpp:1005
 msgid "USB error during verify"
 msgstr "ベリファイ時にUSBエラーが発生しました"
 
@@ -944,8 +953,8 @@ msgstr "ベリファイ時にUSBエラーが発生しました"
 msgid "USB error while reading: %s"
 msgstr "読み込む際、USBエラーが発生しました： %s"
 
-#: src/uppmainwindow.cpp:847 src/uppmainwindow.cpp:877
-#: src/uppmainwindow.cpp:912
+#: src/uppmainwindow.cpp:850 src/uppmainwindow.cpp:880
+#: src/uppmainwindow.cpp:915
 msgid "USB error while writing code memory"
 msgstr "コードメモリを書き込み中にエラーが発生しました"
 
@@ -956,37 +965,37 @@ msgstr ""
 "デバイスに書き込む際、USBでエラーが発生しました: %dバイト, エラーコード: %d; "
 "%s"
 
-#: src/uppmainwindow.cpp:1195 src/uppmainwindow.cpp:1196
-#: src/uppmainwindow.cpp:1225 src/uppmainwindow.cpp:1226
+#: src/uppmainwindow.cpp:1198 src/uppmainwindow.cpp:1199
+#: src/uppmainwindow.cpp:1228 src/uppmainwindow.cpp:1229
 msgid "Unable to open file"
 msgstr "ファイルを開けません"
 
-#: src/uppmainwindow.cpp:1510 src/uppmainwindow.cpp:1511
+#: src/uppmainwindow.cpp:1516 src/uppmainwindow.cpp:1517
 msgid "Unable to read firmware version"
 msgstr "ファームウェアバージョンを読むことができません"
 
-#: src/uppmainwindow.cpp:1539 src/uppmainwindow.cpp:1540
+#: src/uppmainwindow.cpp:1545 src/uppmainwindow.cpp:1546
 msgid "Unable to read version"
 msgstr "バージョンが読めません"
 
-#: src/uppmainwindow.cpp:1487
+#: src/uppmainwindow.cpp:1490
 msgid "Unable to run target"
 msgstr "ターゲットを実行することができません"
 
-#: src/uppmainwindow.cpp:1241 src/uppmainwindow.cpp:1242
-#: src/uppmainwindow.cpp:1263 src/uppmainwindow.cpp:1264
+#: src/uppmainwindow.cpp:1244 src/uppmainwindow.cpp:1245
+#: src/uppmainwindow.cpp:1266 src/uppmainwindow.cpp:1267
 msgid "Unable to save file"
 msgstr "ファイルを保存することができません"
 
-#: src/uppmainwindow.cpp:1493
+#: src/uppmainwindow.cpp:1496
 msgid "Unable to stop target"
 msgstr "ターゲットを停止することができません"
 
-#: src/uppmainwindow.cpp:1070
+#: src/uppmainwindow.cpp:1073
 msgid "Unknown error during blankcheck"
 msgstr "ブランクチェックで未知のエラーが発生しました"
 
-#: src/uppmainwindow.cpp:1005
+#: src/uppmainwindow.cpp:1008
 msgid "Unknown error during verify"
 msgstr "ベリファイ時に未知のエラーが発生しました"
 
@@ -1001,11 +1010,11 @@ msgstr ""
 msgid "Usbpicprog"
 msgstr "Usbpicprog"
 
-#: src/uppmainwindow.cpp:523
+#: src/uppmainwindow.cpp:526
 msgid "Usbpicprog rev: "
 msgstr "Usbpicprog 改版:"
 
-#: src/uppmainwindow.cpp:525
+#: src/uppmainwindow.cpp:528
 msgid "Usbpicprog: "
 msgstr "Usbpicprog: "
 
@@ -1025,7 +1034,7 @@ msgstr "形状:"
 msgid "Verify after programming"
 msgstr "書込後ベリファイします"
 
-#: src/uppmainwindow.cpp:990
+#: src/uppmainwindow.cpp:993
 msgid "Verify code"
 msgstr "コードのベリファイ"
 
@@ -1033,7 +1042,7 @@ msgstr "コードのベリファイ"
 msgid "Verify code memory"
 msgstr "コード領域をベリファイします"
 
-#: src/uppmainwindow.cpp:992
+#: src/uppmainwindow.cpp:995
 msgid "Verify config"
 msgstr "コンフィグレーションのベリファイ"
 
@@ -1041,7 +1050,7 @@ msgstr "コンフィグレーションのベリファイ"
 msgid "Verify config memory"
 msgstr "コンフィグ領域をベリファイします"
 
-#: src/uppmainwindow.cpp:991
+#: src/uppmainwindow.cpp:994
 msgid "Verify data"
 msgstr "データのベリファイ"
 
@@ -1049,7 +1058,7 @@ msgstr "データのベリファイ"
 msgid "Verify data memory"
 msgstr "データ領域をベリファイします"
 
-#: src/uppmainwindow.cpp:844
+#: src/uppmainwindow.cpp:847
 msgid "Verify error while writing code memory"
 msgstr "コードメモリのベリファイに失敗しました"
 
@@ -1057,19 +1066,19 @@ msgstr "コードメモリのベリファイに失敗しました"
 msgid "Verify options"
 msgstr "ベリファイ オプション"
 
-#: src/uppmainwindow.cpp:985
+#: src/uppmainwindow.cpp:988
 msgid "Verify successful"
 msgstr "ベリファイに成功しました"
 
-#: src/uppmainwindow.cpp:219
+#: src/uppmainwindow.cpp:222
 msgid "Verify the PIC device"
 msgstr "PICデバイスをベリファイします"
 
-#: src/uppmainwindow.cpp:993
+#: src/uppmainwindow.cpp:996
 msgid "Verify unknown"
 msgstr "未知のベリファイ"
 
-#: src/uppmainwindow.cpp:972
+#: src/uppmainwindow.cpp:975
 msgid "Verifying all areas of the PIC..."
 msgstr "PICの全領域をベリファイします..."
 
@@ -1092,15 +1101,15 @@ msgstr ""
 "    最大\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:832
+#: src/uppmainwindow.cpp:835
 msgid "Write Code memory OK"
 msgstr "コードメモリを書き込みました"
 
-#: src/uppmainwindow.cpp:900
+#: src/uppmainwindow.cpp:903
 msgid "Write Config memory OK"
 msgstr "コンフィグレーションメモリを書き込みました"
 
-#: src/uppmainwindow.cpp:865
+#: src/uppmainwindow.cpp:868
 msgid "Write Data memory OK"
 msgstr "データメモリを書き込みました"
 
@@ -1108,7 +1117,7 @@ msgstr "データメモリを書き込みました"
 msgid "Write code memory"
 msgstr "コード領域を書き込みます"
 
-#: src/uppmainwindow.cpp:841
+#: src/uppmainwindow.cpp:844
 msgid "Write code not implemented for current PIC"
 msgstr "PICにコードを書き込めませんでした"
 
@@ -1116,7 +1125,7 @@ msgstr "PICにコードを書き込めませんでした"
 msgid "Write config memory"
 msgstr "コンフィグ領域を書き込みます"
 
-#: src/uppmainwindow.cpp:909
+#: src/uppmainwindow.cpp:912
 msgid "Write config not implemented for current PIC"
 msgstr "PICにコンフィグレーションを書き込みませんでした"
 
@@ -1124,11 +1133,11 @@ msgstr "PICにコンフィグレーションを書き込みませんでした"
 msgid "Write data memory"
 msgstr "データ領域を書き込みます"
 
-#: src/uppmainwindow.cpp:874
+#: src/uppmainwindow.cpp:877
 msgid "Write data not implemented for current PIC"
 msgstr "PICにデータを書き込みませんでした"
 
-#: src/uppmainwindow.cpp:490
+#: src/uppmainwindow.cpp:493
 msgid ""
 "You are using a development release of the firmware with a stable version of "
 "the software. Consider upgrading your firmware"
@@ -1136,7 +1145,7 @@ msgstr ""
 "現在のソフトウェアは安定しているバージョンで、ファームウェアは開発版を使って"
 "います。あなたはファームウェアのアップグレードを検討して下さい。"
 
-#: src/uppmainwindow.cpp:509
+#: src/uppmainwindow.cpp:512
 msgid ""
 "You are using a stable release of the firmware with a development version of "
 "the software. Consider upgrading your firmware"
@@ -1144,7 +1153,7 @@ msgstr ""
 "現在のファームウェアは安定しているバージョンで、ソフトウェアは開発版を使って"
 "います。あなたはファームウェアのアップグレードを検討して下さい。"
 
-#: src/uppmainwindow.cpp:493
+#: src/uppmainwindow.cpp:496
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d); please consider upgrading it"
@@ -1152,7 +1161,7 @@ msgstr ""
 "あなたは古いファームウェアを使用しています。最新のバージョンは %d です。アッ"
 "プグレードを検討して下さい。"
 
-#: src/uppmainwindow.cpp:506
+#: src/uppmainwindow.cpp:509
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d.%d.%d); please consider "
@@ -1169,11 +1178,11 @@ msgstr "拡大"
 msgid "Zoom out"
 msgstr "縮小"
 
-#: src/uppmainwindow.cpp:376
+#: src/uppmainwindow.cpp:379
 msgid "autodetect"
 msgstr "自動検出"
 
-#: src/main.h:136 src/uppmainwindow.cpp:374
+#: src/main.h:136 src/uppmainwindow.cpp:377
 msgid "blankcheck"
 msgstr "ブランクチェック"
 
@@ -1185,7 +1194,7 @@ msgstr "デバイスをブランクチェックします"
 msgid "bulk erase the device"
 msgstr "デバイスを消去します"
 
-#: src/uppmainwindow.cpp:387
+#: src/uppmainwindow.cpp:390
 msgid "currently selected PIC type"
 msgstr "選択しているPIC"
 
@@ -1209,7 +1218,7 @@ msgstr "usbpicprogのバージョン情報を表示します。"
 msgid "do not display the hex file"
 msgstr "HEXファイルを表示しないで下さい"
 
-#: src/main.h:135 src/uppmainwindow.cpp:372
+#: src/main.h:135 src/uppmainwindow.cpp:375
 msgid "erase"
 msgstr "消去"
 
@@ -1225,11 +1234,11 @@ msgstr "ヘルプ"
 msgid "hexfile"
 msgstr "HEXファイル"
 
-#: src/uppmainwindow.cpp:355
+#: src/uppmainwindow.cpp:358
 msgid "new"
 msgstr "新規"
 
-#: src/uppmainwindow.cpp:357
+#: src/uppmainwindow.cpp:360
 msgid "open"
 msgstr "開く"
 
@@ -1241,11 +1250,11 @@ msgstr "パッケージ ビュー"
 msgid "pictype"
 msgstr "PICタイプ"
 
-#: src/uppmainwindow.cpp:366
+#: src/uppmainwindow.cpp:369
 msgid "program"
 msgstr "書き込み"
 
-#: src/main.h:133 src/uppmainwindow.cpp:368
+#: src/main.h:133 src/uppmainwindow.cpp:371
 msgid "read"
 msgstr "読み込み"
 
@@ -1253,7 +1262,7 @@ msgstr "読み込み"
 msgid "read the device"
 msgstr "デバイスを読み込みます"
 
-#: src/uppmainwindow.cpp:359
+#: src/uppmainwindow.cpp:362
 msgid "reload"
 msgstr "再ロード"
 
@@ -1273,11 +1282,11 @@ msgstr "実行"
 msgid "run target device"
 msgstr "ターゲットデバイスを実行します"
 
-#: src/uppmainwindow.cpp:361
+#: src/uppmainwindow.cpp:364
 msgid "save"
 msgstr "保存"
 
-#: src/uppmainwindow.cpp:363
+#: src/uppmainwindow.cpp:366
 msgid "save as"
 msgstr "名前を付けて保存"
 
@@ -1297,16 +1306,16 @@ msgstr "停止"
 msgid "stop target device"
 msgstr "ターゲットデバイスを停止します"
 
-#: src/hexfile.cpp:235
+#: src/hexfile.cpp:238
 #, c-format
 msgid "unknown record type: %d"
 msgstr "未知のレコード種類: %d"
 
-#: src/uppmainwindow.cpp:529
+#: src/uppmainwindow.cpp:532
 msgid "untitled"
 msgstr "新規"
 
-#: src/main.h:134 src/uppmainwindow.cpp:370
+#: src/main.h:134 src/uppmainwindow.cpp:373
 msgid "verify"
 msgstr "ベリファイ"
 

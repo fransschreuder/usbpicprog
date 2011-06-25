@@ -267,8 +267,18 @@ bool Hardware::disconnect()
 
 void Hardware::statusCallBack(int value) const
 {
+	static int oldvalue;
     if (m_pCallBack)
         m_pCallBack->updateProgress(value);
+	else
+	{
+		if(value!=oldvalue)
+		{
+			cout<<"\r";
+			cout<<std::dec<<value<<"%"<<flush;
+			oldvalue=value;
+		}
+	}
 }
 
 int Hardware::setPicType(PicType* picType)
