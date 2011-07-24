@@ -365,20 +365,20 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				pic_send_14_bits(6,0x02,0x3FFF);
 				pic_send_n_bits(6,0x09); //perform bulk erase of the program memory
 				pic_send_n_bits(6,0x08); //begin programming cycle
-				DelayMs(Tera); //wait Tera for erase to complete
+				DelayMs(20); //wait Tera for erase to complete
 			}
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 			pic_send_14_bits(6,0x02,0x3FFF); //load data for program memory 0x3FFF << 1
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			pic_send_n_bits(6,0x09); //perform bulk erase of the user memory
-			DelayMs(Tera); //wait Tera for erase to complete
+			DelayMs(20); //wait Tera for erase to complete
 			/*PGD=0;
 			set_vdd_vpp(pictype, picfamily,0);
 			set_vdd_vpp(pictype, picfamily,1);    */
 			if(pictype==P12F61X)break;	//does not have data memory
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
-			DelayMs(Tera);
+			DelayMs(20);
 			PGD=0;
 			break;
 		case P16F59:
