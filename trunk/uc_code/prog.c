@@ -282,10 +282,10 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send_n_bits(6,0x01);//,0x0000);//Execute Bulk Erase Setup 1 command.
 			pic_send_n_bits(6,0x07);//,0x0000);//Execute Bulk Erase Setup 2 command.
 			pic_send_n_bits(6,0x08);//, 0x0000);//Execute Begin Erase Programming command.
-			DelayMs(14);	//Wait Tera + Tprog.
+			DelayMs(20);	//Wait Tera + Tprog.
 			pic_send_n_bits(6,0x01);//,0x0000);//Execute Bulk Erase Setup 1 command.
 			pic_send_n_bits(6,0x07);//,0x0000);//Execute Bulk Erase Setup 2 command.
-			DelayMs(14);
+			DelayMs(20);
 			set_vdd_vpp(pictype, picfamily,0);//reset
 			DelayMs(10);
 			set_vdd_vpp(pictype, picfamily,1);
@@ -295,7 +295,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			/*pic_send_14_bits(6,0x02,0x3FFF);*/
 			pic_send_n_bits(6,0x09); //bulk erase program memory, userid and config memory
 			pic_send_n_bits(6,0x08);//Execute Begin Erase Programming command.
-			DelayMs(14);	//Wait Tera + Tprog.
+			DelayMs(20);	//Wait Tera + Tprog.
 			set_vdd_vpp(pictype, picfamily,0);//reset
 			DelayMs(10);
 			set_vdd_vpp(pictype, picfamily,1);

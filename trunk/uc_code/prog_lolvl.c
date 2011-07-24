@@ -494,10 +494,11 @@ unsigned char I2C_read(unsigned char ack)
 	return d;
 }
 
-#define pulseclock() PGC=1;PGC=0
+/*#define pulseclock() PGC=1;PGC=0
 
 unsigned char jtag2w4p(unsigned char TDI, unsigned char TMS, unsigned char nbits)
 {
+	unsigned char i;
 	unsigned char res=0;
 	unsigned char orval=1<<(nbits-1);
 	for(i=0; i<nbits; i++)
@@ -529,6 +530,6 @@ XferFastData()
 	
 	
 }
-
+*/
 
 
