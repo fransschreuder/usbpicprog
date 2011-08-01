@@ -181,6 +181,16 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			DelayMs(P11);
 			pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			break;
+		case P18F872X:
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0xFFFF); //Write 0101h to 3C0005h
+			set_address(picfamily, 0x3C0004);
+			pic_send(4,0x0C,0x8787); //Write 8080h to 3C0004h
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(400);
+			break;
 		case P18F2XXX:           //also valid for 18F4XXX
 		case P18F4XK22:
 		case P18LF4XK22:
@@ -594,6 +604,38 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				dspic_send_24_bits(0x000000);	//NOP
 			}
 			//}
+			break;
+		case P18F872X:
+			if((address&0x20)==0) //package must be 64 bytes, so only do this every two packages.
+			{
+				pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+				pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS			
+				pic_send(4,0x00,0x88A6); //BSF EECON1, WREN			
+				pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD			
+				pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+				set_address(picfamily, address);
+			}
+			for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+			{
+				//write 2 bytes and post increment by 2
+				//				MSB				LSB
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
+						(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			if(address&&0x20)
+			{
+				//write last 2 bytes of the block and start programming
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(P9);
+				PGC=0;
+				DelayMs(P10);
+				pic_send_word(0x0000);
+			}
+			else
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 			break;
 		case P18F2XXX:
 		case P18F4XK22:
@@ -1132,6 +1174,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				dspic_send_24_bits(0x000000);	//NOP
 			}//Step 10: Repeat steps 3-9 until all 7 Configuration registers are cleared.
 			break;
+		case P18F872X:
 		case P18FX220:
 		case P18FXX39:
 		case P18F6X2X:
@@ -1139,7 +1182,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 		case P18F2XXX:
 		case P18F4XK22:
 		case P18LF4XK22:		
-    		pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 			pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
 			if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
 				pic_send(4,0x00,0x84A6); //BSF EECON1, WREN			
@@ -1169,7 +1212,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				PGC=0;	//hold PGC low for time P10
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
-				if((pictype==P18FXX2)||(pictype==P18FXX31))
+				if((pictype==P18FXX2)||(pictype==P18FXX31)||(pictype==P18F872X))
 				{
 					pic_send(4,0x00,0x2AF6); //incf tblptr
 				}
