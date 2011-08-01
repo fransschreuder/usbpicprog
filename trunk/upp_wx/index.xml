@@ -84,6 +84,10 @@
     <pic name="16F917" upp_family="P16F91X" upp_devid="0x13A0" upp_devidmask="0x33FF0"/>
     <pic name="16F917" upp_family="P16F91X" upp_devid="0x1380" upp_devidmask="0x33FF0"/>
     <pic name="16F946" upp_family="P16F91X" upp_devid="0x1460" upp_devidmask="0x33FF0"/>
+    <pic name="16F1826" upp_family="P16F182X" upp_devid="0x2780" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1826" upp_family="P16F182X" upp_devid="0x2880" upp_devidmask="0x33FE0"/>
+    <pic name="16F1827" upp_family="P16F182X" upp_devid="0x27A0" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1827" upp_family="P16F182X" upp_devid="0x28A0" upp_devidmask="0x33FE0"/>            
     <pic name="18F242" upp_family="P18FXX2" upp_devid="0x10480" upp_devidmask="0x3FFE0"/>
     <pic name="18F248" upp_family="P18FXX2" upp_devid="0x10800" upp_devidmask="0x3FFE0"/>
     <pic name="18F252" upp_family="P18FXX2" upp_devid="0x10400" upp_devidmask="0x3FFE0"/>

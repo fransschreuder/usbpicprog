@@ -514,7 +514,7 @@ unsigned char set_pictype(unsigned char* data)
 		case P16C6XX:
 		case P16C55X:
 		case P16C7XX:
-		case P16C64x:
+		case P16C64X:
 		case P14000:
 		case P16C50X:
 		case P16C432:

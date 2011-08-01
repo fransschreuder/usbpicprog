@@ -609,6 +609,7 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 	FAMILY(P18F4XK22);
 	FAMILY(P18LF4XK22);
 	FAMILY(P18F872X);
+	FAMILY(P16F182X);
     return UPP_INVALID_PICFAMILY;
 }
 
