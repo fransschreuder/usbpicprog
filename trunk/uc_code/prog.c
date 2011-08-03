@@ -314,9 +314,8 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send_n_bits(6,0x0B); //bulk erase data memory
 			pic_send_n_bits(6,0x08);//Execute Begin Erase Programming command.
 			DelayMs(6);		//wait terase
-
 			break;
-
+		case P16F182X:
 		case P16F785:
 		case P16F88X:
 		case P16F91X:
@@ -622,7 +621,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
 						(((unsigned int)*(data+1+blockcounter))<<8));
 			}
-			if(address&&0x20)
+			if((address&&0x20)||(lastblock&2))
 			{
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
@@ -746,6 +745,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				}
 			}
 			break;
+		case P16F182X:
 		case P16F87X:	//same as P16F62X
 		case P16F84A:	//same as P16F62X
 		case P16F62XA:	//same as P16F62X
@@ -767,6 +767,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						DelayMs(Tprog);
 						pic_send_n_bits(6,0x0A);    //end programming
 						break;
+					case P16F182X:
+						pic_send_n_bits(6,0x08);    //begin programming
+						DelayMs(3);
 					default:
 						pic_send_n_bits(6,0x08);    //begin programming
 						DelayMs(Tprog);
@@ -1275,6 +1278,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 		case P16F62XA: //same as P16F62X
 		case P16F62X:
 		case P12F61X:
+		case P16F182X:
 			if(lastblock&1)
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -1364,6 +1368,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	unsigned int i;
 	char blockcounter=0;
 	unsigned int payload;
+	unsigned int ConfigOffset;
 	if(lastblock&1)set_vdd_vpp(pictype, picfamily,1);
 	switch(picfamily)
 	{
@@ -1482,12 +1487,14 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			}
 			break;
 		case PIC16:
-			if(address>=0x2000) //read configuration memory
+			if(pictype==P16F182X)ConfigOffset=0x8000;
+			else ConfigOffset=0x2000;
+			if(address>=ConfigOffset) //read configuration memory
 			{
 				pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 				if(lastblock&1)
 				{
-					for(i=0;i<(((unsigned int)address)-0x2000);i++)pic_send_n_bits(6,0x06);	//increment address
+					for(i=0;i<(((unsigned int)address)-ConfigOffset);i++)pic_send_n_bits(6,0x06);	//increment address
 				}
 				for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
 				{
