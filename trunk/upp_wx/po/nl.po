@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-06 10:37+0200\n"
+"POT-Creation-Date: 2011-08-18 10:06+0200\n"
 "PO-Revision-Date: 2011-06-06 10:37+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr " Verbonden"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid " and "
 msgstr " en "
 
@@ -431,7 +431,7 @@ msgstr "Wissen voor programmeren..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Fout tijdens claimen van de interface: %s"
 
-#: src/main.cpp:363 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Fout bij het wissen"
@@ -469,7 +469,7 @@ msgstr "Code"
 msgid "Error reading data memory"
 msgstr "Fout tijdens lezen van Data geheugen"
 
-#: src/main.cpp:365 src/uppmainwindow.cpp:1416
+#: src/main.cpp:377 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Fout bij terugzetten Calibratie Registers"
 
@@ -580,16 +580,16 @@ msgstr "Verkeerd '%s' bestand."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Verkeerde PIC familie voor PIC '%s'."
 
-#: src/pictype.cpp:790
+#: src/pictype.cpp:792
 msgid "Invalid direction"
 msgstr "Verkeerde richting"
 
-#: src/pictype.cpp:810
+#: src/pictype.cpp:812
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Verkeerd oneven aantal pinnen: %d"
 
-#: src/pictype.cpp:861
+#: src/pictype.cpp:863
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Verkeerd aantal pinnen: %d"
@@ -629,7 +629,7 @@ msgstr "Geen PIC gedetecteerd!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Geen PIC gedetecteerd! Selecteer standaard PIC (%s)..."
 
-#: src/hardware.cpp:807
+#: src/hardware.cpp:817
 msgid "No data to verify"
 msgstr "Geen data om te verifieren"
 
@@ -681,7 +681,7 @@ msgstr "Behuizing"
 msgid "Please confirm"
 msgstr "Weet U het zeker?"
 
-#: src/main.cpp:358
+#: src/main.cpp:370
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Geef een bandgap waarde op tussen 0 en 3"
 
@@ -697,7 +697,7 @@ msgstr "Geef een nieuwe waarde op voor Osccal [0xC00 -0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Geef een nieuwe waarde op voor Osccal [3400 - 37FF]"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid "Please specify an Oscal Value between "
 msgstr "Geef een Osccal waarde op tussen "
 
@@ -925,7 +925,7 @@ msgstr ""
 "Installeer alstublieft dit programma opnieuw en download the 64 bit "
 "Usbpicprog installer."
 
-#: src/hardware.cpp:559
+#: src/hardware.cpp:569
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -949,7 +949,7 @@ msgstr "USB fout tijdens blankcheck"
 msgid "USB error during verify"
 msgstr "USB fout tijdens verificatie"
 
-#: src/hardware.cpp:1227
+#: src/hardware.cpp:1237
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Usb fout tijdens lezen: %s"
@@ -959,7 +959,7 @@ msgstr "Usb fout tijdens lezen: %s"
 msgid "USB error while writing code memory"
 msgstr "USB fout tijdens het schrijven van Code geheugen"
 
-#: src/hardware.cpp:1246
+#: src/hardware.cpp:1256
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Usb fout tijdens schrijven naar apparaat: %d bytes, foutcode: %d; %s"

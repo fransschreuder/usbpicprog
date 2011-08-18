@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-06 10:37+0200\n"
+"POT-Creation-Date: 2011-08-18 10:06+0200\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "接続"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid " and "
 msgstr "と"
 
@@ -433,7 +433,7 @@ msgstr "書き込むために消去しています..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "USBデバイスのインタフェース要求が異常： %s"
 
-#: src/main.cpp:363 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "デバイス消去に失敗しました"
@@ -471,7 +471,7 @@ msgstr "コンフィグレーションメモリからの読み込みができま
 msgid "Error reading data memory"
 msgstr "データメモリを読み込めません"
 
-#: src/main.cpp:365 src/uppmainwindow.cpp:1416
+#: src/main.cpp:377 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "較正レジスタの回復が異常です"
 
@@ -582,16 +582,16 @@ msgstr "無効の「%s」ファイル。"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "無効なPICファミリ '%s'."
 
-#: src/pictype.cpp:790
+#: src/pictype.cpp:792
 msgid "Invalid direction"
 msgstr "無効の方向"
 
-#: src/pictype.cpp:810
+#: src/pictype.cpp:812
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "無効でおかしなピン数: %d"
 
-#: src/pictype.cpp:861
+#: src/pictype.cpp:863
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "無効なピン数: %d"
@@ -631,7 +631,7 @@ msgstr "PICが検出できません！"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "PICが検出できません！デフォルトのPICを選択します (%s)"
 
-#: src/hardware.cpp:807
+#: src/hardware.cpp:817
 msgid "No data to verify"
 msgstr "ベリファイするデータがありません"
 
@@ -683,7 +683,7 @@ msgstr "パッケージ:"
 msgid "Please confirm"
 msgstr "確認して下さい"
 
-#: src/main.cpp:358
+#: src/main.cpp:370
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "0と3の間の禁止帯の値を指定してください"
 
@@ -699,7 +699,7 @@ msgstr "新しいOsccal値を指定してください [0xC00 - 0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid "Please specify an Oscal Value between "
 msgstr "の間のOscal値を指定してください。"
 
@@ -925,7 +925,7 @@ msgstr ""
 "どうかこのプログラムをアンインストールして、64ビット版のUsbPicProgインストー"
 "ラーをダウンロードして下さい。"
 
-#: src/hardware.cpp:559
+#: src/hardware.cpp:569
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -948,7 +948,7 @@ msgstr "ブランクチェックでUSBエラーが発生しました"
 msgid "USB error during verify"
 msgstr "ベリファイ時にUSBエラーが発生しました"
 
-#: src/hardware.cpp:1227
+#: src/hardware.cpp:1237
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "読み込む際、USBエラーが発生しました： %s"
@@ -958,7 +958,7 @@ msgstr "読み込む際、USBエラーが発生しました： %s"
 msgid "USB error while writing code memory"
 msgstr "コードメモリを書き込み中にエラーが発生しました"
 
-#: src/hardware.cpp:1246
+#: src/hardware.cpp:1256
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr ""

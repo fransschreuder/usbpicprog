@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-06 10:37+0200\n"
+"POT-Creation-Date: 2011-08-18 10:06+0200\n"
 "PO-Revision-Date: 2011-04-12 09:14+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "Соединено"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid " and "
 msgstr " и "
 
@@ -437,7 +437,7 @@ msgstr "Очистка перед программированием..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Ошибка запроса интерфейса USB устройства: %s"
 
-#: src/main.cpp:363 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Ошибка при очистке устройства"
@@ -475,7 +475,7 @@ msgstr "Ошибка чтения конфигурационной памяти"
 msgid "Error reading data memory"
 msgstr "Ошибка чтения памяти данных"
 
-#: src/main.cpp:365 src/uppmainwindow.cpp:1416
+#: src/main.cpp:377 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Ошибка восстановления Регистров Калибровки"
 
@@ -587,16 +587,16 @@ msgstr "Неправильный файл '%s'."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Неправильно семейство PIC для PIC '%s'."
 
-#: src/pictype.cpp:790
+#: src/pictype.cpp:792
 msgid "Invalid direction"
 msgstr "Неправильное направление"
 
-#: src/pictype.cpp:810
+#: src/pictype.cpp:812
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Неправильное нечетное количество пинов:  %d"
 
-#: src/pictype.cpp:861
+#: src/pictype.cpp:863
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Неправильное число пинов: %d"
@@ -636,7 +636,7 @@ msgstr "PIC не обнаружен!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "PIC не обнаружен! Выбирается PIC по умолчанию (%s)..."
 
-#: src/hardware.cpp:807
+#: src/hardware.cpp:817
 msgid "No data to verify"
 msgstr "Нет данных для проверки"
 
@@ -690,7 +690,7 @@ msgstr "Корпус"
 msgid "Please confirm"
 msgstr "Пожалуйста, подтвердите"
 
-#: src/main.cpp:358
+#: src/main.cpp:370
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Пожалуйста, укажите значение BandGap между 0 и 3"
 
@@ -706,7 +706,7 @@ msgstr "Пожалуйста, укажите новое значение Osccal 
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Пожалуйста, укажите новое значение Osccal [3400 - 37FF]"
 
-#: src/main.cpp:349
+#: src/main.cpp:361
 msgid "Please specify an Oscal Value between "
 msgstr "Пожалуйста, укажите значение Oscal между "
 
@@ -932,7 +932,7 @@ msgstr ""
 "Пожалуйста, удалите эту программу и загрузите инсталлятор UsbPicProg для 64-"
 "битных операционных систем."
 
-#: src/hardware.cpp:559
+#: src/hardware.cpp:569
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -955,7 +955,7 @@ msgstr "Ошибка USB во время проверки на \"чистоту\
 msgid "USB error during verify"
 msgstr "Ошибка USB во время проверки"
 
-#: src/hardware.cpp:1227
+#: src/hardware.cpp:1237
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Ошибка USB во время чтения: %s"
@@ -965,7 +965,7 @@ msgstr "Ошибка USB во время чтения: %s"
 msgid "USB error while writing code memory"
 msgstr "Ошибка USB во время записи памяти кода"
 
-#: src/hardware.cpp:1246
+#: src/hardware.cpp:1256
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Ошибка USB в процессе записи на устройство: %d байт, errCode: %d; %s"
