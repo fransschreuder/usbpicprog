@@ -1005,10 +1005,10 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				{
 					pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter+i]))|   //MSB
 							(((unsigned int)data[blockcounter+i+1])<<8));//LSB
-					if(i<6)pic_send_n_bits(6,0x06);	//increment address
+					if(i<2)pic_send_n_bits(6,0x06);	//increment address
 				}
 				pic_send_n_bits(6,0x08);    //begin programming only, externally timed
-				DelayMs(1);
+				DelayMs(2);
 				pic_send_n_bits(6,0x0E);    //end programming
 				//for(i=0;i<100;i++);		//wait Tdis
 				pic_send_n_bits(6,0x06);	//increment address
