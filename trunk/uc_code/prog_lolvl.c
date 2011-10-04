@@ -47,15 +47,18 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
 
-		if((picfamily==PIC18J)||(picfamily==PIC24))
+		if((picfamily==PIC18J)||(picfamily==PIC18K)||(picfamily==PIC24))
 		{
 			VPP_RUN=0; //MCLR low 
 			VDD=0;
 			lasttick=tick;
 			while((tick-lasttick)<10)continue;
 			PGD_LOW = 0;	//PGD and PGC to 3.3V mode (output)
-			TRISPGD_LOW = 0;
-			TRISPGC_LOW = 0;
+			if(picfamily!=PIC18K)
+			{
+				TRISPGD_LOW = 0;
+				TRISPGC_LOW = 0;
+			}
 			PGC_LOW = 0;
 			lasttick=tick;
 			VPP_RUN=1;	//VPP to 4.5V
@@ -184,6 +187,7 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 	{
 		case PIC18:
 		case PIC18J:
+		case PIC18K:
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>16)&0xFF))); //MOVLW Addr [23:16]
 			pic_send(4,0x00,0x6EF8); //MOVWF TBLPTRU
 			pic_send(4,0x00,(unsigned int)(0x0E00|((address>>8)&0xFF))); //MOVLW Addr [15:8]
@@ -199,6 +203,7 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 			break;
 	}
 }
+
 
 /**
 Writes a n-bit command

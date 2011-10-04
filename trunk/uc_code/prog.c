@@ -215,6 +215,125 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				DelayMs(P11K);
 			}
 			break;
+		case P18F6XKXX:
+			set_address(picfamily, 0x3C0004); //Erase configuration words
+			pic_send(4,0x0C,0x0202);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0000);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			set_address(picfamily, 0x3C0004); //Erase Data EEPROM
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0000);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			set_address(picfamily, 0x3C0004); //Erase Boot Block
+			pic_send(4,0x0C,0x0505);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0000);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 0
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0101);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 1
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0202);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 2
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 3
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0808);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 4
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x1010);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 5
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x2020);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 6
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x4040);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			
+			
+			set_address(picfamily, 0x3C0004); //Erase Block 7
+			pic_send(4,0x0C,0x0404);
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x8080);
+			set_address(picfamily, 0x3C0006);
+			pic_send(4,0x0C,0x8080);
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
+			break;
 		case P18FX220:
 		case P18FXX31:
 		case P18F6X2X:
@@ -636,6 +755,66 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			else
 				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 			break;
+		case P18F6XKXX:
+			if((address&0x20)==0) //package must be 64 bytes, so only do this every two packages.
+			{
+				pic_send(4,0x00,0x8E7F); //BSF EECON1, EEPGD
+				pic_send(4,0x00,0x9C7F); //BSF EECON1, CFGS			
+				pic_send(4,0x00,0x847F); //BSF EECON1, WREN			
+				set_address(picfamily, address);
+			}
+			for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+			{
+				//write 2 bytes and post increment by 2
+				//				MSB				LSB
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
+						(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			if((address&&0x20)||(lastblock&2))
+			{
+				//write last 2 bytes of the block and start programming
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(P9);
+				PGC=0;
+				DelayMs(P10);
+				pic_send_word(0x0000);
+			}
+			else
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+			break;		
+		case P18F67KXX:
+			if((address&0x40)==0) //package must be 64 bytes, so only do this every two packages.
+			{
+				pic_send(4,0x00,0x8E7F); //BSF EECON1, EEPGD
+				pic_send(4,0x00,0x9C7F); //BSF EECON1, CFGS			
+				pic_send(4,0x00,0x847F); //BSF EECON1, WREN			
+				set_address(picfamily, address);
+			}
+			for(blockcounter=0;blockcounter<(blocksize-2);blockcounter+=2)
+			{
+				//write 2 bytes and post increment by 2
+				//				MSB				LSB
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
+						(((unsigned int)*(data+1+blockcounter))<<8));
+			}
+			if((address&&0x40)||(lastblock&2))
+			{
+				//write last 2 bytes of the block and start programming
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(P9);
+				PGC=0;
+				DelayMs(P10);
+				pic_send_word(0x0000);
+			}
+			else
+				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
+			break;				
 		case P18F2XXX:
 		case P18F4XK22:
 		case P18LF4XK22:		
@@ -1010,6 +1189,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			dspic_send_24_bits(0x000000);	//NOP
 			break;
 		case PIC18:
+		case PIC18J:
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -1047,6 +1227,34 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//PGC=0;	//hold PGC low for P10 (100us)
 				DelayMs(P10);
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
+			}
+			break;
+		case PIC18K:	
+			pic_send(4,0x00,0x9E7F); //BCF EECON1, EEPGD
+			pic_send(4,0x00,0x9C7F); //BCF EECON1, CFGS
+			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
+			{
+				pic_send(4,0x00,(0x0E00|( address+(unsigned int)blockcounter)    &0xFF)); //MOVLW Addr [7:0]
+				pic_send(4,0x00,0x6E62); //MOVWF EEADR
+				pic_send(4,0x00,(0x0E00|((address+(unsigned int)blockcounter)>>8)&0xFF)); //MOVLW Addr [15:8]
+				pic_send(4,0x00,0x6E63); //MOVWF EEADRH
+				pic_send(4,0x00,0x0E00|(unsigned int)data[blockcounter]); //MOVLW data
+				pic_send(4,0x00,0x6e61); //MOVWF EEDATA
+				pic_send(4,0x00,0x847F); //BSF EECON1, WREN
+				pic_send(4,0x00,0x827F); //BSF EECON1, WR
+				
+				//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
+				lasttick=tick;
+				do
+				{
+					pic_send(4,0x00,0x507F); //movf EECON1, W, 0
+					pic_send(4,0x00,0x6EF5); //movwf TABLAT
+					pic_send(4,0x00,0x0000); //nop
+					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
+				}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+				//PGC=0;	//hold PGC low for P10 (100us)
+				DelayMs(P10);
+				pic_send(4,0x00,0x947F); //BCF EECON1, WREN
 			}
 			break;
 		case PIC16:
@@ -1184,16 +1392,24 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 		case P18FXX2:
 		case P18F2XXX:
 		case P18F4XK22:
-		case P18LF4XK22:		
-			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
-			pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
-			if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
-				pic_send(4,0x00,0x84A6); //BSF EECON1, WREN			
-			if((pictype==P18FXX2)||(pictype==P18FXX31)||(pictype==P18FXX31))
+		case P18LF4XK22:	
+			if((pictype==P18F6XKXX)	|| (pictype==P18F67KXX))
 			{
-				//goto 0x100000
-				pic_send(4,0x00,0xEF00);
-				pic_send(4,0x00,0xF800);
+				pic_send(4,0x00,0x8E7F); //BSF EECON1, EEPGD
+				pic_send(4,0x00,0x8C7F); //BSF EECON1, CFGS
+			}
+			else
+			{
+				pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+				pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
+				if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
+					pic_send(4,0x00,0x84A6); //BSF EECON1, WREN			
+				if((pictype==P18FXX2)||(pictype==P18FXX31)||(pictype==P18FXX31))
+				{
+					//goto 0x100000
+					pic_send(4,0x00,0xEF00);
+					pic_send(4,0x00,0xF800);
+				}
 			}
 			//address=0x300000;
 			//start for loop
@@ -1233,7 +1449,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
 			}
-			break;
+			break;		
 		case P12F629:
 			/*if(lastblock&1)
 			{

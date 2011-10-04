@@ -46,6 +46,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily, char level);
 */
 void set_address(PICFAMILY picfamily, unsigned long address);
 
+
 /**
     Reads 8 bits from a pic device with a given cmd_size bits command 
     (only the 2nd byte is read).

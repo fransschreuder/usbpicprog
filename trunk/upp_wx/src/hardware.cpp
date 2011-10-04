@@ -872,65 +872,60 @@ int Hardware::autoDetectDevice()
 	}
 
 	PicType pic24F = PicType::FindPIC(("24F04KA200"));
-	cout<<"PicFamily: "<<pic24F.picFamily<<endl;
 	if(setPicType(&pic24F)<0)
 	return -1;
-
 	int devId=readId();
 	if(devId<0)
 		return -1;
 	cout<<"Pic24F id: "<<std::hex<< devId<<endl;
 	PicType picType = PicType::FindPIC(0x20000|devId);
-
 	if(picType.ok())
 		return devId|0x20000; 
+
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
-	cout<<"PicFamily: "<<pic18J.picFamily<<endl;
 	if(setPicType(&pic18J)<0)
 		return -1;
-
 	devId=readId();
 	if(devId<0)
 		return -1;
-	cout<<"Pic18J id: "<<std::hex<< devId<<endl;
 	picType = PicType::FindPIC(0x10000|devId);
-
 	if(picType.ok())
 		return devId|0x10000; 
 
+	PicType pic18K = PicType::FindPIC(("18F65K22"));
+	if(setPicType(&pic18K)<0)
+		return -1;
+	devId=readId();
+	if(devId<0)
+		return -1;
+	picType = PicType::FindPIC(0x10000|devId);
+	if(picType.ok())
+		return devId|0x10000; 
 
 	PicType pic16 = PicType::FindPIC(("16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
-
 	devId=readId();
 	if(devId<0)
 		return -1;
-
 	picType = PicType::FindPIC(devId);
-
 	if(picType.ok())
 		return devId; 
 
 	pic16 = PicType::FindPIC(("16F876A"));
 	if(setPicType(&pic16)<0)
 		return -1;
-
 	devId=readId();
 	if(devId<0)
 		return -1;
-
 	picType = PicType::FindPIC(devId);
-
 	if(picType.ok())
 		return devId; 
-
 
 	// need to set hardware to PIC18, no matter which one
 	PicType pic18 = PicType::FindPIC(("18F2550"));
 	if (setPicType(&pic18) < 0)
 		return -1;
-
 	devId=readId();
 	if (devId < 0)
 		return -1;

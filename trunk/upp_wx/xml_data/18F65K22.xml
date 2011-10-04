@@ -26,6 +26,7 @@
   <memory name="code"      start="0x000000" end="0x007FFF"/>
   <memory name="config"       start="0x300000" end="0x30000D" />
   <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+  <memory name="eeprom"       start="0x000000" end="0x0003FF" hexfile_offset="0xF00000" />  
 
 
 <!--* Configuration bits ***************************************************-->
@@ -108,7 +109,7 @@
       <value value="0x60" name="ZPBORMV" cname="" sdcc_cname="" />
       <value value="0x40" name="BORMV HP" cname="" sdcc_cname="" />
       <value value="0x20" name="BORMW MP" cname="" sdcc_cname="" />
-      <value value="0x10" name="BORMW LP" cname="" sdcc_cname="" />
+      <value value="0x00" name="BORMW LP" cname="" sdcc_cname="" />
     </mask>
   </config>
 

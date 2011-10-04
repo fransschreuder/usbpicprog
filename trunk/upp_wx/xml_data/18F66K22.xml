@@ -26,6 +26,7 @@
   <memory name="code"      start="0x000000" end="0x00FFFF"/>
   <memory name="config"       start="0x300000" end="0x30000D" />
   <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
+  <memory name="eeprom"       start="0x000000" end="0x0003FF" hexfile_offset="0xF00000" />  
 
 
 <!--* Configuration bits ***************************************************-->
