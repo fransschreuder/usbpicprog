@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-18 10:06+0200\n"
+"POT-Creation-Date: 2011-11-14 08:46+0100\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: \n"
@@ -576,16 +576,16 @@ msgstr "קובץ '%s' פסול."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "PIC פסול. משפחת PIC  '%s'."
 
-#: src/pictype.cpp:792
+#: src/pictype.cpp:794
 msgid "Invalid direction"
 msgstr "כיוון פסול"
 
-#: src/pictype.cpp:812
+#: src/pictype.cpp:814
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "ספירת רגליים אי זוגיות פסולה: %d"
 
-#: src/pictype.cpp:863
+#: src/pictype.cpp:865
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "ספירת רגליים פסולה: %d"
@@ -939,7 +939,7 @@ msgstr "שגיאת USB בעת בדיקה לרכיב ריק"
 msgid "USB error during verify"
 msgstr "שגיאת USB בעת אימות"
 
-#: src/hardware.cpp:1237
+#: src/hardware.cpp:1232
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "שגיאת USB בעת קריהת: %s"
@@ -949,7 +949,7 @@ msgstr "שגיאת USB בעת קריהת: %s"
 msgid "USB error while writing code memory"
 msgstr "שגיאת USB בעת כתיבת זכרון הקוד"
 
-#: src/hardware.cpp:1256
+#: src/hardware.cpp:1251
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "שגיאת USB בזמן כתיבה לרכיב: %d bytes, errCode: %d; %s"

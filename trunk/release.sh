@@ -29,6 +29,7 @@ mv release/trunk/uc_code release/firmware/firmware-$RELEASE
 mv release/trunk/boot release/firmware/boot1.0
 rm -r release/trunk
 rm -r release/README.md
+rm -rf release/.git
 
 echo copy hexfiles...
 cp release/firmware/firmware-$RELEASE/uc_code.hex release/firmware/firmware-$RELEASE.hex

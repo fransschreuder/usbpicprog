@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-18 10:06+0200\n"
+"POT-Creation-Date: 2011-11-14 08:46+0100\n"
 "PO-Revision-Date: 2011-04-12 09:14+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -587,16 +587,16 @@ msgstr "Неправильный файл '%s'."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Неправильно семейство PIC для PIC '%s'."
 
-#: src/pictype.cpp:792
+#: src/pictype.cpp:794
 msgid "Invalid direction"
 msgstr "Неправильное направление"
 
-#: src/pictype.cpp:812
+#: src/pictype.cpp:814
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Неправильное нечетное количество пинов:  %d"
 
-#: src/pictype.cpp:863
+#: src/pictype.cpp:865
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Неправильное число пинов: %d"
@@ -955,7 +955,7 @@ msgstr "Ошибка USB во время проверки на \"чистоту\
 msgid "USB error during verify"
 msgstr "Ошибка USB во время проверки"
 
-#: src/hardware.cpp:1237
+#: src/hardware.cpp:1232
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Ошибка USB во время чтения: %s"
@@ -965,7 +965,7 @@ msgstr "Ошибка USB во время чтения: %s"
 msgid "USB error while writing code memory"
 msgstr "Ошибка USB во время записи памяти кода"
 
-#: src/hardware.cpp:1256
+#: src/hardware.cpp:1251
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Ошибка USB в процессе записи на устройство: %d байт, errCode: %d; %s"

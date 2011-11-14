@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-18 10:06+0200\n"
+"POT-Creation-Date: 2011-11-14 08:46+0100\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -582,16 +582,16 @@ msgstr "Fail '%s' adalah fail yang salah"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "PIC family untuk PIC '%s' adalah salah"
 
-#: src/pictype.cpp:792
+#: src/pictype.cpp:794
 msgid "Invalid direction"
 msgstr "'Direction' tidak sah"
 
-#: src/pictype.cpp:812
+#: src/pictype.cpp:814
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "'Odd pin count' tidak sah: %d"
 
-#: src/pictype.cpp:863
+#: src/pictype.cpp:865
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "'Pin count' tidak sah: %d"
@@ -951,7 +951,7 @@ msgstr "Ralat USB ketika blankcheck"
 msgid "USB error during verify"
 msgstr "Ralat USB ketika pengesahan"
 
-#: src/hardware.cpp:1237
+#: src/hardware.cpp:1232
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Ralat USB ketika membaca: %s"
@@ -961,7 +961,7 @@ msgstr "Ralat USB ketika membaca: %s"
 msgid "USB error while writing code memory"
 msgstr "Ralat USB ketika memuaturun kod memori"
 
-#: src/hardware.cpp:1256
+#: src/hardware.cpp:1251
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Ralat USB ketika memuaturun ke peranti: %d bytes, errCode: %d; %s"
