@@ -7,7 +7,7 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="18F14K22" document="041365" status="IP" memory_technology="FLASH" architecture="18K" id="0x4F60" >
+<device name="18F14K22" document="041365" status="IP" memory_technology="FLASH" architecture="18K" id="0x4F80" >
 
 <!--* Operating characteristics ********************************************-->
   <frequency_range name="industrial" >
@@ -18,12 +18,12 @@
     <frequency start="4" end="41.6667" vdd_min="2.35" vdd_max="2.7" />
   </frequency_range>
 
-  <voltages name="vpp"            min="3"   max="3.6" nominal="3.3" />
-  <voltages name="vdd_prog"       min="3" max="3.6"   nominal="3.3"  />
-  <voltages name="vdd_prog_write" min="3"   max="3.6"   nominal="3.3"  />
+  <voltages name="vpp"            min="8"   max="9" nominal="9" />
+  <voltages name="vdd_prog"       min="8" max="9"   nominal="9"  />
+  <voltages name="vdd_prog_write" min="8"   max="9"   nominal="9"  />
 
 <!--* Memory ***************************************************************-->
-  <memory name="code"      start="0x000000" end="0x003FFF"/>
+  <memory name="code"      start="0x000000" end="0x001FFF"/>
   <memory name="config"       start="0x300000" end="0x30000D" />
   <memory name="device_id"    start="0x3FFFFE" end="0x3FFFFF" />
   <memory name="eeprom"       start="0x000000" end="0x0000FF" hexfile_offset="0xF00000" />  
