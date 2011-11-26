@@ -80,7 +80,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
 				dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
 				dspic_send_24_bits(0x000000);	//NOP
-				j=dspic_read_16_bits();
+				j=dspic_read_16_bits(0);
 				dspic_send_24_bits(0x000000);	//NOP
 				if((j&&0x8000)==0)break;	//programming completed
 				DelayMs(10);
@@ -708,7 +708,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
 					dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();
+					payload=dspic_read_16_bits(0);
 					dspic_send_24_bits(0x000000);	//NOP
 					if((payload&&0x8000)==0)break;	//programming completed
 					DelayMs(1);
@@ -1193,6 +1193,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	switch(picfamily)
 	{
 		case dsPIC30:
+		case dsP30F_LV:
 			//Step 1: Exit the Reset vector.
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
@@ -1675,6 +1676,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			I2C_stop();
 			break;
 		case dsPIC30:
+		case dsP30F_LV:
 			if(address>=0xF80000)
 			{
 				if(lastblock&1)
@@ -1702,7 +1704,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 					dspic_send_24_bits(0x883C20);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
 					//Step 4: Output the VISI register using the REGOUT command.
-					payload=dspic_read_16_bits();	//read <VISI>
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//read <VISI>
 					data[blockcounter]=(unsigned char)payload;
 					data[blockcounter+1]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP
@@ -1755,7 +1757,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				{
 					dspic_send_24_bits(0x883C20|(unsigned long) i);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();	//Clock out contents of VISI register
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//Clock out contents of VISI register
 					data[blockcounter+i*2]=(unsigned char)payload&0xFF;
 					data[blockcounter+i*2+1]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP
@@ -1880,6 +1882,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 	switch(picfamily)
 	{
 		case dsPIC30:
+		case dsP30F_LV:
 			
 			//Step 1: Exit the Reset vector.
 			dspic_send_24_bits(0x000000);	//NOP
@@ -1906,7 +1909,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				{
 					dspic_send_24_bits(0x883C20|(unsigned long)i);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();	//VISI
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//VISI
 					data[blockcounter+(i*2)]=(unsigned char)payload;
 					data[blockcounter+((i*2)+1)]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP

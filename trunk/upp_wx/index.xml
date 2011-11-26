@@ -241,12 +241,12 @@
     <pic name="24F08KA102" upp_family="P24FXXKAXXX" upp_devid="0x20D0A" upp_devidmask="0x3FFFF"/>
     <pic name="24F16KA101" upp_family="P24FXXKAXXX" upp_devid="0x20D01" upp_devidmask="0x3FFFF"/>
     <pic name="24F16KA102" upp_family="P24FXXKAXXX" upp_devid="0x20D03" upp_devidmask="0x3FFFF"/>                    
-    <pic name="30F1010" upp_family="dsP30F" upp_devid="0x20404" upp_devidmask="0x3FFFF"/>
+    <pic name="30F1010" upp_family="dsP30F_LV" upp_devid="0x20404" upp_devidmask="0x3FFFF"/>
     <pic name="30F2010" upp_family="dsP30F" upp_devid="0x20040" upp_devidmask="0x3FFFF"/>
     <pic name="30F2011" upp_family="dsP30F" upp_devid="0x20240" upp_devidmask="0x3FFFF"/>
     <pic name="30F2012" upp_family="dsP30F" upp_devid="0x20241" upp_devidmask="0x3FFFF"/>
-    <pic name="30F2020" upp_family="dsP30F" upp_devid="0x20400" upp_devidmask="0x3FFFF"/>
-    <pic name="30F2023" upp_family="dsP30F" upp_devid="0x20403" upp_devidmask="0x3FFFF"/>
+    <pic name="30F2020" upp_family="dsP30F_LV" upp_devid="0x20400" upp_devidmask="0x3FFFF"/>
+    <pic name="30F2023" upp_family="dsP30F_LV" upp_devid="0x20403" upp_devidmask="0x3FFFF"/>
     <pic name="30F3010" upp_family="dsP30F" upp_devid="0x201C0" upp_devidmask="0x3FFFF"/>
     <pic name="30F3011" upp_family="dsP30F" upp_devid="0x201C1" upp_devidmask="0x3FFFF"/>
     <pic name="30F3012" upp_family="dsP30F" upp_devid="0x200C1" upp_devidmask="0x3FFFF"/>
