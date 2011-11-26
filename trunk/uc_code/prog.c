@@ -354,7 +354,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x00,0x0000); //NOP
 			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
-			DelayMs(400);
+			DelayMs(500);
 			break;
 		case P18LF13K22:
 		case P18LF14K22:
