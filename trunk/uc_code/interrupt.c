@@ -90,6 +90,6 @@ void low_isr(void) interrupt 1
 void DelayMs(unsigned long cnt)
 {
 	lasttick=tick;
-	while((tick-lasttick)<cnt)continue;
+	while((tick-lasttick)<=cnt)continue;
 }
 /** EOF interrupt.c **********************************************************/
