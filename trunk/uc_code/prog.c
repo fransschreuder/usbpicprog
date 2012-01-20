@@ -80,7 +80,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
 				dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
 				dspic_send_24_bits(0x000000);	//NOP
-				j=dspic_read_16_bits();
+				j=dspic_read_16_bits(0);
 				dspic_send_24_bits(0x000000);	//NOP
 				if((j&&0x8000)==0)break;	//programming completed
 				DelayMs(10);
@@ -354,7 +354,25 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x00,0x0000); //NOP
 			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
-			DelayMs(400);
+			DelayMs(500);
+			break;
+		case P18LF13K22:
+		case P18LF14K22:
+			PGD_LOW =0;
+			TRISPGD_LOW =0;
+			PGC_LOW =0;
+			TRISPGC_LOW=0;
+			//no break, just low voltage and continue with P18F1XK22
+		case P18F13K22:
+		case P18F14K22:
+			set_address(picfamily, 0x3C0005);
+			pic_send(4,0x0C,0x0F0F); //Write 0F0Fh to 3C0005h
+			set_address(picfamily, 0x3C0004);
+			pic_send(4,0x0C,0x8F8F); //Write 8080h to 3C0004h
+			pic_send(4,0x00,0x0000); //NOP
+			lasttick=tick;
+			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
+			DelayMs(6);
 			break;
 		case P16F716:
 			pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -690,7 +708,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					dspic_send_24_bits(0x803B02);	//MOV NVMCON, W2
 					dspic_send_24_bits(0x883C22);	//MOV W2, VISI				
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();
+					payload=dspic_read_16_bits(0);
 					dspic_send_24_bits(0x000000);	//NOP
 					if((payload&&0x8000)==0)break;	//programming completed
 					DelayMs(1);
@@ -840,12 +858,51 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
+		case P18LF14K22:
+			PGD_LOW =0;
+			TRISPGD_LOW =0;
+			PGC_LOW =0;
+			TRISPGC_LOW=0;
+		case P18F14K22:
+			//direct access to code memory
+			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
+			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			pic_send(4,0x00,0x84A6);	//BSF EECON1, WREN
+			set_address(picfamily, address);
+			for(blockcounter=0;blockcounter<(blocksize);blockcounter+=16) //blocks of 16 bytes
+			{
+				for(i=0;i<14;i+=2)
+				{
+					//write 2 bytes and post increment by 2
+					//				MSB				LSB
+					pic_send(4,0x0D,((unsigned int)*(data+blockcounter+i))|
+							(((unsigned int)*(data+1+blockcounter+i))<<8));
+				}
+				//write last 2 bytes of the block and start programming
+				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
+				pic_send_n_bits(3, 0);
+				lasttick=tick;
+				PGC=1;	//hold PGC high for P9 and low for P10
+				DelayMs(P9);
+				PGC=0;
+				DelayMs(P10);
+				pic_send_word(0x0000);
+				pic_read_byte2(4,0x09);	//perform 2 reads to increase the address by 2
+				pic_read_byte2(4,0x09);
+			}
+			break;			
+		case P18LF13K22:
+			PGD_LOW =0;
+			TRISPGD_LOW =0;
+			PGC_LOW =0;
+			TRISPGC_LOW=0;
 		case P18FX220:
 		case P18FXX31:
 		case P18FXX39:
 		case P18F6X2X:
 		case P18FXX2:
-			if(pictype!=P18FX220)
+		case P18F13K22:
+			if(pictype!=P18FX220&&pictype!=P18F13K22&&pictype!=P18LF13K22)
 			{
 				//direct access to config memory
 				pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
@@ -857,6 +914,11 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			//direct access to code memory
 			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
+			if(pictype==P18F13K22||pictype==P18LF13K22)
+			{
+				pic_send(4,0x00,0x84A6);	//BSF EECON1, WREN
+
+			}
 			set_address(picfamily, address);
 			for(blockcounter=0;blockcounter<(blocksize);blockcounter+=8) //blocks of 8 bytes
 			{
@@ -1131,6 +1193,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	switch(picfamily)
 	{
 		case dsPIC30:
+		case dsP30F_LV:
 			//Step 1: Exit the Reset vector.
 			dspic_send_24_bits(0x000000);	//NOP
 			dspic_send_24_bits(0x000000);	//NOP
@@ -1190,6 +1253,13 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			break;
 		case PIC18:
 		case PIC18J:
+			if(pictype==P18LF13K22||pictype==P18LF14K22)
+			{
+				PGD_LOW =0;
+				TRISPGD_LOW =0;
+				PGC_LOW =0;
+				TRISPGC_LOW=0;	
+			}
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
@@ -1402,8 +1472,15 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 			{
 				pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
 				pic_send(4,0x00,0x8CA6); //BSF EECON1, CFGS
-				if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
+				if((pictype==P18F4XK22)||
+					(pictype==P18LF4XK22)||
+					(pictype==P18F13K22)||
+					(pictype==P18LF13K22)||
+					(pictype==P18F14K22)||
+					(pictype==P18LF14K22))
+				{
 					pic_send(4,0x00,0x84A6); //BSF EECON1, WREN			
+				}
 				if((pictype==P18FXX2)||(pictype==P18FXX31)||(pictype==P18FXX31))
 				{
 					//goto 0x100000
@@ -1431,10 +1508,6 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				PGC=0;	//hold PGC low for time P10
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
-				if((pictype==P18FXX2)||(pictype==P18FXX31)||(pictype==P18F872X))
-				{
-					pic_send(4,0x00,0x2AF6); //incf tblptr
-				}
 				set_address(picfamily, address+((unsigned int)blockcounter)+1);
 				pic_send(4,0x0F, ((unsigned int)*(data+1+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); //load MSB and start programming
 				pic_send_n_bits(3, 0);
@@ -1603,6 +1676,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			I2C_stop();
 			break;
 		case dsPIC30:
+		case dsP30F_LV:
 			if(address>=0xF80000)
 			{
 				if(lastblock&1)
@@ -1630,7 +1704,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 					dspic_send_24_bits(0x883C20);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
 					//Step 4: Output the VISI register using the REGOUT command.
-					payload=dspic_read_16_bits();	//read <VISI>
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//read <VISI>
 					data[blockcounter]=(unsigned char)payload;
 					data[blockcounter+1]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP
@@ -1683,7 +1757,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 				{
 					dspic_send_24_bits(0x883C20|(unsigned long) i);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();	//Clock out contents of VISI register
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//Clock out contents of VISI register
 					data[blockcounter+i*2]=(unsigned char)payload&0xFF;
 					data[blockcounter+i*2+1]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP
@@ -1700,6 +1774,7 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			{
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
 				if(picfamily==PIC18J)TRISPGD_LOW=0;	//switch to 3.3V again
+				if(pictype==P18LF13K22||pictype==P18LF14K22)TRISPGD_LOW=0;	//switch to 3.3V again
 			}
 			break;
 		case PIC16:
@@ -1807,6 +1882,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 	switch(picfamily)
 	{
 		case dsPIC30:
+		case dsP30F_LV:
 			
 			//Step 1: Exit the Reset vector.
 			dspic_send_24_bits(0x000000);	//NOP
@@ -1833,7 +1909,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				{
 					dspic_send_24_bits(0x883C20|(unsigned long)i);	//MOV W0, VISI
 					dspic_send_24_bits(0x000000);	//NOP
-					payload=dspic_read_16_bits();	//VISI
+					payload=dspic_read_16_bits(pictype==dsP30F_LV);	//VISI
 					data[blockcounter+(i*2)]=(unsigned char)payload;
 					data[blockcounter+((i*2)+1)]=(unsigned char)((payload&0xFF00)>>8);
 					dspic_send_24_bits(0x000000);	//NOP
@@ -1857,6 +1933,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				pic_send(4,0x00,0x6EF5); //MOVWF TABLAT
 				pic_send(4,0x00,0x0000); //Nop
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
+				if(pictype==P18LF13K22||pictype==P18LF14K22)TRISPGD_LOW=0;	//switch to 3.3V again
 			}
 			break;
 		case PIC16:

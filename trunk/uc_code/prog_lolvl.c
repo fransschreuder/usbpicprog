@@ -46,7 +46,13 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	{
 		TRISPGD =0;    //PGD output
 		TRISPGC =0;    //PGC output
-
+		if(picfamily==dsP30F_LV)
+		{
+			TRISPGD_LOW = 0;
+			TRISPGC_LOW = 0;
+			PGD_LOW=0;
+			PGC_LOW=0;
+		}
 		if((picfamily==PIC18J)||(picfamily==PIC18K)||(picfamily==PIC24))
 		{
 			VPP_RUN=0; //MCLR low 
@@ -368,7 +374,7 @@ char pic_read_byte2(char cmd_size, char command)
 }
 
 /// read a 16 bit "word" from a dsPIC
-unsigned int dspic_read_16_bits(void)
+unsigned int dspic_read_16_bits(unsigned char isLV)
 {
 	char i;
 	unsigned int result;
@@ -390,6 +396,7 @@ unsigned int dspic_read_16_bits(void)
 		PGC=0;
 	}
 	//pic_send_n_bits(8,0);
+	if(isLV) TRISPGD_LOW = 1;
 	TRISPGD=1; //PGD = input
 	clock_delay();
 	for(i=0;i<16;i++)
@@ -399,6 +406,7 @@ unsigned int dspic_read_16_bits(void)
 		result|=((unsigned int)PGD_READ)<<i;
 		PGC=0;
 	}
+	if(isLV) TRISPGD_LOW = 0;
 	TRISPGD=0; //PGD = output
 	PGD=0;
 	return result;

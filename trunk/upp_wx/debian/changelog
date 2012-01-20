@@ -1,3 +1,21 @@
+usbpicprog (111126-3) oneiric; urgency=low
+
+  * implemented PIC18F13K22, PIC18F14K22 and fixed low voltage dsPIC30F devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 26 Nov 2011 21:45:36 +0100
+
+usbpicprog (111126-2) natty; urgency=low
+
+  * implemented PIC18F13K22, PIC18F14K22 and fixed low voltage dsPIC30F devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 26 Nov 2011 21:45:16 +0100
+
+usbpicprog (111126-1) maverick; urgency=low
+
+  * implemented PIC18F13K22, PIC18F14K22 and fixed low voltage dsPIC30F devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 26 Nov 2011 21:44:36 +0100
+
 usbpicprog (111004-4) natty; urgency=low
 
   * implemented PIC18F6XKXX family

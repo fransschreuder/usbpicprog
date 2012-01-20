@@ -288,7 +288,7 @@ void ProcessIO(void)
 						counter=1;
 						break;
 					case 3:
-						nBytes =  dspic_read_16_bits();
+						nBytes =  dspic_read_16_bits(1);
 						output_buffer[0]=(unsigned char)nBytes;
 						output_buffer[1]=(unsigned char)(nBytes>>8);
 						counter=2;
@@ -532,7 +532,11 @@ unsigned char set_pictype(unsigned char* data)
 		case P18FXX80:
 		case P18F8410:
 		case P18F1X30:
-		case P18FXX23:picfamily=PIC18;break;
+		case P18FXX23:
+		case P18F13K22:
+		case P18F14K22:
+		case P18LF13K22:
+		case P18LF14K22:picfamily=PIC18;break;
 		case P18F97J60:
 		case P18F6XJXX:
 		case P18F45J10:picfamily=PIC18J;break;
@@ -542,7 +546,8 @@ unsigned char set_pictype(unsigned char* data)
 		case P24H:
 		case P24FJXXXGA1:
 		case P24FXXKAXXX:picfamily=PIC24;break;
-		case dsP30F:picfamily=dsPIC30;break;
+		case dsP30F:
+		case dsP30F_LV:picfamily=dsPIC30;break;
 		case dsP33F:picfamily=dsPIC33;break;
 		case I2C_EE_1:
 		case I2C_EE_2:picfamily=I2C;break;

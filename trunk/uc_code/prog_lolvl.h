@@ -86,7 +86,7 @@ void pic_send(char cmd_size, char command, unsigned int payload);
 /**
   reads a 16 bit word from a dsPic device using normal ICSP
 */
-unsigned int dspic_read_16_bits(void);
+unsigned int dspic_read_16_bits(unsigned char isLV);
 
 
 /**
