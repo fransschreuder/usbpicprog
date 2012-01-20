@@ -89,6 +89,7 @@ void low_isr(void) interrupt 1
 
 void DelayMs(unsigned long cnt)
 {
+	tick=0;
 	lasttick=tick;
 	while((tick-lasttick)<=cnt)continue;
 }
