@@ -49,6 +49,8 @@ void high_isr(void)
 void high_isr(void) interrupt 2
 #endif
 {
+	INTCONbits.GIEH = 0;
+	INTCONbits.GIEL = 0;
 	if(PIR1bits.TMR1IF)
 	{
 		tick++;
@@ -65,6 +67,8 @@ void high_isr(void) interrupt 2
 		TMR0L=68;//TMR0L_PRESET;
 		INTCONbits.TMR0IF=0;
 	}
+	INTCONbits.GIEH = 1;
+	INTCONbits.GIEL = 1;
 }
 
 
