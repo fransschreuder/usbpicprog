@@ -154,7 +154,6 @@ void setLeds(char n)
  * Note:            None
  *****************************************************************************/
 
-extern unsigned long tick, lasttick;
 //unsigned int input_buffer_offset=0;
 PICFAMILY picfamily=PIC18;
 PICTYPE pictype=P18F2XXX;

@@ -30,8 +30,6 @@
 #include "upp.h" 
 #include "io_cfg.h"             // I/O pin mapping
 
-extern long tick;
-extern long lasttick;
 
 void I2C_delay()
 {
@@ -57,8 +55,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		{
 			VPP_RUN=0; //MCLR low 
 			VDD=0;
-			lasttick=tick;
-			while((tick-lasttick)<10)continue;
+			DelayMs(10);
 			PGD_LOW = 0;	//PGD and PGC to 3.3V mode (output)
 			if(picfamily!=PIC18K)
 			{
@@ -66,17 +63,14 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				TRISPGC_LOW = 0;
 			}
 			PGC_LOW = 0;
-			lasttick=tick;
 			VPP_RUN=1;	//VPP to 4.5V
 			for(i=0;i<300;i++)continue; //aprox 0.5ms 
 			if(picfamily==PIC18J)
 			{
 				VPP_RUN=0;	//and immediately back to 0...
 				VPP_RST=1;
-				lasttick=tick;
-				while((tick-lasttick)<4)continue;
-				lasttick=tick;
-				while((tick-lasttick)<6)continue;
+				DelayMs(4);
+				DelayMs(6);
 			}
 			//clock_delay();	//P19 = 40ns min
 			//write 0x4D43, high to low, other than the rest of the commands which are low to high...
@@ -87,17 +81,14 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 			pic_send_word(0x0A12);	
 			VPP_RST=0; //release from reset
-			VPP_RUN=1;	
-			lasttick=tick;
-			while((tick-lasttick)<1)continue;
+			VPP_RUN=1;
+			DelayMs(1);
 			if(picfamily==PIC24)
 			{
-				lasttick=tick;
-				while((tick-lasttick)<1)continue;
+				DelayMs(1);
 				pic_send_n_bits(5,0);
 				dspic_send_24_bits(0); //send a nop instruction with 5 additional databits
-				lasttick=tick;
-				while((tick-lasttick)<1)continue;
+				DelayMs(1);
 			}
 			return;
 		}
@@ -131,8 +122,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				VDD=0; //high, (inverted)
 				break;
 		}
-		lasttick=tick;
-		while((tick-lasttick)<100)continue;
+		DelayMs(100);
 		switch(pictype)
 		{
 			case I2C_EE_1:
@@ -149,8 +139,7 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				VDD=0;
 				clock_delay();
 				VPP=0;
-				lasttick=tick;
-				while((tick-lasttick)<26)continue;
+				DelayMs(26);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
@@ -165,24 +154,21 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 				VPP=0; //high, (inverted)
 				break;
 		}
-		lasttick=tick;
-		while((tick-lasttick)<100)continue;
+		DelayMs(100);
 	}
 	else
 	{
 		VPP=1; //low, (inverted)
 		VPP_RUN=0;
 		VPP_RST=1; //hard reset, low (inverted)
-		lasttick=tick;
-		while((tick-lasttick)<40)continue;
+		DelayMs(40);
 		VPP_RST=0; //hard reset, high (inverted)
 		VDD=1; //low, (inverted)
 		TRISPGD_LOW = 1; //input
 		TRISPGC_LOW = 1; //input
 		TRISPGD =1;    //PGD input
 		TRISPGC =1;    //PGC input
-		lasttick=tick;
-		while((tick-lasttick)<20)continue;
+		DelayMs(20);
 	}
 }
 

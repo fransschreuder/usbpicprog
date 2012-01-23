@@ -15,8 +15,8 @@
 #include "interrupt.h"
 #include "io_cfg.h"
 /** V A R I A B L E S ********************************************************/
-long tick=0;
-long lasttick=0;
+long timerCnt;
+unsigned char timerRunning;
 /** I N T E R R U P T  V E C T O R S *****************************************/
 #ifndef SDCC
 #pragma code high_vector=0x08
@@ -49,11 +49,10 @@ void high_isr(void)
 void high_isr(void) interrupt 2
 #endif
 {
-	INTCONbits.GIEH = 0;
-	INTCONbits.GIEL = 0;
 	if(PIR1bits.TMR1IF)
 	{
-		tick++;
+		if( timerRunning && --timerCnt <= 0 )
+			timerRunning = 0;
 		/*Pump1=!Pump1;
 		Pump2=!Pump1;*/
 		TMR1H=TMR1H_PRESET;
@@ -67,8 +66,7 @@ void high_isr(void) interrupt 2
 		TMR0L=68;//TMR0L_PRESET;
 		INTCONbits.TMR0IF=0;
 	}
-	INTCONbits.GIEH = 1;
-	INTCONbits.GIEL = 1;
+
 }
 
 
@@ -90,11 +88,20 @@ void low_isr(void) interrupt 1
 }
 #pragma code
 
+/******************************************************************************
+ * This function set up timerCnt
+ * at the moment timer1 is a 1 ms timer, if it is changes cnt needs to be adjusted
+ */
+void startTimerMs( unsigned int cnt )
+{
+	timerRunning = 0;		// no surprises from timer interrupt
+	timerCnt = cnt + 1;
+	timerRunning = 1;
+}
 
 void DelayMs(unsigned long cnt)
 {
-	tick=0;
-	lasttick=tick;
-	while((tick-lasttick)<=cnt)continue;
+	startTimerMs( cnt );
+	while( timerRunning )continue;
 }
 /** EOF interrupt.c **********************************************************/

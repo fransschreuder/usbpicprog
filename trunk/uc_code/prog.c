@@ -31,9 +31,6 @@
 #include "interrupt.h"
 #include "prog_lolvl.h"
 
-extern long lasttick;
-extern long tick;
-
 
 #define NORESTORE 0xAA
 /**
@@ -145,22 +142,18 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x0083); //shouldn't it be 0x0C??? prog spec says 0x00
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			pic_send(4,0x0C,0x0088); //shouldn't it be 0x0C??? prog spec says 0x00
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			pic_send(4,0x0C,0x0089); //shouldn't it be 0x0C??? prog spec says 0x00
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			pic_send(4,0x0C,0x008A); //shouldn't it be 0x0C??? prog spec says 0x00
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			set_address(picfamily, 0x3C0006);
@@ -176,7 +169,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x00,0x82A6); // BSF EECON1, WR
 					
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
@@ -187,7 +179,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x8787); //Write 8080h to 3C0004h
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(400);
 			break;
@@ -204,7 +195,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x8F8F); //Write 8F8Fh to 3C0004h
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			if(pictype==P18F2XXX)
 			{
@@ -222,7 +212,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0000);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -232,7 +221,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0000);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -242,7 +230,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0000);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -253,7 +240,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0101);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -264,7 +250,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0202);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -275,7 +260,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0404);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -286,7 +270,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x0808);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -297,7 +280,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x1010);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -308,7 +290,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x2020);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -319,7 +300,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x4040);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			
@@ -330,7 +310,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			pic_send(4,0x0C,0x8080);
 			set_address(picfamily, 0x3C0006);
 			pic_send(4,0x0C,0x8080);
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			break;
@@ -341,7 +320,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x0080);
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(P11);
 			break;
@@ -352,7 +330,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x8080); //Write 8080h to 3C0004h
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(500);
 			break;
@@ -370,7 +347,6 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			set_address(picfamily, 0x3C0004);
 			pic_send(4,0x0C,0x8F8F); //Write 8080h to 3C0004h
 			pic_send(4,0x00,0x0000); //NOP
-			lasttick=tick;
 			pic_send(4,0x00,0x0000); //hold PGD low until erase completes
 			DelayMs(6);
 			break;
@@ -763,7 +739,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
 				PGC=0;
@@ -793,7 +768,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
 				PGC=0;
@@ -823,7 +797,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
 				PGC=0;
@@ -851,7 +824,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			//write last 2 bytes of the block and start programming
 			pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 			pic_send_n_bits(3, 0);
-			lasttick=tick;
 			PGC=1;	//hold PGC high for P9 and low for P10
 			DelayMs(P9);
 			PGC=0;
@@ -881,7 +853,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
 				PGC=0;
@@ -932,7 +903,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
 				PGC=0;
@@ -961,7 +931,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			{
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				lasttick=tick;
 				PGC=1;	//hold PGC high for P9 and low for P10
 				DelayMs(10);
 				PGC=0;
@@ -977,7 +946,6 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						pic_send(4,0x0D,0xFFFF);
 					pic_send(4,0x0F,0xFFFF);
 					pic_send_n_bits(3, 0);
-					lasttick=tick;
 					PGC=1;	//hold PGC high for P9 and low for P10
 					DelayMs(10);
 					PGC=0;
@@ -1286,14 +1254,14 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					pic_send(4,0x00,0x0000); //NOP, write starts on 4th clock of this instruction
 				}				
 				//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-				lasttick=tick;
+				startTimerMs( P11A );
 				do
 				{
 					pic_send(4,0x00,0x50A6); //movf EECON1, W, 0
 					pic_send(4,0x00,0x6EF5); //movwf TABLAT
 					pic_send(4,0x00,0x0000); //nop
 					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
-				}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+				}while(((receiveddata&0x02)==0x02) && timerRunning); //poll for WR bit to clear
 				//PGC=0;	//hold PGC low for P10 (100us)
 				DelayMs(P10);
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
@@ -1314,14 +1282,14 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send(4,0x00,0x827F); //BSF EECON1, WR
 				
 				//pic_send(4,0x00,0x0000); //NOP, when not polling for the WR bit, the PIC still needs at least 4 clocks
-				lasttick=tick;
+				startTimerMs( P11A );
 				do
 				{
 					pic_send(4,0x00,0x507F); //movf EECON1, W, 0
 					pic_send(4,0x00,0x6EF5); //movwf TABLAT
 					pic_send(4,0x00,0x0000); //nop
 					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
-				}while(((receiveddata&0x02)==0x02)&&((tick-lasttick)<P11A)); //poll for WR bit to clear
+				}while(((receiveddata&0x02)==0x02) && timerRunning ); //poll for WR bit to clear
 				//PGC=0;	//hold PGC low for P10 (100us)
 				DelayMs(P10);
 				pic_send(4,0x00,0x947F); //BCF EECON1, WREN
