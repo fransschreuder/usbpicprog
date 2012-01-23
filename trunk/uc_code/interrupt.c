@@ -99,7 +99,7 @@ void startTimerMs( unsigned int cnt )
 	timerRunning = 1;
 }
 
-void DelayMs(unsigned long cnt)
+void DelayMs(unsigned cnt)
 {
 	startTimerMs( cnt );
 	while( timerRunning )continue;

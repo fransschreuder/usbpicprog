@@ -20,7 +20,8 @@ extern unsigned char timerRunning;
 /** P R O T O T Y P E S ******************************************************/
 void low_isr(void);
 void high_isr(void);
-void DelayMs(unsigned long cnt);
+void startTimerMs( unsigned cnt );
+void DelayMs(unsigned cnt);
 
 #endif //INTERRUPT_H
 
