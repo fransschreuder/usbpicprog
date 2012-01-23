@@ -11,3 +11,6 @@ rom char *rom pictypeName[] = {
 #include "pictype.h"
 };
 #undef LIST
+
+PICFAMILY picfamily=PIC18;
+PICTYPE pictype=P18F2XXX;

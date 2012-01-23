@@ -3,6 +3,7 @@ typedef enum _PICFAMILY {
 #include "picfamily.h"
 	UPP_INVALID_PICFAMILY
 }PICFAMILY;
+
 typedef enum _PICTYPE {
 #include "pictype.h"
 	UPP_INVALID_PICTYPE

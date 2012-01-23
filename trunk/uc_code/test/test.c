@@ -1,6 +1,7 @@
 #ifdef TEST
 #include "prog.h"
 #include "test.h"
+#include <string.h>
 
 extern PICFAMILY picfamily;
 extern PICTYPE pictype;
@@ -112,6 +113,7 @@ unsigned char set_pictype( PICTYPE pictype )
 	}
 	return 1;
 }
-#endif
+#else
 // needs at least 1 line for MCC18
 extern unsigned char timerRunning;
+#endif

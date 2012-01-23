@@ -155,8 +155,6 @@ void setLeds(char n)
  *****************************************************************************/
 
 //unsigned int input_buffer_offset=0;
-PICFAMILY picfamily=PIC18;
-PICTYPE pictype=P18F2XXX;
 
 void ProcessIO(void)
 {

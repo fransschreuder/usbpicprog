@@ -18,7 +18,6 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 **************************************************************************/
  
-#include "prog_lolvl.h"
 #ifdef SDCC
 #include <pic18f2550.h>
 #else
@@ -29,14 +28,15 @@
 #include "prog.h"
 #include "upp.h" 
 #include "io_cfg.h"             // I/O pin mapping
+#include "prog_lolvl.h"
 
-
+#ifndef TEST
 void I2C_delay()
 {
 	char i;
 	for(i=0;i<10;i++)continue;
 }
-
+#endif
 void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 {
 	unsigned int i;
@@ -196,7 +196,7 @@ void set_address(PICFAMILY picfamily, unsigned long address)
 	}
 }
 
-
+#ifndef TEST
 /**
 Writes a n-bit command
 **/
@@ -531,4 +531,4 @@ XferFastData()
 }
 */
 
-
+#endif
