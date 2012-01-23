@@ -115,5 +115,5 @@ unsigned char I2C_write(unsigned char d);
 unsigned char I2C_read(unsigned char ack);
 
 
-
+#include "test.h"	// test harness
 #endif // PROG_LOLVL_H

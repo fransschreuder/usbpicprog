@@ -42,33 +42,33 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 	unsigned int i;
 	if(level==1)
 	{
-		TRISPGD =0;    //PGD output
-		TRISPGC =0;    //PGC output
+		enablePGD();    //PGD output
+		enablePGC();    //PGC output
 		if(picfamily==dsP30F_LV)
 		{
-			TRISPGD_LOW = 0;
-			TRISPGC_LOW = 0;
-			PGD_LOW=0;
-			PGC_LOW=0;
+			enablePGD_LOW();
+			enablePGC_LOW();
+			PGD_LOWon();
+			PGC_LOWon();
 		}
 		if((picfamily==PIC18J)||(picfamily==PIC18K)||(picfamily==PIC24))
 		{
-			VPP_RUN=0; //MCLR low 
-			VDD=0;
+			VPP_RUNoff(); //MCLR low 
+			VDDon();
 			DelayMs(10);
-			PGD_LOW = 0;	//PGD and PGC to 3.3V mode (output)
+			PGD_LOWon();	//PGD and PGC to 3.3V mode (output)
 			if(picfamily!=PIC18K)
 			{
-				TRISPGD_LOW = 0;
-				TRISPGC_LOW = 0;
+				enablePGD_LOW();
+				enablePGC_LOW();
 			}
-			PGC_LOW = 0;
-			VPP_RUN=1;	//VPP to 4.5V
+			PGC_LOWon();
+			VPP_RUNon();	//VPP to 4.5V
 			for(i=0;i<300;i++)continue; //aprox 0.5ms 
 			if(picfamily==PIC18J)
 			{
-				VPP_RUN=0;	//and immediately back to 0...
-				VPP_RST=1;
+				VPP_RUNoff();	//and immediately back to 0...
+				VPP_RSTon();
 				DelayMs(4);
 				DelayMs(6);
 			}
@@ -80,8 +80,8 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			pic_send_word(0xC2B2);
 			//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 			pic_send_word(0x0A12);	
-			VPP_RST=0; //release from reset
-			VPP_RUN=1;
+			VPP_RSToff(); //release from reset
+			VPP_RUNon();
 			DelayMs(1);
 			if(picfamily==PIC24)
 			{
@@ -94,20 +94,20 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 		}
 		if((pictype==I2C_EE_1)||(pictype==I2C_EE_2))
 		{
-			PGD = 1;
-			PGC = 1;
+			PGDhigh();
+			PGChigh();
 		}
 		else
 		{
-			PGD =0;        // initial value for programming mode
-			PGC =0;        // initial value for programming mode
+			PGDlow();        // initial value for programming mode
+			PGClow();        // initial value for programming mode
 		}
 		clock_delay();    // dummy tempo
 		switch(pictype)
 		{	
 			case I2C_EE_1:
 			case I2C_EE_2:
-				VDD=0; //no VPP needed	
+				VDDon(); //no VPP needed	
 				break;
 			case dsP30F:
 				break;
@@ -116,10 +116,10 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			case P12F629:
 			case P12F6XX:
 		   case P16F87:
-				VPP=0;
+				VPPon();
 				break;
 			default:
-				VDD=0; //high, (inverted)
+				VDDon(); //high, (inverted)
 				break;
 		}
 		DelayMs(100);
@@ -133,41 +133,41 @@ void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily,char level)
 			case P12F629:
 			case P12F6XX:
 		   case P16F87:			
-				VDD=0;
+				VDDon();
 				break;
 			case dsP30F:
-				VDD=0;
+				VDDon();
 				clock_delay();
-				VPP=0;
+				VPPon();
 				DelayMs(26);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
 				dspic_send_24_bits(0);
-				VPP=1;
-				VPP_RST=1;
-				VPP_RST=0;
+				VPPoff();
+				VPP_RSTon();
+				VPP_RSToff();
 				for(i=0;i<1;i++)continue;
-				VPP=0;
+				VPPon();
 				break;
 			default:
-				VPP=0; //high, (inverted)
+				VPPon(); //high, (inverted)
 				break;
 		}
 		DelayMs(100);
 	}
 	else
 	{
-		VPP=1; //low, (inverted)
-		VPP_RUN=0;
-		VPP_RST=1; //hard reset, low (inverted)
+		VPPoff(); //low, (inverted)
+		VPP_RUNoff();
+		VPP_RSTon(); //hard reset, low (inverted)
 		DelayMs(40);
-		VPP_RST=0; //hard reset, high (inverted)
-		VDD=1; //low, (inverted)
-		TRISPGD_LOW = 1; //input
-		TRISPGC_LOW = 1; //input
-		TRISPGD =1;    //PGD input
-		TRISPGC =1;    //PGC input
+		VPP_RSToff(); //hard reset, high (inverted)
+		VDDoff(); //low, (inverted)
+		trisPGD_LOW(); //input
+		trisPGC_LOW(); //input
+		trisPGD();    //PGD input
+		trisPGC();    //PGC input
 		DelayMs(20);
 	}
 }
@@ -203,18 +203,18 @@ Writes a n-bit command
 void pic_send_n_bits(char cmd_size, char command)
 {
 	char i;
-	TRISPGD=0;
-	TRISPGC=0;
-	PGC=0;
-	PGD=0;
+	enablePGD();
+	enablePGC();
+	PGClow();
+	PGDlow();
 	for(i=0;i<cmd_size;i++)
 	{
-		if(command&1)PGD=1;
-		else PGD=0;
-		PGC=1;		
+		if(command&1)PGDhigh();
+		else PGDlow();
+		PGChigh();		
 		command>>=1;
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 	}
 	for(i=0;i<10;i++)continue;	//wait at least 1 us <<-- this could be tweaked to get the thing faster
@@ -225,12 +225,12 @@ void pic_send_word(unsigned int payload)
 	char i;
 	for(i=0;i<16;i++)
 	{
-		if(payload&1)PGD=1;
-		else PGD=0;
-		PGC=1;
+		if(payload&1)PGDhigh();
+		else PGDlow();
+		PGChigh();
 		payload>>=1;
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 	}
 	clock_delay();
@@ -239,28 +239,28 @@ void pic_send_word(unsigned int payload)
 void pic_send_word_14_bits(unsigned int payload)
 {
 	char i;
-	PGD=0;
+	PGDlow();
 	clock_delay();
-	PGC=1;
+	PGChigh();
 	clock_delay();
-	PGC=0;
+	PGClow();
 	clock_delay();
 	for(i=0;i<14;i++)
 	{
-		if(payload&1)PGD=1;
-		else PGD=0;
-		PGC=1;		
+		if(payload&1)PGDhigh();
+		else PGDlow();
+		PGChigh();		
 		payload>>=1;
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 
 	}
-	PGD=0;
+	PGDlow();
 	clock_delay();
-	PGC=1;
+	PGChigh();
 	clock_delay();
-	PGC=0;
+	PGClow();
 	clock_delay();
 	clock_delay();
 }
@@ -272,7 +272,7 @@ void pic_send(char cmd_size, char command, unsigned int payload)
 {
 	pic_send_n_bits(cmd_size,command);
 	pic_send_word(payload);
-	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
+	PGDlow();      //  <=== Must be low at the end, at least when VPP and VDD go low.
 	
 }
 
@@ -283,7 +283,7 @@ void pic_send_14_bits(char cmd_size,char command, unsigned int payload)
 {
 	pic_send_n_bits(cmd_size,command);
 	pic_send_word_14_bits(payload);
-	PGD = 0;      //  <=== Must be low at the end, at least when VPP and VDD go low.
+	PGDlow();      //  <=== Must be low at the end, at least when VPP and VDD go low.
 }
 
 unsigned int pic_read_14_bits(char cmd_size, char command)
@@ -293,29 +293,29 @@ unsigned int pic_read_14_bits(char cmd_size, char command)
 	pic_send_n_bits(cmd_size,command);
 	//for(i=0;i<80;i++)continue;	//wait at least 1us 
 					///PIC10 only...
-	TRISPGD=1; //PGD = input
+	trisPGD(); //PGD = input
 	for(i=0;i<10;i++)continue;
 	result=0;
-	PGC=1;
+	PGChigh();
 	clock_delay();
-	PGC=0;
+	PGClow();
 	clock_delay();
 	for(i=0;i<14;i++)
 	{
 
-		PGC=1;
+		PGChigh();
 		clock_delay();
 		result|=((unsigned int)PGD_READ)<<i;
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 	}
-	PGC=1;
+	PGChigh();
 	clock_delay();
-	PGC=0;
+	PGClow();
 	clock_delay();
-	TRISPGD=0; //PGD = output
-	PGD=0;
+	enablePGD(); //PGD = output
+	PGDlow();
 	clock_delay();
 	return result;
 }
@@ -332,29 +332,29 @@ char pic_read_byte2(char cmd_size, char command)
 //	for(i=0;i<80;i++)continue;	//wait at least 1us
 	for(i=0;i<8;i++)
 	{
-		PGD=0;
+		PGDlow();
 		clock_delay();
-		PGC=1;
+		PGChigh();
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 	}
-	TRISPGD=1; //PGD = input
-	TRISPGD_LOW=1;
+	trisPGD(); //PGD = input
+	trisPGD_LOW();
 	for(i=0;i<10;i++)continue;
 	result=0;
 	for(i=0;i<8;i++)
 	{
 
-		PGC=1;
+		PGChigh();
 		clock_delay();
 		result|=((char)PGD_READ)<<i;
 		clock_delay();
-		PGC=0;
+		PGClow();
 		clock_delay();
 	}
-	TRISPGD=0; //PGD = output
-	PGD=0;
+	enablePGD(); //PGD = output
+	PGDlow();
 	clock_delay();
 	return result;
 }
@@ -364,37 +364,37 @@ unsigned int dspic_read_16_bits(unsigned char isLV)
 {
 	char i;
 	unsigned int result;
-	PGD=0;
-	PGD=1;	//send 1
-	PGC=1;	//clock pulse
-	PGC=0;
-	PGD=0;	//send 3 zeroes
+	PGDlow();
+	PGDhigh();	//send 1
+	PGChigh();	//clock pulse
+	PGClow();
+	PGDlow();	//send 3 zeroes
 	for(i=0;i<3;i++)
 	{
-		PGC=1;
-		PGC=0;
+		PGChigh();
+		PGClow();
 	}
 	//pic_send_n_bits(4,1);
 	result=0;
 	for(i=0;i<8;i++)
 	{
-		PGC=1;
-		PGC=0;
+		PGChigh();
+		PGClow();
 	}
 	//pic_send_n_bits(8,0);
-	if(isLV) TRISPGD_LOW = 1;
-	TRISPGD=1; //PGD = input
+	if(isLV) trisPGD_LOW();
+	trisPGD(); //PGD = input
 	clock_delay();
 	for(i=0;i<16;i++)
 	{
-		PGC=1;
+		PGChigh();
 		clock_delay();
 		result|=((unsigned int)PGD_READ)<<i;
-		PGC=0;
+		PGClow();
 	}
-	if(isLV) TRISPGD_LOW = 0;
-	TRISPGD=0; //PGD = output
-	PGD=0;
+	if(isLV) enablePGD_LOW();
+	enablePGD(); //PGD = output
+	PGDlow();
 	return result;
 }
 
@@ -402,22 +402,22 @@ unsigned int dspic_read_16_bits(unsigned char isLV)
 void dspic_send_24_bits(unsigned long payload)
 {
 	unsigned char i;
-	PGD=0;
+	PGDlow();
 	for(i=0;i<4;i++)
 	{
-		PGC=1;
-		PGC=0;
+		PGChigh();
+		PGClow();
 	}
 	for(i=0;i<24;i++)
 	{
 		
-		if(payload&1)PGD=1;
-		else PGD=0;
+		if(payload&1)PGDhigh();
+		else PGDlow();
 		payload>>=1;
 		clock_delay();
-		PGC=1;
+		PGChigh();
 		clock_delay();
-		PGC=0;
+		PGClow();
 	}
 }
 
@@ -426,20 +426,20 @@ void dspic_send_24_bits(unsigned long payload)
 void I2C_start(void)
 {
 	//initial condition
-	PGD = 1;
-	PGC = 1;
+	PGDhigh();
+	PGChigh();
 	I2C_delay();
-	PGD = 0;
+	PGDlow();
 	I2C_delay();
-	PGC = 0;
+	PGClow();
 	I2C_delay();
 }
 
 void I2C_stop(void)
 {
-	PGC = 1;
+	PGChigh();
 	I2C_delay();
-	PGD = 1;
+	PGDhigh();
 	I2C_delay();
 }
 
@@ -449,51 +449,51 @@ unsigned char I2C_write(unsigned char d)
 	j=d;
 	for(i=0;i<8;i++)
 	{
-		if((j&0x80)==0x80)PGD=1;
-		else PGD = 0;
+		if((j&0x80)==0x80)PGDhigh();
+		else PGDlow();
 		j<<=1;
 		I2C_delay();
-		PGC = 1;
+		PGChigh();
 		I2C_delay();
-		PGC = 0;
+		PGClow();
 		I2C_delay();
 	}
-	TRISPGD = 1;
-	PGC=1;
+	trisPGD();
+	PGChigh();
 	I2C_delay();
 	i=(unsigned char)PGD_READ;
-	PGC=0;
+	PGClow();
 	I2C_delay();
-	TRISPGD = 0;
+	enablePGD();
 	return i;
 }
 
 unsigned char I2C_read(unsigned char ack)
 {
 	unsigned char i,d;
-	TRISPGD=1;
+	trisPGD();
 	d=0;
 	for(i=0;i<8;i++)
 	{
-		PGC=1;
+		PGChigh();
 		I2C_delay();
 		d<<=1;
 		if(PGD_READ)d|=0x01;
-		PGC=0;
+		PGClow();
 		I2C_delay();
 	}
-	TRISPGD=0;
+	enablePGD();
 	I2C_delay();
-	if(ack==1)PGD = 1;
-	else PGD = 0;
-	PGC = 1;
+	if(ack==1)PGDhigh();
+	else PGDlow();
+	PGChigh();
 	I2C_delay();
-	PGC = 0;
+	PGClow();
 	I2C_delay();
 	return d;
 }
 
-/*#define pulseclock() PGC=1;PGC=0
+/*#define pulseclock() PGChigh();PGClow()
 
 unsigned char jtag2w4p(unsigned char TDI, unsigned char TMS, unsigned char nbits)
 {
@@ -503,16 +503,16 @@ unsigned char jtag2w4p(unsigned char TDI, unsigned char TMS, unsigned char nbits
 	for(i=0; i<nbits; i++)
 	{
 		res>>=1;
-		if(TDI&1)PGD=1; else PGD=0;
+		if(TDI&1)PGDhigh(); else PGDlow();
 		pulseclock();
-		if(TMS&1)PGD=1; else PGD=0;
+		if(TMS&1)PGDhigh(); else PGDlow();
 		pulseclock();
-		TRISPGD=1;
+		trisPGD();
 		pulseclock();
-		PGC=1;
+		PGChigh();
 		if(PGD_READ)res|=orval;
-		PGC=0;
-		TRISPGD=0;
+		PGClow();
+		enablePGD();
 		TDI>>=1;
 		TMS>>=1;
 		

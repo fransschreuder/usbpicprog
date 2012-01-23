@@ -335,10 +335,10 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			break;
 		case P18LF13K22:
 		case P18LF14K22:
-			PGD_LOW =0;
-			TRISPGD_LOW =0;
-			PGC_LOW =0;
-			TRISPGC_LOW=0;
+			PGD_LOWon();
+			enablePGD_LOW();
+			PGC_LOWon();
+			enablePGC_LOW();
 			//no break, just low voltage and continue with P18F1XK22
 		case P18F13K22:
 		case P18F14K22:
@@ -494,14 +494,14 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			pic_send_n_bits(6,0x09); //perform bulk erase of the user memory
 			DelayMs(20); //wait Tera for erase to complete
-			/*PGD=0;
+			/*PGDlow();
 			set_vdd_vpp(pictype, picfamily,0);
 			set_vdd_vpp(pictype, picfamily,1);    */
 			if(pictype==P12F61X)break;	//does not have data memory
 			pic_send_n_bits(6,0x0B); //perform bulk erase of the data memory
 			if(pictype==P16F84A)pic_send_n_bits(6,0x08); //begin programming cycle
 			DelayMs(20);
-			PGD=0;
+			PGDlow();
 			break;
 		case P16F59:
 		case P16F57:
@@ -542,7 +542,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 			DelayMs(10);
 			break;
 		default:
-			PGD=0;
+			PGDlow();
 			set_vdd_vpp(pictype, picfamily,0);
 			return 3;
 			break;
@@ -739,9 +739,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
-				PGC=0;
+				PGClow();
 				DelayMs(P10);
 				pic_send_word(0x0000);
 			}
@@ -768,9 +768,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
-				PGC=0;
+				PGClow();
 				DelayMs(P10);
 				pic_send_word(0x0000);
 			}
@@ -797,9 +797,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
-				PGC=0;
+				PGClow();
 				DelayMs(P10);
 				pic_send_word(0x0000);
 			}
@@ -824,17 +824,17 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			//write last 2 bytes of the block and start programming
 			pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 			pic_send_n_bits(3, 0);
-			PGC=1;	//hold PGC high for P9 and low for P10
+			PGChigh();	//hold PGC high for P9 and low for P10
 			DelayMs(P9);
-			PGC=0;
+			PGClow();
 			DelayMs(P10);
 			pic_send_word(0x0000);
 			break;
 		case P18LF14K22:
-			PGD_LOW =0;
-			TRISPGD_LOW =0;
-			PGC_LOW =0;
-			TRISPGC_LOW=0;
+			PGD_LOWon();
+			enablePGD_LOW();
+			PGC_LOWon();
+			enablePGC_LOW();
 		case P18F14K22:
 			//direct access to code memory
 			pic_send(4,0x00,0x8EA6); //BSF EECON1, EEPGD
@@ -853,9 +853,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
-				PGC=0;
+				PGClow();
 				DelayMs(P10);
 				pic_send_word(0x0000);
 				pic_read_byte2(4,0x09);	//perform 2 reads to increase the address by 2
@@ -863,10 +863,10 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			}
 			break;			
 		case P18LF13K22:
-			PGD_LOW =0;
-			TRISPGD_LOW =0;
-			PGC_LOW =0;
-			TRISPGC_LOW=0;
+			PGD_LOWon();
+			enablePGD_LOW();
+			PGC_LOWon();
+			enablePGC_LOW();
 		case P18FX220:
 		case P18FXX31:
 		case P18FXX39:
@@ -903,9 +903,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter+6))|(((unsigned int)*(data+7+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(P9);
-				PGC=0;
+				PGClow();
 				DelayMs(P10);
 				pic_send_word(0x0000);
 				pic_read_byte2(4,0x09);	//perform 2 reads to increase the address by 2
@@ -931,9 +931,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			{
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 and low for P10
+				PGChigh();	//hold PGC high for P9 and low for P10
 				DelayMs(10);
-				PGC=0;
+				PGClow();
 				DelayMs(1);
 				pic_send_word(0x0000);
 			}
@@ -946,9 +946,9 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						pic_send(4,0x0D,0xFFFF);
 					pic_send(4,0x0F,0xFFFF);
 					pic_send_n_bits(3, 0);
-					PGC=1;	//hold PGC high for P9 and low for P10
+					PGChigh();	//hold PGC high for P9 and low for P10
 					DelayMs(10);
-					PGC=0;
+					PGClow();
 					DelayMs(1);
 					pic_send_word(0x0000);
 				}
@@ -1223,10 +1223,10 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case PIC18J:
 			if(pictype==P18LF13K22||pictype==P18LF14K22)
 			{
-				PGD_LOW =0;
-				TRISPGD_LOW =0;
-				PGC_LOW =0;
-				TRISPGC_LOW=0;	
+				PGD_LOWon();
+				enablePGD_LOW();
+				PGC_LOWon();
+				enablePGC_LOW();	
 			}
 			pic_send(4,0x00,0x9EA6); //BCF EECON1, EEPGD
 			pic_send(4,0x00,0x9CA6); //BCF EECON1, CFGS
@@ -1262,7 +1262,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					pic_send(4,0x00,0x0000); //nop
 					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
 				}while(((receiveddata&0x02)==0x02) && timerRunning); //poll for WR bit to clear
-				//PGC=0;	//hold PGC low for P10 (100us)
+				//PGClow();	//hold PGC low for P10 (100us)
 				DelayMs(P10);
 				pic_send(4,0x00,0x94A6); //BCF EECON1, WREN
 			}
@@ -1290,7 +1290,7 @@ char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					pic_send(4,0x00,0x0000); //nop
 					receiveddata=pic_read_byte2(4,0x02); //Shift TABLAT register out
 				}while(((receiveddata&0x02)==0x02) && timerRunning ); //poll for WR bit to clear
-				//PGC=0;	//hold PGC low for P10 (100us)
+				//PGClow();	//hold PGC low for P10 (100us)
 				DelayMs(P10);
 				pic_send(4,0x00,0x947F); //BCF EECON1, WREN
 			}
@@ -1464,7 +1464,7 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				//LSB first
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+blockcounter))<<8));
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
+				PGChigh();	//hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
 				if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
 				{
 				        DelayMs(P9A);
@@ -1473,20 +1473,20 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				{
 				        DelayMs(P9);
 				}
-				PGC=0;	//hold PGC low for time P10
+				PGClow();	//hold PGC low for time P10
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
 				set_address(picfamily, address+((unsigned int)blockcounter)+1);
 				pic_send(4,0x0F, ((unsigned int)*(data+1+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); //load MSB and start programming
 				pic_send_n_bits(3, 0);
-				PGC=1;	//hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
+				PGChigh();	//hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
 				if((pictype==P18F4XK22)||(pictype==P18LF4XK22))
 				{
 				        DelayMs(P9A);
 				} else {
 				        DelayMs(P9);
 				}
-				PGC=0;	//hold PGC low for time P10
+				PGClow();	//hold PGC low for time P10
 				DelayMs(P10);
 				pic_send_word(0x0000); //last part of the nop
 			}
@@ -1741,8 +1741,8 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
 				*(data+blockcounter)=pic_read_byte2(4,0x09);
-				if(picfamily==PIC18J)TRISPGD_LOW=0;	//switch to 3.3V again
-				if(pictype==P18LF13K22||pictype==P18LF14K22)TRISPGD_LOW=0;	//switch to 3.3V again
+				if(picfamily==PIC18J)enablePGD_LOW();	//switch to 3.3V again
+				if(pictype==P18LF13K22||pictype==P18LF14K22)enablePGD_LOW();	//switch to 3.3V again
 			}
 			break;
 		case PIC16:
@@ -1901,7 +1901,7 @@ unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 				pic_send(4,0x00,0x6EF5); //MOVWF TABLAT
 				pic_send(4,0x00,0x0000); //Nop
 				*(data+blockcounter)=pic_read_byte2(4,0x02);
-				if(pictype==P18LF13K22||pictype==P18LF14K22)TRISPGD_LOW=0;	//switch to 3.3V again
+				if(pictype==P18LF13K22||pictype==P18LF14K22)enablePGD_LOW();	//switch to 3.3V again
 			}
 			break;
 		case PIC16:
