@@ -46,7 +46,13 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 
     if( lastblock & 1 )
         set_vdd_vpp( pictype, picfamily, 1 );
-    switch( pictype ) {
+#ifdef TABLE
+    if( currDevice.write_code )
+	    currDevice.write_code( address, data, blocksize, lastblock );
+    else
+	    switch( pictype ) {
+#else
+	    switch( pictype ) {
     case I2C_EE_1:
         write_code_EE_1( address, data, blocksize, lastblock );
         break;
@@ -146,7 +152,8 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
     case P10F202:
         write_code_P16F54( address, data, blocksize, lastblock );
         break;
-    default:
+#endif
+        default:
         set_vdd_vpp( pictype, picfamily, 0 );
         return 3;
         break;
@@ -160,7 +167,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
     }
 }
 
-char write_code_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     // FIXME: need to figure out if it can return 2 if lastblock&2
     unsigned int i, payload;
     char blockcounter;
@@ -174,14 +181,14 @@ char write_code_EE_1( unsigned long address, unsigned char* data, char blocksize
         i = (unsigned int) I2C_write( data[blockcounter] );
         if( i == 1 ) {
             I2C_stop();
-            return 2;
+            return;    // return 2;   FIXME: do we need to return a 2?
         }
     }
     I2C_stop();
     DelayMs( 10 );
 }
 
-char write_code_EE_2( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_EE_2( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -195,14 +202,14 @@ char write_code_EE_2( unsigned long address, unsigned char* data, char blocksize
         i = (unsigned int) I2C_write( data[blockcounter] );
         if( i == 1 ) {
             I2C_stop();
-            return 2;
+            return;    // return 2;   FIXME: do we need to return a 2?
         }
     }
     I2C_stop();
     DelayMs( 10 );
 }
 
-char write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
     dspic_send_24_bits( 0x000000 ); //NOP
@@ -289,7 +296,7 @@ char write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char bl
     dspic_send_24_bits( 0x000000 ); //NOP
 }
 
-char write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -370,7 +377,7 @@ char write_code_dsP30F( unsigned long address, unsigned char* data, char blocksi
     dspic_send_24_bits( 0x000000 ); //NOP
     //}
 }
-char write_code_P18F872X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18F872X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -402,7 +409,7 @@ char write_code_P18F872X( unsigned long address, unsigned char* data, char block
     else
         pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 }
-char write_code_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i, payload;
 	char blockcounter;
@@ -436,7 +443,7 @@ char write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 		pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8));
 }
 
-char write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i, payload;
 	char blockcounter;
@@ -471,7 +478,7 @@ char write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 
 }
 
-char write_code_P18F2XXX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18F2XXX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
         unsigned int i, payload;
         char blockcounter;
 
@@ -492,7 +499,7 @@ char write_code_P18F2XXX( unsigned long address, unsigned char* data, char block
     DelayMs( P10 );
     pic_send_word( 0x0000 );
 }
-char write_code_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -514,7 +521,7 @@ char write_code_P18F4XK22( unsigned long address, unsigned char* data, char bloc
     DelayMs( P10 );
     pic_send_word( 0x0000 );
 }
-char write_code_P18LF14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18LF14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -524,7 +531,7 @@ char write_code_P18LF14K22( unsigned long address, unsigned char* data, char blo
 		enablePGC_LOW();
 	        write_code_P18F14K22( address, data, blocksize, lastblock );
 }
-char write_code_P18F14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_code_P18F14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i, payload;
 	char blockcounter;
@@ -555,7 +562,7 @@ char write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 		pic_read_byte2(4,0x09);
 	}
 }
-char write_code_P18LF13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18LF13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -565,7 +572,7 @@ char write_code_P18LF13K22( unsigned long address, unsigned char* data, char blo
 		enablePGC_LOW();
 	        write_code_P18F13K22( address, data, blocksize, lastblock );
 }
-char write_code_P18F13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18F13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -605,7 +612,7 @@ char write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
 
 
 
-char write_code_P18FX220( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18FX220( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
         unsigned int i, payload;
         char blockcounter;
 
@@ -635,7 +642,7 @@ char write_code_P18FX220( unsigned long address, unsigned char* data, char block
     }
 
 }
-char write_code_P18FXX31( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18FXX31( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -670,7 +677,7 @@ char write_code_P18FXX31( unsigned long address, unsigned char* data, char block
         pic_read_byte2( 4, 0x09 );
     }
 }
-char write_code_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -710,7 +717,7 @@ char write_code_P18F45J10( unsigned long address, unsigned char* data, char bloc
     }
 }
 
-char write_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -729,7 +736,7 @@ char write_code_P16F182X( unsigned long address, unsigned char* data, char block
     }
 }
 
-char write_code_P16F84A( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F84A( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -754,7 +761,7 @@ char write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
      //pic_send_n_bits(6,0x0A); 	//end programming
      }*/
 }
-char write_code_P12F61X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P12F61X( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -808,7 +815,7 @@ char write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
      //pic_send_n_bits(6,0x0A); 	//end programming
      }*/
 }
-char write_code_P16F72( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F72( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -828,7 +835,7 @@ char write_code_P16F72( unsigned long address, unsigned char* data, char blocksi
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -848,7 +855,7 @@ char write_code_P16F785( unsigned long address, unsigned char* data, char blocks
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P16F716( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F716( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -868,7 +875,7 @@ char write_code_P16F716( unsigned long address, unsigned char* data, char blocks
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P12F6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P12F6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -887,7 +894,7 @@ char write_code_P12F6XX( unsigned long address, unsigned char* data, char blocks
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P16F87( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F87( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -907,7 +914,7 @@ char write_code_P16F87( unsigned long address, unsigned char* data, char blocksi
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P16F87XA( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F87XA( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 
@@ -925,7 +932,7 @@ char write_code_P16F87XA( unsigned long address, unsigned char* data, char block
         pic_send_n_bits( 6, 0x06 ); //increment address
     }
 }
-char write_code_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_code_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int i, payload;
     char blockcounter;
 

@@ -7,6 +7,7 @@
 
 #ifdef TEST
 #include <stdio.h>
+#define TABLE
 
 #undef Nop
 #define Nop()

@@ -42,6 +42,12 @@ Bulk erases the whole device
 */
 char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore) {
 	set_vdd_vpp(pictype, picfamily, 1);
+#ifdef TABLE
+    if( currDevice.bulk_erase )
+	    currDevice.bulk_erase( doRestore );
+    else
+	    switch( pictype ) {
+#else
 	switch (pictype) {
 	case I2C_EE_1:
 	case I2C_EE_2:
@@ -139,6 +145,7 @@ char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore) {
 	case P10F202: //resets at 0x3FF
 		bulk_erase_P10F202(doRestore);
 		break;
+#endif
 	default:
 		PGDlow();
 		set_vdd_vpp(pictype, picfamily,0);

@@ -43,6 +43,15 @@ char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 	char receiveddata;
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
+#ifdef TABLE
+    if( currDevice.write_data )
+	    currDevice.write_data( address, data, blocksize, lastblock );
+    else
+	    { switch( pictype ) {
+		case P10F200:
+		case P10F202:
+			return 3; //these devices have no data memory.
+#else
 	switch( pictype ) {
 	case P10F200:
 	case P10F202:
@@ -91,6 +100,7 @@ char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 		case PIC16:
 			write_data_PIC16( address, data, blocksize, lastblock );
 			break;
+#endif
 		default:
 			set_vdd_vpp( pictype, picfamily, 0 );
 			return 3; //unknown pic type

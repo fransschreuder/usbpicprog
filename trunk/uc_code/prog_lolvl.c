@@ -37,14 +37,6 @@ void I2C_delay() {
         continue;
 }
 #endif
-void enter_ISCP_simple( void );
-void enter_ISCP_P16_Vpp( void );
-void enter_ISCP_dsP30F( void );
-void enter_ISCP_PIC18J( void );
-void enter_ISCP_PIC18K( void );
-void enter_ISCP_PIC24( void ) ;
-void enter_ISCP_I2C_EE( void );
-void exit_ISCP( void );
 
 void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level ) {
     unsigned int i;
@@ -461,6 +453,8 @@ char pic_read_byte2( char cmd_size, char command ) {
 unsigned int dspic_read_16_bits( unsigned char isLV ) {
     char i;
     unsigned int result;
+
+    isLV = currDevice.flags.p3_3V;
     PGDlow();
     PGDhigh(); //send 1
     PGChigh(); //clock pulse

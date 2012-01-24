@@ -46,6 +46,8 @@ void test( PICTYPE pictype ) {
 		fprintf( stderr, "Unknown pictype %d\n", pictype );
 		return;
 	}
+	currDevice = devices[pictype];
+
 	address = 0x20;
 	blocksize = 64;
 	lastblock = 0;

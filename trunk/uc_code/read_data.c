@@ -45,6 +45,12 @@ unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long add
     //if(lastblock&1)
     if( lastblock & 1 )
         set_vdd_vpp( pictype, picfamily, 1 );
+#ifdef TABLE
+    if( currDevice.read_data )
+	    currDevice.read_data( address, data, blocksize, lastblock );
+    else
+	    switch( pictype ) {
+#else
     switch( picfamily ) {
 	case dsP30F_LV:
     case dsPIC30:
@@ -56,6 +62,7 @@ unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long add
     case PIC16:
         read_data_PIC16( address, data, blocksize, lastblock );
         break;
+#endif
     default:
         for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
             *(data + blockcounter) = 0;

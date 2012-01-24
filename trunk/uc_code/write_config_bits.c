@@ -55,6 +55,12 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
     unsigned int payload;
     if( lastblock & 1 )
         set_vdd_vpp( pictype, picfamily, 1 );
+#ifdef TABLE
+    if( currDevice.write_config_bits )
+	    currDevice.write_config_bits( address, data, blocksize, lastblock );
+    else
+	    switch( pictype ) {
+#else
     switch( pictype ) {
     case dsP30F:
         write_config_bits_dsP30F( address, data, blocksize, lastblock );
@@ -143,7 +149,7 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
     case P10F202:
         write_config_bits_P16F54( address, data, blocksize, lastblock );
         break;
-
+#endif
     default:
         set_vdd_vpp( pictype, picfamily, 0 );
         return 3;
