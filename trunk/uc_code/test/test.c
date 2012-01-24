@@ -10,7 +10,7 @@ unsigned char set_pictype( PICTYPE pictype );
 void test( PICTYPE pictype );
 int main( int argc, char *argv[] )
 {
-	// very dump interface if there are arguments then pure numbers are interpreted as pictype enums otherwise as a string pictype
+	// very dumb interface if there are arguments then pure numbers are interpreted as pictype enums otherwise as a string pictype
 	// no arguments do all pictypes
 
 	if( argc <= 1 )
@@ -21,18 +21,18 @@ int main( int argc, char *argv[] )
 		while( ++argv, --argc > 0 )
 		{
 			if( '0' <= argv[0][0] && argv[0][0] <= '9' )
-				test( (PICTYPE) atoi( argv[0] ) );
+				pictype = (PICTYPE) atoi( argv[0] );
 			else
 			{
 				for( pictype = 0; pictype != UPP_INVALID_PICTYPE; ++pictype )
 					if( strcasecmp( pictypeName[pictype], argv[0] ) == 0 )
 						break;
-				if( pictype == UPP_INVALID_PICTYPE )
+				if( pictype == UPP_INVALID_PICTYPE ) {
 					fprintf( stderr, "Unknown pictype %s\n", argv[0] );
-				else
-					test( pictype );
+					continue;
+				}
 			}
-
+			test( pictype );
 		}
 	}
 }
@@ -122,6 +122,7 @@ unsigned char set_pictype( PICTYPE pictype )
 		case P16F716:
 		case P17C7XX:picfamily=PIC16;break;
 		case P18F2XXX:
+		case P18FXXK20:			
 		case P18F4XK22:
 		case P18LF4XK22:
 		case P18FXX2:
@@ -131,15 +132,21 @@ unsigned char set_pictype( PICTYPE pictype )
 		case P18F8410:
 		case P18F1X30:
 		case P18FXX23:
-		case P18FXXK20:picfamily=PIC18;break;
+		case P18F13K22:
+		case P18F14K22:
+		case P18LF13K22:
+		case P18LF14K22:picfamily=PIC18;break;
 		case P18F97J60:
 		case P18F6XJXX:
 		case P18F45J10:picfamily=PIC18J;break;
+		case P18F6XKXX:
+		case P18F67KXX:picfamily=PIC18K;break;
 		case P24FJXXXGA0XX:
 		case P24H:
 		case P24FJXXXGA1:
 		case P24FXXKAXXX:picfamily=PIC24;break;
-		case dsP30F:picfamily=dsPIC30;break;
+		case dsP30F:
+		case dsP30F_LV:picfamily=dsPIC30;break;
 		case dsP33F:picfamily=dsPIC33;break;
 		case I2C_EE_1:
 		case I2C_EE_2:picfamily=I2C;break;

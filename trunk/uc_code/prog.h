@@ -45,7 +45,8 @@ typedef enum _PICTYPE{
 #include "device.h"
 #endif
 
-
+extern PICFAMILY picfamily;
+extern PICTYPE pictype;
 char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore);
 
 char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
