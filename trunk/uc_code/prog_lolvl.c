@@ -185,10 +185,6 @@ void enter_ISCP_PIC18K() {
     VPP_RUNon(); //VPP to 4.5V
     for( i = 0; i < 300; i++ )
         continue; //aprox 0.5ms
-    VPP_RUNoff(); //and immediately back to 0...
-    VPP_RSTon();
-	DelayMs(4);
-	DelayMs(6);
     //clock_delay();	//P19 = 40ns min
     //write 0x4D43, high to low, other than the rest of the commands which are low to high...
     //0x3D43 => 0100 1101 0100 0011

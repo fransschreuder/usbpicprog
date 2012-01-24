@@ -576,12 +576,6 @@ void write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
     unsigned int i, payload;
     char blockcounter;
 
-        //direct access to config memory
-        pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
-        pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
-        //configure the device for single panel writes
-        set_address( picfamily, 0x3C0006 );
-        pic_send( 4, 0x0C, 0x0000 ); //write 0x00 to the tblptr to disable multi-panel writes
         //direct access to code memory
         pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
         pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS

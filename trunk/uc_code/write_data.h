@@ -22,7 +22,7 @@ void write_data_dsPIC30( unsigned long address, unsigned char* data, char blocks
 void write_data_P18FXX2( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_data_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_data_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-void write_data_PIC18J( unsigned long address, unsigned char* data, char blocksize, char lastblock );
+void write_data_PIC18LV( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_data_PIC18K( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_data_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_data_P16F87( unsigned long address, unsigned char* data, char blocksize, char lastblock );

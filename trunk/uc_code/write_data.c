@@ -277,7 +277,7 @@ void write_data_PIC18( unsigned long address, unsigned char* data, char blocksiz
         pic_send( 4, 0x00, 0x94A6 ); //BCF EECON1, WREN
     }
 }
-void write_data_PIC18J( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
+void write_data_PIC18LV( unsigned long address, unsigned char* data, char blocksize, char lastblock ) {
     unsigned int payload;
     char blockcounter, i;
     char receiveddata;

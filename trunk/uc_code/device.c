@@ -30,7 +30,7 @@ rom char *rom pictypeName[] = {
 #define write_config_bits_XXXX 0
 
 #define enter_ISCP_none 0
-#define bulk_erase_none 0
+//#define bulk_erase_none 0
 #define read_code_none 0
 #define read_data_none 0
 #define write_code_none 0
