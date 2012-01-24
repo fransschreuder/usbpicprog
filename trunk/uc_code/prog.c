@@ -978,7 +978,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 						break;
 					case P16F182X:
 						pic_send_n_bits(6,0x08);    //begin programming
-						DelayMs(3);
+						DelayMs(3);	//FIXME: should there be a break here?
 					default:
 						pic_send_n_bits(6,0x08);    //begin programming
 						DelayMs(Tprog);
