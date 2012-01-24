@@ -27,6 +27,7 @@ typedef struct {
 		PICFAMILY family:5;
 		 }flags;
 } DEVICE;
+#define is3_3V()	currDevice.flags.p3_3V
 
 extern rom DEVICE devices[];
 extern DEVICE currDevice;

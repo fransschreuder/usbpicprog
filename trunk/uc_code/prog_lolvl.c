@@ -454,7 +454,6 @@ unsigned int dspic_read_16_bits( unsigned char isLV ) {
     char i;
     unsigned int result;
 
-    isLV = currDevice.flags.p3_3V;
     PGDlow();
     PGDhigh(); //send 1
     PGChigh(); //clock pulse

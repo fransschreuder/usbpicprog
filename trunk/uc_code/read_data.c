@@ -100,7 +100,7 @@ void read_data_dsPIC30( unsigned long address, unsigned char* data, char blocksi
         for( i = 0; i < 4; i++ ) {
             dspic_send_24_bits( 0x883C20 | (unsigned long) i ); //MOV W0, VISI
             dspic_send_24_bits( 0x000000 ); //NOP
-            payload = dspic_read_16_bits(0); //VISI
+            payload = dspic_read_16_bits( is3_3V() ); //VISI
             data[blockcounter + (i * 2)] = (unsigned char) payload;
             data[blockcounter + ((i * 2) + 1)] = (unsigned char) ((payload & 0xFF00) >> 8);
             dspic_send_24_bits( 0x000000 ); //NOP

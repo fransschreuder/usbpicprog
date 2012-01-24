@@ -188,7 +188,7 @@ void bulk_erase_P24KA(unsigned char doRestore) {
 		dspic_send_24_bits(0x803B02); //MOV NVMCON, W2
 		dspic_send_24_bits(0x883C22); //MOV W2, VISI
 		dspic_send_24_bits(0x000000); //NOP
-		j = dspic_read_16_bits( 0 );
+		j = dspic_read_16_bits( is3_3V() );
 		dspic_send_24_bits(0x000000); //NOP
 		if ((j && 0x8000) == 0)
 			break; //programming completed

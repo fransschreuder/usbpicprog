@@ -52,7 +52,7 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
         else
             read_code_I2C_EE_2( address, data, blocksize, lastblock );
         break;
-	case dsP30F_LV:
+    case dsP30F_LV:
     case dsPIC30:
         read_code_dsPIC30( address, data, blocksize, lastblock );
         break;
@@ -149,7 +149,7 @@ void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksi
             dspic_send_24_bits( 0x883C20 ); //MOV W0, VISI
             dspic_send_24_bits( 0x000000 ); //NOP
             //Step 4: Output the VISI register using the REGOUT command.
-            payload = dspic_read_16_bits(0); //read <VISI>
+            payload = dspic_read_16_bits( is3_3V() ); //read <VISI>
             data[blockcounter] = (unsigned char) payload;
             data[blockcounter + 1] = (unsigned char) ((payload & 0xFF00) >> 8);
             dspic_send_24_bits( 0x000000 ); //NOP
@@ -200,7 +200,7 @@ void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksi
         for( i = 0; i < 6; i++ ) {
             dspic_send_24_bits( 0x883C20 | (unsigned long) i ); //MOV W0, VISI
             dspic_send_24_bits( 0x000000 ); //NOP
-            payload = dspic_read_16_bits(0); //Clock out contents of VISI register
+            payload = dspic_read_16_bits( is3_3V() ); //Clock out contents of VISI register
             data[blockcounter + i * 2] = (unsigned char) payload & 0xFF;
             data[blockcounter + i * 2 + 1] = (unsigned char) ((payload & 0xFF00) >> 8);
             dspic_send_24_bits( 0x000000 ); //NOP
