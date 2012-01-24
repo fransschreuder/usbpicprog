@@ -7,12 +7,45 @@ extern PICFAMILY picfamily;
 extern PICTYPE pictype;
 
 unsigned char set_pictype( PICTYPE pictype );
-int main() {
+void test( PICTYPE pictype );
+int main( int argc, char *argv[] )
+{
+	// very dump interface if there are arguments then pure numbers are interpreted as pictype enums otherwise as a string pictype
+	// no arguments do all pictypes
+
+	if( argc <= 1 )
+		for( pictype = 0; pictype < UPP_INVALID_PICTYPE; ++pictype )
+			test( pictype );
+	else
+	{
+		while( ++argv, --argc > 0 )
+		{
+			if( '0' <= argv[0][0] && argv[0][0] <= '9' )
+				test( (PICTYPE) atoi( argv[0] ) );
+			else
+			{
+				for( pictype = 0; pictype != UPP_INVALID_PICTYPE; ++pictype )
+					if( strcasecmp( pictypeName[pictype], argv[0] ) == 0 )
+						break;
+				if( pictype == UPP_INVALID_PICTYPE )
+					fprintf( stderr, "Unknown pictype %s\n", argv[0] );
+				else
+					test( pictype );
+			}
+
+		}
+	}
+}
+void test( PICTYPE pictype ) {
 	unsigned char result;
 	unsigned long address;
 	unsigned char data[1024];
 	char blocksize, lastblock;
 
+	if( pictype >= UPP_INVALID_PICTYPE ) {
+		fprintf( stderr, "Unknown pictype %d\n", pictype );
+		return;
+	}
 	address = 0x20;
 	blocksize = 64;
 	lastblock = 0;
@@ -48,8 +81,9 @@ int main() {
 	result = read_data( picfamily, pictype, address, data, blocksize, lastblock );
 	printf( " returns( %d )\n", result );
 	printf("done\n");
-
+	printf("\n\n\n\n\n\n\n\n\n\n\n");
 }
+
 
 unsigned char set_pictype( PICTYPE pictype )
 {
