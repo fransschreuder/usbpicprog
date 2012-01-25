@@ -297,7 +297,7 @@ void read_code_PIC10a( unsigned long address, unsigned char* data, char blocksiz
 	char blockcounter = 0;
 	unsigned int payload;
 
-	if( address == configAddress )
+	if( address >= configAddress )
 	{
 		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
 		data[1] = (char) (payload >> 8);
