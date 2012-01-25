@@ -244,15 +244,12 @@ void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize
 			enablePGD_LOW(); //switch to 3.3V again
 	}
 }
-void read_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void read_code_PIC16a( unsigned long address, unsigned char* data, char blocksize, char lastblock, unsigned int ConfigOffset )
 {
-	unsigned int configAddress = 0;
 	unsigned int i;
 	char blockcounter = 0;
 	unsigned int payload;
-	unsigned int ConfigOffset;
 
-	ConfigOffset = 0x8000;
 	if( address >= ConfigOffset ) //read configuration memory
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
@@ -286,164 +283,61 @@ void read_code_P16F182X( unsigned long address, unsigned char* data, char blocks
 		}
 	}
 }
+void read_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	read_code_PIC16a( address, data, blocksize, lastblock, 0x8000 );
+}
 void read_code_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
+	read_code_PIC16a( address, data, blocksize, lastblock, 0x2000 );
+}
+void read_code_PIC10a( unsigned long address, unsigned char* data, char blocksize, char lastblock, unsigned int configAddress )
+{
 	unsigned int i;
 	char blockcounter = 0;
 	unsigned int payload;
-	unsigned int ConfigOffset;
-	ConfigOffset = 0x2000;
-	if( address >= ConfigOffset ) //read configuration memory
+
+	if( address == configAddress )
 	{
-		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-		if( lastblock & 1 )
-		{
-			for( i = 0; i < (((unsigned int) address) - ConfigOffset); i++ )
-				pic_send_n_bits( 6, 0x06 ); //increment address
-		}
-		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-		{
-			payload = pic_read_14_bits( 6, 0x04 ); //read code memory
-			data[blockcounter + 1] = (char) (payload >> 8);
-			data[blockcounter] = (char) payload;
-			pic_send_n_bits( 6, 0x06 ); //increment address
-		}
+		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
+		data[1] = (char) (payload >> 8);
+		data[0] = (char) payload;
 	}
 	else
 	{
 		if( lastblock & 1 )
 		{
-			pic_read_14_bits( 6, 0x04 ); //read code memory
+			//pic_read_14_bits(6,0x04); //read code memory
+			pic_send_n_bits( 6, 0x06 ); //increment address
+			//			for(i=0;i<10;i++);
+			//pic_read_14_bits(6,0x04); //read code memory
+			//			for(i=0;i<10;i++);
 			for( i = 0; i < (unsigned int) address; i++ )
+			{
 				pic_send_n_bits( 6, 0x06 ); //increment address
+				//				for(i=0;i<10;i++);
+			}
 		}
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 		{
 			payload = pic_read_14_bits( 6, 0x04 ); //read code memory
+			//			for(i=0;i<10;i++);
 			data[blockcounter + 1] = (char) (payload >> 8);
 			data[blockcounter] = (char) payload;
 			pic_send_n_bits( 6, 0x06 ); //increment address
+			//			for(i=0;i<10;i++);
 		}
 	}
 }
 void read_code_P10F200( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
-	unsigned int i;
-	char blockcounter = 0;
-	unsigned int payload;
-	unsigned int ConfigOffset;
-	configAddress = 0x1FF;
-	if( address == configAddress )
-	{
-		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
-		data[1] = (char) (payload >> 8);
-		data[0] = (char) payload;
-	}
-	else
-	{
-		if( lastblock & 1 )
-		{
-			//pic_read_14_bits(6,0x04); //read code memory
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-			//pic_read_14_bits(6,0x04); //read code memory
-			//			for(i=0;i<10;i++);
-			for( i = 0; i < (unsigned int) address; i++ )
-			{
-				pic_send_n_bits( 6, 0x06 ); //increment address
-				//				for(i=0;i<10;i++);
-			}
-		}
-		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-		{
-			payload = pic_read_14_bits( 6, 0x04 ); //read code memory
-			//			for(i=0;i<10;i++);
-			data[blockcounter + 1] = (char) (payload >> 8);
-			data[blockcounter] = (char) payload;
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-		}
-	}
+	read_code_PIC10a( address, data, blocksize, lastblock, 0x1FF );
 }
 void read_code_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
-	unsigned int i;
-	char blockcounter = 0;
-	unsigned int payload;
-	unsigned int ConfigOffset;
-	configAddress = 0x3FF;
-	if( address == configAddress )
-	{
-		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
-		data[1] = (char) (payload >> 8);
-		data[0] = (char) payload;
-	}
-	else
-	{
-		if( lastblock & 1 )
-		{
-			//pic_read_14_bits(6,0x04); //read code memory
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-			//pic_read_14_bits(6,0x04); //read code memory
-			//			for(i=0;i<10;i++);
-			for( i = 0; i < (unsigned int) address; i++ )
-			{
-				pic_send_n_bits( 6, 0x06 ); //increment address
-				//				for(i=0;i<10;i++);
-			}
-		}
-		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-		{
-			payload = pic_read_14_bits( 6, 0x04 ); //read code memory
-			//			for(i=0;i<10;i++);
-			data[blockcounter + 1] = (char) (payload >> 8);
-			data[blockcounter] = (char) payload;
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-		}
-	}
+	read_code_PIC10a( address, data, blocksize, lastblock, 0x3FF );
 }
 void read_code_P16F57( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
-	unsigned int i;
-	char blockcounter = 0;
-	unsigned int payload;
-	unsigned int ConfigOffset;
-	configAddress = 0xFFF;
-	if( address == configAddress )
-	{
-		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
-		data[1] = (char) (payload >> 8);
-		data[0] = (char) payload;
-	}
-	else
-	{
-		if( lastblock & 1 )
-		{
-			//pic_read_14_bits(6,0x04); //read code memory
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-			//pic_read_14_bits(6,0x04); //read code memory
-			//			for(i=0;i<10;i++);
-			for( i = 0; i < (unsigned int) address; i++ )
-			{
-				pic_send_n_bits( 6, 0x06 ); //increment address
-				//				for(i=0;i<10;i++);
-			}
-		}
-		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-		{
-			payload = pic_read_14_bits( 6, 0x04 ); //read code memory
-			//			for(i=0;i<10;i++);
-			data[blockcounter + 1] = (char) (payload >> 8);
-			data[blockcounter] = (char) payload;
-			pic_send_n_bits( 6, 0x06 ); //increment address
-			//			for(i=0;i<10;i++);
-		}
-	}
+	read_code_PIC10a( address, data, blocksize, lastblock, 0xFFF );
 }
