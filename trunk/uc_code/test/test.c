@@ -36,21 +36,26 @@ int main( int argc, char *argv[] )
 		}
 	}
 }
-void test( PICTYPE pictype ) {
+#define FIRST 1
+#define LAST 2
+
+void test( PICTYPE pictype )
+{
+	int i;
 	unsigned char result;
 	unsigned long address;
 	unsigned char data[1024];
-	char blocksize, lastblock;
+	char blocksize;
 
-	if( pictype >= UPP_INVALID_PICTYPE ) {
+	if( pictype >= UPP_INVALID_PICTYPE )
+	{
 		fprintf( stderr, "Unknown pictype %d\n", pictype );
 		return;
 	}
 	currDevice = devices[pictype];
 
-	address = 0x20;
-	blocksize = 64;
-	lastblock = 0;
+	address = 0x40;
+	blocksize = 1;
 
 	memset( data, 0, sizeof( data ) );
 
@@ -63,25 +68,33 @@ void test( PICTYPE pictype ) {
 	result = bulk_erase( picfamily, pictype, 0 );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], address, blocksize, lastblock );
-	result = write_code( picfamily, pictype, address, data, blocksize, lastblock );
+	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 32, FIRST );
+	result = write_code( picfamily, pictype, 0x00, data, 32, FIRST );
+	printf( " returns( %d )\n", result );
+	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x20L, 32, 0 );
+	result = write_code( picfamily, pictype, 0x20, data, 32, 0 );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> write_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], address, blocksize, lastblock );
-	result = write_data( picfamily, pictype, address, data, blocksize, lastblock );
+
+	printf( ">>>>>> write_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 9, FIRST );
+	result = write_data( picfamily, pictype, address, data, 9, FIRST );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> write_config_bits( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], address, blocksize, lastblock );
-	result = write_config_bits( picfamily, pictype, address, data, blocksize, lastblock );
+	printf( ">>>>>> write_config_bits( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x2000L, 3, FIRST );
+	result = write_config_bits( picfamily, pictype, 0x2000, data, 3, FIRST );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], address, blocksize, lastblock );
-	result = read_code( picfamily, pictype, address, data, blocksize, lastblock );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 3, FIRST );
+	result = read_code( picfamily, pictype, 0, data, 3, FIRST );
+	printf( " returns( %d )\n", result );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 );
+	result = read_code( picfamily, pictype, 0xF80000, data, 3, 0 );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>>  read_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], address, blocksize, lastblock );
-	result = read_data( picfamily, pictype, address, data, blocksize, lastblock );
+	printf( ">>>>>>  read_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x02L, 9, FIRST );
+	result = read_data( picfamily, pictype, 2, data, 9, FIRST );
 	printf( " returns( %d )\n", result );
+
 	printf("done\n");
 	printf("\n\n\n\n\n\n\n\n\n\n\n");
 }
@@ -122,6 +135,7 @@ unsigned char set_pictype( PICTYPE pictype )
 		case P16C432:
 		case P17CXX:
 		case P16F716:
+		case P16F182X:	// added
 		case P17C7XX:picfamily=PIC16;break;
 		case P18F2XXX:
 		case P18FXXK20:			
@@ -136,6 +150,9 @@ unsigned char set_pictype( PICTYPE pictype )
 		case P18FXX23:
 		case P18F13K22:
 		case P18F14K22:
+		case P18F872X:	// added
+		case P18FXX31:	// added
+		case P18FX220: 	// added
 		case P18LF13K22:
 		case P18LF14K22:picfamily=PIC18;break;
 		case P18F97J60:
