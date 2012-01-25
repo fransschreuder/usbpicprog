@@ -378,6 +378,7 @@ void write_config_bits_P16F785( unsigned long address, unsigned char* data, char
 					| (((unsigned int) data[blockcounter + 1]) << 8);
 			pic_send_14_bits( 6, 0x02, payload ); //load data for programming
 			pic_send_n_bits( 6, 0x18 ); //begin programming
+			pic_send_n_bits( 6, 0x08 ); //begin programming		//FIXME: bug in original
 			DelayMs( Tprog );
 			pic_send_n_bits( 6, 0x0A ); //end programming
 		}
@@ -406,6 +407,7 @@ void write_config_bits_P16F87( unsigned long address, unsigned char* data, char 
 					| (((unsigned int) data[blockcounter + 1]) << 8);
 			pic_send_14_bits( 6, 0x02, payload ); //load data for programming
 			pic_send_n_bits( 6, 0x18 ); //begin programming
+			pic_send_n_bits( 6, 0x08 ); //begin programming		//FIXME: bug in original
 			DelayMs( Tprog );
 			pic_send_n_bits( 6, 0x17 ); //end programming
 		}
@@ -434,6 +436,7 @@ void write_config_bits_P16F716( unsigned long address, unsigned char* data, char
 					| (((unsigned int) data[blockcounter + 1]) << 8);
 			pic_send_14_bits( 6, 0x02, payload ); //load data for programming
 			pic_send_n_bits( 6, 0x18 ); //begin programming
+			pic_send_n_bits( 6, 0x08 ); //begin programming		//FIXME: bug in original
 			DelayMs( Tprog );
 			pic_send_n_bits( 6, 0x0E ); //end programming
 		}
