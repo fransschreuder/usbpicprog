@@ -46,6 +46,13 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 		exit_ISCP();
 	else
 	{
+#ifdef TABLE
+	if( currDevice.enter_ISCP )
+		currDevice.enter_ISCP();
+	else
+		enter_ISCP_simple();
+#else
+		switch( pictype ) {
 		switch( picfamily ) {
 		case PIC18J:
 			enter_ISCP_PIC18J();
@@ -77,7 +84,7 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 			enter_ISCP_simple();
 			break;
 		}
-
+#endif
 	}
 }
 void enter_ISCP_simple()
@@ -107,12 +114,18 @@ void enter_ISCP_P16_Vpp()
 	VDDon();
 	DelayMs( 100 );
 }
-void enter_ISCP_dsP30F()
+void enter_ISCP_dsPIC30()
 {
 	unsigned int i;
 	enablePGD(); //PGD output
 	enablePGC(); //PGC output
 
+	if( is3_3V() ) {
+		enablePGD_LOW();
+		enablePGC_LOW();
+		PGD_LOWon();
+		PGC_LOWon();
+	}
 	PGDlow(); // initial value for programming mode
 	PGClow(); // initial value for programming mode
 	clock_delay(); // dummy tempo
@@ -134,16 +147,6 @@ void enter_ISCP_dsP30F()
 	DelayMs( 100 );
 }
 
-void enter_ISCP_dsP30_LV()
-{
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
-	enablePGD_LOW();
-	enablePGC_LOW();
-	PGD_LOWon();
-	PGC_LOWon();
-	enter_ISCP_dsP30F();
-}
 void enter_ISCP_PIC18J()
 {
 	int i;
@@ -163,7 +166,7 @@ void enter_ISCP_PIC18J()
 		continue; //aprox 0.5ms
 	VPP_RUNoff(); //and immediately back to 0...
 	VPP_RSTon();
-	DelayMs( 4 );
+	DelayMs( 4 );		//FIXME: should be 4ms only?
 	DelayMs( 6 );
 	//clock_delay();	//P19 = 40ns min
 	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
@@ -189,34 +192,6 @@ void enter_ISCP_PIC18K()
 	VDDon();
 	DelayMs( 10 );
 	PGD_LOWon(); //PGD and PGC to 3.3V mode (output)
-	PGC_LOWon();
-	VPP_RUNon(); //VPP to 4.5V
-	for( i = 0; i < 300; i++ )
-		continue; //aprox 0.5ms
-	//clock_delay();	//P19 = 40ns min
-	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
-	//0x3D43 => 0100 1101 0100 0011
-	//from low to high => 1100 0010 1011 0010
-	//0xC2B2
-	pic_send_word( 0xC2B2 );
-	//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
-	pic_send_word( 0x0A12 );
-	VPP_RSToff(); //release from reset
-	VPP_RUNon();
-	DelayMs( 1 );
-
-}
-void enter_ISCP_PIC24()
-{
-	int i;
-
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
-
-	VPP_RUNoff(); //MCLR low
-	VDDon();
-	DelayMs( 10 );
-	PGD_LOWon(); //PGD and PGC to 3.3V mode (output)
 	enablePGD_LOW();
 	enablePGC_LOW();
 	PGC_LOWon();
@@ -231,10 +206,25 @@ void enter_ISCP_PIC24()
 	pic_send_word( 0xC2B2 );
 	//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x0A12 );
-	VPP_RSToff(); //release from reset
-	VPP_RUNon();
+	VPP_RSToff(); //release from reset	//FIXME: have to assume this is already done?
+	VPP_RUNon();				// unneeded
 	DelayMs( 1 );
+
+}
+void enter_ISCP_PIC24()
+{
+	enter_ISCP_PIC18J();
+
+	DelayMs( 25 );
+	pic_send_n_bits( 5, 0 );
+	dspic_send_24_bits( 0 ); //send a nop instruction with 5 additional databits
 	DelayMs( 1 );
+}
+void enter_ISCP_PIC24K()
+{
+	enter_ISCP_PIC18K();
+
+	DelayMs( 25 );
 	pic_send_n_bits( 5, 0 );
 	dspic_send_24_bits( 0 ); //send a nop instruction with 5 additional databits
 	DelayMs( 1 );

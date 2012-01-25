@@ -116,10 +116,11 @@ unsigned char I2C_read(unsigned char ack);
 
 void enter_ISCP_simple( void );
 void enter_ISCP_P16_Vpp( void );
-void enter_ISCP_dsP30F( void );
+void enter_ISCP_dsPIC30( void );
 void enter_ISCP_PIC18J( void );
 void enter_ISCP_PIC18K( void );
 void enter_ISCP_PIC24( void ) ;
+void enter_ISCP_PIC24K( void ) ;
 void enter_ISCP_I2C_EE( void );
 void exit_ISCP( void );
 
