@@ -46,6 +46,12 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 	unsigned int ConfigOffset;
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
+#ifdef TABLE
+	if( currDevice.read_code )
+		currDevice.read_code( address, data, blocksize, lastblock );
+	else
+		switch( pictype ) {
+#else
 	switch( picfamily ) {
 	case I2C:
 		if( pictype == I2C_EE_1 )
@@ -82,6 +88,7 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 			read_code_P16F57( address, data, blocksize, lastblock );
 			break;
 		}
+#endif
 	default:
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
 			*(data + blockcounter) = 0;
