@@ -52,7 +52,26 @@ TRISPGD=1
 TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
->>>>>> write_code( PIC24, P24FJXXXGA1, 0020, data, 40, 0 )
+>>>>>> write_code( PIC24, P24FJXXXGA1, 0000, data, 20, 1 )
+TRISPGD=0
+TRISPGC=0
+VPP_RUN=0
+VDD=0
+DelayMs( 10 ms )
+PGD_LOW=0
+TRISPGD_LOW=0
+TRISPGC_LOW=0
+PGC_LOW=0
+VPP_RUN=1
+pic_send_word( payload=C2B2 )
+pic_send_word( payload=0A12 )
+VPP_RST=0
+VPP_RUN=1
+DelayMs( 1 ms )
+DelayMs( 1 ms )
+pic_send_n_bits( cmd_size=5,command=00 )
+dspic_send_24_bits( payload=000000 )
+DelayMs( 1 ms )
 VPP=1
 VPP_RUN=0
 VPP_RST=1
@@ -65,7 +84,7 @@ TRISPGD=1
 TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
->>>>>> write_data( PIC24, P24FJXXXGA1, 0020, data, 40, 0 )
+>>>>>> write_code( PIC24, P24FJXXXGA1, 0020, data, 20, 0 )
 VPP=1
 VPP_RUN=0
 VPP_RST=1
@@ -78,7 +97,26 @@ TRISPGD=1
 TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
->>>>>> write_config_bits( PIC24, P24FJXXXGA1, 0020, data, 40, 0 )
+>>>>>> write_data( PIC24, P24FJXXXGA1, 0000, data, 09, 1 )
+TRISPGD=0
+TRISPGC=0
+VPP_RUN=0
+VDD=0
+DelayMs( 10 ms )
+PGD_LOW=0
+TRISPGD_LOW=0
+TRISPGC_LOW=0
+PGC_LOW=0
+VPP_RUN=1
+pic_send_word( payload=C2B2 )
+pic_send_word( payload=0A12 )
+VPP_RST=0
+VPP_RUN=1
+DelayMs( 1 ms )
+DelayMs( 1 ms )
+pic_send_n_bits( cmd_size=5,command=00 )
+dspic_send_24_bits( payload=000000 )
+DelayMs( 1 ms )
 VPP=1
 VPP_RUN=0
 VPP_RST=1
@@ -91,9 +129,81 @@ TRISPGD=1
 TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
->>>>>> read_code( PIC24, P24FJXXXGA1, 0020, data, 40, 0 )
+>>>>>> write_config_bits( PIC24, P24FJXXXGA1, 2000, data, 03, 1 )
+TRISPGD=0
+TRISPGC=0
+VPP_RUN=0
+VDD=0
+DelayMs( 10 ms )
+PGD_LOW=0
+TRISPGD_LOW=0
+TRISPGC_LOW=0
+PGC_LOW=0
+VPP_RUN=1
+pic_send_word( payload=C2B2 )
+pic_send_word( payload=0A12 )
+VPP_RST=0
+VPP_RUN=1
+DelayMs( 1 ms )
+DelayMs( 1 ms )
+pic_send_n_bits( cmd_size=5,command=00 )
+dspic_send_24_bits( payload=000000 )
+DelayMs( 1 ms )
+VPP=1
+VPP_RUN=0
+VPP_RST=1
+DelayMs( 40 ms )
+VPP_RST=0
+VDD=1
+TRISPGD_LOW=1
+TRISPGC_LOW=1
+TRISPGD=1
+TRISPGC=1
+DelayMs( 20 ms )
+ returns( 3 )
+>>>>>> read_code( PIC24, P24FJXXXGA1, 0000, data, 03, 1 )
+TRISPGD=0
+TRISPGC=0
+VPP_RUN=0
+VDD=0
+DelayMs( 10 ms )
+PGD_LOW=0
+TRISPGD_LOW=0
+TRISPGC_LOW=0
+PGC_LOW=0
+VPP_RUN=1
+pic_send_word( payload=C2B2 )
+pic_send_word( payload=0A12 )
+VPP_RST=0
+VPP_RUN=1
+DelayMs( 1 ms )
+DelayMs( 1 ms )
+pic_send_n_bits( cmd_size=5,command=00 )
+dspic_send_24_bits( payload=000000 )
+DelayMs( 1 ms )
  returns( 0 )
->>>>>>  read_data( PIC24, P24FJXXXGA1, 0020, data, 40, 0 )
+>>>>>> read_code( PIC24, P24FJXXXGA1, F80000, data, 03, 0 )
+ returns( 0 )
+>>>>>>  read_data( PIC24, P24FJXXXGA1, 0002, data, 09, 1 )
+TRISPGD=0
+TRISPGC=0
+VPP_RUN=0
+VDD=0
+DelayMs( 10 ms )
+PGD_LOW=0
+TRISPGD_LOW=0
+TRISPGC_LOW=0
+PGC_LOW=0
+VPP_RUN=1
+pic_send_word( payload=C2B2 )
+pic_send_word( payload=0A12 )
+VPP_RST=0
+VPP_RUN=1
+DelayMs( 1 ms )
+DelayMs( 1 ms )
+pic_send_n_bits( cmd_size=5,command=00 )
+dspic_send_24_bits( payload=000000 )
+DelayMs( 1 ms )
  returns( 0 )
 done
 
