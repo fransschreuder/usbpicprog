@@ -1,0 +1,214 @@
+ Type I2C_EE_2, Family I2C
+>>>>>> set_vdd_vpp
+TRISPGD=0
+TRISPGC=0
+PGD=1
+PGC=1
+VDD=0
+DelayMs( 100 ms )
+DelayMs( 100 ms )
+>>>>>> bulk_erase( I2C, I2C_EE_2, 0 )
+TRISPGD=0
+TRISPGC=0
+PGD=1
+PGC=1
+VDD=0
+DelayMs( 100 ms )
+DelayMs( 100 ms )
+VPP=1
+VPP_RUN=0
+VPP_RST=1
+DelayMs( 40 ms )
+VPP_RST=0
+VDD=1
+TRISPGD_LOW=1
+TRISPGC_LOW=1
+TRISPGD=1
+TRISPGC=1
+DelayMs( 20 ms )
+ returns( 1 )
+>>>>>> write_code( I2C, I2C_EE_2, 0020, data, 40, 0 )
+I2C_start()
+I2C_write( d=160 )
+I2C_write( d=0 )
+I2C_write( d=32 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_stop()
+DelayMs( 10 ms )
+ returns( 2 )
+>>>>>> write_data( I2C, I2C_EE_2, 0020, data, 40, 0 )
+VPP=1
+VPP_RUN=0
+VPP_RST=1
+DelayMs( 40 ms )
+VPP_RST=0
+VDD=1
+TRISPGD_LOW=1
+TRISPGC_LOW=1
+TRISPGD=1
+TRISPGC=1
+DelayMs( 20 ms )
+ returns( 3 )
+>>>>>> write_config_bits( I2C, I2C_EE_2, 0020, data, 40, 0 )
+VPP=1
+VPP_RUN=0
+VPP_RST=1
+DelayMs( 40 ms )
+VPP_RST=0
+VDD=1
+TRISPGD_LOW=1
+TRISPGC_LOW=1
+TRISPGD=1
+TRISPGC=1
+DelayMs( 20 ms )
+ returns( 3 )
+>>>>>> read_code( I2C, I2C_EE_2, 0020, data, 40, 0 )
+I2C_start()
+I2C_write( d=160 )
+I2C_write( d=0 )
+I2C_write( d=32 )
+I2C_start()
+I2C_write( d=161 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_stop()
+ returns( 0 )
+>>>>>>  read_data( I2C, I2C_EE_2, 0020, data, 40, 0 )
+ returns( 0 )
+done
+
+
+
+
+
+
+
+
+
+
+
