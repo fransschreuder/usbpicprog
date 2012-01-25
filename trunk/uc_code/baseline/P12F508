@@ -1387,7 +1387,11 @@ VDD=0
 DelayMs( 100 ms )
 VPP=0
 DelayMs( 100 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
 pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
  returns( 0 )
 >>>>>> read_code( PIC10, P12F508, F80000, data, 03, 0 )
 pic_read_14_bits( cmd_size=6,command=04 )
