@@ -15,7 +15,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -35,7 +35,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -1881,7 +1881,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -2494,7 +2494,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -2526,7 +2526,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -2558,7 +2558,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
@@ -2581,7 +2581,7 @@ pic_send_word( payload=0A12 )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
-DelayMs( 1 ms )
+DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
 DelayMs( 1 ms )
