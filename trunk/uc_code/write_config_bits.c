@@ -372,8 +372,7 @@ void write_config_bits_P16F785( unsigned long address, unsigned char* data, char
 	{
 		//load data for config memory
 		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
-				|| (((((char) address) + (blockcounter >> 1)) == 8) && ((pictype == P16F87) | (pictype
-						== P16F7X7) | (pictype == P16F88X))) )
+				|| (((((char) address) + (blockcounter >> 1)) == 8) ) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
@@ -401,8 +400,7 @@ void write_config_bits_P16F87( unsigned long address, unsigned char* data, char 
 	{
 		//load data for config memory
 		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
-				|| (((((char) address) + (blockcounter >> 1)) == 8) && ((pictype == P16F87) | (pictype
-						== P16F7X7) | (pictype == P16F88X))) )
+				|| (((((char) address) + (blockcounter >> 1)) == 8) ) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
@@ -430,8 +428,7 @@ void write_config_bits_P16F716( unsigned long address, unsigned char* data, char
 	{
 		//load data for config memory
 		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
-				|| (((((char) address) + (blockcounter >> 1)) == 8) && ((pictype == P16F87) | (pictype
-						== P16F7X7) | (pictype == P16F88X))) )
+				|| (((((char) address) + (blockcounter >> 1)) == 8) ) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
@@ -459,9 +456,7 @@ void write_config_bits_P16F72( unsigned long address, unsigned char* data, char 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
 		//load data for config memory
-		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
-				|| (((((char) address) + (blockcounter >> 1)) == 8) && ((pictype == P16F87) | (pictype
-						== P16F7X7) | (pictype == P16F88X))) )
+		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
@@ -488,9 +483,7 @@ void write_config_bits_P16F62XA( unsigned long address, unsigned char* data, cha
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
 		//load data for config memory
-		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
-				|| (((((char) address) + (blockcounter >> 1)) == 8) && ((pictype == P16F87) | (pictype
-						== P16F7X7) | (pictype == P16F88X))) )
+		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
