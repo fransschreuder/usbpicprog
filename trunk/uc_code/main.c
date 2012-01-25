@@ -44,10 +44,8 @@
 #include "typedefs.h"                        // Required
 #include "usb.h"                         // Required
 #include "io_cfg.h"                                 // Required
-
 #include "usb_compile_time_validation.h" // Optional
 #include "upp.h"                              // Modifiable
-
 #ifndef SDCC_MODEL_SMALL
 #pragma config PLLDIV = 2, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
 #pragma config PWRT = ON
@@ -83,14 +81,14 @@ code char at __CONFIG7H CONFIG7H = _EBTRB_OFF_7H;
 #endif
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
-static void InitializeSystem(void);
-void USBTasks(void);
+static void InitializeSystem( void );
+void USBTasks( void );
 
 /** V E C T O R  R E M A P P I N G *******************************************/
 #ifndef SDCC
-extern void _startup (void);        // See c018i.c in your C18 compiler dir
+extern void _startup( void ); // See c018i.c in your C18 compiler dir
 #pragma code _RESET_INTERRUPT_VECTOR = 0x000800
-void _reset (void)
+void _reset( void )
 {
 	_asm goto _startup _endasm
 }
@@ -101,11 +99,10 @@ void _reset (void)
 //#else
 //#pragma code _HIGH_INTERRUPT_VECTOR = 0x000008
 //#endif
-void _high_ISR (void)
+void _high_ISR( void )
 {
 	_asm goto high_isr _endasm
 }
-
 
 //#ifdef bootloader
 #pragma code _LOW_INTERRUPT_VECTOR = 0x000818
@@ -113,7 +110,7 @@ void _high_ISR (void)
 //#pragma code _LOW_INTERRUPT_VECTOR = 0x000018
 //#endif
 
-void _low_ISR (void)
+void _low_ISR( void )
 {
 	_asm goto low_isr _endasm
 }
@@ -123,20 +120,34 @@ void _low_ISR (void)
 extern byte usb_device_state;
 
 /******************************************************************************
-This function resets the usb module to bring it in the same state as after a
-power on reset (because it may have been altered by the bootloader)
-******************************************************************************/
-void usb_reset(void)
+ This function resets the usb module to bring it in the same state as after a
+ power on reset (because it may have been altered by the bootloader)
+ ******************************************************************************/
+void usb_reset( void )
 {
-     UEP15=0;UEP14=0;UEP13=0;UEP12=0;UEP11=0;UEP10=0;UEP9=0;UEP8=0;
-     UEP7=0;UEP6=0;UEP5=0;UEP4=0;UEP3=0;UEP2=0;UEP1=0;UEP0=0;
-     UCFG=0;
-     UADDR=0;
-     UCON=0;
-     UEIE=0;
-     UEIR=0;
-     UIE=0;
-     UIR=0;
+	UEP15 = 0;
+	UEP14 = 0;
+	UEP13 = 0;
+	UEP12 = 0;
+	UEP11 = 0;
+	UEP10 = 0;
+	UEP9 = 0;
+	UEP8 = 0;
+	UEP7 = 0;
+	UEP6 = 0;
+	UEP5 = 0;
+	UEP4 = 0;
+	UEP3 = 0;
+	UEP2 = 0;
+	UEP1 = 0;
+	UEP0 = 0;
+	UCFG = 0;
+	UADDR = 0;
+	UCON = 0;
+	UEIE = 0;
+	UEIR = 0;
+	UIE = 0;
+	UIR = 0;
 }
 
 /** D E C L A R A T I O N S **************************************************/
@@ -158,19 +169,19 @@ void usb_reset(void)
  *
  * Note:            None
  *****************************************************************************/
-void main(void)
+void main( void )
 {
 	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
 	//usb_reset();
 	InitializeSystem();
-	
+
 	//usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
-	while(1)
+	while( 1 )
 	{
-		USBTasks();         // USB Tasks
-		ProcessIO();        // See user\user.c & .h
+		USBTasks(); // USB Tasks
+		ProcessIO(); // See user\user.c & .h
 	}//end while
 }//end main
 
@@ -194,21 +205,21 @@ void main(void)
  *
  * Note:            None
  *****************************************************************************/
-static void InitializeSystem(void)
+static void InitializeSystem( void )
 {
-	ADCON1 |= 0x0F;                 // Default all pins to digital
-	
-	#if defined(USE_USB_BUS_SENSE_IO)
+	ADCON1 |= 0x0F; // Default all pins to digital
+
+#if defined(USE_USB_BUS_SENSE_IO)
 	tris_usb_bus_sense = INPUT_PIN; // See io_cfg.h
-	#endif
-	
-	#if defined(USE_SELF_POWER_SENSE_IO)
+#endif
+
+#if defined(USE_SELF_POWER_SENSE_IO)
 	tris_self_power = INPUT_PIN;
-	#endif
-	
-	mInitializeUSBDriver();         // See usbdrv.h
-	
-	UserInit();                     // See upp.c & .h
+#endif
+
+	mInitializeUSBDriver(); // See usbdrv.h
+
+	UserInit(); // See upp.c & .h
 
 }//end InitializeSystem
 
@@ -227,14 +238,14 @@ static void InitializeSystem(void)
  *
  * Note:            None
  *****************************************************************************/
-void USBTasks(void)
+void USBTasks( void )
 {
 	/*
-	* Servicing Hardware
-	*/
-	USBCheckBusStatus();                    // Must use polling method
-	if(UCFGbits.UTEYE!=1)
-		USBDriverService();                 // Interrupt or polling method
+	 * Servicing Hardware
+	 */
+	USBCheckBusStatus(); // Must use polling method
+	if( UCFGbits.UTEYE != 1 )
+		USBDriverService(); // Interrupt or polling method
 
 }// end USBTasks
 

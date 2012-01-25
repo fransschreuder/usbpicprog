@@ -9,14 +9,16 @@
 
 #define LIST(x) #x,
 
-rom char *rom picfamilyName[] = {
+rom char *rom picfamilyName[] =
+{
 #include "picfamily.h"
 };
 #undef LIST
 
 #define LIST( x, a0, a1, a2, a3, a4, a5, a6, a7, a8 ) #x,
 
-rom char *rom pictypeName[] = {
+rom char *rom pictypeName[] =
+{
 #include "pictype.h"
 };
 #undef LIST
@@ -50,8 +52,8 @@ rom char *rom pictypeName[] = {
 
 rom DEVICE devices[] = {
 #include "pictype.h"
-};
+		};
 #undef LIST
 DEVICE currDevice;
-PICFAMILY picfamily=PIC18;
-PICTYPE pictype=P18F2XXX;
+PICFAMILY picfamily = PIC18;
+PICTYPE pictype = P18F2XXX;
