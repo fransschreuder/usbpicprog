@@ -1,5 +1,7 @@
  Type P18LF4XK22, Family PIC18
 >>>>>> set_vdd_vpp
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -9,6 +11,8 @@ DelayMs( 100 ms )
 VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( PIC18, P18LF4XK22, 0 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -47,6 +51,8 @@ TRISPGC=1
 DelayMs( 20 ms )
  returns( 1 )
 >>>>>> write_code( PIC18, P18LF4XK22, 0000, data, 20, 1 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -121,6 +127,8 @@ DelayMs( 1 ms )
 pic_send_word( payload=0000 )
  returns( 2 )
 >>>>>> write_data( PIC18, P18LF4XK22, 0000, data, 09, 1 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -286,6 +294,8 @@ DelayMs( 1 ms )
 pic_send( cmd_size=4,command=00,payload=94A6 )
  returns( 2 )
 >>>>>> write_config_bits( PIC18, P18LF4XK22, 2000, data, 03, 1 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -351,6 +361,8 @@ DelayMs( 1 ms )
 pic_send_word( payload=0000 )
  returns( 2 )
 >>>>>> read_code( PIC18, P18LF4XK22, 0000, data, 03, 1 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -381,6 +393,8 @@ pic_read_byte2( cmd_size=4,command=09 )
 pic_read_byte2( cmd_size=4,command=09 )
  returns( 0 )
 >>>>>>  read_data( PIC18, P18LF4XK22, 0002, data, 09, 1 )
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
