@@ -1,11 +1,9 @@
  Type dsP30F_LV, Family dsPIC30
 >>>>>> set_vdd_vpp
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -22,12 +20,10 @@ VPP_RST=0
 VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( dsPIC30, dsP30F_LV, 0 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -57,12 +53,10 @@ TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
 >>>>>> write_code( dsPIC30, dsP30F_LV, 0000, data, 20, 1 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -104,12 +98,10 @@ TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
 >>>>>> write_data( dsPIC30, dsP30F_LV, 0000, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -191,12 +183,10 @@ dspic_send_24_bits( payload=040100 )
 dspic_send_24_bits( payload=000000 )
  returns( 2 )
 >>>>>> write_config_bits( dsPIC30, dsP30F_LV, 2000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -225,12 +215,10 @@ TRISPGC=1
 DelayMs( 20 ms )
  returns( 3 )
 >>>>>> read_code( dsPIC30, dsP30F_LV, 0000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
@@ -326,12 +314,10 @@ dspic_send_24_bits( payload=040100 )
 dspic_send_24_bits( payload=000000 )
  returns( 0 )
 >>>>>>  read_data( dsPIC30, dsP30F_LV, 0002, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
 TRISPGD_LOW=0
 TRISPGC_LOW=0
-PGD_LOW=0
-PGC_LOW=0
+TRISPGD=0
+TRISPGC=0
 PGD=0
 PGC=0
 DelayMs( 100 ms )
