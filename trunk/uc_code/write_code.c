@@ -473,7 +473,7 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 {
 	unsigned int i, payload;
 	char blockcounter;
-
+	//FIXME: this should be address & 0x20
 	if( (address & 0x40) == 0 ) //package must be 64 bytes, so only do this every two packages.
 	{
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
@@ -555,17 +555,6 @@ void write_code_P18F4XK22( unsigned long address, unsigned char* data, char bloc
 	DelayMs( P10 );
 	pic_send_word( 0x0000 );
 }
-void write_code_P18LF14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
-{
-	unsigned int i, payload;
-	char blockcounter;
-
-	PGD_LOWon();
-	enablePGD_LOW();
-	PGC_LOWon();
-	enablePGC_LOW();
-	write_code_P18F14K22( address, data, blocksize, lastblock );
-}
 void write_code_P18F14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i, payload;
@@ -597,17 +586,6 @@ void write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 		pic_read_byte2( 4, 0x09 ); //perform 2 reads to increase the address by 2
 		pic_read_byte2( 4, 0x09 );
 	}
-}
-void write_code_P18LF13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
-{
-	unsigned int i, payload;
-	char blockcounter;
-
-	PGD_LOWon();
-	enablePGD_LOW();
-	PGC_LOWon();
-	enablePGC_LOW();
-	write_code_P18F13K22( address, data, blocksize, lastblock );
 }
 void write_code_P18F13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {

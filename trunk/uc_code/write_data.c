@@ -264,14 +264,6 @@ void write_data_PIC18( unsigned long address, unsigned char* data, char blocksiz
 	char blockcounter, i;
 	char receiveddata;
 
-	if( is3_3V() )
-	{
-		PGD_LOWon();
-		enablePGD_LOW();
-		PGC_LOWon();
-		enablePGC_LOW();
-	}
-
 	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )

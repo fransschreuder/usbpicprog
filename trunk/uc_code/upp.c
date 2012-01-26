@@ -96,9 +96,9 @@ void UserInit( void )
 	TRISVDD = 0;
 	TRISVPP_RUN = 0;
 	VPP_RUN = 0; //run = off
-	PGD_LOW = 1;
+	PGD_LOW = 0;	// always set to 0
 	TRISPGD_LOW = 1; //LV devices disabled, high impedance / input
-	PGC_LOW = 1;
+	PGC_LOW = 0;	// always set to 0
 	TRISPGC_LOW = 1; //LV devices disabled, high impedance / input
 	VPP = 1; //VPP is low (inverted)
 	VPP_RST = 0; //No hard reset (inverted
@@ -248,8 +248,19 @@ void ProcessIO( void )
 			setLeds( LEDS_ON );
 			break;
 		case CMD_SET_PICTYPE:
-			output_buffer[0] = set_pictype( input_buffer + 1 );
-			//output_buffer[0]=1; //Ok
+			pictype = input_buffer[1];
+			if( pictype < UPP_INVALID_PICTYPE )
+				output_buffer[0] = 1;		// OK
+			else
+			{
+				pictype = P18F2XXX;
+				output_buffer[0] = 3;		// bad pictype
+			}
+			currDevice = devices[pictype];
+			picfamily = currDevice.flags.family;
+			if( picfamily == UPP_INVALID_PICFAMILY )
+				output_buffer[0] = 3;		// flag not implemented devices
+
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -291,47 +302,22 @@ void ProcessIO( void )
 		case CMD_GET_PIN_STATUS:
 			switch( input_buffer[1] ) {
 			case SUBCMD_PIN_PGC:
-				if( (!TRISPGC_LOW) && (!PGC_LOW) ) //3.3V levels
-				{
-					if( PGC )
-						output_buffer[0] = PIN_STATE_3_3V;
-					else
-						output_buffer[0] = PIN_STATE_0V;
-				}
-				else //5V levels
-				{
-					if( PGC )
-						output_buffer[0] = PIN_STATE_5V;
-					else
-						output_buffer[0] = PIN_STATE_0V;
-				}
+
+				if( PGC == 0 )
+					output_buffer[0] = PIN_STATE_0V;
+				else if( (!TRISPGC_LOW) ) //3.3V levels
+					output_buffer[0] = PIN_STATE_3_3V;
+				else
+					output_buffer[0] = PIN_STATE_5V;
 				counter = 1;
 				break;
 			case SUBCMD_PIN_PGD:
-				if( TRISPGD )//PGD is input
-				{
-					if( PGD_READ )
-						output_buffer[0] = PIN_STATE_5V;
-					else
-						output_buffer[0] = PIN_STATE_0V;
-				}
+				if( PGD == 0 )
+					output_buffer[0] = PIN_STATE_0V;
+				else if( (!TRISPGD_LOW) ) //3.3V levels
+					output_buffer[0] = PIN_STATE_3_3V;
 				else
-				{
-					if( (!TRISPGD_LOW) && (!PGD_LOW) ) //3.3V levels
-					{
-						if( PGD )
-							output_buffer[0] = PIN_STATE_3_3V;
-						else
-							output_buffer[0] = PIN_STATE_0V;
-					}
-					else //5V levels
-					{
-						if( PGD )
-							output_buffer[0] = PIN_STATE_5V;
-						else
-							output_buffer[0] = PIN_STATE_0V;
-					}
-				}
+					output_buffer[0] = PIN_STATE_5V;
 				counter = 1;
 				break;
 			case SUBCMD_PIN_VDD:
@@ -494,7 +480,7 @@ void ProcessIO( void )
 	}
 }//end ProcessIO
 
-
+#if 0
 unsigned char set_pictype( unsigned char* data )
 {
 	pictype = data[0];
@@ -586,7 +572,7 @@ unsigned char set_pictype( unsigned char* data )
 	}
 	return 1;
 }
-
+#endif
 /******************************************************************************
  * Function:        void BlinkUSBStatus(void)
  *

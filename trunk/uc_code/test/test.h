@@ -30,6 +30,15 @@
 #define timerRunning 0
 #define startTimerMs( cnt ) printf( "startTimerMs( %d ms )\n", cnt );
 #define DelayMs( cnt )	printf( "DelayMs( %d ms )\n", cnt )
+#undef setPGDinput
+#define setPGDinput()	printf( "TRISPGD=1\nTRISPGD_LOW=1\n" )
+#undef setPGDoutput
+#define setPGDoutput()	printf( "%sTRISPGD=1\n", is3_3V()?"TRISPGD_LOW=0;\n":"" )
+#undef enablePGC_D
+#define enablePGC_D()	printf( "%sTRISPGD=0\nTRISPGC=0\n", is3_3V()?"TRISPGD_LOW=0\nTRISPGC_LOW=0\n":"" )
+#undef disablePGC_D
+#define disablePGC_D()	printf( "TRISPGD_LOW=1\nTRISPGC_LOW=1\nTRISPGD=1\nTRISPGC=1\n" )
+#if 0
 #undef  enablePGC_LOW
 #define enablePGC_LOW()	printf( "TRISPGC_LOW=0\n" )
 #undef  trisPGC_LOW
@@ -42,10 +51,12 @@
 #define enablePGD_LOW()	printf( "TRISPGD_LOW=0\n" )
 #undef  trisPGD_LOW
 #define trisPGD_LOW()	printf( "TRISPGD_LOW=1\n" )
+
 #undef  PGD_LOWoff
 #define PGD_LOWoff()	printf( "PGD_LOW=1\n" )
 #undef  PGD_LOWon
 #define PGD_LOWon()	printf( "PGD_LOW=0\n" )
+#endif
 #undef  enableVPP_RUN
 #define enableVPP_RUN()	printf( "TRISVPP_RUN=0\n" )
 #undef  trisVPP_RUN
@@ -62,6 +73,7 @@
 #define VDDoff()	printf( "VDD=1\n" )
 #undef  VDDon
 #define VDDon()		printf( "VDD=0\n" )
+#if 0
 #undef  enablePGC
 #define enablePGC()	printf( "TRISPGC=0\n" )
 #undef  trisPGC
@@ -70,14 +82,19 @@
 #define PGClow()	printf( "PGC=0\n" )
 #undef  PGChigh
 #define PGChigh()	printf( "PGC=1\n" )
-#undef  PGD_READoff
-#define PGD_READoff()	printf( "PGD_READ=0\n" )
-#undef  PGD_READon
-#define PGD_READon()	printf( "PGD_READ=1\n" )
 #undef  enablePGD
 #define enablePGD()	printf( "TRISPGD=0\n" )
 #undef  trisPGD
 #define trisPGD()	printf( "TRISPGD=1\n" )
+#undef  PGDlow
+#define PGDlow()	printf( "PGD=0\n" )
+#undef  PGDhigh
+#define PGDhigh()	printf( "PGD=1\n" )
+#endif
+#undef  PGClow
+#define PGClow()	printf( "PGC=0\n" )
+#undef  PGChigh
+#define PGChigh()	printf( "PGC=1\n" )
 #undef  PGDlow
 #define PGDlow()	printf( "PGD=0\n" )
 #undef  PGDhigh

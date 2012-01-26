@@ -89,8 +89,7 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 }
 void enter_ISCP_simple()
 {
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 	PGDlow(); // initial value for programming mode
 	PGClow(); // initial value for programming mode
 
@@ -103,8 +102,7 @@ void enter_ISCP_simple()
 void enter_ISCP_P16_Vpp()
 {
 	//			P16F62X, P16F62XA, P12F629, P12F6XX, P16F87;		//VPP first
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
 	PGDlow(); // initial value for programming mode
 	PGClow(); // initial value for programming mode
@@ -117,15 +115,8 @@ void enter_ISCP_P16_Vpp()
 void enter_ISCP_dsPIC30()
 {
 	unsigned int i;
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
-	if( is3_3V() ) {
-		enablePGD_LOW();
-		enablePGC_LOW();
-		PGD_LOWon();
-		PGC_LOWon();
-	}
 	PGDlow(); // initial value for programming mode
 	PGClow(); // initial value for programming mode
 	clock_delay(); // dummy tempo
@@ -151,16 +142,11 @@ void enter_ISCP_PIC18J()
 {
 	int i;
 
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
 	VPP_RUNoff(); //MCLR low
 	VDDon();
 	DelayMs( 10 );
-	PGD_LOWon(); //PGD and PGC to 3.3V mode (output)
-	enablePGD_LOW();
-	enablePGC_LOW();
-	PGC_LOWon();
 	VPP_RUNon(); //VPP to 4.5V
 	for( i = 0; i < 300; i++ )
 		continue; //aprox 0.5ms
@@ -185,16 +171,11 @@ void enter_ISCP_PIC18K()
 {
 	int i;
 
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
 	VPP_RUNoff(); //MCLR low
 	VDDon();
 	DelayMs( 10 );
-	PGD_LOWon(); //PGD and PGC to 3.3V mode (output)
-	enablePGD_LOW();
-	enablePGC_LOW();
-	PGC_LOWon();
 	VPP_RUNon(); //VPP to 4.5V
 	for( i = 0; i < 300; i++ )
 		continue; //aprox 0.5ms
@@ -231,8 +212,8 @@ void enter_ISCP_PIC24K()
 }
 void enter_ISCP_I2C_EE()
 {
-	enablePGD(); //PGD output
-	enablePGC(); //PGC output
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+
 	PGDhigh();
 	PGChigh();
 	clock_delay(); // dummy tempo
@@ -250,10 +231,7 @@ void exit_ISCP()
 	DelayMs( 40 );
 	VPP_RSToff(); //hard reset, high (inverted)
 	VDDoff(); //low, (inverted)
-	trisPGD_LOW(); //input
-	trisPGC_LOW(); //input
-	trisPGD(); //PGD input
-	trisPGC(); //PGC input
+	disablePGC_D();
 	DelayMs( 20 );
 }
 
@@ -299,8 +277,8 @@ void set_address_P18( unsigned long address )
 void pic_send_n_bits( char cmd_size, char command )
 {
 	char i;
-	enablePGD();
-	enablePGC();
+//	enablePGD();
+//	enablePGC();
 	PGClow();
 	PGDlow();
 	for( i = 0; i < cmd_size; i++ )
@@ -339,6 +317,7 @@ void pic_send_word( unsigned int payload )
 void pic_send_word_14_bits( unsigned int payload )
 {
 	char i;
+
 	PGDlow();
 	clock_delay();
 	PGChigh();
@@ -395,7 +374,8 @@ unsigned int pic_read_14_bits( char cmd_size, char command )
 	pic_send_n_bits( cmd_size, command );
 	//for(i=0;i<80;i++)continue;	//wait at least 1us
 	///PIC10 only...
-	trisPGD(); //PGD = input
+
+	setPGDinput(); //PGD = input
 	for( i = 0; i < 10; i++ )
 		continue;
 	result = 0;
@@ -417,8 +397,7 @@ unsigned int pic_read_14_bits( char cmd_size, char command )
 	clock_delay();
 	PGClow();
 	clock_delay();
-	enablePGD(); //PGD = output
-	PGDlow();
+	setPGDoutput();
 	clock_delay();
 	return result;
 }
@@ -441,8 +420,7 @@ char pic_read_byte2( char cmd_size, char command )
 		PGClow();
 		clock_delay();
 	}
-	trisPGD(); //PGD = input
-	trisPGD_LOW();
+	setPGDinput();
 	for( i = 0; i < 10; i++ )
 		continue;
 	result = 0;
@@ -456,8 +434,7 @@ char pic_read_byte2( char cmd_size, char command )
 		PGClow();
 		clock_delay();
 	}
-	enablePGD(); //PGD = output
-	PGDlow();
+	setPGDoutput();
 	clock_delay();
 	return result;
 }
@@ -486,9 +463,7 @@ unsigned int dspic_read_16_bits( unsigned char isLV )
 		PGClow();
 	}
 	//pic_send_n_bits(8,0);
-	if( isLV )
-		trisPGD_LOW();
-	trisPGD(); //PGD = input
+	setPGDinput();
 	clock_delay();
 	for( i = 0; i < 16; i++ )
 	{
@@ -497,9 +472,7 @@ unsigned int dspic_read_16_bits( unsigned char isLV )
 		result |= ((unsigned int) PGD_READ) << i;
 		PGClow();
 	}
-	if( isLV )
-		enablePGD_LOW();
-	enablePGD(); //PGD = output
+	setPGDoutput();
 	PGDlow();
 	return result;
 }

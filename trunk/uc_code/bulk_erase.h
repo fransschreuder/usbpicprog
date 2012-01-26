@@ -43,5 +43,4 @@ void bulk_erase_P16F59(unsigned char doRestore);
 void bulk_erase_P10F200(unsigned char doRestore);
 void bulk_erase_P10F202(unsigned char doRestore);
 void bulk_erase_P18F6XKXX(unsigned char doRestore);
-void bulk_erase_P18LF13K22(unsigned char doRestore);
 void bulk_erase_P18F13K22(unsigned char doRestore);

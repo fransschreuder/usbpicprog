@@ -135,8 +135,6 @@ void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize
 		pic_send( 4, 0x00, 0x6EF5 ); //MOVWF TABLAT
 		pic_send( 4, 0x00, 0x0000 ); //Nop
 		*(data + blockcounter) = pic_read_byte2( 4, 0x02 );
-		if( pictype == P18LF13K22 || pictype == P18LF14K22 )
-			enablePGD_LOW(); //switch to 3.3V again
 	}
 }
 void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )

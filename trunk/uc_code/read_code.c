@@ -239,9 +239,6 @@ void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		*(data + blockcounter) = pic_read_byte2( 4, 0x09 );
-		//FIXME: change to 3.3V after the read?
-		if( picfamily == PIC18J || pictype == P18LF13K22 || pictype == P18LF14K22 )
-			enablePGD_LOW(); //switch to 3.3V again
 	}
 }
 void read_code_PIC16a( unsigned long address, unsigned char* data, char blocksize, char lastblock, unsigned int ConfigOffset )

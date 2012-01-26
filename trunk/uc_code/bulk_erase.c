@@ -455,14 +455,6 @@ void bulk_erase_P18F13K22( unsigned char doRestore )
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 	DelayMs( 6 );
 }
-void bulk_erase_P18LF13K22( unsigned char doRestore )
-{
-	PGD_LOWon();
-	enablePGD_LOW();
-	PGC_LOWon();
-	enablePGC_LOW();
-	bulk_erase_P18F13K22( doRestore );
-}
 void bulk_erase_P16F716( unsigned char doRestore )
 {
 
