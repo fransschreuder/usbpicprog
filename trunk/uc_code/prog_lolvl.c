@@ -277,15 +277,16 @@ void set_address_P18( unsigned long address )
 void pic_send_n_bits( char cmd_size, char command )
 {
 	char i;
-//	enablePGD();
-//	enablePGC();
+	//	enablePGD();
+	//	enablePGC();
 	PGClow();
 	PGDlow();
 	for( i = 0; i < cmd_size; i++ )
 	{
 		if( command & 1 )
 			PGDhigh();
-			elsePGDlow();
+		else
+			PGDlow();
 		PGChigh();
 		command >>= 1;
 		clock_delay();
@@ -303,7 +304,7 @@ void pic_send_word( unsigned int payload )
 	{
 		if( payload & 1 )
 			PGDhigh();
-			else
+		else
 			PGDlow();
 		PGChigh();
 		payload >>= 1;
@@ -328,7 +329,7 @@ void pic_send_word_14_bits( unsigned int payload )
 	{
 		if( payload & 1 )
 			PGDhigh();
-			else
+		else
 			PGDlow();
 		PGChigh();
 		payload >>= 1;
@@ -491,7 +492,8 @@ void dspic_send_24_bits( unsigned long payload )
 
 		if( payload & 1 )
 			PGDhigh();
-			elsePGDlow();
+			else
+				PGDlow();
 		payload >>= 1;
 		clock_delay();
 		PGChigh();
@@ -528,7 +530,8 @@ unsigned char I2C_write( unsigned char d )
 	{
 		if( (j & 0x80) == 0x80 )
 			PGDhigh();
-			elsePGDlow();
+		else
+			PGDlow();
 		j <<= 1;
 		I2C_delay();
 		PGChigh();
@@ -536,42 +539,41 @@ unsigned char I2C_write( unsigned char d )
 		PGClow();
 		I2C_delay();
 	}
-	trisPGD();
+	setPGDinput();
 	PGChigh();
 	I2C_delay();
 	i = (unsigned char) PGD_READ;
 	PGClow();
 	I2C_delay();
-	enablePGD();
+	setPGDoutput();
 	return i;
 }
 
-unsigned char I2C_read( unsigned char ack )
-{
-	unsigned char i, d;
-	trisPGD();
-	d = 0;
-	for( i = 0; i < 8; i++ )
-	{
-		PGChigh();
-		I2C_delay();
-		d <<= 1;
-		if( PGD_READ )
-			d |= 0x01;
-		PGClow();
-		I2C_delay();
-	}
-	enablePGD();
-	I2C_delay();
-	if( ack == 1 )
-		PGDhigh();
-		elsePGDlow();
-	PGChigh();
-	I2C_delay();
-	PGClow();
-	I2C_delay();
-	return d;
+unsigned char I2C_read( unsigned char ack ) {
+    unsigned char i, d;
+    setPGDinput();
+    d = 0;
+    for( i = 0; i < 8; i++ ) {
+        PGChigh();
+        I2C_delay();
+        d <<= 1;
+        if( PGD_READ )
+            d |= 0x01;
+        PGClow();
+        I2C_delay();
+    }
+    setPGDoutput();
+    I2C_delay();
+    if( ack == 1 )
+        PGDhigh();
+        else PGDlow();
+    PGChigh();
+    I2C_delay();
+    PGClow();
+    I2C_delay();
+    return d;
 }
+
 
 /*#define pulseclock() PGChigh();PGClow()
 
