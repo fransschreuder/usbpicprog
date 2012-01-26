@@ -41,9 +41,10 @@
 #else
 #include <p18cxxx.h>
 #endif
-#include "typedefs.h"                        // Required
+#include "typedefs.h"			 // Required
+#include "string.h"
 #include "usb.h"                         // Required
-#include "io_cfg.h"                                 // Required
+#include "io_cfg.h"                      // Required
 #include "usb_compile_time_validation.h" // Optional
 #include "upp.h"                              // Modifiable
 #ifndef SDCC_MODEL_SMALL
@@ -119,6 +120,38 @@ void _low_ISR( void )
 
 extern byte usb_device_state;
 
+//		used to verify correct version of bootloader (taken from piklab disassembly listing)
+rom int boot_code[] = {
+	0xEF00,	//    goto    0x800             105: 		_asm goto RM_RESET_VECTOR _endasm
+	0xF004, //
+        	//                              106: 	}
+        	//                              107:
+        	//                              108:     // initialize usb
+	0x0E14, //    movlw   0x14              109:     mInitializeUSBDriver();     // See usbdrv.h
+	0x6E6F, //    movwf   0x6f, 0
+	0xECAC, //    call    0x558, 0          110:     USBCheckBusStatus();        // Modified to always enable USB module
+	0xF002
+};
+#define boot_code_check	((rom char *)0x6C6)
+#define boot_entry	0x06CA
+#define boot_ram_check  ((char *)0x7B)	// address of i in bootloader main guaranteed to be 0-6 if we got here through the bootloader
+
+char exitToBootloader( char set ) {
+	if( memcmppgm( boot_code_check, boot_code, sizeof( boot_code ) ) != 0 ) // check version of bootloader
+		return( 0 );
+	if( !set ) {
+		if( strcmppgm2ram( (char *) boot_ram_check, "bootloader") != 0 )
+			return( 0 );
+		else
+			_asm goto boot_entry _endasm;
+	}
+	else {
+		strcpypgm2ram( (char *) boot_ram_check, "bootloader" );
+		_asm reset _endasm;
+	}
+
+}
+
 /******************************************************************************
  This function resets the usb module to bring it in the same state as after a
  power on reset (because it may have been altered by the bootloader)
@@ -171,7 +204,7 @@ void usb_reset( void )
  *****************************************************************************/
 void main( void )
 {
-	//setLeds(7);
+	exitToBootloader( 0 )	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
 	//usb_reset();
