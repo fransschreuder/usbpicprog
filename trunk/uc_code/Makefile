@@ -36,6 +36,7 @@ clean:
 # Create test harness
 test: clean
 	gcc -DTEST -Drom="" -Itest -I. $(TESTSRC) -o runtest
+	bash -c 'cd baseline; for i in *; do cmp -s $$i <(../runtest $$i) || echo "$$i differs";done;'
 	
 ## Make all nonfile/folder targets phony to prevent conflict ##
 .phony: clean all
