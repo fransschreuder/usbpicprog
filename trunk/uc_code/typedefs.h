@@ -154,6 +154,4 @@ typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
 #define OK      TRUE
 #define FAIL    FALSE
 
-#undef TEST
-#define TEST
 #endif //TYPEDEFS_H
