@@ -51,9 +51,7 @@
 char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data,
 		char blocksize, char lastblock )
 {
-	char i;
-	static char blockcounter;
-	unsigned int payload;
+
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
@@ -170,7 +168,6 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 
 void write_config_bits_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
 	unsigned int payload;
 	if( (lastblock & 1) == 1 )
@@ -225,9 +222,8 @@ void write_config_bits_dsP30F( unsigned long address, unsigned char* data, char 
 }
 void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
-	unsigned int payload;
+
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
 	//address=0x300000;
@@ -257,9 +253,8 @@ void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, cha
 }
 void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
-	unsigned int payload;
+
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
 	//goto 0x100000
@@ -293,9 +288,8 @@ void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char
 }
 void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
-	unsigned int payload;
+
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
@@ -326,9 +320,7 @@ void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, ch
 }
 void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
-	unsigned int payload;
 
 	pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8C7F ); //BSF EECON1, CFGS
@@ -500,9 +492,9 @@ void write_config_bits_P16F62XA( unsigned long address, unsigned char* data, cha
 }
 void write_config_bits_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	char i;
 	static char blockcounter;
 	unsigned int payload;
+
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
 		payload = (((unsigned int) data[blockcounter])) | (((unsigned int) data[blockcounter + 1]) << 8);

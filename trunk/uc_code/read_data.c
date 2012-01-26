@@ -40,10 +40,8 @@ extern PICTYPE pictype;
 unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data,
 		char blocksize, char lastblock )
 {
-
-	unsigned int i, payload;
 	char blockcounter = 0;
-	//if(lastblock&1)
+
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
@@ -119,7 +117,6 @@ void read_data_dsPIC30( unsigned long address, unsigned char* data, char blocksi
 
 void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter = 0;
 
 	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
@@ -139,7 +136,7 @@ void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize
 }
 void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter = 0;
 
 	if( (lastblock & 1) && (address > 0) )

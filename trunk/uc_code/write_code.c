@@ -41,8 +41,6 @@ extern PICTYPE pictype;
 char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
 		char lastblock )
 {
-	unsigned int i, payload;
-	char blockcounter;
 
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
@@ -173,7 +171,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	// FIXME: need to figure out if it can return 2 if lastblock&2
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	I2C_start();
@@ -196,7 +194,7 @@ void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize
 
 void write_code_EE_2( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	I2C_start();
@@ -312,7 +310,7 @@ void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char bl
 
 void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	dspic_send_24_bits( 0x000000 ); //NOP
@@ -397,7 +395,6 @@ void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksi
 }
 void write_code_P18F872X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter;
 
 	if( (address & 0x20) == 0 ) //package must be 64 bytes, so only do this every two packages.
@@ -435,7 +432,6 @@ void write_code_P18F872X( unsigned long address, unsigned char* data, char block
 }
 void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter;
 
 	if( (address & 0x20) == 0 ) //package must be 64 bytes, so only do this every two packages.
@@ -471,7 +467,6 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 
 void write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter;
 	//FIXME: this should be address & 0x20
 	if( (address & 0x40) == 0 ) //package must be 64 bytes, so only do this every two packages.
@@ -508,7 +503,6 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 
 void write_code_P18F2XXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter;
 
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
@@ -532,7 +526,6 @@ void write_code_P18F2XXX( unsigned long address, unsigned char* data, char block
 }
 void write_code_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
 	char blockcounter;
 
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
@@ -557,7 +550,7 @@ void write_code_P18F4XK22( unsigned long address, unsigned char* data, char bloc
 }
 void write_code_P18F14K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//direct access to code memory
@@ -589,7 +582,7 @@ void write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 }
 void write_code_P18F13K22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//direct access to code memory
@@ -622,7 +615,7 @@ void write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
 
 void write_code_P18FX220( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//direct access to code memory
@@ -654,7 +647,7 @@ void write_code_P18FX220( unsigned long address, unsigned char* data, char block
 }
 void write_code_P18FXX31( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//direct access to config memory
@@ -691,7 +684,7 @@ void write_code_P18FXX31( unsigned long address, unsigned char* data, char block
 }
 void write_code_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+
 	char blockcounter;
 
 	if( !(address & 0x20) )
@@ -739,7 +732,7 @@ void write_code_P18F45J10( unsigned long address, unsigned char* data, char bloc
 
 void write_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+
 	char blockcounter;
 
 	if( (lastblock & 1) && (address > 0) )
@@ -761,7 +754,7 @@ void write_code_P16F182X( unsigned long address, unsigned char* data, char block
 
 void write_code_P16F84A( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+
 	char blockcounter;
 
 	if( (lastblock & 1) && (address > 0) )
@@ -789,7 +782,7 @@ void write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
 }
 void write_code_P12F61X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+
 	char blockcounter;
 
 	if( (lastblock & 1) && (address > 0) )
@@ -846,7 +839,7 @@ void write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
 }
 void write_code_P16F72( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//2 word programming
@@ -868,7 +861,7 @@ void write_code_P16F72( unsigned long address, unsigned char* data, char blocksi
 }
 void write_code_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//4 word programming
@@ -890,7 +883,7 @@ void write_code_P16F785( unsigned long address, unsigned char* data, char blocks
 }
 void write_code_P16F716( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//4 word programming
@@ -912,7 +905,7 @@ void write_code_P16F716( unsigned long address, unsigned char* data, char blocks
 }
 void write_code_P12F6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//4 word programming
@@ -933,7 +926,7 @@ void write_code_P12F6XX( unsigned long address, unsigned char* data, char blocks
 }
 void write_code_P16F87( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	//4 word programming
@@ -955,7 +948,7 @@ void write_code_P16F87( unsigned long address, unsigned char* data, char blocksi
 }
 void write_code_P16F87XA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+	unsigned int i;
 	char blockcounter;
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 16 ) //8 words of data = 16 bytes
@@ -975,7 +968,7 @@ void write_code_P16F87XA( unsigned long address, unsigned char* data, char block
 }
 void write_code_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i, payload;
+
 	char blockcounter;
 
 	if( lastblock & 1 )

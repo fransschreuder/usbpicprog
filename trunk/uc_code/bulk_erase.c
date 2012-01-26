@@ -200,7 +200,7 @@ void bulk_erase_P24KA( unsigned char doRestore )
 }
 void bulk_erase_dsP30F( unsigned char doRestore )
 {
-	unsigned int i, j;
+	unsigned int i;
 
 	//bulk erase program memory
 	//step 1
@@ -560,7 +560,7 @@ void bulk_erase_P16F182X( unsigned char doRestore )
 }
 void bulk_erase_P16F91X( unsigned char doRestore )
 {
-	unsigned int i, j;
+	unsigned int i;
 
 	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 	for( i = 0; i < 8; i++ )
@@ -584,7 +584,7 @@ void bulk_erase_P16F87( unsigned char doRestore )
 void bulk_erase_P12F629( unsigned char doRestore )
 {
 	unsigned int osccal, bandgap; //for P12F629 devices...
-	unsigned int i, j;
+	unsigned int i;
 	unsigned char temp[2];
 
 	for( i = 0; i < 0x3FF; i++ )
@@ -656,7 +656,6 @@ void bulk_erase_P12F6XX( unsigned char doRestore )
 }
 void bulk_erase_P16F59( unsigned char doRestore )
 {
-	unsigned int osccal, bandgap; //for P12F629 devices...
 
 	pic_send_n_bits( 6, 0x06 ); //increment address
 	pic_send_n_bits( 6, 0x09 ); //begin programming
@@ -665,7 +664,7 @@ void bulk_erase_P16F59( unsigned char doRestore )
 }
 void bulk_erase_P10F200( unsigned char doRestore )
 {
-	unsigned int osccal, bandgap; //for P12F629 devices...
+	unsigned int osccal; //for P12F629 devices...
 	unsigned char temp[2];
 
 	if( doRestore == NORESTORE )
@@ -686,7 +685,7 @@ void bulk_erase_P10F200( unsigned char doRestore )
 }
 void bulk_erase_P10F202( unsigned char doRestore )
 {
-	unsigned int osccal, bandgap; //for P12F629 devices...
+	unsigned int osccal; //for P12F629 devices...
 	unsigned char temp[2];
 
 	if( doRestore == NORESTORE )

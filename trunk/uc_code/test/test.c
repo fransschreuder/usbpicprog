@@ -41,7 +41,6 @@ int main( int argc, char *argv[] )
 
 void test( PICTYPE pt )
 {
-	int i;
 	unsigned char result;
 	unsigned long address;
 	unsigned char data[1024];

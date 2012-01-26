@@ -39,11 +39,8 @@ extern PICTYPE pictype;
 char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
 		char lastblock )
 {
-	unsigned int configAddress = 0;
-	unsigned int i;
 	char blockcounter = 0;
-	unsigned int payload;
-	unsigned int ConfigOffset;
+
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
@@ -101,7 +98,6 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 
 void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i;
 	char blockcounter = 0;
 	I2C_start();
 	I2C_write( 0xA0 | ((unsigned char) ((address && 0x10000) >> 13)) ); //Device Address + 0=write
@@ -133,11 +129,9 @@ void read_code_I2C_EE_2( unsigned long address, unsigned char* data, char blocks
 }
 void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
 	unsigned int i;
 	char blockcounter = 0;
 	unsigned int payload;
-	unsigned int ConfigOffset;
 	if( address >= 0xF80000 )
 	{
 		if( lastblock & 1 )
@@ -230,11 +224,8 @@ void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksi
 }
 void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int configAddress = 0;
-	unsigned int i;
 	char blockcounter = 0;
-	unsigned int payload;
-	unsigned int ConfigOffset;
+
 	set_address( picfamily, address );
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{

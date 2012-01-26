@@ -36,9 +36,7 @@ extern PICTYPE pictype;
 char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
 		char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
-	char receiveddata;
+
 	if( lastblock & 1 )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
@@ -121,9 +119,8 @@ char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 
 void write_data_dsPIC30( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
 	char blockcounter, i;
-	char receiveddata;
+
 
 	//Step 1: Exit the Reset vector.
 	dspic_send_24_bits( 0x000000 ); //NOP
@@ -189,8 +186,7 @@ void write_data_dsPIC30( unsigned long address, unsigned char* data, char blocks
 
 void write_data_P18FXX2( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
+	char blockcounter;
 	char receiveddata;
 
 	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
@@ -226,8 +222,7 @@ void write_data_P18FXX2( unsigned long address, unsigned char* data, char blocks
 }
 void write_data_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
+	char blockcounter;
 	char receiveddata;
 
 	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
@@ -260,8 +255,7 @@ void write_data_P18F4XK22( unsigned long address, unsigned char* data, char bloc
 }
 void write_data_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
+	char blockcounter;
 	char receiveddata;
 
 	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
@@ -293,8 +287,7 @@ void write_data_PIC18( unsigned long address, unsigned char* data, char blocksiz
 
 void write_data_PIC18K( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
+	char blockcounter;
 	char receiveddata;
 
 	pic_send( 4, 0x00, 0x9E7F ); //BCF EECON1, EEPGD
@@ -327,9 +320,9 @@ void write_data_PIC18K( unsigned long address, unsigned char* data, char blocksi
 
 void write_data_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
-	char receiveddata;
+
+	char blockcounter;
+
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
@@ -350,9 +343,9 @@ void write_data_P16F785( unsigned long address, unsigned char* data, char blocks
 
 void write_data_P16F87( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
-	char receiveddata;
+
+	char blockcounter;
+
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
@@ -372,9 +365,8 @@ void write_data_P16F87( unsigned long address, unsigned char* data, char blocksi
 }
 void write_data_P16F84A( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
-	char receiveddata;
+	char blockcounter;
+
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
@@ -392,9 +384,7 @@ void write_data_P16F84A( unsigned long address, unsigned char* data, char blocks
 }
 void write_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int payload;
-	char blockcounter, i;
-	char receiveddata;
+	char blockcounter;
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{

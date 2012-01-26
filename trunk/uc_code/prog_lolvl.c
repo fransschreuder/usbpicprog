@@ -41,7 +41,6 @@ void I2C_delay()
 
 void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 {
-	unsigned int i;
 	if( level == 0 )
 		exit_ISCP();
 	else
