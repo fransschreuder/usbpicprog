@@ -16,7 +16,6 @@
       <item>usbctrltrf.c</item>
       <item>usbdrv.c</item>
       <item>upp.c</item>
-      <item>prog.c</item>
       <item>prog_lolvl.c</item>
       <item>upp.h</item>
       <item>interrupt.h</item>
@@ -24,6 +23,22 @@
       <item>prog.h</item>
       <item>prog_lolvl.h</item>
       <item>svn_revision.h</item>
+      <item>write_data.c</item>
+      <item>bulk_erase.c</item>
+      <item>bulk_erase.h</item>
+      <item>device.c</item>
+      <item>device.h</item>
+      <item>picfamily.h</item>
+      <item>pictype.h</item>
+      <item>read_code.c</item>
+      <item>read_code.h</item>
+      <item>read_data.c</item>
+      <item>read_data.h</item>
+      <item>write_code.c</item>
+      <item>write_code.h</item>
+      <item>write_config_bits.c</item>
+      <item>write_config_bits.h</item>
+      <item>write_data.h</item>
     </files>
   </general>
   <compiler>
@@ -52,7 +67,7 @@
     <format>inhx32</format>
     <custom_arguments>
       <item>-m%FAMILY</item>
-      <item>-%DEVICE</item>
+      <item>-p%DEVICE</item>
       <item>-V</item>
       <item>--debug</item>
       <item>-Wl-c</item>
