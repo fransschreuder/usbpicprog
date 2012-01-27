@@ -14,7 +14,7 @@ SUFFIX=c
 ## Add source files here ##
 ## Default is to include all files with suffix ##
 SRC=$(wildcard *.$(SUFFIX))
-TESTSRC= test/test.c prog_lolvl.c bulk_erase.c read_code.c read_data.c write_code.c write_data.c write_config_bits.c device.c
+TESTSRC= test/test.c prog_lolvl.c bulk_erase.c read_code.c read_data.c write_code.c write_data.c write_config_bits.c device.c pic24.c
 ## Object files, created from source names ##
 OBJ=$(SRC:.$(SUFFIX)=.o)
 
@@ -35,7 +35,7 @@ clean:
 	rm -f *.err
 # Create test harness
 test: clean
-	gcc -DTEST -Drom="" -Itest -I. $(TESTSRC) -o runtest
+	gcc -Wunused -DTEST -Drom="" -Itest -I. $(TESTSRC) -o runtest
 	bash -c 'cd baseline; for i in *; do cmp -s $$i <(../runtest $$i) || echo "$$i differs";done;'
 	
 ## Make all nonfile/folder targets phony to prevent conflict ##
