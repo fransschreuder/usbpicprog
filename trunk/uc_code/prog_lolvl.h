@@ -127,6 +127,11 @@ void enter_ISCP_PIC24K( void ) ;
 void enter_ISCP_I2C_EE( void );
 void exit_ISCP( void );
 
+//	lastblock bits
+#define FIRST_BLOCK	0x01
+#define LAST_BLOCK	0x02
+#define CONFIG_BLOCK	0x04
+
 #define TABLE
 #ifdef TEST
 #include "test.h"	// test harness
