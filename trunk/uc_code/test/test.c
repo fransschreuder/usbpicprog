@@ -1,6 +1,7 @@
 #ifdef TEST
 #include "prog.h"
-#include "test.h"
+#include "prog_lolvl.h"
+//#include "test.h"
 #include <string.h>
 
 extern PICFAMILY picfamily;
@@ -13,6 +14,8 @@ int main( int argc, char *argv[] )
 	// very dumb interface if there are arguments then pure numbers are interpreted as pictype enums otherwise as a string pictype
 	// no arguments do all pictypes
 
+//	printf( "devices[UPP_INVALID_PICTYPE].flags.family = %d (%s)\n", devices[UPP_INVALID_PICTYPE].flags.family,
+//			picfamilyName[devices[UPP_INVALID_PICTYPE].flags.family] );
 	if( argc <= 1 )
 		for( pictype = 0; pictype < UPP_INVALID_PICTYPE; ++pictype )
 			test( pictype );
@@ -41,6 +44,7 @@ int main( int argc, char *argv[] )
 
 void test( PICTYPE pt )
 {
+	int i;
 	unsigned char result;
 	unsigned long address;
 	unsigned char data[1024];
@@ -52,7 +56,17 @@ void test( PICTYPE pt )
 		fprintf( stderr, "Unknown pictype %d\n", pictype );
 		return;
 	}
-	currDevice = devices[pictype];
+	for( i = 0; i < UPP_INVALID_PICTYPE; i++ ) {
+		if( devices[i].flags.type == pictype ) {
+			currDevice = devices[i];
+			break;
+		}
+	}
+	if( pictype == UPP_INVALID_PICTYPE )
+	{
+		fprintf( stderr, "Unknown pictype %d\n", pictype );
+		return;
+	}
 	picfamily = currDevice.flags.family;
 
 	address = 0x40;
@@ -87,7 +101,7 @@ void test( PICTYPE pt )
 	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 3, FIRST );
 	result = read_code( picfamily, pictype, 0, data, 3, FIRST );
 	printf( " returns( %d )\n", result );
-	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 & CONFIG_BLOCK );
 	result = read_code( picfamily, pictype, 0xF80000, data, 3, 0 );
 	printf( " returns( %d )\n", result );
 

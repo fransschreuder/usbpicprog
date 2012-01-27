@@ -158,6 +158,7 @@ char bulk_erase( PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore )
 void bulk_erase_none( unsigned char doRestore )
 {
 }
+#if 0
 void bulk_erase_P24KA( unsigned char doRestore )
 {
 	unsigned int i, j;
@@ -198,6 +199,7 @@ void bulk_erase_P24KA( unsigned char doRestore )
 
 	}//step 8: repeat step 5-7
 }
+#endif
 void bulk_erase_dsP30F( unsigned char doRestore )
 {
 	unsigned int i;

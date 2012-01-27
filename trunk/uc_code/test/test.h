@@ -20,7 +20,7 @@
 #define pic_send_word( payload ) 		printf(  "pic_send_word( payload=%04X )\n", (unsigned int) (payload) )
 #define pic_send_14_bits( cmd_size,command,payload ) printf(  "pic_send_14_bits( cmd_size=%d,command=%02X,payload=%04X )\n", cmd_size,command,(unsigned int) (payload) )
 #define pic_send( cmd_size,command,payload ) 	printf(  "pic_send( cmd_size=%d,command=%02X,payload=%04X )\n", cmd_size,command, (unsigned int) (payload) )
-#define dspic_read_16_bits( isLV) 			(printf(  "dspic_read_16_bits(isLV=%d)\n", isLV  ),16)
+#define dspic_read_16_bits( isLV ) 		(printf(  "dspic_read_16_bits(isLV=%d)\n", isLV  ),16)
 #define dspic_send_24_bits( payload ) 		printf(  "dspic_send_24_bits( payload=%06X )\n", (unsigned int)(payload) )
 #define I2C_start() 	printf( "I2C_start()\n"  )
 #define I2C_stop() 	printf( "I2C_stop()\n"  )
