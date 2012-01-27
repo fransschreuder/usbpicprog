@@ -174,7 +174,7 @@ void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize
 	unsigned int i;
 	char blockcounter;
 
-	I2C_start();
+	I2C_start();			//FIXME: should be address & 0x10000 (2 times)
 	I2C_write( 0xA0 | ((unsigned char) ((address && 0x10000) >> 13)) ); //Device Address + 0=write
 
 	I2C_write( (unsigned char) ((address & 0x00FF)) ); //LSB
@@ -215,7 +215,7 @@ void write_code_EE_2( unsigned long address, unsigned char* data, char blocksize
 	I2C_stop();
 	DelayMs( 10 );
 }
-
+#if 0
 void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i, payload;
@@ -307,7 +307,7 @@ void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char bl
 	dspic_send_24_bits( 0x040200 ); //GOTO 0x200
 	dspic_send_24_bits( 0x000000 ); //NOP
 }
-
+#endif
 void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i;
@@ -448,6 +448,7 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
+	//FIXME: should be address & 0x20 probably
 	if( (address && 0x20) || (lastblock & 2) )
 	{
 		//write last 2 bytes of the block and start programming
@@ -483,6 +484,7 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
+	//FIXME: should be address & 0x20 probably
 	if( (address && 0x40) || (lastblock & 2) )
 	{
 		//write last 2 bytes of the block and start programming
