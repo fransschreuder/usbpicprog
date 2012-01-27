@@ -39,6 +39,8 @@
 #pragma udata
 #endif
 byte old_sw2, old_sw3;
+
+// FIXME: why 0x100?
 #pragma udata BUFFERS=0x100
 
 byte input_buffer[USBGEN_EP_SIZE];
