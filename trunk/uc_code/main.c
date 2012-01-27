@@ -140,13 +140,13 @@ char exitToBootloader( char set ) {
 	if( memcmppgm( boot_code_check, boot_code, sizeof( boot_code ) ) != 0 ) // check version of bootloader
 		return( 0 );
 	if( !set ) {
-		if( strcmppgm2ram( (char *) boot_ram_check, "bootloader") != 0 )
+		if( strcmppgm2ram( boot_ram_check, "bootloader") != 0 )
 			return( 0 );
 		else
 			_asm goto boot_entry _endasm;
 	}
 	else {
-		strcpypgm2ram( (char *) boot_ram_check, "bootloader" );
+		strcpypgm2ram( boot_ram_check, "bootloader" );
 		_asm reset _endasm;
 	}
 
@@ -204,7 +204,8 @@ void usb_reset( void )
  *****************************************************************************/
 void main( void )
 {
-	exitToBootloader( 0 )	//setLeds(7);
+	exitToBootloader( 0 );
+	//setLeds(7);
 	//while(1)continue;
 	//USBProtocolResetHandler();
 	//usb_reset();
