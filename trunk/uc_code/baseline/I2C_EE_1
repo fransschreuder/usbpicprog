@@ -170,7 +170,14 @@ I2C_read( ack=0 )
 I2C_read( ack=0 )
 I2C_stop()
  returns( 0 )
->>>>>> read_code( I2C, I2C_EE_1, F80000, data, 03, 0 )
+>>>>>> read_code( I2C, I2C_EE_1, F80000, data, 03, 4 )
+TRISPGD=0
+TRISPGC=0
+PGD=1
+PGC=1
+VDD=0
+DelayMs( 100 ms )
+DelayMs( 100 ms )
 I2C_start()
 I2C_write( d=160 )
 I2C_write( d=0 )

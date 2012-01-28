@@ -429,7 +429,15 @@ pic_read_byte2( cmd_size=4,command=09 )
 pic_read_byte2( cmd_size=4,command=09 )
 pic_read_byte2( cmd_size=4,command=09 )
  returns( 0 )
->>>>>> read_code( PIC18, P18FX220, F80000, data, 03, 0 )
+>>>>>> read_code( PIC18, P18FX220, F80000, data, 03, 4 )
+TRISPGD=0
+TRISPGC=0
+PGD=0
+PGC=0
+VDD=0
+DelayMs( 100 ms )
+VPP=0
+DelayMs( 100 ms )
 pic_send( cmd_size=4,command=00,payload=0EF8 )
 pic_send( cmd_size=4,command=00,payload=6EF8 )
 pic_send( cmd_size=4,command=00,payload=0E00 )

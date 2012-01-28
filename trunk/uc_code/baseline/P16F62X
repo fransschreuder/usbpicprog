@@ -346,7 +346,15 @@ pic_send_n_bits( cmd_size=6,command=06 )
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 0 )
->>>>>> read_code( PIC16, P16F62X, F80000, data, 03, 0 )
+>>>>>> read_code( PIC16, P16F62X, F80000, data, 03, 4 )
+TRISPGD=0
+TRISPGC=0
+PGD=0
+PGC=0
+VPP=0
+DelayMs( 100 ms )
+VDD=0
+DelayMs( 100 ms )
 pic_send_14_bits( cmd_size=6,command=00,payload=0000 )
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
