@@ -58,6 +58,8 @@ unsigned char p16b_do_write()
 	dspic_send_24_bits( 0xA8E761 ); //BSET NVMCON, #WR
 	dspic_send_24_bits( 0x000000 ); //NOP
 	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP			// PIC24H suggests 4 NOPS
+	dspic_send_24_bits( 0x000000 ); //NOP
 	for( ctr = 0; ctr < 200; ctr++ )
 	{
 		dspic_send_24_bits( 0x000000 ); //NOP
@@ -70,7 +72,7 @@ unsigned char p16b_do_write()
 		dspic_send_24_bits( 0x000000 ); //NOP
 		if( (j & 0x8000) == 0 )
 			break; //programming completed
-		DelayMs( 10 );
+		DelayMs( ctr < 10 ? 1: 10 );
 	}
 	//Step 9: Reset device internal PC.
 	dspic_send_24_bits( 0x040200 ); //GOTO 0x200
@@ -85,7 +87,7 @@ void bulk_erase_PIC24( unsigned int nv )
 	dspic_send_24_bits( 0x040200 ); //GOTO 0x200
 	dspic_send_24_bits( 0x000000 ); //NOP
 	//step 2
-	dspic_send_24_bits( 0x20000A|((unsigned long)nv<<4) ); //MOV nv, W10
+	dspic_send_24_bits( 0x24000A|(nv<<4) ); //MOV nv, W10
 	dspic_send_24_bits( 0x883B0A ); //MOV W10, NVMCON
 	//step 3
 	dspic_send_24_bits( 0x200000 ); //MOV #<PAGEVAL>, W0
@@ -99,7 +101,7 @@ void bulk_erase_PIC24( unsigned int nv )
 	//step 5
 	p16b_do_write();
 }
-void bulk_erase_P24KA( unsigned char doRestore )
+void bulk_erase_P24FKA( unsigned char doRestore )
 {
 	bulk_erase_PIC24( 0x4064 );	
 }
@@ -119,13 +121,13 @@ void write_code_PIC24( unsigned long address, unsigned char* data, char blocksiz
 	dspic_send_24_bits( 0x000000 ); 	//NOP
 
 	//Step 2: Set the NVMCON to program 32/64 instruction words.
-	dspic_send_24_bits( 0x20000A|(unsigned long)nv<<4 );	//MOV #0x4004/#0x4001, W10
+	dspic_send_24_bits( 0x24000A|(nv<<4) );	//MOV #0x4004/#0x4001, W10
 	dspic_send_24_bits( 0x883B0A ); 	//MOV W10, NVMCON
 
 	//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.
 	//Step 7: do write	(construct is ugly, but works independent of how large blockcounter increment is (as long as it's a divisor of write_size)
 	for( blockcounter = 0; blockcounter < blocksize;
-	     blockcounter += 12,((address + blockcounter)&(write_size-1)) == 0? p16b_do_write(): 0 )
+	     blockcounter += 6,((address + blockcounter)&(write_size-1)) == 0? p16b_do_write(): 0 )
 	{
 		//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
 		dspic_send_24_bits( 0x200000 | (((((blockcounter + address) * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
@@ -187,46 +189,7 @@ void write_code_P24FJ( unsigned long address, unsigned char* data, char blocksiz
 	write_code_PIC24( address, data, blocksize, 0x4001, 64*3 );
 }
 
-void write_config_bits_p24FKA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
-{
-	static char blockcounter;
-	unsigned int payload;
-
-	//Step 1: Exit the Reset vector.
-	dspic_send_24_bits( 0x000000 );		//NOP
-	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-
-	//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
-	dspic_send_24_bits( 0x200007 );		//MOV #0x0000, W7
-
-	//Step 3: Set the NVMCON to program 1 Configuration register.
-	dspic_send_24_bits( 0x24004A ); 	//MOV #0x4004, W10
-	dspic_send_24_bits( 0x883B0A ); 	//MOV W10, NVMCON
-
-	//Step 4: Initialize the TBLPAG register.
-	dspic_send_24_bits( 0x200F80 ); 	//MOV #0xF8, W0
-	dspic_send_24_bits( 0x880190 ); 	//MOV W0, TBLPAG
-
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-	{
-		//Step 5: Load the Configuration register data to W6.
-		payload = (((unsigned int) data[blockcounter]) | (((unsigned int) data[blockcounter + 1]) << 8));
-		dspic_send_24_bits( 0x200006 | ((unsigned long) payload << 4) ); //MOV #<CONFIG_VALUE>, W6
-		dspic_send_24_bits( 0x000000 ); 	//NOP
-
-		//Step 6: Write the Configuration register data to the write latch and increment the write pointer.
-		dspic_send_24_bits( 0xBB1B86 ); 	//TBLWTL W6, [W7++]
-		dspic_send_24_bits( 0x000000 ); 	//NOP
-		dspic_send_24_bits( 0x000000 ); 	//NOPcleared
-		//Step 7: Initiate the write cycle.
-		//step 8
-		//Step 9: Reset device internal PC.
-		p16b_do_write();
-	}//Step 10: Repeat steps 5-9 until all 7 Configuration registers are done.
-}
-
-void write_config_bits_P24FJ( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_config_bits_PIC24( unsigned long address, unsigned char* data, char blocksize, unsigned int nv )
 {
 	static char blockcounter;
 	unsigned int payload;
@@ -240,7 +203,7 @@ void write_config_bits_P24FJ( unsigned long address, unsigned char* data, char b
 	dspic_send_24_bits( 0x200007|((address&0xFFFF)<<4));	//MOV <addr15:0>, W7
 
 	//Step 3: Set the NVMCON to program 1 Configuration register.
-	dspic_send_24_bits( 0x24003A ); 	//MOV #0x4003, W10
+	dspic_send_24_bits( 0x24000A|(nv<<4)); 	//MOV #0x4003/#0x4001/#0x4000, W10
 	dspic_send_24_bits( 0x883B0A ); 	//MOV W10, NVMCON
 
 	//Step 4: Initialize the TBLPAG register.
@@ -265,12 +228,26 @@ void write_config_bits_P24FJ( unsigned long address, unsigned char* data, char b
 		p16b_do_write();
 	}//Step 10: Repeat steps 5-9 until all Configuration registers (2/4) are written.
 }
+void write_config_bits_P24FKA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	write_config_bits_PIC24( address, data, blocksize, 0x4004A );
+}
+
+void write_config_bits_P24FJ( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	write_config_bits_PIC24( address, data, blocksize, 0x4003A );
+}
+
+void write_config_bits_P24H( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	write_config_bits_PIC24( address, data, blocksize, 0x4000A );
+}
 void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter = 0;
 	unsigned int payload;
 
-	if( (lastblock & CONFIG_BLOCK) == 0 || address == 0xF80000  ) // temporary until rest of system changes
+	if( (lastblock & CONFIG_BLOCK) == 0 &&  address < 0xF80000  ) // temporary until rest of system changes
 	{
 		if( (lastblock & 1) == 1 )
 		{
@@ -356,11 +333,13 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 
 DEVICE_TABLE devices_pic24[] = {
 
-//    Pictype,	picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
+//    		Pictype,	picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
 DEVICE_ENTRY( P24FJXXXGA0XX,	PIC24,	3V,		PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( P24FJXXXGA1,	PIC24,	3V,		PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
-DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,		PIC24K,		P24KA,		PIC24,		none,		P24FXXKAXXX,	none,		P24FJ )
+DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,		PIC24K,		P24FKA,		PIC24,		none,		P24FXXKAXXX,	none,		P24FKA )
 DEVICE_ENTRY( P24FJG,		PIC24,	3V,		PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
+DEVICE_ENTRY( dsP33F,		dsPIC33,3V,		PIC24,		P24FJ,		PIC24,		XXXX,		P24FJ,		XXXX,		P24H )
+DEVICE_ENTRY( P24H,		PIC24,	3V,		PIC24,		P24FJ,		PIC24,		XXXX,		P24FJ,		XXXX,		P24H )
 };
 #pragma romdata
 #undef LIST
