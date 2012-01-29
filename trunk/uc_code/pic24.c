@@ -256,7 +256,7 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 	char blockcounter = 0;
 	unsigned int payload;
 
-	if( lastblock & FIRST_BLOCK )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		//Step 1: Exit the Reset vector.
 		dspic_send_24_bits( 0x000000 ); 	//NOP
@@ -273,7 +273,7 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 		dspic_send_24_bits( 0x000000 ); 	//NOP
 
 	}
-	if( !(lastblock & CONFIG_BLOCK) && address < 0xF80000 ) // temporary until rest of system changes
+	if( !(lastblock & BLOCKTYPE_CONFIG) && address < 0xF80000 ) // temporary until rest of system changes
 	{
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 6 )
 		{
@@ -326,7 +326,7 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 }
 void read_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	read_code_PIC24( address, data, blocksize, lastblock | CONFIG_BLOCK );
+	read_code_PIC24( address, data, blocksize, lastblock | BLOCKTYPE_CONFIG );
 }
 #pragma romdata DEVICES
 DEVICE_TABLE devices_pic24[] =

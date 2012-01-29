@@ -541,8 +541,10 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         unsigned int currentBlockCounter = blockcounter;
         if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
-        if (type==TYPE_CONFIG)
+        if (type==TYPE_CONFIG) {
             currentBlockCounter+=picType->ConfigAddress;
+            blocktype |= BLOCKTYPE_CONFIG;
+        }
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
             blocksize = blockSizeHW;

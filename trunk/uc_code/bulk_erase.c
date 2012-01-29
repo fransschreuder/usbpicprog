@@ -475,7 +475,7 @@ void bulk_erase_P16F87X( unsigned char doRestore )
 	unsigned char temp[2];
 	int i;
 
-	read_code( picfamily, pictype, 0x2007, temp, 2, 3 ); //read the config word to see wether it is code protected or not
+	read_code( picfamily, pictype, 0x2007, temp, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG ); //read the config word to see whether it is code protected or not
 	set_vdd_vpp( pictype, picfamily, 0 );
 	DelayMs( 10 );
 	set_vdd_vpp( pictype, picfamily, 1 );
@@ -609,10 +609,10 @@ void bulk_erase_P12F629( unsigned char doRestore )
 		return; //do not restore bandgap and osccal registers
 	temp[0] = (unsigned char) (osccal & 0xFF);
 	temp[1] = (unsigned char) ((osccal >> 8) & 0xFF);
-	write_code( picfamily, pictype, 0x3FF, temp, 2, 3 );
+	write_code( picfamily, pictype, 0x3FF, temp, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 	temp[0] = 0xFF;
 	temp[1] = (unsigned char) ((bandgap >> 8) | 0xF);
-	write_config_bits( picfamily, pictype, 0x2007, temp, 2, 3 );
+	write_config_bits( picfamily, pictype, 0x2007, temp, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 }
 void bulk_erase_P12F61X( unsigned char doRestore )
 {
@@ -703,6 +703,6 @@ void bulk_erase_P10F202( unsigned char doRestore )
 	DelayMs( 10 );
 	temp[0] = (unsigned char) (osccal & 0xFF);
 	temp[1] = (unsigned char) ((osccal >> 8) & 0xFF);
-	write_code( picfamily, pictype, 0x1FF, temp, 2, 3 );
+	write_code( picfamily, pictype, 0x1FF, temp, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 	DelayMs( 10 );
 }

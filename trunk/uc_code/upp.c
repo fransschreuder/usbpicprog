@@ -187,16 +187,18 @@ void ProcessIO( void )
 			switch( picfamily ) {
 			case PIC24:
 			case dsPIC30:
-				read_code( picfamily, pictype, 0xFF0000, (unsigned char*) output_buffer, 2, 3 );
+				read_code( picfamily, pictype, 0xFF0000, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC18:
 			case PIC18J:
 			case PIC18K:
-				read_code( picfamily, pictype, 0x3FFFFE, (unsigned char*) output_buffer, 2, 3 ); //devid is at location 0x3ffffe   for PIC18 devices
+				//devid is at location 0x3ffffe   for PIC18 devices
+				read_code( picfamily, pictype, 0x3FFFFE, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC16:
 				set_vdd_vpp( picfamily, pictype, 0 );
-				read_code( picfamily, pictype, 0x2006, (unsigned char*) output_buffer, 2, 3 ); //devid is at location 0x2006  for PIC16 devices
+				//devid is at location 0x2006  for PIC16 devices
+				read_code( picfamily, pictype, 0x2006, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			}
 			counter = 2;
@@ -211,8 +213,12 @@ void ProcessIO( void )
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
+		case CMD_READ_CODEold:
+			if( input_buffer[1] <= 8 )
+				input_buffer[5] |= BLOCKTYPE_CONFIG;
 		case CMD_READ_CODE:
 			setLeds( LEDS_ON | LEDS_RD );
+
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
 			PIN = read_code( picfamily, pictype, address, (unsigned char*) output_buffer, input_buffer[1],

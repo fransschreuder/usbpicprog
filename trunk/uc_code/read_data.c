@@ -42,7 +42,7 @@ unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long add
 {
 	char blockcounter = 0;
 
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
 	if( currDevice.read_data )
@@ -69,7 +69,7 @@ unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long add
 			break;
 		}
 	//if(lastblock&2)
-	if( lastblock & 2 )
+	if( lastblock & BLOCKTYPE_LAST )
 		set_vdd_vpp( pictype, picfamily, 0 );
 	return 0;
 }
@@ -139,7 +139,7 @@ void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize
 	unsigned int i;
 	char blockcounter = 0;
 
-	if( (lastblock & 1) && (address > 0) )
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
 		data[0] = pic_read_14_bits( 6, 0x05 ); //read first byte
 		for( i = 0; i < (unsigned int) address; i++ )

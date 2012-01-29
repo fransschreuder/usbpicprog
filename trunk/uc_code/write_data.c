@@ -37,7 +37,7 @@ char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 		char lastblock )
 {
 
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
 	if( currDevice.write_data )
@@ -106,7 +106,7 @@ char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 			break;
 		}
 	}
-	if( lastblock & 2 )
+	if( lastblock & BLOCKTYPE_LAST )
 	{
 		set_vdd_vpp( pictype, picfamily, 0 );
 		return 1; //ok

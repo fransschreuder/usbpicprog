@@ -42,7 +42,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 		char lastblock )
 {
 
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
 	if( currDevice.write_code )
@@ -157,7 +157,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 			return 3;
 			break;
 		}
-	if( lastblock & 2 )
+	if( lastblock & BLOCKTYPE_LAST )
 	{
 		set_vdd_vpp( pictype, picfamily, 0 );
 		return 1; //ok
@@ -170,7 +170,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 
 void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	// FIXME: need to figure out if it can return 2 if lastblock&2
+	// FIXME: need to figure out if it can return 2 if lastblock & BLOCKTYPE_LAST
 	unsigned int i;
 	char blockcounter;
 
@@ -414,7 +414,7 @@ void write_code_P18F872X( unsigned long address, unsigned char* data, char block
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
 	//FIXME: should be address & 0x20 probably
-	if( (address && 0x20) || (lastblock & 2) )
+	if( (address && 0x20) || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -449,7 +449,7 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
 	//FIXME: should be address & 0x20 probably
-	if( (address && 0x20) || (lastblock & 2) )
+	if( (address && 0x20) || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -485,7 +485,7 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
 	//FIXME: should be address & 0x20 probably
-	if( (address && 0x40) || (lastblock & 2) )
+	if( (address && 0x40) || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -717,7 +717,7 @@ void write_code_P18F45J10( unsigned long address, unsigned char* data, char bloc
 	{
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
-		if( lastblock & 2 ) //if the last block is the first half of 64 bytes, it needs to be finished with a dummy block to finish.
+		if( lastblock & BLOCKTYPE_LAST ) //if the last block is the first half of 64 bytes, it needs to be finished with a dummy block to finish.
 		{
 			for( blockcounter = 0; blockcounter < 30; blockcounter += 2 )
 				pic_send( 4, 0x0D, 0xFFFF );
@@ -737,7 +737,7 @@ void write_code_P16F182X( unsigned long address, unsigned char* data, char block
 
 	char blockcounter;
 
-	if( (lastblock & 1) && (address > 0) )
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
 		set_address( picfamily, address ); //set the initial address
 	}
@@ -759,7 +759,7 @@ void write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
 
 	char blockcounter;
 
-	if( (lastblock & 1) && (address > 0) )
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
 		set_address( picfamily, address ); //set the initial address
 	}
@@ -787,7 +787,7 @@ void write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
 
 	char blockcounter;
 
-	if( (lastblock & 1) && (address > 0) )
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
 		set_address( picfamily, address ); //set the initial address
 	}
@@ -973,7 +973,7 @@ void write_code_P16F54( unsigned long address, unsigned char* data, char blocksi
 
 	char blockcounter;
 
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_n_bits( 6, 0x06 );//increment address to go from 1FF / 3FF to 0
 		set_address( picfamily, address ); //set the initial address

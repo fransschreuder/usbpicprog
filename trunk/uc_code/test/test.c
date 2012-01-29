@@ -82,31 +82,31 @@ void test( PICTYPE pt )
 	result = bulk_erase( picfamily, pictype, 0 );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 32, FIRST );
-	result = write_code( picfamily, pictype, 0x00, data, 32, FIRST );
+	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 32, BLOCKTYPE_FIRST );
+	result = write_code( picfamily, pictype, 0x00, data, 32, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
 	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x20L, 32, 0 );
 	result = write_code( picfamily, pictype, 0x20, data, 32, 0 );
 	printf( " returns( %d )\n", result );
 
 
-	printf( ">>>>>> write_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 9, FIRST );
-	result = write_data( picfamily, pictype, address, data, 9, FIRST );
+	printf( ">>>>>> write_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 9, BLOCKTYPE_FIRST );
+	result = write_data( picfamily, pictype, address, data, 9, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> write_config_bits( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x2000L, 3, FIRST );
-	result = write_config_bits( picfamily, pictype, 0x2000, data, 3, FIRST );
+	printf( ">>>>>> write_config_bits( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x2000L, 3, BLOCKTYPE_FIRST );
+	result = write_config_bits( picfamily, pictype, 0x2000, data, 3, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 3, FIRST );
-	result = read_code( picfamily, pictype, 0, data, 3, FIRST );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 3, BLOCKTYPE_FIRST );
+	result = read_code( picfamily, pictype, 0, data, 3, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
-	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 & CONFIG_BLOCK );
-	result = read_code( picfamily, pictype, 0xF80000, data, 3, 0 );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 &BLOCKTYPE_FIRST|BLOCKTYPE_CONFIG );
+	result = read_code( picfamily, pictype, 0xF80000, data, currDevice.flags.type==PIC10? 1: 3, BLOCKTYPE_FIRST|BLOCKTYPE_CONFIG );
 	printf( " returns( %d )\n", result );
 
-	printf( ">>>>>>  read_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x02L, 9, FIRST );
-	result = read_data( picfamily, pictype, 2, data, 9, FIRST );
+	printf( ">>>>>>  read_data( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x02L, 9, BLOCKTYPE_FIRST );
+	result = read_data( picfamily, pictype, 2, data, 9, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
 
 	printf("done\n");

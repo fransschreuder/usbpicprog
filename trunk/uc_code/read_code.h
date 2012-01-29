@@ -22,8 +22,5 @@ void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocks
 void read_code_I2C_EE_2( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-void read_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_code_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-void read_code_P10F200( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-void read_code_P16F54( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-void read_code_P16F57( unsigned long address, unsigned char* data, char blocksize, char lastblock );
+void read_code_PIC10( unsigned long address, unsigned char* data, char blocksize, char lastblock );

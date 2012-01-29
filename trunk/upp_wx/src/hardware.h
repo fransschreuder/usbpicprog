@@ -38,7 +38,9 @@ typedef enum
     CMD_ERASE = 0x10,
     CMD_READ_ID = 0x20,
     CMD_WRITE_CODE = 0x30,
-    CMD_READ_CODE = 0x40,
+//    CMD_READ_CODE_OLD = 0x40,			// original read code/config command differentiated by address (and blocksize <= 8 except for PIC18F2221
+    	    	    	    	    	    	//    and PIC18 don't distinguish code/config )
+    CMD_READ_CODE = 0x41,			// new read command that uses BLOCKTYPE_CONFIG to indicate a config read
     CMD_WRITE_DATA = 0x50,
     CMD_READ_DATA = 0x60,
     CMD_WRITE_CONFIG = 0x70,
@@ -86,9 +88,12 @@ typedef enum
 }CMD_BOOT;
 
 #define BLOCKTYPE_MIDDLE 0
-#define BLOCKTYPE_FIRST 1
-#define BLOCKTYPE_LAST 2
-#define BLOCKTYPE_FIRST_LAST 3
+#define BLOCKTYPE_FIRST	 0x01
+#define BLOCKTYPE_LAST	 0x02
+#define BLOCKTYPE_CONFIG 0x10
+#define BLOCKTYPE_CODE	 0x20
+#define BLOCKTYPE_DATA	 0x40
+#define BLOCKTYPE_FIRST_LAST (BLOCKTYPE_FIRST|BLOCKTYPE_LAST)
 
 #define BLOCKSIZE_DATA 8
 #define BLOCKSIZE_CONFIG 8

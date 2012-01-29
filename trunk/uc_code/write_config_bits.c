@@ -52,7 +52,7 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 		char blocksize, char lastblock )
 {
 
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_vdd_vpp( pictype, picfamily, 1 );
 #ifdef TABLE
 	if( currDevice.write_config_bits )
@@ -155,7 +155,7 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			return 3;
 			break;
 		}
-	if( lastblock & 2 )
+	if( lastblock & BLOCKTYPE_LAST )
 	{
 		set_vdd_vpp( pictype, picfamily, 0 );
 		return 1; //ok
@@ -170,7 +170,7 @@ void write_config_bits_dsP30F( unsigned long address, unsigned char* data, char 
 {
 	static char blockcounter;
 	unsigned int payload;
-	if( (lastblock & 1) == 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		//Step 1: Exit the Reset vector.
 		dspic_send_24_bits( 0x000000 ); //NOP
@@ -354,7 +354,7 @@ void write_config_bits_P16F785( unsigned long address, unsigned char* data, char
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
@@ -383,7 +383,7 @@ void write_config_bits_P16F87( unsigned long address, unsigned char* data, char 
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
@@ -412,7 +412,7 @@ void write_config_bits_P16F716( unsigned long address, unsigned char* data, char
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
@@ -442,7 +442,7 @@ void write_config_bits_P16F72( unsigned long address, unsigned char* data, char 
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
@@ -469,7 +469,7 @@ void write_config_bits_P16F62XA( unsigned long address, unsigned char* data, cha
 	char i;
 	static char blockcounter;
 	unsigned int payload;
-	if( lastblock & 1 )
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
