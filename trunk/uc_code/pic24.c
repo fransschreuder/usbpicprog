@@ -265,7 +265,7 @@ void write_config_bits_P24H( unsigned long address, unsigned char* data, char bl
 {
 	write_config_bits_PIC24( address, data, blocksize, 0x4000A );
 }
-void write_data_P24KA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	write_config_bits_PIC24( address, data, blocksize, 0x4004A );
 }
@@ -354,8 +354,8 @@ DEVICE_TABLE devices_pic24[] =
 //    		Pictype,	picfamily,5V,	enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
 DEVICE_ENTRY( P24FJXXXGA0XX,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( P24FJXXXGA1,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
-DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,	PIC24K,		P24KA,		PIC24,		P24KA1,		P24KA,		P24FKA,		P24KA )
-//DEVICE_ENTRY( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24FKA,		P24KA )
+DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,	PIC24K,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA1,		P24KA )
+//DEVICE_ENTRY( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA,		P24KA )
 DEVICE_ENTRY( P24FJG,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 DEVICE_ENTRY( P24H,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )

@@ -213,7 +213,7 @@ void ProcessIO( void )
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
-		case CMD_READ_CODEold:
+		case CMD_READ_CODE_OLD:
 			if( input_buffer[1] <= 8 )
 				input_buffer[5] |= BLOCKTYPE_CONFIG;
 		case CMD_READ_CODE:
