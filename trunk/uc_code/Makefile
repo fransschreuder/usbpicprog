@@ -5,8 +5,8 @@ CC=env $(WINEOPTS) wine c:\\mcc18\\bin\\mcc18.exe
 LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe 
 INSTALL=usbpicprog -e -s -w -f uc_code.hex
 
-FLAGS=-p=18f2550 -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
-LDFLAGS= /p 18f2550 /k/ rm18f4550.lkr /l C:\\mcc18\\lib
+FLAGS=-p=18f2550 -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
+LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
 
 ## Source file suffix ##
 SUFFIX=c
