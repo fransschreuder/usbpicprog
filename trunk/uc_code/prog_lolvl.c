@@ -223,7 +223,6 @@ void enter_ISCP_I2C_EE()
 
 void exit_ISCP()
 {
-	// FIXME: VPP left running? enableVPP(), should be set?
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)
@@ -238,7 +237,6 @@ void set_address_P16( unsigned long address );
 void set_address_P18( unsigned long address );
 void set_address( PICFAMILY picfamily, unsigned long address )
 {
-	//FIXME: no set address for PIC24
 	switch( picfamily ) {
 	case PIC18:
 	case PIC18J:
