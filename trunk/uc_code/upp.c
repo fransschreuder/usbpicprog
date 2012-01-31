@@ -256,22 +256,37 @@ void ProcessIO( void )
 			setLeds( LEDS_ON );
 			break;
 		case CMD_SET_PICTYPE:
+		{
+			int i;
 			pictype = input_buffer[1];
-			if( pictype < UPP_INVALID_PICTYPE )
+
+			for( i = 0; i < UPP_INVALID_PICTYPE; i++ ) {
+				if( devices[i].flags.type == pictype ) {
+					currDevice = devices[i];
+					break;
+				}
+			}
+
+			if( i < UPP_INVALID_PICTYPE && currDevice.flags.family != UPP_INVALID_PICFAMILY )
 				output_buffer[0] = 1;		// OK
 			else
 			{
 				pictype = P18F2XXX;
+				for( i = 0; i < UPP_INVALID_PICTYPE; i++ ) {
+					if( devices[i].flags.type == pictype ) {
+						currDevice = devices[i];
+						break;
+					}
+				}
+
 				output_buffer[0] = 3;		// bad pictype
 			}
-			currDevice = devices[pictype];
 			picfamily = currDevice.flags.family;
-			if( picfamily == UPP_INVALID_PICFAMILY )
-				output_buffer[0] = 3;		// flag not implemented devices
 
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
+		}
 		case CMD_FIRMWARE_VERSION:
 			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
 			counter = 18;
