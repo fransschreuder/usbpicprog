@@ -273,6 +273,12 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	cout<<"Connecting..."<<flush;
     m_hardware.connect(NULL, HW_UPP);
     if(parser.Found("BOOT") ) {
+	    if( m_hardware.getCurrentProtocol() == PROT_UPP0 )
+	    {
+		    cout << "option -BOOT unavailable with this version of firmware" << endl;
+		    m_nRetCode = -1;
+		    return;
+	    }
 	    cout <<endl<< "Usbpicprg resetting to bootloader ."<<flush;
 	   if( !m_hardware.reboot( HW_UPP ) )
 		   sleep( 1 );		// give it time to reboot
