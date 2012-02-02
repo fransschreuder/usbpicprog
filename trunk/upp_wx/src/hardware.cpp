@@ -1260,7 +1260,7 @@ int Hardware::writeString(const unsigned char* msg, int size, bool noerror) cons
 {
     if (m_handle == NULL) return -1;
 
-    printf( "writeString%s: 0x%02X 0x%02X (%d)\n", noerror?"(noerror)":"", msg[0], msg[1], msg[1] );
+    //printf( "writeString: 0x%02X 0x%02X (%d)\n", msg[0], msg[1], msg[1] );
 
     int nBytes, retcode;
     if (m_modeWriteEndpoint == LIBUSB_TRANSFER_TYPE_INTERRUPT)
