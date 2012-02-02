@@ -176,6 +176,22 @@ void ProcessIO( void )
 	if( nBytes > 0 )
 	{
 		switch( input_buffer[0] ) {
+		case CMD_GET_PROTOCOL_VERSION:
+			output_buffer[0] = 1;		// version 1
+			counter = 1;
+			break;
+		case CMD_EXIT_TO_BOOTLOADER:
+			exitToBootloader( 1 );		// if this returns -> bad bootloader version, return error
+			for( counter = 0; counter < 10; counter++ )
+			{
+				setLeds(7);
+				DelayMs( 200 );
+				setLeds( 0 );
+				DelayMs( 200 );
+			}
+			output_buffer[0] = 3;
+			counter = 1;
+			break;
 		case CMD_ERASE:
 			setLeds( LEDS_ON | LEDS_WR );
 			output_buffer[0] = bulk_erase( picfamily, pictype, input_buffer[1] );
@@ -213,8 +229,10 @@ void ProcessIO( void )
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
+		case CMD_READ_CONFIG:
+			input_buffer[5] |= BLOCKTYPE_CONFIG;
 		case CMD_READ_CODE_OLD:
-			if( input_buffer[1] <= 8 )
+			if( input_buffer[1] <= 8 )		// this is correct for all but PIC18F4321(?) where it doesn't matter
 				input_buffer[5] |= BLOCKTYPE_CONFIG;
 		case CMD_READ_CODE:
 			setLeds( LEDS_ON | LEDS_RD );
@@ -493,6 +511,9 @@ void ProcessIO( void )
 			}
 			counter = 1;
 			break;
+		default:
+			output_buffer[0] = 3;			// unrecognized command
+			counter = 1;
 		}
 	}
 	if( counter != 0 )
