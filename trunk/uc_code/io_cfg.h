@@ -110,7 +110,7 @@
 
 /** Manipulate Programmer pins **************************************/
 #define setPGDinput()	do { TRISPGD=1;TRISPGD_LOW=1; } while(0)
-#define setPGDoutput()	do { if( is3_3V() ) TRISPGD_LOW=0; TRISPGD=1;} while(0)
+#define setPGDoutput()	do { if( is3_3V() ) TRISPGD_LOW=0; TRISPGD=0;} while(0)
 #define enablePGC_D()	do { if( is3_3V() ) { TRISPGC_LOW=0; TRISPGD_LOW=0; } TRISPGC=0;TRISPGD=0;} while(0)
 #define disablePGC_D()	do { TRISPGC_LOW=1; TRISPGD_LOW=1; TRISPGC=1;TRISPGD=1;} while(0)
 //#define enablePGC_LOW()	TRISPGC_LOW=0
