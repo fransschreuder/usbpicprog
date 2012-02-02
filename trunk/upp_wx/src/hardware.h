@@ -286,6 +286,13 @@ public:
 
 
     /** 
+        Gives the hardware the command to reboot.
+        	firmware boots into the bootloader.
+        	bootloader reboots (and check bootloader/app switch).
+    */
+    int reboot(HardwareType what);
+
+    /**
         Erases all the contents (code, data and config) of the PIC memory.
         Returns the reply code from the attached hardware or a negative value if there was an error.
     */

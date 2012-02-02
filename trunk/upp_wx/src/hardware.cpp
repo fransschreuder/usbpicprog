@@ -328,6 +328,34 @@ int Hardware::setPicType(PicType* picType)
     return (int)msg[0];
 }
 
+int Hardware::reboot(HardwareType what)
+{
+    if (m_hwCurrent != what ) return -1;
+    if (m_handle == NULL) return -1;
+    if ( what == HW_BOOTLOADER ) {
+	    BootloaderPackage bootloaderPackage;
+	    bootloaderPackage.data[bp_cmd]=CMD_BOOT_RESET;
+
+	    writeString(bootloaderPackage.data,5, 1);
+
+	    // read back the reply
+	    //    int nBytes = readString(bootloaderPackage.data,1);		// should timeout
+	    disconnect();
+	    return 0;
+    }
+    else if( what == HW_UPP ) {
+	    unsigned char msg[64];
+	    msg[0]= CMD_EXIT_TO_BOOTLOADER;
+	    // send the command to the hw
+	    writeString(msg,1, 1);
+	    disconnect();
+	    return 0;
+
+    }
+    else
+	    return( -1 );
+}
+
 int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
 {
     unsigned char msg[64];
@@ -889,7 +917,7 @@ int Hardware::autoDetectDevice()
 		return picBoot.DevId;
 	}
 
-	PicType pic24F = PicType::FindPIC(("24F04KA200"));
+	PicType pic24F = PicType::FindPIC(("24FJ64GB002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
 	int devId=readId();
@@ -899,6 +927,17 @@ int Hardware::autoDetectDevice()
 	PicType picType = PicType::FindPIC(0x20000|devId);
 	if(picType.ok())
 		return devId|0x20000; 
+
+	pic24F = PicType::FindPIC(("24F04KA200"));
+	if(setPicType(&pic24F)<0)
+	return -1;
+	devId=readId();
+	if(devId<0)
+		return -1;
+	cout<<"Pic24FK id: "<<std::hex<< devId<<endl;
+	picType = PicType::FindPIC(0x20000|devId);
+	if(picType.ok())
+		return devId|0x20000;
 
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
@@ -997,7 +1036,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 
     if (m_hwCurrent == HW_UPP)
     {
-        statusCallBack (0);
+//        statusCallBack (0);
         firmwareVersion->isBootloader=false;
         
         // send the command
@@ -1040,7 +1079,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
             firmwareVersion->release=atoi(strippedVersion.c_str());
         }
         //cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
-        statusCallBack (100);
+//        statusCallBack (100);
         return nBytes;
     }
     else

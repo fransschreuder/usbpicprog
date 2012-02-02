@@ -246,6 +246,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     wxString output;
     wxString filename;
 	VerifyResult res;
+	int i;
 
 #ifdef __WXMSW__
     // when using Windows, wxWidgets takes over the terminal but we want to have it for cout and cerr
@@ -269,13 +270,21 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	
     // before proceeding, test if the Hardware class is able to connect to
     // the hardware interface:
-	cout<<"Connecting"<<endl;
+	cout<<"Connecting..."<<flush;
     m_hardware.connect(NULL, HW_UPP);
-	if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
+    if(parser.Found("BOOT") ) {
+	    cout <<endl<< "Usbpicprg resetting to bootloader ."<<flush;
+	   if( !m_hardware.reboot( HW_UPP ) )
+		   sleep( 1 );		// give it time to reboot
+	   	   cout << "."<<flush;
+	   	   sleep( 1 );
+	   	   cout << "."<<flush;
+    }
+    if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
 		m_hardware.connect(NULL, HW_BOOTLOADER); 
     if(!m_hardware.connected()) //no bootloader found either...
     {
-        cerr<<"Usbpicprog not found"<<endl;
+        cerr<<" Usbpicprog not found"<<endl;
         m_nRetCode = -1;
         return;
     }
@@ -286,8 +295,6 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	}
 	else
 	    cerr<<"Error reading firmware version"<<endl;
-			
-
     // command line option -s or --silent passed?
     silent_mode = parser.Found(("s"));
     
@@ -554,6 +561,16 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
+    if(parser.Found(("RST")))
+    {
+	int res;
+
+        cout<<"resetting bootloader"<<endl;
+        res=m_hardware.reboot( HW_BOOTLOADER );
+        if( res != 0 )
+        	cout << "error " << res << endl;
+    }
+
     m_hardware.disconnect();
 
     m_nRetCode = 0;
