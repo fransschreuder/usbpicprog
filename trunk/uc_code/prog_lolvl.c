@@ -193,12 +193,31 @@ void enter_ISCP_PIC18K()
 }
 void enter_ISCP_PIC24()
 {
-	enter_ISCP_PIC18J();
+	int i;
+
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+
+	VPP_RUNoff(); //MCLR low
+	VDDon();
+	DelayMs( 10 );
+	VPP_RUNon(); //VPP to 4.5V
+	clock_delay();
+	VPP_RUNoff(); //and immediately back to 0...
+	VPP_RSTon();
+	clock_delay();	//P19 = 40ns min
+	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
+	//0x3D43 => 0100 1101 0100 0011
+	//from low to high => 1100 0010 1011 0010
+	//0xC2B2
+	pic_send_word( 0xC2B2 );
+	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x0A12
+	pic_send_word( 0x8A12 );
+	VPP_RSToff(); //release from reset
+	VPP_RUNon();
 
 	DelayMs( 25 );
 	pic_send_n_bits( 5, 0 );
 	dspic_send_24_bits( 0 ); //send a nop instruction with 5 additional databits
-	DelayMs( 1 );
 }
 void enter_ISCP_PIC24K()
 {
