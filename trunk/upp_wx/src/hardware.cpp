@@ -93,6 +93,7 @@ Hardware::Hardware()
     m_handle = NULL;
     m_pCallBack = NULL;
     m_hwCurrent = HW_NONE;
+    m_protocol = PROT_NONE;
     m_abortOperations = false;
     m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
 }
@@ -158,6 +159,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     if (m_handle==NULL)
     {
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         return false;
     }
 
@@ -191,6 +193,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     {
         wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         m_handle = NULL;
         return false;
     }
@@ -202,6 +205,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     {
         wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         m_handle = NULL;
         return false;
     }
@@ -237,13 +241,26 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
 	if(m_hwCurrent==HW_UPP)
 	    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
 	else 
-		m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_BULK;
+	    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_BULK;
 #endif    
     
     // everything completed successfully:
 
     wxASSERT(m_handle != NULL && m_hwCurrent != HW_NONE);
+    if( m_hwCurrent == HW_BOOTLOADER )
+	    m_protocol = PROT_BOOTLOADER0;
+    else
+    {
+	    unsigned char msg[64];
 
+	    msg[0] = CMD_GET_PROTOCOL_VERSION;
+	    writeString(msg,1,true);			// ignore errors (if we are disconnected then we will figure it out next time)
+	    int nBytes = readString(msg,1,true);	// unfortunately this results in a timeout for PROT_UPP0
+	    if (nBytes > 0)
+		    m_protocol = (PROTOCOL) (PROT_UPP0 + msg[0]);
+	    else
+		    m_protocol = PROT_UPP0;
+    }
     return true;
 }
 
@@ -543,7 +560,6 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
             currentBlockCounter /= 2;
         if (type==TYPE_CONFIG) {
             currentBlockCounter+=picType->ConfigAddress;
-            blocktype |= BLOCKTYPE_CONFIG;
         }
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
@@ -976,6 +992,7 @@ bool Hardware::stopTarget()
 int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 {
     unsigned char msg[64];
+    char protocol[70];
     if (m_handle == NULL) return -1;
 
     if (m_hwCurrent == HW_UPP)
@@ -1006,7 +1023,8 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
             disconnect();
             return nBytes;
         }
-        firmwareVersion->versionString.assign((const char*)msg);
+        snprintf( protocol,70,"%s P%d",(char*) msg, m_protocol - PROT_UPP0 );
+        firmwareVersion->versionString.assign(protocol);
         wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
         firmwareVersion->stableRelease=(strippedVersion.size()==5);
         if(firmwareVersion->stableRelease)
@@ -1217,7 +1235,7 @@ int Hardware::debug()
 // Hardware - private functions
 // ----------------------------------------------------------------------------
 
-int Hardware::readString(unsigned char* msg, int size) const
+int Hardware::readString(unsigned char* msg, int size, bool noerror) const
 {
     if (m_handle == NULL) return -1;
 
@@ -1227,7 +1245,7 @@ int Hardware::readString(unsigned char* msg, int size) const
     else
         retcode = libusb_bulk_transfer(m_handle, READ_ENDPOINT, msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
-    if (retcode != LIBUSB_SUCCESS)
+    if (!noerror && retcode != LIBUSB_SUCCESS)
     {
 	//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
 	#ifndef __WIN32__
@@ -1238,9 +1256,11 @@ int Hardware::readString(unsigned char* msg, int size) const
     return nBytes;
 }
 
-int Hardware::writeString(const unsigned char* msg, int size) const
+int Hardware::writeString(const unsigned char* msg, int size, bool noerror) const
 {
     if (m_handle == NULL) return -1;
+
+    printf( "writeString%s: 0x%02X 0x%02X (%d)\n", noerror?"(noerror)":"", msg[0], msg[1], msg[1] );
 
     int nBytes, retcode;
     if (m_modeWriteEndpoint == LIBUSB_TRANSFER_TYPE_INTERRUPT)
@@ -1248,7 +1268,7 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     else 
         retcode = libusb_bulk_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
-    if (retcode != LIBUSB_SUCCESS || nBytes < size)
+    if (!noerror &&  (retcode != LIBUSB_SUCCESS || nBytes < size) )
     {
         wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
                    libusb_strerror((libusb_error)retcode));
@@ -1298,9 +1318,14 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         switch (type)
         {
         case TYPE_CODE:
+                uppPackage.data[up_cmd]=CMD_READ_CODE;
+                break;
         case TYPE_CONFIG:
             //cout<<"Read code or config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.data[up_cmd]=CMD_READ_CODE;
+            if( m_protocol == PROT_UPP0 )
+        	    uppPackage.data[up_cmd]=CMD_READ_CODE;
+            else
+        	    uppPackage.data[up_cmd]=CMD_READ_CONFIG;
             break;
         case TYPE_DATA:
             uppPackage.data[up_cmd]=CMD_READ_DATA;
