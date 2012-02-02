@@ -94,8 +94,10 @@ void low_isr(void) interrupt 1
 void startTimerMs( unsigned int cnt )
 {
 	timerRunning = 0; // no surprises from timer interrupt
-	timerCnt = cnt + 1;
-	timerRunning = 1;
+	if( cnt ) {
+		timerCnt = cnt + 1;
+		timerRunning = 1;
+	}
 }
 
 void DelayMs( unsigned cnt )
