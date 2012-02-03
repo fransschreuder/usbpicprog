@@ -150,7 +150,7 @@ void write_code_PIC24( unsigned long address, unsigned char* data, char blocksiz
 	//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.
 	//Step 7: do write	(construct is ugly, but works independent of how large blockcounter increment is (as long as it's a divisor of write_size)
 	for( blockcounter = 0; blockcounter < blocksize;
-	     blockcounter += 6,((address + blockcounter)&(write_size-1)) == 0? p16b_do_write(): 0 )
+	     blockcounter += 12,((address + blockcounter)%write_size) == 0? p16b_do_write(): 0 )
 	{
 		//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
 		dspic_send_24_bits( 0x200000 | (((((blockcounter + address) * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
@@ -237,7 +237,7 @@ void write_config_bits_PIC24( unsigned long address, unsigned char* data, char b
 	{
 		//Step 5: Load the Configuration register data to W6.
 		payload = (((unsigned int) data[blockcounter]) | (((unsigned int) data[blockcounter + 1]) << 8));
-		dspic_send_24_bits( 0x200006 | ((unsigned long) payload << 4) ); //MOunsigned char V #<CONFIG_VALUE>, W6
+		dspic_send_24_bits( 0x200006 | ((unsigned long) payload << 4) ); //MOV #<CONFIG_VALUE>, W6
 
 		//Step 6: Write the Configuration register data to the write latch and increment the write pointer.
 		dspic_send_24_bits( 0x000000 ); //NOP
@@ -253,21 +253,21 @@ void write_config_bits_PIC24( unsigned long address, unsigned char* data, char b
 }
 void write_config_bits_P24KA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	write_config_bits_PIC24( address, data, blocksize, 0x4004A );
+	write_config_bits_PIC24( address, data, blocksize, 0x4004 );
 }
 
 void write_config_bits_P24FJ( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	write_config_bits_PIC24( address, data, blocksize, 0x4003A );
+	write_config_bits_PIC24( address, data, blocksize, 0x4003 );
 }
 
 void write_config_bits_P24H( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	write_config_bits_PIC24( address, data, blocksize, 0x4000A );
+	write_config_bits_PIC24( address, data, blocksize, 0x4000 );
 }
 void write_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	write_config_bits_PIC24( address, data, blocksize, 0x4004A );
+	write_config_bits_PIC24( address, data, blocksize, 0x4004 );
 }
 
 void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize, char lastblock )
@@ -294,7 +294,7 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 		dspic_send_24_bits( 0x000000 ); 	//NOP
 
 	}
-	if( !(lastblock & BLOCKTYPE_CONFIG) && address < 0xF80000 ) // temporary until rest of system changes
+	if( !(lastblock & BLOCKTYPE_CONFIG) ) // temporary until rest of system changes
 	{
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 6 )
 		{

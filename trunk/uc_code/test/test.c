@@ -1,4 +1,5 @@
 #ifdef TEST
+#include <stdio.h>
 #include "prog.h"
 #include "prog_lolvl.h"
 //#include "test.h"

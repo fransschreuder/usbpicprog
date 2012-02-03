@@ -51,7 +51,6 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 	else
 		enter_ISCP_simple();
 #else
-		switch( pictype ) {
 		switch( picfamily ) {
 		case PIC18J:
 			enter_ISCP_PIC18J();
@@ -161,6 +160,7 @@ void enter_ISCP_PIC18J()
 	pic_send_word( 0xC2B2 );
 	//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x0A12 );
+	DelayMs( 2 );
 	VPP_RSToff(); //release from reset
 	VPP_RUNon();
 	DelayMs( 1 );
@@ -193,7 +193,7 @@ void enter_ISCP_PIC18K()
 }
 void enter_ISCP_PIC24()
 {
-	int i;
+	unsigned char ctr;
 
 	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
@@ -210,23 +210,51 @@ void enter_ISCP_PIC24()
 	//from low to high => 1100 0010 1011 0010
 	//0xC2B2
 	pic_send_word( 0xC2B2 );
-	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x0A12
+	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x8A12
 	pic_send_word( 0x8A12 );
+	DelayMs( 1 );
 	VPP_RSToff(); //release from reset
 	VPP_RUNon();
 
 	DelayMs( 25 );
 	pic_send_n_bits( 5, 0 );
-	dspic_send_24_bits( 0 ); //send a nop instruction with 5 additional databits
+	dspic_send_24_bits( 0x000000 ); 	//NOP
+	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
+	dspic_send_24_bits( 0x000000 ); 	//NOP
 }
 void enter_ISCP_PIC24K()
 {
-	enter_ISCP_PIC18K();
+	int i;
+
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+
+	VPP_RUNoff(); //MCLR low
+	VDDon();
+	DelayMs( 10 );
+	VPP_RUNon(); //VPP to 4.5V
+	for( i = 0; i < 300; i++ )
+		continue; //aprox 0.5ms
+	//clock_delay();	//P19 = 40ns min
+	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
+	//0x3D43 => 0100 1101 0100 0011
+	//from low to high => 1100 0010 1011 0010
+	//0xC2B2
+	pic_send_word( 0xC2B2 );
+	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x0A12
+	pic_send_word( 0x8A12 );
+	VPP_RSToff(); //release from reset	//FIXME: have to assume this is already done?
+	VPP_RUNon();				// unneeded
+	DelayMs( 1 );
+
+
+//	enter_ISCP_PIC18K();
 
 	DelayMs( 25 );
 	pic_send_n_bits( 5, 0 );
 	dspic_send_24_bits( 0 ); //send a nop instruction with 5 additional databits
-	DelayMs( 1 );
+	dspic_send_24_bits( 0x000000 ); 	//NOP
+	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
+	dspic_send_24_bits( 0x000000 ); 	//NOP
 }
 void enter_ISCP_I2C_EE()
 {
@@ -245,11 +273,11 @@ void exit_ISCP()
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)
-	DelayMs( 40 );
+	DelayMs( 1 );//DelayMs( 40 );
 	VPP_RSToff(); //hard reset, high (inverted)
 	VDDoff(); //low, (inverted)
 	disablePGC_D();
-	DelayMs( 20 );
+	//DelayMs( 20 );
 }
 
 void set_address_P16( unsigned long address );
@@ -470,14 +498,18 @@ unsigned int dspic_read_16_bits( unsigned char isLV )
 	for( i = 0; i < 3; i++ )
 	{
 		PGChigh();
+		clock_delay();
 		PGClow();
+		clock_delay();
 	}
 	//pic_send_n_bits(4,1);
 	result = 0;
 	for( i = 0; i < 8; i++ )
 	{
 		PGChigh();
+		clock_delay();
 		PGClow();
+		clock_delay();
 	}
 	//pic_send_n_bits(8,0);
 	setPGDinput();
@@ -501,6 +533,7 @@ void dspic_send_24_bits( unsigned long payload )
 	for( i = 0; i < 4; i++ )
 	{
 		PGChigh();
+		clock_delay();
 		PGClow();
 	}
 	for( i = 0; i < 24; i++ )
@@ -508,14 +541,15 @@ void dspic_send_24_bits( unsigned long payload )
 
 		if( payload & 1 )
 			PGDhigh();
-			else
-				PGDlow();
+		else
+			PGDlow();
 		payload >>= 1;
 		clock_delay();
 		PGChigh();
 		clock_delay();
 		PGClow();
 	}
+	PGDlow();
 }
 
 void I2C_start( void )
