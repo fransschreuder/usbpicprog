@@ -86,8 +86,8 @@ void test( PICTYPE pt )
 	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 32, BLOCKTYPE_FIRST );
 	result = write_code( picfamily, pictype, 0x00, data, 32, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
-	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0x20L, 32, 0 );
-	result = write_code( picfamily, pictype, 0x20, data, 32, 0 );
+	printf( ">>>>>> write_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 256-32, 32, 0 );
+	result = write_code( picfamily, pictype, 256-32, data, 32, 0 );
 	printf( " returns( %d )\n", result );
 
 
@@ -102,7 +102,7 @@ void test( PICTYPE pt )
 	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0L, 3, BLOCKTYPE_FIRST );
 	result = read_code( picfamily, pictype, 0, data, 3, BLOCKTYPE_FIRST );
 	printf( " returns( %d )\n", result );
-	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, 0 &BLOCKTYPE_FIRST|BLOCKTYPE_CONFIG );
+	printf( ">>>>>> read_code( %s, %s, %04lX, data, %02X, %X )\n", picfamilyName[picfamily], pictypeName[pictype], 0xF80000L, 3, BLOCKTYPE_FIRST|BLOCKTYPE_CONFIG );
 	result = read_code( picfamily, pictype, 0xF80000, data, currDevice.flags.type==PIC10? 1: 3, BLOCKTYPE_FIRST|BLOCKTYPE_CONFIG );
 	printf( " returns( %d )\n", result );
 
