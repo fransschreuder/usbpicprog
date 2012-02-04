@@ -30,14 +30,17 @@
 #include "io_cfg.h"             // I/O pin mapping
 #include "prog_lolvl.h"
 
-#ifndef TEST
+#ifdef TEST
+#undef I2C_delay
+#undef set_vdd_vpp
+#endif
+
 void I2C_delay()
 {
 	char i;
 	for( i = 0; i < 10; i++ )
 		continue;
 }
-#endif
 
 void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 {
@@ -46,6 +49,12 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 	else
 	{
 #ifdef TABLE
+#if 0
+		printf( "enter_ISCP - %08lX -", (long) currDevice.enter_ISCP );
+		int i;
+		for( i = 0; i < 8; i++ )
+			printf( " %08X", (long *)&currDevice + i );
+#endif
 	if( currDevice.enter_ISCP )
 		currDevice.enter_ISCP();
 	else
@@ -193,7 +202,6 @@ void enter_ISCP_PIC18K()
 }
 void enter_ISCP_PIC24()
 {
-	unsigned char ctr;
 
 	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
@@ -273,11 +281,11 @@ void exit_ISCP()
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)
-	DelayMs( 1 );//DelayMs( 40 );
+	DelayMs( 40 );
 	VPP_RSToff(); //hard reset, high (inverted)
 	VDDoff(); //low, (inverted)
 	disablePGC_D();
-	//DelayMs( 20 );
+	DelayMs( 20 );
 }
 
 void set_address_P16( unsigned long address );

@@ -12,6 +12,7 @@
 #undef Nop
 #define Nop()
 
+#define set_vdd_vpp( pictype, picfamily, level )	printf( "%s\n", level==0? "exit_ISCP": "enterISCP")
 #define I2C_delay() 	printf(  "I2C_delay()\n"  );
 #define pic_read_byte2( cmd_size,command ) 	(printf(  "pic_read_byte2( cmd_size=%d,command=%02X )\n", cmd_size,command ),4)
 #define pic_read_14_bits( cmd_size,command ) 	(printf(  "pic_read_14_bits( cmd_size=%d,command=%02X )\n", cmd_size,command ),14)
