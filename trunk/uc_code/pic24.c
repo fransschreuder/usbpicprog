@@ -133,7 +133,7 @@ void bulk_erase_P24FJ( unsigned char doRestore )
 	bulk_erase_PIC24( 0x404F );
 }
 
-void write_code_PIC24( unsigned long address, unsigned char* data, char blocksize, int nv, unsigned char write_size )
+void write_code_PIC24( unsigned long address, unsigned char* data, char blocksize, char lastblock, int nv, unsigned char write_size )
 {
 	unsigned int i;
 	unsigned char blockcounter;
@@ -200,16 +200,19 @@ void write_code_PIC24( unsigned long address, unsigned char* data, char blocksiz
 		dspic_send_24_bits( 0x000000 ); //NOP
 		dspic_send_24_bits( 0x000000 ); //NOP
 	}
+
+	if( ((address + blockcounter)%write_size) != 0 && lastblock & BLOCKTYPE_LAST )  // do the write if BLOCKTYPE_LAST and we haven't already done so
+		p16b_do_write();
 }
 void write_code_P24KA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	// write in 32 instruction (32x3 byte) blocks
-	write_code_PIC24( address, data, blocksize, 0x4004, 32 * 3 );
+	write_code_PIC24( address, data, blocksize, lastblock, 0x4004, 32 * 3 );
 }
 void write_code_P24FJ( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	// write in 64 instruction (64*3 byte) blocks
-	write_code_PIC24( address, data, blocksize, 0x4001, 64 * 3 );
+	write_code_PIC24( address, data, blocksize, lastblock, 0x4001, 64 * 3 );
 }
 
 void write_config_bits_PIC24( unsigned long address, unsigned char* data, char blocksize, unsigned int nv )
