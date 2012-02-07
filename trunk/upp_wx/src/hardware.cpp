@@ -917,7 +917,7 @@ int Hardware::autoDetectDevice()
 		return picBoot.DevId;
 	}
 
-	PicType pic24F = PicType::FindPIC(("24FJ64GB002"));
+	PicType pic24F = PicType::FindPIC(("24F04KA200"));
 	if(setPicType(&pic24F)<0)
 	return -1;
 	int devId=readId();
@@ -928,7 +928,7 @@ int Hardware::autoDetectDevice()
 	if(picType.ok())
 		return devId|0x20000; 
 
-	pic24F = PicType::FindPIC(("24F04KA200"));
+	pic24F = PicType::FindPIC(("24FJ64GB002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
 	devId=readId();
