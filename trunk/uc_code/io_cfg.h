@@ -107,6 +107,45 @@
 #define TRISPGD_LOW TRISAbits.TRISA4
 #define PGC_LOW LATAbits.LATA5
 #define TRISPGC_LOW TRISAbits.TRISA5
+
+/** Manipulate Programmer pins **************************************/
+#define setPGDinput()	do { TRISPGD=1;TRISPGD_LOW=1; } while(0)
+#define setPGDoutput()	do { if( is3_3V() ) TRISPGD_LOW=0; TRISPGD=0;} while(0)
+#define enablePGC_D()	do { if( is3_3V() ) { TRISPGC_LOW=0; TRISPGD_LOW=0; } TRISPGC=0;TRISPGD=0;} while(0)
+#define disablePGC_D()	do { TRISPGC_LOW=1; TRISPGD_LOW=1; TRISPGC=1;TRISPGD=1;} while(0)
+//#define enablePGC_LOW()	TRISPGC_LOW=0
+//#define trisPGC_LOW()	TRISPGC_LOW=1
+//#define PGC_LOWoff()	PGC_LOW=1
+//#define PGC_LOWon()	PGC_LOW=0
+//#define enablePGD_LOW()	TRISPGD_LOW=0
+//#define trisPGD_LOW()	TRISPGD_LOW=1
+//#define PGD_LOWoff()	PGD_LOW=1
+//#define PGD_LOWon()	PGD_LOW=0
+#define enableVPP_RUN()	TRISVPP_RUN=0		//FIXME: should rename VPP and VPP_RUN - perhaps VPP_HI, VPP_5V
+#define trisVPP_RUN()	TRISVPP_RUN=1
+#define VPP_RUNoff()	VPP_RUN=0
+#define VPP_RUNon()	VPP_RUN=1
+#define enableVDD()	TRISVDD=0
+#define trisVDD()	TRISVDD=1
+#define VDDoff()	VDD=1
+#define VDDon()		VDD=0
+#define enablePGC()	TRISPGC=0
+//#define trisPGC()	TRISPGC=1
+#define PGClow()	PGC=0
+#define PGChigh()	PGC=1
+//#define enablePGD()	TRISPGD=0
+//#define trisPGD()	TRISPGD=1
+#define PGDlow()	PGD=0
+#define PGDhigh()	PGD=1
+#define enableVPP_RST()	TRISVPP_RST=0
+#define trisVPP_RST()	TRISVPP_RST=1
+#define VPP_RSToff()	VPP_RST=0
+#define VPP_RSTon()	VPP_RST=1
+#define enableVPP()	TRISVPP=0
+#define trisVPP()	TRISVPP=1
+#define VPPoff()	VPP=1
+#define VPPon()		VPP=0
+
 /** Voltage pump ****************************************************/
 #define Pump1 LATAbits.LATA0
 #define Pump2 LATAbits.LATA1

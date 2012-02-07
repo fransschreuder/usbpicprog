@@ -25,6 +25,7 @@
 /**
     Programming routines for PIC16 and PIC18.
 **/
+#if 0
 typedef enum _PICFAMILY{
         PIC10=0,PIC12,PIC16,PIC18,PIC24,dsPIC30,dsPIC33,I2C,PIC18J,PIC18K,
 	UPP_INVALID_PICFAMILY
@@ -40,8 +41,12 @@ typedef enum _PICTYPE{
 	P18F13K22, P18LF13K22,P18F14K22, P18LF14K22,dsP30F_LV,
 	UPP_INVALID_PICTYPE
 }PICTYPE;
+#else
+#include "device.h"
+#endif
 
-
+extern PICFAMILY picfamily;
+extern PICTYPE pictype;
 char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore);
 
 char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 

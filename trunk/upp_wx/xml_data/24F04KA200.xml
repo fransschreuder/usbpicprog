@@ -23,7 +23,7 @@
 <!--* Memory ***************************************************************-->
   <memory name="code"              start="0x000000" end="0x000AFE" />
   <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
-  <memory name="config"            start="0xF80000" end="0xF80010" />
+  <memory name="config"            start="0xF80000" end="0xF80011" />
 <!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
   <memory name="debug_vector"      start="0x800000" end="0x800007" />
   <memory name="program_executive" start="0x800000" end="0x8007EF" />
@@ -46,7 +46,10 @@
     </mask>
   </config>
 
-  <config offset="0x4" name="FBS" wmask="0xFFFFFF" bvalue="0x000003" >
+  <config offset="0x2" name="unimpl" wmask="0xFFFFFF" bvalue="0x000000" >
+  </config>
+
+  <config offset="0x4" name="FGS" wmask="0xFFFFFF" bvalue="0x000003" >
     <mask name="GSS0" value="0x000002" >
       <value value="0x000002" name="No Protection" />
       <value value="0x000000" name="Standard security enabled" />

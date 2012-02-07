@@ -125,23 +125,25 @@ DECLARE_APP(UsbPicProg)
 /* Command line parameters and help text */
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
-    { wxCMD_LINE_SWITCH, "h", _("help"),       _("displays help on the command line parameters"), wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
-    { wxCMD_LINE_SWITCH, "V", _("version"),    _("displays version information of usbpicprog") },
-    { wxCMD_LINE_OPTION, "p", _("pictype"),    _("specify the pic type (eg -p=18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
-    { wxCMD_LINE_SWITCH, "s", _("silent"),     _("do not display the hex file") },
-    { wxCMD_LINE_SWITCH, "w", _("write"),      _("write the device") },
-    { wxCMD_LINE_SWITCH, "r", _("read"),       _("read the device") },
-    { wxCMD_LINE_SWITCH, "v", _("verify"),     _("verify the device") },
-    { wxCMD_LINE_SWITCH, "e", _("erase"),      _("bulk erase the device") },
-    { wxCMD_LINE_SWITCH, "b", _("blankcheck"), _("blankcheck the device") },
+	{ wxCMD_LINE_SWITCH, "h", _("help"),        _("displays help on the command line parameters"), wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+	{ wxCMD_LINE_SWITCH, "V", _("version"),     _("displays version information of usbpicprog") },
+	{ wxCMD_LINE_OPTION, "p", _("pictype"),     _("specify the pic type (eg -p=18F2550)"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+	{ wxCMD_LINE_SWITCH, "s", _("silent"),      _("do not display the hex file") },
+	{ wxCMD_LINE_SWITCH, "w", _("write"),       _("write the device") },
+	{ wxCMD_LINE_SWITCH, "r", _("read"),        _("read the device") },
+	{ wxCMD_LINE_SWITCH, "v", _("verify"),      _("verify the device") },
+	{ wxCMD_LINE_SWITCH, "e", _("erase"),       _("bulk erase the device") },
+	{ wxCMD_LINE_SWITCH, "b", _("blankcheck"),  _("blankcheck the device") },
 	{ wxCMD_LINE_SWITCH, "d", _("debug"),       _("debug the hardware") },
-	{ wxCMD_LINE_SWITCH, "RT", _("run"),       _("run target device") },
+	{ wxCMD_LINE_SWITCH, "RT", _("run"),        _("run target device") },
 	{ wxCMD_LINE_SWITCH, "ST", _("stop"),       _("stop target device") },
-    { wxCMD_LINE_OPTION, "f", _("file"),       _("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
-	{ wxCMD_LINE_OPTION, "RO"	, _("restore-osccal"), _("Restore Osccal Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
-	{ wxCMD_LINE_OPTION, "RB"	, _("restore-bandgap"), _("Restore BandGap Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
-	
-    { wxCMD_LINE_NONE }
+	{ wxCMD_LINE_SWITCH, "RST", _("reset"),     _("reset/reboot firmware/bootloader") },
+	{ wxCMD_LINE_SWITCH, "BOOT", _("boot"),     _("tell firmware to reboot in bootloader mode") },
+	{ wxCMD_LINE_OPTION, "f", _("file"),        _("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
+	{ wxCMD_LINE_OPTION, "RO",		    _("restore-osccal"), _("Restore Osccal Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+	{ wxCMD_LINE_OPTION, "RB",	 	    _("restore-bandgap"), _("Restore BandGap Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+
+	{ wxCMD_LINE_NONE }
 };
 
 #endif //MAIN_H
