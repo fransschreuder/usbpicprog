@@ -69,9 +69,10 @@
  * as defined in PIC24FXXKA1XX Microchip Doc# DS39919B
  *
  */
-
+#include "pic24.h"
 #include "prog_lolvl.h"
 #include "device.h"
+#include "interrupt.h"
 
 unsigned char p16b_do_write()
 {

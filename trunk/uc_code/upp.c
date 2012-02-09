@@ -33,6 +33,8 @@
 #include "prog.h"
 #include "prog_lolvl.h"
 #include "svn_revision.h"
+#include "interrupt.h"
+#include "main.h"
 
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
