@@ -65,6 +65,9 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			case dsP30F:
 			write_config_bits_dsP30F( address, data, blocksize, lastblock );
 			break;
+			case P18F45J10:
+			write_config_bits_P18F45J10( address, data, blocksize, lastblock);
+			break;
 			case P18F872X:
 			case P18FX220:
 			case P18FXX39:
@@ -348,6 +351,10 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
 	}
+}
+void write_config_bits_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock)
+{
+	write_code_P18F45J10(address,data,blocksize,lastblock);
 }
 void write_config_bits_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {

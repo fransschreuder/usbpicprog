@@ -34,19 +34,19 @@
       <value value="0x00" name="Off" cname="" />
       <value value="0x01" name="On"  cname="" />
     </mask>
+    <mask name="PLLDIV"  value="0x0E" >
+      <value value="0x00" name="48 MHz input" cname="" />
+      <value value="0x02" name="40 MHz input" cname="" />
+      <value value="0x04" name="24 MHz input"  cname="" />
+      <value value="0x06" name="20 MHz input"  cname="" />
+      <value value="0x08" name="16 MHz input"  cname="" />
+      <value value="0x0A" name="12 MHz input"  cname="" />
+      <value value="0x0C" name="8 MHz input"  cname="" />
+      <value value="0x0E" name="4 MHz input"  cname="" />
+    </mask>
     <mask name="STVREN" value="0x20" >
       <value value="0x00" name="Off" cname="" />
       <value value="0x20" name="On"  cname="" />
-    </mask>
-    <mask name="PLLDIV"  value="0x0E" >
-      <value value="0x00" name="12" cname="" />
-      <value value="0x02" name="10" cname="" />
-      <value value="0x04" name="6"  cname="" />
-      <value value="0x06" name="5"  cname="" />
-      <value value="0x08" name="4"  cname="" />
-      <value value="0x0A" name="3"  cname="" />
-      <value value="0x0C" name="2"  cname="" />
-      <value value="0x0E" name="1"  cname="" />
     </mask>
     <mask name="XINST" value="0x40" >
       <value value="0x00" name="Off" cname="" />
@@ -58,24 +58,30 @@
     </mask>
   </config>
 
-  <config offset="0x1" name="CONFIG1H" wmask="0xF7" bvalue="0x04" >
+  <config offset="0x1" name="CONFIG1H" wmask="0xF7" bvalue="0xF7" >
     <mask name="CP" value="0x04" >
       <value value="0x00" name="All" cname="" />
       <value value="0x04" name="Off"  cname="" />
     </mask>
+	<mask name="CPDIV" value="0x3">
+	  <value value="0x03" name="No CPU system clock divide" />
+	  <value value="0x02" name="CPU system clock divide by 2" />
+	  <value value="0x01" name="CPU system clock divide by 3" />
+	  <value value="0x00" name="CPU system clock divide by 6" />
+	</mask>
   </config>
 
   <config offset="0x2" name="CONFIG2L" wmask="0xFF" bvalue="0xC7" >
-    <mask name="FOSC"   value="0x03" >
-      <value value="0x00" name="HS"           cname=""    />
-      <value value="0x01" name="HSPLL"        cname=""    />
-      <value value="0x02" name="EC"           cname=""    />
-      <value value="0x03" name="ECPLL_IO"     cname=""    />
-    </mask>
-    <mask name="FOSC2"  value="0x04" >
-      <value value="0x00" name="FOSC1:FOSC0"  cname=""    />
-      <value value="0x04" name="INTRC"        cname=""    />
-    </mask>
+	<mask name="FOSC" value="0x7">
+		<value value="0x00" name="INTOSC" cname="" />
+		<value value="0x01" name="INTOSCO" cname="" />
+		<value value="0x02" name="INTOSCPLL" cname="" />
+		<value value="0x03" name="INTOSCPLLO" cname="" />
+		<value value="0x04" name="HSOSC" cname="" />
+		<value value="0x05" name="HSOSCPLL" cname="" />
+		<value value="0x06" name="EC" cname="" />
+		<value value="0x07" name="ECPLL" cname="" />
+	</mask> 
     <mask name="FCMEN"  value="0x40" >
       <value value="0x00" name="On"   cname=""    />
       <value value="0x40" name="Off"  cname=""    />
@@ -130,7 +136,7 @@
 
   <config offset="0x5" name="CONFIG3H" wmask="0xFF" bvalue="0x0F" >
     <mask name="CCP2MX" value="0x01" >
-      <value value="0x00" name="RB3"  cname=""  />
+      <value value="0x00" name="RE7"  cname=""  />
       <value value="0x01" name="RC1"   cname="" />
     </mask>
     <mask name="ECCPMX" value="0x02" >

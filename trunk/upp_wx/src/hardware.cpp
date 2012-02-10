@@ -707,7 +707,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             }
             break;
         case TYPE_CONFIG:
-			if(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60)
+			if(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX)
 				blockSizeHW=BLOCKSIZE_CODE;
 			else switch(picType->bitsPerWord())
             {
@@ -728,7 +728,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
         // fill in a new datablock packet
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60))
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX))
 		{
 			vector<int>* _CodeMemory = NULL;
 		    _CodeMemory = &hexData->getMemory(TYPE_CODE);
@@ -777,7 +777,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
 		int retCode;
-		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60))
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX))
 		{
 			currentBlockCounter+=(picType->ConfigAddress-56);
 		    retCode = writeBlock(TYPE_CODE, dataBlock, currentBlockCounter, blockSizeHW, BLOCKTYPE_FIRST);
