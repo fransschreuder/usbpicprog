@@ -80,6 +80,7 @@ char bulk_erase( PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore )
 			case P18F6XKXX:
 			bulk_erase_P18F6XKXX(doRestore);
 			break;
+			case P18F6XJXX:
 			case P18F97J60:
 			case P18F45J10:
 			bulk_erase_P18F97J60(doRestore);

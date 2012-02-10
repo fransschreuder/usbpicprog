@@ -102,6 +102,7 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 			write_code_P18FXX31( address, data, blocksize, lastblock );
 			break;
 			break;
+			case P18F6XJXX:
 			case P18F97J60:
 			case P18F45J10:
 			write_code_P18F45J10( address, data, blocksize, lastblock );
