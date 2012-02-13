@@ -564,6 +564,7 @@ unsigned char set_pictype( unsigned char* data )
 	case P16C432:
 	case P17CXX:
 	case P16F716:
+	case P16F18XX:
 	case P17C7XX:
 		picfamily = PIC16;
 		break;

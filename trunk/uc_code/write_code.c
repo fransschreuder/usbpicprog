@@ -107,8 +107,8 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 			case P18F45J10:
 			write_code_P18F45J10( address, data, blocksize, lastblock );
 			break;
-			case P16F182X:
-			write_code_P16F182X( address, data, blocksize, lastblock );
+			case P16F18XX:
+			write_code_P16F18XX( address, data, blocksize, lastblock );
 			break;
 			case P16F87X: //same as P16F62X
 			case P16F84A: //same as P16F62X
@@ -733,7 +733,7 @@ void write_code_P18F45J10( unsigned long address, unsigned char* data, char bloc
 	}
 }
 
-void write_code_P16F182X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_code_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
 	char blockcounter;

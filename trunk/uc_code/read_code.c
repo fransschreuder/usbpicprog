@@ -65,8 +65,8 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		read_code_PIC18( address, data, blocksize, lastblock );
 		break;
 	case PIC16:
-		if( pictype == P16F182X )
-			read_code_P16F182X( address, data, blocksize, lastblock );
+		if( pictype == P16F18XX )
+			read_code_P16F18XX( address, data, blocksize, lastblock );
 		else
 			read_code_PIC16( address, data, blocksize, lastblock );
 		break;

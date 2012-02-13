@@ -163,7 +163,7 @@ unsigned char set_pictype( PICTYPE pictype )
 		case P16C432:
 		case P17CXX:
 		case P16F716:
-		case P16F182X:	// added
+		case P16F18XX:	// added
 		case P17C7XX:picfamily=PIC16;break;
 		case P18F2XXX:
 		case P18FXXK20:
