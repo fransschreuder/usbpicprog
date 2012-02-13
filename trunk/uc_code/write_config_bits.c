@@ -132,7 +132,6 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			write_config_bits_P16F72( address, data, blocksize, lastblock );
 			break;
 			case P12F629:
-			case P16F88X:
 			case P16F87X:
 			case P16F91X:
 			case P16F81X:
@@ -143,6 +142,7 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			case P16F62X:
 			write_config_bits_P16F62XA( address, data, blocksize, lastblock );
 			break;
+			case P16F88X:
 			case P16F18XX:
 			write_config_bits_P16F18XX( address, data, blocksize, lastblock );
 			case P12F508:
