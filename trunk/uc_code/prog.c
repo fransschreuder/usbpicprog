@@ -1423,6 +1423,8 @@ char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long addre
 				dspic_send_24_bits(0x000000);	//NOP
 			}//Step 10: Repeat steps 3-9 until all 7 Configuration registers are cleared.
 			break;
+		case P18F14K22:
+		case P18LF14K22:
 		case P18F872X:
 		case P18FX220:
 		case P18FXX39:
