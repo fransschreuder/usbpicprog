@@ -34,13 +34,7 @@
 #undef I2C_delay
 #undef set_vdd_vpp
 #endif
-
-void I2C_delay()
-{
-	char i;
-	for( i = 0; i < 10; i++ )
-		continue;
-}
+#define I2C_delay()	Delay10TCYx(2)		// approx 2x 1.3us min
 
 void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 {
@@ -273,11 +267,11 @@ void enter_ISCP_I2C_EE()
 	clock_delay(); // dummy tempo
 	VDDon(); //no VPP needed
 	DelayMs( 100 );
-	DelayMs( 100 );
 }
 
 void exit_ISCP()
 {
+	PGD_LOW = 0;		// in case I2C changed it
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)
@@ -564,6 +558,7 @@ void I2C_start( void )
 {
 	//initial condition
 	PGDhigh();
+	I2C_delay();
 	PGChigh();
 	I2C_delay();
 	PGDlow();
@@ -574,6 +569,8 @@ void I2C_start( void )
 
 void I2C_stop( void )
 {
+	PGDlow();
+	I2C_delay();
 	PGChigh();
 	I2C_delay();
 	PGDhigh();
@@ -610,6 +607,9 @@ unsigned char I2C_write( unsigned char d )
 unsigned char I2C_read( unsigned char ack ) {
     unsigned char i, d;
     setPGDinput();
+	TRISPGD_LOW = 0;	// going to use the 1K res as a pull-up
+	PGD_LOW = 1;
+
     d = 0;
     for( i = 0; i < 8; i++ ) {
         PGChigh();
@@ -620,6 +620,8 @@ unsigned char I2C_read( unsigned char ack ) {
         PGClow();
         I2C_delay();
     }
+	TRISPGD_LOW = 1;	// remove the pull-up
+	PGD_LOW = 0;
     setPGDoutput();
     I2C_delay();
     if( ack == 1 )
