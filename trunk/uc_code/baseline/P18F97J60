@@ -1,14 +1,12 @@
  Type P18F97J60, Family PIC18J
 >>>>>> set_vdd_vpp
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 VPP_RUN=0
 VDD=0
 DelayMs( 10 ms )
-PGD_LOW=0
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-PGC_LOW=0
 VPP_RUN=1
 VPP_RUN=0
 VPP_RST=1
@@ -16,6 +14,7 @@ DelayMs( 4 ms )
 DelayMs( 6 ms )
 pic_send_word( payload=C2B2 )
 pic_send_word( payload=0A12 )
+DelayMs( 2 ms )
 VPP_RST=0
 VPP_RUN=1
 DelayMs( 1 ms )
@@ -243,11 +242,8 @@ pic_send( cmd_size=4,command=00,payload=6EF7 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
 pic_send( cmd_size=4,command=00,payload=6EF6 )
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
  returns( 0 )
 >>>>>> read_code( PIC18J, P18F97J60, F80000, data, 03, 5 )
 enterISCP
@@ -258,11 +254,8 @@ pic_send( cmd_size=4,command=00,payload=6EF7 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
 pic_send( cmd_size=4,command=00,payload=6EF6 )
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
  returns( 0 )
 >>>>>>  read_data( PIC18J, P18F97J60, 0002, data, 09, 1 )
 enterISCP
