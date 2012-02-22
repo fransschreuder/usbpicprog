@@ -100,10 +100,10 @@ void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocks
 {
 	char blockcounter = 0;
 	I2C_start();
-	I2C_write( 0xA0 | (address>>7)&0x0E ); 			//Device Address + 0=write
+	I2C_write( 0xA0 | ((int)address>>7)&0x0E ); 			//Device Address + 0=write
 	I2C_write( (unsigned char) ((address & 0x00FF)) );	//LSB
 	I2C_start();
-	I2C_write( 0xA1 | (address>>7)&0x0E ); 			//Device Address + 1=read
+	I2C_write( 0xA1 | ((int)address>>7)&0x0E ); 			//Device Address + 1=read
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		data[blockcounter] = I2C_read( 0 );

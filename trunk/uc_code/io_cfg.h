@@ -121,6 +121,10 @@
 //#define trisPGD_LOW()	TRISPGD_LOW=1
 //#define PGD_LOWoff()	PGD_LOW=1
 //#define PGD_LOWon()	PGD_LOW=0
+
+#define enableI2CPullup do { TRISPGD_LOW=0; PGD_LOW=1; } while(0)
+#define disableI2CPullup do { TRISPGD_LOW=1; PGD_LOW=0; } while(0)
+
 #define enableVPP_RUN()	TRISVPP_RUN=0		//FIXME: should rename VPP and VPP_RUN - perhaps VPP_HI, VPP_5V
 #define trisVPP_RUN()	TRISVPP_RUN=1
 #define VPP_RUNoff()	VPP_RUN=0

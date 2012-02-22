@@ -118,7 +118,7 @@ void _low_ISR( void )
 extern byte usb_device_state;
 
 //		used to verify correct version of bootloader (taken from piklab disassembly listing)
-rom int boot_code[] = {
+far rom int boot_code[] = {
 	0xEF00,	//    goto    0x800             105: 		_asm goto RM_RESET_VECTOR _endasm
 	0xF004, //
         	//                              106: 	}
@@ -129,21 +129,21 @@ rom int boot_code[] = {
 	0xECAC, //    call    0x558, 0          110:     USBCheckBusStatus();        // Modified to always enable USB module
 	0xF002
 };
-#define boot_code_check	((rom char *)0x6C6)
+#define boot_code_check	((far rom char *)0x6C6)
 #define boot_entry	0x06CA
 #define boot_ram_check  ((char *)0x7B)	// address of i in bootloader main guaranteed to be 0-6 if we got here through the bootloader
 
 char exitToBootloader( char set ) {
-	if( memcmppgm( boot_code_check, boot_code, sizeof( boot_code ) ) != 0 ) // check version of bootloader
+	if( memcmppgm( boot_code_check,	(far rom void *) boot_code, sizeof( boot_code ) ) != 0 ) // check version of bootloader
 		return( 0 );
 	if( !set ) {
-		if( strcmppgm2ram( boot_ram_check, "bootloader") != 0 )
+		if( strcmppgm2ram( boot_ram_check, (far rom char *) "bootloader") != 0 )
 			return( 0 );
 		else
 			_asm goto boot_entry _endasm;
 	}
 	else {
-		strcpypgm2ram( boot_ram_check, "bootloader" );
+		strcpypgm2ram( boot_ram_check, (far rom char *) "bootloader" );
 		_asm reset _endasm;
 	}
 
@@ -185,38 +185,6 @@ void usb_reset( void )
 #pragma code
 #endif
 /******************************************************************************
- * Function:        void main(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        Main program entry point.
- *
- * Note:            None
- *****************************************************************************/
-void main( void )
-{
-	exitToBootloader( 0 );
-	//setLeds(7);
-	//while(1)continue;
-	//USBProtocolResetHandler();
-	//usb_reset();
-	InitializeSystem();
-
-	//usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
-	while( 1 )
-	{
-		USBTasks(); // USB Tasks
-		ProcessIO(); // See user\user.c & .h
-	}//end while
-}//end main
-
-/******************************************************************************
  * Function:        static void InitializeSystem(void)
  *
  * PreCondition:    None
@@ -253,6 +221,38 @@ static void InitializeSystem( void )
 	UserInit(); // See upp.c & .h
 
 }//end InitializeSystem
+
+/******************************************************************************
+ * Function:        void main(void)
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ * Overview:        Main program entry point.
+ *
+ * Note:            None
+ *****************************************************************************/
+void main( void )
+{
+	exitToBootloader( 0 );
+	//setLeds(7);
+	//while(1)continue;
+	//USBProtocolResetHandler();
+	//usb_reset();
+	InitializeSystem();
+
+	//usb_device_state = DETACHED_STATE;    //if the bootloader has initialized the USB-bus, this will disable it again
+	while( 1 )
+	{
+		USBTasks(); // USB Tasks
+		ProcessIO(); // See user\user.c & .h
+	}//end while
+}//end main
 
 /******************************************************************************
  * Function:        void USBTasks(void)

@@ -87,4 +87,4 @@ void write_config_bits_P24H( unsigned long address, unsigned char* data, char bl
 void write_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock );
-#endif PIC24_H
+#endif // PIC24_H

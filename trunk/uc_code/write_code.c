@@ -179,7 +179,7 @@ void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize
 	tries = 0;
 restart:
 	I2C_start();
-	I2C_write( 0xA0 | (address>>7)&0x0E );			//Device Address + 0=write
+	I2C_write( 0xA0 | ((int)address>>7)&0x0E );			//Device Address + 0=write
 
 	I2C_write( (unsigned char) ((address & 0x00FF)) ); 	//LSB
 
