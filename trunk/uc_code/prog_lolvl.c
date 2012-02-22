@@ -24,6 +24,7 @@
 #include <p18cxxx.h>
 #endif
 #include "typedefs.h"
+#include <delays.h>
 #include "interrupt.h"
 #include "prog.h"
 #include "upp.h" 

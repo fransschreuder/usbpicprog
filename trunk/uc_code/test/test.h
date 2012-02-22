@@ -12,6 +12,7 @@
 #undef Nop
 #define Nop()
 
+#define setLeds(n)
 #define set_vdd_vpp( pictype, picfamily, level )	printf( "%s\n", level==0? "exit_ISCP": "enterISCP")
 #define I2C_delay() 	printf(  "I2C_delay()\n"  );
 #define pic_read_byte2( cmd_size,command ) 	(printf(  "pic_read_byte2( cmd_size=%d,command=%02X )\n", cmd_size,command ),4)
@@ -57,6 +58,10 @@
 #define PGD_LOWoff()	printf( "PGD_LOW=1\n" )
 #undef  PGD_LOWon
 #define PGD_LOWon()	printf( "PGD_LOW=0\n" )
+#undef enableI2CPullup
+#define enableI2CPullup		printf( "TRISPGD_LOW=0\nPGD_LOW=1\n" )
+#undef disableI2CPullup
+#define disableI2CPullup	printf( "TRISPGD_LOW=1\nPGD_LOW=0\n" )
 #endif
 #undef  enableVPP_RUN
 #define enableVPP_RUN()	printf( "TRISVPP_RUN=0\n" )

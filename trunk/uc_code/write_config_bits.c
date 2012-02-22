@@ -355,6 +355,8 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 }
 void write_config_bits_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {
+	extern void write_code_P18F45J10(unsigned long address, unsigned char* data, char blocksize, char lastblock );
+
 	write_code_P18F45J10(address,data,blocksize,lastblock);
 }
 void write_config_bits_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock )
