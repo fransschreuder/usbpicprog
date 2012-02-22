@@ -1,122 +1,27 @@
  Type dsP30F_LV, Family dsPIC30
 >>>>>> set_vdd_vpp
-TRISPGD_LOW=0
-TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
 PGC=0
-DelayMs( 100 ms )
 VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
+DelayMs( 100 ms )
 VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( dsPIC30, dsP30F_LV, 0 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
+enterISCP
 PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
-PGD=0
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+exit_ISCP
  returns( 3 )
 >>>>>> write_code( dsPIC30, dsP30F_LV, 0000, data, 20, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
->>>>>> write_code( dsPIC30, dsP30F_LV, 0020, data, 20, 0 )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+>>>>>> write_code( dsPIC30, dsP30F_LV, 00E0, data, 20, 0 )
+exit_ISCP
  returns( 3 )
 >>>>>> write_data( dsPIC30, dsP30F_LV, 0000, data, 09, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=040100 )
@@ -183,57 +88,11 @@ dspic_send_24_bits( payload=040100 )
 dspic_send_24_bits( payload=000000 )
  returns( 2 )
 >>>>>> write_config_bits( dsPIC30, dsP30F_LV, 2000, data, 03, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
 >>>>>> read_code( dsPIC30, dsP30F_LV, 0000, data, 03, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=040100 )
@@ -293,7 +152,17 @@ dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=040100 )
 dspic_send_24_bits( payload=000000 )
  returns( 0 )
->>>>>> read_code( dsPIC30, dsP30F_LV, F80000, data, 03, 0 )
+>>>>>> read_code( dsPIC30, dsP30F_LV, F80000, data, 03, 5 )
+enterISCP
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040100 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200F80 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=EB0380 )
+dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=BA0BB6 )
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=000000 )
@@ -314,25 +183,7 @@ dspic_send_24_bits( payload=040100 )
 dspic_send_24_bits( payload=000000 )
  returns( 0 )
 >>>>>>  read_data( dsPIC30, dsP30F_LV, 0002, data, 09, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-DelayMs( 100 ms )
-VDD=0
-VPP=0
-DelayMs( 26 ms )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-dspic_send_24_bits( payload=000000 )
-VPP=1
-VPP_RST=1
-VPP_RST=0
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=000000 )
 dspic_send_24_bits( payload=040100 )
