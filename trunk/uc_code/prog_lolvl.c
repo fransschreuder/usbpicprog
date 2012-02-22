@@ -272,6 +272,7 @@ void enter_ISCP_I2C_EE()
 
 void exit_ISCP()
 {
+	PGD_LOW = 0;		// in case I2C changed it
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)

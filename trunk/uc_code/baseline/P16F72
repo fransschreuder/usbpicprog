@@ -9,37 +9,13 @@ DelayMs( 100 ms )
 VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( PIC16, P16F72, 0 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_send_n_bits( cmd_size=6,command=09 )
 DelayMs( 30 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+exit_ISCP
  returns( 1 )
 >>>>>> write_code( PIC16, P16F72, 0000, data, 20, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_send_14_bits( cmd_size=6,command=02,payload=0000 )
 pic_send_n_bits( cmd_size=6,command=06 )
 pic_send_14_bits( cmd_size=6,command=02,payload=0000 )
@@ -97,7 +73,7 @@ DelayMs( 2 ms )
 pic_send_n_bits( cmd_size=6,command=0E )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 2 )
->>>>>> write_code( PIC16, P16F72, 0020, data, 20, 0 )
+>>>>>> write_code( PIC16, P16F72, 00E0, data, 20, 0 )
 pic_send_14_bits( cmd_size=6,command=02,payload=0000 )
 pic_send_n_bits( cmd_size=6,command=06 )
 pic_send_14_bits( cmd_size=6,command=02,payload=0000 )
@@ -156,14 +132,7 @@ pic_send_n_bits( cmd_size=6,command=0E )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 2 )
 >>>>>> write_data( PIC16, P16F72, 0000, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
 pic_send_n_bits( cmd_size=6,command=08 )
 DelayMs( 8 ms )
@@ -202,14 +171,7 @@ DelayMs( 8 ms )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 2 )
 >>>>>> write_config_bits( PIC16, P16F72, 2000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_send_14_bits( cmd_size=6,command=00,payload=0000 )
 pic_send_14_bits( cmd_size=6,command=02,payload=0000 )
 pic_send_n_bits( cmd_size=6,command=08 )
@@ -223,29 +185,14 @@ pic_send_n_bits( cmd_size=6,command=0E )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 2 )
 >>>>>> read_code( PIC16, P16F72, 0000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 0 )
->>>>>> read_code( PIC16, P16F72, F80000, data, 03, 4 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+>>>>>> read_code( PIC16, P16F72, F80000, data, 03, 5 )
 pic_send_14_bits( cmd_size=6,command=00,payload=0000 )
 pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
@@ -253,14 +200,7 @@ pic_read_14_bits( cmd_size=6,command=04 )
 pic_send_n_bits( cmd_size=6,command=06 )
  returns( 0 )
 >>>>>>  read_data( PIC16, P16F72, 0002, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
 pic_read_14_bits( cmd_size=6,command=05 )
 pic_send_n_bits( cmd_size=6,command=06 )
 pic_send_n_bits( cmd_size=6,command=06 )

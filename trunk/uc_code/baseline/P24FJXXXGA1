@@ -10,214 +10,382 @@ DelayMs( 10 ms )
 VPP_RUN=1
 VPP_RUN=0
 VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
 pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
+pic_send_word( payload=8A12 )
+DelayMs( 1 ms )
 VPP_RST=0
 VPP_RUN=1
-DelayMs( 1 ms )
 DelayMs( 25 ms )
 pic_send_n_bits( cmd_size=5,command=00 )
 dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
 >>>>>> bulk_erase( PIC24, P24FJXXXGA1, 0 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
+enterISCP
 dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
-PGD=0
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
- returns( 3 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=2404FA )
+dspic_send_24_bits( payload=883B0A )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=BB0800 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=A8E761 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=803B02 )
+dspic_send_24_bits( payload=883C22 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+exit_ISCP
+ returns( 1 )
 >>>>>> write_code( PIC24, P24FJXXXGA1, 0000, data, 20, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
+enterISCP
 dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
- returns( 3 )
->>>>>> write_code( PIC24, P24FJXXXGA1, 0020, data, 20, 0 )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
- returns( 3 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=24001A )
+dspic_send_24_bits( payload=883B0A )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200007 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200087 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200107 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+ returns( 2 )
+>>>>>> write_code( PIC24, P24FJXXXGA1, 00E0, data, 20, 0 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=24001A )
+dspic_send_24_bits( payload=883B0A )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200957 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=2009D7 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200A57 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=200001 )
+dspic_send_24_bits( payload=200002 )
+dspic_send_24_bits( payload=200003 )
+dspic_send_24_bits( payload=200004 )
+dspic_send_24_bits( payload=200005 )
+dspic_send_24_bits( payload=EB0300 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBDBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BBEBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+ returns( 2 )
 >>>>>> write_data( PIC24, P24FJXXXGA1, 0000, data, 09, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
-dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
 >>>>>> write_config_bits( PIC24, P24FJXXXGA1, 2000, data, 03, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
+enterISCP
 dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
- returns( 3 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=220007 )
+dspic_send_24_bits( payload=24003A )
+dspic_send_24_bits( payload=883B0A )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200006 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1B86 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=A8E761 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=803B02 )
+dspic_send_24_bits( payload=883C22 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200006 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BB1B86 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=A8E761 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=803B02 )
+dspic_send_24_bits( payload=883C22 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+ returns( 2 )
 >>>>>> read_code( PIC24, P24FJXXXGA1, 0000, data, 03, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
+enterISCP
 dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200000 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200006 )
+dspic_send_24_bits( payload=207847 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BA0B96 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BADBB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BAD3D6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BA0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
  returns( 0 )
->>>>>> read_code( PIC24, P24FJXXXGA1, F80000, data, 03, 0 )
+>>>>>> read_code( PIC24, P24FJXXXGA1, F80000, data, 03, 5 )
+enterISCP
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=200F80 )
+dspic_send_24_bits( payload=880190 )
+dspic_send_24_bits( payload=200006 )
+dspic_send_24_bits( payload=207847 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BA0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=BA0BB6 )
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=000000 )
+dspic_read_16_bits(isLV=1)
+dspic_send_24_bits( payload=000000 )
+dspic_send_24_bits( payload=040200 )
+dspic_send_24_bits( payload=000000 )
  returns( 0 )
 >>>>>>  read_data( PIC24, P24FJXXXGA1, 0002, data, 09, 1 )
-TRISPGD_LOW=0
-TRISPGC_LOW=0
-TRISPGD=0
-TRISPGC=0
-VPP_RUN=0
-VDD=0
-DelayMs( 10 ms )
-VPP_RUN=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 4 ms )
-DelayMs( 6 ms )
-pic_send_word( payload=C2B2 )
-pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
-DelayMs( 1 ms )
-DelayMs( 25 ms )
-pic_send_n_bits( cmd_size=5,command=00 )
-dspic_send_24_bits( payload=000000 )
-DelayMs( 1 ms )
+enterISCP
  returns( 0 )
 done
 

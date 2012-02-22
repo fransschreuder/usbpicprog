@@ -9,124 +9,33 @@ DelayMs( 100 ms )
 VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( dsPIC33, dsP33F, 0 )
-TRISPGD=0
-TRISPGC=0
+enterISCP
 PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
-PGD=0
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+exit_ISCP
  returns( 3 )
 >>>>>> write_code( dsPIC33, dsP33F, 0000, data, 20, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
->>>>>> write_code( dsPIC33, dsP33F, 0020, data, 20, 0 )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+>>>>>> write_code( dsPIC33, dsP33F, 00E0, data, 20, 0 )
+exit_ISCP
  returns( 3 )
 >>>>>> write_data( dsPIC33, dsP33F, 0000, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
 >>>>>> write_config_bits( dsPIC33, dsP33F, 2000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
-VPP=1
-VPP_RUN=0
-VPP_RST=1
-DelayMs( 40 ms )
-VPP_RST=0
-VDD=1
-TRISPGD_LOW=1
-TRISPGC_LOW=1
-TRISPGD=1
-TRISPGC=1
-DelayMs( 20 ms )
+enterISCP
+exit_ISCP
  returns( 3 )
 >>>>>> read_code( dsPIC33, dsP33F, 0000, data, 03, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
  returns( 0 )
->>>>>> read_code( dsPIC33, dsP33F, F80000, data, 03, 0 )
+>>>>>> read_code( dsPIC33, dsP33F, F80000, data, 03, 5 )
+enterISCP
  returns( 0 )
 >>>>>>  read_data( dsPIC33, dsP33F, 0002, data, 09, 1 )
-TRISPGD=0
-TRISPGC=0
-PGD=0
-PGC=0
-VDD=0
-DelayMs( 100 ms )
-VPP=0
-DelayMs( 100 ms )
+enterISCP
  returns( 0 )
 done
 
