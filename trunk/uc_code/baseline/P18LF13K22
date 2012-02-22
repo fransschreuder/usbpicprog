@@ -1,5 +1,7 @@
  Type P18LF13K22, Family PIC18
 >>>>>> set_vdd_vpp
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
@@ -10,10 +12,6 @@ VPP=0
 DelayMs( 100 ms )
 >>>>>> bulk_erase( PIC18, P18LF13K22, 0 )
 enterISCP
-PGD_LOW=0
-TRISPGD_LOW=0
-PGC_LOW=0
-TRISPGC_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E3C )
 pic_send( cmd_size=4,command=00,payload=6EF8 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -35,10 +33,6 @@ exit_ISCP
  returns( 1 )
 >>>>>> write_code( PIC18, P18LF13K22, 0000, data, 20, 1 )
 enterISCP
-PGD_LOW=0
-TRISPGD_LOW=0
-PGC_LOW=0
-TRISPGC_LOW=0
 pic_send( cmd_size=4,command=00,payload=8EA6 )
 pic_send( cmd_size=4,command=00,payload=9CA6 )
 pic_send( cmd_size=4,command=00,payload=84A6 )
@@ -98,10 +92,6 @@ pic_read_byte2( cmd_size=4,command=09 )
 pic_read_byte2( cmd_size=4,command=09 )
  returns( 2 )
 >>>>>> write_code( PIC18, P18LF13K22, 00E0, data, 20, 0 )
-PGD_LOW=0
-TRISPGD_LOW=0
-PGC_LOW=0
-TRISPGC_LOW=0
 pic_send( cmd_size=4,command=00,payload=8EA6 )
 pic_send( cmd_size=4,command=00,payload=9CA6 )
 pic_send( cmd_size=4,command=00,payload=84A6 )
@@ -162,10 +152,6 @@ pic_read_byte2( cmd_size=4,command=09 )
  returns( 2 )
 >>>>>> write_data( PIC18, P18LF13K22, 0000, data, 09, 1 )
 enterISCP
-PGD_LOW=0
-TRISPGD_LOW=0
-PGC_LOW=0
-TRISPGC_LOW=0
 pic_send( cmd_size=4,command=00,payload=9EA6 )
 pic_send( cmd_size=4,command=00,payload=9CA6 )
 pic_send( cmd_size=4,command=00,payload=0E40 )
@@ -317,11 +303,8 @@ pic_send( cmd_size=4,command=00,payload=6EF7 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
 pic_send( cmd_size=4,command=00,payload=6EF6 )
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
  returns( 0 )
 >>>>>> read_code( PIC18, P18LF13K22, F80000, data, 03, 5 )
 enterISCP
@@ -332,11 +315,8 @@ pic_send( cmd_size=4,command=00,payload=6EF7 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
 pic_send( cmd_size=4,command=00,payload=6EF6 )
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
 pic_read_byte2( cmd_size=4,command=09 )
-TRISPGD_LOW=0
  returns( 0 )
 >>>>>>  read_data( PIC18, P18LF13K22, 0002, data, 09, 1 )
 enterISCP
@@ -351,7 +331,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E03 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -361,7 +340,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E04 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -371,7 +349,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E05 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -381,7 +358,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E06 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -391,7 +367,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E07 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -401,7 +376,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E08 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -411,7 +385,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E09 )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -421,7 +394,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
 pic_send( cmd_size=4,command=00,payload=0E0A )
 pic_send( cmd_size=4,command=00,payload=6EA9 )
 pic_send( cmd_size=4,command=00,payload=0E00 )
@@ -431,7 +403,6 @@ pic_send( cmd_size=4,command=00,payload=50A8 )
 pic_send( cmd_size=4,command=00,payload=6EF5 )
 pic_send( cmd_size=4,command=00,payload=0000 )
 pic_read_byte2( cmd_size=4,command=02 )
-TRISPGD_LOW=0
  returns( 0 )
 done
 
