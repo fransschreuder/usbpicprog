@@ -65,6 +65,9 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			case dsP30F:
 			write_config_bits_dsP30F( address, data, blocksize, lastblock );
 			break;
+			case P18F45J10:
+			write_config_bits_P18F45J10( address, data, blocksize, lastblock);
+			break;
 			case P18F872X:
 			case P18FX220:
 			case P18FXX39:
@@ -129,7 +132,6 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			write_config_bits_P16F72( address, data, blocksize, lastblock );
 			break;
 			case P12F629:
-			case P16F88X:
 			case P16F87X:
 			case P16F91X:
 			case P16F81X:
@@ -138,9 +140,11 @@ char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long addr
 			case P12F6XX: //same as P16F62X
 			case P16F62XA: //same as P16F62X
 			case P16F62X:
-			case P16F182X:
 			write_config_bits_P16F62XA( address, data, blocksize, lastblock );
 			break;
+			case P16F88X:
+			case P16F18XX:
+			write_config_bits_P16F18XX( address, data, blocksize, lastblock );
 			case P12F508:
 			case P16F54:
 			case P16F57:
@@ -349,6 +353,10 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 		pic_send_word( 0x0000 ); //last part of the nop
 	}
 }
+void write_config_bits_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock)
+{
+	write_code_P18F45J10(address,data,blocksize,lastblock);
+}
 void write_config_bits_P16F785( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char i;
@@ -479,6 +487,33 @@ void write_config_bits_P16F62XA( unsigned long address, unsigned char* data, cha
 	{
 		//load data for config memory
 		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7) )
+		{
+			payload = (((unsigned int) data[blockcounter]))
+					| (((unsigned int) data[blockcounter + 1]) << 8);
+			pic_send_14_bits( 6, 0x02, payload ); //load data for programming
+			pic_send_n_bits( 6, 0x08 ); //begin programming
+			DelayMs( Tprog );
+		}
+		//read data from program memory (to verify) not yet impl...
+		pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+}
+void write_config_bits_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	char i;
+	static char blockcounter;
+	unsigned int payload;
+	if( lastblock & BLOCKTYPE_FIRST )
+	{
+		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+		for( i = 0; i < ((char) address); i++ )
+			pic_send_n_bits( 6, 0x06 ); //increment address until ADDRESS is reached
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
+	{
+		//load data for config memory
+		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7)
+				|| (((((char) address) + (blockcounter >> 1)) == 8) ) )
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);

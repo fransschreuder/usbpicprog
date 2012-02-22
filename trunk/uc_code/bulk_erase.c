@@ -80,6 +80,7 @@ char bulk_erase( PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore )
 			case P18F6XKXX:
 			bulk_erase_P18F6XKXX(doRestore);
 			break;
+			case P18F6XJXX:
 			case P18F97J60:
 			case P18F45J10:
 			bulk_erase_P18F97J60(doRestore);
@@ -106,10 +107,10 @@ char bulk_erase( PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore )
 			case P16F62X:
 			bulk_erase_P16F62X(doRestore);
 			break;
-			case P16F182X:
+			case P16F18XX:
 			case P16F785:
 			case P16F88X:
-			bulk_erase_P16F182X(doRestore);
+			bulk_erase_P16F18XX(doRestore);
 			break;
 			case P16F91X:
 			bulk_erase_P16F91X(doRestore);
@@ -547,7 +548,7 @@ void bulk_erase_P16F62X( unsigned char doRestore )
 	pic_send_n_bits( 6, 0x08 );//Execute Begin Erase Programming command.
 	DelayMs( 6 ); //wait terase
 }
-void bulk_erase_P16F182X( unsigned char doRestore )
+void bulk_erase_P16F18XX( unsigned char doRestore )
 {
 
 	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.

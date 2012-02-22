@@ -35,6 +35,7 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
+#include "main.h"
 #include "interrupt.h"
 #ifdef SDCC
 #include <pic18f2550.h>
@@ -80,10 +81,6 @@ code char at __CONFIG7H CONFIG7H = _EBTRB_OFF_7H;
 #ifndef SDCC
 #pragma udata
 #endif
-
-/** P R I V A T E  P R O T O T Y P E S ***************************************/
-static void InitializeSystem( void );
-void USBTasks( void );
 
 /** V E C T O R  R E M A P P I N G *******************************************/
 #ifndef SDCC
