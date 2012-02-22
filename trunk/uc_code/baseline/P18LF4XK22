@@ -1,5 +1,7 @@
  Type P18LF4XK22, Family PIC18
 >>>>>> set_vdd_vpp
+TRISPGD_LOW=0
+TRISPGC_LOW=0
 TRISPGD=0
 TRISPGC=0
 PGD=0
