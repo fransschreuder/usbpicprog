@@ -171,22 +171,35 @@ char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, un
 
 void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	// FIXME: need to figure out if it can return 2 if lastblock & BLOCKTYPE_LAST
-	unsigned int i;
+//FIXME: This currently dowsn't work as the app sends too many bytes for the write cache (2-16bytes depending on model)
+
+	unsigned char i, tries;
 	char blockcounter;
 
-	I2C_start();			//FIXME: should be address & 0x10000 (2 times)
-	I2C_write( 0xA0 | ((unsigned char) ((address && 0x10000) >> 13)) ); //Device Address + 0=write
+	tries = 0;
+restart:
+	I2C_start();
+	I2C_write( 0xA0 | (address>>7)&0x0E );			//Device Address + 0=write
 
-	I2C_write( (unsigned char) ((address & 0x00FF)) ); //LSB
+	I2C_write( (unsigned char) ((address & 0x00FF)) ); 	//LSB
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		i = (unsigned int) I2C_write( data[blockcounter] );
-		if( i == 1 )
+		i = (unsigned int) I2C_write( data[blockcounter] );
+		if( i == 1 )   // received a NACK
 		{
+			for( i = 0; i < 4; i++ ) {
+				setLeds( 7);
+				DelayMs(125);
+				setLeds(0);
+				DelayMs( 125 );
+			}
 			I2C_stop();
-			return; // return 2;   FIXME: do we need to return a 2?
+			DelayMs(30);
+			if( tries < 2 )
+				goto restart;
+			return; // what else to do??
 		}
 	}
 	I2C_stop();
@@ -195,26 +208,37 @@ void write_code_EE_1( unsigned long address, unsigned char* data, char blocksize
 
 void write_code_EE_2( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
-	unsigned int i;
+	unsigned char i, tries;
 	char blockcounter;
 
+	tries = 0;
+restart:
 	I2C_start();
-	I2C_write( 0xA0 | ((unsigned char) ((address && 0x10000) >> 13)) ); //Device Address + 0=write
+	I2C_write( 0xA0 | (address >= 0x10000? 8: 0) ); 	//Device Address + 0=write
 
 	I2C_write( (unsigned char) ((address & 0xFF00) >> 8) ); //MSB
-	I2C_write( (unsigned char) ((address & 0x00FF)) ); //LSB
+	I2C_write( (unsigned char) ((address & 0x00FF)) );	//LSB
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		i = (unsigned int) I2C_write( data[blockcounter] );
-		if( i == 1 )
+		if( i == 1 )   // received a NACK
 		{
+			for( i = 0; i < 4; i++ ) {
+				setLeds( 7);
+				DelayMs(125);
+				setLeds(0);
+				DelayMs( 125 );
+			}
 			I2C_stop();
-			return; // return 2;   FIXME: do we need to return a 2?
+			DelayMs(30);
+			if( tries < 2 )
+				goto restart;
+			return; // what else to do??
 		}
 	}
 	I2C_stop();
-	DelayMs( 10 );
+	DelayMs( 30 );
 }
 #if 0
 void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )

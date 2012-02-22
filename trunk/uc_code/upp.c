@@ -100,7 +100,7 @@ void UserInit( void )
 	TRISVDD = 0;
 	TRISVPP_RUN = 0;
 	VPP_RUN = 0; //run = off
-	PGD_LOW = 0;	// always set to 0
+	PGD_LOW = 0;	// always set to 0 -except for I2C EEproms
 	TRISPGD_LOW = 1; //LV devices disabled, high impedance / input
 	PGC_LOW = 0;	// always set to 0
 	TRISPGC_LOW = 1; //LV devices disabled, high impedance / input
@@ -564,7 +564,6 @@ unsigned char set_pictype( unsigned char* data )
 	case P16C432:
 	case P17CXX:
 	case P16F716:
-	case P16F18XX:
 	case P17C7XX:
 		picfamily = PIC16;
 		break;
