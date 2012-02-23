@@ -238,19 +238,16 @@ void read_code_PIC16( unsigned long address, unsigned char* data, char blocksize
 	unsigned int i;
 	char blockcounter = 0;
 	unsigned int payload;
-			// FIXME: original always resets address so IF a the app did a read of > 8 bytes of configuration data the second read would re-read the first
-			//		OK as long as each read is < 8 bytes (then blocktype is always a FIRST)
-	if( lastblock & BLOCKTYPE_CONFIG )	// address >= ConfigOffset ) //read configuration memory
-		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-	if( lastblock & BLOCKTYPE_FIRST )	// address >= ConfigOffset ) //read configuration memory
+
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
-		if( lastblock & BLOCKTYPE_CONFIG )	// address >= ConfigOffset ) //read configuration memory
+		if( lastblock & BLOCKTYPE_CONFIG )
 		{
-//			pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+			pic_send_14_bits( 6, 0x00, 0x0000 );  //Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000 (or 0x8000).
 			address &= 0xFF;
 		}
 		else
-			pic_read_14_bits( 6, 0x04 ); //read code memory	//FIXME: what does this do?
+			pic_read_14_bits( 6, 0x04 ); //read code memory	//FIXME: what does this do? - seems to be necessary to make things work
 
 		for( i = 0; i < (unsigned int) address; i++ )
 			pic_send_n_bits( 6, 0x06 ); //increment address
