@@ -6,7 +6,6 @@ PGD=1
 PGC=1
 VDD=0
 DelayMs( 100 ms )
-DelayMs( 100 ms )
 >>>>>> bulk_erase( I2C, I2C_EE_1, 0 )
 enterISCP
 exit_ISCP
