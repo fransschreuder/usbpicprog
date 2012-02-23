@@ -4,6 +4,15 @@
 # comments/explanations into a file in the directory baseline.diffs usefully when making changes that affect a number of devices
 #
 
+if [[ $1 == 'update' ]]; then
+	cd baseline.diffs
+	for i in *; do
+		[[ $i == "*" ]] && echo no PICS to update && exit
+		../runtest "${i%.txt}" > ../baseline/"${i%.txt}"
+		echo "${i%.txt}" updated
+		done
+	exit
+	fi
 
 cd baseline
 for i in *; do
