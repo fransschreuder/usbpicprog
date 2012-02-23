@@ -1288,6 +1288,7 @@ pic_send_n_bits( cmd_size=6,command=06 )
  returns( 2 )
 >>>>>> write_data( PIC10, P10F202, 0000, data, 09, 1 )
 enterISCP
+exit_ISCP
  returns( 3 )
 >>>>>> write_config_bits( PIC10, P10F202, 2000, data, 03, 1 )
 enterISCP
