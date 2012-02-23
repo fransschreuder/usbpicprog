@@ -8,8 +8,6 @@ DelayMs( 10 ms )
 VPP_RUN=1
 pic_send_word( payload=C2B2 )
 pic_send_word( payload=0A12 )
-VPP_RST=0
-VPP_RUN=1
 DelayMs( 1 ms )
 >>>>>> bulk_erase( PIC18K, P18F67KXX, 0 )
 enterISCP
