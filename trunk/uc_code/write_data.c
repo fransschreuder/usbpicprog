@@ -33,82 +33,21 @@
 
 extern PICFAMILY picfamily;
 extern PICTYPE pictype;
-char write_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
-		char lastblock )
+char write_data( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_vdd_vpp( pictype, picfamily, 1 );
-#ifdef TABLE
+		enter_ISCP();
 	if( currDevice.write_data )
 		currDevice.write_data( address, data, blocksize, lastblock );
 	else
 	{
-		switch( pictype ) {
-		case P10F200:
-		case P10F202:
-			return 3; //these devices have no data memory.
-#else
-			switch( pictype )
-			{
-				case P10F200:
-				case P10F202:
-				return 3; //these devices have no data memory.
-				case P18FXX2:
-				case P18FXX31:
-				case P18FX220:
-				write_data_P18FXX2( address, data, blocksize, lastblock );
-				break;
-				case P18F4XK22:
-				case P18LF4XK22:
-				write_data_P18F4XK22( address, data, blocksize, lastblock );
-				break;
-
-				case P16F785:
-				case P12F629:
-				case P16F91X:
-				write_data_P16F785( address, data, blocksize, lastblock );
-				break;
-
-				case P16F87:
-				case P16F81X:
-				write_data_P16F87( address, data, blocksize, lastblock );
-				break;
-
-				case P16F84A:
-				write_data_P16F84A( address, data, blocksize, lastblock );
-				break;
-
-				default:
-
-				switch( picfamily )
-				{
-					case dsP30F_LV:
-					case dsPIC30:
-					write_data_dsPIC30( address, data, blocksize, lastblock );
-					break;
-					case PIC18:
-					write_data_PIC18( address, data, blocksize, lastblock );
-					break;
-					case PIC18J:
-					write_data_PIC18J( address, data, blocksize, lastblock );
-					break;
-					case PIC18K:
-					write_data_PIC18K( address, data, blocksize, lastblock );
-					break;
-					case PIC16:
-					write_data_PIC16( address, data, blocksize, lastblock );
-					break;
-#endif
-		default:
-			set_vdd_vpp( pictype, picfamily, 0 );
-			return 3; //unknown pic type
-			break;
-		}
+		exit_ISCP();
+		return 3; //unknown pic type
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-		set_vdd_vpp( pictype, picfamily, 0 );
+		exit_ISCP();
 		return 1; //ok
 	}
 	else

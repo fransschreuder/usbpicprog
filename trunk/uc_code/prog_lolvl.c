@@ -33,6 +33,8 @@
 #ifdef TEST
 #undef I2C_delay
 #undef set_vdd_vpp
+#undef exit_ISCP
+#undef enter_ISCP
 #else
 #include <delays.h>
 #endif
@@ -43,52 +45,15 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 	if( level == 0 )
 		exit_ISCP();
 	else
-	{
-#ifdef TABLE
-#if 0
-		printf( "enter_ISCP - %08lX -", (long) currDevice.enter_ISCP );
-		int i;
-		for( i = 0; i < 8; i++ )
-			printf( " %08X", (long *)&currDevice + i );
-#endif
+		enter_ISCP();
+}
+
+void enter_ISCP( void )
+{
 	if( currDevice.enter_ISCP )
 		currDevice.enter_ISCP();
 	else
 		enter_ISCP_simple();
-#else
-		switch( picfamily ) {
-		case PIC18J:
-			enter_ISCP_PIC18J();
-			return;
-		case PIC18K:
-			enter_ISCP_PIC18K();
-			return;
-		case PIC24:
-			enter_ISCP_PIC24();
-			return;
-
-		}
-		switch( pictype ) {
-		case I2C_EE_1:
-		case I2C_EE_2:
-			enter_ISCP_I2C_EE();
-			break;
-		case dsP30F:
-			enter_ISCP_dsP30F();
-			break;
-		case P16F62X: //VPP first
-		case P16F62XA:
-		case P12F629:
-		case P12F6XX:
-		case P16F87:
-			enter_ISCP_P16_Vpp();
-			break;
-		default:
-			enter_ISCP_simple();
-			break;
-		}
-#endif
-	}
 }
 void enter_ISCP_simple()
 {
@@ -245,9 +210,6 @@ void enter_ISCP_PIC24K()
 	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x8A12 );
 	DelayMs( 1 );
-
-
-//	enter_ISCP_PIC18K();
 
 	DelayMs( 25 );
 	pic_send_n_bits( 5, 0 );

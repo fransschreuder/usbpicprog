@@ -44,123 +44,22 @@
  before calling this function, make configstate CONFIGSTART
  keep calling this function until configstate==CONFIGSUCCESS
  **/
-//PICFAMILY picfamily;
-//PICTYPE pictype;
 
-char write_config_bits( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data,
-		char blocksize, char lastblock )
+char write_config_bits( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_vdd_vpp( pictype, picfamily, 1 );
-#ifdef TABLE
+		enter_ISCP();
 	if( currDevice.write_config_bits )
 		currDevice.write_config_bits( address, data, blocksize, lastblock );
 	else
-		switch( pictype ) {
-#else
-		switch( pictype )
-		{
-			case dsP30F:
-			write_config_bits_dsP30F( address, data, blocksize, lastblock );
-			break;
-			case P18F45J10:
-			write_config_bits_P18F45J10( address, data, blocksize, lastblock);
-			break;
-			case P18F872X:
-			case P18FX220:
-			case P18FXX39:
-			case P18F6X2X:
-			case P18F2XXX:
-			write_config_bits_P18F2XXX( address, data, blocksize, lastblock );
-			break;
-
-			case P18FXX2:
-			write_config_bits_P18FXX2( address, data, blocksize, lastblock );
-			break;
-			case P18F4XK22:
-			case P18LF4XK22:
-			write_config_bits_P18F4XK22( address, data, blocksize, lastblock );
-			break;
-			//    case P18F6XKXX:		//FIXME: enable *just not in present
-			//    case P18F67KXX:
-			//	        write_config_bits_P18F6XKXX( address, data, blocksize, lastblock );
-			//	        break;
-
-			/*		case P12F629:
-			 if(lastblock&1)
-			 {
-			 pic_send_14_bits(6,0x00,0x0000);//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-			 for(i=0;i<((char)address);i++)pic_send_n_bits(6,0x06);   //increment address until ADDRESS is reached
-			 }
-			 for(blockcounter=0;blockcounter<blocksize;blockcounter+=2)
-			 {
-			 //load data for config memory
-			 if(((((char)address)+(blockcounter>>1))<4))
-			 {
-			 pic_send_14_bits(6,0x02,(((unsigned int)data[blockcounter]))|   //MSB
-			 (((unsigned int)data[blockcounter+1])<<8));//LSB
-			 pic_send_n_bits(6,0x08);    //begin programming
-			 DelayMs(Tprog);
-			 }
-			 if(((((char)address)+(blockcounter>>1))==7))      //restore bandgap bits
-			 {
-			 payload=bandgap|(0x0FFF&((((unsigned int)data[blockcounter+1])<<8)|   //MSB
-			 (((unsigned int)data[blockcounter]))));
-			 pic_send_14_bits(6,0x02,payload);
-			 pic_send_n_bits(6,0x08);    //begin programming
-			 DelayMs(Tprog);
-			 }
-			 //read data from program memory (to verify) not yet impl...
-			 pic_send_n_bits(6,0x06);	//increment address
-			 }
-			 break;*/
-			case P16F785:
-			case P12F61X:
-			write_config_bits_P16F785( address, data, blocksize, lastblock );
-			break;
-			case P16F87:
-			write_config_bits_P16F87( address, data, blocksize, lastblock );
-			break;
-			case P16F716:
-			write_config_bits_P16F716( address, data, blocksize, lastblock );
-			break;
-			case P16F72:
-			case P16F7X:
-			case P16F7X7:
-			write_config_bits_P16F72( address, data, blocksize, lastblock );
-			break;
-			case P12F629:
-			case P16F87X:
-			case P16F91X:
-			case P16F81X:
-			case P16F84A:
-			case P16F87XA:
-			case P12F6XX: //same as P16F62X
-			case P16F62XA: //same as P16F62X
-			case P16F62X:
-			write_config_bits_P16F62XA( address, data, blocksize, lastblock );
-			break;
-			case P16F88X:
-			case P16F18XX:
-			write_config_bits_P16F18XX( address, data, blocksize, lastblock );
-			case P12F508:
-			case P16F54:
-			case P16F57:
-			case P16F59:
-			case P10F200:
-			case P10F202:
-			write_config_bits_P16F54( address, data, blocksize, lastblock );
-			break;
-#endif
-		default:
-			set_vdd_vpp( pictype, picfamily, 0 );
-			return 3;
-			break;
-		}
+	{
+		exit_ISCP();
+		return 3;
+	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-		set_vdd_vpp( pictype, picfamily, 0 );
+		exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -233,7 +132,7 @@ void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, cha
 	//start for loop
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		set_address( picfamily, address + ((unsigned int) blockcounter) );
+		set_address_P18( address + ((unsigned int) blockcounter) );
 		//LSB first
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );
@@ -243,7 +142,7 @@ void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, cha
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
-		set_address( picfamily, address + ((unsigned int) blockcounter) + 1 );
+		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming
 		pic_send_n_bits( 3, 0 );
@@ -267,7 +166,7 @@ void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char
 	//start for loop
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		set_address( picfamily, address + ((unsigned int) blockcounter) );
+		set_address_P18( address + ((unsigned int) blockcounter) );
 		//LSB first
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );
@@ -277,7 +176,7 @@ void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
-		set_address( picfamily, address + ((unsigned int) blockcounter) + 1 );
+		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming
 		pic_send_n_bits( 3, 0 );
@@ -299,7 +198,7 @@ void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, ch
 	//start for loop
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		set_address( picfamily, address + ((unsigned int) blockcounter) );
+		set_address_P18( address + ((unsigned int) blockcounter) );
 		//LSB first
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );
@@ -309,7 +208,7 @@ void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, ch
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
-		set_address( picfamily, address + ((unsigned int) blockcounter) + 1 );
+		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming
 		pic_send_n_bits( 3, 0 );
@@ -330,7 +229,7 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 	//start for loop
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		set_address( picfamily, address + ((unsigned int) blockcounter) );
+		set_address_P18( address + ((unsigned int) blockcounter) );
 		//LSB first
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );
@@ -340,7 +239,7 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
-		set_address( picfamily, address + ((unsigned int) blockcounter) + 1 );
+		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming
 		pic_send_n_bits( 3, 0 );

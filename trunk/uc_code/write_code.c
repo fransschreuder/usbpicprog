@@ -36,131 +36,21 @@
  data contains the data MSB0, LSB0, MSB1, LSB1, etc...
  blocksize is the block syze in BYTES
  */
-extern PICFAMILY picfamily;
-extern PICTYPE pictype;
-char write_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
-		char lastblock )
+char write_code( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_vdd_vpp( pictype, picfamily, 1 );
-#ifdef TABLE
+		enter_ISCP();
 	if( currDevice.write_code )
 		currDevice.write_code( address, data, blocksize, lastblock );
 	else
-		switch( pictype ) {
-#else
-		switch( pictype )
-		{
-			case I2C_EE_1:
-			write_code_EE_1( address, data, blocksize, lastblock );
-			break;
-			case I2C_EE_2:
-			write_code_EE_2( address, data, blocksize, lastblock );
-			break;
-			case P24FXXKAXXX:
-			write_code_P24FXXKAXXX( address, data, blocksize, lastblock );
-			break;
-			case dsP30F:
-			write_code_dsP30F( address, data, blocksize, lastblock );
-			break;
-			case P18F872X:
-			write_code_P18F872X( address, data, blocksize, lastblock );
-			break;
-			case P18F6XKXX:
-			write_code_P18F6XKXX( address, data, blocksize, lastblock );
-			break;
-			case P18F67KXX:
-			write_code_P18F67KXX( address, data, blocksize, lastblock );
-			break;
-			case P18F2XXX:
-			write_code_P18F2XXX( address, data, blocksize, lastblock );
-			break;
-			case P18F4XK22:
-			case P18LF4XK22:
-			write_code_P18F4XK22( address, data, blocksize, lastblock );
-			break;
-			case P18LF14K22:
-			write_code_P18LF14K22( address, data, blocksize, lastblock );
-			break;
-			case P18F14K22:
-			write_code_P18F14K22( address, data, blocksize, lastblock );
-			break;
-			case P18LF13K22:
-			write_code_P18LF13K22( address, data, blocksize, lastblock );
-			break;
-			case P18F13K22:
-			write_code_P18F13K22( address, data, blocksize, lastblock );
-			break;
-			case P18FX220:
-			write_code_P18FX220( address, data, blocksize, lastblock );
-			break;
-			case P18FXX31:
-			case P18FXX39:
-			case P18F6X2X:
-			case P18FXX2:
-			write_code_P18FXX31( address, data, blocksize, lastblock );
-			break;
-			break;
-			case P18F6XJXX:
-			case P18F97J60:
-			case P18F45J10:
-			write_code_P18F45J10( address, data, blocksize, lastblock );
-			break;
-			case P16F18XX:
-			write_code_P16F18XX( address, data, blocksize, lastblock );
-			break;
-			case P16F87X: //same as P16F62X
-			case P16F84A: //same as P16F62X
-			case P16F62XA: //same as P16F62X
-			case P16F62X:
-			case P12F629:
-			write_code_P16F84A( address, data, blocksize, lastblock );
-			break;
-			case P12F61X:
-			write_code_P12F61X( address, data, blocksize, lastblock );
-			break;
-			case P16F72:
-			case P16F7X:
-			case P16F7X7:
-			write_code_P16F72( address, data, blocksize, lastblock );
-			break;
-			case P16F88X:
-			case P16F785:
-			write_code_P16F785( address, data, blocksize, lastblock );
-			break;
-			case P16F716:
-			write_code_P16F716( address, data, blocksize, lastblock );
-			break;
-			case P12F6XX:
-			write_code_P12F6XX( address, data, blocksize, lastblock );
-			break;
-
-			case P16F87:
-			case P16F91X:
-			case P16F81X:
-			write_code_P16F87( address, data, blocksize, lastblock );
-			break;
-			case P16F87XA:
-			write_code_P16F87XA( address, data, blocksize, lastblock );
-			break;
-			case P12F508:
-			case P16F54:
-			case P16F57:
-			case P16F59:
-			case P10F200:
-			case P10F202:
-			write_code_P16F54( address, data, blocksize, lastblock );
-			break;
-#endif
-		default:
-			set_vdd_vpp( pictype, picfamily, 0 );
-			return 3;
-			break;
-		}
+	{
+		exit_ISCP();
+		return 3;
+	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-		set_vdd_vpp( pictype, picfamily, 0 );
+		exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -428,7 +318,7 @@ void write_code_P18F872X( unsigned long address, unsigned char* data, char block
 		pic_send( 4, 0x00, 0x88A6 ); //BSF EECON1, WREN
 		pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
-		set_address( picfamily, address );
+		set_address_P18( address );
 	}
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
@@ -463,7 +353,7 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9C7F ); //BSF EECON1, CFGS
 		pic_send( 4, 0x00, 0x847F ); //BSF EECON1, WREN
-		set_address( picfamily, address );
+		set_address_P18( address );
 	}
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
@@ -499,7 +389,7 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9C7F ); //BSF EECON1, CFGS
 		pic_send( 4, 0x00, 0x847F ); //BSF EECON1, WREN
-		set_address( picfamily, address );
+		set_address_P18( address );
 	}
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
@@ -532,7 +422,7 @@ void write_code_P18F2XXX( unsigned long address, unsigned char* data, char block
 
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
 		//write 2 bytes and post increment by 2
@@ -557,7 +447,7 @@ void write_code_P18F4XK22( unsigned long address, unsigned char* data, char bloc
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
 		//write 2 bytes and post increment by 2
@@ -584,7 +474,7 @@ void write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize); blockcounter += 16 ) //blocks of 16 bytes
 	{
 		for( i = 0; i < 14; i += 2 )
@@ -617,7 +507,7 @@ void write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize); blockcounter += 8 ) //blocks of 8 bytes
 	{
 		for( i = 0; i < 6; i += 2 )
@@ -650,7 +540,7 @@ void write_code_P18FX220( unsigned long address, unsigned char* data, char block
 	//direct access to code memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize); blockcounter += 8 ) //blocks of 8 bytes
 	{
 		for( i = 0; i < 6; i += 2 )
@@ -684,12 +574,12 @@ void write_code_P18FXX31( unsigned long address, unsigned char* data, char block
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
 	//configure the device for single panel writes
-	set_address( picfamily, 0x3C0006 );
+	set_address_P18( 0x3C0006 );
 	pic_send( 4, 0x0C, 0x0000 ); //write 0x00 to the tblptr to disable multi-panel writes
 	//direct access to code memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < (blocksize); blockcounter += 8 ) //blocks of 8 bytes
 	{
 		for( i = 0; i < 6; i += 2 )
@@ -720,7 +610,7 @@ void write_code_P18F45J10( unsigned long address, unsigned char* data, char bloc
 	if( !(address & 0x20) )
 	{
 		pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
-		set_address( picfamily, address ); //blocks of 64 bytes, but divided into two chunks
+		set_address_P18( address ); //blocks of 64 bytes, but divided into two chunks
 	}
 	for( blockcounter = 0; blockcounter < (blocksize - 2); blockcounter += 2 )
 	{
@@ -766,7 +656,7 @@ void write_code_P16F18XX( unsigned long address, unsigned char* data, char block
 	char blockcounter;
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_address( picfamily, address ); //set the initial address
+		set_address_P16( address ); //set the initial address
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
@@ -787,7 +677,7 @@ void write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
 	char blockcounter;
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_address( picfamily, address ); //set the initial address
+		set_address_P16( address ); //set the initial address
 
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
@@ -815,7 +705,7 @@ void write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
 
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		set_address( picfamily, address ); //set the initial address
+		set_address_P16( address ); //set the initial address
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
@@ -1002,7 +892,7 @@ void write_code_P16F54( unsigned long address, unsigned char* data, char blocksi
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		pic_send_n_bits( 6, 0x06 );//increment address to go from 1FF / 3FF to 0
-		set_address( picfamily, address ); //set the initial address
+		set_address_P16( address ); //set the initial address
 		//pic_send_n_bits(6,0x09);//bulk erase, which is necessary anyway...
 		//DelayMs(20);
 	}

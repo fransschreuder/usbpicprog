@@ -47,22 +47,17 @@ typedef enum _PICTYPE{
 
 extern PICFAMILY picfamily;
 extern PICTYPE pictype;
-char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore);
+char bulk_erase(unsigned char doRestore);
 
-char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                unsigned char* data,char blocksize,char lastblock);
+char write_code( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                unsigned char* data, char blocksize, char lastblock);
+char write_data( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                       unsigned char* data, char blocksize, char lastblock);
+char write_config_bits( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-               unsigned char* data, char blocksize, char lastblock);
+char read_code( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-               unsigned char* data, char blocksize, char lastblock);
+unsigned char read_data( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
 
 // delay times according to programming specification for PIC18F:

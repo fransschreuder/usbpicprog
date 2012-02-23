@@ -47,7 +47,7 @@
 #include "usb.h"                         // Required
 #include "io_cfg.h"                      // Required
 #include "usb_compile_time_validation.h" // Optional
-#include "upp.h"                              // Modifiable
+#include "upp.h"                         // Modifiable
 #ifndef SDCC_MODEL_SMALL
 #pragma config PLLDIV = 2, CPUDIV = OSC1_PLL2, USBDIV = 2, FOSC = HSPLL_HS //CPU=48 MHz
 #pragma config PWRT = ON

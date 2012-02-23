@@ -20,17 +20,16 @@ rom char *rom picfamilyName[] =
 rom char *rom pictypeName[] =
 {
 #include "pictype.h"
-	"P24FJG"
+	 "P24FJG"
 };
 #undef LIST
-#undef ENUM
 
 #define LIST DEVICE_ENTRY
 #pragma romdata DEVICES
 
 DEVICE_TABLE devices[]  =
 {
-#include "pictype.h"
+#include "device_table.h"
 };
 
 #undef LIST

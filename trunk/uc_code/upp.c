@@ -196,7 +196,7 @@ void ProcessIO( void )
 			break;
 		case CMD_ERASE:
 			setLeds( LEDS_ON | LEDS_WR );
-			output_buffer[0] = bulk_erase( picfamily, pictype, input_buffer[1] );
+			output_buffer[0] = bulk_erase( input_buffer[1] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -205,18 +205,18 @@ void ProcessIO( void )
 			switch( picfamily ) {
 			case PIC24:
 			case dsPIC30:
-				read_code( picfamily, pictype, 0xFF0000, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
+				read_code( 0xFF0000, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC18:
 			case PIC18J:
 			case PIC18K:
 				//devid is at location 0x3ffffe   for PIC18 devices
-				read_code( picfamily, pictype, 0x3FFFFE, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
+				read_code( 0x3FFFFE, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC16:
-				set_vdd_vpp( picfamily, pictype, 0 );
+				exit_ISCP();
 				//devid is at location 0x2006  for PIC16 devices
-				read_code( picfamily, pictype, 0x2006, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
+				read_code( 0x2006, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			}
 			counter = 2;
@@ -226,7 +226,7 @@ void ProcessIO( void )
 			setLeds( LEDS_ON | LEDS_WR );
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
-			output_buffer[0] = write_code( picfamily, pictype, address,
+			output_buffer[0] = write_code( address,
 					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
 			counter = 1;
 			setLeds( LEDS_ON );
@@ -241,7 +241,7 @@ void ProcessIO( void )
 
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
-			PIN = read_code( picfamily, pictype, address, (unsigned char*) output_buffer, input_buffer[1],
+			PIN = read_code( address, (unsigned char*) output_buffer, input_buffer[1],
 					input_buffer[5] );
 			if( PIN == 3 )
 				output_buffer[0] = 0x3;
@@ -252,7 +252,7 @@ void ProcessIO( void )
 			setLeds( LEDS_ON | LEDS_WR );
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
-			output_buffer[0] = write_data( picfamily, pictype, address,
+			output_buffer[0] = write_data( address,
 					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
 			counter = 1;
 			setLeds( LEDS_ON );
@@ -261,7 +261,7 @@ void ProcessIO( void )
 			setLeds( LEDS_ON | LEDS_RD );
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
-			read_data( picfamily, pictype, address, (unsigned char*) output_buffer, input_buffer[1],
+			read_data( address, (unsigned char*) output_buffer, input_buffer[1],
 					input_buffer[5] );
 			counter = input_buffer[1];
 			setLeds( LEDS_ON );
@@ -270,7 +270,7 @@ void ProcessIO( void )
 			setLeds( LEDS_ON | LEDS_WR );
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
 					| ((unsigned long) input_buffer[4]);
-			output_buffer[0] = write_config_bits( picfamily, pictype, address,
+			output_buffer[0] = write_config_bits( address,
 					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
 			counter = 1;
 			setLeds( LEDS_ON );
@@ -278,31 +278,8 @@ void ProcessIO( void )
 		case CMD_SET_PICTYPE:
 		{
 			int i;
-			pictype = input_buffer[1];
 
-			for( i = 0; i < UPP_INVALID_PICTYPE; i++ ) {
-				if( devices[i].flags.type == pictype ) {
-					currDevice = devices[i];
-					break;
-				}
-			}
-
-			if( i < UPP_INVALID_PICTYPE && currDevice.flags.family != UPP_INVALID_PICFAMILY )
-				output_buffer[0] = 1;		// OK
-			else
-			{
-				pictype = P18F2XXX;
-				for( i = 0; i < UPP_INVALID_PICTYPE; i++ ) {
-					if( devices[i].flags.type == pictype ) {
-						currDevice = devices[i];
-						break;
-					}
-				}
-
-				output_buffer[0] = 3;		// bad pictype
-			}
-			picfamily = currDevice.flags.family;
-
+			output_buffer[0] = set_pictype( input_buffer[1] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -317,12 +294,13 @@ void ProcessIO( void )
 			setLeds( LEDS_ON | LEDS_WR | LEDS_RD );
 			switch( input_buffer[1] ) {
 			case 0:
-				set_vdd_vpp( dsP30F, dsPIC30, 1 );
+				set_pictype( dsP30F );
+				enter_ISCP();
 				output_buffer[0] = 1;
 				counter = 1;
 				break;
 			case 1:
-				set_vdd_vpp( dsP30F, dsPIC30, 0 );
+				exit_ISCP();
 				output_buffer[0] = 1;
 				counter = 1;
 				break;
@@ -526,100 +504,39 @@ void ProcessIO( void )
 	}
 }//end ProcessIO
 
-#if 0
-unsigned char set_pictype( unsigned char* data )
+unsigned char set_pictype( unsigned char pt )
 {
-	pictype = data[0];
-	switch( pictype ) {
-	case P12F508:
-	case P10F200:
-	case P10F202:
-	case P16F54:
-	case P16F57:
-	case P16F59:
-		picfamily = PIC10;
-		break;
-	case P16F87XA:
-	case P16F62XA:
-	case P16F62X:
-	case P12F629:
-	case P12F6XX:
-	case P12F61X:
-	case P16F84A:
-	case P16F81X:
-	case P16F7X:
-	case P16F7X7:
-	case P16F87X:
-	case P16F72:
-	case P16F87:
-	case P16F785:
-	case P16F91X:
-	case P16F88X:
-	case P16C6XX:
-	case P16C55X:
-	case P16C7XX:
-	case P16C64X:
-	case P14000:
-	case P16C50X:
-	case P16C432:
-	case P17CXX:
-	case P16F716:
-	case P17C7XX:
-		picfamily = PIC16;
-		break;
-	case P18F2XXX:
-	case P18FXXK20:
-	case P18F4XK22:
-	case P18LF4XK22:
-	case P18FXX2:
-	case P18FXX39:
-	case P18F6X2X:
-	case P18FXX80:
-	case P18F8410:
-	case P18F1X30:
-	case P18FXX23:
-	case P18F13K22:
-	case P18F14K22:
-	case P18LF13K22:
-	case P18LF14K22:
-		picfamily = PIC18;
-		break;
-	case P18F97J60:
-	case P18F6XJXX:
-	case P18F45J10:
-		picfamily = PIC18J;
-		break;
-	case P18F6XKXX:
-	case P18F67KXX:
-		picfamily = PIC18K;
-		break;
-	case P24FJXXXGA0XX:
-	case P24H:
-	case P24FJXXXGA1:
-	case P24FXXKAXXX:
-		picfamily = PIC24;
-		break;
-	case dsP30F:
-	case dsP30F_LV:
-		picfamily = dsPIC30;
-		break;
-	case dsP33F:
-		picfamily = dsPIC33;
-		break;
-	case I2C_EE_1:
-	case I2C_EE_2:
-		picfamily = I2C;
-		break;
-	default:
-		pictype = P18F2XXX;
-		picfamily = PIC18;
-		return 3;
-		break;
+	unsigned char i;
+
+	pictype = pt;
+	for( i = 0; i < UPP_INVALID_PICTYPE; i++ )
+	{
+		if( devices[i].flags.type == pt )
+		{
+			currDevice = devices[i];
+			break;
+		}
 	}
-	return 1;
+
+	if( i < UPP_INVALID_PICTYPE && currDevice.flags.family != UPP_INVALID_PICFAMILY )
+	{
+		picfamily = currDevice.flags.family;
+		return (1);
+	}
+	pictype = P18F2XXX;
+	for( i = 0; i < UPP_INVALID_PICTYPE; i++ )
+	{
+		if( devices[i].flags.type == pictype )
+		{
+			currDevice = devices[i];
+			break;
+		}
+	}
+	picfamily = currDevice.flags.family;
+	return( 3 );
 }
-#endif
-/******************************************************************************
+
+	/******************************************************************************
  * Function:        void BlinkUSBStatus(void)
  *
  * PreCondition:    None

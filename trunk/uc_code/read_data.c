@@ -35,42 +35,20 @@
  This function reads a block of data from the data eeprom of size blocksize into *data
  call this function only once.
  **/
-extern PICFAMILY picfamily;
-extern PICTYPE pictype;
-unsigned char read_data( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data,
+unsigned char read_data( unsigned long address, unsigned char* data,
 		char blocksize, char lastblock )
 {
 	char blockcounter = 0;
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_vdd_vpp( pictype, picfamily, 1 );
-#ifdef TABLE
+		enter_ISCP();
 	if( currDevice.read_data )
 		currDevice.read_data( address, data, blocksize, lastblock );
 	else
-		switch( pictype ) {
-#else
-		switch( picfamily )
-		{
-			case dsP30F_LV:
-			case dsPIC30:
-			read_data_dsPIC30( address, data, blocksize, lastblock );
-			break;
-			case PIC18:
-			read_data_PIC18( address, data, blocksize, lastblock );
-			break;
-			case PIC16:
-			read_data_PIC16( address, data, blocksize, lastblock );
-			break;
-#endif
-		default:
-			for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
-				*(data + blockcounter) = 0;
-			break;
-		}
-	//if(lastblock&2)
+		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
+			*(data + blockcounter) = 0;
 	if( lastblock & BLOCKTYPE_LAST )
-		set_vdd_vpp( pictype, picfamily, 0 );
+		exit_ISCP();
 	return 0;
 }
 

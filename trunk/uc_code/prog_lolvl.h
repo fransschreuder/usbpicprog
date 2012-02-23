@@ -43,11 +43,14 @@ void I2C_delay();
     Sets or clears the VDD and VPP voltages.
 */
 void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily, char level);
+void enter_ISCP( void );
 
 /**
     Sets the address pointer to a certain address location.
 */
 void set_address(PICFAMILY picfamily, unsigned long address);
+void set_address_P16( unsigned long address );
+void set_address_P18( unsigned long address );
 
 
 /**

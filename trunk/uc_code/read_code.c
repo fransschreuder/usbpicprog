@@ -34,66 +34,20 @@
 /**
  read_program will read program memory, id's and configuration bits
  **/
-extern PICFAMILY picfamily;
-extern PICTYPE pictype;
-char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsigned char* data, char blocksize,
-		char lastblock )
+char read_code( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter = 0;
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		set_vdd_vpp( pictype, picfamily, 1 );
-#ifdef TABLE
+		enter_ISCP();
 	if( currDevice.read_code )
 		currDevice.read_code( address, data, blocksize, lastblock );
 	else
-		switch( pictype ) {
-#else
-	switch( picfamily ) {
-	case I2C:
-		if( pictype == I2C_EE_1 )
-			read_code_I2C_EE_1( address, data, blocksize, lastblock );
-		else
-			read_code_I2C_EE_2( address, data, blocksize, lastblock );
-		break;
-	case dsP30F_LV:
-	case dsPIC30:
-		read_code_dsPIC30( address, data, blocksize, lastblock );
-		break;
-	case PIC18J:
-	case PIC18:
-		read_code_PIC18( address, data, blocksize, lastblock );
-		break;
-	case PIC16:
-		if( pictype == P16F18XX )
-			read_code_P16F18XX( address, data, blocksize, lastblock );
-		else
-			read_code_PIC16( address, data, blocksize, lastblock );
-		break;
-	case PIC10:
-		switch( pictype ) {
-		case P10F200:
-			read_code_P10F200( address, data, blocksize, lastblock );
-			break;
-		case P12F508:
-		case P10F202:
-		case P16F54:
-			read_code_P16F54( address, data, blocksize, lastblock );
-			break;
-		case P16F57:
-		case P16F59:
-			read_code_P16F57( address, data, blocksize, lastblock );
-			break;
-		}
-#endif
-	default:
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
 			*(data + blockcounter) = 0;
-		break;
-	}
-	if( lastblock & BLOCKTYPE_LAST )
-		set_vdd_vpp( pictype, picfamily, 0 );
 
+if( lastblock & BLOCKTYPE_LAST )
+exit_ISCP();
 }
 
 void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
@@ -227,7 +181,7 @@ void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize
 {
 	char blockcounter = 0;
 
-	set_address( picfamily, address );
+	set_address_P18( address );
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		*(data + blockcounter) = pic_read_byte2( 4, 0x09 );
