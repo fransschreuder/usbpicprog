@@ -31,7 +31,6 @@
 #include "interrupt.h"
 #include "prog_lolvl.h"
 
-//FIXME: where is P18FXX31
 
 /**
  address points to the first byte of the block
@@ -278,7 +277,6 @@ void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
-		//        pic_send( 4, 0x00, 0x2AF6 ); //incf tblptr			//FIXME: this is deleted in current version???
 		set_address( picfamily, address + ((unsigned int) blockcounter) + 1 );
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming

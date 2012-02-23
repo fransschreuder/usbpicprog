@@ -24,7 +24,6 @@
 #include <p18cxxx.h>
 #endif
 #include "typedefs.h"
-#include <delays.h>
 #include "interrupt.h"
 #include "prog.h"
 #include "upp.h" 
@@ -34,6 +33,8 @@
 #ifdef TEST
 #undef I2C_delay
 #undef set_vdd_vpp
+#else
+#include <delays.h>
 #endif
 #define I2C_delay()	Delay10TCYx(2)		// approx 2x 1.3us min
 
@@ -190,8 +191,6 @@ void enter_ISCP_PIC18K()
 	pic_send_word( 0xC2B2 );
 	//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x0A12 );
-	VPP_RSToff(); //release from reset	//FIXME: have to assume this is already done?
-	VPP_RUNon();				// unneeded
 	DelayMs( 1 );
 
 }
@@ -245,8 +244,6 @@ void enter_ISCP_PIC24K()
 	pic_send_word( 0xC2B2 );
 	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x8A12 );
-	VPP_RSToff(); //release from reset	//FIXME: have to assume this is already done?
-	VPP_RUNon();				// unneeded
 	DelayMs( 1 );
 
 
@@ -272,7 +269,6 @@ void enter_ISCP_I2C_EE()
 
 void exit_ISCP()
 {
-	PGD_LOW = 0;		// in case I2C changed it
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)

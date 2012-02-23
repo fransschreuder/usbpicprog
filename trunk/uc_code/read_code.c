@@ -70,7 +70,7 @@ char read_code( PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		else
 			read_code_PIC16( address, data, blocksize, lastblock );
 		break;
-	case PIC10: //FIXME: configAddress for 12F508/9 should be 0x3FF/0x7FF
+	case PIC10:
 		switch( pictype ) {
 		case P10F200:
 			read_code_P10F200( address, data, blocksize, lastblock );
