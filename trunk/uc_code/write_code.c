@@ -765,10 +765,9 @@ void write_code_P16F18XX( unsigned long address, unsigned char* data, char block
 
 	char blockcounter;
 
-	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
-	{
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_address( picfamily, address ); //set the initial address
-	}
+
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
 		pic_send_14_bits( 6, 0x02, (((unsigned int) data[blockcounter])) | //MSB
@@ -787,10 +786,9 @@ void write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
 
 	char blockcounter;
 
-	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
-	{
+	if( lastblock & BLOCKTYPE_FIRST )
 		set_address( picfamily, address ); //set the initial address
-	}
+
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
 		pic_send_14_bits( 6, 0x02, (((unsigned int) data[blockcounter])) | //MSB
