@@ -186,7 +186,6 @@ restart:
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		i = (unsigned int) I2C_write( data[blockcounter] );
-		i = (unsigned int) I2C_write( data[blockcounter] );
 		if( i == 1 )   // received a NACK
 		{
 			for( i = 0; i < 4; i++ ) {
@@ -421,7 +420,7 @@ void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksi
 void write_code_P18F872X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-
+					//FIXME: this only needs to be done on FIRST_BLOCK
 	if( (address & 0x20) == 0 ) //package must be 64 bytes, so only do this every two packages.
 	{
 		pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
@@ -438,8 +437,7 @@ void write_code_P18F872X( unsigned long address, unsigned char* data, char block
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
-	//FIXME: should be address & 0x20 probably
-	if( (address && 0x20) || (lastblock & BLOCKTYPE_LAST) )
+	if( (address & 0x20) == 0x20 || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -459,6 +457,7 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 {
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	if( (address & 0x20) == 0 ) //package must be 64 bytes, so only do this every two packages.
 	{
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
@@ -473,8 +472,7 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
-	//FIXME: should be address & 0x20 probably
-	if( (address && 0x20) || (lastblock & BLOCKTYPE_LAST) )
+	if( (address & 0x20) == 0x20 || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -494,8 +492,9 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 void write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-	//FIXME: this should be address & 0x20
-	if( (address & 0x40) == 0 ) //package must be 64 bytes, so only do this every two packages.
+
+	//FIXME: this only needs to be done on FIRST_BLOCK
+	if( (address & 0x60) == 0 ) //package must be 128 bytes, so only do this every four packages.
 	{
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9C7F ); //BSF EECON1, CFGS
@@ -509,8 +508,7 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
-	//FIXME: should be address & 0x20 probably
-	if( (address && 0x40) || (lastblock & BLOCKTYPE_LAST) )
+	if( (address & 0x60) == 0x60 || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
@@ -555,6 +553,7 @@ void write_code_P18F4XK22( unsigned long address, unsigned char* data, char bloc
 {
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
@@ -580,6 +579,7 @@ void write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 	unsigned int i;
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	//direct access to code memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
@@ -612,6 +612,7 @@ void write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
 	unsigned int i;
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	//direct access to code memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
@@ -645,6 +646,7 @@ void write_code_P18FX220( unsigned long address, unsigned char* data, char block
 	unsigned int i;
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	//direct access to code memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
@@ -677,6 +679,7 @@ void write_code_P18FXX31( unsigned long address, unsigned char* data, char block
 	unsigned int i;
 	char blockcounter;
 
+	//FIXME: this only needs to be done on FIRST_BLOCK
 	//direct access to config memory
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
