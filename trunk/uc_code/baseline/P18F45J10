@@ -231,8 +231,16 @@ pic_send( cmd_size=4,command=00,payload=94A6 )
  returns( 2 )
 >>>>>> write_config_bits( PIC18J, P18F45J10, 2000, data, 03, 1 )
 enterISCP
-exit_ISCP
- returns( 3 )
+pic_send( cmd_size=4,command=00,payload=84A6 )
+pic_send( cmd_size=4,command=00,payload=0E00 )
+pic_send( cmd_size=4,command=00,payload=6EF8 )
+pic_send( cmd_size=4,command=00,payload=0E20 )
+pic_send( cmd_size=4,command=00,payload=6EF7 )
+pic_send( cmd_size=4,command=00,payload=0E00 )
+pic_send( cmd_size=4,command=00,payload=6EF6 )
+pic_send( cmd_size=4,command=0D,payload=0000 )
+pic_send( cmd_size=4,command=0D,payload=0000 )
+ returns( 2 )
 >>>>>> read_code( PIC18J, P18F45J10, 0000, data, 03, 1 )
 enterISCP
 pic_send( cmd_size=4,command=00,payload=0E00 )
