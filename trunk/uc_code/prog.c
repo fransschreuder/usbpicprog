@@ -79,7 +79,7 @@ char bulk_erase(PICFAMILY picfamily,PICTYPE pictype,unsigned char doRestore)
 				dspic_send_24_bits(0x000000);	//NOP
 				j=dspic_read_16_bits(0);
 				dspic_send_24_bits(0x000000);	//NOP
-				if((j&&0x8000)==0)break;	//programming completed
+				if((j&0x8000)==0)break;	//programming completed
 				DelayMs(10);
 
 			}//step 8: repeat step 5-7
@@ -571,7 +571,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 		case I2C_EE_1:
 		case I2C_EE_2:
 			I2C_start();
-			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
+			I2C_write(0xA0|((unsigned char)((address&0x10000)>>13))); //Device Address + 0=write
 			
 			if(pictype==I2C_EE_2)
 				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
@@ -686,7 +686,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 					dspic_send_24_bits(0x000000);	//NOP
 					payload=dspic_read_16_bits(0);
 					dspic_send_24_bits(0x000000);	//NOP
-					if((payload&&0x8000)==0)break;	//programming completed
+					if((payload&0x8000)==0)break;	//programming completed
 					DelayMs(1);
 
 				}//step 8: repeat step 5-7
@@ -734,7 +734,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
 						(((unsigned int)*(data+1+blockcounter))<<8));
 			}
-			if((address&&0x20)||(lastblock&2))
+			if((address&0x20)||(lastblock&2))
 			{
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
@@ -763,7 +763,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
 						(((unsigned int)*(data+1+blockcounter))<<8));
 			}
-			if((address&&0x20)||(lastblock&2))
+			if((address&0x20)||(lastblock&2))
 			{
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
@@ -792,7 +792,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				pic_send(4,0x0D,((unsigned int)*(data+blockcounter))|
 						(((unsigned int)*(data+1+blockcounter))<<8));
 			}
-			if((address&&0x40)||(lastblock&2))
+			if((address&0x40)||(lastblock&2))
 			{
 				//write last 2 bytes of the block and start programming
 				pic_send(4,0x0F,((unsigned int)*(data+blockcounter))|(((unsigned int)*(data+1+blockcounter))<<8)); 
@@ -1634,12 +1634,12 @@ char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, unsi
 	{
 		case I2C:
 			I2C_start();
-			I2C_write(0xA0|((unsigned char)((address&&0x10000)>>13))); //Device Address + 0=write
+			I2C_write(0xA0|((unsigned char)((address&0x10000)>>13))); //Device Address + 0=write
 			if(pictype==I2C_EE_2)
 				I2C_write((unsigned char)((address&0xFF00)>>8)); //MSB
 			I2C_write((unsigned char)((address&0x00FF))); //LSB
 			I2C_start();
-			I2C_write(0xA1|((unsigned char)((address&&0x10000)>>13))); //Device Address + 1=read
+			I2C_write(0xA1|((unsigned char)((address&0x10000)>>13))); //Device Address + 1=read
 			for(blockcounter=0;blockcounter<blocksize;blockcounter++)
 			{
 				data[blockcounter] = I2C_read(0);
