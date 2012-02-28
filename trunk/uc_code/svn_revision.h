@@ -1,3 +1,3 @@
 // generated file
-#define SVN_REVISION "usbpicprog 120220"
+#define SVN_REVISION "usbpicprog 120228"
 

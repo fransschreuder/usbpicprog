@@ -1062,6 +1062,7 @@ char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, uns
 				}
 				switch(pictype)
 				{
+					case P16F91X:
 					case P16F88X:
 					case P16F785:
 						pic_send_n_bits(6,0x18);    //begin programming
