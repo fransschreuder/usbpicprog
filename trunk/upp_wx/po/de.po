@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-08-18 09:40+0100\n"
 "Last-Translator: Bernd Kernbaum <bernd.kernbaum@t-online.de>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid " Connected"
 msgstr "Verbunden"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr " und "
 
@@ -314,7 +314,7 @@ msgstr "Konnte die Hex-Datei nicht öffnen ..."
 msgid "Could not run the worker thread!"
 msgstr "Kann das Programmteil nicht starten!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "Konnte das USB Gerät: %s nicht zurücksetzen."
@@ -428,17 +428,17 @@ msgstr "Lösche alle Speicher des PIC ..."
 msgid "Erasing before programming..."
 msgstr "Löschen vor dem Programmieren"
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Fehler bei USB Geräteanforderung: %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Fehler beim Löschen "
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Fehler beim Erhalten des USB Endpunktbezeichners: %s"
@@ -471,11 +471,11 @@ msgstr "Fehler beim Lesen des Konfigurationsspeichers"
 msgid "Error reading data memory"
 msgstr "Fehler beim Lesen des Datenspeichers"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Fehler beim Rückspeichern des Kalibrationsregisters"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Fehler beim Setzen der Konfiguration des USB Gerätes: %s"
@@ -582,16 +582,16 @@ msgstr "Ungültige '%s' Datei."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Ungültige PIC Familie für den PIC '%s'."
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "Ungültige Richtung"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Ungültige ungerade Pin Anzahl: %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Ungültige Pin Anzahl: %d"
@@ -631,7 +631,7 @@ msgstr "Kein PIC erkannt!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Kein PIC erkannt! Auswahl des voreingestellten PIC (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "Keine Daten zum Vergleichen"
 
@@ -683,7 +683,7 @@ msgstr "Gehäuse"
 msgid "Please confirm"
 msgstr "Bitte bestätigen"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Bitte einen BandGAB Wert zwischen 0 und 3 auswählen"
 
@@ -699,7 +699,7 @@ msgstr "Bitte einen neuen Osccal Wert [0xC00- 0xCFF] wählen"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Bitte einen neuen Osccal Wert [3400 - 37FF] wählen"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "Bitte einen Osccal Wert zwischen "
 
@@ -798,7 +798,7 @@ msgstr ""
 "Rücksetzten  des Programm-, Configurations- und Datenbereiches der aktuellen "
 "HEX Datei "
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "Rückspeichern des BandGap Register"
 
@@ -806,7 +806,7 @@ msgstr "Rückspeichern des BandGap Register"
 msgid "Restore Cal regs..."
 msgstr "Rückspeichen der CAL regs ..."
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Rückspeichern des Osccal Register"
 
@@ -929,7 +929,7 @@ msgstr ""
 "Bitte dieses Programm deinstallieren und  USBPICPROG für 64 Bit OS "
 "herunterladen und installieren."
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -953,7 +953,7 @@ msgstr "USB Fehler während eines Leertestes"
 msgid "USB error during verify"
 msgstr "USB Fehler beim Vergleichen"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "USB Fehler während des Lesens: %s"
@@ -963,7 +963,7 @@ msgstr "USB Fehler während des Lesens: %s"
 msgid "USB error while writing code memory"
 msgstr "USB Fehler beim Schreiben des Programmspeichers"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "USB Fehler während des Schreibens: %d bytes, errCode: %d; %s"
@@ -1194,6 +1194,10 @@ msgstr "Leertest"
 msgid "blankcheck the device"
 msgstr "Prüfen ob der PIC leer ist"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "Löschen des gesamten PIC"
@@ -1226,7 +1230,7 @@ msgstr "Hex Datei nicht anzeigen"
 msgid "erase"
 msgstr "Löschen"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "Datei"
 
@@ -1234,7 +1238,7 @@ msgstr "Datei"
 msgid "help"
 msgstr "Hilfe"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "Hex Datei"
 
@@ -1270,11 +1274,19 @@ msgstr "Lesen des PIC"
 msgid "reload"
 msgstr "Erneut laden"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr "Rückspeichern bandgap"
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr "Rückspeichen OSCCAL"
 
@@ -1309,6 +1321,10 @@ msgstr "Stop"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "stoppe das Zielgerät"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

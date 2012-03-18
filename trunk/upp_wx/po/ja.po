@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "接続"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr "と"
 
@@ -316,7 +316,7 @@ msgstr "HEXファイルを開くことができませんでした。"
 msgid "Could not run the worker thread!"
 msgstr "処理が実行できません！"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "インタフェースをリセットできませんでした： %s"
@@ -428,17 +428,17 @@ msgstr "PICのすべての領域を消去します..."
 msgid "Erasing before programming..."
 msgstr "書き込むために消去しています..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "USBデバイスのインタフェース要求が異常： %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "デバイス消去に失敗しました"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "USBエンドポイント記述子の取得エラーの： %s"
@@ -471,11 +471,11 @@ msgstr "コンフィグレーションメモリからの読み込みができま
 msgid "Error reading data memory"
 msgstr "データメモリを読み込めません"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "較正レジスタの回復が異常です"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "コンフィグレーション設定が異常です： %s"
@@ -582,16 +582,16 @@ msgstr "無効の「%s」ファイル。"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "無効なPICファミリ '%s'."
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "無効の方向"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "無効でおかしなピン数: %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "無効なピン数: %d"
@@ -631,7 +631,7 @@ msgstr "PICが検出できません！"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "PICが検出できません！デフォルトのPICを選択します (%s)"
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "ベリファイするデータがありません"
 
@@ -683,7 +683,7 @@ msgstr "パッケージ:"
 msgid "Please confirm"
 msgstr "確認して下さい"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "0と3の間の禁止帯の値を指定してください"
 
@@ -699,7 +699,7 @@ msgstr "新しいOsccal値を指定してください [0xC00 - 0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "新しいOsccal値を指定してください [3400 - 37FF]"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "の間のOscal値を指定してください。"
 
@@ -796,7 +796,7 @@ msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "現在のデータをクリアします"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "禁止帯レジスタを復元して下さい"
 
@@ -804,7 +804,7 @@ msgstr "禁止帯レジスタを復元して下さい"
 msgid "Restore Cal regs..."
 msgstr "Cal regs を復元..."
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Osccalレジスタを復元して下さい"
 
@@ -925,7 +925,7 @@ msgstr ""
 "どうかこのプログラムをアンインストールして、64ビット版のUsbPicProgインストー"
 "ラーをダウンロードして下さい。"
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -948,7 +948,7 @@ msgstr "ブランクチェックでUSBエラーが発生しました"
 msgid "USB error during verify"
 msgstr "ベリファイ時にUSBエラーが発生しました"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "読み込む際、USBエラーが発生しました： %s"
@@ -958,7 +958,7 @@ msgstr "読み込む際、USBエラーが発生しました： %s"
 msgid "USB error while writing code memory"
 msgstr "コードメモリを書き込み中にエラーが発生しました"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr ""
@@ -1190,6 +1190,10 @@ msgstr "ブランクチェック"
 msgid "blankcheck the device"
 msgstr "デバイスをブランクチェックします"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "デバイスを消去します"
@@ -1222,7 +1226,7 @@ msgstr "HEXファイルを表示しないで下さい"
 msgid "erase"
 msgstr "消去"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "ファイル"
 
@@ -1230,7 +1234,7 @@ msgstr "ファイル"
 msgid "help"
 msgstr "ヘルプ"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "HEXファイル"
 
@@ -1266,11 +1270,19 @@ msgstr "デバイスを読み込みます"
 msgid "reload"
 msgstr "再ロード"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr "禁止帯の復元"
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr "Osscalの復元"
 
@@ -1305,6 +1317,10 @@ msgstr "停止"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "ターゲットデバイスを停止します"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

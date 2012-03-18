@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-04-12 09:14+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "Соединено"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr " и "
 
@@ -318,7 +318,7 @@ msgstr "Невозможно открыть Hex файл ..."
 msgid "Could not run the worker thread!"
 msgstr "Невозможно запустить рабочий поток!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "Невозможно сбросить интерфейс устройства USB: %s"
@@ -432,17 +432,17 @@ msgstr "Очистка всех областей PIC..."
 msgid "Erasing before programming..."
 msgstr "Очистка перед программированием..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Ошибка запроса интерфейса USB устройства: %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Ошибка при очистке устройства"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Ошибка получения endpoint-описателя USB: %s"
@@ -475,11 +475,11 @@ msgstr "Ошибка чтения конфигурационной памяти"
 msgid "Error reading data memory"
 msgstr "Ошибка чтения памяти данных"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Ошибка восстановления Регистров Калибровки"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Ошибка установки конфигурации USB устройства: %s"
@@ -587,16 +587,16 @@ msgstr "Неправильный файл '%s'."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Неправильно семейство PIC для PIC '%s'."
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "Неправильное направление"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Неправильное нечетное количество пинов:  %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Неправильное число пинов: %d"
@@ -636,7 +636,7 @@ msgstr "PIC не обнаружен!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "PIC не обнаружен! Выбирается PIC по умолчанию (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "Нет данных для проверки"
 
@@ -690,7 +690,7 @@ msgstr "Корпус"
 msgid "Please confirm"
 msgstr "Пожалуйста, подтвердите"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Пожалуйста, укажите значение BandGap между 0 и 3"
 
@@ -706,7 +706,7 @@ msgstr "Пожалуйста, укажите новое значение Osccal 
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Пожалуйста, укажите новое значение Osccal [3400 - 37FF]"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "Пожалуйста, укажите значение Oscal между "
 
@@ -803,7 +803,7 @@ msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "Сбрасывает области кода, конфигурации и данных открытого HEX файла"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "Восстановить регистр BandGap"
 
@@ -811,7 +811,7 @@ msgstr "Восстановить регистр BandGap"
 msgid "Restore Cal regs..."
 msgstr "Восстановить регистры Cal..."
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Восстановить регистры Osccal..."
 
@@ -932,7 +932,7 @@ msgstr ""
 "Пожалуйста, удалите эту программу и загрузите инсталлятор UsbPicProg для 64-"
 "битных операционных систем."
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -955,7 +955,7 @@ msgstr "Ошибка USB во время проверки на \"чистоту\
 msgid "USB error during verify"
 msgstr "Ошибка USB во время проверки"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Ошибка USB во время чтения: %s"
@@ -965,7 +965,7 @@ msgstr "Ошибка USB во время чтения: %s"
 msgid "USB error while writing code memory"
 msgstr "Ошибка USB во время записи памяти кода"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Ошибка USB в процессе записи на устройство: %d байт, errCode: %d; %s"
@@ -1194,6 +1194,10 @@ msgstr "проверка на \"чистоту\""
 msgid "blankcheck the device"
 msgstr "проверить устройство на \"чистоту\""
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "стереть все устройство"
@@ -1226,7 +1230,7 @@ msgstr "не отображать hex файл"
 msgid "erase"
 msgstr "Очистить"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "файл"
 
@@ -1234,7 +1238,7 @@ msgstr "файл"
 msgid "help"
 msgstr "помощь"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "hex файл"
 
@@ -1270,11 +1274,19 @@ msgstr "прочесть с устройства"
 msgid "reload"
 msgstr "перезагрузить"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr ""
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr ""
 
@@ -1309,6 +1321,10 @@ msgstr "остановить"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "остановить целевое устройство"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

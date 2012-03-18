@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Usbpicprog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-04-12 09:11+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Arabic <fransschreuder@lists.sourceforge.net>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "تم الإتصال"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr ""
 
@@ -308,7 +308,7 @@ msgstr "مسح ملف الهيكسا"
 msgid "Could not run the worker thread!"
 msgstr "لا يمكن تشغيل خيط العمل (worker thread) !"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr ""
@@ -422,17 +422,17 @@ msgstr "مسح كافة مجالات الـPIC..."
 msgid "Erasing before programming..."
 msgstr "مسح قبل البرمجة"
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, fuzzy, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "حدث خطأ أثناء مسح العنصر"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "حدث خطأ أثناء مسح العنصر"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr ""
@@ -465,12 +465,12 @@ msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
 msgid "Error reading data memory"
 msgstr "حدث خطأ أثناء قراءة ذاكرة المعطيات"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, fuzzy, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "حدث خطأ عند قراءة ذاكرة الإعدادات"
@@ -576,16 +576,16 @@ msgstr ""
 msgid "Invalid PIC family for PIC '%s'."
 msgstr ""
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr ""
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr ""
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr ""
@@ -625,7 +625,7 @@ msgstr "لم يتم العثور على الـPIC !"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "لم يتم العثور على PIC !  سيتم اختيار الـPIC الافتراضي ( %s ) ..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr ""
 
@@ -678,7 +678,7 @@ msgstr "التعليبة"
 msgid "Please confirm"
 msgstr "الرجاء، قم بالتأكيد"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr ""
 
@@ -694,7 +694,7 @@ msgstr ""
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr ""
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr ""
 
@@ -792,7 +792,7 @@ msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "تصفير مجالات التعليمات و المعطيات و الإعدادات في ملف الهيكسا الحالي"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr ""
 
@@ -800,7 +800,7 @@ msgstr ""
 msgid "Restore Cal regs..."
 msgstr ""
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr ""
 
@@ -916,7 +916,7 @@ msgid ""
 "64bit operating systems."
 msgstr ""
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -938,7 +938,7 @@ msgstr "حدث خطأ من الـUSB أثناء فحص الخلو"
 msgid "USB error during verify"
 msgstr "حدث خطأ من الـUSB أثناء التفحص"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, fuzzy, c-format
 msgid "USB error while reading: %s"
 msgstr "حدث خطأ من الـUSB أثناء الكتابة في ذاكرة التعليمات"
@@ -948,7 +948,7 @@ msgstr "حدث خطأ من الـUSB أثناء الكتابة في ذاكرة �
 msgid "USB error while writing code memory"
 msgstr "حدث خطأ من الـUSB أثناء الكتابة في ذاكرة التعليمات"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, fuzzy, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "حدث خطأ من الـUSB أثناء الكتابة في ذاكرة التعليمات"
@@ -1180,6 +1180,10 @@ msgstr "فحص الخلو"
 msgid "blankcheck the device"
 msgstr "فحص خلو العنصر"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "مسح شامل للعنصر"
@@ -1212,7 +1216,7 @@ msgstr "عدم إظهار ملف الهيكسا"
 msgid "erase"
 msgstr "مسح"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "ملف"
 
@@ -1220,7 +1224,7 @@ msgstr "ملف"
 msgid "help"
 msgstr "تعليمات"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "ملف الهيكسا"
 
@@ -1257,11 +1261,19 @@ msgstr "قراءة العنصر"
 msgid "reload"
 msgstr "إعادة تحميل"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr ""
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr ""
 
@@ -1299,6 +1311,10 @@ msgstr ""
 #, fuzzy
 msgid "stop target device"
 msgstr "كتابة على العنصر"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

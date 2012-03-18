@@ -5,141 +5,140 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: usbpicprog 0.4.1\n"
+"Project-Id-Version: usbpicprog 0.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-18 19:32+0100\n"
-"PO-Revision-Date: 2011-04-12 09:13+0100\n"
-"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
-"Language-Team: lucas azevedo <lucasazevedo9@gmail.com>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-03-18 19:32+0100\n"
+"Last-Translator: Frans Schreuder <fransschreuder@gmail.com>\n"
+"Language-Team: NanoLab's <slp-007@hotmail.com>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: BRAZIL\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: src/uppmainwindow.cpp:1522 src/uppmainwindow.cpp:1550
 #: src/uppmainwindow.cpp:1552
 msgid " Connected"
-msgstr " Conectado"
+msgstr " Bağlan"
 
 #: src/main.cpp:374
 msgid " and "
-msgstr "e"
+msgstr " ve"
 
 #: src/uppmainwindow.cpp:998
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
-msgstr "Falhou em 0x%X. Leitura: 0x%02X, Esperada: 0x%02X"
+msgstr ""
 
 #: src/uppmainwindow.cpp:583
 #, c-format
 msgid "%s [%d pins]"
-msgstr "%s [%d pinos]"
+msgstr "%s [%d bacak]"
 
 #: src/uppmainwindow.cpp:558
 #, c-format
 msgid "%s datasheet"
-msgstr "%s folha de dados"
+msgstr "%s veri kataloğu"
 
 #: src/uppmainwindow_base.cpp:239
 msgid "&About"
-msgstr "&Sobre"
+msgstr "&Hakkında"
 
 #: src/uppmainwindow.cpp:329
 msgid "&Actions"
-msgstr "&Ações"
+msgstr ""
 
 #: src/uppmainwindow.cpp:238
 msgid "&Autodetect..."
-msgstr "&Detectar Automaticamente..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:234
 msgid "&Blankcheck..."
-msgstr "&Verificação de dispositivo vazio..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:251
 msgid "&Connect..."
-msgstr "&Conectar..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:211
 msgid "&Copy"
-msgstr "&Copiar"
+msgstr "&Kopyala"
 
 #: src/uppmainwindow.cpp:255
 msgid "&Disconnect..."
-msgstr "&Desconectar..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:218
 msgid "&Edit"
-msgstr "&Editar"
+msgstr "&Düzenle"
 
 #: src/uppmainwindow.cpp:225
 msgid "&Erase..."
-msgstr "&Apagar..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:207
 msgid "&File"
-msgstr "&Ficheiro"
+msgstr "&Dosya"
 
 #: src/uppmainwindow_base.cpp:233 src/uppmainwindow_base.cpp:242
 msgid "&Help"
-msgstr "&Ajuda"
+msgstr "&Yardım"
 
-# Vinícius Pais de Oliveira
 #: src/uppmainwindow_base.cpp:226
 msgid "&IO Test"
-msgstr "&Teste de E/S"
+msgstr "&IO Testi"
 
 #: src/uppmainwindow_base.cpp:180
 msgid "&New"
-msgstr "&Novo"
+msgstr "&YEni"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "&Open"
-msgstr "&Abrir"
+msgstr "&Aç"
 
 #: src/uppmainwindow_base.cpp:229
 msgid "&Options"
-msgstr "&Opções"
+msgstr "&Ayarlar"
 
 #: src/uppmainwindow_base.cpp:222
 msgid "&Preferences"
-msgstr "&Preferências"
+msgstr "&Terçihler"
 
 #: src/uppmainwindow.cpp:213
 msgid "&Program..."
-msgstr "&Programar..."
+msgstr "&Program..."
 
 #: src/uppmainwindow.cpp:217
 msgid "&Read..."
-msgstr "&Ler..."
+msgstr "&Oku..."
 
 #: src/uppmainwindow_base.cpp:192
 msgid "&Reload"
-msgstr "&Recarregar"
+msgstr "&Yenile"
 
 #: src/uppmainwindow_base.cpp:196
 msgid "&Save"
-msgstr "&Salvar"
+msgstr "&Kaydet"
 
 #: src/uppmainwindow.cpp:292
 msgid "&Select PIC..."
-msgstr "&Selecionar PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:221
 msgid "&Verify..."
-msgstr "&Verificar..."
+msgstr ""
 
 #: src/io_test_base.cpp:45 src/io_test_base.cpp:61 src/io_test_base.cpp:90
 #: src/io_test_base.cpp:119 src/io_test_base.cpp:125 src/io_test_base.cpp:160
 #: src/io_test_base.cpp:166
 msgid "0V"
-msgstr "0V"
+msgstr "0v"
 
 #: src/io_test_base.cpp:35
 msgid "12V"
@@ -156,119 +155,114 @@ msgstr "5V"
 
 #: src/uppmainwindow.cpp:722 src/uppmainwindow.cpp:726
 msgid "All operations completed"
-msgstr "Todas as operações completas"
+msgstr "Tüm işlemler tamamlandı"
 
 #: src/uppmainwindow.cpp:1584 src/uppmainwindow.cpp:1585
 msgid "Already disconnected"
-msgstr "Já estava desconectado"
+msgstr "Zaten bağlıdeğil"
 
 #: src/uppmainwindow.cpp:1616
 msgid "An open source USB pic programmer"
-msgstr "Um programador open source para PIC através da USB"
+msgstr "Açık kaynaklı USB pic programlayıcı"
 
 #: src/preferences_base.cpp:60
 msgid "Autodetect on Connect"
-msgstr ""
+msgstr "Bağlantıyı otomatik algıla"
 
 #: src/uppmainwindow.cpp:1062
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
-"Verificação de dispositivo vazio falhou em 0x%X. Leitura: 0x%02X, Esperada: "
-"0x%02X"
 
 #: src/uppmainwindow.cpp:235
 msgid "Blankcheck the PIC device"
-msgstr "Verifica se o dispositivo PIC está vazio"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1561 src/uppmainwindow.cpp:1563
 msgid "Bootloader or programmer not found"
-msgstr "Bootloader ou programador não encontrados"
+msgstr "Önyükleyici yada programcı bulunamadı"
 
 #: src/packageview.cpp:65
 msgid "Can't create the package bitmap!"
-msgstr "Não é possível criar o bitmap do pacote!"
+msgstr "Paketin bitmap i oluşturulamıyor!"
 
 #: src/packageview.cpp:71
 msgid "Can't draw the PIC package!"
-msgstr "Não é possível desenhar o pacote PIC!"
+msgstr "PIC paketi çizilemiyor!"
 
 #: src/pictype.cpp:160
 #, c-format
 msgid "Cannot load '%s'."
-msgstr "Não é possível carregar '%s'."
+msgstr "Yüklenemedi '%s'."
 
 #: src/main.cpp:133
 msgid "Cannot load XML PIC data."
-msgstr "Não é possível carregar os dados XML para o PIC."
+msgstr ""
 
 #: src/uppmainwindow.cpp:1657 src/uppmainwindow.cpp:1685
 msgid "Cannot select a different PIC when the bootloader is connected!"
-msgstr ""
-"Não é possível selecionar um PIC diferente quando o bootloader está "
-"conectado!"
+msgstr "Önyükleyici bağlı olduğunda farklı bir PIC seçemezsiniz!"
 
 #: src/uppmainwindow.cpp:293
 msgid "Change the currently selected PIC"
-msgstr "Mudar o PIC selecionado"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1042
 msgid "Checking if the device is blank..."
-msgstr "A verificar se o dispositivo está vazio..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:45
 msgid "Code"
-msgstr "Código"
+msgstr "Kod"
 
 #: src/hexfile.cpp:708
 msgid "Code Memory\n"
-msgstr "Memória de Código\n"
+msgstr "Kod Belleği\n"
 
 #: src/uppmainwindow_base.cpp:102
 msgid "Code memory size:"
-msgstr "Tamanho da memória de código:"
+msgstr "Kod belleği boyutu:"
 
 #: src/uppmainwindow.cpp:571
 #, c-format
 msgid "Code memory size: %d bytes"
-msgstr "Tamanho da memória de código: %d bytes"
+msgstr ""
 
 #: src/configview.cpp:144
 msgid "Configuration Word:"
-msgstr "Palavra de Configuração:"
+msgstr "Yapılandırma Kelimesi:"
 
 #: src/uppmainwindow_base.cpp:75
 msgid "Configuration flags"
-msgstr "Marcadores de configuração"
+msgstr "Bayrak Ayarları"
 
 #: src/uppmainwindow_base.cpp:65
 msgid "Configuration flags for this PIC:"
-msgstr "Flags de configuração para este PIC:"
+msgstr "Bu PIC in bayraklarını ayarla."
 
 #: src/preferences_base.cpp:58
-#, fuzzy
 msgid "Connect Options"
-msgstr "&Opções"
+msgstr "Bağlantı Ayarları"
 
 #: src/uppmainwindow.cpp:252
 msgid "Connect to the programmer"
-msgstr "Conectar ao programador"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:211
 msgid "Copies to the clipboard currently selected cells"
-msgstr "Copia as células actuais para a área de transferência"
+msgstr ""
 
 #: src/hexview.cpp:209
 msgid "Copy"
-msgstr "Copiar"
+msgstr "Kopyala"
 
 #: src/pictype.cpp:237
 msgid "Could not access the 'xml_data' folder."
-msgstr "Não foi possível acessar a pasta 'xml_data'."
+msgstr ""
 
 #: src/uppmainwindow.cpp:1122
 msgid "Could not create the worker thread!"
-msgstr "Impossível criar o thread de trabalho!"
+msgstr ""
 
 #: src/main.cpp:147
 msgid ""
@@ -284,54 +278,42 @@ msgid ""
 "mail on the UsbPicProg mailing list including your 'DPINST.LOG' file (which "
 "is located in your 'Windows\\System32' folder)."
 msgstr ""
-"Não foi possível inicializar libusb. Isso pode ocorrer devido a:\n"
-"1) uma instalação incorreta do driver UsbPicProg; verificar se este é o caso "
-"executando o Gerenciador de Dispositivos do Windows com o programador "
-"ligado;\n"
-"2) Uma instalação incorreta de cfgmgr32.dll, winusb.dll ou hid.dll;\n"
-"Por favor, re-instale UsbPicProg e assegure-se que o Windows reconhece o "
-"hardware UsbPicProg quando ele é ligado ao barramento USB. Se o Windows pede "
-"um driver, por favor aponte-o para o Diretório 'UsbPicProg\\driver' "
-"Diretório que foi instalado na pasta Arquivos de programas. Se você ainda "
-"tiver problemas, por favor deixe seu E-mail na lista de discussão UsbPicProg "
-"incluindo o arquivo 'DPINST.LOG' (que Está localizado na pasta 'Windows"
-"\\System32')."
 
 #: src/main.cpp:150
 #, c-format
 msgid "Could not initialize libusb: %s"
-msgstr "Não foi possível inicializar libusb: %s"
+msgstr ""
 
 #: src/pictype.cpp:105 src/pictype.cpp:125 src/pictype.cpp:216
 #, c-format
 msgid "Could not load data for PIC '%s'."
-msgstr "Não foi possível carregar dados para o PIC '%s'."
+msgstr ""
 
 #: src/hexfile.cpp:342
 msgid "Could not open Hex file for writing..."
-msgstr "Não foi possível abrir o arquivo Hex para escrita..."
+msgstr "Hex dosyası yazmak için açılamadı..."
 
 #: src/hexfile.cpp:101
 msgid "Could not open Hex file..."
-msgstr "Não foi possível abrir o arquivo Hex..."
+msgstr "Hex dosyası açılamadı..."
 
 #: src/uppmainwindow.cpp:1128
 msgid "Could not run the worker thread!"
-msgstr "Impossível correr o thread de trabalho!"
+msgstr ""
 
 #: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
-msgstr "Não foi possível reiniciar o Dispositivo USB: %s"
+msgstr "USB aygıtın arayüzü yeniden başlatılamadı: %s"
 
 #: src/io_test_base.cpp:54 src/io_test_base.cpp:83 src/io_test_base.cpp:112
 #: src/io_test_base.cpp:153
 msgid "Current HW state:"
-msgstr "Estado atual do HW:"
+msgstr "Geçerli HW durumu:"
 
 #: src/io_test_base.cpp:38
 msgid "Current HW voltage:"
-msgstr "Tensão atual do HW:"
+msgstr "Geçerli HW voltajı:"
 
 #: src/configview.cpp:161
 #, c-format
@@ -339,176 +321,174 @@ msgid ""
 "Current value for the %d-th configuration word as derived from above "
 "configuration choices"
 msgstr ""
-"Valor atual para a %dª palavra de configuração derivada das escolhas de "
-"configuração acima"
 
 #: src/uppmainwindow_base.cpp:60
 msgid "Data"
-msgstr "Dados"
+msgstr "Veri"
 
 #: src/hexfile.cpp:226
 msgid "Data in hex file outside code memory of PIC"
-msgstr "Dados no arquivo hex fora da área de memória de código do PIC"
+msgstr "PIC in kod belleği dışında hex dosya verisi"
 
 #: src/hexfile.cpp:162
 msgid "Data in hex file outside config memory of PIC"
-msgstr "Dados no arquivo hex fora da área de memória de configuração do PIC"
+msgstr "PIC in yapılandırma belleği dışında hex dosya verisi"
 
 #: src/hexfile.cpp:211
 msgid "Data in hex file outside data memory of PIC"
-msgstr "Dados no arquivo hex fora da área de memória de dados do PIC"
+msgstr "PIC in veri belleği dışında hex dosya verisi"
 
 #: src/uppmainwindow_base.cpp:106
 msgid "Data memory size:"
-msgstr "Tamanho da memória de dados:"
+msgstr "Veri belleği boyutu"
 
 #: src/uppmainwindow.cpp:572
 #, c-format
 msgid "Data memory size: %d bytes"
-msgstr "Tamanho da memória de dados: %d bytes"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:83
 msgid "Datasheet"
-msgstr "Folha de Dados"
+msgstr "Veri Kataloğu"
 
 #: src/uppmainwindow.cpp:239
 msgid "Detect the type of the PIC device"
-msgstr "Detecta o tipo de dispositivo PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1474
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
-msgstr "Detectado PIC modelo %s com ID de dispositivo 0x%X"
+msgstr "Tanımlanan PIC modeli %s ve aygıt ID 0x%X"
 
 #: src/uppmainwindow_base.cpp:98
 msgid "Device ID:"
-msgstr "ID do dispositivo:"
+msgstr "Aygıt ID:"
 
 #: src/uppmainwindow.cpp:570
 #, c-format
 msgid "Device ID: 0x%X"
-msgstr "ID do dispositivo: 0x%X"
+msgstr "Aygıt ID: 0x%X"
 
 #: src/uppmainwindow.cpp:1050
 msgid "Device is blank"
-msgstr "O dispositivo está vazio"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1067
 msgid "Device is not blank."
-msgstr "O dispositivo não está vazio."
+msgstr ""
 
 #: src/uppmainwindow.cpp:256
 msgid "Disconnect from the programmer"
-msgstr "Desconectar do programador"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1578 src/uppmainwindow.cpp:1580
 msgid "Disconnected"
-msgstr "Desconectado"
+msgstr "Bağlantıyı kes"
 
 #: src/uppmainwindow_base.cpp:204
 msgid "E&xit"
-msgstr "Sa&ir"
+msgstr "Ç&ıkış"
 
 #: src/hexview.cpp:207
 msgid "Edit"
-msgstr "Editar"
+msgstr "Düzenle"
 
 #: src/uppmainwindow.cpp:819
 msgid "Erase OK"
-msgstr "Apagado OK"
+msgstr "Silme Tamamlandı"
 
 #: src/preferences_base.cpp:35
 msgid "Erase before programming"
-msgstr "Apagar antes de programar"
+msgstr "Programlamadan önce sil"
 
 #: src/uppmainwindow.cpp:226
 msgid "Erase the PIC device"
-msgstr "Apaga o dispositivo PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1023
 msgid "Erasing all areas of the PIC..."
-msgstr "A apagar todas as áreas do PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:814
 msgid "Erasing before programming..."
-msgstr "Apagando antes de programar..."
+msgstr ""
 
 #: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
-msgstr "Erro ao tentar utilizar interface: %s"
+msgstr ""
 
 #: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
-msgstr "Erro ao apagar o dispositivo"
+msgstr "Aygıt silme hatası"
 
 #: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
-msgstr "Erro ao obter descritor endpoint USB: %s"
+msgstr ""
 
 #: src/hexfile.cpp:135
 msgid "Error in checksum..."
-msgstr "Erro na soma de checagem..."
+msgstr "Sağlama hatası..."
 
 #: src/uppmainwindow.cpp:853
 msgid "Error programming code memory"
-msgstr "Erro ao programar memória de código"
+msgstr ""
 
 #: src/uppmainwindow.cpp:918
 msgid "Error programming config memory"
-msgstr "Erro ao programar a memória de configuração"
+msgstr ""
 
 #: src/uppmainwindow.cpp:883
 msgid "Error programming data memory"
-msgstr "Erro ao programar memória de dados"
+msgstr ""
 
 #: src/uppmainwindow.cpp:939
 msgid "Error reading code memory"
-msgstr "Erro ao ler a memória de código"
+msgstr ""
 
 #: src/uppmainwindow.cpp:960
 msgid "Error reading configuration memory"
-msgstr "Erro ao ler a memória de configuração"
+msgstr ""
 
 #: src/uppmainwindow.cpp:949
 msgid "Error reading data memory"
-msgstr "Erro ao ler a memória de dados"
+msgstr ""
 
 #: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
-msgstr "Erro ao restaurar a memória de configuração"
+msgstr ""
 
 #: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
-msgstr "Erro ao definir configuração do dispositivo USB: %s"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Examples"
-msgstr "Exemplos"
+msgstr "Örnekler"
 
 #: src/uppmainwindow_base.cpp:204
 msgid "Exits the program"
-msgstr "Sai do programa"
+msgstr "Programdan çıkılıyor"
 
 #: src/io_test_base.cpp:51 src/io_test_base.cpp:87 src/io_test.cpp:128
 #: src/io_test.cpp:138 src/io_test.cpp:148 src/io_test.cpp:158
 msgid "FLOAT"
-msgstr "Flutuante"
+msgstr ""
 
 #: src/hexfile.cpp:119
 msgid "Failure in hex file..."
-msgstr "Falha no arquivo hex..."
+msgstr "Hex dosya başarısız"
 
 #: src/uppmainwindow.cpp:507
 msgid "Firmware probably too new"
-msgstr "Firmware provavelmente novo demais"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:149 src/uppmainwindow_base.cpp:151
 msgid "Fit package drawing"
-msgstr "Encaixar no desenho do pacote"
+msgstr "Paketi sığdır"
 
 #: src/uppmainwindow_base.cpp:94
 msgid ""
@@ -517,10 +497,6 @@ msgid ""
 "   MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Frequency range:\n"
-"   MIN\n"
-"   MAX\n"
-"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:569
 #, c-format
@@ -529,33 +505,33 @@ msgid ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 msgstr ""
-"Faixa de frequência:\n"
+"Frekans aralığı:\n"
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 
 #: src/preferences_base.cpp:66
 msgid "GUI options"
-msgstr "Opções de GUI"
+msgstr "GUI (Arayüz) ayarları"
 
 #: src/preferences_base.cpp:19
 msgid "Global settings for Usbpicprog:"
-msgstr "Configurações globais para o Usbpicprog:"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:35
 msgid "Hexadecimal view of the code area of the PIC:"
-msgstr "Vista Hexadecimal da área de código do PIC:"
+msgstr "PIC kod alanının onaltılık taban da görünümü:"
 
 #: src/uppmainwindow_base.cpp:50
 msgid "Hexadecimal view of the data area of the PIC:"
-msgstr "Vista Hexadecimal da área de dados do PIC:"
+msgstr "PIC veri alanının onaltılık taban da görünümü:"
 
 #: src/uppmainwindow.cpp:1011 src/uppmainwindow.cpp:1076
 msgid "I'm sorry for being stupid"
-msgstr "Desculpa por ser estúpido"
+msgstr ""
 
 #: src/io_test_base.cpp:131
 msgid "INPUT"
-msgstr "ENTRADA"
+msgstr "Giriş"
 
 #: src/io_test_base.cpp:19
 msgid ""
@@ -564,184 +540,178 @@ msgid ""
 "The real voltage of the VPP pin and the other pins' statuses are updated "
 "once per second and are reported in bold below."
 msgstr ""
-"Neste diálogo, você pode testar o hardware UsbPicProg enviando pedidos para "
-"estabelecer uma tensão específica em um pino de saída específico.\n"
-"A tensão real do pino VPP e os estados dos outros pinos são atualizados uma "
-"vez por segundo e são apresentados abaixo em negrito."
 
 #: src/uppmainwindow.cpp:1097
 msgid "Initializing..."
-msgstr "A inicializar..."
+msgstr ""
 
 #: src/io_test_base.h:76
 msgid "Input/output test"
-msgstr "Teste de Entrada/Saída"
+msgstr "Giriş/Çıkış Testi"
 
 #: src/pictype.cpp:166
 #, c-format
 msgid "Invalid '%s' file."
-msgstr "Arquivo '%s' inválido."
+msgstr ""
 
 #: src/pictype.cpp:188
 #, c-format
 msgid "Invalid PIC family for PIC '%s'."
-msgstr "Família PIC inválida para o PIC '%s'."
+msgstr ""
 
 #: src/pictype.cpp:799
 msgid "Invalid direction"
-msgstr "Direção inválida"
+msgstr ""
 
 #: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
-msgstr "Contagem de pinos ímpar inválida: %d"
+msgstr ""
 
 #: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
-msgstr "Contagem de pinos inválida: %d"
+msgstr "Geçersiz pin sayısı: %d"
 
 #: src/configview.cpp:180
 #, c-format
 msgid "Length: %d bits"
-msgstr "Tamanho: %d bits"
+msgstr "Uzunluk: %d bit"
 
 #: src/uppmainwindow_base.cpp:188
 msgid "Loads a HEX file from the examples folder"
-msgstr "Lê um ficheiro HEX no dobrador dos exemplos"
+msgstr "Örnek klasöründen HEX dosyası yükle"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
-msgstr "Lê um ficheiro HEX para edição ou programação..."
+msgstr ""
 
 #: src/preferences_base.cpp:71
 msgid "Localize Usbpicprog in your System Language"
-msgstr "Localize Usbpicprog in your System Language"
+msgstr ""
 
 #: src/configview.cpp:176
 #, c-format
 msgid "Location in memory: 0x%X"
-msgstr "Posição na memória: 0x%X"
+msgstr "Bellekte kapladığı alan: 0x%X"
 
 #: src/uppmainwindow_base.cpp:81
 msgid "Miscellaneous"
-msgstr "Miscelânea"
+msgstr "Çeşitli"
 
 #: src/uppmainwindow.cpp:1467
 msgid "No PIC detected!"
-msgstr "Nenhum PIC detectado!"
+msgstr "PIC tanımalanmadı"
 
 #: src/uppmainwindow.cpp:1469
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
-msgstr "Nenhum PIC detectado! A selecionar o PIC padrão (%s)..."
+msgstr "PIC tanımlanmadı! Varsıyan PIC i seçin (%s)..."
 
 #: src/hardware.cpp:863
 msgid "No data to verify"
-msgstr "Nenhum dado para verificar"
+msgstr "Hiç bir veri dğrulanmadı"
 
 #: src/uppmainwindow.cpp:1218 src/uppmainwindow.cpp:1219
 msgid "No file to refresh"
-msgstr "Nenhum ficheiro para recarregar"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:160
 msgid "Note: red pins are (some of those) used in ICSP."
-msgstr ""
-"Nota: pinos vermelhos são (alguns deles) usados em ICSP (In Circuit Serial "
-"Programming)."
+msgstr "Not: kırmızılı bacaklar (bazılarında) ICSP için kullanılır."
 
 #: src/uppmainwindow.cpp:1356
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
-msgstr "Somente valido para PIC12F628, PIC12F508, 10F20X e similares..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:1164 src/uppmainwindow.cpp:1182
 msgid "Open hexfile"
-msgstr "Abrir ficheiro hex"
+msgstr "Hex dosyası aç"
 
 #: src/uppmainwindow_base.cpp:233
 msgid "Opens the Usbpicprog's website..."
-msgstr "Abre o site do Usbpicprog..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:685
 msgid "Operations aborted"
-msgstr "Operações abortadas"
+msgstr "İşlem iptal edildi"
 
 #: src/uppmainwindow.cpp:728
 msgid "Operations completed with errors/warnings"
-msgstr "Operações completas com erros/avisos"
+msgstr ""
 
 #: src/io_test_base.cpp:142
 msgid "PGC pin"
-msgstr "Pino PGC"
+msgstr "PGC Bacağı"
 
 #: src/io_test_base.cpp:101
 msgid "PGD pin"
-msgstr "Pino PGD"
+msgstr "PGD Bacağı"
 
 #: src/uppmainwindow_base.cpp:169
 msgid "PIC info"
-msgstr "Informações do PIC"
+msgstr "PIC bilgileri"
 
 #: src/uppmainwindow_base.cpp:117
 msgid "Package"
-msgstr "Pacote"
+msgstr "Peketi"
 
 #: src/uppmainwindow.cpp:480
 msgid "Please confirm"
-msgstr "Confirme por favor"
+msgstr ""
 
 #: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
-msgstr "Por favor especifique um Valor BandGap entre 0 e 3"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1409
 msgid "Please specify a bandgap value"
-msgstr "Por favor especifique um valor BandGap"
+msgstr "Lütfen bir bangap değeri belirtin"
 
 #: src/uppmainwindow.cpp:1377
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
-msgstr "Por favor especifique um novo valor Osccal [0XC00 - 0XCFF]"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1384
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
-msgstr "Por favor especifique um novo valor Osccal [3400 - 37FF]"
+msgstr ""
 
 #: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
-msgstr "Por favor especifique um valor Osccal entre "
+msgstr ""
 
 #: src/uppmainwindow.cpp:1396
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
-msgstr "Por favor especifique um valor Osccal entre %X e %X"
+msgstr "Lütfen %X - %X arası bir Oscal değeri belirtin"
 
 #: src/uppmainwindow.cpp:672
 msgid "Please wait until the operations are completed:\n"
-msgstr "Por favor aguarde enquanto todas as operações são completadas:\n"
+msgstr "İşlem tamamlanana kadar lütfen bekleyin:\n"
 
 #: src/preferences_base.h:54
 msgid "Preferences"
-msgstr "Preferências"
+msgstr "Terçihler"
 
 #: src/preferences_base.cpp:24
 msgid "Program options"
-msgstr "Opções de programação"
+msgstr "Program ayarları"
 
 #: src/uppmainwindow.cpp:214
 msgid "Program the PIC device"
-msgstr "Programa o dispositivo PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:898
 msgid "Programming configuration area of the PIC..."
-msgstr "A programar a área de configuração do PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:831
 msgid "Programming the code area of the PIC..."
-msgstr "A programar a área de código do PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:863
 msgid "Programming the data area of the PIC..."
-msgstr "A programar área de dados do PIC..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:86
 msgid ""
@@ -751,11 +721,6 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Programming voltage (Vpp):\n"
-"    MIN\n"
-"    NOM\n"
-"    MAX\n"
-"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:564
 #, c-format
@@ -765,123 +730,119 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
-"Tensão de programação (Vpp):\n"
-"   Min=%.2fV\n"
-"   Nom=%.2fV\n"
-"   Max=%.2fV"
 
 #: src/uppmainwindow.cpp:1096
 msgid "Progress dialog"
-msgstr "Diálogo de progresso"
+msgstr ""
 
 #: src/io_test_base.cpp:58
 msgid "RESET"
-msgstr "RESET"
+msgstr "Yeniden Başlat"
 
 #: src/uppmainwindow.cpp:218
 msgid "Read the PIC device"
-msgstr "Lê o dispositivo PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:936
 msgid "Reading the code area of the PIC..."
-msgstr "A ler a área de código do PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:957
 msgid "Reading the configuration area of the PIC..."
-msgstr "A ler a área de configuração do PIC..."
+msgstr ""
 
 #: src/uppmainwindow.cpp:946
 msgid "Reading the data area of the PIC..."
-msgstr "A ler a área de dados do PIC..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:192
 msgid "Reloads the current HEX file from disk"
-msgstr "Recarrega o ficheiro HEX actual do disco"
+msgstr "Geçerli HEX dosyasını yeniden diskten yükle"
 
 #: src/uppmainwindow_base.cpp:180
 msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
-msgstr "Limpar as áreas de código, configuração e dados do ficheiro HEX aberto"
+msgstr ""
 
 #: src/main.h:144
 msgid "Restore BandGap Register"
-msgstr "Restaurar Registrador BandGap"
+msgstr ""
 
 #: src/uppmainwindow.cpp:230
 msgid "Restore Cal regs..."
-msgstr "Restaurar Registradores Cal..."
+msgstr ""
 
 #: src/main.h:143
 msgid "Restore Osccal Register"
-msgstr "Restaurar Registrador Osccal"
+msgstr ""
 
 #: src/uppmainwindow.cpp:231
 msgid "Restore PIC's calibration registers"
-msgstr "Restaurar Resgistradores de configuração do PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:243 src/uppmainwindow.cpp:382
 msgid "Run Target"
-msgstr "Executar alvo"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:200
 msgid "Save &As"
-msgstr "Salvar &Como"
+msgstr "Farklı &Kaydet"
 
 #: src/uppmainwindow.cpp:1256
 msgid "Save hexfile"
-msgstr "Salvar ficheiro hex"
+msgstr "Hex dosyasını kaydet"
 
 #: src/uppmainwindow_base.cpp:200
 msgid "Saves current code,config,data as a HEX file"
-msgstr "Salva o código, configuração, dados actuais como ficheiro HEX"
+msgstr "Şuanki kodu,yapılandırmayı ve veri yi HEX dosyası olarak kaydet"
 
 #: src/uppmainwindow_base.cpp:196
 msgid "Saves the HEX file with the modified data"
-msgstr "Salva o ficheiro HEX com os dados alterados"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:215
 msgid "Select &All"
-msgstr "Selecionar &Tudo"
+msgstr "Tümünü &Seç"
 
 #: src/hexview.cpp:210
 msgid "Select All"
-msgstr "Selecionar Tudo"
+msgstr "Tümünü Seç"
 
 #: src/uppmainwindow_base.cpp:215
 msgid "Selects the entire grid currently shown"
-msgstr "Seleciona toda a grelha actual"
+msgstr ""
 
 #: src/uppmainwindow.cpp:248
 msgid "Set 0V to MCLR to stop the target controller"
-msgstr "Escolher 5V para MCLR para parar o controlador alvo"
+msgstr ""
 
 #: src/uppmainwindow.cpp:244
 msgid "Set 5V to MCLR to run the target controller"
-msgstr "Escolher 5V para MCLR para executar o controlador alvo"
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:239
 msgid "Shows informations about this program"
-msgstr "Mostra informação sobre este programa"
+msgstr ""
 
 #: src/preferences_base.cpp:68
 msgid "Shows popups on connect etc..."
-msgstr "Mostrar popups ao conectar, etc..."
+msgstr ""
 
 #: src/uppmainwindow_base.cpp:222 src/uppmainwindow_base.cpp:226
 msgid "Shows the options for this program"
-msgstr "Mostra as opções para este programa"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1409
 msgid "Specify a bandgap value"
-msgstr "Especifique um valor BandGap"
+msgstr "Bir bangap değeri belirtin"
 
 #: src/uppmainwindow.cpp:1378 src/uppmainwindow.cpp:1385
 msgid "Specify a new Osccal Value"
-msgstr "Especifique um novo Valor Osccal"
+msgstr ""
 
 #: src/uppmainwindow.cpp:247 src/uppmainwindow.cpp:384
 msgid "Stop Target"
-msgstr "Parar Alvo"
+msgstr ""
 
 #: src/uppmainwindow.cpp:567
 #, c-format
@@ -891,7 +852,7 @@ msgid ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 msgstr ""
-"Tensão de alimentação (Vdd):\n"
+"Çalışma Voltajı (Vdd):\n"
 "   Min=%.2fV\n"
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
@@ -901,24 +862,23 @@ msgstr ""
 msgid ""
 "The HEX file '%s' has not been saved... its content will be lost; continue?"
 msgstr ""
-"O arquivo HEX '%s' não foi salvo...o seu conteúdo será perdido; continuar?"
 
 #: src/uppmainwindow.cpp:841 src/uppmainwindow.cpp:874
 #: src/uppmainwindow.cpp:909
 msgid "The hardware should ask for next block"
-msgstr "O hardware deveria pedir o próximo bloco"
+msgstr ""
 
 #: src/uppmainwindow.cpp:838 src/uppmainwindow.cpp:871
 #: src/uppmainwindow.cpp:906
 msgid "The hardware should say OK"
-msgstr "O hardware deveria dizer OK"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1297 src/uppmainwindow.cpp:1309
 #: src/uppmainwindow.cpp:1326 src/uppmainwindow.cpp:1338
 #: src/uppmainwindow.cpp:1361 src/uppmainwindow.cpp:1425
 #: src/uppmainwindow.cpp:1437 src/uppmainwindow.cpp:1632
 msgid "The programmer is not connected"
-msgstr "O programador não estã conectado"
+msgstr ""
 
 #: src/main.cpp:116
 msgid ""
@@ -927,171 +887,163 @@ msgid ""
 "Please uninstall this program and download the UsbPicProg installer for "
 "64bit operating systems."
 msgstr ""
-"Este é um aplicativo 32 bits em execução sobre uma versão do Windows de 64 "
-"bits.UsbPicProg não será capaz de se conectar ao hardware!\n"
-"Por favor, desinstale este aplicativo e faça o download do instalador "
-"UsbPicProgpara sistemas operacionais de 64 bits."
 
 #: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
-"Tentando ler memória fora da área permitida: bc+i=%d; tamanho da memória=%d"
 
 #: src/uppmainwindow_base.cpp:110
 msgid "Type:"
-msgstr "Tipo:"
+msgstr "Tipi:"
 
 #: src/uppmainwindow.cpp:573
 #, c-format
 msgid "Type: %d-bit microcontroller"
-msgstr "Tipo: microcontrolador de %d-bits"
+msgstr "Tipi: %d-bit mikro işlemci"
 
 #: src/uppmainwindow.cpp:1070
 msgid "USB error during blankcheck"
-msgstr "Erro de USB durante a verificação de dispositivo vazio"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1005
 msgid "USB error during verify"
-msgstr "Erro de USB durante a verificação"
+msgstr ""
 
 #: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
-msgstr "Erro na USB ao ler: %s "
+msgstr "USB okuma hatası: %s"
 
 #: src/uppmainwindow.cpp:850 src/uppmainwindow.cpp:880
 #: src/uppmainwindow.cpp:915
 msgid "USB error while writing code memory"
-msgstr "Erro de USB ao escrever memória de código"
+msgstr ""
 
 #: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr ""
-"Erro na USB ao tentar escrever no dispositivo: %d bytes, errCode: %d; %s"
 
 #: src/uppmainwindow.cpp:1198 src/uppmainwindow.cpp:1199
 #: src/uppmainwindow.cpp:1228 src/uppmainwindow.cpp:1229
 msgid "Unable to open file"
-msgstr "Impossível abrir ficheiro"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1516 src/uppmainwindow.cpp:1517
 msgid "Unable to read firmware version"
-msgstr "Impossível ler versão da firmware"
+msgstr "Üretici yazılımı okunamıyor"
 
 #: src/uppmainwindow.cpp:1545 src/uppmainwindow.cpp:1546
 msgid "Unable to read version"
-msgstr "Não é possível ler versão"
+msgstr "Sürüm okunamıyor"
 
 #: src/uppmainwindow.cpp:1490
 msgid "Unable to run target"
-msgstr "Não é possível executar o alvo"
+msgstr "Hedef başlatılamıyor"
 
 #: src/uppmainwindow.cpp:1244 src/uppmainwindow.cpp:1245
 #: src/uppmainwindow.cpp:1266 src/uppmainwindow.cpp:1267
 msgid "Unable to save file"
-msgstr "Impossível salvar ficheiro"
+msgstr "Dosya kaydedilemedi"
 
 #: src/uppmainwindow.cpp:1496
 msgid "Unable to stop target"
-msgstr "Não é possível parar o alvo"
+msgstr "Hedef durdurulamıyor"
 
 #: src/uppmainwindow.cpp:1073
 msgid "Unknown error during blankcheck"
-msgstr "Erro desconhecido durante a verificação de dispositivo vazio"
+msgstr ""
 
 #: src/uppmainwindow.cpp:1008
 msgid "Unknown error during verify"
-msgstr "Erro desconhecido durante a verificação"
+msgstr ""
 
 #: src/main.cpp:124
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""
-"Versão do Windows não suportada. UsbPicProg é executado somente no Windows "
-"XP ou posterior."
 
 #: src/uppmainwindow_base.h:105
 msgid "Usbpicprog"
-msgstr "Usbpicprog"
+msgstr "USB PIC PROGRAMLAYICI"
 
 #: src/uppmainwindow.cpp:526
 msgid "Usbpicprog rev: "
-msgstr "Revisão do Usbpicprog:"
+msgstr ""
 
 #: src/uppmainwindow.cpp:528
 msgid "Usbpicprog: "
-msgstr "Usbpicprog:"
+msgstr ""
 
 #: src/io_test_base.cpp:72
 msgid "VDD pin"
-msgstr "pino VDD"
+msgstr "VDD Bacağı"
 
 #: src/io_test_base.cpp:27
 msgid "VPP pin"
-msgstr "pino VPP"
+msgstr "VPP bacağı"
 
 #: src/uppmainwindow_base.cpp:122
 msgid "Variants:"
-msgstr "Variantes:"
+msgstr ""
 
 #: src/preferences_base.cpp:38
 msgid "Verify after programming"
-msgstr "Verificar após programar"
+msgstr "Programladıktan sonra doğrula"
 
 #: src/uppmainwindow.cpp:993
 msgid "Verify code"
-msgstr "Verificar código"
+msgstr ""
 
 #: src/preferences_base.cpp:46
 msgid "Verify code memory"
-msgstr "Verificar memória de código"
+msgstr "Kod belleğini doğrula"
 
 #: src/uppmainwindow.cpp:995
 msgid "Verify config"
-msgstr "Verificar configuração"
+msgstr ""
 
 #: src/preferences_base.cpp:49
 msgid "Verify config memory"
-msgstr "Verificar memória de configuração"
+msgstr "Yapılandırma belleğini doğrula"
 
 #: src/uppmainwindow.cpp:994
 msgid "Verify data"
-msgstr "Verificar dados"
+msgstr ""
 
 #: src/preferences_base.cpp:52
 msgid "Verify data memory"
-msgstr "Verificar memória de dados"
+msgstr "Veri belleğini doğrula"
 
 #: src/uppmainwindow.cpp:847
 msgid "Verify error while writing code memory"
-msgstr "Erro de verificação ao escrever memória de código"
+msgstr ""
 
 #: src/preferences_base.cpp:44
 msgid "Verify options"
-msgstr "Verificar opções"
+msgstr "Doğrulama ayarları"
 
 #: src/uppmainwindow.cpp:988
 msgid "Verify successful"
-msgstr "Verificação bem sucedida"
+msgstr ""
 
 #: src/uppmainwindow.cpp:222
 msgid "Verify the PIC device"
-msgstr "Verifica o dispositivo PIC"
+msgstr ""
 
 #: src/uppmainwindow.cpp:996
 msgid "Verify unknown"
-msgstr "Verificar desconhecido"
+msgstr ""
 
 #: src/uppmainwindow.cpp:975
 msgid "Verifying all areas of the PIC..."
-msgstr "A verificar todas as área do PIC..."
+msgstr ""
 
 #: src/configview.cpp:198
 #, c-format
 msgid "Word %d"
-msgstr "Palavra %d"
+msgstr "Kelime %d"
 
 #: src/uppmainwindow_base.cpp:90
 msgid ""
@@ -1101,73 +1053,60 @@ msgid ""
 "    MAX\n"
 "_dontTranslateThis_"
 msgstr ""
-"Working voltages (Vdd):\n"
-"    MIN\n"
-"    NOM\n"
-"    MAX\n"
-"_dontTranslateThis_"
 
 #: src/uppmainwindow.cpp:835
 msgid "Write Code memory OK"
-msgstr "Escrita da memória de código OK"
+msgstr "Kod belleğine yazma tamam"
 
 #: src/uppmainwindow.cpp:903
 msgid "Write Config memory OK"
-msgstr "Escrita da memória de configuração OK"
+msgstr ""
 
 #: src/uppmainwindow.cpp:868
 msgid "Write Data memory OK"
-msgstr "Escrita da memória de dados OK"
+msgstr ""
 
 #: src/preferences_base.cpp:26
 msgid "Write code memory"
-msgstr "Escrever memória de código"
+msgstr "Kod belleğine yaz."
 
 #: src/uppmainwindow.cpp:844
 msgid "Write code not implemented for current PIC"
-msgstr "Escrita de código não implementada para o PIC actual"
+msgstr ""
 
 #: src/preferences_base.cpp:29
 msgid "Write config memory"
-msgstr "Escrever memória de configuração"
+msgstr "Yapılandırma belleğine yaz."
 
 #: src/uppmainwindow.cpp:912
 msgid "Write config not implemented for current PIC"
-msgstr "Escrita de configuração não implementada para o PIC actual"
+msgstr ""
 
 #: src/preferences_base.cpp:32
 msgid "Write data memory"
-msgstr "Escrever memória de dados"
+msgstr "Veri belleğine yaz."
 
 #: src/uppmainwindow.cpp:877
 msgid "Write data not implemented for current PIC"
-msgstr "Escrita de dados não implementada para o PIC actual"
+msgstr ""
 
 #: src/uppmainwindow.cpp:493
 msgid ""
 "You are using a development release of the firmware with a stable version of "
 "the software. Consider upgrading your firmware"
 msgstr ""
-"Você está usando uma versão de desenvolvimento do firmware com uma versão "
-"estável do software. Por favor, considere a possibilidade de atualizar seu "
-"firmware"
 
 #: src/uppmainwindow.cpp:512
 msgid ""
 "You are using a stable release of the firmware with a development version of "
 "the software. Consider upgrading your firmware"
 msgstr ""
-"Você está usando uma versão estável do firmware com uma versão de "
-"desenvolvimento do software. Por favor, considere a possibilidade de "
-"atualizar seu firmware"
 
 #: src/uppmainwindow.cpp:496
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d); please consider upgrading it"
 msgstr ""
-"Seu firmware é antigo demais (versão mais recente é %d); por favor considere "
-"a possibilidade de atualizá-lo"
 
 #: src/uppmainwindow.cpp:509
 #, c-format
@@ -1175,28 +1114,26 @@ msgid ""
 "Your firmware is too old (latest version is %d.%d.%d); please consider "
 "upgrading it"
 msgstr ""
-"Seu firmware é antigo demais (versão mais recente é  %d.%d.%d); por favor "
-"considere a possibilidade de atualizá-lo"
 
 #: src/uppmainwindow_base.cpp:135 src/uppmainwindow_base.cpp:137
 msgid "Zoom in"
-msgstr "Afastar"
+msgstr "Büyüt"
 
 #: src/uppmainwindow_base.cpp:142 src/uppmainwindow_base.cpp:144
 msgid "Zoom out"
-msgstr "Aproximar"
+msgstr "Küçült"
 
 #: src/uppmainwindow.cpp:379
 msgid "autodetect"
-msgstr "detectar automaticamente"
+msgstr ""
 
 #: src/main.h:136 src/uppmainwindow.cpp:377
 msgid "blankcheck"
-msgstr "verificar se o dispositivo está vazio"
+msgstr ""
 
 #: src/main.h:136
 msgid "blankcheck the device"
-msgstr "verificar se o dispositivo está vazio"
+msgstr "aygıt boşuk kontrolü"
 
 #: src/main.h:141
 msgid "boot"
@@ -1204,79 +1141,79 @@ msgstr ""
 
 #: src/main.h:135
 msgid "bulk erase the device"
-msgstr "limpar o dispositivo"
+msgstr "aygıtın tümünü sil"
 
 #: src/uppmainwindow.cpp:390
 msgid "currently selected PIC type"
-msgstr "tipo de PIC selecionado"
+msgstr ""
 
 #: src/main.h:137
 msgid "debug"
-msgstr "debugar"
+msgstr "hata ayıkla"
 
 #: src/main.h:137
 msgid "debug the hardware"
-msgstr "debugar o hardware"
+msgstr "donanım da hata ayıkla"
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
-msgstr "mostra a ajuda sobre os parâmetros da linha de comandos"
+msgstr ""
 
 #: src/main.h:129
 msgid "displays version information of usbpicprog"
-msgstr "mostra a informação sobre a versão do usbpicprog"
+msgstr "USB PIC PROGRAMLAYICI nın sürüm bilgisini görüntüle"
 
 #: src/main.h:131
 msgid "do not display the hex file"
-msgstr "não mostrar o ficheiro hex"
+msgstr "bu hex dosyası görüntülemiyor"
 
 #: src/main.h:135 src/uppmainwindow.cpp:375
 msgid "erase"
-msgstr "apagar"
+msgstr ""
 
 #: src/main.h:142
 msgid "file"
-msgstr "arquivo"
+msgstr "dosya"
 
 #: src/main.h:128
 msgid "help"
-msgstr "ajuda"
+msgstr "yardım"
 
 #: src/main.h:142
 msgid "hexfile"
-msgstr "arquivo hex"
+msgstr "hexdosyası"
 
 #: src/uppmainwindow.cpp:358
 msgid "new"
-msgstr "novo"
+msgstr ""
 
 #: src/uppmainwindow.cpp:360
 msgid "open"
-msgstr "abrir"
+msgstr ""
 
 #: src/packageview.cpp:45
 msgid "packageview"
-msgstr "visão do pacote"
+msgstr "Paket Görünümü"
 
 #: src/main.h:130
 msgid "pictype"
-msgstr "tipo do pic"
+msgstr "pic türü"
 
 #: src/uppmainwindow.cpp:369
 msgid "program"
-msgstr "programar"
+msgstr ""
 
 #: src/main.h:133 src/uppmainwindow.cpp:371
 msgid "read"
-msgstr "ler"
+msgstr ""
 
 #: src/main.h:133
 msgid "read the device"
-msgstr "ler o dispositivo"
+msgstr "aygıtı oku"
 
 #: src/uppmainwindow.cpp:362
 msgid "reload"
-msgstr "recarregar"
+msgstr ""
 
 #: src/main.h:140
 msgid "reset"
@@ -1288,43 +1225,43 @@ msgstr ""
 
 #: src/main.h:144
 msgid "restore-bandgap"
-msgstr "Restaurar-bandgap"
+msgstr ""
 
 #: src/main.h:143
 msgid "restore-osccal"
-msgstr "restaurar-osccal"
+msgstr ""
 
 #: src/main.h:138
 msgid "run"
-msgstr "executar"
+msgstr "başlar"
 
 #: src/main.h:138
 msgid "run target device"
-msgstr "Rodar dispositivo alvo"
+msgstr "hedef aygıtı başlat"
 
 #: src/uppmainwindow.cpp:364
 msgid "save"
-msgstr "salvar"
+msgstr ""
 
 #: src/uppmainwindow.cpp:366
 msgid "save as"
-msgstr "salvar como"
+msgstr ""
 
 #: src/main.h:131
 msgid "silent"
-msgstr "silencioso"
+msgstr "sesiz"
 
 #: src/main.h:130
 msgid "specify the pic type (eg -p=18F2550)"
-msgstr "especifique o tipo do pic (ex -p=18F2550)"
+msgstr "pic türünü belirtin (örn:  -p=18F2550)"
 
 #: src/main.h:139
 msgid "stop"
-msgstr "parar"
+msgstr "durdur"
 
 #: src/main.h:139
 msgid "stop target device"
-msgstr "parar dispositivo alvo"
+msgstr "hedef aygıt durdur"
 
 #: src/main.h:141
 msgid "tell firmware to reboot in bootloader mode"
@@ -1333,88 +1270,28 @@ msgstr ""
 #: src/hexfile.cpp:238
 #, c-format
 msgid "unknown record type: %d"
-msgstr "tipo de gravação desconhecido: %d"
+msgstr "bilinmeyen kayıt tipi: %d"
 
 #: src/uppmainwindow.cpp:532
 msgid "untitled"
-msgstr "sem título"
+msgstr "isimsiz"
 
 #: src/main.h:134 src/uppmainwindow.cpp:373
 msgid "verify"
-msgstr "verificar"
+msgstr ""
 
 #: src/main.h:134
 msgid "verify the device"
-msgstr "verificar o dispositivo"
+msgstr "aygıtı doğrula"
 
 #: src/main.h:129
 msgid "version"
-msgstr "versão"
+msgstr "sürüm"
 
 #: src/main.h:132
 msgid "write"
-msgstr "escrever"
+msgstr "yazdır"
 
 #: src/main.h:132
 msgid "write the device"
-msgstr "escrever o dispositivo"
-
-#, fuzzy
-#~ msgid "&Close"
-#~ msgstr "Fechar"
-
-#, fuzzy
-#~ msgid "Usbpicprog IO Test"
-#~ msgstr "Testar E/S do UsbPicProg:"
-
-#~ msgid "Interface %d not present: using %d"
-#~ msgstr "Interface %d não está presente: usando %d"
-
-#~ msgid "Usb Error"
-#~ msgstr "Erro na USB"
-
-#~ msgid "Could not load the data for the PIC '%s'."
-#~ msgstr "Não foi possível carregar os dados para o PIC '%s'."
-
-#~ msgid "error: PIC name should match picName: "
-#~ msgstr "erro: nome do PIC deve corresponder ao picName:"
-
-#~ msgid "device ID not found"
-#~ msgstr "ID do dispositivo não encontrada."
-
-#~ msgid "name attribute in memory not found"
-#~ msgstr "nome do atributo na memória não encontrado"
-
-#~ msgid "start attribute in config memory not found"
-#~ msgstr "atributo inicial na memória de configuração não encontrado"
-
-#~ msgid "start attribute in hexfile_offset not found"
-#~ msgstr "atributo inicial em hexfile_offset não encontrado"
-
-#~ msgid "error getting attribute config -> name -> offset"
-#~ msgstr "erro ao receber configuração de atributo -> nome -> offset"
-
-#~ msgid "couldn't find attribute value in mask"
-#~ msgstr "não foi possível encontrar valor de atributo na máscara"
-
-#~ msgid "nb_pins not found in package"
-#~ msgstr "nb_pins não encontrado no pacote"
-
-#~ msgid "Config"
-#~ msgstr "Configurar"
-
-#~ msgid "Verify"
-#~ msgstr "Verificar"
-
-#~ msgid "Gui"
-#~ msgstr "Gui"
-
-#~ msgid "Disconnected usbpicprog"
-#~ msgstr "usbpicprog disconectado"
-
-#~ msgid "Cannot select a PIC different when the bootloader is connected!"
-#~ msgstr ""
-#~ "Não pode selecionar um PIC diferente quando o bootloader está ligado!"
-
-#~ msgid "Hexadecimal view of the configuration fuses of the PIC:"
-#~ msgstr "Vista Hexadecimal da configuração da PIC:"
+msgstr "aygıta yaz"

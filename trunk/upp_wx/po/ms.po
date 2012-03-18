@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr "Tersambung"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr "dan"
 
@@ -314,7 +314,7 @@ msgstr "Gagal membuka fail Hex..."
 msgid "Could not run the worker thread!"
 msgstr "Gagal menjalankan 'worker thread'!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "Gagal reset antaramuka peranti USB: '%s'"
@@ -428,17 +428,17 @@ msgstr "Memadamkan keseluruhan PIC..."
 msgid "Erasing before programming..."
 msgstr "Memadam sebelum memprogram..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Ralat pada antaramuka peranti USB: %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Ralat semasa mengosongkan peranti"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Ralat mendapatkan 'USB endpoint descriptor': %s"
@@ -471,11 +471,11 @@ msgstr "Ralat membaca konfigurasi memori"
 msgid "Error reading data memory"
 msgstr "Ralat membaca data memori"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Ralat memulihkan 'Calibration Registers'"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Ralat aturan konfigurasi pada peranti USB: %s"
@@ -582,16 +582,16 @@ msgstr "Fail '%s' adalah fail yang salah"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "PIC family untuk PIC '%s' adalah salah"
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "'Direction' tidak sah"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "'Odd pin count' tidak sah: %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "'Pin count' tidak sah: %d"
@@ -631,7 +631,7 @@ msgstr "Tiada PIC dikesan!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Tiada PIC dikesan! Memilih PIC yang default (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "Tiada data untuk disahkan"
 
@@ -685,7 +685,7 @@ msgstr "Pakej"
 msgid "Please confirm"
 msgstr "Sila pastikan"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Sila tetapkan satu nilai BandGap dari 0 hingga 3"
 
@@ -701,7 +701,7 @@ msgstr "Sila tetapkan semula nilai Osccal [0xC00 - 0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Sila tetapkan semula nilai Osccal [3400 - 37FF]"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "Sila tetapkan semula nilai Osccal antara"
 
@@ -798,7 +798,7 @@ msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "Reset 'code, configuration dan data areas' untuk fail Hex semasa"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "Pulihkan 'BandGap Register'"
 
@@ -806,7 +806,7 @@ msgstr "Pulihkan 'BandGap Register'"
 msgid "Restore Cal regs..."
 msgstr "Pulihkan 'Cal regs'..."
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Pulihkan 'Osccal Register'"
 
@@ -927,7 +927,7 @@ msgstr ""
 "Sila buang software ini kemudian muat turun pemasang UsbPicProg untuk OS 64-"
 "bit."
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -951,7 +951,7 @@ msgstr "Ralat USB ketika blankcheck"
 msgid "USB error during verify"
 msgstr "Ralat USB ketika pengesahan"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Ralat USB ketika membaca: %s"
@@ -961,7 +961,7 @@ msgstr "Ralat USB ketika membaca: %s"
 msgid "USB error while writing code memory"
 msgstr "Ralat USB ketika memuaturun kod memori"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Ralat USB ketika memuaturun ke peranti: %d bytes, errCode: %d; %s"
@@ -1189,6 +1189,10 @@ msgstr "blankcheck"
 msgid "blankcheck the device"
 msgstr "blankcheck peranti"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "Padam peranti secara pukal"
@@ -1221,7 +1225,7 @@ msgstr "Jangan papar fail Hex"
 msgid "erase"
 msgstr "Padam"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "Fail"
 
@@ -1229,7 +1233,7 @@ msgstr "Fail"
 msgid "help"
 msgstr "Bantuan"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "Fail Hex"
 
@@ -1265,11 +1269,19 @@ msgstr "baca peranti"
 msgid "reload"
 msgstr "muat semula"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr "pulihkan-bandgap"
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr "pulihkan-osccal"
 
@@ -1304,6 +1316,10 @@ msgstr "hentikan"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "hentikan PIC"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format
