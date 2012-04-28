@@ -26,7 +26,7 @@ typedef enum
 	CMD_ERASE = 0x10,
 	CMD_READ_ID = 0x20,
 	CMD_WRITE_CODE = 0x30,
-	CMD_READ_CODE = 0x40,
+	CMD_READ_CODE_OLD = 0x40,		// PROT_UPP0
 	CMD_WRITE_DATA = 0x50,
 	CMD_READ_DATA = 0x60,
 	CMD_WRITE_CONFIG = 0x70,
@@ -34,7 +34,11 @@ typedef enum
 	CMD_FIRMWARE_VERSION = 0x90,
 	CMD_DEBUG = 0xA0,
 	CMD_GET_PIN_STATUS = 0xB0,
-	CMD_SET_PIN_STATUS = 0xC0
+	CMD_SET_PIN_STATUS = 0xC0,
+	CMD_GET_PROTOCOL_VERSION = 0xD0,	// PROT_UPP1
+	CMD_READ_CODE = 0xD1,			// PROT_UPP1
+	CMD_READ_CONFIG = 0xD2,			// PROT_UPP1
+	CMD_EXIT_TO_BOOTLOADER = 0xD3		// PROT_UPP1
 }CMD_UPP;
 
 typedef enum
@@ -67,7 +71,7 @@ void UserInit(void);
 void timer1Init(void);
 void timer0Init(void);
 void ProcessIO(void);
-unsigned char set_pictype(unsigned char* data);
+unsigned char set_pictype(unsigned char pt);
 void setLeds(char n);
 
 #endif // UPP_H

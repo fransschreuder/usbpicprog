@@ -38,7 +38,8 @@ typedef enum
     CMD_ERASE = 0x10,
     CMD_READ_ID = 0x20,
     CMD_WRITE_CODE = 0x30,
-    CMD_READ_CODE = 0x40,
+    CMD_READ_CODE_OLD = 0x40,			// original read code/config command differentiated by address (and blocksize <= 8 except for PIC18F2221
+    	    	    	    	    	    	//    and PIC18's don't distinguish code/config )
     CMD_WRITE_DATA = 0x50,
     CMD_READ_DATA = 0x60,
     CMD_WRITE_CONFIG = 0x70,
@@ -47,8 +48,20 @@ typedef enum
     CMD_DEBUG = 0xA0,
     CMD_GET_PIN_STATUS = 0xB0,
     CMD_SET_PIN_STATUS = 0xC0,
-	CMD_INVALID
+    CMD_GET_PROTOCOL_VERSION = 0xD0,		// PROT_UPP1
+    CMD_READ_CODE = 0xD1,			// PROT_UPP1
+    CMD_READ_CONFIG = 0xD2,			// PROT_UPP1
+    CMD_EXIT_TO_BOOTLOADER = 0xD3,		// PROT_UPP1
+    CMD_INVALID
 }CMD_UPP;
+
+typedef enum
+{
+	PROT_NONE,				// not connected
+	PROT_BOOTLOADER0,			// Connected to bootloader
+	PROT_UPP0 = 100,			// Original command set to firmware
+	PROT_UPP1				// deleted READ_CODE(0x40) added READ_CODE(0x41),READ_CONFIG(0x41),EXIT_TO_BOOTLOADER(0xD0)
+}PROTOCOL;
 
 typedef enum
 {
@@ -57,7 +70,7 @@ typedef enum
     SUBCMD_PIN_VDD = 0x03,
     SUBCMD_PIN_VPP = 0x04,
     SUBCMD_PIN_VPP_VOLTAGE = 0x05,
-	SUBCMD_PIN_INVALID
+    SUBCMD_PIN_INVALID
 }SUBCMD_PIN;
 
 typedef enum
@@ -85,10 +98,14 @@ typedef enum
     CMD_BOOT_RESET = 0xFF
 }CMD_BOOT;
 
+
 #define BLOCKTYPE_MIDDLE 0
-#define BLOCKTYPE_FIRST 1
-#define BLOCKTYPE_LAST 2
-#define BLOCKTYPE_FIRST_LAST 3
+#define BLOCKTYPE_FIRST	 0x01
+#define BLOCKTYPE_LAST	 0x02
+#define BLOCKTYPE_CONFIG 0x10
+#define BLOCKTYPE_CODE	 0x20
+#define BLOCKTYPE_DATA	 0x40
+#define BLOCKTYPE_FIRST_LAST (BLOCKTYPE_FIRST|BLOCKTYPE_LAST)
 
 #define BLOCKSIZE_DATA 8
 #define BLOCKSIZE_CONFIG 8
@@ -269,6 +286,13 @@ public:
 
 
     /** 
+        Gives the hardware the command to reboot.
+        	firmware boots into the bootloader.
+        	bootloader reboots (and check bootloader/app switch).
+    */
+    int reboot(HardwareType what);
+
+    /**
         Erases all the contents (code, data and config) of the PIC memory.
         Returns the reply code from the attached hardware or a negative value if there was an error.
     */
@@ -336,6 +360,10 @@ public:
     int getFirmwareVersion(FirmwareVersion* firmwareVersion);
 
     /** Returns the type of the hardware which we are currently attached to. */
+    PROTOCOL getCurrentProtocol() const
+        { return m_protocol; }
+
+    /** Returns the type of the hardware which we are currently attached to. */
     HardwareType getCurrentHardware() const 
         { return m_hwCurrent; }
 
@@ -379,10 +407,10 @@ private:
     //@{
 
     /** Read a string of data from the connected hardware (through usb_interrupt_read). */
-    int readString(unsigned char* msg, int size) const;
+    int readString(unsigned char* msg, int size, bool noerror=false) const;
 
     /** Send a string of data to the connected hardware (through usb_interrupt write). */
-    int writeString(const unsigned char* msg, int size) const;
+    int writeString(const unsigned char* msg, int size, bool noerror=false) const;
 
     /** Private function called by autoDetectDevice(). Returns the ID of the device to program. */
     int readId();
@@ -425,6 +453,9 @@ private:
 
     /** If this bool becomes true, all operations will be aborted */
     bool m_abortOperations;
+
+    //** contains the current version of command set used to communicate to the firmware
+    PROTOCOL m_protocol;
 
 private:    // libusb-related members
 

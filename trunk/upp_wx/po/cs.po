@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_cz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-06-05 17:46+0100\n"
 "Last-Translator: Jiri Merth <k15@mail.klfree.net>\n"
 "Language-Team: K15 <k15@mail.klfree.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid " Connected"
 msgstr " - připojen"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr "a"
 
@@ -309,7 +309,7 @@ msgstr "Nelze otevřít HEX soubor..."
 msgid "Could not run the worker thread!"
 msgstr "Nepodařilo se spustit pracovní thread!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "Nemohu resetovat rozhraní USB zařízení: %s"
@@ -423,17 +423,17 @@ msgstr "Mažu všechny oblasti PICu..."
 msgid "Erasing before programming..."
 msgstr "Mažu před programováním..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Chyba při požadavku od USB zařízení : %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Chyba při mazání součástky"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Chyba při získávání deskriptoru koncového bodu USB: %s"
@@ -466,11 +466,11 @@ msgstr "Chyba čtení konfigurační paměti"
 msgid "Error reading data memory"
 msgstr "Chyba čtení datové paměti"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Chyba při opravě calibračního registru"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Chyba při pokusu o konfiguraci USB zařízení: %s"
@@ -577,16 +577,16 @@ msgstr "Neplatný soubor '%s' ."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Neplatná PIC rodina pro PIC '%s'."
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "Neplatný příkaz"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Chybný lichý počet pinů: %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Chybný počet pinů: %d"
@@ -626,7 +626,7 @@ msgstr "Žádný PIC nebyl nalezen!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Žádný PIC nebyl nalezen! Volím defaultní PIC (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "Žádná data pro kontrolu"
 
@@ -678,7 +678,7 @@ msgstr "Pouzdro"
 msgid "Please confirm"
 msgstr "Potvrď"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Prosím zadejte hodnotu BandGap v rozmezí 0 a 3"
 
@@ -694,7 +694,7 @@ msgstr "Prosím zadejte novou hodnotu Osccal [0xC00 - 0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Prosím zadejte novou hodnotu Osccal [3400 - 37FF]"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "Prosím zadejte hodnotu Oscal v rozmezí"
 
@@ -793,7 +793,7 @@ msgstr ""
 "Resetuje programovou, konfigurační a datovou oblast nyní otevřeného HEX "
 "souboru"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "Obnovit BandGap Registr"
 
@@ -801,7 +801,7 @@ msgstr "Obnovit BandGap Registr"
 msgid "Restore Cal regs..."
 msgstr "Obnov Cal reg... "
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Obnovit Osccal Registr"
 
@@ -922,7 +922,7 @@ msgstr ""
 "Odinstalujte současnou verzi programu a stáhněte UsbPicProg instalátor pro "
 "64bitové operační systém."
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -945,7 +945,7 @@ msgstr "USB chyba během kontroly vymazání"
 msgid "USB error during verify"
 msgstr "USB chyba během kontroly"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Chyba USB během čtení: %s"
@@ -955,7 +955,7 @@ msgstr "Chyba USB během čtení: %s"
 msgid "USB error while writing code memory"
 msgstr "USB chyba během zápisu kódové paměti"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Chyba USB během zápisu do zařízení: %d bytů, errCode: %d; %s"
@@ -1186,6 +1186,10 @@ msgstr "zkontrolovat vymazání"
 msgid "blankcheck the device"
 msgstr "zkontroluj vymazání součástky"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "kompletně vymaž součástku"
@@ -1218,7 +1222,7 @@ msgstr "nezobrazuj HEX soubor"
 msgid "erase"
 msgstr "vymazat"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "soubor"
 
@@ -1226,7 +1230,7 @@ msgstr "soubor"
 msgid "help"
 msgstr "nápověda"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "HEX soubor"
 
@@ -1262,11 +1266,19 @@ msgstr "přečti součástku"
 msgid "reload"
 msgstr "obnovit"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr "obnova-bandgap"
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr "obnova-osccal"
 
@@ -1301,6 +1313,10 @@ msgstr "stop"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "Zastav cílové zařízení"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

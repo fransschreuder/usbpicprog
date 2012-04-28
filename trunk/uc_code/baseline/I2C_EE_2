@@ -1,0 +1,142 @@
+ Type I2C_EE_2, Family I2C
+>>>>>> set_vdd_vpp
+TRISPGD=0
+TRISPGC=0
+PGD=1
+PGC=1
+VDD=0
+DelayMs( 100 ms )
+>>>>>> bulk_erase( I2C, I2C_EE_2, 0 )
+enterISCP
+exit_ISCP
+ returns( 1 )
+>>>>>> write_code( I2C, I2C_EE_2, 0000, data, 20, 1 )
+enterISCP
+I2C_start()
+I2C_write( d=160 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_stop()
+DelayMs( 30 ms )
+ returns( 2 )
+>>>>>> write_code( I2C, I2C_EE_2, 00E0, data, 20, 0 )
+I2C_start()
+I2C_write( d=160 )
+I2C_write( d=0 )
+I2C_write( d=224 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_stop()
+DelayMs( 30 ms )
+ returns( 2 )
+>>>>>> write_data( I2C, I2C_EE_2, 0000, data, 09, 1 )
+enterISCP
+exit_ISCP
+ returns( 3 )
+>>>>>> write_config_bits( I2C, I2C_EE_2, 2000, data, 03, 1 )
+enterISCP
+exit_ISCP
+ returns( 3 )
+>>>>>> read_code( I2C, I2C_EE_2, 0000, data, 03, 1 )
+enterISCP
+I2C_start()
+I2C_write( d=160 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_start()
+I2C_write( d=161 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=1 )
+I2C_stop()
+ returns( 0 )
+>>>>>> read_code( I2C, I2C_EE_2, F80000, data, 03, 5 )
+enterISCP
+I2C_start()
+I2C_write( d=168 )
+I2C_write( d=0 )
+I2C_write( d=0 )
+I2C_start()
+I2C_write( d=169 )
+I2C_read( ack=0 )
+I2C_read( ack=0 )
+I2C_read( ack=1 )
+I2C_stop()
+ returns( 0 )
+>>>>>>  read_data( I2C, I2C_EE_2, 0002, data, 09, 1 )
+enterISCP
+ returns( 0 )
+done
+
+
+
+
+
+
+
+
+
+
+

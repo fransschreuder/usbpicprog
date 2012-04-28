@@ -30,8 +30,11 @@
     Would one Nop() cycle be enough delay for all PIC's?
     It works for PIC18F2550
 */
+#ifdef TEST
+#define clock_delay()
+#else
 #define clock_delay() Nop();Nop()
-
+#endif
 //#define I2C_delay() Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop()
 void I2C_delay();
 
@@ -40,11 +43,14 @@ void I2C_delay();
     Sets or clears the VDD and VPP voltages.
 */
 void set_vdd_vpp(PICTYPE pictype, PICFAMILY picfamily, char level);
+void enter_ISCP( void );
 
 /**
     Sets the address pointer to a certain address location.
 */
 void set_address(PICFAMILY picfamily, unsigned long address);
+void set_address_P16( unsigned long address );
+void set_address_P18( unsigned long address );
 
 
 /**
@@ -114,6 +120,26 @@ unsigned char I2C_write(unsigned char d);
 
 unsigned char I2C_read(unsigned char ack);
 
+void enter_ISCP_simple( void );
+void enter_ISCP_P16_Vpp( void );
+void enter_ISCP_dsPIC30( void );
+void enter_ISCP_PIC18J( void );
+void enter_ISCP_PIC18K( void );
+void enter_ISCP_PIC24( void ) ;
+void enter_ISCP_PIC24K( void ) ;
+void enter_ISCP_I2C_EE( void );
+void exit_ISCP( void );
 
+//	lastblock bits
+//#define FIRST_BLOCK	0x01
+//#define LAST_BLOCK	0x02
+//#define CONFIG_BLOCK	0x04
+#define BLOCKTYPE_FIRST	 0x01
+#define BLOCKTYPE_LAST	 0x02
+#define BLOCKTYPE_CONFIG 0x04
 
-#endif // PROG_LOLVL_H
+#define TABLE
+#ifdef TEST
+#include "test.h"	// test harness
+#endif
+#endif// PROG_LOLVL_H

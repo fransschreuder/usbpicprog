@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-06-06 10:37+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid " Connected"
 msgstr " Verbonden"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr " en "
 
@@ -312,7 +312,7 @@ msgstr "Kan hex bestand niet openen..."
 msgid "Could not run the worker thread!"
 msgstr "Fout bij het starten van de thread!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr "Kan interface niet resetten: %s"
@@ -426,17 +426,17 @@ msgstr "Wist de gehele PIC..."
 msgid "Erasing before programming..."
 msgstr "Wissen voor programmeren..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Fout tijdens claimen van de interface: %s"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Fout bij het wissen"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr "Kan USB endpoint descriptor %s niet vinden"
@@ -469,11 +469,11 @@ msgstr "Code"
 msgid "Error reading data memory"
 msgstr "Fout tijdens lezen van Data geheugen"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 msgid "Error restoring Calibration Registers"
 msgstr "Fout bij terugzetten Calibratie Registers"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Fout tijdens instellen van configuratie: %s"
@@ -580,16 +580,16 @@ msgstr "Verkeerd '%s' bestand."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Verkeerde PIC familie voor PIC '%s'."
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr "Verkeerde richting"
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Verkeerd oneven aantal pinnen: %d"
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Verkeerd aantal pinnen: %d"
@@ -629,7 +629,7 @@ msgstr "Geen PIC gedetecteerd!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Geen PIC gedetecteerd! Selecteer standaard PIC (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr "Geen data om te verifieren"
 
@@ -681,7 +681,7 @@ msgstr "Behuizing"
 msgid "Please confirm"
 msgstr "Weet U het zeker?"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Geef een bandgap waarde op tussen 0 en 3"
 
@@ -697,7 +697,7 @@ msgstr "Geef een nieuwe waarde op voor Osccal [0xC00 -0xCFF]"
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Geef een nieuwe waarde op voor Osccal [3400 - 37FF]"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr "Geef een Osccal waarde op tussen "
 
@@ -795,7 +795,7 @@ msgid ""
 msgstr ""
 "Leegt de code, configuratie en data ruimten van het huidige HEX bestand"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr "BandGap Register Terugzetten"
 
@@ -803,7 +803,7 @@ msgstr "BandGap Register Terugzetten"
 msgid "Restore Cal regs..."
 msgstr "Cal regs terugzetten..."
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr "Osccal Register Terugzetten"
 
@@ -925,7 +925,7 @@ msgstr ""
 "Installeer alstublieft dit programma opnieuw en download the 64 bit "
 "Usbpicprog installer."
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -949,7 +949,7 @@ msgstr "USB fout tijdens blankcheck"
 msgid "USB error during verify"
 msgstr "USB fout tijdens verificatie"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, c-format
 msgid "USB error while reading: %s"
 msgstr "Usb fout tijdens lezen: %s"
@@ -959,7 +959,7 @@ msgstr "Usb fout tijdens lezen: %s"
 msgid "USB error while writing code memory"
 msgstr "USB fout tijdens het schrijven van Code geheugen"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "Usb fout tijdens schrijven naar apparaat: %d bytes, foutcode: %d; %s"
@@ -1188,6 +1188,10 @@ msgstr "blankcheck"
 msgid "blankcheck the device"
 msgstr "controleer of de pic leeg is"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "wis de hele pic"
@@ -1220,7 +1224,7 @@ msgstr "geef het hex file niet weer"
 msgid "erase"
 msgstr "wis"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "bestand"
 
@@ -1228,7 +1232,7 @@ msgstr "bestand"
 msgid "help"
 msgstr "help"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "hexbestand"
 
@@ -1264,11 +1268,19 @@ msgstr "lees de pic"
 msgid "reload"
 msgstr "herlaad"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr "bandgap-terugzetten"
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr "osccal-terugzetten"
 
@@ -1303,6 +1315,10 @@ msgstr "stop"
 #: src/main.h:139
 msgid "stop target device"
 msgstr "stop doelprocessor"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

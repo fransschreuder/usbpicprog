@@ -25,6 +25,7 @@
 /**
     Programming routines for PIC16 and PIC18.
 **/
+#if 0
 typedef enum _PICFAMILY{
         PIC10=0,PIC12,PIC16,PIC18,PIC24,dsPIC30,dsPIC33,I2C,PIC18J,PIC18K,
 	UPP_INVALID_PICFAMILY
@@ -36,28 +37,27 @@ typedef enum _PICTYPE{
 	P16C6XX,P16C55X,P16C7XX,P16C64X,P14000,P16C50X,P16C432,P17CXX,P17C7XX,
 	P18FXX39,P18F6X2X,P18FXX80,P18F8410,P18F6XJXX,P18F45J10,P18F97J60,P18F1X30,P18FXX23,P18FXXK20,
 	P24FJXXXGA0XX,P24FJXXXGA1,dsP30F,dsP33F,P24H,P10F200,P10F202,P12F61X,P16F716,P18FXX31,P18FX220,
-	I2C_EE_1,I2C_EE_2,P12F508,P24FXXKAXXX,P18F4XK22,P18LF4XK22,P18F872X,P16F182X,P18F6XKXX,P18F67KXX,
+	I2C_EE_1,I2C_EE_2,P12F508,P24FXXKAXXX,P18F4XK22,P18LF4XK22,P18F872X,P16F18XX,P18F6XKXX,P18F67KXX,
 	P18F13K22, P18LF13K22,P18F14K22, P18LF14K22,dsP30F_LV,
 	UPP_INVALID_PICTYPE
 }PICTYPE;
+#else
+#include "device.h"
+#endif
 
+extern PICFAMILY picfamily;
+extern PICTYPE pictype;
+char bulk_erase(unsigned char doRestore);
 
-char bulk_erase(PICFAMILY picfamily, PICTYPE pictype, unsigned char doRestore);
+char write_code( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char write_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                unsigned char* data,char blocksize,char lastblock);
+char write_data( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char write_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                unsigned char* data, char blocksize, char lastblock);
+char write_config_bits( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char write_config_bits(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-                       unsigned char* data, char blocksize, char lastblock);
+char read_code( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-char read_code(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-               unsigned char* data, char blocksize, char lastblock);
-
-unsigned char read_data(PICFAMILY picfamily, PICTYPE pictype, unsigned long address, 
-               unsigned char* data, char blocksize, char lastblock);
+unsigned char read_data( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
 
 // delay times according to programming specification for PIC18F:

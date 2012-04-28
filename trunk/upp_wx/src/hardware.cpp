@@ -93,6 +93,7 @@ Hardware::Hardware()
     m_handle = NULL;
     m_pCallBack = NULL;
     m_hwCurrent = HW_NONE;
+    m_protocol = PROT_NONE;
     m_abortOperations = false;
     m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
 }
@@ -158,6 +159,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     if (m_handle==NULL)
     {
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         return false;
     }
 
@@ -191,6 +193,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     {
         wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         m_handle = NULL;
         return false;
     }
@@ -202,6 +205,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     {
         wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
+        m_protocol = PROT_NONE;
         m_handle = NULL;
         return false;
     }
@@ -237,13 +241,26 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
 	if(m_hwCurrent==HW_UPP)
 	    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_INTERRUPT;
 	else 
-		m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_BULK;
+	    m_modeReadEndpoint = m_modeWriteEndpoint = LIBUSB_TRANSFER_TYPE_BULK;
 #endif    
     
     // everything completed successfully:
 
     wxASSERT(m_handle != NULL && m_hwCurrent != HW_NONE);
+    if( m_hwCurrent == HW_BOOTLOADER )
+	    m_protocol = PROT_BOOTLOADER0;
+    else
+    {
+	    unsigned char msg[64];
 
+	    msg[0] = CMD_GET_PROTOCOL_VERSION;
+	    writeString(msg,1,true);			// ignore errors (if we are disconnected then we will figure it out next time)
+	    int nBytes = readString(msg,1,true);	// unfortunately this results in a timeout for PROT_UPP0
+	    if (nBytes > 0)
+		    m_protocol = (PROTOCOL) (PROT_UPP0 + msg[0]);
+	    else
+		    m_protocol = PROT_UPP0;
+    }
     return true;
 }
 
@@ -309,6 +326,34 @@ int Hardware::setPicType(PicType* picType)
 
     statusCallBack (100);
     return (int)msg[0];
+}
+
+int Hardware::reboot(HardwareType what)
+{
+    if (m_hwCurrent != what ) return -1;
+    if (m_handle == NULL) return -1;
+    if ( what == HW_BOOTLOADER ) {
+	    BootloaderPackage bootloaderPackage;
+	    bootloaderPackage.data[bp_cmd]=CMD_BOOT_RESET;
+
+	    writeString(bootloaderPackage.data,5, 1);
+
+	    // read back the reply
+	    //    int nBytes = readString(bootloaderPackage.data,1);		// should timeout
+	    disconnect();
+	    return 0;
+    }
+    else if( what == HW_UPP ) {
+	    unsigned char msg[64];
+	    msg[0]= CMD_EXIT_TO_BOOTLOADER;
+	    // send the command to the hw
+	    writeString(msg,1, 1);
+	    disconnect();
+	    return 0;
+
+    }
+    else
+	    return( -1 );
 }
 
 int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
@@ -541,8 +586,9 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         unsigned int currentBlockCounter = blockcounter;
         if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
-        if (type==TYPE_CONFIG)
+        if (type==TYPE_CONFIG) {
             currentBlockCounter+=picType->ConfigAddress;
+        }
         unsigned int blocksize;
         if (memorySize > (blockcounter+blockSizeHW))
             blocksize = blockSizeHW;
@@ -661,7 +707,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             }
             break;
         case TYPE_CONFIG:
-			if(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60)
+			if(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX)
 				blockSizeHW=BLOCKSIZE_CODE;
 			else switch(picType->bitsPerWord())
             {
@@ -682,7 +728,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 
         // fill in a new datablock packet
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60))
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX))
 		{
 			vector<int>* _CodeMemory = NULL;
 		    _CodeMemory = &hexData->getMemory(TYPE_CODE);
@@ -731,7 +777,7 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
         if (picType->bitsPerWord()==14)
             currentBlockCounter /= 2;
 		int retCode;
-		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60))
+		if((type==TYPE_CONFIG)&&(picType->picFamily==P18F45J10||picType->picFamily==P18F97J60||picType->picFamily==P18F6XJXX))
 		{
 			currentBlockCounter+=(picType->ConfigAddress-56);
 		    retCode = writeBlock(TYPE_CODE, dataBlock, currentBlockCounter, blockSizeHW, BLOCKTYPE_FIRST);
@@ -871,7 +917,7 @@ int Hardware::autoDetectDevice()
 		return picBoot.DevId;
 	}
 
-	PicType pic24F = PicType::FindPIC(("24F04KA200"));
+	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
 	int devId=readId();
@@ -881,6 +927,17 @@ int Hardware::autoDetectDevice()
 	PicType picType = PicType::FindPIC(0x20000|devId);
 	if(picType.ok())
 		return devId|0x20000; 
+
+	pic24F = PicType::FindPIC(("24F04KA200"));
+	if(setPicType(&pic24F)<0)
+	return -1;
+	devId=readId();
+	if(devId<0)
+		return -1;
+	cout<<"Pic24FK id: "<<std::hex<< devId<<endl;
+	picType = PicType::FindPIC(0x20000|devId);
+	if(picType.ok())
+		return devId|0x20000;
 
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
@@ -974,11 +1031,12 @@ bool Hardware::stopTarget()
 int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 {
     unsigned char msg[64];
+    char protocol[70];
     if (m_handle == NULL) return -1;
 
     if (m_hwCurrent == HW_UPP)
     {
-        statusCallBack (0);
+//        statusCallBack (0);
         firmwareVersion->isBootloader=false;
         
         // send the command
@@ -1004,7 +1062,8 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
             disconnect();
             return nBytes;
         }
-        firmwareVersion->versionString.assign((const char*)msg);
+        snprintf( protocol,70,"%s P%d",(char*) msg, m_protocol - PROT_UPP0 );
+        firmwareVersion->versionString.assign(protocol);
         wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
         firmwareVersion->stableRelease=(strippedVersion.size()==5);
         if(firmwareVersion->stableRelease)
@@ -1020,7 +1079,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
             firmwareVersion->release=atoi(strippedVersion.c_str());
         }
         //cout<<strippedVersion<<" "<<strippedVersion.size()<<firmwareVersion->major<<firmwareVersion->minor<<firmwareVersion->release<<endl;
-        statusCallBack (100);
+//        statusCallBack (100);
         return nBytes;
     }
     else
@@ -1215,7 +1274,7 @@ int Hardware::debug()
 // Hardware - private functions
 // ----------------------------------------------------------------------------
 
-int Hardware::readString(unsigned char* msg, int size) const
+int Hardware::readString(unsigned char* msg, int size, bool noerror) const
 {
     if (m_handle == NULL) return -1;
 
@@ -1225,7 +1284,7 @@ int Hardware::readString(unsigned char* msg, int size) const
     else
         retcode = libusb_bulk_transfer(m_handle, READ_ENDPOINT, msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
-    if (retcode != LIBUSB_SUCCESS)
+    if (!noerror && retcode != LIBUSB_SUCCESS)
     {
 	//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
 	#ifndef __WIN32__
@@ -1236,9 +1295,11 @@ int Hardware::readString(unsigned char* msg, int size) const
     return nBytes;
 }
 
-int Hardware::writeString(const unsigned char* msg, int size) const
+int Hardware::writeString(const unsigned char* msg, int size, bool noerror) const
 {
     if (m_handle == NULL) return -1;
+
+    //printf( "writeString: 0x%02X 0x%02X (%d)\n", msg[0], msg[1], msg[1] );
 
     int nBytes, retcode;
     if (m_modeWriteEndpoint == LIBUSB_TRANSFER_TYPE_INTERRUPT)
@@ -1246,7 +1307,7 @@ int Hardware::writeString(const unsigned char* msg, int size) const
     else 
         retcode = libusb_bulk_transfer(m_handle, WRITE_ENDPOINT, (unsigned char*)msg, size, &nBytes, USB_OPERATION_TIMEOUT);
 
-    if (retcode != LIBUSB_SUCCESS || nBytes < size)
+    if (!noerror &&  (retcode != LIBUSB_SUCCESS || nBytes < size) )
     {
         wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
                    libusb_strerror((libusb_error)retcode));
@@ -1296,9 +1357,14 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         switch (type)
         {
         case TYPE_CODE:
+                uppPackage.data[up_cmd]=CMD_READ_CODE;
+                break;
         case TYPE_CONFIG:
             //cout<<"Read code or config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
-            uppPackage.data[up_cmd]=CMD_READ_CODE;
+            if( m_protocol == PROT_UPP0 )
+        	    uppPackage.data[up_cmd]=CMD_READ_CODE;
+            else
+        	    uppPackage.data[up_cmd]=CMD_READ_CONFIG;
             break;
         case TYPE_DATA:
             uppPackage.data[up_cmd]=CMD_READ_DATA;

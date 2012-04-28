@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 08:46+0100\n"
+"POT-Creation-Date: 2012-03-18 19:32+0100\n"
 "PO-Revision-Date: 2011-04-12 09:14+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Ukrainian <usbpicprog-technical@lists.sourceforge.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid " Connected"
 msgstr " З'єднаний"
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid " and "
 msgstr " и "
 
@@ -302,7 +302,7 @@ msgstr "не виводити HEX-файл"
 msgid "Could not run the worker thread!"
 msgstr "Неможливо виконати робочий тред!"
 
-#: src/hardware.cpp:169
+#: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
 msgstr ""
@@ -415,17 +415,17 @@ msgstr "Очищаю всі області пристрою..."
 msgid "Erasing before programming..."
 msgstr "Очистити перед записом..."
 
-#: src/hardware.cpp:203
+#: src/hardware.cpp:206
 #, fuzzy, c-format
 msgid "Error claiming the USB device interface: %s"
 msgstr "Помилка під час очистки пристрою"
 
-#: src/main.cpp:375 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
+#: src/main.cpp:388 src/uppmainwindow.cpp:822 src/uppmainwindow.cpp:1027
 #: src/uppmainwindow.cpp:1415
 msgid "Error erasing the device"
 msgstr "Помилка під час очистки пристрою"
 
-#: src/hardware.cpp:217 src/hardware.cpp:227
+#: src/hardware.cpp:221 src/hardware.cpp:231
 #, c-format
 msgid "Error getting USB endpoint descriptor: %s"
 msgstr ""
@@ -458,12 +458,12 @@ msgstr "Помилка читання пам'яті конфігурації"
 msgid "Error reading data memory"
 msgstr "Помилка читання пам'яті даних"
 
-#: src/main.cpp:377 src/uppmainwindow.cpp:1416
+#: src/main.cpp:390 src/uppmainwindow.cpp:1416
 #, fuzzy
 msgid "Error restoring Calibration Registers"
 msgstr "Помилка читання пам'яті конфігурації"
 
-#: src/hardware.cpp:192
+#: src/hardware.cpp:194
 #, fuzzy, c-format
 msgid "Error setting configuration of the USB device: %s"
 msgstr "Помилка читання пам'яті конфігурації"
@@ -562,16 +562,16 @@ msgstr ""
 msgid "Invalid PIC family for PIC '%s'."
 msgstr ""
 
-#: src/pictype.cpp:794
+#: src/pictype.cpp:799
 msgid "Invalid direction"
 msgstr ""
 
-#: src/pictype.cpp:814
+#: src/pictype.cpp:819
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr ""
 
-#: src/pictype.cpp:865
+#: src/pictype.cpp:870
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr ""
@@ -611,7 +611,7 @@ msgstr "Не знайдено пристрій PIC!"
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Не виявлено PIC! Вибираю PIC за замовчуванням (%s)..."
 
-#: src/hardware.cpp:817
+#: src/hardware.cpp:863
 msgid "No data to verify"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr "Корпус"
 msgid "Please confirm"
 msgstr "Будь-ласка підтвердіть"
 
-#: src/main.cpp:370
+#: src/main.cpp:383
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr ""
 
@@ -680,7 +680,7 @@ msgstr ""
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr ""
 
-#: src/main.cpp:361
+#: src/main.cpp:374
 msgid "Please specify an Oscal Value between "
 msgstr ""
 
@@ -772,7 +772,7 @@ msgid ""
 "Resets the code, configuration and data areas of the currently open HEX file"
 msgstr "Очищає області коду, конфігурації та даних поточного HEX-файлу"
 
-#: src/main.h:142
+#: src/main.h:144
 msgid "Restore BandGap Register"
 msgstr ""
 
@@ -780,7 +780,7 @@ msgstr ""
 msgid "Restore Cal regs..."
 msgstr ""
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "Restore Osccal Register"
 msgstr ""
 
@@ -896,7 +896,7 @@ msgid ""
 "64bit operating systems."
 msgstr ""
 
-#: src/hardware.cpp:569
+#: src/hardware.cpp:615
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -918,7 +918,7 @@ msgstr "Помилка USB при перевірці на чистоту"
 msgid "USB error during verify"
 msgstr "помилка USB при перевірці"
 
-#: src/hardware.cpp:1232
+#: src/hardware.cpp:1291
 #, fuzzy, c-format
 msgid "USB error while reading: %s"
 msgstr "помилка USB під час запису пам'яті коду"
@@ -928,7 +928,7 @@ msgstr "помилка USB під час запису пам'яті коду"
 msgid "USB error while writing code memory"
 msgstr "помилка USB під час запису пам'яті коду"
 
-#: src/hardware.cpp:1251
+#: src/hardware.cpp:1312
 #, fuzzy, c-format
 msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 msgstr "помилка USB під час запису пам'яті коду"
@@ -1151,6 +1151,10 @@ msgstr "blankcheck"
 msgid "blankcheck the device"
 msgstr "перевірити на порожні значення"
 
+#: src/main.h:141
+msgid "boot"
+msgstr ""
+
 #: src/main.h:135
 msgid "bulk erase the device"
 msgstr "очистити пристрій"
@@ -1183,7 +1187,7 @@ msgstr "не виводити HEX-файл"
 msgid "erase"
 msgstr "erase"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "file"
 msgstr "file"
 
@@ -1191,7 +1195,7 @@ msgstr "file"
 msgid "help"
 msgstr "help"
 
-#: src/main.h:140
+#: src/main.h:142
 msgid "hexfile"
 msgstr "hexfile"
 
@@ -1228,11 +1232,19 @@ msgstr "прочитати пристрій"
 msgid "reload"
 msgstr "reload"
 
-#: src/main.h:142
+#: src/main.h:140
+msgid "reset"
+msgstr ""
+
+#: src/main.h:140
+msgid "reset/reboot firmware/bootloader"
+msgstr ""
+
+#: src/main.h:144
 msgid "restore-bandgap"
 msgstr ""
 
-#: src/main.h:141
+#: src/main.h:143
 msgid "restore-osccal"
 msgstr ""
 
@@ -1269,6 +1281,10 @@ msgstr ""
 #, fuzzy
 msgid "stop target device"
 msgstr "записати пристрій"
+
+#: src/main.h:141
+msgid "tell firmware to reboot in bootloader mode"
+msgstr ""
 
 #: src/hexfile.cpp:238
 #, c-format

@@ -1,0 +1,115 @@
+ Type P16C55X, Family PIC16
+>>>>>> set_vdd_vpp
+TRISPGD=0
+TRISPGC=0
+PGD=0
+PGC=0
+VDD=0
+DelayMs( 100 ms )
+VPP=0
+DelayMs( 100 ms )
+>>>>>> bulk_erase( PIC16, P16C55X, 0 )
+enterISCP
+PGD=0
+exit_ISCP
+ returns( 3 )
+>>>>>> write_code( PIC16, P16C55X, 0000, data, 20, 1 )
+enterISCP
+exit_ISCP
+ returns( 3 )
+>>>>>> write_code( PIC16, P16C55X, 00E0, data, 20, 0 )
+exit_ISCP
+ returns( 3 )
+>>>>>> write_data( PIC16, P16C55X, 0000, data, 09, 1 )
+enterISCP
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_14_bits( cmd_size=6,command=03,payload=0000 )
+pic_send_n_bits( cmd_size=6,command=08 )
+DelayMs( 8 ms )
+pic_send_n_bits( cmd_size=6,command=06 )
+ returns( 2 )
+>>>>>> write_config_bits( PIC16, P16C55X, 2000, data, 03, 1 )
+enterISCP
+exit_ISCP
+ returns( 3 )
+>>>>>> read_code( PIC16, P16C55X, 0000, data, 03, 1 )
+enterISCP
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
+ returns( 0 )
+>>>>>> read_code( PIC16, P16C55X, F80000, data, 03, 5 )
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=04 )
+pic_send_n_bits( cmd_size=6,command=06 )
+ returns( 0 )
+>>>>>>  read_data( PIC16, P16C55X, 0002, data, 09, 1 )
+enterISCP
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+pic_read_14_bits( cmd_size=6,command=05 )
+pic_send_n_bits( cmd_size=6,command=06 )
+ returns( 0 )
+done
+
+
+
+
+
+
+
+
+
+
+
