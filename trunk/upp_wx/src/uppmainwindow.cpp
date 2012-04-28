@@ -1617,6 +1617,7 @@ void UppMainWindow::upp_about()
     //aboutInfo.SetCopyright("(C) 2008");
     aboutInfo.SetWebSite(("http://usbpicprog.org/"));
     aboutInfo.AddDeveloper(("Frans Schreuder"));
+    aboutInfo.AddDeveloper(("Mike Afheldt"));
     aboutInfo.AddDeveloper(("Jan Paul Posma"));
     aboutInfo.AddDeveloper(("Francesco Montorsi"));
     aboutInfo.AddDeveloper(("Gustav Johansson"));

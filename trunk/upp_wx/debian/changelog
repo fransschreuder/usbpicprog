@@ -1,3 +1,21 @@
+usbpicprog (120428-3) precise; urgency=low
+
+  * Merged branch restructure_code back into master
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 28 Apr 2012 19:58:02 +0200
+
+usbpicprog (120428-2) oneiric; urgency=low
+
+  * Merged branch restructure_code back into master
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 28 Apr 2012 19:57:44 +0200
+
+usbpicprog (120428-1) natty; urgency=low
+
+  * Merged branch restructure_code back into master
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sat, 28 Apr 2012 19:57:03 +0200
+
 usbpicprog (111126-3) oneiric; urgency=low
 
   * implemented PIC18F13K22, PIC18F14K22 and fixed low voltage dsPIC30F devices
