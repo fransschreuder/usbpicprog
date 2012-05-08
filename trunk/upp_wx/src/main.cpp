@@ -281,10 +281,17 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 	    }
 	    cout <<endl<< "Usbpicprg resetting to bootloader ."<<flush;
 	   if( !m_hardware.reboot( HW_UPP ) )
+	   #ifdef __WXMSW__
+			Sleep( 1000 );		// give it time to reboot
+			cout << "."<<flush;
+			Sleep( 1000 );
+			cout << "."<<flush;
+	   #else
 		   sleep( 1 );		// give it time to reboot
 	   	   cout << "."<<flush;
 	   	   sleep( 1 );
 	   	   cout << "."<<flush;
+		#endif
     }
     if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
 		m_hardware.connect(NULL, HW_BOOTLOADER); 

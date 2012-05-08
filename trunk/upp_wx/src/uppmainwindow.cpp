@@ -256,7 +256,7 @@ void UppMainWindow::CompleteGUICreation()
                                     _("Disconnect from the programmer"), wxITEM_NORMAL );
 
     wxMenu* pMenuSelectPIC;
-    pMenuSelectPIC = new wxMenu( 0 );       // this is a menu with submenus
+    pMenuSelectPIC = new wxMenu( (long)0 );       // this is a menu with submenus
 
 #ifdef __WXGTK__
     // on Windows all other menus have no bitmaps (because wxWidgets does not add stock icons
@@ -318,7 +318,7 @@ void UppMainWindow::CompleteGUICreation()
         if (!bFamilyFound)
         {
             // not yet; add it
-            menus[family] = new wxMenu(0);
+            menus[family] = new wxMenu((long)0);
             i--; // repeat processing for this element
         }
     }

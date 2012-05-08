@@ -1062,7 +1062,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
             disconnect();
             return nBytes;
         }
-        snprintf( protocol,70,"%s P%d",(char*) msg, m_protocol - PROT_UPP0 );
+        sprintf( protocol,"%s P%d",(char*) msg, m_protocol - PROT_UPP0 );
         firmwareVersion->versionString.assign(protocol);
         wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
         firmwareVersion->stableRelease=(strippedVersion.size()==5);
