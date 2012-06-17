@@ -18,7 +18,8 @@ usbpicprogdoc_DATA = \
 usbpicprogdir = ${prefix}/share/usbpicprog
 usbpicprog_DATA = \
 	index.xml \
-	help/usbpicprog.htb
+	help/usbpicprog.htb \
+	firmware.hex
 
 Applicationsdir = ${prefix}/share/applications
 Applications_DATA = Usbpicprog.desktop

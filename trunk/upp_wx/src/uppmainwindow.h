@@ -33,6 +33,7 @@
 #include <wx/log.h>
 #include <wx/aboutdlg.h>
 #include <wx/html/helpctrl.h>
+#include <wx/timer.h>
 
 #include <iostream>
 using namespace std;
@@ -179,6 +180,7 @@ protected:     // event handlers
     void on_stop_target( wxCommandEvent& event ){upp_stop_target(); EVENT_FIX}
     void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
     void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX}
+	void on_UpgradeFirmware( wxCommandEvent& event ){upp_UpgradeFirmware(); EVENT_FIX}
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
     void on_io_test( wxCommandEvent& event ){upp_io_test(); EVENT_FIX}
     void on_help( wxCommandEvent& event ){upp_help(); EVENT_FIX}
@@ -191,11 +193,15 @@ protected:     // event handlers
     void on_size( wxSizeEvent& event ) 
         {upp_size_changed(); EVENT_FIX}
 
+	void OnTimer(wxTimerEvent& event);
+
 private:    // real event handlers
 
     /** Open a hexfile using a file dialog */
     void upp_open();
 
+	/** Upgrade the firmware of the programmer*/
+	void upp_UpgradeFirmware( void );
 
 	/** Open a hexfile from the examples directory */
     void upp_examples();
@@ -322,6 +328,11 @@ private:    // member variables
     /** The list of most recently used files. */
     wxFileHistory m_history;
 
+	/** After firmware upgrade, the hardware must be reset when thread completed*/
+	bool resetAfterThreadCompleted;
+
+	/** Timer to periodically check whether the hardware is still connected*/
+	wxTimer* m_timer;
 
 private:   // variables related to the threaded operations:
 

@@ -100,7 +100,8 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
     : UppMainWindowBase( parent, id, wxEmptyString /* will be set later */,
                         wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL ),
     m_history(4),
-    m_hardware(hardware)
+    m_hardware(hardware),
+	resetAfterThreadCompleted(false)
 {
     SetName("UppMainWindow");
 
@@ -162,6 +163,9 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
 
 	// PIC changed; reset the code/config/data grids
     Reset();
+	m_timer = new wxTimer(this);
+	m_timer->Start(2000,true); //start one shot
+	this->Connect( m_timer->GetId(), wxEVT_TIMER, wxTimerEventHandler( UppMainWindow::OnTimer ) );
 }
 
 UppMainWindow::~UppMainWindow()
@@ -189,6 +193,36 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(("SelectedPIC"), m_pPICChoice->GetSelection());
     m_history.Save(*pCfg);
 }
+
+
+void UppMainWindow::OnTimer(wxTimerEvent& event)
+{
+	if (GetThread())
+	{
+	
+        if(GetThread()->IsRunning())
+		{
+			m_timer->Start(2000,true); //start one shot
+			return; //don't run while programming operations are busy
+		}
+	}
+	FirmwareVersion firmwareVersion;
+	if(m_hardware.connected())
+	{
+		int alive = m_hardware.getFirmwareVersion (&firmwareVersion); //just to check if the hardware is still alive
+		if(alive<0)
+		{
+			upp_disconnect();
+			upp_connect();
+		}
+	}
+	else
+	{
+		upp_connect();
+	}
+	m_timer->Start(500,true); //start one shot
+}
+
 
 wxBitmap UppMainWindow::GetMenuBitmap(const char* xpm_data[])
 {
@@ -247,15 +281,20 @@ void UppMainWindow::CompleteGUICreation()
     pMenuStopTarget = new wxMenuItem( pMenuActions, wxID_STOP_TARGET, wxString(_("Stop Target")),
                                     _("Set 0V to MCLR to stop the target controller"), wxITEM_NORMAL );
                                     
-    wxMenuItem* pMenuConnect;
+    /*wxMenuItem* pMenuConnect;
     pMenuConnect = new wxMenuItem( pMenuActions, wxID_CONNECT, wxString( _("&Connect...") ),
                                     _("Connect to the programmer"), wxITEM_NORMAL );
+
 
     wxMenuItem* pMenuDisconnect;
     pMenuDisconnect = new wxMenuItem( pMenuActions, wxID_DISCONNECT, wxString( _("&Disconnect...") ),
                                     _("Disconnect from the programmer"), wxITEM_NORMAL );
+*/
+	wxMenuItem* pMenuUpgradeFirmware;
+    pMenuUpgradeFirmware = new wxMenuItem( pMenuActions, wxID_UPGRADE, wxString( _("&Upgrade firmware") ),
+                                    _("Upgrade the firmware in usbpicprog"), wxITEM_NORMAL );
 
-    wxMenu* pMenuSelectPIC;
+	wxMenu* pMenuSelectPIC;
     pMenuSelectPIC = new wxMenu( (long)0 );       // this is a menu with submenus
 
 #ifdef __WXGTK__
@@ -272,8 +311,8 @@ void UppMainWindow::CompleteGUICreation()
     pMenuRunTarget->SetBitmap(GetMenuBitmap( play_xpm ));
     pMenuStopTarget->SetBitmap(GetMenuBitmap( stop_xpm ));
 
-    pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-connect"), wxART_MENU));
-    pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-disconnect"), wxART_MENU));
+    //pMenuConnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-connect"), wxART_MENU));
+    //pMenuDisconnect->SetBitmap(wxArtProvider::GetBitmap(("gtk-disconnect"), wxART_MENU));
 #endif
 
     pMenuActions->Append( pMenuProgram );
@@ -286,8 +325,9 @@ void UppMainWindow::CompleteGUICreation()
     pMenuActions->Append( pMenuRunTarget );
     pMenuActions->Append( pMenuStopTarget );
     pMenuActions->AppendSeparator();
-    pMenuActions->Append( pMenuConnect );
-    pMenuActions->Append( pMenuDisconnect );
+    //pMenuActions->Append( pMenuConnect );
+    //pMenuActions->Append( pMenuDisconnect );
+	pMenuActions->Append( pMenuUpgradeFirmware );
     pMenuActions->AppendSeparator();
     pMenuActions->AppendSubMenu( pMenuSelectPIC, wxString( _("&Select PIC...") ),
                                 _("Change the currently selected PIC") );
@@ -337,8 +377,9 @@ void UppMainWindow::CompleteGUICreation()
     this->Connect( wxID_AUTODETECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_autodetect ) );
     this->Connect( wxID_RUN_TARGET, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_run_target ) );
     this->Connect( wxID_STOP_TARGET, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_stop_target ) );
-    this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
-    this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+    //this->Connect( wxID_CONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_connect ) );
+    //this->Connect( wxID_DISCONNECT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_disconnect ) );
+	this->Connect( wxID_UPGRADE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindow::on_UpgradeFirmware ) );
 	this->Connect( wxID_PIC_CHOICE_COMBO, wxEVT_COMMAND_CHOICE_SELECTED,
 				  wxCommandEventHandler( UppMainWindow::on_pic_choice_changed ) );
     this->Connect( wxID_PIC_CHOICE_MENU, wxID_PIC_CHOICE_MENU+m_arrPICName.size(),
@@ -487,30 +528,55 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
 
 void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {
+	cout<<"checkfimrwareversion"<<endl;
+	wxString message;
+	bool firmwareOutOfDate = false;
     if (!firmwareVersion.stableRelease)
     {
         #ifdef UPP_VERSION
-            wxLogMessage(_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
-        #else
+        message = wxString_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
+		firmwareOutOfDate = true;
+		#else
         if (firmwareVersion.release<DEV_VERSION)
-            wxLogMessage(_("Your firmware is too old (latest version is %d); please consider upgrading it"),
+		{
+			firmwareOutOfDate = true;
+			message = wxString(_("Your firmware is too old (latest version is %d); please consider upgrading it"),
                          DEV_VERSION);
-        #endif
-        return;
+		}
+		#endif
+        //return;
     }
+	else
+	{
+		#ifdef UPP_VERSION
+		// check major digit
+		double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
+		double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
+	
+		if (stableVersion<stableFirmwareVersion)
+		{
+			firmwareOutOfDate=true;
 
-    #ifdef UPP_VERSION
-    // check major digit
-    double stableVersion=(double)STABLE_VERSION_MAJOR+((double)STABLE_VERSION_MINOR)/10+((double)STABLE_VERSION_RELEASE)/100;
-    double stableFirmwareVersion=(double)firmwareVersion.major+((double)firmwareVersion.minor)/10+((double)firmwareVersion.release)/100;
-    if (stableVersion<stableFirmwareVersion)
-        wxLogMessage(_("Firmware probably too new")); 
-    if (stableVersion>stableFirmwareVersion)
-        wxLogMessage(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
-                    STABLE_VERSION_MAJOR,STABLE_VERSION_MINOR,STABLE_VERSION_RELEASE);
-    #else
-    wxLogMessage(_("You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));     
-    #endif
+			message = wxString(_("Firmware probably too new"));
+	
+		}
+		if (stableVersion>stableFirmwareVersion)
+		{
+		    message = wxString(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
+		                STABLE_VERSION_MAJOR,STABLE_VERSION_MINOR,STABLE_VERSION_RELEASE);
+			firmwareOutOfDate=true;
+		}
+		#else
+		message = wxString(_("You are using a stable release of the firmware with a development version of the software. Consider upgrading your firmware"));
+		firmwareOutOfDate=true;
+		#endif
+	}
+	if(firmwareOutOfDate)
+	{
+		int answer = wxMessageBox(message + _("Upgrade firmware?"), _("Upgrade firmware?"),
+                            wxYES_NO, this);
+  		if (answer == wxYES)upp_UpgradeFirmware ();
+	}
 }
 
 
@@ -745,6 +811,13 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
         break;
     }
 
+	if(resetAfterThreadCompleted)
+	{
+		m_hardware.reboot(HW_BOOTLOADER);
+		Reset();
+		resetAfterThreadCompleted=false;
+	}
+	
     // make sure all thread messages logged above are shown to the user _now_
     // (after updating the PIC info); sometimes in fact it may happen that the
     // idle event which triggers wxLog flushing is not generated and so the
@@ -1173,6 +1246,41 @@ void UppMainWindow::upp_open()
     }
 }
 
+void UppMainWindow::upp_UpgradeFirmware( void )
+{
+	if( m_hardware.getCurrentProtocol() == PROT_UPP0 )
+    {
+	    wxLogMessage(_("Reboot option not available in this firmware, please remove the select jumper and disconnect / reconnect your usbpicprog."));
+    }
+	else 
+	{
+		m_hardware.reboot( HW_UPP );
+	}
+	wxFileDialog openFileDialog(this, _("Open firmware file"), "", "",
+                           _("HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"), wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+
+	openFileDialog.SetDirectory (((wxStandardPaths &)wxStandardPaths::Get()).GetDataDir());
+	
+    if (openFileDialog.ShowModal() == wxID_CANCEL)
+        return;     // the user changed idea...
+	
+   	if(upp_connect())
+	{
+		if(m_hardware.getCurrentHardware ()==HW_BOOTLOADER)
+		{
+			upp_open_file (openFileDialog.GetPath());
+			upp_program();
+			resetAfterThreadCompleted=true;
+		}
+		else
+		{
+			wxLogError(_("Usbpicprog is not running in bootloader mode"));
+		}
+	}
+	
+}
+
+
 void UppMainWindow::upp_examples()
 {
     if (!ShouldContinueIfUnsaved())
@@ -1578,11 +1686,6 @@ void UppMainWindow::upp_disconnect()
         SetStatusText(_("Disconnected"),STATUS_FIELD_HARDWARE);
         if (m_cfg.ConfigShowPopups)
             wxLogMessage(_("Disconnected"));
-    }
-    else
-    {
-        SetStatusText(_("Already disconnected"),STATUS_FIELD_HARDWARE);
-        wxLogMessage(_("Already disconnected"));
     }
 }
 

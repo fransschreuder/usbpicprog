@@ -1105,14 +1105,14 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
         if (nBytes < 0)
         {
 		//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
-		#ifndef __WIN32__
-			disconnect();
-			return nBytes;
-		#else
+		//#ifndef __WXMSW__
+			//disconnect();
+			//return nBytes;
+		//#else
 			nBytes=0;
 			msg[3]=1;
 			msg[2]=0;
-		#endif
+		//#endif
         }
 
         statusCallBack (100);
@@ -1288,7 +1288,7 @@ int Hardware::readString(unsigned char* msg, int size, bool noerror) const
     {
 	//FIXME: in bootloader mode and in Windows, it sometimes gives a timeout immediately after a reconnect.
 	#ifndef __WIN32__
-        wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
+        //wxLogError(_("USB error while reading: %s"), libusb_strerror((libusb_error)retcode));
 	#endif
         return -1;
     }
@@ -1309,8 +1309,8 @@ int Hardware::writeString(const unsigned char* msg, int size, bool noerror) cons
 
     if (!noerror &&  (retcode != LIBUSB_SUCCESS || nBytes < size) )
     {
-        wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
-                   libusb_strerror((libusb_error)retcode));
+        //wxLogError(_("USB error while writing to device: %d bytes, errCode: %d; %s"), size, nBytes, 
+        //           libusb_strerror((libusb_error)retcode));
         return -1;
     }
 
