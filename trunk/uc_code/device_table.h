@@ -89,8 +89,8 @@ LIST( P18FXX39,		PIC18,	5V,		simple,		P18FXX39,	PIC18,		PIC18,		P18FXX31,	PIC18,
 //    Pictype,		picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
 LIST( P18FXX80,		PIC18,	5V,		simple,		XXXX,		PIC18,		PIC18,		XXXX,		PIC18,		XXXX )
 LIST( P18FXXK20,	PIC18,	5V,		simple,		XXXX,		PIC18,		PIC18,		XXXX,		PIC18,		XXXX )
-LIST( P18LF13K22,	PIC18,	3V,		simple,		P18F13K22,	PIC18,		PIC18,		P18F13K22,	PIC18,		XXXX )
-LIST( P18LF14K22,	PIC18,	3V,		simple,		P18F13K22,	PIC18,		PIC18,		P18F14K22,	PIC18,		XXXX )
+LIST( P18LF13K22,	PIC18,	3V,		simple,		P18F13K22,	PIC18,		PIC18,		P18F13K22,	PIC18,		P18F4XK22 )
+LIST( P18LF14K22,	PIC18,	3V,		simple,		P18F13K22,	PIC18,		PIC18,		P18F14K22,	PIC18,		P18F4XK22 )
 LIST( P18LF4XK22,	PIC18,	3V,		simple,		P18F4XK22,	PIC18,		PIC18,		P18F4XK22,	P18F4XK22,	P18F4XK22 )
 //    Pictype,		picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits
 
