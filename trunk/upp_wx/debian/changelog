@@ -1,3 +1,21 @@
+usbpicprog (120617-3) precise; urgency=low
+
+  * Implemented auto connect / reconnect and firmware upgrade
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 17 Jun 2012 17:58:45 +0200
+
+usbpicprog (120617-2) oneiric; urgency=low
+
+  * Implemented auto connect / reconnect and firmware upgrade
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 17 Jun 2012 17:58:19 +0200
+
+usbpicprog (120617-1) natty; urgency=low
+
+  * Implemented auto connect / reconnect and firmware upgrade
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 17 Jun 2012 17:57:39 +0200
+
 usbpicprog (120428-3) precise; urgency=low
 
   * Merged branch restructure_code back into master
