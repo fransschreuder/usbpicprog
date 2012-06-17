@@ -35,10 +35,10 @@ echo copy hexfiles...
 cp release/firmware/firmware-$RELEASE/uc_code.hex release/firmware/firmware-$RELEASE.hex
 cp release/firmware/boot1.0/Boot.hex release/firmware/boot1.0.hex
 
-echo making firmware tar.gz archive...
+echo making firmware zip archive...
 cd release/firmware
-tar -zcvhf firmware-$RELEASE.tar.gz *
-mv firmware-$RELEASE.tar.gz ..
+zip -9 -r firmware-$RELEASE.zip *
+mv firmware-$RELEASE.zip ..
 cd ..
 
 echo creating autogen files
