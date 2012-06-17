@@ -1662,11 +1662,12 @@ bool UppMainWindow::upp_connect(bool reset)
         }
         else
         {
-			
-            m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
-            m_hardware.setPicType(&m_picType);
-            m_pPICChoice->SetStringSelection(m_picType.getPicName());
-
+			if(reset)
+			{
+            	m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
+            	m_hardware.setPicType(&m_picType);
+            	m_pPICChoice->SetStringSelection(m_picType.getPicName());
+			}
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups&&reset)
                 wxLogMessage(_("Bootloader or programmer not found"));

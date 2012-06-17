@@ -138,7 +138,29 @@
   </config>
 
 <!--* Packages *************************************************************-->
-  <package types="PDIP" nb_pins="20" >
+    <package types="PDIP" nb_pins="20" >
+    <pin index="1"  name="VDD" />
+    <pin index="2"  name="RA5" />
+    <pin index="3"  name="RA4/MCLR" />
+    <pin index="4"  name="RA3" />
+    <pin index="5"  name="RC5" />
+    <pin index="6"  name="RC4" />
+    <pin index="7"  name="RC3" />
+    <pin index="8"  name="RC6" />
+    <pin index="9"  name="RC7" />
+    <pin index="10" name="RB7" />
+    <pin index="11" name="RB6" />
+    <pin index="12" name="RB5" />
+    <pin index="13" name="RB4" />
+    <pin index="14" name="RC2" />
+    <pin index="15" name="RC1" />
+    <pin index="16" name="RC0" />
+    <pin index="17" name="RA2" />
+    <pin index="18" name="RA1/PGC" />
+    <pin index="19" name="RA0/PGD" />
+    <pin index="20" name="VSS" />
+  </package>
+  <package types="SSOP" nb_pins="20" >
     <pin index="1"  name="VDD" />
     <pin index="2"  name="RA5" />
     <pin index="3"  name="RA4" />
@@ -160,33 +182,11 @@
     <pin index="19" name="RA0/PGD" />
     <pin index="20" name="VSS" />
   </package>
-  <package types="SSOP" nb_pins="20" >
-    <pin index="1"  name="VDD" />
-    <pin index="2"  name="RA5" />
-    <pin index="3"  name="RA4/MCLR" />
-    <pin index="4"  name="RA3" />
-    <pin index="5"  name="RC5" />
-    <pin index="6"  name="RC4" />
-    <pin index="7"  name="RC3" />
-    <pin index="8"  name="RC6" />
-    <pin index="9"  name="RC7" />
-    <pin index="10" name="RB7" />
-    <pin index="11" name="RB6" />
-    <pin index="12" name="RB5" />
-    <pin index="13" name="RB4" />
-    <pin index="14" name="RC2" />
-    <pin index="15" name="RC1" />
-    <pin index="16" name="RC0" />
-    <pin index="17" name="RA2" />
-    <pin index="18" name="RA1/PGC" />
-    <pin index="19" name="RA0/PGD" />
-    <pin index="20" name="VSS" />
-  </package>
     <package types="SOIC" nb_pins="20" >
     <pin index="1"  name="VDD" />
     <pin index="2"  name="RA5" />
-    <pin index="3"  name="RA4/MCLR" />
-    <pin index="4"  name="RA3" />
+    <pin index="3"  name="RA4" />
+    <pin index="4"  name="RA3/MCLR" />
     <pin index="5"  name="RC5" />
     <pin index="6"  name="RC4" />
     <pin index="7"  name="RC3" />
@@ -206,7 +206,7 @@
   </package>
   
     <package types="QFN" nb_pins="20" >
-    <pin index="1"  name="RA4/MCLR" />
+    <pin index="1"  name="RA3/MCLR" />
     <pin index="2"  name="RC5" />
     <pin index="3"  name="RC4" />
     <pin index="4"  name="RC3" />

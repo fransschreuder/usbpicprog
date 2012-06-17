@@ -163,8 +163,8 @@
   <package types="SSOP" nb_pins="20" >
     <pin index="1"  name="VDD" />
     <pin index="2"  name="RA5" />
-    <pin index="3"  name="RA4/MCLR" />
-    <pin index="4"  name="RA3" />
+    <pin index="3"  name="RA4" />
+    <pin index="4"  name="RA3/MCLR" />
     <pin index="5"  name="RC5" />
     <pin index="6"  name="RC4" />
     <pin index="7"  name="RC3" />
@@ -185,8 +185,8 @@
     <package types="SOIC" nb_pins="20" >
     <pin index="1"  name="VDD" />
     <pin index="2"  name="RA5" />
-    <pin index="3"  name="RA4/MCLR" />
-    <pin index="4"  name="RA3" />
+    <pin index="3"  name="RA4" />
+    <pin index="4"  name="RA3/MCLR" />
     <pin index="5"  name="RC5" />
     <pin index="6"  name="RC4" />
     <pin index="7"  name="RC3" />
@@ -206,7 +206,7 @@
   </package>
   
     <package types="QFN" nb_pins="20" >
-    <pin index="1"  name="RA4/MCLR" />
+    <pin index="1"  name="RA3/MCLR" />
     <pin index="2"  name="RC5" />
     <pin index="3"  name="RC4" />
     <pin index="4"  name="RC3" />
