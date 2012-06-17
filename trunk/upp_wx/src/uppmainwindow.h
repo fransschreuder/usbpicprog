@@ -178,7 +178,7 @@ protected:     // event handlers
     void on_autodetect( wxCommandEvent& event ){upp_autodetect(); EVENT_FIX}
     void on_run_target( wxCommandEvent& event ){upp_run_target(); EVENT_FIX}
     void on_stop_target( wxCommandEvent& event ){upp_stop_target(); EVENT_FIX}
-    void on_connect( wxCommandEvent& event){upp_connect(); EVENT_FIX}
+    void on_connect( wxCommandEvent& event){upp_connect(true); EVENT_FIX}
     void on_disconnect( wxCommandEvent& event ){upp_disconnect(); EVENT_FIX}
 	void on_UpgradeFirmware( wxCommandEvent& event ){upp_UpgradeFirmware(); EVENT_FIX}
     void on_preferences( wxCommandEvent& event ){upp_preferences(); EVENT_FIX}
@@ -294,7 +294,7 @@ private:    // real event handlers
 	void checkFirmwareVersion(FirmwareVersion firmwareVersion);
 	
     /** Connect upp_wx to the upp programmer */
-    bool upp_connect();
+    bool upp_connect(bool reset);
     
     /** Disconnect the m_hardware */
     void upp_disconnect();

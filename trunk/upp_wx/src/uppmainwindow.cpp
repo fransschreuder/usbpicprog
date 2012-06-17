@@ -159,7 +159,7 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
     }
 
     // find the hardware connected to the PC, if any:
-    upp_connect();
+    upp_connect(true);
 
 	// PIC changed; reset the code/config/data grids
     Reset();
@@ -213,12 +213,12 @@ void UppMainWindow::OnTimer(wxTimerEvent& event)
 		if(alive<0)
 		{
 			upp_disconnect();
-			upp_connect();
+			upp_connect(true);
 		}
 	}
 	else
 	{
-		upp_connect();
+		upp_connect(false);
 	}
 	m_timer->Start(500,true); //start one shot
 }
@@ -1264,7 +1264,7 @@ void UppMainWindow::upp_UpgradeFirmware( void )
     if (openFileDialog.ShowModal() == wxID_CANCEL)
         return;     // the user changed idea...
 	
-   	if(upp_connect())
+   	if(upp_connect(true))
 	{
 		if(m_hardware.getCurrentHardware ()==HW_BOOTLOADER)
 		{
@@ -1605,7 +1605,7 @@ bool UppMainWindow::upp_stop_target()
 	return true;
 }
 
-bool UppMainWindow::upp_connect()
+bool UppMainWindow::upp_connect(bool reset)
 {
     // recreate the hw class
     if (m_hardware.connected()) m_hardware.disconnect();
@@ -1662,15 +1662,16 @@ bool UppMainWindow::upp_connect()
         }
         else
         {
+			
             m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
             m_hardware.setPicType(&m_picType);
             m_pPICChoice->SetStringSelection(m_picType.getPicName());
 
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
-            if (m_cfg.ConfigShowPopups)
+            if (m_cfg.ConfigShowPopups&&reset)
                 wxLogMessage(_("Bootloader or programmer not found"));
 
-            upp_new();
+            if(reset)upp_new();
         }
     }
 

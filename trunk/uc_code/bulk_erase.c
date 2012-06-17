@@ -252,7 +252,7 @@ void bulk_erase_P18F13K22( unsigned char doRestore )
 	pic_send( 4, 0x0C, 0x8F8F ); //Write 8080h to 3C0004h
 	pic_send( 4, 0x00, 0x0000 ); //NOP
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 6 );
+	DelayMs( 7 );
 }
 void bulk_erase_P16F716( unsigned char doRestore )
 {
