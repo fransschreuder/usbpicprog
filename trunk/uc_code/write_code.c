@@ -485,7 +485,7 @@ void write_code_P18F14K22( unsigned long address, unsigned char* data, char bloc
 					+ blockcounter + i)) << 8) );
 		}
 		//write last 2 bytes of the block and start programming
-		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter + 6)) | (((unsigned int) *(data + 7
+		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter + 14)) | (((unsigned int) *(data + 15
 				+ blockcounter)) << 8) );
 		pic_send_n_bits( 3, 0 );
 		PGChigh(); //hold PGC high for P9 and low for P10
