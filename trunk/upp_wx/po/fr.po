@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-18 12:54+0200\n"
+"POT-Creation-Date: 2012-06-18 13:10+0200\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Patrick Nies, Julien Chiron <info@usbpicprog.org>\n"
@@ -128,6 +128,13 @@ msgstr ""
 #: src/uppmainwindow.cpp:255
 msgid "&Verify..."
 msgstr "&Vérifier..."
+
+#: src/uppmainwindow.cpp:576
+msgid ""
+". \n"
+"\n"
+"Upgrade firmware?"
+msgstr ""
 
 #: src/io_test_base.cpp:45 src/io_test_base.cpp:61 src/io_test_base.cpp:90
 #: src/io_test_base.cpp:119 src/io_test_base.cpp:125 src/io_test_base.cpp:160
