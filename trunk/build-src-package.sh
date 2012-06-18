@@ -19,8 +19,6 @@ fi
 
 echo Building release: $RELEASE
 
-LASTLOGMESSAGE=$(svn log -r $RELEASE | sed '$d' |sed '$d'| sed '1d' | sed '1d')
-echo $LASTLOGMESSAGE
 
 if [ -d release ]
 then
@@ -80,7 +78,7 @@ cd usbpicprog-$RELEASE
 for DIST in ${DISTS} ; do
 	COUNT=$(($COUNT-1))
 	cp ../../upp_wx/debian/changelog debian/changelog
-	dch -D $DIST -m -v $RELEASE$COUNT $LASTLOGMESSAGE -b
+	dch -D $DIST -m -v $RELEASE$COUNT -b
 	cp debian/changelog ../../upp_wx/debian
 	debuild -S -k8AD5905E
 	
