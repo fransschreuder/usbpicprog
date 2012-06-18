@@ -220,7 +220,7 @@ void UppMainWindow::OnTimer(wxTimerEvent& event)
 	{
 		upp_connect(false);
 	}
-	m_timer->Start(500,true); //start one shot
+	m_timer->Start(2000,true); //start one shot
 }
 
 
@@ -1622,7 +1622,7 @@ bool UppMainWindow::upp_connect(bool reset)
         if (m_hardware.getFirmwareVersion(&firmwareVersion)<0)
         {
             SetStatusText(_("Unable to read firmware version"),STATUS_FIELD_HARDWARE);
-            wxLogMessage(_("Unable to read firmware version"));
+            //wxLogMessage(_("Unable to read firmware version"));
         }
         else
         {
@@ -1651,7 +1651,7 @@ bool UppMainWindow::upp_connect(bool reset)
             if (m_hardware.getFirmwareVersion(&firmwareVersion)<0)
             {
                 SetStatusText(_("Unable to read version"),STATUS_FIELD_HARDWARE);
-                wxLogMessage(_("Unable to read version"));
+                //wxLogMessage(_("Unable to read version"));
             }
             else
             {
@@ -1662,12 +1662,12 @@ bool UppMainWindow::upp_connect(bool reset)
         }
         else
         {
-			if(reset)
-			{
+	    if(reset)
+	    {
             	m_picType=PicType::FindPIC(UPP_DEFAULT_PIC);     // select default PIC
             	m_hardware.setPicType(&m_picType);
             	m_pPICChoice->SetStringSelection(m_picType.getPicName());
-			}
+	    }
             SetStatusText(_("Bootloader or programmer not found"),STATUS_FIELD_HARDWARE);
             if (m_cfg.ConfigShowPopups&&reset)
                 wxLogMessage(_("Bootloader or programmer not found"));
