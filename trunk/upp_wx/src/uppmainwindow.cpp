@@ -573,7 +573,7 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 	}
 	if(firmwareOutOfDate)
 	{
-		int answer = wxMessageBox(message + _("Upgrade firmware?"), _("Upgrade firmware?"),
+		int answer = wxMessageBox(message + _(". \n\nUpgrade firmware?"), _("Upgrade firmware?"),
                             wxYES_NO, this);
   		if (answer == wxYES)upp_UpgradeFirmware ();
 	}

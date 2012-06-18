@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-18 12:54+0200\n"
-"PO-Revision-Date: 2012-06-18 13:01+0100\n"
+"PO-Revision-Date: 2012-06-18 13:05+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
 "Language: nl\n"
@@ -126,7 +126,7 @@ msgstr "&Selecteer PIC..."
 
 #: src/uppmainwindow.cpp:294
 msgid "&Upgrade firmware"
-msgstr ""
+msgstr "&Upgrade firmware"
 
 #: src/uppmainwindow.cpp:255
 msgid "&Verify..."
@@ -529,7 +529,7 @@ msgstr "Globale instellingen voor Usbpicprog:"
 
 #: src/uppmainwindow.cpp:1260
 msgid "HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"
-msgstr ""
+msgstr "HEX bestanden (*.hex)|*.hex|HEX bestanden (*.HEX)|*.HEX"
 
 #: src/uppmainwindow_base.cpp:35
 msgid "Hexadecimal view of the code area of the PIC:"
@@ -641,9 +641,8 @@ msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr "Alleen beschikbaar voor PIC12F629, PIC12F508 en vergelijkbare chips..."
 
 #: src/uppmainwindow.cpp:1259
-#, fuzzy
 msgid "Open firmware file"
-msgstr "Open een hex bestand"
+msgstr "Open een firmware bestand"
 
 #: src/uppmainwindow.cpp:1237
 #: src/uppmainwindow.cpp:1290
@@ -788,7 +787,7 @@ msgstr "Lezen van het data geheugen van de PIC..."
 
 #: src/uppmainwindow.cpp:1253
 msgid "Reboot option not available in this firmware, please remove the select jumper and disconnect / reconnect your usbpicprog."
-msgstr ""
+msgstr "Herstart optie net beschikbaar in deze versie van de firmware, verwijder de select jumper en plug dan usbpicprog opnieuw in."
 
 #: src/uppmainwindow_base.cpp:192
 msgid "Reloads the current HEX file from disk"
@@ -1007,7 +1006,7 @@ msgstr ""
 
 #: src/uppmainwindow.cpp:295
 msgid "Upgrade the firmware in usbpicprog"
-msgstr ""
+msgstr "Upgrade de firmware in usbpicprog"
 
 #: src/uppmainwindow_base.h:105
 msgid "Usbpicprog"
@@ -1015,7 +1014,7 @@ msgstr "Usbpicprog"
 
 #: src/uppmainwindow.cpp:1277
 msgid "Usbpicprog is not running in bootloader mode"
-msgstr ""
+msgstr "Usbpicprog draait niet in bootloader modus"
 
 #: src/uppmainwindow.cpp:592
 msgid "Usbpicprog rev: "
@@ -1183,7 +1182,7 @@ msgstr "controleer of de pic leeg is"
 
 #: src/main.h:141
 msgid "boot"
-msgstr ""
+msgstr "boot"
 
 #: src/main.h:135
 msgid "bulk erase the device"
@@ -1265,11 +1264,11 @@ msgstr "herlaad"
 
 #: src/main.h:140
 msgid "reset"
-msgstr ""
+msgstr "reset"
 
 #: src/main.h:140
 msgid "reset/reboot firmware/bootloader"
-msgstr ""
+msgstr "reset/herstart firmware/bootloader"
 
 #: src/main.h:144
 msgid "restore-bandgap"
@@ -1313,7 +1312,7 @@ msgstr "stop doelprocessor"
 
 #: src/main.h:141
 msgid "tell firmware to reboot in bootloader mode"
-msgstr ""
+msgstr "laat firmware opstarten naar bootloader modus"
 
 #: src/hexfile.cpp:238
 #, c-format
