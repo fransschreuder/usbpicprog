@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-18 13:10+0200\n"
-"PO-Revision-Date: 2012-06-18 13:05+0100\n"
+"POT-Creation-Date: 2012-06-18 13:13+0200\n"
+"PO-Revision-Date: 2012-06-18 13:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: Dutch <fransschreuder@users.sourceforge.net>\n"
 "Language: nl\n"
@@ -131,12 +131,13 @@ msgid "&Verify..."
 msgstr "&Verifieren..."
 
 #: src/uppmainwindow.cpp:576
-#, fuzzy
 msgid ""
 ". \n"
 "\n"
 "Upgrade firmware?"
-msgstr "&Upgrade firmware"
+msgstr ""
+". \n"
+"/nUpgrade firmware?"
 
 #: src/io_test_base.cpp:45 src/io_test_base.cpp:61 src/io_test_base.cpp:90
 #: src/io_test_base.cpp:119 src/io_test_base.cpp:125 src/io_test_base.cpp:160
@@ -1005,7 +1006,7 @@ msgstr ""
 
 #: src/uppmainwindow.cpp:576
 msgid "Upgrade firmware?"
-msgstr ""
+msgstr "Upgrade firmware?"
 
 #: src/uppmainwindow.cpp:295
 msgid "Upgrade the firmware in usbpicprog"
