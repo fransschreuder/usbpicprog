@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek <hadacek@kde.org>                 *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24FJ32GA004" status="IP" memory_technology="FLASH" architecture="24F" id="0x044D" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="026375" datasheet="39881" progsheet="39768" erratas="80333 80316" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"  end="32" vdd_min="2.0" vdd_max="2.75" />
+  </frequency_range>
+
+  <voltages name="vpp" min="2.0" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog" min="2.0" max="3.6" nominal="3.3" />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"              start="0x000200" end="0x0057FB" />
+  <memory name="device_id"         start="0xFF0000" end="0xFF0004" />
+  <memory name="config"            start="0x0057FC" end="0x0057FF" />
+<!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
+  <memory name="debug_vector"      start="0x800000" end="0x800007" />
+  <memory name="program_executive" start="0x800000" end="0x8007EF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1" wmask="0xFFFFFF" bvalue="0x007FDF" >
+    <mask name="WDTPOST" value="0x00000F" >
+      <value value="0x000000" name="1:1" />
+      <value value="0x000001" name="1:2" />
+      <value value="0x000002" name="1:4" />
+      <value value="0x000003" name="1:8" />
+      <value value="0x000004" name="1:16" />
+      <value value="0x000005" name="1:32" />
+      <value value="0x000006" name="1:64" />
+      <value value="0x000007" name="1:128" />
+      <value value="0x000008" name="1:256" />
+      <value value="0x000009" name="1:512" />
+      <value value="0x00000A" name="1:1024" />
+      <value value="0x00000B" name="1:2048" />
+      <value value="0x00000C" name="1:4096" />
+      <value value="0x00000D" name="1:8192" />
+      <value value="0x00000E" name="1:16384" />
+      <value value="0x00000F" name="1:32768" />
+    </mask>
+    <mask name="WDTPRE" value="0x000010" >
+      <value value="0x000000" name="1:32" />
+      <value value="0x000010" name="1:128" />
+    </mask>
+    <mask name="WINDIS" value="0x000040" >
+      <value value="0x000000" name="On" />
+      <value value="0x000040" name="Off" />
+    </mask>
+    <mask name="FWDTEN" value="0x000080" >
+      <value value="0x000000" name="Software" />
+      <value value="0x000080" name="On" />
+    </mask>
+    <mask name="ICS" value="0x000300" >
+      <value value="0x000000" name="invalid" />
+      <value value="0x000100" name="EMUC3, EMUD3" />
+      <value value="0x000200" name="EMUC2, EMUD2" />
+      <value value="0x000300" name="EMUC1, EMUD1" />
+    </mask>
+    <mask name="DEBUG" value="0x000800" >
+      <value value="0x000000" name="On" />
+      <value value="0x000800" name="Off" />
+    </mask>
+    <mask name="GWRP" value="0x001000" >
+      <value value="0x000000" name="All" />
+      <value value="0x001000" name="Off" />
+    </mask>
+    <mask name="GCP" value="0x002000" >
+      <value value="0x000000" name="All" />
+      <value value="0x002000" name="Off" />
+    </mask>
+    <mask name="JTAGEN" value="0x004000" >
+      <value value="0x000000" name="Off" />
+      <value value="0x004000" name="On" />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CONFIG2" wmask="0xFFFFFF" bvalue="0x0087F7" >
+    <mask name="POSCMD" value="0x000003" >
+      <value value="0x000000" name="EC" />
+      <value value="0x000001" name="XT" />
+      <value value="0x000002" name="HS" />
+      <value value="0x000003" name="Off" />
+    </mask>
+    <mask name="I2C1SEL" value="0x000004" >
+      <value value="0x000000" name="Alternate" />
+      <value value="0x000004" name="Default" />
+    </mask>
+    <mask name="IOL1WAY" value="0x000010" >
+      <value value="0x000000" name="Multiple reconfigurations" />
+      <value value="0x000010" name="One reconfiguration" />
+    </mask>
+    <mask name="OSCIOFNC" value="0x000020" >
+      <value value="0x000000" name="IO" />
+      <value value="0x000020" name="Clock" />
+    </mask>
+    <mask name="FCKSM" value="0x0000C0" >
+      <value value="0x000000" name="Switching on, monitor on" />
+      <value value="0x000040" name="Switching on, monitor off" />
+      <value value="0x000080" name="Switching off, monitor off" />
+      <value value="0x0000C0" name="Switching off, monitor off" />
+    </mask>
+    <mask name="FNOSC" value="0x000700" >
+      <value value="0x000000" name="EXTRC_F" />
+      <value value="0x000100" name="INTRC_F_PLL" />
+      <value value="0x000200" name="PRIM" />
+      <value value="0x000300" name="PRIM_PLL" />
+      <value value="0x000400" name="SECOND" />
+      <value value="0x000500" name="EXTRC_LP" />
+      <value value="0x000600" name="invalid" />
+      <value value="0x000700" name="INTRC_F_POST" />
+    </mask>
+    <mask name="IESO" value="0x008000" >
+      <value value="0x000000" name="Off" />
+      <value value="0x008000" name="On" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="qfn tqfp" nb_pins="44" >
+  </package>
+
+</device>
