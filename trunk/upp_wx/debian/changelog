@@ -1,3 +1,21 @@
+usbpicprog (120618-6) precise; urgency=low
+
+  * Added some 24FJ xml files and removed some popups on reconnect
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 18 Jun 2012 10:02:16 +0200
+
+usbpicprog (120618-5) oneiric; urgency=low
+
+  * Added some 24FJ xml files and removed some popups on reconnect
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 18 Jun 2012 10:02:06 +0200
+
+usbpicprog (120618-4) natty; urgency=low
+
+  * Added some 24FJ xml files and removed some popups on reconnect
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 18 Jun 2012 10:01:31 +0200
+
 usbpicprog (120617-3) precise; urgency=low
 
   * Implemented auto connect / reconnect and firmware upgrade
