@@ -7,7 +7,7 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="16F1847" status="NR" memory_technology="FLASH" self_write="yes" architecture="16X" id="0x14A0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="pic.xsd">
+<device name="16LF1847" status="NR" memory_technology="FLASH" self_write="yes" architecture="16X" id="0x14A0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="pic.xsd">
 
 <!--* Documents ************************************************************-->
   <documents webpage="549760" datasheet="41453" progsheet="41439" erratas="80525"/>
