@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek <hadacek@kde.org>                 *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24FJ64GA104" status="IP" memory_technology="FLASH" architecture="24F" id="0x420E" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="536121" datasheet="39940" progsheet="39934" erratas="80487" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"  end="32" vdd_min="2.0" vdd_max="2.75" />
+  </frequency_range>
+
+  <voltages name="vpp" min="2.0" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog" min="2.0" max="3.6" nominal="3.3" />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"              start="0x000200" end="0x00ABF7" />
+  <memory name="device_id"         start="0xFF0000" end="0xFF0004" />
+  <memory name="config"            start="0x00ABF8" end="0x00ABFF" />
+<!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
+  <memory name="debug_vector"      start="0x800000" end="0x800007" />
+  <memory name="program_executive" start="0x800000" end="0x8007EF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CW4" wmask="0xFFFFFF" bvalue="0x007FFF" >
+    <mask name="DSWDTEN" value="0x000080" >
+      <value value="0x000080" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="DSLPBOREN" value="0x000040" >
+      <value value="0x000040" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+
+    <mask name="RTCOSC" value="0x000020" >
+      <value value="0x000020" name="SOSC" />
+      <value value="0x000000" name="LPRC" />
+    </mask>
+    <mask name="DSWCKSEL" value="0x000010" >
+      <value value="0x000010" name="LPRC" />
+      <value value="0x000000" name="SOSC" />
+    </mask>
+    <mask name="DSWDTPS" value="0x00000F" >
+      <value value="0x00000F" name="25.7 days" />
+      <value value="0x00000E" name="6.4 days" />
+      <value value="0x00000D" name="38.5 hours" />
+      <value value="0x00000C" name="9.6 hours" />
+      <value value="0x00000B" name="2.4 hours" />
+      <value value="0x00000A" name="36 minutes" />
+      <value value="0x000009" name="9 minutes" />
+      <value value="0x000008" name="135 sec" />
+      <value value="0x000007" name="34 sec" />
+      <value value="0x000006" name="8.5 sec" />
+      <value value="0x000005" name="2.1 sec" />
+      <value value="0x000004" name="528 ms" />
+      <value value="0x000003" name="132 ms" />
+      <value value="0x000002" name="33 ms" />
+      <value value="0x000001" name="8.3 ms" />
+      <value value="0x000000" name="2.1 ms" />
+    </mask>
+  </config>
+
+  <config offset="0x2" name="CW3" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="WPFP" value="0x00001F" >
+      <value value="0x000000" name="Protected page address 0x000000" />
+      <value value="0x000001" name="Protected page address 0x000200" />
+      <value value="0x000002" name="Protected page address 0x000400" />
+      <value value="0x000003" name="Protected page address 0x000600" />
+      <value value="0x000004" name="Protected page address 0x000800" />
+      <value value="0x000005" name="Protected page address 0x000A00" />
+      <value value="0x000006" name="Protected page address 0x000C00" />
+      <value value="0x000007" name="Protected page address 0x000E00" />
+      <value value="0x000008" name="Protected page address 0x001000" />
+      <value value="0x000009" name="Protected page address 0x001200" />
+      <value value="0x00000A" name="Protected page address 0x001400" />
+      <value value="0x00000B" name="Protected page address 0x001600" />
+      <value value="0x00000C" name="Protected page address 0x001800" />
+      <value value="0x00000D" name="Protected page address 0x001A00" />
+      <value value="0x00000E" name="Protected page address 0x001C00" />
+      <value value="0x00000F" name="Protected page address 0x001E00" />
+      <value value="0x000010" name="Protected page address 0x002000" />
+      <value value="0x000011" name="Protected page address 0x002200" />
+      <value value="0x000012" name="Protected page address 0x002400" />
+      <value value="0x000013" name="Protected page address 0x002600" />
+      <value value="0x000014" name="Protected page address 0x002800" />
+      <value value="0x000015" name="Protected page address 0x002A00" />
+      <value value="0x000016" name="Protected page address 0x002C00" />
+      <value value="0x000017" name="Protected page address 0x002E00" />
+      <value value="0x000018" name="Protected page address 0x003000" />
+      <value value="0x000019" name="Protected page address 0x003200" />
+      <value value="0x00001A" name="Protected page address 0x003400" />
+      <value value="0x00001B" name="Protected page address 0x003600" />
+      <value value="0x00001C" name="Protected page address 0x003800" />
+      <value value="0x00001D" name="Protected page address 0x003A00" />
+      <value value="0x00001E" name="Protected page address 0x003C00" />
+      <value value="0x00001F" name="Protected page address 0x003E00" />
+    </mask>
+ 	<mask name="SOSCSEL" value="0x000300" >
+      <value value="0x000300" name="SOSC pins are in default (high drive strength) oscillator mode" />
+      <value value="0x000100" name="SOSC pins are in Low-Power (low drive strength) Oscillator mode" />
+      <value value="0x000000" name="SOSC pins have digital I/O functions (RA4, RB4); SCLKI can be used" />
+    </mask>
+    <mask name="WUTSEL" value="0x000C00" >
+      <value value="0x000C00" name="Default regulator start-up time is used" />
+      <value value="0x000400" name="Fast regulator start-up time is used" />
+    </mask>
+    <mask name="WPDIS" value="0x002000" >
+      <value value="0x002000" name="Segmented code protection is disabled" />
+      <value value="0x000000" name="Segmented code protection is enabled; protected segment is defined by WPEND, WPCFG and WPFPx Configuration bits" />
+    </mask>
+    <mask name="WPCFG" value="0x004000" >
+      <value value="0x004000" name="Last page (at the top of program memory) and Flash Configuration Words are not protected" />
+      <value value="0x000000" name="Last page and Flash Configuration Words are code-protected" />
+    </mask>
+    <mask name="WPEND" value="0x008000" >
+      <value value="0x008000" name="Protected code segment lower boundary is at the bottom of program memory (000000h); upper boundary is the code page specified by WPFP" />
+      <value value="0x000000" name="Protected code segment upper boundary is at the last page of program memory; lower boundary is the code page specified by WPFP" />
+    </mask>
+  </config>
+
+  <config offset="0x4" name="CW2" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="POSCMD" value="0x000003" >
+      <value value="0x000000" name="EC" />
+      <value value="0x000001" name="XT" />
+      <value value="0x000002" name="HS" />
+      <value value="0x000003" name="Off" />
+    </mask>
+    <mask name="I2C1SEL" value="0x000004" >
+      <value value="0x000000" name="Alternate" />
+      <value value="0x000004" name="Default" />
+    </mask>
+    <mask name="IOL1WAY" value="0x000010" >
+      <value value="0x000000" name="Multiple reconfigurations" />
+      <value value="0x000010" name="One reconfiguration" />
+    </mask>
+    <mask name="OSCIOFNC" value="0x000020" >
+      <value value="0x000000" name="IO" />
+      <value value="0x000020" name="Clock" />
+    </mask>
+    <mask name="FCKSM" value="0x0000C0" >
+      <value value="0x000000" name="Switching on, monitor on" />
+      <value value="0x000040" name="Switching on, monitor off" />
+      <value value="0x000080" name="Switching off, monitor off" />
+      <value value="0x0000C0" name="Switching off, monitor off" />
+    </mask>
+    <mask name="FNOSC" value="0x000700" >
+      <value value="0x000000" name="FRC - Fast RC Oscillator" />
+      <value value="0x000100" name="FRCPLL - Fast RC Oscillator with Postscaler and PLL module" />
+      <value value="0x000200" name="PRIMARY - Primary Oscillator (XT, HS, EC)" />
+      <value value="0x000300" name="PRIMARY PLL - Primary Oscillator with PLL module" />
+      <value value="0x000400" name="SOSC - Secondary Oscillator" />
+      <value value="0x000500" name="LPRC - Low-Power RC Oscillator" />
+      <value value="0x000600" name="invalid" />
+      <value value="0x000700" name="FRCDIV - Fast RC Oscillator with Postscaler" />
+    </mask>
+    <mask name="PLL96MHZ" value="0x000800" >
+       <value value="0x000800" name="96 MHz PLL is enabled automatically on start-up" />
+       <value value="0x000000" name="96 MHz PLL is enabled by user in software (controlled with the PLLEN bit in CLKDIV:5:)" />
+    </mask>
+    <mask name="PLLDIV" value="0x007000" >
+      <value value="0x007000" name="Oscillator input divided by 12 (48 MHz input)" />
+      <value value="0x006000" name="Oscillator input divided by 8 (32 MHz input)" />
+      <value value="0x005000" name="Oscillator input divided by 6 (24 MHz input)" />
+      <value value="0x004000" name="Oscillator input divided by 5 (20 MHz input)" />
+      <value value="0x003000" name="Oscillator input divided by 4 (16 MHz input)" />
+      <value value="0x002000" name="Oscillator input divided by 3 (12 MHz input)" />
+      <value value="0x001000" name="Oscillator input divided by 2 (8 MHz input)" />
+      <value value="0x000000" name="Oscillator input used directly (4 MHz input)" />
+    </mask>
+    <mask name="IESO" value="0x008000" >
+      <value value="0x000000" name="Off" />
+      <value value="0x008000" name="On" />
+    </mask>
+  </config>
+
+  <config offset="0x6" name="CW1" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="WDTPOST" value="0x00000F" >
+      <value value="0x000000" name="1:1" />
+      <value value="0x000001" name="1:2" />
+      <value value="0x000002" name="1:4" />
+      <value value="0x000003" name="1:8" />
+      <value value="0x000004" name="1:16" />
+      <value value="0x000005" name="1:32" />
+      <value value="0x000006" name="1:64" />
+      <value value="0x000007" name="1:128" />
+      <value value="0x000008" name="1:256" />
+      <value value="0x000009" name="1:512" />
+      <value value="0x00000A" name="1:1024" />
+      <value value="0x00000B" name="1:2048" />
+      <value value="0x00000C" name="1:4096" />
+      <value value="0x00000D" name="1:8192" />
+      <value value="0x00000E" name="1:16384" />
+      <value value="0x00000F" name="1:32768" />
+    </mask>
+    <mask name="WDTPRE" value="0x000010" >
+      <value value="0x000000" name="1:32" />
+      <value value="0x000010" name="1:128" />
+    </mask>
+    <mask name="WINDIS" value="0x000040" >
+      <value value="0x000000" name="On" />
+      <value value="0x000040" name="Off" />
+    </mask>
+    <mask name="FWDTEN" value="0x000080" >
+      <value value="0x000000" name="Software" />
+      <value value="0x000080" name="On" />
+    </mask>
+    <mask name="ICS" value="0x000300" >
+      <value value="0x000000" name="invalid" />
+      <value value="0x000100" name="EMUC3, EMUD3" />
+      <value value="0x000200" name="EMUC2, EMUD2" />
+      <value value="0x000300" name="EMUC1, EMUD1" />
+    </mask>
+    <mask name="DEBUG" value="0x000800" >
+      <value value="0x000000" name="On" />
+      <value value="0x000800" name="Off" />
+    </mask>
+    <mask name="GWRP" value="0x001000" >
+      <value value="0x000000" name="All" />
+      <value value="0x001000" name="Off" />
+    </mask>
+    <mask name="GCP" value="0x002000" >
+      <value value="0x000000" name="All" />
+      <value value="0x002000" name="Off" />
+    </mask>
+    <mask name="JTAGEN" value="0x004000" >
+      <value value="0x000000" name="Off" />
+      <value value="0x004000" name="On" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="spdip ssop soic qfn" nb_pins="44" >
+  </package>
+
+</device>

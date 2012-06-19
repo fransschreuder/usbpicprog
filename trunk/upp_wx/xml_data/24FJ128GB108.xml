@@ -92,15 +92,15 @@
       <value value="0x000002" name="HS" />
       <value value="0x000003" name="Off" />
     </mask>
-    <mask name="I2C2SEL" value="0x000004" />
+    <mask name="I2C2SEL" value="0x000004" >
       <value value="0x000004" name="SCL2/SDA2" />
       <value value="0x000000" name="ASCL2/ASDA2" />
     </mask>
-    <mask name="DISUVREG" value="0x000008" />
+    <mask name="DISUVREG" value="0x000008" >
       <value value="0x000008" name="off" />
       <value value="0x000000" name="on" />
     </mask>
-    <mask name="IOL1WAY" value="0x000010" />
+    <mask name="IOL1WAY" value="0x000010" >
       <value value="0x000010" name="IOLOCK can be set and cleared" />
       <value value="0x000000" name="IOLOCK can be set once" />
     </mask>
