@@ -299,6 +299,18 @@
     <pic name="24FJ128GA106" upp_family="P24FJXXXGA1" upp_devid="0x21008" upp_devidmask="0x3FFFF"/>
     <pic name="24FJ128GA108" upp_family="P24FJXXXGA1" upp_devid="0x2100A" upp_devidmask="0x3FFFF"/>
     <pic name="24FJ128GA110" upp_family="P24FJXXXGA1" upp_devid="0x2100E" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ256GB106" upp_family="P24FJXXXGA1" upp_devid="0x21019" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ256GB108" upp_family="P24FJXXXGA1" upp_devid="0x2101B" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ256GB110" upp_family="P24FJXXXGA1" upp_devid="0x2101F" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ192GB106" upp_family="P24FJXXXGA1" upp_devid="0x21011" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ192GB108" upp_family="P24FJXXXGA1" upp_devid="0x21013" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ192GB110" upp_family="P24FJXXXGA1" upp_devid="0x21017" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ128GB106" upp_family="P24FJXXXGA1" upp_devid="0x21009" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ128GB108" upp_family="P24FJXXXGA1" upp_devid="0x2100B" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ128GB110" upp_family="P24FJXXXGA1" upp_devid="0x2100F" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ64GB106" upp_family="P24FJXXXGA1" upp_devid="0x21001" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ64GB108" upp_family="P24FJXXXGA1" upp_devid="0x21003" upp_devidmask="0x3FFFF"/>
+    <pic name="24FJ64GB110" upp_family="P24FJXXXGA1" upp_devid="0x21007" upp_devidmask="0x3FFFF"/>
     <pic name="24FJ16GA002" upp_family="P24FJXXXGA0XX" upp_devid="0x20444" upp_devidmask="0x3FFFF"/>
     <pic name="24FJ96GA006" upp_family="P24FJXXXGA0XX" upp_devid="0x20406" upp_devidmask="0x3FFFF"/>
     <pic name="24FJ16GA004" upp_family="P24FJXXXGA0XX" upp_devid="0x2044C" upp_devidmask="0x3FFFF"/>
