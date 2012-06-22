@@ -185,7 +185,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuFile->Append( uppMenuOpen );
 	
 	wxMenuItem* uppMenuExamples;
-	uppMenuExamples = new wxMenuItem( m_pMenuFile, wxID_EXAMPLES, wxString( _("Examples") ) , _("Loads a HEX file from the examples folder"), wxITEM_NORMAL );
+	uppMenuExamples = new wxMenuItem( m_pMenuFile, wxID_EXAMPLES, wxString( _("Examples") ) , _("Open a .hex file from the examples folder"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuExamples );
 	
 	wxMenuItem* uppMenuRefresh;
@@ -197,7 +197,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuFile->Append( uppMenuSave );
 	
 	wxMenuItem* uppMenuSaveAs;
-	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( _("Save &As") ) , _("Saves current code,config,data as a HEX file"), wxITEM_NORMAL );
+	uppMenuSaveAs = new wxMenuItem( m_pMenuFile, wxID_SAVEAS, wxString( _("Save &As") ) + wxT('\t') + wxT("CTRL+SHIFT+S"), _("Saves current code,config,data as a HEX file"), wxITEM_NORMAL );
 	m_pMenuFile->Append( uppMenuSaveAs );
 	
 	wxMenuItem* uppMenuExit;
@@ -212,7 +212,7 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	m_pMenuEdit->Append( uppMenuCopy );
 	
 	wxMenuItem* uppMenuSelectAll;
-	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) , _("Selects the entire grid currently shown"), wxITEM_NORMAL );
+	uppMenuSelectAll = new wxMenuItem( m_pMenuEdit, wxID_SELECTALL, wxString( _("Select &All") ) + wxT('\t') + wxT("CTRL+A"), _("Selects the entire grid currently shown"), wxITEM_NORMAL );
 	m_pMenuEdit->Append( uppMenuSelectAll );
 	
 	m_pMenuBar->Append( m_pMenuEdit, _("&Edit") );
@@ -233,7 +233,8 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 	uppMenuItemHelp = new wxMenuItem( m_pMenuHelp, wxID_HELP, wxString( _("&Help") ) , _("Opens the Usbpicprog's website..."), wxITEM_NORMAL );
 	m_pMenuHelp->Append( uppMenuItemHelp );
 	
-	m_pMenuHelp->AppendSeparator();
+	wxMenuItem* m_separator1;
+	m_separator1 = m_pMenuHelp->AppendSeparator();
 	
 	wxMenuItem* uppMenuAbout;
 	uppMenuAbout = new wxMenuItem( m_pMenuHelp, wxID_ABOUT, wxString( _("&About") ) , _("Shows informations about this program"), wxITEM_NORMAL );
@@ -250,7 +251,6 @@ UppMainWindowBase::UppMainWindowBase( wxWindow* parent, wxWindowID id, const wxS
 #else
     m_pStatusBar = this->CreateStatusBar( 2, wxST_SIZEGRIP, wxID_ANY );
 #endif
-
 	
 	// Connect Events
 	this->Connect( uppMenuNew->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( UppMainWindowBase::on_new ) );

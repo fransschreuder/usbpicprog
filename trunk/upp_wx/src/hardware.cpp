@@ -913,7 +913,6 @@ int Hardware::autoDetectDevice()
 	if (m_hwCurrent == HW_BOOTLOADER)
 	{
 		PicType picBoot = PicType::FindPIC(("18F2550"));
-		cout<<"Bootloader Devid: "<<std::hex<<picBoot.DevId<<endl;
 		return picBoot.DevId;
 	}
 
@@ -923,7 +922,6 @@ int Hardware::autoDetectDevice()
 	int devId=readId();
 	if(devId<0)
 		return -1;
-	cout<<"Pic24F id: "<<std::hex<< devId<<endl;
 	PicType picType = PicType::FindPIC(0x20000|devId);
 	if(picType.ok())
 		return devId|0x20000; 
@@ -934,7 +932,6 @@ int Hardware::autoDetectDevice()
 	devId=readId();
 	if(devId<0)
 		return -1;
-	cout<<"Pic24FK id: "<<std::hex<< devId<<endl;
 	picType = PicType::FindPIC(0x20000|devId);
 	if(picType.ok())
 		return devId|0x20000;
@@ -996,7 +993,6 @@ int Hardware::autoDetectDevice()
 		return -1;
 
 	devId=readId();
-	cout<<"Devid PIC30: "<<std::hex<<(devId|0x20000)<<std::dec<<endl;
 	if (devId < 0)
 		return -1;
 

@@ -252,11 +252,11 @@ void UppMainWindow::CompleteGUICreation()
                                 _("Read the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuVerify;
-    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") ),
+    pMenuVerify = new wxMenuItem( pMenuActions, wxID_VERIFY, wxString( _("&Verify...") + ('\t') + ("F2") ),
                                 _("Verify the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuErase;
-    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...") ),
+    pMenuErase = new wxMenuItem( pMenuActions, wxID_ERASE, wxString( _("&Erase...")  + ('\t') + ("F3")),
                                 _("Erase the PIC device"), wxITEM_NORMAL );
 //This menuItem must be enabled / disabled, so let's make it global...
 //	wxMenuItem* pMenuRestoreCal;
@@ -265,20 +265,20 @@ void UppMainWindow::CompleteGUICreation()
                                 _("Restore PIC's calibration registers"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuBlankCheck;
-    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...") ),
+    pMenuBlankCheck = new wxMenuItem( pMenuActions, wxID_BLANKCHECK, wxString( _("&Blankcheck...")  + ('\t') + ("F4")),
                                     _("Blankcheck the PIC device"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuAutoDetect;
-    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...") ),
+    pMenuAutoDetect = new wxMenuItem( pMenuActions, wxID_AUTODETECT, wxString( _("&Autodetect...")  + ('\t') + ("F5")),
                                     _("Detect the type of the PIC device"), wxITEM_NORMAL );
                                     
 
     wxMenuItem* pMenuRunTarget;
-    pMenuRunTarget = new wxMenuItem( pMenuActions, wxID_RUN_TARGET, wxString(_("Run Target")),
+    pMenuRunTarget = new wxMenuItem( pMenuActions, wxID_RUN_TARGET, wxString(_("Run Target"))  + ('\t') + ("F11"),
                                     _("Set 5V to MCLR to run the target controller"), wxITEM_NORMAL );
 
     wxMenuItem* pMenuStopTarget;
-    pMenuStopTarget = new wxMenuItem( pMenuActions, wxID_STOP_TARGET, wxString(_("Stop Target")),
+    pMenuStopTarget = new wxMenuItem( pMenuActions, wxID_STOP_TARGET, wxString(_("Stop Target")) + ('\t') + ("F12"),
                                     _("Set 0V to MCLR to stop the target controller"), wxITEM_NORMAL );
                                     
     /*wxMenuItem* pMenuConnect;
@@ -528,7 +528,6 @@ bool UppMainWindow::ShouldContinueIfUnsaved()
 
 void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 {
-	cout<<"checkfimrwareversion"<<endl;
 	wxString message;
 	bool firmwareOutOfDate = false;
     if (!firmwareVersion.stableRelease)

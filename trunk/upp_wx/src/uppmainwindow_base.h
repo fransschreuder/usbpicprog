@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 29 2008)
+// C++ code generated with wxFormBuilder (version Dec 21 2009)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -86,22 +86,23 @@ class UppMainWindowBase : public wxFrame
 		wxStatusBar* m_pStatusBar;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void on_new( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_open( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_examples( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_refresh( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_save( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_save_as( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_exit( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_copy( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_selectall( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_preferences( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_io_test( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_help( wxCommandEvent& event ){ event.Skip(); }
-		virtual void on_about( wxCommandEvent& event ){ event.Skip(); }
+		virtual void on_new( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_open( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_examples( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_refresh( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_save( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_save_as( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_exit( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_copy( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_selectall( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_preferences( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_io_test( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_help( wxCommandEvent& event ) { event.Skip(); }
+		virtual void on_about( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
+		
 		UppMainWindowBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Usbpicprog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 891,534 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		~UppMainWindowBase();
 	
