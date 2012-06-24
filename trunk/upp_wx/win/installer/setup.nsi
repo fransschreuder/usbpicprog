@@ -165,6 +165,9 @@ proceed:
   
   SetOutPath "$INSTDIR"
   File ..\..\help\usbpicprog.htb
+
+  SetOutPath "$INSTDIR"
+  File ..\..\firmware.hex
   
   SetOutPath "$INSTDIR\xml_data"
   File ..\..\xml_data\*.xml
