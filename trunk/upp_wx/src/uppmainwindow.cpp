@@ -533,7 +533,7 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
     if (!firmwareVersion.stableRelease)
     {
         #ifdef UPP_VERSION
-        message = wxString_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
+        message = wxString(_("You are using a development release of the firmware with a stable version of the software. Consider upgrading your firmware"));     
 		firmwareOutOfDate = true;
 		#else
         if (firmwareVersion.release<DEV_VERSION)
@@ -561,7 +561,7 @@ void UppMainWindow::checkFirmwareVersion(FirmwareVersion firmwareVersion)
 		}
 		if (stableVersion>stableFirmwareVersion)
 		{
-		    message = wxString(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
+		    message = wxString::Format(_("Your firmware is too old (latest version is %d.%d.%d); please consider upgrading it"),
 		                STABLE_VERSION_MAJOR,STABLE_VERSION_MINOR,STABLE_VERSION_RELEASE);
 			firmwareOutOfDate=true;
 		}

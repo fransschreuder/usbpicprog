@@ -1061,7 +1061,7 @@ int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
         sprintf( protocol,"%s P%d",(char*) msg, m_protocol - PROT_UPP0 );
         firmwareVersion->versionString.assign(protocol);
         wxString strippedVersion=firmwareVersion->versionString.substr(firmwareVersion->versionString.find_first_of(' ')+1);
-        firmwareVersion->stableRelease=(strippedVersion.size()==5);
+        firmwareVersion->stableRelease=(strippedVersion.Find('.')>0);
         if(firmwareVersion->stableRelease)
         {
             firmwareVersion->major=atoi(strippedVersion.substr(0,1).c_str());
