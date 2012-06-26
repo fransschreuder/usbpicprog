@@ -210,6 +210,7 @@ void UppMainWindow::OnTimer(wxTimerEvent& event)
 	if(m_hardware.connected())
 	{
 		int alive = m_hardware.getFirmwareVersion (&firmwareVersion); //just to check if the hardware is still alive
+		if((firmwareVersion.isBootloader)&&firmwareVersion.major==0)alive=-1;
 		if(alive<0)
 		{
 			upp_disconnect();
