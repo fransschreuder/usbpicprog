@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-18 13:13+0200\n"
+"POT-Creation-Date: 2012-06-26 08:54+0200\n"
 "PO-Revision-Date: 2011-11-13 12:19+0100\n"
 "Last-Translator: Molnár Károly <proton7.freemail.hu>\n"
 "Language-Team: \n"
@@ -22,8 +22,8 @@ msgstr ""
 "X-Poedit-Country: HUNGARY\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1630 src/uppmainwindow.cpp:1658
-#: src/uppmainwindow.cpp:1660
+#: src/uppmainwindow.cpp:1629 src/uppmainwindow.cpp:1657
+#: src/uppmainwindow.cpp:1659
 msgid " Connected"
 msgstr "Csatlakoztatva"
 
@@ -31,22 +31,22 @@ msgstr "Csatlakoztatva"
 msgid " and "
 msgstr " és "
 
-#: src/uppmainwindow.cpp:1071
+#: src/uppmainwindow.cpp:1070
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr " Itt hiba van 0x%X. Visszaolvasva: 0x%02X, ez helyett: 0x%02X"
 
-#: src/uppmainwindow.cpp:649
+#: src/uppmainwindow.cpp:648
 #, c-format
 msgid "%s [%d pins]"
 msgstr "%s [%d láb]"
 
-#: src/uppmainwindow.cpp:624
+#: src/uppmainwindow.cpp:623
 #, c-format
 msgid "%s datasheet"
 msgstr "%s adatlap"
 
-#: src/uppmainwindow_base.cpp:239
+#: src/uppmainwindow_base.cpp:240
 msgid "&About"
 msgstr "&Névjegy"
 
@@ -78,7 +78,7 @@ msgstr "&Törlés..."
 msgid "&File"
 msgstr "&Fájl"
 
-#: src/uppmainwindow_base.cpp:233 src/uppmainwindow_base.cpp:242
+#: src/uppmainwindow_base.cpp:233 src/uppmainwindow_base.cpp:243
 msgid "&Help"
 msgstr "&Súgó"
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "&Verify..."
 msgstr "&Ellenőrzés..."
 
-#: src/uppmainwindow.cpp:576
+#: src/uppmainwindow.cpp:575
 msgid ""
 ". \n"
 "\n"
@@ -156,11 +156,11 @@ msgstr "3,3V"
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:788 src/uppmainwindow.cpp:792
+#: src/uppmainwindow.cpp:787 src/uppmainwindow.cpp:791
 msgid "All operations completed"
 msgstr "Minden művelet kész."
 
-#: src/uppmainwindow.cpp:1721
+#: src/uppmainwindow.cpp:1720
 msgid "An open source USB pic programmer"
 msgstr "A nyílt forráskódú USB PIC programozó."
 
@@ -168,7 +168,7 @@ msgstr "A nyílt forráskódú USB PIC programozó."
 msgid "Autodetect on Connect"
 msgstr "Automatikusan érzékeli a csatlakoztatást"
 
-#: src/uppmainwindow.cpp:1135
+#: src/uppmainwindow.cpp:1134
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Blankcheck the PIC device"
 msgstr "Ellenőrzi hogy üres-e a PIC."
 
-#: src/uppmainwindow.cpp:1671 src/uppmainwindow.cpp:1673
+#: src/uppmainwindow.cpp:1670 src/uppmainwindow.cpp:1672
 msgid "Bootloader or programmer not found"
 msgstr "Nem találtam boot-betöltőt vagy programozót."
 
@@ -199,7 +199,7 @@ msgstr "Nem lehet betölteni '%s'."
 msgid "Cannot load XML PIC data."
 msgstr "Nem lehet betölteni a PIC XML adatait."
 
-#: src/uppmainwindow.cpp:1763 src/uppmainwindow.cpp:1791
+#: src/uppmainwindow.cpp:1762 src/uppmainwindow.cpp:1790
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "Nem választhat másik PIC-et, ha a bootloader van csatlakoztatva!"
 
@@ -207,7 +207,7 @@ msgstr "Nem választhat másik PIC-et, ha a bootloader van csatlakoztatva!"
 msgid "Change the currently selected PIC"
 msgstr "Cseréli a kiválasztott PIC-et"
 
-#: src/uppmainwindow.cpp:1115
+#: src/uppmainwindow.cpp:1114
 msgid "Checking if the device is blank..."
 msgstr "Ellenőzés ha az eszköz üres..."
 
@@ -223,7 +223,7 @@ msgstr "Kód memória\n"
 msgid "Code memory size:"
 msgstr "A kódmemória mérete:"
 
-#: src/uppmainwindow.cpp:637
+#: src/uppmainwindow.cpp:636
 #, c-format
 msgid "Code memory size: %d bytes"
 msgstr "A kódmemória mérete %d bájt."
@@ -256,7 +256,7 @@ msgstr "Másolás"
 msgid "Could not access the 'xml_data' folder."
 msgstr "Nem lehet elérni az 'xml_data' könyvtárat."
 
-#: src/uppmainwindow.cpp:1195
+#: src/uppmainwindow.cpp:1194
 msgid "Could not create the worker thread!"
 msgstr "Nem sikerült létrehozni a munkamenetet!"
 
@@ -304,7 +304,7 @@ msgstr "Nem lehet megnyitni a Hex állományt az íráshoz..."
 msgid "Could not open Hex file..."
 msgstr "Nem lehet megnyitni a Hex állományt..."
 
-#: src/uppmainwindow.cpp:1201
+#: src/uppmainwindow.cpp:1200
 msgid "Could not run the worker thread!"
 msgstr "Nem lehet futtatni a munkamenetet!"
 
@@ -351,7 +351,7 @@ msgstr ""
 msgid "Data memory size:"
 msgstr "Az adatmemória mérete:"
 
-#: src/uppmainwindow.cpp:638
+#: src/uppmainwindow.cpp:637
 #, c-format
 msgid "Data memory size: %d bytes"
 msgstr "Az adatmemória mérete: %d bájt"
@@ -364,7 +364,7 @@ msgstr "Adatlap"
 msgid "Detect the type of the PIC device"
 msgstr "Az észlelt PIC eszköz tipusa."
 
-#: src/uppmainwindow.cpp:1582
+#: src/uppmainwindow.cpp:1581
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "Az észlelt PIC típusa %s eszköz-azonosítója: 0x%X"
@@ -373,20 +373,20 @@ msgstr "Az észlelt PIC típusa %s eszköz-azonosítója: 0x%X"
 msgid "Device ID:"
 msgstr "Eszköz-azonosító:"
 
-#: src/uppmainwindow.cpp:636
+#: src/uppmainwindow.cpp:635
 #, c-format
 msgid "Device ID: 0x%X"
 msgstr "Eszköz-azonosító: 0x%X"
 
-#: src/uppmainwindow.cpp:1123
+#: src/uppmainwindow.cpp:1122
 msgid "Device is blank"
 msgstr "Az eszköz üres."
 
-#: src/uppmainwindow.cpp:1140
+#: src/uppmainwindow.cpp:1139
 msgid "Device is not blank."
 msgstr "Az eszköz nem üres."
 
-#: src/uppmainwindow.cpp:1688 src/uppmainwindow.cpp:1690
+#: src/uppmainwindow.cpp:1687 src/uppmainwindow.cpp:1689
 msgid "Disconnected"
 msgstr "Leválasztva"
 
@@ -398,7 +398,7 @@ msgstr "&Kilép"
 msgid "Edit"
 msgstr "Szerkeszt"
 
-#: src/uppmainwindow.cpp:892
+#: src/uppmainwindow.cpp:891
 msgid "Erase OK"
 msgstr "A törlés rendben."
 
@@ -410,11 +410,11 @@ msgstr "Töröl mielőtt programoz"
 msgid "Erase the PIC device"
 msgstr "Törli a PIC eszközt"
 
-#: src/uppmainwindow.cpp:1096
+#: src/uppmainwindow.cpp:1095
 msgid "Erasing all areas of the PIC..."
 msgstr "Törlöm a PIC minden területét..."
 
-#: src/uppmainwindow.cpp:887
+#: src/uppmainwindow.cpp:886
 msgid "Erasing before programming..."
 msgstr "A programozás előtt törlök..."
 
@@ -423,8 +423,8 @@ msgstr "A programozás előtt törlök..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Nem sikerült elkérni az USB eszköz illesztőt: %s"
 
-#: src/main.cpp:395 src/uppmainwindow.cpp:895 src/uppmainwindow.cpp:1100
-#: src/uppmainwindow.cpp:1523
+#: src/main.cpp:395 src/uppmainwindow.cpp:894 src/uppmainwindow.cpp:1099
+#: src/uppmainwindow.cpp:1522
 msgid "Error erasing the device"
 msgstr "Hiba történt az eszköz törlése közben."
 
@@ -437,31 +437,31 @@ msgstr "Nem lehet lekérdezni az USB végpont leíróját: %s"
 msgid "Error in checksum..."
 msgstr "Hibás az ellenőrző összeg."
 
-#: src/uppmainwindow.cpp:926
+#: src/uppmainwindow.cpp:925
 msgid "Error programming code memory"
 msgstr "Nem sikerült a kódmemória programozása."
 
-#: src/uppmainwindow.cpp:991
+#: src/uppmainwindow.cpp:990
 msgid "Error programming config memory"
 msgstr "Nem sikerült a config memória programozása."
 
-#: src/uppmainwindow.cpp:956
+#: src/uppmainwindow.cpp:955
 msgid "Error programming data memory"
 msgstr "Nem sikerült az adatmemória (EEPROM) programozása."
 
-#: src/uppmainwindow.cpp:1012
+#: src/uppmainwindow.cpp:1011
 msgid "Error reading code memory"
 msgstr "Nem sikerült olvasni a kódmemóriát."
 
-#: src/uppmainwindow.cpp:1033
+#: src/uppmainwindow.cpp:1032
 msgid "Error reading configuration memory"
 msgstr "Nem sikerült olvasni a config memóriát."
 
-#: src/uppmainwindow.cpp:1022
+#: src/uppmainwindow.cpp:1021
 msgid "Error reading data memory"
 msgstr "Nem sikerült olvasni az adatmemóriát (EEPROM)."
 
-#: src/main.cpp:397 src/uppmainwindow.cpp:1524
+#: src/main.cpp:397 src/uppmainwindow.cpp:1523
 msgid "Error restoring Calibration Registers"
 msgstr "Nem sikerült visszaállítani a Kalibrációs regisztereket."
 
@@ -487,7 +487,7 @@ msgstr "LEBEG"
 msgid "Failure in hex file..."
 msgstr "Hiba van a Hex állományban..."
 
-#: src/uppmainwindow.cpp:560
+#: src/uppmainwindow.cpp:559
 msgid "Firmware probably too new"
 msgstr "Valószínűleg túlságosan új a firmware."
 
@@ -507,7 +507,7 @@ msgstr ""
 "   MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:635
+#: src/uppmainwindow.cpp:634
 #, c-format
 msgid ""
 "Frequency range:\n"
@@ -526,7 +526,7 @@ msgstr "A grafikus felület lehetőségei"
 msgid "Global settings for Usbpicprog:"
 msgstr "Az Usbpicprog általános beállításai"
 
-#: src/uppmainwindow.cpp:1260
+#: src/uppmainwindow.cpp:1259
 msgid "HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"
 msgstr ""
 
@@ -538,7 +538,7 @@ msgstr "A PIC kódterületének hexadecimális nézete:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "A PIC adatterületének hexadecimális nézete:"
 
-#: src/uppmainwindow.cpp:1084 src/uppmainwindow.cpp:1149
+#: src/uppmainwindow.cpp:1083 src/uppmainwindow.cpp:1148
 msgid "I'm sorry for being stupid"
 msgstr "Sajnálom, hogy hülyén viselkedik."
 
@@ -559,7 +559,7 @@ msgstr ""
 "A VPP láb valódi feszültsége és az egyéb lábak állapotai másodpercenként "
 "egyszer frissülnek és lejjebb látszanak vastagon szedve."
 
-#: src/uppmainwindow.cpp:1170
+#: src/uppmainwindow.cpp:1169
 msgid "Initializing..."
 msgstr "Beállítom..."
 
@@ -596,10 +596,6 @@ msgstr "Hibás lábszám: %d"
 msgid "Length: %d bits"
 msgstr "Szélessége: %d bit"
 
-#: src/uppmainwindow_base.cpp:188
-msgid "Loads a HEX file from the examples folder"
-msgstr "Egy HEX állomány betöltése a példák könyvtárából."
-
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
 msgstr "Egy HEX állomány betöltése szerkesztéshez vagy programozáshoz..."
@@ -617,11 +613,11 @@ msgstr "Helye a memóriában: 0x%X"
 msgid "Miscellaneous"
 msgstr "Különféle"
 
-#: src/uppmainwindow.cpp:1575
+#: src/uppmainwindow.cpp:1574
 msgid "No PIC detected!"
 msgstr "Nem találtam PIC-et!"
 
-#: src/uppmainwindow.cpp:1577
+#: src/uppmainwindow.cpp:1576
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Nem találtam PIC-et! Az alapértelmezett PIC (%s) eszközt választom..."
@@ -630,7 +626,7 @@ msgstr "Nem találtam PIC-et! Az alapértelmezett PIC (%s) eszközt választom..
 msgid "No data to verify"
 msgstr "Nincs ellenőrizhető adat."
 
-#: src/uppmainwindow.cpp:1326 src/uppmainwindow.cpp:1327
+#: src/uppmainwindow.cpp:1325 src/uppmainwindow.cpp:1326
 msgid "No file to refresh"
 msgstr "Nincs állomány a frissítéshez."
 
@@ -638,17 +634,22 @@ msgstr "Nincs állomány a frissítéshez."
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Megjegyzés: A piros lábakat (néhányat) használja az ICSP."
 
-#: src/uppmainwindow.cpp:1464
+#: src/uppmainwindow.cpp:1463
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr ""
 "Csak a PIC12F629, PIC12F508, PIC10F20X és hasonló eszközök érvényesek..."
 
-#: src/uppmainwindow.cpp:1259
+#: src/uppmainwindow_base.cpp:188
+#, fuzzy
+msgid "Open a .hex file from the examples folder"
+msgstr "Egy HEX állomány betöltése a példák könyvtárából."
+
+#: src/uppmainwindow.cpp:1258
 #, fuzzy
 msgid "Open firmware file"
 msgstr "Megnyit egy HEX állományt"
 
-#: src/uppmainwindow.cpp:1237 src/uppmainwindow.cpp:1290
+#: src/uppmainwindow.cpp:1236 src/uppmainwindow.cpp:1289
 msgid "Open hexfile"
 msgstr "Megnyit egy HEX állományt"
 
@@ -656,11 +657,11 @@ msgstr "Megnyit egy HEX állományt"
 msgid "Opens the Usbpicprog's website..."
 msgstr "Megnyitja az Usbpicprog honlapján..."
 
-#: src/uppmainwindow.cpp:751
+#: src/uppmainwindow.cpp:750
 msgid "Operations aborted"
 msgstr "A művelet megszakadt."
 
-#: src/uppmainwindow.cpp:794
+#: src/uppmainwindow.cpp:793
 msgid "Operations completed with errors/warnings"
 msgstr "A művelet hibákkal/figyelmeztetésekkel fejeződött be."
 
@@ -688,15 +689,15 @@ msgstr "Kérem erősítse meg."
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Kérem adja meg a BandGap értékét 0 és 3 között."
 
-#: src/uppmainwindow.cpp:1517
+#: src/uppmainwindow.cpp:1516
 msgid "Please specify a bandgap value"
 msgstr "Kérem adja meg a bandgap értékét."
 
-#: src/uppmainwindow.cpp:1485
+#: src/uppmainwindow.cpp:1484
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
 msgstr "Kérem adjon meg egy új Osccal értéket [0xC00 - 0xCFF]."
 
-#: src/uppmainwindow.cpp:1492
+#: src/uppmainwindow.cpp:1491
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Kérem adjon meg egy új Osccal értéket [0x3400 - 0x37FF]."
 
@@ -704,12 +705,12 @@ msgstr "Kérem adjon meg egy új Osccal értéket [0x3400 - 0x37FF]."
 msgid "Please specify an Oscal Value between "
 msgstr "Kérem adja meg az Osccal értékét e határok között."
 
-#: src/uppmainwindow.cpp:1504
+#: src/uppmainwindow.cpp:1503
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
 msgstr "Kérem adja meg az Osccal értékét %X és %X között."
 
-#: src/uppmainwindow.cpp:738
+#: src/uppmainwindow.cpp:737
 msgid "Please wait until the operations are completed:\n"
 msgstr "Kérem várjon, amíg a műveletek befejeződnek:\n"
 
@@ -725,15 +726,15 @@ msgstr "A programozás lehetőségei"
 msgid "Program the PIC device"
 msgstr "Programozza a PIC eszközt"
 
-#: src/uppmainwindow.cpp:971
+#: src/uppmainwindow.cpp:970
 msgid "Programming configuration area of the PIC..."
 msgstr "Programozom a PIC konfigurációs területét..."
 
-#: src/uppmainwindow.cpp:904
+#: src/uppmainwindow.cpp:903
 msgid "Programming the code area of the PIC..."
 msgstr "Programozom a PIC kódterületét..."
 
-#: src/uppmainwindow.cpp:936
+#: src/uppmainwindow.cpp:935
 msgid "Programming the data area of the PIC..."
 msgstr "Programozom a PIC adatterületét..."
 
@@ -751,7 +752,7 @@ msgstr ""
 "    MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:630
+#: src/uppmainwindow.cpp:629
 #, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
@@ -764,7 +765,7 @@ msgstr ""
 "   Névlegesen=%.2f V\n"
 "   Legföljebb=%.2f V"
 
-#: src/uppmainwindow.cpp:1169
+#: src/uppmainwindow.cpp:1168
 msgid "Progress dialog"
 msgstr "Haladást mutató ablak."
 
@@ -776,19 +777,19 @@ msgstr "ALAPHELYZET"
 msgid "Read the PIC device"
 msgstr "Olvassa a PIC eszközt"
 
-#: src/uppmainwindow.cpp:1009
+#: src/uppmainwindow.cpp:1008
 msgid "Reading the code area of the PIC..."
 msgstr "A PIC kódterületének olvasása..."
 
-#: src/uppmainwindow.cpp:1030
+#: src/uppmainwindow.cpp:1029
 msgid "Reading the configuration area of the PIC..."
 msgstr "A PIC konfigurációs területének olvasása..."
 
-#: src/uppmainwindow.cpp:1019
+#: src/uppmainwindow.cpp:1018
 msgid "Reading the data area of the PIC..."
 msgstr "A PIC adatterületének olvasása..."
 
-#: src/uppmainwindow.cpp:1253
+#: src/uppmainwindow.cpp:1252
 msgid ""
 "Reboot option not available in this firmware, please remove the select "
 "jumper and disconnect / reconnect your usbpicprog."
@@ -829,7 +830,7 @@ msgstr "futtatja a cél eszközt"
 msgid "Save &As"
 msgstr "Men&t mint"
 
-#: src/uppmainwindow.cpp:1364
+#: src/uppmainwindow.cpp:1363
 msgid "Save hexfile"
 msgstr "Hex állomány mentése"
 
@@ -862,7 +863,7 @@ msgstr "Az MCLR lábra 0V-ot adva megállítja a cél mikrovezérlőt."
 msgid "Set 5V to MCLR to run the target controller"
 msgstr "Az MCLR lábra 5V-ot adva elindítja a cél mikrovezérlőt."
 
-#: src/uppmainwindow_base.cpp:239
+#: src/uppmainwindow_base.cpp:240
 msgid "Shows informations about this program"
 msgstr "Információkat mutat a programról."
 
@@ -874,11 +875,11 @@ msgstr "Felugró ablakokat mutat a kapcsolódáskor és máskor..."
 msgid "Shows the options for this program"
 msgstr "Mutatja a program beállításait"
 
-#: src/uppmainwindow.cpp:1517
+#: src/uppmainwindow.cpp:1516
 msgid "Specify a bandgap value"
 msgstr "Megadja a bandgap értékét"
 
-#: src/uppmainwindow.cpp:1486 src/uppmainwindow.cpp:1493
+#: src/uppmainwindow.cpp:1485 src/uppmainwindow.cpp:1492
 msgid "Specify a new Osccal Value"
 msgstr "Megad egy új OscCal értéket"
 
@@ -886,7 +887,7 @@ msgstr "Megad egy új OscCal értéket"
 msgid "Stop Target"
 msgstr "megállítja a cél eszközt"
 
-#: src/uppmainwindow.cpp:633
+#: src/uppmainwindow.cpp:632
 #, c-format
 msgid ""
 "Supply voltage (Vdd):\n"
@@ -906,20 +907,20 @@ msgid ""
 msgstr ""
 "Nem mentette a(z) '%s' HEX állományt, a tartalma el fog veszni. Folytatja?"
 
-#: src/uppmainwindow.cpp:914 src/uppmainwindow.cpp:947
-#: src/uppmainwindow.cpp:982
+#: src/uppmainwindow.cpp:913 src/uppmainwindow.cpp:946
+#: src/uppmainwindow.cpp:981
 msgid "The hardware should ask for next block"
 msgstr "A hardver kéri a következő blokkot."
 
-#: src/uppmainwindow.cpp:911 src/uppmainwindow.cpp:944
-#: src/uppmainwindow.cpp:979
+#: src/uppmainwindow.cpp:910 src/uppmainwindow.cpp:943
+#: src/uppmainwindow.cpp:978
 msgid "The hardware should say OK"
 msgstr "A hardvernek mondani kell hogy rendben."
 
-#: src/uppmainwindow.cpp:1405 src/uppmainwindow.cpp:1417
-#: src/uppmainwindow.cpp:1434 src/uppmainwindow.cpp:1446
-#: src/uppmainwindow.cpp:1469 src/uppmainwindow.cpp:1533
-#: src/uppmainwindow.cpp:1545 src/uppmainwindow.cpp:1738
+#: src/uppmainwindow.cpp:1404 src/uppmainwindow.cpp:1416
+#: src/uppmainwindow.cpp:1433 src/uppmainwindow.cpp:1445
+#: src/uppmainwindow.cpp:1468 src/uppmainwindow.cpp:1532
+#: src/uppmainwindow.cpp:1544 src/uppmainwindow.cpp:1737
 msgid "The programmer is not connected"
 msgstr "Nincs csatlakoztatva a programozó."
 
@@ -946,55 +947,55 @@ msgstr ""
 msgid "Type:"
 msgstr "Tipus:"
 
-#: src/uppmainwindow.cpp:639
+#: src/uppmainwindow.cpp:638
 #, c-format
 msgid "Type: %d-bit microcontroller"
 msgstr "Tipus: %d-bites mikrovezérlő"
 
-#: src/uppmainwindow.cpp:1143
+#: src/uppmainwindow.cpp:1142
 msgid "USB error during blankcheck"
 msgstr "USB hiba történt az üres teszt közben."
 
-#: src/uppmainwindow.cpp:1078
+#: src/uppmainwindow.cpp:1077
 msgid "USB error during verify"
 msgstr "USB hiba történt az ellenőrzés közben."
 
-#: src/uppmainwindow.cpp:923 src/uppmainwindow.cpp:953
-#: src/uppmainwindow.cpp:988
+#: src/uppmainwindow.cpp:922 src/uppmainwindow.cpp:952
+#: src/uppmainwindow.cpp:987
 msgid "USB error while writing code memory"
 msgstr "USB hiba történt a kód memória írása közben."
 
-#: src/uppmainwindow.cpp:1306 src/uppmainwindow.cpp:1307
-#: src/uppmainwindow.cpp:1336 src/uppmainwindow.cpp:1337
+#: src/uppmainwindow.cpp:1305 src/uppmainwindow.cpp:1306
+#: src/uppmainwindow.cpp:1335 src/uppmainwindow.cpp:1336
 msgid "Unable to open file"
 msgstr "Nem lehet állományt megnyitni."
 
-#: src/uppmainwindow.cpp:1624
+#: src/uppmainwindow.cpp:1623
 msgid "Unable to read firmware version"
 msgstr "Nem lehet beolvasni a firmware változatát."
 
-#: src/uppmainwindow.cpp:1653
+#: src/uppmainwindow.cpp:1652
 msgid "Unable to read version"
 msgstr "Nem lehet beolvasni a változatot."
 
-#: src/uppmainwindow.cpp:1598
+#: src/uppmainwindow.cpp:1597
 msgid "Unable to run target"
 msgstr "Nem lehet futtatni a cél eszközt."
 
-#: src/uppmainwindow.cpp:1352 src/uppmainwindow.cpp:1353
-#: src/uppmainwindow.cpp:1374 src/uppmainwindow.cpp:1375
+#: src/uppmainwindow.cpp:1351 src/uppmainwindow.cpp:1352
+#: src/uppmainwindow.cpp:1373 src/uppmainwindow.cpp:1374
 msgid "Unable to save file"
 msgstr "Nem lehet állományba menteni."
 
-#: src/uppmainwindow.cpp:1604
+#: src/uppmainwindow.cpp:1603
 msgid "Unable to stop target"
 msgstr "Nem lehet leállítani a cél eszközt."
 
-#: src/uppmainwindow.cpp:1146
+#: src/uppmainwindow.cpp:1145
 msgid "Unknown error during blankcheck"
 msgstr "Ismeretlen hiba történt az üres teszt közben."
 
-#: src/uppmainwindow.cpp:1081
+#: src/uppmainwindow.cpp:1080
 msgid "Unknown error during verify"
 msgstr "Ismeretlen hiba történt az ellenőrzés közben."
 
@@ -1005,7 +1006,7 @@ msgstr ""
 "Ismeretlen Windows változatot használ. Az UsbPicProg csak Windows XP vagy "
 "későbbi rendszeren fut."
 
-#: src/uppmainwindow.cpp:576
+#: src/uppmainwindow.cpp:575
 msgid "Upgrade firmware?"
 msgstr ""
 
@@ -1013,19 +1014,19 @@ msgstr ""
 msgid "Upgrade the firmware in usbpicprog"
 msgstr ""
 
-#: src/uppmainwindow_base.h:105
+#: src/uppmainwindow_base.h:106
 msgid "Usbpicprog"
 msgstr "Usbpicprog"
 
-#: src/uppmainwindow.cpp:1277
+#: src/uppmainwindow.cpp:1276
 msgid "Usbpicprog is not running in bootloader mode"
 msgstr ""
 
-#: src/uppmainwindow.cpp:592
+#: src/uppmainwindow.cpp:591
 msgid "Usbpicprog rev: "
 msgstr "Usbpicprog változat: "
 
-#: src/uppmainwindow.cpp:594
+#: src/uppmainwindow.cpp:593
 msgid "Usbpicprog: "
 msgstr "Usbpicprog: "
 
@@ -1045,7 +1046,7 @@ msgstr "Változatok:"
 msgid "Verify after programming"
 msgstr "Programozás után ellenőrzést végez"
 
-#: src/uppmainwindow.cpp:1066
+#: src/uppmainwindow.cpp:1065
 msgid "Verify code"
 msgstr "Kód ellenőrzés"
 
@@ -1053,7 +1054,7 @@ msgstr "Kód ellenőrzés"
 msgid "Verify code memory"
 msgstr "A kódmemória ellenőrzése"
 
-#: src/uppmainwindow.cpp:1068
+#: src/uppmainwindow.cpp:1067
 msgid "Verify config"
 msgstr "Config ellenőrzés"
 
@@ -1061,7 +1062,7 @@ msgstr "Config ellenőrzés"
 msgid "Verify config memory"
 msgstr "A config memória ellenőrzése"
 
-#: src/uppmainwindow.cpp:1067
+#: src/uppmainwindow.cpp:1066
 msgid "Verify data"
 msgstr "Adat ellenőrzés"
 
@@ -1069,7 +1070,7 @@ msgstr "Adat ellenőrzés"
 msgid "Verify data memory"
 msgstr "Az adatmemória ellenőrzése"
 
-#: src/uppmainwindow.cpp:920
+#: src/uppmainwindow.cpp:919
 msgid "Verify error while writing code memory"
 msgstr "Figyeli a hibákat amíg írja a kódmemóriát."
 
@@ -1077,7 +1078,7 @@ msgstr "Figyeli a hibákat amíg írja a kódmemóriát."
 msgid "Verify options"
 msgstr "Ellenőrzési lehetőségek"
 
-#: src/uppmainwindow.cpp:1061
+#: src/uppmainwindow.cpp:1060
 msgid "Verify successful"
 msgstr "Az ellenőrzés készen van."
 
@@ -1085,11 +1086,11 @@ msgstr "Az ellenőrzés készen van."
 msgid "Verify the PIC device"
 msgstr "A PIC eszköz ellenőrzése"
 
-#: src/uppmainwindow.cpp:1069
+#: src/uppmainwindow.cpp:1068
 msgid "Verify unknown"
 msgstr "Az ellenőrzés eredménye ismeretlen."
 
-#: src/uppmainwindow.cpp:1048
+#: src/uppmainwindow.cpp:1047
 msgid "Verifying all areas of the PIC..."
 msgstr "Ellenőrzöm a PIC minden területét..."
 
@@ -1112,15 +1113,15 @@ msgstr ""
 "    MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:908
+#: src/uppmainwindow.cpp:907
 msgid "Write Code memory OK"
 msgstr "A kódmemória írása rendben van."
 
-#: src/uppmainwindow.cpp:976
+#: src/uppmainwindow.cpp:975
 msgid "Write Config memory OK"
 msgstr "A config memória írása rendben van."
 
-#: src/uppmainwindow.cpp:941
+#: src/uppmainwindow.cpp:940
 msgid "Write Data memory OK"
 msgstr "Az adatmemória írása rendben van."
 
@@ -1128,7 +1129,7 @@ msgstr "Az adatmemória írása rendben van."
 msgid "Write code memory"
 msgstr "A kódmemória írása"
 
-#: src/uppmainwindow.cpp:917
+#: src/uppmainwindow.cpp:916
 msgid "Write code not implemented for current PIC"
 msgstr "A választott PIC-hez a kódterület írása nincs megvalósítva."
 
@@ -1136,7 +1137,7 @@ msgstr "A választott PIC-hez a kódterület írása nincs megvalósítva."
 msgid "Write config memory"
 msgstr "A config memória írása"
 
-#: src/uppmainwindow.cpp:985
+#: src/uppmainwindow.cpp:984
 msgid "Write config not implemented for current PIC"
 msgstr "A választott PIC-hez a config terület írása nincs megvalósítva."
 
@@ -1144,11 +1145,11 @@ msgstr "A választott PIC-hez a config terület írása nincs megvalósítva."
 msgid "Write data memory"
 msgstr "Az adatmemória írása"
 
-#: src/uppmainwindow.cpp:950
+#: src/uppmainwindow.cpp:949
 msgid "Write data not implemented for current PIC"
 msgstr "A választott PIC-hez az adatterület írása nincs megvalósítva."
 
-#: src/uppmainwindow.cpp:570
+#: src/uppmainwindow.cpp:569
 msgid ""
 "You are using a stable release of the firmware with a development version of "
 "the software. Consider upgrading your firmware"
@@ -1156,7 +1157,7 @@ msgstr ""
 "A firmware egy stabil kiadását a szoftver fejlesztői változatával használja. "
 "Legyen szíves frissítse a firmware-t."
 
-#: src/uppmainwindow.cpp:543
+#: src/uppmainwindow.cpp:542
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d); please consider upgrading it"
@@ -1164,7 +1165,7 @@ msgstr ""
 "A firmware túlságosan régi (a legutóbbi változat a %d). Kérem hogy frissítse "
 "föl."
 
-#: src/uppmainwindow.cpp:565
+#: src/uppmainwindow.cpp:564
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d.%d.%d); please consider "
@@ -1330,7 +1331,7 @@ msgstr ""
 msgid "unknown record type: %d"
 msgstr "ismeretlen rekordtipus: %d"
 
-#: src/uppmainwindow.cpp:598
+#: src/uppmainwindow.cpp:597
 msgid "untitled"
 msgstr "névtelen"
 
