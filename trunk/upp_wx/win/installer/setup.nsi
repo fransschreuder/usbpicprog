@@ -29,7 +29,7 @@
 
   ; NOTE: the version should be the same as the one in svn_revision.sh (see the UPP_VERSION #define)
   !define PRODUCT_NAME            "UsbPicProg"
-  !define PRODUCT_VERSION         "0.4.9"
+  !define PRODUCT_VERSION         "0.5.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define INSTALLER_MODE          "release"     ; choose between "debug" and "release"
   !define SVN_TEST_INSTALLER      0           ; is this a SVN test?
