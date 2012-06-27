@@ -185,8 +185,23 @@
     <pic name="18F4553" upp_family="P18F2XXX" upp_devid="0x12A00" upp_devidmask="0x3FFE0"/>
     <pic name="18F4580" upp_family="P18F2XXX" upp_devid="0x11A80" upp_devidmask="0x3FFE0"/>
     <pic name="18F4585" upp_family="P18F2XXX" upp_devid="0x10EA0" upp_devidmask="0x3FFE0"/>
+    <pic name="18F23K22" upp_family="P18F4XK22" upp_devid="0x15740" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF23K22" upp_family="P18LF4XK22" upp_devid="0x15760" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F24K22" upp_family="P18F4XK22" upp_devid="0x15640" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF24K22" upp_family="P18LF4XK22" upp_devid="0x15660" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F25K22" upp_family="P18F4XK22" upp_devid="0x15540" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF25K22" upp_family="P18LF4XK22" upp_devid="0x15560" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F26K22" upp_family="P18F46K22" upp_devid="0x15440" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF26K22" upp_family="P18LF46K22" upp_devid="0x15460" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F43K22" upp_family="P18F4XK22" upp_devid="0x15700" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF43K22" upp_family="P18LF4XK22" upp_devid="0x15720" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F44K22" upp_family="P18F4XK22" upp_devid="0x15600" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF44K22" upp_family="P18LF4XK22" upp_devid="0x15620" upp_devidmask="0x3FFE0"/>    
     <pic name="18F45K22" upp_family="P18F4XK22" upp_devid="0x15500" upp_devidmask="0x3FFE0"/>
     <pic name="18LF45K22" upp_family="P18LF4XK22" upp_devid="0x15520" upp_devidmask="0x3FFE0"/>    
+    <pic name="18F45K22" upp_family="P18F46K22" upp_devid="0x15400" upp_devidmask="0x3FFE0"/>
+    <pic name="18LF45K22" upp_family="P18LF46K22" upp_devid="0x15420" upp_devidmask="0x3FFE0"/>    
+
     <pic name="18F4610" upp_family="P18F2XXX" upp_devid="0x10C20" upp_devidmask="0x3FFE0"/>
     <pic name="18F46J11" upp_family="P18F45J10" upp_devid="0x14E20" upp_devidmask="0x3FFE0"/>
     <pic name="18LF46J11" upp_family="P18F45J10" upp_devid="0x14EE0" upp_devidmask="0x3FFE0"/>        
