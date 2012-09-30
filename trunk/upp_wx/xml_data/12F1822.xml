@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2012 Michael Vrolijk                                   *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="12F1822" status="IP" memory_technology="FLASH" self_write="yes"
+        architecture="emidrange" id="0x2700" id_low_power="0x2800"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Documents ************************************************************-->
+  <documents webpage="544839" datasheet="41413" progsheet="41390" erratas="80502" />
+
+<!--* Checksums ************************************************************-->
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="extended" >
+    <frequency start="0"  end="16" vdd_min="1.8" vdd_max="5.5" />
+    <frequency start="16" end="32" vdd_min="2.5" vdd_max="5.5" />
+  </frequency_range>
+  <frequency_range name="extended" special="low_power" >
+    <frequency start="0"  end="16" vdd_min="1.8" vdd_max="3.6" />
+    <frequency start="16" end="32" vdd_min="2.5" vdd_max="3.6" />
+  </frequency_range>
+
+  <voltages name="vpp"            min="8.0" max="9.0" nominal="9.0" />
+  <voltages name="vdd_prog"       min="2.7" max="5.5" nominal="5.0"  />
+  <voltages name="vdd_prog_write" min="1.8" max="5.5" nominal="5.0"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"         start="0x0000" end="0x07FF" />
+  <memory name="user_ids"     start="0x8000" end="0x8003" rmask="0x3FFF"          />
+  <memory name="debug_vector" start="0x8004" end="0x8004" />
+  <memory name="device_id"    start="0x8006" end="0x8006" />
+  <memory name="config"       start="0x8007" end="0x8008" />
+  <memory name="calibration"  start="0x8009" end="0x800A" cal_opmask="0x0000" cal_opcode="0x0000" />
+  <memory name="eeprom"       start="0x0000" end="0x00FF" hexfile_offset="0xF000" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0x0" name="CONFIG1" wmask="0x3FFF" bvalue="0x3FFF" >
+    <mask name="FOSC"  value="0x0007" >
+      <value value="0x0000" name="LP"       def="_FOSC_LP"     />
+      <value value="0x0001" name="XT"       def="_FOSC_XT"     />
+      <value value="0x0002" name="HS"       def="_FOSC_HS"     />
+      <value value="0x0003" name="EC_IO"    def="_FOSC_EXTRC"  />
+      <value value="0x0004" name="INTRC_IO" def="_FOSC_INTOSC" />
+      <value value="0x0005" name="EC_LP"    def="_FOSC_ECL"    />
+      <value value="0x0006" name="EC_MP"    def="_FOEC_ECM"    />
+      <value value="0x0007" name="EC_HP"    def="_FOSC_ECH"    />
+    </mask>
+    <mask name="WDT"   value="0x0018" >
+      <value value="0x0000" name="Off"      def="_WDTE_OFF"    />
+      <value value="0x0008" name="Software" def="_WDTE_SWDTEN" />
+      <value value="0x0010" name="On_run"   def="_WDTE_NSLEEP" />
+      <value value="0x0018" name="On"       def="_WDTE_ON"     />
+    </mask>
+    <mask name="PWRTE" value="0x0020" >
+      <value value="0x0000" name="On"  def="_nPWRTE_ON"  />
+      <value value="0x0020" name="Off" def="_nPWRTE_OFF" />
+    </mask>
+    <mask name="MCLRE" value="0x0040" >
+      <value value="0x0000" name="Internal" def="_MCLRE_OFF" />
+      <value value="0x0040" name="External" def="_MCLRE_ON"  />
+    </mask>
+    <mask name="CP"    value="0x0080" >
+      <value value="0x0000" name="All" def="_CP_ON"  />
+      <value value="0x0080" name="Off" def="_CP_OFF" />
+    </mask>
+    <mask name="CPD"   value="0x0100" >
+      <value value="0x0000" name="All" def="_CPD_ON"  />
+      <value value="0x0100" name="Off" def="_CPD_OFF" />
+    </mask>
+    <mask name="BODEN" value="0x0600" >
+      <value value="0x0000" name="Off"      def="_BOREN_OFF"    />
+      <value value="0x0200" name="Software" def="_BOREN_SBODEN" />
+      <value value="0x0400" name="On_run"   def="_BOREN_NSLEEP" />
+      <value value="0x0600" name="On"       def="_BOREN_ON"     />
+    </mask>
+    <mask name="CLKOUTEN"  value="0x0800" >
+      <value value="0x0000" name="On"   def="_CLKOUTEN_ON"  />
+      <value value="0x0800" name="Off"  def="_CLKOUTEN_OFF" />
+    </mask>
+    <mask name="IESO"  value="0x1000" >
+      <value value="0x0000" name="Off" def="_IESO_OFF" />
+      <value value="0x1000" name="On"  def="_IESO_ON"  />
+    </mask>
+    <mask name="FCMEN" value="0x2000" >
+      <value value="0x0000" name="Off" def="_FCMEN_OFF" />
+      <value value="0x2000" name="On"  def="_FCMEN_ON"  />
+    </mask>
+  </config>
+
+  <config offset="0x1" name="CONFIG2" wmask="0x3FFF" bvalue="0x3713" >
+    <mask name="WRT"  value="0x0003" >
+      <value value="0x0000" name="0000:07FF" def="_WRT_ALL"  />
+      <value value="0x0001" name="0000:03FF" def="_WRT_HALF" />
+      <value value="0x0002" name="0000:01FF" def="_WRT_BOOT" />
+      <value value="0x0003" name="Off"       def="_WRT_OFF"  />
+    </mask>
+    <mask name="PLLEN"   value="0x0100" >
+      <value value="0x0000" name="Off" def="_PLLEN_OFF" />
+      <value value="0x0100" name="On"  def="_PLLEN_ON"  />
+    </mask>
+    <mask name="STVREN"   value="0x0200" >
+      <value value="0x0000" name="Off" def="_STVREN_OFF" />
+      <value value="0x0200" name="On"  def="_STVREN_ON"  />
+    </mask>
+    <mask name="BORV" value="0x0400" >
+      <value value="0x0400" name="1.9" def="_BORV_19" />
+      <value value="0x0000" name="2.5" def="_BORV_25" />
+    </mask>
+    <mask name="DEBUG" value="0x1000" >
+      <value value="0x0000" name="On"  def="_nDEBUG_ON"  />
+      <value value="0x1000" name="Off" def="_nDEBUG_OFF" />
+    </mask>
+    <mask name="LVP"   value="0x2000" >
+      <value value="0x0000" name="Off" def="_LVP_OFF" />
+      <value value="0x2000" name="On"  def="_LVP_ON"  />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic dfn" nb_pins="8" >
+    <pin index="1"  name="VDD" />
+    <pin index="2"  name="RA5/OSC1/CLKIN/SRNQ/T1CKI/T1OSI/CCP1*/P1A*/DT*/RX*" />
+    <pin index="3"  name="RA4/OSC2/CLKOUT/CLKRAN3/CPS3/C1IN1-/T1G*/T1OSO/P1B*/TX*/CK*/SDO*/MDCIN2" />
+    <pin index="4"  name="RA3/MCLR/VPP/T1G/SS*" />
+    <pin index="5"  name="RA2/AN2/CPS2/C1OUT/SRQ/T0CKI/CCP1/P1A/FLT0/SDA/SDI/MDCIN1" />
+    <pin index="6"  name="RA1/ICSPCLK/ICPCLKAN1/VREF/CPS1/C1IN0-/SRI/RX/DT/SCL/SCK/MDMIN" />
+    <pin index="7"  name="RA0/ICSPDAT/ICDDAT/AN0/DACOUT/CPS0/C1IN+/P1B/TX/CK/SDO/SS/MDOUT" />
+    <pin index="8"  name="VSS" />
+  </package>
+
+
+</device>
