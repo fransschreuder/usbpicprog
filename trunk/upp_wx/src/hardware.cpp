@@ -673,7 +673,13 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
                 blockSizeHW=BLOCKSIZE_BOOTLOADER;
             else 
             {
-                if(picType->Name.IsSameAs("18F2450")||
+				if(picType->Name.IsSameAs("24XX00")) blockSizeHW=BLOCKSIZE_24XX00;
+				else if(picType->Name.IsSameAs("24XX01")||
+				        picType->Name.IsSameAs("24XX02")) blockSizeHW=BLOCKSIZE_24XX01;
+				else if(picType->Name.IsSameAs("24XX04")
+				        ||picType->Name.IsSameAs("24XX08")
+				        ||picType->Name.IsSameAs("24XX16")) blockSizeHW=BLOCKSIZE_24XX04;
+				else if(picType->Name.IsSameAs("18F2450")||
                     picType->Name.IsSameAs("18F4450")) blockSizeHW=BLOCKSIZE_CODE_PIC18F2450;
                 else if(picType->Name.IsSameAs("18F2221")||
                     picType->Name.IsSameAs("18F2321")||

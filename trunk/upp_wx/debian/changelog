@@ -1,3 +1,39 @@
+usbpicprog (121002-3) precise; urgency=low
+
+  * Added support for 12F1822, thanks to Flavio Alexandre, also fixed PIC18F4431 and PIC18F6XKXX
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 02 Oct 2012 08:39:52 +0200
+
+usbpicprog (121002-2) oneiric; urgency=low
+
+  * Added support for 12F1822, thanks to Flavio Alexandre, also fixed PIC18F4431 and PIC18F6XKXX
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 02 Oct 2012 08:39:41 +0200
+
+usbpicprog (121002-1) natty; urgency=low
+
+  * Added support for 12F1822, thanks to Flavio Alexandre, also fixed PIC18F4431 and PIC18F6XKXX
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 02 Oct 2012 08:38:29 +0200
+
+usbpicprog (0.5.0-3) precise; urgency=low
+
+  * Released 0.5.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 05 Sep 2012 08:54:37 +0200
+
+usbpicprog (0.5.0-2) oneiric; urgency=low
+
+  * Released 0.5.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 05 Sep 2012 08:53:53 +0200
+
+usbpicprog (0.5.0-1) natty; urgency=low
+
+  * Released 0.5.0
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Wed, 05 Sep 2012 08:52:44 +0200
+
 usbpicprog (120622-3) precise; urgency=low
 
   * Added keyboard shortcuts
