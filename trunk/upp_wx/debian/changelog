@@ -1,3 +1,21 @@
+usbpicprog (121012-3) quantal; urgency=low
+
+  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:10:12 +0200
+
+usbpicprog (121012-2) precise; urgency=low
+
+  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:09:55 +0200
+
+usbpicprog (121012-1) oneiric; urgency=low
+
+  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:09:20 +0200
+
 usbpicprog (121002-3) precise; urgency=low
 
   * Added support for 12F1822, thanks to Flavio Alexandre, also fixed PIC18F4431 and PIC18F6XKXX
