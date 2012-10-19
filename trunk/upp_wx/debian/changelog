@@ -1,3 +1,21 @@
+usbpicprog (121019-3) precise; urgency=low
+
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 11:00:34 +0200
+
+usbpicprog (121019-2) oneiric; urgency=low
+
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 11:00:22 +0200
+
+usbpicprog (121019-1) natty; urgency=low
+
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 10:59:33 +0200
+
 usbpicprog (121002-3) precise; urgency=low
 
   * Added support for 12F1822, thanks to Flavio Alexandre, also fixed PIC18F4431 and PIC18F6XKXX

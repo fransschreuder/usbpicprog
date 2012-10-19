@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DISTS="oneiric precise quantal"
 
 if [ $# -ne 0 ]
 then
@@ -7,11 +8,8 @@ then
   if [ $# -ne 1 ]
   then
     DISTS=$2
-  else
-    DISTS="natty oneiric precise"
   fi
 else
-  DISTS="natty oneiric precise"
   RELEASE=$(date +"%y%m%d")
   RELEASE=${RELEASE:0:6}
 #-$(date +%Y%m%d)
