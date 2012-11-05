@@ -130,7 +130,7 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
         m_cfg.ConfigShowPopups=false;
 	if ( !pCfg->Read(("ConfigLocalize"), &m_cfg.ConfigLocalize))
 		m_cfg.ConfigLocalize=true;
-	if ( !pCfg->Read(("AutoDetect"), &m_cfg.ConfigAutoDetect))
+	if ( !pCfg->Read(("ConfigAutoDetect"), &m_cfg.ConfigAutoDetect))
 		m_cfg.ConfigAutoDetect=true;
     m_history.Load(*pCfg);
 

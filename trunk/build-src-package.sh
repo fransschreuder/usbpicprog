@@ -1,4 +1,5 @@
 #!/bin/bash
+
 DISTS="oneiric precise quantal"
 
 if [ $# -ne 0 ]

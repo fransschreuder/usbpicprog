@@ -1,20 +1,20 @@
-usbpicprog (121012-3) quantal; urgency=low
+usbpicprog (121019-3) precise; urgency=low
 
-  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
 
- -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:10:12 +0200
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 11:00:34 +0200
 
-usbpicprog (121012-2) precise; urgency=low
+usbpicprog (121019-2) oneiric; urgency=low
 
-  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
 
- -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:09:55 +0200
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 11:00:22 +0200
 
-usbpicprog (121012-1) oneiric; urgency=low
+usbpicprog (121019-1) natty; urgency=low
 
-  * Fixed page size for 24XX00, 24XX01, 24XX02, 24XX04, 24XX08 and 24XX16 I2C eeprom
+  * Fixed eeprom page size for lower size i2c eeprom, fixed Autodetect on startup setting
 
- -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 12 Oct 2012 16:09:20 +0200
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 19 Oct 2012 10:59:33 +0200
 
 usbpicprog (121002-3) precise; urgency=low
 
