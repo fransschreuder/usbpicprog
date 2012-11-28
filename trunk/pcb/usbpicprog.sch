@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 25 Feb 2011 09:57:07 AM CET
+EESchema Schematic File Version 2  date Wed 28 Nov 2012 08:18:05 PM CET
 LIBS:power
 LIBS:usb-b
 LIBS:device
@@ -28,12 +28,13 @@ LIBS:siliconi
 LIBS:contrib
 LIBS:valves
 LIBS:usbpicprog-cache
-EELAYER 24  0
+EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
+encoding utf-8
 Sheet 1 1
 Title "Usbpicprog"
-Date "25 feb 2011"
+Date "28 nov 2012"
 Rev "0.3.2"
 Comp "usbpicprog.org"
 Comment1 "http://usbpicprog.org"
@@ -925,7 +926,7 @@ L DIODE D4
 U 1 1 466D1864
 P 5900 1400
 F 0 "D4" H 5900 1500 40  0000 C CNN
-F 1 "1n4148" H 5900 1300 40  0000 C CNN
+F 1 "0R resistor" H 5900 1300 40  0000 C CNN
 	1    5900 1400
 	1    0    0    -1  
 $EndComp
