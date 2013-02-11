@@ -32,8 +32,8 @@
   !define PRODUCT_VERSION         "0.5.0"
   !define PRODUCT_PUBLISHER       "UsbPicProg Team"
   !define INSTALLER_MODE          "release"     ; choose between "debug" and "release"
-  !define SVN_TEST_INSTALLER      0           ; is this a SVN test?
-  !define SVN_REVISION            "121018"
+  !define SVN_TEST_INSTALLER      1           ; is this a SVN test?
+  !define SVN_REVISION            "130211"
 
   ; are we packaging the 32bit or the 64bit version of the usbpicprog?
   ; allowed values: "x86" or "amd64"
@@ -219,31 +219,14 @@ proceed:
   
   ; Last, run the libusb driver installer redistributable
   DetailPrint "Running the wdi_simple utility to install UsbPicProg's drivers"
-  ExecWait '"$INSTDIR\driver\wdi-simple.exe -n usbpicprog.org -t 0 -p 0x04d8 -v 0x000e"' $0
+  ExecWait '"$INSTDIR\driver\wdi-simple.exe" -n usbpicprog.org -v 0x04d8 -d 0x000e -t 0' $0
   IntFmt $2 "0x%08X" $0
   DetailPrint "Return code was $2"
-   
-   
-  ; check the higher byte of the return value of DPINST; it can assume the values:
-  ; 0x80 if a driver package could NOT be installed
-  ; 0x40 if a computer restart is necessary
-  ; 0x00 if everything was ok
-  ; or a combination of them (the only possible one in this case is 0xC0)
-  ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
-  IntOp $1 $0 / 0x1000000                  ; fast way to keep only the higher byte
-  IntFmt $2 "0x%X" $1
-  DetailPrint "The higher byte of the return code was $2"
-  IntCmp $1 0x00 installed_ok
-  IntCmp $1 0x40 installed_ok_need_reboot
-  IntCmp $1 0x80 install_failed
-  IntCmp $1 0xC0 install_failed
-  
-; Last, run the libusb driver installer redistributable
   DetailPrint "Running the wdi_simple utility to install UsbPicProg bootloader drivers"
-  ExecWait '"$INSTDIR\driver\wdi-simple.exe -n usbpicprog.org -t 0 -p 0x04d8 -v 0x000b"' $0
+  ExecWait '"$INSTDIR\driver\wdi-simple.exe" -n usbpicprog-boot -v 0x04d8 -d 0x000b -t 0' $0
   IntFmt $2 "0x%08X" $0
   DetailPrint "Return code was $2"
-   
+      
    
   ; check the higher byte of the return value of DPINST; it can assume the values:
   ; 0x80 if a driver package could NOT be installed
