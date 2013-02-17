@@ -741,9 +741,8 @@ void UppMainWindow::OnThreadUpdate(wxThreadEvent& evt)
 		
         // update to the new label size
         m_dlgProgress->Fit();
-
         // make sure the focused window is the progress dialog:
-        m_dlgProgress->SetFocus();
+        /*m_dlgProgress->SetFocus();*/
         if (!continueOperation &&               // user clicked "abort"?
             !m_hardware.operationsAborted())   // is the hardware already aborting?
         {

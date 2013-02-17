@@ -14,7 +14,7 @@
 CXX = cl
 
 # Standard flags for C++ 
-CXXFLAGS = 
+CXXFLAGS = /Zl
 
 # Standard preprocessor flags (common for CC and CXX) 
 CPPFLAGS = 
@@ -30,7 +30,7 @@ WX_SHARED = 0
 # Use debug build of wxWidgets (linked with debug CRT)? [0,1]
 #   0 - Release
 #   1 - Debug
-WX_DEBUG = 0
+WX_DEBUG = 1
 
 # Version of the wx library to build against. 
 WX_VERSION = 29
@@ -228,6 +228,7 @@ clean:
 
 test_for_selected_wxbuild: 
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
+	echo $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h
 	echo ----------------------------------------------------------------------------
 	@if not exist $(WX_DIR)$(WXLIBPATH)\msw$(WXLIBPOSTFIX)\wx\setup.h \
 	echo The selected wxWidgets build is not available!
