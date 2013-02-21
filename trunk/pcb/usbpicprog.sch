@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 28 Nov 2012 08:18:05 PM CET
+EESchema Schematic File Version 2  date Thu 21 Feb 2013 10:19:03 AM CET
 LIBS:power
 LIBS:usb-b
 LIBS:device
@@ -34,7 +34,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 1
 Title "Usbpicprog"
-Date "28 nov 2012"
+Date "21 feb 2013"
 Rev "0.3.2"
 Comp "usbpicprog.org"
 Comment1 "http://usbpicprog.org"
@@ -440,7 +440,7 @@ L DIODE D9
 U 1 1 471DF3F8
 P 8200 2050
 F 0 "D9" H 8200 2150 40  0000 C CNN
-F 1 "1n4148" H 8200 1950 40  0000 C CNN
+F 1 "Shottky" H 8200 1950 40  0000 C CNN
 	1    8200 2050
 	1    0    0    -1  
 $EndComp
