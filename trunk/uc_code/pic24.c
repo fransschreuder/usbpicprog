@@ -288,16 +288,16 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 		dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
 		dspic_send_24_bits( 0x000000 ); 	//NOP
 
-		//Step 2: Initialize the read pointer (W6) and TBLPAG for TBLRD instruction.
-		dspic_send_24_bits( 0x200000 | ((((address * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
-		dspic_send_24_bits( 0x880190 ); 	//MOV W0, TBLPAG
-		dspic_send_24_bits( 0x200006 | ((((address * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W6
-
 		//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
 		dspic_send_24_bits( 0x207847 ); 	//MOV #VISI, W7
 		dspic_send_24_bits( 0x000000 ); 	//NOP
 
 	}
+    //Step 2: Initialize the read pointer (W6) and TBLPAG for TBLRD instruction.
+    dspic_send_24_bits( 0x200000 | ((((address * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
+    dspic_send_24_bits( 0x880190 ); 	//MOV W0, TBLPAG
+    dspic_send_24_bits( 0x200006 | ((((address * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W6
+
 	if( !(lastblock & BLOCKTYPE_CONFIG) ) // temporary until rest of system changes
 	{
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 6 )
