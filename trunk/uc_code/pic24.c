@@ -70,11 +70,10 @@
  *
  */
 #include "interrupt.h"
-#include "pic24.h"
 #include "prog_lolvl.h"
 #include "device.h"
 
-unsigned char p16b_do_write()
+unsigned char p16b_do_write( void )
 {
 	unsigned char ctr;
 	int j;
@@ -106,10 +105,6 @@ unsigned char p16b_do_write()
 void bulk_erase_PIC24( unsigned int nv )
 {
 	//bulk erase program memory
-	//step 1
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-	dspic_send_24_bits( 0x000000 ); 	//NOP
 	//step 2
 	dspic_send_24_bits( 0x24000A|(nv<<4) ); //MOV nv, W10
 	dspic_send_24_bits( 0x883B0A ); 	//MOV W10, NVMCON
@@ -138,11 +133,6 @@ void write_code_PIC24( unsigned long address, unsigned char* data, char blocksiz
 {
 	unsigned int i;
 	unsigned char blockcounter;
-
-	//Step 1: Exit the Reset vector.
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-	dspic_send_24_bits( 0x000000 ); 	//NOP
 
 	//Step 2: Set the NVMCON to program 32/64 instruction words.
 	dspic_send_24_bits( 0x24000A|(nv<<4) ); //MOV #0x4004/#0x4001, W10
@@ -221,11 +211,6 @@ void write_config_bits_PIC24( unsigned long address, unsigned char* data, char b
 	static char blockcounter;
 	unsigned int payload;
 
-	//Step 1: Exit the Reset vector.
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-
 	//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
 	dspic_send_24_bits( 0x200007|((address&0xFFFF)<<4)); //MOV <addr15:0>, W7
 
@@ -283,10 +268,6 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 		address = (address*3)/2;		// fix up address
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
-		//Step 1: Exit the Reset vector.
-		dspic_send_24_bits( 0x000000 ); 	//NOP
-		dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-		dspic_send_24_bits( 0x000000 ); 	//NOP
 
 		//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
 		dspic_send_24_bits( 0x207847 ); 	//MOV #VISI, W7
@@ -358,14 +339,14 @@ DEVICE_TABLE devices_pic24[] =
 {
 
 //    		Pictype,	picfamily,5V,	enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
-DEVICE_ENTRY( P24FJXXXGA0XX,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
+DEVICE_ENTRY( P24FJXXXGA0XX,PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( P24FJXXXGA1,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA1,		P24KA )
 //FIXME: why is this commented out
 //DEVICE_ENTRY( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA,		P24KA )
 DEVICE_ENTRY( P24FJG,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
-DEVICE_ENTRY( P24H,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
+DEVICE_ENTRY( P24H,		    PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 };
 #pragma romdata
 #undef LIST
