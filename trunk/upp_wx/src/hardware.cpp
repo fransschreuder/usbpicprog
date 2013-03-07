@@ -1498,14 +1498,21 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             disconnect ();
             return nBytes;
         }
-        nBytes = readString(resp_msg,1);
-        if(nBytes<0)
-        {
-            disconnect();
-            return -1;
+        if( lastblock & BLOCKTYPE_LAST ) {
+            do {
+
+                nBytes = readString(resp_msg,2);
+                if(nBytes<0)
+                {
+                    disconnect();
+                    return -1;
+                }
+            } while( resp_msg[0] == 2 );
+            // cout<<"Response message: "<<(int)resp_msg[0]<<endl;
+            return (int)resp_msg[0];
         }
-		// cout<<"Response message: "<<(int)resp_msg[0]<<endl;
-        return (int)resp_msg[0];
+        else
+            return( 2 );
     }
     else
     {
