@@ -49,18 +49,20 @@ typedef enum
     CMD_GET_PIN_STATUS = 0xB0,
     CMD_SET_PIN_STATUS = 0xC0,
     CMD_GET_PROTOCOL_VERSION = 0xD0,		// PROT_UPP1
-    CMD_READ_CODE = 0xD1,			// PROT_UPP1
-    CMD_READ_CONFIG = 0xD2,			// PROT_UPP1
-    CMD_EXIT_TO_BOOTLOADER = 0xD3,		// PROT_UPP1
+    CMD_READ_CODE = 0xD1,			        // PROT_UPP1
+    CMD_READ_CONFIG = 0xD2,			        // PROT_UPP1
+    CMD_EXIT_TO_BOOTLOADER = 0xD3,		    // PROT_UPP1
+    CMD_MREAD_CODE = 0xD4,                  // PROT_UPP2
     CMD_INVALID
 }CMD_UPP;
 
 typedef enum
 {
-	PROT_NONE,				// not connected
+	PROT_NONE,				    // not connected
 	PROT_BOOTLOADER0,			// Connected to bootloader
 	PROT_UPP0 = 100,			// Original command set to firmware
-	PROT_UPP1				// deleted READ_CODE(0x40) added READ_CODE(0x41),READ_CONFIG(0x41),EXIT_TO_BOOTLOADER(0xD0)
+	PROT_UPP1,				    // deleted READ_CODE(0x40) added READ_CODE(0xD1),READ_CONFIG(0xD2),EXIT_TO_BOOTLOADER(0xD3)
+	PROT_UPP2                   // added multi-block read to READ_CODE(0xD4)
 }PROTOCOL;
 
 typedef enum
@@ -169,7 +171,9 @@ typedef enum
 	up_addrH=3,
 	up_addrL=4,
 	up_blocktype=5,
-	up_data=6
+	up_data=6,
+	up_cntH=6,          // for MREAD cmd
+	up_cntL=7
 }UPP_INDEX;
 /** 
     UppPackage is the data header which is sent to the programmer hardware.
@@ -424,7 +428,13 @@ private:
         
         Returns the number of bytes read or -1 on error.
     */
-    int readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock);
+    int readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock, int no_blocks=1);
+    /**
+        Read next block after a multi-block readBlock.
+
+        Returns the number of bytes read or -1 on error.
+    */
+    int readNextBlock(unsigned char* msg, int size );
 
     /** 
         Writes a block of a memory area sending the correct command to the hardware and reading

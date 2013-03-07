@@ -570,6 +570,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
                     // it's unsafe: you might destroy the bootloader
 
     int nBytes=0, ret;
+    int multiblock = 0;
     for(unsigned int blockcounter=0; blockcounter<memorySize; blockcounter+=blockSizeHW)
     {
         statusCallBack (blockcounter*100/memorySize);
@@ -578,10 +579,10 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         unsigned int blocktype = BLOCKTYPE_MIDDLE;
         if (blockcounter == 0)
             blocktype |= BLOCKTYPE_FIRST;
-        if (((int)memorySize-(int)blockSizeHW)<=(int)blockcounter)
+        if (!(blockcounter+blockSizeHW < memorySize))
             blocktype |= BLOCKTYPE_LAST;
-        if (m_abortOperations)
-            blocktype |= BLOCKTYPE_LAST;
+//        if (m_abortOperations)
+//            blocktype |= BLOCKTYPE_LAST;
         
         unsigned int currentBlockCounter = blockcounter;
         if (picType->bitsPerWord()==14)
@@ -590,7 +591,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
             currentBlockCounter+=picType->ConfigAddress;
         }
         unsigned int blocksize;
-        if (memorySize > (blockcounter+blockSizeHW))
+        if (blockcounter+blockSizeHW < memorySize)
             blocksize = blockSizeHW;
         else 
             blocksize = memorySize-blockcounter;
@@ -599,11 +600,24 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         /*if(type==TYPE_CONFIG)
             cout<<"CurrentBlockCounter: "<<std::hex<<currentBlockCounter<<endl;*/
         unsigned char dataBlock[BLOCKSIZE_MAXSIZE];
-        if ((ret = readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype)) <= 0)
-		{
-			return -1;      // failed reading this block; stop here
-		}
-        nBytes += ret;
+        if( --multiblock > 0 )
+            nBytes += readNextBlock( dataBlock, blocksize );
+        else {
+            if (m_abortOperations)
+                blocktype |= BLOCKTYPE_LAST;
+            if ( blockcounter + blockSizeHW*10 >= memorySize-1      // less than multiblock full blocks left
+                || blocktype != 0
+                || m_hwCurrent == HW_BOOTLOADER
+                || type != TYPE_CODE)
+                multiblock = 1;
+            else
+                multiblock = 10;
+            if ((ret = readBlock(type, dataBlock, currentBlockCounter, blocksize, blocktype, multiblock)) <= 0)
+            {
+                return -1;      // failed reading this block; stop here
+            }
+            nBytes += ret;
+        }
 
         // move read data in the temporary array
         for (unsigned int i=0; i<blocksize; i++)
@@ -1357,9 +1371,22 @@ int Hardware::readId()
     return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF); 
 }
 
-int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock)
+int Hardware::readNextBlock(unsigned char* msg, int size )
 {
     if (m_handle == NULL) return -1;
+    int nBytes;
+
+    nBytes = readString(msg,size);
+    if(nBytes < 0)
+    {
+        disconnect();
+    }
+    return nBytes;
+
+}
+int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock, int no_blocks)
+    {
+        if (m_handle == NULL) return -1;
 
     int nBytes = -1;
     if (m_hwCurrent == HW_UPP)
@@ -1369,10 +1396,13 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         switch (type)
         {
         case TYPE_CODE:
+            if( m_protocol <= PROT_UPP1 )
                 uppPackage.data[up_cmd]=CMD_READ_CODE;
+            else
+                uppPackage.data[up_cmd]=CMD_MREAD_CODE;
                 break;
         case TYPE_CONFIG:
-            //cout<<"Read code or config block, address: "<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
+            // cout<<"config block, address: "<<std::hex<<address<<",size: "<<size<<", lastblock: "<<lastblock<<endl;
             if( m_protocol == PROT_UPP0 )
         	    uppPackage.data[up_cmd]=CMD_READ_CODE;
             else
@@ -1389,7 +1419,13 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
         uppPackage.data[up_blocktype]=(unsigned char)lastblock;
 
         // send the command
-        nBytes = writeString(uppPackage.data,6);
+        if( m_protocol >= PROT_UPP2 ){
+            uppPackage.data[up_cntH] = no_blocks >> 8;
+            uppPackage.data[up_cntL] = no_blocks;
+            nBytes = writeString(uppPackage.data,8);
+        }
+        else
+            nBytes = writeString(uppPackage.data,6);
         if (nBytes < 0)
 		{
 		    disconnect();

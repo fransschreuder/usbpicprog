@@ -165,6 +165,7 @@ void ProcessIO( void )
 	static byte counter = 0;
 	int nBytes;
 	unsigned long address;
+	static int isReading = 0;
 
 	// When the device is plugged in, the leds give the numbers 1, 2, 3, 4, 5. 
 	//After configured state, the leds are controlled by the next lines in this function
@@ -175,11 +176,12 @@ void ProcessIO( void )
 	}
 
 	nBytes = USBGenRead( (byte*) input_buffer, 64 );
-	if( nBytes > 0 )
+	if( nBytes == 0 && !mUSBGenTxIsBusy() && isReading
+	 || nBytes > 0 )
 	{
 		switch( input_buffer[0] ) {
 		case CMD_GET_PROTOCOL_VERSION:
-			output_buffer[0] = 1;		// version 1
+			output_buffer[0] = 2;		// version 2
 			counter = 1;
 			break;
 		case CMD_EXIT_TO_BOOTLOADER:
@@ -233,21 +235,44 @@ void ProcessIO( void )
 			break;
 		case CMD_READ_CONFIG:
 			input_buffer[5] |= BLOCKTYPE_CONFIG;
+			// no break
 		case CMD_READ_CODE_OLD:
 			if( input_buffer[1] <= 8 )		// this is correct for all but PIC18F4321(?) where it doesn't matter
 				input_buffer[5] |= BLOCKTYPE_CONFIG;
-		case CMD_READ_CODE:
-			setLeds( LEDS_ON | LEDS_RD );
+			// no break
+        case CMD_READ_CODE:
+            setLeds( LEDS_ON | LEDS_RD );
 
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
-			PIN = read_code( address, (unsigned char*) output_buffer, input_buffer[1],
-					input_buffer[5] );
-			if( PIN == 3 )
-				output_buffer[0] = 0x3;
-			counter = input_buffer[1];
-			setLeds( LEDS_ON );
-			break;
+            address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
+                    | ((unsigned long) input_buffer[4]);
+            read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
+            counter = input_buffer[1];
+            setLeds( LEDS_ON );
+            break;
+        case CMD_MREAD_CODE:
+            setLeds( LEDS_ON | LEDS_RD );
+
+            address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
+                    | ((unsigned long) input_buffer[4]);
+            read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
+            if( --input_buffer[7] == 255 )
+                --input_buffer[6];
+            if( input_buffer[6] == 0 && input_buffer[7] == 0 )
+                isReading = 0;
+            else
+                isReading = 1;
+            if( picfamily == PIC10
+             || picfamily == PIC12
+             || picfamily == PIC16 )
+                address += input_buffer[1]/2;
+            else
+                address += input_buffer[1];
+            input_buffer[4] = address;
+            input_buffer[3] = address >> 8;
+            input_buffer[2] = address >>16;
+            counter = input_buffer[1];
+            setLeds( LEDS_ON );
+            break;
 		case CMD_WRITE_DATA:
 			setLeds( LEDS_ON | LEDS_WR );
 			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
