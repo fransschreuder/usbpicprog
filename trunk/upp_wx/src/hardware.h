@@ -115,8 +115,8 @@ typedef enum
 #define BLOCKSIZE_24XX00	1
 #define BLOCKSIZE_CODE_PIC18F2450 16
 #define BLOCKSIZE_CODE_PIC18F2221 8
-#define BLOCKSIZE_CODE_DSPIC 24
-#define BLOCKSIZE_CODE_DSPIC_READ 12
+#define BLOCKSIZE_CODE_DSPIC 48
+#define BLOCKSIZE_CODE_DSPIC_READ 48
 #define BLOCKSIZE_CONFIG_DSPIC_READ 2
 #define BLOCKSIZE_CONFIG_DSPIC 2
 #define BLOCKSIZE_DATA_DSPIC 32
@@ -186,7 +186,7 @@ typedef struct
         unsigned blocktype:8; /// The blocktype can be middle, first or last (or first|last)
         unsigned char dataField[32];
     } fields;*/
-    unsigned char data[38];
+    unsigned char data[56];
 } UppPackage;
 
 
