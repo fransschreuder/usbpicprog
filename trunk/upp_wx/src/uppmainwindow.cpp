@@ -812,6 +812,7 @@ void UppMainWindow::OnThreadCompleted(wxThreadEvent&)
 
 	if(resetAfterThreadCompleted)
 	{
+		m_cfg = m_cfgSave;                              // restore global configuration
 		m_hardware.reboot(HW_BOOTLOADER);
 		Reset();
 		resetAfterThreadCompleted=false;
@@ -1005,33 +1006,39 @@ bool UppMainWindow::upp_thread_read()
 
     // reset current contents:
     m_hexFile.newFile(&m_picType);
-    LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
-    if (m_hardware.read(TYPE_CODE, &m_hexFile, &m_picType, m_picType.CodeSize)<0)
-    {
-        LogFromThread(wxLOG_Error, _("Error reading code memory"));
-        m_hexFile.trimData(&m_picType);
-        return false;
+    if (m_cfg.ConfigProgramCode) {
+        LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
+        if (m_hardware.read(TYPE_CODE, &m_hexFile, &m_picType, m_picType.CodeSize)<0)
+        {
+            LogFromThread(wxLOG_Error, _("Error reading code memory"));
+            m_hexFile.trimData(&m_picType);
+            return false;
+        }
     }
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
-    if (m_hardware.read(TYPE_DATA, &m_hexFile, &m_picType, m_picType.DataSize)<0)
-    {
-        LogFromThread(wxLOG_Error, _("Error reading data memory"));
-        m_hexFile.trimData(&m_picType);
-        return false;
+    if (m_cfg.ConfigProgramData) {
+        LogFromThread(wxLOG_Message, _("Reading the data area of the PIC..."));
+        if (m_hardware.read(TYPE_DATA, &m_hexFile, &m_picType, m_picType.DataSize)<0)
+        {
+            LogFromThread(wxLOG_Error, _("Error reading data memory"));
+            m_hexFile.trimData(&m_picType);
+            return false;
+        }
     }
 
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-    LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
-    if (m_hardware.read(TYPE_CONFIG, &m_hexFile, &m_picType, m_picType.ConfigSize)<0)
-    {
-        LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
-        m_hexFile.trimData(&m_picType);
-        return false;
+    if (m_cfg.ConfigProgramConfig) {
+        LogFromThread(wxLOG_Message, _("Reading the configuration area of the PIC..."));
+        if (m_hardware.read(TYPE_CONFIG, &m_hexFile, &m_picType, m_picType.ConfigSize)<0)
+        {
+            LogFromThread(wxLOG_Error, _("Error reading configuration memory"));
+            m_hexFile.trimData(&m_picType);
+            return false;
+        }
     }
 
 	
@@ -1194,7 +1201,6 @@ bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
         wxLogError(_("Could not create the worker thread!"));
         return false;
     }
-
     if (GetThread()->Run() != wxTHREAD_NO_ERROR)
     {
         wxLogError(_("Could not run the worker thread!"));
@@ -1267,9 +1273,22 @@ void UppMainWindow::upp_UpgradeFirmware( void )
 	{
 		if(m_hardware.getCurrentHardware ()==HW_BOOTLOADER)
 		{
-			upp_open_file (openFileDialog.GetPath());
-			upp_program();
-			resetAfterThreadCompleted=true;
+		    m_cfgSave = m_cfg;
+
+		    m_cfg.ConfigProgramCode=true;
+		    m_cfg.ConfigProgramConfig=false;
+		    m_cfg.ConfigProgramData=false;
+		    m_cfg.ConfigVerifyCode=true;
+		    m_cfg.ConfigVerifyConfig=true;
+		    m_cfg.ConfigVerifyData=true;
+		    m_cfg.ConfigEraseBeforeProgramming=true;
+		    m_cfg.ConfigShowPopups=false;
+		    m_cfg.ConfigLocalize=true;
+		    m_cfg.ConfigAutoDetect=true;
+
+		    upp_open_file (openFileDialog.GetPath());
+		    resetAfterThreadCompleted=true;
+		    upp_program();
 		}
 		else
 		{
