@@ -525,30 +525,65 @@ unsigned int dspic_read_16_bits( unsigned char isLV )
 	return result;
 }
 
-void dspic_send_24_bits( unsigned long payload )
+void dspic_send_24_bits( unsigned long p )
 {
-	unsigned char i;
-	PGDlow();
-	for( i = 0; i < 4; i++ )
-	{
-		PGChigh();
-		clock_delay();
-		PGClow();
-	}
-	for( i = 0; i < 24; i++ )
-	{
+    unsigned char i, b, payload;
 
-		if( payload & 1 )
-			PGDhigh();
-		else
-			PGDlow();
-		payload >>= 1;
-		clock_delay();
-		PGChigh();
-		clock_delay();
-		PGClow();
-	}
-	PGDlow();
+    PGDlow();
+    for( i = 0; i < 4; i++ )
+    {
+        PGChigh();
+        clock_delay();
+        PGClow();
+    }
+    payload = ((unsigned char *)&p)[0];
+    for( i = 0; i < 8; i++ )
+    {
+
+        if( payload & 1 )
+            PGDhigh();
+        else
+            PGDlow();
+        payload >>= 1;
+//        clock_delay();
+        PGChigh();
+        clock_delay();
+        PGClow();
+    }
+    PGDlow();
+
+    payload = ((unsigned char *)&p)[1];
+    for( i = 0; i < 8; i++ )
+    {
+
+        if( payload & 1 )
+            PGDhigh();
+        else
+            PGDlow();
+        payload >>= 1;
+//        clock_delay();
+        PGChigh();
+        clock_delay();
+        PGClow();
+    }
+    PGDlow();
+
+    payload = ((unsigned char *)&p)[2];
+    for( i = 0; i < 8; i++ )
+    {
+
+        if( payload & 1 )
+            PGDhigh();
+        else
+            PGDlow();
+        payload >>= 1;
+//        clock_delay();
+        PGChigh();
+        clock_delay();
+        PGClow();
+    }
+    PGDlow();
+
 }
 
 void I2C_start( void )
