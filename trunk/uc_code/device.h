@@ -42,9 +42,9 @@ typedef struct {
 	void (*write_data)( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 	void (*write_config_bits)( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 	struct {
-		PICTYPE type:7;
-		unsigned p3_3V:1;
-		PICFAMILY family:5;
+		unsigned int type:7;
+		unsigned int p3_3V:1;
+		unsigned int family:5;
 		 }flags;
 } DEVICE_t;
 #define is3_3V()	currDevice.flags.p3_3V

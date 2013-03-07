@@ -942,6 +942,16 @@ int Hardware::autoDetectDevice()
 	if(picType.ok())
 		return devId|0x20000;
 
+    pic24F = PicType::FindPIC(("24EP256MC202"));
+    if(setPicType(&pic24F)<0)
+    return -1;
+    devId=readId();
+    if(devId<0)
+        return -1;
+    picType = PicType::FindPIC(0x20000|devId);
+    if(picType.ok())
+        return devId|0x20000;
+
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
 		return -1;

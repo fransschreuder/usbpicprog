@@ -162,32 +162,70 @@ void enter_ISCP_PIC18K()
 void enter_ISCP_PIC24()
 {
 
-	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+    enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
-	VPP_RUNoff(); //MCLR low
-	VDDon();
-	DelayMs( 10 );
-	VPP_RUNon(); //VPP to 4.5V
-	clock_delay();
-	VPP_RUNoff(); //and immediately back to 0...
-	VPP_RSTon();
-	clock_delay();	//P19 = 40ns min
-	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
-	//0x3D43 => 0100 1101 0100 0011
-	//from low to high => 1100 0010 1011 0010
-	//0xC2B2
-	pic_send_word( 0xC2B2 );
-	//write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x8A12
-	pic_send_word( 0x8A12 );
-	DelayMs( 1 );
-	VPP_RSToff(); //release from reset
-	VPP_RUNon();
+    VPP_RUNoff(); //MCLR low
+    VDDon();
+    DelayMs( 10 );
+    VPP_RUNon(); //VPP to 4.5V
+    DelayMs( 1 );                       // PIC24E 500us min
+    VPP_RUNoff(); //and immediately back to 0...
+    VPP_RSTon();
+    DelayMs( 2 );   //P19 = 40ns min        PIC24E 1ms min
+    //write 0x4D43, high to low, other than the rest of the commands which are low to high...
+    //0x4D43 => 0100 1101 0100 0011
+    //from low to high => 1100 0010 1011 0010
+    //0xC2B2
+    pic_send_word( 0xC2B2 );
+    //write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x8A12
+    pic_send_word( 0x8A12 );
+    DelayMs( 1 );
+    VPP_RSToff(); //release from reset
+    VPP_RUNon();
 
-	DelayMs( 25 );
-	pic_send_n_bits( 5, 0 );
-	dspic_send_24_bits( 0x000000 ); 	//NOP
-	dspic_send_24_bits( 0x040200 ); 	//GOTO 0x200
-	dspic_send_24_bits( 0x000000 ); 	//NOP
+    DelayMs( 60 );                                      //PIC24E 50ms min
+    pic_send_n_bits( 5, 0 );
+//    dspic_send_24_bits( 0x000000 );     //NOP           //PIC24E (doc 70633) says 3 nops
+//    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x040200 );     //GOTO 0x200
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
+}
+void enter_ISCP_PIC24E()
+{
+
+    enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+
+    VPP_RUNoff(); //MCLR low
+    VDDon();
+    clock_delay();              // P6 100ns    DelayMs( 10 );
+    VPP_RUNon(); //VPP to 4.5V
+    DelayMs( 1 );               //P21 500us        // PIC24E 500us min
+    VPP_RUNoff(); //and immediately back to 0...
+    VPP_RSTon();
+    DelayMs( 2 );               //P18 = 1ms min        PIC24E 1ms min
+    //write 0x4D43, high to low, other than the rest of the commands which are low to high...
+    //0x4D43 => 0100 1101 0100 0011
+    //from low to high => 1100 0010 1011 0010
+    //0xC2B2
+    pic_send_word( 0xC2B2 );
+    //write 0x4851 => 0100 1000 0101 0001 => 1000 1010 0001 0010 => 0x8A12
+    pic_send_word( 0x8A12 );
+                                // P19 25ns   DelayMs( 1 );
+    VPP_RSToff(); //release from reset
+    VPP_RUNon();
+
+    DelayMs( 60 );              // P7 50ms  + P1*5           //PIC24E 50ms min
+    pic_send_n_bits( 5, 0 );
+    dspic_send_24_bits( 0x000000 );     //NOP           //PIC24E (doc 70633) says 3 nops
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x040200 );     //GOTO 0x200
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
+    dspic_send_24_bits( 0x000000 );     //NOP
 }
 void enter_ISCP_PIC24K()
 {
