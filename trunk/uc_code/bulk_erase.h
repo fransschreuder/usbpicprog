@@ -25,6 +25,7 @@ void bulk_erase_dsP30F(unsigned char doRestore);
 void bulk_erase_P18FXX39(unsigned char doRestore);
 void bulk_erase_P18F872X(unsigned char doRestore);
 void bulk_erase_P18F2XXX(unsigned char doRestore);
+void bulk_erase_P18F1X30(unsigned char doRestore);
 void bulk_erase_P18F4XK22(unsigned char doRestore);
 void bulk_erase_P18FX220(unsigned char doRestore);
 void bulk_erase_P18F97J60(unsigned char doRestore);

@@ -158,6 +158,17 @@ void bulk_erase_P18F872X( unsigned char doRestore )
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 	DelayMs( 400 );
 }
+void bulk_erase_P18F1X30( unsigned char doRestore )
+{
+
+	set_address_P18( 0x3C0005 );
+	pic_send( 4, 0x0C, 0x0F0F ); //Write 0F0Fh to 3C0005h
+	set_address_P18( 0x3C0004 );
+	pic_send( 4, 0x0C, 0x8787 ); //Write 8787h to 3C0004h
+	pic_send( 4, 0x00, 0x0000 ); //NOP
+	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
+	DelayMs( P11 );
+}
 void bulk_erase_P18F2XXX( unsigned char doRestore )
 {
 
