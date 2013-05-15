@@ -30,6 +30,23 @@
     <pic name="16LF1827" upp_family="P16F18XX" upp_devid="0x28A0" upp_devidmask="0x33FE0"/>
     <pic name="16F1847" upp_family="P16F18XX" upp_devid="0x1480" upp_devidmask="0x33FE0"/>
     <pic name="16LF1847" upp_family="P16F18XX" upp_devid="0x14A0" upp_devidmask="0x33FE0"/>
+
+    <pic name="16F1933" upp_family="P16F18XX" upp_devid="0x2300" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1933" upp_family="P16F18XX" upp_devid="0x2400" upp_devidmask="0x33FE0"/>
+    <pic name="16F1934" upp_family="P16F18XX" upp_devid="0x2340" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1934" upp_family="P16F18XX" upp_devid="0x2440" upp_devidmask="0x33FE0"/>
+    <pic name="16F1936" upp_family="P16F18XX" upp_devid="0x2360" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1936" upp_family="P16F18XX" upp_devid="0x2460" upp_devidmask="0x33FE0"/>
+    <pic name="16F1937" upp_family="P16F18XX" upp_devid="0x2380" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1937" upp_family="P16F18XX" upp_devid="0x2480" upp_devidmask="0x33FE0"/>
+    <pic name="16F1938" upp_family="P16F18XX" upp_devid="0x23A0" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1938" upp_family="P16F18XX" upp_devid="0x24A0" upp_devidmask="0x33FE0"/>
+    <pic name="16F1939" upp_family="P16F18XX" upp_devid="0x23C0" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1939" upp_family="P16F18XX" upp_devid="0x24C0" upp_devidmask="0x33FE0"/>
+    <pic name="16F1946" upp_family="P16F18XX" upp_devid="0x2500" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1946" upp_family="P16F18XX" upp_devid="0x2580" upp_devidmask="0x33FE0"/>
+    <pic name="16F1947" upp_family="P16F18XX" upp_devid="0x2520" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1947" upp_family="P16F18XX" upp_devid="0x25A0" upp_devidmask="0x33FE0"/>
     <pic name="16F54" upp_family="P16F54" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="16F57" upp_family="P16F57" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>    
     <pic name="16F59" upp_family="P16F59" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>        
