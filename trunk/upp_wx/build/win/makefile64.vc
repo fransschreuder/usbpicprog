@@ -30,7 +30,7 @@ WX_SHARED = 0
 # Use debug build of wxWidgets (linked with debug CRT)? [0,1]
 #   0 - Release
 #   1 - Debug
-WX_DEBUG = 1
+WX_DEBUG = 0
 
 # Version of the wx library to build against. 
 WX_VERSION = 29

@@ -101,10 +101,17 @@
     <pic name="18F452" upp_family="P18FXX2" upp_devid="0x10420" upp_devidmask="0x3FFE0"/>
     <pic name="18F458" upp_family="P18FXX2" upp_devid="0x10860" upp_devidmask="0x3FFE0"/>
     <pic name="18F1220" upp_family="P18FX220" upp_devid="0x107E0" upp_devidmask="0x3FFE0"/>
+<<<<<<< HEAD
     <pic name="18F1230" upp_family="P18FX220" upp_devid="0x11E00" upp_devidmask="0x3FFE0"/>
     <pic name="18F1320" upp_family="P18FX220" upp_devid="0x107C0" upp_devidmask="0x3FFE0"/>
     <pic name="18F13K22" upp_family="P18F14K22" upp_devid="0x14F40" upp_devidmask="0x3FFE0"/>
+=======
+	<pic name="18F1230" upp_family="P18F1X30" upp_devid="0x11E00" upp_devidmask="0x3FFE0"/>
+    <pic name="18F1320" upp_family="P18FX220" upp_devid="0x107C0" upp_devidmask="0x3FFE0"/>    
+	<pic name="18F13K22" upp_family="P18F14K22" upp_devid="0x14F40" upp_devidmask="0x3FFE0"/>
+>>>>>>> cbf1e55191c787af33a516cb8b936f44d42db178
     <pic name="18LF13K22" upp_family="P18F14K22" upp_devid="0x14F80" upp_devidmask="0x3FFE0"/>
+	<pic name="18F1330" upp_family="P18F1X30" upp_devid="0x11E20" upp_devidmask="0x3FFE0"/>
     <pic name="18F14K22" upp_family="P18F14K22" upp_devid="0x14F20" upp_devidmask="0x3FFE0"/>
     <pic name="18LF14K22" upp_family="P18F14K22" upp_devid="0x14F60" upp_devidmask="0x3FFE0"/>
     <pic name="18F2220" upp_family="P18FX220" upp_devid="0x10580" upp_devidmask="0x3FFE0"/>
