@@ -7,7 +7,7 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="24FV32KA301" status="IP" memory_technology="FLASH" architecture="24F" id="0x4519" >
+<device name="24F32KA301" status="IP" memory_technology="FLASH" architecture="24F" id="0x4518" >
 
 <!--* Documents ************************************************************-->
   <documents webpage="39927" datasheet="39927" progsheet="39927" erratas="39927 39927" />
@@ -58,7 +58,7 @@
     </mask>
   </config>
 
-  <config offset="0x6" name="FOSCSEL" wmask="0xFFFFFF" bvalue="0x000087" >
+  <config offset="0x6" name="FOSCSEL" wmask="0xFFFFFF" bvalue="0x0000E7" >
     <mask name="IESO" value="0x000001" >
       <value value="0x000080" name="Enabled" />
       <value value="0x000000" name="Disabled" />
@@ -79,7 +79,7 @@
     <mask name="FCKSM" value="0x0000C0" >
       <value value="0x000080" name="CSDIS FSDIS" />
       <value value="0x000040" name="CSEN FSDIS" />
-      <value value="0x000000" name="CSEN FSDEN" />
+      <value value="0x000000" name="CSEN FSDIS" />
     </mask>
     <mask name="SOSCSEL" value="0x000020" >
 	<value value="0x000020" name="High Power" />
@@ -103,7 +103,7 @@
     </mask>
 </config>
 
-<config offset="0xA" name="FWDT" wmask="0xFFFFFF" bvalue="0x0000DF" >
+<config offset="0xA" name="FWDT" wmask="0xFFFFFF" bvalue="0x0000FF" >
     <mask name="FWDTEN" value="0x000080" >
       <value value="0x000080" name="WDTEN" />
       <value value="0x000000" name="WDTDIS" />
@@ -136,7 +136,7 @@
     </mask>
 </config>
 
-<config offset="0xC" name="FPOR" wmask="0xFFFFFF" bvalue="0x0000FB" >
+<config offset="0xC" name="FPOR" wmask="0xFFFFFF" bvalue="0x0000FF" >
     <mask name="MCLREN" value="0x000080" >
       <value value="0x000080" name="Enabled" />
       <value value="0x000000" name="Disabled" />
@@ -177,7 +177,7 @@
     </mask>
 </config>
 
-<config offset="0x10" name="FDS" wmask="0xFFFFFF" bvalue="0x0000FF" >
+<config offset="0x10" name="FDS" wmask="0xFFFFFF" bvalue="0x0000DF" >
     <mask name="DSWDTEN" value="0x000080" >
       <value value="0x000080" name="Enabled" />
       <value value="0x000000" name="Disabled" />
