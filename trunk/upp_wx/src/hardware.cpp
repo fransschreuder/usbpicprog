@@ -608,7 +608,8 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
             if ( blockcounter + blockSizeHW*10 >= memorySize-1      // less than multiblock full blocks left
                 || blocktype != 0
                 || m_hwCurrent == HW_BOOTLOADER
-                || type != TYPE_CODE)
+                || type != TYPE_CODE
+                ||  m_protocol < PROT_UPP2)
                 multiblock = 1;
             else
                 multiblock = 10;
@@ -1368,6 +1369,7 @@ int Hardware::readId()
 
     // success
     statusCallBack (100);
+    cout<<"ReadId: "<<std::hex<<(unsigned int)msg[1] <<(unsigned int)msg[0] <<"\n";
     return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF); 
 }
 
