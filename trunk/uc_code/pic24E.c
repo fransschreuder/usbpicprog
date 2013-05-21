@@ -29,6 +29,7 @@
 #include "interrupt.h"
 #include "prog_lolvl.h"
 #include "device.h"
+#include <delays.h>
 int write_status;
 
 void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksize, char lastblock );
@@ -258,19 +259,17 @@ void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksiz
 
 	if( lastblock & BLOCKTYPE_CONFIG )
 		address = (address*3)/2;		// fix up address
-	if( 1  ) // && lastblock & BLOCKTYPE_FIRST )
-	{
 
-		//Step 2: Initialize the read pointer (W6) and TBLPAG for TBLRD instruction.
-		dspic_send_24_bits( 0x200000 | ((((address * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
-		dspic_send_24_bits( 0x8802A0 ); 	//MOV W0, TBLPAG
-		dspic_send_24_bits( 0x200006 | ((((address * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W6
+	//Step 2: Initialize the read pointer (W6) and TBLPAG for TBLRD instruction.
+	dspic_send_24_bits( 0x200000 | ((((address * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
+	dspic_send_24_bits( 0x8802A0 ); 	//MOV W0, TBLPAG
+	dspic_send_24_bits( 0x200006 | ((((address * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W6
 
-		//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
-		dspic_send_24_bits( 0x20F887 ); 	//MOV #VISI, W7
-		dspic_send_24_bits( 0x000000 ); 	//NOP
+	//Step 2: Initialize the write pointer (W7) for the TBLWT instruction.
+	dspic_send_24_bits( 0x20F887 ); 	//MOV #VISI, W7
+	dspic_send_24_bits( 0x000000 ); 	//NOP
 
-	}
+
 	if( !(lastblock & BLOCKTYPE_CONFIG) ) // temporary until rest of system changes
 	{
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 6 )
