@@ -239,16 +239,15 @@ void ProcessIO( void )
 		case CMD_READ_CODE_OLD:
 			if( input_buffer[1] <= 8 )		// this is correct for all but PIC18F4321(?) where it doesn't matter
 				input_buffer[5] |= BLOCKTYPE_CONFIG;
-			// no break
-        case CMD_READ_CODE:
-            setLeds( LEDS_ON | LEDS_RD );
+		case CMD_READ_CODE:
+			setLeds( LEDS_ON | LEDS_RD );
 
-            address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-                    | ((unsigned long) input_buffer[4]);
-            read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
-            counter = input_buffer[1];
-            setLeds( LEDS_ON );
-            break;
+			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
+					| ((unsigned long) input_buffer[4]);
+			read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
+			counter = input_buffer[1];
+			setLeds( LEDS_ON );
+			break;
         case CMD_MREAD_CODE:
             setLeds( LEDS_ON | LEDS_RD );
 
