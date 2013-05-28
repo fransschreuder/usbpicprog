@@ -356,12 +356,13 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 				{
 					case 8:
 						p.ConfigSize = 0;
+						break;
 					case 14:
 					case 16:
 						p.ConfigSize = (GetRange(child)+1)*2; // times 2 because this is in word units		
 						break;
 	                case 24:
-						p.ConfigSize = (GetRange(child)+1); 
+						p.ConfigSize = (GetRange(child)+2) & ~1;    // sometimes end is sometimes address of last byte, sometimes last word
 						break;
 					default:
 						p.ConfigSize = 0;
@@ -616,7 +617,8 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 	FAMILY(P18F14K22);
 	FAMILY(P18LF13K22);
 	FAMILY(P18LF14K22);
-	FAMILY(dsP30F_LV);
+    FAMILY(dsP30F_LV);
+    FAMILY(P24EPXXX);
     return UPP_INVALID_PICFAMILY;
 }
 

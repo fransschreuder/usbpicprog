@@ -96,17 +96,17 @@ void UppConfigViewBook::SetHexFile(HexFile* hex, const PicType& pic)
             // set the configuration word
             if (m_pic.bitsPerWord()==16)
             {
-                if ((i+1) <= hex->getMemory(TYPE_CONFIG).size())
+                if (word.Offset < hex->getMemory(TYPE_CONFIG).size())
                 {
-                    ConfigWord = hex->getMemory(TYPE_CONFIG)[i];
+                    ConfigWord = hex->getMemory(TYPE_CONFIG)[word.Offset];
                 }
             }
             else        // 14 or 24 bit PIC
             {
-                if ((2*i+1) <= hex->getMemory(TYPE_CONFIG).size())
+                if (word.Offset + 1 < hex->getMemory(TYPE_CONFIG).size())
                 {
-                    ConfigWord = (hex->getMemory(TYPE_CONFIG)[i*2])|
-                                 (hex->getMemory(TYPE_CONFIG)[i*2+1]<<8);
+                    ConfigWord = (hex->getMemory(TYPE_CONFIG)[word.Offset])
+                            | (hex->getMemory(TYPE_CONFIG)[word.Offset + 1] << 8);
                 }
             }
 

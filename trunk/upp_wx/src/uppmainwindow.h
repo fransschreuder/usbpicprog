@@ -319,6 +319,9 @@ private:    // member variables
     /** The current global preferences (they can be modified through UppPreferencesDialog). */
     UppPreferences m_cfg;
 
+    /** When upgrading firmware place to save global preferences */
+    UppPreferences m_cfgSave;
+
     /** The last path used by the user in the load/save dialogs. */
     wxString m_defaultPath;
 

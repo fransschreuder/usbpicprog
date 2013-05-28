@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek <hadacek@kde.org>                 *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="24EP256MC202" status="IP" memory_technology="FLASH" architecture="24" id="0x1F79" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="558770" datasheet="70657" progsheet="70663" erratas="80533" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"  end="32" vdd_min="2.0" vdd_max="2.75" />
+  </frequency_range>
+
+  <voltages name="vpp" min="2.0" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog" min="2.0" max="3.6" nominal="3.3" />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"              start="0x000000" end="0x02AFEB" />
+  <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
+  <memory name="config"            start="0x02AFF0" end="0x02AFFB" />
+  <memory name="user_ids"          start="0x800FF8" end="0x800FFE" rmask="0xFFFF" />
+  <memory name="debug_vector"      start="0x800000" end="0x800007" />
+  <memory name="program_executive" start="0x800000" end="0x8007EF" />
+
+<!--* Configuration bits ***************************************************-->
+<config offset="0x0" name="FICD" wmask="0xFFFFFF" bvalue="0x00FFEF" >
+    <mask name="RESERVED" value="0x000040" >
+      <value value="0x000040" name="Reserved" />
+    </mask>
+    <mask name="JTSGEN" value="0x000020" >
+      <value value="0x000020" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="RESERVED" value="0x0000018" >
+      <value value="0x000080" name="Reserved" />
+    </mask>
+    <mask name="ICS" value="0x000003" >
+	<value value="0x000003" name="PGC1/PGD1" />
+	<value value="0x000002" name="PGC2/PGD2" />
+	<value value="0x000001" name="PGC3/PGD3" />
+	<value value="0x000000" name="reserved" />
+    </mask>
+</config>
+
+<config offset="0x2" name="FPOR" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="WDTWIN" value="0x0000C0" >
+      <value value="0x0000C0" name="WDT Window is 25% of WDT period" />
+      <value value="0x000080" name="WDT Window is 37.5% of WDT period" />
+      <value value="0x000040" name="WDT Window is 50% of WDT period" />
+      <value value="0x000000" name="WDT Window is 75% of WDT period" />
+    </mask>
+    <mask name="ALTI2C2" value="0x000020" >
+	<value value="0x000020" name="Default" />
+	<value value="0x000000" name="Alternate" />
+    </mask>
+    <mask name="ALTI2C1" value="0x000010" >
+	<value value="0x000010" name="Default" />
+	<value value="0x000000" name="Alternate" />
+    </mask>
+    <mask name="RESERVED" value="0x0000008" >
+      <value value="0x000080" name="Reserved" />
+    </mask>
+</config>
+
+<config offset="0x4" name="FWDT" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="FWDTEN" value="0x000080" >
+      <value value="0x000080" name="WDTEN" />
+      <value value="0x000000" name="WDTDIS" />
+    </mask>
+    <mask name="WINDIS" value="0x000040" >
+	<value value="0x000040" name="Windowed WDT Disabled" />
+	<value value="0x000000" name="Windowed WDT Enabled" />
+    </mask>
+    <mask name="PLLKEN" value="0x000020" >
+	<value value="0x000020" name="PLL lock enabled" />
+	<value value="0x000000" name="PLL lock disabled" />
+    </mask>
+    <mask name="WDTPRE" value="0x000010" >
+	<value value="0x000010" name="1:128" />
+	<value value="0x000000" name="1:32" />
+    </mask>
+    <mask name="WDTPOST" value="0x00000F" >
+	<value value="0x00000F" name="1:32768" />
+	<value value="0x00000E" name="1:16384" />
+	<value value="0x00000D" name="1:8192" />
+	<value value="0x00000C" name="1:4096" />
+	<value value="0x00000B" name="1:2048" />
+	<value value="0x00000A" name="1:1024" />
+	<value value="0x000009" name="1:512" />
+	<value value="0x000008" name="1:256" />
+	<value value="0x000007" name="1:128" />
+	<value value="0x000006" name="1:64" />
+	<value value="0x000005" name="1:32" />
+	<value value="0x000004" name="1:16" />
+	<value value="0x000003" name="1:8" />
+	<value value="0x000002" name="1:4" />
+	<value value="0x000001" name="1:2" />
+	<value value="0x000000" name="1:1" />
+    </mask>
+</config>
+
+<config offset="0x6" name="FOSC" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="FCKSM" value="0x0000C0" >
+      <value value="0x000080" name="CSDIS FSDIS" />
+      <value value="0x000040" name="CSEN FSDIS" />
+      <value value="0x000000" name="CSEN FSEN" />
+    </mask>
+    <mask name="IOL1WAY" value="0x000020" >
+	<value value="0x000020" name="Allow only one reconfiguration" />
+	<value value="0x000000" name="Allow multiple reconfigurations" />
+    </mask>
+    <mask name="OSCIOFNC" value="0x000004" >
+	<value value="0x000004" name="CLKO output enabled" />
+	<value value="0x000000" name="CLKO output disabled" />
+    </mask>
+    <mask name="POSCMD" value="0x000003" >
+	<value value="0x000003" name="disabled" />
+	<value value="0x000002" name="HS" />
+	<value value="0x000001" name="XT" />
+	<value value="0x000000" name="external" />
+    </mask>
+</config>
+
+  <config offset="0x8" name="FOSCSEL" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="IESO" value="0x000080" >
+      <value value="0x000080" name="Enabled" />
+      <value value="0x000000" name="Disabled" />
+    </mask>
+    <mask name="PWMLOCK" value="0x000040" >
+      <value value="0x000040" name="Certain PWM registers may only be written after key sequence" />
+      <value value="0x000000" name="PWM registers may be written without key" />
+    </mask>
+    <mask name="FNOSC" value="0x000007" >
+	<value value="0x000000" name="Fast RC Osc" />
+	<value value="0x000001" name="Fast RC Osc Div N" />
+	<value value="0x000002" name="Pri Osc" />
+	<value value="0x000003" name="Pri Osc PLL" />
+	<value value="0x000005" name="LP RC Osc" />
+	<value value="0x000007" name="FRCDIV" />
+    </mask>
+  </config>
+
+<config offset="0xA" name="FGS" wmask="0xFFFFFF" bvalue="0x00FFFF" >
+    <mask name="GC" value="0x000002" >
+      <value value="0x000002" name="No Protection" />
+      <value value="0x000000" name="Standard security enabled" />
+    </mask>
+    <mask name="GWRP" value="0x000001" >
+      <value value="0x000001" name="User program memory may be written" />
+      <value value="0x000000" name="User program memory is write-protected" />
+    </mask>
+  </config>
+
+
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic ssop" nb_pins="20" >
+  </package>
+
+  <package types="qfn" nb_pins="20" >
+  </package>
+
+</device>

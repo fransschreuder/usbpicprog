@@ -12,4 +12,3 @@ The trunk folder (it's there for historycal reasons) contains some subfolders:
 * boot: The (slightly modified) Picdem Bootloader which has to be programmed once in the microcontroller on the usbpicprog hardware
 * doc: A bunch of programming specifications, provided by Microchip. 
 
-
