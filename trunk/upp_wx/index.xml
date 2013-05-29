@@ -50,6 +50,7 @@
     <pic name="16F54" upp_family="P16F54" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="16F57" upp_family="P16F57" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>    
     <pic name="16F59" upp_family="P16F59" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>        
+
     <pic name="16F610" upp_family="P12F61X" upp_devid="0x2260" upp_devidmask="0x33FE0"/>
     <pic name="16HV610" upp_family="P12F61X" upp_devid="0x22A0" upp_devidmask="0x33FE0"/>
     <pic name="16F616" upp_family="P12F61X" upp_devid="0x1240" upp_devidmask="0x33FE0"/>

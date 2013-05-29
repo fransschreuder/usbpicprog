@@ -755,6 +755,32 @@ void write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
 	 //pic_send_n_bits(6,0x0A); 	//end programming
 	 }*/
 }
+void write_code_P16C6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+
+	char blockcounter;
+	char i;
+	unsigned int payload;
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		set_address_P16( address ); //set the initial address
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
+	{
+		for(i=0;i<25;i++)
+		{
+			payload = (((unsigned int) data[blockcounter])) | //MSB
+				(((unsigned int) data[blockcounter + 1]) << 8);
+			pic_send_14_bits( 6, 0x02,  payload);//LSB
+		
+			pic_send_n_bits( 6, 0x08 ); //begin programming
+			DelayUs( 100 );
+			pic_send_n_bits( 6, 0x0E ); //end programming
+			if(pic_read_14_bits( 6, 0x04 )==payload&&i<22)i=22; //correct? do 3 more programming cycles.
+		}
+		pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+}
 void write_code_P16F72( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i;

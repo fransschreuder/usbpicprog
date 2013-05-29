@@ -106,4 +106,22 @@ void DelayMs( unsigned cnt )
 	while( timerRunning )
 		continue;
 }
+
+void DelayUs(unsigned cnt )
+{
+	unsigned i;
+	for(i=0;i<cnt;i++)
+	{
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm
+		_asm nop _endasm		
+	}	
+}
 /** EOF interrupt.c **********************************************************/

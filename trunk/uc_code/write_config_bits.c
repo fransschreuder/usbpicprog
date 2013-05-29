@@ -368,6 +368,36 @@ void write_config_bits_P16F72( unsigned long address, unsigned char* data, char 
 		pic_send_n_bits( 6, 0x06 ); //increment address
 	}
 }
+void write_config_bits_P16C6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	char i;
+	static char blockcounter;
+	unsigned int payload;
+	if( lastblock & BLOCKTYPE_FIRST )
+	{
+		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+		for( i = 0; i < ((char) address); i++ )
+			pic_send_n_bits( 6, 0x06 ); //increment address until ADDRESS is reached
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
+	{
+		//load data for config memory
+		if( ((((char) address) + (blockcounter >> 1)) < 4) || ((((char) address) + (blockcounter >> 1)) == 7) )
+		{
+			payload = (((unsigned int) data[blockcounter]))
+					| (((unsigned int) data[blockcounter + 1]) << 8);
+			for(i=0;i<25;i++)
+			{
+				pic_send_14_bits( 6, 0x02, payload ); //load data for programming
+				pic_send_n_bits( 6, 0x08 ); //begin programming
+				DelayUs( 100 );
+				pic_send_n_bits( 6, 0x0E ); //end programming
+				if(pic_read_14_bits( 6, 0x04 )==payload&&i<22)i=22; //correct? do 3 more programming cycles.
+			}
+		}
+		pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+}
 void write_config_bits_P16F62XA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char i;
