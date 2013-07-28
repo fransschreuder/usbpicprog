@@ -18,7 +18,8 @@ usbpicprogdoc_DATA = \
 usbpicprogdir = ${prefix}/share/usbpicprog
 usbpicprog_DATA = \
 	index.xml \
-	help/usbpicprog.htb
+	help/usbpicprog.htb \
+	firmware.hex
 
 
 EXTRA_DIST = $(usbpicprogdoc_DATA) $(usbpicprog_DATA)
