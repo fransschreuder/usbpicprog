@@ -185,7 +185,6 @@ bool HexFile::open(PicType* picType, const char* filename)
 					}
 					//cout<<"newSize: "<<hex<<newSize<<endl;
 
-                    
                     if (m_dataMemory.size()<newSize)
                         m_dataMemory.resize(newSize,0xFF);
 					switch(picType->bitsPerWord())

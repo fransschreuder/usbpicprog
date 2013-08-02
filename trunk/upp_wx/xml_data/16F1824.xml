@@ -50,7 +50,7 @@
   <memory name="user_ids"  start="0x8000" end="0x8003" rmask="0x007F"          />
   <memory name="device_id" start="0x8006" end="0x8006" />
   <memory name="config"    start="0x8007" end="0x8008" />
-  <memory name="eeprom"    start="0x0000" end="0x007F" hexfile_offset="0x2100" />
+  <memory name="eeprom"    start="0x0000" end="0x007F" hexfile_offset="0xF000" />
 
 <!--* Configuration bits ***************************************************-->
   <config offset="0x0" name="" wmask="0x3FFF" bvalue="0x3FFF" >
