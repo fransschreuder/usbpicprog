@@ -528,6 +528,7 @@ public:
 	int bitsPerWord() const
 		{
 			if((Name.find("10F")==0)||(Name.find("12F")==0)||(Name.find("16F")==0))return 14;
+			if((Name.find("12HV")==0)||(Name.find("12LF")==0)||(Name.find("16LF")==0))return 14;
 			if(Name.find("18F")==0)return 16;
 			if(Name.find("24XX")==0)return 8;
 			if((Name.find("30F")==0)||(Name.find("24")==0))return 24;
