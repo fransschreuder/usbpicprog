@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="oneiric precise quantal raring"
+DISTS="precise quantal raring saucy"
 
 if [ $# -ne 0 ]
 then

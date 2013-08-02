@@ -36,6 +36,7 @@ mkdir -p src/usbpicprog.app/Contents/MacOS/output
 mkdir libs
 cp /opt/local/lib/libusb-1.0.dylib libs
 cp /opt/local/lib/libiconv.dylib libs
+cp /opt/local/lib/libexpat.1.dylib libs
 
 # Export path so that we use the correct version of wxWidgets
 export PATH="$PREFIX_ppc"/bin:"$PREFIX_ppc"/sbin:$PATH
@@ -91,7 +92,7 @@ LIBPATH="libs"
 NEWLIBPATH="@executable_path/../SharedSupport"
 
 # space separated list of libraries
-TARGETS="libusb-1.0.dylib libiconv.dylib "
+TARGETS="libusb-1.0.dylib libiconv.dylib libexpat.1.dylib"
 for TARGET in ${TARGETS} ; do
 	LIBFILE=${LIBPATH}/${TARGET}
 	cp ${LIBFILE} src/usbpicprog.app/Contents/SharedSupport

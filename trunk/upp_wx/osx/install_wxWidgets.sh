@@ -1,5 +1,5 @@
 #!/opt/local/bin/bash
-# This file install wxWidgets 2.9.1 for both ppc and i386
+# This file install wxWidgets 2.9.4 for both ppc and i386
 # This will allow the building of usbpicprog as a universal application.
 #
 # All build files assumes that MacPorts is installed. You can change
@@ -45,17 +45,17 @@ ln -s /opt/local/bin/glibtoolize "$PREFIX_i386"/bin/libtoolize
 
 # Download wxWidgets
 cd "$WORKDIR"
-if [ -f wxWidgets-2.9.1.tar.gz ]; then
-	if [ -d wxWidgets-2.9.1 ]; then
-		rm -rf wxWidgets-2.9.1	
+if [ -f wxWidgets-2.9.4.tar.gz ]; then
+	if [ -d wxWidgets-2.9.4 ]; then
+		rm -rf wxWidgets-2.9.4	
 	fi
 else
-	wget http://prdownloads.sourceforge.net/wxwindows/wxWidgets-2.9.1.tar.gz
+	wget http://prdownloads.sourceforge.net/wxwindows/wxWidgets-2.9.4.tar.bz2
 fi
 # Unpack it
-tar xzf wxWidgets-2.9.1.tar.gz
+tar xjf wxWidgets-2.9.4.tar.bz2
 # Get in there and create a builddir
-cd wxWidgets-2.9.1
+cd wxWidgets-2.9.4
 mkdir build-mac
 cd build-mac
 
