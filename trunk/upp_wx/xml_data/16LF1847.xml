@@ -86,7 +86,7 @@
     </mask>
   </config>
 
-  <config offset="0x1" name="CONFIG2" wmask="0x3FFF" bvalue="0x3713">
+  <config offset="0x2" name="CONFIG2" wmask="0x3FFF" bvalue="0x3713">
     <mask name="WRT" value="0x0003">
       <value value="0x0000" name="0000:0FFF" def="_WRT_ALL"/>
       <value value="0x0001" name="0000:07FF" def="_WRT_HALF"/>

@@ -96,7 +96,7 @@
     </mask>
   </config>
 
-  <config offset="0x1" name="CONFIG2" wmask="0x3FFF" bvalue="0x0700" >
+  <config offset="0x2" name="CONFIG2" wmask="0x3FFF" bvalue="0x0700" >
     <mask name="BORV" value="0x0100" >
       <value value="0x0100" name="4.0" cname="_BOR40V" />
       <value value="0x0000" name="2.1" cname="_BOR21V" />

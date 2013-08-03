@@ -1,3 +1,27 @@
+usbpicprog (130803-4) saucy; urgency=low
+
+  * fixed pictype for all 16LF, 12LF and 12HV devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 02 Aug 2013 23:16:36 +0200
+
+usbpicprog (130803-3) raring; urgency=low
+
+  * fixed pictype for all 16LF, 12LF and 12HV devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 02 Aug 2013 23:16:19 +0200
+
+usbpicprog (130803-2) quantal; urgency=low
+
+  * fixed pictype for all 16LF, 12LF and 12HV devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 02 Aug 2013 23:16:05 +0200
+
+usbpicprog (130803-1) precise; urgency=low
+
+  * fixed pictype for all 16LF, 12LF and 12HV devices
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Fri, 02 Aug 2013 23:15:31 +0200
+
 usbpicprog (130802-4) saucy; urgency=low
 
   * Added support for 12F1822, 16F1823, 1824, 1825, 1826, 1827, 1828, 1829

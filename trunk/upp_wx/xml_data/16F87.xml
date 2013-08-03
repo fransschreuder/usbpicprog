@@ -96,7 +96,7 @@
     </mask>
   </config>
 
-  <config offset="0x1" name="CONFIG2" wmask="0x3FFF" bvalue="0x0003" >
+  <config offset="0x2" name="CONFIG2" wmask="0x3FFF" bvalue="0x0003" >
     <mask name="FCMEN" value="0x0001" >
       <value value="0x0000" name="Off" cname="_FCMEN_OFF" />
       <value value="0x0001" name="On"  cname="_FCMEN_ON"  />

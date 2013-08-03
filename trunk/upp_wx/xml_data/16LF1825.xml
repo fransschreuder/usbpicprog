@@ -106,7 +106,7 @@
     </mask>
   </config>
   
-  <config offset="0x1" name="" wmask="0x3713" bvalue="0x3FFF" >
+  <config offset="0x2" name="" wmask="0x3713" bvalue="0x3FFF" >
     <mask name="WRT"  value="0x0003" >
       <value value="0x0000" name="0-7FF"           cname="_WRT_7FF"             />
       <value value="0x0001" name="0-3FF"           cname="_WRT_3FF"             />
