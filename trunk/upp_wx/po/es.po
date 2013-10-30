@@ -8,18 +8,17 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-26 08:54+0200\n"
-"PO-Revision-Date: 2011-04-12 09:12+0100\n"
-"Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
+"PO-Revision-Date: 2013-10-30 14:02+0100\n"
+"Last-Translator: Diego Herranz <diegoherranz@diegoherranz.com>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Spanish\n"
-"X-Poedit-Country: Spain\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: src/uppmainwindow.cpp:1629 src/uppmainwindow.cpp:1657
@@ -124,7 +123,7 @@ msgstr "&Seleccionar PIC..."
 
 #: src/uppmainwindow.cpp:294
 msgid "&Upgrade firmware"
-msgstr ""
+msgstr "&Actualizar el firmware"
 
 #: src/uppmainwindow.cpp:255
 msgid "&Verify..."
@@ -136,6 +135,9 @@ msgid ""
 "\n"
 "Upgrade firmware?"
 msgstr ""
+". \n"
+"\n"
+"¿Actualizar el firmware?"
 
 #: src/io_test_base.cpp:45 src/io_test_base.cpp:61 src/io_test_base.cpp:90
 #: src/io_test_base.cpp:119 src/io_test_base.cpp:125 src/io_test_base.cpp:160
@@ -166,7 +168,7 @@ msgstr "Programador de pic's por USB de código abierto"
 
 #: src/preferences_base.cpp:60
 msgid "Autodetect on Connect"
-msgstr ""
+msgstr "Autodetectar al Conectar"
 
 #: src/uppmainwindow.cpp:1134
 #, c-format
@@ -243,9 +245,8 @@ msgid "Configuration flags for this PIC:"
 msgstr "Palabras de configuración para este PIC:"
 
 #: src/preferences_base.cpp:58
-#, fuzzy
 msgid "Connect Options"
-msgstr "Conectar Usbpicprog"
+msgstr "Opciones de conexión"
 
 #: src/uppmainwindow_base.cpp:211
 msgid "Copies to the clipboard currently selected cells"
@@ -531,9 +532,8 @@ msgid "Global settings for Usbpicprog:"
 msgstr "Ajustes globales para Usbpicprog:"
 
 #: src/uppmainwindow.cpp:1259
-#, fuzzy
 msgid "HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"
-msgstr "Hex files|*.hex|Todos los Archivos|*.*"
+msgstr "archivos HEX (*.hex)|*.hex|archivos HEX (*.HEX)|*.HEX"
 
 #: src/uppmainwindow_base.cpp:35
 msgid "Hexadecimal view of the code area of the PIC:"
@@ -646,14 +646,12 @@ msgstr ""
 "Sólo válido para PIC12F629, PIC12F508, 10F20X y dispositivos similares..."
 
 #: src/uppmainwindow_base.cpp:188
-#, fuzzy
 msgid "Open a .hex file from the examples folder"
-msgstr "Carga un archivo HEX de la carpeta de ejemplos"
+msgstr "Abrir un archivo .hex de la carpeta de ejemplos"
 
 #: src/uppmainwindow.cpp:1258
-#, fuzzy
 msgid "Open firmware file"
-msgstr "Abrir un fichero HEX"
+msgstr "Abrir un archivo de firmware"
 
 #: src/uppmainwindow.cpp:1236 src/uppmainwindow.cpp:1289
 msgid "Open hexfile"
@@ -800,6 +798,8 @@ msgid ""
 "Reboot option not available in this firmware, please remove the select "
 "jumper and disconnect / reconnect your usbpicprog."
 msgstr ""
+"Opción de reinicio no disponible en este firmware, por favor quite el jumper "
+"y desconecte / reconecte su usbpicprog."
 
 #: src/uppmainwindow_base.cpp:192
 msgid "Reloads the current HEX file from disk"
@@ -1012,11 +1012,11 @@ msgstr ""
 
 #: src/uppmainwindow.cpp:575
 msgid "Upgrade firmware?"
-msgstr ""
+msgstr "¿Actualizar el firmware?"
 
 #: src/uppmainwindow.cpp:295
 msgid "Upgrade the firmware in usbpicprog"
-msgstr ""
+msgstr "Actualizar el firmware en usbpicprog"
 
 #: src/uppmainwindow_base.h:106
 msgid "Usbpicprog"
@@ -1024,7 +1024,7 @@ msgstr "Usbpicprog"
 
 #: src/uppmainwindow.cpp:1276
 msgid "Usbpicprog is not running in bootloader mode"
-msgstr ""
+msgstr "Usbpicprog no está ejecutándose en modo bootloader"
 
 #: src/uppmainwindow.cpp:591
 msgid "Usbpicprog rev: "
@@ -1208,7 +1208,7 @@ msgstr "limpiar el dispositivo"
 
 #: src/uppmainwindow.cpp:431
 msgid "currently selected PIC type"
-msgstr "tipo de pic actualmente seleccionado"
+msgstr "tipo de PIC actualmente seleccionado"
 
 #: src/main.h:137
 msgid "debug"
@@ -1328,7 +1328,7 @@ msgstr "detener el dispositivo de destino"
 
 #: src/main.h:141
 msgid "tell firmware to reboot in bootloader mode"
-msgstr ""
+msgstr "indicar al firmware que reinicie en modo bootloader"
 
 #: src/hexfile.cpp:238
 #, c-format
