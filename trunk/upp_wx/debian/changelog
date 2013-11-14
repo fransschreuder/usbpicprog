@@ -1,3 +1,27 @@
+usbpicprog (131114-4) saucy; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:59:10 +0100
+
+usbpicprog (131114-3) raring; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:59:00 +0100
+
+usbpicprog (131114-2) quantal; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:53:52 +0100
+
+usbpicprog (131114-1) precise; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:14:00 +0100
+
 usbpicprog (130804-4) saucy; urgency=low
 
   * Fixed config word 2 for all 16F devices with two config words
