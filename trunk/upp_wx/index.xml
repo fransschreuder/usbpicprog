@@ -24,7 +24,7 @@
     <pic name="12F683" upp_family="P12F6XX" upp_devid="0x460" upp_devidmask="0x33FE0"/>
     <pic name="12F1822" upp_family="P16F18XX" upp_devid="0x2700" upp_devidmask="0x33FE0"/>
     <pic name="12LF1822" upp_family="P16F18XX" upp_devid="0x2800" upp_devidmask="0x33FE0"/>
-    <pic name="12F1840" upp_family="P12F6XX" upp_devid="0x1b80" upp_devidmask="0x33FE0"/>
+    <pic name="12F1840" upp_family="P16F18XX" upp_devid="0x1B80" upp_devidmask="0x33FE0"/>
     <pic name="16F1823" upp_family="P16F18XX" upp_devid="0x2720" upp_devidmask="0x33FE0"/>
     <pic name="16LF1823" upp_family="P16F18XX" upp_devid="0x2820" upp_devidmask="0x33FE0"/>
     <pic name="16F1824" upp_family="P16F18XX" upp_devid="0x2740" upp_devidmask="0x33FE0"/>
