@@ -136,16 +136,31 @@ void enter_ISCP_PIC18J()
 	DelayMs( 1 );
 
 }
+
 void enter_ISCP_PIC18K()
 {
 	int i;
 
 	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
-	VPP_RUNoff(); //MCLR low
+	// Enter low voltage programming mode:
+	// Pulse MCLR low, then high, then low
+	VPP_RUNoff(); // MCLR low
+	VPP_RSTon(); // Force MCLR low
+	DelayMs( 1 ); // Small delay
+
+	// Turn VDD supply on
 	VDDon();
-	DelayMs( 10 );
-	VPP_RUNon(); //VPP to 4.5V
+	DelayMs( 10 ); // Allow voltage to stabilize
+
+	// MCLR high
+	VPP_RSToff(); // Release from reset
+	VPP_RUNon(); // VPP to 4.5V
+	DelayMs( 3 ); // Allow to stabilize
+
+	// MCLR low, and write secret word
+	VPP_RUNoff(); //MCLR low (this would enter low power mode)
+ 	VPP_RSTon(); // Force MCLR low (this would enter low power mode)
 	for( i = 0; i < 300; i++ )
 		continue; //aprox 0.5ms
 	//clock_delay();	//P19 = 40ns min
@@ -156,9 +171,14 @@ void enter_ISCP_PIC18K()
 	pic_send_word( 0xC2B2 );
 	//write 0x4850 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
 	pic_send_word( 0x0A12 );
-	DelayMs( 1 );
 
+	// Turn MCLR back on
+	DelayMs( 1 ); // <- IF ...
+	VPP_RUNon(); // ... Low power ...
+	VPP_RSToff(); // ... Mode is used ...
+	DelayMs( 1 ); // Some time for MCLR to rise
 }
+
 void enter_ISCP_PIC24()
 {
 
