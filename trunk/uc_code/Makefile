@@ -1,9 +1,11 @@
 ##Linux Makefile##
 #wine mcc18
 #WINEOPTS= WINEDEBUG=-all WINEPREFIX="$(HOME)/.local/share/wineprefixes/mcc18"
-CC=env $(WINEOPTS) wine c:\\mcc18\\bin\\mcc18.exe
-LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe 
-INSTALL=usbpicprog -e -s -w -f uc_code.hex
+#CC=env $(WINEOPTS) wine c:\\mcc18\\bin\\mcc18.exe
+#LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe 
+#INSTALL=usbpicprog -e -s -w -f uc_code.hex
+CC=mcc18
+LINK=mplink
 
 FLAGS=-p=18f2550 -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
 LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
