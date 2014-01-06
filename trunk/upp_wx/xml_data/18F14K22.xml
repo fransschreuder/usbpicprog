@@ -19,7 +19,7 @@
   </frequency_range>
 
   <voltages name="vpp"            min="8"   max="9" nominal="9" />
-  <voltages name="vdd_prog"       min="8" max="9"   nominal="9"  />
+  <voltages name="vdd_prog"       min="2.3" max="5.5"   nominal="3"  />
   <voltages name="vdd_prog_write" min="8"   max="9"   nominal="9"  />
 
 <!--* Memory ***************************************************************-->
