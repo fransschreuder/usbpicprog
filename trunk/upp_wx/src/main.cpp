@@ -173,7 +173,7 @@ int UsbPicProg::OnRun()
         UppMainWindow *uppMainWindow = new UppMainWindow(m_hardware, (wxFrame *)NULL, wxID_ANY);
         SetTopWindow(uppMainWindow);
 
-        uppMainWindow->Show(true);
+        uppMainWindow->ShowWithEffect(wxSHOW_EFFECT_EXPAND    ,500);
 
         // let wxWidgets start the main loop event handler and proceed in GUI mode:
         return wxApp::OnRun();
