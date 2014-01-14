@@ -112,6 +112,27 @@ void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize
 		*(data + blockcounter) = pic_read_byte2( 4, 0x02 );
 	}
 }
+
+void read_data_PIC18K( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	char blockcounter = 0;
+
+	pic_send( 4, 0x00, 0x9E7F ); //BCF EECON1, EEPGD
+	pic_send( 4, 0x00, 0x9C7F ); //BCF EECON1, CFGS
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
+	{
+		pic_send( 4, 0x00, (0x0E00 | (address + (unsigned int) blockcounter) & 0xFF) ); //MOVLW Addr [7:0]
+		pic_send( 4, 0x00, 0x6E62 ); //MOVWF EEADR
+		pic_send( 4, 0x00, (0x0E00 | ((address + (unsigned int) blockcounter) >> 8) & 0xFF) ); //MOVLW Addr [15:8]
+		pic_send( 4, 0x00, 0x6E63 ); //MOVWF EEADRH
+		pic_send( 4, 0x00, 0x807F ); //BSF EECON1, RD
+		pic_send( 4, 0x00, 0x5061 ); //MOVF EEDATA, W, 0
+		pic_send( 4, 0x00, 0x6EF5 ); //MOVWF TABLAT
+		pic_send( 4, 0x00, 0x0000 ); //Nop
+		*(data + blockcounter) = pic_read_byte2( 4, 0x02 );
+	}
+}
+
 void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i;
