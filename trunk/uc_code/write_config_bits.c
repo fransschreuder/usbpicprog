@@ -222,8 +222,8 @@ void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, ch
 void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	static char blockcounter;
-
-	pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
+	// @ TODO verify that this actually works. The code seems to be correct (should work on all P18FXXKXX MCU:s)
+	pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD // @ TODO Only on first block ? Datasheet is not explicit on this one
 	pic_send( 4, 0x00, 0x8C7F ); //BSF EECON1, CFGS
 	//address=0x300000;
 	//start for loop
