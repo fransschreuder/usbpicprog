@@ -346,7 +346,7 @@ void write_code_P18F872X( unsigned long address, unsigned char* data, char block
 void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-
+	// Flash block = 64 bytes
 	//FIXME: this only needs to be done on FIRST_BLOCK
 	if( (address & 0x20) == 0 ) //package must be 64 bytes, so only do this every two packages.
 	{
@@ -382,9 +382,8 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 void write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-
-	//FIXME: this only needs to be done on FIRST_BLOCK
-	if( (address & 0x60) == 0 ) //package must be 128 bytes, so only do this every four packages.
+	// Flash block = 128 bytes
+	if(lastblock & BLOCKTYPE_FIRST) // Works: 2014-01-20 --vjuven
 	{
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9C7F ); //BSF EECON1, CFGS

@@ -97,7 +97,7 @@ void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize
 {
 	char blockcounter = 0;
 
-	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD
+	pic_send( 4, 0x00, 0x9EA6 ); //BCF EECON1, EEPGD // @ TODO This is necessary only on BLOCKTYPE_FIRST
 	pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
@@ -117,7 +117,7 @@ void read_data_PIC18K( unsigned long address, unsigned char* data, char blocksiz
 {
 	char blockcounter = 0;
 
-	pic_send( 4, 0x00, 0x9E7F ); //BCF EECON1, EEPGD
+	pic_send( 4, 0x00, 0x9E7F ); //BCF EECON1, EEPGD // @ TODO This is necessary only on BLOCKTYPE_FIRST
 	pic_send( 4, 0x00, 0x9C7F ); //BCF EECON1, CFGS
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
