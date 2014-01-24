@@ -382,9 +382,10 @@ void write_code_P18F6XKXX( unsigned long address, unsigned char* data, char bloc
 void write_code_P18F67KXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-	// Flash block = 128 bytes
-	if(lastblock & BLOCKTYPE_FIRST) // Works: 2014-01-20 --vjuven
+
+	if( lastblock & BLOCKTYPE_FIRST )
 	{
+		/* Open for programming and set initial address */
 		pic_send( 4, 0x00, 0x8E7F ); //BSF EECON1, EEPGD
 		pic_send( 4, 0x00, 0x9C7F ); //BSF EECON1, CFGS
 		pic_send( 4, 0x00, 0x847F ); //BSF EECON1, WREN
@@ -397,17 +398,20 @@ void write_code_P18F67KXX( unsigned long address, unsigned char* data, char bloc
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
 	}
+	/* Blocksize is assumed 32, and will not change */
 	if( (address & 0x60) == 0x60 || (lastblock & BLOCKTYPE_LAST) )
 	{
 		//write last 2 bytes of the block and start programming
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter))
 				| (((unsigned int) *(data + 1 + blockcounter)) << 8) );
-		pic_send_n_bits( 3, 0 );
+		pic_send_n_bits( 3, 0 ); /* For some reason this is absolutely mandatory here ? */
 		PGChigh(); //hold PGC high for P9 and low for P10
-		DelayMs( P9 );
+		DelayUs( 1000 );
 		PGClow();
-		DelayMs( P10 );
+		DelayUs( 120 );
 		pic_send_word( 0x0000 );
+		/* Address must be rewritten */
+		set_address_P18( address + blocksize );
 	}
 	else
 		pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter))
