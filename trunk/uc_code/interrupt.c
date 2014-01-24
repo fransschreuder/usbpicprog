@@ -107,21 +107,37 @@ void DelayMs( unsigned cnt )
 		continue;
 }
 
+#define Delay1Us() \
+{ 				 \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+_asm nop _endasm \
+}
+
+/* Assume 12 MIPS = 12 instr */
+/* Assume loop = 4 instr (8bit decrement) */
+/* Use a two part wait (instead of using 16 bit numbers) */
+/* Error is ~10%, which will start accumulating with larger delays */
 void DelayUs(unsigned cnt )
 {
-	unsigned i;
-	for(i=0;i<cnt;i++)
+	unsigned char lo = (cnt & 0xFF);
+	unsigned char hi = (cnt >> 8);
+
+	if(lo != 0) /* Skip if lo == 1 */
+		while(--lo)	Delay1Us();
+
+	if(hi == 0)
+		return;
+
+	while(hi--)
 	{
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm
-		_asm nop _endasm		
-	}	
+		lo = 0xFE; /* Skip one loop */
+		while(lo--) Delay1Us();
+	}
 }
 /** EOF interrupt.c **********************************************************/
