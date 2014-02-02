@@ -22,9 +22,19 @@
     <pic name="12F635" upp_family="P12F6XX" upp_devid="0xFA0" upp_devidmask="0x33FE0"/>
     <pic name="12F675" upp_family="P12F629" upp_devid="0xFC0" upp_devidmask="0x33FE0"/>
     <pic name="12F683" upp_family="P12F6XX" upp_devid="0x460" upp_devidmask="0x33FE0"/>
+    <pic name="12F1501" upp_family="P16F150X"  upp_devid="0x2CC0" upp_devidmask="0x33FE0"/>
+    <pic name="12LF1501" upp_family="P16F150X" upp_devid="0x2D80" upp_devidmask="0x33FE0"/>
     <pic name="12F1822" upp_family="P16F18XX" upp_devid="0x2700" upp_devidmask="0x33FE0"/>
     <pic name="12LF1822" upp_family="P16F18XX" upp_devid="0x2800" upp_devidmask="0x33FE0"/>
     <pic name="12F1840" upp_family="P16F18XX" upp_devid="0x1B80" upp_devidmask="0x33FE0"/>
+    <pic name="16F1503" upp_family="P16F150X"  upp_devid="0x2CE0" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1503" upp_family="P16F150X" upp_devid="0x2DA0" upp_devidmask="0x33FE0"/>
+    <pic name="16F1507" upp_family="P16F150X"  upp_devid="0x2D00" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1507" upp_family="P16F150X" upp_devid="0x2DC0" upp_devidmask="0x33FE0"/>
+    <pic name="16F1508" upp_family="P16F150X"  upp_devid="0x2D20" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1508" upp_family="P16F150X" upp_devid="0x2DE0" upp_devidmask="0x33FE0"/>
+    <pic name="16F1509" upp_family="P16F150X"  upp_devid="0x2D40" upp_devidmask="0x33FE0"/>
+    <pic name="16LF1509" upp_family="P16F150X" upp_devid="0x2E00" upp_devidmask="0x33FE0"/>
     <pic name="16F1823" upp_family="P16F18XX" upp_devid="0x2720" upp_devidmask="0x33FE0"/>
     <pic name="16LF1823" upp_family="P16F18XX" upp_devid="0x2820" upp_devidmask="0x33FE0"/>
     <pic name="16F1824" upp_family="P16F18XX" upp_devid="0x2740" upp_devidmask="0x33FE0"/>
@@ -428,3 +438,4 @@
     <pic name="24XX512" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="24XX1025" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
 </upp>
+

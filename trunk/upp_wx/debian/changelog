@@ -1,3 +1,27 @@
+usbpicprog (140106-4) saucy; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:50 +0100
+
+usbpicprog (140106-3) raring; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:36 +0100
+
+usbpicprog (140106-2) quantal; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:22 +0100
+
+usbpicprog (140106-1) precise; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:25:54 +0100
+
 usbpicprog (131113-4) saucy; urgency=low
 
   * Building against wxWidgets 3.0
