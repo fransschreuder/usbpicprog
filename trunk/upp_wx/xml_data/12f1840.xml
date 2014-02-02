@@ -7,13 +7,13 @@
 <!--* the Free Software Foundation; either version 2 of the License, or    *-->
 <!--* (at your option) any later version.                                  *-->
 <!--************************************************************************-->
-<device name="12F1840" status="IP" memory_technology="FLASH" self_write="no" id_high_voltage="0x1b80"
-        architecture="16X" id="0x1B80" id_low_power="0x2800"
+<device name="12F1840" status="IP" memory_technology="FLASH" self_write="yes" id_high_voltage="0x1B80"
+        architecture="emidrange" id="0x1B80" id_low_power="0x2800"
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:noNamespaceSchemaLocation='pic.xsd'>
 
 <!--* Documents ************************************************************-->
-  <documents webpage="549758" datasheet="41413" progsheet="41441B" erratas="80538A" />
+  <documents webpage="549758" datasheet="41441" progsheet="41439B" erratas="80538A" />
 
 <!--* Checksums ************************************************************-->
   <checksums>
@@ -54,9 +54,9 @@
       <value value="0x0002" name="HS"       def="_FOSC_HS"     />
       <value value="0x0003" name="EXTRC"    def="_FOSC_EXTRC"  />
       <value value="0x0004" name="INTOSC"   def="_FOSC_INTOSC" />
-      <value value="0x0005" name="ELC"      def="_FOSC_ECL"    />
-      <value value="0x0006" name="ECM"      def="_FOEC_ECM"    />
-      <value value="0x0007" name="ECH"      def="_FOSC_ECH"    />
+      <value value="0x0005" name="ECL"      def="_FOSC_ECLPWR" />
+      <value value="0x0006" name="ECM"      def="_FOEC_ECMPWR" />
+      <value value="0x0007" name="ECH"      def="_FOSC_ECHPWR" />
     </mask>
     <mask name="WDT"   value="0x0018" >
       <value value="0x0000" name="Off"      def="_WDTE_OFF"    />
@@ -82,7 +82,7 @@
     </mask>
     <mask name="BOREN" value="0x0600" >
       <value value="0x0000" name="Off"      def="_BOREN_OFF"    />
-      <value value="0x0200" name="Software" def="_BOREN_SBODEN" />
+      <value value="0x0200" name="Software" def="_BOREN_SBOREN" />
       <value value="0x0400" name="On_run"   def="_BOREN_NSLEEP" />
       <value value="0x0600" name="On"       def="_BOREN_ON"     />
     </mask>
@@ -100,7 +100,7 @@
     </mask>
   </config>
 
-  <config offset="0x2" name="CONFIG2" wmask="0x3FFF" bvalue="0x3713" >
+  <config offset="0x1" name="CONFIG2" wmask="0x3FFF" bvalue="0x3713" >
     <mask name="WRT"  value="0x0003" >
       <value value="0x0000" name="0000:07FF" def="_WRT_ALL"  />
       <value value="0x0001" name="0000:03FF" def="_WRT_HALF" />
@@ -132,12 +132,12 @@
 <!--* Packages *************************************************************-->
   <package types="pdip soic dfn dfns" nb_pins="8" >
     <pin index="1" name="VDD"                         />
-    <pin index="2" name="GP5/T1CKI/OSC1/CLKIN"        />
-    <pin index="3" name="GP4/AN3/T1G/OSC2/CLKOUT"     />
-    <pin index="4" name="GP3/MCLR/VPP"                />
-    <pin index="5" name="GP2/AN2/T0CKI/INT/COUT/CCP1" />
-    <pin index="6" name="GP1//ICSPCLKAN1/C1IN-/VREF"  />
-    <pin index="7" name="GP0/ICSPDAT/AN0/C1IN+/ULPWU" />
+    <pin index="2" name="RA5/OS1/CI"        />
+    <pin index="3" name="RA4/AN3/OS2/CO"     />
+    <pin index="4" name="RA3/MCLR/VPP"                />
+    <pin index="5" name="RA2/AN2/T0CKI/INT/COUT/CCP1" />
+    <pin index="6" name="RA1/ICSPCLK/AN1/C1IN-/VREF"  />
+    <pin index="7" name="RA0/ICSPDAT/AN0/C1IN+/ULPWU" />
     <pin index="8" name="VSS"                         />
   </package>
 

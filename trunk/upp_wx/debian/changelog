@@ -22,6 +22,54 @@ usbpicprog (140106-1) precise; urgency=low
 
  -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:25:54 +0100
 
+usbpicprog (131114.1-4) saucy; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 15:02:50 +0100
+
+usbpicprog (131114.1-3) raring; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 15:02:33 +0100
+
+usbpicprog (131114.1-2) quantal; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 15:02:23 +0100
+
+usbpicprog (131114.1-1) precise; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 15:01:59 +0100
+
+usbpicprog (131114-4) saucy; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:59:10 +0100
+
+usbpicprog (131114-3) raring; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:59:00 +0100
+
+usbpicprog (131114-2) quantal; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:53:52 +0100
+
+usbpicprog (131114-1) precise; urgency=low
+
+  * Added support for 12F1840
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Thu, 14 Nov 2013 10:14:00 +0100
+
 usbpicprog (131113-4) saucy; urgency=low
 
   * Building against wxWidgets 3.0
