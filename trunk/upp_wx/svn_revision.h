@@ -1,2 +1,2 @@
 // generated file
-#define UPP_VERSION "usbpicprog 0.6.0"
+#define SVN_REVISION "usbpicprog 140202"
