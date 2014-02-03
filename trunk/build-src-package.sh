@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="precise quantal raring saucy"
+DISTS="saucy trusty"
 
 if [ $# -ne 0 ]
 then
