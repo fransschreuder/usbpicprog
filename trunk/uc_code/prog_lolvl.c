@@ -386,6 +386,8 @@ void pic_send_word_14_bits( unsigned int payload )
 	clock_delay();
 	PGChigh();
 	clock_delay();
+	clock_delay();
+	clock_delay();
 	PGClow();
 	clock_delay();
 	for( i = 0; i < 14; i++ )
