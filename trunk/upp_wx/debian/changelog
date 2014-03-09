@@ -1,3 +1,51 @@
+usbpicprog (140202-4) saucy; urgency=low
+
+  * Implemented 12F1501, 16F1503, 7, 8, 9
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 02 Feb 2014 18:01:57 +0100
+
+usbpicprog (140202-3) raring; urgency=low
+
+  * Implemented 12F1501, 16F1503, 7, 8, 9
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 02 Feb 2014 18:01:43 +0100
+
+usbpicprog (140202-2) quantal; urgency=low
+
+  * Implemented 12F1501, 16F1503, 7, 8, 9
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 02 Feb 2014 18:01:30 +0100
+
+usbpicprog (140202-1) precise; urgency=low
+
+  * Implemented 12F1501, 16F1503, 7, 8, 9
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 02 Feb 2014 18:00:47 +0100
+
+usbpicprog (140106-4) saucy; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:50 +0100
+
+usbpicprog (140106-3) raring; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:36 +0100
+
+usbpicprog (140106-2) quantal; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:26:22 +0100
+
+usbpicprog (140106-1) precise; urgency=low
+
+  * fixed operating voltages for 18F14k22
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 06 Jan 2014 22:25:54 +0100
+
 usbpicprog (131114.1-4) saucy; urgency=low
 
   * Added support for 12F1840

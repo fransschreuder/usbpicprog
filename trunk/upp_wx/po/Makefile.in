@@ -37,7 +37,11 @@ DATADIRNAME = share
 itlocaledir = $(prefix)/$(DATADIRNAME)/locale
 subdir = po
 install_sh = ${SHELL} /home/frans/usbpicprog/trunk/upp_wx/install-sh
+<<<<<<< HEAD
 # Automake >= 1.8 provides $(MKDIR_P).
+=======
+# Automake >= 1.8 provides /bin/mkdir -p.
+>>>>>>> fe64a37d0bfe34383749dc9730b86cd91f29e13d
 # Until it can be supposed, use the safe fallback:
 mkdir_p = $(install_sh) -d
 

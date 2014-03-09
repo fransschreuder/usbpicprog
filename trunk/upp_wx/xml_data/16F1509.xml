@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="16F1509" document="41573" status="IP" memory_technology="FLASH" self_write="no" architecture="16X" id="0x2D40"
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='pic.xsd'>
+
+<!--* Checksums ************************************************************-->
+  <checksums>
+    <checksum protected="Off" bchecksum="0x34FE" cchecksum="0xB654" />
+    <checksum protected="All" bchecksum="0xA390" cchecksum="0x24D6" />
+  </checksums>
+
+<!--* Operat10F200.xmling characteristics ********************************************-->
+  <frequency_range name="commercial" >
+    <frequency start="0"  end="16"  vdd_min="2.3"   vdd_max="5.5" />
+    <frequency start="0"  end="20"  vdd_min="2.5" vdd_max="5.5" />
+  </frequency_range>
+  <voltages name="vpp"      min="8.0" max="9.0" nominal="9.0" />
+  <voltages name="vdd_prog" min="2.7"   max="5.5"  nominal="5"  />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"         start="0x0000" end="0x1FFF" />
+  <memory name="calibration"  start="0x8009" end="0x800A" cal_opmask="0x3C00"     cal_opcode="0x3400" />
+  <memory name="user_ids"     start="0x8000" end="0x8003" rmask="0x007F"          />
+  <memory name="device_id"    start="0x8006" end="0x8006" />
+  <memory name="config"       start="0x8007" end="0x8008" />
+  <memory name="eeprom"       start="0x0000" end="0x0000" hexfile_offset="0x8100" />
+
+<!--* Configuration bits ***************************************************-->
+    <config offset="0x0" name="config1" wmask="0x3EFF" bvalue="0x3FFF" pmask="0x3000" >
+    <mask name="FOSC"  value="0x0007" >
+      <value value="0x0007" name="ECH"           cname="_ECH_OSC"             />
+      <value value="0x0006" name="ECM"           cname="_ECM_OSC"             />
+      <value value="0x0005" name="ECL"          cname="_ECL_OSC"             />
+      <value value="0x0004" name="INTRC_IO"     cname="_INTRC_OSC_NOCLKOUT" />
+      <value value="0x0003" name="EXTRC"           cname="_EXTRC"             />
+      <value value="0x0002" name="HS"           cname="_HS_OSC"             />
+      <value value="0x0001" name="XT"          cname="_XT_OSC"             />
+      <value value="0x0000" name="LP"     cname="_LP_OSC" />
+      
+    </mask>
+    <mask name="WDT"   value="0x0018" >
+      <value value="0x0018" name="On" cname="_WDT_ON" />
+      <value value="0x0010" name="On, off during sleep"  cname="_WDT_ON_NOSLEEP"  />
+      <value value="0x0008" name="SWDTEN_controlled" cname="_WDT_SWDTEN" />
+      <value value="0x0000" name="Off"  cname="_WDT_OFF"  />
+    </mask>
+    <mask name="PWRTE" value="0x0020" >
+      <value value="0x0020" name="Off" cname="_PWRTE_OFF" />
+      <value value="0x0000" name="On"  cname="_PWRTE_ON"  />
+    </mask>
+    <mask name="MCLRE" value="0x0040" >
+      <value value="0x0000" name="Internal" cname="_MCLRE_OFF" />
+      <value value="0x0040" name="External" cname="_MCLRE_ON"  />
+    </mask>
+    <mask name="CP"    value="0x0080" >
+      <value value="0x0000" name="All" cname="_CP_ON"  />
+      <value value="0x0080" name="Off" cname="_CP_OFF" />
+    </mask>
+    <mask name="BOREN"   value="0x0600" >
+      <value value="0x0600" name="enabled" cname="_BOREN_ON"  />
+      <value value="0x0400" name="enabled, disabled during sleep" cname="_BOREN_ON_NOSLEEP" />
+      <value value="0x0200" name="controlled by SBOREN" cname="_BOREN_SBOREN"  />
+      <value value="0x0000" name="disabled" cname="_BOREN_OFF" />
+    </mask>
+    <mask name="CLKOUTEN"    value="0x0800">
+      <value value="0x0000" name="clockout enabled"   />
+      <value value="0x0800" name="clockout disabled, io"  />
+    </mask>
+    <mask name="IESO"    value="0x1000">
+      <value value="0x1000" name="Fail-Safe Clock Monitor is enabled"   />
+      <value value="0x0000" name="Fail-Safe Clock Monitor is disabled"  />
+    </mask>
+    <mask name="FCMEN"    value="0x2000">
+      <value value="0x2000" name="Internal/External Switchover mode is enabled"   />
+      <value value="0x0000" name="Internal/External Switchover mode is disabled"  />
+    </mask>
+  </config>
+  
+  <config offset="0x1" name="config2" wmask="0x3E03" bvalue="0x3FFF" pmask="0x3000" >
+    <mask name="WRT"  value="0x0003" >
+      <value value="0x0003" name="WRT_OFF"           cname="_WRT_OFF"             />
+      <value value="0x0002" name="000-0FF"           cname="_WRT_000_0FF"             />
+      <value value="0x0001" name="000-1FF"           cname="_WRT_000_1FF"             />
+      <value value="0x0000" name="000-3FF"           cname="_WRT_000_3FF"             />
+    </mask>
+    <mask name="STREN"   value="0x0200" >
+      <value value="0x0200" name="Stack overflow reset enabled" cname="_STREN_ON" />
+      <value value="0x0000" name="Stack overflow reset disabled"  cname="_STREN_OFF"  />
+    </mask>
+    <mask name="BORV" value="0x0400" >
+      <value value="0x0400" name="2.45" cname="_BORV_2_45" />
+      <value value="0x0000" name="2.70"  cname="_BORV_2_70"  />
+    </mask>
+    <mask name="BOREN" value="0x0800" >
+      <value value="0x0800" name="BOR disabled" cname="_BOR_OFF" />
+      <value value="0x0000" name="BOR enabled" cname="_BOR_ON"  />
+    </mask>
+    <mask name="DEBUG"    value="0x1000" >
+      <value value="0x1000" name="In-Circuit Debugger disabled" cname="_DEBUG_DIS"  />
+      <value value="0x0000" name="In-Circuit Debugger enabled" cname="_DEBUG_EN" />
+    </mask>
+    <mask name="CP"    value="0x2000" >
+      <value value="0x2000" name="LVP enabled" cname="_LVP_ON"  />
+      <value value="0x0000" name="LVP disabled" cname="_LVP_OFF" />
+    </mask>
+  </config>
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic tssop" nb_pins="20" >
+    <pin index="1" name="VDD"                       />
+    <pin index="2" name="RA5"      />
+    <pin index="3" name="RA4"   />
+    <pin index="4" name="MCLR/VPP/RA3" />
+    <pin index="5" name="RC5" />
+    <pin index="6" name="RC4" />
+    <pin index="7" name="RC3" />
+    <pin index="8" name="RC6" />
+    <pin index="9" name="RC7" />
+    <pin index="10" name="RB7"  />
+    <pin index="11" name="RB6"    />
+    <pin index="12" name="RB5"    />
+    <pin index="13" name="RB4"    />
+    <pin index="14" name="RC2"    />
+    <pin index="15" name="RC1"    />
+    <pin index="16" name="RC0"    />
+    <pin index="17" name="RA2"    />
+    <pin index="18" name="RA1/ICSPCLK" />
+    <pin index="19" name="RA0/ICSPDAT"      />
+    <pin index="20" name="VSS"                       />
+  </package>
+
+  <package types="qfn" nb_pins="20" >
+	<pin index="1" name="MCLR/VPP/RA3" />
+    <pin index="2" name="RC5" />
+    <pin index="3" name="RC4" />
+    <pin index="4" name="RC3" />
+    <pin index="5" name="RC6" />
+    <pin index="6" name="RC7" />
+    <pin index="7" name="RB7"  />
+    <pin index="8" name="RB6"    />
+    <pin index="9" name="RB5"    />
+    <pin index="10" name="RB4"    />
+    <pin index="11" name="RC2"    />
+    <pin index="12" name="RC1"    />
+    <pin index="13" name="RC0"    />
+    <pin index="14" name="RA2"    />
+    <pin index="15" name="RA1/ICSPCLK" />
+    <pin index="16" name="RA0/ICSPDAT"      />
+    <pin index="17" name="VSS"                       />
+    <pin index="18" name="VDD"                       />
+    <pin index="19" name="RA5"      />
+    <pin index="20" name="RA4"   />   
+  </package>
+</device>

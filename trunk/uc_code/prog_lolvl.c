@@ -397,7 +397,6 @@ void pic_send_word_14_bits( unsigned int payload )
 		clock_delay();
 
 	}
-	
 }
 
 /**
