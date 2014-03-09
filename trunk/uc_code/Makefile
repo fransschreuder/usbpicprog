@@ -6,9 +6,9 @@ LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe
 INSTALL=usbpicprog -e -s -w -f uc_code.hex
 
 FLAGS=-p=18f2550 -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
-LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
+#LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
 #depending on the compiler version you need to specify the target for the linker, use the line you need depending on linker errors
-//LDFLAGS=/m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
+LDFLAGS=/m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
 ## Source file suffix ##
 SUFFIX=c
 

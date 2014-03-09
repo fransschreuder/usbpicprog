@@ -895,6 +895,7 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error erasing the device"));
             return false;
         }
+	wxMilliSleep(500);
     }
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
@@ -926,6 +927,7 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming code memory"));
             return false;
         }
+	wxMilliSleep(500);
     }
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
@@ -956,6 +958,7 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming data memory"));
             return false;
         }
+	wxMilliSleep(500);
     }
 
     if (GetThread()->TestDestroy())
@@ -991,10 +994,12 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming config memory"));
             return false;
         }
+	wxMilliSleep(2000);
     }
     if (m_cfg.ConfigVerifyAfterProgramming)
     {
         upp_thread_verify(false, false, true);
+	wxMilliSleep(500);
     }
     return true;
 }

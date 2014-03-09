@@ -296,7 +296,7 @@ void exit_ISCP()
 	VPP_RSToff(); //hard reset, high (inverted)
 	VDDoff(); //low, (inverted)
 	disablePGC_D();
-	DelayMs( 20 );
+	DelayMs( 200 );
 }
 
 void set_address_P16( unsigned long address );
@@ -381,14 +381,10 @@ void pic_send_word( unsigned int payload )
 void pic_send_word_14_bits( unsigned int payload )
 {
 	char i;
+	payload = payload <<1;
+	payload &= 0x7FFE;
 
-	PGDlow();
-	clock_delay();
-	PGChigh();
-	clock_delay();
-	PGClow();
-	clock_delay();
-	for( i = 0; i < 14; i++ )
+	for( i = 0; i < 16; i++ )
 	{
 		if( payload & 1 )
 			PGDhigh();
@@ -401,13 +397,7 @@ void pic_send_word_14_bits( unsigned int payload )
 		clock_delay();
 
 	}
-	PGDlow();
-	clock_delay();
-	PGChigh();
-	clock_delay();
-	PGClow();
-	clock_delay();
-	clock_delay();
+	
 }
 
 /**

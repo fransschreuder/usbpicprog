@@ -36,8 +36,12 @@ extern PICTYPE pictype;
 char write_data( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
+	
 	if( lastblock & BLOCKTYPE_FIRST )
+	{
+		if(blocksize == 0) return 1; //ok, nothing to write, empty data
 		enter_ISCP();
+	}
 	if( currDevice.write_data )
 		currDevice.write_data( address, data, blocksize, lastblock );
 	else

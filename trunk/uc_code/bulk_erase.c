@@ -451,6 +451,10 @@ void bulk_erase_P12F6XX( unsigned char doRestore )
 	pic_send_14_bits( 6, 0x02, 0x3FFF ); //load data for program memory 0x3FFF << 1
 	pic_send_n_bits( 6, 0x09 ); //perform bulk erase of the user memory
 	DelayMs( 20 ); //wait Tera for erase to complete
+	exit_ISCP();
+	enter_ISCP();
+	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
+	pic_send_14_bits( 6, 0x02, 0x3FFF ); //load data for program memory 0x3FFF << 1
 	pic_send_n_bits( 6, 0x0B ); //perform bulk erase of the data memory
 	DelayMs( 20 );
 	PGDlow();
