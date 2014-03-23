@@ -530,7 +530,56 @@ void write_code_P18F13K22( unsigned long address, unsigned char* data, char bloc
 		pic_read_byte2( 4, 0x09 );
 	}
 }
+void write_code_P18FXX20( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	unsigned int i;
+	char blockcounter;
+	if( lastblock & BLOCKTYPE_FIRST )
+	{
+		pic_send( 4, 0x00, 0x8EA6);// BSF EECON1, EEPGD
+		pic_send( 4, 0x00, 0x8CA6);// BSF EECON1, CFGS
+		pic_send( 4, 0x00, 0x86A6);// BSF EECON1, WREN
+		set_address_P18( 0x3C0006 );
+		pic_send( 4, 0x0C, 0x0040 ); //Write 40h to 3C0006h to enable multi-panel writes.
+		//direct access to code memory
+		pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
+		pic_send( 4, 0x00, 0x9CA6 ); //BCF EECON1, CFGS
 
+	}
+	
+	set_address_P18( address );
+	for( blockcounter = 0; blockcounter < (blocksize); blockcounter += 8 ) //blocks of 8 bytes
+	{
+		for( i = 0; i < 6; i += 2 )
+		{
+			//write 2 bytes and post increment by 2
+			//				MSB				LSB
+			pic_send( 4, 0x0D, ((unsigned int) *(data + blockcounter + i)) | (((unsigned int) *(data + 1
+					+ blockcounter + i)) << 8) );
+		}
+		if((lastblock & BLOCKTYPE_LAST)&& (blockcounter==(blocksize-8)))
+		{
+			//write last 2 bytes of the block and start programming
+			pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter + 6)) | (((unsigned int) *(data + 7
+					+ blockcounter)) << 8) );
+		}
+		else
+		{
+			//write last 2 bytes of the block and start programming
+			pic_send( 4, 0x0C, ((unsigned int) *(data + blockcounter + 6)) | (((unsigned int) *(data + 7
+					+ blockcounter)) << 8) );
+			pic_send_n_bits( 3, 0 );
+			PGChigh(); //hold PGC high for P9 and low for P10
+			DelayMs( P9 );
+			PGClow();
+			DelayMs( P10 );
+			pic_send_word( 0x0000 );
+		}
+		pic_read_byte2( 4, 0x09 ); //perform 2 reads to increase the address by 2
+		pic_read_byte2( 4, 0x09 );
+	}
+
+}
 void write_code_P18FX220( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i;

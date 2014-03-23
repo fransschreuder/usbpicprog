@@ -25,6 +25,7 @@ void write_code_dsP30F(unsigned long address, unsigned char* data,char blocksize
 void write_code_P18F872X(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18F2XXX(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18F4XK22(unsigned long address, unsigned char* data,char blocksize, char lastblock);
+void write_code_P18FXX20(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18FX220(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18FXX31(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18F45J10(unsigned long address, unsigned char* data,char blocksize, char lastblock);
