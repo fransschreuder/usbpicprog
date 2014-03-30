@@ -43,7 +43,7 @@ LIST( P16C55X,		PIC16,	5V,		simple,		XXXX,		PIC16,		PIC16,		XXXX,		PIC16,		XXXX 
 LIST( P16C64X,		PIC16,	5V,		simple,		XXXX,		PIC16,		PIC16,		XXXX,		PIC16,		XXXX )
 LIST( P16C6XX,		PIC16,	5V,		simple,		XXXX,		PIC16,		XXXX,		P16C6XX,	XXXX,		P16C6XX )
 LIST( P16C7XX,		PIC16,	5V,		simple,		XXXX,		PIC16,		PIC16,		XXXX,		PIC16,		XXXX )
-LIST( P16F18XX,		PIC16,	5V,		simple,		P16F18XX,	PIC16,		PIC16,		P16F84A,	PIC16,		P16F18XX )
+LIST( P16F18XX,		PIC16,	5V,		P16_Vpp,	P16F18XX,	PIC16,		PIC16,		P16F84A,	PIC16,		P16F18XX )
 //    Pictype,		picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
 LIST( P16F54,		PIC10,	5V,		simple,		P16F59,		PIC10,		XXXX,		P16F54,		XXXX,		P16F54 )
 LIST( P16F57,		PIC10,	5V,		simple,		P16F59,		PIC10,		XXXX,		P16F54,		XXXX,		P16F54 )
