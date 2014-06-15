@@ -368,7 +368,6 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
     {
         if (m_abortOperations)
             return OPERATION_ABORTED;
-
         // send the command
         msg[0]=CMD_ERASE;
         if(doRestoreCalRegs)
@@ -388,7 +387,6 @@ int Hardware::bulkErase(PicType* picType, bool doRestoreCalRegs)
             disconnect();
             return nBytes;
         }
-
         //backupOscCalBandGap(picType);
         statusCallBack (100);
         return (int)msg[0];
@@ -940,7 +938,13 @@ int Hardware::autoDetectDevice()
 	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	int devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	if(devId<0)
 		return -1;
 	PicType picType = PicType::FindPIC(0x20000|devId);
@@ -950,7 +954,12 @@ int Hardware::autoDetectDevice()
 	pic24F = PicType::FindPIC(("24F04KA200"));
 	if(setPicType(&pic24F)<0)
 	return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x20000|devId);
@@ -960,7 +969,12 @@ int Hardware::autoDetectDevice()
     pic24F = PicType::FindPIC(("24EP256MC202"));
     if(setPicType(&pic24F)<0)
     return -1;
-    devId=readId();
+    if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
+	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
     if(devId<0)
         return -1;
     picType = PicType::FindPIC(0x20000|devId);
@@ -970,7 +984,12 @@ int Hardware::autoDetectDevice()
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
 		return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x10000|devId);
@@ -980,7 +999,12 @@ int Hardware::autoDetectDevice()
 	PicType pic18K = PicType::FindPIC(("18F65K22"));
 	if(setPicType(&pic18K)<0)
 		return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x10000|devId);
@@ -990,7 +1014,12 @@ int Hardware::autoDetectDevice()
 	PicType pic16 = PicType::FindPIC(("16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(devId);
@@ -1000,7 +1029,12 @@ int Hardware::autoDetectDevice()
 	pic16 = PicType::FindPIC(("16F876A"));
 	if(setPicType(&pic16)<0)
 		return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(devId);
@@ -1011,7 +1045,12 @@ int Hardware::autoDetectDevice()
 	PicType pic18 = PicType::FindPIC(("18F2550"));
 	if (setPicType(&pic18) < 0)
 		return -1;
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if (devId < 0)
 		return -1;
 
@@ -1023,7 +1062,12 @@ int Hardware::autoDetectDevice()
 	if (setPicType(&pic30) < 0)
 		return -1;
 
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
+
 	devId=readId();
+	if(m_protocol > PROT_UPP2)
+		enter_ICSP ();
 	if (devId < 0)
 		return -1;
 
@@ -1053,6 +1097,53 @@ bool Hardware::stopTarget()
 	if(setPinState(SUBCMD_PIN_PGD, PIN_STATE_INPUT)<0)return false;
 	if(setPinState(SUBCMD_PIN_PGC, PIN_STATE_0V)<0)return false;
     return true;
+}
+
+bool Hardware::enter_ICSP()
+{
+	unsigned char msg[64];
+    if (m_handle == NULL) return -1;
+
+	cout<<"enter ICSP"<<endl;
+    if (m_hwCurrent == HW_UPP)
+    {
+		msg[0]=CMD_ENTER_PROGRAMMING_MODE;
+		if (writeString(msg,1) < 0)
+		{
+			disconnect();
+			return false;
+		}
+
+        if (readString(msg,64) < 0)
+        {
+            disconnect();
+            return false;
+        }
+	}
+	return true;
+}
+
+bool Hardware::exit_ICSP()
+{
+	unsigned char msg[64];
+    if (m_handle == NULL) return -1;
+	cout<<"exit ICSP"<<endl;
+    if (m_hwCurrent == HW_UPP)
+    {
+		msg[0]=CMD_EXIT_PROGRAMMING_MODE;
+		if (writeString(msg,1) < 0)
+		{
+			disconnect();
+			return false;
+		}
+
+        if (readString(msg,64) < 0)
+        {
+            disconnect();
+            return false;
+        }
+	}
+	return true;
 }
 
 int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)

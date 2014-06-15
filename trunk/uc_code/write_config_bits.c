@@ -49,17 +49,17 @@ char write_config_bits( unsigned long address, unsigned char* data, char blocksi
 {
 
 	if( lastblock & BLOCKTYPE_FIRST )
-		enter_ISCP();
+//		enter_ISCP();
 	if( currDevice.write_config_bits )
 		currDevice.write_config_bits( address, data, blocksize, lastblock );
 	else
 	{
-		exit_ISCP();
+	//	exit_ISCP();
 		return 3;
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-		exit_ISCP();
+	//	exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -431,6 +431,7 @@ void write_config_bits_P16F18XX( unsigned long address, unsigned char* data, cha
 	unsigned int payload;
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
+		//pic_send_n_bits(6, 0x16); //reset address
 		pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 		for( i = 0; i < ((char) address); i++ )
 			pic_send_n_bits( 6, 0x06 ); //increment address until ADDRESS is reached

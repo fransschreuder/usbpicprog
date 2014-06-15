@@ -38,16 +38,16 @@ char read_code( unsigned long address, unsigned char* data, char blocksize, char
 {
 	char blockcounter = 0;
 
-	if( lastblock & BLOCKTYPE_FIRST )
-		enter_ISCP();
+//	if( lastblock & BLOCKTYPE_FIRST )
+//		enter_ISCP();
 	if( currDevice.read_code )
 		currDevice.read_code( address, data, blocksize, lastblock );
 	else
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
 			*(data + blockcounter) = 0;
 
-if( lastblock & BLOCKTYPE_LAST )
-exit_ISCP();
+//if( lastblock & BLOCKTYPE_LAST )
+//exit_ISCP();
 }
 
 void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
@@ -187,6 +187,34 @@ void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize
 		*(data + blockcounter) = pic_read_byte2( 4, 0x09 );
 	}
 }
+void read_code_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	unsigned int i;
+	char blockcounter = 0;
+	unsigned int payload;
+
+	if( lastblock & BLOCKTYPE_FIRST )
+	{
+		pic_send_n_bits(6,0x16); //reset address;
+		if( lastblock & BLOCKTYPE_CONFIG )
+		{
+			pic_send_14_bits( 6, 0x00, 0x0000 );  //Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000 (or 0x8000).
+			address &= 0xFF;
+		}
+		else
+			pic_read_14_bits( 6, 0x04 ); //read code memory	//FIXME: what does this do? - seems to be necessary to make things work
+
+		for( i = 0; i < (unsigned int) address; i++ )
+			pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
+	{
+		payload = pic_read_14_bits( 6, 0x04 ); //read code memory
+		data[blockcounter + 1] = (char) (payload >> 8);
+		data[blockcounter] = (char) payload;
+		pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+}
 void read_code_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	unsigned int i;
@@ -195,8 +223,11 @@ void read_code_PIC16( unsigned long address, unsigned char* data, char blocksize
 
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
+		exit_ISCP();
+		enter_ISCP();
 		if( lastblock & BLOCKTYPE_CONFIG )
 		{
+
 			pic_send_14_bits( 6, 0x00, 0x0000 );  //Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000 (or 0x8000).
 			address &= 0xFF;
 		}
@@ -223,6 +254,8 @@ void read_code_PIC10( unsigned long address, unsigned char* data, char blocksize
 
 	if( lastblock & BLOCKTYPE_CONFIG )		// address >= configAddress )
 	{
+		exit_ISCP();
+		enter_ISCP();
 		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
 		data[1] = (char) (payload >> 8);
 		data[0] = (char) payload;
@@ -231,6 +264,8 @@ void read_code_PIC10( unsigned long address, unsigned char* data, char blocksize
 	{
 		if( lastblock & BLOCKTYPE_FIRST )
 		{
+			exit_ISCP();
+			enter_ISCP();
 			//pic_read_14_bits(6,0x04); //read code memory
 			pic_send_n_bits( 6, 0x06 ); //increment address
 			//			for(i=0;i<10;i++);

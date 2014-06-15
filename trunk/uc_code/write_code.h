@@ -30,6 +30,7 @@ void write_code_P18FX220(unsigned long address, unsigned char* data,char blocksi
 void write_code_P18FXX31(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P18F45J10(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P16F84A(unsigned long address, unsigned char* data, char blocksize, char lastblock);
+void write_code_P16F18XX(unsigned long address, unsigned char* data, char blocksize, char lastblock);
 void write_code_P12F61X(unsigned long address, unsigned char* data,char blocksize, char lastblock);
 void write_code_P16C6XX( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void write_code_P16F72(unsigned long address, unsigned char* data,char blocksize, char lastblock);

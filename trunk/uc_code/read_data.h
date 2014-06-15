@@ -21,3 +21,4 @@
 void read_data_dsPIC30( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_data_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock );
+void read_data_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock );

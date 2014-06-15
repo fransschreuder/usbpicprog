@@ -40,15 +40,15 @@ unsigned char read_data( unsigned long address, unsigned char* data,
 {
 	char blockcounter = 0;
 
-	if( lastblock & BLOCKTYPE_FIRST )
-		enter_ISCP();
+//	if( lastblock & BLOCKTYPE_FIRST )
+//		enter_ISCP();
 	if( currDevice.read_data )
 		currDevice.read_data( address, data, blocksize, lastblock );
 	else
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
 			*(data + blockcounter) = 0;
-	if( lastblock & BLOCKTYPE_LAST )
-		exit_ISCP();
+//	if( lastblock & BLOCKTYPE_LAST )
+//		exit_ISCP();
 	return 0;
 }
 
@@ -119,6 +119,8 @@ void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize
 
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
+		exit_ISCP();
+		enter_ISCP();
 		data[0] = pic_read_14_bits( 6, 0x05 ); //read first byte
 		for( i = 0; i < (unsigned int) address; i++ )
 			pic_send_n_bits( 6, 0x06 ); //increment address
@@ -129,4 +131,21 @@ void read_data_PIC16( unsigned long address, unsigned char* data, char blocksize
 		pic_send_n_bits( 6, 0x06 ); //increment address
 	}
 }
+void read_data_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	unsigned int i;
+	char blockcounter = 0;
 
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		pic_send_n_bits(6,0x16); //reset address
+		data[0] = pic_read_14_bits( 6, 0x05 ); //read first byte
+		for( i = 0; i < (unsigned int) address; i++ )
+			pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
+	{
+		data[blockcounter] = (char) pic_read_14_bits( 6, 0x05 ); //read data memory
+		pic_send_n_bits( 6, 0x06 ); //increment address
+	}
+}

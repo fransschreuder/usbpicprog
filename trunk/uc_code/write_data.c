@@ -40,18 +40,18 @@ char write_data( unsigned long address, unsigned char* data, char blocksize, cha
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
 		if(blocksize == 0) return 1; //ok, nothing to write, empty data
-		enter_ISCP();
+//		enter_ISCP();
 	}
 	if( currDevice.write_data )
 		currDevice.write_data( address, data, blocksize, lastblock );
 	else
 	{
-		exit_ISCP();
+//		exit_ISCP();
 		return 3; //unknown pic type
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-		exit_ISCP();
+//		exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -266,7 +266,12 @@ void write_data_P16F785( unsigned long address, unsigned char* data, char blocks
 
 	char blockcounter;
 
-
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		exit_ISCP();
+		enter_ISCP();
+		set_address_P16( address ); //set the initial address
+	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		//load data
@@ -289,7 +294,12 @@ void write_data_P16F87( unsigned long address, unsigned char* data, char blocksi
 
 	char blockcounter;
 
-
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		exit_ISCP();
+		enter_ISCP();
+		set_address_P16( address ); //set the initial address
+	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		//load data
@@ -310,7 +320,12 @@ void write_data_P16F84A( unsigned long address, unsigned char* data, char blocks
 {
 	char blockcounter;
 
-
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		exit_ISCP();
+		enter_ISCP();
+		set_address_P16( address ); //set the initial address
+	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		//load data
@@ -325,10 +340,37 @@ void write_data_P16F84A( unsigned long address, unsigned char* data, char blocks
 		pic_send_n_bits( 6, 0x06 );
 	}
 }
+void write_data_P16F18XX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	char blockcounter;
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		pic_send_n_bits(6, 0x16); //reset address
+		set_address_P16( address ); //set the initial address
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
+	{
+		//load data
+		pic_send_14_bits( 6, 0x03, ((unsigned int) data[blockcounter]) );//LSB only
+		//begin programming command
+		pic_send_n_bits( 6, 0x08 );// begin programming only cycle
+		//wait Tprog
+		// 8MS, should be 20 ms for other?
+		DelayMs( Tdprog );
+		//read data from data memory (to verify) not yet impl...
+		//increment address
+		pic_send_n_bits( 6, 0x06 );
+	}
+}
 void write_data_PIC16( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter;
-
+	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
+	{
+		exit_ISCP();
+		enter_ISCP();
+		set_address_P16( address ); //set the initial address
+	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
 	{
 		//load data
