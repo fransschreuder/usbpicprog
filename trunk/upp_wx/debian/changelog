@@ -1,3 +1,19 @@
+usbpicprog (140615-2) trusty; urgency=medium
+
+  * Introduced new commands in protocol, Enter and Exit programming mode
+  * all pics (except most pic16) now stay in programming mode, between code, data, verify etc.
+  * This is also true for pic16F18XX, since it has the reset_address command 0x16
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 15 Jun 2014 14:59:42 +0200
+
+usbpicprog (140615-1) saucy; urgency=medium
+
+  * Introduced new commands in protocol, Enter and Exit programming mode
+  * all pics (except most pic16) now stay in programming mode, between code, data, verify etc.
+  * This is also true for pic16F18XX, since it has the reset_address command 0x16
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Sun, 15 Jun 2014 14:57:51 +0200
+
 usbpicprog (140323-2) trusty; urgency=low
 
   * Fixed support for many pic16 devices including pic16F628A

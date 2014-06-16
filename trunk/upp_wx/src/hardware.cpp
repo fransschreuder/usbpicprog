@@ -661,8 +661,16 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
 
 int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 {
-    if (!picType->ok()) return -1;
-    if (m_handle == NULL) return -1;
+    if (!picType->ok()) 
+	{
+		cout<<"Pictype not ok"<<endl;
+		return -1;
+	}
+    if (m_handle == NULL) 
+	{
+		cout<<"Handle is null"<<endl;
+		return -1;
+	}
 
     if (m_abortOperations)
         return OPERATION_ABORTED;
@@ -819,13 +827,19 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
             if ((blocktype==BLOCKTYPE_MIDDLE || blocktype==BLOCKTYPE_FIRST) && retCode!=2)
                 return -2;  // should ask for next block
             if (blocktype==BLOCKTYPE_LAST && retCode!=1)
+			{
+				cout<<"Blocktype returned: "<<blocktype<<endl;
                 return -1;	// should say OK
+			}
 
             // retCode == 1 means "OK, all finished"; retCode == 2 means "OK, waiting for next block"
         }
 
         if (retCode <= 0)
+		{
+			cout<<"retCode: "<<retCode<<endl;
             return -1;          // generic error (e.g. failed USB communication)
+		}
 
         if (m_abortOperations && (blocktype&BLOCKTYPE_LAST)==BLOCKTYPE_LAST)
             break;
@@ -938,13 +952,8 @@ int Hardware::autoDetectDevice()
 	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
 	int devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	if(devId<0)
 		return -1;
 	PicType picType = PicType::FindPIC(0x20000|devId);
@@ -954,12 +963,8 @@ int Hardware::autoDetectDevice()
 	pic24F = PicType::FindPIC(("24F04KA200"));
 	if(setPicType(&pic24F)<0)
 	return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x20000|devId);
@@ -969,13 +974,9 @@ int Hardware::autoDetectDevice()
     pic24F = PicType::FindPIC(("24EP256MC202"));
     if(setPicType(&pic24F)<0)
     return -1;
-    if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+    
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-    if(devId<0)
+	if(devId<0)
         return -1;
     picType = PicType::FindPIC(0x20000|devId);
     if(picType.ok())
@@ -984,12 +985,8 @@ int Hardware::autoDetectDevice()
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
 		return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x10000|devId);
@@ -999,12 +996,8 @@ int Hardware::autoDetectDevice()
 	PicType pic18K = PicType::FindPIC(("18F65K22"));
 	if(setPicType(&pic18K)<0)
 		return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(0x10000|devId);
@@ -1014,12 +1007,8 @@ int Hardware::autoDetectDevice()
 	PicType pic16 = PicType::FindPIC(("16F628A"));
 	if(setPicType(&pic16)<0)
 		return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(devId);
@@ -1029,12 +1018,8 @@ int Hardware::autoDetectDevice()
 	pic16 = PicType::FindPIC(("16F876A"));
 	if(setPicType(&pic16)<0)
 		return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
+	
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if(devId<0)
 		return -1;
 	picType = PicType::FindPIC(devId);
@@ -1045,12 +1030,7 @@ int Hardware::autoDetectDevice()
 	PicType pic18 = PicType::FindPIC(("18F2550"));
 	if (setPicType(&pic18) < 0)
 		return -1;
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if (devId < 0)
 		return -1;
 
@@ -1061,13 +1041,7 @@ int Hardware::autoDetectDevice()
 	PicType pic30 = PicType::FindPIC(("P30F1010"));
 	if (setPicType(&pic30) < 0)
 		return -1;
-
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
-
 	devId=readId();
-	if(m_protocol > PROT_UPP2)
-		enter_ICSP ();
 	if (devId < 0)
 		return -1;
 
@@ -1099,7 +1073,7 @@ bool Hardware::stopTarget()
     return true;
 }
 
-bool Hardware::enter_ICSP()
+/*bool Hardware::enter_ICSP()
 {
 	unsigned char msg[64];
     if (m_handle == NULL) return -1;
@@ -1144,7 +1118,7 @@ bool Hardware::exit_ICSP()
         }
 	}
 	return true;
-}
+}*/
 
 int Hardware::getFirmwareVersion(FirmwareVersion* firmwareVersion)
 {
@@ -1583,7 +1557,11 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
 
 int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock)
 {
-    if (m_handle == NULL) return -1;
+    if (m_handle == NULL) 
+	{
+		cout<<"Handle = NULL"<<endl;
+		return -1;
+	}
 
     unsigned char resp_msg[64];
     if (m_hwCurrent == HW_UPP)
@@ -1627,17 +1605,18 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             disconnect ();
             return nBytes;
         }
+		nBytes = readString(resp_msg,64);
+        if(nBytes<0)
+        {
+            disconnect();
+            return -1;
+        }
         if( lastblock & BLOCKTYPE_LAST ) {
-            do {
+            //do {
 
-                nBytes = readString(resp_msg,2);
-                if(nBytes<0)
-                {
-                    disconnect();
-                    return -1;
-                }
-            } while( resp_msg[0] == 2 );
-            // cout<<"Response message: "<<(int)resp_msg[0]<<endl;
+                
+            //} while( resp_msg[0] == 2 );
+            cout<<"Response message: "<<(int)resp_msg[0]<<endl;
             return (int)resp_msg[0];
         }
         else
@@ -1686,7 +1665,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             disconnect();
             return -1;
         }
-        if (readString(resp_msg,5+size) < 0)
+        if (readString(resp_msg,64) < 0)
         {
             disconnect();
             return -1;
