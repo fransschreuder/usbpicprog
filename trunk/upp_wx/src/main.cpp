@@ -321,9 +321,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     }
 	
 	// Stop Target Device
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    if(parser.Found(("ST")))
+	if(parser.Found(("ST")))
     {
         cout<<"Stopping target device"<<endl;
         if(!m_hardware.stopTarget())cout<<"Unable to stop target device"<<endl;
@@ -576,9 +574,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
             delete hexFile;
         }
     }
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    if(parser.Found(("RST")))
+	if(parser.Found(("RST")))
     {
 	int res;
 

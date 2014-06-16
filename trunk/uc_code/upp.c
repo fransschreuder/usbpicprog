@@ -181,7 +181,7 @@ void ProcessIO( void )
 	{
 		switch( input_buffer[0] ) {
 		case CMD_GET_PROTOCOL_VERSION:
-			output_buffer[0] = 3;		// version 3
+			output_buffer[0] = 2;		// version 2
 			counter = 1;
 			break;
 		case CMD_EXIT_TO_BOOTLOADER:
@@ -216,7 +216,7 @@ void ProcessIO( void )
 				read_code( 0x3FFFFE, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC16:
-//				exit_ISCP();
+				exit_ISCP();
 				//devid is at location 0x2006  for PIC16 devices
 				read_code( 0x2006, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
@@ -324,7 +324,7 @@ void ProcessIO( void )
 				counter = 1;
 				break;
 			case 1:
-//				exit_ISCP();
+				exit_ISCP();
 				output_buffer[0] = 1;
 				counter = 1;
 				break;
@@ -515,7 +515,7 @@ void ProcessIO( void )
 			}
 			counter = 1;
 			break;
-		case CMD_ENTER_PROGRAMMING_MODE:
+		/*case CMD_ENTER_PROGRAMMING_MODE:
 			enter_ISCP();
 			output_buffer[0]=1;
 			counter=1;
@@ -524,7 +524,7 @@ void ProcessIO( void )
 			exit_ISCP();
 			output_buffer[0]=1;
 			counter=1;
-			break;
+			break;*/
 		default:
 			output_buffer[0] = 3;			// unrecognized command
 			counter = 1;

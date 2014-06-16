@@ -38,16 +38,16 @@ char read_code( unsigned long address, unsigned char* data, char blocksize, char
 {
 	char blockcounter = 0;
 
-//	if( lastblock & BLOCKTYPE_FIRST )
-//		enter_ISCP();
+	if( lastblock & BLOCKTYPE_FIRST )
+		enter_ISCP();
 	if( currDevice.read_code )
 		currDevice.read_code( address, data, blocksize, lastblock );
 	else
 		for( blockcounter = 0; blockcounter < blocksize; blockcounter++ ) //fill with zeros
 			*(data + blockcounter) = 0;
 
-//if( lastblock & BLOCKTYPE_LAST )
-//exit_ISCP();
+	if( lastblock & BLOCKTYPE_LAST )
+		exit_ISCP();
 }
 
 void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
@@ -254,8 +254,6 @@ void read_code_PIC10( unsigned long address, unsigned char* data, char blocksize
 
 	if( lastblock & BLOCKTYPE_CONFIG )		// address >= configAddress )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		payload = pic_read_14_bits( 6, 0x04 ); //read config memory
 		data[1] = (char) (payload >> 8);
 		data[0] = (char) payload;
@@ -264,8 +262,6 @@ void read_code_PIC10( unsigned long address, unsigned char* data, char blocksize
 	{
 		if( lastblock & BLOCKTYPE_FIRST )
 		{
-			exit_ISCP();
-			enter_ISCP();
 			//pic_read_14_bits(6,0x04); //read code memory
 			pic_send_n_bits( 6, 0x06 ); //increment address
 			//			for(i=0;i<10;i++);

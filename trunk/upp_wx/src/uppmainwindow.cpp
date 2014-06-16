@@ -881,9 +881,7 @@ bool UppMainWindow::upp_thread_program()
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    if (m_cfg.ConfigEraseBeforeProgramming)
+	if (m_cfg.ConfigEraseBeforeProgramming)
     {
         LogFromThread(wxLOG_Message, _("Erasing before programming..."));
 
@@ -903,7 +901,7 @@ bool UppMainWindow::upp_thread_program()
 
     if (m_cfg.ConfigProgramCode)
     {
-        LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
+		LogFromThread(wxLOG_Message, _("Programming the code area of the PIC..."));
         switch(m_hardware.write(TYPE_CODE, &m_hexFile, &m_picType))
         {
         case 1:
@@ -928,15 +926,15 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming code memory"));
             return false;
         }
-	wxMilliSleep(500);
+		wxMilliSleep(500);
     }
     if (GetThread()->TestDestroy())
         return false;   // stop the operation...
 
-
+	
     if (m_cfg.ConfigProgramData)
     {
-        LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
+		LogFromThread(wxLOG_Message, _("Programming the data area of the PIC..."));
 
         switch(m_hardware.write(TYPE_DATA, &m_hexFile, &m_picType))
         {
@@ -959,7 +957,7 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming data memory"));
             return false;
         }
-	wxMilliSleep(500);
+		wxMilliSleep(500);
     }
 
     if (GetThread()->TestDestroy())
@@ -967,12 +965,12 @@ bool UppMainWindow::upp_thread_program()
 
 	if (m_cfg.ConfigVerifyAfterProgramming)
     {
-        upp_thread_verify(true, true, false);
+		upp_thread_verify(true, true, false);
+		wxMilliSleep(500);
     }
-
     if (m_cfg.ConfigProgramConfig)
     {
-        LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
+		LogFromThread(wxLOG_Message, _("Programming configuration area of the PIC..."));
 
         switch(m_hardware.write(TYPE_CONFIG, &m_hexFile, &m_picType))
         {
@@ -995,25 +993,21 @@ bool UppMainWindow::upp_thread_program()
             LogFromThread(wxLOG_Error, _("Error programming config memory"));
             return false;
         }
-	wxMilliSleep(2000);
+		wxMilliSleep(500);
     }
     if (m_cfg.ConfigVerifyAfterProgramming)
     {
-        upp_thread_verify(false, false, true);
-	wxMilliSleep(500);
+		upp_thread_verify(false, false, true);
+		wxMilliSleep(500);
     }
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    return true;
+	return true;
 }
 
 bool UppMainWindow::upp_thread_read()
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    // reset current contents:
+	// reset current contents:
     m_hexFile.newFile(&m_picType);
     if (m_cfg.ConfigProgramCode) {
         LogFromThread(wxLOG_Message, _("Reading the code area of the PIC..."));
@@ -1052,18 +1046,14 @@ bool UppMainWindow::upp_thread_read()
 
 	
     m_hexFile.trimData(&m_picType);
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    return true;
+	return true;
 }
 
 bool UppMainWindow::upp_thread_verify(bool doCode, bool doData, bool doConfig)
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
+	LogFromThread(wxLOG_Message, _("Verifying all areas of the PIC..."));
 
     wxString verifyText;
     wxString typeText;
@@ -1102,16 +1092,12 @@ bool UppMainWindow::upp_thread_verify(bool doCode, bool doData, bool doConfig)
         LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
         break;
     }
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-		m_hardware.exit_ICSP();
-    return true;
+	return true;
 }
 
 bool UppMainWindow::upp_thread_erase()
 {
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    // NOTE: this function is executed in the secondary thread context
+	// NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
 
     LogFromThread(wxLOG_Message, _("Erasing all areas of the PIC..."));
@@ -1121,18 +1107,14 @@ bool UppMainWindow::upp_thread_erase()
         LogFromThread(wxLOG_Error, _("Error erasing the device"));
         return false;
     }
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    return true;
+	return true;
 }
 
 bool UppMainWindow::upp_thread_blankcheck()
 {
     // NOTE: this function is executed in the secondary thread context
     wxASSERT(!wxThread::IsMain());
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    wxString verifyText;
+	wxString verifyText;
     wxString typeText;
 
     LogFromThread(wxLOG_Message, _("Checking if the device is blank..."));
@@ -1172,9 +1154,7 @@ bool UppMainWindow::upp_thread_blankcheck()
         LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
         break;
     }
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    return true;
+	return true;
 }
 
 bool UppMainWindow::RunThread(UppMainWindowThreadMode mode)
@@ -1495,9 +1475,7 @@ void UppMainWindow::upp_erase()
 
 void UppMainWindow::upp_restore()
 {
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    if((m_picType.picFamily!=P12F629)&&(m_picType.picFamily!=P12F508)&&(m_picType.picFamily!=P10F200)&&(m_picType.picFamily!=P10F202))
+	if((m_picType.picFamily!=P12F629)&&(m_picType.picFamily!=P12F508)&&(m_picType.picFamily!=P10F200)&&(m_picType.picFamily!=P10F202))
     {   
         wxLogError(_("Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."));
         return;
@@ -1561,8 +1539,6 @@ void UppMainWindow::upp_restore()
     if (m_hardware.bulkErase(&m_picType,false)<0)wxLogError(_("Error erasing the device"));
     if (m_hardware.restoreOscCalBandGap(&m_picType, iSelectedOscCal, selectedBandGap)<0)wxLogError(_("Error restoring Calibration Registers"));
     Reset();
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
 }
 
 
@@ -1580,9 +1556,7 @@ void UppMainWindow::upp_blankcheck()
 
 bool UppMainWindow::upp_autodetect()
 {
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.enter_ICSP();
-    if (!m_hardware.connected())
+	if (!m_hardware.connected())
     {
         wxLogError(_("The programmer is not connected"));
         return false;
@@ -1629,9 +1603,7 @@ bool UppMainWindow::upp_autodetect()
     }
 
     Reset();
-	if(m_hardware.getCurrentProtocol()>PROT_UPP2)
-			m_hardware.exit_ICSP();
-    return (devId>1);
+	return (devId>1);
 }
 
 

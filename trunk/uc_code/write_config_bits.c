@@ -49,17 +49,17 @@ char write_config_bits( unsigned long address, unsigned char* data, char blocksi
 {
 
 	if( lastblock & BLOCKTYPE_FIRST )
-//		enter_ISCP();
+		enter_ISCP();
 	if( currDevice.write_config_bits )
 		currDevice.write_config_bits( address, data, blocksize, lastblock );
 	else
 	{
-	//	exit_ISCP();
+		exit_ISCP();
 		return 3;
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-	//	exit_ISCP();
+		exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -125,14 +125,14 @@ void write_config_bits_dsP30F( unsigned long address, unsigned char* data, char 
 void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	static char blockcounter;
-
 	pic_send( 4, 0x00, 0x8EA6 ); //BSF EECON1, EEPGD
 	pic_send( 4, 0x00, 0x8CA6 ); //BSF EECON1, CFGS
+	
 	//address=0x300000;
 	//start for loop
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		set_address_P18( address + ((unsigned int) blockcounter) );
+		set_address_P18( address + ((unsigned long) blockcounter) );
 		//LSB first
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );

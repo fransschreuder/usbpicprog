@@ -53,9 +53,7 @@ typedef enum
     CMD_READ_CONFIG = 0xD2,			        // PROT_UPP1
     CMD_EXIT_TO_BOOTLOADER = 0xD3,		    // PROT_UPP1
     CMD_MREAD_CODE = 0xD4,                  // PROT_UPP2
-	CMD_ENTER_PROGRAMMING_MODE = 0xD5,		// PROT_UPP3
-	CMD_EXIT_PROGRAMMING_MODE = 0xD6,		// PROT_UPP3
-    CMD_INVALID
+	CMD_INVALID
 }CMD_UPP;
 
 typedef enum
@@ -64,8 +62,7 @@ typedef enum
 	PROT_BOOTLOADER0,			// Connected to bootloader
 	PROT_UPP0 = 100,			// Original command set to firmware
 	PROT_UPP1,				    // deleted READ_CODE(0x40) added READ_CODE(0xD1),READ_CONFIG(0xD2),EXIT_TO_BOOTLOADER(0xD3)
-	PROT_UPP2,                  // added multi-block read to READ_CODE(0xD4)
-	PROT_UPP3					// added enter and exit programming mode (D5, D6)
+	PROT_UPP2                   // added multi-block read to READ_CODE(0xD4)
 }PROTOCOL;
 
 typedef enum
@@ -360,10 +357,10 @@ public:
     bool stopTarget();
 
 	/** Enter programming mode, according to selected PIC type */
-	bool enter_ICSP(); 
+	//bool enter_ICSP(); 
 
 	/** Enter programming mode, according to selected PIC type */
-	bool exit_ICSP(); 
+	//bool exit_ICSP(); 
     
 	/** 
         Reads the firmware version of the connected hardware. 

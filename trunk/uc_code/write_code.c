@@ -39,18 +39,18 @@
 char write_code( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 
-//	if( lastblock & BLOCKTYPE_FIRST )
-//		enter_ISCP();
+	if( lastblock & BLOCKTYPE_FIRST )
+		enter_ISCP();
 	if( currDevice.write_code )
 		currDevice.write_code( address, data, blocksize, lastblock );
 	else
 	{
-		//exit_ISCP();
+		exit_ISCP();
 		return 3;
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
-//		exit_ISCP();
+		exit_ISCP();
 		return 1; //ok
 	}
 	else
@@ -728,8 +728,6 @@ void write_code_P16F84A( unsigned long address, unsigned char* data, char blocks
 
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 
@@ -759,8 +757,6 @@ void write_code_P12F61X( unsigned long address, unsigned char* data, char blocks
 
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
@@ -819,8 +815,6 @@ void write_code_P16C6XX( unsigned long address, unsigned char* data, char blocks
 	unsigned int payload;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
@@ -845,8 +839,6 @@ void write_code_P16F72( unsigned long address, unsigned char* data, char blocksi
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	//2 word programming
@@ -872,8 +864,6 @@ void write_code_P16F785( unsigned long address, unsigned char* data, char blocks
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	//4 word programming
@@ -899,8 +889,6 @@ void write_code_P16F716( unsigned long address, unsigned char* data, char blocks
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	//4 word programming
@@ -926,8 +914,6 @@ void write_code_P12F6XX( unsigned long address, unsigned char* data, char blocks
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	//4 word programming
@@ -952,8 +938,6 @@ void write_code_P16F87( unsigned long address, unsigned char* data, char blocksi
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	//4 word programming
@@ -979,8 +963,6 @@ void write_code_P16F87XA( unsigned long address, unsigned char* data, char block
 	char blockcounter;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		set_address_P16( address ); //set the initial address
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 16 ) //8 words of data = 16 bytes
@@ -1004,8 +986,6 @@ void write_code_P16F54( unsigned long address, unsigned char* data, char blocksi
 	char blockcounter;
 	if( lastblock & BLOCKTYPE_FIRST )
 	{
-		exit_ISCP();
-		enter_ISCP();
 		pic_send_n_bits( 6, 0x06 );//increment address to go from 1FF / 3FF to 0
 		set_address_P16( address ); //set the initial address
 		//pic_send_n_bits(6,0x09);//bulk erase, which is necessary anyway...

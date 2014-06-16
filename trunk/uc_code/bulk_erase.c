@@ -39,16 +39,16 @@ extern PICTYPE pictype;
  */
 char bulk_erase( unsigned char doRestore )
 {
-//	enter_ISCP();
+	enter_ISCP();
 	if( currDevice.bulk_erase )
 		currDevice.bulk_erase( doRestore );
 	else
 	{
 		PGDlow();
-//		exit_ISCP();
+		exit_ISCP();
 		return 3;
 	}
-//	exit_ISCP();
+	exit_ISCP();
 	return 1; //1 means "OK"
 }
 
@@ -284,9 +284,9 @@ void bulk_erase_P16F87X( unsigned char doRestore )
 	int i;
 
 	read_code( 0x2007, temp, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG ); //read the config word to see whether it is code protected or not
-	//exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
-	//enter_ISCP();
+	enter_ISCP();
 	DelayMs( 10 );
 	if( ((temp[1] & 0x31) < 0x31) || ((temp[0] & 0x30) < 0x30) )
 	{
@@ -336,9 +336,9 @@ void bulk_erase_P16F62X( unsigned char doRestore )
 	pic_send_n_bits( 6, 0x01 );//,0x0000);//Execute Bulk Erase Setup 1 command.
 	pic_send_n_bits( 6, 0x07 );//,0x0000);//Execute Bulk Erase Setup 2 command.
 	DelayMs( 20 );
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
-//	enter_ISCP();
+	enter_ISCP();
 	DelayMs( 10 );
 
 	pic_send_14_bits( 6, 0x00, 0x3FFF );//Execute a Load Configuration command (dataword 0x0000) to set
@@ -346,9 +346,9 @@ void bulk_erase_P16F62X( unsigned char doRestore )
 	pic_send_n_bits( 6, 0x09 ); //bulk erase program memory, userid and config memory
 	pic_send_n_bits( 6, 0x08 );//Execute Begin Erase Programming command.
 	DelayMs( 20 ); //Wait Tera + Tprog.
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
-//	enter_ISCP();
+	enter_ISCP();
 	DelayMs( 10 );
 	pic_send_14_bits( 6, 0x02, 0x3FFF );
 	pic_send_n_bits( 6, 0x0B ); //bulk erase data memory
@@ -361,9 +361,9 @@ void bulk_erase_P16F18XX( unsigned char doRestore )
 	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 	pic_send_n_bits( 6, 0x09 ); //bulk erase program memory, userid and config memory
 	DelayMs( 6 ); //wait terase
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
-//	enter_ISCP();
+	enter_ISCP();
 	DelayMs( 10 );
 	pic_send_n_bits( 6, 0x0B ); //bulk erase data memory
 	DelayMs( 6 ); //wait terase
@@ -377,9 +377,9 @@ void bulk_erase_P16F91X( unsigned char doRestore )
 		pic_send_n_bits( 6, 0x06 );//set PC to 0x3008
 	pic_send_n_bits( 6, 0x09 ); //bulk erase program memory, userid and config memory
 	DelayMs( 6 ); //wait terase
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
-//	enter_ISCP();
+	enter_ISCP();
 	DelayMs( 10 );
 	pic_send_n_bits( 6, 0x0B ); //bulk erase data memory
 	DelayMs( 6 ); //wait terase
@@ -411,7 +411,7 @@ void bulk_erase_P12F629( unsigned char doRestore )
 	pic_send_n_bits( 6, 0x0B );//e) Execute Bulk Erase Data Memory (001011).
 	DelayMs( Tera );//f) Wait TERA.
 	//h) Restore OSCCAL and BG bits.*/
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
 	if( doRestore == NORESTORE )
 		return; //do not restore bandgap and osccal registers
@@ -451,8 +451,8 @@ void bulk_erase_P12F6XX( unsigned char doRestore )
 	pic_send_14_bits( 6, 0x02, 0x3FFF ); //load data for program memory 0x3FFF << 1
 	pic_send_n_bits( 6, 0x09 ); //perform bulk erase of the user memory
 	DelayMs( 20 ); //wait Tera for erase to complete
-//	exit_ISCP();
-//	enter_ISCP();
+	exit_ISCP();
+	enter_ISCP();
 	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
 	pic_send_14_bits( 6, 0x02, 0x3FFF ); //load data for program memory 0x3FFF << 1
 	pic_send_n_bits( 6, 0x0B ); //perform bulk erase of the data memory
@@ -482,7 +482,7 @@ void bulk_erase_P10F200( unsigned char doRestore )
 	DelayMs( 10 );
 	set_address_P16( 0x104 );
 	osccal = pic_read_14_bits( 6, 0x04 );
-//	exit_ISCP();
+	exit_ISCP();
 	temp[0] = (unsigned char) (osccal & 0xFF);
 	temp[1] = (unsigned char) ((osccal >> 8) & 0xFF);
 	write_code( 0xFF, temp, 2, 3 );
@@ -502,7 +502,7 @@ void bulk_erase_P10F202( unsigned char doRestore )
 		return; //do not restore bandgap and osccal registers
 	set_address_P16( 0x204 );
 	osccal = pic_read_14_bits( 6, 0x04 );
-//	exit_ISCP();
+	exit_ISCP();
 	DelayMs( 10 );
 	temp[0] = (unsigned char) (osccal & 0xFF);
 	temp[1] = (unsigned char) ((osccal >> 8) & 0xFF);
