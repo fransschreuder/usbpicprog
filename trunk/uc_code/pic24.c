@@ -73,6 +73,8 @@
 #include "prog_lolvl.h"
 #include "device.h"
 
+extern unsigned char ConfigLimitPGDPGC;
+
 unsigned char p16b_do_write( void )
 {
 	unsigned char ctr;

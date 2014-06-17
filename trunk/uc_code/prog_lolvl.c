@@ -40,6 +40,10 @@
 #endif
 #define I2C_delay()	Delay10TCYx(2)		// approx 2x 1.3us min
 
+unsigned char ConfigDisableVDD=0;
+unsigned char ConfigLimitVPP=0;
+unsigned char ConfigLimitPGDPGC=0;
+
 void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 {
 	if( level == 0 )

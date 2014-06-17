@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 21 2009)
+// C++ code generated with wxFormBuilder (version Jan 29 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -39,6 +39,9 @@ class UppPreferencesDialogBase : public wxDialog
 		wxCheckBox* m_pCheckboxProgramData;
 		wxCheckBox* m_pCheckboxEraseBeforeProgramming;
 		wxCheckBox* m_pCheckboxVerifyAfterProgramming;
+		wxCheckBox* m_checkBoxSelfPowered;
+		wxCheckBox* m_checkBoxLimitVPP;
+		wxCheckBox* m_checkBoxLimitPGDPGC;
 		wxCheckBox* m_pCheckboxVerifyCode;
 		wxCheckBox* m_pCheckboxVerifyConfig;
 		wxCheckBox* m_pCheckboxVerifyData;

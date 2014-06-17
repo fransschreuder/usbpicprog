@@ -30,7 +30,7 @@
 #include "prog.h"
 #include "interrupt.h"
 #include "prog_lolvl.h"
-
+extern unsigned char ConfigLimitPGDPGC;
 /**
  This function reads a block of data from the data eeprom of size blocksize into *data
  call this function only once.

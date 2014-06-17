@@ -1,3 +1,15 @@
+usbpicprog (140616-2) trusty; urgency=medium
+
+  * Reverted last commit, except reset_address for 16F18XX
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 16 Jun 2014 22:21:53 +0200
+
+usbpicprog (140616-1) saucy; urgency=medium
+
+  * Reverted last commit, except reset_address for 16F18XX
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Mon, 16 Jun 2014 22:21:25 +0200
+
 usbpicprog (140615-2) trusty; urgency=medium
 
   * Introduced new commands in protocol, Enter and Exit programming mode

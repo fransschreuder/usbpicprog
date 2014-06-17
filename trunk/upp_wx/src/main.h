@@ -142,6 +142,9 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 	{ wxCMD_LINE_OPTION, "f", _("file"),        _("hexfile"),wxCMD_LINE_VAL_STRING,wxCMD_LINE_PARAM_OPTIONAL },
 	{ wxCMD_LINE_OPTION, "RO",		    _("restore-osccal"), _("Restore Osccal Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
 	{ wxCMD_LINE_OPTION, "RB",	 	    _("restore-bandgap"), _("Restore BandGap Register"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+	{ wxCMD_LINE_SWITCH, "VDDDIS", _("disable-vdd"),     _("Device is self powered, disable VDD") },
+	{ wxCMD_LINE_SWITCH, "LIMVPP", _("limit-vpp"),     _("Limit VPP to 5V") },
+	{ wxCMD_LINE_SWITCH, "LIMPGDPGC", _("limit-pgd-pgc"),     _("Limit PGD and PGC to 3.3V") },
 
 	{ wxCMD_LINE_NONE }
 };

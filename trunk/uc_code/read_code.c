@@ -30,7 +30,7 @@
 #include "prog.h"
 #include "interrupt.h"
 #include "prog_lolvl.h"
-
+extern unsigned char ConfigLimitPGDPGC;
 /**
  read_program will read program memory, id's and configuration bits
  **/
