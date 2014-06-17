@@ -59,7 +59,10 @@ void UppPreferencesDialog::OnOk(wxCommandEvent& WXUNUSED(event))
     m_cfg.ConfigEraseBeforeProgramming=m_pCheckboxEraseBeforeProgramming->IsChecked();
     m_cfg.ConfigShowPopups=m_pCheckboxShowPopups->IsChecked();
 	m_cfg.ConfigLocalize=m_pCheckboxLocalize->IsChecked();
-	m_cfg.ConfigAutoDetect=m_pCheckboxAutoDetect->IsChecked();	
+	m_cfg.ConfigAutoDetect=m_pCheckboxAutoDetect->IsChecked();
+	m_cfg.ConfigDisableVDD=m_checkBoxSelfPowered->IsChecked();
+	m_cfg.ConfigLimitVPP=m_checkBoxLimitVPP->IsChecked();
+	m_cfg.ConfigLimitPGDPGC=m_checkBoxLimitPGDPGC->IsChecked();
 
     EndModal(wxID_OK);
 }
@@ -78,4 +81,8 @@ void UppPreferencesDialog::SetConfigFields(const UppPreferences& cf)
     m_pCheckboxShowPopups->SetValue(cf.ConfigShowPopups);
 	m_pCheckboxLocalize->SetValue(cf.ConfigLocalize);
 	m_pCheckboxAutoDetect->SetValue(cf.ConfigAutoDetect);
+
+    m_checkBoxSelfPowered->SetValue(cf.ConfigDisableVDD);
+	m_checkBoxLimitVPP->SetValue(cf.ConfigLimitVPP);
+	m_checkBoxLimitPGDPGC->SetValue(cf.ConfigLimitPGDPGC);
 }

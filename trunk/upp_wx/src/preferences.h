@@ -38,6 +38,9 @@ typedef struct {
     bool ConfigShowPopups;
 	bool ConfigLocalize;
 	bool ConfigAutoDetect;
+	bool ConfigDisableVDD;
+	bool ConfigLimitVPP;
+	bool ConfigLimitPGDPGC;
 } UppPreferences;
 
 /**

@@ -1051,6 +1051,34 @@ int Hardware::autoDetectDevice()
 	return -1;
 }
 
+int Hardware::applySettings(bool ConfigDisableVDD, bool ConfigLimitVPP, bool ConfigLimitPGDPGC)
+{
+	unsigned char msg[64];
+	if(m_hwCurrent != HW_UPP)return -1;
+	if(m_protocol < PROT_UPP3)return -1;
+	if(!connected()) return -1;
+	msg[0] = CMD_APPLY_SETTINGS;
+	msg[1] = 0;
+	if(ConfigDisableVDD)  msg[1] |= CONFIG_DISABLE_VDD_MASK;
+	if(ConfigLimitVPP)    msg[1] |= CONFIG_LIMIT_VPP_MASK;
+	if(ConfigLimitPGDPGC) msg[1] |= CONFIG_LIMIT_PGDPGC_MASK;
+
+	int nBytes=-1;
+
+	if (writeString(msg,2) < 0)
+    {
+	    disconnect();
+        return -1;
+    }
+    nBytes = readString(msg,64);
+	if (nBytes < 0)
+	{
+		disconnect();
+        return -1;
+    }
+	if(msg[0]!=1) return -1;
+	return 1;
+}
 
 bool Hardware::runTarget()
 {

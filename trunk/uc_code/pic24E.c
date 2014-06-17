@@ -31,7 +31,7 @@
 #include "device.h"
 #include <delays.h>
 int write_status;
-
+extern unsigned char ConfigLimitPGDPGC;
 void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
 unsigned char p24E_do_write( void ) {

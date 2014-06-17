@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 21 2009)
+// C++ code generated with wxFormBuilder (version Jan 29 2014)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -37,6 +37,15 @@ UppPreferencesDialogBase::UppPreferencesDialogBase( wxWindow* parent, wxWindowID
 	
 	m_pCheckboxVerifyAfterProgramming = new wxCheckBox( this, wxID_ANY, _("Verify after programming"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer5->Add( m_pCheckboxVerifyAfterProgramming, 0, wxALL, 5 );
+	
+	m_checkBoxSelfPowered = new wxCheckBox( this, wxID_ANY, _("Device is self powered (disable VDD)"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer5->Add( m_checkBoxSelfPowered, 0, wxALL, 5 );
+	
+	m_checkBoxLimitVPP = new wxCheckBox( this, wxID_ANY, _("Limit VPP to 5V"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer5->Add( m_checkBoxLimitVPP, 0, wxALL, 5 );
+	
+	m_checkBoxLimitPGDPGC = new wxCheckBox( this, wxID_ANY, _("Limit PGD and PGC to 3.3V"), wxDefaultPosition, wxDefaultSize, 0 );
+	sbSizer5->Add( m_checkBoxLimitPGDPGC, 0, wxALL, 5 );
 	
 	bSizer7->Add( sbSizer5, 0, wxALL|wxEXPAND, 10 );
 	

@@ -132,7 +132,7 @@
 #define enableVDD()	TRISVDD=0
 #define trisVDD()	TRISVDD=1
 #define VDDoff()	VDD=1
-#define VDDon()		VDD=0
+#define VDDon()		if(ConfigDisableVDD==0)VDD=0
 #define enablePGC()	TRISPGC=0
 //#define trisPGC()	TRISPGC=1
 #define PGClow()	PGC=0
@@ -147,8 +147,8 @@
 #define VPP_RSTon()	VPP_RST=1
 #define enableVPP()	TRISVPP=0
 #define trisVPP()	TRISVPP=1
-#define VPPoff()	VPP=1
-#define VPPon()		VPP=0
+#define VPPoff()	{if(ConfigLimitVPP==0)VPP=1;else{VPP_RUNoff();}}
+#define VPPon()		{if(ConfigLimitVPP==0)VPP=0;else{VPP_RUNon();}}
 
 /** Voltage pump ****************************************************/
 #define Pump1 LATAbits.LATA0

@@ -49,6 +49,10 @@ byte input_buffer[USBGEN_EP_SIZE];
 byte output_buffer[USBGEN_EP_SIZE];
 #pragma udata
 
+extern unsigned char ConfigDisableVDD;
+extern unsigned char ConfigLimitVPP;
+extern unsigned char ConfigLimitPGDPGC;
+
 rom char upp_version[] = {
 		SVN_REVISION };
 
@@ -181,7 +185,7 @@ void ProcessIO( void )
 	{
 		switch( input_buffer[0] ) {
 		case CMD_GET_PROTOCOL_VERSION:
-			output_buffer[0] = 2;		// version 2
+			output_buffer[0] = PROT_UPP;		// see upp.h
 			counter = 1;
 			break;
 		case CMD_EXIT_TO_BOOTLOADER:
@@ -515,16 +519,22 @@ void ProcessIO( void )
 			}
 			counter = 1;
 			break;
-		/*case CMD_ENTER_PROGRAMMING_MODE:
-			enter_ISCP();
+		case CMD_APPLY_SETTINGS:
+			if(input_buffer[1]&CONFIG_DISABLE_VDD_MASK)
+				ConfigDisableVDD=1;
+			else
+				ConfigDisableVDD=0;
+			if(input_buffer[1]&CONFIG_LIMIT_VPP_MASK)
+				ConfigLimitVPP=1;
+			else
+				ConfigLimitVPP=0;
+			if(input_buffer[1]&CONFIG_LIMIT_PGDPGC_MASK)
+				ConfigLimitPGDPGC=1;
+			else
+				ConfigLimitPGDPGC=0;
 			output_buffer[0]=1;
 			counter=1;
 			break;
-		case CMD_EXIT_PROGRAMMING_MODE:
-			exit_ISCP();
-			output_buffer[0]=1;
-			counter=1;
-			break;*/
 		default:
 			output_buffer[0] = 3;			// unrecognized command
 			counter = 1;

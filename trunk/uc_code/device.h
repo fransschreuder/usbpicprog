@@ -47,7 +47,7 @@ typedef struct {
 		unsigned int family:5;
 		 }flags;
 } DEVICE_t;
-#define is3_3V()	currDevice.flags.p3_3V
+#define is3_3V()	currDevice.flags.p3_3V||(ConfigLimitPGDPGC==1)
 extern rom DEVICE_t devices[];
 extern DEVICE_t currDevice;
 extern rom char *rom pictypeName[];

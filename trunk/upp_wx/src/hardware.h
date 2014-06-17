@@ -53,6 +53,7 @@ typedef enum
     CMD_READ_CONFIG = 0xD2,			        // PROT_UPP1
     CMD_EXIT_TO_BOOTLOADER = 0xD3,		    // PROT_UPP1
     CMD_MREAD_CODE = 0xD4,                  // PROT_UPP2
+	CMD_APPLY_SETTINGS = 0xD5,				// PROT_UPP3
 	CMD_INVALID
 }CMD_UPP;
 
@@ -62,7 +63,8 @@ typedef enum
 	PROT_BOOTLOADER0,			// Connected to bootloader
 	PROT_UPP0 = 100,			// Original command set to firmware
 	PROT_UPP1,				    // deleted READ_CODE(0x40) added READ_CODE(0xD1),READ_CONFIG(0xD2),EXIT_TO_BOOTLOADER(0xD3)
-	PROT_UPP2                   // added multi-block read to READ_CODE(0xD4)
+	PROT_UPP2,                  // added multi-block read to READ_CODE(0xD4)
+	PROT_UPP3					// added configuration to limit VDD, VPP and PGD, PGC
 }PROTOCOL;
 
 typedef enum
@@ -99,6 +101,10 @@ typedef enum
     CMD_BOOT_UPDATE_LED = 0x32,
     CMD_BOOT_RESET = 0xFF
 }CMD_BOOT;
+
+#define CONFIG_DISABLE_VDD_MASK 0x1
+#define CONFIG_LIMIT_VPP_MASK 0x2
+#define CONFIG_LIMIT_PGDPGC_MASK 0x4
 
 
 #define BLOCKTYPE_MIDDLE 0
@@ -291,6 +297,8 @@ public:
     */
     int setPicType(PicType* picType);
 
+	int applySettings(bool ConfigDisableVDD, bool ConfigLimitVPP, bool ConfigLimitPGDPGC);
+	
 
     /** 
         Gives the hardware the command to reboot.

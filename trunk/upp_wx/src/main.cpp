@@ -295,6 +295,13 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
     }
     if(!m_hardware.connected())	//no usbpicprog found? try the bootloader
 		m_hardware.connect(NULL, HW_BOOTLOADER); 
+	else
+	{
+		bool DisableVDD = parser.Found("VDDDIS");
+		bool LimitVPP = parser.Found("LIMVPP");
+		bool LimitPGDPGC = parser.Found("LIMPGDPGC");
+		m_hardware.applySettings (DisableVDD, LimitVPP, LimitPGDPGC);
+	}
     if(!m_hardware.connected()) //no bootloader found either...
     {
         cerr<<" Usbpicprog not found"<<endl;

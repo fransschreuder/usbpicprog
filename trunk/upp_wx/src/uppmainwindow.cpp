@@ -132,6 +132,12 @@ UppMainWindow::UppMainWindow(Hardware& hardware, wxWindow* parent, wxWindowID id
 		m_cfg.ConfigLocalize=true;
 	if ( !pCfg->Read(("ConfigAutoDetect"), &m_cfg.ConfigAutoDetect))
 		m_cfg.ConfigAutoDetect=true;
+	if ( !pCfg->Read(("ConfigDisableVDD"), &m_cfg.ConfigDisableVDD))
+		m_cfg.ConfigDisableVDD=false;
+	if ( !pCfg->Read(("ConfigLimitVPP"), &m_cfg.ConfigLimitVPP))
+		m_cfg.ConfigLimitVPP=false;
+	if ( !pCfg->Read(("ConfigLimitPGDPGC"), &m_cfg.ConfigLimitPGDPGC))
+		m_cfg.ConfigLimitPGDPGC=false;
     m_history.Load(*pCfg);
 
     // non-GUI init:
@@ -191,6 +197,9 @@ UppMainWindow::~UppMainWindow()
     pCfg->Write(("ConfigLocalize"), m_cfg.ConfigLocalize);
     pCfg->Write(("ConfigAutoDetect"), m_cfg.ConfigAutoDetect);
     pCfg->Write(("SelectedPIC"), m_pPICChoice->GetSelection());
+	pCfg->Write(("ConfigDisableVDD"), m_cfg.ConfigDisableVDD);
+	pCfg->Write(("ConfigLimitVPP"), m_cfg.ConfigLimitVPP);
+	pCfg->Write(("ConfigLimitPGDPGC"), m_cfg.ConfigLimitPGDPGC);
     m_history.Save(*pCfg);
 }
 
@@ -1650,6 +1659,7 @@ bool UppMainWindow::upp_connect(bool reset)
 
             if (!firmwareVersion.isBootloader)
                 checkFirmwareVersion(firmwareVersion);
+			m_hardware.applySettings(m_cfg.ConfigDisableVDD, m_cfg.ConfigLimitVPP, m_cfg.ConfigLimitPGDPGC);
         }
     }
     else
@@ -1713,6 +1723,8 @@ void UppMainWindow::upp_preferences()
     dlg.SetConfigFields(m_cfg);
     if (dlg.ShowModal() == wxID_OK)
         m_cfg = dlg.GetResult();
+	if(m_hardware.connected()&&m_hardware.getCurrentHardware()==HW_UPP)
+		m_hardware.applySettings(m_cfg.ConfigDisableVDD, m_cfg.ConfigLimitVPP, m_cfg.ConfigLimitPGDPGC);
 }
 
 void UppMainWindow::upp_help()
