@@ -1,3 +1,15 @@
+usbpicprog (140617-2) trusty; urgency=medium
+
+  * Added options to disable VDD, limit VPP to 5V and limit PGD and PGC to 3.3V
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 17 Jun 2014 22:05:38 +0200
+
+usbpicprog (140617-1) saucy; urgency=medium
+
+  * Added options to disable VDD, limit VPP to 5V and limit PGD and PGC to 3.3V
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 17 Jun 2014 22:05:02 +0200
+
 usbpicprog (140616-2) trusty; urgency=medium
 
   * Reverted last commit, except reset_address for 16F18XX
