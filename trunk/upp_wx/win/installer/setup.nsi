@@ -176,12 +176,12 @@ proceed:
   File ..\..\xml_data\*.xml
 
   SetOutPath "$INSTDIR\driver"
-  ;File ..\..\win\driver\*.inf
-  File ..\..\win\driver\wdi-simple.exe
-  ;File ..\..\win\driver\dpinst.xml
+  File ..\..\win\driver\*.inf
+  File ..\..\win\driver\${ARCH}\dpinst.exe
+  File ..\..\win\driver\dpinst.xml
 
-  ;SetOutPath "$INSTDIR\driver\${ARCH}"
-  ;File ..\..\win\driver\${ARCH}\*.dll
+  SetOutPath "$INSTDIR\driver\${ARCH}"
+  File ..\..\win\driver\${ARCH}\*.dll
   
   ; Create uninstaller
   WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -217,16 +217,12 @@ proceed:
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
-  ; Last, run the libusb driver installer redistributable
-  DetailPrint "Running the wdi_simple utility to install UsbPicProg's drivers"
-  ExecWait '"$INSTDIR\driver\wdi-simple.exe" -n usbpicprog.org -v 0x04d8 -d 0x000e -t 0' $0
+  ; Last, run the Microsoft driver installer redistributable
+  DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
+  ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
   IntFmt $2 "0x%08X" $0
   DetailPrint "Return code was $2"
-  DetailPrint "Running the wdi_simple utility to install UsbPicProg bootloader drivers"
-  ExecWait '"$INSTDIR\driver\wdi-simple.exe" -n usbpicprog-boot -v 0x04d8 -d 0x000b -t 0' $0
-  IntFmt $2 "0x%08X" $0
-  DetailPrint "Return code was $2"
-      
+
    
   ; check the higher byte of the return value of DPINST; it can assume the values:
   ; 0x80 if a driver package could NOT be installed
