@@ -15,6 +15,8 @@ WORKDIR="$HOME/projects"
 PREFIX_ppc="$WORKDIR/sw/ppc"
 # This is where the i386 version of wxWidgets will be installed.
 PREFIX_i386="$WORKDIR/sw/i386"
+# This is where the i386 version of wxWidgets will be installed.
+PREFIX_x86_64="$WORKDIR/sw/x86_64"
 # This is where the ppc version of wxWidgets will be installed.
 PREFIX_ppc_cocoa="$WORKDIR/sw/ppc_cocoa"
 # This is where the i386 version of wxWidgets will be installed.
