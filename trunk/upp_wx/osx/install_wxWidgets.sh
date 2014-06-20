@@ -101,7 +101,7 @@ make distclean
 # not the one bundled with Apple. THIS IS NECESSARY OR usbpicprog WILL FAIL
 # WHEN BUILDING!
 arch_flags="-arch x86_64 $sdk_flags"
-../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_i386" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
+../configure "$qt_flags" CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --disable-shared --with-libiconv-prefix=/opt/local/ --prefix="$PREFIX_x86_64" CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
 make -j 2
 make install
 make distclean
