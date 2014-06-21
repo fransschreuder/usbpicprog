@@ -13,8 +13,8 @@ then
   RELEASE=$1
 else
   cd ..
-  RELEASE=$(svnversion -n)
-  RELEASE=${RELEASE:0:3}
+  RELEASE=$(date +"%y%m%d")
+  RELEASE=${RELEASE:0:6}
 fi
 
 

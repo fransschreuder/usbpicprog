@@ -62,15 +62,31 @@ arch_flags="-arch i386 $sdk_flags"
 make -j 2
 make install
 
-# Copy the ppc version to the target dir.
+# Copy the i386 version to the target dir.
 cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_i386
 
+# Cleanup before building again
+make clean
+
+# Export path so that we use the correct version of wxWidgets
+export PATH="$PREFIX_x86_64"/bin:"$PREFIX_x86_64"/sbin:$PATH
+arch_flags="-arch x86_64 $sdk_flags"
+../../configure CFLAGS="$arch_flags" CXXFLAGS="$arch_flags" CPPFLAGS="$arch_flags" LDFLAGS="$arch_flags" OBJCFLAGS="$arch_flags" OBJCXXFLAGS="$arch_flags" --prefix=${OUTPUTPATH}/src/usbpicprog.app/Contents/MacOS/output CC=gcc-4.0 CXX=g++-4.0 LD=g++-4.0
+
+# Build and install for x86_64
+make -j 2
+make install
+
+# Copy the x86_64 version to the target dir.
+cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_x86_64
+
 # Create the universal binary, everything else is "universal" anyways...
-lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
+lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 "$PREFIX_app"/usbpicprog_x86_64 -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
 
 # Cleanup
 rm "$PREFIX_app"/usbpicprog_ppc 
 rm "$PREFIX_app"/usbpicprog_i386
+rm "$PREFIX_app"/usbpicprog_x86_64
 
 # Make an app of everything
 cp -r src/usbpicprog.app/Contents/MacOS/output/lib/locale src/usbpicprog.app/po
