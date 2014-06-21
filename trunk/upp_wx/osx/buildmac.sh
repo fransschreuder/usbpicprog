@@ -81,7 +81,7 @@ make install
 cp src/usbpicprog.app/Contents/MacOS/output/bin/usbpicprog "$PREFIX_app"/usbpicprog_x86_64
 
 # Create the universal binary, everything else is "universal" anyways...
-lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 "$PREFIX_app"/usbpicprog_x86_64  -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
+lipo "$PREFIX_app"/usbpicprog_ppc "$PREFIX_app"/usbpicprog_i386 "$PREFIX_app"/usbpicprog_x86_64 -create -output src/usbpicprog.app/Contents/MacOS/usbpicprog
 
 # Cleanup
 rm "$PREFIX_app"/usbpicprog_ppc 

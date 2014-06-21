@@ -4,7 +4,6 @@ also is x86_64 compatible. OS X version compability is 10.5+
 
 Created by Gustav Johansson 2010-03-11
 
-
 1. CONTENTS
 	1. Contents
 	2. Requirements
@@ -36,12 +35,20 @@ messages and install anyhing that is missing.
 NOTE: You must use the +universal flag whenever installing a port! Example:
 To install wget, type:
 
-sudo port install wget +universal
+sudo port install libtool +universal
 
 Other ports that are necessary:
-bash
-libusb
-libiconv
+
+sudo port install wget 
+sudo port install bash
+sudo port install libtool +universal
+sudo port install intltool +universal
+sudo port install glib2 +universal
+sudo port install libidn +universal
+sudo port install libusb +universal
+sudo port install zlib +universal
+sudo port install libiconv +universal
+sudo port install expat +universal
 
 3. Howto install
 
@@ -56,8 +63,5 @@ Run the buildmac.sh script which will build "usbpicprog" twice and create
 a universal app by combining the builds internally.
 
 Run the create_disk_image.sh to create a disk image of the app.
-
-All scripts with a "cocoa" in it is for Cocoa-build... NOTE: Cocoa is
-EXPERIMENTAL in wxWidgets!
 
 All done!
