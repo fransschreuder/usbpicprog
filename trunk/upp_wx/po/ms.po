@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-26 08:54+0200\n"
+"POT-Creation-Date: 2014-06-21 21:49+0200\n"
 "PO-Revision-Date: 2011-04-12 09:13+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: usbpicprog <info@usbpicprog.org>\n"
@@ -22,26 +22,26 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1629 src/uppmainwindow.cpp:1657
-#: src/uppmainwindow.cpp:1659
+#: src/uppmainwindow.cpp:1654 src/uppmainwindow.cpp:1683
+#: src/uppmainwindow.cpp:1685
 msgid " Connected"
 msgstr "Tersambung"
 
-#: src/main.cpp:381
+#: src/main.cpp:388
 msgid " and "
 msgstr "dan"
 
-#: src/uppmainwindow.cpp:1070
+#: src/uppmainwindow.cpp:1088
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr "gagal pada 0x%X. Read: 0x%02X, Expected: 0x%02X"
 
-#: src/uppmainwindow.cpp:648
+#: src/uppmainwindow.cpp:658
 #, c-format
 msgid "%s [%d pins]"
 msgstr "%s [%d pins]"
 
-#: src/uppmainwindow.cpp:623
+#: src/uppmainwindow.cpp:633
 #, c-format
 msgid "%s datasheet"
 msgstr "%s datasheet"
@@ -50,15 +50,15 @@ msgstr "%s datasheet"
 msgid "&About"
 msgstr "&Mengenai Kami"
 
-#: src/uppmainwindow.cpp:369
+#: src/uppmainwindow.cpp:379
 msgid "&Actions"
 msgstr "&Tindakkan"
 
-#: src/uppmainwindow.cpp:272
+#: src/uppmainwindow.cpp:282
 msgid "&Autodetect..."
 msgstr "&Pengesanan Auto..."
 
-#: src/uppmainwindow.cpp:268
+#: src/uppmainwindow.cpp:278
 msgid "&Blankcheck..."
 msgstr "&Pastikan Memori Kosong..."
 
@@ -70,7 +70,7 @@ msgstr "&Salin"
 msgid "&Edit"
 msgstr "&Sunting"
 
-#: src/uppmainwindow.cpp:259
+#: src/uppmainwindow.cpp:269
 msgid "&Erase..."
 msgstr "&Memadamkan..."
 
@@ -102,11 +102,11 @@ msgstr "&Pilihan"
 msgid "&Preferences"
 msgstr "&Aturan"
 
-#: src/uppmainwindow.cpp:247
+#: src/uppmainwindow.cpp:257
 msgid "&Program..."
 msgstr "&Memuaturun Program..."
 
-#: src/uppmainwindow.cpp:251
+#: src/uppmainwindow.cpp:261
 msgid "&Read..."
 msgstr "&Baca..."
 
@@ -118,19 +118,19 @@ msgstr "&Muat Semula"
 msgid "&Save"
 msgstr "&Simpan"
 
-#: src/uppmainwindow.cpp:332
+#: src/uppmainwindow.cpp:342
 msgid "&Select PIC..."
 msgstr "&Pilih PIC..."
 
-#: src/uppmainwindow.cpp:294
+#: src/uppmainwindow.cpp:304
 msgid "&Upgrade firmware"
 msgstr ""
 
-#: src/uppmainwindow.cpp:255
+#: src/uppmainwindow.cpp:265
 msgid "&Verify..."
 msgstr "&Mengesahkan..."
 
-#: src/uppmainwindow.cpp:575
+#: src/uppmainwindow.cpp:585
 msgid ""
 ". \n"
 "\n"
@@ -156,29 +156,29 @@ msgstr "3.3V"
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:787 src/uppmainwindow.cpp:791
+#: src/uppmainwindow.cpp:796 src/uppmainwindow.cpp:800
 msgid "All operations completed"
 msgstr "Semua operasi selesai"
 
-#: src/uppmainwindow.cpp:1720
+#: src/uppmainwindow.cpp:1748
 msgid "An open source USB pic programmer"
 msgstr "Sebuah USB pic programmer sumber terbuka"
 
-#: src/preferences_base.cpp:60
+#: src/preferences_base.cpp:69
 msgid "Autodetect on Connect"
 msgstr ""
 
-#: src/uppmainwindow.cpp:1134
+#: src/uppmainwindow.cpp:1149
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
 "Kenalpasti memori kosong gagal pada 0x%X. Read: 0x%02X, Expected: 0x%02X"
 
-#: src/uppmainwindow.cpp:269
+#: src/uppmainwindow.cpp:279
 msgid "Blankcheck the PIC device"
 msgstr "Kenalpasti Memori PIC kosong"
 
-#: src/uppmainwindow.cpp:1670 src/uppmainwindow.cpp:1672
+#: src/uppmainwindow.cpp:1696 src/uppmainwindow.cpp:1698
 msgid "Bootloader or programmer not found"
 msgstr "Bootloader atau programmer tidak dijumpai"
 
@@ -199,15 +199,15 @@ msgstr "Dilarang memuatkan '%s'."
 msgid "Cannot load XML PIC data."
 msgstr "Dilarang memuatkan maklumat XML PIC."
 
-#: src/uppmainwindow.cpp:1762 src/uppmainwindow.cpp:1790
+#: src/uppmainwindow.cpp:1790 src/uppmainwindow.cpp:1818
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "Dilarang memilih PIC lain semasa bootloader masih tersambung!"
 
-#: src/uppmainwindow.cpp:333
+#: src/uppmainwindow.cpp:343
 msgid "Change the currently selected PIC"
 msgstr "Tukar PIC"
 
-#: src/uppmainwindow.cpp:1114
+#: src/uppmainwindow.cpp:1129
 msgid "Checking if the device is blank..."
 msgstr "Memeriksa jika memori peranti adalah kosong"
 
@@ -215,7 +215,7 @@ msgstr "Memeriksa jika memori peranti adalah kosong"
 msgid "Code"
 msgstr "Kod"
 
-#: src/hexfile.cpp:708
+#: src/hexfile.cpp:707
 msgid "Code Memory\n"
 msgstr "Memori Kod\n"
 
@@ -223,7 +223,7 @@ msgstr "Memori Kod\n"
 msgid "Code memory size:"
 msgstr "Saiz Memori Kod:"
 
-#: src/uppmainwindow.cpp:636
+#: src/uppmainwindow.cpp:646
 #, c-format
 msgid "Code memory size: %d bytes"
 msgstr "Saiz Memori Kod: %d bytes"
@@ -240,7 +240,7 @@ msgstr "Konfigurasi flags"
 msgid "Configuration flags for this PIC:"
 msgstr "Konfigurasi flags untuk PIC ini:"
 
-#: src/preferences_base.cpp:58
+#: src/preferences_base.cpp:67
 #, fuzzy
 msgid "Connect Options"
 msgstr "&Pilihan"
@@ -257,7 +257,7 @@ msgstr "Salin"
 msgid "Could not access the 'xml_data' folder."
 msgstr "Gagal mengakses folder 'xml'_data'"
 
-#: src/uppmainwindow.cpp:1194
+#: src/uppmainwindow.cpp:1208
 msgid "Could not create the worker thread!"
 msgstr "Gagal mencipta 'worker thread'!"
 
@@ -297,7 +297,7 @@ msgstr "Gagal memulakan libusb: %s"
 msgid "Could not load data for PIC '%s'."
 msgstr "Gagal memuaturun maklumat ke dalam PIC '%s'."
 
-#: src/hexfile.cpp:342
+#: src/hexfile.cpp:341
 msgid "Could not open Hex file for writing..."
 msgstr "Dilarang membuka fail Hex ketika memuaturun program..."
 
@@ -305,7 +305,7 @@ msgstr "Dilarang membuka fail Hex ketika memuaturun program..."
 msgid "Could not open Hex file..."
 msgstr "Gagal membuka fail Hex..."
 
-#: src/uppmainwindow.cpp:1200
+#: src/uppmainwindow.cpp:1213
 msgid "Could not run the worker thread!"
 msgstr "Gagal menjalankan 'worker thread'!"
 
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Data"
 msgstr "Maklumat"
 
-#: src/hexfile.cpp:226
+#: src/hexfile.cpp:225
 msgid "Data in hex file outside code memory of PIC"
 msgstr "Maklumat dalam fail Hex tidak terkandung dalam kod memori PIC"
 
@@ -344,7 +344,7 @@ msgstr "Maklumat dalam fail Hex tidak terkandung dalam kod memori PIC"
 msgid "Data in hex file outside config memory of PIC"
 msgstr "Maklumat dalam fail Hex tidak terkandung dalam konfigurasi memori PIC"
 
-#: src/hexfile.cpp:211
+#: src/hexfile.cpp:210
 msgid "Data in hex file outside data memory of PIC"
 msgstr "Maklumat dalam fail Hex tidak terkandung dalam data memori PIC"
 
@@ -352,7 +352,7 @@ msgstr "Maklumat dalam fail Hex tidak terkandung dalam data memori PIC"
 msgid "Data memory size:"
 msgstr "Saiz memori maklumat:"
 
-#: src/uppmainwindow.cpp:637
+#: src/uppmainwindow.cpp:647
 #, c-format
 msgid "Data memory size: %d bytes"
 msgstr "Saiz memori maklumat: %d bytes"
@@ -361,11 +361,11 @@ msgstr "Saiz memori maklumat: %d bytes"
 msgid "Datasheet"
 msgstr "Datasheet"
 
-#: src/uppmainwindow.cpp:273
+#: src/uppmainwindow.cpp:283
 msgid "Detect the type of the PIC device"
 msgstr "Mengesan jenis PIC"
 
-#: src/uppmainwindow.cpp:1581
+#: src/uppmainwindow.cpp:1607
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "Dikesan: model PIC %s dengan ID peranti 0x%X"
@@ -374,20 +374,28 @@ msgstr "Dikesan: model PIC %s dengan ID peranti 0x%X"
 msgid "Device ID:"
 msgstr "ID Peranti:"
 
-#: src/uppmainwindow.cpp:635
+#: src/uppmainwindow.cpp:645
 #, c-format
 msgid "Device ID: 0x%X"
 msgstr "ID Peranti:: 0x%X"
 
-#: src/uppmainwindow.cpp:1122
+#: src/uppmainwindow.cpp:1137
 msgid "Device is blank"
 msgstr "Peranti kosong."
 
-#: src/uppmainwindow.cpp:1139
+#: src/uppmainwindow.cpp:1154
 msgid "Device is not blank."
 msgstr "Peranti TIDAK kosong."
 
-#: src/uppmainwindow.cpp:1687 src/uppmainwindow.cpp:1689
+#: src/preferences_base.cpp:41
+msgid "Device is self powered (disable VDD)"
+msgstr ""
+
+#: src/main.h:145
+msgid "Device is self powered, disable VDD"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1713 src/uppmainwindow.cpp:1715
 msgid "Disconnected"
 msgstr "Sambungan terputus"
 
@@ -399,7 +407,7 @@ msgstr "&Keluar"
 msgid "Edit"
 msgstr "Sunting"
 
-#: src/uppmainwindow.cpp:891
+#: src/uppmainwindow.cpp:900
 msgid "Erase OK"
 msgstr "Berjaya memadam"
 
@@ -407,15 +415,15 @@ msgstr "Berjaya memadam"
 msgid "Erase before programming"
 msgstr "Kosongkan sebelum memuaturun program"
 
-#: src/uppmainwindow.cpp:260
+#: src/uppmainwindow.cpp:270
 msgid "Erase the PIC device"
 msgstr "Kosongkan PIC "
 
-#: src/uppmainwindow.cpp:1095
+#: src/uppmainwindow.cpp:1112
 msgid "Erasing all areas of the PIC..."
 msgstr "Memadamkan keseluruhan PIC..."
 
-#: src/uppmainwindow.cpp:886
+#: src/uppmainwindow.cpp:895
 msgid "Erasing before programming..."
 msgstr "Memadam sebelum memprogram..."
 
@@ -424,8 +432,8 @@ msgstr "Memadam sebelum memprogram..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Ralat pada antaramuka peranti USB: %s"
 
-#: src/main.cpp:395 src/uppmainwindow.cpp:894 src/uppmainwindow.cpp:1099
-#: src/uppmainwindow.cpp:1522
+#: src/main.cpp:402 src/uppmainwindow.cpp:903 src/uppmainwindow.cpp:1116
+#: src/uppmainwindow.cpp:1548
 msgid "Error erasing the device"
 msgstr "Ralat semasa mengosongkan peranti"
 
@@ -438,31 +446,31 @@ msgstr "Ralat mendapatkan 'USB endpoint descriptor': %s"
 msgid "Error in checksum..."
 msgstr "Ralat dalam semakan..."
 
-#: src/uppmainwindow.cpp:925
+#: src/uppmainwindow.cpp:935
 msgid "Error programming code memory"
 msgstr "Ralat memprogramkan kod memori..."
 
-#: src/uppmainwindow.cpp:990
+#: src/uppmainwindow.cpp:1002
 msgid "Error programming config memory"
 msgstr "Ralat memprogramkan konfigurasi memori"
 
-#: src/uppmainwindow.cpp:955
+#: src/uppmainwindow.cpp:966
 msgid "Error programming data memory"
 msgstr "Ralat memprogramkan data memori"
 
-#: src/uppmainwindow.cpp:1011
+#: src/uppmainwindow.cpp:1025
 msgid "Error reading code memory"
 msgstr "Ralat membaca kod memori"
 
-#: src/uppmainwindow.cpp:1032
+#: src/uppmainwindow.cpp:1050
 msgid "Error reading configuration memory"
 msgstr "Ralat membaca konfigurasi memori"
 
-#: src/uppmainwindow.cpp:1021
+#: src/uppmainwindow.cpp:1037
 msgid "Error reading data memory"
 msgstr "Ralat membaca data memori"
 
-#: src/main.cpp:397 src/uppmainwindow.cpp:1523
+#: src/main.cpp:404 src/uppmainwindow.cpp:1549
 msgid "Error restoring Calibration Registers"
 msgstr "Ralat memulihkan 'Calibration Registers'"
 
@@ -488,7 +496,7 @@ msgstr "FLOAT"
 msgid "Failure in hex file..."
 msgstr "Kegagalan pada fail Hex..."
 
-#: src/uppmainwindow.cpp:559
+#: src/uppmainwindow.cpp:569
 msgid "Firmware probably too new"
 msgstr "Kemungkinan Firmware terlebih baru"
 
@@ -508,7 +516,7 @@ msgstr ""
 "   MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:634
+#: src/uppmainwindow.cpp:644
 #, c-format
 msgid ""
 "Frequency range:\n"
@@ -519,7 +527,7 @@ msgstr ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 
-#: src/preferences_base.cpp:66
+#: src/preferences_base.cpp:75
 msgid "GUI options"
 msgstr "Pilihan GUI"
 
@@ -527,7 +535,7 @@ msgstr "Pilihan GUI"
 msgid "Global settings for Usbpicprog:"
 msgstr "Aturan Utama Usbpicprog:"
 
-#: src/uppmainwindow.cpp:1259
+#: src/uppmainwindow.cpp:1272
 msgid "HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"
 msgstr ""
 
@@ -539,7 +547,7 @@ msgstr "Lihat 'code area' PIC dalam Hexadecimal:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Lihat 'data area' PIC dalam Hexadecimal:"
 
-#: src/uppmainwindow.cpp:1083 src/uppmainwindow.cpp:1148
+#: src/uppmainwindow.cpp:1101 src/uppmainwindow.cpp:1163
 msgid "I'm sorry for being stupid"
 msgstr "Saya pohon maaf kerana macam bodoh"
 
@@ -559,7 +567,7 @@ msgstr ""
 "Voltan pada pin VPP dan pin-pin yang lain akan dikemaskini sekali setiap 1 "
 "saat dan di paparkan dengan tulisan Bold dibawah."
 
-#: src/uppmainwindow.cpp:1169
+#: src/uppmainwindow.cpp:1183
 msgid "Initializing..."
 msgstr "Memulakan..."
 
@@ -577,16 +585,16 @@ msgstr "Fail '%s' adalah fail yang salah"
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "PIC family untuk PIC '%s' adalah salah"
 
-#: src/pictype.cpp:799
+#: src/pictype.cpp:803
 msgid "Invalid direction"
 msgstr "'Direction' tidak sah"
 
-#: src/pictype.cpp:819
+#: src/pictype.cpp:823
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "'Odd pin count' tidak sah: %d"
 
-#: src/pictype.cpp:870
+#: src/pictype.cpp:874
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "'Pin count' tidak sah: %d"
@@ -596,11 +604,19 @@ msgstr "'Pin count' tidak sah: %d"
 msgid "Length: %d bits"
 msgstr "Kepanjangan: %d bits"
 
+#: src/main.h:147 src/preferences_base.cpp:47
+msgid "Limit PGD and PGC to 3.3V"
+msgstr ""
+
+#: src/main.h:146 src/preferences_base.cpp:44
+msgid "Limit VPP to 5V"
+msgstr ""
+
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
 msgstr "Memuatkan fail Hex untuk disunting atau diprogramkan..."
 
-#: src/preferences_base.cpp:71
+#: src/preferences_base.cpp:80
 msgid "Localize Usbpicprog in your System Language"
 msgstr "Localize Usbpicprog in your System Language"
 
@@ -613,20 +629,20 @@ msgstr "Lokasi dalam memori: 0x%X"
 msgid "Miscellaneous"
 msgstr "Pelbagai"
 
-#: src/uppmainwindow.cpp:1574
+#: src/uppmainwindow.cpp:1600
 msgid "No PIC detected!"
 msgstr "Tiada PIC dikesan!"
 
-#: src/uppmainwindow.cpp:1576
+#: src/uppmainwindow.cpp:1602
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Tiada PIC dikesan! Memilih PIC yang default (%s)..."
 
-#: src/hardware.cpp:863
+#: src/hardware.cpp:896
 msgid "No data to verify"
 msgstr "Tiada data untuk disahkan"
 
-#: src/uppmainwindow.cpp:1325 src/uppmainwindow.cpp:1326
+#: src/uppmainwindow.cpp:1351 src/uppmainwindow.cpp:1352
 msgid "No file to refresh"
 msgstr "Tiada fail untuk dimuat semula"
 
@@ -634,7 +650,7 @@ msgstr "Tiada fail untuk dimuat semula"
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Nota: Pin merah digunakan untuk ICSP (untuk kes-kes tertentu)."
 
-#: src/uppmainwindow.cpp:1463
+#: src/uppmainwindow.cpp:1489
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr ""
 "Hanya sah pada PIC12F629, PIC12F508, 10F20X dan peranti yang sewaktu "
@@ -645,12 +661,12 @@ msgstr ""
 msgid "Open a .hex file from the examples folder"
 msgstr "Memuatkan fail Hex dari folder contoh"
 
-#: src/uppmainwindow.cpp:1258
+#: src/uppmainwindow.cpp:1271
 #, fuzzy
 msgid "Open firmware file"
 msgstr "Buka fail Hex"
 
-#: src/uppmainwindow.cpp:1236 src/uppmainwindow.cpp:1289
+#: src/uppmainwindow.cpp:1249 src/uppmainwindow.cpp:1315
 msgid "Open hexfile"
 msgstr "Buka fail Hex"
 
@@ -658,11 +674,11 @@ msgstr "Buka fail Hex"
 msgid "Opens the Usbpicprog's website..."
 msgstr "Buka laman sesawang Usbpicprog..."
 
-#: src/uppmainwindow.cpp:750
+#: src/uppmainwindow.cpp:759
 msgid "Operations aborted"
 msgstr "Operasi dibatalkan"
 
-#: src/uppmainwindow.cpp:793
+#: src/uppmainwindow.cpp:802
 msgid "Operations completed with errors/warnings"
 msgstr "Operasi selesai dengan ralat/amaran"
 
@@ -682,40 +698,40 @@ msgstr "info PIC"
 msgid "Package"
 msgstr "Pakej"
 
-#: src/uppmainwindow.cpp:521
+#: src/uppmainwindow.cpp:531
 msgid "Please confirm"
 msgstr "Sila pastikan"
 
-#: src/main.cpp:390
+#: src/main.cpp:397
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Sila tetapkan satu nilai BandGap dari 0 hingga 3"
 
-#: src/uppmainwindow.cpp:1516
+#: src/uppmainwindow.cpp:1542
 msgid "Please specify a bandgap value"
 msgstr "Sila tetapkan satu nilai BandGap"
 
-#: src/uppmainwindow.cpp:1484
+#: src/uppmainwindow.cpp:1510
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
 msgstr "Sila tetapkan semula nilai Osccal [0xC00 - 0xCFF]"
 
-#: src/uppmainwindow.cpp:1491
+#: src/uppmainwindow.cpp:1517
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Sila tetapkan semula nilai Osccal [3400 - 37FF]"
 
-#: src/main.cpp:381
+#: src/main.cpp:388
 msgid "Please specify an Oscal Value between "
 msgstr "Sila tetapkan semula nilai Osccal antara"
 
-#: src/uppmainwindow.cpp:1503
+#: src/uppmainwindow.cpp:1529
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
 msgstr "Sila tetapkan semula nilai Osccal antara %X dan %X"
 
-#: src/uppmainwindow.cpp:737
+#: src/uppmainwindow.cpp:747
 msgid "Please wait until the operations are completed:\n"
 msgstr "Sila tunggu sehingga operasi selesai:\n"
 
-#: src/preferences_base.h:54
+#: src/preferences_base.h:57
 msgid "Preferences"
 msgstr "Aturan"
 
@@ -723,19 +739,19 @@ msgstr "Aturan"
 msgid "Program options"
 msgstr "Pilihan Program"
 
-#: src/uppmainwindow.cpp:248
+#: src/uppmainwindow.cpp:258
 msgid "Program the PIC device"
 msgstr "Muaturun program PIC"
 
-#: src/uppmainwindow.cpp:970
+#: src/uppmainwindow.cpp:982
 msgid "Programming configuration area of the PIC..."
 msgstr "Muaturun PIC 'configuration area'"
 
-#: src/uppmainwindow.cpp:903
+#: src/uppmainwindow.cpp:913
 msgid "Programming the code area of the PIC..."
 msgstr "Muaturun PIC 'code area'"
 
-#: src/uppmainwindow.cpp:935
+#: src/uppmainwindow.cpp:946
 msgid "Programming the data area of the PIC..."
 msgstr "Muaturun PIC 'data area'"
 
@@ -753,7 +769,7 @@ msgstr ""
 "    MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:629
+#: src/uppmainwindow.cpp:639
 #, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
@@ -766,7 +782,7 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
-#: src/uppmainwindow.cpp:1168
+#: src/uppmainwindow.cpp:1182
 msgid "Progress dialog"
 msgstr "paparan kemajuan proses"
 
@@ -774,23 +790,23 @@ msgstr "paparan kemajuan proses"
 msgid "RESET"
 msgstr "RESET"
 
-#: src/uppmainwindow.cpp:252
+#: src/uppmainwindow.cpp:262
 msgid "Read the PIC device"
 msgstr "Baca peranti PIC"
 
-#: src/uppmainwindow.cpp:1008
+#: src/uppmainwindow.cpp:1022
 msgid "Reading the code area of the PIC..."
 msgstr "Membaca 'code area' PIC"
 
-#: src/uppmainwindow.cpp:1029
+#: src/uppmainwindow.cpp:1047
 msgid "Reading the configuration area of the PIC..."
 msgstr "Membaca configuration area' PIC "
 
-#: src/uppmainwindow.cpp:1018
+#: src/uppmainwindow.cpp:1034
 msgid "Reading the data area of the PIC..."
 msgstr "Membaca 'data area' PIC"
 
-#: src/uppmainwindow.cpp:1252
+#: src/uppmainwindow.cpp:1265
 msgid ""
 "Reboot option not available in this firmware, please remove the select "
 "jumper and disconnect / reconnect your usbpicprog."
@@ -809,7 +825,7 @@ msgstr "Reset 'code, configuration dan data areas' untuk fail Hex semasa"
 msgid "Restore BandGap Register"
 msgstr "Pulihkan 'BandGap Register'"
 
-#: src/uppmainwindow.cpp:264
+#: src/uppmainwindow.cpp:274
 msgid "Restore Cal regs..."
 msgstr "Pulihkan 'Cal regs'..."
 
@@ -817,11 +833,11 @@ msgstr "Pulihkan 'Cal regs'..."
 msgid "Restore Osccal Register"
 msgstr "Pulihkan 'Osccal Register'"
 
-#: src/uppmainwindow.cpp:265
+#: src/uppmainwindow.cpp:275
 msgid "Restore PIC's calibration registers"
 msgstr "Pulihkan 'PIC's calibration registers'"
 
-#: src/uppmainwindow.cpp:277 src/uppmainwindow.cpp:423
+#: src/uppmainwindow.cpp:287 src/uppmainwindow.cpp:433
 msgid "Run Target"
 msgstr "Jalankan Mikropengawal"
 
@@ -829,7 +845,7 @@ msgstr "Jalankan Mikropengawal"
 msgid "Save &As"
 msgstr "Simpan &Sebagai"
 
-#: src/uppmainwindow.cpp:1363
+#: src/uppmainwindow.cpp:1389
 msgid "Save hexfile"
 msgstr "Simpan fail Hex"
 
@@ -853,11 +869,11 @@ msgstr "Pilih Semua"
 msgid "Selects the entire grid currently shown"
 msgstr "Pilih keseluruhan grid yang terpapar"
 
-#: src/uppmainwindow.cpp:282
+#: src/uppmainwindow.cpp:292
 msgid "Set 0V to MCLR to stop the target controller"
 msgstr "Set 0V pada MCLR untuk mematikan mikropengawal"
 
-#: src/uppmainwindow.cpp:278
+#: src/uppmainwindow.cpp:288
 msgid "Set 5V to MCLR to run the target controller"
 msgstr "Set 5V pada MCLR untuk menjalankan mikropengawal"
 
@@ -865,7 +881,7 @@ msgstr "Set 5V pada MCLR untuk menjalankan mikropengawal"
 msgid "Shows informations about this program"
 msgstr "Papar informasi mengenai program ini"
 
-#: src/preferences_base.cpp:68
+#: src/preferences_base.cpp:77
 msgid "Shows popups on connect etc..."
 msgstr "Papar pop-up ketika disambungkan..."
 
@@ -873,19 +889,19 @@ msgstr "Papar pop-up ketika disambungkan..."
 msgid "Shows the options for this program"
 msgstr "Paparkan aturan untuk program ini"
 
-#: src/uppmainwindow.cpp:1516
+#: src/uppmainwindow.cpp:1542
 msgid "Specify a bandgap value"
 msgstr "Tentukan nilai 'bandgap'"
 
-#: src/uppmainwindow.cpp:1485 src/uppmainwindow.cpp:1492
+#: src/uppmainwindow.cpp:1511 src/uppmainwindow.cpp:1518
 msgid "Specify a new Osccal Value"
 msgstr "Tentukan nilai baru Osccal"
 
-#: src/uppmainwindow.cpp:281 src/uppmainwindow.cpp:425
+#: src/uppmainwindow.cpp:291 src/uppmainwindow.cpp:435
 msgid "Stop Target"
 msgstr "Matikan Mikropengawal"
 
-#: src/uppmainwindow.cpp:632
+#: src/uppmainwindow.cpp:642
 #, c-format
 msgid ""
 "Supply voltage (Vdd):\n"
@@ -898,27 +914,27 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
-#: src/uppmainwindow.cpp:518
+#: src/uppmainwindow.cpp:528
 #, c-format
 msgid ""
 "The HEX file '%s' has not been saved... its content will be lost; continue?"
 msgstr ""
 "Fail HEX '%s' tidak disimpan...segala kandungannya akan hilang; teruskan?"
 
-#: src/uppmainwindow.cpp:913 src/uppmainwindow.cpp:946
-#: src/uppmainwindow.cpp:981
+#: src/uppmainwindow.cpp:923 src/uppmainwindow.cpp:957
+#: src/uppmainwindow.cpp:993
 msgid "The hardware should ask for next block"
 msgstr "Hardware sepatutnya meminta blok seterusnya"
 
-#: src/uppmainwindow.cpp:910 src/uppmainwindow.cpp:943
-#: src/uppmainwindow.cpp:978
+#: src/uppmainwindow.cpp:920 src/uppmainwindow.cpp:954
+#: src/uppmainwindow.cpp:990
 msgid "The hardware should say OK"
 msgstr "Hardware sepatutnya OK"
 
-#: src/uppmainwindow.cpp:1404 src/uppmainwindow.cpp:1416
-#: src/uppmainwindow.cpp:1433 src/uppmainwindow.cpp:1445
-#: src/uppmainwindow.cpp:1468 src/uppmainwindow.cpp:1532
-#: src/uppmainwindow.cpp:1544 src/uppmainwindow.cpp:1737
+#: src/uppmainwindow.cpp:1430 src/uppmainwindow.cpp:1442
+#: src/uppmainwindow.cpp:1459 src/uppmainwindow.cpp:1471
+#: src/uppmainwindow.cpp:1494 src/uppmainwindow.cpp:1558
+#: src/uppmainwindow.cpp:1570 src/uppmainwindow.cpp:1765
 msgid "The programmer is not connected"
 msgstr "Programmer tidak tersambung"
 
@@ -934,7 +950,7 @@ msgstr ""
 "Sila buang software ini kemudian muat turun pemasang UsbPicProg untuk OS 64-"
 "bit."
 
-#: src/hardware.cpp:615
+#: src/hardware.cpp:628
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -945,55 +961,55 @@ msgstr ""
 msgid "Type:"
 msgstr "Jenis:"
 
-#: src/uppmainwindow.cpp:638
+#: src/uppmainwindow.cpp:648
 #, c-format
 msgid "Type: %d-bit microcontroller"
 msgstr "Jenis: Mikropengawal %d-bit"
 
-#: src/uppmainwindow.cpp:1142
+#: src/uppmainwindow.cpp:1157
 msgid "USB error during blankcheck"
 msgstr "Ralat USB ketika blankcheck"
 
-#: src/uppmainwindow.cpp:1077
+#: src/uppmainwindow.cpp:1095
 msgid "USB error during verify"
 msgstr "Ralat USB ketika pengesahan"
 
-#: src/uppmainwindow.cpp:922 src/uppmainwindow.cpp:952
-#: src/uppmainwindow.cpp:987
+#: src/uppmainwindow.cpp:932 src/uppmainwindow.cpp:963
+#: src/uppmainwindow.cpp:999
 msgid "USB error while writing code memory"
 msgstr "Ralat USB ketika memuaturun kod memori"
 
-#: src/uppmainwindow.cpp:1305 src/uppmainwindow.cpp:1306
-#: src/uppmainwindow.cpp:1335 src/uppmainwindow.cpp:1336
+#: src/uppmainwindow.cpp:1331 src/uppmainwindow.cpp:1332
+#: src/uppmainwindow.cpp:1361 src/uppmainwindow.cpp:1362
 msgid "Unable to open file"
 msgstr "Gagal membuka fail"
 
-#: src/uppmainwindow.cpp:1623
+#: src/uppmainwindow.cpp:1648
 msgid "Unable to read firmware version"
 msgstr "Gagal membaca versi firmware"
 
-#: src/uppmainwindow.cpp:1652
+#: src/uppmainwindow.cpp:1678
 msgid "Unable to read version"
 msgstr "Gagal membaca versi"
 
-#: src/uppmainwindow.cpp:1597
+#: src/uppmainwindow.cpp:1622
 msgid "Unable to run target"
 msgstr "Gagal menjalankan mikropengawal"
 
-#: src/uppmainwindow.cpp:1351 src/uppmainwindow.cpp:1352
-#: src/uppmainwindow.cpp:1373 src/uppmainwindow.cpp:1374
+#: src/uppmainwindow.cpp:1377 src/uppmainwindow.cpp:1378
+#: src/uppmainwindow.cpp:1399 src/uppmainwindow.cpp:1400
 msgid "Unable to save file"
 msgstr "Gagal memnyimpan fail"
 
-#: src/uppmainwindow.cpp:1603
+#: src/uppmainwindow.cpp:1628
 msgid "Unable to stop target"
 msgstr "Gagal memberhentikan mikropengawal"
 
-#: src/uppmainwindow.cpp:1145
+#: src/uppmainwindow.cpp:1160
 msgid "Unknown error during blankcheck"
 msgstr "Ralat yang tidak dikenali  ketika blankcheck"
 
-#: src/uppmainwindow.cpp:1080
+#: src/uppmainwindow.cpp:1098
 msgid "Unknown error during verify"
 msgstr "Ralat yang tidak dikenali ketika pengesahan"
 
@@ -1004,11 +1020,11 @@ msgstr ""
 "Tidak menyokong versi Windows ini. UsbPicProg hanya beroperasi dengan "
 "Windows XP atau yang lebih baru."
 
-#: src/uppmainwindow.cpp:575
+#: src/uppmainwindow.cpp:585
 msgid "Upgrade firmware?"
 msgstr ""
 
-#: src/uppmainwindow.cpp:295
+#: src/uppmainwindow.cpp:305
 msgid "Upgrade the firmware in usbpicprog"
 msgstr ""
 
@@ -1016,15 +1032,15 @@ msgstr ""
 msgid "Usbpicprog"
 msgstr "Usbpicprog"
 
-#: src/uppmainwindow.cpp:1276
+#: src/uppmainwindow.cpp:1302
 msgid "Usbpicprog is not running in bootloader mode"
 msgstr ""
 
-#: src/uppmainwindow.cpp:591
+#: src/uppmainwindow.cpp:601
 msgid "Usbpicprog rev: "
 msgstr "Usbpicprog rev:"
 
-#: src/uppmainwindow.cpp:593
+#: src/uppmainwindow.cpp:603
 msgid "Usbpicprog: "
 msgstr "Usbpicprog:"
 
@@ -1044,51 +1060,51 @@ msgstr "Variants:"
 msgid "Verify after programming"
 msgstr "Pengesahan selepas memprogram PIC"
 
-#: src/uppmainwindow.cpp:1065
+#: src/uppmainwindow.cpp:1083
 msgid "Verify code"
 msgstr "Sahkan kod"
 
-#: src/preferences_base.cpp:46
+#: src/preferences_base.cpp:55
 msgid "Verify code memory"
 msgstr "Sahkan kod memori"
 
-#: src/uppmainwindow.cpp:1067
+#: src/uppmainwindow.cpp:1085
 msgid "Verify config"
 msgstr "Sahkan konfigurasi"
 
-#: src/preferences_base.cpp:49
+#: src/preferences_base.cpp:58
 msgid "Verify config memory"
 msgstr "Sahkan konfigurasi memori"
 
-#: src/uppmainwindow.cpp:1066
+#: src/uppmainwindow.cpp:1084
 msgid "Verify data"
 msgstr "Sahkan data"
 
-#: src/preferences_base.cpp:52
+#: src/preferences_base.cpp:61
 msgid "Verify data memory"
 msgstr "Sahkan memori data"
 
-#: src/uppmainwindow.cpp:919
+#: src/uppmainwindow.cpp:929
 msgid "Verify error while writing code memory"
 msgstr "Ralat pengesahan ketika memuaturun kod memori"
 
-#: src/preferences_base.cpp:44
+#: src/preferences_base.cpp:53
 msgid "Verify options"
 msgstr "Aturan Pengesahan"
 
-#: src/uppmainwindow.cpp:1060
+#: src/uppmainwindow.cpp:1078
 msgid "Verify successful"
 msgstr "Pengesahan Berjaya!"
 
-#: src/uppmainwindow.cpp:256
+#: src/uppmainwindow.cpp:266
 msgid "Verify the PIC device"
 msgstr "Sahkan PIC"
 
-#: src/uppmainwindow.cpp:1068
+#: src/uppmainwindow.cpp:1086
 msgid "Verify unknown"
 msgstr "Pengesahan unknown"
 
-#: src/uppmainwindow.cpp:1047
+#: src/uppmainwindow.cpp:1065
 msgid "Verifying all areas of the PIC..."
 msgstr "Sahkan keseluruhan PIC"
 
@@ -1111,15 +1127,15 @@ msgstr ""
 "    MAX\n"
 "_dontTranslateThis_"
 
-#: src/uppmainwindow.cpp:907
+#: src/uppmainwindow.cpp:917
 msgid "Write Code memory OK"
 msgstr "Muaturun kod memori OK"
 
-#: src/uppmainwindow.cpp:975
+#: src/uppmainwindow.cpp:987
 msgid "Write Config memory OK"
 msgstr "Muaturun konfigurasi memori OK"
 
-#: src/uppmainwindow.cpp:940
+#: src/uppmainwindow.cpp:951
 msgid "Write Data memory OK"
 msgstr "Muaturun data memori OK"
 
@@ -1127,7 +1143,7 @@ msgstr "Muaturun data memori OK"
 msgid "Write code memory"
 msgstr "Memuaturun kod memori"
 
-#: src/uppmainwindow.cpp:916
+#: src/uppmainwindow.cpp:926
 msgid "Write code not implemented for current PIC"
 msgstr "Kod yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 
@@ -1135,7 +1151,7 @@ msgstr "Kod yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 msgid "Write config memory"
 msgstr "Memuaturun konfigurasi memori"
 
-#: src/uppmainwindow.cpp:984
+#: src/uppmainwindow.cpp:996
 msgid "Write config not implemented for current PIC"
 msgstr ""
 "Konfigurasi yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
@@ -1144,11 +1160,19 @@ msgstr ""
 msgid "Write data memory"
 msgstr "Memuaturun data memori"
 
-#: src/uppmainwindow.cpp:949
+#: src/uppmainwindow.cpp:960
 msgid "Write data not implemented for current PIC"
 msgstr "Data yang dimuaturun tidak dapat dijalankan dengan jenis PIC semasa"
 
-#: src/uppmainwindow.cpp:569
+#: src/uppmainwindow.cpp:546
+msgid ""
+"You are using a development release of the firmware with a stable version of "
+"the software. Consider upgrading your firmware"
+msgstr ""
+"Anda sedang menggunakan versi firmware yang masih dalam pembangunan dengan "
+"software yang stabil. Sila naiktaraf firmware anda..."
+
+#: src/uppmainwindow.cpp:579
 msgid ""
 "You are using a stable release of the firmware with a development version of "
 "the software. Consider upgrading your firmware"
@@ -1156,13 +1180,13 @@ msgstr ""
 "Anda sedang menggunakan versi software yang masih dalam pembangunan dengan "
 "firmware yang stabil. Sila naiktaraf software anda..."
 
-#: src/uppmainwindow.cpp:542
+#: src/uppmainwindow.cpp:552
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d); please consider upgrading it"
 msgstr "Firmware anda telah usang (versi terbaru adalah %d); sila naiktaraf."
 
-#: src/uppmainwindow.cpp:564
+#: src/uppmainwindow.cpp:574
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d.%d.%d); please consider "
@@ -1178,11 +1202,11 @@ msgstr "Zum besarkan"
 msgid "Zoom out"
 msgstr "Zum kecilkan"
 
-#: src/uppmainwindow.cpp:420
+#: src/uppmainwindow.cpp:430
 msgid "autodetect"
 msgstr "automatik kesan"
 
-#: src/main.h:136 src/uppmainwindow.cpp:418
+#: src/main.h:136 src/uppmainwindow.cpp:428
 msgid "blankcheck"
 msgstr "blankcheck"
 
@@ -1198,7 +1222,7 @@ msgstr ""
 msgid "bulk erase the device"
 msgstr "Padam peranti secara pukal"
 
-#: src/uppmainwindow.cpp:431
+#: src/uppmainwindow.cpp:441
 msgid "currently selected PIC type"
 msgstr "Jenis PIC semasa"
 
@@ -1209,6 +1233,10 @@ msgstr "nyahpijat"
 #: src/main.h:137
 msgid "debug the hardware"
 msgstr "nyahpijat hardware"
+
+#: src/main.h:145
+msgid "disable-vdd"
+msgstr ""
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
@@ -1222,7 +1250,7 @@ msgstr "paparkan informasi versi usbpicprog"
 msgid "do not display the hex file"
 msgstr "Jangan papar fail Hex"
 
-#: src/main.h:135 src/uppmainwindow.cpp:416
+#: src/main.h:135 src/uppmainwindow.cpp:426
 msgid "erase"
 msgstr "Padam"
 
@@ -1238,11 +1266,19 @@ msgstr "Bantuan"
 msgid "hexfile"
 msgstr "Fail Hex"
 
-#: src/uppmainwindow.cpp:399
+#: src/main.h:147
+msgid "limit-pgd-pgc"
+msgstr ""
+
+#: src/main.h:146
+msgid "limit-vpp"
+msgstr ""
+
+#: src/uppmainwindow.cpp:409
 msgid "new"
 msgstr "Baru"
 
-#: src/uppmainwindow.cpp:401
+#: src/uppmainwindow.cpp:411
 msgid "open"
 msgstr "Buka"
 
@@ -1254,11 +1290,11 @@ msgstr "packageview"
 msgid "pictype"
 msgstr "jenis PIC"
 
-#: src/uppmainwindow.cpp:410
+#: src/uppmainwindow.cpp:420
 msgid "program"
 msgstr "programkan"
 
-#: src/main.h:133 src/uppmainwindow.cpp:412
+#: src/main.h:133 src/uppmainwindow.cpp:422
 msgid "read"
 msgstr "baca"
 
@@ -1266,7 +1302,7 @@ msgstr "baca"
 msgid "read the device"
 msgstr "baca peranti"
 
-#: src/uppmainwindow.cpp:403
+#: src/uppmainwindow.cpp:413
 msgid "reload"
 msgstr "muat semula"
 
@@ -1294,11 +1330,11 @@ msgstr "jalankan"
 msgid "run target device"
 msgstr "jalankan PIC"
 
-#: src/uppmainwindow.cpp:405
+#: src/uppmainwindow.cpp:415
 msgid "save"
 msgstr "simpan"
 
-#: src/uppmainwindow.cpp:407
+#: src/uppmainwindow.cpp:417
 msgid "save as"
 msgstr "simpan sebagai"
 
@@ -1322,16 +1358,16 @@ msgstr "hentikan PIC"
 msgid "tell firmware to reboot in bootloader mode"
 msgstr ""
 
-#: src/hexfile.cpp:238
+#: src/hexfile.cpp:237
 #, c-format
 msgid "unknown record type: %d"
 msgstr "unknown record type: %d"
 
-#: src/uppmainwindow.cpp:597
+#: src/uppmainwindow.cpp:607
 msgid "untitled"
 msgstr "TiadaTajuk"
 
-#: src/main.h:134 src/uppmainwindow.cpp:414
+#: src/main.h:134 src/uppmainwindow.cpp:424
 msgid "verify"
 msgstr "sahkan"
 
@@ -1371,10 +1407,3 @@ msgstr "muaturun peranti"
 
 #~ msgid "USB error while writing to device: %d bytes, errCode: %d; %s"
 #~ msgstr "Ralat USB ketika memuaturun ke peranti: %d bytes, errCode: %d; %s"
-
-#~ msgid ""
-#~ "You are using a development release of the firmware with a stable version "
-#~ "of the software. Consider upgrading your firmware"
-#~ msgstr ""
-#~ "Anda sedang menggunakan versi firmware yang masih dalam pembangunan "
-#~ "dengan software yang stabil. Sila naiktaraf firmware anda..."

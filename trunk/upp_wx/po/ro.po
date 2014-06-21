@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-26 08:54+0200\n"
+"POT-Creation-Date: 2014-06-21 21:49+0200\n"
 "PO-Revision-Date: 2012-06-19 13:52+0100\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: ENGLISH <info@usbpicprog.org>\n"
@@ -22,26 +22,26 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/uppmainwindow.cpp:1629 src/uppmainwindow.cpp:1657
-#: src/uppmainwindow.cpp:1659
+#: src/uppmainwindow.cpp:1654 src/uppmainwindow.cpp:1683
+#: src/uppmainwindow.cpp:1685
 msgid " Connected"
 msgstr " conectat."
 
-#: src/main.cpp:381
+#: src/main.cpp:388
 msgid " and "
 msgstr "şi"
 
-#: src/uppmainwindow.cpp:1070
+#: src/uppmainwindow.cpp:1088
 #, c-format
 msgid " failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr " eşuat la 0x%X. Citit: 0x%02X, aşteptat: 0x%02X."
 
-#: src/uppmainwindow.cpp:648
+#: src/uppmainwindow.cpp:658
 #, c-format
 msgid "%s [%d pins]"
 msgstr "%s [%d pini]."
 
-#: src/uppmainwindow.cpp:623
+#: src/uppmainwindow.cpp:633
 #, c-format
 msgid "%s datasheet"
 msgstr "Fişa tehnică %s"
@@ -50,15 +50,15 @@ msgstr "Fişa tehnică %s"
 msgid "&About"
 msgstr "Despre"
 
-#: src/uppmainwindow.cpp:369
+#: src/uppmainwindow.cpp:379
 msgid "&Actions"
 msgstr "&Acţiuni"
 
-#: src/uppmainwindow.cpp:272
+#: src/uppmainwindow.cpp:282
 msgid "&Autodetect..."
 msgstr "&Autodetectează..."
 
-#: src/uppmainwindow.cpp:268
+#: src/uppmainwindow.cpp:278
 msgid "&Blankcheck..."
 msgstr "Verifică &blank..."
 
@@ -70,7 +70,7 @@ msgstr "&Copiază"
 msgid "&Edit"
 msgstr "&Editare"
 
-#: src/uppmainwindow.cpp:259
+#: src/uppmainwindow.cpp:269
 msgid "&Erase..."
 msgstr "Şterge..."
 
@@ -102,11 +102,11 @@ msgstr "&Opţiuni"
 msgid "&Preferences"
 msgstr "&Preferinţe"
 
-#: src/uppmainwindow.cpp:247
+#: src/uppmainwindow.cpp:257
 msgid "&Program..."
 msgstr "&Programează..."
 
-#: src/uppmainwindow.cpp:251
+#: src/uppmainwindow.cpp:261
 msgid "&Read..."
 msgstr "Citeşte..."
 
@@ -118,19 +118,19 @@ msgstr "&Reîncarcă"
 msgid "&Save"
 msgstr "&Salvează"
 
-#: src/uppmainwindow.cpp:332
+#: src/uppmainwindow.cpp:342
 msgid "&Select PIC..."
 msgstr "&Selectează PIC..."
 
-#: src/uppmainwindow.cpp:294
+#: src/uppmainwindow.cpp:304
 msgid "&Upgrade firmware"
 msgstr "&Upgradează firmware"
 
-#: src/uppmainwindow.cpp:255
+#: src/uppmainwindow.cpp:265
 msgid "&Verify..."
 msgstr "&Verifică..."
 
-#: src/uppmainwindow.cpp:575
+#: src/uppmainwindow.cpp:585
 msgid ""
 ". \n"
 "\n"
@@ -159,28 +159,28 @@ msgstr "3.3V"
 msgid "5V"
 msgstr "5V"
 
-#: src/uppmainwindow.cpp:787 src/uppmainwindow.cpp:791
+#: src/uppmainwindow.cpp:796 src/uppmainwindow.cpp:800
 msgid "All operations completed"
 msgstr "Toate operaţiunile terminate."
 
-#: src/uppmainwindow.cpp:1720
+#: src/uppmainwindow.cpp:1748
 msgid "An open source USB pic programmer"
 msgstr "Un programator USB open source."
 
-#: src/preferences_base.cpp:60
+#: src/preferences_base.cpp:69
 msgid "Autodetect on Connect"
 msgstr "Autodetectare la conectare"
 
-#: src/uppmainwindow.cpp:1134
+#: src/uppmainwindow.cpp:1149
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr "Verificare blank eşuată la 0x%X. Citit: 0x%02X, aşteptat: 0x%02X."
 
-#: src/uppmainwindow.cpp:269
+#: src/uppmainwindow.cpp:279
 msgid "Blankcheck the PIC device"
 msgstr "Verificare blank a PIC-ului"
 
-#: src/uppmainwindow.cpp:1670 src/uppmainwindow.cpp:1672
+#: src/uppmainwindow.cpp:1696 src/uppmainwindow.cpp:1698
 msgid "Bootloader or programmer not found"
 msgstr "Bootloader-ul sau programatorul nu a fost găsit."
 
@@ -201,15 +201,15 @@ msgstr "Nu se poate încărca '%s'."
 msgid "Cannot load XML PIC data."
 msgstr "Nu se pot încărca datele PIC XML."
 
-#: src/uppmainwindow.cpp:1762 src/uppmainwindow.cpp:1790
+#: src/uppmainwindow.cpp:1790 src/uppmainwindow.cpp:1818
 msgid "Cannot select a different PIC when the bootloader is connected!"
 msgstr "Nu se poate selecta alt PIC în modul bootloader !"
 
-#: src/uppmainwindow.cpp:333
+#: src/uppmainwindow.cpp:343
 msgid "Change the currently selected PIC"
 msgstr "Schimbă PIC-ul selectat"
 
-#: src/uppmainwindow.cpp:1114
+#: src/uppmainwindow.cpp:1129
 msgid "Checking if the device is blank..."
 msgstr "Verifică blank..."
 
@@ -217,7 +217,7 @@ msgstr "Verifică blank..."
 msgid "Code"
 msgstr "Cod"
 
-#: src/hexfile.cpp:708
+#: src/hexfile.cpp:707
 msgid "Code Memory\n"
 msgstr "Memorie cod\n"
 
@@ -225,7 +225,7 @@ msgstr "Memorie cod\n"
 msgid "Code memory size:"
 msgstr "Dimensiune memorie de cod:"
 
-#: src/uppmainwindow.cpp:636
+#: src/uppmainwindow.cpp:646
 #, c-format
 msgid "Code memory size: %d bytes"
 msgstr "Dimensiune memorie de cod: %d octeţi"
@@ -242,7 +242,7 @@ msgstr "Flag-uri de configurare"
 msgid "Configuration flags for this PIC:"
 msgstr "Flag-uri de configurare pentru acest microcontroller:"
 
-#: src/preferences_base.cpp:58
+#: src/preferences_base.cpp:67
 msgid "Connect Options"
 msgstr "Opţiuni de conectare"
 
@@ -258,7 +258,7 @@ msgstr "Copiază"
 msgid "Could not access the 'xml_data' folder."
 msgstr "Nu se poate accesa directorul 'xml_data'."
 
-#: src/uppmainwindow.cpp:1194
+#: src/uppmainwindow.cpp:1208
 msgid "Could not create the worker thread!"
 msgstr "Nu se poate crea thread-ul de lucru !"
 
@@ -298,7 +298,7 @@ msgstr "Nu se poate iniţializa libusb: %s."
 msgid "Could not load data for PIC '%s'."
 msgstr "Nu se pot încărca datele pentru  PIC-ul '%s'."
 
-#: src/hexfile.cpp:342
+#: src/hexfile.cpp:341
 msgid "Could not open Hex file for writing..."
 msgstr "Nu se poate deschide fişierul Hex pentru scriere..."
 
@@ -306,7 +306,7 @@ msgstr "Nu se poate deschide fişierul Hex pentru scriere..."
 msgid "Could not open Hex file..."
 msgstr "Nu se poate deschide fişierul Hex..."
 
-#: src/uppmainwindow.cpp:1200
+#: src/uppmainwindow.cpp:1213
 msgid "Could not run the worker thread!"
 msgstr "Nu se poate lansa thread-ul de lucru !"
 
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Data"
 msgstr "Date"
 
-#: src/hexfile.cpp:226
+#: src/hexfile.cpp:225
 msgid "Data in hex file outside code memory of PIC"
 msgstr "Datele din fişierul Hex depăşesc memoria de cod a PIC-ului."
 
@@ -345,7 +345,7 @@ msgstr "Datele din fişierul Hex depăşesc memoria de cod a PIC-ului."
 msgid "Data in hex file outside config memory of PIC"
 msgstr "Datele din fişierul Hex depăşesc memoria de configurare a PIC-ului."
 
-#: src/hexfile.cpp:211
+#: src/hexfile.cpp:210
 msgid "Data in hex file outside data memory of PIC"
 msgstr "Datele din fişierul Hex depăşesc memoria de date a PIC-ului."
 
@@ -353,7 +353,7 @@ msgstr "Datele din fişierul Hex depăşesc memoria de date a PIC-ului."
 msgid "Data memory size:"
 msgstr "Dimensiune memorie de date:"
 
-#: src/uppmainwindow.cpp:637
+#: src/uppmainwindow.cpp:647
 #, c-format
 msgid "Data memory size: %d bytes"
 msgstr "Dimensiune memorie de date: %d octeţi"
@@ -362,11 +362,11 @@ msgstr "Dimensiune memorie de date: %d octeţi"
 msgid "Datasheet"
 msgstr "Fişa tehnică"
 
-#: src/uppmainwindow.cpp:273
+#: src/uppmainwindow.cpp:283
 msgid "Detect the type of the PIC device"
 msgstr "Detectează tipul PIC-ului"
 
-#: src/uppmainwindow.cpp:1581
+#: src/uppmainwindow.cpp:1607
 #, c-format
 msgid "Detected PIC model %s with device ID 0x%X"
 msgstr "A fost detectat modelul %s cu identificatorul 0x%X."
@@ -375,20 +375,28 @@ msgstr "A fost detectat modelul %s cu identificatorul 0x%X."
 msgid "Device ID:"
 msgstr "Identificator:"
 
-#: src/uppmainwindow.cpp:635
+#: src/uppmainwindow.cpp:645
 #, c-format
 msgid "Device ID: 0x%X"
 msgstr "Identificator: 0x%X"
 
-#: src/uppmainwindow.cpp:1122
+#: src/uppmainwindow.cpp:1137
 msgid "Device is blank"
 msgstr "PIC-ul este blank."
 
-#: src/uppmainwindow.cpp:1139
+#: src/uppmainwindow.cpp:1154
 msgid "Device is not blank."
 msgstr "PIC-ul nu este blank."
 
-#: src/uppmainwindow.cpp:1687 src/uppmainwindow.cpp:1689
+#: src/preferences_base.cpp:41
+msgid "Device is self powered (disable VDD)"
+msgstr ""
+
+#: src/main.h:145
+msgid "Device is self powered, disable VDD"
+msgstr ""
+
+#: src/uppmainwindow.cpp:1713 src/uppmainwindow.cpp:1715
 msgid "Disconnected"
 msgstr "Deconectat."
 
@@ -400,7 +408,7 @@ msgstr "Ieşire"
 msgid "Edit"
 msgstr "Editare"
 
-#: src/uppmainwindow.cpp:891
+#: src/uppmainwindow.cpp:900
 msgid "Erase OK"
 msgstr "Ştergere efectuată cu succes."
 
@@ -408,15 +416,15 @@ msgstr "Ştergere efectuată cu succes."
 msgid "Erase before programming"
 msgstr "Ştergere înaintea programării"
 
-#: src/uppmainwindow.cpp:260
+#: src/uppmainwindow.cpp:270
 msgid "Erase the PIC device"
 msgstr "Şterge memoria PIC-ului"
 
-#: src/uppmainwindow.cpp:1095
+#: src/uppmainwindow.cpp:1112
 msgid "Erasing all areas of the PIC..."
 msgstr "Se şterg toate zonele de memorie PIC..."
 
-#: src/uppmainwindow.cpp:886
+#: src/uppmainwindow.cpp:895
 msgid "Erasing before programming..."
 msgstr "Se şterge memoria înaintea programării..."
 
@@ -425,8 +433,8 @@ msgstr "Se şterge memoria înaintea programării..."
 msgid "Error claiming the USB device interface: %s"
 msgstr "Eroare la accesarea interfeţei USB: %s."
 
-#: src/main.cpp:395 src/uppmainwindow.cpp:894 src/uppmainwindow.cpp:1099
-#: src/uppmainwindow.cpp:1522
+#: src/main.cpp:402 src/uppmainwindow.cpp:903 src/uppmainwindow.cpp:1116
+#: src/uppmainwindow.cpp:1548
 msgid "Error erasing the device"
 msgstr "Eroare la ştergere."
 
@@ -439,31 +447,31 @@ msgstr "Eroare la obţinerea descriptorului de endpoint: %s."
 msgid "Error in checksum..."
 msgstr "Eroare la verificarea sumei de control."
 
-#: src/uppmainwindow.cpp:925
+#: src/uppmainwindow.cpp:935
 msgid "Error programming code memory"
 msgstr "Eroare la programarea memoriei de cod."
 
-#: src/uppmainwindow.cpp:990
+#: src/uppmainwindow.cpp:1002
 msgid "Error programming config memory"
 msgstr "Eroare la programarea memoriei de configurare."
 
-#: src/uppmainwindow.cpp:955
+#: src/uppmainwindow.cpp:966
 msgid "Error programming data memory"
 msgstr "Eroare la programarea memoriei de date."
 
-#: src/uppmainwindow.cpp:1011
+#: src/uppmainwindow.cpp:1025
 msgid "Error reading code memory"
 msgstr "Eroare la citirea memoriei de cod."
 
-#: src/uppmainwindow.cpp:1032
+#: src/uppmainwindow.cpp:1050
 msgid "Error reading configuration memory"
 msgstr "Eroare la citirea memoriei de configurare."
 
-#: src/uppmainwindow.cpp:1021
+#: src/uppmainwindow.cpp:1037
 msgid "Error reading data memory"
 msgstr "Eroare la citirea memoriei de date."
 
-#: src/main.cpp:397 src/uppmainwindow.cpp:1523
+#: src/main.cpp:404 src/uppmainwindow.cpp:1549
 msgid "Error restoring Calibration Registers"
 msgstr "Eroare la refacerea regiştrilor de calibrare."
 
@@ -489,7 +497,7 @@ msgstr "FLOTANT"
 msgid "Failure in hex file..."
 msgstr "Eroare în fişierul Hex."
 
-#: src/uppmainwindow.cpp:559
+#: src/uppmainwindow.cpp:569
 msgid "Firmware probably too new"
 msgstr "Firmware (probabil) prea recent."
 
@@ -505,7 +513,7 @@ msgid ""
 "_dontTranslateThis_"
 msgstr ""
 
-#: src/uppmainwindow.cpp:634
+#: src/uppmainwindow.cpp:644
 #, c-format
 msgid ""
 "Frequency range:\n"
@@ -516,7 +524,7 @@ msgstr ""
 "   Min=%.2fMhz\n"
 "   Max=%.2fMhz"
 
-#: src/preferences_base.cpp:66
+#: src/preferences_base.cpp:75
 msgid "GUI options"
 msgstr "Opţiuni interfaţă"
 
@@ -524,7 +532,7 @@ msgstr "Opţiuni interfaţă"
 msgid "Global settings for Usbpicprog:"
 msgstr "Setări globale pentru UsbPicProg:"
 
-#: src/uppmainwindow.cpp:1259
+#: src/uppmainwindow.cpp:1272
 msgid "HEX files (*.hex)|*.hex|HEX files (*.HEX)|*.HEX"
 msgstr "Fişiere HEX (*.hex)|*.hex|Fişiere HEX (*.HEX)|*.HEX"
 
@@ -536,7 +544,7 @@ msgstr "Zona de memorie de cod - vedere hexazecimală:"
 msgid "Hexadecimal view of the data area of the PIC:"
 msgstr "Zona de memorie de date - vedere hexazecimală:"
 
-#: src/uppmainwindow.cpp:1083 src/uppmainwindow.cpp:1148
+#: src/uppmainwindow.cpp:1101 src/uppmainwindow.cpp:1163
 msgid "I'm sorry for being stupid"
 msgstr "Îmi cer scuze că sunt prost."
 
@@ -556,7 +564,7 @@ msgstr ""
 "Tensiunea reală a pinului VPP şi stările celorlalţi pini sunt reîmprospătate "
 "o dată pe secundă şi sunt raportate mai jos, cu caractere aldine."
 
-#: src/uppmainwindow.cpp:1169
+#: src/uppmainwindow.cpp:1183
 msgid "Initializing..."
 msgstr "Iniţializare..."
 
@@ -574,16 +582,16 @@ msgstr "Fişier %s invalid."
 msgid "Invalid PIC family for PIC '%s'."
 msgstr "Familie PIC nevalidă pentru PIC '%s'."
 
-#: src/pictype.cpp:799
+#: src/pictype.cpp:803
 msgid "Invalid direction"
 msgstr "Direcţie nevalidă."
 
-#: src/pictype.cpp:819
+#: src/pictype.cpp:823
 #, c-format
 msgid "Invalid odd pin count: %d"
 msgstr "Număr impar de pini nevalid: %d."
 
-#: src/pictype.cpp:870
+#: src/pictype.cpp:874
 #, c-format
 msgid "Invalid pin count: %d"
 msgstr "Număr de pini nevalid: %d."
@@ -593,11 +601,19 @@ msgstr "Număr de pini nevalid: %d."
 msgid "Length: %d bits"
 msgstr "Lungime: %d biţi"
 
+#: src/main.h:147 src/preferences_base.cpp:47
+msgid "Limit PGD and PGC to 3.3V"
+msgstr ""
+
+#: src/main.h:146 src/preferences_base.cpp:44
+msgid "Limit VPP to 5V"
+msgstr ""
+
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
 msgstr "Încarcă un fişier HEX pentru editare sau programare..."
 
-#: src/preferences_base.cpp:71
+#: src/preferences_base.cpp:80
 msgid "Localize Usbpicprog in your System Language"
 msgstr "UsbPicProg în limba Dumneavoastră"
 
@@ -610,20 +626,20 @@ msgstr "Locaţia în memorie: 0x%X"
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: src/uppmainwindow.cpp:1574
+#: src/uppmainwindow.cpp:1600
 msgid "No PIC detected!"
 msgstr "Nu a fost detectat PIC !"
 
-#: src/uppmainwindow.cpp:1576
+#: src/uppmainwindow.cpp:1602
 #, c-format
 msgid "No PIC detected! Selecting the default PIC (%s)..."
 msgstr "Nu a fost detectat PIC ! S-a selectat PIC implicit (%s)..."
 
-#: src/hardware.cpp:863
+#: src/hardware.cpp:896
 msgid "No data to verify"
 msgstr "Nu sunt date de verificat."
 
-#: src/uppmainwindow.cpp:1325 src/uppmainwindow.cpp:1326
+#: src/uppmainwindow.cpp:1351 src/uppmainwindow.cpp:1352
 msgid "No file to refresh"
 msgstr "Nu există fişier de reîmprospătat."
 
@@ -631,7 +647,7 @@ msgstr "Nu există fişier de reîmprospătat."
 msgid "Note: red pins are (some of those) used in ICSP."
 msgstr "Notă: pinii figuraţi cu roşu sunt (în parte) folosiţi pentru ICSP."
 
-#: src/uppmainwindow.cpp:1463
+#: src/uppmainwindow.cpp:1489
 msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr ""
 "Valid doar pentru PIC12F629, PIC12F508, 10F20X şi alte microcontrollere "
@@ -642,11 +658,11 @@ msgstr ""
 msgid "Open a .hex file from the examples folder"
 msgstr "Încarcă un fişier HEX din directorul de exemple"
 
-#: src/uppmainwindow.cpp:1258
+#: src/uppmainwindow.cpp:1271
 msgid "Open firmware file"
 msgstr "Deschide fişier firmware"
 
-#: src/uppmainwindow.cpp:1236 src/uppmainwindow.cpp:1289
+#: src/uppmainwindow.cpp:1249 src/uppmainwindow.cpp:1315
 msgid "Open hexfile"
 msgstr "Deschide fişier HEX"
 
@@ -654,11 +670,11 @@ msgstr "Deschide fişier HEX"
 msgid "Opens the Usbpicprog's website..."
 msgstr "Deschide pagina web UsbPicProg..."
 
-#: src/uppmainwindow.cpp:750
+#: src/uppmainwindow.cpp:759
 msgid "Operations aborted"
 msgstr "Operaţii anulate."
 
-#: src/uppmainwindow.cpp:793
+#: src/uppmainwindow.cpp:802
 msgid "Operations completed with errors/warnings"
 msgstr "Operaţii executate cu erori/avertismente."
 
@@ -678,40 +694,40 @@ msgstr "Informaţii microcontroller"
 msgid "Package"
 msgstr "Capsulă"
 
-#: src/uppmainwindow.cpp:521
+#: src/uppmainwindow.cpp:531
 msgid "Please confirm"
 msgstr "Vă rugăm să confirmaţi"
 
-#: src/main.cpp:390
+#: src/main.cpp:397
 msgid "Please specify a BandGap Value between 0 and 3"
 msgstr "Vă rugăm să specificaţi o valoare BandGap între 0 şi 3."
 
-#: src/uppmainwindow.cpp:1516
+#: src/uppmainwindow.cpp:1542
 msgid "Please specify a bandgap value"
 msgstr "Vă rugăm să specificaţi o valoare BandGap."
 
-#: src/uppmainwindow.cpp:1484
+#: src/uppmainwindow.cpp:1510
 msgid "Please specify a new Osccal Value [0xC00 - 0xCFF]"
 msgstr "Vă rugăm să specificaţi o nouă valoare Osccal [0xC00 - 0xCFF]."
 
-#: src/uppmainwindow.cpp:1491
+#: src/uppmainwindow.cpp:1517
 msgid "Please specify a new Osccal Value [3400 - 37FF]"
 msgstr "Vă rugăm să specificaţi o nouă valoare Osccal [3400 - 37FF]."
 
-#: src/main.cpp:381
+#: src/main.cpp:388
 msgid "Please specify an Oscal Value between "
 msgstr "Vă rugăm să specificaţi o valoare Osccal între"
 
-#: src/uppmainwindow.cpp:1503
+#: src/uppmainwindow.cpp:1529
 #, c-format
 msgid "Please specify an Oscal Value between %X and %X"
 msgstr "Vă rugăm să specificaţi o valoare Osccal între %X şi %X."
 
-#: src/uppmainwindow.cpp:737
+#: src/uppmainwindow.cpp:747
 msgid "Please wait until the operations are completed:\n"
 msgstr "Vă rugăm să aşteptaţi finalizarea operaţiilor:\n"
 
-#: src/preferences_base.h:54
+#: src/preferences_base.h:57
 msgid "Preferences"
 msgstr "Preferinţe"
 
@@ -719,19 +735,19 @@ msgstr "Preferinţe"
 msgid "Program options"
 msgstr "Opţiuni de programare"
 
-#: src/uppmainwindow.cpp:248
+#: src/uppmainwindow.cpp:258
 msgid "Program the PIC device"
 msgstr "Programează microcontrollerul"
 
-#: src/uppmainwindow.cpp:970
+#: src/uppmainwindow.cpp:982
 msgid "Programming configuration area of the PIC..."
 msgstr "Programare a zonei de memorie de configurare..."
 
-#: src/uppmainwindow.cpp:903
+#: src/uppmainwindow.cpp:913
 msgid "Programming the code area of the PIC..."
 msgstr "Programare a zonei de memorie de cod..."
 
-#: src/uppmainwindow.cpp:935
+#: src/uppmainwindow.cpp:946
 msgid "Programming the data area of the PIC..."
 msgstr "Programare a zonei de memorie de date..."
 
@@ -744,7 +760,7 @@ msgid ""
 "_dontTranslateThis_"
 msgstr ""
 
-#: src/uppmainwindow.cpp:629
+#: src/uppmainwindow.cpp:639
 #, c-format
 msgid ""
 "Programming voltage (Vpp):\n"
@@ -757,7 +773,7 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
-#: src/uppmainwindow.cpp:1168
+#: src/uppmainwindow.cpp:1182
 msgid "Progress dialog"
 msgstr "Fereastră de progres"
 
@@ -765,23 +781,23 @@ msgstr "Fereastră de progres"
 msgid "RESET"
 msgstr "RESET"
 
-#: src/uppmainwindow.cpp:252
+#: src/uppmainwindow.cpp:262
 msgid "Read the PIC device"
 msgstr "Citire microcontroller"
 
-#: src/uppmainwindow.cpp:1008
+#: src/uppmainwindow.cpp:1022
 msgid "Reading the code area of the PIC..."
 msgstr "Citire memorie de cod..."
 
-#: src/uppmainwindow.cpp:1029
+#: src/uppmainwindow.cpp:1047
 msgid "Reading the configuration area of the PIC..."
 msgstr "Citire memorie de configurare..."
 
-#: src/uppmainwindow.cpp:1018
+#: src/uppmainwindow.cpp:1034
 msgid "Reading the data area of the PIC..."
 msgstr "Citire memorie de date..."
 
-#: src/uppmainwindow.cpp:1252
+#: src/uppmainwindow.cpp:1265
 msgid ""
 "Reboot option not available in this firmware, please remove the select "
 "jumper and disconnect / reconnect your usbpicprog."
@@ -804,7 +820,7 @@ msgstr ""
 msgid "Restore BandGap Register"
 msgstr "restaurează registrul BandGap"
 
-#: src/uppmainwindow.cpp:264
+#: src/uppmainwindow.cpp:274
 msgid "Restore Cal regs..."
 msgstr "Restaurează regiştrii Cal..."
 
@@ -812,11 +828,11 @@ msgstr "Restaurează regiştrii Cal..."
 msgid "Restore Osccal Register"
 msgstr "restaurează registrul Osccal"
 
-#: src/uppmainwindow.cpp:265
+#: src/uppmainwindow.cpp:275
 msgid "Restore PIC's calibration registers"
 msgstr "Restaurează regiştrii de calibrare ai microcontroller-ului"
 
-#: src/uppmainwindow.cpp:277 src/uppmainwindow.cpp:423
+#: src/uppmainwindow.cpp:287 src/uppmainwindow.cpp:433
 msgid "Run Target"
 msgstr "Lansează în execuţie"
 
@@ -824,7 +840,7 @@ msgstr "Lansează în execuţie"
 msgid "Save &As"
 msgstr "Salvează ca..."
 
-#: src/uppmainwindow.cpp:1363
+#: src/uppmainwindow.cpp:1389
 msgid "Save hexfile"
 msgstr "Salvează fişierul HEX"
 
@@ -848,11 +864,11 @@ msgstr "Selectează tot"
 msgid "Selects the entire grid currently shown"
 msgstr "Selectează întreaga parte afişată"
 
-#: src/uppmainwindow.cpp:282
+#: src/uppmainwindow.cpp:292
 msgid "Set 0V to MCLR to stop the target controller"
 msgstr "Setează MCLR la 0V pentru a opri execuţia"
 
-#: src/uppmainwindow.cpp:278
+#: src/uppmainwindow.cpp:288
 msgid "Set 5V to MCLR to run the target controller"
 msgstr "Setează MCLR la 5V pentru a porni execuţia"
 
@@ -860,7 +876,7 @@ msgstr "Setează MCLR la 5V pentru a porni execuţia"
 msgid "Shows informations about this program"
 msgstr "Arată informaţii despre acest program"
 
-#: src/preferences_base.cpp:68
+#: src/preferences_base.cpp:77
 msgid "Shows popups on connect etc..."
 msgstr "Prezintă ferestre popup la conectare etc."
 
@@ -868,19 +884,19 @@ msgstr "Prezintă ferestre popup la conectare etc."
 msgid "Shows the options for this program"
 msgstr "Arată opţiunile programului"
 
-#: src/uppmainwindow.cpp:1516
+#: src/uppmainwindow.cpp:1542
 msgid "Specify a bandgap value"
 msgstr "Specificaţi o valoare BandGap"
 
-#: src/uppmainwindow.cpp:1485 src/uppmainwindow.cpp:1492
+#: src/uppmainwindow.cpp:1511 src/uppmainwindow.cpp:1518
 msgid "Specify a new Osccal Value"
 msgstr "Specificaţi o nouă valoare Osccal"
 
-#: src/uppmainwindow.cpp:281 src/uppmainwindow.cpp:425
+#: src/uppmainwindow.cpp:291 src/uppmainwindow.cpp:435
 msgid "Stop Target"
 msgstr "Opreşte execuţia"
 
-#: src/uppmainwindow.cpp:632
+#: src/uppmainwindow.cpp:642
 #, c-format
 msgid ""
 "Supply voltage (Vdd):\n"
@@ -893,7 +909,7 @@ msgstr ""
 "   Nom=%.2fV\n"
 "   Max=%.2fV"
 
-#: src/uppmainwindow.cpp:518
+#: src/uppmainwindow.cpp:528
 #, c-format
 msgid ""
 "The HEX file '%s' has not been saved... its content will be lost; continue?"
@@ -901,20 +917,20 @@ msgstr ""
 "Fişierul HEX '%s' nu a fost salvat... conţinutul său se va pierde; "
 "continuaţi ?"
 
-#: src/uppmainwindow.cpp:913 src/uppmainwindow.cpp:946
-#: src/uppmainwindow.cpp:981
+#: src/uppmainwindow.cpp:923 src/uppmainwindow.cpp:957
+#: src/uppmainwindow.cpp:993
 msgid "The hardware should ask for next block"
 msgstr "Hardware-ul ar trebui să ceară următorul bloc."
 
-#: src/uppmainwindow.cpp:910 src/uppmainwindow.cpp:943
-#: src/uppmainwindow.cpp:978
+#: src/uppmainwindow.cpp:920 src/uppmainwindow.cpp:954
+#: src/uppmainwindow.cpp:990
 msgid "The hardware should say OK"
 msgstr "Hardware-ul ar trebui să returneze OK."
 
-#: src/uppmainwindow.cpp:1404 src/uppmainwindow.cpp:1416
-#: src/uppmainwindow.cpp:1433 src/uppmainwindow.cpp:1445
-#: src/uppmainwindow.cpp:1468 src/uppmainwindow.cpp:1532
-#: src/uppmainwindow.cpp:1544 src/uppmainwindow.cpp:1737
+#: src/uppmainwindow.cpp:1430 src/uppmainwindow.cpp:1442
+#: src/uppmainwindow.cpp:1459 src/uppmainwindow.cpp:1471
+#: src/uppmainwindow.cpp:1494 src/uppmainwindow.cpp:1558
+#: src/uppmainwindow.cpp:1570 src/uppmainwindow.cpp:1765
 msgid "The programmer is not connected"
 msgstr "Programatorul nu este conectat."
 
@@ -929,7 +945,7 @@ msgstr ""
 "UsbPicProg nu se va putea conecta la programator !\n"
 "Vă rugăm să dezinstalaţi această versiune şi să instalaţi versiunea 64-bit."
 
-#: src/hardware.cpp:615
+#: src/hardware.cpp:628
 #, c-format
 msgid "Trying to read memory outside allowed area: bc+i=%d; memory size=%d"
 msgstr ""
@@ -940,55 +956,55 @@ msgstr ""
 msgid "Type:"
 msgstr "Tip:"
 
-#: src/uppmainwindow.cpp:638
+#: src/uppmainwindow.cpp:648
 #, c-format
 msgid "Type: %d-bit microcontroller"
 msgstr "Tip: microcontroller pe %d biţi"
 
-#: src/uppmainwindow.cpp:1142
+#: src/uppmainwindow.cpp:1157
 msgid "USB error during blankcheck"
 msgstr "Eroare USB survenită în timpul verificării blank."
 
-#: src/uppmainwindow.cpp:1077
+#: src/uppmainwindow.cpp:1095
 msgid "USB error during verify"
 msgstr "Eroare USB survenită în timpul verificării."
 
-#: src/uppmainwindow.cpp:922 src/uppmainwindow.cpp:952
-#: src/uppmainwindow.cpp:987
+#: src/uppmainwindow.cpp:932 src/uppmainwindow.cpp:963
+#: src/uppmainwindow.cpp:999
 msgid "USB error while writing code memory"
 msgstr "Eroare USB survenită în timpul scrierii memoriei de cod."
 
-#: src/uppmainwindow.cpp:1305 src/uppmainwindow.cpp:1306
-#: src/uppmainwindow.cpp:1335 src/uppmainwindow.cpp:1336
+#: src/uppmainwindow.cpp:1331 src/uppmainwindow.cpp:1332
+#: src/uppmainwindow.cpp:1361 src/uppmainwindow.cpp:1362
 msgid "Unable to open file"
 msgstr "Nu se poate deschide fişierul."
 
-#: src/uppmainwindow.cpp:1623
+#: src/uppmainwindow.cpp:1648
 msgid "Unable to read firmware version"
 msgstr "Nu se poate citi versiunea firmware."
 
-#: src/uppmainwindow.cpp:1652
+#: src/uppmainwindow.cpp:1678
 msgid "Unable to read version"
 msgstr "Nu se poate citi versiunea."
 
-#: src/uppmainwindow.cpp:1597
+#: src/uppmainwindow.cpp:1622
 msgid "Unable to run target"
 msgstr "Nu se poate lansa în execuţie."
 
-#: src/uppmainwindow.cpp:1351 src/uppmainwindow.cpp:1352
-#: src/uppmainwindow.cpp:1373 src/uppmainwindow.cpp:1374
+#: src/uppmainwindow.cpp:1377 src/uppmainwindow.cpp:1378
+#: src/uppmainwindow.cpp:1399 src/uppmainwindow.cpp:1400
 msgid "Unable to save file"
 msgstr "Nu se poate salva fişierul."
 
-#: src/uppmainwindow.cpp:1603
+#: src/uppmainwindow.cpp:1628
 msgid "Unable to stop target"
 msgstr "Nu se poate opri execuţia."
 
-#: src/uppmainwindow.cpp:1145
+#: src/uppmainwindow.cpp:1160
 msgid "Unknown error during blankcheck"
 msgstr "Eroare necunoscută survenită în timpul verificării blank."
 
-#: src/uppmainwindow.cpp:1080
+#: src/uppmainwindow.cpp:1098
 msgid "Unknown error during verify"
 msgstr "Eroare necunoscută survenită în timpul verificării."
 
@@ -999,11 +1015,11 @@ msgstr ""
 "Versiune Windows nesuportată. UsbPicProg rulează doar sub Windows XP sau mai "
 "recent."
 
-#: src/uppmainwindow.cpp:575
+#: src/uppmainwindow.cpp:585
 msgid "Upgrade firmware?"
 msgstr "Upgradaţi firmware-ul ?"
 
-#: src/uppmainwindow.cpp:295
+#: src/uppmainwindow.cpp:305
 msgid "Upgrade the firmware in usbpicprog"
 msgstr "Upgradaţi firmware-ul UsbPicProg"
 
@@ -1011,15 +1027,15 @@ msgstr "Upgradaţi firmware-ul UsbPicProg"
 msgid "Usbpicprog"
 msgstr "UsbPicProg"
 
-#: src/uppmainwindow.cpp:1276
+#: src/uppmainwindow.cpp:1302
 msgid "Usbpicprog is not running in bootloader mode"
 msgstr "UsbPicProg nu rulează în mod bootloader."
 
-#: src/uppmainwindow.cpp:591
+#: src/uppmainwindow.cpp:601
 msgid "Usbpicprog rev: "
 msgstr "Revizie UsbPicProg:"
 
-#: src/uppmainwindow.cpp:593
+#: src/uppmainwindow.cpp:603
 msgid "Usbpicprog: "
 msgstr "Usbpicprog: "
 
@@ -1039,51 +1055,51 @@ msgstr "Variantă:"
 msgid "Verify after programming"
 msgstr "Verifică după programare"
 
-#: src/uppmainwindow.cpp:1065
+#: src/uppmainwindow.cpp:1083
 msgid "Verify code"
 msgstr "Verifică codul"
 
-#: src/preferences_base.cpp:46
+#: src/preferences_base.cpp:55
 msgid "Verify code memory"
 msgstr "Verifică memoria de cod"
 
-#: src/uppmainwindow.cpp:1067
+#: src/uppmainwindow.cpp:1085
 msgid "Verify config"
 msgstr "Verifică configuraţia"
 
-#: src/preferences_base.cpp:49
+#: src/preferences_base.cpp:58
 msgid "Verify config memory"
 msgstr "Verifică memoria de configuraţie"
 
-#: src/uppmainwindow.cpp:1066
+#: src/uppmainwindow.cpp:1084
 msgid "Verify data"
 msgstr "Verifică datele"
 
-#: src/preferences_base.cpp:52
+#: src/preferences_base.cpp:61
 msgid "Verify data memory"
 msgstr "Verifică memoria de date"
 
-#: src/uppmainwindow.cpp:919
+#: src/uppmainwindow.cpp:929
 msgid "Verify error while writing code memory"
 msgstr "Eroare la verificare survenită în timpul scrierii memoriei de cod."
 
-#: src/preferences_base.cpp:44
+#: src/preferences_base.cpp:53
 msgid "Verify options"
 msgstr "Opţiuni de verificare"
 
-#: src/uppmainwindow.cpp:1060
+#: src/uppmainwindow.cpp:1078
 msgid "Verify successful"
 msgstr "Verificare încheiată cu succes."
 
-#: src/uppmainwindow.cpp:256
+#: src/uppmainwindow.cpp:266
 msgid "Verify the PIC device"
 msgstr "Verifică microcontrollerul"
 
-#: src/uppmainwindow.cpp:1068
+#: src/uppmainwindow.cpp:1086
 msgid "Verify unknown"
 msgstr "Verificare necunoscută."
 
-#: src/uppmainwindow.cpp:1047
+#: src/uppmainwindow.cpp:1065
 msgid "Verifying all areas of the PIC..."
 msgstr "Verificare a tuturor zonelor microcontrollerului..."
 
@@ -1101,15 +1117,15 @@ msgid ""
 "_dontTranslateThis_"
 msgstr ""
 
-#: src/uppmainwindow.cpp:907
+#: src/uppmainwindow.cpp:917
 msgid "Write Code memory OK"
 msgstr "Scriere memorie de cod OK."
 
-#: src/uppmainwindow.cpp:975
+#: src/uppmainwindow.cpp:987
 msgid "Write Config memory OK"
 msgstr "Scriere memorie de configurare OK."
 
-#: src/uppmainwindow.cpp:940
+#: src/uppmainwindow.cpp:951
 msgid "Write Data memory OK"
 msgstr "Scriere memorie de date OK."
 
@@ -1117,7 +1133,7 @@ msgstr "Scriere memorie de date OK."
 msgid "Write code memory"
 msgstr "Scriere memorie de cod."
 
-#: src/uppmainwindow.cpp:916
+#: src/uppmainwindow.cpp:926
 msgid "Write code not implemented for current PIC"
 msgstr "Scriere cod neimplementată pentru microcontrollerul curent."
 
@@ -1125,7 +1141,7 @@ msgstr "Scriere cod neimplementată pentru microcontrollerul curent."
 msgid "Write config memory"
 msgstr "Scriere memorie de configurare"
 
-#: src/uppmainwindow.cpp:984
+#: src/uppmainwindow.cpp:996
 msgid "Write config not implemented for current PIC"
 msgstr "Scriere configurare neimplementată pentru microcontrollerul curent."
 
@@ -1133,11 +1149,20 @@ msgstr "Scriere configurare neimplementată pentru microcontrollerul curent."
 msgid "Write data memory"
 msgstr "Scriere memorie de date"
 
-#: src/uppmainwindow.cpp:949
+#: src/uppmainwindow.cpp:960
 msgid "Write data not implemented for current PIC"
 msgstr "Scriere date neimplementată pentru microcontrollerul curent."
 
-#: src/uppmainwindow.cpp:569
+#: src/uppmainwindow.cpp:546
+#, fuzzy
+msgid ""
+"You are using a development release of the firmware with a stable version of "
+"the software. Consider upgrading your firmware"
+msgstr ""
+"Folosiţi un firmware stabil cu o versiune software în dezvoltare. Upgradaţi "
+"firmware-ul."
+
+#: src/uppmainwindow.cpp:579
 msgid ""
 "You are using a stable release of the firmware with a development version of "
 "the software. Consider upgrading your firmware"
@@ -1145,14 +1170,14 @@ msgstr ""
 "Folosiţi un firmware stabil cu o versiune software în dezvoltare. Upgradaţi "
 "firmware-ul."
 
-#: src/uppmainwindow.cpp:542
+#: src/uppmainwindow.cpp:552
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d); please consider upgrading it"
 msgstr ""
 "Firmware-ul este prea vechi (ultima versiune este %d); vă rugăm să upgradaţi."
 
-#: src/uppmainwindow.cpp:564
+#: src/uppmainwindow.cpp:574
 #, c-format
 msgid ""
 "Your firmware is too old (latest version is %d.%d.%d); please consider "
@@ -1169,11 +1194,11 @@ msgstr "Mărire"
 msgid "Zoom out"
 msgstr "Micşorare"
 
-#: src/uppmainwindow.cpp:420
+#: src/uppmainwindow.cpp:430
 msgid "autodetect"
 msgstr "autodetectează"
 
-#: src/main.h:136 src/uppmainwindow.cpp:418
+#: src/main.h:136 src/uppmainwindow.cpp:428
 msgid "blankcheck"
 msgstr "verifică blank"
 
@@ -1189,7 +1214,7 @@ msgstr "boot-are"
 msgid "bulk erase the device"
 msgstr "ştergere bulk a microcontrollerului"
 
-#: src/uppmainwindow.cpp:431
+#: src/uppmainwindow.cpp:441
 msgid "currently selected PIC type"
 msgstr "tipul microcontrollerului"
 
@@ -1200,6 +1225,10 @@ msgstr "depanare"
 #: src/main.h:137
 msgid "debug the hardware"
 msgstr "depanare hardware"
+
+#: src/main.h:145
+msgid "disable-vdd"
+msgstr ""
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
@@ -1213,7 +1242,7 @@ msgstr "afişează informaţii despre versiunea UsbPicProg"
 msgid "do not display the hex file"
 msgstr "nu afişa fişierul HEX"
 
-#: src/main.h:135 src/uppmainwindow.cpp:416
+#: src/main.h:135 src/uppmainwindow.cpp:426
 msgid "erase"
 msgstr "şterge"
 
@@ -1229,11 +1258,19 @@ msgstr "ajutor"
 msgid "hexfile"
 msgstr "fişier HEX"
 
-#: src/uppmainwindow.cpp:399
+#: src/main.h:147
+msgid "limit-pgd-pgc"
+msgstr ""
+
+#: src/main.h:146
+msgid "limit-vpp"
+msgstr ""
+
+#: src/uppmainwindow.cpp:409
 msgid "new"
 msgstr "nou"
 
-#: src/uppmainwindow.cpp:401
+#: src/uppmainwindow.cpp:411
 msgid "open"
 msgstr "deschide"
 
@@ -1245,11 +1282,11 @@ msgstr "vedere capsulă"
 msgid "pictype"
 msgstr "tip microcontroller"
 
-#: src/uppmainwindow.cpp:410
+#: src/uppmainwindow.cpp:420
 msgid "program"
 msgstr "programează"
 
-#: src/main.h:133 src/uppmainwindow.cpp:412
+#: src/main.h:133 src/uppmainwindow.cpp:422
 msgid "read"
 msgstr "citeşte"
 
@@ -1257,7 +1294,7 @@ msgstr "citeşte"
 msgid "read the device"
 msgstr "citeşte microcontroller"
 
-#: src/uppmainwindow.cpp:403
+#: src/uppmainwindow.cpp:413
 msgid "reload"
 msgstr "reîncarcă"
 
@@ -1285,11 +1322,11 @@ msgstr "lansare în execuţie"
 msgid "run target device"
 msgstr "lansare în execuţie a microcontrollerului"
 
-#: src/uppmainwindow.cpp:405
+#: src/uppmainwindow.cpp:415
 msgid "save"
 msgstr "salvează"
 
-#: src/uppmainwindow.cpp:407
+#: src/uppmainwindow.cpp:417
 msgid "save as"
 msgstr "salvează ca..."
 
@@ -1313,16 +1350,16 @@ msgstr "oprire execuţie microcontroller"
 msgid "tell firmware to reboot in bootloader mode"
 msgstr "cere firmwareului să rebooteze în mod bootloader"
 
-#: src/hexfile.cpp:238
+#: src/hexfile.cpp:237
 #, c-format
 msgid "unknown record type: %d"
 msgstr "tip înregistrare necunoscut: %d"
 
-#: src/uppmainwindow.cpp:597
+#: src/uppmainwindow.cpp:607
 msgid "untitled"
 msgstr "faratitlu"
 
-#: src/main.h:134 src/uppmainwindow.cpp:414
+#: src/main.h:134 src/uppmainwindow.cpp:424
 msgid "verify"
 msgstr "verifică"
 
