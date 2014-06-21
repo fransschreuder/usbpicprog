@@ -17,5 +17,5 @@ if [ 1 ]; then
 fi
 if [ ! -f svn_revision.h ]; then
   ( echo '// generated file';
-    echo '#define SVN_REVISION "usbpicprog 0.4.2"'; ) > svn_revision.h;
+    echo '#define SVN_REVISION "usbpicprog 1.0.0"'; ) > svn_revision.h;
 fi

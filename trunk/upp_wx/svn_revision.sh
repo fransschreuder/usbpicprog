@@ -16,6 +16,6 @@ if [ 1 ]; then
   fi
 else
   ( echo '// generated file';
-    echo '#define SVN_REVISION "0.6.0"';
-    echo '#define UPP_VERSION "0.6.0"'; ) > svn_revision.h;
+    echo '#define SVN_REVISION "1.0.0"';
+    echo '#define UPP_VERSION "1.0.0"'; ) > svn_revision.h;
 fi
