@@ -23,6 +23,7 @@
 ; Include Modern UI
 
   !include "MUI.nsh"
+  !include "WinVer.nsh"
 
 ; -------------------------------------------------------------------------------------------------
 ; General
@@ -65,10 +66,11 @@
   
   LicenseData "gnugpl.txt"
   SetCompressor /SOLID lzma    ; this was found to be the best compressor
+
   
   ; see http://nsis.sourceforge.net/Shortcuts_removal_fails_on_Windows_Vista for more info:
   RequestExecutionLevel admin
-  
+
 ; -------------------------------------------------------------------------------------------------
 ; Pages
 
@@ -217,44 +219,49 @@ proceed:
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\UsbPicProg.lnk" "$INSTDIR\usbpicprog.exe"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
   
-  ; Last, run the Microsoft driver installer redistributable
-  DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
-  ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
-  IntFmt $2 "0x%08X" $0
-  DetailPrint "Return code was $2"
-
-   
-  ; check the higher byte of the return value of DPINST; it can assume the values:
-  ; 0x80 if a driver package could NOT be installed
-  ; 0x40 if a computer restart is necessary
-  ; 0x00 if everything was ok
-  ; or a combination of them (the only possible one in this case is 0xC0)
-  ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
-  IntOp $1 $0 / 0x1000000                  ; fast way to keep only the higher byte
-  IntFmt $2 "0x%X" $1
-  DetailPrint "The higher byte of the return code was $2"
-  IntCmp $1 0x00 installed_ok
-  IntCmp $1 0x40 installed_ok_need_reboot
-  IntCmp $1 0x80 install_failed
-  IntCmp $1 0xC0 install_failed
+  ${If} ${AtMostWin7}
+    DetailPrint "Windows version is lower than 7, installing driver"
+    ; Last, run the Microsoft driver installer redistributable
+    DetailPrint "Running the dpinst utility to install UsbPicProg's drivers"
+    ExecWait '"$INSTDIR\driver\dpinst.exe"' $0
+    IntFmt $2 "0x%08X" $0
+    DetailPrint "Return code was $2"
+    ; check the higher byte of the return value of DPINST; it can assume the values:
+    ; 0x80 if a driver package could NOT be installed
+    ; 0x40 if a computer restart is necessary
+    ; 0x00 if everything was ok
+    ; or a combination of them (the only possible one in this case is 0xC0)
+    ; see http://msdn.microsoft.com/en-us/library/ms791066.aspx for more info
+    IntOp $1 $0 / 0x1000000                  ; fast way to keep only the higher byte
+    IntFmt $2 "0x%X" $1
+    DetailPrint "The higher byte of the return code was $2"
+    IntCmp $1 0x00 installed_ok
+    IntCmp $1 0x40 installed_ok_need_reboot
+    IntCmp $1 0x80 install_failed
+    IntCmp $1 0xC0 install_failed
   
-  ; unhandled return code ?!?
-  DetailPrint "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
-  MessageBox MB_OK|MB_ICONEXCLAMATION "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
-  Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
-  
-installed_ok_need_reboot:
-  DetailPrint "Drivers were installed successfully but require a reboot"
-  MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation finished but requires a system reboot. Do you wish to reboot now?" IDNO +2
-  Reboot
-  Goto installed_ok
-install_failed:
-  DetailPrint "Drivers could not be installed! Check %SYSTEMROOT%\DPINST.LOG for more info."
-  MessageBox MB_OK|MB_ICONEXCLAMATION "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
-  Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
-installed_ok:
-  ; do nothing
-  DetailPrint "Drivers were installed successfully."
+    ; unhandled return code ?!?
+    DetailPrint "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
+    MessageBox MB_OK|MB_ICONEXCLAMATION "Unknown return value of the DPINST utility! Check %SYSTEMROOT%\DPINST.LOG for more info."
+    Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
+	installed_ok_need_reboot:
+	  DetailPrint "Drivers were installed successfully but require a reboot"
+	  MessageBox MB_YESNO|MB_ICONQUESTION "The driver installation finished but requires a system reboot. Do you wish to reboot now?" IDNO +2
+	  Reboot
+	  Goto installed_ok
+	install_failed:
+	  DetailPrint "Drivers could not be installed! Check %SYSTEMROOT%\DPINST.LOG for more info."
+	  MessageBox MB_OK|MB_ICONEXCLAMATION "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
+	  Abort "Couldn't install UsbPicProg's drivers! Check %SYSTEMROOT%\DPINST.LOG for more info."
+	installed_ok:
+	  ; do nothing
+	  DetailPrint "Drivers were installed successfully."	
+    
+  ${Else}
+    DetailPrint "Windows 8 or later detected, use Zadig to install the driver."
+    MessageBox MB_OK "Windows 8 or later needs a signed driver.$\r$\nPlease follow the instructions to install the driver$\r$\nA browswer will be opened."
+    Exec "rundll32 url.dll,FileProtocolHandler http://usbpicprog.org/?page_id=486"
+  ${EndIf} 
 
 ; Last, run the Microsoft driver installer redistributable
   DetailPrint "Installing the VC redistributable files"
