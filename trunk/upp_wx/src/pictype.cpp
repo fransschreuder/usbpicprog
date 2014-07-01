@@ -96,7 +96,7 @@ PicType PicType::FindPIC(wxString picTypeStr)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
-		if (picTypeStr.compare(s_arrSupported[i].name)==0)
+		if (picTypeStr.CmpNoCase(s_arrSupported[i].name)==0)
         {
             // this is a supported PIC!
 
