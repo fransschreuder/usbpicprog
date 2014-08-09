@@ -72,7 +72,7 @@
 #include "interrupt.h"
 #include "prog_lolvl.h"
 #include "device.h"
-
+#ifdef USE_PIC24
 extern unsigned char ConfigLimitPGDPGC;
 
 unsigned char p16b_do_write( void )
@@ -342,10 +342,11 @@ DEVICE_ENTRY( P24FJXXXGA0XX,PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		no
 DEVICE_ENTRY( P24FJXXXGA1,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( P24FXXKAXXX,	PIC24,	3V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA1,		P24KA )
 //FIXME: why is this commented out
-//DEVICE_ENTRY( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA,		P24KA )
+DEVICE_ENTRY( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA1,		P24KA,		P24KA,		P24KA )
 DEVICE_ENTRY( P24FJG,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
 DEVICE_ENTRY( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 DEVICE_ENTRY( P24H,		    PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 };
 #pragma romdata
 #undef LIST
+#endif

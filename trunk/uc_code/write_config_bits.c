@@ -153,6 +153,35 @@ void write_config_bits_P18F2XXX( unsigned long address, unsigned char* data, cha
 		pic_send_word( 0x0000 ); //last part of the nop
 	}
 }
+void write_config_bits_P18( unsigned long address, unsigned char* data, char blocksize, char lastblock , char Delay)
+{
+	static char blockcounter;
+
+	//address=0x300000;
+	//start for loop
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
+	{
+		set_address_P18( address + ((unsigned int) blockcounter) );
+		//LSB first
+		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
+				<< 8) );
+		pic_send_n_bits( 3, 0 );
+		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
+		DelayMs( Delay );
+		PGClow(); //hold PGC low for time P10
+		DelayMs( P10 );
+		pic_send_word( 0x0000 ); //last part of the nop
+		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
+		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
+				+ blockcounter)) << 8) ); //load MSB and start programming
+		pic_send_n_bits( 3, 0 );
+		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
+		DelayMs( Delay );
+		PGClow(); //hold PGC low for time P10
+		DelayMs( P10 );
+		pic_send_word( 0x0000 ); //last part of the nop
+	}
+}
 void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	static char blockcounter;
@@ -164,28 +193,7 @@ void write_config_bits_P18FXX2( unsigned long address, unsigned char* data, char
 	pic_send( 4, 0x00, 0xF800 );
 	//address=0x300000;
 	//start for loop
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-	{
-		set_address_P18( address + ((unsigned int) blockcounter) );
-		//LSB first
-		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
-				<< 8) );
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
-		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
-				+ blockcounter)) << 8) ); //load MSB and start programming
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-	}
+	write_config_bits_P18(address, data, blocksize, lastblock, P9);
 }
 void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
@@ -196,28 +204,7 @@ void write_config_bits_P18F4XK22( unsigned long address, unsigned char* data, ch
 	pic_send( 4, 0x00, 0x84A6 ); //BSF EECON1, WREN
 	//address=0x300000;
 	//start for loop
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-	{
-		set_address_P18( address + ((unsigned int) blockcounter) );
-		//LSB first
-		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
-				<< 8) );
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9A );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
-		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
-				+ blockcounter)) << 8) ); //load MSB and start programming
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9A );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-	}
+	write_config_bits_P18(address, data, blocksize, lastblock, P9A);
 }
 void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
@@ -227,28 +214,7 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 	pic_send( 4, 0x00, 0x8C7F ); //BSF EECON1, CFGS
 	//address=0x300000;
 	//start for loop
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
-	{
-		set_address_P18( address + ((unsigned int) blockcounter) );
-		//LSB first
-		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
-				<< 8) );
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-		set_address_P18( address + ((unsigned int) blockcounter) + 1 );
-		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
-				+ blockcounter)) << 8) ); //load MSB and start programming
-		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
-		PGClow(); //hold PGC low for time P10
-		DelayMs( P10 );
-		pic_send_word( 0x0000 ); //last part of the nop
-	}
+	write_config_bits_P18(address, data, blocksize, lastblock, P9);
 }
 void write_config_bits_P18F45J10( unsigned long address, unsigned char* data, char blocksize, char lastblock)
 {

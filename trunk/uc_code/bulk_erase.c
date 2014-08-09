@@ -147,49 +147,32 @@ void bulk_erase_P18FXX39( unsigned char doRestore )
 	DelayMs( P11 );
 	pic_send( 4, 0x00, 0x94A6 ); //BCF EECON1, WREN
 }
-void bulk_erase_P18F872X( unsigned char doRestore )
+void bulk_erase_P18(unsigned int firstdata, unsigned int seconddata, unsigned int delay)
 {
 
 	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0xFFFF ); //Write 0101h to 3C0005h
+	pic_send( 4, 0x0C, firstdata ); //Write 0F0Fh to 3C0005h
 	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8787 ); //Write 8080h to 3C0004h
+	pic_send( 4, 0x0C, seconddata ); //Write 8787h to 3C0004h
 	pic_send( 4, 0x00, 0x0000 ); //NOP
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 400 );
+	DelayMs( delay );
+}
+void bulk_erase_P18F872X( unsigned char doRestore )
+{
+	bulk_erase_P18(0xFFFF, 0x8787, 400);
 }
 void bulk_erase_P18F1X30( unsigned char doRestore )
 {
-
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0F0F ); //Write 0F0Fh to 3C0005h
-	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8787 ); //Write 8787h to 3C0004h
-	pic_send( 4, 0x00, 0x0000 ); //NOP
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( P11 );
+	bulk_erase_P18(0x0F0F, 0x8787, P11);
 }
 void bulk_erase_P18F2XXX( unsigned char doRestore )
 {
-
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x3F3F ); //Write 3F3Fh to 3C0005h
-	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8F8F ); //Write 8F8Fh to 3C0004h
-	pic_send( 4, 0x00, 0x0000 ); //NOP
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( P11 );
+	bulk_erase_P18(0x3F3F, 0x8F8F, P11);
 }
 void bulk_erase_P18F4XK22( unsigned char doRestore )
 {
-
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0F0F ); //Write 0F0Fh to 3C0005h
-	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8F8F ); //Write 8F8Fh to 3C0004h
-	pic_send( 4, 0x00, 0x0000 ); //NOP
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( P11K );
+	bulk_erase_P18(0x0F0F, 0x8F8F, P11K);
 }
 void bulk_erase_P18FX220( unsigned char doRestore )
 {
@@ -203,34 +186,18 @@ void bulk_erase_P18FX220( unsigned char doRestore )
 void bulk_erase_P18F6XKXX( unsigned char doRestore )
 {
 	unsigned char ctr;
-
-	set_address_P18( 0x3C0004 ); //Erase configuration words
-	pic_send( 4, 0x0C, 0x0202 );
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0000 );
-	set_address_P18( 0x3C0006 );
-	pic_send( 4, 0x0C, 0x8080 );
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 6 );
-
-	set_address_P18( 0x3C0004 ); //Erase Data EEPROM
-	pic_send( 4, 0x0C, 0x0404 );
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0000 );
-	set_address_P18( 0x3C0006 );
-	pic_send( 4, 0x0C, 0x8080 );
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 6 );
-
-	set_address_P18( 0x3C0004 ); //Erase Boot Block
-	pic_send( 4, 0x0C, 0x0505 );
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0000 );
-	set_address_P18( 0x3C0006 );
-	pic_send( 4, 0x0C, 0x8080 );
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 6 );
-
+	const int eraseWords[3] = {0x0202, 0x0404, 0x0505};
+	for(ctr=0; ctr<3; ctr++)
+	{
+		set_address_P18( 0x3C0004 ); //Erase configuration words
+		pic_send( 4, 0x0C, eraseWords[ctr] );
+		set_address_P18( 0x3C0005 );
+		pic_send( 4, 0x0C, 0x0000 );
+		set_address_P18( 0x3C0006 );
+		pic_send( 4, 0x0C, 0x8080 );
+		pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
+		DelayMs( 6 );
+	}
 	for( ctr = 1; ctr != 0; ctr <<= 1 )	// erase Block 0 through 7
 	{
 		set_address_P18( 0x3C0004 ); //Erase Block 0
@@ -246,24 +213,11 @@ void bulk_erase_P18F6XKXX( unsigned char doRestore )
 
 void bulk_erase_P18F97J60( unsigned char doRestore )
 {
-
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0101 ); //Write 0101h to 3C0005h
-	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8080 ); //Write 8080h to 3C0004h
-	pic_send( 4, 0x00, 0x0000 ); //NOP
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 500 );
+	bulk_erase_P18(0x0101, 0x8080, 500);
 }
 void bulk_erase_P18F13K22( unsigned char doRestore )
 {
-	set_address_P18( 0x3C0005 );
-	pic_send( 4, 0x0C, 0x0F0F ); //Write 0F0Fh to 3C0005h
-	set_address_P18( 0x3C0004 );
-	pic_send( 4, 0x0C, 0x8F8F ); //Write 8080h to 3C0004h
-	pic_send( 4, 0x00, 0x0000 ); //NOP
-	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
-	DelayMs( 7 );
+	bulk_erase_P18(0x0F0F, 0x8F8F, 7);
 }
 void bulk_erase_P16F716( unsigned char doRestore )
 {
@@ -373,8 +327,7 @@ void bulk_erase_P16F91X( unsigned char doRestore )
 	unsigned int i;
 
 	pic_send_14_bits( 6, 0x00, 0x0000 );//Execute a Load Configuration command (dataword 0x0000) to set PC to 0x2000.
-	for( i = 0; i < 8; i++ )
-		pic_send_n_bits( 6, 0x06 );//set PC to 0x3008
+	set_address_P16( 8 );
 	pic_send_n_bits( 6, 0x09 ); //bulk erase program memory, userid and config memory
 	DelayMs( 6 ); //wait terase
 	exit_ISCP();

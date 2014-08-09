@@ -213,6 +213,15 @@ void ProcessIO( void )
 			case dsPIC30:
 				read_code( 0xFF0000, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
+			case PIC32:
+				#ifdef USE_PIC32
+				get_device_id_P32((unsigned char*) output_buffer);
+				#else
+				output_buffer[0]=0;
+				output_buffer[1]=0;
+				output_buffer[2]=0;
+				output_buffer[3]=0;
+				#endif
 			case PIC18:
 			case PIC18J:
 			case PIC18K:
@@ -226,6 +235,7 @@ void ProcessIO( void )
 				break;
 			}
 			counter = 2;
+			if(picfamily == PIC32)counter=4;
 			setLeds( LEDS_ON );
 			break;
 		case CMD_WRITE_CODE:

@@ -83,4 +83,8 @@ void ProcessIO(void);
 unsigned char set_pictype(unsigned char pt);
 void setLeds(char n);
 
+#ifdef USE_PIC32
+//in pic32.c
+void get_device_id_P32(unsigned char* data);
+#endif
 #endif // UPP_H

@@ -217,6 +217,38 @@ void enter_ISCP_PIC24()
     dspic_send_24_bits( 0x000000 );     //NOP
     dspic_send_24_bits( 0x000000 );     //NOP
 }
+void enter_ISCP_PIC32()
+{
+
+    enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+
+    VPP_RUNoff(); //MCLR low
+    VDDon();
+    clock_delay();              // P6 100ns    DelayMs( 10 );
+    VPP_RUNon(); //VPP to 4.5V
+    clock_delay();               //P20 max 500 us
+    VPP_RUNoff(); //and immediately back to 0...
+    VPP_RSTon();
+    clock_delay();
+    //write 0x4D43, high to low, other than the rest of the commands which are low to high...
+    //0x4D43 => 0100 1101 0100 0011
+    //from low to high => 1100 0010 1011 0010
+    //0xC2B2
+    pic_send_word( 0xC2B2 );
+    //write 0x4851 => 0100 1000 0101 0000 => 0000 1010 0001 0010 => 0x0A12
+    pic_send_word( 0x0A12 );
+                                // P19 25ns   DelayMs( 1 );
+    VPP_RSToff(); //release from reset
+    VPP_RUNon();
+    //P7 500ns
+    clock_delay();
+    clock_delay();
+    clock_delay();
+    clock_delay();
+    clock_delay();
+
+
+}
 void enter_ISCP_PIC24E()
 {
 
@@ -680,40 +712,63 @@ unsigned char I2C_read( unsigned char ack ) {
 }
 
 
-/*#define pulseclock() PGChigh();PGClow()
+#define pulseclock() PGChigh();PGClow()
 
- unsigned char jtag2w4p( unsigned char TDI, unsigned char TMS, unsigned char nbits ) {
- unsigned char i;
- unsigned char res = 0;
- unsigned char orval = 1 << (nbits - 1);
- for( i = 0; i < nbits; i++ ) {
- res >>= 1;
- if( TDI & 1 )
- PGDhigh();
- elsePGDlow();
- pulseclock();
- if( TMS & 1 )
- PGDhigh();
- elsePGDlow();
- pulseclock();
- trisPGD();
- pulseclock();
- PGChigh();
- if( PGD_READ )
- res |= orval;
- PGClow();
- enablePGD();
- TDI >>= 1;
- TMS >>= 1;
+unsigned char jtag2w4p( unsigned char TDI, unsigned char TMS, unsigned char nbits ) 
+{
+	unsigned char i;
+	unsigned char res = 0;
+	unsigned char orval = 1 << (nbits - 1);
+	for( i = 0; i < nbits; i++ ) 
+	{
+		res >>= 1;
+		if( TDI & 1 )
+			PGDhigh();
+		else
+			PGDlow();
+		pulseclock();
+		if( TMS & 1 )
+			PGDhigh();
+		else
+			PGDlow();
+		pulseclock();
+		setPGDinput();
+		pulseclock();
+		PGChigh();
+		if( PGD_READ );
+			res |= orval;
+		PGClow();
+		setPGDoutput();
+		TDI >>= 1;
+		TMS >>= 1;
+	}
+	return res;
+}
+/*
+void jtag2w2p( unsigned long TDI, unsigned long TMS, unsigned char nbits ) 
+{
+	unsigned char i;
+	for( i = 0; i < nbits; i++ ) 
+	{
+		if( TDI & 1 )
+			PGDhigh();
+		else
+			PGDlow();
+		pulseclock();
+		if( TMS & 1 )
+			PGDhigh();
+		else
+			PGDlow();
+		pulseclock();
+		TDI >>= 1;
+		TMS >>= 1;
+	}
+}*/
 
- }
- return res;
- }
-
- XferFastData() {
+ /*XferFastData() {
  //TMS header 100
  unsigned char Ack;
- Ack = jtag2w5p( 0, 0b001, 3 );
+ Ack = jtag2w4p( 0, 0b001, 3 );
  ///TODO: check Ack
 
 

@@ -30,11 +30,12 @@
 #include "prog_lolvl.h"
 #include "device.h"
 #include <delays.h>
+#ifdef USE_PIC24
 int write_status;
 extern unsigned char ConfigLimitPGDPGC;
 void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksize, char lastblock );
 
-unsigned char p24E_do_write( void ) {
+/*unsigned char p24E_do_write( void ) {
     unsigned char ctr;
     int j;
 
@@ -62,7 +63,7 @@ unsigned char p24E_do_write( void ) {
         Delay100TCYx(5);
     }
     return (0);
-}
+}*/
 unsigned char p24E_do_write1( void ) {
     unsigned char ctr;
     int j;
@@ -167,7 +168,7 @@ void write_code_PIC24E( unsigned long address, unsigned char* data, char blocksi
         dspic_send_24_bits( 0x883956 ); //MOV W3, NVMADR
         dspic_send_24_bits( 0x883967 ); //MOV W4, NVMADRU
         //Step 7: Do the write
-        p24E_do_write();
+        p24E_do_write1();
     }
 
 }
@@ -176,47 +177,7 @@ void write_code_P24EP( unsigned long address, unsigned char* data, char blocksiz
 	write_code_PIC24E( address, data, blocksize, lastblock, 0x4001 );
 }
 
-#if 0
-void write_config_bits_PIC24E( unsigned long address, unsigned char* data, char blocksize, unsigned int nv )
-{
-	static char blockcounter;
-	unsigned int payload;
 
-    //Step 6: Set the NVMCON to program 2 instruction words.
-    dspic_send_24_bits( 0x24000A|(nv<<4) ); //MOV #0x4001, W10
-    dspic_send_24_bits( 0x000000 );     //NOP
-    dspic_send_24_bits( 0x88394A );     //MOV W10, NVMCON
-    dspic_send_24_bits( 0x000000 );     //NOP
-    dspic_send_24_bits( 0x000000 );     //NOP
-    //Step 2: setup TBLPAG
-    dspic_send_24_bits( 0x200FA0 );     //MOV #FA, W0
-    dspic_send_24_bits( 0x8802A0 );     //MOV W0, TBLPAG
-
-    //Step 6: Repeat steps 3-5 .
-    for( blockcounter = 0; blockcounter < blocksize; blockcounter += 4 )
-    {
-        //Step 3: Load W0:W1 with the next 2 configuration bytes
-        dspic_send_24_bits( 0x2FF000 |data[blockcounter] << 4 );    //MOV data,W0
-        dspic_send_24_bits( 0x2FF001 |data[blockcounter+2] << 4 );  //MOV data,W1
-        //Step 4: Set the read pointer (W3) and load the (next set of) write latches.
-        dspic_send_24_bits( 0xEB0180 ); //CLR W3
-        dspic_send_24_bits( 0x000000 ); //NOP
-        dspic_send_24_bits( 0xBB1980 ); //TBLWTL W0, [W3++]
-        dspic_send_24_bits( 0x000000 ); //NOP
-        dspic_send_24_bits( 0x000000 ); //NOP
-        dspic_send_24_bits( 0xBB0981 ); //TBLWTL W1, [W3]
-        dspic_send_24_bits( 0x000000 ); //NOP
-        dspic_send_24_bits( 0x000000 ); //NOP
-        //Step 5: Set the NVMADRU/NVMADR register-pair to point to the correct address
-        dspic_send_24_bits( 0x200003 | (((((blockcounter + address) * 2) / 3) & 0x00FFFF) << 4) );  //MOV #<DestinationAddress15:0>, W3
-        dspic_send_24_bits( 0x200004 | (((((blockcounter + address) * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W4
-        dspic_send_24_bits( 0x883953 ); //MOV W3, NVMADR
-        dspic_send_24_bits( 0x883964 ); //MOV W4, NVMADRU
-        //Step 7: Do the write
-        p24E_do_write();
-    }
-}
-#else
 /*
  * writes configs 2 at a time
  * if odd number (e.g. 1) read address+1, then write
@@ -251,7 +212,7 @@ void write_config_bits_P24EP( unsigned long address, unsigned char* data, char b
         first = 1;
     }
 }
-#endif
+
 void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	char blockcounter = 0;
@@ -349,3 +310,4 @@ DEVICE_ENTRY( P24EPXXX,    PIC24,	3V,	PIC24E,		P24EP,		PIC24E,	    none,		P24EP,
 };
 #pragma romdata
 #undef LIST
+#endif
