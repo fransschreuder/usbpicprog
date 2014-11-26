@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--************************************************************************-->
 <!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*               2014 Diego Herranz <diegoherranz@diegoherranz.com>     *-->
 <!--*                                                                      *-->
 <!--* This program is free software; you can redistribute it and/or modify *-->
 <!--* it under the terms of the GNU General Public License as published by *-->
@@ -194,10 +195,14 @@
     </mask>
   </config>
 
-  <config offset="0x9" name="CONFIG5H" wmask="0xFF" bvalue="0x40" >
+  <config offset="0x9" name="CONFIG5H" wmask="0xFF" bvalue="0xC0" >
     <mask name="CPB" value="0x40" >
       <value value="0x00" name="0000:07FF" cname="_CPB_ON"  />
       <value value="0x40" name="Off"       cname="_CPB_OFF" />
+    </mask>
+    <mask name="CPD" value="0x80" >
+      <value value="0x00" name="All"       cname="_CPD_ON"  />
+      <value value="0x80" name="Off"       cname="_CPD_OFF" />
     </mask>
   </config>
 
@@ -220,7 +225,7 @@
     </mask>
   </config>
 
-  <config offset="0xB" name="CONFIG6H" wmask="0xFF" bvalue="0x60" cmask="0x40" >
+  <config offset="0xB" name="CONFIG6H" wmask="0xFF" bvalue="0xE0" cmask="0x40" >
     <mask name="WRTC" value="0x20" >
       <value value="0x00" name="All" cname="_WRTC_ON"  />
       <value value="0x20" name="Off" cname="_WRTC_OFF" />
@@ -228,6 +233,10 @@
     <mask name="WRTB" value="0x40" >
       <value value="0x00" name="0000:07FF" cname="_WRTB_ON"  />
       <value value="0x40" name="Off"       cname="_WRTB_OFF" />
+    </mask>
+    <mask name="WRTD" value="0x80" >
+      <value value="0x00" name="All" cname="_WRTD_ON"  />
+      <value value="0x80" name="Off" cname="_WRTD_OFF" />
     </mask>
   </config>
 
