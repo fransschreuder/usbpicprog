@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--************************************************************************-->
 <!--* Copyright (C) 2005-2007 Nicolas Hadacek <hadacek@kde.org>            *-->
+<!--*               2014 Diego Herranz <diegoherranz@diegoherranz.com>     *-->
 <!--*                                                                      *-->
 <!--* This program is free software; you can redistribute it and/or modify *-->
 <!--* it under the terms of the GNU General Public License as published by *-->
@@ -34,7 +35,7 @@
 <!--* Configuration bits ***************************************************-->
   <config offset="0x0" name="CONFIG1L" wmask="0xFF" bvalue="0x00" />
 
-  <config offset="0x1" name="CONFIG1H" wmask="0xFF" bvalue="0x05" >
+  <config offset="0x1" name="CONFIG1H" wmask="0xFF" bvalue="0x25" >
     <mask name="FOSC"  value="0x0F" >
       <value value="0x00" name="LP"            cname="_FOSC_LP_1H"       sdcc_cname="" />
       <value value="0x01" name="XT"            cname="_FOSC_XT_1H"       sdcc_cname="" />
@@ -150,7 +151,7 @@
     </mask>
   </config>
 
-  <config offset="0x6" name="CONFIG4L" wmask="0xFF" bvalue="0xC5" >
+  <config offset="0x6" name="CONFIG4L" wmask="0xFF" bvalue="0x85" >
     <mask name="STVREN" value="0x01" >
       <value value="0x00" name="Off" cname="" sdcc_cname="" />
       <value value="0x01" name="On"  cname="" sdcc_cname="" />
@@ -169,23 +170,23 @@
     </mask>
   </config>
 
-  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0x00" />
+  <config offset="0x7" name="CONFIG4H" wmask="0xFF" bvalue="0xFF" />
 
   <config offset="0x8" name="CONFIG5L" wmask="0xFF" bvalue="0x0F" >
     <mask name="CP_0" value="0x01" >
-      <value value="0x00" name="0800:1FFF" cname="" sdcc_cname="" />
+      <value value="0x00" name="0800:3FFF" cname="" sdcc_cname="" />
       <value value="0x01" name="Off"       cname="" sdcc_cname="" />
     </mask>
     <mask name="CP_1" value="0x02" >
-      <value value="0x00" name="2000:3FFF" cname="" sdcc_cname="" />
+      <value value="0x00" name="4000:7FFF" cname="" sdcc_cname="" />
       <value value="0x02" name="Off"       cname="" sdcc_cname="" />
     </mask>
-    <mask name="CP_2" value="0x02" >
-      <value value="0x00" name="4000:5FFF" cname="" sdcc_cname="" />
+    <mask name="CP_2" value="0x04" >
+      <value value="0x00" name="8000:BFFF" cname="" sdcc_cname="" />
       <value value="0x04" name="Off"       cname="" sdcc_cname="" />
     </mask>
-    <mask name="CP_3" value="0x02" >
-      <value value="0x00" name="6000:7FFF" cname="" sdcc_cname="" />
+    <mask name="CP_3" value="0x08" >
+      <value value="0x00" name="C000:FFFF" cname="" sdcc_cname="" />
       <value value="0x08" name="Off"       cname="" sdcc_cname="" />
     </mask>
   </config>
@@ -201,14 +202,22 @@
     </mask>
   </config>
 
-  <config offset="0xA" name="CONFIG6L" wmask="0xFF" bvalue="0x03" >
+  <config offset="0xA" name="CONFIG6L" wmask="0xFF" bvalue="0x0F" >
     <mask name="WRT_0" value="0x01" >
-      <value value="0x00" name="0800:1FFF" cname=""  sdcc_cname="" />
+      <value value="0x00" name="0800:3FFF" cname=""  sdcc_cname="" />
       <value value="0x01" name="Off"       cname="" sdcc_cname="" />
     </mask>
     <mask name="WRT_1" value="0x02" >
-      <value value="0x00" name="2000:3FFF" cname=""  sdcc_cname="" />
+      <value value="0x00" name="4000:7FFF" cname=""  sdcc_cname="" />
       <value value="0x02" name="Off"       cname="" sdcc_cname="" />
+    </mask>
+    <mask name="WRT_2" value="0x04" >
+      <value value="0x00" name="8000:BFFF" cname="" sdcc_cname="" />
+      <value value="0x04" name="Off"       cname="" sdcc_cname="" />
+    </mask>
+    <mask name="WRT_3" value="0x08" >
+      <value value="0x00" name="C000:FFFF" cname="" sdcc_cname="" />
+      <value value="0x08" name="Off"       cname="" sdcc_cname="" />
     </mask>
   </config>
 
@@ -218,7 +227,7 @@
       <value value="0x20" name="Off" cname="" />
     </mask>
     <mask name="WRTB" value="0x40" >
-      <value value="0x00" name="On"        cname=""  />
+      <value value="0x00" name="0000:07FF" cname="" />
       <value value="0x40" name="Off"       cname="" />
     </mask>
     <mask name="WRTD" value="0x80" >
@@ -227,14 +236,22 @@
     </mask>
   </config>
 
-  <config offset="0xC" name="CONFIG7L" wmask="0xFF" bvalue="0x03" >
+  <config offset="0xC" name="CONFIG7L" wmask="0xFF" bvalue="0x0F" >
     <mask name="EBTR_0" value="0x01" >
-      <value value="0x00" name="0800:1FFF" cname="_EBTR0_ON"  sdcc_cname="" />
+      <value value="0x00" name="0800:3FFF" cname="_EBTR0_ON"  sdcc_cname="" />
       <value value="0x01" name="Off"       cname="_EBTR0_OFF" sdcc_cname="" />
     </mask>
     <mask name="EBTR_1" value="0x02" >
-      <value value="0x00" name="2000:3FFF" cname="_EBTR1_ON"  sdcc_cname="" />
+      <value value="0x00" name="4000:7FFF" cname="_EBTR1_ON"  sdcc_cname="" />
       <value value="0x02" name="Off"       cname="_EBTR1_OFF" sdcc_cname="" />
+    </mask>
+    <mask name="EBTR_2" value="0x04" >
+      <value value="0x00" name="8000:BFFF" cname="" sdcc_cname="" />
+      <value value="0x04" name="Off"       cname="" sdcc_cname="" />
+    </mask>
+    <mask name="EBTR_3" value="0x08" >
+      <value value="0x00" name="C000:FFFF" cname="" sdcc_cname="" />
+      <value value="0x08" name="Off"       cname="" sdcc_cname="" />
     </mask>
   </config>
 
@@ -285,8 +302,8 @@
     <pin index="36" name="RB3" />
     <pin index="37" name="RB4" />
     <pin index="38" name="RB5" />
-    <pin index="39" name="RB6" />
-    <pin index="40" name="RB7" />
+    <pin index="39" name="RB6/PGC" />
+    <pin index="40" name="RB7/PGD" />
   </package>
 
 </device>
