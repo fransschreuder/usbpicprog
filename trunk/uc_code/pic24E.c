@@ -301,7 +301,7 @@ void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksiz
 		dspic_send_24_bits( 0x000000 );     //NOP
 	}
 }
-
+/*
 #pragma romdata DEVICES
 DEVICE_TABLE devices_pic24e[] =
 {
@@ -309,5 +309,6 @@ DEVICE_TABLE devices_pic24e[] =
 DEVICE_ENTRY( P24EPXXX,    PIC24,	3V,	PIC24E,		P24EP,		PIC24E,	    none,		P24EP,		none,		P24EP )
 };
 #pragma romdata
+*/
 #undef LIST
 #endif

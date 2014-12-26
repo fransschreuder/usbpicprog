@@ -256,7 +256,7 @@ void write_config_bits_P24H( unsigned long address, unsigned char* data, char bl
 {
 	write_config_bits_PIC24( address, data, blocksize, 0x4000 );
 }
-void write_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void write_data_P24KA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	write_config_bits_PIC24( address+0x7FFE00, data, blocksize, 0x4004 );
 }
@@ -329,11 +329,11 @@ void read_code_PIC24( unsigned long address, unsigned char* data, char blocksize
 		dspic_send_24_bits( 0x000000 ); 	//NOP
 	}
 }
-void read_data_P24KA1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+void read_data_P24KA( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
 	read_code_PIC24( address+0x7FFE00, data, blocksize, lastblock | BLOCKTYPE_CONFIG );
 }
-#pragma romdata DEVICES
+/*#pragma romdata DEVICES
 DEVICE_TABLE devices_pic24[] =
 {
 
@@ -347,6 +347,6 @@ DEVICE_ENTRY( P24FJG,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		
 DEVICE_ENTRY( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 DEVICE_ENTRY( P24H,		    PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 };
-#pragma romdata
+#pragma romdata*/
 #undef LIST
 #endif

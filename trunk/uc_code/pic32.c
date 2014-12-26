@@ -21,6 +21,7 @@
 #include "prog_lolvl.h"
 #include "device.h"
 #include <delays.h>
+#include "pic32.h"
 #ifdef USE_PIC32
 #pragma code
 extern unsigned char ConfigLimitPGDPGC;
@@ -66,9 +67,9 @@ unsigned long P32XferData(unsigned long d)
 	return res;
 }
 
-unsigned long P32XferFastData(unsigned long d)
-{
-}
+//unsigned long P32XferFastData(unsigned long d)
+//{
+//}
 
 void P32XferInstruction (unsigned long instruction)
 {
@@ -308,7 +309,7 @@ void get_device_id_P32(unsigned char* data)
 	data[2] = (unsigned char)(payload>>16);
 	data[3] = (unsigned char)(payload>>24);
 }
-
+/*
 #pragma romdata DEVICES
 DEVICE_TABLE devices_pic32[] =
 {
@@ -317,6 +318,7 @@ DEVICE_ENTRY( P32MX110,PIC32,	  3V,   PIC32,		P32,		P32,		none,		P32,		none,		P3
 };
 
 #pragma romdata
+*/
 #undef LIST
 
 

@@ -95,3 +95,18 @@ LIST( P18LF14K22,	PIC18,	3V,		simple,		P18F13K22,	PIC18,		PIC18,		P18F14K22,	PIC
 LIST( P18LF4XK22,	PIC18,	3V,		simple,		P18F4XK22,	PIC18,		PIC18,		P18F4XK22,	P18F4XK22,	P18F4XK22 )
 //    Pictype,		picfamily,5V,		enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits
 LIST( P18FXX20,		PIC18,	5V,		simple,		P18FX220,	PIC18,		PIC18,		P18FXX20,	P18FXX2,	P18F2XXX )
+//    		Pictype,	picfamily,5V,	enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
+#ifdef USE_PIC24
+LIST( P24FJXXXGA0XX,PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
+LIST( P24FJXXXGA1,	PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
+LIST( P24FXXKAXXX,	PIC24,	3V,	PIC24,		P24KA,		PIC24,		P24KA,		P24KA,		P24KA,		P24KA )
+LIST( P24FVXXKA1XX,	PIC24,	5V,	PIC24,		P24KA,		PIC24,		P24KA,		P24KA,		P24KA,		P24KA )
+LIST( P24FJG,		PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24FJ )
+LIST( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
+LIST( P24H,		    PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
+LIST( P24EPXXX,     PIC24,	3V,	PIC24E,		P24EP,		PIC24E,	    none,		P24EP,		none,		P24EP )
+#endif
+#ifdef USE_PIC32
+//    		Pictype,	picfamily,5V,	enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
+LIST( P32MX110,     PIC32,	3V,   PIC32,		P32,		P32,		none,		P32,		none,		P32 )
+#endif

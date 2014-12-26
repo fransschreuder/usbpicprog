@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************-->
+<!--* Copyright (C) 2007 Nicolas Hadacek <hadacek@kde.org>                 *-->
+<!--*                                                                      *-->
+<!--* This program is free software; you can redistribute it and/or modify *-->
+<!--* it under the terms of the GNU General Public License as published by *-->
+<!--* the Free Software Foundation; either version 2 of the License, or    *-->
+<!--* (at your option) any later version.                                  *-->
+<!--************************************************************************-->
+<device name="32MX250F128B" status="IP" memory_technology="FLASH" architecture="32MX" id="0x04D00053" >
+
+<!--* Documents ************************************************************-->
+  <documents webpage="61168" datasheet="61168" progsheet="60001145" erratas="" />
+
+<!--* Operating characteristics ********************************************-->
+  <frequency_range name="industrial" >
+    <frequency start="0"  end="50" vdd_min="2.3" vdd_max="3.6" />
+  </frequency_range>
+
+  <voltages name="vpp" min="2.3" max="3.6" nominal="3.3" />
+  <voltages name="vdd_prog" min="2.3" max="3.6" nominal="3.3" />
+
+<!--* Memory ***************************************************************-->
+  <memory name="code"              start="0x1D000000" end="0x1D01FFFF" />
+  <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
+  <memory name="config"            start="0x1F002FF0" end="0x1F002FFF" />
+  <memory name="eeprom"       start="0x1F000000" end="0x1F001FFF" hexfile_offset="0x00000000" />  
+<!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
+  <memory name="debug_vector"      start="0x1F002000" end="0x1F002FEF" />
+
+<!--* Configuration bits ***************************************************-->
+  <config offset="0xC" name="DEVCFG0" wmask="0x1101FC1F" bvalue="0x1101FC1F" >
+    <mask name="DEBUG" value="0x00000003" >
+		<value value="0x00000003" name="3" />
+		<value value="0x00000002" name="2" />
+		<value value="0x00000001" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+    <mask name="JTAGEN" value="0x00000004" >
+      <value value="0x00000004" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="ICESEL" value="0x00000018" >
+      <value value="0x00000018" name="3" />
+      <value value="0x00000010" name="2" />
+      <value value="0x00000008" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="PWP" value="0x0001FC00" >
+    </mask>
+	<mask name="BWP" value="0x01000000" >
+      <value value="0x01000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="CP" value="0x10000000" >
+      <value value="0x10000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+  </config>
+
+   <config offset="0x8" name="DEVCFG1" wmask="0x03DFF7A7" bvalue="0x03DFF7A7" >
+    <mask name="FNOSC" value="0x00000007" >
+		<value value="0x00000007" name="7" />
+		<value value="0x00000006" name="6" />
+		<value value="0x00000005" name="5" />
+		<value value="0x00000004" name="4" />
+		<value value="0x00000003" name="3" />
+		<value value="0x00000002" name="2" />
+		<value value="0x00000001" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FSOSCEN" value="0x00000020" >
+      <value value="0x00000020" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="IESO" value="0x00000080" >
+      <value value="0x00000080" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="POSCMOD" value="0x00000300" >
+      <value value="0x00000300" name="3" />
+      <value value="0x00000200" name="2" />
+      <value value="0x00000100" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="OSCIOFNC" value="0x00000400" >
+      <value value="0x00000400" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="FPBDIV" value="0x00003000" >
+      <value value="0x00003000" name="3" />
+      <value value="0x00002000" name="2" />
+      <value value="0x00001000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FCKSM" value="0x0000C000" >
+      <value value="0x0000C000" name="3" />
+      <value value="0x00008000" name="2" />
+      <value value="0x00004000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="WDTPS" value="0x001F0000" >
+    </mask>
+    <mask name="WINDIS" value="0x00400000" >
+      <value value="0x00400000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FWDTEN" value="0x00800000" >
+      <value value="0x00800000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FWDTWINSZ" value="0x03000000" >
+      <value value="0x03000000" name="3" />
+      <value value="0x02000000" name="2" />
+      <value value="0x01000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    
+  </config>
+    <config offset="0x4" name="DEVCFG2" wmask="0x00078777" bvalue="0x00078777" >
+    <mask name="FPLLIDIV" value="0x00000007" >
+		<value value="0x00000007" name="7" />
+		<value value="0x00000006" name="6" />
+		<value value="0x00000005" name="5" />
+		<value value="0x00000004" name="4" />
+		<value value="0x00000003" name="3" />
+		<value value="0x00000002" name="2" />
+		<value value="0x00000001" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FPLLMUL" value="0x00000070" >
+		<value value="0x00000070" name="7" />
+		<value value="0x00000060" name="6" />
+		<value value="0x00000050" name="5" />
+		<value value="0x00000040" name="4" />
+		<value value="0x00000030" name="3" />
+		<value value="0x00000020" name="2" />
+		<value value="0x00000010" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+    <mask name="UPLLIDIV" value="0x00000700" >
+		<value value="0x00000700" name="7" />
+		<value value="0x00000600" name="6" />
+		<value value="0x00000500" name="5" />
+		<value value="0x00000400" name="4" />
+		<value value="0x00000300" name="3" />
+		<value value="0x00000200" name="2" />
+		<value value="0x00000100" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+    <mask name="UPLLEN" value="0x00008000" >
+      <value value="0x00008000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="FPLLODIV" value="0x00070000" >
+		<value value="0x00070000" name="7" />
+		<value value="0x00060000" name="6" />
+		<value value="0x00050000" name="5" />
+		<value value="0x00040000" name="4" />
+		<value value="0x00030000" name="3" />
+		<value value="0x00020000" name="2" />
+		<value value="0x00010000" name="1" />
+		<value value="0x00000000" name="0" />
+    </mask>
+  </config>
+    <config offset="0x0" name="DEVCFG3" wmask="0xF000FFFF" bvalue="0xF000FFFF" >
+    <mask name="USERID" value="0x0000FFFF" >
+    </mask>
+    <mask name="PMDL1WAY" value="0x10000000" >
+      <value value="0x10000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+    <mask name="IOL1WAY" value="0x20000000" >
+      <value value="0x20000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="FUSBIDIO" value="0x40000000" >
+      <value value="0x40000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+	<mask name="FVBUSONIO" value="0x80000000" >
+      <value value="0x80000000" name="1" />
+      <value value="0x00000000" name="0" />
+    </mask>
+  </config> 
+
+
+
+<!--* Packages *************************************************************-->
+  <package types="pdip soic ssop" nb_pins="28" >
+  </package>
+
+  <package types="qfn" nb_pins="28" >
+  </package>
+
+</device>

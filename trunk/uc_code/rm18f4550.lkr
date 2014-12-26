@@ -3,12 +3,12 @@
 
 LIBPATH .
 
-FILES c018i.o
-FILES clib.lib
-FILES p18f2550.lib
+FILES c018i_e.o
+FILES clib_e.lib
+FILES p18f2550_e.lib
 
 CODEPAGE   NAME=boot       START=0x0            END=0x7FF          PROTECTED
-CODEPAGE   NAME=vectors    START=0x800          END=0x0x829        PROTECTED
+CODEPAGE   NAME=vectors    START=0x800          END=0x829          PROTECTED
 CODEPAGE   NAME=page       START=0x82A          END=0x7FFF
 CODEPAGE   NAME=idlocs     START=0x200000       END=0x200007       PROTECTED
 CODEPAGE   NAME=config     START=0x300000       END=0x30000D       PROTECTED

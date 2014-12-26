@@ -28,7 +28,6 @@ typedef enum _PICFAMILY {
 
 typedef enum _PICTYPE {
 #include "pictype.h"
-	P24FJG,
 	UPP_INVALID_PICTYPE
 }PICTYPE;
 #undef LIST

@@ -68,6 +68,7 @@ PicType::PicType() : CodeSize(0), ConfigAddress(0), DataSize(0), DataAddress(0),
 
 bool PicType::LoadPIC(PicType::PicIndexInfo& indexInfo)
 {
+	//wxPrintf("LoadPIC: %s\n", indexInfo.name);
     if (indexInfo.pic)
     {
         // the data for this PIC was already loaded and cached previously;
@@ -107,7 +108,7 @@ PicType PicType::FindPIC(wxString picTypeStr)
             return ret;
         }
     }
-    
+    wxLogMessage("FindPIC: %s not in s_arrSupported", picTypeStr);
     return UPP_INVALID_PIC;
 }
 
@@ -116,7 +117,7 @@ PicType PicType::FindPIC(unsigned int devId)
 {
     for (unsigned int i=0;i<s_arrSupported.size();i++)
     {
-        if ((devId & s_arrSupported[i].devIdMask) == s_arrSupported[i].devId)
+		if ((devId & s_arrSupported[i].devIdMask) == s_arrSupported[i].devId)
         {
             // this is a supported PIC!
             
@@ -621,6 +622,7 @@ PicFamily PicType::GetFamilyFromString(const wxString& str)
 	FAMILY(P24EPXXX);
 	FAMILY(P16F150X);
 	FAMILY(P18FXX20);
+	FAMILY(P32MX110);
 	return UPP_INVALID_PICFAMILY;
 }
 

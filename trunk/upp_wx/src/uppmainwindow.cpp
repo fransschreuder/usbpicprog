@@ -642,7 +642,9 @@ void UppMainWindow::UpdatePicInfo()
         wxString::Format(_("Supply voltage (Vdd):\n   Min=%.2fV\n   Nom=%.2fV\n   Max=%.2fV"),
                         m_picType.WorkVoltages[MINIMUM], m_picType.WorkVoltages[NOMINAL], m_picType.WorkVoltages[MAXIMUM]));
     m_pFrequencyText->SetLabel(wxString::Format(_("Frequency range:\n   Min=%.2fMhz\n   Max=%.2fMhz"), m_picType.MinFreq, m_picType.MaxFreq));
-    m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), m_picType.DevId&0xFFFF));
+	int tmpDevId = m_picType.DevId;
+	if(m_picType.picFamily!=P32MX110) tmpDevId &=0xFFFF;
+    m_pDeviceIDText->SetLabel(wxString::Format(_("Device ID: 0x%X"), tmpDevId));
     m_pCodeMemoryText->SetLabel(wxString::Format(_("Code memory size: %d bytes"), m_picType.CodeSize));
     m_pDataMemoryText->SetLabel(wxString::Format(_("Data memory size: %d bytes"), m_picType.DataSize));
     m_pTypeText->SetLabel(wxString::Format(_("Type: %d-bit microcontroller"), m_picType.bitsPerWord()));

@@ -308,7 +308,7 @@ int Hardware::setPicType(PicType* picType)
     unsigned char msg[64];
     msg[0]=CMD_SET_PICTYPE;
     msg[1]=picType->picFamily;
-
+	//wxPrintf("setPicType: %X %X", (int)msg[0], (int) msg[1]);
     // send the command to the hw
     if (writeString(msg,2) < 0)
     {
@@ -323,7 +323,7 @@ int Hardware::setPicType(PicType* picType)
         disconnect();
         return nBytes;
     }
-
+	//wxPrintf("setPicType return: %X\n", (int)msg[0]);
     statusCallBack (100);
     return (int)msg[0];
 }
@@ -948,15 +948,31 @@ int Hardware::autoDetectDevice()
 		PicType picBoot = PicType::FindPIC(("18F2550"));
 		return picBoot.DevId;
 	}
-
+	int devId;
+	PicType picType;
+	/*PicType pic32 = PicType::FindPIC("32MX250F128B");
+	wxPrintf("pictype devid: %X\n", pic32.DevId);
+	if(setPicType(&pic32)<0)
+	{
+		wxLogMessage("Unable to create pic32 type");
+		return -1;
+	}
+	devId=readId();
+	wxPrintf("pic32 devid: %X\n", devId);
+	if(devId<0)
+		return -1;
+	picType = PicType::FindPIC(devId);
+	if(picType.ok())
+		return picType.DevId; 
+	*/
 	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
-	int devId=readId();
+	devId=readId();
 	
 	if(devId<0)
 		return -1;
-	PicType picType = PicType::FindPIC(0x20000|devId);
+	picType = PicType::FindPIC(0x20000|devId);
 	if(picType.ok())
 		return devId|0x20000; 
 
@@ -1038,7 +1054,7 @@ int Hardware::autoDetectDevice()
 	if (picType.ok())
 		return devId|0x10000; 
 	// try PIC16: the specific PIC16 device doesn't matter
-	PicType pic30 = PicType::FindPIC(("P30F1010"));
+	PicType pic30 = PicType::FindPIC(("30F1010"));
 	if (setPicType(&pic30) < 0)
 		return -1;
 	devId=readId();

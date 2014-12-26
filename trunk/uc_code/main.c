@@ -43,7 +43,7 @@
 #include <p18cxxx.h>
 #endif
 #include "typedefs.h"			 // Required
-#include "string.h"
+//#include "string.h"
 #include "usb.h"                         // Required
 #include "io_cfg.h"                      // Required
 #include "usb_compile_time_validation.h" // Optional

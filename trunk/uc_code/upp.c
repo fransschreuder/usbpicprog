@@ -29,7 +29,7 @@
 
 #include "io_cfg.h"             // I/O pin mapping
 #include "upp.h"
-#include <string.h>
+//#include <string.h>
 #include "prog.h"
 #include "prog_lolvl.h"
 #include "svn_revision.h"
@@ -215,7 +215,11 @@ void ProcessIO( void )
 				break;
 			case PIC32:
 				#ifdef USE_PIC32
-				get_device_id_P32((unsigned char*) output_buffer);
+				//get_device_id_P32((unsigned char*) output_buffer);
+				output_buffer[0]=0xaA;
+				output_buffer[1]=0xBB;
+				output_buffer[2]=0xCC;
+				output_buffer[3]=0xDD;
 				#else
 				output_buffer[0]=0;
 				output_buffer[1]=0;
@@ -236,7 +240,7 @@ void ProcessIO( void )
 			}
 			counter = 2;
 			if(picfamily == PIC32)counter=4;
-			setLeds( LEDS_ON );
+			setLeds( LEDS_ON);
 			break;
 		case CMD_WRITE_CODE:
 			setLeds( LEDS_ON | LEDS_WR );

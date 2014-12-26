@@ -6,6 +6,9 @@
 #include "write_code.h"
 #include "write_data.h"
 #include "write_config_bits.h"
+#include "pic32.h"
+#include "pic24.h"
+#include "pic24e.h"
 
 #define LIST(x) #x,
 
