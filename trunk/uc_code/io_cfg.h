@@ -109,10 +109,10 @@
 #define TRISPGC_LOW TRISAbits.TRISA5
 
 /** Manipulate Programmer pins **************************************/
-#define setPGDinput()	do { TRISPGD=1;TRISPGD_LOW=1; } while(0)
-#define setPGDoutput()	do { if( is3_3V() ) TRISPGD_LOW=0; TRISPGD=0;} while(0)
-#define enablePGC_D()	do { if( is3_3V() ) { TRISPGC_LOW=0; TRISPGD_LOW=0; } TRISPGC=0;TRISPGD=0;} while(0)
-#define disablePGC_D()	do { TRISPGC_LOW=1; TRISPGD_LOW=1; TRISPGC=1;TRISPGD=1;} while(0)
+#define setPGDinput()	{TRISPGD=1;TRISPGD_LOW=1;}
+#define setPGDoutput()	{if(is3_3V()){TRISPGD_LOW=0;}TRISPGD=0;}
+#define enablePGC_D()	{if(is3_3V()){TRISPGC_LOW=0;TRISPGD_LOW=0;}TRISPGC=0;TRISPGD=0;}
+#define disablePGC_D()	{TRISPGC_LOW=1; TRISPGD_LOW=1; TRISPGC=1;TRISPGD=1;}
 //#define enablePGC_LOW()	TRISPGC_LOW=0
 //#define trisPGC_LOW()	TRISPGC_LOW=1
 //#define PGC_LOWoff()	PGC_LOW=1
@@ -122,8 +122,8 @@
 //#define PGD_LOWoff()	PGD_LOW=1
 //#define PGD_LOWon()	PGD_LOW=0
 
-#define enableI2CPullup do { TRISPGD_LOW=0; PGD_LOW=1; } while(0)
-#define disableI2CPullup do { TRISPGD_LOW=1; PGD_LOW=0; } while(0)
+#define enableI2CPullup {TRISPGD_LOW=0; PGD_LOW=1; }
+#define disableI2CPullup { TRISPGD_LOW=1; PGD_LOW=0; }
 
 #define enableVPP_RUN()	TRISVPP_RUN=0		//FIXME: should rename VPP and VPP_RUN - perhaps VPP_HI, VPP_5V
 #define trisVPP_RUN()	TRISVPP_RUN=1
@@ -132,7 +132,7 @@
 #define enableVDD()	TRISVDD=0
 #define trisVDD()	TRISVDD=1
 #define VDDoff()	VDD=1
-#define VDDon()		if(ConfigDisableVDD==0)VDD=0
+#define VDDon()		{if(ConfigDisableVDD==0)VDD=0;}
 #define enablePGC()	TRISPGC=0
 //#define trisPGC()	TRISPGC=1
 #define PGClow()	PGC=0

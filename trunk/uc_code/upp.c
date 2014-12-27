@@ -224,15 +224,15 @@ void ProcessIO( void )
 				break;
 			case PIC32:
 				#ifdef USE_PIC32
-				enter_ISCP();
 				get_device_id_P32((unsigned char*) output_buffer);
-				exit_ISCP();
 				#else
 				output_buffer[0]=0xAA;
 				output_buffer[1]=0xBB;
 				output_buffer[2]=0xCC;
 				output_buffer[3]=0xDD;
 				#endif
+				
+				break;
 			case PIC18:
 			case PIC18J:
 			case PIC18K:

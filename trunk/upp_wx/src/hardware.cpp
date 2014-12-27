@@ -964,8 +964,6 @@ int Hardware::autoDetectDevice()
 	picType = PicType::FindPIC(devId);
 	if(picType.ok())
 		return picType.DevId; 
-#warning remove this:
-	return  pic32.DevId;
 
 	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
@@ -1482,12 +1480,13 @@ int Hardware::readId()
 
     // success
     statusCallBack (100);
-    cout<<"ReadId: "<<std::hex<<(unsigned int)msg[3] <<(unsigned int)msg[2] <<(unsigned int)msg[1] <<(unsigned int)msg[0] <<"\n";
-	
-    return ((((int)msg[3])&0xFF)<<24)|
-		   ((((int)msg[2])&0xFF)<<16)|
-		   ((((int)msg[1])&0xFF)<<8)|
-		   (((int)msg[0])&0xFF); 
+    
+	unsigned int res = ((((int)msg[3])&0xFF)<<24)|
+					   ((((int)msg[2])&0xFF)<<16)|
+		  			   ((((int)msg[1])&0xFF)<<8)|
+		  			   (((int)msg[0])&0xFF);
+	cout<<"ReadId: "<<std::hex<<res <<endl;
+    return res; 
 }
 
 int Hardware::readNextBlock(unsigned char* msg, int size )

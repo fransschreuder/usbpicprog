@@ -58,11 +58,11 @@ void P32SendCommand(unsigned char cmd)
 unsigned long P32XferData(unsigned long d)
 {
 	unsigned long res=0;
-	jtag2w4p(0,1, 3); //header 100
-	res =(unsigned long) jtag2w4p((unsigned char) d,0,8);
-	res|=((unsigned long) jtag2w4p((unsigned char) d>>8,0,8)) << 8;
-	res|=((unsigned long) jtag2w4p((unsigned char) d>>16,0,8)) <<16;
-	res|=((unsigned long) jtag2w4p((unsigned char) d>>24,0x80,8)) <<24;
+	res = (unsigned long) (jtag2w4p(0,1, 3)>>2); //header 100
+	res|=((unsigned long) jtag2w4p((unsigned char) (d    ),0   ,8)) << 1;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>8 ),0   ,8)) << 9;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>16),0   ,8)) <<17;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>24),0x80,8)) <<25;
 	jtag2w4p(0, 1, 2); //footer 10
 	return res;
 }
@@ -88,17 +88,20 @@ void P32XferInstruction (unsigned long instruction)
 	P32XferData(0x0000C000);
 }
 
-void P32CheckDeviceStatus(void)
+unsigned long P32CheckDeviceStatus(void)
 {
-	unsigned char statusVal, i=0;
+	unsigned long statusVal;
+	unsigned char i=0;
 	P32SetMode (0x1F);// to force the Chip TAP
 					  //controller into Run Test/Idle state.
 	P32SendCommand (MTAP_SW_MTAP);
 	P32SendCommand (MTAP_COMMAND);
+	startTimerMs( 20 );
 	do
 	{
-		statusVal = (unsigned char)P32XferData (MCHP_STATUS);
-	}while((statusVal&0xC)!=0x8&&i++<255);
+		statusVal = P32XferData (MCHP_STATUS);
+	}while((statusVal&0xCL)!=0x8&&timerRunning);
+	return statusVal;
 		//If CFGRDY (statusVal<3>) is not ‘1’ and
 		//FCBUSY (statusVal<2>) is not ‘0’, GOTO
 		//step 4.
@@ -298,9 +301,14 @@ void write_config_bits_P32( unsigned long address, unsigned char* data, char blo
 	write_code_P32(address, data, blocksize, lastblock);
 }
 
+
+
 void get_device_id_P32(unsigned char* data)
 {
 	unsigned long payload;
+	enter_ISCP();
+	DelayMs(10);
+	P32CheckDeviceStatus();
 	P32SendCommand (MTAP_SW_MTAP);
 	P32SendCommand (MTAP_IDCODE);
 	payload = P32XferData(0);
@@ -308,6 +316,7 @@ void get_device_id_P32(unsigned char* data)
 	data[1] = (unsigned char)(payload>>8);
 	data[2] = (unsigned char)(payload>>16);
 	data[3] = (unsigned char)(payload>>24);
+	exit_ISCP();
 }
 /*
 #pragma romdata DEVICES

@@ -228,6 +228,10 @@ void enter_ISCP_PIC32()
     clock_delay();              // P6 100ns    DelayMs( 10 );
     VPP_RUNon(); //VPP to 4.5V
     clock_delay();               //P20 max 500 us
+    clock_delay();
+    clock_delay();
+    clock_delay();
+    
     VPP_RUNoff(); //and immediately back to 0...
     VPP_RSTon();
     clock_delay();
@@ -713,22 +717,24 @@ unsigned char I2C_read( unsigned char ack ) {
 }
 
 
-#define pulseclock() PGChigh();PGClow()
+#define pulseclock() PGChigh();clock_delay();PGClow();clock_delay()
 
 unsigned char jtag2w4p( unsigned char TDI, unsigned char TMS, unsigned char nbits ) 
 {
+	unsigned char _nbits = nbits;
+	unsigned char _TDI = TDI;
+	unsigned char _TMS = TMS;
 	unsigned char i;
 	unsigned char res = 0;
 	unsigned char orval = 1 << (nbits - 1);
-	for( i = 0; i < nbits; i++ ) 
+	for( i = 0; i < _nbits; i++ ) 
 	{
-		res >>= 1;
-		if( TDI & 1 )
+		if( _TDI & 1 )
 			PGDhigh();
 		else
 			PGDlow();
 		pulseclock();
-		if( TMS & 1 )
+		if( _TMS & 1 )
 			PGDhigh();
 		else
 			PGDlow();
@@ -736,13 +742,17 @@ unsigned char jtag2w4p( unsigned char TDI, unsigned char TMS, unsigned char nbit
 		setPGDinput();
 		pulseclock();
 		PGChigh();
-		if( PGD_READ );
-			res |= orval;
+		if( PGD_READ )
+		{
+			res |= (1<<i);
+		}
 		PGClow();
+		PGDlow();
 		setPGDoutput();
-		TDI >>= 1;
-		TMS >>= 1;
+		_TDI >>= 1;
+		_TMS >>= 1;
 	}
+	
 	return res;
 }
 /*

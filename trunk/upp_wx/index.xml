@@ -443,6 +443,6 @@
     <pic name="24XX256" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="24XX512" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
     <pic name="24XX1025" upp_family="I2C_EE_2" upp_devid="0xF0000" upp_devidmask="0xFFFFF"/>
-	<pic name="32MX250F128B" upp_family="P32MX110" upp_devid="0x04D00053" upp_devidmask="0xFFFFFFFF"/>
+	<pic name="32MX250F128B" upp_family="P32MX110" upp_devid="0x04D00053" upp_devidmask="0x0FFFFFFF"/>
 </upp>
 

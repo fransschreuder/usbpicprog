@@ -5,7 +5,7 @@ CC=env $(WINEOPTS) wine c:\\mcc18\\bin\\mcc18.exe
 LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe 
 INSTALL=usbpicprog -e -s -w -f uc_code.hex
 
-FLAGS=-p=18f2550  -DUSE_PIC32 -DUSER_PIC24 -Od+ -Om+ -Os+ -Od+ -Ou+  -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
+FLAGS=-p=18f2550  -DUSE_PIC32 -DUSE_PIC24 -Od+ -Om+ -Os+ -Ou+  -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
 #LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
 #depending on the compiler version you need to specify the target for the linker, use the line you need depending on linker errors
 LDFLAGS=/m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
