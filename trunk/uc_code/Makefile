@@ -5,7 +5,7 @@ CC=env $(WINEOPTS) wine c:\\mcc18\\bin\\mcc18.exe
 LINK=env $(WINEOPTS) wine c:\\mcc18\\bin\\mplink.exe 
 INSTALL=usbpicprog -e -s -w -f uc_code.hex
 
-FLAGS=-p=18f2550 --extended -DUSE_PIC24 -DUSE_PIC32 -Od+ -Om+ -Os+ -Od+ -Ou+  -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
+FLAGS=-p=18f2550  -DUSE_PIC32 -DUSER_PIC24 -Od+ -Om+ -Os+ -Od+ -Ou+  -ls -I=C:\\mcc18\\h -I~/usbpicprog/trunk/uc_code/
 #LDFLAGS= /p 18f2550 /m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
 #depending on the compiler version you need to specify the target for the linker, use the line you need depending on linker errors
 LDFLAGS=/m $(TARGET).map /k/ rm18f4550.lkr /l C:\\mcc18\\lib
@@ -14,10 +14,30 @@ SUFFIX=c
 
 ## Add source files here ##
 ## Default is to include all files with suffix ##
-SRC=$(wildcard *.$(SUFFIX))
+SRC=bulk_erase.c \
+	device.c \
+	interrupt.c \
+	main.c \
+	pic24.c \
+	pic24E.c \
+	pic32.c \
+	prog_lolvl.c \
+	read_code.c \
+	read_data.c \
+	upp.c \
+	usb9.c \
+	usbctrltrf.c \
+	usbdrv.c \
+	usbdsc.c \
+	usbgen.c \
+	usbmmap.c \
+	write_code.c \
+	write_config_bits.c \
+	write_data.c
+	
 TESTSRC= test/test.c prog_lolvl.c bulk_erase.c read_code.c read_data.c write_code.c write_data.c write_config_bits.c device.c pic24.c
 ## Object files, created from source names ##
-OBJ=$(SRC:.$(SUFFIX)=.o)
+OBJ=uc_code.o
 
 ## Target executable (final output) ##
 TARGET=uc_code.hex
@@ -34,6 +54,9 @@ clean:
 	rm -f *.map
 	rm -f *.cof
 	rm -f *.err
+	rm -f uc_code.c
+	cat $(SRC) > uc_code.c
+	
 # Create test harness
 test: clean
 	gcc -Wunused -DTEST -Drom="" -Itest -I. $(TESTSRC) -o runtest
@@ -43,12 +66,11 @@ test: clean
 .phony: clean all
 
 ## Link and make final target ##
-$(TARGET): $(OBJ)
-	$(LINK) $^ $(LDFLAGS) /o $@
+$(TARGET):
+	$(CC) $(FLAGS) uc_code.c -fo=$(OBJ)
+	$(LINK) $(OBJ) $(LDFLAGS) /o $@
 
-## Compile source into objects ##
-%.o: %.$(SUFFIX)
-	$(CC) $(FLAGS) $< -fo=$@
+
 	
 install:
 	$(INSTALL)

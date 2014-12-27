@@ -358,7 +358,7 @@ void UsbPicProg::CmdLineMain(wxCmdLineParser& parser)
 
 	if(parser.Found("d"))
 	{
-		m_hardware.debug();
+		//m_hardware.debug();
 		m_nRetCode = 0;
         return;
 	}

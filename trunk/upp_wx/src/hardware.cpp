@@ -191,7 +191,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     //       see the CFG01.bCfgValue in uc_code/usbdsc.c
     if ( (retcode=libusb_set_configuration(m_handle, 1)) != LIBUSB_SUCCESS )
     {
-        wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
+        //wxLogError(_("Error setting configuration of the USB device: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_protocol = PROT_NONE;
         m_handle = NULL;
@@ -203,7 +203,7 @@ bool Hardware::connect(UppMainWindow* CB, HardwareType hwtype)
     //       see the CFG01.bInterfaceNumber in uc_code/usbdsc.c
     if ( (retcode=libusb_claim_interface(m_handle, 0)) != LIBUSB_SUCCESS )
     {
-        wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
+        //wxLogError(_("Error claiming the USB device interface: %s"), libusb_strerror((libusb_error)retcode));
         m_hwCurrent = HW_NONE;
         m_protocol = PROT_NONE;
         m_handle = NULL;
@@ -950,21 +950,23 @@ int Hardware::autoDetectDevice()
 	}
 	int devId;
 	PicType picType;
-	/*PicType pic32 = PicType::FindPIC("32MX250F128B");
-	wxPrintf("pictype devid: %X\n", pic32.DevId);
+	PicType pic32 = PicType::FindPIC("32MX250F128B");
+	cout<<"pictype devid: "<<hex<< pic32.DevId<<endl;
 	if(setPicType(&pic32)<0)
 	{
 		wxLogMessage("Unable to create pic32 type");
 		return -1;
 	}
 	devId=readId();
-	wxPrintf("pic32 devid: %X\n", devId);
-	if(devId<0)
-		return -1;
+	
+	cout<<"pic32 devid: " << devId <<endl;
+	
 	picType = PicType::FindPIC(devId);
 	if(picType.ok())
 		return picType.DevId; 
-	*/
+#warning remove this:
+	return  pic32.DevId;
+
 	PicType pic24F = PicType::FindPIC(("24FJ16GA002"));
 	if(setPicType(&pic24F)<0)
 	return -1;
@@ -978,7 +980,7 @@ int Hardware::autoDetectDevice()
 
 	pic24F = PicType::FindPIC(("24F04KA200"));
 	if(setPicType(&pic24F)<0)
-	return -1;
+		return -1;
 	
 	devId=readId();
 	if(devId<0)
@@ -989,9 +991,9 @@ int Hardware::autoDetectDevice()
 
     pic24F = PicType::FindPIC(("24EP256MC202"));
     if(setPicType(&pic24F)<0)
-    return -1;
+		return -1;
     
-	devId=readId();
+	devId=readId(); 
 	if(devId<0)
         return -1;
     picType = PicType::FindPIC(0x20000|devId);
@@ -1464,22 +1466,28 @@ int Hardware::readId()
     msg[0]=CMD_READ_ID;
     if (writeString(msg,1) < 0)
     {
+		cout<<"Error writing string"<<endl;
         disconnect();
         return -1;
     }
 
     // read from the hardware the reply
-    int nBytes = readString(msg,2);
+    int nBytes = readString(msg,64);
     if (nBytes < 0)
     {
+		cout<<"Error reading string"<<endl;
         disconnect();
         return -1;
     }
 
     // success
     statusCallBack (100);
-    cout<<"ReadId: "<<std::hex<<(unsigned int)msg[1] <<(unsigned int)msg[0] <<"\n";
-    return ((((int)msg[1])&0xFF)<<8)|(((int)msg[0])&0xFF); 
+    cout<<"ReadId: "<<std::hex<<(unsigned int)msg[3] <<(unsigned int)msg[2] <<(unsigned int)msg[1] <<(unsigned int)msg[0] <<"\n";
+	
+    return ((((int)msg[3])&0xFF)<<24)|
+		   ((((int)msg[2])&0xFF)<<16)|
+		   ((((int)msg[1])&0xFF)<<8)|
+		   (((int)msg[0])&0xFF); 
 }
 
 int Hardware::readNextBlock(unsigned char* msg, int size )

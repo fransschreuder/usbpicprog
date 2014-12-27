@@ -224,6 +224,7 @@ void enter_ISCP_PIC32()
 
     VPP_RUNoff(); //MCLR low
     VDDon();
+    DelayMs(1);
     clock_delay();              // P6 100ns    DelayMs( 10 );
     VPP_RUNon(); //VPP to 4.5V
     clock_delay();               //P20 max 500 us

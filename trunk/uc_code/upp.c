@@ -29,7 +29,7 @@
 
 #include "io_cfg.h"             // I/O pin mapping
 #include "upp.h"
-//#include <string.h>
+#include <string.h>
 #include "prog.h"
 #include "prog_lolvl.h"
 #include "svn_revision.h"
@@ -208,23 +208,30 @@ void ProcessIO( void )
 			break;
 		case CMD_READ_ID:
 			setLeds( LEDS_ON | LEDS_RD );
+			output_buffer[2]=0;
+			output_buffer[3]=0;
 			switch( picfamily ) {
 			case PIC24:
+				#ifndef USE_PIC24
+				output_buffer[0]=0xAA;
+				output_buffer[1]=0xBB;
+				output_buffer[2]=0xCC;
+				output_buffer[3]=0xDD;
+				break;
+				#endif
 			case dsPIC30:
 				read_code( 0xFF0000, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			case PIC32:
 				#ifdef USE_PIC32
-				//get_device_id_P32((unsigned char*) output_buffer);
-				output_buffer[0]=0xaA;
+				enter_ISCP();
+				get_device_id_P32((unsigned char*) output_buffer);
+				exit_ISCP();
+				#else
+				output_buffer[0]=0xAA;
 				output_buffer[1]=0xBB;
 				output_buffer[2]=0xCC;
 				output_buffer[3]=0xDD;
-				#else
-				output_buffer[0]=0;
-				output_buffer[1]=0;
-				output_buffer[2]=0;
-				output_buffer[3]=0;
 				#endif
 			case PIC18:
 			case PIC18J:
@@ -238,9 +245,8 @@ void ProcessIO( void )
 				read_code( 0x2006, (unsigned char*) output_buffer, 2, BLOCKTYPE_FIRST|BLOCKTYPE_LAST|BLOCKTYPE_CONFIG );
 				break;
 			}
-			counter = 2;
-			if(picfamily == PIC32)counter=4;
-			setLeds( LEDS_ON);
+			
+			counter=4;
 			break;
 		case CMD_WRITE_CODE:
 			setLeds( LEDS_ON | LEDS_WR );
