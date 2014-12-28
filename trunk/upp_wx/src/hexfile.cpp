@@ -210,17 +210,19 @@ bool HexFile::open(PicType* picType, const char* filename)
                 else wxLogError(_("Data in hex file outside data memory of PIC"));
             }
             // is the address within the Code Memory range?
-            if ((extAddress+address)<(picType->CodeSize))
+			dataAddress=picType->CodeAddress;
+            if (((extAddress+address)>=dataAddress)&&
+                ((extAddress+address)< dataAddress+picType->CodeSize))
             {
 				
                 if (m_codeMemory.size() < picType->CodeSize)
                 {
-                    newSize = extAddress+address+lineData.size();
+                    newSize = extAddress+address+lineData.size()-dataAddress;
                     if (m_codeMemory.size()<newSize)
                         m_codeMemory.resize(newSize,0xFF);
 
                     for (unsigned int i=0;i<lineData.size();i++)
-                        m_codeMemory[extAddress+address+i]=lineData[i];
+                        m_codeMemory[extAddress+address+i-dataAddress]=lineData[i];
                 }
                 else wxLogError(_("Data in hex file outside code memory of PIC"));
             }

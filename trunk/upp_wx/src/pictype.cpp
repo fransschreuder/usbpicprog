@@ -350,6 +350,10 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
 						p.CodeSize = (GetRange(child)+1);
 						
 				}
+				if (!child->GetAttribute(("start"), &str) ||
+                    !str.ToLong(&num, 0))
+                    {cout<<"start attribute in code memory not found"<<endl;return UPP_INVALID_PIC;}
+                p.CodeAddress = num;
 			}
             else if (name == ("config"))
             {

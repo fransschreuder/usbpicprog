@@ -21,7 +21,7 @@
 #ifndef UPP_H
 #define UPP_H
 
-#define PROT_UPP 3
+#define PROT_UPP 4
 
 typedef enum
 {
@@ -49,6 +49,17 @@ typedef enum
 #define CONFIG_DISABLE_VDD_MASK 0x1
 #define CONFIG_LIMIT_VPP_MASK 0x2
 #define CONFIG_LIMIT_PGDPGC_MASK 0x4
+
+#define INDEX_cmd       0
+#define INDEX_size      1
+#define INDEX_addr3     2
+#define INDEX_addr2     3
+#define INDEX_addr1     4
+#define INDEX_addr0     5
+#define INDEX_blocktype 6
+#define INDEX_data      7
+#define INDEX_cntH      7
+#define INDEX_cntL      8
 
 typedef enum
 {

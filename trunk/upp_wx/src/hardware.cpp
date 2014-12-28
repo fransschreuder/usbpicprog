@@ -588,6 +588,9 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         if (type==TYPE_CONFIG) {
             currentBlockCounter+=picType->ConfigAddress;
         }
+		if (type==TYPE_CODE) {
+			currentBlockCounter+=picType->CodeAddress;
+		}
         unsigned int blocksize;
         if (blockcounter+blockSizeHW < memorySize)
             blocksize = blockSizeHW;
@@ -814,6 +817,8 @@ int Hardware::write(MemoryType type, HexFile *hexData, PicType *picType)
 		{
 		    if(type==TYPE_CONFIG)
 		        currentBlockCounter+=picType->ConfigAddress;
+			if(type==TYPE_CODE)
+				currentBlockCounter+=picType->CodeAddress;
 		    
 		    // do write the block
 		    retCode = writeBlock(type, dataBlock, currentBlockCounter, blockSizeHW, blocktype);
@@ -987,7 +992,7 @@ int Hardware::autoDetectDevice()
 	if(picType.ok())
 		return devId|0x20000;
 
-    pic24F = PicType::FindPIC(("24EP256MC202"));
+    /*pic24F = PicType::FindPIC(("24EP256MC202"));
     if(setPicType(&pic24F)<0)
 		return -1;
     
@@ -996,7 +1001,7 @@ int Hardware::autoDetectDevice()
         return -1;
     picType = PicType::FindPIC(0x20000|devId);
     if(picType.ok())
-        return devId|0x20000;
+        return devId|0x20000;*/
 
 	PicType pic18J = PicType::FindPIC(("18F45J10"));
 	if(setPicType(&pic18J)<0)
@@ -1503,8 +1508,23 @@ int Hardware::readNextBlock(unsigned char* msg, int size )
 
 }
 int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock, int no_blocks)
-    {
-        if (m_handle == NULL) return -1;
+{
+	int up_cmd=0,up_size=1,up_addr3=2,up_addr2=3,up_addr1=4,up_addr0=5,up_blocktype=6,up_data=7,up_cntH=7,up_cntL=8;
+	if(m_protocol <= PROT_UPP3)
+	{
+		up_cmd=0;
+		up_size=1;
+		up_addr3=2;
+		up_addr2=2;
+		up_addr1=3;
+		up_addr0=4;
+		up_blocktype=5;
+		up_data=6;
+		up_cntH=6;          // for MREAD cmd
+		up_cntL=7;
+	}
+
+	if (m_handle == NULL) return -1;
 
     int nBytes = -1;
     if (m_hwCurrent == HW_UPP)
@@ -1531,16 +1551,18 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
             break;
         }
         uppPackage.data[up_size]=size;
-        uppPackage.data[up_addrU]=(unsigned char)((address>>16)&0xFF);
-        uppPackage.data[up_addrH]=(unsigned char)((address>>8)&0xFF);
-        uppPackage.data[up_addrL]=(unsigned char)(address&0xFF);
+		uppPackage.data[up_addr3]=(unsigned char)((address>>16)&0xFF);
+        uppPackage.data[up_addr2]=(unsigned char)((address>>16)&0xFF);
+        uppPackage.data[up_addr1]=(unsigned char)((address>>8)&0xFF);
+        uppPackage.data[up_addr0]=(unsigned char)(address&0xFF);
         uppPackage.data[up_blocktype]=(unsigned char)lastblock;
 
         // send the command
+		
         if( m_protocol >= PROT_UPP2 ){
             uppPackage.data[up_cntH] = no_blocks >> 8;
             uppPackage.data[up_cntL] = no_blocks;
-            nBytes = writeString(uppPackage.data,8);
+            nBytes = writeString(uppPackage.data,up_cntL+1);
         }
         else
             nBytes = writeString(uppPackage.data,6);
@@ -1608,6 +1630,20 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
 
 int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int size, int lastblock)
 {
+	int up_cmd=0,up_size=1,up_addr3=2,up_addr2=3,up_addr1=4,up_addr0=5,up_blocktype=6,up_data=7,up_cntH=7,up_cntL=8;
+	if(m_protocol <= PROT_UPP3)
+	{
+		up_cmd=0;
+		up_size=1;
+		up_addr3=2;
+		up_addr2=2;
+		up_addr1=3;
+		up_addr0=4;
+		up_blocktype=5;
+		up_data=6;
+		up_cntH=6;          // for MREAD cmd
+		up_cntL=7;
+	}
     if (m_handle == NULL) 
 	{
 		cout<<"Handle = NULL"<<endl;
@@ -1634,9 +1670,10 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             break;
         }
         uppPackage.data[up_size]=size;
-        uppPackage.data[up_addrU]=(unsigned char)((address>>16)&0xFF);
-        uppPackage.data[up_addrH]=(unsigned char)((address>>8)&0xFF);
-        uppPackage.data[up_addrL]=(unsigned char)(address&0xFF);
+		uppPackage.data[up_addr3]=(unsigned char)((address>>24)&0xFF);
+        uppPackage.data[up_addr2]=(unsigned char)((address>>16)&0xFF);
+        uppPackage.data[up_addr1]=(unsigned char)((address>>8)&0xFF);
+        uppPackage.data[up_addr0]=(unsigned char)(address&0xFF);
         uppPackage.data[up_blocktype]=(unsigned char)lastblock;
         memcpy(uppPackage.data+up_data,msg,size);
 
@@ -1650,7 +1687,7 @@ int Hardware::writeBlock(MemoryType type, unsigned char* msg, int address, int s
             cout<<std::hex<<(int)uppPackage.data[i]<<" ";
         cout<<endl;*/
             
-        int nBytes = writeString(uppPackage.data,size+6);
+        int nBytes = writeString(uppPackage.data,size+up_data+1);
         if (nBytes < 0)
         {
             disconnect ();

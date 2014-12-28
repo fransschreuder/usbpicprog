@@ -110,16 +110,18 @@ unsigned long P32CheckDeviceStatus(void)
 
 void bulk_erase_P32( unsigned char doRestore )
 {
-	unsigned char statusVal, i=0;
+	unsigned char statusVal;
+	P32CheckDeviceStatus();
 	P32SendCommand (MTAP_SW_MTAP);
 	P32SendCommand (MTAP_COMMAND);
 	P32XferData (MCHP_ERASE);
 	//#warning P32XferData (MCHP_DE_ASSERT_RST);//, PIC32MZ devices only.
+	startTimerMs( 20 );
 	do
 	{
 		DelayMs(10);
 		statusVal = (unsigned char)P32XferData (MCHP_STATUS);
-	}while((statusVal&0xC)!=0x8&&i++<255);
+	}while((statusVal&0xCL)!=0x8&&timerRunning);
 		//If CFGRDY (statusVal<3>) is not ‘1’ and
 		//FCBUSY (statusVal<2>) is not ‘0’, GOTO
 		//step 4.
@@ -149,6 +151,8 @@ void write_code_P32(unsigned long address, unsigned char* data, char blocksize, 
 	unsigned int payload;
 	if( (lastblock & BLOCKTYPE_FIRST) )
 	{
+		P32CheckDeviceStatus();
+		P32EnterSerialExecutionMode();
 		P32XferInstruction(0x3c10a000+address);
 	}
 	
@@ -278,6 +282,8 @@ void read_code_P32( unsigned long address, unsigned char* data, char blocksize, 
 	unsigned long payload;
 	if(lastblock&BLOCKTYPE_FIRST)
 	{
+		P32CheckDeviceStatus();
+		P32EnterSerialExecutionMode();
 		//Step 1: Initialize some constants.
 		P32XferInstruction(0x3c13ff20); //lui $s3, 0xFF20
 	}
@@ -301,8 +307,6 @@ void write_config_bits_P32( unsigned long address, unsigned char* data, char blo
 	write_code_P32(address, data, blocksize, lastblock);
 }
 
-
-
 void get_device_id_P32(unsigned char* data)
 {
 	unsigned long payload;
@@ -318,17 +322,5 @@ void get_device_id_P32(unsigned char* data)
 	data[3] = (unsigned char)(payload>>24);
 	exit_ISCP();
 }
-/*
-#pragma romdata DEVICES
-DEVICE_TABLE devices_pic32[] =
-{
-//    		Pictype,	picfamily,5V,	enter_ISCP,	bulk_erase,	read_code,	read_data,	write_code,	write_data,	write_config_bits )
-DEVICE_ENTRY( P32MX110,PIC32,	  3V,   PIC32,		P32,		P32,		none,		P32,		none,		P32 )
-};
-
-#pragma romdata
-*/
-#undef LIST
-
 
 #endif

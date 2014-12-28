@@ -169,18 +169,7 @@ typedef struct
 } FirmwareVersion;
 
 
-typedef enum 
-{
-	up_cmd=0,
-	up_size=1,
-	up_addrU=2,
-	up_addrH=3,
-	up_addrL=4,
-	up_blocktype=5,
-	up_data=6,
-	up_cntH=6,          // for MREAD cmd
-	up_cntL=7
-}UPP_INDEX;
+
 /** 
     UppPackage is the data header which is sent to the programmer hardware.
 */
@@ -196,7 +185,7 @@ typedef struct
         unsigned blocktype:8; /// The blocktype can be middle, first or last (or first|last)
         unsigned char dataField[32];
     } fields;*/
-    unsigned char data[56];
+    unsigned char data[57];
 } UppPackage;
 
 

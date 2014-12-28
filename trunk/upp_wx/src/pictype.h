@@ -530,6 +530,8 @@ public:
     /// This string always starts with "P" (not "PIC") prefix.
     wxString Name;
 
+	/// Start address for the code memory (usually 0)
+	unsigned int CodeAddress;
     /// Size of the code memory area (in word units??)
     unsigned int CodeSize;
     

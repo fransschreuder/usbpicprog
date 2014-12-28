@@ -183,7 +183,7 @@ void ProcessIO( void )
 	if( nBytes == 0 && !mUSBGenTxIsBusy() && isReading
 	 || nBytes > 0 )
 	{
-		switch( input_buffer[0] ) {
+		switch( input_buffer[INDEX_cmd] ) {
 		case CMD_GET_PROTOCOL_VERSION:
 			output_buffer[0] = PROT_UPP;		// see upp.h
 			counter = 1;
@@ -202,7 +202,7 @@ void ProcessIO( void )
 			break;
 		case CMD_ERASE:
 			setLeds( LEDS_ON | LEDS_WR );
-			output_buffer[0] = bulk_erase( input_buffer[1] );
+			output_buffer[0] = bulk_erase( input_buffer[INDEX_size] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -213,10 +213,8 @@ void ProcessIO( void )
 			switch( picfamily ) {
 			case PIC24:
 				#ifndef USE_PIC24
-				output_buffer[0]=0xAA;
-				output_buffer[1]=0xBB;
-				output_buffer[2]=0xCC;
-				output_buffer[3]=0xDD;
+				output_buffer[0]=0x00;
+				output_buffer[1]=0x00;
 				break;
 				#endif
 			case dsPIC30:
@@ -226,12 +224,9 @@ void ProcessIO( void )
 				#ifdef USE_PIC32
 				get_device_id_P32((unsigned char*) output_buffer);
 				#else
-				output_buffer[0]=0xAA;
-				output_buffer[1]=0xBB;
-				output_buffer[2]=0xCC;
-				output_buffer[3]=0xDD;
+				output_buffer[0]=0x00;
+				output_buffer[1]=0x00;
 				#endif
-				
 				break;
 			case PIC18:
 			case PIC18J:
@@ -250,76 +245,77 @@ void ProcessIO( void )
 			break;
 		case CMD_WRITE_CODE:
 			setLeds( LEDS_ON | LEDS_WR );
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
+			address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
 			output_buffer[0] = write_code( address,
-					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
+					(unsigned char*) (input_buffer + INDEX_data), input_buffer[INDEX_size], input_buffer[INDEX_blocktype] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
 		case CMD_READ_CONFIG:
-			input_buffer[5] |= BLOCKTYPE_CONFIG;
+			input_buffer[INDEX_blocktype] |= BLOCKTYPE_CONFIG;
 			// no break
 		case CMD_READ_CODE_OLD:
-			if( input_buffer[1] <= 8 )		// this is correct for all but PIC18F4321(?) where it doesn't matter
-				input_buffer[5] |= BLOCKTYPE_CONFIG;
+			if( input_buffer[INDEX_size] <= 8 )		// this is correct for all but PIC18F4321(?) where it doesn't matter
+				input_buffer[INDEX_blocktype] |= BLOCKTYPE_CONFIG;
 		case CMD_READ_CODE:
 			setLeds( LEDS_ON | LEDS_RD );
 
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
-			read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
-			counter = input_buffer[1];
+			address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
+			read_code( address, (unsigned char*) output_buffer, input_buffer[INDEX_size], input_buffer[INDEX_blocktype] );
+			counter = input_buffer[INDEX_size];
 			setLeds( LEDS_ON );
 			break;
         case CMD_MREAD_CODE:
             setLeds( LEDS_ON | LEDS_RD );
 
-            address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-                    | ((unsigned long) input_buffer[4]);
-            read_code( address, (unsigned char*) output_buffer, input_buffer[1], input_buffer[5] );
-            if( --input_buffer[7] == 255 )
-                --input_buffer[6];
-            if( input_buffer[6] == 0 && input_buffer[7] == 0 )
+            address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
+            read_code( address, (unsigned char*) output_buffer, input_buffer[INDEX_size], input_buffer[INDEX_blocktype] );
+            if( --input_buffer[INDEX_cntL] == 255 )
+                --input_buffer[INDEX_cntH];
+            if( input_buffer[INDEX_cntH] == 0 && input_buffer[INDEX_cntL] == 0 )
                 isReading = 0;
             else
                 isReading = 1;
             if( picfamily == PIC10
              || picfamily == PIC12
              || picfamily == PIC16 )
-                address += input_buffer[1]/2;
+                address += input_buffer[INDEX_size]/2;
             else
-                address += input_buffer[1];
-            input_buffer[4] = address;
-            input_buffer[3] = address >> 8;
-            input_buffer[2] = address >>16;
-            counter = input_buffer[1];
+                address += input_buffer[INDEX_size];
+            input_buffer[INDEX_addr0] = address;
+            input_buffer[INDEX_addr1] = address >> 8;
+            input_buffer[INDEX_addr2] = address >>16;
+            input_buffer[INDEX_addr3] = address >>24;
+            counter = input_buffer[INDEX_size];
             setLeds( LEDS_ON );
             break;
 		case CMD_WRITE_DATA:
 			setLeds( LEDS_ON | LEDS_WR );
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
+			address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
 			output_buffer[0] = write_data( address,
-					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
+					(unsigned char*) (input_buffer + INDEX_data), input_buffer[INDEX_size], input_buffer[INDEX_blocktype] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
 		case CMD_READ_DATA:
 			setLeds( LEDS_ON | LEDS_RD );
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
-			read_data( address, (unsigned char*) output_buffer, input_buffer[1],
-					input_buffer[5] );
-			counter = input_buffer[1];
+			address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
+			read_data( address, (unsigned char*) output_buffer, input_buffer[INDEX_size],
+					input_buffer[INDEX_blocktype] );
+			counter = input_buffer[INDEX_size];
 			setLeds( LEDS_ON );
 			break;
 		case CMD_WRITE_CONFIG:
 			setLeds( LEDS_ON | LEDS_WR );
-			address = ((unsigned long) input_buffer[2]) << 16 | ((unsigned long) input_buffer[3]) << 8
-					| ((unsigned long) input_buffer[4]);
+			address = ((unsigned long) input_buffer[INDEX_addr3]) << 24 | ((unsigned long) input_buffer[INDEX_addr2]) << 16 | 
+					  ((unsigned long) input_buffer[INDEX_addr1]) << 8  | ((unsigned long) input_buffer[INDEX_addr0]);
 			output_buffer[0] = write_config_bits( address,
-					(unsigned char*) (input_buffer + 6), input_buffer[1], input_buffer[5] );
+					(unsigned char*) (input_buffer + INDEX_data), input_buffer[INDEX_size], input_buffer[INDEX_blocktype] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -327,7 +323,7 @@ void ProcessIO( void )
 		{
 			int i;
 
-			output_buffer[0] = set_pictype( input_buffer[1] );
+			output_buffer[0] = set_pictype( input_buffer[INDEX_size] );
 			counter = 1;
 			setLeds( LEDS_ON );
 			break;
@@ -340,7 +336,7 @@ void ProcessIO( void )
 			break;
 		case CMD_DEBUG:
 			setLeds( LEDS_ON | LEDS_WR | LEDS_RD );
-			switch( input_buffer[1] ) {
+			switch( input_buffer[INDEX_size] ) {
 			case 0:
 				set_pictype( dsP30F );
 				enter_ISCP();
@@ -369,7 +365,7 @@ void ProcessIO( void )
 			}
 			break;
 		case CMD_GET_PIN_STATUS:
-			switch( input_buffer[1] ) {
+			switch( input_buffer[INDEX_size] ) {
 			case SUBCMD_PIN_PGC:
 
 				if( PGC == 0 )
@@ -426,7 +422,7 @@ void ProcessIO( void )
 			}
 			break;
 		case CMD_SET_PIN_STATUS:
-			switch( input_buffer[1] ) {
+			switch( input_buffer[INDEX_size] ) {
 			case SUBCMD_PIN_PGC:
 				switch( input_buffer[2] ) {
 				case PIN_STATE_0V:
@@ -540,15 +536,15 @@ void ProcessIO( void )
 			counter = 1;
 			break;
 		case CMD_APPLY_SETTINGS:
-			if(input_buffer[1]&CONFIG_DISABLE_VDD_MASK)
+			if(input_buffer[INDEX_size]&CONFIG_DISABLE_VDD_MASK)
 				ConfigDisableVDD=1;
 			else
 				ConfigDisableVDD=0;
-			if(input_buffer[1]&CONFIG_LIMIT_VPP_MASK)
+			if(input_buffer[INDEX_size]&CONFIG_LIMIT_VPP_MASK)
 				ConfigLimitVPP=1;
 			else
 				ConfigLimitVPP=0;
-			if(input_buffer[1]&CONFIG_LIMIT_PGDPGC_MASK)
+			if(input_buffer[INDEX_size]&CONFIG_LIMIT_PGDPGC_MASK)
 				ConfigLimitPGDPGC=1;
 			else
 				ConfigLimitPGDPGC=0;
