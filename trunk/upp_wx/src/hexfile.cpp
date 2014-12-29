@@ -65,6 +65,7 @@ void HexFile::newFile(PicType* picType)
     m_codeMemory.resize(picType->CodeSize,0xFF);
     m_dataMemory.resize(picType->DataSize,0xFF);
     m_configMemory.resize(picType->ConfigSize,0xFF);
+	setBValue (picType);
     calcConfigMask(picType);
     
     trimData(picType);
@@ -146,21 +147,26 @@ bool HexFile::open(PicType* picType, const char* filename)
             if ((picType->bitsPerWord()==14)||(picType->bitsPerWord()==24))
                 configAddress*=2;
             if (((extAddress+address)>=(configAddress))&&
-                ((extAddress+address)<(configAddress+picType->ConfigSize*((picType->bitsPerWord()==24)+1))))
+                ((extAddress+address)<(configAddress+picType->ConfigSize*
+                                   									((picType->bitsPerWord()==24)?2:1)*
+                                   									((picType->bitsPerWord()==32)?4:1))))
             {
-                if (m_configMemory.size() < (picType->ConfigSize*((picType->bitsPerWord()==24)+1)))
+                if (m_configMemory.size() < (picType->ConfigSize*((picType->bitsPerWord()==24)?2:1)*
+                                         						 ((picType->bitsPerWord()==32)?4:1)))
                 {
                     newSize = extAddress+address+lineData.size() - configAddress;
                     if (m_configMemory.size()<newSize)
                         m_configMemory.resize(newSize,0xFF);
 
-                    for (unsigned int i=0;i<lineData.size();i++)
-					{
-                        m_configMemory[extAddress+address+i-configAddress]=lineData[i];
-					}
                 }
-                else wxLogError(_("Data in hex file outside config memory of PIC"));
+				setBValue (picType); //assign blank values to the config memory as stated in the XML file
+                for (unsigned int i=0;i<lineData.size();i++)
+				{
+                    m_configMemory[extAddress+address+i-configAddress]=lineData[i];
+				}
+                
             }
+			else wxLogError(_("Data in hex file outside config memory of PIC"));
             
             // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
@@ -775,6 +781,36 @@ void HexFile::print(wxString* output,PicType *picType)
 // HexFile - private functions
 // ----------------------------------------------------------------------------
 
+
+void HexFile::setBValue(const PicType* pic)
+{
+    // reset m_configMask contents
+    for (unsigned int i=0; i<pic->ConfigWords.size(); i++)
+    {
+        unsigned int mask = pic->ConfigWords[i].bValue;
+        switch(pic->bitsPerWord())
+		{
+        	case 8:
+			case 16:
+			    m_configMemory[i] = mask;
+				break;
+			case 14:
+			case 24:
+				// for 14 and 24 bit devices, each mask need to be saved in two different 
+		        // elements of the mask array:
+		        m_configMemory[i*2] = mask & 0xFF;
+		        m_configMemory[i*2+1] = (mask>>8) & 0xFF;
+				break;
+			case 32:
+				m_configMemory[i*4] = mask & 0xFF;
+		        m_configMemory[i*4+1] = (mask>>8) & 0xFF;
+				m_configMemory[i*4+2] = (mask>>16) & 0xFF;
+				m_configMemory[i*4+3] = (mask>>24) & 0xFF;
+				break;
+        }
+    }
+}
+
 void HexFile::calcConfigMask(const PicType* pic)
 {
     m_configMask.resize(m_configMemory.size());
@@ -798,7 +834,7 @@ void HexFile::calcConfigMask(const PicType* pic)
 		{
         	case 8:
 			case 16:
-	            m_configMask[i] = mask;
+			    m_configMask[i] = mask;
 				break;
 			case 14:
 			case 24:
@@ -806,6 +842,12 @@ void HexFile::calcConfigMask(const PicType* pic)
 		        // elements of the mask array:
 		        m_configMask[i*2] = mask & 0xFF;
 		        m_configMask[i*2+1] = (mask>>8) & 0xFF;
+				break;
+			case 32:
+	            m_configMask[i*4] = mask & 0xFF;
+		        m_configMask[i*4+1] = (mask>>8) & 0xFF;
+				m_configMask[i*4+2] = (mask>>16) & 0xFF;
+				m_configMask[i*4+3] = (mask>>24) & 0xFF;
 				break;
         }
     }
