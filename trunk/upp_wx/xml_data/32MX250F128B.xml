@@ -24,7 +24,7 @@
   <memory name="code"              start="0x1D000000" end="0x1D01FFFF" />
   <memory name="device_id"         start="0xFF0000" end="0xFF0002" />
   <memory name="config"            start="0x1F002FF0" end="0x1F002FFF" />
-  <memory name="eeprom"       start="0x1F000000" end="0x1F001FFF" hexfile_offset="0x00000000" />  
+  <memory name="eeprom"       start="0x1F000000" end="0x1F001FFF" hexfile_offset="0x1F001FFF" />  
 <!--   <memory name="user_ids"          start="0xF80010" end="0xF80018" rmask="0xFFFF" /> -->
   <memory name="debug_vector"      start="0x1F002000" end="0x1F002FEF" />
 

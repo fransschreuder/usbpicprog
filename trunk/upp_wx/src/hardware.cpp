@@ -590,6 +590,7 @@ int Hardware::read(MemoryType type, HexFile *hexData, PicType *picType, unsigned
         }
 		if (type==TYPE_CODE) {
 			currentBlockCounter+=picType->CodeAddress;
+			printf("current bc: %x\n", currentBlockCounter); 
 		}
         unsigned int blocksize;
         if (blockcounter+blockSizeHW < memorySize)
@@ -1475,7 +1476,7 @@ int Hardware::readId()
     }
 
     // read from the hardware the reply
-    int nBytes = readString(msg,64);
+    int nBytes = readString(msg,4);
     if (nBytes < 0)
     {
 		cout<<"Error reading string"<<endl;
@@ -1551,7 +1552,7 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
             break;
         }
         uppPackage.data[up_size]=size;
-		uppPackage.data[up_addr3]=(unsigned char)((address>>16)&0xFF);
+		uppPackage.data[up_addr3]=(unsigned char)((address>>24)&0xFF);
         uppPackage.data[up_addr2]=(unsigned char)((address>>16)&0xFF);
         uppPackage.data[up_addr1]=(unsigned char)((address>>8)&0xFF);
         uppPackage.data[up_addr0]=(unsigned char)(address&0xFF);
@@ -1571,6 +1572,11 @@ int Hardware::readBlock(MemoryType type, unsigned char* msg, int address, int si
 		    disconnect();
             return nBytes;
 		}
+		for(int i=0; i<8; i++)
+		{
+			printf("%02X ",(int)uppPackage.data[i]);
+		}
+		cout<<endl;
         // read back the bytes
         nBytes = readString(msg,size);
         if(nBytes < 0)

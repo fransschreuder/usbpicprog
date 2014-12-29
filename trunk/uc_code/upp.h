@@ -52,7 +52,7 @@ typedef enum
 
 #define INDEX_cmd       0
 #define INDEX_size      1
-#define INDEX_addr3     2
+#define INDEX_addr3     2 //PROT_UPP4
 #define INDEX_addr2     3
 #define INDEX_addr1     4
 #define INDEX_addr0     5

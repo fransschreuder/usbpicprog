@@ -717,7 +717,7 @@ unsigned char I2C_read( unsigned char ack ) {
 }
 
 
-#define pulseclock() PGChigh();clock_delay();PGClow();clock_delay()
+#define pulseclock() {PGChigh();PGClow();}
 
 unsigned char jtag2w4p( unsigned char TDI, unsigned char TMS, unsigned char nbits ) 
 {

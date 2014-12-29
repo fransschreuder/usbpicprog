@@ -67,18 +67,28 @@ unsigned long P32XferData(unsigned long d)
 	return res;
 }
 
-//unsigned long P32XferFastData(unsigned long d)
-//{
-//}
+unsigned long P32XferFastData(unsigned long d)
+{
+	unsigned long res=0;
+	res = (unsigned long) (jtag2w4p(0,1, 4)>>3); //header 100 + ack
+	res|=((unsigned long) jtag2w4p((unsigned char) (d    ),0   ,8)) << 1;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>8 ),0   ,8)) << 9;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>16),0   ,8)) <<17;
+	res|=((unsigned long) jtag2w4p((unsigned char) (d>>24),0x80,8)) <<25;
+	jtag2w4p(0, 1, 2); //footer 10
+
+	return res;
+}
 
 void P32XferInstruction (unsigned long instruction)
 {
 	unsigned long controlVal;
 	// Select Control Register
 	P32SendCommand(ETAP_CONTROL);
+	startTimerMs(1);
 	do {
 		controlVal = P32XferData(0x0004C000);
-	} while( (controlVal&0x20000)==0 );
+	} while( (controlVal&0x40000)==0 && timerRunning);
 	// Select Data Register
 	P32SendCommand(ETAP_DATA);
 	// Send the instruction
@@ -119,7 +129,6 @@ void bulk_erase_P32( unsigned char doRestore )
 	startTimerMs( 20 );
 	do
 	{
-		DelayMs(10);
 		statusVal = (unsigned char)P32XferData (MCHP_STATUS);
 	}while((statusVal&0xCL)!=0x8&&timerRunning);
 		//If CFGRDY (statusVal<3>) is not ‘1’ and
@@ -149,13 +158,13 @@ void write_code_P32(unsigned long address, unsigned char* data, char blocksize, 
 	char blockcounter;
 	char i;
 	unsigned int payload;
+	setLeds(LEDS_WR);
 	if( (lastblock & BLOCKTYPE_FIRST) )
 	{
 		P32CheckDeviceStatus();
 		P32EnterSerialExecutionMode();
-		P32XferInstruction(0x3c10a000+address);
+		P32XferInstruction(0x3c10a000);
 	}
-	
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 4 )
 	{
 		payload = (((unsigned int) data[blockcounter])) | //MSB
@@ -167,6 +176,7 @@ void write_code_P32(unsigned long address, unsigned char* data, char blocksize, 
 		P32XferInstruction(0xae080000|((address+blockcounter)&0x7F));
 		
 	}
+	
 	if((address&0x60)==0x60)
 	{
 		//Step 1:
@@ -285,17 +295,26 @@ void read_code_P32( unsigned long address, unsigned char* data, char blocksize, 
 		P32CheckDeviceStatus();
 		P32EnterSerialExecutionMode();
 		//Step 1: Initialize some constants.
-		P32XferInstruction(0x3c13ff20); //lui $s3, 0xFF20
+		P32XferInstruction(0x3C13FF20); //lui $s3, 0xFF20
+		P32XferInstruction(0x36730000); //ori $s3,$s3,0
+		
+		
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 4 )
 	{
 		//Step 2: Read memory Location.
 		P32XferInstruction(0x3c080000 | (address>>16));// lui $t0,<FLASH_WORD_ADDR(31:16)>
-		P32XferInstruction(0x35080000 | (address&0xFF)); // ori $t0,<FLASH_WORD_ADDR(15:0)>
+		P32XferInstruction(0x35080000 | (address&0xFFFF)); // ori $t0,<FLASH_WORD_ADDR(15:0)>
 		//Step 3: Write to Fastdata location.
 		P32XferInstruction(0x8d090000);// lw $t1, 0($t0)
 		P32XferInstruction(0xae690000);// sw $t1, 0($s3)
 		//Step 4: Read data from Fastdata register 0xFF200000.
+		P32SendCommand(ETAP_FASTDATA);
+		payload=P32XferFastData(0x00000000);
+		data[blockcounter + 0] = (unsigned char) payload;
+		data[blockcounter + 1] = (unsigned char) (payload >> 8);
+		data[blockcounter + 2] = (unsigned char) (payload >> 16);
+		data[blockcounter + 3] = (unsigned char) (payload >> 24);
 		
 		//Step 5: Repeat Steps 2-4 until all configuration locations
 		//are read.

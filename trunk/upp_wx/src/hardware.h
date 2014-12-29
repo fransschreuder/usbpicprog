@@ -64,7 +64,8 @@ typedef enum
 	PROT_UPP0 = 100,			// Original command set to firmware
 	PROT_UPP1,				    // deleted READ_CODE(0x40) added READ_CODE(0xD1),READ_CONFIG(0xD2),EXIT_TO_BOOTLOADER(0xD3)
 	PROT_UPP2,                  // added multi-block read to READ_CODE(0xD4)
-	PROT_UPP3					// added configuration to limit VDD, VPP and PGD, PGC
+	PROT_UPP3,					// added configuration to limit VDD, VPP and PGD, PGC
+	PROT_UPP4					// Changed address to 32 bit (was 24)
 }PROTOCOL;
 
 typedef enum
