@@ -79,7 +79,7 @@ for DIST in ${DISTS} ; do
 	dch -D $DIST -m -v $RELEASE$COUNT -b
 	cp debian/changelog ../../upp_wx/debian
 	debuild -S -k8AD5905E
-	sed -i 's/libtiff4/libtiff5/g' debian/control
+	#sed -i 's/libtiff4/libtiff5/g' debian/control
 	
 done
 
