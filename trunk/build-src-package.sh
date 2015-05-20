@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="saucy trusty utopic"
+DISTS="trusty utopic vivid"
 
 if [ $# -ne 0 ]
 then
