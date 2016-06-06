@@ -8,6 +8,6 @@ Homepage: <http://usbpicprog.org>
 
 Package: usbpicprog
 Architecture: any
-Depends: libwxbase3.0-0(>=3.0.0), libwxgtk3.0-0(>=3.0.0), libusb-1.0-0 (>= 1.0.1), libtiff5, libxxf86vm1
+Depends: libwxbase3.0(>=3.0.0), libwxgtk3.0(>=3.0.0), libusb-1.0 (>= 1.0.1), libtiff5, libxxf86vm1
 Description: Usbpicprog - An open source USB pic programmer
  Usbpicprog consists of this software, a hardware design and firmware.
