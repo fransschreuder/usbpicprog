@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-21 21:49+0200\n"
-"PO-Revision-Date: 2013-10-30 14:02+0100\n"
-"Last-Translator: Diego Herranz <diegoherranz@diegoherranz.com>\n"
+"PO-Revision-Date: 2016-06-13 19:29+0100\n"
+"Last-Translator: Daniel Campoverde <alx741@riseup.net>\n"
 "Language-Team: Spanish <fransschreuder@users.sourceforge.net>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -164,7 +164,7 @@ msgstr "Todas las operaciones completadas"
 
 #: src/uppmainwindow.cpp:1748
 msgid "An open source USB pic programmer"
-msgstr "Programador de pic's por USB de código abierto"
+msgstr "Programador de pic por USB de código abierto"
 
 #: src/preferences_base.cpp:69
 msgid "Autodetect on Connect"
@@ -174,7 +174,7 @@ msgstr "Autodetectar al Conectar"
 #, c-format
 msgid "Blankcheck failed at 0x%X. Read: 0x%02X, Expected: 0x%02X"
 msgstr ""
-"La comprobación de vaciado falló en 0x%X. Leído: 0x%02X, Esperado: 0x%02X"
+"La comprobación de borrado falló en 0x%X. Leído: 0x%02X, Esperado: 0x%02X"
 
 #: src/uppmainwindow.cpp:279
 msgid "Blankcheck the PIC device"
@@ -307,7 +307,7 @@ msgstr "No se pudo abrir el archivo Hex para escritura..."
 
 #: src/hexfile.cpp:101
 msgid "Could not open Hex file..."
-msgstr "No se pudo abrir el archivo hex"
+msgstr "No se pudo abrir el archivo Hex..."
 
 #: src/uppmainwindow.cpp:1213
 msgid "Could not run the worker thread!"
@@ -316,7 +316,7 @@ msgstr "¡No se pudo ejecutar el hilo de trabajo!"
 #: src/hardware.cpp:171
 #, c-format
 msgid "Couldn't reset the USB device interface: %s"
-msgstr "No se pudo resetear el interfaz: %s"
+msgstr "No se pudo resetear la interfaz USB del dispositivo: %s"
 
 #: src/io_test_base.cpp:54 src/io_test_base.cpp:83 src/io_test_base.cpp:112
 #: src/io_test_base.cpp:153
@@ -393,11 +393,11 @@ msgstr "El dispositivo no está vacío."
 
 #: src/preferences_base.cpp:41
 msgid "Device is self powered (disable VDD)"
-msgstr ""
+msgstr "El dispositivo es auto alimentado (desactivar VDD)"
 
 #: src/main.h:145
 msgid "Device is self powered, disable VDD"
-msgstr ""
+msgstr "El dispositivo es auto alimentado, desactivar VDD"
 
 #: src/uppmainwindow.cpp:1713 src/uppmainwindow.cpp:1715
 msgid "Disconnected"
@@ -434,7 +434,7 @@ msgstr "Borrar antes de programar..."
 #: src/hardware.cpp:206
 #, c-format
 msgid "Error claiming the USB device interface: %s"
-msgstr "Error solicitando el interfaz: %s"
+msgstr "Error solicitando la interfaz USB del dispositivo: %s"
 
 #: src/main.cpp:402 src/uppmainwindow.cpp:903 src/uppmainwindow.cpp:1116
 #: src/uppmainwindow.cpp:1548
@@ -452,7 +452,7 @@ msgstr "Error en la suma de verificación..."
 
 #: src/uppmainwindow.cpp:935
 msgid "Error programming code memory"
-msgstr "Error al programar la memória de código"
+msgstr "Error al programar la memoria de código"
 
 #: src/uppmainwindow.cpp:1002
 msgid "Error programming config memory"
@@ -498,11 +498,11 @@ msgstr "FLOAT"
 
 #: src/hexfile.cpp:119
 msgid "Failure in hex file..."
-msgstr "Fallo en el archivo hex"
+msgstr "Fallo en el archivo hex..."
 
 #: src/uppmainwindow.cpp:569
 msgid "Firmware probably too new"
-msgstr "Firmware problemente demasiado nuevo"
+msgstr "Firmware probablemente demasiado nuevo"
 
 #: src/uppmainwindow_base.cpp:149 src/uppmainwindow_base.cpp:151
 msgid "Fit package drawing"
@@ -553,7 +553,7 @@ msgstr "Vista en Hexadecimal del área de datos del PIC:"
 
 #: src/uppmainwindow.cpp:1101 src/uppmainwindow.cpp:1163
 msgid "I'm sorry for being stupid"
-msgstr "Lo siento por ser estúpido"
+msgstr "Perdón por ser estúpido"
 
 #: src/io_test_base.cpp:131
 msgid "INPUT"
@@ -611,11 +611,11 @@ msgstr "Longitud: %d bits"
 
 #: src/main.h:147 src/preferences_base.cpp:47
 msgid "Limit PGD and PGC to 3.3V"
-msgstr ""
+msgstr "Limitar PGD y PGC a 3.3V"
 
 #: src/main.h:146 src/preferences_base.cpp:44
 msgid "Limit VPP to 5V"
-msgstr ""
+msgstr "Limitar VPP a 5V"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
@@ -623,7 +623,7 @@ msgstr "Carga un fichero HEX para su edición o programación..."
 
 #: src/preferences_base.cpp:80
 msgid "Localize Usbpicprog in your System Language"
-msgstr "Localize Usbpicprog in your System Language"
+msgstr "Localice Usbpicprog en el idioma de su sistema"
 
 #: src/configview.cpp:176
 #, c-format
@@ -707,7 +707,7 @@ msgstr "Por favor confirme"
 
 #: src/main.cpp:397
 msgid "Please specify a BandGap Value between 0 and 3"
-msgstr "Por favor especifique un valor de Bandgap entre 0 y 3"
+msgstr "Por favor especifique un valor de BandGap entre 0 y 3"
 
 #: src/uppmainwindow.cpp:1542
 msgid "Please specify a bandgap value"
@@ -1023,7 +1023,7 @@ msgstr "Error desconocido durante la verificación"
 msgid ""
 "Unsupported Windows version. UsbPicProg runs only on Windows XP or later."
 msgstr ""
-"Version de Windows no soportada. UsbPicProg sólo funciona en Windows XP o "
+"Versión de Windows no soportada. UsbPicProg sólo funciona en Windows XP o "
 "posterior."
 
 #: src/uppmainwindow.cpp:585
@@ -1174,7 +1174,7 @@ msgid ""
 "You are using a development release of the firmware with a stable version of "
 "the software. Consider upgrading your firmware"
 msgstr ""
-"Está usando una versión de desarrollo del firmware con una version estable "
+"Está usando una versión de desarrollo del firmware con una versión estable "
 "del software. Considere actualizar el firmware"
 
 #: src/uppmainwindow.cpp:579
@@ -1224,7 +1224,7 @@ msgstr "comprobar si el dispositivo está vacío"
 
 #: src/main.h:141
 msgid "boot"
-msgstr ""
+msgstr "arrancar"
 
 #: src/main.h:135
 msgid "bulk erase the device"
@@ -1292,7 +1292,7 @@ msgstr "abrir"
 
 #: src/packageview.cpp:45
 msgid "packageview"
-msgstr "vistadeencapsulado"
+msgstr "vista de en capsulado"
 
 #: src/main.h:130
 msgid "pictype"
@@ -1316,11 +1316,11 @@ msgstr "recargar"
 
 #: src/main.h:140
 msgid "reset"
-msgstr ""
+msgstr "resetear"
 
 #: src/main.h:140
 msgid "reset/reboot firmware/bootloader"
-msgstr ""
+msgstr "resetear/reiniciar firmware/bootloader"
 
 #: src/main.h:144
 msgid "restore-bandgap"
