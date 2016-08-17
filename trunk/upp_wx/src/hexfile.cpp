@@ -157,16 +157,18 @@ bool HexFile::open(PicType* picType, const char* filename)
                     newSize = extAddress+address+lineData.size() - configAddress;
                     if (m_configMemory.size()<newSize)
                         m_configMemory.resize(newSize,0xFF);
+                    for (unsigned int i=0;i<lineData.size();i++)
+                    {
+                        m_configMemory[extAddress+address+i-configAddress]=lineData[i];
+                    }
+
 
                 }
-				setBValue (picType); //assign blank values to the config memory as stated in the XML file
-                for (unsigned int i=0;i<lineData.size();i++)
-				{
-                    m_configMemory[extAddress+address+i-configAddress]=lineData[i];
-				}
-                
+                else wxLogError(_("Data in hex file outside config memory of PIC: %X, addr: %X, size: %X"), extAddress+address, configAddress, (configAddress+picType->ConfigSize*
+                                   									((picType->bitsPerWord()==24)?2:1)*
+                                   									((picType->bitsPerWord()==32)?4:1)));
             }
-			else wxLogError(_("Data in hex file outside config memory of PIC"));
+            
             
             // is the address within the Eeprom Data Memory range?
             dataAddress=picType->DataAddress;
