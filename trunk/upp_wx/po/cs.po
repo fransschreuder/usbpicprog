@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: usbpicprog_cz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-21 21:49+0200\n"
-"PO-Revision-Date: 2013-10-17 18:22+0100\n"
+"POT-Creation-Date: 2016-08-24 07:30+0200\n"
+"PO-Revision-Date: 2016-08-24 07:37+0200\n"
 "Last-Translator: Jiri Merth <k15@mail.klfree.net>\n"
 "Language-Team: K15 <k15@mail.klfree.net>\n"
 "Language: cs_CZ\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: src/uppmainwindow.cpp:1654 src/uppmainwindow.cpp:1683
@@ -385,11 +385,11 @@ msgstr "Součástka není vymazaná"
 
 #: src/preferences_base.cpp:41
 msgid "Device is self powered (disable VDD)"
-msgstr ""
+msgstr "Zařízení má vlastní napájení (vypnout VDD)"
 
 #: src/main.h:145
 msgid "Device is self powered, disable VDD"
-msgstr ""
+msgstr "Zařízení má vlastní napájení, vypnout VDD"
 
 #: src/uppmainwindow.cpp:1713 src/uppmainwindow.cpp:1715
 msgid "Disconnected"
@@ -602,11 +602,11 @@ msgstr "Délka: %d bitů"
 
 #: src/main.h:147 src/preferences_base.cpp:47
 msgid "Limit PGD and PGC to 3.3V"
-msgstr ""
+msgstr "Omezit PGD a PGC na 3.3 V"
 
 #: src/main.h:146 src/preferences_base.cpp:44
 msgid "Limit VPP to 5V"
-msgstr ""
+msgstr "Omezit VPP na 5 V"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
@@ -651,9 +651,8 @@ msgid "Only valid for PIC12F629, PIC12F508, 10F20X and similar devices..."
 msgstr "Platné pouze pro PIC12F629, PIC12F508, 10F20X a podobné..."
 
 #: src/uppmainwindow_base.cpp:188
-#, fuzzy
 msgid "Open a .hex file from the examples folder"
-msgstr "Načte HEX soubor z adresáře examples"
+msgstr "Otevři HEX soubor z adresáře examples"
 
 #: src/uppmainwindow.cpp:1271
 msgid "Open firmware file"
@@ -1235,7 +1234,7 @@ msgstr "ladění HW aplikace"
 
 #: src/main.h:145
 msgid "disable-vdd"
-msgstr ""
+msgstr "vypnout-vdd"
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
@@ -1267,11 +1266,11 @@ msgstr "HEX soubor"
 
 #: src/main.h:147
 msgid "limit-pgd-pgc"
-msgstr ""
+msgstr "omezit-pgd-pgc"
 
 #: src/main.h:146
 msgid "limit-vpp"
-msgstr ""
+msgstr "omezit-vpp"
 
 #: src/uppmainwindow.cpp:409
 msgid "new"
