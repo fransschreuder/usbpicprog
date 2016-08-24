@@ -389,7 +389,8 @@ public:
         The name of this configuration word.
     */
     wxString Name;
-    
+
+	unsigned long bValue;
     /**
         The different sets of bits in which this configuration word is divided.
     */

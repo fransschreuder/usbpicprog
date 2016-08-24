@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="trusty utopic vivid"
+DISTS="trusty wily xenial"
 
 if [ $# -ne 0 ]
 then

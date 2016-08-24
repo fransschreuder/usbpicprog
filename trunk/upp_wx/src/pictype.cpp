@@ -433,9 +433,13 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
         {
             ConfigWord block;
             block.Name = child->GetAttribute(("name"));
-            if (!child->GetAttribute(("offset")).ToULong(&block.Offset, 0))
+            if (!child->GetAttribute(("offset")).ToULong(&block.Offset, 16))
                 {cout<<"error getting attribute config -> name -> offset"<<endl;return UPP_INVALID_PIC;}
             // load the ConfigMask objects belonging to this word
+			if(!child->GetAttribute("bvalue").ToULong(&block.bValue, 16))
+			{
+				block.bValue=0xFFFFFFFF;
+			}
             wxXmlNode *maskNode = child->GetChildren();
             while (maskNode)
             {
@@ -453,7 +457,7 @@ PicType PicType::LoadPiklabXMLFile(const wxString& fileName)
                             value.Name = valueNode->GetAttribute(("name"));
 							if (valueNode->GetAttribute(("value")) != ("default"))
                             {
-                                if (!valueNode->GetAttribute(("value")).ToULong(&value.Value, 0))								
+                                if (!valueNode->GetAttribute(("value")).ToULong(&value.Value, 16))								
                                     {cout<<"couldn't find attribute value in mask"<<endl;return UPP_INVALID_PIC;}
 
                                 mask.Values.push_back(value);

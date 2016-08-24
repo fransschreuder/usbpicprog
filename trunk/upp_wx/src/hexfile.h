@@ -181,6 +181,7 @@ private:
     
     bool calcCheckSum(int byteCount, int address, 
                       RecordType recordType, const vector<int>& lineData, int checkSum);
+	void setBValue(const PicType* pic);
     void calcConfigMask(const PicType* pic);
     void makeLine(int address, RecordType recordType, 
                   const vector<int>& lineData, char* output_line);
