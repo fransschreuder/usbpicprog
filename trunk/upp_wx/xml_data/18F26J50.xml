@@ -91,15 +91,15 @@
       <value value="0x00" name="0"           cname=""    />
       <value value="0x08" name="1"        cname=""    />
     </mask>
-    <mask name="FOSC"   value="0x03" >
-      <value value="0x00" name="HS"           cname=""    />
-      <value value="0x01" name="HSPLL"        cname=""    />
-      <value value="0x02" name="EC"           cname=""    />
-      <value value="0x03" name="ECPLL_IO"     cname=""    />
-    </mask>
-    <mask name="FOSC2"  value="0x04" >
-      <value value="0x00" name="FOSC1:FOSC0"  cname=""    />
-      <value value="0x04" name="INTRC"        cname=""    />
+    <mask name="FOSC"   value="0x07" >
+      <value value="0x07" name="ECPLL"     cname=""   />
+      <value value="0x06" name="EC"        cname=""   />
+      <value value="0x05" name="HSPLL"     cname=""   />
+      <value value="0x04" name="HS"        cname=""   />
+      <value value="0x03" name="INTOSCPLLO" cname=""   />
+      <value value="0x02" name="INTOSCPLL" cname=""   />
+      <value value="0x01" name="INTOSCO"   cname=""   />
+      <value value="0x00" name="INTOSC"    cname=""   />
     </mask>
   </config>
 

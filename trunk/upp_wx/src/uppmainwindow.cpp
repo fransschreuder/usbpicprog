@@ -897,7 +897,7 @@ bool UppMainWindow::upp_thread_program()
         switch(m_hardware.bulkErase(&m_picType,true))
         {
         case 1:
-            LogFromThread(wxLOG_Message, _("Erase OK"));
+            LogFromThread(wxLOG_Message, _("Erase Done"));
             break;
         default:
             LogFromThread(wxLOG_Error, _("Error erasing the device"));
@@ -914,7 +914,7 @@ bool UppMainWindow::upp_thread_program()
         switch(m_hardware.write(TYPE_CODE, &m_hexFile, &m_picType))
         {
         case 1:
-            LogFromThread(wxLOG_Message, _("Write Code memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Code memory Done"));
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
@@ -948,7 +948,7 @@ bool UppMainWindow::upp_thread_program()
         switch(m_hardware.write(TYPE_DATA, &m_hexFile, &m_picType))
         {
         case 1:
-            LogFromThread(wxLOG_Message, _("Write Data memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Data memory Done"));
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
@@ -984,7 +984,7 @@ bool UppMainWindow::upp_thread_program()
         switch(m_hardware.write(TYPE_CONFIG, &m_hexFile, &m_picType))
         {
         case 1:
-            LogFromThread(wxLOG_Message, _("Write Config memory OK"));
+            LogFromThread(wxLOG_Message, _("Write Config memory Done"));
             break;
         case -1:
             LogFromThread(wxLOG_Error, _("The hardware should say OK"));
@@ -1009,6 +1009,10 @@ bool UppMainWindow::upp_thread_program()
 		upp_thread_verify(false, false, true);
 		wxMilliSleep(500);
     }
+	else
+	{
+		LogFromThread(wxLOG_Message, _("All tasks completed"));
+	}
 	return true;
 }
 
@@ -1052,7 +1056,7 @@ bool UppMainWindow::upp_thread_read()
             return false;
         }
     }
-
+	LogFromThread(wxLOG_Message, _("All tasks completed"));
 	
     m_hexFile.trimData(&m_picType);
 	return true;
@@ -1098,7 +1102,7 @@ bool UppMainWindow::upp_thread_verify(bool doCode, bool doData, bool doConfig)
         LogFromThread(wxLOG_Error, _("Unknown error during verify"));
         break;
     default:
-        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
+        LogFromThread(wxLOG_Error, _("Unknown error during verify"));
         break;
     }
 	return true;
@@ -1160,7 +1164,7 @@ bool UppMainWindow::upp_thread_blankcheck()
         LogFromThread(wxLOG_Error, _("Unknown error during blankcheck"));
         break;
     default:
-        LogFromThread(wxLOG_Error, _("I'm sorry for being stupid"));
+        LogFromThread(wxLOG_Error, _("Unknown error during blankcheck"));
         break;
     }
 	return true;

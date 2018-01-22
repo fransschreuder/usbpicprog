@@ -8,18 +8,17 @@ msgstr ""
 "Project-Id-Version: usbpicprog 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-21 21:49+0200\n"
-"PO-Revision-Date: 2012-06-19 13:52+0100\n"
+"PO-Revision-Date: 2016-09-13 10:50+0300\n"
 "Last-Translator: Frans Schreuder <info@usbpicprog.org>\n"
 "Language-Team: ENGLISH <info@usbpicprog.org>\n"
-"Language: \n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: src/uppmainwindow.cpp:1654 src/uppmainwindow.cpp:1683
@@ -211,7 +210,7 @@ msgstr "Schimbă PIC-ul selectat"
 
 #: src/uppmainwindow.cpp:1129
 msgid "Checking if the device is blank..."
-msgstr "Verifică blank..."
+msgstr "Verificare blank..."
 
 #: src/uppmainwindow_base.cpp:45
 msgid "Code"
@@ -390,11 +389,11 @@ msgstr "PIC-ul nu este blank."
 
 #: src/preferences_base.cpp:41
 msgid "Device is self powered (disable VDD)"
-msgstr ""
+msgstr "PIC-ul se alimentează singur (dezactivați VDD)"
 
 #: src/main.h:145
 msgid "Device is self powered, disable VDD"
-msgstr ""
+msgstr "PIC-ul se alimentează singur, dezactivați VDD"
 
 #: src/uppmainwindow.cpp:1713 src/uppmainwindow.cpp:1715
 msgid "Disconnected"
@@ -603,11 +602,11 @@ msgstr "Lungime: %d biţi"
 
 #: src/main.h:147 src/preferences_base.cpp:47
 msgid "Limit PGD and PGC to 3.3V"
-msgstr ""
+msgstr "Limitați PGD și PGC la 3,3V"
 
 #: src/main.h:146 src/preferences_base.cpp:44
 msgid "Limit VPP to 5V"
-msgstr ""
+msgstr "Limitați VPP la 5V"
 
 #: src/uppmainwindow_base.cpp:184
 msgid "Loads an HEX file for editing or programming..."
@@ -654,7 +653,6 @@ msgstr ""
 "asemănătoare..."
 
 #: src/uppmainwindow_base.cpp:188
-#, fuzzy
 msgid "Open a .hex file from the examples folder"
 msgstr "Încarcă un fişier HEX din directorul de exemple"
 
@@ -1154,12 +1152,11 @@ msgid "Write data not implemented for current PIC"
 msgstr "Scriere date neimplementată pentru microcontrollerul curent."
 
 #: src/uppmainwindow.cpp:546
-#, fuzzy
 msgid ""
 "You are using a development release of the firmware with a stable version of "
 "the software. Consider upgrading your firmware"
 msgstr ""
-"Folosiţi un firmware stabil cu o versiune software în dezvoltare. Upgradaţi "
+"Folosiţi un firmware în dezvoltare cu o versiune software stabilă. Upgradaţi "
 "firmware-ul."
 
 #: src/uppmainwindow.cpp:579
@@ -1228,7 +1225,7 @@ msgstr "depanare hardware"
 
 #: src/main.h:145
 msgid "disable-vdd"
-msgstr ""
+msgstr "dezactivare-vdd"
 
 #: src/main.h:128
 msgid "displays help on the command line parameters"
@@ -1260,11 +1257,11 @@ msgstr "fişier HEX"
 
 #: src/main.h:147
 msgid "limit-pgd-pgc"
-msgstr ""
+msgstr "limitare-pgd-pgc"
 
 #: src/main.h:146
 msgid "limit-vpp"
-msgstr ""
+msgstr "limitare-vpp"
 
 #: src/uppmainwindow.cpp:409
 msgid "new"
