@@ -96,7 +96,7 @@ bool HexFile::open(PicType* picType, const char* filename)
     // for info about the HEX file format see:
     // http://en.wikipedia.org/wiki/Intel_HEX
 
-    if (fp==NULL)
+    if (!fp.is_open())
     {
         wxLogError(_("Could not open Hex file..."));
         return false;
@@ -336,7 +336,7 @@ bool HexFile::saveAs(PicType* picType, const char* filename)
     char txt[256];
     int address;
 
-    if (fp==NULL)
+    if (!fp.is_open())
     {
         wxLogError(_("Could not open Hex file for writing..."));
         return false;
