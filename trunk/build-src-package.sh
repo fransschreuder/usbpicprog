@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="trusty wily xenial"
+DISTS="focal groovy"
 
 if [ $# -ne 0 ]
 then
