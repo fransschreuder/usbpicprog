@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="focal groovy"
+DISTS="focal groovy hirsute"
 
 if [ $# -ne 0 ]
 then
