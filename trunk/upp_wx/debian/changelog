@@ -1,3 +1,15 @@
+usbpicprog (1.0.6-2) groovy; urgency=medium
+
+  * Building for groovy gorilla
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 26 Jan 2021 17:45:13 +0100
+
+usbpicprog (1.0.6-1) focal; urgency=medium
+
+  * Building for focal fossa
+
+ -- Frans Schreuder <fransschreuder@gmail.com>  Tue, 26 Jan 2021 17:44:51 +0100
+
 usbpicprog (1.0.4-3) xenial; urgency=medium
 
   * Fixed bug: Data in hex file outside config memory of PIC
