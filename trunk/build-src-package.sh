@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="trusty wily xenial"
+DISTS="jammy kinetic lunar"
 
 if [ $# -ne 0 ]
 then
@@ -78,7 +78,7 @@ for DIST in ${DISTS} ; do
 	cp ../../upp_wx/debian/changelog debian/changelog
 	dch -D $DIST -m -v $RELEASE$COUNT -b
 	cp debian/changelog ../../upp_wx/debian
-	debuild -S -k8AD5905E
+	debuild -S -kB50417E528354DA7967933EB718F07188AD5905E
 	#sed -i 's/libtiff4/libtiff5/g' debian/control
 	
 done
