@@ -1094,7 +1094,7 @@ bool Hardware::runTarget()
 bool Hardware::stopTarget()
 {
     if(m_hwCurrent != HW_UPP)return false;
-    if(setPinState(SUBCMD_PIN_VPP, PIN_STATE_FLOAT)<0)return false;
+    if(setPinState(SUBCMD_PIN_VPP, PIN_STATE_0V)<0)return false;
     if(setPinState(SUBCMD_PIN_VDD, PIN_STATE_FLOAT)<0)return false;
 	if(setPinState(SUBCMD_PIN_PGD, PIN_STATE_INPUT)<0)return false;
 	if(setPinState(SUBCMD_PIN_PGC, PIN_STATE_0V)<0)return false;

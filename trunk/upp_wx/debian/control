@@ -2,7 +2,7 @@ Source: usbpicprog
 Section: devel
 Priority: optional
 Maintainer: Frans Schreuder <fransschreuder@gmail.com>
-Build-Depends: debhelper (>= 6), autotools-dev, libwxbase3.0-dev (>=3.0.0), libwxgtk3.0-gtk3-dev(>=3.0.0), wx3.0-headers(>=3.0.0), libusb-1.0-0-dev (>= 1.0.1), intltool (>= 0.35), libglib2.0-dev
+Build-Depends: debhelper (>= 6), autotools-dev, libwxbase3.0-dev (>=3.0.0), libwxgtk3.0-gtk3-dev, wx3.0-headers(>=3.0.0), libusb-1.0-0-dev (>= 1.0.1), intltool (>= 0.35), libgtk2.0-dev, libtiff5-dev, libxxf86vm-dev
 Standards-Version: 3.8.1
 Homepage: <http://usbpicprog.org>
 

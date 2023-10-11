@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="focal groovy hirsute"
+DISTS="jammy kinetic lunar"
 
 if [ $# -ne 0 ]
 then
