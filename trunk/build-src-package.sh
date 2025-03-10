@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISTS="jammy kinetic lunar"
+DISTS="noble oracular plucky"
 
 if [ $# -ne 0 ]
 then
