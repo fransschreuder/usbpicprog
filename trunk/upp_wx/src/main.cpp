@@ -100,7 +100,7 @@ bool UsbPicProg::OnInit()
 
 		m_locale->AddCatalog("usbpicprog");
 	}
-
+	wxSizerFlags::DisableConsistencyChecks();
     // init the PNG handler
     wxImage::AddHandler( new wxPNGHandler );
 
