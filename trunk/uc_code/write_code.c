@@ -20,7 +20,9 @@
 
 #include "upp.h"
 #include "write_code.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -41,12 +43,18 @@ char write_code( unsigned long address, unsigned char* data, char blocksize, cha
 
 	if( lastblock & BLOCKTYPE_FIRST )
 		enter_ISCP();
+	prog_error = 0;
 	if( currDevice.write_code )
 		currDevice.write_code( address, data, blocksize, lastblock );
 	else
 	{
 		exit_ISCP();
 		return 3;
+	}
+	if( prog_error )
+	{
+		exit_ISCP();
+		return 4; //verify error
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
@@ -86,7 +94,7 @@ restart:
 			}
 			I2C_stop();
 			DelayMs(30);
-			if( tries < 2 )
+			if( ++tries < 3 )	// retry twice; tries was never incremented, so a missing or write-protected EEPROM hung the programmer
 				goto restart;
 			return; // what else to do??
 		}
@@ -121,7 +129,7 @@ restart:
 			}
 			I2C_stop();
 			DelayMs(30);
-			if( tries < 2 )
+			if( ++tries < 3 )	// retry twice; tries was never incremented, so a missing or write-protected EEPROM hung the programmer
 				goto restart;
 			return; // what else to do??
 		}
@@ -222,71 +230,104 @@ void write_code_P24FXXKAXXX( unsigned long address, unsigned char* data, char bl
 	dspic_send_24_bits( 0x000000 ); //NOP
 }
 #endif
-void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+/*
+ * Load four instructions (12 bytes of packed data) at byte address
+ * `address` into the dsPIC30F write latches (DS70102K Table 11-8 steps 3-5).
+ */
+static void dsP30F_load_latches( unsigned long address, unsigned char* data )
 {
 	unsigned int i;
-	char blockcounter;
 
-	dspic_send_24_bits( 0x000000 ); //NOP
-	dspic_send_24_bits( 0x000000 ); //NOP
-	//Step 1: Exit the Reset vector.
-	dspic_send_24_bits( 0x040100 ); //GOTO 0x100
-	dspic_send_24_bits( 0x040100 ); //GOTO 0x100
-	dspic_send_24_bits( 0x000000 ); //NOP
-	//Step 2: Set the NVMCON to program 32 instruction words.
-	dspic_send_24_bits( 0x24001A ); //MOV #0x4001, W10
-	dspic_send_24_bits( 0x883B0A ); //MOV W10, NVMCON
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 12 )
+	//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
+	dspic_send_24_bits( 0x200000 | ((((address * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
+	dspic_send_24_bits( 0x880190 ); //MOV W0, TBLPAG
+	dspic_send_24_bits( 0x200007 | ((((address * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W7
+	//Step 4: Initialize the read pointer (W6) and load W0:W5 with the next 4 instruction words to program.
+	for( i = 0; i < 6; i++ )
 	{
-		//Step 3: Initialize the write pointer (W7) for TBLWT instruction.
-		dspic_send_24_bits( 0x200000 | (((((blockcounter + address) * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<DestinationAddress23:16>, W0
-		dspic_send_24_bits( 0x880190 ); //MOV W0, TBLPAG
-		dspic_send_24_bits( 0x200007 | (((((blockcounter + address) * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<DestinationAddress15:0>, W7
-		//Step 4: Initialize the read pointer (W6) and load W0:W5 with the next 4 instruction words to program.
-		for( i = 0; i < 6; i++ )
-		{
-			dspic_send_24_bits( 0x200000 | (((unsigned long) data[blockcounter + (i * 2)]) << 4)
-					| (((unsigned long) data[blockcounter + (i * 2) + 1]) << 12)
-					| ((unsigned long) i) );
-			/**
-			 MOV #<LSW0>, W0
-			 MOV #<MSB1:MSB0>, W1
-			 MOV #<LSW1>, W2
-			 MOV #<LSW2>, W3
-			 MOV #<MSB3:MSB2>, W4
-			 MOV #<LSW3>, W5
-			 */
-		}
-		//Step 5: Set the read pointer (W6) and load the (next set of) write latches.
-		dspic_send_24_bits( 0xEB0300 ); //CLR W6
+		dspic_send_24_bits( 0x200000 | (((unsigned long) data[i * 2]) << 4)
+				| (((unsigned long) data[(i * 2) + 1]) << 12)
+				| ((unsigned long) i) );
+		/**
+		 MOV #<LSW0>, W0
+		 MOV #<MSB1:MSB0>, W1
+		 MOV #<LSW1>, W2
+		 MOV #<LSW2>, W3
+		 MOV #<MSB3:MSB2>, W4
+		 MOV #<LSW3>, W5
+		 */
+	}
+	//Step 5: Set the read pointer (W6) and load the (next set of) write latches.
+	dspic_send_24_bits( 0xEB0300 ); //CLR W6
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBB0BB6 ); //TBLWTL [W6++], [W7]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBBDBB6 ); //TBLWTH.B [W6++], [W7++]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBBEBB6 ); //TBLWTH.B [W6++], [++W7]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBB1BB6 ); //TBLWTL [W6++], [W7++]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBB0BB6 ); //TBLWTL [W6++], [W7]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBBDBB6 ); //TBLWTH.B [W6++], [W7++]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBBEBB6 ); //TBLWTH.B [W6++], [++W7]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0xBB1BB6 ); //TBLWTL [W6++], [W7++]
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
+}
+
+/*
+ * A dsPIC30F code row is 32 instructions (96 bytes packed) and NVMCON 0x4001
+ * writes a whole row (DS70102K Table 11-8), but the host sends 16
+ * instructions (48 bytes) per block. So the block that starts a row sets up
+ * NVMCON and loads half the latches, and the block that ends it loads the
+ * other half and starts the write. Before 1.1.0 every block started a row
+ * write with half the latches stale. A row that the host leaves half-filled
+ * (last block, or a session that starts mid-row) is padded with erased words.
+ */
+void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksize, char lastblock )
+{
+	unsigned char blank[12];
+	char blockcounter;
+	char second_half = ( address % 96 ) != 0;
+
+	for( blockcounter = 0; blockcounter < 12; blockcounter++ )
+		blank[blockcounter] = 0xFF;
+	if( !second_half || ( lastblock & BLOCKTYPE_FIRST ) )
+	{
 		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBB0BB6 ); //TBLWTL [W6++], [W7]
 		dspic_send_24_bits( 0x000000 ); //NOP
+		//Step 1: Exit the Reset vector.
+		dspic_send_24_bits( 0x040100 ); //GOTO 0x100
+		dspic_send_24_bits( 0x040100 ); //GOTO 0x100
 		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBBDBB6 ); //TBLWTH.B [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBBEBB6 ); //TBLWTH.B [W6++], [++W7]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBB1BB6 ); //TBLWTL [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBB0BB6 ); //TBLWTL [W6++], [W7]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBBDBB6 ); //TBLWTH.B [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBBEBB6 ); //TBLWTH.B [W6++], [++W7]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBB1BB6 ); //TBLWTL [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-	}//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.
-	//if((address%96)==64)
-	//{
+		//Step 2: Set the NVMCON to program 32 instruction words.
+		dspic_send_24_bits( 0x24001A ); //MOV #0x4001, W10
+		dspic_send_24_bits( 0x883B0A ); //MOV W10, NVMCON
+		if( second_half ) //session starts mid-row: first half erased
+			for( blockcounter = 0; blockcounter < 48; blockcounter += 12 )
+				dsP30F_load_latches( address - 48 + blockcounter, blank );
+	}
+	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 12 )
+		dsP30F_load_latches( address + blockcounter, data + blockcounter );
+	//Step 6: Repeat steps 3-5 eight times to load the write latches for 32 instructions.
+	if( !second_half )
+	{
+		if( !( lastblock & BLOCKTYPE_LAST ) )
+			return; //the next block completes the row
+		for( blockcounter = 0; blockcounter < 48; blockcounter += 12 ) //second half erased
+			dsP30F_load_latches( address + 48 + blockcounter, blank );
+	}
 	//Step 7: Unlock the NVMCON for writing.
 	dspic_send_24_bits( 0x200558 ); //MOV #0x55, W8
 	dspic_send_24_bits( 0x883B38 ); //MOV W8, NVMKEY
@@ -305,7 +346,6 @@ void write_code_dsP30F( unsigned long address, unsigned char* data, char blocksi
 	//Step 9: Reset device internal PC.
 	dspic_send_24_bits( 0x040100 ); //GOTO 0x100
 	dspic_send_24_bits( 0x000000 ); //NOP
-	//}
 }
 void write_code_P18F872X( unsigned long address, unsigned char* data, char blocksize, char lastblock )
 {
@@ -811,7 +851,6 @@ void write_code_P16C6XX( unsigned long address, unsigned char* data, char blocks
 {
 
 	char blockcounter;
-	char i;
 	unsigned int payload;
 	if( (lastblock & BLOCKTYPE_FIRST) && (address > 0) )
 	{
@@ -819,17 +858,9 @@ void write_code_P16C6XX( unsigned long address, unsigned char* data, char blocks
 	}
 	for( blockcounter = 0; blockcounter < blocksize; blockcounter += 2 )
 	{
-		for(i=0;i<25;i++)
-		{
-			payload = (((unsigned int) data[blockcounter])) | //MSB
-				(((unsigned int) data[blockcounter + 1]) << 8);
-			pic_send_14_bits( 6, 0x02,  payload);//LSB
-		
-			pic_send_n_bits( 6, 0x08 ); //begin programming
-			DelayUs( 100 );
-			pic_send_n_bits( 6, 0x0E ); //end programming
-			if(pic_read_14_bits( 6, 0x04 )==payload&&i<22)i=22; //correct? do 3 more programming cycles.
-		}
+		payload = (((unsigned int) data[blockcounter])) | //MSB
+			(((unsigned int) data[blockcounter + 1]) << 8);
+		program_eprom_word( payload, 0 );
 		pic_send_n_bits( 6, 0x06 ); //increment address
 	}
 }

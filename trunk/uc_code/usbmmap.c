@@ -149,6 +149,9 @@
  *****************************************************************************/
  
 /** I N C L U D E S **********************************************************/
+#ifdef __XC8
+#include <xc.h>
+#endif
 #include "typedefs.h"
 #include "usb.h"
 
@@ -161,6 +164,34 @@ byte usb_alt_intf[MAX_NUM_INT]; // Array to keep track of the current alternate
                                 // setting for each interface ID
 
 /** U S B  F I X E D  L O C A T I O N  V A R I A B L E S *********************/
+#ifdef __XC8
+/******************************************************************************
+ * XC8 has no equivalent of the usbram4 section, so the buffer descriptor
+ * table and the endpoint buffers get the addresses C18 gives them: BDT at
+ * 0x400 (fixed by the USB module), then the EP0 setup and data buffers and
+ * the EP1 OUT and IN buffers, all in USB RAM.
+ *****************************************************************************/
+#if MAX_EP_NUMBER != 1
+#error "update the USB RAM layout below for the new number of endpoints"
+#endif
+_Static_assert( sizeof( BDT ) == 4, "BDT entries must be 4 bytes" );
+_Static_assert( sizeof( CTRL_TRF_SETUP ) == EP0_BUFF_SIZE, "setup buffer size" );
+_Static_assert( sizeof( CTRL_TRF_DATA ) == EP0_BUFF_SIZE, "control data buffer size" );
+
+#define USB_BDT_ADDR	0x400
+#define USB_BUF_ADDR	(USB_BDT_ADDR + 4 * 2 * (MAX_EP_NUMBER + 1))
+
+volatile BDT ep0Bo __at( USB_BDT_ADDR );        //Endpoint #0 BD Out
+volatile BDT ep0Bi __at( USB_BDT_ADDR + 4 );    //Endpoint #0 BD In
+volatile BDT ep1Bo __at( USB_BDT_ADDR + 8 );    //Endpoint #1 BD Out
+volatile BDT ep1Bi __at( USB_BDT_ADDR + 12 );   //Endpoint #1 BD In
+
+volatile CTRL_TRF_SETUP SetupPkt __at( USB_BUF_ADDR );
+volatile CTRL_TRF_DATA CtrlTrfData __at( USB_BUF_ADDR + EP0_BUFF_SIZE );
+
+volatile byte usbgen_out[USBGEN_EP_SIZE] __at( USB_BUF_ADDR + 2 * EP0_BUFF_SIZE );
+volatile byte usbgen_in[USBGEN_EP_SIZE] __at( USB_BUF_ADDR + 2 * EP0_BUFF_SIZE + USBGEN_EP_SIZE );
+#else
 #pragma udata usbram4=0x400     //See Linker Script,usb4:0x400-0x4FF(256-byte)
 
 /******************************************************************************
@@ -277,5 +308,6 @@ volatile far byte usbgen_out[USBGEN_EP_SIZE];
 volatile far byte usbgen_in[USBGEN_EP_SIZE];
 
 #pragma udata
+#endif
 
 /** EOF usbmmap.c ************************************************************/

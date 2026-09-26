@@ -35,7 +35,9 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>

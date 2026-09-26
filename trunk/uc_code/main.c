@@ -37,7 +37,9 @@
 /** I N C L U D E S **********************************************************/
 #include "main.h"
 #include "interrupt.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -83,7 +85,8 @@ code char at __CONFIG7H CONFIG7H = _EBTRB_OFF_7H;
 #endif
 
 /** V E C T O R  R E M A P P I N G *******************************************/
-#ifndef SDCC
+// XC8 moves the reset and interrupt vectors to 0x800 with -mcodeoffset=0x800.
+#if !defined(SDCC) && !defined(__XC8)
 extern void _startup( void ); // See c018i.c in your C18 compiler dir
 #pragma code _RESET_INTERRUPT_VECTOR = 0x000800
 void _reset( void )
@@ -129,6 +132,40 @@ far rom int boot_code[] = {
 	0xECAC, //    call    0x558, 0          110:     USBCheckBusStatus();        // Modified to always enable USB module
 	0xF002
 };
+#ifdef __XC8
+#define boot_code_addr	0x6C6
+// Address of i in bootloader main, guaranteed to be 0-6 if we got here through
+// the bootloader. __persistent: the XC8 startup code must not clear it, or the
+// "bootloader" marker would not survive the reset.
+__persistent char boot_ram_check[11] __at(0x7B);
+
+static unsigned char read_rom( unsigned int address )
+{
+	TBLPTRU = 0;
+	TBLPTRH = address >> 8;
+	TBLPTRL = address;
+	asm( "TBLRD*" );
+	return TABLAT;
+}
+
+char exitToBootloader( char set ) {
+	unsigned char i;
+
+	for( i = 0; i < sizeof( boot_code ); i++ ) // check version of bootloader
+		if( read_rom( boot_code_addr + i ) != ((const unsigned char *) boot_code)[i] )
+			return( 0 );
+	if( !set ) {
+		if( strcmp( boot_ram_check, "bootloader" ) != 0 )
+			return( 0 );
+		asm( "goto 0x06CA" );	// boot_entry
+	}
+	else {
+		strcpy( boot_ram_check, "bootloader" );
+		RESET();
+	}
+	return( 0 );
+}
+#else
 #define boot_code_check	((far rom char *)0x6C6)
 #define boot_entry	0x06CA
 #define boot_ram_check  ((char *)0x7B)	// address of i in bootloader main guaranteed to be 0-6 if we got here through the bootloader
@@ -148,6 +185,7 @@ char exitToBootloader( char set ) {
 	}
 
 }
+#endif
 
 /******************************************************************************
  This function resets the usb module to bring it in the same state as after a

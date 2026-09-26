@@ -29,7 +29,12 @@
 #include "interrupt.h"
 #include "prog_lolvl.h"
 #include "device.h"
+#ifdef __XC8
+#include <xc.h>
+#define Delay100TCYx(n)	_delay( 100 * (n) )
+#else
 #include <delays.h>
+#endif
 int write_status;
 extern unsigned char ConfigLimitPGDPGC;
 void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksize, char lastblock );
@@ -341,6 +346,7 @@ void read_code_PIC24E( unsigned long address, unsigned char* data, char blocksiz
 	}
 }
 
+#ifndef __XC8	// see the note at devices_pic24[] in pic24.c
 #pragma romdata DEVICES
 DEVICE_TABLE devices_pic24e[] =
 {
@@ -348,4 +354,5 @@ DEVICE_TABLE devices_pic24e[] =
 DEVICE_ENTRY( P24EPXXX,    PIC24,	3V,	PIC24E,		P24EP,		PIC24E,	    none,		P24EP,		none,		P24EP )
 };
 #pragma romdata
+#endif
 #undef LIST

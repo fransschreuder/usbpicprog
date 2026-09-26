@@ -36,8 +36,14 @@
 
 #ifndef TYPEDEFS_H
 #define TYPEDEFS_H
-#ifdef SDCC
+#if defined(SDCC) || defined(__XC8)
 #define rom const
+#endif
+#ifdef __XC8
+// C18 memory qualifiers; XC8 places objects and sizes pointers itself.
+#define far
+#define near
+#define ram
 #endif
 typedef unsigned char   byte;           // 8-bit
 typedef unsigned int    word;           // 16-bit

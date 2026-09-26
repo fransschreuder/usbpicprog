@@ -91,7 +91,7 @@ typedef union _BD_STAT
         unsigned UOWN:1;                //USB Ownership
     };
     struct{
-#ifndef SDCC
+#if !defined(SDCC) && !defined(__XC8)
         unsigned BC8:1;
         unsigned BC9:1;
 #else
@@ -103,7 +103,7 @@ typedef union _BD_STAT
         unsigned PID2:1;
         unsigned PID3:1;
         unsigned :1;
-#ifndef SDCC
+#if !defined(SDCC) && !defined(__XC8)
         unsigned UOWN:1;
 #else
 	unsigned :1;
