@@ -20,6 +20,8 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "typedefs.h"
+
 #define LIST(x) x,
 typedef enum _PICFAMILY {
 #include "picfamily.h"
@@ -49,6 +51,7 @@ typedef struct {
 } DEVICE_t;
 #define is3_3V()	currDevice.flags.p3_3V||(ConfigLimitPGDPGC==1)
 extern rom DEVICE_t devices[];
+extern rom unsigned char devices_count;	// number of entries in devices[]
 extern DEVICE_t currDevice;
 extern rom char *rom pictypeName[];
 extern rom char *rom picfamilyName[];
@@ -84,6 +87,8 @@ extern rom char *rom picfamilyName[];
 #ifdef __18CXX
 #pragma romdata DEVICES
 #define DEVICE_TABLE rom DEVICE_t
+#elif defined(__XC8)
+#define DEVICE_TABLE const DEVICE_t
 #else
 #define DEVICE_TABLE DEVICE_t  __attribute__ ((section ("DEVICES")))
 #endif

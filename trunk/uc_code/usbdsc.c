@@ -226,8 +226,10 @@ cfg01 CFG01=
     0,                      // Interface string index
     
     /* Endpoint Descriptors */
-    sizeof(USB_EP_DSC),DSC_EP,_EP01_OUT,_INT,USBGEN_EP_SIZE,32,
-    sizeof(USB_EP_DSC),DSC_EP,_EP01_IN,_INT,USBGEN_EP_SIZE,32
+    /* Polling interval 1ms: with 32ms each command/reply round trip took up
+       to 64ms, which made reading and verifying very slow. */
+    sizeof(USB_EP_DSC),DSC_EP,_EP01_OUT,_INT,USBGEN_EP_SIZE,1,
+    sizeof(USB_EP_DSC),DSC_EP,_EP01_IN,_INT,USBGEN_EP_SIZE,1
 };
 
 
@@ -271,6 +273,8 @@ rom const unsigned char *rom USB_CD_Ptr[]={(rom const unsigned char *rom)&cfg01,
 rom const unsigned char *rom USB_CD_Ptr[]={&CFG01,&CFG01};
 #endif
 rom const unsigned char *rom USB_SD_Ptr[]={(rom const unsigned char *rom)&sd000,(rom const unsigned char *rom)&sd001,(rom const unsigned char *rom)&sd002};
+rom byte USB_CD_Count = sizeof(USB_CD_Ptr)/sizeof(USB_CD_Ptr[0]);
+rom byte USB_SD_Count = sizeof(USB_SD_Ptr)/sizeof(USB_SD_Ptr[0]);
 
 #ifndef SDCC
 #pragma code

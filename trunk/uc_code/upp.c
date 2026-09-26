@@ -18,7 +18,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  **************************************************************************/
 
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -56,9 +58,16 @@ extern unsigned char ConfigLimitPGDPGC;
 rom char upp_version[] = {
 		SVN_REVISION };
 
+// Programming mode is left after this long without a command from the host.
+// Within a session the host sends its blocks back to back, and the timer is
+// restarted after every command, so slow commands (erase, word-by-word
+// writes) don't count towards it.
+#define ISCP_IDLE_TIMEOUT_MS	5000
+
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
 void BlinkUSBStatus( void );
 BOOL Switch2IsPressed( void );
+BOOL block_size_ok( int nBytes );
 
 void setLeds( char n );
 
@@ -170,27 +179,72 @@ void ProcessIO( void )
 	int nBytes;
 	unsigned long address;
 	static int isReading = 0;
+	unsigned int idle;
 
-	// When the device is plugged in, the leds give the numbers 1, 2, 3, 4, 5. 
+	// Leave programming mode when the host has abandoned a session (crashed,
+	// timed out, unplugged from the PC side), instead of leaving VPP and VDD
+	// on the target indefinitely.
+	if( iscp_active )
+	{
+		INTCONbits.GIE = 0;	// read the ISR's 16-bit counter in one piece
+		idle = idleMs;
+		INTCONbits.GIE = 1;
+		if( idle > ISCP_IDLE_TIMEOUT_MS )
+		{
+			exit_ISCP();
+			isReading = 0;
+		}
+	}
+
+	// When the device is plugged in, the leds give the numbers 1, 2, 3, 4, 5.
 	//After configured state, the leds are controlled by the next lines in this function
+	if( usb_device_state < CONFIGURED_STATE )
+	{
+		// A bus reset or deconfiguration ends the host's session: drop any
+		// reply or multi-block read that belongs to it.
+		counter = 0;
+		isReading = 0;
+	}
 	if( (usb_device_state < CONFIGURED_STATE) || (UCONbits.SUSPND == 1) )
 	{
 		BlinkUSBStatus();
 		return;
 	}
 
+	// Exactly one reply per command, in order: while the host has not taken
+	// the previous reply, don't accept a new command (the OUT endpoint NAKs).
+	// Dropping the reply instead made the host read every later reply one
+	// command late.
+	if( counter != 0 )
+	{
+		if( mUSBGenTxIsBusy() )
+			return;
+		USBGenWrite( (byte*) &output_buffer, counter );
+		counter = 0;
+	}
+
 	nBytes = USBGenRead( (byte*) input_buffer, 64 );
+	if( nBytes > 0 )
+		isReading = 0;	// a new command ends an unfinished multi-block read
 	if( nBytes == 0 && !mUSBGenTxIsBusy() && isReading
 	 || nBytes > 0 )
 	{
-		switch( input_buffer[0] ) {
+		idleMs = 0;	// the host is active (a command, or the next block of a multi-block read)
+		if( nBytes > 0 && !block_size_ok( nBytes ) )
+		{
+			output_buffer[0] = 3;
+			counter = 1;
+		}
+		else switch( input_buffer[0] ) {
 		case CMD_GET_PROTOCOL_VERSION:
 			output_buffer[0] = PROT_UPP;		// see upp.h
 			counter = 1;
 			break;
 		case CMD_EXIT_TO_BOOTLOADER:
 			exitToBootloader( 1 );		// if this returns -> bad bootloader version, return error
-			for( counter = 0; counter < 10; counter++ )
+			// blink for 2s: stay under the host's 3s timeout so the error reply
+			// arrives while the host is still waiting for it
+			for( counter = 0; counter < 5; counter++ )
 			{
 				setLeds(7);
 				DelayMs( 200 );
@@ -208,6 +262,8 @@ void ProcessIO( void )
 			break;
 		case CMD_READ_ID:
 			setLeds( LEDS_ON | LEDS_RD );
+			output_buffer[0] = 0;	// families without a device ID reply 0x0000
+			output_buffer[1] = 0;
 			switch( picfamily ) {
 			case PIC24:
 			case dsPIC30:
@@ -313,7 +369,11 @@ void ProcessIO( void )
 			break;
 		}
 		case CMD_FIRMWARE_VERSION:
+#ifdef __XC8
+			strcpy((char*)output_buffer,upp_version);
+#else
 			strcpypgm2ram((char*)output_buffer,(const far rom char*)upp_version);
+#endif
 			counter = 18;
 			setLeds( LEDS_ON );
 
@@ -345,7 +405,10 @@ void ProcessIO( void )
 				output_buffer[1] = (unsigned char) (nBytes >> 8);
 				counter = 2;
 				break;
-
+			default:
+				output_buffer[0] = 3;
+				counter = 1;
+				break;
 			}
 			break;
 		case CMD_GET_PIN_STATUS:
@@ -484,11 +547,12 @@ void ProcessIO( void )
 				}
 				break;
 			case SUBCMD_PIN_VPP:
+				// break before make: switch the other VPP sources off first
 				switch( input_buffer[2] ) {
 				case PIN_STATE_0V:
 					VPP = 1;
-					VPP_RST = 1;
 					VPP_RUN = 0;
+					VPP_RST = 1;
 					output_buffer[0] = 1;//ok
 					break;
 				case PIN_STATE_5V:
@@ -498,9 +562,14 @@ void ProcessIO( void )
 					output_buffer[0] = 1;//ok
 					break;
 				case PIN_STATE_12V:
-					VPP = 0;
+					if( ConfigLimitVPP )
+					{
+						output_buffer[0] = 3;	// VPP is limited to 5V
+						break;
+					}
 					VPP_RST = 0;
 					VPP_RUN = 0;
+					VPP = 0;
 					output_buffer[0] = 1;//ok
 					break;
 				case PIN_STATE_FLOAT:
@@ -541,19 +610,47 @@ void ProcessIO( void )
 		}
 	}
 	if( counter != 0 )
+		idleMs = 0;	// restart the idle timer after the command, however long it took
+	if( counter != 0 && !mUSBGenTxIsBusy() )
 	{
-		if( !mUSBGenTxIsBusy() )
-			USBGenWrite( (byte*) &output_buffer, counter );
+		USBGenWrite( (byte*) &output_buffer, counter );
 		counter = 0;
 	}
+	// otherwise the reply is sent by the next call, before a new command is read
 }//end ProcessIO
+
+/******************************************************************************
+ * Check the block size in a command packet against the 64-byte USB packets,
+ * so that a bad or malicious host cannot make the firmware read past
+ * input_buffer or write past output_buffer. nBytes is the packet length.
+ *****************************************************************************/
+BOOL block_size_ok( int nBytes )
+{
+	switch( input_buffer[0] ) {
+	case CMD_WRITE_CODE:
+	case CMD_WRITE_DATA:
+	case CMD_WRITE_CONFIG:
+		return input_buffer[1] <= USBGEN_EP_SIZE - 6 && nBytes >= input_buffer[1] + 6;
+	case CMD_MREAD_CODE:
+		if( input_buffer[6] == 0 && input_buffer[7] == 0 )
+			return FALSE;	// a count of 0 would wrap around to 65535 blocks
+		// no break
+	case CMD_READ_CODE:
+	case CMD_READ_CONFIG:
+	case CMD_READ_CODE_OLD:
+	case CMD_READ_DATA:
+		return input_buffer[1] <= USBGEN_EP_SIZE;
+	default:
+		return TRUE;
+	}
+}
 
 unsigned char set_pictype( unsigned char pt )
 {
 	unsigned char i;
 
 	pictype = pt;
-	for( i = 0; i < UPP_INVALID_PICTYPE; i++ )
+	for( i = 0; i < devices_count; i++ )
 	{
 		if( devices[i].flags.type == pt )
 		{
@@ -562,21 +659,20 @@ unsigned char set_pictype( unsigned char pt )
 		}
 	}
 
-	if( i < UPP_INVALID_PICTYPE && currDevice.flags.family != UPP_INVALID_PICFAMILY )
+	if( i < devices_count && currDevice.flags.family != UPP_INVALID_PICFAMILY )
 	{
 		picfamily = currDevice.flags.family;
 		return (1);
 	}
-	pictype = P18F2XXX;
-	for( i = 0; i < UPP_INVALID_PICTYPE; i++ )
-	{
-		if( devices[i].flags.type == pictype )
-		{
-			currDevice = devices[i];
-			break;
-		}
-	}
-	picfamily = currDevice.flags.family;
+	// Unknown or disabled type: select no algorithm at all, so reads return
+	// zeros and writes/erases reply 3 without touching the target. Before
+	// 1.1.0 this fell back to P18F2XXX, and hosts that ignore this reply
+	// (such as the original PC software) went on to apply its 12V entry to
+	// whatever was connected, e.g. a 3.3V PIC24 during autodetection.
+	for( i = 0; i < sizeof( currDevice ); i++ )
+		((unsigned char *) &currDevice)[i] = 0;
+	pictype = UPP_INVALID_PICTYPE;
+	picfamily = UPP_INVALID_PICFAMILY;
 	return( 3 );
 }
 

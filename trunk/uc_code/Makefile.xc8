@@ -1,0 +1,36 @@
+# Build the usbpicprog firmware with MPLAB XC8 (v4.00 or later).
+#
+#   make -f Makefile.xc8 DFP=/path/to/PIC18Fxxxx_DFP/xc8
+#
+# DFP points to the "xc8" directory of the Microchip PIC18Fxxxx device family
+# pack (https://packs.download.microchip.com/, Microchip.PIC18Fxxxx_DFP).
+# The result is xc8/uc_code.hex. It starts at 0x800 and is loaded through the
+# usbpicprog bootloader, which occupies 0x000-0x7FF.
+
+XC8 ?= /opt/microchip/xc8/v4.00/bin/xc8-cc
+DFP ?= $(HOME)/.mchp_packs/Microchip/PIC18Fxxxx_DFP/xc8
+OUT = xc8
+
+SRC = main.c interrupt.c upp.c device.c prog_lolvl.c bulk_erase.c \
+      read_code.c read_data.c write_code.c write_data.c write_config_bits.c \
+      pic24.c pic24E.c \
+      usbdrv.c usb9.c usbctrltrf.c usbgen.c usbdsc.c usbmmap.c
+
+# -Os:           optimize for size (available in the free edition); -O2 code
+#                does not fit in the 30 KB above the bootloader.
+# -fsigned-char: C18 treats plain char as signed, and this code relies on it.
+# -mcodeoffset:  reset and interrupt vectors at 0x800/0x808/0x818, above the
+#                bootloader.
+FLAGS = -mcpu=18F2550 -mdfp=$(DFP) -Os -fsigned-char -mcodeoffset=0x800 \
+        -msummary=-psect,-class,+mem,-hex,-file
+
+all: $(OUT)/uc_code.hex
+
+$(OUT)/uc_code.hex: $(SRC) *.h
+	mkdir -p $(OUT)
+	$(XC8) $(FLAGS) -o $@ $(SRC)
+
+clean:
+	rm -rf $(OUT)
+
+.PHONY: all clean

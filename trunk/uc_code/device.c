@@ -35,6 +35,9 @@ DEVICE_TABLE devices[]  =
 #undef LIST
 #pragma romdata
 
+// set_pictype() must not search past the end of devices[].
+rom unsigned char devices_count = sizeof( devices ) / sizeof( devices[0] );
+
 
 DEVICE_t currDevice;
 PICFAMILY picfamily = PIC18;

@@ -35,7 +35,9 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -102,12 +104,14 @@ void USBCheckStdRequest(void)
             USBStdFeatureReqHandler();
             break;
         case GET_INTF:
+            if(SetupPkt.bIntfID >= MAX_NUM_INT) break;  // no such interface: stall
             ctrl_trf_session_owner = MUID_USB9;
             pSrc.bRam = (byte*)&usb_alt_intf+SetupPkt.bIntfID;  // Set source
             usb_stat.ctrl_trf_mem = _RAM;               // Set memory type
             LSB(wCount) = 1;                            // Set data count
             break;
         case SET_INTF:
+            if(SetupPkt.bIntfID >= MAX_NUM_INT) break;  // no such interface: stall
             ctrl_trf_session_owner = MUID_USB9;
             usb_alt_intf[SetupPkt.bIntfID] = SetupPkt.bAltID;
             break;
@@ -149,11 +153,15 @@ void USBStdGetDscHandler(void)
                 wCount._word = sizeof(device_dsc);          // Set data count
                 break;
             case DSC_CFG:
+                if(SetupPkt.bDscIndex >= USB_CD_Count) break;   // stall
                 ctrl_trf_session_owner = MUID_USB9;
                 pSrc.bRom = *(USB_CD_Ptr+SetupPkt.bDscIndex);
                 wCount._word = *(pSrc.wRom+1);              // Set data count
                 break;
             case DSC_STR:
+                // e.g. Windows asks for string 0xEE; stall instead of
+                // sending whatever ROM follows the table
+                if(SetupPkt.bDscIndex >= USB_SD_Count) break;
                 ctrl_trf_session_owner = MUID_USB9;
                 pSrc.bRom = *(USB_SD_Ptr+SetupPkt.bDscIndex);
                 wCount._word = *pSrc.bRom;                  // Set data count
@@ -291,18 +299,22 @@ void USBStdFeatureReqHandler(void)
     
     if((SetupPkt.bFeature == ENDPOINT_HALT)&&
        (SetupPkt.Recipient == RCPT_EP)&&
-       (SetupPkt.EPNum != 0))
+       (SetupPkt.EPNum != 0)&&
+       (SetupPkt.EPNum <= MAX_EP_NUMBER))  // only endpoints with a buffer descriptor
     {
         ctrl_trf_session_owner = MUID_USB9;
         /* Must do address calculation here */
         pDst.bRam = (byte*)&ep0Bo+(SetupPkt.EPNum*8)+(SetupPkt.EPDir*4);
-        
+
         if(SetupPkt.bRequest == SET_FEATURE)
             *pDst.bRam = _USIE|_BSTALL;
         else
         {
+            // Clearing a halt resets the data toggle, so the next packet
+            // must be DATA0. USBGenWrite toggles DTS before sending, hence
+            // DAT1 here, as in USBGenInitEP.
             if(SetupPkt.EPDir == 1) // IN
-                *pDst.bRam = _UCPU;
+                *pDst.bRam = _UCPU|_DAT1;
             else
                 *pDst.bRam = _USIE|_DAT0|_DTSEN;
         }//end if

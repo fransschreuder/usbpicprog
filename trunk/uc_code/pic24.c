@@ -333,6 +333,10 @@ void read_data_P24KA1( unsigned long address, unsigned char* data, char blocksiz
 {
 	read_code_PIC24( address+0x7FFE00, data, blocksize, lastblock | BLOCKTYPE_CONFIG );
 }
+// With C18 this table is meant to be linked directly after devices[] in the
+// DEVICES section; in the shipped firmware it is not, so these types were
+// never selectable. XC8 has no such section merging, so leave it out there.
+#ifndef __XC8
 #pragma romdata DEVICES
 DEVICE_TABLE devices_pic24[] =
 {
@@ -348,4 +352,5 @@ DEVICE_ENTRY( dsP33F,		dsPIC33,3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,	
 DEVICE_ENTRY( P24H,		    PIC24,	3V,	PIC24,		P24FJ,		PIC24,		none,		P24FJ,		none,		P24H )
 };
 #pragma romdata
+#endif
 #undef LIST

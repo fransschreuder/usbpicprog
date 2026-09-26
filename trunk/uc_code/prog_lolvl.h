@@ -121,7 +121,12 @@ unsigned char I2C_write(unsigned char d);
 unsigned char I2C_read(unsigned char ack);
 
 void enter_ISCP_simple( void );
+extern unsigned char iscp_active;	// target is in programming mode
+extern unsigned char prog_error;	// a word failed to verify while programming
+void program_eprom_word( unsigned int payload, char config_word );
 void enter_ISCP_P16_Vpp( void );
+void enter_ISCP_P16_LVP( void );
+void enter_ISCP_PIC18_PGM( void );
 void enter_ISCP_dsPIC30( void );
 void enter_ISCP_PIC18J( void );
 void enter_ISCP_PIC18K( void );

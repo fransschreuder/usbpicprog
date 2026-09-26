@@ -20,7 +20,9 @@
 
 #include "upp.h"
 #include "write_config_bits.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -50,12 +52,18 @@ char write_config_bits( unsigned long address, unsigned char* data, char blocksi
 
 	if( lastblock & BLOCKTYPE_FIRST )
 		enter_ISCP();
+	prog_error = 0;
 	if( currDevice.write_config_bits )
 		currDevice.write_config_bits( address, data, blocksize, lastblock );
 	else
 	{
 		exit_ISCP();
 		return 3;
+	}
+	if( prog_error )
+	{
+		exit_ISCP();
+		return 4; //verify error
 	}
 	if( lastblock & BLOCKTYPE_LAST )
 	{
@@ -234,8 +242,8 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 		pic_send( 4, 0x0F, ((unsigned int) *(data + blockcounter)) | (((unsigned int) *(data + blockcounter))
 				<< 8) );
 		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
+		PGChigh(); //hold PGC high for P9A: configuration words need 5ms (DS30009947C)
+		DelayMs( P9A );
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
@@ -243,8 +251,8 @@ void write_config_bits_P18F6XKXX( unsigned long address, unsigned char* data, ch
 		pic_send( 4, 0x0F, ((unsigned int) *(data + 1 + blockcounter)) | (((unsigned int) *(data + 1
 				+ blockcounter)) << 8) ); //load MSB and start programming
 		pic_send_n_bits( 3, 0 );
-		PGChigh(); //hold PGC high for P9 (or P9A for 4XF/LFK22 config word)
-		DelayMs( P9 );
+		PGChigh(); //hold PGC high for P9A: configuration words need 5ms (DS30009947C)
+		DelayMs( P9A );
 		PGClow(); //hold PGC low for time P10
 		DelayMs( P10 );
 		pic_send_word( 0x0000 ); //last part of the nop
@@ -386,14 +394,8 @@ void write_config_bits_P16C6XX( unsigned long address, unsigned char* data, char
 		{
 			payload = (((unsigned int) data[blockcounter]))
 					| (((unsigned int) data[blockcounter + 1]) << 8);
-			for(i=0;i<25;i++)
-			{
-				pic_send_14_bits( 6, 0x02, payload ); //load data for programming
-				pic_send_n_bits( 6, 0x08 ); //begin programming
-				DelayUs( 100 );
-				pic_send_n_bits( 6, 0x0E ); //end programming
-				if(pic_read_14_bits( 6, 0x04 )==payload&&i<22)i=22; //correct? do 3 more programming cycles.
-			}
+			// the configuration word (0x2007) gets the fixed 100 pulses
+			program_eprom_word( payload, (((char) address) + (blockcounter >> 1)) == 7 );
 		}
 		pic_send_n_bits( 6, 0x06 ); //increment address
 	}

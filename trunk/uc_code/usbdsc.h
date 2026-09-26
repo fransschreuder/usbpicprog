@@ -46,7 +46,17 @@
 #include "usb.h"
 
 /** D E F I N I T I O N S *******************************************/
-#ifndef SDCC
+#ifdef __XC8
+// Named type: standard C treats two unnamed structs as different types, so
+// the extern declaration below and the definition in usbdsc.c would clash.
+typedef struct
+{   USB_CFG_DSC             cd01;
+    USB_INTF_DSC            i00a00;
+    USB_EP_DSC              ep01o_i00a00;
+    USB_EP_DSC              ep01i_i00a00;
+} CFG01_t;
+#define CFG01 const CFG01_t cfg01
+#elif !defined(SDCC)
 #define CFG01 rom struct                            \
 {   USB_CFG_DSC             cd01;                   \
     USB_INTF_DSC            i00a00;                 \
@@ -70,5 +80,7 @@ extern CFG01;
 #endif
 extern rom const unsigned char *rom USB_CD_Ptr[];
 extern rom const unsigned char *rom USB_SD_Ptr[];
+extern rom byte USB_CD_Count;	// number of entries in USB_CD_Ptr
+extern rom byte USB_SD_Count;	// number of entries in USB_SD_Ptr
 
 #endif //USBDSC_H

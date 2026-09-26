@@ -16,10 +16,13 @@
 /** S T R U C T U R E S ******************************************************/
 
 /** E X T E R N S ************************************************************/
-extern unsigned char timerRunning;
+extern volatile unsigned char timerRunning;
+extern volatile unsigned int idleMs;
 /** P R O T O T Y P E S ******************************************************/
+#ifndef __XC8	// XC8 places the __interrupt functions at the vectors itself
 void low_isr(void);
 void high_isr(void);
+#endif
 void startTimerMs( unsigned cnt );
 void DelayMs(unsigned cnt);
 void DelayUs(unsigned cnt );

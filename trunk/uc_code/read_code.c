@@ -20,7 +20,9 @@
 
 #include "upp.h" 
 #include "read_code.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -48,6 +50,7 @@ char read_code( unsigned long address, unsigned char* data, char blocksize, char
 
 	if( lastblock & BLOCKTYPE_LAST )
 		exit_ISCP();
+	return 1;	// was missing; callers ignore it, but falling off the end is undefined
 }
 
 void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocksize, char lastblock )
@@ -58,10 +61,11 @@ void read_code_I2C_EE_1( unsigned long address, unsigned char* data, char blocks
 	I2C_write( (unsigned char) ((address & 0x00FF)) );	//LSB
 	I2C_start();
 	I2C_write( 0xA1 | ((int)address>>7)&0x0E ); 			//Device Address + 1=read
-	for( blockcounter = 0; blockcounter < blocksize; blockcounter++ )
+	for( blockcounter = 0; blockcounter < blocksize-1; blockcounter++ )
 	{
 		data[blockcounter] = I2C_read( 0 );
 	}
+	data[blockcounter] = I2C_read( 1 );	// NACK the last byte, so the EEPROM releases SDA for the stop
 	I2C_stop();
 }
 
@@ -135,46 +139,52 @@ void read_code_dsPIC30( unsigned long address, unsigned char* data, char blocksi
 		dspic_send_24_bits( 0x200000 | (((((address) * 2) / 3) & 0xFF0000) >> 12) ); //MOV #<SourceAddress23:16>, W0
 		dspic_send_24_bits( 0x880190 ); //MOV W0, TBLPAG
 		dspic_send_24_bits( 0x200006 | (((((address) * 2) / 3) & 0x00FFFF) << 4) ); //MOV #<SourceAddress15:0>, W6
-		//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
-		dspic_send_24_bits( 0xEB0380 ); //CLR W7
-		//dspic_send_24_bits(0x000000);	//NOP
-		dspic_send_24_bits( 0xBA1B96 ); //TBLRDL [W6], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBADBB6 ); //TBLRDH.B [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBADBD6 ); //TBLRDH.B [++W6], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBA1BB6 ); //TBLRDL [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBA1B96 ); //TBLRDL [W6], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBADBB6 ); //TBLRDH.B [W6++], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBADBD6 ); //TBLRDH.B [++W6], [W7++]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0xBA0BB6 ); //TBLRDL [W6++], [W7]
-		dspic_send_24_bits( 0x000000 ); //NOP
-		dspic_send_24_bits( 0x000000 ); //NOP
-		//Step 4: Output W0:W5 using the VISI register and REGOUT command.
-		for( i = 0; i < 6; i++ )
+		// Steps 3-5 read four instructions (12 bytes); DS70102K Table 11-10
+		// step 6 repeats them for the whole block. Before 1.1.0 only the first
+		// four of the 16 instructions in a 48-byte block were read.
+		for( blockcounter = 0; blockcounter < blocksize; blockcounter += 12 )
 		{
-			dspic_send_24_bits( 0x883C20 | (unsigned long) i ); //MOV W0, VISI
+			//Step 3: Initialize the write pointer (W7) and store the next four locations of code memory to W0:W5.
+			dspic_send_24_bits( 0xEB0380 ); //CLR W7
 			dspic_send_24_bits( 0x000000 ); //NOP
-			payload = dspic_read_16_bits( is3_3V() ); //Clock out contents of VISI register
-			data[blockcounter + i * 2] = (unsigned char) payload & 0xFF;
-			data[blockcounter + i * 2 + 1] = (unsigned char) ((payload & 0xFF00) >> 8);
+			dspic_send_24_bits( 0xBA1B96 ); //TBLRDL [W6], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBADBB6 ); //TBLRDH.B [W6++], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBADBD6 ); //TBLRDH.B [++W6], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBA1BB6 ); //TBLRDL [W6++], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBA1B96 ); //TBLRDL [W6], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBADBB6 ); //TBLRDH.B [W6++], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBADBD6 ); //TBLRDH.B [++W6], [W7++]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0xBA0BB6 ); //TBLRDL [W6++], [W7]
+			dspic_send_24_bits( 0x000000 ); //NOP
+			dspic_send_24_bits( 0x000000 ); //NOP
+			//Step 4: Output W0:W5 using the VISI register and REGOUT command.
+			for( i = 0; i < 6; i++ )
+			{
+				dspic_send_24_bits( 0x883C20 | (unsigned long) i ); //MOV W0, VISI
+				dspic_send_24_bits( 0x000000 ); //NOP
+				payload = dspic_read_16_bits( is3_3V() ); //Clock out contents of VISI register
+				data[blockcounter + i * 2] = (unsigned char) payload & 0xFF;
+				data[blockcounter + i * 2 + 1] = (unsigned char) ((payload & 0xFF00) >> 8);
+				dspic_send_24_bits( 0x000000 ); //NOP
+			}
+			//Step 5: Reset the device internal PC.
+			dspic_send_24_bits( 0x040100 ); //GOTO 0x100
 			dspic_send_24_bits( 0x000000 ); //NOP
 		}
-		//Step 5: Reset the device internal PC.
-		dspic_send_24_bits( 0x040100 ); //GOTO 0x100
-		dspic_send_24_bits( 0x000000 ); //NOP
 	}
 }
 void read_code_PIC18( unsigned long address, unsigned char* data, char blocksize, char lastblock )

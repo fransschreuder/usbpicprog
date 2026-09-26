@@ -35,7 +35,9 @@
  ********************************************************************/
 
 /** I N C L U D E S **********************************************************/
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -581,6 +583,10 @@ void USBProtocolResetHandler(void)
 /* Auxiliary Function */
 void ClearArray(byte* startAdr,byte count)
 {
+#ifdef __XC8
+    while(count--)
+        *startAdr++ = 0;
+#else
     *startAdr;
     while(count)
     {
@@ -589,6 +595,7 @@ void ClearArray(byte* startAdr,byte count)
         _endasm
         count--;
     }//end while
+#endif
 }//end ClearArray
 
 /** EOF usbdrv.c *************************************************************/

@@ -6,7 +6,9 @@
  ******************************************************************************/
 
 /** I N C L U D E S **********************************************************/
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -15,10 +17,15 @@
 #include "interrupt.h"
 #include "io_cfg.h"
 /** V A R I A B L E S ********************************************************/
-long timerCnt;
-unsigned char timerRunning;
+// volatile: changed by high_isr while DelayMs() and the EEPROM write
+// polling loops wait on them.
+volatile long timerCnt;
+volatile unsigned char timerRunning;
+// Milliseconds since the last command, for leaving an abandoned programming
+// session (see ProcessIO). Saturates instead of wrapping.
+volatile unsigned int idleMs;
 /** I N T E R R U P T  V E C T O R S *****************************************/
-#ifndef SDCC
+#if !defined(SDCC) && !defined(__XC8)
 #pragma code high_vector=0x08
 void interrupt_at_high_vector( void )
 {
@@ -42,7 +49,9 @@ void interrupt_at_low_vector( void )
  * Side Effects:
  * Overview:
  *****************************************************************************/
-#ifndef SDCC
+#ifdef __XC8
+void __interrupt(high_priority) high_isr( void )
+#elif !defined(SDCC)
 #pragma interrupt high_isr
 void high_isr( void )
 #else
@@ -53,6 +62,8 @@ void high_isr(void) interrupt 2
 	{
 		if( timerRunning && --timerCnt <= 0 )
 			timerRunning = 0;
+		if( idleMs != 0xFFFF )
+			idleMs++;
 		/*Pump1=!Pump1;
 		 Pump2=!Pump1;*/
 		TMR1H = TMR1H_PRESET;
@@ -77,6 +88,7 @@ void high_isr(void) interrupt 2
  * Side Effects:
  * Overview:
  *****************************************************************************/
+#ifndef __XC8	// priorities are not enabled, so XC8 needs no low-priority ISR
 #ifndef SDCC
 #pragma interruptlow low_isr
 void low_isr( void )
@@ -86,6 +98,7 @@ void low_isr(void) interrupt 1
 {
 }
 #pragma code
+#endif
 
 /******************************************************************************
  * This function set up timerCnt
@@ -112,6 +125,9 @@ void DelayUs(unsigned cnt )
 	unsigned i;
 	for(i=0;i<cnt;i++)
 	{
+#ifdef __XC8
+		NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+#else
 		_asm nop _endasm
 		_asm nop _endasm
 		_asm nop _endasm
@@ -121,7 +137,8 @@ void DelayUs(unsigned cnt )
 		_asm nop _endasm
 		_asm nop _endasm
 		_asm nop _endasm
-		_asm nop _endasm		
-	}	
+		_asm nop _endasm
+#endif
+	}
 }
 /** EOF interrupt.c **********************************************************/

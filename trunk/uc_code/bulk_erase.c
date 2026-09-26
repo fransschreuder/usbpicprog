@@ -20,7 +20,9 @@
 
 #include "upp.h"
 #include "bulk_erase.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #else
 #include <p18cxxx.h>
 #endif
@@ -88,7 +90,9 @@ void bulk_erase_dsP30F( unsigned char doRestore )
 		dspic_send_24_bits( 0xA8E761 ); //BSET NVMCON, #WR
 		dspic_send_24_bits( 0x000000 ); //NOP
 		dspic_send_24_bits( 0x000000 ); //NOP
-		DelayMs( 201 ); //Externally time 200ms
+		DelayMs( 3 ); //Externally time 2 msec (DS70102K Table 11-4; P12a is 1-4 ms, was 201 ms)
+		dspic_send_24_bits( 0x000000 ); //NOP
+		dspic_send_24_bits( 0x000000 ); //NOP
 		dspic_send_24_bits( 0xA9E761 ); //BCLR NVMCON, #WR
 		dspic_send_24_bits( 0x000000 ); //NOP
 		dspic_send_24_bits( 0x000000 ); //NOP
@@ -106,6 +110,8 @@ void bulk_erase_dsP30F( unsigned char doRestore )
 	dspic_send_24_bits( 0x000000 ); //NOP
 	dspic_send_24_bits( 0x000000 ); //NOP
 	DelayMs( 3 ); //Externally time 2 msec
+	dspic_send_24_bits( 0x000000 ); //NOP
+	dspic_send_24_bits( 0x000000 ); //NOP
 	dspic_send_24_bits( 0xA9E761 ); //BCLR NVMCON, #WR
 	dspic_send_24_bits( 0x000000 ); //NOP
 	dspic_send_24_bits( 0x000000 ); //NOP
@@ -210,6 +216,7 @@ void bulk_erase_P18F6XKXX( unsigned char doRestore )
 	pic_send( 4, 0x0C, 0x0000 );
 	set_address_P18( 0x3C0006 );
 	pic_send( 4, 0x0C, 0x8080 );
+	pic_send( 4, 0x00, 0x0000 ); //NOP; the erase starts on the 4th PGC after it
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 	DelayMs( 6 );
 
@@ -219,6 +226,7 @@ void bulk_erase_P18F6XKXX( unsigned char doRestore )
 	pic_send( 4, 0x0C, 0x0000 );
 	set_address_P18( 0x3C0006 );
 	pic_send( 4, 0x0C, 0x8080 );
+	pic_send( 4, 0x00, 0x0000 ); //NOP; the erase starts on the 4th PGC after it
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 	DelayMs( 6 );
 
@@ -228,6 +236,7 @@ void bulk_erase_P18F6XKXX( unsigned char doRestore )
 	pic_send( 4, 0x0C, 0x0000 );
 	set_address_P18( 0x3C0006 );
 	pic_send( 4, 0x0C, 0x8080 );
+	pic_send( 4, 0x00, 0x0000 ); //NOP; the erase starts on the 4th PGC after it
 	pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 	DelayMs( 6 );
 
@@ -239,6 +248,7 @@ void bulk_erase_P18F6XKXX( unsigned char doRestore )
 		pic_send( 4, 0x0C, ((int)ctr << 8) | ctr );
 		set_address_P18( 0x3C0006 );
 		pic_send( 4, 0x0C, 0x8080 );
+		pic_send( 4, 0x00, 0x0000 ); //NOP; the erase starts on the 4th PGC after it
 		pic_send( 4, 0x00, 0x0000 ); //hold PGD low until erase completes
 		DelayMs( 6 );
 	}
@@ -429,7 +439,39 @@ void bulk_erase_P12F61X( unsigned char doRestore )
 	pic_send_n_bits( 6, 0x09 ); //perform bulk erase of the user memory
 	DelayMs( 20 ); //wait Tera for erase to complete
 }
+/*
+ * PIC16F84A (DS30262 sections 2.3.1.9 and 2.3.1.10): Load Data with all 1s,
+ * Bulk Erase (0x09) and then Begin Programming (0x08) starts the erase. With
+ * the PC in configuration memory, the user IDs are erased too. Data memory
+ * the same way with Load Data for Data Memory and 0x0B. The previous
+ * sequence sent 0x08 before 0x09 for the second erase, so the IDs survived.
+ */
 void bulk_erase_P16F84A( unsigned char doRestore )
+{
+	pic_send_14_bits( 6, 0x02, 0x3FFF );
+	pic_send_n_bits( 6, 0x09 ); //perform bulk erase of the program memory
+	pic_send_n_bits( 6, 0x08 ); //begin programming cycle
+	DelayMs( 20 ); //wait Tera for erase to complete
+	pic_send_14_bits( 6, 0x00, 0x3FFF );//Load Configuration: PC to 0x2000, so the IDs are erased too
+	pic_send_14_bits( 6, 0x02, 0x3FFF ); //load data for program memory 0x3FFF << 1
+	pic_send_n_bits( 6, 0x09 ); //bulk erase program memory and user IDs...
+	pic_send_n_bits( 6, 0x08 ); //...started by begin programming
+	DelayMs( 20 ); //wait Tera for erase to complete
+	pic_send_14_bits( 6, 0x03, 0x3FFF ); //load data for data memory, all 1s
+	pic_send_n_bits( 6, 0x0B ); //perform bulk erase of the data memory
+	pic_send_n_bits( 6, 0x08 ); //begin programming cycle
+	DelayMs( 20 );
+	PGDlow();
+}
+/*
+ * PIC16F627A/628A/648A. This is the sequence bulk_erase_P16F84A had before
+ * 1.1.0; upstream switched this family to it in 2014 because the
+ * DS41196-conformant bulk_erase_P12F6XX "was not always working" on real
+ * parts. It differs from DS41196 section 3.1 (0x09 is self-timed on these
+ * parts and has no Begin Programming step), so it is kept verbatim until it
+ * can be retested on hardware.
+ */
+void bulk_erase_P16F62XA( unsigned char doRestore )
 {
 	pic_send_14_bits( 6, 0x02, 0x3FFF );
 	pic_send_n_bits( 6, 0x09 ); //perform bulk erase of the program memory

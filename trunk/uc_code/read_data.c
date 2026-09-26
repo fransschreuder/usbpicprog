@@ -20,7 +20,9 @@
 
 #include "upp.h"
 #include "read_data.h"
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>

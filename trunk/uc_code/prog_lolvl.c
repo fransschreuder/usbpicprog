@@ -18,7 +18,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  **************************************************************************/
 
-#ifdef SDCC
+#ifdef __XC8
+#include <xc.h>
+#elif defined(SDCC)
 #include <pic18f2550.h>
 #else
 #include <p18cxxx.h>
@@ -35,10 +37,14 @@
 #undef set_vdd_vpp
 #undef exit_ISCP
 #undef enter_ISCP
-#else
+#elif !defined(__XC8)
 #include <delays.h>
 #endif
+#ifdef __XC8
+#define I2C_delay()	_delay(20)		// same as C18's Delay10TCYx(2)
+#else
 #define I2C_delay()	Delay10TCYx(2)		// approx 2x 1.3us min
+#endif
 
 unsigned char ConfigDisableVDD=0;
 unsigned char ConfigLimitVPP=0;
@@ -52,12 +58,63 @@ void set_vdd_vpp( PICTYPE pictype, PICFAMILY picfamily, char level )
 		enter_ISCP();
 }
 
+unsigned char iscp_active = 0;
+unsigned char prog_error = 0;
+
+static void eprom_pulse( unsigned int payload )
+{
+	pic_send_14_bits( 6, 0x02, payload ); //a load before every begin programming
+	pic_send_n_bits( 6, 0x08 ); //begin programming
+	DelayUs( 100 );
+	pic_send_n_bits( 6, 0x0E ); //end programming
+}
+
+/*
+ * Program one word of a PIC16C EPROM part (DS30228 figures 2-2 and 2-3) at
+ * the current address: 100us pulses until the word verifies, at most 25 (N),
+ * then 3*N more to overprogram. The configuration word instead gets 100
+ * pulses and one verify. A word that does not verify sets prog_error.
+ */
+void program_eprom_word( unsigned int payload, char config_word )
+{
+	unsigned char n, k;
+
+	payload &= 0x3FFF;
+	if( config_word )
+	{
+		for( k = 0; k < 100; k++ )
+			eprom_pulse( payload );
+		if( (pic_read_14_bits( 6, 0x04 ) & 0x3FFF) != payload )
+			prog_error = 1;
+		return;
+	}
+	for( n = 1; n <= 25; n++ )
+	{
+		eprom_pulse( payload );
+		if( (pic_read_14_bits( 6, 0x04 ) & 0x3FFF) == payload )
+		{
+			for( k = 0; k < 3 * n; k++ )
+				eprom_pulse( payload );
+			return;
+		}
+	}
+	prog_error = 1;
+}
+
 void enter_ISCP( void )
 {
-	if( currDevice.enter_ISCP )
-		currDevice.enter_ISCP();
-	else
-		enter_ISCP_simple();
+	// A host that gave up in the middle of a session leaves the target in
+	// programming mode. Leave it first: re-entering without a reset would,
+	// for example, keep a PIC16's address counter from the old session.
+	if( iscp_active )
+		exit_ISCP();
+	// Every supported family has an entry routine; none means no valid
+	// pictype was selected, so apply no voltages at all. (This used to fall
+	// back to enter_ISCP_simple, i.e. VDD and ~12V VPP.)
+	if( !currDevice.enter_ISCP )
+		return;
+	currDevice.enter_ISCP();
+	iscp_active = 1;
 }
 void enter_ISCP_simple()
 {
@@ -84,32 +141,85 @@ void enter_ISCP_P16_Vpp()
 	VDDon();
 	DelayMs( 100 );
 }
+/*
+ * Low-voltage entry for enhanced mid-range PIC12F/16F1xxx (DS41390 section
+ * 4.2, DS41573 section 4.2). Their VIHH is 8.0-9.0V, below this programmer's
+ * ~12V VPP, so no high voltage is used: MCLR is held at VIL, the 32-bit key
+ * "MCHP" (0x4D434850) is clocked in LSb first followed by a 33rd clock, and
+ * MCLR stays at VIL while programming. Needs the LVP configuration bit set,
+ * which is the erased default; it cannot be cleared while in LVP mode.
+ */
+void enter_ISCP_P16_LVP()
+{
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+	PGDlow();
+	PGClow();
+	VPPoff();
+	VPP_RUNoff();
+	VPP_RSTon(); //MCLR at 0V
+	VDDon();
+	DelayMs( 10 );
+	pic_send_word( 0x4850 ); //key, LSb first: low word...
+	pic_send_word( 0x4D43 ); //...then high word
+	pic_send_n_bits( 1, 0 ); //33rd clock
+	DelayMs( 1 );
+}
+
+/*
+ * Low-voltage entry for PIC18F1XK22/LF1XK22 (DS41357B section 3.3). Their
+ * VIHH is 8-9V, below this programmer's ~12V VPP, and they have no key
+ * sequence: low-voltage mode is selected by the RC3/PGM pin being high while
+ * MCLR rises from 0V to VDD. PGM is not on the ICSP header, so it must be
+ * held high on the target (for example with a jumper to VDD) while
+ * programming. Without it the target simply starts running.
+ */
+void enter_ISCP_PIC18_PGM()
+{
+	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
+	PGDlow();
+	PGClow();
+	VPPoff();
+	VPP_RUNoff();
+	VPP_RSTon(); //MCLR at 0V
+	VDDon();
+	DelayMs( 10 ); //also P15: PGM high 2us before MCLR rises
+	VPP_RSToff(); //release MCLR...
+	VPP_RUNon(); //...to VDD level
+	DelayMs( 1 ); //P12: 2us before data
+}
+
+/*
+ * dsPIC30F ICSP entry, DS70102K Figure 11-4 (VIHH 9.00-13.25V): with PGC/PGD
+ * low, VDD up, MCLR to VIHH for 4ms, MCLR low for at least 10us, back to
+ * VIHH and wait 4ms. The first SIX command after entry needs five extra PGC
+ * clocks (section 11.2, note 1), which were missing before 1.1.0, as was a
+ * real 10us low pulse on MCLR.
+ */
 void enter_ISCP_dsPIC30()
 {
-	unsigned int i;
 	enablePGC_D(); //PGC/D output & PGC/D_LOW appropriate
 
 	PGDlow(); // initial value for programming mode
 	PGClow(); // initial value for programming mode
 	clock_delay(); // dummy tempo
-	DelayMs( 100 );
 	VDDon();
-	clock_delay();
+	DelayMs( 100 ); // let the target's supply settle
 	VPPon();
-	DelayMs( 26 );
-	dspic_send_24_bits( 0 );
-	dspic_send_24_bits( 0 );
-	dspic_send_24_bits( 0 );
-	dspic_send_24_bits( 0 );
+	DelayMs( 4 );
 	VPPoff();
-	VPP_RSTon();
+	VPP_RSTon(); // MCLR low...
+	DelayUs( 20 ); // ...for at least 10us
 	VPP_RSToff();
-	for( i = 0; i < 1; i++ )
-		continue;
 	VPPon();
-	DelayMs( 100 );
+	DelayMs( 100 ); // at least 4ms before the first command
+	pic_send_n_bits( 5, 0 ); // five extra clocks: the first SIX is 9 bits
 }
 
+/*
+ * Key-sequence entry without high voltage: MCLR briefly high then low, key
+ * "MCHP" MSb first, then MCLR high and held. Used for PIC18 J parts and, per
+ * DS41398B section 2.4 (VIHH max 9V), for PIC18(L)F2XK22/4XK22.
+ */
 void enter_ISCP_PIC18J()
 {
 	int i;
@@ -165,8 +275,7 @@ void enter_ISCP_PIC18K()
 	// MCLR low, and write secret word
 	VPP_RUNoff(); //MCLR low (this would enter low power mode)
  	VPP_RSTon(); // Force MCLR low (this would enter low power mode)
-	for( i = 0; i < 300; i++ )
-		continue; //aprox 0.5ms
+	DelayMs( 1 ); // P12: at least 250us from MCLR low to the key (DS30009947C); the loop was ~200us
 	//clock_delay();	//P19 = 40ns min
 	//write 0x4D43, high to low, other than the rest of the commands which are low to high...
 	//0x3D43 => 0100 1101 0100 0011
@@ -293,6 +402,7 @@ void enter_ISCP_I2C_EE()
 
 void exit_ISCP()
 {
+	iscp_active = 0;
 	VPPoff(); //low, (inverted)
 	VPP_RUNoff();
 	VPP_RSTon(); //hard reset, low (inverted)
