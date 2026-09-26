@@ -12,3 +12,5 @@ The trunk folder (it's there for historical reasons) contains some subfolders:
 * boot: The (slightly modified) Picdem Bootloader which has to be programmed once in the microcontroller on the usbpicprog hardware
 * doc: A bunch of programming specifications, provided by Microchip. 
 
+There is an unofficial CLI client written in Rust: https://gitlab.hacking.hu/szabolcs/usbpicprog. It compiles for ARM64/AMD64 on Linux/macOS/Windows.
+
