@@ -21,7 +21,7 @@
 #ifndef UPP_H
 #define UPP_H
 
-#define PROT_UPP 3
+#define PROT_UPP 4
 
 typedef enum
 {
@@ -43,6 +43,7 @@ typedef enum
 	CMD_EXIT_TO_BOOTLOADER = 0xD3,		// PROT_UPP1
 	CMD_MREAD_CODE = 0xD4,              // PROT_UPP2
 	CMD_APPLY_SETTINGS = 0xD5,			// PROT_UPP3
+	CMD_DEBUG_LINK = 0xD6,				// PROT_UPP4, see debug_link.h
 	CMD_INVALID
 }CMD_UPP;
 

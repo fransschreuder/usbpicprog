@@ -13,7 +13,7 @@ OUT = xc8
 
 SRC = main.c interrupt.c upp.c device.c prog_lolvl.c bulk_erase.c \
       read_code.c read_data.c write_code.c write_data.c write_config_bits.c \
-      pic24.c pic24E.c \
+      pic24.c pic24E.c debug_link.c \
       usbdrv.c usb9.c usbctrltrf.c usbgen.c usbdsc.c usbmmap.c
 
 # -Os:           optimize for size (available in the free edition); -O2 code

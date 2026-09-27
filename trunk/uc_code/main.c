@@ -157,6 +157,13 @@ char exitToBootloader( char set ) {
 	if( !set ) {
 		if( strcmp( boot_ram_check, "bootloader" ) != 0 )
 			return( 0 );
+		// boot_entry is in the middle of the bootloader's main, after its C18
+		// start-up code, which points the software stack (FSR1, frame
+		// pointer FSR2) at 0x300. XC8 code leaves other values there, and the
+		// bootloader's stack then overwrites its own USB variables: it
+		// enumerates with garbled descriptors.
+		asm( "lfsr 1, 0x300" );
+		asm( "lfsr 2, 0x300" );
 		asm( "goto 0x06CA" );	// boot_entry
 	}
 	else {

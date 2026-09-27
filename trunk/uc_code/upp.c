@@ -37,6 +37,7 @@
 #include "svn_revision.h"
 #include "interrupt.h"
 #include "main.h"
+#include "debug_link.h"
 
 /** V A R I A B L E S ********************************************************/
 #ifndef SDCC
@@ -603,6 +604,11 @@ void ProcessIO( void )
 				ConfigLimitPGDPGC=0;
 			output_buffer[0]=1;
 			counter=1;
+			break;
+		case CMD_DEBUG_LINK:
+			setLeds( LEDS_ON | LEDS_RD );
+			counter = debug_link( input_buffer, output_buffer, nBytes );
+			setLeds( LEDS_ON );
 			break;
 		default:
 			output_buffer[0] = 3;			// unrecognized command

@@ -15,7 +15,7 @@ SUFFIX=c
 ## Add source files here ##
 ## Default is to include all files with suffix ##
 SRC=$(wildcard *.$(SUFFIX))
-TESTSRC= test/test.c prog_lolvl.c bulk_erase.c read_code.c read_data.c write_code.c write_data.c write_config_bits.c device.c pic24.c
+TESTSRC= test/test.c prog_lolvl.c bulk_erase.c read_code.c read_data.c write_code.c write_data.c write_config_bits.c device.c pic24.c debug_link.c
 ## Object files, created from source names ##
 OBJ=$(SRC:.$(SUFFIX)=.o)
 
