@@ -31,6 +31,7 @@
 #include "upp.h" 
 #include "io_cfg.h"             // I/O pin mapping
 #include "prog_lolvl.h"
+#include "debug_link.h"
 
 #ifdef TEST
 #undef I2C_delay
@@ -108,6 +109,13 @@ void enter_ISCP( void )
 	// for example, keep a PIC16's address counter from the old session.
 	if( iscp_active )
 		exit_ISCP();
+	// End a debug session first: it leaves the target running and the PGD
+	// pull-down on.
+	if( debug_attached )
+	{
+		debug_detach( 0 );
+		DelayMs( 200 );
+	}
 	// Every supported family has an entry routine; none means no valid
 	// pictype was selected, so apply no voltages at all. (This used to fall
 	// back to enter_ISCP_simple, i.e. VDD and ~12V VPP.)
